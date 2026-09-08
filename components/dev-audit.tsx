@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 // Development-only audit harness. The production compiler removes the import branch.
 export function DevAudit() {
+  return process.env.NODE_ENV === 'development' ? <AuditPanel /> : null;
+}
+function AuditPanel() {
   const [report, setReport] = useState<any>(null);
   useEffect(() => {
     if (
@@ -50,6 +53,18 @@ export function DevAudit() {
         Development accessibility audit · {report.violations?.length ?? '?'}{' '}
         violations
       </summary>
+      <button
+        type="button"
+        className="button"
+        onClick={() => {
+          const canvas =
+            document.querySelector<HTMLCanvasElement>('#ship canvas');
+          const gl = canvas?.getContext('webgl2');
+          gl?.getExtension('WEBGL_lose_context')?.loseContext();
+        }}
+      >
+        Simulate WebGL context loss
+      </button>
       <pre id="qa-result">{JSON.stringify(report, null, 2)}</pre>
     </details>
   ) : null;

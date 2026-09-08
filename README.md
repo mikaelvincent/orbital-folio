@@ -34,6 +34,7 @@ With the local development server running:
 
 ```sh
 npm run typecheck
+npm run lint
 npm test
 node scripts/database-roundtrip.mjs
 npm run build
@@ -42,7 +43,7 @@ npm audit
 
 The HTTP integration suite creates temporary records and restores existing content. It is restricted to localhost. It verifies authentication boundaries, snapshot isolation, publication, personalization, concurrency, media, contact storage and abuse controls, exports, and server-rendered routes. On a fresh database, the suite claims the local test identity using `.dev.vars`.
 
-For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report at the bottom of the page. The harness and its dynamic import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
+For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report at the bottom of the page. The audit logic, fault-injection controls, and axe import are excluded from production. Expanding the development audit also exposes a button to simulate a real WebGL context loss. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
 See [the validation evidence](docs/VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
@@ -58,8 +59,11 @@ See [the validation evidence](docs/VALIDATION.md) and [the independent critic re
 - `proxy.ts`, `lib/security.ts`, `lib/validation.ts`: pre-parser body bounds, security headers, identity authorization, rate limits, and validation.
 - `app/api/`: protected mutations and public contact ingestion.
 
-The supporting component catalog comes from the Sites starter. Only the used components enter browser bundles.
+Only the five shared interface components used by the studio are retained; unused starter pages, icons, components and dependencies were removed.
 
 ## Deployment and operation
 
 Read [OPERATIONS.md](docs/OPERATIONS.md) for hosting, authentication boundaries, secrets, backups, restoration, custom domains, independent demo subdomains, and maintenance tradeoffs. Read [ASSETS.md](docs/ASSETS.md) to edit the spacecraft.
+
+
+Current delivery status: the local portfolio and seeded studio work; private hosting is blocked by the provider's sign-in callback conflict. See the incident details in [OPERATIONS.md](docs/OPERATIONS.md#current-hosting-incident) and the independent critic's final score in [CRITIC-REPORT.md](docs/CRITIC-REPORT.md). The requested overall acceptance is not claimed while that blocker remains.

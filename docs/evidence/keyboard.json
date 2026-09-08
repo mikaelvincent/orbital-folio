@@ -1,0 +1,20 @@
+{
+  "keyboardSkip": {
+    "focusedId": "main",
+    "hash": "#main"
+  },
+  "radioEvidence": [
+    {
+      "checked": false,
+      "focused": false,
+      "value": "interview"
+    },
+    {
+      "checked": true,
+      "focused": true,
+      "value": "project"
+    }
+  ],
+  "pauseResume": "Enter on Pause motion changed button to Resume motion",
+  "unsavedEditGuard": "Collection change rejected with Save or discard your unsaved edits before changing records."
+}

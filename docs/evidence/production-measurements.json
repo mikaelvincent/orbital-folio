@@ -22,9 +22,9 @@
       "gzipBytes": 1286
     },
     {
-      "name": "dev-audit-B8TcFgTT.js",
-      "bytes": 469,
-      "gzipBytes": 343
+      "name": "dev-audit-zU2yVafP.js",
+      "bytes": 145,
+      "gzipBytes": 147
     },
     {
       "name": "framework-DTZGTDtF.js",
@@ -32,14 +32,14 @@
       "gzipBytes": 59048
     },
     {
-      "name": "index-D9f3PbEA.js",
+      "name": "index-qz0yGLDx.js",
       "bytes": 118214,
-      "gzipBytes": 33276
+      "gzipBytes": 33274
     },
     {
-      "name": "layout-segment-context-Dz693aNX.js",
+      "name": "layout-segment-context-BwbmRJ_h.js",
       "bytes": 496,
-      "gzipBytes": 348
+      "gzipBytes": 346
     },
     {
       "name": "orbit-DhTwcItp.js",
@@ -57,7 +57,7 @@
       "gzipBytes": 430
     },
     {
-      "name": "spacecraft-D4EKkLZN.js",
+      "name": "spacecraft-DIORR72H.js",
       "bytes": 7248,
       "gzipBytes": 3153
     },
@@ -72,20 +72,20 @@
       "gzipBytes": 182517
     },
     {
-      "name": "vinext-CTz4dp3B.js",
+      "name": "vinext-BTdlgZ-4.js",
       "bytes": 111711,
-      "gzipBytes": 32929
+      "gzipBytes": 32931
     }
   ],
   "routes": [
     {
       "route": "/",
       "completeResponseMs": [
-        15.61,
-        11.2,
-        9.67,
-        9.79,
-        10.2
+        21.21,
+        14.29,
+        10.68,
+        11.23,
+        11.66
       ],
       "htmlBytes": 47308,
       "htmlGzipBytes": 8952,
@@ -95,11 +95,11 @@
     {
       "route": "/projects",
       "completeResponseMs": [
-        8.82,
-        8.16,
-        8.68,
-        7.24,
-        8.78
+        7.72,
+        7.59,
+        8.8,
+        8.25,
+        8.31
       ],
       "htmlBytes": 31785,
       "htmlGzipBytes": 5794,
@@ -109,11 +109,11 @@
     {
       "route": "/projects/relay",
       "completeResponseMs": [
-        8.12,
-        8.69,
-        7.89,
-        8.06,
-        7.67
+        8.85,
+        7.56,
+        8.71,
+        8.74,
+        8.58
       ],
       "htmlBytes": 37387,
       "htmlGzipBytes": 6991,
@@ -123,11 +123,11 @@
     {
       "route": "/experience",
       "completeResponseMs": [
+        7.84,
+        8.71,
+        7.91,
         7.89,
-        7.83,
-        8.7,
-        7.81,
-        8.96
+        7.86
       ],
       "htmlBytes": 35136,
       "htmlGzipBytes": 6563,
@@ -137,11 +137,11 @@
     {
       "route": "/about",
       "completeResponseMs": [
-        8.77,
-        6.89,
-        7.55,
-        7.15,
-        8.84
+        7.59,
+        8.2,
+        7.64,
+        8.79,
+        6.65
       ],
       "htmlBytes": 33762,
       "htmlGzipBytes": 6297,
@@ -151,11 +151,11 @@
     {
       "route": "/contact",
       "completeResponseMs": [
-        10,
-        7.61,
-        9.72,
-        7.98,
-        7.8
+        8.02,
+        8.82,
+        7.36,
+        7.88,
+        7.82
       ],
       "htmlBytes": 35319,
       "htmlGzipBytes": 7666,

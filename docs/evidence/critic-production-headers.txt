@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-store, must-revalidate
+Strict-Transport-Security: max-age=31536000
+Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Next-Url, X-Vinext-Interception-Context, X-Vinext-Interception-Id, X-Vinext-Mounted-Slots, X-Vinext-Rsc-Render-Mode, X-Vinext-Rsc-State-Fingerprint
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+

@@ -183,7 +183,9 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
     await t.test(
       'published snapshots stay stable while drafts change; optimistic conflicts reject',
       async () => {
-        const original = baseline.find((r) => r.kind === 'project' && r.published);
+        const original = baseline.find(
+          (r) => r.kind === 'project' && r.published,
+        );
         const draft = {
           ...original.draft,
           title: 'PRIVATE DRAFT — DO NOT LEAK',
@@ -237,7 +239,9 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
     await t.test(
       'collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions',
       async () => {
-        const template = baseline.find((r) => r.kind === 'project' && r.published).draft;
+        const template = baseline.find(
+          (r) => r.kind === 'project' && r.published,
+        ).draft;
         const fourth = await create('project', {
           ...template,
           title: 'Fourth capacity sample',
@@ -281,7 +285,10 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
           const b = await r.json();
           if (b.id) created.push(b.id);
         }
-        assert.deepEqual(result.map((r) => r.status).sort((a,b) => a-b), [200,409]);
+        assert.deepEqual(
+          result.map((r) => r.status).sort((a, b) => a - b),
+          [200, 409],
+        );
         const preview = await (
           await authorized('/admin/preview?section=projects')
         ).text();
@@ -377,7 +384,9 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         assert.equal(image.status, 200);
         assert.equal(image.headers.get('content-type'), 'image/png');
         assert.ok((await image.arrayBuffer()).byteLength > 50);
-        const p = await record(baseline.find((r) => r.kind === 'project' && r.published).id);
+        const p = await record(
+          baseline.find((r) => r.kind === 'project' && r.published).id,
+        );
         await save(p, { ...p.draft, mediaId: id });
         await publish(p.id);
         const html = await (await req('/projects/' + p.draft.slug)).text();

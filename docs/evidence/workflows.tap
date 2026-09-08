@@ -2,19 +2,19 @@
 > orbital-folio@0.1.0 test
 > node --test --test-concurrency=1 tests/*.test.mjs
 
-✔ Contact messages are durable, private, honest, bounded, and rate limited (214.825042ms)
+✔ Contact messages are durable, private, honest, bounded, and rate limited (255.023042ms)
 ▶ Persistent portfolio workflows and security boundaries
-  ✔ anonymous and forged identities cannot read or mutate the studio (115.146084ms)
-  ✔ local SIWC sign-in and first-owner claim work without a default password (15.770583ms)
-  ✔ CSRF, malformed bodies, and immutable site protection reject safely (47.080042ms)
-  ✔ published snapshots stay stable while drafts change; optimistic conflicts reject (306.317958ms)
-  ✔ collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions (138.8895ms)
-  ✔ another owner can replace every site field through the authenticated content interface (333.430208ms)
-  ✔ media bytes persist privately, publish safely, and appear in a project (147.006333ms)
-  ✔ script text is escaped and portable exports exclude credentials and inquiries (116.772125ms)
-  ✔ all public content is present in plain HTTP HTML with meaningful metadata and URLs (503.862542ms)
-  ✔ local sign-out clears the session cookie (5.588208ms)
-✔ Persistent portfolio workflows and security boundaries (2172.121084ms)
+  ✔ anonymous and forged identities cannot read or mutate the studio (145.190542ms)
+  ✔ local SIWC sign-in and first-owner claim work without a default password (16.449125ms)
+  ✔ CSRF, malformed bodies, and immutable site protection reject safely (56.387584ms)
+  ✔ published snapshots stay stable while drafts change; optimistic conflicts reject (340.012666ms)
+  ✔ collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions (168.419208ms)
+  ✔ another owner can replace every site field through the authenticated content interface (349.641042ms)
+  ✔ media bytes persist privately, publish safely, and appear in a project (173.168709ms)
+  ✔ script text is escaped and portable exports exclude credentials and inquiries (105.78725ms)
+  ✔ all public content is present in plain HTTP HTML with meaningful metadata and URLs (533.891375ms)
+  ✔ local sign-out clears the session cookie (7.561667ms)
+✔ Persistent portfolio workflows and security boundaries (2363.761583ms)
 ℹ tests 12
 ℹ suites 0
 ℹ pass 12
@@ -22,4 +22,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 8530.526667
+ℹ duration_ms 8768.950291

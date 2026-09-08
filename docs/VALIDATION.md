@@ -1,6 +1,6 @@
 # Validation evidence
 
-Validation date: 8 September 2026. Sample content only. The independent critic report records the review status and any remaining gaps.
+Validation: 8 September UTC / 8–9 September 2026 Manila. Sample content only. The independent critic report records the review status and any remaining gaps.
 
 ## Reproducible checks
 
@@ -15,11 +15,18 @@ The HTTP suite covers anonymous/forged identities, local sign-in/claim/logout, C
 
 ## Browser evidence
 
-The in-app Chromium browser was used for actual UI interaction. Automated axe WCAG 2 A/AA and 2.1 A/AA checks on seven routes at 320, 768 and 1440 pixels found zero violations and zero horizontal overflow: [21-case matrix](evidence/responsive-audits.json). An earlier 320-pixel audit exposed contrast issues that were corrected; its older result is not a final pass.
+The in-app Chromium browser was used for actual UI interaction. Automated axe WCAG 2 A/AA and 2.1 A/AA checks on seven routes at 320, 768 and 1440 pixels found zero violations and zero horizontal overflow: [21-case matrix](evidence/responsive-audits.json). A further [seven cases at 390 pixels](evidence/responsive-390.json) also passed, for 28 route/viewport combinations. An earlier 320-pixel audit exposed contrast issues that were corrected; its older result is not a final pass.
 
 Observed browser workflows include the clickable 3D mission console opening Experience, pause/resume, switching to the HTML reading view, owner-name draft editing, private preview navigation into a dossier, explicit publication, restoration of the sample identity, and a contact submission appearing in the authenticated inbox. WebMCP read and draft-save tools were exercised, including invalid-record rejection.
 
 Stable viewport screenshots are retained in `docs/evidence`. Earlier full-page captures produced stitching artifacts and were replaced with viewport captures. No screenshot is treated as evidence of behavior it cannot show.
+
+Additional recorded checks:
+
+- [Keyboard](evidence/keyboard.json): Tab reaches the skip link first; Enter moves focus to `main`; ArrowRight selects and focuses the next native contact radio; Enter activates pause/resume.
+- [WebGL failure](evidence/webgl-fallback.json): the development audit's fault-injection button invokes the real `WEBGL_lose_context` extension. The production scene's shared context-loss handler switched to fallback, retaining four section links and all three project links. This is an actual GPU-context event, not a mock error message.
+- [Restart persistence](evidence/restart-persistence.json): every draft, published snapshot, revision and timestamp was identical after stopping and restarting the server.
+- Admin unsaved edits blocked a collection change with a clear save/discard message; saving, private preview, publishing and restoring the original sample identity were observed through the browser.
 
 ## Production measurement scope
 
@@ -34,4 +41,9 @@ These are controlled local measurements, **not field Core Web Vitals or a claim 
 - Contact receipt means storage in D1. Email forwarding is not configured.
 - Hosted authentication depends on the Sites gateway. A raw Worker must never be exposed while trusting gateway identity headers. See [operations](OPERATIONS.md).
 - The fictional history is labeled and noindexed. Domain DNS and independent project deployments are owner launch configuration.
-- Lint intentionally permits heterogeneous validated JSON records, native anchors/images, and ARIA status containers; the React compiler is not enabled. Generated, unused shadcn templates/hooks are outside the application lint scope. Type checking still includes imported components. Server validation, rather than TypeScript alone, enforces content input safety.
+- Lint intentionally permits heterogeneous validated JSON records, native anchors/images, and ARIA status containers; the React compiler is not enabled. Unused starter templates/hooks and their dependencies were removed; the remaining shared components are included in lint and type checking. Server validation, rather than TypeScript alone, enforces content input safety.
+
+
+## Hosting outcome
+
+Private deployment failed twice with the hosting provider's HTTP 409 conflict while registering the sign-in callback. No live URL was created. The source version is saved, and the runtime secrets are configured. This is a completion blocker; **hosted authentication and deployment are not passing checks**. [Operations](OPERATIONS.md#current-hosting-incident) retains the incident identifiers and next steps. The independent critic must account for this separately from local application evidence.

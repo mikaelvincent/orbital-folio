@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "records": 10,
+  "draftsPublishedRevisionsAndTimestamps": "identical across server stop/start"
+}

@@ -97,3 +97,16 @@ Contact and claim attempts use durable, expiring rate-limit counters. Request bo
 - Vinext is currently a beta framework. Its Next-compatible structure reduces migration effort, but upgrades deserve a production-build and route/auth regression pass. A move to another host requires an authentication adapter as well as storage bindings.
 
 The initial work is heavier than a flat template: a procedural 3D asset, accessibility fallback, and a complete content lifecycle. Ongoing content maintenance is lighter because the scene uses section labels from the same database and never needs manual layout changes when records are added. D1/R2 and gateway-managed sign-in avoid maintaining a separate CMS, password database, and session service.
+
+## Current hosting incident
+
+The validated source was saved as Sites version 1, but private publication failed twice on 8 September 2026 before a live URL was assigned. Both attempts returned HTTP 409 Conflict while Sites registered the SIWC sign-in callback. No application build error was reported. The site remains private with one owner and no groups; access was not widened.
+
+Support identifiers (not credentials):
+
+- Site: `appgprj_6aa01305084c8191b0b0c05242e29725`
+- Saved version: `appgprj_6aa01305084c8191b0b0c05242e29725~appgver_b645886749d8819188734545aa59186c`
+- Failed attempts: `appgdep_6aa02e28167081919756dee2259b179c` and `appgdep_6aa02ecf03dc8191a8b723c09fba901c`
+- Provider error: `409 Conflict` at the SIWC client callback-registration operation.
+
+The hosting provider must resolve that callback conflict before deployment can be verified. Reuse the existing Site; do not create another Site, weaken sign-in, expose a raw Worker, or change audience as a workaround. Check applied D1 migrations before retrying. Runtime setup and rate-limit secrets were configured as protected Sites environment entries. Hosted first-owner claim, gateway authentication, DNS and TLS have not been verified.
