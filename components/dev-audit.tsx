@@ -34,6 +34,47 @@ function AuditPanel() {
       setReport({ error: String(e) });
     }
   }
+  async function runFrameControl() {
+    const scene = document.querySelector<HTMLElement>('#ship');
+    if (scene?.dataset.motion !== 'reduced') return;
+    const intervals: number[] = [];
+    const started = performance.now();
+    let last = 0;
+    await new Promise<void>((resolve) => {
+      let frame = 0;
+      const end = () => {
+        cancelAnimationFrame(frame);
+        resolve();
+      };
+      const deadline = setTimeout(end, 7000);
+      const tick = (time: number) => {
+        if (last) intervals.push(time - last);
+        last = time;
+        if (intervals.length >= 180) {
+          clearTimeout(deadline);
+          end();
+        } else frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    });
+    const sorted = [...intervals].sort((a, b) => a - b);
+    setReport((previous: any) => ({
+      ...previous,
+      frameControl: {
+        scope:
+          'Display callbacks while the spacecraft renderer is paused; host scheduling control, not GPU timing.',
+        motionBefore: 'reduced',
+        motionAfter: scene?.dataset.motion,
+        hidden: document.hidden,
+        width: innerWidth,
+        height: innerHeight,
+        elapsedMs: performance.now() - started,
+        medianMs: sorted[Math.floor(sorted.length * 0.5)],
+        p95Ms: sorted[Math.floor(sorted.length * 0.95)],
+        intervals,
+      },
+    }));
+  }
   useEffect(() => {
     if (new URLSearchParams(location.search).get('audit') !== '1') return;
     const timer = setTimeout(runAudit, 800);
@@ -69,6 +110,9 @@ function AuditPanel() {
         }
       >
         Toggle shadow diagnostic
+      </button>
+      <button type="button" className="button" onClick={runFrameControl}>
+        Run paused frame control
       </button>
       <pre id="qa-result">{JSON.stringify(report, null, 2)}</pre>
     </details>

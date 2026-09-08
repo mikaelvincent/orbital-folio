@@ -42,6 +42,8 @@ npm run lint
 npm test
 node scripts/database-roundtrip.mjs
 node scripts/spacecraft-model-audit.mjs
+node scripts/orbital-environment-audit.mjs
+node scripts/spacecraft-mounting-audit.mjs
 npm run build
 npm audit
 ```
@@ -50,7 +52,7 @@ The HTTP integration suite creates temporary records and restores existing conte
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report at the bottom of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/GRID-REVISION-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/PHYSICAL-LABELS-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 

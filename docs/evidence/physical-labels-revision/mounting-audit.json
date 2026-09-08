@@ -1,0 +1,3159 @@
+{
+  "status": "passed",
+  "model": "components/spacecraft-model.ts",
+  "modelSha256": "01042bb8d1cab8c0d1e18319b1cc86adfbde366c82aeaf9ce50892a4824218fa",
+  "node": "v26.0.0",
+  "threeRevision": "185",
+  "checks": [
+    {
+      "name": "docking sleeve lies on ship vertical center",
+      "passed": true,
+      "actual": [
+        -3.7150000000000003,
+        0.03,
+        0
+      ]
+    },
+    {
+      "name": "centered docking entrance exists",
+      "passed": true
+    },
+    {
+      "name": "old upper-left docking entrance removed",
+      "passed": true,
+      "previousCenterY": 1.73
+    },
+    {
+      "name": "projects: saddle engages sealed wall thickness",
+      "passed": true,
+      "overlap": [
+        0.2049999943375589,
+        1.2100000762939453,
+        1.4600000381469727
+      ]
+    },
+    {
+      "name": "projects: saddle does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.0300000101327895,
+      "partMaximumX": -3.065000002980232,
+      "clearance": 0.034999992847442485
+    },
+    {
+      "name": "projects: load clamp 1 does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.0300000101327895,
+      "partMaximumX": -3.064999994039536,
+      "clearance": 0.0349999839067463
+    },
+    {
+      "name": "projects: load clamp 2 does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.0300000101327895,
+      "partMaximumX": -3.064999994039536,
+      "clearance": 0.0349999839067463
+    },
+    {
+      "name": "projects: rear cap does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.0300000101327895,
+      "partMaximumX": -3.140000000596046,
+      "clearance": 0.10999999046325648
+    },
+    {
+      "name": "about: saddle engages sealed wall thickness",
+      "passed": true,
+      "overlap": [
+        0.20499999433755933,
+        1.2300000762939454,
+        1.4600000381469727
+      ]
+    },
+    {
+      "name": "about: saddle does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.03000001013279,
+      "partMaximumX": -3.065000002980232,
+      "clearance": 0.03499999284744204
+    },
+    {
+      "name": "about: load clamp 1 does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.03000001013279,
+      "partMaximumX": -3.064999994039536,
+      "clearance": 0.03499998390674586
+    },
+    {
+      "name": "about: load clamp 2 does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.03000001013279,
+      "partMaximumX": -3.064999994039536,
+      "clearance": 0.03499998390674586
+    },
+    {
+      "name": "about: rear cap does not protrude into cabin",
+      "passed": true,
+      "insideWallX": -3.03000001013279,
+      "partMaximumX": -3.140000000596046,
+      "clearance": 0.10999999046325604
+    },
+    {
+      "name": "docking mount metadata matches physical saddle",
+      "passed": true,
+      "physical": [
+        -3.2399999999999998,
+        0.03,
+        -0.17
+      ],
+      "metadata": [
+        -3.24,
+        0.03,
+        -0.17
+      ]
+    },
+    {
+      "name": "paired solar wings retained",
+      "passed": true
+    },
+    {
+      "name": "dish clears both modeled solar panels",
+      "passed": true,
+      "yClearances": [
+        1.3102789082139652,
+        0.826902433895613
+      ]
+    },
+    {
+      "name": "two service-bus hinge barrels retained",
+      "passed": true
+    },
+    {
+      "name": "dish clears hinge barrel bounds",
+      "passed": true,
+      "dish": {
+        "min": [
+          3.6195375787014976,
+          -0.30389608252449574,
+          1.0011589281863273
+        ],
+        "max": [
+          4.703071461089047,
+          0.787272556842848,
+          1.551826079214142
+        ]
+      },
+      "hinges": [
+        {
+          "min": [
+            3.96699999332428,
+            -1.3535000024437904,
+            -0.09700000667572022
+          ],
+          "max": [
+            4.2530000066757205,
+            -1.1304999975562096,
+            0.1890000066757202
+          ]
+        },
+        {
+          "min": [
+            3.96699999332428,
+            1.1304999975562096,
+            -0.09700000667572022
+          ],
+          "max": [
+            4.2530000066757205,
+            1.3535000024437904,
+            0.1890000066757202
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dish offset from docking approach axis",
+      "passed": true,
+      "dishMinimum": [
+        3.6195375787014976,
+        -0.30389608252449574,
+        1.0011589281863273
+      ]
+    },
+    {
+      "name": "mast foot face is visible above service hull",
+      "passed": true,
+      "footFrontZ": 0.8799999982118607,
+      "serviceFrontZ": 0.7815513577124444,
+      "exposure": 0.09844864049941626
+    },
+    {
+      "name": "mast foot rear remains engaged with service hull",
+      "passed": true,
+      "rearZ": 0.7200000017881394,
+      "serviceFrontZ": 0.7815513577124444,
+      "embed": 0.06155135592430505
+    },
+    {
+      "name": "side collar clears first compartment column",
+      "passed": true,
+      "clearance": 0.022999992966652005
+    },
+    {
+      "name": "nine project interaction slots preserved",
+      "passed": true
+    },
+    {
+      "name": "slot 0: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 1: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 2: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 3: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 4: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 5: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 6: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 7: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "slot 8: hotspot and proxy mapping agree",
+      "passed": true
+    },
+    {
+      "name": "projects: reader remains centered",
+      "passed": true,
+      "position": [
+        -1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "projects: finite interior framing excludes lower nameplate",
+      "passed": true,
+      "aperture": {
+        "center": [
+          -1.65,
+          1.8699999999999999,
+          1.2
+        ],
+        "size": [
+          2.44,
+          2.3,
+          0.04
+        ],
+        "min": [
+          -2.87,
+          0.72,
+          1.18
+        ],
+        "max": [
+          -0.42999999999999994,
+          3.02,
+          1.22
+        ]
+      }
+    },
+    {
+      "name": "experience: reader remains centered",
+      "passed": true,
+      "position": [
+        1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "experience: finite interior framing excludes lower nameplate",
+      "passed": true,
+      "aperture": {
+        "center": [
+          1.65,
+          1.8699999999999999,
+          1.2
+        ],
+        "size": [
+          2.44,
+          2.3,
+          0.04
+        ],
+        "min": [
+          0.42999999999999994,
+          0.72,
+          1.18
+        ],
+        "max": [
+          2.87,
+          3.02,
+          1.22
+        ]
+      }
+    },
+    {
+      "name": "about: reader remains centered",
+      "passed": true,
+      "position": [
+        -1.6500000000000004,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "about: finite interior framing excludes lower nameplate",
+      "passed": true,
+      "aperture": {
+        "center": [
+          -1.65,
+          -1.53,
+          1.2
+        ],
+        "size": [
+          2.44,
+          2.3,
+          0.04
+        ],
+        "min": [
+          -2.87,
+          -2.6799999999999997,
+          1.18
+        ],
+        "max": [
+          -0.42999999999999994,
+          -0.3799999999999999,
+          1.22
+        ]
+      }
+    },
+    {
+      "name": "contact: reader remains centered",
+      "passed": true,
+      "position": [
+        1.65,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "contact: finite interior framing excludes lower nameplate",
+      "passed": true,
+      "aperture": {
+        "center": [
+          1.65,
+          -1.53,
+          1.2
+        ],
+        "size": [
+          2.44,
+          2.3,
+          0.04
+        ],
+        "min": [
+          0.42999999999999994,
+          -2.6799999999999997,
+          1.18
+        ],
+        "max": [
+          2.87,
+          -0.3799999999999999,
+          1.22
+        ]
+      }
+    },
+    {
+      "name": "three physically attached plaques per cabin",
+      "passed": true
+    },
+    {
+      "name": "projects/header: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.012000002384185804
+    },
+    {
+      "name": "projects/header: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "projects/header: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "projects/header: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "projects/header: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "projects/hull: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01250000086426728
+    },
+    {
+      "name": "projects/hull: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "projects/hull: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "projects/hull: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "projects/hull: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "projects/side: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01349999883770936
+    },
+    {
+      "name": "projects/side: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "projects/side: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "projects/side: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "projects/side: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "experience/header: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.012000002384185804
+    },
+    {
+      "name": "experience/header: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "experience/header: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "experience/header: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "experience/header: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "experience/hull: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01250000086426728
+    },
+    {
+      "name": "experience/hull: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "experience/hull: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "experience/hull: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "experience/hull: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "experience/side: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01349999883770936
+    },
+    {
+      "name": "experience/side: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "experience/side: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "experience/side: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "experience/side: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "about/header: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.012000002384185804
+    },
+    {
+      "name": "about/header: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "about/header: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "about/header: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "about/header: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "about/hull: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01250000086426728
+    },
+    {
+      "name": "about/hull: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "about/hull: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "about/hull: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "about/hull: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "about/side: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01349999883770936
+    },
+    {
+      "name": "about/side: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "about/side: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "about/side: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "about/side: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "contact/header: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.012000002384185804
+    },
+    {
+      "name": "contact/header: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "contact/header: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "contact/header: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "contact/header: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "contact/hull: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01250000086426728
+    },
+    {
+      "name": "contact/hull: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "contact/hull: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "contact/hull: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "contact/hull: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "contact/side: ink stays attached to enamel face",
+      "passed": true,
+      "gap": 0.01349999883770936
+    },
+    {
+      "name": "contact/side: DB copy is actually painted",
+      "passed": true
+    },
+    {
+      "name": "contact/side: heavy font and fitted ink",
+      "passed": true
+    },
+    {
+      "name": "contact/side: no opaque floating label background",
+      "passed": true
+    },
+    {
+      "name": "contact/side: upright baseline in intended pose",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "eight active plaque faces per pose",
+      "passed": true
+    },
+    {
+      "name": "portrait: projects/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: projects/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: projects/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: experience/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: experience/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: experience/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: about/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: about/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: about/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: contact/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: contact/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "portrait: contact/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "portrait: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "eight active plaque faces per pose",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: projects/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: experience/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: about/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/header ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/hull ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "upright: contact/side ink visibility",
+      "passed": true
+    },
+    {
+      "name": "upright: plaque remains physically fixed",
+      "passed": true
+    },
+    {
+      "name": "eight active plaque faces per pose",
+      "passed": true
+    },
+    {
+      "name": "update state exposes portrait-label mode",
+      "passed": true
+    },
+    {
+      "name": "home portrait: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home portrait: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 4
+      }
+    },
+    {
+      "name": "home portrait: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home portrait: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home portrait: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home portrait: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects close view: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects close view: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "projects close view: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects close view: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects close view: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects close view: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "projects reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        -1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "projects reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "projects orientation while reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        -1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "projects orientation while reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "projects orientation while reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 4
+      }
+    },
+    {
+      "name": "return home from projects: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from projects: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience close view: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience close view: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "experience close view: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience close view: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience close view: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience close view: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "experience reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "experience reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "experience orientation while reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        1.65,
+        1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "experience orientation while reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "experience orientation while reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 4
+      }
+    },
+    {
+      "name": "return home from experience: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from experience: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about close view: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about close view: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "about close view: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about close view: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about close view: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about close view: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "about reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        -1.6500000000000004,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "about reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "about orientation while reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "about orientation while reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        -1.6500000000000004,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "about orientation while reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from about: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from about: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 4
+      }
+    },
+    {
+      "name": "return home from about: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from about: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from about: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from about: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact close view: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact close view: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "contact close view: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact close view: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact close view: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact close view: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "contact reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        1.65,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "contact orientation while reading: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 0
+      }
+    },
+    {
+      "name": "contact orientation while reading: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "contact orientation while reading: deployed reader anchor unaffected",
+      "passed": true,
+      "position": [
+        1.65,
+        -1.7,
+        1.72
+      ]
+    },
+    {
+      "name": "return home from contact: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 0,
+        "side": 4
+      }
+    },
+    {
+      "name": "return home from contact: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "return home from contact: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home upright: projects/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: projects/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: projects/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: experience/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: experience/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: experience/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: about/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: about/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: about/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: contact/header visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: contact/hull visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: contact/side visibility",
+      "passed": true
+    },
+    {
+      "name": "home upright: expected total visible ink faces",
+      "passed": true,
+      "visibleRoles": {
+        "header": 4,
+        "hull": 4,
+        "side": 0
+      }
+    },
+    {
+      "name": "home upright: projects reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home upright: experience reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home upright: about reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "home upright: contact reader visibility unaffected",
+      "passed": true
+    },
+    {
+      "name": "label transitions preserve all geometry buffers",
+      "passed": true,
+      "uniqueGeometries": 162
+    },
+    {
+      "name": "label transitions preserve precise target identities",
+      "passed": true
+    },
+    {
+      "name": "label transitions preserve physical reader identities",
+      "passed": true
+    },
+    {
+      "name": "label transitions preserve physical collars and backing transforms",
+      "passed": true
+    },
+    {
+      "name": "label transitions preserve room and hotspot metadata",
+      "passed": true
+    },
+    {
+      "name": "projects: header anchor follows printed face",
+      "passed": true
+    },
+    {
+      "name": "projects: header bar remains attached to rear liner",
+      "passed": true,
+      "saddle": {
+        "min": [
+          -2.924999976158142,
+          2.5785000023841858,
+          -0.9659999957084656
+        ],
+        "max": [
+          -0.3750000238418578,
+          2.833499997615814,
+          -0.38200000429153447
+        ]
+      }
+    },
+    {
+      "name": "projects: entire header is visible from front",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "projects: entire header is visible from selectedRoom",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "experience: header anchor follows printed face",
+      "passed": true
+    },
+    {
+      "name": "experience: header bar remains attached to rear liner",
+      "passed": true,
+      "saddle": {
+        "min": [
+          0.3750000238418578,
+          2.5785000023841858,
+          -0.9659999957084656
+        ],
+        "max": [
+          2.924999976158142,
+          2.833499997615814,
+          -0.38200000429153447
+        ]
+      }
+    },
+    {
+      "name": "experience: entire header is visible from front",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "experience: entire header is visible from selectedRoom",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "about: header anchor follows printed face",
+      "passed": true
+    },
+    {
+      "name": "about: header bar remains attached to rear liner",
+      "passed": true,
+      "saddle": {
+        "min": [
+          -2.9249999761581424,
+          -0.8214999976158142,
+          -0.9659999957084656
+        ],
+        "max": [
+          -0.37500002384185827,
+          -0.5665000023841857,
+          -0.38200000429153447
+        ]
+      }
+    },
+    {
+      "name": "about: entire header is visible from front",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "about: entire header is visible from selectedRoom",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "contact: header anchor follows printed face",
+      "passed": true
+    },
+    {
+      "name": "contact: header bar remains attached to rear liner",
+      "passed": true,
+      "saddle": {
+        "min": [
+          0.3750000238418578,
+          -0.8214999976158142,
+          -0.9659999957084656
+        ],
+        "max": [
+          2.924999976158142,
+          -0.5665000023841857,
+          -0.38200000429153447
+        ]
+      }
+    },
+    {
+      "name": "contact: entire header is visible from front",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "contact: entire header is visible from selectedRoom",
+      "passed": true,
+      "samples": 33,
+      "blocked": []
+    },
+    {
+      "name": "source stable throughout audit",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "No GPU rendering or browser font rasterization is performed.",
+    "Canvas font-fit checks use deterministic synthetic font metrics; visual legibility needs browser screenshots.",
+    "Mount overlap checks use source-mesh world bounds. Foot exposure additionally uses actual triangle ray intersections.",
+    "The two solar wings are checked in their modeled pose, not through a hypothetical deployment sweep.",
+    "Evidence paths identify available screenshots; this script does not certify that their pixels match the audited source hash."
+  ],
+  "docking": {
+    "sleeveCenter": [
+      -3.7150000000000003,
+      0.03,
+      0
+    ],
+    "mountBounds": {
+      "saddle": {
+        "min": [
+          -3.4149999970197675,
+          -1.4200000476837158,
+          -0.9000000190734864
+        ],
+        "max": [
+          -3.065000002980232,
+          1.4800000476837158,
+          0.5600000190734863
+        ]
+      },
+      "load clamp 1": {
+        "min": [
+          -3.615000005960465,
+          -1.0900000059604644,
+          -0.8749999737739563
+        ],
+        "max": [
+          -3.064999994039536,
+          -0.7899999940395355,
+          0.5549999737739563
+        ]
+      },
+      "load clamp 2": {
+        "min": [
+          -3.615000005960465,
+          0.8499999940395355,
+          -0.8749999737739563
+        ],
+        "max": [
+          -3.064999994039536,
+          1.1500000059604645,
+          0.5549999737739563
+        ]
+      },
+      "rear cap": {
+        "min": [
+          -3.359999999403953,
+          -0.9180000138282776,
+          -0.9480000138282776
+        ],
+        "max": [
+          -3.140000000596046,
+          0.9780000138282776,
+          0.9480000138282776
+        ]
+      }
+    },
+    "wallOverlaps": {
+      "projects": {
+        "wall": {
+          "min": [
+            -3.269999997317791,
+            0.2699999713897705,
+            -1.2799999713897705
+          ],
+          "max": [
+            -3.0300000101327895,
+            3.2100000286102297,
+            1.2799999713897705
+          ]
+        },
+        "overlap": [
+          0.2049999943375589,
+          1.2100000762939453,
+          1.4600000381469727
+        ]
+      },
+      "about": {
+        "wall": {
+          "min": [
+            -3.2699999973177913,
+            -3.1300000286102296,
+            -1.2799999713897705
+          ],
+          "max": [
+            -3.03000001013279,
+            -0.18999997138977043,
+            1.2799999713897705
+          ]
+        },
+        "overlap": [
+          0.20499999433755933,
+          1.2300000762939454,
+          1.4600000381469727
+        ]
+      }
+    }
+  },
+  "communications": {
+    "dishBounds": {
+      "min": [
+        3.6195375787014976,
+        -0.30389608252449574,
+        1.0011589281863273
+      ],
+      "max": [
+        4.703071461089047,
+        0.787272556842848,
+        1.551826079214142
+      ]
+    },
+    "minimumPanelClearance": 0.826902433895613,
+    "footBounds": {
+      "min": [
+        3.5400000011920927,
+        0.0400000035762787,
+        0.7200000017881394
+      ],
+      "max": [
+        3.979999998807907,
+        0.3599999964237213,
+        0.8799999982118607
+      ]
+    },
+    "footExposure": 0.09844864049941626,
+    "footEmbed": 0.06155135592430505
+  },
+  "readers": {
+    "projects": [
+      -1.65,
+      1.7,
+      1.72
+    ],
+    "experience": [
+      1.65,
+      1.7,
+      1.72
+    ],
+    "about": [
+      -1.6500000000000004,
+      -1.7,
+      1.72
+    ],
+    "contact": [
+      1.65,
+      -1.7,
+      1.72
+    ]
+  },
+  "labels": {
+    "suppliedCopy": {
+      "projects": "Work Archive",
+      "experience": "Professional Experience",
+      "about": "About Mika",
+      "contact": "Start A Conversation"
+    },
+    "plaques": [
+      {
+        "section": "projects",
+        "role": "header",
+        "position": [
+          -1.6500000000000004,
+          2.706,
+          -0.263
+        ],
+        "size": [
+          2.28,
+          0.18
+        ],
+        "rotation": 0,
+        "attachedGap": 0.012000002384185804,
+        "recordedFontSize": 110.08
+      },
+      {
+        "section": "projects",
+        "role": "hull",
+        "position": [
+          -1.6500000000000004,
+          0.42100000000000004,
+          1.428
+        ],
+        "size": [
+          2.18,
+          0.35
+        ],
+        "rotation": 0,
+        "attachedGap": 0.01250000086426728,
+        "recordedFontSize": 207.44827586206895
+      },
+      {
+        "section": "projects",
+        "role": "side",
+        "position": [
+          -3.0999999999999996,
+          1.73,
+          1.428
+        ],
+        "size": [
+          1.96,
+          0.248
+        ],
+        "rotation": -1.5707963267948966,
+        "attachedGap": 0.01349999883770936,
+        "recordedFontSize": 166.84
+      },
+      {
+        "section": "experience",
+        "role": "header",
+        "position": [
+          1.65,
+          2.706,
+          -0.263
+        ],
+        "size": [
+          2.28,
+          0.18
+        ],
+        "rotation": 0,
+        "attachedGap": 0.012000002384185804,
+        "recordedFontSize": 108.23388305847075
+      },
+      {
+        "section": "experience",
+        "role": "hull",
+        "position": [
+          1.65,
+          0.42100000000000004,
+          1.428
+        ],
+        "size": [
+          2.18,
+          0.35
+        ],
+        "rotation": 0,
+        "attachedGap": 0.01250000086426728,
+        "recordedFontSize": 108.23388305847075
+      },
+      {
+        "section": "experience",
+        "role": "side",
+        "position": [
+          0.19999999999999996,
+          1.73,
+          1.428
+        ],
+        "size": [
+          1.96,
+          0.248
+        ],
+        "rotation": -1.5707963267948966,
+        "attachedGap": 0.01349999883770936,
+        "recordedFontSize": 108.23388305847078
+      },
+      {
+        "section": "about",
+        "role": "header",
+        "position": [
+          -1.65,
+          -0.694,
+          -0.263
+        ],
+        "size": [
+          2.28,
+          0.18
+        ],
+        "rotation": 0,
+        "attachedGap": 0.012000002384185804,
+        "recordedFontSize": 110.08
+      },
+      {
+        "section": "about",
+        "role": "hull",
+        "position": [
+          -1.65,
+          -2.979,
+          1.428
+        ],
+        "size": [
+          2.18,
+          0.35
+        ],
+        "rotation": 0,
+        "attachedGap": 0.01250000086426728,
+        "recordedFontSize": 212.42
+      },
+      {
+        "section": "about",
+        "role": "side",
+        "position": [
+          -3.0999999999999996,
+          -1.67,
+          1.428
+        ],
+        "size": [
+          1.96,
+          0.248
+        ],
+        "rotation": -1.5707963267948966,
+        "attachedGap": 0.01349999883770936,
+        "recordedFontSize": 166.84
+      },
+      {
+        "section": "contact",
+        "role": "header",
+        "position": [
+          1.65,
+          -0.694,
+          -0.263
+        ],
+        "size": [
+          2.28,
+          0.18
+        ],
+        "rotation": 0,
+        "attachedGap": 0.012000002384185804,
+        "recordedFontSize": 110.08
+      },
+      {
+        "section": "contact",
+        "role": "hull",
+        "position": [
+          1.65,
+          -2.979,
+          1.428
+        ],
+        "size": [
+          2.18,
+          0.35
+        ],
+        "rotation": 0,
+        "attachedGap": 0.01250000086426728,
+        "recordedFontSize": 124.46896551724137
+      },
+      {
+        "section": "contact",
+        "role": "side",
+        "position": [
+          0.19999999999999996,
+          -1.67,
+          1.428
+        ],
+        "size": [
+          1.96,
+          0.248
+        ],
+        "rotation": -1.5707963267948966,
+        "attachedGap": 0.01349999883770936,
+        "recordedFontSize": 124.46896551724137
+      }
+    ],
+    "visibilityModes": [
+      {
+        "portrait": false,
+        "visiblePlaques": 8
+      },
+      {
+        "portrait": true,
+        "visiblePlaques": 8
+      },
+      {
+        "portrait": false,
+        "visiblePlaques": 8
+      }
+    ],
+    "roomTransitions": [
+      {
+        "name": "home portrait",
+        "activeRoom": "home",
+        "portrait": true,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 4
+        }
+      },
+      {
+        "name": "projects close view",
+        "activeRoom": "projects",
+        "portrait": false,
+        "reading": false,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "projects reading",
+        "activeRoom": "projects",
+        "portrait": true,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "projects orientation while reading",
+        "activeRoom": "projects",
+        "portrait": false,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "return home from projects",
+        "activeRoom": "home",
+        "portrait": true,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 4
+        }
+      },
+      {
+        "name": "experience close view",
+        "activeRoom": "experience",
+        "portrait": false,
+        "reading": false,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "experience reading",
+        "activeRoom": "experience",
+        "portrait": true,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "experience orientation while reading",
+        "activeRoom": "experience",
+        "portrait": false,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "return home from experience",
+        "activeRoom": "home",
+        "portrait": true,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 4
+        }
+      },
+      {
+        "name": "about close view",
+        "activeRoom": "about",
+        "portrait": false,
+        "reading": false,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "about reading",
+        "activeRoom": "about",
+        "portrait": true,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "about orientation while reading",
+        "activeRoom": "about",
+        "portrait": false,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "return home from about",
+        "activeRoom": "home",
+        "portrait": true,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 4
+        }
+      },
+      {
+        "name": "contact close view",
+        "activeRoom": "contact",
+        "portrait": false,
+        "reading": false,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "contact reading",
+        "activeRoom": "contact",
+        "portrait": true,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "contact orientation while reading",
+        "activeRoom": "contact",
+        "portrait": false,
+        "reading": true,
+        "visibleInkFaces": 4,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 0
+        }
+      },
+      {
+        "name": "return home from contact",
+        "activeRoom": "home",
+        "portrait": true,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 0,
+          "side": 4
+        }
+      },
+      {
+        "name": "home upright",
+        "activeRoom": "home",
+        "portrait": false,
+        "reading": false,
+        "visibleInkFaces": 8,
+        "visibleRoles": {
+          "header": 4,
+          "hull": 4,
+          "side": 0
+        }
+      }
+    ]
+  },
+  "headerVisibility": {
+    "projects": {
+      "front": {
+        "samples": 33,
+        "blocked": []
+      },
+      "selectedRoom": {
+        "samples": 33,
+        "blocked": []
+      }
+    },
+    "experience": {
+      "front": {
+        "samples": 33,
+        "blocked": []
+      },
+      "selectedRoom": {
+        "samples": 33,
+        "blocked": []
+      }
+    },
+    "about": {
+      "front": {
+        "samples": 33,
+        "blocked": []
+      },
+      "selectedRoom": {
+        "samples": 33,
+        "blocked": []
+      }
+    },
+    "contact": {
+      "front": {
+        "samples": 33,
+        "blocked": []
+      },
+      "selectedRoom": {
+        "samples": 33,
+        "blocked": []
+      }
+    }
+  },
+  "evidence": [
+    {
+      "path": "docs/evidence/physical-labels-revision/desktop-overview.png",
+      "exists": true,
+      "sha256": "39cca39a33c73ebb1ea35b0010238f367697dce49030456a1b74292e9fd34bee"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/desktop-projects.png",
+      "exists": true,
+      "sha256": "f6b82f16e44591a15aba978420786f0082ac800ac7f2d1d2c6a7b62812602dab"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/desktop-about.png",
+      "exists": true,
+      "sha256": "d4c1ce22d8992bcee9b75e43a9e0161b2873ea43fcfad50a155b3a9b2be8fd87"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/desktop-about-before-header-fix.png",
+      "exists": true,
+      "sha256": "7309f389f644430e141a650e933619712a9dbb08a3b3485bac4ce5235f360740"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/desktop-atlas-reader.png",
+      "exists": true,
+      "sha256": "71f5a4f95345ba3b4e18ac2368f6b8c074453622bad8c3c825988ec19f5fdbdf"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/mobile-390-overview.png",
+      "exists": true,
+      "sha256": "b9bb1c3357f1e35364d41e557ec788f525b58d527636bf76e38a5140310c3a08"
+    },
+    {
+      "path": "docs/evidence/physical-labels-revision/mobile-390-projects.png",
+      "exists": true,
+      "sha256": "5d4c188a991bf689943d3cfa2607f60aae26be9128119728ccbe316d26d48f01"
+    }
+  ],
+  "references": [
+    "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module",
+    "https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking"
+  ],
+  "failedChecks": [],
+  "summary": {
+    "checks": 513,
+    "failed": 0,
+    "physicalPlaques": 12,
+    "readers": 4
+  }
+}

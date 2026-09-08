@@ -152,7 +152,7 @@ export function Spacecraft(props: Props) {
           const model = createSpacecraft(THREE, {
             accent: s.accent,
             projectPageSize: PROJECTS_PER_PAGE,
-            screenLabels: true,
+            screenLabels: false,
             sampleLabel: s.sampleLabel,
             projects: latest.current.projects.map((p) => ({
               title: String(p.title),
@@ -255,30 +255,6 @@ export function Spacecraft(props: Props) {
             model.group.add(mesh);
             proxies.push(mesh);
           }
-          // Screen-aligned nameplates stay upright even when the spacecraft rolls.
-          const labelLayer = document.createElement('div');
-          labelLayer.className = 'room-label-layer';
-          el.appendChild(labelLayer);
-          const roomLabels = ['projects', 'experience', 'about', 'contact'].map(
-            (section) => {
-              const button = document.createElement('button');
-              button.type = 'button';
-              button.className = 'room-nameplate';
-              button.textContent = s[section + 'Label'];
-              button.dataset.room = section;
-              button.onclick = () => latest.current.onNavigate(section);
-              button.onpointerenter = button.onfocus = () => {
-                hoverSection(section);
-                latest.current.onHover(section);
-              };
-              button.onpointerleave = button.onblur = () => {
-                hoverSection('');
-                latest.current.onHover('');
-              };
-              labelLayer.appendChild(button);
-              return { section, button };
-            },
-          );
           const hotspotObjects: {
             object: InstanceType<typeof CSS3DObject>;
             button: HTMLButtonElement;
@@ -421,9 +397,10 @@ export function Spacecraft(props: Props) {
             const target = new THREE.Vector3(
               ...(anchors[section] || anchors.home),
             );
-            const desiredRoll = home ? (mobile() ? 1.38 : 0.035) : 0;
+            const desiredRoll = home ? (mobile() ? Math.PI / 2 : 0.035) : 0;
             if (isReading && readerAnchors[section])
               target.set(...readerAnchors[section]);
+            if (!home && !isReading) target.y += 0.16;
             target.applyAxisAngle(new THREE.Vector3(0, 0, 1), desiredRoll);
             let desiredDistance = isReading
               ? (2.4 * el.clientHeight) /
@@ -432,13 +409,13 @@ export function Spacecraft(props: Props) {
                   paperPixels())
               : mobile()
                 ? Math.max(
-                    6.5,
-                    (3.3 * el.clientHeight) /
+                    5.3,
+                    (2.75 * el.clientHeight) /
                       (2 *
                         Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) *
                         (el.clientWidth - 24)),
                   )
-                : 6.9;
+                : 5.3;
             if (home) {
               // Fit the complete closed vessel to safe viewport bounds at a fixed pose.
               const bounds = model.group.userData.overviewBounds;
@@ -666,6 +643,7 @@ export function Spacecraft(props: Props) {
             cssGroup.rotation.z = roll;
             model.update(elapsed, hovered, stop, {
               activeRoom: active,
+              labelPortrait: active === 'home' && mobile(),
               selectedProject: latest.current.slug,
               hoveredProject,
               projectPage: latest.current.projectPage,
@@ -676,85 +654,6 @@ export function Spacecraft(props: Props) {
             for (const anchor of Object.values(model.readerSurfaces))
               anchor.parent.scale.y *= readerStretch();
             model.group.updateMatrixWorld(true);
-            for (const { section, button } of roomLabels) {
-              const show =
-                !reading &&
-                !travelling &&
-                (active === 'home' || active === section);
-              button.hidden = !show;
-              button.inert = !show;
-              if (!show) continue;
-              const anchor = [
-                ...(model.group.userData.labelAnchors?.[section] || [
-                  anchors[section][0],
-                  anchors[section][1] - 1.38,
-                  1.68,
-                ]),
-              ];
-              if (mobile() && active === 'home') {
-                anchor[0] = anchors[section][0] - Math.sin(roll) * 1.35;
-                anchor[1] = anchors[section][1] - Math.cos(roll) * 1.35;
-              }
-              const p = new THREE.Vector3(...anchor)
-                .applyMatrix4(model.group.matrixWorld)
-                .project(camera);
-              const left = new THREE.Vector3(
-                anchor[0] - 1.25,
-                anchor[1],
-                anchor[2],
-              )
-                .applyMatrix4(model.group.matrixWorld)
-                .project(camera);
-              const right = new THREE.Vector3(
-                anchor[0] + 1.25,
-                anchor[1],
-                anchor[2],
-              )
-                .applyMatrix4(model.group.matrixWorld)
-                .project(camera);
-              const roomPixels = Math.hypot(
-                ((right.x - left.x) * el.clientWidth) / 2,
-                ((right.y - left.y) * el.clientHeight) / 2,
-              );
-              button.style.left = `${((p.x + 1) * el.clientWidth) / 2}px`;
-              button.style.top = `${((1 - p.y) * el.clientHeight) / 2}px`;
-              button.style.fontSize = `${Math.max(mobile() ? 16 : 20, Math.min(28, roomPixels * 0.105))}px`;
-              button.style.maxWidth = `${Math.max(120, roomPixels * 0.9)}px`;
-              button.classList.toggle(
-                'is-highlighted',
-                hovered === section || active === section,
-              );
-              button.dataset.orientation = 'screen';
-            }
-            if (mobile() && active === 'home' && !reading && !travelling) {
-              const plates = roomLabels.map(({ button }) => {
-                const rect = button.getBoundingClientRect();
-                return {
-                  button,
-                  x: rect.x + rect.width / 2,
-                  y: rect.y + rect.height / 2,
-                  w: rect.width,
-                  h: rect.height,
-                };
-              });
-              for (let pass = 0; pass < 2; pass++)
-                for (let i = 0; i < plates.length; i++)
-                  for (let j = i + 1; j < plates.length; j++) {
-                    const a = plates[i],
-                      b = plates[j];
-                    const overlap = (a.w + b.w) / 2 + 8 - Math.abs(a.x - b.x);
-                    if (
-                      overlap > 0 &&
-                      Math.abs(a.y - b.y) < (a.h + b.h) / 2 + 4
-                    ) {
-                      const sign = a.x < b.x ? -1 : 1;
-                      a.x += (sign * overlap) / 2;
-                      b.x -= (sign * overlap) / 2;
-                    }
-                  }
-              for (const p of plates)
-                p.button.style.left = `${Math.max(p.w / 2 + 8, Math.min(el.clientWidth - p.w / 2 - 8, p.x))}px`;
-            }
             const logicalWidth = paperPixels();
             surfaceElement.style.width = `${logicalWidth}px`;
             surfaceElement.style.height = `${logicalWidth * 1.125 * readerStretch()}px`;
@@ -875,6 +774,8 @@ export function Spacecraft(props: Props) {
                   .toArray()
                   .slice(0, 3)
                   .join(','),
+                pixelRatio: String(renderer.getPixelRatio()),
+                drawingBuffer: `${renderer.domElement.width},${renderer.domElement.height}`,
                 renderCalls: String(renderer.info.render.calls),
                 triangles: String(renderer.info.render.triangles),
                 renderCpuMs: renderCost.toFixed(2),
@@ -894,6 +795,9 @@ export function Spacecraft(props: Props) {
                 activeTime: elapsed.toFixed(3),
                 readerAttached: String(surface.visible),
                 projectPage: String(latest.current.projectPage),
+                physicalLabels: JSON.stringify(
+                  model.group.userData.labelPlaques,
+                ),
               });
               const sorted = [...frameIntervals].sort((a, b) => a - b);
               el.dataset.frameP50 = (
@@ -954,6 +858,15 @@ export function Spacecraft(props: Props) {
           const resize = () => {
             const w = Math.max(1, el.clientWidth),
               h = Math.max(1, el.clientHeight);
+            // Bound retina fill cost without changing cloud detail or HTML sharpness.
+            // This runs only on viewport resize, never while retargeting a flight.
+            renderer.setPixelRatio(
+              Math.min(
+                devicePixelRatio,
+                mobile() ? 1.75 : 2,
+                Math.sqrt(4_000_000 / (w * h)),
+              ),
+            );
             renderer.setSize(w, h);
             cssRenderer.setSize(w, h);
             ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
@@ -1154,7 +1067,6 @@ export function Spacecraft(props: Props) {
             renderer.dispose();
             renderer.domElement.remove();
             cssRenderer.domElement.remove();
-            labelLayer.remove();
             api.current = null;
           };
         },

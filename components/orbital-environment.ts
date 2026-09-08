@@ -40,12 +40,12 @@ export function createOrbitalEnvironment(
   cloudNoise.format = THREE.RedFormat;
   cloudNoise.type = THREE.UnsignedByteType;
   cloudNoise.colorSpace = THREE.NoColorSpace;
-  cloudNoise.minFilter = THREE.LinearFilter;
+  cloudNoise.minFilter = THREE.LinearMipmapLinearFilter;
   cloudNoise.magFilter = THREE.LinearFilter;
   cloudNoise.wrapS = THREE.RepeatWrapping;
   cloudNoise.wrapT = THREE.RepeatWrapping;
   cloudNoise.wrapR = THREE.RepeatWrapping;
-  cloudNoise.generateMipmaps = false;
+  cloudNoise.generateMipmaps = true;
   cloudNoise.unpackAlignment = 1;
   cloudNoise.needsUpdate = true;
 
@@ -124,7 +124,10 @@ export function createOrbitalEnvironment(
     if (w === 1 && h === 1) break;
   }
   const proceduralTextureBytes = noiseData.byteLength + skyData.byteLength;
-  const proceduralTextureGpuBytes = noiseData.byteLength + skyGpuBytes;
+  // Exact R8 volume mip chain: each level halves all three dimensions.
+  let noiseGpuBytes = 0;
+  for (let side = noiseSide; side >= 1; side >>= 1) noiseGpuBytes += side ** 3;
+  const proceduralTextureGpuBytes = noiseGpuBytes + skyGpuBytes;
   const generationMs = performance.now() - generationStarted;
   const sky = new THREE.Mesh(
     screenGeometry,
@@ -219,7 +222,8 @@ export function createOrbitalEnvironment(
   const stars = new THREE.Points(starsGeometry, starsMaterial);
   scene.add(stars);
 
-  // Two alternating streams: the combined spacing stays between 8 and 14 seconds.
+  // Groups start 5–9 active seconds apart. Every fourth group adds a soft
+  // companion streak, keeping the scene calm and the maximum actor count two.
   // Tight screen-space quads shade only each streak, not the whole viewport.
   const meteorVertex = `
     varying vec2 vStreak;
@@ -355,8 +359,11 @@ export function createOrbitalEnvironment(
       out vec4 outColor;
       float n3(vec3 p) {
         vec3 cell = floor(p), f = fract(p);
-        f = f * f * (3.0 - 2.0 * f);
-        return texture(cloudNoise, (cell + f + 0.5) / noiseSide).r;
+        // C2 interpolation removes visible lattice shoulders. Supply derivatives
+        // before floor/fract so LOD stays continuous across periodic cell borders.
+        vec3 dx = dFdx(p) / noiseSide, dy = dFdy(p) / noiseSide;
+        f = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+        return textureGrad(cloudNoise, (cell + f + 0.5) / noiseSide, dx, dy).r;
       }
       vec3 swirl(vec3 p, vec3 axis, float strength) {
         float angle = exp(-dot(p - axis, p - axis) * 9.0) * strength;
@@ -374,23 +381,41 @@ export function createOrbitalEnvironment(
         p += morph;
         vec2 warp = vec2(n3(p * 3.1 + 11.3), n3(p * 3.1 - 8.7)) - 0.5;
         vec3 q = p + vec3(warp.x, warp.y * 0.5, -warp.x) * 0.13;
+        // Rotate octave domains so neighboring scales do not reveal the same
+        // axis-aligned lattice. A tiny lattice controls variation, not screen resolution.
+        const mat3 octaveTurn = mat3(
+          0.00, 0.80, 0.60,
+          -0.80, 0.36, -0.48,
+          -0.60, -0.48, 0.64
+        );
+        vec3 r = octaveTurn * q;
+        vec3 r2 = octaveTurn * r;
         float regional = n3(q * 4.2 + vec3(5.1, 0.0, 9.2));
-        float bands = n3(q * vec3(9.0, 22.0, 9.0) + 13.2);
-        float broken = n3(q * 43.0 - 3.7);
-        float weather = regional * 0.55 + bands * 0.29 + broken * 0.16;
+        float bands = n3(r * vec3(9.0, 21.0, 9.0) + 13.2);
+        float billows = n3(r2 * 37.0 - 3.7);
+        float flakes = n3(r * 91.0 + vec3(17.3, -9.1, 2.8));
+        float fibers = n3(q * vec3(185.0, 61.0, 185.0) - 21.7);
+        float detail = fibers;
         #if FINE_CLOUD_DETAIL == 1
-          float footprint = max(length(dFdx(p)), length(dFdy(p)));
-          float fineWeight = 1.0 - smoothstep(0.10, 0.45, footprint * 180.0);
-          weather += (n3(q * 180.0 + 2.8) - 0.5) * 0.11 * fineWeight;
+          float micro = n3(r2 * 227.0 + vec3(-8.1, 14.2, 4.7));
+          detail = fibers * 0.65 + micro * 0.35;
         #endif
-        float coverage = pow(smoothstep(0.43, 0.67, weather), 1.15);
-        float cirrus = smoothstep(0.57, 0.76, bands) * smoothstep(0.37, 0.57, regional) * 0.15;
+        float weather = regional * 0.45 + bands * 0.23
+          + billows * 0.19 + flakes * 0.13 + (detail - 0.5) * 0.09;
+        // Fine erosion is strongest around cloud boundaries, leaving quiet white
+        // interiors rather than speckling the whole ocean with high-frequency noise.
+        float edge = 1.0 - smoothstep(0.50, 0.67, weather);
+        weather -= (1.0 - detail) * edge * 0.024;
+        float coverage = pow(smoothstep(0.425, 0.675, weather), 1.12);
+        float cirrus = smoothstep(0.55, 0.76, bands)
+          * smoothstep(0.34, 0.58, regional)
+          * smoothstep(0.43, 0.74, fibers) * 0.20;
         coverage = max(coverage, cirrus);
         if (coverage < 0.007) discard;
         float sun = dot(normalize(vWorldNormal), sunDirection);
         float light = smoothstep(-0.10, 0.75, sun);
         vec3 color = mix(vec3(0.39, 0.56, 0.76), vec3(0.97, 0.985, 1.0), light);
-        color *= 0.95 + broken * 0.08;
+        color *= 0.92 + flakes * 0.10;
         outColor = vec4(color, coverage * 0.94);
       }
     `,
@@ -511,8 +536,18 @@ export function createOrbitalEnvironment(
     const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
     return n - Math.floor(n);
   };
+  const meteorGroupStart = (cycle: number) =>
+    cycle * 7 + 2 + phaseHash(cycle + 0.17) * 2;
+  const pairedGroup = (cycle: number) => cycle % 4 === 2;
   const meteorStart = (cycle: number, index: number) =>
-    cycle * 22 + 4 + index * 11 + phaseHash(cycle * 2 + index) * 3;
+    meteorGroupStart(cycle) +
+    (index === 1 ? 0.26 + phaseHash(cycle + 0.73) * 0.2 : 0);
+  const nextMeteorStart = (time: number, cycle: number, index: number) => {
+    let nextCycle = cycle;
+    if (meteorStart(nextCycle, index) < time) nextCycle++;
+    if (index === 1) nextCycle += (2 - (nextCycle % 4) + 4) % 4;
+    return meteorStart(nextCycle, index);
+  };
   invalidate();
   return {
     scene,
@@ -536,41 +571,42 @@ export function createOrbitalEnvironment(
       if (disposed) return;
       camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
-      surface.rotation.y = (activeTime * 0.0015) % (Math.PI * 2);
-      clouds.rotation.y = (activeTime * 0.0021) % (Math.PI * 2);
+      surface.rotation.y = (activeTime * 0.003) % (Math.PI * 2);
+      clouds.rotation.y = (activeTime * 0.0072) % (Math.PI * 2);
       starsMaterial.uniforms.time.value = activeTime;
       cloudMaterial.uniforms.time.value = activeTime;
       for (let index = 0; index < meteors.length; index++) {
         const meteor = meteors[index];
-        const cycle = Math.floor(activeTime / 22);
+        const cycle = Math.floor(activeTime / 7);
         meteor.cycle = cycle;
         meteor.startAt = meteorStart(cycle, index);
-        meteor.duration = 1.1 + phaseHash(cycle * 2 + index + 0.31) * 0.5;
+        meteor.duration = 1.1 + phaseHash(cycle * 2 + index + 0.31) * 0.45;
         const phase = (activeTime - meteor.startAt) / meteor.duration;
-        meteor.mesh.visible = phase >= 0 && phase <= 1;
+        meteor.mesh.visible =
+          (index === 0 || pairedGroup(cycle)) && phase >= 0 && phase <= 1;
         meteor.phase = meteor.mesh.visible ? phase : 0;
-        meteor.nextAt =
-          activeTime <= meteor.startAt
-            ? meteor.startAt
-            : meteorStart(cycle + 1, index);
+        meteor.nextAt = nextMeteorStart(activeTime, cycle, index);
         const uniforms = meteor.material.uniforms;
         if (meteor.mesh.visible) {
-          const startX =
-            index === 0
-              ? 0.08 + phaseHash(cycle + 2) * 0.18
-              : 0.92 - phaseHash(cycle + 7) * 0.18;
-          const startY = 0.73 + phaseHash(cycle * 2 + index + 4) * 0.08;
+          const fromLeft = cycle % 2 === 0;
+          const startX = fromLeft
+            ? 0.08 + phaseHash(cycle + 2) * 0.18 + index * 0.06
+            : 0.92 - phaseHash(cycle + 7) * 0.18 - index * 0.06;
+          const startY = 0.73 + phaseHash(cycle + 4) * 0.08 - index * 0.055;
           const travel = Math.min(
             0.32 + phaseHash(cycle + index + 6) * 0.1,
             uniforms.aspect.value * 0.7,
           );
-          const axis = uniforms.axis.value;
+          const axis = uniforms.axis.value
+            .set(fromLeft ? 1 : -1, -0.25 - index * 0.045)
+            .normalize();
           uniforms.head.value.set(
             startX + (axis.x * phase * travel) / uniforms.aspect.value,
             startY + axis.y * phase * travel,
           );
           uniforms.opacity.value =
-            Math.pow(Math.sin(Math.PI * phase), 0.65) * 0.96;
+            Math.pow(Math.sin(Math.PI * phase), 0.65) *
+            (index === 0 ? 0.96 : 0.72);
         } else {
           uniforms.opacity.value = 0;
         }
@@ -586,6 +622,13 @@ export function createOrbitalEnvironment(
         earthRotation: surface.rotation.y,
         cloudRotation: clouds.rotation.y,
         cloudMorphTime: cloudMaterial.uniforms.time.value,
+        earthRotationRate: 0.003,
+        cloudRotationRate: 0.0072,
+        cloudFieldSamples: mobile ? 7 : 8,
+        cloudInterpolation: 'quintic-gradient-mipmapped',
+        meteorGroupInterval: [5, 9],
+        meteorPairEveryGroups: 4,
+        meteorGroupHasPair: pairedGroup(meteors[0].cycle),
         meteorCount,
         meteorPhases: meteors.map((m) => m.phase),
         meteorStreams: meteors.map((m) => ({
@@ -606,6 +649,8 @@ export function createOrbitalEnvironment(
         proceduralGenerationMs: Math.round(generationMs * 100) / 100,
         proceduralNoiseDimensions: [noiseSide, noiseSide, noiseSide],
         proceduralNoiseFormat: 'R8',
+        proceduralNoiseMipBytes: noiseGpuBytes,
+        proceduralNoiseMipLevels: Math.log2(noiseSide) + 1,
         nebulaDimensions: [skyWidth, skyHeight],
         externalTextureRequests: 0,
         estimatedTextureMiB:

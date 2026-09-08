@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-09-08T21:15:34.798106+00:00",
+  "scope": "Independent read-only local HTTP check; no browser/DB mutations",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": null
+    },
+    {
+      "route": "/projects",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": null
+    },
+    {
+      "route": "/projects/atlas",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": true
+    },
+    {
+      "route": "/experience",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": null
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": null
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "main": true,
+      "h1Count": 1,
+      "hasCanvasDependentContent": null,
+      "atlasTextPresent": null
+    },
+    {
+      "route": "/api/admin",
+      "status": 403
+    }
+  ]
+}

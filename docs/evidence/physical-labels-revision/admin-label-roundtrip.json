@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "workflow": "Four labels edited and saved through the browser admin; private overview and About preview inspected; original draft restored through revision-checked admin API.",
+  "previewLabels": {
+    "projectsLabel": "Product systems & experiments",
+    "experienceLabel": "Engineering mission history",
+    "aboutLabel": "Notes from the maker",
+    "contactLabel": "Conversations & collaborations"
+  },
+  "publicSnapshotUnchanged": true,
+  "originalDraftRestored": true
+}

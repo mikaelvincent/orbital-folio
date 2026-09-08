@@ -1,5 +1,5 @@
 /**
- * Orbital toybox, v6. Self-contained procedural Three.js asset.
+ * Orbital toybox, v7. Self-contained procedural Three.js asset.
  * +Y up and +Z front. Four independent pressure cabins use metadata anchors.
  * Every visible mesh carries userData.section and is returned as a pick target.
  * Static parts are batched per room/material; repeated fittings use instancing.
@@ -19,6 +19,8 @@ export type SpacecraftState = {
   projectPage?: number;
   reading?: boolean;
   delta?: number;
+  /** Use the fixed side collar plaques for a +PI/2 portrait overview. */
+  labelPortrait?: boolean;
 };
 export function createSpacecraft(
   THREE: any,
@@ -50,6 +52,7 @@ export function createSpacecraft(
     slots: Array<SpacecraftProject | null>;
   };
   setReading: (section: string, reading: boolean, instant?: boolean) => void;
+  setLabelOrientation: (portrait: boolean) => void;
   readerSurfaces: Record<string, any>;
   interactionTargets: Array<{ object: any; section: string }>;
 } {
@@ -82,7 +85,7 @@ export function createSpacecraft(
   let projectData = (options.projects || []).slice();
   let currentProjectPage = 0;
   let currentState: SpacecraftState = {
-    activeRoom: '',
+    activeRoom: 'home',
     reading: false,
     selectedProject: null,
   };
@@ -98,6 +101,21 @@ export function createSpacecraft(
     project: SpacecraftProject | null;
   }> = [];
   const readerSurfaces: Record<string, any> = {};
+  const labelPlaques: Array<{
+    section: string;
+    role: 'hull' | 'side' | 'header';
+    text: string;
+    position: number[];
+    size: number[];
+    attached: boolean;
+    rotation: number;
+    fontSize?: number;
+    canvasSize?: number[];
+    inkBounds?: number[];
+    visible: boolean;
+  }> = [];
+  const labelMaterials = new Map<(typeof labelPlaques)[number], any>();
+  let labelPortrait = false;
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
   // under filmic lighting rather than a pale yellow reflective finish.
@@ -531,58 +549,102 @@ export function createSpacecraft(
       return geometry;
     });
   }
+  // Fixed printed enamel labels: horizontal below each room and vertical on
+  // the left collar. Portrait mode swaps ink visibility, not physical location.
   function plaque(
     text: string,
-    subtext: string,
     w: number,
     h: number,
     x: number,
     y: number,
     z: number,
     parent: any,
-    dark = false,
+    role: 'hull' | 'side' | 'header',
   ) {
+    const section = sectionOf(parent);
+    const entry: (typeof labelPlaques)[number] = {
+      section,
+      role,
+      text,
+      position: [
+        x + roomCenters[section][0] - legacyCenters[section],
+        y + roomCenters[section][1],
+        z,
+      ],
+      size: [w, h],
+      attached: true,
+      rotation: role === 'side' ? -Math.PI / 2 : 0,
+      visible: role !== 'side',
+    };
+    labelPlaques.push(entry);
     if (typeof document === 'undefined') return;
     const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = Math.round((1024 * h) / w);
+    canvas.width = 1536;
+    canvas.height = Math.max(128, Math.round((1536 * h) / w));
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    ctx.fillStyle = dark ? '#223640' : '#e6e5db';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = dark ? '#bad1cf' : '#2b4047';
-    ctx.textAlign = 'left';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '600 58px Arial, sans-serif';
-    ctx.fillText(
-      text.toUpperCase().slice(0, 36),
-      55,
-      canvas.height * 0.41,
-      915,
+    ctx.fillStyle = '#233549';
+    const title = text.trim().toUpperCase();
+    const baseSize = canvas.height * 0.86;
+    ctx.font = `800 ${baseSize}px Arial, sans-serif`;
+    const measured = ctx.measureText(title);
+    const glyphHeight =
+      (measured.actualBoundingBoxAscent || baseSize * 0.73) +
+      (measured.actualBoundingBoxDescent || baseSize * 0.08);
+    const fit = Math.min(
+      1,
+      (canvas.width * 0.94) / Math.max(1, measured.width),
+      (canvas.height * 0.88) / Math.max(1, glyphHeight),
     );
-    ctx.fillStyle = dark ? '#809a9e' : '#778782';
-    ctx.font = '400 23px monospace';
-    ctx.fillText(
-      subtext.toUpperCase().slice(0, 65),
-      58,
-      canvas.height * 0.77,
-      900,
-    );
+    const fontSize = baseSize * fit;
+    ctx.font = `800 ${fontSize}px Arial, sans-serif`;
+    ctx.fillText(title, canvas.width / 2, canvas.height / 2);
+    entry.canvasSize = [canvas.width, canvas.height];
+    entry.fontSize = fontSize;
+    entry.inkBounds = [measured.width * fit, glyphHeight * fit];
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
-    const material = mat('identification-label', 0xffffff, 0.58, 0.08, {
+    texture.generateMipmaps = true;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.anisotropy = 4;
+    const material = mat('identification-label', 0xffffff, 0.7, 0, {
       map: texture,
+      transparent: true,
+      depthWrite: false,
+      emissiveMap: texture,
+      emissive: 0xffffff,
+      emissiveIntensity: 0.12,
     });
     const face = mesh(
       new THREE.PlaneGeometry(w, h),
       material,
       parent,
-      'label-' + text,
+      role + '-plaque-ink-' + section,
     );
     face.position.set(x, y, z);
+    face.rotation.z = entry.rotation;
+    face.material.visible = entry.visible;
+    face.castShadow = false;
+    labelMaterials.set(entry, face.material);
+  }
+  function setLabelOrientation(portrait: boolean) {
+    labelPortrait = !!portrait;
+    for (const label of labelPlaques) {
+      label.visible =
+        label.role === 'header' ||
+        (currentState.activeRoom === 'home' &&
+          label.role === (labelPortrait ? 'side' : 'hull'));
+      const material = labelMaterials.get(label);
+      if (material) material.visible = label.visible;
+    }
+    group.userData.labelPortrait = labelPortrait;
   }
 
-  // Three complete pressure modules. The rounded front cutout is built in XY;
+  // Four complete pressure modules. The rounded front cutout is built in XY;
   // actual side bulkheads are in YZ. Adjacent front skins retain a 20 mm gap
   // including bevels, avoiding coplanar overlap and black seam flickering.
   const shellShape = new THREE.Shape();
@@ -806,65 +868,180 @@ export function createSpacecraft(
         0.033,
         'roof-latch',
       );
-      rod(
-        [x + sign * 1.29, -0.47, 1.355],
-        [x + sign * 1.29, 0.36, 1.355],
-        0.036,
-        m.amber,
-        room,
-      );
-      sphere(0.049, m.amber, x + sign * 1.29, -0.47, 1.354, room);
-      sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, room);
+      if (sign > 0) {
+        rod(
+          [x + sign * 1.29, -0.47, 1.355],
+          [x + sign * 1.29, 0.36, 1.355],
+          0.036,
+          m.amber,
+          room,
+        );
+        sphere(0.049, m.amber, x + sign * 1.29, -0.47, 1.354, room);
+        sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, room);
+      }
     }
-    // Flush nameplates are part of the lower shell, rather than hanging shelves.
+    // Every room gets the same cream upper bulkhead header. Its deep rear
+    // saddle reaches the liner, so it is mounted rather than a floating sign.
     box(
-      2.24,
-      0.34,
-      0.118,
+      2.55,
+      0.255,
+      0.584,
       m.gasket,
       x,
-      -1.382,
-      1.291,
+      1.006,
+      -0.674,
       room,
-      0.056,
+      0.055,
+      'upper-header-wall-saddle',
+    );
+    box(
+      2.5,
+      0.232,
+      0.13,
+      m.chalk,
+      x,
+      1.006,
+      -0.34,
+      room,
+      0.055,
+      'upper-room-enamel-header',
+    );
+    plaque(
+      options.labels?.[section] || `MOD-0${index + 1}`,
+      2.28,
+      0.18,
+      x,
+      1.006,
+      -0.263,
+      room,
+      'header',
+    );
+    // A deeper pressure collar gives the printed labels a broad, load-bearing
+    // surface. Its top stays below the interior deck sightline.
+    box(
+      2.74,
+      0.57,
+      0.24,
+      m.shell,
+      x,
+      -1.272,
+      1.208,
+      room,
+      0.09,
+      'reinforced-lower-nameplate-collar',
+    );
+    box(
+      2.48,
+      0.468,
+      0.1,
+      m.gasket,
+      x,
+      -1.279,
+      1.307,
+      room,
+      0.048,
       'room-label-backing',
     );
     box(
-      2.1,
-      0.282,
-      0.071,
+      2.34,
+      0.402,
+      0.069,
       m.chalk,
       x,
-      -1.382,
-      1.379,
+      -1.279,
+      1.381,
       room,
-      0.034,
+      0.032,
       'room-label-ceramic-insert',
     );
-    if (!options.screenLabels)
+    // Fixed portrait alternative: +PI/2 ship roll makes this -PI/2 label level.
+    // The band remains outside the compartment doors' frontal sightline.
+    box(
+      0.4,
+      2.7,
+      0.22,
+      m.shell,
+      x - 1.45,
+      0.03,
+      1.209,
+      room,
+      0.085,
+      'reinforced-side-nameplate-collar',
+    );
+    const sideBacking = box(
+      2.25,
+      0.35,
+      0.108,
+      m.gasket,
+      x - 1.45,
+      0.03,
+      1.305,
+      room,
+      0.044,
+      'side-label-backing',
+    );
+    sideBacking.rotation.z = -Math.PI / 2;
+    const sideInsert = box(
+      2.12,
+      0.284,
+      0.071,
+      m.chalk,
+      x - 1.45,
+      0.03,
+      1.379,
+      room,
+      0.033,
+      'side-label-ceramic-insert',
+    );
+    sideInsert.rotation.z = -Math.PI / 2;
+    if (!options.screenLabels) {
       plaque(
         options.labels?.[section] || `MOD-0${index + 1}`,
-        `0${index + 1} / MOD-0${index + 1}`,
-        1.84,
-        0.225,
-        x + 0.018,
-        -1.371,
-        1.425,
+        2.18,
+        0.35,
+        x,
+        -1.279,
+        1.428,
         room,
+        'hull',
       );
-    for (const sign of [-1, 1])
+      plaque(
+        options.labels?.[section] || `MOD-0${index + 1}`,
+        1.96,
+        0.248,
+        x - 1.45,
+        0.03,
+        1.428,
+        room,
+        'side',
+      );
+    }
+    for (const sign of [-1, 1]) {
       box(
-        0.133,
-        0.358,
-        0.135,
+        0.13,
+        0.434,
+        0.13,
         m.amber,
-        x + sign * 1.12,
-        -1.366,
+        x + sign * 1.24,
+        -1.279,
         1.36,
         room,
-        0.044,
+        0.04,
         'nameplate-amber-clasp',
       );
+      box(
+        0.382,
+        0.12,
+        0.13,
+        m.amber,
+        x - 1.45,
+        0.03 + sign * 1.13,
+        1.36,
+        room,
+        0.04,
+        'side-nameplate-amber-clasp',
+      );
+    }
     box(
       2.77,
       0.15,
@@ -1013,28 +1190,6 @@ export function createSpacecraft(
     project,
     0.145,
     'nine-slot-project-payload-rack',
-  );
-  box(
-    2.5,
-    0.204,
-    0.114,
-    m.chalk,
-    -3,
-    1.006,
-    -0.766,
-    project,
-    0.055,
-    'payload-rack-header',
-  );
-  plaque(
-    options.labels?.projects || 'ST-01',
-    '',
-    2.24,
-    0.158,
-    -3,
-    1.006,
-    -0.696,
-    project,
   );
   for (let slotIndex = 0; slotIndex < 9; slotIndex++) {
     const col = slotIndex % 3,
@@ -1973,9 +2128,51 @@ export function createSpacecraft(
 
   // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
   const docking = new THREE.Group();
+  docking.name = 'central-docking-assembly';
   docking.userData.section = 'contact';
-  docking.position.set(1.35, 1.7, 0);
+  docking.position.set(1.35, 0, 0);
   group.add(docking);
+  // A tall saddle bears against both left outboard bulkheads. The capped
+  // rear flange closes the docking sleeve where it crosses the gap between decks.
+  box(
+    0.35,
+    2.9,
+    1.46,
+    m.shell,
+    -4.59,
+    0.03,
+    -0.17,
+    docking,
+    0.14,
+    'central-docking-load-bearing-saddle',
+  );
+  for (const sign of [-1, 1]) {
+    box(
+      0.55,
+      0.3,
+      1.43,
+      m.navy,
+      -4.69,
+      sign * 0.97 + 0.03,
+      -0.16,
+      docking,
+      0.11,
+      'docking-saddle-load-clamp',
+    );
+    box(
+      0.12,
+      0.13,
+      0.16,
+      m.amber,
+      -4.68,
+      sign * 1.22 + 0.03,
+      0.43,
+      docking,
+      0.045,
+      'docking-saddle-captive-lock',
+    );
+  }
+  cylinder(0.948, 0.22, m.navy, -4.6, 0.03, 0, docking, 'x');
   function axialHull(
     profile: number[][],
     material: any,
@@ -2143,13 +2340,38 @@ export function createSpacecraft(
     rod([-6.505, yy, -0.407], [-6.505, yy, -0.167], 0.025, m.amber, docking);
     rod([-6.505, yy, -0.167], [-6.435, yy, -0.167], 0.025, m.navy, docking);
   }
-  cylinder(0.171, 0.141, m.navy, -5.13, 1.032, 0.0, docking);
-  rod([-5.13, 1.041, 0.0], [-5.22, 1.485, 0.105], 0.048, m.metal, docking);
-  sphere(0.103, m.amber, -5.219, 1.473, 0.1, docking);
+  // AFT — a shared service bus to the right of both cabins.
+  const service = new THREE.Group();
+  service.name = 'aft-service-assembly';
+  service.userData.section = 'contact';
+  service.position.set(-1.5, 0, 0);
+  group.add(service);
+  // Placement follows the service-module organization documented for ESA ATV:
+  // solar drives, communications and the KURS antenna share the service bus.
+  // This toybox uses a small forward-offset dish with a triangulated bracket,
+  // leaving both solar hinge envelopes and the left docking approach clear.
+  // https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module
+  // https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking
+  box(
+    0.44,
+    0.32,
+    0.16,
+    m.navy,
+    5.26,
+    0.2,
+    0.8,
+    service,
+    0.06,
+    'communications-mast-service-foot',
+  );
+  rod([5.18, 0.11, 0.68], [5.63, 0.22, 1.04], 0.052, m.metal, service);
+  rod([5.49, 0.36, 0.6], [5.63, 0.22, 1.04], 0.043, m.navy, service);
+  sphere(0.1, m.amber, 5.63, 0.22, 1.04, service);
   const dishAssembly = new THREE.Group();
-  dishAssembly.position.set(-5.22, 1.635, 0.139);
-  dishAssembly.rotation.set(-0.23, -0.19, 0.06);
-  docking.add(dishAssembly);
+  dishAssembly.name = 'service-mounted-communications-dish';
+  dishAssembly.position.set(5.64, 0.23, 1.16);
+  dishAssembly.rotation.set(-0.1, 0.18, -0.03);
+  service.add(dishAssembly);
   const dishProfile = [
     [0.025, -0.016],
     [0.115, -0.004],
@@ -2184,11 +2406,6 @@ export function createSpacecraft(
       dishAssembly,
     );
 
-  // AFT — a shared service bus to the right of both cabins.
-  const service = new THREE.Group();
-  service.userData.section = 'contact';
-  service.position.set(-1.5, 0, 0);
-  group.add(service);
   axialHull(
     [
       [0.81, -0.43],
@@ -2753,10 +2970,46 @@ export function createSpacecraft(
   group.userData.labelAnchors = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
       section,
-      [x, y - 1.38, 1.49],
+      [x, y - 1.279, 1.428],
     ]),
   );
-  group.userData.labelSizes = { width: 2.22, height: 0.34 };
+  group.userData.labelSizes = { width: 2.18, height: 0.35 };
+  group.userData.sideLabelAnchors = Object.fromEntries(
+    Object.entries(roomCenters).map(([section, [x, y]]) => [
+      section,
+      [x - 1.45, y + 0.03, 1.428],
+    ]),
+  );
+  group.userData.sideLabelSizes = {
+    width: 1.96,
+    height: 0.248,
+    rotation: -Math.PI / 2,
+  };
+  group.userData.labelPlaques = labelPlaques;
+  group.userData.labelPortrait = false;
+  group.userData.labelOrientation = {
+    attached: true,
+    portraitModelRoll: Math.PI / 2,
+    toggles: ['hull', 'side'],
+    headersAlwaysVisible: true,
+  };
+  group.userData.innerApertureBounds = Object.fromEntries(
+    Object.entries(roomCenters).map(([section, [x, y]]) => [
+      section,
+      {
+        center: [x, y + 0.17, 1.2],
+        size: [2.44, 2.3, 0.04],
+        min: [x - 1.22, y - 0.98, 1.18],
+        max: [x + 1.22, y + 1.32, 1.22],
+      },
+    ]),
+  );
+  group.userData.headerAnchors = Object.fromEntries(
+    Object.entries(roomCenters).map(([section, [x, y]]) => [
+      section,
+      [x, y + 1.006, -0.263],
+    ]),
+  );
   group.userData.readerAnchors = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
       section,
@@ -2780,8 +3033,18 @@ export function createSpacecraft(
     { section: 'about', position: [-1.404, -2.045, -0.45] },
     { section: 'contact', position: [1.55, -1.442, -0.4] },
   ];
-  group.userData.dockingAnchor = [-3.78, 1.91, 1.05];
+  group.userData.dockingAnchor = [-3.78, 0.21, 1.05];
+  group.userData.dockingAnchors = {
+    sleeve: [-3.715, 0.03, 0],
+    hatch: [-5.046, 0.03, 0],
+    mount: [-3.24, 0.03, -0.17],
+  };
   group.userData.palette = palette;
+  group.userData.communicationsAnchor = [4.14, 0.23, 1.16];
+  group.userData.mountingReferences = [
+    'https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module',
+    'https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking',
+  ];
   group.userData.description =
     'A two-by-two toybox spacecraft with nine project compartments, mission controls, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
   group.userData.detailStats = {
@@ -2853,6 +3116,9 @@ export function createSpacecraft(
       currentState = { ...currentState, ...state };
       if (state.room !== undefined && state.activeRoom === undefined)
         currentState.activeRoom = state.room;
+      // Close views identify the cabin with its interior header; external display
+      // ink switches off while the physical collar remains part of the hull.
+      setLabelOrientation(state.labelPortrait ?? labelPortrait);
       if (state.slug !== undefined && state.selectedProject === undefined)
         currentState.selectedProject = state.slug;
       if (
@@ -2999,6 +3265,7 @@ export function createSpacecraft(
     setProjectPage,
     setProjects,
     setReading,
+    setLabelOrientation,
     readerSurfaces,
     interactionTargets,
   };

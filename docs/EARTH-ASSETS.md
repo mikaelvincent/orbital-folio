@@ -1,17 +1,19 @@
 # Procedural ocean environment
 
-The current scene generates all ocean, cloud and sky visuals in `components/orbital-environment.ts`. It loads no Earth images and needs no external asset service. The previous NASA maps were removed from the runtime and repository; historical credits and measurements remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
+All ocean, cloud and sky visuals are generated in `components/orbital-environment.ts`. No Earth image or external asset service is needed. Historical image credits remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
 
-| Generated texture payload | Desktop | Mobile |
+| Generated GPU texture payload | Desktop | Mobile |
 | --- | ---: | ---: |
-| R8 periodic cloud-noise volume |64³ /262,144bytes|32³ /32,768bytes|
-| Small baked nebula, with mipmaps |174,764bytes|43,692bytes|
-| Total |436,908bytes (0.417MiB)|76,460bytes (0.073MiB)|
+| Periodic R8 noise volume, complete mip chain | 64³ / 299,593 bytes | 32³ / 37,449 bytes |
+| Baked nebula, complete mip chain | 174,764 bytes | 43,692 bytes |
+| Total | 474,357 bytes (0.4524 MiB) | 81,141 bytes (0.0774 MiB) |
 
-These are exact texture payload estimates, excluding driver/geometry/framebuffer overhead and Three.js's shared1KiB lighting lookup. The prior highest image tier required244.82MiB of texture payload. Lower memory and zero image downloads do not by themselves prove lower GPU frame time; current browser evidence records rendering cadence separately.
+These estimates exclude geometry, framebuffers, driver overhead and Three.js’s shared 1 KiB lighting lookup. Memory and image-transfer savings do not prove GPU speed; browser cadence is recorded separately.
 
-A seamless three-dimensional noise lattice is sampled on the sphere to form moving cloud wisps without a land map, longitude seam or polar pinch. Ocean rotates at 0.0015radians/second, clouds at 0.0021, with slow cloud morphing. The blue atmospheric edge is a separate shell. A low-resolution nebula is baked once; star twinkle and meteor cores/tails use small shaders.
+The seamless volume controls spatial variation rather than a fixed screen resolution. Quintic interpolation, rotated octave domains, several scales of billows and stretched fibers, and fine edge erosion produce the cloud structure. Explicit gradients and mip filtering soften compressed detail at the horizon without discontinuous cell-edge LOD. The shader uses eight cloud samples per fragment on desktop and seven on mobile. Mips are generated once on upload.
 
-Two staggered streams schedule meteors every roughly 8–14 active seconds, lasting 1.1–1.6seconds each. They remain above the low horizon and move diagonally with tapered tails. Pause/reduced motion, hidden tabs and offscreen state stop the shared simulation clock. Desktop and mobile use the same art direction with smaller mobile procedural fields.
+Ocean rotation is 0.003 radians/second. Clouds rotate at 0.0072 radians/second (0.413 degrees/second), 3.43 times the previous rate, with slow morphing. A full cloud turn takes about 14.5 minutes. Ocean, cloud shell and atmospheric edge remain separate meshes.
 
-All editable assets are repository-native geometry, shader source and deterministic generated data. No third-party Earth imagery is used in the current build.
+Meteor groups begin every 5–9 active seconds, alternating direction. Every fourth group includes a slightly delayed, dimmer companion; no more than two appear simultaneously. Events last 1.1–1.55 seconds. The navigation region is masked and tails are tapered. Twinkling stars, meteors, ocean and clouds share the caller’s active clock, preserving Pause and reduced motion.
+
+`node scripts/orbital-environment-audit.mjs` checks allocation, periodic continuity, rotation, the meteor schedule over 3,600 active seconds per tier, paused state and disposal. Browser screenshots and observed phases supplement this numeric audit; it does not execute a GPU shader.
