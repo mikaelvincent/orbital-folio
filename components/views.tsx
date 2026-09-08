@@ -10,7 +10,11 @@ import {
 } from 'lucide-react';
 import { ProjectCards, RoomIntro, Sample, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content-types';
-import { ContactForm } from './contact-form';
+import {
+  ContactForm,
+  type ContactDraft,
+  type ContactSubmission,
+} from './contact-form';
 export function ProjectsView({ data }: { data: Portfolio }) {
   return (
     <>
@@ -274,10 +278,20 @@ export function ContactView({
   data,
   sent = false,
   error = false,
+  draft,
+  onDraftChange,
+  onSent,
+  submission,
+  onSubmissionChange,
 }: {
   data: Portfolio;
   sent?: boolean;
   error?: boolean;
+  submission?: ContactSubmission;
+  onSubmissionChange?: (value: ContactSubmission) => void;
+  draft?: ContactDraft;
+  onDraftChange?: (draft: ContactDraft) => void;
+  onSent?: () => void;
 }) {
   const s = data.site;
   return (
@@ -316,7 +330,16 @@ export function ContactView({
           <span>{s.contactRoom}</span>
           <span className="status-dot" />
         </div>
-        <ContactForm site={s} initialSent={sent} initialError={error} />
+        <ContactForm
+          site={s}
+          initialSent={sent}
+          initialError={error}
+          draft={draft}
+          onDraftChange={onDraftChange}
+          onSent={onSent}
+          submission={submission}
+          onSubmissionChange={onSubmissionChange}
+        />
         <div className="comms-bottom">
           <span />
           {s.connectionLabel}

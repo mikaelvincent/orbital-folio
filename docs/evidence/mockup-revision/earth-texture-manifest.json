@@ -1,0 +1,54 @@
+{
+  "verified": "2026-09-09",
+  "native_8192_cloud_source": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif",
+  "files": [
+    {
+      "file": "earth-clouds-8192.webp",
+      "path": "public/textures/earth-clouds-8192.webp",
+      "width": 8192,
+      "height": 4096,
+      "bytes": 5792110,
+      "sha256": "540357122b6211f9caf661de92a90e997e4a416096c072cb4eba2e640fdd1bfd"
+    },
+    {
+      "file": "earth-day-5400.webp",
+      "path": "public/textures/earth-day-5400.webp",
+      "width": 5400,
+      "height": 2700,
+      "bytes": 1097196,
+      "sha256": "1cf691952e16d9f5a6f1e2bf04ede8c18a883c2fabf484e4552e5e0a9e9a0358"
+    },
+    {
+      "file": "earth-clouds-4096.webp",
+      "path": "public/textures/earth-clouds-4096.webp",
+      "width": 4096,
+      "height": 2048,
+      "bytes": 2161770,
+      "sha256": "d73deb208b646f2d7e53072202a9f842c887014e10197fac4767aa3930843d20"
+    },
+    {
+      "file": "earth-day-4096.webp",
+      "path": "public/textures/earth-day-4096.webp",
+      "width": 4096,
+      "height": 2048,
+      "bytes": 764578,
+      "sha256": "42bddca1a17b73be87b10110dad0a642a8a881e6c16af712d51cc01ab4f49099"
+    },
+    {
+      "file": "earth-clouds-2048.webp",
+      "path": "public/textures/earth-clouds-2048.webp",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 665516,
+      "sha256": "6c9b4b4b1eeb4306bd0850ac378d304ce6b10c4df41d69a183ffe674dad4860e"
+    },
+    {
+      "file": "earth-day-2048.webp",
+      "path": "public/textures/earth-day-2048.webp",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 193742,
+      "sha256": "9b1cba2d9e127abe7e9cf405b1b238a4e1f6afc0dd263b6bd52a694dc521ec75"
+    }
+  ]
+}

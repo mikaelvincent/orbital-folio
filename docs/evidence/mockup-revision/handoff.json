@@ -1,0 +1,8 @@
+{
+  "url": "http://localhost:3000/",
+  "status": 200,
+  "sampleContent": true,
+  "devServerLeftRunning": true,
+  "temporaryBuiltWorkerStopped": true,
+  "scope": "Local delivery; hosted SIWC callback incident remains unresolved"
+}

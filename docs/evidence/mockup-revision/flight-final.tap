@@ -1,0 +1,12 @@
+✔ Flight destinations preserve public and private readable URLs (2.7275ms)
+✔ Fixed flights ease continuously and pointer translations stay bounded (2.879917ms)
+✔ In-place navigation and server rendering share editable metadata (0.362ms)
+✔ Cursor rotation stays bounded and damping is independent of refresh rate (0.347042ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 308.127834

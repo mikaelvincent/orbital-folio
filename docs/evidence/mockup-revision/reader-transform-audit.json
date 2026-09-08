@@ -1,0 +1,329 @@
+{
+  "note": "Independent numerical transform audit, no browser layout/GPU operation or database mutation.",
+  "cases": [
+    {
+      "stretch": 1,
+      "roll": 0,
+      "frames": 1,
+      "maxWorldCornerError": 2.220446049250313e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0,
+      "frames": 2,
+      "maxWorldCornerError": 2.220446049250313e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0,
+      "frames": 60,
+      "maxWorldCornerError": 2.220446049250313e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.065,
+      "frames": 1,
+      "maxWorldCornerError": 8.881784197001252e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.065,
+      "frames": 2,
+      "maxWorldCornerError": 9.155133597044475e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.065,
+      "frames": 60,
+      "maxWorldCornerError": 3.1401849173675503e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.91,
+      "frames": 1,
+      "maxWorldCornerError": 4.577566798522237e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.91,
+      "frames": 2,
+      "maxWorldCornerError": 4.965068306494546e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1,
+      "roll": 0.91,
+      "frames": 60,
+      "maxWorldCornerError": 9.930136612989092e-16,
+      "physicalScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0,
+      "frames": 1,
+      "maxWorldCornerError": 4.440892098500626e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0,
+      "frames": 2,
+      "maxWorldCornerError": 4.440892098500626e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0,
+      "frames": 60,
+      "maxWorldCornerError": 2.220446049250313e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.065,
+      "frames": 1,
+      "maxWorldCornerError": 3.1401849173675503e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.065,
+      "frames": 2,
+      "maxWorldCornerError": 3.8459253727671276e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.065,
+      "frames": 60,
+      "maxWorldCornerError": 8.881784197001252e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.91,
+      "frames": 1,
+      "maxWorldCornerError": 4.440892098500626e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.91,
+      "frames": 2,
+      "maxWorldCornerError": 8.881784197001252e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.22,
+      "roll": 0.91,
+      "frames": 60,
+      "maxWorldCornerError": 4.440892098500626e-16,
+      "physicalScale": [
+        1,
+        1.22,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0,
+      "frames": 1,
+      "maxWorldCornerError": 6.280369834735101e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0,
+      "frames": 2,
+      "maxWorldCornerError": 0,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0,
+      "frames": 60,
+      "maxWorldCornerError": 4.440892098500626e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.065,
+      "frames": 1,
+      "maxWorldCornerError": 4.965068306494546e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.065,
+      "frames": 2,
+      "maxWorldCornerError": 9.155133597044475e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.065,
+      "frames": 60,
+      "maxWorldCornerError": 9.930136612989092e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.91,
+      "frames": 1,
+      "maxWorldCornerError": 2.220446049250313e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.91,
+      "frames": 2,
+      "maxWorldCornerError": 4.577566798522237e-16,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    },
+    {
+      "stretch": 1.5,
+      "roll": 0.91,
+      "frames": 60,
+      "maxWorldCornerError": 1.047382306668854e-15,
+      "physicalScale": [
+        1,
+        1.5,
+        1
+      ]
+    }
+  ],
+  "qualityExamples": [
+    {
+      "cores": 4,
+      "memory": "unknown",
+      "high": false
+    },
+    {
+      "cores": 8,
+      "memory": "unknown",
+      "high": true
+    },
+    {
+      "cores": 8,
+      "memory": 4,
+      "high": false
+    },
+    {
+      "cores": 8,
+      "memory": 8,
+      "high": true
+    },
+    {
+      "cores": 16,
+      "memory": 16,
+      "high": true
+    }
+  ]
+}

@@ -110,3 +110,7 @@ Support identifiers (not credentials):
 - Provider error: `409 Conflict` at the SIWC client callback-registration operation.
 
 The hosting provider must resolve that callback conflict before deployment can be verified. Reuse the existing Site; do not create another Site, weaken sign-in, expose a raw Worker, or change audience as a workaround. Check applied D1 migrations before retrying. Runtime setup and rate-limit secrets were configured as protected Sites environment entries. Hosted first-owner claim, gateway authentication, DNS and TLS have not been verified.
+
+## Mockup revision migration
+
+Run `npm run db:migrate` before using this revision with an existing local database. Migration `0002_instrument_navigation.sql` adds editable Previous page, Next page and Return to room labels to draft and published site snapshots only where missing. It preserves unpublished content and bumps the site revision for optimistic concurrency. The delivered local database already has this migration. Hosted migrations remain subject to the existing provider incident above.

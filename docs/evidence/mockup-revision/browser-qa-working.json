@@ -1,0 +1,764 @@
+[
+  {
+    "case": "desktop-dossier",
+    "audit": {
+      "url": "/projects/relay",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "violations": [],
+      "passes": 23
+    },
+    "state": {
+      "activeRoom": "projects",
+      "activeTime": "46.583",
+      "cameraPosition": "-3.1400,0.1008,7.3183",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "environment": "{\"activeTime\":46.58330000000028,\"earthRotation\":0.06987495000000042,\"cloudRotation\":0.09782493000000057,\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "33.30",
+      "frameP95": "34.20",
+      "frameP99": "34.30",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "active",
+      "projectPage": "0",
+      "readerAttached": "true",
+      "readerCorners": "[[437.34852712449486,132.09635636881694],[999.6281041689563,135.24525236330612],[997.2261809425445,761.8017116097259],[439.80244293471804,765.3957347191856]]",
+      "renderCalls": "173",
+      "renderCpuMs": "1.78",
+      "rendererId": "abbc34ba-fd92-48aa-aa20-0d52ea991249",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "628105"
+    }
+  },
+  {
+    "case": "desktop-physical-paper-alignment",
+    "actual": {
+      "bottom": 765.3958892822266,
+      "left": 437.348388671875,
+      "right": 999.6282348632812,
+      "top": 132.09620666503906
+    },
+    "expected": {
+      "bottom": 765.3957347191856,
+      "left": 437.34852712449486,
+      "right": 999.6281041689564,
+      "top": 132.09635636881694
+    },
+    "maxError": 0.0001545630409509613
+  },
+  {
+    "case": "dossier-final-page",
+    "text": "Back to projects\nPROJECT DOSSIER\nBACKEND SERVICE\nSAMPLE / CONCEPT\nRelay\n\nBackground work, brought into focus.\n\nOUTCOMES & LESSONS\n\nIllustrative result: the design separates request latency from job duration and gives failures a place to be inspected. No production measurements or customer results are claimed.\n\nWHAT COMES NEXT\n\nBuild a runnable prototype, test worker crashes and duplicate delivery, then measure queue latency under realistic load.\n\nRole & context\nConcept · system design & prototype\nPeriod\nSample project · 2026\nBuilt with\nTypeScript, PostgreSQL, Redis, Docker\n02\n03\n04"
+  },
+  {
+    "case": "browser-back-room",
+    "url": "http://localhost:3000/projects",
+    "state": {
+      "activeRoom": "projects",
+      "activeTime": "91.033",
+      "cameraPosition": "-3.1724,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "environment": "{\"activeTime\":91.03299999999969,\"earthRotation\":0.13654949999999955,\"cloudRotation\":0.19116929999999935,\"meteorPhase\":0,\"meteorCycle\":3,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "33.30",
+      "frameP95": "34.30",
+      "frameP99": "34.40",
+      "frameSamples": "360",
+      "hoverRoom": "projects",
+      "motion": "active",
+      "projectPage": "0",
+      "readerAttached": "false",
+      "readerCorners": "[[437.34852712449486,132.09635636881694],[999.6281041689563,135.24525236330612],[997.2261809425445,761.8017116097259],[439.80244293471804,765.3957347191856]]",
+      "renderCalls": "163",
+      "renderCpuMs": "3.24",
+      "rendererId": "abbc34ba-fd92-48aa-aa20-0d52ea991249",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "613769"
+    }
+  },
+  {
+    "case": "pause-start",
+    "state": {
+      "activeRoom": "projects",
+      "activeTime": "56.781",
+      "cameraPosition": "-3.1724,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":56.781100000000094,\"earthRotation\":0.08517165000000014,\"cloudRotation\":0.1192403100000002,\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "16",
+      "frameP50": "17.50",
+      "frameP95": "50.00",
+      "frameP99": "66.70",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "163",
+      "renderCpuMs": "2.27",
+      "rendererId": "91248e3a-bcdc-4de4-8e0c-210229683a1e",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "611849"
+    }
+  },
+  {
+    "case": "paused-instant-room",
+    "before": {
+      "activeRoom": "projects",
+      "activeTime": "0.000",
+      "cameraPosition": "-3.1724,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":0,\"earthRotation\":0,\"cloudRotation\":0,\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "0.00",
+      "frameP95": "0.00",
+      "frameP99": "0.00",
+      "frameSamples": "0",
+      "hoverRoom": "",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "84",
+      "renderCpuMs": "56.90",
+      "rendererId": "dc76a71a-c3e1-4d97-a201-6191d0a00f00",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "376965"
+    },
+    "after": {
+      "activeRoom": "about",
+      "activeTime": "0.000",
+      "cameraPosition": "2.8276,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":0,\"earthRotation\":0,\"cloudRotation\":0,\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "0.00",
+      "frameP95": "0.00",
+      "frameP99": "0.00",
+      "frameSamples": "0",
+      "hoverRoom": "about",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "renderCpuMs": "41.91",
+      "rendererId": "dc76a71a-c3e1-4d97-a201-6191d0a00f00",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "353677"
+    }
+  },
+  {
+    "case": "paused-clock-stable",
+    "after": {
+      "activeRoom": "about",
+      "activeTime": "0.000",
+      "cameraPosition": "2.8276,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":0,\"earthRotation\":0,\"cloudRotation\":0,\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "0.00",
+      "frameP95": "0.00",
+      "frameP99": "0.00",
+      "frameSamples": "0",
+      "hoverRoom": "about",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "renderCpuMs": "41.91",
+      "rendererId": "dc76a71a-c3e1-4d97-a201-6191d0a00f00",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "353677"
+    }
+  },
+  {
+    "case": "resume-clock",
+    "state": {
+      "activeRoom": "about",
+      "activeTime": "0.183",
+      "cameraPosition": "2.8276,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":0.18320199999999023,\"earthRotation\":0.00027480299999998537,\"cloudRotation\":0.0003847241999999795,\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-38.38470416514449,-198.28071630360986,-88.2550903351957],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.40",
+      "frameP99": "17.40",
+      "frameSamples": "11",
+      "hoverRoom": "",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "renderCpuMs": "11.35",
+      "rendererId": "dc76a71a-c3e1-4d97-a201-6191d0a00f00",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "353677"
+    }
+  },
+  {
+    "case": "desktop-journal",
+    "audit": {
+      "url": "/about",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "violations": [],
+      "passes": 23
+    }
+  },
+  {
+    "case": "desktop-contact",
+    "audit": {
+      "url": "/contact",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "violations": [],
+      "passes": 27
+    }
+  },
+  {
+    "case": "contact-keyboard-resize",
+    "state": {
+      "focus": "contact-message",
+      "message": "Sample QA message to verify draft retention through a keyboard resize and reading mode.",
+      "mode": "orbital-experience public-site is-immersive destination-contact   ",
+      "name": "QA viewport draft"
+    }
+  },
+  {
+    "case": "contact-resize-final",
+    "state": {
+      "focus": "contact-message",
+      "message": "Sample QA message to verify draft retention through a keyboard resize and reading mode.",
+      "mode": "orbital-experience public-site is-readable destination-contact   ",
+      "name": "QA viewport draft"
+    }
+  },
+  {
+    "case": "contact-draft-reading-mode",
+    "state": {
+      "message": "Sample QA message to verify draft retention through a keyboard resize and reading mode.",
+      "mode": "orbital-experience public-site is-readable destination-contact   ",
+      "name": "QA viewport draft"
+    }
+  },
+  {
+    "case": "contact-keyboard-resize-verified",
+    "result": {
+      "focus": "contact-message",
+      "mode": "orbital-experience public-site is-immersive destination-contact   ",
+      "scene": {
+        "activeRoom": "contact",
+        "activeTime": "32.150",
+        "cameraPosition": "-5.7053,0.1478,9.9323",
+        "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+        "contactShading": "false",
+        "environment": "{\"activeTime\":32.14999999999999,\"earthReady\":true,\"earthRotation\":0.04822499999999999,\"cloudRotation\":0.06751499999999998,\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"anisotropy\":8,\"drawCallBudget\":7}",
+        "frameOver50": "0",
+        "frameP50": "16.70",
+        "frameP95": "17.60",
+        "frameP99": "17.60",
+        "frameSamples": "360",
+        "hoverRoom": "",
+        "motion": "active",
+        "projectPage": "0",
+        "quality": "mobile-2k",
+        "readerAttached": "true",
+        "readerCorners": "[[14.597558467428374,117.60619342272133],[374.0846103413751,119.66867586876013],[372.5091251224247,721.5119014975288],[16.196212575026426,723.8572378096948]]",
+        "renderCalls": "43",
+        "renderCpuMs": "1.76",
+        "rendererId": "8d291db8-4fd5-4ed6-8c54-b9800bd65b0e",
+        "shadowsEnabled": "true",
+        "shipRotation": "0,0,0",
+        "travelling": "false",
+        "triangles": "137902"
+      },
+      "values": [
+        {
+          "id": "contact-name",
+          "value": "QA viewport draft"
+        },
+        {
+          "id": "contact-email",
+          "value": ""
+        },
+        {
+          "id": "contact-message",
+          "value": "Sample QA message verifying that a draft survives viewport and reading changes."
+        }
+      ]
+    }
+  },
+  {
+    "case": "contact-draft-mode-switch-final",
+    "result": {
+      "message": "Sample QA message verifying that a draft survives viewport and reading changes.",
+      "mode": "orbital-experience public-site is-readable destination-contact   ",
+      "name": "QA viewport draft",
+      "uniqueIds": 1
+    }
+  },
+  {
+    "case": "mobile-contact-audit",
+    "result": "{\n  \"url\": \"/contact\",\n  \"width\": 390,\n  \"scrollWidth\": 390,\n  \"violations\": [],\n  \"passes\": 27\n}"
+  },
+  {
+    "case": "contact-world-submitted",
+    "result": "Transmission received.\n\nYour message has been saved for the owner to read. Thank you for starting the conversation.\n\nBack to overview"
+  },
+  {
+    "case": "contact-success-mode-switch",
+    "result": "Transmission received.\n\nYour message has been saved for the owner to read. Thank you for starting the conversation.\n\nBack to overview"
+  },
+  {
+    "case": "mobile-dossier-audit",
+    "result": "{\n  \"url\": \"/projects/relay\",\n  \"width\": 390,\n  \"scrollWidth\": 390,\n  \"violations\": [],\n  \"passes\": 23\n}"
+  },
+  {
+    "case": "mobile-dossier-geometry",
+    "result": {
+      "font": "18px",
+      "paper": {
+        "bottom": 723.8585739135742,
+        "height": 606.2537231445312,
+        "left": 14.596761703491213,
+        "right": 374.0853786468506,
+        "top": 117.60485076904295,
+        "width": 359.4886169433594,
+        "x": 14.596761703491213,
+        "y": 117.60485076904295
+      },
+      "scene": {
+        "activeRoom": "projects",
+        "activeTime": "116.150",
+        "cameraPosition": "-3.2053,0.1478,9.9323",
+        "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+        "contactShading": "false",
+        "environment": "{\"activeTime\":116.14979999999986,\"earthReady\":true,\"earthRotation\":0.1742246999999998,\"cloudRotation\":0.2439145799999997,\"meteorPhase\":0,\"meteorCycle\":4,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"anisotropy\":8,\"drawCallBudget\":7}",
+        "frameOver50": "0",
+        "frameP50": "16.70",
+        "frameP95": "17.60",
+        "frameP99": "17.70",
+        "frameSamples": "360",
+        "hoverRoom": "",
+        "motion": "active",
+        "projectPage": "0",
+        "quality": "mobile-2k",
+        "readerAttached": "true",
+        "readerCorners": "[[14.597558467428419,117.60619342272138],[374.0846103413751,119.66867586876018],[372.5091251224247,721.5119014975288],[16.196212575026426,723.8572378096948]]",
+        "renderCalls": "61",
+        "renderCpuMs": "1.54",
+        "rendererId": "66453d77-ff11-45de-abe3-dcc45ce6b8dc",
+        "shadowsEnabled": "true",
+        "shipRotation": "0,0,0",
+        "travelling": "false",
+        "triangles": "188672"
+      },
+      "scrollWidth": 390,
+      "width": 390
+    }
+  },
+  {
+    "case": "320-dossier-audit",
+    "result": "{\n  \"url\": \"/projects/relay\",\n  \"width\": 320,\n  \"scrollWidth\": 320,\n  \"violations\": [],\n  \"passes\": 23\n}"
+  },
+  {
+    "case": "tablet-paper-alignment",
+    "result": {
+      "box": {
+        "bottom": 668.3699951171875,
+        "height": 571.1433715820312,
+        "left": 257.02984619140625,
+        "right": 764.0888671875,
+        "top": 97.22662353515624,
+        "width": 507.05902099609375,
+        "x": 257.02984619140625,
+        "y": 97.22662353515624
+      },
+      "error": 0.005907235158701951,
+      "font": "20px",
+      "scene": {
+        "activeRoom": "projects",
+        "activeTime": "35.634",
+        "cameraPosition": "-3.1325,0.0954,7.0187",
+        "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+        "contactShading": "true",
+        "environment": "{\"activeTime\":35.634200000000256,\"earthReady\":true,\"earthRotation\":0.05345130000000038,\"cloudRotation\":0.07483182000000053,\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-43.98306274625267,-203.39885962206375,-109.68465195330332],\"anisotropy\":8,\"drawCallBudget\":7}",
+        "frameOver50": "0",
+        "frameP50": "16.70",
+        "frameP95": "17.70",
+        "frameP99": "17.70",
+        "frameSamples": "360",
+        "hoverRoom": "",
+        "motion": "active",
+        "projectPage": "0",
+        "quality": "desktop-high",
+        "readerAttached": "true",
+        "readerCorners": "[[257.02393895624755,97.22343372242725],[764.0946621205255,100.23742187101429],[761.8080347193535,664.9639859212978],[259.36289411609755,668.3731632143306]]",
+        "renderCalls": "81",
+        "renderCpuMs": "1.70",
+        "rendererId": "d2d9d839-307c-489c-b066-a30adfe7ffb0",
+        "shadowsEnabled": "true",
+        "shipRotation": "0,0,0",
+        "travelling": "false",
+        "triangles": "219620"
+      }
+    }
+  },
+  {
+    "case": "tablet-dossier-audit",
+    "result": "{\n  \"url\": \"/projects/relay\",\n  \"width\": 1024,\n  \"scrollWidth\": 1024,\n  \"violations\": [],\n  \"passes\": 23\n}"
+  },
+  {
+    "case": "final-pause-start",
+    "result": {
+      "activeRoom": "projects",
+      "activeTime": "140.467",
+      "cameraPosition": "-3.1325,0.0954,7.0187",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":140.46720000000337,\"earthReady\":true,\"earthRotation\":0.21070080000000507,\"cloudRotation\":0.2949811200000071,\"meteorPhase\":0,\"meteorCycle\":4,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-43.98306274625267,-203.39885962206375,-109.68465195330332],\"anisotropy\":8,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.60",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "true",
+      "readerCorners": "[[257.02393895624755,97.22343372242725],[764.0946621205255,100.23742187101429],[761.8080347193535,664.9639859212978],[259.36289411609755,668.3731632143306]]",
+      "renderCalls": "81",
+      "renderCpuMs": "0.94",
+      "rendererId": "d2d9d839-307c-489c-b066-a30adfe7ffb0",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "219620"
+    }
+  },
+  {
+    "case": "final-pause-still",
+    "result": {
+      "activeRoom": "projects",
+      "activeTime": "140.467",
+      "cameraPosition": "-3.1325,0.0954,7.0187",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":140.46720000000337,\"earthReady\":true,\"earthRotation\":0.21070080000000507,\"cloudRotation\":0.2949811200000071,\"meteorPhase\":0,\"meteorCycle\":4,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-43.98306274625267,-203.39885962206375,-109.68465195330332],\"anisotropy\":8,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.60",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "true",
+      "readerCorners": "[[257.02393895624755,97.22343372242725],[764.0946621205255,100.23742187101429],[761.8080347193535,664.9639859212978],[259.36289411609755,668.3731632143306]]",
+      "renderCalls": "81",
+      "renderCpuMs": "0.94",
+      "rendererId": "d2d9d839-307c-489c-b066-a30adfe7ffb0",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "219620"
+    }
+  },
+  {
+    "case": "paused-room-navigation",
+    "result": {
+      "activeRoom": "projects",
+      "activeTime": "140.467",
+      "cameraPosition": "-3.1724,0.1241,7.1967",
+      "cameraQuaternion": "-0.008995,-0.012497,-0.000112,0.999881",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":140.46720000000337,\"earthReady\":true,\"earthRotation\":0.21070080000000507,\"cloudRotation\":0.2949811200000071,\"meteorPhase\":0,\"meteorCycle\":4,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-43.98306274625267,-203.39885962206375,-109.68465195330332],\"anisotropy\":8,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.60",
+      "frameSamples": "360",
+      "hoverRoom": "projects",
+      "motion": "reduced",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "readerCorners": "[[257.02393895624755,97.22343372242725],[764.0946621205255,100.23742187101429],[761.8080347193535,664.9639859212978],[259.36289411609755,668.3731632143306]]",
+      "renderCalls": "76",
+      "renderCpuMs": "0.89",
+      "rendererId": "d2d9d839-307c-489c-b066-a30adfe7ffb0",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "212452"
+    }
+  },
+  {
+    "case": "final-desktop-overview",
+    "result": {
+      "activeRoom": "home",
+      "activeTime": "17.284",
+      "cameraPosition": "-4.1726,3.3542,14.8835",
+      "cameraQuaternion": "-0.103224,-0.135340,-0.014179,0.985305",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":17.284199999999892,\"earthReady\":true,\"earthRotation\":0.02592629999999984,\"cloudRotation\":0.03629681999999977,\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-40.28037078237609,-199.99155387878602,-95.35766887317614],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.60",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "108",
+      "renderCpuMs": "2.49",
+      "rendererId": "039a1921-b678-41e6-acc8-f36650e90d07",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0.065",
+      "travelling": "false",
+      "triangles": "418151"
+    }
+  },
+  {
+    "case": "final-desktop-hover",
+    "result": {
+      "activeRoom": "home",
+      "activeTime": "149.283",
+      "cameraPosition": "-4.3376,3.2838,14.6736",
+      "cameraQuaternion": "-0.102027,-0.141558,-0.014669,0.984549",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":149.28300000000823,\"earthReady\":true,\"earthRotation\":0.22392450000001235,\"cloudRotation\":0.31349430000001727,\"meteorPhase\":0,\"meteorCycle\":5,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-40.28037078237609,-199.99155387878602,-95.35766887317614],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.40",
+      "frameP99": "34.20",
+      "frameSamples": "360",
+      "hoverRoom": "projects",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "211",
+      "renderCpuMs": "1.55",
+      "rendererId": "039a1921-b678-41e6-acc8-f36650e90d07",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0.065",
+      "travelling": "false",
+      "triangles": "694221"
+    }
+  },
+  {
+    "case": "final-desktop-room",
+    "result": {
+      "activeRoom": "projects",
+      "activeTime": "160.284",
+      "cameraPosition": "-3.2866,0.1223,7.1930",
+      "cameraQuaternion": "-0.008864,-0.020776,-0.000184,0.999745",
+      "contactShading": "true",
+      "environment": "{\"activeTime\":160.28380000000945,\"earthReady\":true,\"earthRotation\":0.24042570000001418,\"cloudRotation\":0.33659598000001983,\"meteorPhase\":0,\"meteorCycle\":5,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-40.28037078237609,-199.99155387878602,-95.35766887317614],\"anisotropy\":16,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.50",
+      "frameP99": "34.30",
+      "frameSamples": "360",
+      "hoverRoom": "projects",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "desktop-high",
+      "readerAttached": "false",
+      "renderCalls": "81",
+      "renderCpuMs": "2.05",
+      "rendererId": "039a1921-b678-41e6-acc8-f36650e90d07",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0",
+      "travelling": "false",
+      "triangles": "356856"
+    }
+  },
+  {
+    "case": "final-history-and-focus",
+    "result": {
+      "focus": "fieldnotes",
+      "scene": {
+        "activeRoom": "projects",
+        "activeTime": "186.234",
+        "cameraPosition": "-3.2866,0.1223,7.1930",
+        "cameraQuaternion": "-0.008864,-0.020776,-0.000184,0.999745",
+        "contactShading": "true",
+        "environment": "{\"activeTime\":186.23370000001302,\"earthReady\":true,\"earthRotation\":0.2793505500000195,\"cloudRotation\":0.3910907700000273,\"meteorPhase\":0,\"meteorCycle\":6,\"meteorVisible\":false,\"textureSize\":8192,\"dayTextureSize\":5400,\"cloudTextureSize\":8192,\"estimatedTextureMiB\":244.8,\"earthRadius\":180,\"earthPosition\":[-40.28037078237609,-199.99155387878602,-95.35766887317614],\"anisotropy\":16,\"drawCallBudget\":7}",
+        "frameOver50": "0",
+        "frameP50": "17.00",
+        "frameP95": "33.40",
+        "frameP99": "34.00",
+        "frameSamples": "360",
+        "hoverRoom": "projects",
+        "motion": "active",
+        "projectPage": "0",
+        "quality": "desktop-high",
+        "readerAttached": "false",
+        "readerCorners": "[[437.5212797390133,162.29065461550056],[999.6458645338632,165.2252609565382],[997.3925669116563,791.9888491657118],[439.8202734427215,795.3756643580052]]",
+        "renderCalls": "81",
+        "renderCpuMs": "1.95",
+        "rendererId": "039a1921-b678-41e6-acc8-f36650e90d07",
+        "shadowsEnabled": "true",
+        "shipRotation": "0,0,0",
+        "travelling": "false",
+        "triangles": "356856"
+      }
+    }
+  },
+  {
+    "case": "final-webgl-fallback",
+    "result": {
+      "canvasCount": 0,
+      "hasBiography": true,
+      "headings": [
+        "A little more human",
+        "Mikael Vincent",
+        "My story",
+        "How I work",
+        "Beyond the screen"
+      ],
+      "mode": "orbital-experience public-site is-readable destination-about   "
+    }
+  },
+  {
+    "case": "production-mobile-overview",
+    "result": {
+      "activeRoom": "home",
+      "activeTime": "44.517",
+      "cameraPosition": "-9.5327,7.4895,33.8198",
+      "cameraQuaternion": "-0.103224,-0.135340,-0.014179,0.985305",
+      "contactShading": "false",
+      "environment": "{\"activeTime\":44.51650000000048,\"earthReady\":true,\"earthRotation\":0.06677475000000072,\"cloudRotation\":0.093484650000001,\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"anisotropy\":8,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.70",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "mobile-2k",
+      "readerAttached": "false",
+      "renderCalls": "107",
+      "renderCpuMs": "2.45",
+      "rendererId": "646e22e5-4825-45b0-9f70-6c9a116ef9e1",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0.91",
+      "travelling": "false",
+      "triangles": "324454"
+    }
+  },
+  {
+    "case": "production-short-viewport-fallback",
+    "result": {
+      "canvasCount": 0,
+      "h1": "Relay",
+      "mode": "orbital-experience public-site is-readable destination-projects has-dossier  ",
+      "scrollWidth": 720,
+      "width": 720
+    }
+  },
+  {
+    "case": "timed-natural-meteor-and-earth",
+    "before": {
+      "activeTime": 39.3507,
+      "anisotropy": 8,
+      "cloudRotation": 0.08263646999999999,
+      "cloudTextureSize": 2048,
+      "dayTextureSize": 2048,
+      "drawCallBudget": 7,
+      "earthPosition": [
+        -94.35802770540111,
+        -247.33992051593836,
+        -331.53813527139283
+      ],
+      "earthRadius": 180,
+      "earthReady": true,
+      "earthRotation": 0.05902605,
+      "estimatedTextureMiB": 21.3,
+      "meteorCycle": 1,
+      "meteorPhase": 0,
+      "meteorVisible": false,
+      "textureSize": 2048
+    },
+    "after": {
+      "activeTime": 42.31730000000013,
+      "anisotropy": 8,
+      "cloudRotation": 0.08886633000000027,
+      "cloudTextureSize": 2048,
+      "dayTextureSize": 2048,
+      "drawCallBudget": 7,
+      "earthPosition": [
+        -94.35802770540111,
+        -247.33992051593836,
+        -331.53813527139283
+      ],
+      "earthRadius": 180,
+      "earthReady": true,
+      "earthRotation": 0.0634759500000002,
+      "estimatedTextureMiB": 21.3,
+      "meteorCycle": 1,
+      "meteorPhase": 0.628270379057729,
+      "meteorVisible": true,
+      "textureSize": 2048
+    },
+    "waitMs": 2828.6538977416812
+  },
+  {
+    "case": "final-mobile-framing",
+    "result": {
+      "activeRoom": "home",
+      "activeTime": "73.033",
+      "cameraPosition": "-9.7715,8.1538,37.0093",
+      "cameraQuaternion": "-0.103224,-0.135340,-0.014179,0.985305",
+      "contactShading": "false",
+      "environment": "{\"activeTime\":73.03300000000155,\"earthReady\":true,\"earthRotation\":0.10954950000000233,\"cloudRotation\":0.15336930000000323,\"meteorPhase\":0,\"meteorCycle\":2,\"meteorVisible\":false,\"textureSize\":2048,\"dayTextureSize\":2048,\"cloudTextureSize\":2048,\"estimatedTextureMiB\":21.3,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"anisotropy\":8,\"drawCallBudget\":7}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameP99": "17.70",
+      "frameSamples": "360",
+      "hoverRoom": "",
+      "motion": "active",
+      "projectPage": "0",
+      "quality": "mobile-2k",
+      "readerAttached": "false",
+      "renderCalls": "107",
+      "renderCpuMs": "2.51",
+      "rendererId": "89e9a604-7287-4a9f-97f3-75e25e85914b",
+      "shadowsEnabled": "true",
+      "shipRotation": "0,0,0.91",
+      "travelling": "false",
+      "triangles": "324454"
+    }
+  }
+]

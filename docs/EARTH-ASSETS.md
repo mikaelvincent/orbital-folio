@@ -1,41 +1,23 @@
-# Earth texture provenance
+# Earth texture provenance and rendering budgets
 
-Verified and downloaded 2026-09-09. These are actual NASA satellite-data composites, not AI-generated Earth imagery.
+Verified 2026-09-09. These maps derive from NASA satellite-data composites, not generated imagery. The cloud source is a native 8192×4096 TIFF; the high tier does not enlarge the old 2K cloud map.
 
-## Daytime color map
+| Selected tier | Day / cloud dimensions | Transfer bytes | GPU RGBA8 texture payload, with mipmaps |
+| --- | --- | ---: | ---: |
+| High desktop | 5400×2700 / 8192×4096 | 6,889,306 | 244.82 MiB |
+| Default desktop / tablet | 4096×2048 / 4096×2048 | 2,926,348 | 85.33 MiB |
+| Mobile / low texture limit | 2048×1024 / 2048×1024 | 859,258 | 21.33 MiB |
 
-- Recommended file: earth-day-2048.webp (2048 x 1024, RGB, 152768 bytes)
-- JPEG alternative: earth-day-2048.jpg (2048 x 1024, RGB, 236097 bytes)
-- Original: earth-day-nasa-original-5400.jpg (5400 x 2700, 1617810 bytes)
-- NASA product: Blue Marble: Next Generation, July 2004, base map without baked topographic relief.
-- Product page: https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/
-- Direct download: https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg
-- Credit: NASA Earth Observatory. Created by Reto Stöckli, NASA Goddard Space Flight Center.
-- Credit source: https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/
-- Processing: Lanczos resize to 2048 x 1024. WebP quality 86, method 6; JPEG quality 88, progressive, optimized. No artistic changes.
+High requires at least eight hardware threads, **reported** device memory of at least 8 GB and adequate texture support. Missing memory information selects the default tier. Width below 700 pixels selects mobile. The actual maximum texture size can lower either tier further. Selection occurs on scene creation, so resizing alone does not download replacement maps. Reading view exits the renderer. The environment also supports an unused optional 4K mobile-cloud setting; it is not enabled by this application.
 
-## Cloud opacity map
+GPU figures sum all actual integer mip dimensions. They are texture payload estimates, not measured process memory; decoding and driver overhead are additional. The grayscale cloud content uploads through a normal four-channel texture. Native 5400 day uses WebP quality90, native8K cloud quality82; 4K day/cloud use92/88; 2K uses90. The six exact asset hashes are recorded in `docs/evidence/mockup-revision/earth-texture-manifest.json`.
 
-- Recommended file: earth-clouds-2048.webp (2048 x 1024, grayscale, 351856 bytes)
-- Smaller alternative: earth-clouds-1024.webp (1024 x 512, grayscale, 128162 bytes)
-- JPEG alternative: earth-clouds-2048.jpg (2048 x 1024, grayscale, 644917 bytes)
-- Original: earth-clouds-nasa-original-2048.jpg (2048 x 1024, 829367 bytes)
-- NASA product: Blue Marble: Clouds (2002), a multi-day MODIS composite with polar infrared data.
-- Catalog page: https://visibleearth.nasa.gov/images/57747/blue-marble-clouds/77558l
-- NASA Visible Earth catalog pages currently redirect to the Earth Observatory home after website migration; the NASA-hosted original binary remains available and returned HTTP 200 with image/jpeg content.
-- Direct download: https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg
-- Credit: NASA Goddard Space Flight Center / Reto Stöckli; enhancements by Robert Simmon.
-- Supporting current NASA source for original Blue Marble composites: https://science.nasa.gov/earth/earth-observatory/the-blue-marble-2181/
-- Processing: Converted equal-channel RGB image to grayscale. WebP quality 74, method 6. Small alternative uses Lanczos resize and quality 80. JPEG alternative quality 88, progressive, optimized. White represents cloud coverage; black represents clear sky. It is an opacity/data map, not a premultiplied RGBA texture.
+## Sources
 
-## Usage and attribution
+- Day: [NASA Blue Marble: Next Generation, July2004 base map](https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/), created by Reto Stöckli, NASA Goddard Space Flight Center. [Original5400 JPEG](https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg). Credit: **NASA Earth Observatory**.
+- Clouds: NASA Blue Marble: Clouds (2002), NASA Goddard Space Flight Center / Reto Stöckli, enhancements by Robert Simmon. [Original8192 TIFF](https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif). The former Visible Earth catalog page redirects after NASA's website migration; the original image binary remained available.
+- Terms: [NASA images and media guidance](https://www.nasa.gov/nasa-brand-center/images-and-media/). Acknowledge NASA and do not imply endorsement. These Earth-only images contain no NASA logo, identifiable person or third-party copyright notice. They do not inherit the Three.js MIT code license.
 
-NASA content is generally not subject to copyright in the United States. NASA's media guidelines permit personal webpages and computer graphical simulations; acknowledge NASA as the imagery source and do not imply NASA endorsement. These Earth-only assets have no NASA logos, people, or third-party copyright notices. The applicable terms are NASA media-use guidelines, not CC-BY or the Three.js MIT code license.
+Both maps use equirectangular 2:1 UVs. Color uses sRGB; cloud opacity uses no color-space conversion. Downsampling uses Lanczos, followed by WebP encoding. The shader lifts dark, blue-dominant ocean color while preserving land/ice detail. Separate slowly rotating cloud and atmosphere shells provide depth. Mipmaps and anisotropic filtering reduce oblique shimmer. A two-map readiness gate prevents partially loaded Earth from appearing.
 
-Policy: https://www.nasa.gov/nasa-brand-center/images-and-media/
-
-Suggested short site credit: “Earth imagery: NASA Earth Observatory. Clouds: NASA / Reto Stöckli.”
-
-## Rendering notes
-
-Both maps use global 2:1 equirectangular projection and can share sphere UVs. Use sRGB color handling for the daytime map and no color-space conversion for the cloud opacity map. NASA's deep-ocean base is uniformly dark blue; directional sunlight, modest ocean specularity, and a restrained atmosphere rim supply the visible globe's lighting and shape. Put clouds on a sphere approximately 1.003 to 1.008 times the surface radius, with slightly different slow rotation, low alpha threshold and depthWrite disabled. Keep atmosphere shells separate from opaque Earth geometry.
+Stars, meteors, navy background and atmosphere are procedural project source. Suggested attribution: “Earth imagery: NASA Earth Observatory. Clouds: NASA / Reto Stöckli.”

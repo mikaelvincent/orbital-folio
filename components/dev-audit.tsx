@@ -7,32 +7,32 @@ export function DevAudit() {
 function AuditPanel() {
   const [report, setReport] = useState<any>(null);
   async function runAudit() {
-      try {
-        const axe = (await import('axe-core')).default;
-        const result = await axe.run(document, {
-          runOnly: {
-            type: 'tag',
-            values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
-          },
-        });
-        setReport({
-            url: location.pathname,
-            width: innerWidth,
-            scrollWidth: document.documentElement.scrollWidth,
-            violations: result.violations.map((v) => ({
-              id: v.id,
-              impact: v.impact,
-              description: v.description,
-              nodes: v.nodes.map((n) => ({
-                target: n.target,
-                summary: n.failureSummary,
-              })),
-            })),
-            passes: result.passes.length,
-          });
-      } catch (e) {
-        setReport({ error: String(e) });
-      }
+    try {
+      const axe = (await import('axe-core')).default;
+      const result = await axe.run(document, {
+        runOnly: {
+          type: 'tag',
+          values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+        },
+      });
+      setReport({
+        url: location.pathname,
+        width: innerWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        violations: result.violations.map((v) => ({
+          id: v.id,
+          impact: v.impact,
+          description: v.description,
+          nodes: v.nodes.map((n) => ({
+            target: n.target,
+            summary: n.failureSummary,
+          })),
+        })),
+        passes: result.passes.length,
+      });
+    } catch (e) {
+      setReport({ error: String(e) });
+    }
   }
   useEffect(() => {
     if (new URLSearchParams(location.search).get('audit') !== '1') return;
@@ -46,7 +46,9 @@ function AuditPanel() {
         Development accessibility audit · {report.violations?.length ?? '?'}{' '}
         violations
       </summary>
-      <button type="button" className="button" onClick={runAudit}>Run accessibility audit</button>
+      <button type="button" className="button" onClick={runAudit}>
+        Run accessibility audit
+      </button>
       <button
         type="button"
         className="button"
@@ -58,6 +60,15 @@ function AuditPanel() {
         }}
       >
         Simulate WebGL context loss
+      </button>
+      <button
+        type="button"
+        className="button"
+        onClick={() =>
+          window.dispatchEvent(new Event('orbital:shadow-diagnostic'))
+        }
+      >
+        Toggle shadow diagnostic
       </button>
       <pre id="qa-result">{JSON.stringify(report, null, 2)}</pre>
     </details>

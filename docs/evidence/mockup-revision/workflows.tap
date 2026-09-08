@@ -1,0 +1,29 @@
+
+> orbital-folio@0.1.0 test
+> node --test --test-concurrency=1 tests/*.test.mjs
+
+✔ Contact messages are durable, private, honest, bounded, and rate limited (202.300708ms)
+✔ Flight destinations preserve public and private readable URLs (1.015333ms)
+✔ Fixed flights ease continuously and pointer translations stay bounded (2.278208ms)
+✔ In-place navigation and server rendering share editable metadata (0.515292ms)
+✔ Cursor rotation stays bounded and damping is independent of refresh rate (0.19575ms)
+▶ Persistent portfolio workflows and security boundaries
+  ✔ anonymous and forged identities cannot read or mutate the studio (152.522042ms)
+  ✔ local SIWC sign-in and first-owner claim work without a default password (18.93525ms)
+  ✔ CSRF, malformed bodies, and immutable site protection reject safely (55.668125ms)
+  ✔ published snapshots stay stable while drafts change; optimistic conflicts reject (457.181042ms)
+  ✔ collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions (170.794042ms)
+  ✔ another owner can replace every site field through the authenticated content interface (394.055ms)
+  ✔ media bytes persist privately, publish safely, and appear in a project (163.502167ms)
+  ✔ script text is escaped and portable exports exclude credentials and inquiries (86.782709ms)
+  ✔ all public content is present in plain HTTP HTML with meaningful metadata and URLs (511.11175ms)
+  ✔ local sign-out clears the session cookie (5.99825ms)
+✔ Persistent portfolio workflows and security boundaries (2496.11825ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8983.009875

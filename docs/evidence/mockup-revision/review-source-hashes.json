@@ -1,0 +1,29 @@
+{
+  "at": "2026-09-08T19:05:48.219Z",
+  "hashes": [
+    {
+      "path": "components/spacecraft.tsx",
+      "sha256": "7624409cd30c49ce0d739b132e990943d9df5ddfa403221025abce62c4e70400"
+    },
+    {
+      "path": "components/spacecraft-model.ts",
+      "sha256": "03c0dbb03d044d8360810aa95c5d9020600770aac2ddc0bbf76a7ebe44ac2816"
+    },
+    {
+      "path": "components/orbital-environment.ts",
+      "sha256": "abc3ee6eca79476aff72f365a8feab507879f8a096b12123648616af5e5bab3d"
+    },
+    {
+      "path": "components/world-reader.tsx",
+      "sha256": "f5d275309690277822e2c45378525b58c56bbeaf14f80b6bad1ff29a7c682fc6"
+    },
+    {
+      "path": "components/immersive-portfolio.tsx",
+      "sha256": "3095bca518d738f1df1e65ee1a23cabf104bd4ca7e6eca7850a79bb5e0ad9940"
+    },
+    {
+      "path": "components/contact-form.tsx",
+      "sha256": "8cdc7a50153d9b96ba996a87cb5de62f6c02e5c450364b926fb7da51fe892181"
+    }
+  ]
+}

@@ -2,17 +2,46 @@
 import { useState } from 'react';
 import { pathFor } from '@/lib/paths';
 import { Radio, ArrowUpRight, Check, UserRound, Box } from 'lucide-react';
+export type ContactSubmission = {
+  status: 'idle' | 'sending' | 'sent';
+  error: string;
+};
+export type ContactDraft = {
+  name?: string;
+  email?: string;
+  message?: string;
+  intent?: string;
+};
 export function ContactForm({
   site: s,
   initialSent = false,
   initialError = false,
+  draft,
+  onDraftChange,
+  onSent,
+  submission,
+  onSubmissionChange,
 }: {
   site: Record<string, any>;
   initialSent?: boolean;
   initialError?: boolean;
+  submission?: ContactSubmission;
+  onSubmissionChange?: (value: ContactSubmission) => void;
+  draft?: ContactDraft;
+  onDraftChange?: (draft: ContactDraft) => void;
+  onSent?: () => void;
 }) {
-  const [status, setStatus] = useState(initialSent ? 'sent' : 'idle');
-  const [error, setError] = useState(initialError ? s.contactError : '');
+  const [localSubmission, setLocalSubmission] = useState<ContactSubmission>({
+    status: 'idle',
+    error: initialError ? s.contactError : '',
+  });
+  const current = submission || localSubmission;
+  const status = initialSent ? 'sent' : current.status;
+  const error = current.error || (initialError ? s.contactError : '');
+  const updateSubmission = (value: ContactSubmission) => {
+    setLocalSubmission(value);
+    onSubmissionChange?.(value);
+  };
   return (
     <div className="comms-screen">
       {status === 'sent' ? (
@@ -31,11 +60,24 @@ export function ContactForm({
         <form
           action="/api/contact"
           method="post"
+          onChange={(e) => {
+            const values = new FormData(e.currentTarget);
+            const textValue = (key: string, fallback = '') => {
+              const value = values.get(key);
+              return typeof value === 'string' ? value : fallback;
+            };
+            onDraftChange?.({
+              name: textValue('name'),
+              email: textValue('email'),
+              message: textValue('message'),
+              intent: textValue('intent', 'interview'),
+            });
+          }}
           onSubmit={async (e) => {
             e.preventDefault();
+            if (status === 'sending') return;
             const form = e.currentTarget;
-            setStatus('sending');
-            setError('');
+            updateSubmission({ status: 'sending', error: '' });
             try {
               const response = await fetch('/api/contact', {
                 method: 'POST',
@@ -43,10 +85,10 @@ export function ContactForm({
                 body: new FormData(form),
               });
               if (!response.ok) throw new Error(s.contactError);
-              setStatus('sent');
+              updateSubmission({ status: 'sent', error: '' });
+              onSent?.();
             } catch {
-              setError(s.contactError);
-              setStatus('idle');
+              updateSubmission({ status: 'idle', error: s.contactError });
             }
           }}
         >
@@ -57,7 +99,7 @@ export function ContactForm({
                 type="radio"
                 name="intent"
                 value="interview"
-                defaultChecked
+                defaultChecked={!draft?.intent || draft.intent === 'interview'}
               />
               <span>
                 <UserRound size={19} />
@@ -65,7 +107,12 @@ export function ContactForm({
               </span>
             </label>
             <label>
-              <input type="radio" name="intent" value="project" />
+              <input
+                type="radio"
+                name="intent"
+                value="project"
+                defaultChecked={draft?.intent === 'project'}
+              />
               <span>
                 <Box size={19} />
                 {s.inquiryLabel}
@@ -77,6 +124,7 @@ export function ContactForm({
             <input
               name="name"
               id="contact-name"
+              defaultValue={draft?.name}
               autoComplete="name"
               maxLength={120}
               required
@@ -88,6 +136,7 @@ export function ContactForm({
               type="email"
               name="email"
               id="contact-email"
+              defaultValue={draft?.email}
               autoComplete="email"
               maxLength={254}
               required
@@ -98,6 +147,7 @@ export function ContactForm({
             <textarea
               name="message"
               id="contact-message"
+              defaultValue={draft?.message}
               rows={5}
               minLength={10}
               maxLength={5000}
@@ -130,7 +180,8 @@ export function ContactForm({
             <Radio size={18} />
           </button>
           <p className="contact-privacy" id="contact-privacy">
-            {s.contactPrivacy} <a href={pathFor('/privacy', s)}>{s.privacyLabel} ↗</a>
+            {s.contactPrivacy}{' '}
+            <a href={pathFor('/privacy', s)}>{s.privacyLabel} ↗</a>
           </p>
         </form>
       )}
