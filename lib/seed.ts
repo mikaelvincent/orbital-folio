@@ -1,3 +1,4 @@
+import { gridSamples } from './sample-projects.mjs';
 // Initial fixtures only. Public rendering always reads persistent database records.
 export const seedSite = {
   notFoundEyebrow: '404 / OFF COURSE',
@@ -33,7 +34,7 @@ export const seedSite = {
   contactLabel: 'Contact',
   exploreLabel: 'Explore the ship',
   readLabel: 'Reading view',
-  sceneLabel: 'Ship view',
+  sceneLabel: 'Interactive view',
   inviteLabel: 'Let’s talk',
   projectCta: 'View case study',
   demoLabel: 'Open live project',
@@ -311,3 +312,5 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
       },
     },
   ];
+
+seeds.push(...gridSamples);

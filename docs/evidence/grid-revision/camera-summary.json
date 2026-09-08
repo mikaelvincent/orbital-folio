@@ -1,0 +1,71 @@
+{
+  "sampling": "Compact trace preserves every fourth sample plus section changes; raw helper tests verify per-step controller limits.",
+  "events": [
+    {
+      "room": "about",
+      "time": 134690,
+      "targetVelocity": [
+        -0.017182,
+        -0.000002,
+        0
+      ]
+    },
+    {
+      "room": "projects",
+      "time": 148473.3,
+      "targetVelocity": [
+        -0.015118,
+        0.667998,
+        0
+      ]
+    },
+    {
+      "room": "contact",
+      "time": 149455.9,
+      "targetVelocity": [
+        0.675993,
+        -0.595973,
+        0
+      ]
+    },
+    {
+      "room": "about",
+      "time": 149956.3,
+      "targetVelocity": [
+        2.301976,
+        -2.819987,
+        0
+      ]
+    }
+  ],
+  "pauses": [
+    {
+      "case": "strong-pause-before",
+      "position": "-5.1131,3.9565,18.0363",
+      "quaternion": "-0.102460,-0.139063,-0.014467,0.984862",
+      "activeTime": "31.312",
+      "motion": "active"
+    },
+    {
+      "case": "strong-pause-frozen-a",
+      "position": "-5.1131,3.9565,18.0363",
+      "quaternion": "-0.102460,-0.139063,-0.014467,0.984862",
+      "activeTime": "31.462",
+      "motion": "reduced"
+    },
+    {
+      "case": "strong-pause-frozen-b",
+      "position": "-5.1131,3.9565,18.0363",
+      "quaternion": "-0.102460,-0.139063,-0.014467,0.984862",
+      "activeTime": "31.462",
+      "motion": "reduced"
+    },
+    {
+      "case": "strong-resume-first",
+      "position": "-5.1131,3.9565,18.0363",
+      "quaternion": "-0.102460,-0.139063,-0.014467,0.984862",
+      "activeTime": "31.462",
+      "motion": "active"
+    }
+  ]
+}

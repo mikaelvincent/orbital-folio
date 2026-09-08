@@ -1,0 +1,186 @@
+{
+  "scope": "Built Worker on loopback; warm full-response latency, not network or real-device Core Web Vitals. Gzip is computed, not assumed transport compression.",
+  "chunks": [
+    {
+      "name": "CSS3DRenderer-bhnWx0kb.js",
+      "bytes": 3805,
+      "gzipBytes": 1506
+    },
+    {
+      "name": "GTAOPass-6czIE23t.js",
+      "bytes": 30672,
+      "gzipBytes": 7840
+    },
+    {
+      "name": "Icon-jpk45vUa.js",
+      "bytes": 1082,
+      "gzipBytes": 659
+    },
+    {
+      "name": "Pass-2HGPRuk_.js",
+      "bytes": 760,
+      "gzipBytes": 436
+    },
+    {
+      "name": "RoomEnvironment-DAogZLth.js",
+      "bytes": 2132,
+      "gzipBytes": 942
+    },
+    {
+      "name": "admin-studio-D28oPItt.js",
+      "bytes": 136737,
+      "gzipBytes": 44551
+    },
+    {
+      "name": "contact-form-g1xmV2QG.js",
+      "bytes": 4064,
+      "gzipBytes": 1654
+    },
+    {
+      "name": "dev-audit-zU2yVafP.js",
+      "bytes": 145,
+      "gzipBytes": 147
+    },
+    {
+      "name": "framework-DTZGTDtF.js",
+      "bytes": 190109,
+      "gzipBytes": 59048
+    },
+    {
+      "name": "immersive-portfolio-ojgFM8ql.js",
+      "bytes": 46621,
+      "gzipBytes": 14750
+    },
+    {
+      "name": "index-ftC8b1ap.js",
+      "bytes": 118209,
+      "gzipBytes": 33279
+    },
+    {
+      "name": "layout-segment-context-BHvy4UzM.js",
+      "bytes": 496,
+      "gzipBytes": 346
+    },
+    {
+      "name": "orbit-CTRZ45eY.js",
+      "bytes": 344,
+      "gzipBytes": 234
+    },
+    {
+      "name": "orbital-environment-BIFnDj9P.js",
+      "bytes": 13934,
+      "gzipBytes": 5137
+    },
+    {
+      "name": "radio-ChOZJHGg.js",
+      "bytes": 1049,
+      "gzipBytes": 609
+    },
+    {
+      "name": "rolldown-runtime-hePW80VL.js",
+      "bytes": 716,
+      "gzipBytes": 430
+    },
+    {
+      "name": "spacecraft-model-Dv95kjyp.js",
+      "bytes": 35245,
+      "gzipBytes": 13841
+    },
+    {
+      "name": "three.module-kRnP-91l.js",
+      "bytes": 724214,
+      "gzipBytes": 182517
+    },
+    {
+      "name": "vinext-CyxL-dYc.js",
+      "bytes": 111711,
+      "gzipBytes": 32931
+    }
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "completeResponseMs": [
+        14.65,
+        12.45,
+        12.48,
+        12.95,
+        12.21
+      ],
+      "htmlBytes": 66938,
+      "htmlGzipBytes": 13396,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/projects",
+      "completeResponseMs": [
+        12.63,
+        12.79,
+        11.99,
+        11.08,
+        12.68
+      ],
+      "htmlBytes": 67132,
+      "htmlGzipBytes": 13504,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/projects/relay",
+      "completeResponseMs": [
+        11.69,
+        11.75,
+        11.95,
+        12.97,
+        12.01
+      ],
+      "htmlBytes": 57541,
+      "htmlGzipBytes": 14023,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/experience",
+      "completeResponseMs": [
+        12.57,
+        11.89,
+        10.94,
+        11.15,
+        12.14
+      ],
+      "htmlBytes": 54542,
+      "htmlGzipBytes": 13180,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/about",
+      "completeResponseMs": [
+        11.62,
+        13.46,
+        11.3,
+        9.69,
+        13.72
+      ],
+      "htmlBytes": 53567,
+      "htmlGzipBytes": 13051,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/contact",
+      "completeResponseMs": [
+        11.52,
+        10.53,
+        10.54,
+        11.71,
+        11.05
+      ],
+      "htmlBytes": 49540,
+      "htmlGzipBytes": 12847,
+      "hasMain": true,
+      "h1Count": 1
+    }
+  ]
+}

@@ -62,3 +62,38 @@ export function cursorRotation(x: number, y: number, disabled: boolean) {
 export function damping(delta: number, speed = 8) {
   return 1 - Math.exp(-Math.max(0, Math.min(0.1, delta)) * speed);
 }
+
+export const PROJECTS_PER_PAGE = 9;
+export type MotionAxis = { value: number; velocity: number };
+
+/** A critically damped camera spring with explicit speed and acceleration limits.
+ * Velocity survives target changes, so rapid pointer reversals never restart an ease.
+ */
+export function moveCameraAxis(
+  axis: MotionAxis,
+  target: number,
+  delta: number,
+  limits = { frequency: 10, speed: 12, acceleration: 40 },
+) {
+  if (!Number.isFinite(target)) return axis.value;
+  const duration = Number.isFinite(delta)
+    ? Math.max(0, Math.min(0.05, delta))
+    : 0;
+  const steps = Math.max(1, Math.ceil(duration * 120));
+  const dt = duration / steps;
+  for (let i = 0; i < steps; i++) {
+    const force =
+      limits.frequency ** 2 * (target - axis.value) -
+      2 * limits.frequency * axis.velocity;
+    const acceleration = Math.max(
+      -limits.acceleration,
+      Math.min(limits.acceleration, force),
+    );
+    axis.velocity = Math.max(
+      -limits.speed,
+      Math.min(limits.speed, axis.velocity + acceleration * dt),
+    );
+    axis.value += axis.velocity * dt;
+  }
+  return axis.value;
+}

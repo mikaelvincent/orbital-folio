@@ -1,0 +1,12 @@
+{
+  "components/spacecraft.tsx": "dab68ac9f3fb22caccd7edfc2a56a1731883771a185a7c72c68283b1f59b9fbb",
+  "components/spacecraft-model.ts": "6357d2b8153fa7104f97ff7f12552e8010800a22b59e689b250458f8dc43f6e5",
+  "components/orbital-environment.ts": "5e0e7ae424831ba61c6fce9e565734526ba4bfe541b239100094d02aa63811c2",
+  "components/scene-loader.tsx": "1056c90afc48c38e6e00daa24227250d67eacce9631b790a65726555a78eda79",
+  "components/immersive-portfolio.tsx": "fb1f9bb51deb8d9b593b15b8e6753b0d4635f613caf82fddd15a22698f62f253",
+  "app/globals.css": "35514b2e83618b3251c2d7467534ca5cb2e230df0b263af8ceb4b3bea44dcbf7",
+  "lib/flight.ts": "e2aebdd6174b8c1830940452db3d048da08c5de748c8f1513d18866ec556b134",
+  "lib/seed.ts": "a1ec4180cedf50a3d6e87e2f3e6b2fc134c482c0d0c4fda9bd3162a93467d35f",
+  "lib/sample-projects.mjs": "042d2fb1f197330d097c5ef0ce9f4da55c70606623b67ed8850aefd93902bb18",
+  "drizzle/0003_interactive_view.sql": "ebb784cca58a45ea784c14b14c9837926a7be116483d256b093544dd8b3fc54a"
+}

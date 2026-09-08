@@ -1,7 +1,12 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { Orbit } from 'lucide-react';
-import { cursorRotation, damping, flightEase } from '@/lib/flight';
+import { SceneLoader } from './scene-loader';
+import {
+  cursorRotation,
+  moveCameraAxis,
+  PROJECTS_PER_PAGE,
+  type MotionAxis,
+} from '@/lib/flight';
 import type * as Three from 'three';
 
 type Props = {
@@ -60,15 +65,24 @@ export function Spacecraft(props: Props) {
       return;
     }
     setState('loading');
-    Promise.all([
-      import('three'),
-      import('./spacecraft-model'),
-      import('./orbital-environment'),
-      import('three/addons/environments/RoomEnvironment.js'),
-      import('three/addons/renderers/CSS3DRenderer.js'),
-      import('three/addons/postprocessing/GTAOPass.js'),
-      import('three/addons/postprocessing/Pass.js'),
-    ])
+    // Development-only delayed-chunk gate for verifying the real loading/escape UI.
+    const loadGate =
+      process.env.NODE_ENV === 'development' &&
+      new URLSearchParams(location.search).get('audit') === 'loading'
+        ? new Promise<void>((resolve) => setTimeout(resolve, 4000))
+        : Promise.resolve();
+    loadGate
+      .then(() =>
+        Promise.all([
+          import('three'),
+          import('./spacecraft-model'),
+          import('./orbital-environment'),
+          import('three/addons/environments/RoomEnvironment.js'),
+          import('three/addons/renderers/CSS3DRenderer.js'),
+          import('three/addons/postprocessing/GTAOPass.js'),
+          import('three/addons/postprocessing/Pass.js'),
+        ]),
+      )
       .then(
         ([
           THREE,
@@ -98,8 +112,6 @@ export function Spacecraft(props: Props) {
           const capableShading =
             navigator.hardwareConcurrency >= 8 &&
             (memory === undefined || memory >= 8);
-          const highQuality =
-            capableShading && memory !== undefined && memory >= 8;
           const contactShading =
             capableShading && renderer.extensions.has('EXT_color_buffer_float');
           renderer.setPixelRatio(
@@ -139,6 +151,8 @@ export function Spacecraft(props: Props) {
           pmrem.dispose();
           const model = createSpacecraft(THREE, {
             accent: s.accent,
+            projectPageSize: PROJECTS_PER_PAGE,
+            screenLabels: true,
             sampleLabel: s.sampleLabel,
             projects: latest.current.projects.map((p) => ({
               title: String(p.title),
@@ -212,13 +226,13 @@ export function Spacecraft(props: Props) {
             aoCameraQuaternion = new THREE.Quaternion();
           let aoRoll = 0;
           const anchors: Record<string, [number, number, number]> = {
-            home: [0, 0.08, 0],
-            projects: [-3, 0, 0.3],
-            experience: [0, 0, 0.3],
-            about: [3, 0, 0.3],
-            contact: [-5.5, 0, 0.3],
-            privacy: [-5.5, 0, 0.3],
+            home: [0, 0, 0],
+            ...model.group.userData.roomAnchors,
           };
+          const readerAnchors = model.group.userData.readerAnchors as Record<
+            string,
+            [number, number, number]
+          >;
           const ray = new THREE.Raycaster(),
             pointer = new THREE.Vector2();
           // Simple invisible picking volumes avoid intersecting the entire detailed pressure hull on every pointer move.
@@ -230,20 +244,41 @@ export function Spacecraft(props: Props) {
             'about',
             'contact',
           ]) {
+            const bounds = model.group.userData.roomBounds[section];
             const mesh = new THREE.Mesh(
-              new THREE.BoxGeometry(
-                section === 'contact' ? 1.1 : 2.84,
-                2.95,
-                2.5,
-              ),
+              new THREE.BoxGeometry(...bounds.size),
               proxyMaterial,
             );
-            mesh.position.set(anchors[section][0], 0, 0);
+            mesh.position.set(...(bounds.center as [number, number, number]));
             mesh.visible = false;
             mesh.userData.section = section;
             model.group.add(mesh);
             proxies.push(mesh);
           }
+          // Screen-aligned nameplates stay upright even when the spacecraft rolls.
+          const labelLayer = document.createElement('div');
+          labelLayer.className = 'room-label-layer';
+          el.appendChild(labelLayer);
+          const roomLabels = ['projects', 'experience', 'about', 'contact'].map(
+            (section) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'room-nameplate';
+              button.textContent = s[section + 'Label'];
+              button.dataset.room = section;
+              button.onclick = () => latest.current.onNavigate(section);
+              button.onpointerenter = button.onfocus = () => {
+                hoverSection(section);
+                latest.current.onHover(section);
+              };
+              button.onpointerleave = button.onblur = () => {
+                hoverSection('');
+                latest.current.onHover('');
+              };
+              labelLayer.appendChild(button);
+              return { section, button };
+            },
+          );
           const hotspotObjects: {
             object: InstanceType<typeof CSS3DObject>;
             button: HTMLButtonElement;
@@ -268,26 +303,49 @@ export function Spacecraft(props: Props) {
                 slot === undefined
                   ? undefined
                   : latest.current.projects[
-                      latest.current.projectPage * 3 + slot
+                      latest.current.projectPage * PROJECTS_PER_PAGE + slot
                     ];
               latest.current.onOpen(section, p?.slug);
             };
-            button.onfocus = () => latest.current.onHover(section);
-            button.onblur = () => latest.current.onHover('');
+            const enter = () => {
+              hoveredProject =
+                slot === undefined
+                  ? ''
+                  : latest.current.projects[
+                      latest.current.projectPage * PROJECTS_PER_PAGE + slot
+                    ]?.slug || '';
+              hoverSection(section);
+              latest.current.onHover(section);
+            };
+            const leave = () => {
+              hoveredProject = '';
+              hoverSection('');
+              latest.current.onHover('');
+            };
+            button.onpointerenter = button.onfocus = enter;
+            button.onpointerleave = button.onblur = leave;
           };
-          for (let i = 0; i < 3; i++)
-            addHotspot('projects', [-3.85 + i * 0.85, 0.1, 0.25], i);
-          addHotspot('experience', [0, -0.2, 0.65]);
-          addHotspot('about', [3.3, -0.45, 0.9]);
-          addHotspot('contact', [-5.5, -0.2, 1.3]);
+          const hotspotLayout = model.group.userData.hotspots;
+          for (const hotspot of hotspotLayout)
+            addHotspot(hotspot.section, hotspot.position, hotspot.slot);
           const currentTarget = new THREE.Vector3(),
-            fromTarget = new THREE.Vector3(),
             nextTarget = new THREE.Vector3();
           const viewDirection = new THREE.Vector3(-0.28, 0.22, 1).normalize(),
-            fromDirection = viewDirection.clone(),
             nextDirection = viewDirection.clone();
           const pointerCurrent = new THREE.Vector2(),
             pointerGoal = new THREE.Vector2();
+          const axis = (value = 0): MotionAxis => ({ value, velocity: 0 });
+          const targetMotion = [axis(), axis(), axis()],
+            directionMotion = viewDirection.toArray().map(axis);
+          const distanceMotion = axis(23),
+            rollMotion = axis(),
+            pointerMotion = [axis(), axis()],
+            hoverMotion = [axis(), axis()],
+            dollyMotion = axis();
+          const resetAxis = (state: MotionAxis, value: number) => {
+            state.value = value;
+            state.velocity = 0;
+          };
           let stop = latest.current.paused,
             visible = !document.hidden,
             inViewport = true,
@@ -295,23 +353,20 @@ export function Spacecraft(props: Props) {
             lastFrame = 0;
           let active = 'home',
             hovered = '',
+            hoveredProject = '',
             reading = false,
             distance = 23,
-            fromDistance = 23,
-            nextDistance = 23;
-          let roll = 0,
-            fromRoll = 0,
-            nextRoll = 0,
-            hoverLift = 0;
-          let flightStart = 0,
-            flightDuration = 0,
+            nextDistance = 23,
+            roll = 0,
+            nextRoll = 0;
+          let flightImmediate = false,
             travelling = false,
             lastPick = 0,
             lastMetrics = 0,
             elapsed = 0,
             notifyArrival = true,
-            renderCost = 0;
-          let hiddenAt = 0;
+            renderCost = 0,
+            firstFrame = true;
           let down: {
             x: number;
             y: number;
@@ -320,14 +375,28 @@ export function Spacecraft(props: Props) {
             open?: boolean;
           } | null = null;
           const frameIntervals: number[] = [];
-          const background = createOrbitalEnvironment(THREE, () => kick(), {
-            mobile: mobile(),
-            maxTextureSize: Math.min(
-              renderer.capabilities.maxTextureSize,
-              highQuality ? 8192 : 4096,
-            ),
-            maxAnisotropy: renderer.capabilities.getMaxAnisotropy(),
-          });
+          const auditMotion =
+            process.env.NODE_ENV === 'development' &&
+            new URLSearchParams(location.search).get('audit') === '1';
+          const cameraTrace: {
+            time: number;
+            delta: number;
+            position: number[];
+            quaternion: number[];
+            hover: string;
+            active: string;
+            velocities: number[];
+          }[] = [];
+          const background = createOrbitalEnvironment(
+            THREE,
+            () =>
+              queueMicrotask(() => {
+                if (!destroyed) kick();
+              }),
+            {
+              mobile: mobile(),
+            },
+          );
           const readerStretch = () =>
             mobile()
               ? Math.max(
@@ -352,17 +421,10 @@ export function Spacecraft(props: Props) {
             const target = new THREE.Vector3(
               ...(anchors[section] || anchors.home),
             );
-            const desiredRoll = home ? (mobile() ? 0.91 : 0.065) : 0;
-            if (isReading) {
-              target.y = 0;
-              target.z = 1.72;
-            }
+            const desiredRoll = home ? (mobile() ? 1.38 : 0.035) : 0;
+            if (isReading && readerAnchors[section])
+              target.set(...readerAnchors[section]);
             target.applyAxisAngle(new THREE.Vector3(0, 0, 1), desiredRoll);
-            if (home && mobile())
-              target.addScaledVector(
-                new THREE.Vector3(1, 0, 0.28).normalize(),
-                0.63,
-              );
             let desiredDistance = isReading
               ? (2.4 * el.clientHeight) /
                 (2 *
@@ -378,13 +440,53 @@ export function Spacecraft(props: Props) {
                   )
                 : 6.9;
             if (home) {
-              // Fixed silhouette bounds keep framing stable while doors and reader trays move.
-              const w = mobile() ? 12.2 : 16,
-                h = mobile() ? 13.6 : 8.2;
+              // Fit the complete closed vessel to safe viewport bounds at a fixed pose.
+              const bounds = model.group.userData.overviewBounds;
+              const box = bounds?.min
+                ? new THREE.Box3(
+                    new THREE.Vector3(...bounds.min),
+                    new THREE.Vector3(...bounds.max),
+                  )
+                : new THREE.Box3(
+                    new THREE.Vector3(-6, -4, -1.5),
+                    new THREE.Vector3(5.5, 5.3, 1.9),
+                  );
+              const dir = new THREE.Vector3(-0.28, 0.22, 1).normalize();
+              const basis = new THREE.Quaternion().setFromRotationMatrix(
+                new THREE.Matrix4().lookAt(
+                  dir,
+                  new THREE.Vector3(),
+                  new THREE.Vector3(0, 1, 0),
+                ),
+              );
+              const inverseBasis = basis.clone().invert();
+              const rotated = new THREE.Box3();
+              for (const x of [box.min.x, box.max.x])
+                for (const y of [box.min.y, box.max.y])
+                  for (const z of [box.min.z, box.max.z])
+                    rotated.expandByPoint(
+                      new THREE.Vector3(x, y, z)
+                        .applyAxisAngle(new THREE.Vector3(0, 0, 1), desiredRoll)
+                        .applyQuaternion(inverseBasis),
+                    );
+              const center = rotated.getCenter(new THREE.Vector3());
+              target.copy(center).applyQuaternion(basis);
+              const size = rotated.getSize(new THREE.Vector3());
+              const safeWidth = Math.max(
+                180,
+                el.clientWidth - (mobile() ? 32 : 100),
+              );
+              const safeHeight = Math.max(
+                220,
+                el.clientHeight - (mobile() ? 230 : 190),
+              );
               desiredDistance =
-                (Math.max(h, w / camera.aspect) /
-                  (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2))) *
-                1.02;
+                Math.max(
+                  (size.y * el.clientHeight) / safeHeight,
+                  (size.x * el.clientHeight) / safeWidth,
+                ) /
+                  (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) +
+                size.z / 2;
             }
             return {
               target,
@@ -405,16 +507,18 @@ export function Spacecraft(props: Props) {
             if (model.group.userData.projectPage !== latest.current.projectPage)
               model.setProjectPage(latest.current.projectPage);
             const desired = pose(active, reading);
-            fromTarget.copy(currentTarget);
             nextTarget.copy(desired.target);
-            fromDirection.copy(viewDirection);
             nextDirection.copy(desired.direction);
-            fromDistance = distance;
             nextDistance = desired.distance;
-            fromRoll = roll;
             nextRoll = desired.roll;
-            flightStart = performance.now();
-            flightDuration = stop || immediate ? 0 : reading ? 800 : 1150;
+            flightImmediate = stop || immediate;
+            if (stop) {
+              [...pointerMotion, ...hoverMotion, dollyMotion].forEach((s) =>
+                resetAxis(s, 0),
+              );
+              pointerCurrent.set(0, 0);
+            }
+            hoveredProject = '';
             travelling = true;
             el.dataset.activeRoom = active;
             kick();
@@ -430,45 +534,132 @@ export function Spacecraft(props: Props) {
               }
             }
             if (travelling) {
-              const progress = flightDuration
-                  ? Math.min(1, (now - flightStart) / flightDuration)
-                  : 1,
-                ease = flightEase(progress);
-              currentTarget.lerpVectors(fromTarget, nextTarget, ease);
+              const immediate = flightImmediate || stop;
+              const beforeRoll = roll;
+              if (immediate) {
+                nextTarget
+                  .toArray()
+                  .forEach((v, i) => resetAxis(targetMotion[i], v));
+                nextDirection
+                  .toArray()
+                  .forEach((v, i) => resetAxis(directionMotion[i], v));
+                resetAxis(distanceMotion, nextDistance);
+                resetAxis(rollMotion, nextRoll);
+              } else {
+                nextTarget
+                  .toArray()
+                  .forEach((v, i) => moveCameraAxis(targetMotion[i], v, delta));
+                nextDirection.toArray().forEach((v, i) =>
+                  moveCameraAxis(directionMotion[i], v, delta, {
+                    frequency: 10,
+                    speed: 1,
+                    acceleration: 4,
+                  }),
+                );
+                moveCameraAxis(distanceMotion, nextDistance, delta, {
+                  frequency: 9,
+                  speed: 18,
+                  acceleration: 45,
+                });
+                moveCameraAxis(rollMotion, nextRoll, delta, {
+                  frequency: 10,
+                  speed: 1.2,
+                  acceleration: 4,
+                });
+              }
+              currentTarget.set(
+                ...(targetMotion.map((s) => s.value) as [
+                  number,
+                  number,
+                  number,
+                ]),
+              );
               viewDirection
-                .lerpVectors(fromDirection, nextDirection, ease)
+                .set(
+                  ...(directionMotion.map((s) => s.value) as [
+                    number,
+                    number,
+                    number,
+                  ]),
+                )
                 .normalize();
-              distance = fromDistance + (nextDistance - fromDistance) * ease;
-              const previousRoll = roll;
-              roll = fromRoll + (nextRoll - fromRoll) * ease;
-              if (Math.abs(previousRoll - roll) > 0.0001)
+              distance = distanceMotion.value;
+              roll = rollMotion.value;
+              if (Math.abs(beforeRoll - roll) > 0.00001)
                 renderer.shadowMap.needsUpdate = true;
-              if (progress === 1) {
+              const settled =
+                currentTarget.distanceTo(nextTarget) < 0.003 &&
+                Math.abs(distance - nextDistance) < 0.003 &&
+                Math.abs(roll - nextRoll) < 0.0003 &&
+                viewDirection.distanceTo(nextDirection) < 0.0003 &&
+                Math.abs(distanceMotion.velocity) < 0.025 &&
+                targetMotion.every((s) => Math.abs(s.velocity) < 0.02);
+              if (immediate || settled) {
                 travelling = false;
                 if (notifyArrival) latest.current.onSettled();
               }
             }
-            pointerCurrent.lerp(pointerGoal, stop ? 1 : damping(delta));
-            hoverLift +=
-              ((hovered && active === 'home' ? 1 : 0) - hoverLift) *
-              (stop ? 1 : damping(delta, 5));
+            const motionDelta = stop ? 0 : delta;
+            const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
+            pointerCurrent.set(
+              moveCameraAxis(
+                pointerMotion[0],
+                reading ? 0 : pointerGoal.x,
+                motionDelta,
+                pointerLimits,
+              ),
+              moveCameraAxis(
+                pointerMotion[1],
+                reading ? 0 : pointerGoal.y,
+                motionDelta,
+                pointerLimits,
+              ),
+            );
+            const hoverTarget =
+              active === 'home' && hovered
+                ? new THREE.Vector3(...anchors[hovered]).applyAxisAngle(
+                    new THREE.Vector3(0, 0, 1),
+                    roll,
+                  )
+                : null;
+            const hoverLimits = {
+              frequency: 7,
+              speed: 0.35,
+              acceleration: 1.2,
+            };
+            moveCameraAxis(
+              hoverMotion[0],
+              hoverTarget ? (hoverTarget.x - currentTarget.x) * 0.022 : 0,
+              motionDelta,
+              hoverLimits,
+            );
+            moveCameraAxis(
+              hoverMotion[1],
+              hoverTarget ? (hoverTarget.y - currentTarget.y) * 0.022 : 0,
+              motionDelta,
+              hoverLimits,
+            );
+            moveCameraAxis(dollyMotion, hoverTarget ? 1 : 0, motionDelta, {
+              frequency: 7,
+              speed: 1.6,
+              acceleration: 6,
+            });
             const angles = cursorRotation(
               pointerCurrent.x,
               pointerCurrent.y,
-              stop || reading,
+              false,
             );
             const direction = viewDirection
               .clone()
               .applyEuler(new THREE.Euler(angles[0], angles[1], 0));
             const cameraTarget = currentTarget.clone();
-            if (active === 'home' && hovered && !stop)
-              cameraTarget.x +=
-                (anchors[hovered]?.[0] || 0) * 0.018 * hoverLift;
+            cameraTarget.x += hoverMotion[0].value;
+            cameraTarget.y += hoverMotion[1].value;
             camera.position
               .copy(cameraTarget)
               .addScaledVector(
                 direction,
-                distance * (1 - (stop ? 0 : 0.025 * hoverLift)),
+                distance * (1 - 0.025 * dollyMotion.value),
               );
             camera.lookAt(cameraTarget);
             model.group.rotation.z = roll;
@@ -476,6 +667,7 @@ export function Spacecraft(props: Props) {
             model.update(elapsed, hovered, stop, {
               activeRoom: active,
               selectedProject: latest.current.slug,
+              hoveredProject,
               projectPage: latest.current.projectPage,
               reading,
               delta,
@@ -484,6 +676,85 @@ export function Spacecraft(props: Props) {
             for (const anchor of Object.values(model.readerSurfaces))
               anchor.parent.scale.y *= readerStretch();
             model.group.updateMatrixWorld(true);
+            for (const { section, button } of roomLabels) {
+              const show =
+                !reading &&
+                !travelling &&
+                (active === 'home' || active === section);
+              button.hidden = !show;
+              button.inert = !show;
+              if (!show) continue;
+              const anchor = [
+                ...(model.group.userData.labelAnchors?.[section] || [
+                  anchors[section][0],
+                  anchors[section][1] - 1.38,
+                  1.68,
+                ]),
+              ];
+              if (mobile() && active === 'home') {
+                anchor[0] = anchors[section][0] - Math.sin(roll) * 1.35;
+                anchor[1] = anchors[section][1] - Math.cos(roll) * 1.35;
+              }
+              const p = new THREE.Vector3(...anchor)
+                .applyMatrix4(model.group.matrixWorld)
+                .project(camera);
+              const left = new THREE.Vector3(
+                anchor[0] - 1.25,
+                anchor[1],
+                anchor[2],
+              )
+                .applyMatrix4(model.group.matrixWorld)
+                .project(camera);
+              const right = new THREE.Vector3(
+                anchor[0] + 1.25,
+                anchor[1],
+                anchor[2],
+              )
+                .applyMatrix4(model.group.matrixWorld)
+                .project(camera);
+              const roomPixels = Math.hypot(
+                ((right.x - left.x) * el.clientWidth) / 2,
+                ((right.y - left.y) * el.clientHeight) / 2,
+              );
+              button.style.left = `${((p.x + 1) * el.clientWidth) / 2}px`;
+              button.style.top = `${((1 - p.y) * el.clientHeight) / 2}px`;
+              button.style.fontSize = `${Math.max(mobile() ? 16 : 20, Math.min(28, roomPixels * 0.105))}px`;
+              button.style.maxWidth = `${Math.max(120, roomPixels * 0.9)}px`;
+              button.classList.toggle(
+                'is-highlighted',
+                hovered === section || active === section,
+              );
+              button.dataset.orientation = 'screen';
+            }
+            if (mobile() && active === 'home' && !reading && !travelling) {
+              const plates = roomLabels.map(({ button }) => {
+                const rect = button.getBoundingClientRect();
+                return {
+                  button,
+                  x: rect.x + rect.width / 2,
+                  y: rect.y + rect.height / 2,
+                  w: rect.width,
+                  h: rect.height,
+                };
+              });
+              for (let pass = 0; pass < 2; pass++)
+                for (let i = 0; i < plates.length; i++)
+                  for (let j = i + 1; j < plates.length; j++) {
+                    const a = plates[i],
+                      b = plates[j];
+                    const overlap = (a.w + b.w) / 2 + 8 - Math.abs(a.x - b.x);
+                    if (
+                      overlap > 0 &&
+                      Math.abs(a.y - b.y) < (a.h + b.h) / 2 + 4
+                    ) {
+                      const sign = a.x < b.x ? -1 : 1;
+                      a.x += (sign * overlap) / 2;
+                      b.x -= (sign * overlap) / 2;
+                    }
+                  }
+              for (const p of plates)
+                p.button.style.left = `${Math.max(p.w / 2 + 8, Math.min(el.clientWidth - p.w / 2 - 8, p.x))}px`;
+            }
             const logicalWidth = paperPixels();
             surfaceElement.style.width = `${logicalWidth}px`;
             surfaceElement.style.height = `${logicalWidth * 1.125 * readerStretch()}px`;
@@ -507,7 +778,7 @@ export function Spacecraft(props: Props) {
                 h.slot === undefined
                   ? undefined
                   : latest.current.projects[
-                      latest.current.projectPage * 3 + h.slot
+                      latest.current.projectPage * PROJECTS_PER_PAGE + h.slot
                     ];
               h.object.visible =
                 active === h.section &&
@@ -522,7 +793,9 @@ export function Spacecraft(props: Props) {
                   : h.section === 'experience'
                     ? s.readAllLabel
                     : s.inviteLabel;
-              if (h.button.textContent !== label) h.button.textContent = label;
+              const visibleLabel = project?.title || label;
+              if (h.button.textContent !== visibleLabel)
+                h.button.textContent = visibleLabel;
               h.button.setAttribute('aria-label', label);
               h.button.classList.toggle('locker-hotspot', h.slot !== undefined);
               h.button.dataset.projectSlug = project?.slug || '';
@@ -530,8 +803,8 @@ export function Spacecraft(props: Props) {
             background.update(
               elapsed,
               !stop,
-              stop ? 0 : pointerCurrent.x * 0.12,
-              stop ? 0 : pointerCurrent.y * 0.08,
+              pointerCurrent.x * 0.12,
+              pointerCurrent.y * 0.08,
             );
             renderer.info.reset();
             renderer.clear();
@@ -565,6 +838,28 @@ export function Spacecraft(props: Props) {
               aoQuad.render(renderer);
             }
             cssRenderer.render(cssScene, camera);
+            if (auditMotion) {
+              cameraTrace.push({
+                time: now,
+                delta,
+                position: camera.position.toArray(),
+                quaternion: camera.quaternion.toArray(),
+                hover: hovered,
+                active,
+                velocities: [
+                  ...targetMotion,
+                  ...hoverMotion,
+                  distanceMotion,
+                  rollMotion,
+                  ...pointerMotion,
+                ].map((s) => s.velocity),
+              });
+              if (cameraTrace.length > 1200) cameraTrace.shift();
+            }
+            if (firstFrame) {
+              firstFrame = false;
+              setState('ready');
+            }
             renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
             if (now - lastMetrics > 200 || stop) {
               Object.assign(el.dataset, {
@@ -584,6 +879,16 @@ export function Spacecraft(props: Props) {
                 triangles: String(renderer.info.render.triangles),
                 renderCpuMs: renderCost.toFixed(2),
                 hoverRoom: hovered,
+                hoverProject: hoveredProject,
+                hoverOffset: hoverMotion
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                hoverVelocity: hoverMotion
+                  .map((s) => s.velocity.toFixed(5))
+                  .join(','),
+                flightVelocity: targetMotion
+                  .map((s) => s.velocity.toFixed(5))
+                  .join(','),
                 travelling: String(travelling),
                 motion: stop ? 'reduced' : 'active',
                 activeTime: elapsed.toFixed(3),
@@ -605,12 +910,12 @@ export function Spacecraft(props: Props) {
               );
               el.dataset.shadowsEnabled = String(renderer.shadowMap.enabled);
               el.dataset.quality = mobile()
-                ? 'mobile-2k'
-                : highQuality
-                  ? 'desktop-high'
-                  : 'desktop-4k';
+                ? 'procedural-mobile'
+                : 'procedural-desktop';
               el.dataset.contactShading = String(contactShading && !mobile());
               el.dataset.frameSamples = String(sorted.length);
+              if (auditMotion)
+                el.dataset.cameraTrace = JSON.stringify(cameraTrace);
               el.dataset.environment = JSON.stringify(
                 background.getDiagnostics(),
               );
@@ -704,6 +1009,7 @@ export function Spacecraft(props: Props) {
             return { section: hit?.object.userData.section || '' };
           };
           const hoverSection = (section: string) => {
+            aoDirty = true;
             hovered = section;
             el.style.cursor = section ? 'pointer' : 'default';
             kick();
@@ -718,7 +1024,10 @@ export function Spacecraft(props: Props) {
                 -(((event.clientY - rect.top) / rect.height) * 2 - 1),
               );
             if (performance.now() - lastPick > 70 && !travelling) {
-              const { section } = pick(event);
+              const { section, slug } = pick(event);
+              const nextProject = active === 'projects' ? slug || '' : '';
+              if (hoveredProject !== nextProject) aoDirty = true;
+              hoveredProject = nextProject;
               if (hovered !== section) {
                 hoverSection(section);
                 latest.current.onHover(section);
@@ -744,6 +1053,7 @@ export function Spacecraft(props: Props) {
           };
           const leave = () => {
             down = null;
+            hoveredProject = '';
             pointerGoal.set(0, 0);
             hoverSection('');
             latest.current.onHover('');
@@ -755,9 +1065,6 @@ export function Spacecraft(props: Props) {
           el.addEventListener('pointercancel', leave);
           const syncVisibility = () => {
             const nextVisible = inViewport && !document.hidden;
-            if (!nextVisible && visible) hiddenAt = performance.now();
-            if (nextVisible && !visible && hiddenAt && travelling)
-              flightStart += performance.now() - hiddenAt;
             visible = nextVisible;
             lastFrame = 0;
             if (visible) kick();
@@ -794,13 +1101,11 @@ export function Spacecraft(props: Props) {
             hover: hoverSection,
             pause(value) {
               stop = value;
-              pointerGoal.set(0, 0);
               lastFrame = 0;
-              if (value && travelling) flightDuration = 0;
+              if (value && travelling) flightImmediate = true;
               kick();
             },
           };
-          setState('ready');
           go(latest.current.section === 'home');
           cleanup = () => {
             cancelAnimationFrame(frame);
@@ -849,11 +1154,17 @@ export function Spacecraft(props: Props) {
             renderer.dispose();
             renderer.domElement.remove();
             cssRenderer.domElement.remove();
+            labelLayer.remove();
             api.current = null;
           };
         },
       )
-      .catch(unavailable);
+      .catch((error) => {
+        if (process.env.NODE_ENV === 'development' && host.current)
+          host.current.dataset.sceneError = String(error);
+        console.error('Interactive renderer initialization failed', error);
+        unavailable();
+      });
     return () => {
       destroyed = true;
       cleanup();
@@ -862,10 +1173,7 @@ export function Spacecraft(props: Props) {
   return (
     <div id="ship" className="ship-stage immersive-ship" ref={host}>
       {state !== 'ready' && (
-        <div className="scene-status" role="status">
-          <Orbit size={28} />
-          <p>{state === 'fallback' ? s.sceneUnavailable : s.sceneLoading}</p>
-        </div>
+        <SceneLoader site={s} unavailable={state === 'fallback'} />
       )}
       <noscript>
         <p>{s.sceneUnavailable}</p>

@@ -2,10 +2,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
+import { SceneLoader } from './scene-loader';
 import { WorldReader } from './world-reader';
 import { ArrowLeft, BookOpen, Pause, Play, Orbit } from 'lucide-react';
 import type { Portfolio } from '@/lib/content-types';
-import { destinationFromURL, rooms, type Destination } from '@/lib/flight';
+import {
+  PROJECTS_PER_PAGE,
+  destinationFromURL,
+  rooms,
+  type Destination,
+} from '@/lib/flight';
 import { pathFor } from '@/lib/paths';
 import { pageMetadata } from '@/lib/metadata';
 import { Spacecraft } from './spacecraft';
@@ -54,7 +60,10 @@ export function ImmersivePortfolio({
   const [projectPage, setProjectPage] = useState(
     Math.max(
       0,
-      Math.floor(data.projects.findIndex((p) => p.slug === initialSlug) / 3),
+      Math.floor(
+        data.projects.findIndex((p) => p.slug === initialSlug) /
+          PROJECTS_PER_PAGE,
+      ),
     ),
   );
   const reader = useRef<HTMLDivElement>(null);
@@ -100,7 +109,10 @@ export function ImmersivePortfolio({
       setDestination(next);
       if (next.slug)
         setProjectPage(
-          Math.floor(data.projects.findIndex((p) => p.slug === next.slug) / 3),
+          Math.floor(
+            data.projects.findIndex((p) => p.slug === next.slug) /
+              PROJECTS_PER_PAGE,
+          ),
         );
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
       return true;
@@ -115,6 +127,7 @@ export function ImmersivePortfolio({
     setDestination(parsed || { section: initialSection, slug: initialSlug });
     setReading(
       new URLSearchParams(location.search).get('view') === 'reading' ||
+        location.hash === '#room-reader' ||
         innerHeight < 480,
     );
     const viewportChange = () => {
@@ -298,6 +311,10 @@ export function ImmersivePortfolio({
       style={{ '--accent': s.accent } as React.CSSProperties}
       onClickCapture={capture}
     >
+      {!enhanced && <SceneLoader site={s} boot />}
+      <noscript>
+        <style>{`.boot-loader { display: none !important; }`}</style>
+      </noscript>
       {preview && (
         <div className="preview-banner">
           Private draft preview · <a href="/admin">Return to studio</a>
@@ -322,6 +339,7 @@ export function ImmersivePortfolio({
             <a
               key={id}
               data-room-link={id}
+              title={s[id + 'Label']}
               href={hrefFor({ section: id })}
               aria-current={destination.section === id ? 'page' : undefined}
               onPointerEnter={() => setHover(id)}
@@ -367,7 +385,7 @@ export function ImmersivePortfolio({
             onOpen={(section, slug) => {
               const selected =
                 section === 'projects'
-                  ? slug || data.projects[projectPage * 3]?.slug
+                  ? slug || data.projects[projectPage * PROJECTS_PER_PAGE]?.slug
                   : undefined;
               if (section === 'projects' && !selected) return;
               go({ section, slug: selected, open: !selected });
@@ -414,29 +432,34 @@ export function ImmersivePortfolio({
               <ArrowLeft size={17} />
               {s.homeLabel}
             </a>
-            {destination.section === 'projects' && data.projects.length > 3 && (
-              <>
-                <button
-                  type="button"
-                  disabled={projectPage === 0}
-                  onClick={() => setProjectPage(projectPage - 1)}
-                  aria-label={s.backLabel}
-                >
-                  ←
-                </button>
-                <span>
-                  {projectPage + 1} / {Math.ceil(data.projects.length / 3)}
-                </span>
-                <button
-                  type="button"
-                  disabled={(projectPage + 1) * 3 >= data.projects.length}
-                  onClick={() => setProjectPage(projectPage + 1)}
-                  aria-label={s.allProjectsLabel}
-                >
-                  →
-                </button>
-              </>
-            )}
+            {destination.section === 'projects' &&
+              data.projects.length > PROJECTS_PER_PAGE && (
+                <>
+                  <button
+                    type="button"
+                    disabled={projectPage === 0}
+                    onClick={() => setProjectPage(projectPage - 1)}
+                    aria-label={s.previousPageLabel}
+                  >
+                    ←
+                  </button>
+                  <span>
+                    {projectPage + 1} /{' '}
+                    {Math.ceil(data.projects.length / PROJECTS_PER_PAGE)}
+                  </span>
+                  <button
+                    type="button"
+                    disabled={
+                      (projectPage + 1) * PROJECTS_PER_PAGE >=
+                      data.projects.length
+                    }
+                    onClick={() => setProjectPage(projectPage + 1)}
+                    aria-label={s.nextPageLabel}
+                  >
+                    →
+                  </button>
+                </>
+              )}
             {destination.section === 'projects' && !data.projects.length && (
               <p>{s.emptyLabel}</p>
             )}

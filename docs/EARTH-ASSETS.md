@@ -1,23 +1,17 @@
-# Earth texture provenance and rendering budgets
+# Procedural ocean environment
 
-Verified 2026-09-09. These maps derive from NASA satellite-data composites, not generated imagery. The cloud source is a native 8192×4096 TIFF; the high tier does not enlarge the old 2K cloud map.
+The current scene generates all ocean, cloud and sky visuals in `components/orbital-environment.ts`. It loads no Earth images and needs no external asset service. The previous NASA maps were removed from the runtime and repository; historical credits and measurements remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
 
-| Selected tier | Day / cloud dimensions | Transfer bytes | GPU RGBA8 texture payload, with mipmaps |
-| --- | --- | ---: | ---: |
-| High desktop | 5400×2700 / 8192×4096 | 6,889,306 | 244.82 MiB |
-| Default desktop / tablet | 4096×2048 / 4096×2048 | 2,926,348 | 85.33 MiB |
-| Mobile / low texture limit | 2048×1024 / 2048×1024 | 859,258 | 21.33 MiB |
+| Generated texture payload | Desktop | Mobile |
+| --- | ---: | ---: |
+| R8 periodic cloud-noise volume |64³ /262,144bytes|32³ /32,768bytes|
+| Small baked nebula, with mipmaps |174,764bytes|43,692bytes|
+| Total |436,908bytes (0.417MiB)|76,460bytes (0.073MiB)|
 
-High requires at least eight hardware threads, **reported** device memory of at least 8 GB and adequate texture support. Missing memory information selects the default tier. Width below 700 pixels selects mobile. The actual maximum texture size can lower either tier further. Selection occurs on scene creation, so resizing alone does not download replacement maps. Reading view exits the renderer. The environment also supports an unused optional 4K mobile-cloud setting; it is not enabled by this application.
+These are exact texture payload estimates, excluding driver/geometry/framebuffer overhead and Three.js's shared1KiB lighting lookup. The prior highest image tier required244.82MiB of texture payload. Lower memory and zero image downloads do not by themselves prove lower GPU frame time; current browser evidence records rendering cadence separately.
 
-GPU figures sum all actual integer mip dimensions. They are texture payload estimates, not measured process memory; decoding and driver overhead are additional. The grayscale cloud content uploads through a normal four-channel texture. Native 5400 day uses WebP quality90, native8K cloud quality82; 4K day/cloud use92/88; 2K uses90. The six exact asset hashes are recorded in `docs/evidence/mockup-revision/earth-texture-manifest.json`.
+A seamless three-dimensional noise lattice is sampled on the sphere to form moving cloud wisps without a land map, longitude seam or polar pinch. Ocean rotates at 0.0015radians/second, clouds at 0.0021, with slow cloud morphing. The blue atmospheric edge is a separate shell. A low-resolution nebula is baked once; star twinkle and meteor cores/tails use small shaders.
 
-## Sources
+Two staggered streams schedule meteors every roughly 8–14 active seconds, lasting 1.1–1.6seconds each. They remain above the low horizon and move diagonally with tapered tails. Pause/reduced motion, hidden tabs and offscreen state stop the shared simulation clock. Desktop and mobile use the same art direction with smaller mobile procedural fields.
 
-- Day: [NASA Blue Marble: Next Generation, July2004 base map](https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/), created by Reto Stöckli, NASA Goddard Space Flight Center. [Original5400 JPEG](https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg). Credit: **NASA Earth Observatory**.
-- Clouds: NASA Blue Marble: Clouds (2002), NASA Goddard Space Flight Center / Reto Stöckli, enhancements by Robert Simmon. [Original8192 TIFF](https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif). The former Visible Earth catalog page redirects after NASA's website migration; the original image binary remained available.
-- Terms: [NASA images and media guidance](https://www.nasa.gov/nasa-brand-center/images-and-media/). Acknowledge NASA and do not imply endorsement. These Earth-only images contain no NASA logo, identifiable person or third-party copyright notice. They do not inherit the Three.js MIT code license.
-
-Both maps use equirectangular 2:1 UVs. Color uses sRGB; cloud opacity uses no color-space conversion. Downsampling uses Lanczos, followed by WebP encoding. The shader lifts dark, blue-dominant ocean color while preserving land/ice detail. Separate slowly rotating cloud and atmosphere shells provide depth. Mipmaps and anisotropic filtering reduce oblique shimmer. A two-map readiness gate prevents partially loaded Earth from appearing.
-
-Stars, meteors, navy background and atmosphere are procedural project source. Suggested attribution: “Earth imagery: NASA Earth Observatory. Clouds: NASA / Reto Stöckli.”
+All editable assets are repository-native geometry, shader source and deterministic generated data. No third-party Earth imagery is used in the current build.

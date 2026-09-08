@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "records": 16,
+  "draftAndPublishedSnapshots": "identical",
+  "privateDataIncluded": false,
+  "restoredDatabase": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-restore-aAcR7X/restored.sqlite"
+}

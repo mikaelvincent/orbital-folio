@@ -2,26 +2,15 @@ import type * as Three from 'three';
 
 type EnvironmentOptions = {
   mobile?: boolean;
-  maxAnisotropy?: number;
-  maxTextureSize?: number;
-  mobileCloudResolution?: 2048 | 4096;
 };
 
-/** NASA Earth maps and a seven-draw-call sky, driven only by the caller's active time. */
+/** Texture-free ocean imagery with small procedural fields, driven by caller active time. */
 export function createOrbitalEnvironment(
   THREE: typeof Three,
   invalidate: () => void,
   options: EnvironmentOptions = {},
 ) {
   const mobile = options.mobile ?? false;
-  const requestedAnisotropy = options.maxAnisotropy ?? 4;
-  const anisotropy = Math.max(
-    1,
-    Math.min(
-      mobile ? 8 : 16,
-      Number.isFinite(requestedAnisotropy) ? requestedAnisotropy : 4,
-    ),
-  );
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
   const screenGeometry = new THREE.PlaneGeometry(2, 2);
@@ -32,48 +21,121 @@ export function createOrbitalEnvironment(
       gl_Position = vec4(position.xy, 0.9998, 1.0);
     }
   `;
+  const generationStarted = performance.now();
+  // A periodic single-channel lattice: 256 KiB desktop / 32 KiB mobile.
+  // Sampling on a sphere in 3D avoids equirectangular seams and pinched poles.
+  const noiseSide = mobile ? 32 : 64;
+  const noiseData = new Uint8Array(noiseSide ** 3);
+  let noiseSeed = 803719;
+  for (let i = 0; i < noiseData.length; i++) {
+    noiseSeed = (Math.imul(noiseSeed, 1664525) + 1013904223) >>> 0;
+    noiseData[i] = noiseSeed >>> 24;
+  }
+  const cloudNoise = new THREE.Data3DTexture(
+    noiseData,
+    noiseSide,
+    noiseSide,
+    noiseSide,
+  );
+  cloudNoise.format = THREE.RedFormat;
+  cloudNoise.type = THREE.UnsignedByteType;
+  cloudNoise.colorSpace = THREE.NoColorSpace;
+  cloudNoise.minFilter = THREE.LinearFilter;
+  cloudNoise.magFilter = THREE.LinearFilter;
+  cloudNoise.wrapS = THREE.RepeatWrapping;
+  cloudNoise.wrapT = THREE.RepeatWrapping;
+  cloudNoise.wrapR = THREE.RepeatWrapping;
+  cloudNoise.generateMipmaps = false;
+  cloudNoise.unpackAlignment = 1;
+  cloudNoise.needsUpdate = true;
+
+  const smooth = (a: number, b: number, value: number) => {
+    const t = Math.max(0, Math.min(1, (value - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  };
+  const hash2 = (x: number, y: number) => {
+    let h = Math.imul(x, 374761393) + Math.imul(y, 668265263);
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  };
+  const noise2 = (x: number, y: number) => {
+    const ix = Math.floor(x),
+      iy = Math.floor(y);
+    const fx = smooth(0, 1, x - ix),
+      fy = smooth(0, 1, y - iy);
+    const a = hash2(ix, iy),
+      b = hash2(ix + 1, iy);
+    const c = hash2(ix, iy + 1),
+      d = hash2(ix + 1, iy + 1);
+    return (a + (b - a) * fx) * (1 - fy) + (c + (d - c) * fx) * fy;
+  };
+  // Bake the calm nebula once, rather than evaluating many full-screen octaves.
+  const skyWidth = mobile ? 128 : 256,
+    skyHeight = skyWidth / 2;
+  const skyData = new Uint8Array(skyWidth * skyHeight * 4);
+  for (let y = 0; y < skyHeight; y++) {
+    for (let x = 0; x < skyWidth; x++) {
+      const u = x / (skyWidth - 1),
+        v = y / (skyHeight - 1);
+      const px = u * 6.2,
+        py = v * 4.8;
+      const wx = noise2(px * 0.72, py * 0.72);
+      const wy = noise2(px * 0.72 + 13.7, py * 0.72 - 9);
+      const cloud =
+        noise2(px + wx * 1.4, py + wy * 1.4) * 0.57 +
+        noise2(px * 2.03 + wx, py * 2.03 + wy) * 0.28 +
+        noise2(px * 4.1 - wy, py * 4.1 + wx) * 0.15;
+      const ribbon = v - u * 0.42 - 0.27 + (wx - 0.5) * 0.2;
+      const band = Math.exp(-ribbon * ribbon * 10);
+      const veil = smooth(0.24, 0.82, cloud) * band;
+      const dust = smooth(0.48, 0.77, noise2(px * 1.5 + 21.3, py * 1.5 + 10));
+      const factor =
+        (1 - dust * band * 0.15) *
+        (1 - 0.16 * Math.hypot((u - 0.5) * 1.1, (v - 0.5) * 0.9));
+      const i = (y * skyWidth + x) * 4;
+      skyData[i] = Math.round((0.012 + 0.015 * v + 0.02 * veil) * factor * 255);
+      skyData[i + 1] = Math.round(
+        (0.037 + 0.033 * v + 0.043 * veil) * factor * 255,
+      );
+      skyData[i + 2] = Math.round(
+        (0.084 + 0.066 * v + 0.082 * veil) * factor * 255,
+      );
+      skyData[i + 3] = 255;
+    }
+  }
+  const skyTexture = new THREE.DataTexture(
+    skyData,
+    skyWidth,
+    skyHeight,
+    THREE.RGBAFormat,
+  );
+  skyTexture.colorSpace = THREE.NoColorSpace;
+  skyTexture.minFilter = THREE.LinearMipmapLinearFilter;
+  skyTexture.magFilter = THREE.LinearFilter;
+  skyTexture.generateMipmaps = true;
+  skyTexture.needsUpdate = true;
+  let skyGpuBytes = 0;
+  for (
+    let w = skyWidth, h = skyHeight;
+    ;
+    w = Math.max(1, w >> 1), h = Math.max(1, h >> 1)
+  ) {
+    skyGpuBytes += w * h * 4;
+    if (w === 1 && h === 1) break;
+  }
+  const proceduralTextureBytes = noiseData.byteLength + skyData.byteLength;
+  const proceduralTextureGpuBytes = noiseData.byteLength + skyGpuBytes;
+  const generationMs = performance.now() - generationStarted;
   const sky = new THREE.Mesh(
     screenGeometry,
     new THREE.ShaderMaterial({
       depthWrite: false,
       depthTest: false,
       toneMapped: false,
+      uniforms: { skyTexture: { value: skyTexture } },
       vertexShader: screenVertex,
-      fragmentShader: `
-      varying vec2 vUv;
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-      }
-      float noise(vec2 p) {
-        vec2 i = floor(p), f = fract(p);
-        f = f * f * (3.0 - 2.0 * f);
-        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-          mix(hash(i + vec2(0.0, 1.0)), hash(i + 1.0), f.x), f.y);
-      }
-      float fbm(vec2 p) {
-        float value = 0.0, weight = 0.5;
-        for (int i = 0; i < 5; i++) {
-          value += noise(p) * weight;
-          p = mat2(1.6, -1.2, 1.2, 1.6) * p + vec2(7.1, 3.4);
-          weight *= 0.5;
-        }
-        return value;
-      }
-      void main() {
-        vec2 p = vUv * vec2(6.2, 4.8);
-        vec2 warp = vec2(fbm(p * 0.72), fbm(p * 0.72 + 13.7));
-        float cloud = fbm(p + warp * 1.4);
-        float ribbon = vUv.y - vUv.x * 0.42 - 0.27 + (warp.x - 0.5) * 0.2;
-        float band = exp(-ribbon * ribbon * 10.0);
-        float veil = smoothstep(0.24, 0.82, cloud) * band;
-        float dust = smoothstep(0.48, 0.77, fbm(p * 1.5 + 21.3));
-        vec3 base = mix(vec3(0.012, 0.037, 0.084), vec3(0.027, 0.070, 0.150), vUv.y);
-        base += vec3(0.020, 0.043, 0.082) * veil;
-        base *= 1.0 - dust * band * 0.15;
-        float vignette = 1.0 - 0.16 * length((vUv - 0.5) * vec2(1.1, 0.9));
-        gl_FragColor = vec4(base * vignette, 1.0);
-      }
-    `,
+      fragmentShader: `varying vec2 vUv; uniform sampler2D skyTexture;
+      void main() { gl_FragColor = vec4(texture2D(skyTexture, vUv).rgb, 1.0); }`,
     }),
   );
   sky.frustumCulled = false;
@@ -157,143 +219,183 @@ export function createOrbitalEnvironment(
   const stars = new THREE.Points(starsGeometry, starsMaterial);
   scene.add(stars);
 
-  // One short streak every ~29 active seconds; no timers, textures, or per-frame geometry.
-  const meteorMaterial = new THREE.ShaderMaterial({
-    transparent: true,
-    depthWrite: false,
-    depthTest: true,
-    blending: THREE.AdditiveBlending,
-    toneMapped: false,
-    uniforms: {
-      head: { value: new THREE.Vector2() },
-      axis: { value: new THREE.Vector2(1, -0.28).normalize() },
-      aspect: { value: 1 },
-      pixelHeight: { value: 1 / 900 },
-      opacity: { value: 0 },
-      tailLength: { value: 0.085 },
-    },
-    vertexShader: screenVertex,
-    fragmentShader: `
-      varying vec2 vUv;
-      uniform vec2 head;
-      uniform vec2 axis;
-      uniform float aspect;
-      uniform float pixelHeight;
-      uniform float opacity;
-      uniform float tailLength;
-      void main() {
-        vec2 p = (vUv - head) * vec2(aspect, 1.0);
-        float along = dot(p, axis);
-        float across = abs(p.x * axis.y - p.y * axis.x);
-        float width = max(0.00065, pixelHeight * 0.65);
-        float tail = smoothstep(-tailLength, 0.0, along) * (1.0 - smoothstep(0.0, width * 2.0, along));
-        float line = exp(-pow(across / width, 2.0)) * tail;
-        float tip = exp(-dot(p, p) / (width * width * 3.0));
-        float alpha = (line * 0.6 + tip * 0.32) * opacity;
-        gl_FragColor = vec4(vec3(0.61, 0.79, 1.0), alpha);
-      }
-    `,
+  // Two alternating streams: the combined spacing stays between 8 and 14 seconds.
+  // Tight screen-space quads shade only each streak, not the whole viewport.
+  const meteorVertex = `
+    varying vec2 vStreak;
+    varying float vScreenY;
+    uniform vec2 head;
+    uniform vec2 axis;
+    uniform float aspect;
+    uniform float pixelHeight;
+    uniform float tailLength;
+    void main() {
+      float padding = pixelHeight * 7.0;
+      float along = mix(-tailLength, padding, position.x * 0.5 + 0.5);
+      float across = position.y * padding;
+      vStreak = vec2(along, across);
+      vec2 offset = axis * along + vec2(-axis.y, axis.x) * across;
+      vec2 screen = head + offset / vec2(aspect, 1.0);
+      vScreenY = screen.y;
+      gl_Position = vec4(screen * 2.0 - 1.0, 0.9998, 1.0);
+    }
+  `;
+  const meteors = [0, 1].map((index) => {
+    const material = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      depthTest: true,
+      blending: THREE.AdditiveBlending,
+      toneMapped: false,
+      uniforms: {
+        head: { value: new THREE.Vector2() },
+        axis: {
+          value: new THREE.Vector2(
+            index === 0 ? 1 : -1,
+            index === 0 ? -0.28 : -0.22,
+          ).normalize(),
+        },
+        aspect: { value: 1 },
+        pixelHeight: { value: 1 / 900 },
+        opacity: { value: 0 },
+        tailLength: { value: 0.12 },
+        headColor: {
+          value: new THREE.Color(index === 0 ? 0xfff2d5 : 0xdffaff),
+        },
+      },
+      vertexShader: meteorVertex,
+      fragmentShader: `
+        varying vec2 vStreak;
+        varying float vScreenY;
+        uniform float pixelHeight;
+        uniform float opacity;
+        uniform float tailLength;
+        uniform vec3 headColor;
+        void main() {
+          float width = pixelHeight * 1.05;
+          float tail = smoothstep(-tailLength, 0.0, vStreak.x)
+            * (1.0 - smoothstep(0.0, width * 2.0, vStreak.x));
+          float line = exp(-pow(vStreak.y / width, 2.0)) * tail;
+          float halo = exp(-pow(vStreak.y / (width * 2.8), 2.0)) * tail;
+          float tip = exp(-dot(vStreak, vStreak) / (width * width * 4.0));
+          float glow = exp(-dot(vStreak, vStreak) / (width * width * 14.0));
+          float alpha = (line * 0.88 + halo * 0.10 + tip * 0.85 + glow * 0.14) * opacity;
+          alpha *= 1.0 - smoothstep(0.85, 0.89, vScreenY);
+          vec3 color = mix(vec3(0.48, 0.80, 1.0), headColor, clamp(tip + line * 0.3, 0.0, 1.0));
+          gl_FragColor = vec4(color, min(alpha, 1.0));
+        }
+      `,
+    });
+    const mesh = new THREE.Mesh(screenGeometry, material);
+    mesh.frustumCulled = false;
+    mesh.visible = false;
+    mesh.renderOrder = -10;
+    scene.add(mesh);
+    return {
+      mesh,
+      material,
+      phase: 0,
+      cycle: 0,
+      startAt: 0,
+      duration: 0,
+      nextAt: 0,
+    };
   });
-  const meteor = new THREE.Mesh(screenGeometry, meteorMaterial);
-  meteor.frustumCulled = false;
-  meteor.visible = false;
-  meteor.renderOrder = -10;
-  scene.add(meteor);
 
+  let disposed = false;
   const earth = new THREE.Group();
   earth.position.set(-56.652, -215.289, -161.903);
   earth.rotation.set(-0.6, 1.3, 0.18);
-  const loader = new THREE.TextureLoader();
-  let disposed = false,
-    loadedMaps = 0;
-  earth.visible = false;
-  const finish = (texture: Three.Texture) => {
-    if (disposed) texture.dispose();
-    else {
-      loadedMaps++;
-      earth.visible = loadedMaps === 2;
-      invalidate();
-    }
-  };
-  const textureLimit = Number.isFinite(options.maxTextureSize)
-    ? Math.max(2048, options.maxTextureSize!)
-    : 8192;
-  const daySize = mobile
-    ? 2048
-    : textureLimit >= 5400
-      ? 5400
-      : textureLimit >= 4096
-        ? 4096
-        : 2048;
-  const requestedCloudSize = mobile
-    ? (options.mobileCloudResolution ?? 2048)
-    : 8192;
-  const cloudSize =
-    requestedCloudSize >= 8192 && textureLimit >= 8192
-      ? 8192
-      : requestedCloudSize >= 4096 && textureLimit >= 4096
-        ? 4096
-        : 2048;
-  const day = loader.load(`/textures/earth-day-${daySize}.webp`, finish);
-  day.colorSpace = THREE.SRGBColorSpace;
-  day.anisotropy = anisotropy;
-  day.minFilter = THREE.LinearMipmapLinearFilter;
-  day.magFilter = THREE.LinearFilter;
-  const cloudMap = loader.load(
-    `/textures/earth-clouds-${cloudSize}.webp`,
-    finish,
-  );
-  cloudMap.colorSpace = THREE.NoColorSpace;
-  cloudMap.anisotropy = anisotropy;
-  cloudMap.minFilter = THREE.LinearMipmapLinearFilter;
-  cloudMap.magFilter = THREE.LinearFilter;
   const sphereGeometry = new THREE.SphereGeometry(
     1,
-    mobile ? 96 : 160,
-    mobile ? 64 : 112,
+    mobile ? 96 : 128,
+    mobile ? 64 : 96,
   );
-  const surfaceMaterial = new THREE.MeshStandardMaterial({
-    map: day,
-    color: 0xf5f9ff,
-    roughness: 0.94,
-    metalness: 0,
-  });
-  // NASA's deep-ocean pixels are nearly black. Lift only dark, blue-dominant water
-  // in linear space; vegetation, deserts, coast detail, and ice retain their map color.
-  surfaceMaterial.onBeforeCompile = (shader) => {
-    shader.fragmentShader = shader.fragmentShader.replace(
-      '#include <map_fragment>',
-      `
-      #include <map_fragment>
-      #ifdef USE_MAP
-        float oceanBlueOverGreen = diffuseColor.b / max(diffuseColor.g, 0.0005);
-        float oceanBlueOverRed = diffuseColor.b / max(diffuseColor.r, 0.0005);
-        float oceanMask = smoothstep(1.2, 2.5, oceanBlueOverGreen)
-          * smoothstep(1.2, 2.2, oceanBlueOverRed)
-          * (1.0 - smoothstep(0.06, 0.20, max(diffuseColor.r, max(diffuseColor.g, diffuseColor.b))));
-        vec3 oceanDaylight = vec3(0.018, 0.095, 0.285) + diffuseColor.rgb * 0.35;
-        diffuseColor.rgb = mix(diffuseColor.rgb, oceanDaylight, oceanMask * 0.97);
-      #endif
-    `,
-    );
-  };
-  surfaceMaterial.customProgramCacheKey = () =>
-    'orbital-earth-ocean-daylight-v3';
-  const surface = new THREE.Mesh(sphereGeometry, surfaceMaterial);
-  surface.scale.setScalar(180);
-  earth.add(surface);
-  const clouds = new THREE.Mesh(
+  const surface = new THREE.Mesh(
     sphereGeometry,
     new THREE.MeshStandardMaterial({
-      color: 0xecf5ff,
-      alphaMap: cloudMap,
-      transparent: true,
-      opacity: 0.9,
-      alphaTest: 0.003,
-      depthWrite: false,
-      roughness: 1,
+      color: 0x1664a7,
+      roughness: 0.62,
+      metalness: 0,
+      emissive: 0x06182f,
+      emissiveIntensity: 0.2,
     }),
   );
+  surface.scale.setScalar(180);
+  earth.add(surface);
+  const cloudMaterial = new THREE.ShaderMaterial({
+    glslVersion: THREE.GLSL3,
+    transparent: true,
+    depthWrite: false,
+    toneMapped: false,
+    uniforms: {
+      cloudNoise: { value: cloudNoise },
+      noiseSide: { value: noiseSide },
+      time: { value: 0 },
+      sunDirection: { value: new THREE.Vector3(-120, 100, 120).normalize() },
+    },
+    defines: { FINE_CLOUD_DETAIL: mobile ? 0 : 1 },
+    vertexShader: `
+      out vec3 vLocal;
+      out vec3 vWorldNormal;
+      void main() {
+        vLocal = position;
+        vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      precision highp sampler3D;
+      in vec3 vLocal;
+      in vec3 vWorldNormal;
+      uniform sampler3D cloudNoise;
+      uniform float noiseSide;
+      uniform float time;
+      uniform vec3 sunDirection;
+      out vec4 outColor;
+      float n3(vec3 p) {
+        vec3 cell = floor(p), f = fract(p);
+        f = f * f * (3.0 - 2.0 * f);
+        return texture(cloudNoise, (cell + f + 0.5) / noiseSide).r;
+      }
+      vec3 swirl(vec3 p, vec3 axis, float strength) {
+        float angle = exp(-dot(p - axis, p - axis) * 9.0) * strength;
+        float c = cos(angle), s = sin(angle);
+        return p * c + cross(axis, p) * s + axis * dot(axis, p) * (1.0 - c);
+      }
+      void main() {
+        vec3 p = normalize(vLocal);
+        p = swirl(p, normalize(vec3(-0.62, 0.24, 0.75)), 2.7);
+        p = swirl(p, normalize(vec3(0.74, -0.35, -0.55)), -2.3);
+        float shear = sin(p.y * 5.2 + 0.7) * 0.38;
+        float c = cos(shear), s = sin(shear);
+        p.xz = mat2(c, -s, s, c) * p.xz;
+        vec3 morph = vec3(sin(time * 0.020), cos(time * 0.013), sin(time * 0.017)) * 0.035;
+        p += morph;
+        vec2 warp = vec2(n3(p * 3.1 + 11.3), n3(p * 3.1 - 8.7)) - 0.5;
+        vec3 q = p + vec3(warp.x, warp.y * 0.5, -warp.x) * 0.13;
+        float regional = n3(q * 4.2 + vec3(5.1, 0.0, 9.2));
+        float bands = n3(q * vec3(9.0, 22.0, 9.0) + 13.2);
+        float broken = n3(q * 43.0 - 3.7);
+        float weather = regional * 0.55 + bands * 0.29 + broken * 0.16;
+        #if FINE_CLOUD_DETAIL == 1
+          float footprint = max(length(dFdx(p)), length(dFdy(p)));
+          float fineWeight = 1.0 - smoothstep(0.10, 0.45, footprint * 180.0);
+          weather += (n3(q * 180.0 + 2.8) - 0.5) * 0.11 * fineWeight;
+        #endif
+        float coverage = pow(smoothstep(0.43, 0.67, weather), 1.15);
+        float cirrus = smoothstep(0.57, 0.76, bands) * smoothstep(0.37, 0.57, regional) * 0.15;
+        coverage = max(coverage, cirrus);
+        if (coverage < 0.007) discard;
+        float sun = dot(normalize(vWorldNormal), sunDirection);
+        float light = smoothstep(-0.10, 0.75, sun);
+        vec3 color = mix(vec3(0.39, 0.56, 0.76), vec3(0.97, 0.985, 1.0), light);
+        color *= 0.95 + broken * 0.08;
+        outColor = vec4(color, coverage * 0.94);
+      }
+    `,
+  });
+  const clouds = new THREE.Mesh(sphereGeometry, cloudMaterial);
   clouds.scale.setScalar(180.57);
   clouds.renderOrder = 2;
   earth.add(clouds);
@@ -405,12 +507,13 @@ export function createOrbitalEnvironment(
   };
 
   let activeTime = 0;
-  let meteorPhase = 0;
-  let meteorCycle = 0;
   const phaseHash = (value: number) => {
     const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
     return n - Math.floor(n);
   };
+  const meteorStart = (cycle: number, index: number) =>
+    cycle * 22 + 4 + index * 11 + phaseHash(cycle * 2 + index) * 3;
+  invalidate();
   return {
     scene,
     camera,
@@ -420,8 +523,14 @@ export function createOrbitalEnvironment(
       camera.updateProjectionMatrix();
       placeEarth(Math.max(1, width), safeHeight);
       starsMaterial.uniforms.pixelRatio.value = Math.max(1, pixelRatio);
-      meteorMaterial.uniforms.aspect.value = camera.aspect;
-      meteorMaterial.uniforms.pixelHeight.value = 1 / safeHeight;
+      for (const { material } of meteors) {
+        material.uniforms.aspect.value = camera.aspect;
+        material.uniforms.pixelHeight.value = 1 / safeHeight;
+        material.uniforms.tailLength.value = Math.min(
+          0.12,
+          camera.aspect * 0.26,
+        );
+      }
     },
     update(time: number, moving: boolean, x: number, y: number) {
       if (disposed) return;
@@ -430,57 +539,87 @@ export function createOrbitalEnvironment(
       surface.rotation.y = (activeTime * 0.0015) % (Math.PI * 2);
       clouds.rotation.y = (activeTime * 0.0021) % (Math.PI * 2);
       starsMaterial.uniforms.time.value = activeTime;
-
-      meteorCycle = Math.floor(activeTime / 29);
-      const delay = 12 + phaseHash(meteorCycle) * 7;
-      const duration = 0.78 + phaseHash(meteorCycle + 0.3) * 0.2;
-      const rawPhase = (activeTime - meteorCycle * 29 - delay) / duration;
-      meteor.visible = rawPhase >= 0 && rawPhase <= 1;
-      meteorPhase = meteor.visible ? rawPhase : 0;
-      if (meteor.visible) {
-        const aspect = meteorMaterial.uniforms.aspect.value;
-        const startX = 0.13 + phaseHash(meteorCycle + 2) * 0.37;
-        const startY = 0.7 + phaseHash(meteorCycle + 4) * 0.17;
-        const travel = 0.2 + phaseHash(meteorCycle + 6) * 0.07;
-        const axis = meteorMaterial.uniforms.axis.value;
-        meteorMaterial.uniforms.head.value.set(
-          startX + (axis.x * meteorPhase * travel) / aspect,
-          startY + axis.y * meteorPhase * travel,
-        );
-        meteorMaterial.uniforms.opacity.value =
-          Math.sin(Math.PI * meteorPhase) * 0.63;
-      } else {
-        meteorMaterial.uniforms.opacity.value = 0;
+      cloudMaterial.uniforms.time.value = activeTime;
+      for (let index = 0; index < meteors.length; index++) {
+        const meteor = meteors[index];
+        const cycle = Math.floor(activeTime / 22);
+        meteor.cycle = cycle;
+        meteor.startAt = meteorStart(cycle, index);
+        meteor.duration = 1.1 + phaseHash(cycle * 2 + index + 0.31) * 0.5;
+        const phase = (activeTime - meteor.startAt) / meteor.duration;
+        meteor.mesh.visible = phase >= 0 && phase <= 1;
+        meteor.phase = meteor.mesh.visible ? phase : 0;
+        meteor.nextAt =
+          activeTime <= meteor.startAt
+            ? meteor.startAt
+            : meteorStart(cycle + 1, index);
+        const uniforms = meteor.material.uniforms;
+        if (meteor.mesh.visible) {
+          const startX =
+            index === 0
+              ? 0.08 + phaseHash(cycle + 2) * 0.18
+              : 0.92 - phaseHash(cycle + 7) * 0.18;
+          const startY = 0.73 + phaseHash(cycle * 2 + index + 4) * 0.08;
+          const travel = Math.min(
+            0.32 + phaseHash(cycle + index + 6) * 0.1,
+            uniforms.aspect.value * 0.7,
+          );
+          const axis = uniforms.axis.value;
+          uniforms.head.value.set(
+            startX + (axis.x * phase * travel) / uniforms.aspect.value,
+            startY + axis.y * phase * travel,
+          );
+          uniforms.opacity.value =
+            Math.pow(Math.sin(Math.PI * phase), 0.65) * 0.96;
+        } else {
+          uniforms.opacity.value = 0;
+        }
       }
     },
     getDiagnostics() {
+      const meteorCount = meteors.filter((m) => m.mesh.visible).length;
       return {
         activeTime,
-        earthReady: earth.visible,
+        ready: !disposed,
+        earthReady: !disposed,
+        earthMode: 'procedural-water',
         earthRotation: surface.rotation.y,
         cloudRotation: clouds.rotation.y,
-        meteorPhase,
-        meteorCycle,
-        meteorVisible: meteor.visible,
-        textureSize: cloudSize,
-        dayTextureSize: daySize,
-        cloudTextureSize: cloudSize,
+        cloudMorphTime: cloudMaterial.uniforms.time.value,
+        meteorCount,
+        meteorPhases: meteors.map((m) => m.phase),
+        meteorStreams: meteors.map((m) => ({
+          visible: m.mesh.visible,
+          phase: m.phase,
+          startAt: m.startAt,
+          duration: m.duration,
+          nextAt: m.nextAt,
+        })),
+        meteorPhase: meteors.find((m) => m.mesh.visible)?.phase ?? 0,
+        meteorCycle: meteors[0].cycle,
+        meteorVisible: meteorCount > 0,
+        textureSize: noiseSide,
+        dayTextureSize: 0,
+        cloudTextureSize: 0,
+        proceduralTextureBytes,
+        proceduralTextureGpuBytes,
+        proceduralGenerationMs: Math.round(generationMs * 100) / 100,
+        proceduralNoiseDimensions: [noiseSide, noiseSide, noiseSide],
+        proceduralNoiseFormat: 'R8',
+        nebulaDimensions: [skyWidth, skyHeight],
+        externalTextureRequests: 0,
         estimatedTextureMiB:
-          Math.round(
-            (((daySize * daySize + cloudSize * cloudSize) * 8) / 3 / 1048576) *
-              10,
-          ) / 10,
+          Math.round((proceduralTextureGpuBytes / 1048576) * 10000) / 10000,
         earthRadius: 180,
         earthPosition: earth.position.toArray(),
-        anisotropy,
-        drawCallBudget: 7,
+        drawCallBudget: 8,
       };
     },
     dispose() {
       if (disposed) return;
       disposed = true;
-      day.dispose();
-      cloudMap.dispose();
+      cloudNoise.dispose();
+      skyTexture.dispose();
       const geometries = new Set<Three.BufferGeometry>();
       const materials = new Set<Three.Material>();
       scene.traverse((object) => {
@@ -488,9 +627,8 @@ export function createOrbitalEnvironment(
           geometries.add(object.geometry);
           for (const material of Array.isArray(object.material)
             ? object.material
-            : [object.material]) {
+            : [object.material])
             materials.add(material);
-          }
         }
       });
       geometries.forEach((geometry) => geometry.dispose());

@@ -1,0 +1,32 @@
+
+> orbital-folio@0.1.0 test
+> node --test --test-concurrency=1 tests/*.test.mjs
+
+✔ Rapid hover reversals preserve velocity and respect speed/acceleration at30/60/120Hz (1.456958ms)
+✔ Camera springs converge and frozen/invalid deltas cannot advance motion (0.902833ms)
+✔ Interactive-view migration updates default labels without overwriting custom or unpublished content (2.198375ms)
+✔ Contact messages are durable, private, honest, bounded, and rate limited (157.12475ms)
+✔ Flight destinations preserve public and private readable URLs (0.880834ms)
+✔ Fixed flights ease continuously and pointer translations stay bounded (1.139375ms)
+✔ In-place navigation and server rendering share editable metadata (0.132458ms)
+✔ Cursor rotation stays bounded and damping is independent of refresh rate (0.133167ms)
+▶ Persistent portfolio workflows and security boundaries
+  ✔ anonymous and forged identities cannot read or mutate the studio (95.622625ms)
+  ✔ local SIWC sign-in and first-owner claim work without a default password (15.436667ms)
+  ✔ CSRF, malformed bodies, and immutable site protection reject safely (45.010958ms)
+  ✔ published snapshots stay stable while drafts change; optimistic conflicts reject (427.062375ms)
+  ✔ collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions (160.974792ms)
+  ✔ another owner can replace every site field through the authenticated content interface (342.813959ms)
+  ✔ media bytes persist privately, publish safely, and appear in a project (156.57825ms)
+  ✔ script text is escaped and portable exports exclude credentials and inquiries (99.41325ms)
+  ✔ all public content is present in plain HTTP HTML with meaningful metadata and URLs (334.559667ms)
+  ✔ local sign-out clears the session cookie (5.772458ms)
+✔ Persistent portfolio workflows and security boundaries (2372.940292ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8903.289709
