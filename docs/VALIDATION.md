@@ -30,7 +30,7 @@ Additional recorded checks:
 
 ## Production measurement scope
 
-[Measured build output and response times](evidence/production-measurements.json) come from the actual production Worker on loopback, with five warm requests per route. Complete responses took approximately 7–16 ms. HTML was 5.8–9.0 KB when gzip-compressed locally. The optional Three.js chunk is about 183 KB gzip and the procedural model about 5.3 KB gzip. The browser receives complete HTML before the optional scene loads; reading routes do not render a scene.
+[Measured build output and response times](evidence/production-measurements.json) come from the actual production Worker on loopback, with five warm requests per route. Complete responses took approximately 7–22 ms. HTML was 5.8–9.0 KB when gzip-compressed locally. The optional Three.js chunk is about 183 KB gzip and the procedural model about 5.3 KB gzip. The browser receives complete HTML before the optional scene loads; reading routes do not render a scene.
 
 These are controlled local measurements, **not field Core Web Vitals or a claim about slow-phone frame rates**. No network/CPU-throttled Lighthouse score is claimed. Code caps pixel ratio at 1.5 and animation at 30 fps, suspends offscreen/hidden rendering, honors reduced motion and Save-Data, disposes GPU resources, and handles WebGL loss with complete HTML alternatives.
 
