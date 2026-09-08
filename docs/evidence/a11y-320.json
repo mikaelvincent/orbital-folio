@@ -1,0 +1,88 @@
+[
+  {
+    "url": "/",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [],
+    "passes": 19
+  },
+  {
+    "url": "/projects",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [],
+    "passes": 16
+  },
+  {
+    "url": "/projects/relay",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [],
+    "passes": 16
+  },
+  {
+    "url": "/experience",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [],
+    "passes": 16
+  },
+  {
+    "url": "/about",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+        "nodes": [
+          {
+            "target": [
+              "#my-story > .paper-top > .eyebrow"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.05 (foreground color: #577084, background color: #e9e3d7, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": [
+              "#my-story > .journal-subtitle"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.9 (foreground color: #627182, background color: #e9e3d7, font size: 12.8pt (17px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": [
+              "#how-i-work > .paper-top > .eyebrow"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.05 (foreground color: #577084, background color: #e9e3d7, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": [
+              "#how-i-work > .journal-subtitle"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.9 (foreground color: #627182, background color: #e9e3d7, font size: 12.8pt (17px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": [
+              "#beyond-the-screen > .paper-top > .eyebrow"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.05 (foreground color: #577084, background color: #e9e3d7, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": [
+              "#beyond-the-screen > .journal-subtitle"
+            ],
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.9 (foreground color: #627182, background color: #e9e3d7, font size: 12.8pt (17px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "passes": 16
+  },
+  {
+    "url": "/contact",
+    "width": 320,
+    "scrollWidth": 320,
+    "violations": [],
+    "passes": 23
+  }
+]
