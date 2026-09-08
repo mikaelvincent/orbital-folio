@@ -8,7 +8,7 @@ import {
   BookOpen,
   Layers,
 } from 'lucide-react';
-import { ProjectCards, RoomIntro, Sample, TextBlocks } from './portfolio';
+import { ProjectCards, RoomIntro, Sample, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content-types';
 import { ContactForm } from './contact-form';
 export function ProjectsView({ data }: { data: Portfolio }) {

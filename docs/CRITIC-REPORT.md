@@ -1,53 +1,59 @@
-# Independent critic report
+# Independent critic report — immersive local revision
 
-Final review: 9 September 2026 (Asia/Manila). Review performed by an independent critic agent that did not write or modify the implementation. The critic inspected source, operating instructions, test outputs and rendered evidence, and independently probed the local development and production HTTP servers.
+Reviewed 9 September 2026 by an independent critic agent. The critic did not author or modify the application. This assessment covers the requested local revision: a render-first spacecraft, fixed camera orientation, subtle cursor movement, whole-room selection, in-place reading, preserved portfolio/admin behavior, and a running local website.
 
-**Result: 89.4/100. Every area exceeds 8/10, but the requested 90/100 threshold and blocker-free completion condition have not been met.** The local application is substantially implemented and validated. Hosted deployment is blocked by an external identity-gateway registration error. Unverified hosted authentication and real-device performance are not counted as passing.
+**Result: 90.4/100. All five areas exceed 8/10. No known requirement blocker remains for this scoped local deliverable.** The earlier Sites hosting incident is separate and is not claimed resolved.
 
-## Equally weighted scores
+## Five equally weighted areas
 
-| Area | Score /10 | Concrete basis and remaining limits |
+| Area | Score /10 | Evidence and practical limits |
 |---|---:|---|
-| Visual identity and integrated interaction | **9.0** | Stable desktop and mobile screenshots show a distinctive procedural toybox spacecraft with plausible connected bays, warm materials, integrated editable nameplates and tactile props. Case studies use a readable clipboard treatment; experience, About and contact have related console/journal/communications surfaces. Actual scene picking, pause and reading-view interactions were observed by the implementing agent and recorded. The result is coherent across the supplied desktop/mobile views. |
-| Functionality and database/admin workflows | **9.2** | The preserved HTTP suite passes 12/12 tests with no skips. It exercises authentication boundaries, private drafts versus published snapshots, optimistic revisions, concurrent slug rejection, ordering and growth beyond three projects, owner replacement, media upload/privacy/publication, contact persistence, escaping and import/export. Browser evidence shows owner editing, guarded unsaved changes, save/publish and a private dossier retaining the changed owner. Ten complete records survived a server restart unchanged, and all draft/published snapshots matched after restoration into a fresh SQLite database. Production identity-provider behavior remains outside this locally verified result. |
-| Responsive accessibility | **9.1** | Twenty-eight route/viewport combinations at 320, 390, 768 and 1440 pixels report zero axe WCAG A/AA violations and no horizontal overflow. Fresh mobile home, dossier and admin views are readable and intentional. Keyboard evidence records skip-to-main focus, native radio arrow-key behavior and pause activation. Forced actual WebGL context loss retained the fallback, four section links and three project links. OS reduced-motion switching, a full JavaScript-disabled browser session, manual screen readers and physical touch devices remain unverified. |
-| Performance and crawlability | **8.6** | Independently observed public responses contain complete semantic HTML, titles and canonical URLs; unknown routes return 404. Sitemap/robots and private preview noindex/no-store are present. The actual production build reports 5.8–9.0 KB computed-gzip HTML, an optional approximately 183 KB gzip Three.js chunk and a 5.3 KB model. Warm complete loopback responses measured approximately 7–22 ms. The renderer caps pixel ratio and animation rate, disposes resources and now combines viewport/document visibility correctly. No network/CPU-throttled browser, low-end GPU, Lighthouse or field Web Vitals results are available; loopback timings do not verify those outcomes. |
-| Security and maintainability | **8.8** | Independent anonymous and forged-header probes reject admin/export; private preview redirects and is no-store/noindex. The built response includes HSTS, CSP without development unsafe-eval, nosniff, referrer and permissions policies. Server authorization, same-origin mutations, pre-parser streamed size limits, prepared SQL, database uniqueness, safe URL validation and passive image upload rules are implemented. Dependency audit reports zero known advisories, and build/typecheck/lint pass. Backup, restoration, migration, domain, subdomain, secret and auth-boundary instructions are explicit. The beta framework and gateway-specific identity adapter are documented maintenance tradeoffs. Actual hosted gateway authentication, session lifetime and bypass-origin protection cannot be verified until the provider incident is resolved. |
-| **Overall** | **89.4/100** | **(9.0 + 9.2 + 9.1 + 8.6 + 8.8) × 2. Approval withheld.** |
+| Visual identity and integrated interaction | **9.0** | Current production desktop/mobile captures show a spacecraft-led composition with restrained navigation, a blue Earth horizon, visible atmospheric limb and varied stars. The ship has connected pressure-hull modules, rounded surfaces, readable nameplates, cabin props and consistent materials. Hover visibly changes the selected room as a whole. Zoomed mission/dossier readers retain the surrounding ship and do not feel like a full-page departure. |
+| Functionality and database/admin workflows | **9.3** | Fifteen tests pass with no failures or skips, including the existing database/admin/contact regression suite and new destination, motion-bound and metadata checks. Actual browser evidence records raycast entry, in-place dossiers, browser Back/Forward, correct case-study metadata and retained renderer identity. ID-based private preview hydration and Back restoration were specifically rechecked. Separate drafts/publications, ordering, growth, owner personalization, media, contact storage and exports remain covered. |
+| Responsive accessibility | **9.0** | Fourteen new-layout axe audits cover six desktop routes, six mobile routes, a tablet route and an actual WebGL-loss fallback; all report zero violations and no page overflow. Fresh mobile overview, dossier and contact captures are readable and intentional. Browser evidence shows room-reader focus after arrival, Escape restoration, paused keyboard entry, contact-input focus surviving a keyboard-sized viewport resize, and usable reading navigation after context loss. OS preference switching, physical devices and manual screen-reader sessions were not performed. |
+| Performance and crawlability | **8.8** | The camera quaternion remains identical across drag, room entry, dossiers and history navigation. The renderer persists through those interactions; it is not recreated for each room. Scene evidence reports approximately 94 overview draw calls and 378,300 triangles after batching/static-shadow caching, with observed CPU submission samples around 1.5–3 ms. This is not GPU timing or a frame-rate guarantee. Built-worker warm complete responses are approximately 8–14 ms on loopback; HTML computes to roughly 9.9–11.1 KB gzip. Three.js is approximately 183 KB gzip, the model 11.2 KB and immersive UI 9.2 KB; Earth textures total approximately 281 KB. Complete semantic HTML, titles, canonical URLs and meaningful routes remain available before enhancement. |
+| Security and maintainability | **9.1** | Authenticated admin/preview boundaries, same-origin checks, bounded requests, safe text/URL handling, prepared SQL and database uniqueness remain intact and regression-tested. Independent anonymous and forged-header probes reject protected reads on the development gateway. Production and development public-route probes return expected content and status codes. Build/typecheck/lint pass and dependency audit reports zero known advisories. Geometry, background, flight rules, readable views and content persistence are separated; Earth asset provenance is documented. The local server was independently confirmed listening on loopback only. |
+| **Overall** | **90.4/100** | **(9.0 + 9.3 + 9.0 + 8.8 + 9.1) × 2.** |
 
-## Completion blocker
+## Concrete verification
 
-Private Sites deployment failed twice before a live URL was assigned. Both attempts returned HTTP 409 Conflict while the provider registered the SIWC sign-in callback. The application built successfully; this is an external hosting/authentication-registration failure. The Site remained private and authentication was not bypassed or weakened. Incident and deployment identifiers are recorded in `OPERATIONS.md`.
+The critic inspected the current scene, navigation, metadata, preview, reading and fallback source, not just screenshots. Read-only HTTP checks against both `localhost:3000` and the built Worker on port 4173 verified seven public routes with one h1, title and canonical URL; unknown project routes returned 404; anonymous admin requests returned 403; private preview redirected with private/no-store headers. Pre-enhancement scene and flight controls were hidden in the returned HTML while real content remained present.
 
-Consequently, the hosted first-owner claim, real gateway sign-in/logout and session behavior, gateway-only public ingress, DNS/TLS and domain launch are unverified. The local simulator is not evidence of those production behaviors. The raw Worker must not be exposed as a workaround because the application relies on authenticated headers supplied by the Sites gateway.
+The current production interaction record shows the same renderer UUID and camera quaternion before/after drag, raycast entry and paused keyboard navigation. Earlier development evidence additionally records same-renderer Back/Forward and ID-based private preview restoration. Drag changes only bounded camera translation and does not trigger navigation. The production paused-keyboard recheck records focus on `room-reader`, superseding an earlier failed-focus observation.
 
-Resolving the provider incident and verifying the real deployment is required before declaring hosted completion. A bounded production-browser performance run on a constrained device/profile would also resolve the main remaining performance evidence gap. Scores must be reviewed from the new evidence rather than automatically raised.
+The WebGL test used actual context loss, then verified zero remaining canvases, the readable mission heading and working navigation to Contact. The mobile contact test retained `contact-name` focus across a reduced-height viewport, avoiding keyboard-resize focus theft.
+
+`localhost:3000` returned HTTP 200 during final review. `lsof` showed its Node listener bound to `[::1]:3000`, satisfying the requested running local endpoint at that time. The application should remain running for the user's inspection.
 
 ## Evidence inspected
 
-- `evidence/workflows.tap`: 12 passed, 0 failed, 0 skipped; corresponding HTTP test source was inspected.
-- `evidence/restore.json`: ten records; identical draft and published snapshots in a fresh SQLite database; private data excluded.
-- `evidence/restart-persistence.json`: drafts, publications, revisions and timestamps identical after stop/start.
-- `evidence/responsive-audits.json` and `evidence/responsive-390.json`: 28 route/viewport cases, no reported violations or overflow.
-- `evidence/keyboard.json`: skip target focus, native radio selection/focus, keyboard pause and unsaved-edit guard.
-- `evidence/webgl-fallback.json`: actual forced WebGL context loss and preserved content/navigation.
-- Stable viewport images: desktop/mobile home, desktop/mobile dossier, desktop/mobile admin and private preview. The private preview shows the alternate sample owner retained inside a dossier.
-- `evidence/production-measurements.json`: actual built-worker response and bundle measurements with their scope clearly stated.
-- `evidence/build.txt`, `evidence/typecheck.txt`, `evidence/lint.txt`, `evidence/dependency-audit.json`.
-- `README.md`, `OPERATIONS.md`, `ASSETS.md`, `VALIDATION.md`, application/API/database/scene source and migrations.
+Under `docs/evidence/immersive/`:
 
-The critic independently verified seven public routes returning 200 with one h1, title and canonical URL, a genuine 404, anonymous admin/export denial, denial with forged identity headers, and an anonymous preview redirect with private/no-store and noindex/nofollow headers. The built server independently returned 200 with production security headers. Raw critic probe results were saved under `/tmp/orbital-critic-http.json` and `/tmp/orbital-critic-production-headers.txt` during review.
+- `workflows.tap`: 15 passed, 0 failed, 0 skipped; corresponding tests were inspected.
+- `accessibility.json`: 14 route/viewport/fallback audits with no reported violations or overflow.
+- `interactions.json`: drag/hover, room entry, dossiers, browser history, editable metadata, focus, context loss, reading fallback and private-preview behavior.
+- `production-interactions.json`: actual built-application navigation, fixed orientation, persistent renderer, paused keyboard focus and mobile scene selection.
+- Current desktop overview/hover/experience/dossier and mobile overview/dossier/contact screenshots; supporting room captures.
+- `production-measurements.json`, `build.txt`, `typecheck.txt`, `lint.txt`, `dependency-audit.json`.
 
-## Earlier findings resolved
+The critic's independent HTTP results are retained at `/tmp/immersive-final-http.json`. Existing persistence and restoration evidence from the prior implementation was also considered alongside the fresh database regression tests; it is not misrepresented as a new browser test.
 
-- Draft previews now share public layouts and preserve private navigation.
-- Request bodies are bounded before multipart parsing, including streamed bodies.
-- Public error-page copy is database-editable; initials affect branding and the generated favicon.
-- Missing slugs and empty/unsafe link/media URLs are rejected; database indexes reject concurrent duplicate slugs.
-- The scene caption has a contrasting backing and offscreen rendering no longer restarts merely because the tab becomes visible.
-- Unsaved admin edits are guarded, and skip navigation focuses the main landmark.
-- Corrupted full-page screenshot captures were replaced by stable viewport evidence used for this final assessment. The older pre-fix 320-pixel audit is not counted as a pass.
+## Issues found and resolved during this revision
 
-## Honest delivery boundaries
+- Replaced drag/orbit navigation and full-page scene clicks with fixed-orientation flights and same-document destinations.
+- Preserved ID-based project previews through both hydration and browser history.
+- Reused editable metadata for SSR and in-place page state.
+- Kept Contact's private-preview links within the preview.
+- Removed blank scene space and inert controls before JavaScript enhancement.
+- Added reading-mode focus management and corrected paused/instant-arrival focus after the reader commits.
+- Preserved contact-input focus during viewport resizing.
+- Made stopped-mode room highlights immediate and retained contrasting status controls over pale hull geometry.
+- Corrected readable-layout positioning so underlying footer links remain clickable.
 
-No email delivery is claimed: contact success means durable storage in the private inbox. The portfolio is seeded with explicitly labeled fictional examples and remains noindexed. The real owner must replace those examples and configure the domain before a public launch. No production histories, project results, external demos, slow-device frame rates, manual assistive-technology certification or hosted authentication success have been invented or inferred as passing.
+## Limits and separate hosting incident
+
+No physical low-end GPU, network/CPU-throttled Lighthouse, field Core Web Vitals, manual screen reader, full JavaScript-disabled browser session or OS reduced-motion preference switch is claimed as tested. Server HTML and initial visibility were independently verified; paused/motionless behavior was exercised in the browser, and the OS preference wiring was inspected in source. These distinctions are intentional.
+
+The previous private Sites deployment failed with HTTP 409 while registering the identity callback. That hosted deployment, real gateway session behavior and custom-domain/DNS/TLS launch remain unverified. This local revision neither fixes nor bypasses that incident. Do not expose the raw Worker outside its trusted identity gateway. No hosted URL or production authentication success is claimed.
+
+Sample career/project data remains explicitly labeled. Contact success means durable receipt in the private database inbox, not email delivery. The score approves the current scoped local revision and does not certify an unverified public launch.

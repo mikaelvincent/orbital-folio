@@ -27,7 +27,7 @@ export default async function Preview({
   const section = q.section || 'home';
   const p = data.projects.find((p) => p.id === q.id || p.slug === q.slug);
   return (
-    <PublicShell data={data} active={section} preview>
+    <PublicShell data={data} active={section} projectSlug={p?.slug} preview>
       {section === 'projects' ? (
         p ? (
           <DossierView data={data} project={p} />

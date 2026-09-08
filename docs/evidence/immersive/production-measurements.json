@@ -1,0 +1,171 @@
+{
+  "scope": "Built Worker on loopback; warm full-response latency, not network or real-device Core Web Vitals. Gzip is computed, not assumed transport compression.",
+  "chunks": [
+    {
+      "name": "Icon-jpk45vUa.js",
+      "bytes": 1082,
+      "gzipBytes": 659
+    },
+    {
+      "name": "RoomEnvironment-DAogZLth.js",
+      "bytes": 2132,
+      "gzipBytes": 942
+    },
+    {
+      "name": "admin-studio-D28oPItt.js",
+      "bytes": 136737,
+      "gzipBytes": 44551
+    },
+    {
+      "name": "contact-form-ClolmlBo.js",
+      "bytes": 3526,
+      "gzipBytes": 1446
+    },
+    {
+      "name": "dev-audit-zU2yVafP.js",
+      "bytes": 145,
+      "gzipBytes": 147
+    },
+    {
+      "name": "framework-DTZGTDtF.js",
+      "bytes": 190109,
+      "gzipBytes": 59048
+    },
+    {
+      "name": "immersive-portfolio-DxNx1eLx.js",
+      "bytes": 27941,
+      "gzipBytes": 9182
+    },
+    {
+      "name": "index-BLWRQQyU.js",
+      "bytes": 118209,
+      "gzipBytes": 33275
+    },
+    {
+      "name": "layout-segment-context-D6jdS37F.js",
+      "bytes": 496,
+      "gzipBytes": 346
+    },
+    {
+      "name": "orbit-CTRZ45eY.js",
+      "bytes": 344,
+      "gzipBytes": 234
+    },
+    {
+      "name": "orbital-environment-DZqT420B.js",
+      "bytes": 4123,
+      "gzipBytes": 1706
+    },
+    {
+      "name": "radio-ChOZJHGg.js",
+      "bytes": 1049,
+      "gzipBytes": 609
+    },
+    {
+      "name": "rolldown-runtime-hePW80VL.js",
+      "bytes": 716,
+      "gzipBytes": 430
+    },
+    {
+      "name": "spacecraft-model-BJdZtVD-.js",
+      "bytes": 27068,
+      "gzipBytes": 11183
+    },
+    {
+      "name": "three.module-kRnP-91l.js",
+      "bytes": 724214,
+      "gzipBytes": 182517
+    },
+    {
+      "name": "vinext-BdEw0X7p.js",
+      "bytes": 111711,
+      "gzipBytes": 32931
+    }
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "completeResponseMs": [
+        13.65,
+        11.14,
+        11.4,
+        8.86,
+        9.39
+      ],
+      "htmlBytes": 39962,
+      "htmlGzipBytes": 9861,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/projects",
+      "completeResponseMs": [
+        9.52,
+        9.47,
+        8.9,
+        7.98,
+        8.23
+      ],
+      "htmlBytes": 40410,
+      "htmlGzipBytes": 9990,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/projects/relay",
+      "completeResponseMs": [
+        9.85,
+        8.95,
+        8.5,
+        8.78,
+        9.51
+      ],
+      "htmlBytes": 46063,
+      "htmlGzipBytes": 11053,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/experience",
+      "completeResponseMs": [
+        9.46,
+        8.59,
+        9.42,
+        8.14,
+        8.29
+      ],
+      "htmlBytes": 44058,
+      "htmlGzipBytes": 10284,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/about",
+      "completeResponseMs": [
+        9.33,
+        8.92,
+        7.84,
+        7.91,
+        9.64
+      ],
+      "htmlBytes": 43083,
+      "htmlGzipBytes": 10193,
+      "hasMain": true,
+      "h1Count": 1
+    },
+    {
+      "route": "/contact",
+      "completeResponseMs": [
+        8.47,
+        8.82,
+        8.95,
+        8.32,
+        9.02
+      ],
+      "htmlBytes": 38904,
+      "htmlGzipBytes": 10344,
+      "hasMain": true,
+      "h1Count": 1
+    }
+  ]
+}

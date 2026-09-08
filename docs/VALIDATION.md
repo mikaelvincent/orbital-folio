@@ -1,5 +1,7 @@
 # Validation evidence
 
+The immersive revision has newer layout, browser and build evidence in [IMMERSIVE-VALIDATION.md](IMMERSIVE-VALIDATION.md). The record below describes the initial implementation and is retained for history.
+
 Validation: 8 September UTC / 8–9 September 2026 Manila. Sample content only. The independent critic report records the review status and any remaining gaps.
 
 ## Reproducible checks

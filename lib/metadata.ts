@@ -11,16 +11,16 @@ export function pageMetadata(
   record?: Record<string, any>,
 ) {
   const s = data.site;
-  const path = section + (record ? '/' + record.slug : '');
+  const path = section === 'home' ? '' : '/' + section + (record ? '/' + record.slug : '');
   const title =
-    record?.seoTitle || `${s[section + 'Label'] || s.privacyLabel} — ${s.name}`;
+    record?.seoTitle || (section === 'home' ? s.seoTitle : `${s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
   const description =
     record?.seoDescription || s[section + 'Intro'] || s.seoDescription;
   const images = socialImage(data, record ? record.mediaId : s.seoImageId);
   return {
     title,
     description,
-    alternates: { canonical: s.domain + '/' + path },
+    alternates: { canonical: s.domain + path },
     robots:
       s.sampleMode || record?.sample
         ? { index: false, follow: true }
@@ -28,7 +28,7 @@ export function pageMetadata(
     openGraph: {
       title,
       description,
-      url: s.domain + '/' + path,
+      url: s.domain + path,
       type: 'website',
       images,
     },

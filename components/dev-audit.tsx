@@ -6,14 +6,7 @@ export function DevAudit() {
 }
 function AuditPanel() {
   const [report, setReport] = useState<any>(null);
-  useEffect(() => {
-    if (
-      process.env.NODE_ENV !== 'development' ||
-      new URLSearchParams(location.search).get('audit') !== '1'
-    )
-      return;
-    let alive = true;
-    const timer = setTimeout(async () => {
+  async function runAudit() {
       try {
         const axe = (await import('axe-core')).default;
         const result = await axe.run(document, {
@@ -22,8 +15,7 @@ function AuditPanel() {
             values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
           },
         });
-        if (alive)
-          setReport({
+        setReport({
             url: location.pathname,
             width: innerWidth,
             scrollWidth: document.documentElement.scrollWidth,
@@ -39,20 +31,22 @@ function AuditPanel() {
             passes: result.passes.length,
           });
       } catch (e) {
-        if (alive) setReport({ error: String(e) });
+        setReport({ error: String(e) });
       }
-    }, 600);
-    return () => {
-      alive = false;
-      clearTimeout(timer);
-    };
+  }
+  useEffect(() => {
+    if (new URLSearchParams(location.search).get('audit') !== '1') return;
+    const timer = setTimeout(runAudit, 800);
+    return () => clearTimeout(timer);
   }, []);
+
   return report ? (
     <details className="dev-audit">
       <summary>
         Development accessibility audit · {report.violations?.length ?? '?'}{' '}
         violations
       </summary>
+      <button type="button" className="button" onClick={runAudit}>Run accessibility audit</button>
       <button
         type="button"
         className="button"

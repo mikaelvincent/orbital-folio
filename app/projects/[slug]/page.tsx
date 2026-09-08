@@ -25,7 +25,7 @@ export default async function Page({
   const p = data.projects.find((p) => p.slug === slug);
   if (!p) notFound();
   return (
-    <PublicShell data={data} active="projects">
+    <PublicShell data={data} active="projects" projectSlug={p.slug}>
       <DossierView data={data} project={p} />
     </PublicShell>
   );

@@ -1,4 +1,4 @@
-import { TextBlocks } from './portfolio';
+import { TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content-types';
 export function PrivacyView({ data }: { data: Portfolio }) {
   return (

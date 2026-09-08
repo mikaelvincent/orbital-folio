@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { pathFor } from '@/lib/paths';
 import { Radio, ArrowUpRight, Check, UserRound, Box } from 'lucide-react';
 export function ContactForm({
   site: s,
@@ -21,7 +22,7 @@ export function ContactForm({
           </span>
           <h2>{s.sentHeading}</h2>
           <p>{s.sentMessage}</p>
-          <a href="/" className="text-link">
+          <a href={pathFor('/', s)} className="text-link">
             {s.backHomeLabel}
             <ArrowUpRight size={18} />
           </a>
@@ -129,7 +130,7 @@ export function ContactForm({
             <Radio size={18} />
           </button>
           <p className="contact-privacy" id="contact-privacy">
-            {s.contactPrivacy} <a href="/privacy">{s.privacyLabel} ↗</a>
+            {s.contactPrivacy} <a href={pathFor('/privacy', s)}>{s.privacyLabel} ↗</a>
           </p>
         </form>
       )}

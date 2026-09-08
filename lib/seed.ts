@@ -43,7 +43,7 @@ export const seedSite = {
   sceneLoading: 'Preparing your spacecraft…',
   sceneUnavailable:
     'Your reading view is ready. You can explore every section below.',
-  sceneHelp: 'Drag to look around · Choose a room to enter',
+  sceneHelp: 'Choose a room to enter · Move the cursor to look closer',
   pauseLabel: 'Pause motion',
   resumeLabel: 'Resume motion',
   resetLabel: 'Reset view',
