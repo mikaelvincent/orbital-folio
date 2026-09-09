@@ -1,0 +1,5 @@
+Production build: PASS (exit 0)
+Command: node /Users/mikaelvincent/.codex/plugins/cache/openai-bundled/sites/0.1.66/scripts/build-site.mjs
+All five vinext build stages completed successfully.
+Warnings: Node module.register deprecation; client chunks over 500 kB; /case-studies route could not be statically classified.
+No new dependencies or scene/model changes in this iteration.

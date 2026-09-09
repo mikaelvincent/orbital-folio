@@ -1,0 +1,150 @@
+{
+  "scope": "Independent analysis of supplied actual SVG path and DOM records; no new browser execution",
+  "states": [
+    {
+      "name": "desktop-drag",
+      "viewport": [
+        1440,
+        900
+      ],
+      "layout": "corner-leaders",
+      "solarSegmentChecksWith8pxPadding": 16,
+      "diagonalXY": [
+        [
+          76.303,
+          76.303
+        ],
+        [
+          76.303,
+          76.303
+        ],
+        [
+          76.303,
+          76.303
+        ],
+        [
+          76.303,
+          76.303
+        ]
+      ],
+      "outerRunLengths": [
+        312.373,
+        221.781,
+        316.328,
+        242.71
+      ],
+      "failures": []
+    },
+    {
+      "name": "compact-landscape",
+      "viewport": [
+        700,
+        480
+      ],
+      "layout": "corner-leaders",
+      "solarSegmentChecksWith8pxPadding": 16,
+      "diagonalXY": [
+        [
+          31.797,
+          36.0
+        ],
+        [
+          31.797,
+          36.0
+        ],
+        [
+          31.797,
+          36.0
+        ],
+        [
+          31.797,
+          36.0
+        ]
+      ],
+      "outerRunLengths": [
+        83.057,
+        38.864,
+        83.147,
+        40.065
+      ],
+      "failures": []
+    },
+    {
+      "name": "portrait-unchanged",
+      "viewport": [
+        390,
+        844
+      ],
+      "layout": "mirrored-rails",
+      "solarSegmentChecksWith8pxPadding": 16,
+      "diagonalXY": [
+        [
+          53.999,
+          53.999
+        ],
+        [
+          53.531,
+          53.531
+        ],
+        [
+          47.381,
+          47.381
+        ],
+        [
+          46.896,
+          46.896
+        ]
+      ],
+      "outerRunLengths": [
+        189.9,
+        145.964,
+        202.007,
+        148.323
+      ],
+      "failures": []
+    },
+    {
+      "name": "desktop",
+      "viewport": [
+        1440,
+        900
+      ],
+      "layout": "corner-leaders",
+      "solarSegmentChecksWith8pxPadding": 16,
+      "diagonalXY": [
+        [
+          78.605,
+          78.605
+        ],
+        [
+          78.605,
+          78.605
+        ],
+        [
+          78.605,
+          78.605
+        ],
+        [
+          78.605,
+          78.605
+        ]
+      ],
+      "outerRunLengths": [
+        357.815,
+        148.283,
+        358.598,
+        157.342
+      ],
+      "failures": []
+    }
+  ],
+  "allPass": true,
+  "sourceHashesMatchSavedFinal": {
+    "components/overview-annotations.ts": true,
+    "components/spacecraft.tsx": true,
+    "components/spacecraft-model.ts": true,
+    "components/orbital-environment.ts": true
+  },
+  "solarSegmentChecks": 64,
+  "limits": "Four captured states, not exhaustive camera or owner-label coverage. Sequential DOM reads can differ slightly from path frames."
+}

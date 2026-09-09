@@ -104,17 +104,31 @@ export function createOverviewAnnotations(
     const rail = railPosition(supports);
     const top = Math.min(...supports.map((p) => p.y)) - 12;
     const bottom = Math.max(...supports.map((p) => p.y)) + 12;
-    // Landscape uses precisely one 45-degree/vertical template for all rooms.
-    // If the viewport is tight, the entire template scales together.
-    let templateScale = 1;
+    // Landscape labels sit at the outer corners of the projected vessel.
+    // Share a longer diagonal departure, then continue horizontally to each
+    // corner. Clamp the shared endpoints, not individual line segments.
+    const leftCorner = Math.max(
+      12 + Math.max(...entries.filter((e) => !e.lane).map((e) => e.width)),
+      Math.min(...supports.map((p) => p.x)) - 12,
+    );
+    const rightCorner = Math.min(
+      width -
+        12 -
+        Math.max(...entries.filter((e) => e.lane).map((e) => e.width)),
+      Math.max(...supports.map((p) => p.x)) + 12,
+    );
+    const verticalRun = Math.max(
+      36,
+      ...anchors.map((a, i) => (entries[i].upper ? a.y - top : bottom - a.y)),
+    );
+    let diagonalRun = verticalRun;
     if (!portrait)
       for (const [i, a] of anchors.entries()) {
-        const e = entries[i],
-          half = e.width / 2;
-        const horizontal = e.lane ? width - 12 - half - a.x : a.x - 12 - half;
-        templateScale = Math.min(templateScale, horizontal / 20);
+        const available = entries[i].lane
+          ? rightCorner - a.x
+          : a.x - leftCorner;
+        diagonalRun = Math.min(diagonalRun, Math.max(0, available) * 0.45);
       }
-    templateScale = clamp(templateScale, 0.1, 1);
     const labelScale = portrait
       ? Math.min(
           1,
@@ -141,11 +155,11 @@ export function createOverviewAnnotations(
         };
       } else {
         knee = {
-          x: a.x + sx * 20 * templateScale,
-          y: a.y + sy * 20 * templateScale,
+          x: a.x + sx * diagonalRun,
+          y: a.y + sy * verticalRun,
         };
-        end = { x: knee.x, y: knee.y + sy * 16 * templateScale };
-        label = { x: end.x, y: end.y + (sy * e.height) / 2 };
+        end = { x: e.lane ? rightCorner : leftCorner, y: knee.y };
+        label = { x: end.x + (sx * e.width) / 2, y: end.y };
       }
       e.knee.copy(pointAtDepth(knee.x, knee.y, view));
       e.end.copy(pointAtDepth(end.x, end.y, view));
@@ -154,7 +168,7 @@ export function createOverviewAnnotations(
     }
     layer.dataset.connectorLayout = portrait
       ? 'mirrored-rails'
-      : 'mirrored-template';
+      : 'corner-leaders';
   }
   function layout(frame: Frame, support: number[][], model: Three.Group) {
     width = host.clientWidth;
