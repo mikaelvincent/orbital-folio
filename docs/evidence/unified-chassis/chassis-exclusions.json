@@ -1,0 +1,61 @@
+[
+  {
+    "name": "rounded-front-pressure-collar",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "projects",
+      "experience",
+      "about",
+      "contact"
+    ],
+    "expectedCount": 4
+  },
+  {
+    "name": "projects-continuous-pressure-skin-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "projects"
+    ],
+    "expectedCount": 1
+  },
+  {
+    "name": "experience-continuous-pressure-skin-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "experience"
+    ],
+    "expectedCount": 1
+  },
+  {
+    "name": "about-continuous-pressure-skin-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "about"
+    ],
+    "expectedCount": 1
+  },
+  {
+    "name": "contact-continuous-pressure-skin-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "contact"
+    ],
+    "expectedCount": 1
+  },
+  {
+    "name": "experience-sealed-outboard-wall-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "experience"
+    ],
+    "expectedCount": 1
+  },
+  {
+    "name": "contact-sealed-outboard-wall-exterior",
+    "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+    "rooms": [
+      "contact"
+    ],
+    "expectedCount": 1
+  }
+]

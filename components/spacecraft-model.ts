@@ -1,7 +1,7 @@
 /**
- * Orbital toybox, v13. Self-contained procedural Three.js asset.
- * +Y up and +Z front. Four independent pressure cabins use metadata anchors.
- * Every visible mesh carries userData.section and is returned as a pick target.
+ * Orbital toybox, v14. Self-contained procedural Three.js asset.
+ * +Y up and +Z front. One continuous chassis surrounds four cabins with stable metadata anchors.
+ * Room meshes carry userData.section; the shared outer chassis is excluded from picking.
  * Static parts are batched per room/material; repeated fittings use instancing.
  */
 export type SpacecraftProject = {
@@ -521,7 +521,13 @@ export function createSpacecraft(
     const assembly = new THREE.Group();
     assembly.userData.section = sectionOf(parent);
     parent.add(assembly);
-    mesh(pair[0], material, assembly, name + '-exterior');
+    // The common chassis replaces only the external faces of the former pods.
+    // Their interior triangles retain their original geometry and materials.
+    if (
+      !name.endsWith('-continuous-pressure-skin') &&
+      !name.endsWith('-sealed-outboard-wall')
+    )
+      mesh(pair[0], material, assembly, name + '-exterior');
     mesh(pair[1], material, assembly, name + '-interior');
     return assembly;
   }
@@ -871,7 +877,6 @@ export function createSpacecraft(
   const unitBox = new THREE.BoxGeometry(1, 1, 1);
   const boltGeometry = new THREE.CylinderGeometry(0.021, 0.021, 0.013, 6);
   boltGeometry.rotateX(Math.PI / 2);
-  const frontSkin = frameGeometry(2.91, 3.12, 0.48, 0.13, 0.22, 0.035);
   const frontSeal = frameGeometry(2.74, 2.79, 0.32, 0.069, 0.078, 0.01);
   // At 1.4× width, opposing bulkhead skins retain a 20 mm gap.
   const endWallGeometry = panelGeometry(2.5, 2.88, 0.48, 0.14, 0.03).clone();
@@ -895,13 +900,6 @@ export function createSpacecraft(
       0,
     );
     skin.position.set(x, 0, 0);
-    const front = mesh(
-      frontSkin,
-      m.shell,
-      room,
-      'rounded-front-pressure-collar',
-    );
-    front.position.set(x, 0.06, 1.19);
     const seal = mesh(
       frontSeal,
       m.gasket,
@@ -1084,8 +1082,7 @@ export function createSpacecraft(
       room,
       'header',
     );
-    // A deeper pressure collar gives the printed labels a broad, load-bearing
-    // surface. Its top stays below the interior deck sightline.
+    // The enamel plates sit on the common front chassis crossmember.
     box(
       2.74,
       0.57,
@@ -1122,9 +1119,7 @@ export function createSpacecraft(
       0.032,
       'room-label-ceramic-insert',
     );
-    // Fixed portrait alternative: +PI/2 ship roll makes this -PI/2 label level.
-    // The added width goes outward: its inner edge remains at local X -1.28,
-    // preserving selected-cabin door sightlines without view-dependent geometry.
+    // The portrait alternative shares the same continuous chassis jamb.
     box(
       0.57,
       2.74,
@@ -1423,13 +1418,6 @@ export function createSpacecraft(
     geometry.translate(0, 0, -depth / 2);
     return geometry;
   }
-  const walkwayFront = mesh(
-    walkwayProfile(1.59, 6.38, 1.36, 2.14, 0.17, 0.13, 0.19, 0.025),
-    m.shell,
-    walkwayStructure,
-    'walkway-rounded-pressure-collar',
-  );
-  walkwayFront.position.set(0, 0.01, 1.17);
   const walkwaySeal = mesh(
     walkwayProfile(1.32, 6.1, 1.22, 2.0, 0.035, 0.025, 0.06, 0.005),
     m.gasket,
@@ -1437,13 +1425,98 @@ export function createSpacecraft(
     'walkway-pressure-collar-seal',
   );
   walkwaySeal.position.set(0, 0.01, 1.19);
-  const walkwayRear = mesh(
-    walkwayProfile(1.47, 6.15, 1.26, 2.06, 0.16, 0, 0.16, 0.018),
+  // The rear lining is one closed pressure-panel volume. Its curved return
+  // shares the shell's shoulder endpoints, rather than stacking a smaller
+  // floating slab in front of a differently shaped shell.
+  function walkwayRearGeometry() {
+    const outer = walkwayOutline(
+      new THREE.Shape(),
+      1.5,
+      6.4,
+      1.35,
+      2.14,
+      0.1,
+    ).getPoints(16);
+    const inner = walkwayOutline(new THREE.Shape(), 1.3, 6.12, 1.21, 2.0, 0.04)
+      .getPoints(16)
+      .map((p: any) => p.add(new THREE.Vector2(0.04, 0)));
+    if (outer[0].distanceToSquared(outer[outer.length - 1]) < 1e-12)
+      outer.pop();
+    if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
+      inner.pop();
+    const n = inner.length,
+      frontZ = -0.965,
+      rearZ = -1.21;
+    const frontPositions: number[] = [],
+      frontIndices: number[] = [];
+    const rearPositions: number[] = [],
+      rearIndices: number[] = [];
+    for (const p of inner) frontPositions.push(p.x, p.y, frontZ);
+    const faces = THREE.ShapeUtils.triangulateShape(inner, []);
+    for (const face of faces) frontIndices.push(...face);
+    // A rounded perimeter return reaches the actual outer shell. Separate
+    // face vertices retain a flat liner normal; the return itself is smooth.
+    const ringBase = frontPositions.length / 3,
+      steps = 4;
+    for (let step = 0; step <= steps; step++) {
+      const a = ((step / steps) * Math.PI) / 2;
+      const radial = Math.sin(a),
+        depth = 1 - Math.cos(a);
+      for (let i = 0; i < n; i++)
+        frontPositions.push(
+          inner[i].x + (outer[i].x - inner[i].x) * radial,
+          inner[i].y + (outer[i].y - inner[i].y) * radial,
+          frontZ + (rearZ - frontZ) * depth,
+        );
+    }
+    for (let step = 0; step < steps; step++)
+      for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n;
+        const a = ringBase + step * n + i,
+          b = ringBase + step * n + j;
+        const c = ringBase + (step + 1) * n + i,
+          d = ringBase + (step + 1) * n + j;
+        frontIndices.push(a, c, d, a, d, b);
+      }
+    for (const p of outer) rearPositions.push(p.x, p.y, rearZ);
+    for (const face of THREE.ShapeUtils.triangulateShape(outer, []))
+      rearIndices.push(face[2], face[1], face[0]);
+    const make = (positions: number[], indices: number[]) => {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        'position',
+        new THREE.Float32BufferAttribute(positions, 3),
+      );
+      geometry.setAttribute(
+        'uv',
+        new THREE.Float32BufferAttribute(
+          new Float32Array((positions.length / 3) * 2),
+          2,
+        ),
+      );
+      geometry.setIndex(indices);
+      geometry.computeVertexNormals();
+      geometry.computeBoundingSphere();
+      return geometry;
+    };
+    return {
+      inside: make(frontPositions, frontIndices),
+      outside: make(rearPositions, rearIndices),
+    };
+  }
+  const walkwayRear = walkwayRearGeometry();
+  mesh(
+    walkwayRear.inside,
     m.liner,
     walkwayFurniture,
-    'walkway-rear-pressure-liner',
+    'walkway-continuous-rear-liner',
   );
-  walkwayRear.position.z = -1.05;
+  mesh(
+    walkwayRear.outside,
+    m.shell,
+    walkwayStructure,
+    'walkway-rear-pressure-shell-exterior',
+  );
   // These hollow shoulder bands continue the same ellipse through the full
   // pressure-shell depth, rather than merely rounding its front trim.
   const capShape = new THREE.Shape();
@@ -1479,16 +1552,71 @@ export function createSpacecraft(
     steps: 1,
   });
   capGeometry.translate(0, 0, -1.21);
+  // Extruded curve faces duplicate their vertices and otherwise retain one
+  // normal per segment. Smooth the longitudinal inner and outer shoulder faces;
+  // keep the bevels, planar end faces and deliberate hard creases unchanged.
+  function smoothShoulderNormals(geometry: any) {
+    const positions = geometry.getAttribute('position');
+    const normals = geometry.getAttribute('normal');
+    const neighbors = new Map<string, Array<{ normal: any; weight: number }>>();
+    const key = (p: any) =>
+      `${Math.round(p.x * 1e6)}:${Math.round(p.y * 1e6)}:${Math.round(p.z * 1e6)}`;
+    const points = [
+      new THREE.Vector3(),
+      new THREE.Vector3(),
+      new THREE.Vector3(),
+    ];
+    for (let i = 0; i < positions.count; i += 3) {
+      for (let j = 0; j < 3; j++)
+        points[j].fromBufferAttribute(positions, i + j);
+      const normal = points[1]
+        .clone()
+        .sub(points[0])
+        .cross(points[2].clone().sub(points[0]))
+        .normalize();
+      if (Math.abs(normal.z) > 1e-5 || normal.lengthSq() < 0.5) continue;
+      for (let j = 0; j < 3; j++) {
+        const a = points[(j + 1) % 3].clone().sub(points[j]).normalize();
+        const b = points[(j + 2) % 3].clone().sub(points[j]).normalize();
+        const weight = Math.acos(Math.max(-1, Math.min(1, a.dot(b))));
+        const k = key(points[j]),
+          list = neighbors.get(k) || [];
+        list.push({ normal, weight });
+        neighbors.set(k, list);
+      }
+    }
+    const point = new THREE.Vector3(),
+      original = new THREE.Vector3();
+    const average = new THREE.Vector3(),
+      crease = Math.cos(Math.PI / 4);
+    for (let i = 0; i < positions.count; i++) {
+      original.fromBufferAttribute(normals, i);
+      if (Math.abs(original.z) > 1e-5) continue;
+      point.fromBufferAttribute(positions, i);
+      average.set(0, 0, 0);
+      for (const neighbor of neighbors.get(key(point)) || [])
+        if (original.dot(neighbor.normal) > crease)
+          average.addScaledVector(neighbor.normal, neighbor.weight);
+      if (average.lengthSq() > 1e-12) {
+        average.normalize();
+        normals.setXYZ(i, average.x, average.y, average.z);
+      }
+    }
+    normals.needsUpdate = true;
+  }
   for (const sign of [-1, 1]) {
     const shape = capGeometry.clone();
     if (sign < 0) shape.rotateX(Math.PI);
-    pressureMesh(
+    const cap = pressureMesh(
       shape,
       m.shell,
       walkwayStructure,
       'walkway-curved-end-pressure-cap',
       0,
     );
+    // Smooth both sides only after exterior/interior classification, retaining
+    // each side's exact geometry, lighting scope, bevels and planar end faces.
+    for (const part of cap.children) smoothShoulderNormals(part.geometry);
   }
   for (const side of [-1, 1]) {
     const outline = roundedPath(
@@ -1517,7 +1645,12 @@ export function createSpacecraft(
         outline.holes.push(opening);
       }
     } else {
-      outline.holes.push(roundedPath(new THREE.Path(), 1.82, 1.9, 0.79));
+      const dockingOpening = roundedPath(new THREE.Path(), 1.82, 1.9, 0.79);
+      // Match both the external sleeve and the inner leaf's shared Y/Z axis.
+      for (const curve of dockingOpening.curves)
+        for (const key of ['v0', 'v1', 'v2'])
+          if (curve[key]) curve[key].y += 0.03;
+      outline.holes.push(dockingOpening);
     }
     const skin = new THREE.ExtrudeGeometry(outline, {
       depth: 0.12,
@@ -1542,11 +1675,11 @@ export function createSpacecraft(
     // The upper landing leaves a rear ladder well open through to the lower run.
     // The lower landing narrows into the taper but still reaches its side entry.
     box(
-      yy > 0 ? 1.4 : 0.76,
+      yy > 0 ? 0.98 : 0.76,
       0.11,
       yy > 0 ? 0.98 : 1.76,
       m.liner,
-      yy > 0 ? 0 : 0.3,
+      yy > 0 ? 0.2 : 0.3,
       yy,
       yy > 0 ? 0.44 : 0.19,
       walkwayFurniture,
@@ -1554,11 +1687,11 @@ export function createSpacecraft(
       'walkway-room-landing',
     );
     box(
-      yy > 0 ? 1.26 : 0.62,
+      yy > 0 ? 0.84 : 0.62,
       0.024,
       0.046,
       walkwayTrim,
-      yy > 0 ? 0 : 0.3,
+      yy > 0 ? 0.2 : 0.3,
       yy + 0.06,
       0.88,
       walkwayFurniture,
@@ -1566,6 +1699,37 @@ export function createSpacecraft(
       'walkway-landing-light-guide',
     );
   }
+  // The upper landing ends before the sealed docking leaf, while its
+  // right edge remains joined to the cabin entry. Small cleats carry both decks.
+  for (const yy of [-2.7085, 0.6915])
+    box(
+      0.14,
+      0.15,
+      yy > 0 ? 0.82 : 1.5,
+      m.metal,
+      0.685,
+      yy - 0.06,
+      yy > 0 ? 0.44 : 0.19,
+      walkwayFurniture,
+      0.02,
+      'walkway-landing-wall-cleat',
+    );
+  // Ladder stand-offs overlap both the liner and the rail; there is no
+  // unsupported quarter-unit gap behind the ladder assembly.
+  for (const xx of [-0.08, 0.38])
+    for (const yy of [-2.16, -0.56, 1.04, 2.3]) {
+      const support = cylinder(
+        0.026,
+        0.27,
+        m.metal,
+        xx,
+        yy,
+        -0.835,
+        walkwayFurniture,
+        'z',
+      );
+      support.name = 'walkway-ladder-rigid-stand-off';
+    }
   for (const xx of [-0.08, 0.38])
     rod(
       [xx, -2.61, -0.69],
@@ -2722,47 +2886,48 @@ export function createSpacecraft(
   docking.userData = { section: 'contact', batchRoot: true, exterior: true };
   docking.position.set(1.35, 0, 0);
   group.add(docking);
-  // A tall saddle bears against both left outboard bulkheads. The capped
-  // rear flange closes the docking sleeve where it crosses the gap between decks.
-  box(
-    0.35,
-    2.9,
-    1.46,
-    m.shell,
-    -4.59,
-    0.03,
-    -0.17,
-    docking,
-    0.14,
-    'central-docking-load-bearing-saddle',
-  );
-  for (const sign of [-1, 1]) {
-    box(
-      0.55,
-      0.3,
-      1.43,
-      m.navy,
-      -4.69,
-      sign * 0.97 + 0.03,
-      -0.16,
-      docking,
-      0.11,
-      'docking-saddle-load-clamp',
-    );
-    box(
-      0.12,
-      0.13,
-      0.16,
-      m.amber,
-      -4.68,
-      sign * 1.22 + 0.03,
-      0.43,
-      docking,
-      0.045,
-      'docking-saddle-captive-lock',
-    );
+  // A compact coaxial pressure mount seats directly in the ladder sidewall.
+  // Its central bore is aligned with the sleeve and the inner hatch; a tall
+  // offset block must not appear as an independent panel behind the barrel.
+  function dockingRing(
+    outerRadius: number,
+    innerRadius: number,
+    depth: number,
+  ) {
+    const shape = new THREE.Shape();
+    shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
+    const bore = new THREE.Path();
+    bore.absarc(0, 0, innerRadius, 0, Math.PI * 2, true);
+    shape.holes.push(bore);
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+      depth,
+      bevelEnabled: true,
+      bevelSize: 0.008,
+      bevelThickness: 0.008,
+      bevelSegments: 2,
+      curveSegments: 24,
+      steps: 1,
+    });
+    geometry.translate(0, 0, -depth / 2);
+    geometry.rotateY(Math.PI / 2);
+    return geometry;
   }
-  cylinder(0.948, 0.22, m.navy, -4.6, 0.03, 0, docking, 'x');
+  const dockingMount = mesh(
+    dockingRing(1.06, 0.915, 0.3),
+    m.shell,
+    docking,
+    'coaxial-docking-load-bearing-mount',
+  );
+  dockingMount.position.set(-4.58, 0.03, 0);
+  const dockingRetainer = mesh(
+    dockingRing(1.011, 0.91, 0.06),
+    m.navy,
+    docking,
+    'docking-mount-seated-retaining-ring',
+  );
+  dockingRetainer.position.set(-4.728, 0.03, 0);
+  const diaphragm = cylinder(0.948, 0.22, m.navy, -4.6, 0.03, 0, docking, 'x');
+  diaphragm.name = 'docking-mount-pressure-diaphragm';
   function axialHull(
     profile: number[][],
     material: any,
@@ -3817,6 +3982,335 @@ export function createSpacecraft(
     }
   }
 
+  // A common load-bearing chassis encloses the unchanged room modules. The
+  // original opening contours and label saddles remain exact; the broad webs
+  // between them now belong to one continuous pressure face.
+  const chassis = new THREE.Group();
+  chassis.name = 'continuous-spacecraft-chassis';
+  chassis.userData = { section: 'contact', exterior: true, excludePick: true };
+  group.add(chassis);
+  const chassisVariants: Record<string, any> = {};
+  const chassisMetadata: Record<string, any> = {};
+  function offsetPath(path: any, x: number, y: number, scaleX = 1) {
+    for (const curve of path.curves)
+      for (const key of ['v0', 'v1', 'v2', 'v3'])
+        if (curve[key]) {
+          curve[key].x = curve[key].x * scaleX + x;
+          curve[key].y += y;
+        }
+    return path;
+  }
+  for (const variant of ['wide', 'compact']) {
+    const s = variant === 'wide' ? 1.4 : 1,
+      pitch = 1.5 * s + 0.15,
+      ladderX = -pitch - 2.25 * s - 0.2,
+      rightX = pitch + 1.6 * s,
+      jointX = ladderX + 0.69 * s;
+    const frame = new THREE.Group();
+    frame.name = variant + '-common-pressure-frame';
+    frame.userData = {
+      section: 'contact',
+      exterior: true,
+      excludePick: true,
+      batchRoot: true,
+    };
+    chassis.add(frame);
+    chassisVariants[variant] = frame;
+    const outer = new THREE.Shape(),
+      k = 0.5522847498;
+    const left = ladderX - 0.795 * s,
+      tangent = ladderX + 0.565 * s;
+    // The same long ladder shoulder flows into uninterrupted roof and keel
+    // edges; a broad right return joins both cabins to the service bus.
+    outer.moveTo(tangent, -3.18);
+    outer.bezierCurveTo(
+      tangent + 0.35 * s,
+      -3.18,
+      tangent + 0.35 * s,
+      -3.27,
+      tangent + 0.7 * s,
+      -3.27,
+    );
+    outer.lineTo(rightX - 0.43 * s, -3.27);
+    outer.quadraticCurveTo(rightX, -3.27, rightX, -2.84);
+    outer.lineTo(rightX, 2.89);
+    outer.quadraticCurveTo(rightX, 3.32, rightX - 0.43 * s, 3.32);
+    outer.lineTo(tangent + 0.7 * s, 3.32);
+    outer.bezierCurveTo(
+      tangent + 0.35 * s,
+      3.32,
+      tangent + 0.35 * s,
+      3.2,
+      tangent,
+      3.2,
+    );
+    outer.bezierCurveTo(
+      tangent - 1.36 * s * k,
+      3.2,
+      left,
+      1.06 + 2.14 * k,
+      left,
+      1.06,
+    );
+    outer.lineTo(left, -1.04);
+    outer.bezierCurveTo(
+      left,
+      -1.04 - 2.14 * k,
+      tangent - 1.36 * s * k,
+      -3.18,
+      tangent,
+      -3.18,
+    );
+    outer.closePath();
+    const apertures: any[] = [];
+    for (const section of Object.keys(rooms)) {
+      const cx =
+          (section === 'projects' || section === 'about' ? -1 : 1) * pitch,
+        cy = roomCenters[section][1];
+      const hole = offsetPath(
+        roundedPath(new THREE.Path(), 2.65, 2.86, 0.35),
+        cx,
+        cy + 0.06,
+        s,
+      );
+      outer.holes.push(hole);
+      apertures.push({
+        section,
+        center: [cx, cy + 0.06, 1.19],
+        size: [2.65 * s, 2.86],
+        radius: [0.35 * s, 0.35],
+      });
+    }
+    const ladderHole = offsetPath(
+      walkwayOutline(new THREE.Path(), 1.33, 6.12, 1.23, 2.01, 0.04),
+      ladderX,
+      0.01,
+      s,
+    );
+    outer.holes.push(ladderHole);
+    // Blind, chamfered inspection recesses articulate the shared deck beam.
+    // Their closed floors remain behind the face; these are not new openings.
+    const recessWidth = 2.85 * s;
+    for (const cx of [-pitch, pitch])
+      outer.holes.push(
+        offsetPath(
+          roundedPath(new THREE.Path(), recessWidth, 0.16, 0.065),
+          cx,
+          -0.015,
+        ),
+      );
+    const faceGeometry = new THREE.ExtrudeGeometry(outer, {
+      depth: 0.22,
+      bevelEnabled: true,
+      bevelSize: 0.035,
+      bevelThickness: 0.035,
+      bevelSegments: 4,
+      curveSegments: 16,
+      steps: 1,
+    });
+    faceGeometry.translate(0, 0, 1.08);
+    mesh(faceGeometry, m.shell, frame, 'one-piece-five-aperture-pressure-face');
+    // Roof/keel members meet the front face and rear cover in volume. The
+    // center beam occupies only the existing inter-deck void, outside cabins.
+    const span = rightX - jointX,
+      centerX = (rightX + jointX) / 2;
+    // One continuous C-section wraps roof, service side and keel. Its corner
+    // surfaces meet without overlapping roof/side polygons or squared ends.
+    function perimeterSkin() {
+      let points = outer.getPoints(32).map((p: any) => p.clone());
+      if (points[0].distanceTo(points[points.length - 1]) < 1e-8) points.pop();
+      const clipped: any[] = [];
+      for (let i = 0; i < points.length; i++) {
+        const a = points[i],
+          b = points[(i + 1) % points.length],
+          insideA = a.x >= jointX,
+          insideB = b.x >= jointX;
+        if (insideA) clipped.push(a);
+        if (insideA !== insideB)
+          clipped.push(a.clone().lerp(b, (jointX - a.x) / (b.x - a.x)));
+      }
+      points = clipped;
+      const shape = new THREE.Shape(),
+        insideX = rightX - 0.16 * s;
+      shape.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++)
+        shape.lineTo(points[i].x, points[i].y);
+      shape.lineTo(jointX, 3.16);
+      shape.lineTo(insideX - 0.1 * s, 3.16);
+      shape.quadraticCurveTo(insideX, 3.16, insideX, 3.06);
+      shape.lineTo(insideX, -2.99);
+      shape.quadraticCurveTo(insideX, -3.09, insideX - 0.1 * s, -3.09);
+      shape.lineTo(jointX, -3.09);
+      shape.closePath();
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: 2.55,
+        bevelEnabled: true,
+        bevelSize: 0.025,
+        bevelThickness: 0.025,
+        bevelSegments: 3,
+        steps: 1,
+      });
+      geometry.translate(0, 0, -1.31);
+      return geometry;
+    }
+    mesh(perimeterSkin(), m.shell, frame, 'continuous-chassis-envelope');
+    box(
+      span,
+      0.48,
+      2.52,
+      m.shell,
+      centerX,
+      0.12,
+      -0.05,
+      frame,
+      0.11,
+      'continuous-inter-deck-crossmember',
+    );
+    const rear = mesh(
+      panelGeometry(span, 6.48, 0.4, 0.14, 0.025),
+      m.shell,
+      frame,
+      'continuous-chassis-rear-cover',
+    );
+    rear.position.set(centerX, 0.025, -1.265);
+    for (const cx of [-pitch, pitch]) {
+      box(
+        recessWidth + 0.08,
+        0.24,
+        0.06,
+        m.shell,
+        cx,
+        -0.015,
+        1.235,
+        frame,
+        0.025,
+        'blind-crossmember-recess-floor',
+      );
+      for (const sign of [-1, 1]) {
+        const screw = cylinder(
+          0.024,
+          0.014,
+          m.metal,
+          cx + sign * (recessWidth / 2 - 0.14),
+          -0.015,
+          1.274,
+          frame,
+          'z',
+        );
+        screw.name = 'recessed-crossmember-captive-fastener';
+      }
+    }
+    // A broad gasketed mounting foot transfers service-bus loads into both
+    // decks. Its tapered throat blends into the existing circular bus hull.
+    const mount = new THREE.Group();
+    mount.userData = { section: 'contact', exterior: true };
+    frame.add(mount);
+    mount.position.set(rightX - 0.015, 0.03, 0);
+    mount.rotation.y = Math.PI / 2;
+    const mountSeal = mesh(
+      frameGeometry(2.24, 2.48, 0.58, 0.12, 0.05, 0.008),
+      m.gasket,
+      mount,
+      'service-root-mounting-gasket',
+    );
+    mountSeal.position.z = -0.055;
+    const plateShape = roundedPath(new THREE.Shape(), 2.18, 2.4, 0.55);
+    const throat = new THREE.Path();
+    throat.absarc(0, 0, 0.87, 0, Math.PI * 2, true);
+    plateShape.holes.push(throat);
+    const plateGeometry = new THREE.ExtrudeGeometry(plateShape, {
+      depth: 0.13,
+      bevelEnabled: true,
+      bevelSize: 0.025,
+      bevelThickness: 0.025,
+      bevelSegments: 3,
+      curveSegments: 16,
+      steps: 1,
+    });
+    plateGeometry.translate(0, 0, -0.065);
+    mesh(plateGeometry, m.shell, mount, 'service-root-pressure-flange');
+    axialHull(
+      [
+        [1.02, -0.075],
+        [1.058, -0.045],
+        [1.059, 0.005],
+        [1.035, 0.06],
+        [0.977, 0.13],
+        [0.941, 0.175],
+      ],
+      m.shell,
+      rightX,
+      0.03,
+      0,
+      frame,
+      'service-root-tapered-load-fairing',
+    );
+    for (const sy of [-1, 1])
+      for (const sz of [-1, 1]) {
+        const screw = cylinder(
+          0.034,
+          0.027,
+          m.metal,
+          sz * 0.78,
+          sy * 0.91,
+          0.087,
+          mount,
+          'z',
+        );
+        screw.name = 'service-root-captive-fastener';
+      }
+    // Long recessed edge channels make the chassis construction read as one
+    // object. They are surface paint, not additional lights or cabin detail.
+    const railSpan = Math.max(1, span - 0.7 * s);
+    for (const yy of [3.17, -3.13])
+      box(
+        railSpan,
+        0.027,
+        0.024,
+        m.gasket,
+        centerX,
+        yy,
+        1.341,
+        frame,
+        0.01,
+        'continuous-hull-edge-channel',
+      );
+    chassisMetadata[variant] = {
+      apertures,
+      ladderAperture: {
+        center: [ladderX, 0.01, 1.17],
+        size: [1.33 * s, 6.12],
+        leftRadii: [1.23 * s, 2.01],
+      },
+      frontFace: {
+        minZ: 1.045,
+        maxZ: 1.335,
+        holeCount: 5,
+        blindRecessCount: 2,
+        recessFloorZ: 1.265,
+      },
+      serviceMount: {
+        position: [rightX - 0.015, 0.03, 0],
+        size: [0.21, 2.48, 2.24],
+        axis: [1, 0, 0],
+        fairingEndX: rightX + 0.175,
+      },
+      jointX,
+      exteriorOnly: true,
+      originalInteriorTrianglesPreserved: true,
+      replacedParts: [
+        'rounded-front-pressure-collar',
+        'walkway-rounded-pressure-collar',
+        'projects-continuous-pressure-skin-exterior',
+        'experience-continuous-pressure-skin-exterior',
+        'about-continuous-pressure-skin-exterior',
+        'contact-continuous-pressure-skin-exterior',
+        'experience-sealed-outboard-wall-exterior',
+        'contact-sealed-outboard-wall-exterior',
+      ],
+    };
+  }
+
   // Static scenery is batched per room. Moving assemblies are instead batched
   // within their own local space, so each hinge and reader remains independent.
   group.updateMatrixWorld(true);
@@ -4057,7 +4551,14 @@ export function createSpacecraft(
     // appendages determine overview silhouette, regardless of current selection.
     for (const section of Object.keys(rooms))
       box.union(new THREE.Box3().setFromObject(structures[section]));
-    for (const part of [docking, service, utility, walkway, branding])
+    for (const part of [
+      docking,
+      service,
+      utility,
+      walkway,
+      branding,
+      chassisVariants[currentLayout],
+    ])
       box.union(new THREE.Box3().setFromObject(part));
     const center = box.getCenter(new THREE.Vector3()),
       size = box.getSize(new THREE.Vector3());
@@ -4077,6 +4578,9 @@ export function createSpacecraft(
   }
   function setLayout(layout: 'wide' | 'compact') {
     currentLayout = layout === 'compact' ? 'compact' : 'wide';
+    for (const [name, variant] of Object.entries(chassisVariants))
+      variant.visible = name === currentLayout;
+    group.userData.chassis = chassisMetadata[currentLayout];
     layoutScale = currentLayout === 'wide' ? 1.4 : 1;
     const halfPitch = 1.5 * layoutScale + 0.15;
     const propScale = currentLayout === 'wide' ? 1 : 0.84;
@@ -4136,27 +4640,26 @@ export function createSpacecraft(
       const mount = labelMounts.get(entry);
       if (mount) mount.position.x = origin + px;
     }
-    const outward = 3 * (layoutScale - 1),
-      walkwayOffset = 1.5 * layoutScale + 0.2;
+    const outward = 3 * (layoutScale - 1);
     const walkwayX = -halfPitch - 2.25 * layoutScale - 0.2;
     walkway.position.set(walkwayX, 0, 0);
+    // Both hatch assemblies derive their position from the actual sidewall.
+    const dockingWallX = walkwayX - 0.75 * layoutScale;
     dockingInterior.position.set(-0.75 * layoutScale + 0.108, 0.03, 0);
     walkwayStructure.scale.set(layoutScale, 1, 1);
     walkwayFurniture.scale.set(layoutScale, 1, 1);
     walkwayCouplings.forEach(
       (part) => (part.position.x = -halfPitch - 1.5 * layoutScale - 0.1),
     );
-    docking.position.x = 1.35 - outward - walkwayOffset;
+    docking.position.x = dockingWallX + 4.5;
     service.position.x = -1.5 + outward;
-    group.userData.dockingAnchor = [
-      -3.78 - outward - walkwayOffset,
-      0.21,
-      1.05,
-    ];
+    group.userData.dockingAnchor = [docking.position.x - 5.137, 0.208, 1.05];
     group.userData.dockingAnchors = {
-      sleeve: [-3.715 - outward - walkwayOffset, 0.03, 0],
-      hatch: [-5.046 - outward - walkwayOffset, 0.03, 0],
-      mount: [-3.24 - outward - walkwayOffset, 0.03, -0.17],
+      sleeve: [docking.position.x - 5.065, 0.03, 0],
+      hatch: [docking.position.x - 6.396, 0.03, 0],
+      mount: [docking.position.x - 4.58, 0.03, 0],
+      wall: [dockingWallX, 0.03, 0],
+      innerHatch: [dockingWallX + 0.108, 0.03, 0],
     };
     group.userData.communicationsAnchor = [4.14 + outward, 0.23, 1.16];
     group.userData.walkwayAnchor = [walkwayX, 0, 0.16];
@@ -4168,6 +4671,17 @@ export function createSpacecraft(
       shoulderFraction: 4.28 / 6.4,
       rightCornerRadius: 0.17 * layoutScale,
       shellDepth: 2.42,
+      rearLiner: {
+        frontZ: -0.965,
+        rearZ: -1.21,
+        sharedShoulders: [1.35, 2.14],
+        innerShoulders: [1.21, 2.0],
+        continuousReturn: true,
+      },
+      upperLanding: {
+        center: [0.2 * layoutScale, 0.6915, 0.44],
+        size: [0.98 * layoutScale, 0.11, 0.98],
+      },
       clearDockingOpening: [1.82, 1.9],
       lowerLanding: {
         center: [0.3 * layoutScale, -2.7085, 0.19],

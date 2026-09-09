@@ -452,6 +452,7 @@ report.walkwaySurfaces = sources
     [
       'walkway-room-landing',
       'walkway-rear-pressure-liner',
+      'walkway-continuous-rear-liner',
       'inner-docking-closed-pressure-leaf',
     ].includes(o.name),
   )

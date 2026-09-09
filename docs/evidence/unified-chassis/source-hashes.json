@@ -1,0 +1,17 @@
+{
+  "baselineRef": "bb326e6",
+  "current": {
+    "components/spacecraft-model.ts": "b516a25dffb335f52734282cdc3b79ea81bac74bd40571842b4c2b84aa7e7194",
+    "components/spacecraft.tsx": "05527f1c11de8b8e140bb8bf050386f2d7257271c14987266273b6a969d4ae92",
+    "components/orbital-environment.ts": "1cc55d8469828de0177bc066fe44472d150d6a8d99204b5b136953aea7c73a3f",
+    "scripts/chassis-preservation-audit.mjs": "830e8f9e50ad8905cc1523bf427743aef63df93d9d30e591eee1ba1446f74d2a",
+    "scripts/chassis-geometry-audit.mjs": "c2a7bb031f14e6cec12e11bf67a8389cd412b4db247b2dbbaca5f154c00144a2",
+    "scripts/ladder-docking-geometry-audit.mjs": "99f3e2766b9438fef35f39de0bd7294b5a167daf5e44cc8a13db2787ce3dd5df",
+    "scripts/shoulder-normals-audit.mjs": "826a0bf593398f0ef8b2eb7429b8a9ebf8f5904baaa5bd36dc4b519c423a1b65",
+    "scripts/portrait-ladder-audit.mjs": "685e80553197976bd3edc49989f25cde18c5fe6d1cfa7d56526579e27e7b2cbf"
+  },
+  "unchangedApplicationFiles": {
+    "components/spacecraft.tsx": true,
+    "components/orbital-environment.ts": true
+  }
+}

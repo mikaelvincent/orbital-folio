@@ -1,0 +1,453 @@
+{
+  "unchangedBatching": {
+    "baselineSha256": "c4b0bce51632925b31ab2b78361fa335acf0810ce4340131159207fa85eb792a",
+    "candidateSha256": "c4b0bce51632925b31ab2b78361fa335acf0810ce4340131159207fa85eb792a",
+    "matched": true
+  },
+  "baselineRef": "bb326e6",
+  "baselineSha256": "77de516f2b71a832fa7045f8eaa453bb928854f6ca8dc9a76a267ad614cf89a2",
+  "candidateSha256": "b516a25dffb335f52734282cdc3b79ea81bac74bd40571842b4c2b84aa7e7194",
+  "threeRevision": "185",
+  "scope": "Selectable cabin source geometry, room-local transforms, material values and texture drawing commands, lights, instance transforms, visibility, control metadata and room navigation anchors. Exact named authorized chassis parts are exempted.",
+  "limitations": [
+    "CPU canvas commands and a deterministic width stub verify preserved texture generation, not GPU font rasterization.",
+    "Changed chassis shadows are expected; source invariance does not prove every visual aperture is unobstructed. Current browser and raycast evidence is required separately."
+  ],
+  "exclusions": [
+    {
+      "name": "rounded-front-pressure-collar",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "projects-continuous-pressure-skin-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "projects"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "experience-continuous-pressure-skin-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "experience"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "about-continuous-pressure-skin-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "about"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "contact-continuous-pressure-skin-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "contact"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "experience-sealed-outboard-wall-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "experience"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "contact-sealed-outboard-wall-exterior",
+      "reason": "Superseded exterior surface of the independent pod assembly; continuous chassis replaces this surface while interior triangles remain protected.",
+      "rooms": [
+        "contact"
+      ],
+      "expectedCount": 1
+    }
+  ],
+  "counts": {
+    "baseline": 672,
+    "candidate": 672
+  },
+  "states": [
+    {
+      "layout": "wide",
+      "state": "overview",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "854e56b27fc7dddd593154e8a9d7be5be2f68951f2882b9e0c3f5883ea31ddab",
+      "candidateDigest": "854e56b27fc7dddd593154e8a9d7be5be2f68951f2882b9e0c3f5883ea31ddab"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-projects",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "f3bc15adc870ef953f6a349cf028da71b169b73b2e7c512eea41fb1440989ba9",
+      "candidateDigest": "f3bc15adc870ef953f6a349cf028da71b169b73b2e7c512eea41fb1440989ba9"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-experience",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "cc9160671f2f39f4775e5bb05d65ff564c6ad7cf6ef2169538d6bf7a66909414",
+      "candidateDigest": "cc9160671f2f39f4775e5bb05d65ff564c6ad7cf6ef2169538d6bf7a66909414"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-about",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "99e4228234454d96d570c6fdea03f9a943ebc0f8f0bf7a174c2a3cd1d0eae59c",
+      "candidateDigest": "99e4228234454d96d570c6fdea03f9a943ebc0f8f0bf7a174c2a3cd1d0eae59c"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-contact",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "81069805a1a26259c6b1181fe403afc1a00c10a234f39edc6c0aef1865560480",
+      "candidateDigest": "81069805a1a26259c6b1181fe403afc1a00c10a234f39edc6c0aef1865560480"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-projects",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "f245c20973fc4b27dd8bfe614288a721c24f378c44d0da7fcf01cb9190606ac4",
+      "candidateDigest": "f245c20973fc4b27dd8bfe614288a721c24f378c44d0da7fcf01cb9190606ac4"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-experience",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "1e07c0ea26324acb3e6778183f2e8dd60fb7d7a44cf6fc5115e307181577c67e",
+      "candidateDigest": "1e07c0ea26324acb3e6778183f2e8dd60fb7d7a44cf6fc5115e307181577c67e"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-about",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "4a53f242f91f124978f6cb3d1c351babf077991f86491a995995bbbd8a60d400",
+      "candidateDigest": "4a53f242f91f124978f6cb3d1c351babf077991f86491a995995bbbd8a60d400"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-contact",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "1de1d59a3d89dbe5a462621d11006785cd5c946a43f5a2d97631cf0902a53786",
+      "candidateDigest": "1de1d59a3d89dbe5a462621d11006785cd5c946a43f5a2d97631cf0902a53786"
+    },
+    {
+      "layout": "wide",
+      "state": "model-open-project-rack",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "b502756ded61516cb641b9462642d53749130b57f6fad2196c16cea62827f122",
+      "candidateDigest": "b502756ded61516cb641b9462642d53749130b57f6fad2196c16cea62827f122"
+    },
+    {
+      "layout": "wide",
+      "state": "model-open-case-rack",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "8a14ac53ddfb532ae477cc11a49574c57f42bbdc6157ecb0cf1c9b1b846a6cf0",
+      "candidateDigest": "8a14ac53ddfb532ae477cc11a49574c57f42bbdc6157ecb0cf1c9b1b846a6cf0"
+    },
+    {
+      "layout": "wide",
+      "state": "passing-ladder",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "e47a196cd9d0d59d7e7eb4d84185bbf196191a65d318d33a20c19bfa41f84924",
+      "candidateDigest": "e47a196cd9d0d59d7e7eb4d84185bbf196191a65d318d33a20c19bfa41f84924"
+    },
+    {
+      "layout": "compact",
+      "state": "overview",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "58518d90c4cbfde3ac301f4abbde4208ab75c96aee387a87cc661c941176fa92",
+      "candidateDigest": "58518d90c4cbfde3ac301f4abbde4208ab75c96aee387a87cc661c941176fa92"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-projects",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "a7c1a68ef8c2fe2416a279e353dc8278ba28523f168fd6f7ab382a432f9872d7",
+      "candidateDigest": "a7c1a68ef8c2fe2416a279e353dc8278ba28523f168fd6f7ab382a432f9872d7"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-experience",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "0ee092dd34076aab7e56160ff619a2e60e5d668488a27ee7f27a1360264eb81d",
+      "candidateDigest": "0ee092dd34076aab7e56160ff619a2e60e5d668488a27ee7f27a1360264eb81d"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-about",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "5398411c934cebf6afb8fd5ee68ca32e44ed5e2bec2bb4aa5fff06f314996dc4",
+      "candidateDigest": "5398411c934cebf6afb8fd5ee68ca32e44ed5e2bec2bb4aa5fff06f314996dc4"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-contact",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "af17a150a6c3f00569447ff90298652ae08e88d6b16ff2cf611b1e463954cbd2",
+      "candidateDigest": "af17a150a6c3f00569447ff90298652ae08e88d6b16ff2cf611b1e463954cbd2"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-projects",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "f58d55fc35bec906aadaff8d642c258fbcee26407d625b6aaeb62d478c133052",
+      "candidateDigest": "f58d55fc35bec906aadaff8d642c258fbcee26407d625b6aaeb62d478c133052"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-experience",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "de89a3a284f07e0a1506780990125747e5e350fd9002a215e6a51220fd415916",
+      "candidateDigest": "de89a3a284f07e0a1506780990125747e5e350fd9002a215e6a51220fd415916"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-about",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "e0eae62cac9e1fcba2f11a9f2a4f87119ea26ded3383e02398201cb1cb42a0b5",
+      "candidateDigest": "e0eae62cac9e1fcba2f11a9f2a4f87119ea26ded3383e02398201cb1cb42a0b5"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-contact",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "b38d9b51e997a1d6fd263c68f4a3aa6aee15fac8a8d3d2a8f4aaac4d4cd5a309",
+      "candidateDigest": "b38d9b51e997a1d6fd263c68f4a3aa6aee15fac8a8d3d2a8f4aaac4d4cd5a309"
+    },
+    {
+      "layout": "compact",
+      "state": "model-open-project-rack",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "f58d55fc35bec906aadaff8d642c258fbcee26407d625b6aaeb62d478c133052",
+      "candidateDigest": "f58d55fc35bec906aadaff8d642c258fbcee26407d625b6aaeb62d478c133052"
+    },
+    {
+      "layout": "compact",
+      "state": "model-open-case-rack",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "de89a3a284f07e0a1506780990125747e5e350fd9002a215e6a51220fd415916",
+      "candidateDigest": "de89a3a284f07e0a1506780990125747e5e350fd9002a215e6a51220fd415916"
+    },
+    {
+      "layout": "compact",
+      "state": "passing-ladder",
+      "protectedParts": 672,
+      "matched": 672,
+      "baselineDigest": "c43e618f0b3b7a9c776362fbd2fd773ddd231ca591cc5437c4d52de1a949ef9b",
+      "candidateDigest": "c43e618f0b3b7a9c776362fbd2fd773ddd231ca591cc5437c4d52de1a949ef9b"
+    }
+  ],
+  "differences": [],
+  "protectedNames": [
+    "",
+    "about-continuous-pressure-skin-interior",
+    "about:contact-portal-pick",
+    "about:projects-portal-pick",
+    "above-door-label-backing",
+    "above-door-label-enamel",
+    "abstract-cabin-art",
+    "abstract-cabin-art-ridge",
+    "actionable-contact-display",
+    "amber-radio-receiver",
+    "berth-buckle-insert",
+    "berth-retaining-strap",
+    "berth-strap-buckle",
+    "blank-reader-surface",
+    "blanket-retaining-webbing",
+    "brushed-titanium",
+    "cabin-cupboard-insert",
+    "cabin-picture-frame",
+    "cabin-soft-stowage-pouch",
+    "cabin-utility-cupboard",
+    "canister-retaining-strap",
+    "captive-collar-fasteners",
+    "caseStudy-door-pick-0",
+    "caseStudy-door-pick-1",
+    "caseStudy-door-pick-2",
+    "caseStudy-door-pick-3",
+    "caseStudy-door-pick-4",
+    "caseStudy-door-pick-5",
+    "caseStudy-door-pick-6",
+    "caseStudy-door-pick-7",
+    "caseStudy-door-pick-8",
+    "ceiling-light-bezel",
+    "channel-signal-line",
+    "closed-journal-front-cover",
+    "coarse-radio-speaker-grille",
+    "coherent-cabin-deck",
+    "coiled-safety-tether",
+    "coiled-service-hose",
+    "communications-console-housing",
+    "communications-control-shelf",
+    "communications-display-gasket",
+    "communications-screen-ceramic-frame",
+    "compartment-amber-latch",
+    "contact-continuous-pressure-skin-interior",
+    "contact-reader-pick",
+    "contact-sealed-outboard-wall-interior",
+    "contact:about-portal-pick",
+    "deep-empty-compartment-liner",
+    "equipment-retaining-cradle",
+    "experience-continuous-pressure-skin-interior",
+    "experience-sealed-outboard-wall-interior",
+    "experience:projects-portal-pick",
+    "external-amber-lifting-tab",
+    "fan-retaining-strap",
+    "flush-open-pressure-hatch-frame",
+    "folded-tripod-leg",
+    "graphite-enamel",
+    "graphite-gasket",
+    "header-plaque-ink-about",
+    "header-plaque-ink-contact",
+    "header-plaque-ink-experience",
+    "header-plaque-ink-projects",
+    "headset-earcup",
+    "headset-securing-loop",
+    "hose-quick-coupling",
+    "hose-retaining-strap",
+    "hover-perimeter-light-guide",
+    "hull-plaque-ink-about",
+    "hull-plaque-ink-contact",
+    "hull-plaque-ink-experience",
+    "hull-plaque-ink-projects",
+    "individual-project-hover-light",
+    "instrument-reader-control",
+    "journal-bound-spine",
+    "journal-desk-mount",
+    "journal-desk-tray",
+    "journal-page-block",
+    "journal-page-edge",
+    "journal-reader-pick",
+    "journal-retaining-band",
+    "journal-tray-bumper",
+    "journal-visible-page-block",
+    "live-project-compartment-title",
+    "lower-wall-cove",
+    "nameplate-amber-clasp",
+    "nine-slot-case-study-payload-rack",
+    "nine-slot-project-payload-rack",
+    "open-hatch-painted-route-trim",
+    "open-hatch-wall-gasket",
+    "open-side-pressure-bulkhead-exterior",
+    "open-side-pressure-bulkhead-interior",
+    "padded-sleeping-berth",
+    "painted-direction-arrow",
+    "painted-ladder-rung",
+    "painted-ladder-side",
+    "personal-journal-cover",
+    "picture-mat",
+    "picture-retaining-clip",
+    "portal-destination-ink",
+    "pouch-latch",
+    "project-compartment-back",
+    "project-compartment-door",
+    "project-door-pick-0",
+    "project-door-pick-1",
+    "project-door-pick-2",
+    "project-door-pick-3",
+    "project-door-pick-4",
+    "project-door-pick-5",
+    "project-door-pick-6",
+    "project-door-pick-7",
+    "project-door-pick-8",
+    "projects-continuous-pressure-skin-interior",
+    "projects:about-portal-pick",
+    "projects:experience-portal-pick",
+    "radio-channel-indicator",
+    "radio-receiver-lead",
+    "radio-speaker-column",
+    "reader-amber-clip-cap",
+    "reader-mechanical-tray",
+    "reader-paper-retainer",
+    "reader-rigid-backboard",
+    "reader-top-clip",
+    "reader-tray-bumper",
+    "receiver-wall-cradle",
+    "recess",
+    "recessed-front-pressure-seal",
+    "reinforced-lower-nameplate-collar",
+    "reinforced-side-nameplate-collar",
+    "roof-latch",
+    "room-label-backing",
+    "room-label-ceramic-insert",
+    "rounded-warm-cabin-liner",
+    "secured-canvas-tool-roll",
+    "side-label-backing",
+    "side-label-ceramic-insert",
+    "side-nameplate-amber-clasp",
+    "side-plaque-ink-about",
+    "side-plaque-ink-contact",
+    "side-plaque-ink-experience",
+    "side-plaque-ink-projects",
+    "signal-amber",
+    "soft-berth-quilting",
+    "soft-privacy-curtain",
+    "spare-cooling-fan-housing",
+    "spare-fan-blade",
+    "spare-filter-canister",
+    "spare-headset-band",
+    "stowed-inspection-torch",
+    "stowed-project-cartridge",
+    "stowed-thermal-blanket",
+    "tether-locking-carabiner",
+    "tether-securing-strap",
+    "threshold-edge-marker",
+    "tool-roll-buckle-strap",
+    "tool-roll-pockets",
+    "torch-retaining-clip",
+    "tripod-head",
+    "tripod-retaining-band",
+    "underside-service-keel",
+    "upper-header-wall-saddle",
+    "upper-room-enamel-header",
+    "vertical-berth-recess",
+    "visible-neighbor-rear-corner-liner",
+    "warm-ceiling-light",
+    "warm-floor-routing-line"
+  ],
+  "exemptedBaselineCounts": {
+    "rounded-front-pressure-collar": 4,
+    "projects-continuous-pressure-skin-exterior": 1,
+    "experience-continuous-pressure-skin-exterior": 1,
+    "about-continuous-pressure-skin-exterior": 1,
+    "contact-continuous-pressure-skin-exterior": 1,
+    "experience-sealed-outboard-wall-exterior": 1,
+    "contact-sealed-outboard-wall-exterior": 1
+  },
+  "passed": true
+}

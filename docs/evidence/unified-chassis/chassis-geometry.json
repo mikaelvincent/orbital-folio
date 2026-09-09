@@ -1,0 +1,105 @@
+{
+  "sourceSha256": "b516a25dffb335f52734282cdc3b79ea81bac74bd40571842b4c2b84aa7e7194",
+  "scope": "Independent current rendered chassis mesh checks: geometry finiteness/normals, front aperture clearance, center-web coverage, roof/keel junction coverage, blind-recess closure, directed side-passage clearance, and declared overview containment. No watertightness, mechanical engineering or GPU quality certification.",
+  "layouts": [
+    {
+      "layout": "wide",
+      "meshes": 3,
+      "vertices": 63134,
+      "finite": true,
+      "normalLengthRange": [
+        0.9999999546184747,
+        1.0000000449379582
+      ],
+      "apertureSamples": 52,
+      "webSamples": 63,
+      "sidePassageSamples": 54,
+      "roofKeelSamples": 208,
+      "blindRecessSamples": 18,
+      "overviewContained": true,
+      "hardware": [
+        {
+          "name": "central-docking-assembly",
+          "vertices": 14154,
+          "finite": true,
+          "normals": [
+            0.9999999628301095,
+            1.0000000396826385
+          ],
+          "overviewContained": true
+        },
+        {
+          "name": "aft-service-assembly",
+          "vertices": 13617,
+          "finite": true,
+          "normals": [
+            0.9999999594435858,
+            1.000000038533375
+          ],
+          "overviewContained": true
+        },
+        {
+          "name": "left-vertical-walkway",
+          "vertices": 49705,
+          "finite": true,
+          "normals": [
+            0.9999999589089291,
+            1.0000000391115527
+          ],
+          "overviewContained": true
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "meshes": 3,
+      "vertices": 63134,
+      "finite": true,
+      "normalLengthRange": [
+        0.9999999554834841,
+        1.0000000411204164
+      ],
+      "apertureSamples": 52,
+      "webSamples": 63,
+      "sidePassageSamples": 54,
+      "roofKeelSamples": 208,
+      "blindRecessSamples": 18,
+      "overviewContained": true,
+      "hardware": [
+        {
+          "name": "central-docking-assembly",
+          "vertices": 14154,
+          "finite": true,
+          "normals": [
+            0.9999999628301095,
+            1.0000000396826385
+          ],
+          "overviewContained": true
+        },
+        {
+          "name": "aft-service-assembly",
+          "vertices": 13617,
+          "finite": true,
+          "normals": [
+            0.9999999594435858,
+            1.000000038533375
+          ],
+          "overviewContained": true
+        },
+        {
+          "name": "left-vertical-walkway",
+          "vertices": 49705,
+          "finite": true,
+          "normals": [
+            0.9999999589089291,
+            1.0000000391115527
+          ],
+          "overviewContained": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "sourceUnchangedDuringAudit": true,
+  "passed": true
+}
