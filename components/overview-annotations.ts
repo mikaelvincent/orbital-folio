@@ -50,6 +50,8 @@ export function createOverviewAnnotations(
         button,
         anchor: new THREE.Vector3(),
         world: new THREE.Vector3(),
+        knee: new THREE.Vector3(),
+        end: new THREE.Vector3(),
         upper: false,
         lane: 0,
         width: 100,
@@ -68,24 +70,92 @@ export function createOverviewAnnotations(
   let width = 1,
     height = 1,
     depth = 1,
-    ready = false;
+    ready = false,
+    portrait = false;
+  let supportPoints: number[][] = [];
   const clamp = (x: number, low: number, high: number) =>
     Math.max(low, Math.min(high, x));
-  const pointAtDepth = (x: number, y: number) => {
+  const pointAtDepth = (x: number, y: number, view = reference) => {
     const ray = new THREE.Vector3(
       (x / width) * 2 - 1,
       1 - (y / height) * 2,
       0.5,
     )
-      .unproject(reference)
-      .sub(reference.position);
-    const forward = reference.getWorldDirection(new THREE.Vector3());
-    return ray.multiplyScalar(depth / ray.dot(forward)).add(reference.position);
+      .unproject(view)
+      .sub(view.position);
+    const forward = view.getWorldDirection(new THREE.Vector3());
+    return ray.multiplyScalar(depth / ray.dot(forward)).add(view.position);
   };
   const project = (point: Three.Vector3, camera: Three.Camera) => {
     const p = point.clone().project(camera);
     return { x: ((p.x + 1) * width) / 2, y: ((1 - p.y) * height) / 2, z: p.z };
   };
+  type Point = { x: number; y: number };
+  function railPosition(points: Point[]) {
+    const left = Math.min(...points.map((p) => p.x));
+    const right = Math.max(...points.map((p) => p.x));
+    return Math.max(24, Math.min(left, width - right) - 12);
+  }
+  function route(
+    anchors: Point[],
+    supports: Point[],
+    view: Three.PerspectiveCamera,
+  ) {
+    const rail = railPosition(supports);
+    const top = Math.min(...supports.map((p) => p.y)) - 12;
+    const bottom = Math.max(...supports.map((p) => p.y)) + 12;
+    // Landscape uses precisely one 45-degree/vertical template for all rooms.
+    // If the viewport is tight, the entire template scales together.
+    let templateScale = 1;
+    if (!portrait)
+      for (const [i, a] of anchors.entries()) {
+        const e = entries[i],
+          half = e.width / 2;
+        const horizontal = e.lane ? width - 12 - half - a.x : a.x - 12 - half;
+        templateScale = Math.min(templateScale, horizontal / 20);
+      }
+    templateScale = clamp(templateScale, 0.1, 1);
+    const labelScale = portrait
+      ? Math.min(
+          1,
+          (width / 2 - rail + 4) / Math.max(...entries.map((e) => e.width)),
+        )
+      : 1;
+    for (const [i, a] of anchors.entries()) {
+      const e = entries[i],
+        sx = e.lane ? 1 : -1,
+        sy = e.upper ? -1 : 1;
+      let knee: Point, end: Point, label: Point;
+      if (portrait) {
+        const x = e.lane ? width - rail : rail;
+        knee = { x, y: a.y + sy * Math.abs(x - a.x) };
+        end = { x, y: e.upper ? top : bottom };
+        // Meet the rounded pill 12px from its outer end; the pill extends inward.
+        const radius = (e.height * labelScale) / 2;
+        const cap = Math.sqrt(
+          Math.max(0, radius * radius - (radius - 12) ** 2),
+        );
+        label = {
+          x: x - sx * ((e.width * labelScale) / 2 - 12),
+          y: end.y + sy * cap,
+        };
+      } else {
+        knee = {
+          x: a.x + sx * 20 * templateScale,
+          y: a.y + sy * 20 * templateScale,
+        };
+        end = { x: knee.x, y: knee.y + sy * 16 * templateScale };
+        label = { x: end.x, y: end.y + (sy * e.height) / 2 };
+      }
+      e.knee.copy(pointAtDepth(knee.x, knee.y, view));
+      e.end.copy(pointAtDepth(end.x, end.y, view));
+      e.world.copy(pointAtDepth(label.x, label.y, view));
+      e.button.dataset.labelScale = String(labelScale);
+    }
+    layer.dataset.connectorLayout = portrait
+      ? 'mirrored-rails'
+      : 'mirrored-template';
+  }
   function layout(frame: Frame, support: number[][], model: Three.Group) {
     width = host.clientWidth;
     height = host.clientHeight;
@@ -104,53 +174,54 @@ export function createOverviewAnnotations(
         new THREE.Vector3(0, 0, 1),
         frame.roll,
       );
+    portrait = Math.abs(frame.roll) > Math.PI / 4;
+    supportPoints = support;
     const projected = support.map((p) => project(rotated(p), reference));
-    const upperY = Math.min(...projected.map((p) => p.y));
-    const lowerY = Math.max(...projected.map((p) => p.y));
+    const rail = railPosition(projected);
+    const maxWidth = portrait
+      ? Math.min((width - 48) / 2, width / 2 - rail + 4)
+      : width * 0.22;
     const sorted = entries
-      .map((entry) => {
-        const center =
-          model.userData.calloutAnchors?.[entry.section] ||
-          model.userData.roomAnchors[entry.section];
-        return { entry, p: project(rotated(center), reference) };
-      })
+      .map((entry) => ({
+        entry,
+        p: project(
+          rotated(model.userData.calloutAnchors[entry.section]),
+          reference,
+        ),
+      }))
       .sort((a, b) => a.p.y - b.p.y);
-    for (const [index, item] of sorted.entries()) {
-      const entry = item.entry;
-      entry.upper = index < 2;
-      const edge =
-        Math.abs(frame.roll) > Math.PI / 4
-          ? entry.upper
-            ? 'right'
-            : 'left'
-          : entry.upper
-            ? 'top'
-            : 'bottom';
-      const anchor =
-        model.userData.calloutEdges?.[entry.section]?.[edge] ||
-        model.userData.roomAnchors[entry.section];
-      entry.anchor.set(...(anchor as [number, number, number]));
-      entry.width = entry.button.offsetWidth;
-      entry.height = entry.button.offsetHeight;
-    }
     for (const row of [sorted.slice(0, 2), sorted.slice(2)]) {
       row.sort((a, b) => a.p.x - b.p.x);
-      for (const [index, { entry, p }] of row.entries()) {
-        entry.lane = index;
-        // The two short rows leave the lateral silhouette free on narrow phones.
-        const middle = width / 2,
-          half = entry.width / 2;
-        const x = clamp(
-          p.x,
-          index ? middle + half + 8 : half + 14,
-          index ? width - half - 14 : middle - half - 8,
-        );
-        const y = entry.upper
-          ? upperY - entry.height / 2 - 12
-          : lowerY + entry.height / 2 + 12;
-        entry.world.copy(pointAtDepth(x, y));
+      for (const [lane, { entry }] of row.entries()) {
+        entry.upper = sorted.slice(0, 2).some((item) => item.entry === entry);
+        entry.lane = lane;
+        const edges = model.userData.calloutEdges[entry.section];
+        if (portrait) {
+          // Attach at the outboard corner nearest the central beam. The diagonal
+          // exits beside its own cabin, well below the solar-panel envelope.
+          entry.anchor.set(
+            entry.upper ? edges.left[0] + 0.1 : edges.right[0] - 0.1,
+            lane ? edges.bottom[1] + 0.1 : edges.top[1] - 0.1,
+            1.32,
+          );
+        } else
+          entry.anchor.set(
+            ...(edges[entry.upper ? 'top' : 'bottom'] as [
+              number,
+              number,
+              number,
+            ]),
+          );
+        entry.button.style.maxWidth = `${Math.max(64, maxWidth)}px`;
+        entry.width = entry.button.offsetWidth;
+        entry.height = entry.button.offsetHeight;
       }
     }
+    route(
+      entries.map((e) => project(rotated(e.anchor.toArray()), reference)),
+      projected,
+      reference,
+    );
     if (identity) {
       const box = identity.getBoundingClientRect(),
         stage = host.getBoundingClientRect();
@@ -187,6 +258,39 @@ export function createOverviewAnnotations(
     layer.style.opacity = String(opacity);
     layer.inert = !state.home || state.travelling || opacity < 0.9;
     layer.setAttribute('aria-hidden', String(layer.inert));
+    if (state.home && !state.travelling) {
+      const worldProject = (v: number[]) =>
+        project(
+          new THREE.Vector3(...(v as [number, number, number])).applyMatrix4(
+            model.matrixWorld,
+          ),
+          camera,
+        );
+      route(
+        entries.map((e) => worldProject(e.anchor.toArray())),
+        supportPoints.map(worldProject),
+        camera,
+      );
+      const panels = model.userData.overviewSupportBounds.filter((b: any) =>
+        b.name.startsWith('solar-'),
+      );
+      layer.dataset.solarBounds = JSON.stringify(
+        panels.map((b: any) => {
+          const corners = [b.min[0], b.max[0]].flatMap((x) =>
+            [b.min[1], b.max[1]].flatMap((y) =>
+              [b.min[2], b.max[2]].map((z) => worldProject([x, y, z])),
+            ),
+          );
+          return {
+            name: b.name,
+            left: Math.min(...corners.map((p) => p.x)),
+            right: Math.max(...corners.map((p) => p.x)),
+            top: Math.min(...corners.map((p) => p.y)),
+            bottom: Math.max(...corners.map((p) => p.y)),
+          };
+        }),
+      );
+    }
     for (const entry of entries) {
       const p = project(entry.world, camera);
       const a = project(
@@ -197,25 +301,17 @@ export function createOverviewAnnotations(
         .clone()
         .sub(camera.position)
         .dot(camera.getWorldDirection(new THREE.Vector3()));
-      let scale = clamp(depth / Math.max(0.1, currentDepth), 0.3, 2.5);
-      if (state.home && !state.travelling) {
-        // Keep live, projected callouts readable at the edges of a drag. Their
-        // world anchors stay fixed; only the small label endpoint can slide.
-        scale = Math.min(scale, (width / 2 - 24) / entry.width);
-        const half = (entry.width * scale) / 2;
-        p.x = clamp(
-          p.x,
-          entry.lane ? width / 2 + 8 + half : 12 + half,
-          entry.lane ? width - 12 - half : width / 2 - 8 - half,
-        );
-      }
+      const scale =
+        (state.home && !state.travelling
+          ? 1
+          : clamp(depth / Math.max(0.1, currentDepth), 0.3, 2.5)) *
+        Number(entry.button.dataset.labelScale || 1);
       entry.button.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-50%) scale(${scale})`;
-      const endY = p.y + ((entry.upper ? 1 : -1) * entry.height * scale) / 2;
-      const elbowY =
-        a.y + (entry.upper ? -1 : 1) * Math.min(16, Math.abs(endY - a.y) / 2);
+      const knee = project(entry.knee, camera),
+        end = project(entry.end, camera);
       entry.path.setAttribute(
         'd',
-        `M ${a.x} ${a.y} L ${a.x} ${elbowY} L ${p.x} ${endY}`,
+        `M ${a.x} ${a.y} L ${knee.x} ${knee.y} L ${end.x} ${end.y}`,
       );
       entry.dot.setAttribute('cx', String(a.x));
       entry.dot.setAttribute('cy', String(a.y));

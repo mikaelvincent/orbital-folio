@@ -570,12 +570,24 @@ export function Spacecraft(props: Props) {
               ...headers.map((box) => (box?.bottom || 0) - rect.top + 16),
             );
             const safe = {
-              left: -1 + (2 * (mobile() ? 12 : 18)) / el.clientWidth,
-              right: 1 - (2 * (mobile() ? 12 : 18)) / el.clientWidth,
-              top: 1 - (2 * (topInset + (home ? 48 : 0))) / el.clientHeight,
+              left:
+                -1 +
+                (2 * (home && portraitOverview() ? 36 : mobile() ? 12 : 18)) /
+                  el.clientWidth,
+              right:
+                1 -
+                (2 * (home && portraitOverview() ? 36 : mobile() ? 12 : 18)) /
+                  el.clientWidth,
+              top:
+                1 -
+                (2 * (topInset + (home ? (portraitOverview() ? 48 : 72) : 0))) /
+                  el.clientHeight,
               bottom:
                 -1 +
-                (2 * (bottomReservation + (home ? 48 : 0))) / el.clientHeight,
+                (2 *
+                  (bottomReservation +
+                    (home ? (portraitOverview() ? 48 : 72) : 0))) /
+                  el.clientHeight,
             };
             let desiredDistance: number;
             if (isReading) {
