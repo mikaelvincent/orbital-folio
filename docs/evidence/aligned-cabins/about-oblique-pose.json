@@ -1,0 +1,12 @@
+{
+  "activeRoom": "about",
+  "cameraAngles": "0.01067,0.22000",
+  "cameraFar": "80",
+  "cameraPosition": "-1.1238,-1.6862,5.1958",
+  "cameraQuaternion": "0.005173,0.109783,-0.000571,0.993942",
+  "layout": "wide",
+  "viewport": [
+    1440,
+    900
+  ]
+}

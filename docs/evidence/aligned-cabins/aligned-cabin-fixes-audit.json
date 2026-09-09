@@ -1,0 +1,112 @@
+{
+  "sourceSha256": "4897d7e8d4ba5bee06aa7c8f53b762448b5aa73196f8e8337d1fdfd2c5619223",
+  "scope": "Actual-mesh CPU checks of only the four requested alignment changes. Roof height/single visible surface, thin floor and content datum, removed shelves/ceiling box, passage clearance and extended rear seam. Actual complaint-camera rays remain a separate visual proof.",
+  "expected": {
+    "floorTop": -1.32,
+    "floorThickness": 0.105,
+    "oldFloorTop": -0.9535,
+    "ceilingProfile": 1.455,
+    "ceiling": 1.43
+  },
+  "layouts": [
+    {
+      "layout": "wide",
+      "roofRays": 60,
+      "roofFrameJoinRays": 60,
+      "floorThicknessRays": 48,
+      "contentDatumChecks": 4,
+      "passageRays": 54,
+      "rearSeamRays": 24,
+      "removedParts": [],
+      "roofHeightRange": [
+        1.43,
+        1.43
+      ],
+      "floorThicknessRange": [
+        0.10499989986419678,
+        0.10499989986419678
+      ],
+      "contentBounds": [
+        {
+          "section": "projects",
+          "scale": 1,
+          "contentY": -0.36650000000000005,
+          "datum": -1.32,
+          "minimumYRelativeFloor": -0.09099999332427977
+        },
+        {
+          "section": "experience",
+          "scale": 1,
+          "contentY": -0.36650000000000005,
+          "datum": -1.32,
+          "minimumYRelativeFloor": -0.09099999332427977
+        },
+        {
+          "section": "about",
+          "scale": 1,
+          "contentY": -0.36650000000000005,
+          "datum": -1.32,
+          "minimumYRelativeFloor": -0.022500010967254624
+        },
+        {
+          "section": "contact",
+          "scale": 1,
+          "contentY": -0.36650000000000005,
+          "datum": -1.32,
+          "minimumYRelativeFloor": 0.005499986171722426
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "roofRays": 60,
+      "roofFrameJoinRays": 60,
+      "floorThicknessRays": 48,
+      "contentDatumChecks": 4,
+      "passageRays": 54,
+      "rearSeamRays": 24,
+      "removedParts": [],
+      "roofHeightRange": [
+        1.43,
+        1.43
+      ],
+      "floorThicknessRange": [
+        0.10499989986419678,
+        0.10499989986419678
+      ],
+      "contentBounds": [
+        {
+          "section": "projects",
+          "scale": 0.84,
+          "contentY": -0.5190600000000001,
+          "datum": -1.32,
+          "minimumYRelativeFloor": -0.07643999439239502
+        },
+        {
+          "section": "experience",
+          "scale": 0.84,
+          "contentY": -0.5190600000000001,
+          "datum": -1.32,
+          "minimumYRelativeFloor": -0.07643999439239502
+        },
+        {
+          "section": "about",
+          "scale": 0.84,
+          "contentY": -0.5190600000000001,
+          "datum": -1.3199999999999996,
+          "minimumYRelativeFloor": -0.018900009212493796
+        },
+        {
+          "section": "contact",
+          "scale": 0.84,
+          "contentY": -0.5190600000000001,
+          "datum": -1.3199999999999996,
+          "minimumYRelativeFloor": 0.00461998838424682
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "sourceUnchangedDuringAudit": true,
+  "passed": true
+}

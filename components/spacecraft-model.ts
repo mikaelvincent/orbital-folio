@@ -497,7 +497,11 @@ export function createSpacecraft(
         const outside = side
           ? normal.x * side > 0.1
           : normal.dot(center.sub(new THREE.Vector3(0, 0.05, 0))) >= -0.015;
-        const bucket = buckets[outside ? 0 : 1];
+        const frontClosure =
+          name.endsWith('-continuous-pressure-skin') &&
+          center.z > 1.2 &&
+          normal.z > 0.5;
+        const bucket = buckets[outside && !frontClosure ? 0 : 1];
         for (let j = 0; j < 3; j++) {
           bucket.p.push(p.getX(i + j), p.getY(i + j), p.getZ(i + j));
           bucket.n.push(n.getX(i + j), n.getY(i + j), n.getZ(i + j));
@@ -849,19 +853,24 @@ export function createSpacecraft(
   // Four complete pressure modules. The rounded front cutout is built in XY;
   // actual side bulkheads are in YZ. Adjacent front skins retain a 20 mm gap
   // including bevels, avoiding coplanar overlap and black seam flickering.
+  const cabinFloorTop = -1.32;
+  const previousFloorTop = -0.9535;
+  const cabinCeiling = 1.455;
   const shellShape = new THREE.Shape();
-  shellShape.moveTo(-1.19, -1.34);
-  shellShape.lineTo(0.67, -1.34);
-  shellShape.quadraticCurveTo(1.36, -1.34, 1.36, -0.65);
+  // The original C-section itself meets the cutaway: no second roof slab.
+  // Profile X becomes -Z after rotation, so -1.245 seats inside the front frame.
+  shellShape.moveTo(-1.245, -1.52);
+  shellShape.lineTo(0.67, -1.52);
+  shellShape.quadraticCurveTo(1.36, -1.52, 1.36, -0.65);
   shellShape.lineTo(1.36, 0.91);
   shellShape.quadraticCurveTo(1.36, 1.58, 0.69, 1.58);
-  shellShape.lineTo(-0.77, 1.58);
-  shellShape.lineTo(-0.77, 1.32);
-  shellShape.lineTo(0.67, 1.32);
-  shellShape.quadraticCurveTo(1.1, 1.32, 1.1, 0.89);
+  shellShape.lineTo(-1.245, 1.58);
+  shellShape.lineTo(-1.245, cabinCeiling);
+  shellShape.lineTo(0.67, cabinCeiling);
+  shellShape.quadraticCurveTo(1.1, cabinCeiling, 1.1, 0.89);
   shellShape.lineTo(1.1, -0.61);
-  shellShape.quadraticCurveTo(1.1, -1.04, 0.67, -1.04);
-  shellShape.lineTo(-1.19, -1.04);
+  shellShape.quadraticCurveTo(1.1, -1.405, 0.67, -1.405);
+  shellShape.lineTo(-1.245, -1.405);
   shellShape.closePath();
   const shellGeometry = new THREE.ExtrudeGeometry(shellShape, {
     depth: 2.86,
@@ -917,38 +926,24 @@ export function createSpacecraft(
     // A broad floor and warm continuous rear liner replace the noisy black grid.
     box(
       2.65,
-      0.44,
-      2.3,
+      0.105,
+      2.46,
       m.liner,
       x,
-      -1.1735,
-      0.1,
+      cabinFloorTop - 0.0525,
+      0.11,
       room,
-      0.05,
+      0.025,
       'coherent-cabin-deck',
     );
 
-    // Solid reveals bridge the cutaway aperture and pressure skin. The deck's
-    // walking surface stays fixed; the roof meets the existing fixture bezels.
-    box(
-      2.65,
-      0.3,
-      2.3,
-      m.liner,
-      x,
-      1.45,
-      0.1,
-      room,
-      0.04,
-      'solid-cabin-ceiling-return',
-    );
     box(
       2.61,
-      1.93,
+      2.52,
       0.087,
       m.liner,
       x,
-      0.105,
+      -0.035,
       -1.006,
       room,
       0.042,
@@ -960,7 +955,7 @@ export function createSpacecraft(
       0.15,
       m.liner,
       x,
-      -0.841,
+      -0.841 + cabinFloorTop - previousFloorTop,
       -0.94,
       room,
       0.039,
@@ -974,7 +969,7 @@ export function createSpacecraft(
         0.213,
         m.liner,
         x + dx,
-        1.239,
+        cabinCeiling - 0.0585,
         0.548,
         room,
         0.055,
@@ -986,7 +981,7 @@ export function createSpacecraft(
         0.127,
         m.light,
         x + dx,
-        1.16,
+        cabinCeiling - 0.1375,
         0.58,
         room,
         0.017,
@@ -1017,7 +1012,7 @@ export function createSpacecraft(
       0.032,
       m.hoverRail,
       x,
-      -0.9445,
+      cabinFloorTop + 0.009,
       -0.743,
       room,
       0.008,
@@ -1030,7 +1025,7 @@ export function createSpacecraft(
         1.55,
         m.hoverRail,
         x + sign * 1.155,
-        -0.9445,
+        cabinFloorTop + 0.009,
         0.03,
         room,
         0.008,
@@ -1347,8 +1342,9 @@ export function createSpacecraft(
       outer.pop();
     if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
       inner.pop();
+    for (const p of inner) if (p.x > 0.5) p.x += 0.585;
     const n = inner.length,
-      frontZ = -0.965,
+      frontZ = -0.985,
       rearZ = -1.21;
     const frontPositions: number[] = [],
       frontIndices: number[] = [];
@@ -1626,49 +1622,7 @@ export function createSpacecraft(
           part.material = roomMat(m.liner, 'walkway', false, true);
     }
   }
-  for (const yy of [-2.7085, 0.6915]) {
-    // A narrow upper transfer sill joins the side entry to the ladder rail;
-    // its footprint hugs the wall rather than projecting as a mid-bay shelf.
-    // The lower landing remains a full deck within the tapered shoulder.
-    box(
-      yy > 0 ? 0.38 : 0.76,
-      0.11,
-      1.76,
-      m.liner,
-      yy > 0 ? 0.56 : 0.3,
-      yy,
-      0.19,
-      walkwayFurniture,
-      0.045,
-      'walkway-room-landing',
-    );
-    box(
-      yy > 0 ? 0.26 : 0.62,
-      0.024,
-      0.046,
-      walkwayTrim,
-      yy > 0 ? 0.56 : 0.3,
-      yy + 0.06,
-      yy > 0 ? 1.015 : 0.88,
-      walkwayFurniture,
-      0.011,
-      'walkway-landing-light-guide',
-    );
-  }
-  // Continuous wall cleats carry both decks, clear of the left docking leaf.
-  for (const yy of [-2.7085, 0.6915])
-    box(
-      0.14,
-      0.15,
-      1.5,
-      m.metal,
-      0.685,
-      yy - 0.06,
-      0.19,
-      walkwayFurniture,
-      0.02,
-      'walkway-landing-wall-cleat',
-    );
+  // Zero-gravity transfer bay: no projecting decks, sills or landing cleats.
   // Ladder stand-offs overlap both the liner and the rail; there is no
   // unsupported quarter-unit gap behind the ladder assembly.
   for (const xx of [-0.08, 0.38])
@@ -4527,6 +4481,9 @@ export function createSpacecraft(
       structures[section].scale.set(layoutScale, 1, 1);
       structures[section].position.x = origin * (1 - layoutScale);
       contents[section].scale.setScalar(propScale);
+      // Scale furnishings about the floor datum, not the room origin.
+      contents[section].position.y =
+        cabinFloorTop - propScale * previousFloorTop;
       contents[section].position.x =
         origin * (1 - propScale) +
         (left ? -1 : 1) * (currentLayout === 'wide' ? 0.18 : 0.1);
@@ -4546,16 +4503,16 @@ export function createSpacecraft(
       group.userData.calloutAnchors[section] = [x, y + 0.17, 1.32];
       group.userData.calloutEdges[section] = {
         top: [x, y + 1.32, 1.32],
-        bottom: [x, y - 0.98, 1.32],
+        bottom: [x, y + cabinFloorTop + 0.02, 1.32],
         left: [x - 1.22 * layoutScale, y + 0.17, 1.32],
         right: [x + 1.22 * layoutScale, y + 0.17, 1.32],
       };
       group.userData.headerAnchors[section] = [x, y + 1.006, -0.263];
       group.userData.innerApertureBounds[section] = {
-        center: [x, y + 0.17, 1.2],
-        size: [2.44 * layoutScale, 2.3, 0.04],
-        min: [x - 1.22 * layoutScale, y - 0.98, 1.18],
-        max: [x + 1.22 * layoutScale, y + 1.32, 1.22],
+        center: [x, y + (cabinFloorTop + cabinCeiling) / 2, 1.2],
+        size: [2.44 * layoutScale, cabinCeiling - cabinFloorTop, 0.04],
+        min: [x - 1.22 * layoutScale, y + cabinFloorTop, 1.18],
+        max: [x + 1.22 * layoutScale, y + cabinCeiling, 1.22],
       };
     }
     for (const entry of labelPlaques) {
@@ -4606,17 +4563,8 @@ export function createSpacecraft(
         innerShoulders: [1.21, 2.0],
         continuousReturn: true,
       },
-      upperLanding: {
-        center: [0.56 * layoutScale, 0.6915, 0.19],
-        size: [0.38 * layoutScale, 0.11, 1.76],
-        kind: 'wall-supported-transfer-sill',
-        joinedTo: ['right-doorway-wall', 'ladder-right-rail'],
-      },
+      landings: [],
       clearDockingOpening: [1.82, 1.9],
-      lowerLanding: {
-        center: [0.3 * layoutScale, -2.7085, 0.19],
-        size: [0.76 * layoutScale, 0.11, 1.76],
-      },
       ladderBounds: {
         min: [-0.109 * layoutScale, -2.639, -0.719],
         max: [0.409 * layoutScale, 2.579, -0.661],
