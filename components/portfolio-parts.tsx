@@ -102,7 +102,9 @@ export function Sample({
   site: Record<string, any>;
   sample?: boolean;
 }) {
-  return sample ? <span className="sample-badge">{s.sampleLabel}</span> : null;
+  return sample && (s.sampleMode || s._preview) ? (
+    <span className="sample-badge">{s.sampleLabel}</span>
+  ) : null;
 }
 export function ProjectCards({
   projects,
@@ -116,7 +118,7 @@ export function ProjectCards({
       {projects.map((p, i) => (
         <a
           className="project-locker"
-          aria-label={`${s.projectCta}: ${p.title}${p.sample ? ' · ' + s.sampleLabel : ''}`}
+          aria-label={`${s.projectCta}: ${p.title}${p.sample && (s.sampleMode || s._preview) ? ' · ' + s.sampleLabel : ''}`}
           href={pathFor(`/projects/${p.slug}`, s)}
           key={p.id}
         >

@@ -352,6 +352,39 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
       },
     );
     await t.test(
+      'sample badges are confined to demo mode and private preview',
+      async () => {
+        const original = await record('site');
+        const sampleProject = (await records()).find(
+          (r) => r.kind === 'project' && r.published?.sample,
+        );
+        assert.ok(sampleProject, 'seeded sample project is available');
+        try {
+          await save(original, { ...original.draft, sampleMode: false });
+          await publish('site');
+          for (const path of [
+            '/projects',
+            '/projects/' + sampleProject.published.slug,
+            '/experience',
+            '/about',
+          ]) {
+            const html = await (await req(path)).text();
+            assert.doesNotMatch(html, /class="sample-badge"/);
+            assert.doesNotMatch(html, /aria-label="[^"]* · SAMPLE \/ CONCEPT/);
+          }
+          const preview = await (
+            await authorized(
+              '/admin/preview?section=projects&slug=' +
+                sampleProject.draft.slug,
+            )
+          ).text();
+          assert.match(preview, /class="sample-badge"/);
+        } finally {
+          await restore(original);
+        }
+      },
+    );
+    await t.test(
       'media bytes persist privately, publish safely, and appear in a project',
       async () => {
         const form = new FormData();

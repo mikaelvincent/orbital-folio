@@ -2832,13 +2832,14 @@ svg {
   width: 100%;
   height: 100%;
   min-height: 0;
-  touch-action: pan-y;
+  touch-action: auto;
   cursor: default;
 }
 .immersive-ship canvas {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: pinch-zoom;
 }
 .orbital-render[hidden],
 .reader-stage[hidden],
@@ -3664,6 +3665,7 @@ body:has(#room-reader:target) .boot-loader {
 }
 .world-hotspot {
   pointer-events: auto;
+  touch-action: pinch-zoom;
   font: 500 20px/1.3 var(--font-body, sans-serif);
   background: linear-gradient(#f0e4cc, #c7bba6);
   color: #142941;
@@ -3693,6 +3695,17 @@ body:has(#room-reader:target) .boot-loader {
   font-size: 26px;
 }
 .world-hotspot.locker-hotspot:focus-visible {
+  opacity: 1;
+}
+.world-hotspot.portal-hotspot {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  opacity: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+.world-hotspot.portal-hotspot:focus-visible {
   opacity: 1;
 }
 .document-experience,

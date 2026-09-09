@@ -1,0 +1,56 @@
+{
+  "url": "/projects",
+  "width": 1440,
+  "scrollWidth": 1440,
+  "violations": [],
+  "passes": 18,
+  "touchBranches": {
+    "scope": "Synthetic touch PointerEvents through the mounted handlers; native mouse capture is tested separately. This does not emulate device touch scrolling or pinch gestures.",
+    "results": [
+      {
+        "target": "canvas",
+        "clickAllowed": false,
+        "gesture": {
+          "pointerType": "touch",
+          "maxExcursion": 170.29386365926402,
+          "dragged": true,
+          "activated": false,
+          "startedOnControl": false,
+          "response": [
+            0,
+            0
+          ]
+        },
+        "dragging": "false",
+        "urlUnchanged": true
+      },
+      {
+        "target": "cancel-0",
+        "dragging": "false",
+        "urlUnchanged": true
+      },
+      {
+        "target": "instrument",
+        "clickAllowed": false,
+        "gesture": {
+          "pointerType": "touch",
+          "maxExcursion": 170.29386365926402,
+          "dragged": true,
+          "activated": false,
+          "startedOnControl": true,
+          "response": [
+            0,
+            0
+          ]
+        },
+        "dragging": "false",
+        "urlUnchanged": true
+      },
+      {
+        "target": "cancel-1",
+        "dragging": "false",
+        "urlUnchanged": true
+      }
+    ]
+  }
+}

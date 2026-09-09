@@ -1,0 +1,33 @@
+
+> orbital-folio@0.1.0 test
+> node --test --test-concurrency=1 tests/*.test.mjs
+
+✔ Rapid hover reversals preserve velocity and respect speed/acceleration at30/60/120Hz (1.488042ms)
+✔ Camera springs converge and frozen/invalid deltas cannot advance motion (0.968541ms)
+✔ Interactive-view migration updates default labels without overwriting custom or unpublished content (3.127083ms)
+✔ Contact messages are durable, private, honest, bounded, and rate limited (327.588417ms)
+✔ Flight destinations preserve public and private readable URLs (0.898333ms)
+✔ Fixed flights ease continuously and pointer translations stay bounded (0.697875ms)
+✔ In-place navigation and server rendering share editable metadata (0.123667ms)
+✔ Cursor rotation stays bounded and damping is independent of refresh rate (0.120542ms)
+▶ Persistent portfolio workflows and security boundaries
+  ✔ anonymous and forged identities cannot read or mutate the studio (140.944083ms)
+  ✔ local SIWC sign-in and first-owner claim work without a default password (18.036334ms)
+  ✔ CSRF, malformed bodies, and immutable site protection reject safely (54.355708ms)
+  ✔ published snapshots stay stable while drafts change; optimistic conflicts reject (509.328917ms)
+  ✔ collections grow beyond scene capacity, order correctly, and reject concurrent slug collisions (172.933458ms)
+  ✔ another owner can replace every site field through the authenticated content interface (379.951334ms)
+  ✔ sample badges are confined to demo mode and private preview (300.84025ms)
+  ✔ media bytes persist privately, publish safely, and appear in a project (177.938375ms)
+  ✔ script text is escaped and portable exports exclude credentials and inquiries (93.922916ms)
+  ✔ all public content is present in plain HTTP HTML with meaningful metadata and URLs (558.521084ms)
+  ✔ local sign-out clears the session cookie (7.52625ms)
+✔ Persistent portfolio workflows and security boundaries (3219.13875ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9925.841708

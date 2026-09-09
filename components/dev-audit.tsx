@@ -75,6 +75,70 @@ function AuditPanel() {
       },
     }));
   }
+  function runTouchBranches() {
+    const scene = document.querySelector<HTMLElement>('#ship');
+    const canvas = scene?.querySelector('canvas');
+    if (!scene || !canvas || scene.dataset.travelling !== 'false') return;
+    const hotspot = [
+      ...scene.querySelectorAll<HTMLButtonElement>('.world-hotspot'),
+    ].find(
+      (button) => !button.inert && button.getBoundingClientRect().width > 0,
+    );
+    const before = location.href;
+    const results: Record<string, unknown>[] = [];
+    for (const [index, target] of [canvas, hotspot].entries()) {
+      if (!target) continue;
+      const rect = target.getBoundingClientRect();
+      const x = rect.left + rect.width / 2,
+        y = rect.top + rect.height / 2;
+      const pointerId = 810 + index;
+      const send = (type: string, dx = 0, dy = 0) =>
+        target.dispatchEvent(
+          new PointerEvent(type, {
+            bubbles: true,
+            cancelable: true,
+            pointerType: 'touch',
+            isPrimary: true,
+            pointerId,
+            button: 0,
+            buttons: type === 'pointerup' ? 0 : 1,
+            clientX: x + dx,
+            clientY: y + dy,
+          }),
+        );
+      send('pointerdown');
+      send('pointermove', 130, -110);
+      send('pointermove', 0, 0);
+      send('pointerup');
+      const clickAllowed = target.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }),
+      );
+      results.push({
+        target: index === 0 ? 'canvas' : 'instrument',
+        clickAllowed,
+        gesture: JSON.parse(scene.dataset.lastGesture || '{}'),
+        dragging: scene.dataset.dragging,
+        urlUnchanged: location.href === before,
+      });
+      send('pointerdown');
+      send('pointermove', 0, 120);
+      send('pointercancel');
+      send('pointerup');
+      results.push({
+        target: 'cancel-' + index,
+        dragging: scene.dataset.dragging,
+        urlUnchanged: location.href === before,
+      });
+    }
+    setReport((previous: any) => ({
+      ...previous,
+      touchBranches: {
+        scope:
+          'Synthetic touch PointerEvents through the mounted handlers; native mouse capture is tested separately. This does not emulate device touch scrolling or pinch gestures.',
+        results,
+      },
+    }));
+  }
   useEffect(() => {
     if (new URLSearchParams(location.search).get('audit') !== '1') return;
     const timer = setTimeout(runAudit, 800);
@@ -113,6 +177,9 @@ function AuditPanel() {
       </button>
       <button type="button" className="button" onClick={runFrameControl}>
         Run paused frame control
+      </button>
+      <button type="button" className="button" onClick={runTouchBranches}>
+        Check touch event branches
       </button>
       <pre id="qa-result">{JSON.stringify(report, null, 2)}</pre>
     </details>

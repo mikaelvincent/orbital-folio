@@ -1,0 +1,16 @@
+{
+  "inputSha256": "3476ee3287232ab3767ae17483c2165168fed46b1d0c128b36b17cbe99f18524",
+  "hoverEnterGuard": true,
+  "hoverLeaveGuard": true,
+  "stickyOutAndBack": true,
+  "eightCssPixelThreshold": true,
+  "secondPointerIgnored": true,
+  "boundedRotation": [
+    0.025,
+    0.045
+  ],
+  "keyboardClicksExcludedFromSuppression": true,
+  "noDuplicateNativeControlActivation": true,
+  "roomPoseRollZero": true,
+  "browserEventsExercised": false
+}

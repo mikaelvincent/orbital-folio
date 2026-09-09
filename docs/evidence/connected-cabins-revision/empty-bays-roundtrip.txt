@@ -1,0 +1,3 @@
+{"publishedProjects":5,"restoreSnapshot":"/tmp/v8-empty-projects.json"}
+{"publishedProjects":0,"restoreSnapshot":"/tmp/v8-empty-projects.json"}
+{"restored":true,"projects":9}

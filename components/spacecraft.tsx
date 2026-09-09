@@ -8,6 +8,17 @@ import {
   type MotionAxis,
 } from '@/lib/flight';
 import type * as Three from 'three';
+import {
+  beginBoundedDrag,
+  updateBoundedDrag,
+  endBoundedDrag,
+  pointerResponse,
+  fitPerspectiveDistance,
+  solveApertureFraming,
+  cursorViewSamples,
+  type BoundedDrag,
+  type Vec3,
+} from '@/lib/scene-controls';
 
 type Props = {
   site: Record<string, any>;
@@ -107,6 +118,8 @@ export function Spacecraft(props: Props) {
           }
           const el = host.current;
           const mobile = () => el.clientWidth < 700;
+          const compactLayout = () =>
+            el.clientWidth < 900 || el.clientWidth / el.clientHeight < 1.05;
           const memory = (navigator as Navigator & { deviceMemory?: number })
             .deviceMemory;
           const capableShading =
@@ -153,12 +166,13 @@ export function Spacecraft(props: Props) {
             accent: s.accent,
             projectPageSize: PROJECTS_PER_PAGE,
             screenLabels: false,
+            layout: compactLayout() ? 'compact' : 'wide',
             sampleLabel: s.sampleLabel,
             projects: latest.current.projects.map((p) => ({
               title: String(p.title),
               slug: String(p.slug),
               category: p.category,
-              sample: p.sample,
+              sample: p.sample && (s.sampleMode || s._preview),
             })),
             labels: {
               projects: s.projectsLabel,
@@ -229,7 +243,7 @@ export function Spacecraft(props: Props) {
             home: [0, 0, 0],
             ...model.group.userData.roomAnchors,
           };
-          const readerAnchors = model.group.userData.readerAnchors as Record<
+          let readerAnchors = model.group.userData.readerAnchors as Record<
             string,
             [number, number, number]
           >;
@@ -246,10 +260,11 @@ export function Spacecraft(props: Props) {
           ]) {
             const bounds = model.group.userData.roomBounds[section];
             const mesh = new THREE.Mesh(
-              new THREE.BoxGeometry(...bounds.size),
+              new THREE.BoxGeometry(1, 1, 1),
               proxyMaterial,
             );
             mesh.position.set(...(bounds.center as [number, number, number]));
+            mesh.scale.set(...(bounds.size as [number, number, number]));
             mesh.visible = false;
             mesh.userData.section = section;
             model.group.add(mesh);
@@ -260,21 +275,33 @@ export function Spacecraft(props: Props) {
             button: HTMLButtonElement;
             section: string;
             slot?: number;
+            portalId?: string;
           }[] = [];
           const addHotspot = (
             section: string,
             position: [number, number, number],
             slot?: number,
+            portalId?: string,
           ) => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'world-hotspot';
+            button.dataset.targetKey = portalId
+              ? `portal:${portalId}`
+              : `instrument:${section}:${slot ?? 'reader'}`;
             const object = new CSS3DObject(button);
             object.position.set(...position);
             object.scale.setScalar(0.004);
             cssGroup.add(object);
-            hotspotObjects.push({ object, button, section, slot });
+            hotspotObjects.push({ object, button, section, slot, portalId });
             button.onclick = () => {
+              if (portalId) {
+                const portal = model.group.userData.portals.find(
+                  (p: any) => p.id === portalId,
+                );
+                if (portal) latest.current.onNavigate(portal.to);
+                return;
+              }
               const p =
                 slot === undefined
                   ? undefined
@@ -284,16 +311,24 @@ export function Spacecraft(props: Props) {
               latest.current.onOpen(section, p?.slug);
             };
             const enter = () => {
+              if (down?.gesture.dragging) return;
               hoveredProject =
                 slot === undefined
                   ? ''
                   : latest.current.projects[
                       latest.current.projectPage * PROJECTS_PER_PAGE + slot
                     ]?.slug || '';
-              hoverSection(section);
-              latest.current.onHover(section);
+              const portal =
+                portalId &&
+                model.group.userData.portals.find(
+                  (p: any) => p.id === portalId,
+                );
+              const destination = portal ? portal.to : section;
+              hoverSection(destination);
+              latest.current.onHover(destination);
             };
             const leave = () => {
+              if (down?.gesture.dragging) return;
               hoveredProject = '';
               hoverSection('');
               latest.current.onHover('');
@@ -304,6 +339,39 @@ export function Spacecraft(props: Props) {
           const hotspotLayout = model.group.userData.hotspots;
           for (const hotspot of hotspotLayout)
             addHotspot(hotspot.section, hotspot.position, hotspot.slot);
+          for (const portal of model.group.userData.portals)
+            addHotspot(portal.from, portal.labelPosition, undefined, portal.id);
+          const syncLayout = () => {
+            const layout = compactLayout() ? 'compact' : 'wide';
+            if (model.group.userData.layout !== layout) model.setLayout(layout);
+            Object.assign(anchors, model.group.userData.roomAnchors);
+            readerAnchors = model.group.userData.readerAnchors;
+            for (const proxy of proxies) {
+              const bounds =
+                model.group.userData.roomBounds[proxy.userData.section];
+              proxy.position.set(
+                ...(bounds.center as [number, number, number]),
+              );
+              proxy.scale.set(...(bounds.size as [number, number, number]));
+            }
+            for (const hotspot of hotspotObjects) {
+              const source = hotspot.portalId
+                ? model.group.userData.portals.find(
+                    (p: any) => p.id === hotspot.portalId,
+                  )
+                : model.group.userData.hotspots.find(
+                    (p: any) =>
+                      p.section === hotspot.section && p.slot === hotspot.slot,
+                  );
+              if (source)
+                hotspot.object.position.set(
+                  ...((hotspot.portalId
+                    ? source.labelPosition
+                    : source.position) as [number, number, number]),
+                );
+            }
+            el.dataset.layout = layout;
+          };
           const currentTarget = new THREE.Vector3(),
             nextTarget = new THREE.Vector3();
           const viewDirection = new THREE.Vector3(-0.28, 0.22, 1).normalize(),
@@ -344,12 +412,14 @@ export function Spacecraft(props: Props) {
             renderCost = 0,
             firstFrame = true;
           let down: {
-            x: number;
-            y: number;
+            gesture: BoundedDrag;
+            control: HTMLButtonElement | null;
+            pointerType: string;
             section: string;
             slug?: string;
             open?: boolean;
           } | null = null;
+          let suppressClickUntil = 0;
           const frameIntervals: number[] = [];
           const auditMotion =
             process.env.NODE_ENV === 'development' &&
@@ -397,86 +467,167 @@ export function Spacecraft(props: Props) {
             const target = new THREE.Vector3(
               ...(anchors[section] || anchors.home),
             );
-            const desiredRoll = home ? (mobile() ? Math.PI / 2 : 0.035) : 0;
-            if (isReading && readerAnchors[section])
-              target.set(...readerAnchors[section]);
-            if (!home && !isReading) target.y += 0.16;
-            target.applyAxisAngle(new THREE.Vector3(0, 0, 1), desiredRoll);
-            let desiredDistance = isReading
-              ? (2.4 * el.clientHeight) /
+            const direction = new THREE.Vector3(
+              home ? -0.18 : 0,
+              home ? 0.14 : 0,
+              1,
+            ).normalize();
+            const header = document
+              .querySelector('.flight-header')
+              ?.getBoundingClientRect();
+            const rect = el.getBoundingClientRect();
+            const topInset = Math.max(
+              56,
+              (header?.bottom || 64) - rect.top + 10,
+            );
+            const safe = {
+              left: -1 + (2 * (mobile() ? 14 : 24)) / el.clientWidth,
+              right: 1 - (2 * (mobile() ? 14 : 24)) / el.clientWidth,
+              top: 1 - (2 * topInset) / el.clientHeight,
+              bottom: -1 + (2 * 60) / el.clientHeight,
+            };
+            let desiredDistance: number;
+            if (isReading) {
+              if (readerAnchors[section]) target.set(...readerAnchors[section]);
+              desiredDistance =
+                (2.4 * el.clientHeight) /
                 (2 *
                   Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) *
-                  paperPixels())
-              : mobile()
-                ? Math.max(
-                    5.3,
-                    (2.75 * el.clientHeight) /
-                      (2 *
-                        Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) *
-                        (el.clientWidth - 24)),
-                  )
-                : 5.3;
-            if (home) {
-              // Fit the complete closed vessel to safe viewport bounds at a fixed pose.
+                  paperPixels());
+            } else if (home) {
               const bounds = model.group.userData.overviewBounds;
-              const box = bounds?.min
-                ? new THREE.Box3(
-                    new THREE.Vector3(...bounds.min),
-                    new THREE.Vector3(...bounds.max),
-                  )
-                : new THREE.Box3(
-                    new THREE.Vector3(-6, -4, -1.5),
-                    new THREE.Vector3(5.5, 5.3, 1.9),
-                  );
-              const dir = new THREE.Vector3(-0.28, 0.22, 1).normalize();
-              const basis = new THREE.Quaternion().setFromRotationMatrix(
-                new THREE.Matrix4().lookAt(
-                  dir,
-                  new THREE.Vector3(),
-                  new THREE.Vector3(0, 1, 0),
+              const min = bounds?.min || [-6, -4, -1.5];
+              const max = bounds?.max || [5.5, 5.3, 1.9];
+              const points: Vec3[] = [];
+              for (const x of [min[0], max[0]])
+                for (const y of [min[1], max[1]])
+                  for (const z of [min[2], max[2]]) points.push([x, y, z]);
+              target.set(
+                (min[0] + max[0]) / 2,
+                (min[1] + max[1]) / 2,
+                (min[2] + max[2]) / 2,
+              );
+              // Each corner retains its depth, avoiding the old bounding-box padding.
+              const views = cursorViewSamples({
+                target: target.toArray(),
+                direction: direction.toArray(),
+              });
+              desiredDistance = Math.max(
+                ...views.map((view) =>
+                  fitPerspectiveDistance(
+                    points,
+                    view,
+                    camera.fov,
+                    camera.aspect,
+                    safe,
+                  ),
                 ),
               );
-              const inverseBasis = basis.clone().invert();
-              const rotated = new THREE.Box3();
-              for (const x of [box.min.x, box.max.x])
-                for (const y of [box.min.y, box.max.y])
-                  for (const z of [box.min.z, box.max.z])
-                    rotated.expandByPoint(
-                      new THREE.Vector3(x, y, z)
-                        .applyAxisAngle(new THREE.Vector3(0, 0, 1), desiredRoll)
-                        .applyQuaternion(inverseBasis),
-                    );
-              const center = rotated.getCenter(new THREE.Vector3());
-              target.copy(center).applyQuaternion(basis);
-              const size = rotated.getSize(new THREE.Vector3());
-              const safeWidth = Math.max(
-                180,
-                el.clientWidth - (mobile() ? 32 : 100),
-              );
-              const safeHeight = Math.max(
-                220,
-                el.clientHeight - (mobile() ? 230 : 190),
-              );
-              desiredDistance =
-                Math.max(
-                  (size.y * el.clientHeight) / safeHeight,
-                  (size.x * el.clientHeight) / safeWidth,
-                ) /
-                  (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) +
-                size.z / 2;
+              if (mobile()) {
+                const cabinPoints: Vec3[] = [];
+                for (const bounds of Object.values(
+                  model.group.userData.roomBounds,
+                ) as { center: number[]; size: number[] }[]) {
+                  for (const sx of [-1, 1])
+                    for (const sy of [-1, 1])
+                      for (const sz of [-1, 1])
+                        cabinPoints.push([
+                          bounds.center[0] + (sx * bounds.size[0]) / 2,
+                          bounds.center[1] + (sy * bounds.size[1]) / 2,
+                          bounds.center[2] + (sz * bounds.size[2]) / 2,
+                        ]);
+                }
+                // Keep every cabin readable; peripheral hardware may leave the
+                // portrait edge slightly instead of shrinking the whole ship.
+                desiredDistance = Math.max(
+                  ...views.map((view) =>
+                    fitPerspectiveDistance(
+                      cabinPoints,
+                      view,
+                      camera.fov,
+                      camera.aspect,
+                      safe,
+                    ),
+                  ),
+                  ...views.map((view) =>
+                    fitPerspectiveDistance(
+                      points,
+                      view,
+                      camera.fov,
+                      camera.aspect,
+                      { ...safe, left: -1.3, right: 1.3 },
+                    ),
+                  ),
+                );
+              }
+              el.dataset.framing = JSON.stringify({
+                mode: 'overview',
+                distance: desiredDistance,
+                safe,
+                cabinPriority: mobile(),
+              });
+            } else {
+              const aperture =
+                model.group.userData.innerApertureBounds[section];
+              target.y = aperture.center[1];
+              const required: Vec3[] = (
+                model.group.userData.requiredFramingPoints?.[section] || []
+              ).map((p: { position: Vec3 }) => p.position);
+              if (!required.length) {
+                for (const x of [-1.13, 1.13])
+                  for (const y of [-0.86, 1.08])
+                    required.push([
+                      target.x + x,
+                      anchors[section][1] + y,
+                      -0.4,
+                    ]);
+              }
+              const views = cursorViewSamples({
+                target: target.toArray(),
+                direction: direction.toArray(),
+              });
+              const solution = solveApertureFraming({
+                aperture: {
+                  center: aperture.center,
+                  right: [1, 0, 0],
+                  up: [0, 1, 0],
+                  width: aperture.size[0],
+                  height: aperture.size[1],
+                },
+                views,
+                requiredPoints: required,
+                fovDegrees: camera.fov,
+                aspect: camera.aspect,
+                overscan: 1.015,
+                portalBounds: safe,
+              });
+              // Use the closest safe fit. Tall viewports preserve real controls even
+              // when their aspect makes hiding every part of the front frame impossible.
+              desiredDistance = solution.feasible
+                ? solution.minimumDistance +
+                  (solution.maximumDistance - solution.minimumDistance) * 0.16
+                : Math.max(
+                    ...views.map((view) =>
+                      fitPerspectiveDistance(
+                        required,
+                        view,
+                        camera.fov,
+                        camera.aspect,
+                        safe,
+                      ),
+                    ),
+                  ) + 0.05;
+              el.dataset.framing = JSON.stringify({
+                mode: 'room',
+                ...solution,
+                chosenDistance: desiredDistance,
+                safe,
+              });
             }
-            return {
-              target,
-              distance: desiredDistance,
-              roll: desiredRoll,
-              direction: new THREE.Vector3(
-                home ? -0.28 : -0.025,
-                home ? 0.22 : 0.018,
-                1,
-              ).normalize(),
-            };
+            return { target, distance: desiredDistance, roll: 0, direction };
           };
           const go = (immediate = false, notify = true) => {
+            cancelInput();
             aoDirty = true;
             active = latest.current.section;
             reading = latest.current.readingSurface;
@@ -578,16 +729,28 @@ export function Spacecraft(props: Props) {
             }
             const motionDelta = stop ? 0 : delta;
             const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
+            const focusedElement = document.activeElement as HTMLElement | null;
+            const focusedDestination =
+              focusedElement?.classList.contains('portal-hotspot') &&
+              !focusedElement.inert
+                ? focusedElement.dataset.destination || ''
+                : '';
+            const effectiveHover = hovered || focusedDestination;
+            const inspectingPassage =
+              active !== 'home' &&
+              !!effectiveHover &&
+              effectiveHover !== active &&
+              !down?.gesture.dragging;
             pointerCurrent.set(
               moveCameraAxis(
                 pointerMotion[0],
-                reading ? 0 : pointerGoal.x,
+                reading || inspectingPassage ? 0 : pointerGoal.x,
                 motionDelta,
                 pointerLimits,
               ),
               moveCameraAxis(
                 pointerMotion[1],
-                reading ? 0 : pointerGoal.y,
+                reading || inspectingPassage ? 0 : pointerGoal.y,
                 motionDelta,
                 pointerLimits,
               ),
@@ -641,9 +804,10 @@ export function Spacecraft(props: Props) {
             camera.lookAt(cameraTarget);
             model.group.rotation.z = roll;
             cssGroup.rotation.z = roll;
-            model.update(elapsed, hovered, stop, {
+            model.update(elapsed, effectiveHover, stop, {
               activeRoom: active,
-              labelPortrait: active === 'home' && mobile(),
+              labelPortrait: false,
+              hoveredPortal: effectiveHover,
               selectedProject: latest.current.slug,
               hoveredProject,
               projectPage: latest.current.projectPage,
@@ -673,6 +837,11 @@ export function Spacecraft(props: Props) {
             surface.visible = reading && !travelling;
             surfaceElement.inert = !surface.visible;
             for (const h of hotspotObjects) {
+              const portal =
+                h.portalId &&
+                model.group.userData.portals.find(
+                  (p: any) => p.id === h.portalId,
+                );
               const project =
                 h.slot === undefined
                   ? undefined
@@ -685,18 +854,28 @@ export function Spacecraft(props: Props) {
                 !travelling &&
                 (h.slot === undefined || !!project);
               h.button.inert = !h.object.visible;
-              const label = project
-                ? `${s.projectCta}: ${project.title}`
-                : h.section === 'about'
-                  ? s.journalLabel
-                  : h.section === 'experience'
-                    ? s.readAllLabel
-                    : s.inviteLabel;
-              const visibleLabel = project?.title || label;
+              const label = portal
+                ? `${s[portal.from + 'Label']} → ${s[portal.to + 'Label']}`
+                : project
+                  ? `${s.projectCta}: ${project.title}`
+                  : h.section === 'about'
+                    ? s.journalLabel
+                    : h.section === 'experience'
+                      ? s.readAllLabel
+                      : s.inviteLabel;
+              const visibleLabel = portal
+                ? s[portal.to + 'Label']
+                : project?.title || label;
               if (h.button.textContent !== visibleLabel)
                 h.button.textContent = visibleLabel;
               h.button.setAttribute('aria-label', label);
               h.button.classList.toggle('locker-hotspot', h.slot !== undefined);
+              h.button.classList.toggle('portal-hotspot', !!portal);
+              if (portal) {
+                h.button.style.width = `${portal.labelSize[0] / 0.004}px`;
+                h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
+                h.button.dataset.destination = portal.to;
+              }
               h.button.dataset.projectSlug = project?.slug || '';
             }
             background.update(
@@ -779,7 +958,7 @@ export function Spacecraft(props: Props) {
                 renderCalls: String(renderer.info.render.calls),
                 triangles: String(renderer.info.render.triangles),
                 renderCpuMs: renderCost.toFixed(2),
-                hoverRoom: hovered,
+                hoverRoom: effectiveHover,
                 hoverProject: hoveredProject,
                 hoverOffset: hoverMotion
                   .map((s) => s.value.toFixed(5))
@@ -798,6 +977,10 @@ export function Spacecraft(props: Props) {
                 physicalLabels: JSON.stringify(
                   model.group.userData.labelPlaques,
                 ),
+                pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
+                roomAnchors: JSON.stringify(model.group.userData.roomAnchors),
+                portals: JSON.stringify(model.group.userData.portals),
+                activeRoute: JSON.stringify(model.group.userData.activeRoute),
               });
               const sorted = [...frameIntervals].sort((a, b) => a - b);
               el.dataset.frameP50 = (
@@ -873,6 +1056,7 @@ export function Spacecraft(props: Props) {
             aoDirty = true;
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
+            syncLayout();
             background.resize(w, h, renderer.getPixelRatio());
             renderer.shadowMap.needsUpdate = true;
             go(true, travelling);
@@ -888,6 +1072,16 @@ export function Spacecraft(props: Props) {
             );
             ray.setFromCamera(pointer, camera);
             if (active !== 'home' && !reading) {
+              const portal = ray.intersectObjects(
+                model.portalTargets
+                  .filter((p) => p.from === active)
+                  .map((p) => p.object),
+                false,
+              )[0];
+              if (portal)
+                return {
+                  section: portal.object.userData.portalDestination as string,
+                };
               const hit = ray
                 .intersectObjects(
                   model.interactionTargets
@@ -928,13 +1122,36 @@ export function Spacecraft(props: Props) {
             kick();
           };
           const move = (event: PointerEvent) => {
-            if ((event.target as Element).closest('button, .world-surface'))
+            if ((event.target as Element).closest('.world-surface')) return;
+            if (down) {
+              if (event.pointerId !== down.gesture.pointerId) return;
+              down.gesture = updateBoundedDrag(
+                down.gesture,
+                event.pointerId,
+                event.clientX,
+                event.clientY,
+              );
+              if (down.gesture.dragging) {
+                if (!el.hasPointerCapture(event.pointerId)) {
+                  // A browser cancellation can race capture; the gesture must still end safely.
+                  try {
+                    el.setPointerCapture(event.pointerId);
+                  } catch {
+                    /* no active native pointer */
+                  }
+                }
+                pointerGoal.set(...down.gesture.response);
+                el.style.cursor = 'grabbing';
+                el.dataset.dragging = 'true';
+                kick();
+              }
               return;
+            }
+            if ((event.target as Element).closest('button')) return;
             const rect = el.getBoundingClientRect();
             if (event.pointerType !== 'touch')
               pointerGoal.set(
-                ((event.clientX - rect.left) / rect.width) * 2 - 1,
-                -(((event.clientY - rect.top) / rect.height) * 2 - 1),
+                ...pointerResponse(event.clientX, event.clientY, rect),
               );
             if (performance.now() - lastPick > 70 && !travelling) {
               const { section, slug } = pick(event);
@@ -950,32 +1167,124 @@ export function Spacecraft(props: Props) {
             if (stop) kick();
           };
           const pointerDown = (event: PointerEvent) => {
-            if (!(event.target as Element).closest('button, .world-surface'))
-              down = { x: event.clientX, y: event.clientY, ...pick(event) };
+            if (
+              down ||
+              !event.isPrimary ||
+              event.button !== 0 ||
+              reading ||
+              travelling ||
+              (event.target as Element).closest('.world-surface')
+            )
+              return;
+            const control = (
+              event.target as Element
+            ).closest<HTMLButtonElement>('.world-hotspot');
+            if ((event.target as Element).closest('button') && !control) return;
+            suppressClickUntil = 0;
+            const selection = pick(event);
+            const targetKey = control
+              ? control.dataset.targetKey || ''
+              : pickKey(selection);
+            down = {
+              ...selection,
+              control,
+              pointerType: event.pointerType,
+              gesture: beginBoundedDrag({
+                pointerId: event.pointerId,
+                x: event.clientX,
+                y: event.clientY,
+                response: [pointerGoal.x, pointerGoal.y],
+                width: el.clientWidth,
+                height: el.clientHeight,
+                targetKey,
+              }),
+            };
           };
           const pointerUp = (event: PointerEvent) => {
+            if (!down || event.pointerId !== down.gesture.pointerId) return;
+            const control = (
+              event.target as Element
+            ).closest<HTMLButtonElement>('.world-hotspot');
+            const completed = endBoundedDrag(
+              down.gesture,
+              event.pointerId,
+              event.clientX,
+              event.clientY,
+              control ? control.dataset.targetKey || '' : pickKey(pick(event)),
+            );
+            const action = down;
+            el.dataset.lastGesture = JSON.stringify({
+              pointerType: action.pointerType,
+              maxExcursion: completed.state.maximumExcursion,
+              dragged: completed.state.dragging,
+              activated: completed.activate,
+              startedOnControl: !!action.control,
+              response: completed.state.response,
+            });
             if (
-              down &&
-              Math.hypot(event.clientX - down.x, event.clientY - down.y) < 8 &&
-              down.section
-            ) {
-              if (down.open) latest.current.onOpen(down.section, down.slug);
-              else latest.current.onNavigate(down.section);
+              completed.state.dragging ||
+              (!!down.control && !completed.activate)
+            )
+              suppressClickUntil = performance.now() + 450;
+            cancelInput();
+            if (event.pointerType === 'touch') pointerGoal.set(0, 0);
+            if (completed.activate && !action.control && action.section) {
+              if (action.open)
+                latest.current.onOpen(action.section, action.slug);
+              else latest.current.onNavigate(action.section);
             }
+          };
+          function pickKey(value: {
+            section: string;
+            slug?: string;
+            open?: boolean;
+          }) {
+            return value.section
+              ? `${value.section}:${value.open ? value.slug || 'reader' : 'room'}`
+              : '';
+          }
+          function cancelInput() {
+            const pointerId = down?.gesture.pointerId;
+            if (down?.gesture.dragging)
+              suppressClickUntil = performance.now() + 450;
             down = null;
+            el.dataset.dragging = 'false';
+            if (pointerId !== undefined && el.hasPointerCapture(pointerId))
+              el.releasePointerCapture(pointerId);
+            el.style.cursor = hovered ? 'pointer' : 'grab';
+          }
+          const suppressDraggedClick = (event: MouseEvent) => {
+            if (event.detail > 0 && performance.now() < suppressClickUntil) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+            }
           };
           const leave = () => {
-            down = null;
+            if (down?.gesture.dragging) return;
+            cancelInput();
             hoveredProject = '';
             pointerGoal.set(0, 0);
             hoverSection('');
             latest.current.onHover('');
           };
-          el.addEventListener('pointerdown', pointerDown);
-          el.addEventListener('pointerup', pointerUp);
-          el.addEventListener('pointermove', move);
+          const cancelPointer = (event: Event) => {
+            if (
+              down &&
+              'pointerId' in event &&
+              event.pointerId !== down.gesture.pointerId
+            )
+              return;
+            cancelInput();
+            leave();
+          };
+          el.addEventListener('pointerdown', pointerDown, true);
+          el.addEventListener('pointerup', pointerUp, true);
+          el.addEventListener('pointermove', move, true);
           el.addEventListener('pointerleave', leave);
-          el.addEventListener('pointercancel', leave);
+          el.addEventListener('pointercancel', cancelPointer);
+          el.addEventListener('lostpointercapture', cancelPointer);
+          el.addEventListener('click', suppressDraggedClick, true);
+          window.addEventListener('blur', cancelPointer);
           const syncVisibility = () => {
             const nextVisible = inViewport && !document.hidden;
             visible = nextVisible;
@@ -1025,11 +1334,14 @@ export function Spacecraft(props: Props) {
             observer.disconnect();
             intersection.disconnect();
             document.removeEventListener('visibilitychange', syncVisibility);
-            el.removeEventListener('pointerdown', pointerDown);
-            el.removeEventListener('pointerup', pointerUp);
-            el.removeEventListener('pointermove', move);
+            el.removeEventListener('pointerdown', pointerDown, true);
+            el.removeEventListener('pointerup', pointerUp, true);
+            el.removeEventListener('pointermove', move, true);
             el.removeEventListener('pointerleave', leave);
-            el.removeEventListener('pointercancel', leave);
+            el.removeEventListener('pointercancel', cancelPointer);
+            el.removeEventListener('lostpointercapture', cancelPointer);
+            el.removeEventListener('click', suppressDraggedClick, true);
+            window.removeEventListener('blur', cancelPointer);
             renderer.domElement.removeEventListener('webglcontextlost', lost);
             window.removeEventListener(
               'orbital:shadow-diagnostic',

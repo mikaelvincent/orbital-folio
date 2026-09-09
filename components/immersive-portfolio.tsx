@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from './scene-loader';
 import { WorldReader } from './world-reader';
-import { ArrowLeft, BookOpen, Pause, Play, Orbit } from 'lucide-react';
+import { ArrowLeft, BookOpen, Orbit } from 'lucide-react';
 import type { Portfolio } from '@/lib/content-types';
 import {
   PROJECTS_PER_PAGE,
@@ -46,7 +46,6 @@ export function ImmersivePortfolio({
   });
   const [enhanced, setEnhanced] = useState(false);
   const [reading, setReading] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [hover, setHover] = useState('');
   const [arrived, setArrived] = useState(false);
   const [travel, setTravel] = useState(false);
@@ -306,7 +305,7 @@ export function ImmersivePortfolio({
 
   return (
     <div
-      className={`orbital-experience public-site ${immersive ? 'is-immersive' : 'is-readable'} destination-${destination.section} ${destination.slug ? 'has-dossier' : ''} ${travel ? 'is-travelling' : ''} ${paused || reduced ? 'is-motionless' : ''}`}
+      className={`orbital-experience public-site ${immersive ? 'is-immersive' : 'is-readable'} destination-${destination.section} ${destination.slug ? 'has-dossier' : ''} ${travel ? 'is-travelling' : ''} ${reduced ? 'is-motionless' : ''}`}
       lang={s.language}
       style={{ '--accent': s.accent } as React.CSSProperties}
       onClickCapture={capture}
@@ -377,7 +376,7 @@ export function ImmersivePortfolio({
             slug={destination.slug}
             readingSurface={readingSurface}
             projectPage={projectPage}
-            paused={paused || reduced}
+            paused={reduced}
             enabled={immersive}
             hover={hover}
             onHover={setHover}
@@ -502,16 +501,6 @@ export function ImmersivePortfolio({
             <BookOpen size={16} />
             <span>{reading ? s.sceneLabel : s.readLabel}</span>
           </button>
-          {!reading && !reduced && (
-            <button
-              type="button"
-              aria-label={paused ? s.resumeLabel : s.pauseLabel}
-              title={paused ? s.resumeLabel : s.pauseLabel}
-              onClick={() => setPaused(!paused)}
-            >
-              {paused ? <Play size={16} /> : <Pause size={16} />}
-            </button>
-          )}
         </div>
         {immersive && (
           <div className="flight-status">
