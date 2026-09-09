@@ -180,6 +180,15 @@ function AuditPanel() {
       >
         Toggle shadow diagnostic
       </button>
+      <button
+        type="button"
+        className="button"
+        onClick={() =>
+          window.dispatchEvent(new Event('orbital:motion-diagnostic'))
+        }
+      >
+        Toggle reduced-motion diagnostic
+      </button>
       <button type="button" className="button" onClick={runFrameControl}>
         Run renderer frame control
       </button>

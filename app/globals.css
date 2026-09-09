@@ -3708,6 +3708,12 @@ body:has(#room-reader:target) .boot-loader {
 }
 .world-hotspot.portal-hotspot:focus-visible {
   opacity: 1;
+  color: transparent;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  outline: 2px solid #ffe6a0;
+  outline-offset: 2px;
 }
 .document-experience,
 .document-contact {
@@ -3912,9 +3918,30 @@ body:has(#room-reader:target) .boot-loader {
 .flight-navigation {
   position: fixed;
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(24px + env(safe-area-inset-left, 0px));
+  display: flex;
+  align-items: center;
+  gap: 8px;
   z-index: 26;
+}
+.flight-home {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #e0e7ef;
+  background: #091522df;
+  border: 1px solid #ffffff28;
+  border-radius: 50%;
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px #ffffff0d;
+}
+.flight-home:hover,
+.flight-home[aria-current] {
+  background: #192d41;
+  border-color: #f9c57380;
+  color: #ffda9b;
 }
 .flight-navigation-toggle {
   display: flex;
@@ -3952,9 +3979,14 @@ body:has(#room-reader:target) .boot-loader {
 .flight-destinations {
   position: absolute;
   bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(300px, calc(100vw - 32px));
+  left: 0;
+  width: min(
+    300px,
+    calc(
+      100vw - 32px - env(safe-area-inset-left, 0px) -
+        env(safe-area-inset-right, 0px)
+    )
+  );
   max-height: calc(100svh - 160px);
   overflow: auto;
   padding: 10px;
@@ -4000,12 +4032,19 @@ body:has(#room-reader:target) .boot-loader {
   color: #ffda9b;
 }
 @media (max-width: 699px) {
+  .is-immersive {
+    --flight-menu-width: clamp(104px, calc(100vw - 212px), 184px);
+  }
   .flight-navigation {
-    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+    left: calc(12px + env(safe-area-inset-left, 0px));
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   }
   .flight-navigation-toggle {
     min-height: 44px;
-    min-width: 150px;
+    min-width: 0;
+    width: var(--flight-menu-width);
+    gap: 7px;
+    padding-inline: 11px;
   }
   .is-immersive .room-transport {
     bottom: calc(128px + env(safe-area-inset-bottom, 0px));
@@ -4015,12 +4054,52 @@ body:has(#room-reader:target) .boot-loader {
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
 .is-immersive .flight-status {
-  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: auto;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  bottom: auto;
+  max-width: min(360px, calc(100vw - 48px));
+  font-size: 0.6875rem;
+  background: #071220a6;
 }
 @media (max-width: 699px) {
+  .is-immersive .flight-tools {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+  }
+  .is-immersive .flight-tools button {
+    min-height: 44px;
+    padding-inline: 8px;
+    gap: 6px;
+    max-width: calc(
+      100vw - 84px - var(--flight-menu-width) - env(safe-area-inset-left, 0px) -
+        env(safe-area-inset-right, 0px)
+    );
+  }
+  .is-immersive .flight-tools button span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .is-immersive .flight-tools button svg {
+    flex-shrink: 0;
+  }
+  .is-immersive .flight-status {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+  }
   .dev-audit {
     top: 10px;
     bottom: auto;
     max-width: calc(100vw - 20px);
   }
+}
+
+/* Keep development diagnostics clear of the scene's bottom navigation. */
+.dev-audit {
+  top: 70px;
+  right: 16px;
+  left: auto;
+  bottom: auto;
+  max-width: min(420px, calc(100vw - 32px));
+  max-height: calc(100svh - 160px);
+  overflow: auto;
 }

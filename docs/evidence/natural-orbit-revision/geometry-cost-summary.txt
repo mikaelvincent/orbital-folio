@@ -1,0 +1,64 @@
+{
+  "output": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/natural-orbit-revision/geometry-cost-audit.json",
+  "summary": {
+    "passed": true,
+    "sourceMeshes": 912,
+    "roundedBoxGeometries": 120,
+    "boxSamplesAbsentFromOriginal": 0,
+    "reducedSmallPartMeshes": 151,
+    "home9": {
+      "layout": "wide",
+      "count": 9,
+      "activeRoom": "home",
+      "boundsDelta": 0.0008456707000732422,
+      "before": {
+        "colorCalls": 237,
+        "colorTriangles": 510280,
+        "shadowCasterTriangles": 460262,
+        "visibleVertices": 759966,
+        "allocatedVertices": 796834,
+        "attributeBytes": 25498688,
+        "indexBytes": 3539712
+      },
+      "after": {
+        "colorCalls": 237,
+        "colorTriangles": 436152,
+        "shadowCasterTriangles": 391426,
+        "visibleVertices": 711610,
+        "allocatedVertices": 734924,
+        "attributeBytes": 23517568,
+        "indexBytes": 2972328
+      },
+      "delta": {
+        "colorCalls": {
+          "saved": 0,
+          "percent": 0
+        },
+        "colorTriangles": {
+          "saved": 74128,
+          "percent": 14.526926393352667
+        },
+        "shadowCasterTriangles": {
+          "saved": 68836,
+          "percent": 14.955829505803218
+        },
+        "visibleVertices": {
+          "saved": 48356,
+          "percent": 6.362916235726335
+        },
+        "allocatedVertices": {
+          "saved": 61910,
+          "percent": 7.769497787494008
+        },
+        "attributeBytes": {
+          "saved": 1981120,
+          "percent": 7.769497787494008
+        },
+        "indexBytes": {
+          "saved": 567384,
+          "percent": 16.029100672597092
+        }
+      }
+    }
+  }
+}

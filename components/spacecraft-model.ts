@@ -1,5 +1,5 @@
 /**
- * Orbital toybox, v9. Self-contained procedural Three.js asset.
+ * Orbital toybox, v10. Self-contained procedural Three.js asset.
  * +Y up and +Z front. Four independent pressure cabins use metadata anchors.
  * Every visible mesh carries userData.section and is returned as a pick target.
  * Static parts are batched per room/material; repeated fittings use instancing.
@@ -35,6 +35,7 @@ export function createSpacecraft(
     projectPageSize?: number;
     screenLabels?: boolean;
     layout?: 'wide' | 'compact';
+    vesselName?: string;
   } = {},
 ): {
   group: any;
@@ -80,8 +81,8 @@ export function createSpacecraft(
   const strengths: Record<string, number> = {};
   const roomDimmers: Record<string, number> = {};
   const roomCenters: Record<string, [number, number]> = {
-    projects: [-1.65, 1.7],
-    experience: [1.65, 1.7],
+    projects: [1.65, 1.7],
+    experience: [-1.65, 1.7],
     about: [-1.65, -1.7],
     contact: [1.65, -1.7],
   };
@@ -131,9 +132,9 @@ export function createSpacecraft(
   const portals: Array<any> = [];
   // One continuous C-shaped circulation route; there are no deck openings.
   const adjacency: Record<string, string[]> = {
-    projects: ['experience', 'about'],
-    experience: ['projects'],
-    about: ['projects', 'contact'],
+    projects: ['experience'],
+    experience: ['projects', 'about'],
+    about: ['experience', 'contact'],
     contact: ['about'],
   };
   let currentLayout: 'wide' | 'compact' = 'compact';
@@ -152,6 +153,7 @@ export function createSpacecraft(
     visible: boolean;
   }> = [];
   const labelMaterials = new Map<(typeof labelPlaques)[number], any>();
+  const vesselInkMaterials: any[] = [];
   let labelPortrait = false;
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
@@ -298,10 +300,11 @@ export function createSpacecraft(
       (parent.parent ? sectionOf(parent.parent) : 'about')
     );
   }
-  function roomMat(original: any, section: string) {
-    const key = original.uuid + ':' + section;
+  function roomMat(original: any, section: string, exterior = false) {
+    const key = original.uuid + ':' + section + ':' + exterior;
     if (!materials.has(key)) {
       const clone = original.clone();
+      clone.userData.exterior = exterior;
       clone.userData.baseEmissive = original.emissive.clone();
       clone.userData.baseColor = original.color.clone();
       clone.userData.baseIntensity = original.emissiveIntensity;
@@ -311,6 +314,13 @@ export function createSpacecraft(
     }
     return materials.get(key);
   }
+  function exteriorScope(parent: any, name = '', original?: any) {
+    if (original?.userData.exterior || name.endsWith('-exterior')) return true;
+    for (let p = parent; p; p = p.parent) if (p.userData.exterior) return true;
+    return /^(rounded-front-pressure-collar|recessed-front-pressure-seal|hover-perimeter-light-guide|external-amber-lifting-tab|roof-latch|reinforced-|room-label-|side-label-|nameplate-amber-clasp|side-nameplate-amber-clasp|underside-service-keel|captive-collar-fasteners)/.test(
+      name,
+    );
+  }
   function cached(key: string, make: () => any) {
     if (!cache.has(key)) cache.set(key, make());
     return cache.get(key);
@@ -319,7 +329,9 @@ export function createSpacecraft(
   function roundedGeometry(w: number, h: number, d: number, radius = 0.04) {
     const r = Math.min(radius, w * 0.495, h * 0.495, d * 0.495);
     return cached(`rounded:${w}:${h}:${d}:${r}`, () => {
-      const segments = Math.max(w, h, d) > 0.4 ? 10 : 6;
+      // Keep every curved bevel sample; omit the redundant midpoint along
+      // each straight core span. Odd segment counts connect -core to +core.
+      const segments = Math.max(w, h, d) > 0.4 ? 9 : 5;
       const geometry = new THREE.BoxGeometry(
         w,
         h,
@@ -334,9 +346,9 @@ export function createSpacecraft(
       const half = [w / 2, h / 2, d / 2],
         core = half.map((v: number) => v - r);
       const steps =
-        segments === 10
-          ? [-1, -0.8, -0.45, -0.18, 0, 0, 0, 0.18, 0.45, 0.8, 1]
-          : [-1, -0.45, 0, 0, 0, 0.45, 1];
+        segments === 9
+          ? [-1, -0.8, -0.45, -0.18, 0, 0, 0.18, 0.45, 0.8, 1]
+          : [-1, -0.45, 0, 0, 0.45, 1];
       for (let i = 0; i < positions.count; i++) {
         const original = [
           positions.getX(i),
@@ -350,10 +362,8 @@ export function createSpacecraft(
         ];
         const p = original.map((v: number, a: number) => {
           const index = Math.round(((v / half[a] + 1) * segments) / 2);
-          return index === segments / 2
-            ? 0
-            : Math.sign(index - segments / 2) *
-                (core[a] + Math.abs(steps[index]) * r);
+          return Math.sign(index - segments / 2) *
+            (core[a] + Math.abs(steps[index]) * r);
         });
         const c = p.map((v: number, a: number) =>
           Math.max(-core[a], Math.min(core[a], v)),
@@ -395,7 +405,10 @@ export function createSpacecraft(
   }
   function mesh(geometry: any, material: any, parent: any, name = '') {
     const section = sectionOf(parent);
-    const object = new THREE.Mesh(geometry, roomMat(material, section));
+    const object = new THREE.Mesh(
+      geometry,
+      roomMat(material, section, exteriorScope(parent, name, material)),
+    );
     object.name = name || material.name;
     object.userData.section = section;
     for (let scope = parent; scope && scope !== group; scope = scope.parent) {
@@ -405,6 +418,61 @@ export function createSpacecraft(
     object.castShadow = object.receiveShadow = true;
     parent.add(object);
     return object;
+  }
+  function pressureMesh(
+    geometry: any,
+    material: any,
+    parent: any,
+    name: string,
+    side: number,
+  ) {
+    const key = `pressure-surfaces:${geometry.uuid}:${side}`;
+    const pair = cached(key, () => {
+      const source = geometry.index ? geometry.toNonIndexed() : geometry;
+      const p = source.getAttribute('position'),
+        n = source.getAttribute('normal'),
+        uv = source.getAttribute('uv');
+      const buckets = [
+        { p: [] as number[], n: [] as number[], uv: [] as number[] },
+        { p: [] as number[], n: [] as number[], uv: [] as number[] },
+      ];
+      for (let i = 0; i < p.count; i += 3) {
+        const center = new THREE.Vector3(),
+          normal = new THREE.Vector3();
+        for (let j = 0; j < 3; j++) {
+          center.add(new THREE.Vector3().fromBufferAttribute(p, i + j));
+          normal.add(new THREE.Vector3().fromBufferAttribute(n, i + j));
+        }
+        center.multiplyScalar(1 / 3);
+        normal.normalize();
+        const outside = side
+          ? normal.x * side > 0.1
+          : normal.dot(center.sub(new THREE.Vector3(0, 0.05, 0))) >= -0.015;
+        const bucket = buckets[outside ? 0 : 1];
+        for (let j = 0; j < 3; j++) {
+          bucket.p.push(p.getX(i + j), p.getY(i + j), p.getZ(i + j));
+          bucket.n.push(n.getX(i + j), n.getY(i + j), n.getZ(i + j));
+          bucket.uv.push(uv ? uv.getX(i + j) : 0, uv ? uv.getY(i + j) : 0);
+        }
+      }
+      return buckets.map((bucket) => {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute(
+          'position',
+          new THREE.Float32BufferAttribute(bucket.p, 3),
+        );
+        g.setAttribute('normal', new THREE.Float32BufferAttribute(bucket.n, 3));
+        g.setAttribute('uv', new THREE.Float32BufferAttribute(bucket.uv, 2));
+        g.computeBoundingSphere();
+        return g;
+      });
+    });
+    const assembly = new THREE.Group();
+    assembly.userData.section = sectionOf(parent);
+    parent.add(assembly);
+    mesh(pair[0], material, assembly, name + '-exterior');
+    mesh(pair[1], material, assembly, name + '-interior');
+    return assembly;
   }
   function box(
     w: number,
@@ -437,7 +505,9 @@ export function createSpacecraft(
     parent: any,
     axis = 'y',
     radiusTop = radius,
-    segments = 40,
+    segments = Math.max(radius, radiusTop) <= 0.06 ? 16
+      : Math.max(radius, radiusTop) <= 0.18 ? 24
+        : Math.max(radius, radiusTop) <= 0.3 ? 32 : 40,
   ) {
     const geometry = cached(
       `cylinder:${radius}:${radiusTop}:${length}:${segments}`,
@@ -461,7 +531,11 @@ export function createSpacecraft(
   ) {
     const geometry = cached(
       `torus:${radius}:${tube}`,
-      () => new THREE.TorusGeometry(radius, tube, 10, 56),
+      () => new THREE.TorusGeometry(
+        radius, tube,
+        radius <= 0.25 ? (tube < 0.01 ? 6 : 8) : 10,
+        radius <= 0.1 ? 24 : radius <= 0.25 ? 32 : 56,
+      ),
     );
     const result = mesh(geometry, material, parent);
     result.position.set(x, y, z);
@@ -479,7 +553,7 @@ export function createSpacecraft(
   ) {
     const geometry = cached(
       `sphere:${radius}`,
-      () => new THREE.SphereGeometry(radius, 24, 16),
+      () => new THREE.SphereGeometry(radius, 16, 12),
     );
     const result = mesh(geometry, material, parent);
     result.position.set(x, y, z);
@@ -514,7 +588,7 @@ export function createSpacecraft(
     const section = sectionOf(parent);
     const object = new THREE.InstancedMesh(
       geometry,
-      roomMat(material, section),
+      roomMat(material, section, exteriorScope(parent, name, material)),
       transforms.length,
     );
     const dummy = new THREE.Object3D();
@@ -669,6 +743,7 @@ export function createSpacecraft(
       emissive: 0xffffff,
       emissiveIntensity: 0.12,
     });
+    material.userData.exterior = role !== 'header';
     const mount = new THREE.Group();
     mount.name = role + '-label-mount-' + section;
     mount.userData = { section, batchRoot: true, physicalLabel: true };
@@ -697,6 +772,9 @@ export function createSpacecraft(
       const material = labelMaterials.get(label);
       if (material) material.visible = label.visible;
     }
+    for (const material of vesselInkMaterials)
+      material.visible = currentState.activeRoom === 'home';
+    group.userData.brandInkVisible = currentState.activeRoom === 'home';
     group.userData.labelPortrait = labelPortrait;
   }
 
@@ -731,8 +809,8 @@ export function createSpacecraft(
   const unitBox = new THREE.BoxGeometry(1, 1, 1);
   const boltGeometry = new THREE.CylinderGeometry(0.021, 0.021, 0.013, 6);
   boltGeometry.rotateX(Math.PI / 2);
-  const frontSkin = frameGeometry(2.91, 3.12, 0.48, 0.15, 0.22, 0.035);
-  const frontSeal = frameGeometry(2.58, 2.79, 0.32, 0.069, 0.078, 0.01);
+  const frontSkin = frameGeometry(2.91, 3.12, 0.48, 0.13, 0.22, 0.035);
+  const frontSeal = frameGeometry(2.74, 2.79, 0.32, 0.069, 0.078, 0.01);
   // At 1.4× width, opposing bulkhead skins retain a 20 mm gap.
   const endWallGeometry = panelGeometry(2.5, 2.88, 0.48, 0.14, 0.03).clone();
   endWallGeometry.rotateY(Math.PI / 2);
@@ -744,11 +822,15 @@ export function createSpacecraft(
   ].entries()) {
     const x = legacyCenters[section],
       room = structures[section];
-    const skin = mesh(
+    const exteriorHardware = new THREE.Group();
+    exteriorHardware.userData = { section, exterior: true };
+    room.add(exteriorHardware);
+    const skin = pressureMesh(
       shellGeometry,
       m.shell,
       room,
       section + '-continuous-pressure-skin',
+      0,
     );
     skin.position.set(x, 0, 0);
     const front = mesh(
@@ -766,7 +848,7 @@ export function createSpacecraft(
     );
     seal.position.set(x, 0.06, 1.145);
     const hoverPerimeter = mesh(
-      frameGeometry(2.392, 2.605, 0.24, 0.017, 0.014, 0.004),
+      frameGeometry(2.58, 2.605, 0.24, 0.017, 0.014, 0.004),
       m.hoverRail,
       room,
       'hover-perimeter-light-guide',
@@ -850,8 +932,8 @@ export function createSpacecraft(
       );
     }
     roomLights[section] = [-0.66, 0.66].map((dx) => {
-      const light = new THREE.PointLight(0xffc792, 0.9, 3.1, 2);
-      light.position.set(x + dx, 1.045, 0.48);
+      const light = new THREE.PointLight(0xffc792, 0.35, 3.1, 2);
+      light.position.set(x + dx, 0.8, 0.48);
       room.add(light);
       return light;
     });
@@ -892,22 +974,22 @@ export function createSpacecraft(
         0.033,
         'roof-latch',
       );
-      if (sign > 0) {
+      {
         rod(
           [x + sign * 1.29, -0.47, 1.355],
           [x + sign * 1.29, 0.36, 1.355],
           0.036,
           m.amber,
-          room,
+          exteriorHardware,
         );
-        sphere(0.049, m.amber, x + sign * 1.29, -0.47, 1.354, room);
-        sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, room);
+        sphere(0.049, m.amber, x + sign * 1.29, -0.47, 1.354, exteriorHardware);
+        sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, exteriorHardware);
       }
     }
     // Every room gets the same cream upper bulkhead header. Its deep rear
     // saddle reaches the liner, so it is mounted rather than a floating sign.
     box(
-      2.55,
+      1.52,
       0.255,
       0.584,
       m.gasket,
@@ -919,7 +1001,7 @@ export function createSpacecraft(
       'upper-header-wall-saddle',
     );
     box(
-      2.5,
+      1.48,
       0.232,
       0.13,
       m.chalk,
@@ -981,7 +1063,7 @@ export function createSpacecraft(
     // Fixed portrait alternative: +PI/2 ship roll makes this -PI/2 label level.
     // The band remains outside the compartment doors' frontal sightline.
     box(
-      0.4,
+      0.34,
       2.7,
       0.22,
       m.shell,
@@ -1091,11 +1173,20 @@ export function createSpacecraft(
     );
   }
   const passageShape = roundedPath(new THREE.Shape(), 2.5, 2.88, 0.48);
-  const roomOpening = roundedPath(new THREE.Path(), 2.1, 2.06, 0.25);
+  const roomOpening = roundedPath(new THREE.Path(), 2.1, 1.84, 0.25);
   for (const curve of roomOpening.curves) {
-    if (curve.v0) curve.v0.x += 0.1;
-    if (curve.v1) curve.v1.x += 0.1;
-    if (curve.v2) curve.v2.x += 0.1;
+    if (curve.v0) {
+      curve.v0.x += 0.1;
+      curve.v0.y -= 0.1;
+    }
+    if (curve.v1) {
+      curve.v1.x += 0.1;
+      curve.v1.y -= 0.1;
+    }
+    if (curve.v2) {
+      curve.v2.x += 0.1;
+      curve.v2.y -= 0.1;
+    }
   }
   passageShape.holes.push(roomOpening);
   const openWallGeometry = new THREE.ExtrudeGeometry(passageShape, {
@@ -1108,20 +1199,21 @@ export function createSpacecraft(
   });
   openWallGeometry.translate(0, 0, -0.07);
   openWallGeometry.rotateY(Math.PI / 2);
-  // Projects/About open on both sides; right-column cabins open only left.
+  // Experience/About open on both sides; right-column cabins open only left.
   for (const section of Object.keys(roomCenters)) {
     const room = structures[section],
       origin = legacyCenters[section];
-    const leftColumn = section === 'projects' || section === 'about';
+    const leftColumn = section === 'experience' || section === 'about';
     for (const sign of [-1, 1]) {
       const passage = leftColumn || sign === -1;
-      const wall = mesh(
+      const wall = pressureMesh(
         passage ? openWallGeometry : endWallGeometry,
         m.shell,
         room,
         passage
           ? 'open-side-pressure-bulkhead'
           : section + '-sealed-outboard-wall',
+        sign,
       );
       wall.position.set(origin + sign * 1.5, 0.04, 0);
     }
@@ -1140,7 +1232,7 @@ export function createSpacecraft(
   for (const section of Object.keys(roomCenters)) {
     const origin = legacyCenters[section];
     for (const sign of [-1, 1]) {
-      if ((section === 'experience' || section === 'contact') && sign > 0)
+      if ((section === 'projects' || section === 'contact') && sign > 0)
         continue;
       box(
         0.3,
@@ -1161,7 +1253,12 @@ export function createSpacecraft(
   // at mid-height. A zero-gravity handrail/ladder gives the vertical run scale.
   const walkway = new THREE.Group();
   walkway.name = 'left-vertical-walkway';
-  walkway.userData = { section: 'walkway', batchRoot: true, excludePick: true };
+  walkway.userData = {
+    section: 'walkway',
+    batchRoot: true,
+    excludePick: true,
+    exterior: true,
+  };
   group.add(walkway);
   const walkwayStructure = new THREE.Group();
   walkwayStructure.userData = {
@@ -1220,18 +1317,18 @@ export function createSpacecraft(
     const outline = roundedPath(new THREE.Shape(), 2.5, 6.24, 0.38);
     if (side > 0) {
       for (const yy of [-1.7, 1.7]) {
-        const opening = roundedPath(new THREE.Path(), 2.1, 2.06, 0.25);
+        const opening = roundedPath(new THREE.Path(), 2.1, 1.84, 0.25);
         for (const curve of opening.curves) {
           if (curve.v1) {
-            curve.v1.y += yy + 0.04;
+            curve.v1.y += yy - 0.06;
             curve.v1.x += 0.1;
           }
           if (curve.v2) {
-            curve.v2.y += yy + 0.04;
+            curve.v2.y += yy - 0.06;
             curve.v2.x += 0.1;
           }
           if (curve.v0) {
-            curve.v0.y += yy + 0.04;
+            curve.v0.y += yy - 0.06;
             curve.v0.x += 0.1;
           }
         }
@@ -1327,12 +1424,86 @@ export function createSpacecraft(
     walkway.add(light);
     return light;
   });
+  const dockingInterior = new THREE.Group();
+  dockingInterior.name = 'walkway-finished-inner-docking-hatch';
+  dockingInterior.userData = {
+    section: 'walkway',
+    batchRoot: true,
+    exterior: true,
+    excludePick: true,
+  };
+  walkway.add(dockingInterior);
+  dockingInterior.rotation.y = Math.PI / 2;
+  const entryBacking = mesh(
+    panelGeometry(1.98, 2.06, 0.8, 0.13, 0.026),
+    m.chalk,
+    dockingInterior,
+    'inner-docking-sealed-bulkhead-backing',
+  );
+  entryBacking.position.z = -0.025;
+  const entryGasket = mesh(
+    panelGeometry(1.8, 1.88, 0.75, 0.065, 0.018),
+    m.gasket,
+    dockingInterior,
+    'inner-docking-continuous-gasket',
+  );
+  entryGasket.position.z = 0.062;
+  const entryLeaf = mesh(
+    panelGeometry(1.63, 1.7, 0.66, 0.082, 0.029),
+    m.liner,
+    dockingInterior,
+    'inner-docking-closed-pressure-leaf',
+  );
+  entryLeaf.position.z = 0.116;
+  torus(0.39, 0.032, m.metal, 0, 0, 0.188, dockingInterior);
+  cylinder(0.1, 0.065, m.navy, 0, 0, 0.21, dockingInterior, 'z');
+  for (let i = 0; i < 3; i++) {
+    const a = (i * Math.PI * 2) / 3;
+    rod(
+      [Math.cos(a) * 0.095, Math.sin(a) * 0.095, 0.249],
+      [Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0.249],
+      0.025,
+      m.amber,
+      dockingInterior,
+    );
+  }
+  for (const side of [-1, 1]) {
+    box(
+      0.07,
+      0.37,
+      0.1,
+      m.navy,
+      side * 0.69,
+      0,
+      0.191,
+      dockingInterior,
+      0.032,
+      'inner-hatch-locking-dog',
+    );
+    box(
+      0.058,
+      0.2,
+      0.07,
+      m.amber,
+      side * 0.69,
+      0,
+      0.253,
+      dockingInterior,
+      0.027,
+      'inner-hatch-lock-tab',
+    );
+  }
   const utility = new THREE.Group();
-  utility.userData = { section: 'contact', batchRoot: true };
+  utility.userData = {
+    section: 'contact',
+    batchRoot: true,
+    exterior: true,
+    excludePick: true,
+  };
   group.add(utility);
-  for (const yy of [1.74, -1.66]) {
+  for (const yy of [1.64, -1.76]) {
     const sleeve = mesh(
-      frameGeometry(2.18, 2.14, 0.27, 0.055, 0.35, 0.01),
+      frameGeometry(2.18, 1.92, 0.27, 0.055, 0.35, 0.01),
       thresholdLiner,
       utility,
       'open-horizontal-pressure-coupling',
@@ -1348,7 +1519,7 @@ export function createSpacecraft(
     utility.add(coupling);
     walkwayCouplings.push(coupling);
     const tube = mesh(
-      frameGeometry(2.18, 2.14, 0.27, 0.055, 0.3, 0.01),
+      frameGeometry(2.18, 1.92, 0.27, 0.055, 0.3, 0.01),
       thresholdLiner,
       coupling,
       'open-walkway-room-coupling',
@@ -1356,35 +1527,6 @@ export function createSpacecraft(
     tube.rotation.y = Math.PI / 2;
     tube.position.set(0, yy, -0.1);
   }
-  // The communications service door sits aft of its ceiling-route nameplate,
-  // preserving the full wall without hiding the new inside-jamb caption.
-  const aftDoor = mesh(
-    panelGeometry(1.4, 2.19, 0.41, 0.045, 0.02),
-    m.gasket,
-    structures.contact,
-    'contact-service-door-recess',
-  );
-  aftDoor.rotation.y = Math.PI / 2;
-  aftDoor.position.set(1.354, 0.03, -0.47);
-  const aftInsert = mesh(
-    panelGeometry(1.285, 2.055, 0.36, 0.071, 0.025),
-    m.chalk,
-    structures.contact,
-    'closed-service-pressure-door',
-  );
-  aftInsert.rotation.y = Math.PI / 2;
-  aftInsert.position.set(1.276, 0.03, -0.47);
-  cylinder(0.248, 0.025, m.navy, 1.203, 0.53, -0.47, structures.contact, 'x');
-  cylinder(0.188, 0.023, m.glass, 1.179, 0.53, -0.47, structures.contact, 'x');
-  torus(0.209, 0.025, m.metal, 1.158, 0.53, -0.47, structures.contact, 'x');
-  rod(
-    [1.184, -0.48, -0.11],
-    [1.184, 0.04, -0.11],
-    0.033,
-    m.amber,
-    structures.contact,
-  );
-
   // Nine physical compartments, arranged as three columns by three rows.
   // Each hinge, title texture and signal rail remains independent after batching.
   const project = rooms.projects;
@@ -1428,86 +1570,272 @@ export function createSpacecraft(
       spareEquipment: true,
     };
     project.add(spare);
-    if (slotIndex % 3 === 0) {
-      for (const dz of [0, 0.085]) {
-        const roll = cylinder(
-          0.077,
-          0.4,
-          m.blanket,
-          x,
-          y - 0.085 + dz,
-          -0.65,
-          spare,
-          'x',
-        );
-        roll.name = 'stowed-thermal-blanket';
-      }
-      for (const dx of [-0.115, 0.115])
+    const spareKinds = [
+      'thermal-blanket',
+      'service-hose',
+      'inspection-torch',
+      'tool-roll',
+      'filter-canister',
+      'headset',
+      'cooling-fan',
+      'safety-tether',
+      'folded-tripod',
+    ];
+    spare.userData.spareKind = spareKinds[slotIndex];
+    box(
+      0.49,
+      0.025,
+      0.23,
+      m.navy,
+      x,
+      y - 0.18,
+      -0.66,
+      spare,
+      0.012,
+      'equipment-retaining-cradle',
+    );
+    if (slotIndex === 0) {
+      for (const yy of [-0.09, 0.045])
+        cylinder(0.069, 0.39, m.blanket, x, y + yy, -0.67, spare, 'x').name =
+          'stowed-thermal-blanket';
+      for (const dx of [-0.12, 0.12])
         box(
-          0.038,
-          0.23,
-          0.16,
+          0.036,
+          0.24,
+          0.15,
           m.amber,
           x + dx,
-          y - 0.04,
-          -0.65,
+          y - 0.02,
+          -0.67,
           spare,
-          0.018,
+          0.017,
           'blanket-retaining-webbing',
         );
-    } else if (slotIndex % 3 === 1) {
-      for (const radius of [0.068, 0.106, 0.145]) {
-        const coil = torus(
-          radius,
-          0.02,
-          m.metal,
-          x - 0.08,
-          y - 0.025,
-          -0.62,
-          spare,
-        );
-        coil.name = 'coiled-service-hose';
-      }
-      box(
-        0.105,
-        0.09,
-        0.16,
-        m.amber,
-        x + 0.17,
-        y - 0.13,
-        -0.65,
-        spare,
-        0.023,
-        'hose-quick-coupling',
-      );
+    } else if (slotIndex === 1) {
+      for (const r of [0.068, 0.106, 0.145])
+        torus(r, 0.02, m.metal, x - 0.045, y - 0.02, -0.63, spare).name =
+          'coiled-service-hose';
       box(
         0.055,
-        0.28,
-        0.065,
+        0.29,
+        0.06,
         m.navy,
-        x - 0.08,
-        y - 0.025,
-        -0.579,
+        x - 0.045,
+        y - 0.02,
+        -0.59,
         spare,
         0.018,
         'hose-retaining-strap',
       );
-    } else {
-      cylinder(0.065, 0.4, m.navy, x, y - 0.07, -0.65, spare, 'x').name =
+      box(
+        0.09,
+        0.09,
+        0.15,
+        m.amber,
+        x + 0.19,
+        y - 0.12,
+        -0.65,
+        spare,
+        0.024,
+        'hose-quick-coupling',
+      );
+    } else if (slotIndex === 2) {
+      cylinder(0.065, 0.4, m.navy, x, y - 0.05, -0.65, spare, 'x').name =
         'stowed-inspection-torch';
       for (const dx of [-0.19, 0.19])
-        cylinder(0.079, 0.06, m.metal, x + dx, y - 0.07, -0.65, spare, 'x');
+        cylinder(0.079, 0.06, m.metal, x + dx, y - 0.05, -0.65, spare, 'x');
       box(
-        0.13,
+        0.12,
         0.065,
-        0.11,
+        0.12,
         m.amber,
         x,
-        y + 0.045,
+        y + 0.05,
         -0.65,
         spare,
         0.025,
         'torch-retaining-clip',
+      );
+    } else if (slotIndex === 3) {
+      box(
+        0.43,
+        0.23,
+        0.17,
+        m.linen,
+        x,
+        y - 0.04,
+        -0.69,
+        spare,
+        0.065,
+        'secured-canvas-tool-roll',
+      );
+      for (const dx of [-0.14, 0, 0.14])
+        box(
+          0.048,
+          0.21,
+          0.035,
+          m.navy,
+          x + dx,
+          y - 0.02,
+          -0.585,
+          spare,
+          0.019,
+          'tool-roll-pockets',
+        );
+      box(
+        0.46,
+        0.035,
+        0.035,
+        m.amber,
+        x,
+        y - 0.11,
+        -0.558,
+        spare,
+        0.016,
+        'tool-roll-buckle-strap',
+      );
+    } else if (slotIndex === 4) {
+      cylinder(0.095, 0.25, m.chalk, x, y - 0.015, -0.69, spare, 'y').name =
+        'spare-filter-canister';
+      for (const yy of [-0.145, 0.115])
+        cylinder(0.107, 0.042, m.metal, x, y + yy, -0.69, spare, 'y');
+      box(
+        0.045,
+        0.25,
+        0.055,
+        m.amber,
+        x,
+        y - 0.01,
+        -0.574,
+        spare,
+        0.021,
+        'canister-retaining-strap',
+      );
+    } else if (slotIndex === 5) {
+      const band = mesh(
+        new THREE.TorusGeometry(0.15, 0.025, 8, 24, Math.PI),
+        m.navy,
+        spare,
+        'spare-headset-band',
+      );
+      band.position.set(x, y - 0.04, -0.66);
+      for (const dx of [-0.145, 0.145])
+        box(
+          0.085,
+          0.12,
+          0.13,
+          m.upholstery,
+          x + dx,
+          y - 0.07,
+          -0.66,
+          spare,
+          0.04,
+          'headset-earcup',
+        );
+      box(
+        0.3,
+        0.032,
+        0.055,
+        m.amber,
+        x,
+        y - 0.13,
+        -0.572,
+        spare,
+        0.014,
+        'headset-securing-loop',
+      );
+    } else if (slotIndex === 6) {
+      cylinder(0.145, 0.07, m.navy, x, y - 0.02, -0.67, spare, 'z').name =
+        'spare-cooling-fan-housing';
+      torus(0.142, 0.02, m.metal, x, y - 0.02, -0.62, spare);
+      for (let k = 0; k < 5; k++) {
+        const a = (k * Math.PI * 2) / 5;
+        const blade = box(
+          0.13,
+          0.045,
+          0.028,
+          m.slate,
+          x + Math.cos(a) * 0.06,
+          y - 0.02 + Math.sin(a) * 0.06,
+          -0.615,
+          spare,
+          0.018,
+          'spare-fan-blade',
+        );
+        blade.rotation.z = a;
+      }
+      box(
+        0.035,
+        0.32,
+        0.048,
+        m.amber,
+        x,
+        y - 0.02,
+        -0.578,
+        spare,
+        0.017,
+        'fan-retaining-strap',
+      );
+    } else if (slotIndex === 7) {
+      for (const dx of [-0.12, 0, 0.12]) {
+        const loop = torus(
+          0.075,
+          0.022,
+          m.amber,
+          x + dx,
+          y - 0.01,
+          -0.65,
+          spare,
+        );
+        loop.scale.y = 1.42;
+        loop.name = 'coiled-safety-tether';
+      }
+      torus(0.045, 0.012, m.metal, x + 0.215, y - 0.1, -0.625, spare).name =
+        'tether-locking-carabiner';
+      box(
+        0.4,
+        0.028,
+        0.045,
+        m.navy,
+        x,
+        y - 0.11,
+        -0.585,
+        spare,
+        0.013,
+        'tether-securing-strap',
+      );
+    } else {
+      for (const dx of [-0.1, 0, 0.1])
+        rod(
+          [x + dx - 0.035, y - 0.14, -0.68],
+          [x + dx + 0.035, y + 0.14, -0.68],
+          0.023,
+          m.metal,
+          spare,
+        ).name = 'folded-tripod-leg';
+      box(
+        0.26,
+        0.07,
+        0.1,
+        m.navy,
+        x,
+        y + 0.125,
+        -0.66,
+        spare,
+        0.032,
+        'tripod-head',
+      );
+      box(
+        0.34,
+        0.035,
+        0.052,
+        m.amber,
+        x,
+        y - 0.045,
+        -0.6,
+        spare,
+        0.016,
+        'tripod-retaining-band',
       );
     }
     const cartridge = new THREE.Group();
@@ -2390,7 +2718,7 @@ export function createSpacecraft(
   // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
   const docking = new THREE.Group();
   docking.name = 'central-docking-assembly';
-  docking.userData = { section: 'contact', batchRoot: true };
+  docking.userData = { section: 'contact', batchRoot: true, exterior: true };
   docking.position.set(1.35, 0, 0);
   group.add(docking);
   // A tall saddle bears against both left outboard bulkheads. The capped
@@ -2604,7 +2932,7 @@ export function createSpacecraft(
   // AFT — a shared service bus to the right of both cabins.
   const service = new THREE.Group();
   service.name = 'aft-service-assembly';
-  service.userData = { section: 'contact', batchRoot: true };
+  service.userData = { section: 'contact', batchRoot: true, exterior: true };
   service.position.set(-1.5, 0, 0);
   group.add(service);
   // Placement follows the service-module organization documented for ESA ATV:
@@ -3096,6 +3424,7 @@ export function createSpacecraft(
     parent: any,
     width: number,
     height: number,
+    preserveCase = false,
   ) {
     if (typeof document === 'undefined') return null;
     const canvas = document.createElement('canvas');
@@ -3107,8 +3436,8 @@ export function createSpacecraft(
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#203448';
-    const title = text.trim().toUpperCase();
-    let font = canvas.height * 0.7;
+    const title = preserveCase ? text.trim() : text.trim().toUpperCase();
+    let font = canvas.height * (preserveCase ? 0.9 : 0.7);
     ctx.font = `800 ${font}px Arial, sans-serif`;
     font *= Math.min(1, 940 / Math.max(1, ctx.measureText(title).width));
     ctx.font = `800 ${font}px Arial, sans-serif`;
@@ -3133,21 +3462,113 @@ export function createSpacecraft(
     face.castShadow = false;
     return face;
   }
+  const branding = new THREE.Group();
+  branding.name = 'symmetric-vessel-branding-mounts';
+  branding.userData = {
+    section: 'contact',
+    exterior: true,
+    excludePick: true,
+    batchRoot: true,
+  };
+  group.add(branding);
+  const brandingMetadata: any[] = [];
+  for (const sign of [-1, 1]) {
+    const holder = new THREE.Group();
+    holder.userData = {
+      section: 'contact',
+      exterior: true,
+      excludePick: true,
+      batchRoot: true,
+    };
+    // Broad, shallow pressure bands overlap the upper/lower collar edges.
+    // Extend the band backward into the collars while keeping the enamel
+    // ahead of their bevels. There are no posts or stand-off feet.
+    holder.position.set(0, sign * 3.32, 1.45);
+    branding.add(holder);
+    box(
+      5.2,
+      0.35,
+      0.5,
+      m.shell,
+      0,
+      0,
+      -0.14,
+      holder,
+      0.075,
+      'vessel-nameplate-integrated-hull-band',
+    );
+    box(
+      4.99,
+      0.3,
+      0.035,
+      m.navy,
+      0,
+      0,
+      0.105,
+      holder,
+      0.014,
+      'vessel-nameplate-recessed-gasket',
+    );
+    box(
+      4.92,
+      0.283,
+      0.031,
+      m.chalk,
+      0,
+      0,
+      0.129,
+      holder,
+      0.013,
+      'vessel-nameplate-enamel',
+    );
+    for (const sx of [-1, 1])
+      box(
+        0.11,
+        0.21,
+        0.041,
+        m.amber,
+        sx * 2.49,
+        0,
+        0.13,
+        holder,
+        0.018,
+        'symmetric-nameplate-end-clasp',
+      );
+    const text = (options.vesselName || '').trim();
+    if (text) {
+      const ink = portalLabel(text, holder, 4.64, 0.27, true);
+      if (ink) {
+        ink.position.z = 0.148;
+        ink.name = 'vessel-nameplate-ink';
+        vesselInkMaterials.push(ink.material);
+      }
+    }
+    brandingMetadata.push({
+      text,
+      position: [0, sign * 3.32, 1.598],
+      size: [4.64, 0.27],
+      normal: [0, 0, 1],
+      mounting: 'flush integrated upper/lower pressure band',
+    });
+  }
+  group.userData.branding = brandingMetadata;
+  group.userData.circulation = ['projects', 'experience', 'about', 'contact'];
+
   // Six open side passages form the C route. Their frames are exactly in the
   // side-wall plane; no angled leaf or coaming projects into the aperture.
   const portalConnections = [
-    ['projects', 'experience', 'right'],
-    ['experience', 'projects', 'left'],
-    ['projects', 'about', 'left'],
-    ['about', 'projects', 'left'],
+    ['projects', 'experience', 'left'],
+    ['experience', 'projects', 'right'],
+    ['experience', 'about', 'left'],
+    ['about', 'experience', 'left'],
     ['about', 'contact', 'right'],
     ['contact', 'about', 'left'],
   ];
   for (const [from, to, edge] of portalConnections) {
     const id = `${from}:${to}`,
       viaWalkway =
-        (from === 'projects' && to === 'about') ||
-        (from === 'about' && to === 'projects');
+        (from === 'experience' && to === 'about') ||
+        (from === 'about' && to === 'experience');
     const visual = new THREE.Group();
     visual.name = id + '-open-side-passage';
     visual.userData = {
@@ -3165,57 +3586,57 @@ export function createSpacecraft(
     opening.userData = { section: from, batchRoot: true };
     visual.add(opening);
     const gasket = mesh(
-      frameGeometry(2.33, 2.28, 0.31, 0.115, 0.09, 0.012),
+      frameGeometry(2.33, 2.06, 0.31, 0.115, 0.09, 0.012),
       m.gasket,
       opening,
       'open-hatch-wall-gasket',
     );
     gasket.position.z = -0.014;
     const frame = mesh(
-      frameGeometry(2.3, 2.25, 0.3, 0.095, 0.07, 0.012),
+      frameGeometry(2.3, 2.03, 0.3, 0.095, 0.07, 0.012),
       m.chalk,
       opening,
       'flush-open-pressure-hatch-frame',
     );
     frame.position.z = 0.012;
     const light = mesh(
-      frameGeometry(2.122, 2.072, 0.22, 0.014, 0.012, 0.002),
+      frameGeometry(2.122, 1.852, 0.22, 0.014, 0.012, 0.002),
       signalSource,
       opening,
       'open-hatch-route-light',
     );
     light.position.z = 0.054;
-    // A narrow fixed identification plate lies directly against the rear header
-    // wall beside the arch; text is parallel to that wall and never projects.
+    // Navigation plaques sit literally above the side door, on the same
+    // inward-facing wall plane. They are distinct from the frontal room title.
     const caption = new THREE.Group();
-    caption.name = id + '-flush-wall-nameplate';
+    caption.name = id + '-above-door-wall-nameplate';
     caption.userData = { section: from, batchRoot: true };
     visual.add(caption);
-    const captionSize = [0.55, 0.16],
-      plateSize = [0.62, 0.22];
+    const captionSize = [0.96, 0.18],
+      plateSize = [1.04, 0.24];
     box(
       plateSize[0],
       plateSize[1],
-      0.035,
+      0.09,
       m.liner,
       0,
       0,
-      -0.03,
+      -0.048,
       caption,
-      0.016,
-      'portal-flush-wall-nameplate-backing',
+      0.028,
+      'above-door-label-backing',
     );
     box(
-      0.6,
-      0.2,
-      0.024,
+      1.0,
+      0.21,
+      0.028,
       m.chalk,
       0,
       0,
-      -0.015,
+      -0.017,
       caption,
-      0.012,
-      'portal-flush-wall-nameplate-enamel',
+      0.013,
+      'above-door-label-enamel',
     );
     portalLabel(
       options.labels?.[to] || to,
@@ -3225,7 +3646,7 @@ export function createSpacecraft(
     );
     const pick = interactionBox(
       id + '-portal-pick',
-      [0.28, 2.06, 2.18],
+      [0.28, 1.84, 2.18],
       [0, 0, 0],
       rooms[from],
       {
@@ -3246,8 +3667,8 @@ export function createSpacecraft(
       edge,
       via: viaWalkway ? 'walkway' : null,
       position: [0, 0, 0],
-      size: [0.28, 2.06, 2.18],
-      openingSize: [2.1, 2.06],
+      size: [0.28, 1.84, 2.18],
+      openingSize: [2.1, 1.84],
       labelPosition: [0, 0, 0],
       labelSize: captionSize,
       plateSize,
@@ -3520,7 +3941,7 @@ export function createSpacecraft(
     // appendages determine overview silhouette, regardless of current selection.
     for (const section of Object.keys(rooms))
       box.union(new THREE.Box3().setFromObject(structures[section]));
-    for (const part of [docking, service, utility, walkway])
+    for (const part of [docking, service, utility, walkway, branding])
       box.union(new THREE.Box3().setFromObject(part));
     const center = box.getCenter(new THREE.Vector3()),
       size = box.getSize(new THREE.Vector3());
@@ -3544,7 +3965,7 @@ export function createSpacecraft(
     const halfPitch = 1.5 * layoutScale + 0.15;
     const propScale = currentLayout === 'wide' ? 1 : 0.84;
     for (const section of Object.keys(rooms)) {
-      const left = section === 'projects' || section === 'about';
+      const left = section === 'experience' || section === 'about';
       const x = (left ? -1 : 1) * halfPitch,
         y = roomCenters[section][1],
         origin = legacyCenters[section];
@@ -3596,6 +4017,7 @@ export function createSpacecraft(
       walkwayOffset = 1.5 * layoutScale + 0.2;
     const walkwayX = -halfPitch - 2.25 * layoutScale - 0.2;
     walkway.position.set(walkwayX, 0, 0);
+    dockingInterior.position.set(-0.75 * layoutScale + 0.108, 0.03, 0);
     walkwayStructure.scale.set(layoutScale, 1, 1);
     walkwayFurniture.scale.setScalar(currentLayout === 'wide' ? 1 : 0.94);
     walkwayCouplings.forEach(
@@ -3626,17 +4048,18 @@ export function createSpacecraft(
       portal.opening.rotation.y = sign > 0 ? -Math.PI / 2 : Math.PI / 2;
       portal.opening.position.set(
         sign * (1.5 * layoutScale - 0.1 * layoutScale - 0.006),
-        0.04,
+        -0.06,
         -0.1,
       );
+      portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
-        sign * (1.2 * layoutScale - 0.24),
-        1.006,
-        -0.24,
+        sign * (1.4 * layoutScale - 0.06),
+        1.11,
+        -0.49,
       );
       portal.pick.position.set(
         origin + sign * (1.5 * layoutScale - 0.04),
-        0.04,
+        -0.06,
         -0.1,
       );
       const fromY = roomCenters[portal.from][1],
@@ -3657,6 +4080,22 @@ export function createSpacecraft(
       portal.metadata.labelPosition = portal.caption
         .getWorldPosition(new THREE.Vector3())
         .toArray();
+      const labelQuaternion = portal.caption.getWorldQuaternion(
+        new THREE.Quaternion(),
+      );
+      portal.metadata.labelRotation = new THREE.Euler()
+        .setFromQuaternion(labelQuaternion)
+        .toArray()
+        .slice(0, 3);
+      portal.metadata.labelRight = new THREE.Vector3(1, 0, 0)
+        .applyQuaternion(labelQuaternion)
+        .toArray();
+      portal.metadata.labelUp = new THREE.Vector3(0, 1, 0)
+        .applyQuaternion(labelQuaternion)
+        .toArray();
+      portal.metadata.labelNormal = new THREE.Vector3(0, 0, 1)
+        .applyQuaternion(labelQuaternion)
+        .toArray();
       portal.pick.userData.portalPosition = portal.metadata.position;
       // Keep one stable pick object per directed portal. Its compound shape
       // covers both the pressure hatch and the physically attached caption.
@@ -3670,6 +4109,7 @@ export function createSpacecraft(
         ...portal.metadata.plateSize,
         0.16,
       ).toNonIndexed();
+      plate.rotateY(portal.caption.rotation.y);
       plate.translate(captionLocal.x, captionLocal.y, captionLocal.z);
       const geometry = new THREE.BufferGeometry();
       for (const name of ['position', 'normal', 'uv']) {
@@ -3731,13 +4171,22 @@ export function createSpacecraft(
             });
       };
       add('header', group.userData.headerAnchors[section], 1.26, 0.18);
-      for (const portal of portals.filter((p) => p.from === section))
-        add(
-          'portal-plate',
-          portal.metadata.labelPosition,
-          portal.metadata.plateSize[0],
-          portal.metadata.plateSize[1],
-        );
+      for (const portal of portals.filter((p) => p.from === section)) {
+        const c = new THREE.Vector3(...portal.metadata.labelPosition);
+        const right = new THREE.Vector3(...portal.metadata.labelRight),
+          up = new THREE.Vector3(...portal.metadata.labelUp);
+        for (const sx of [-1, 1])
+          for (const sy of [-1, 1]) {
+            const corner = c
+              .clone()
+              .addScaledVector(right, (sx * portal.metadata.plateSize[0]) / 2)
+              .addScaledVector(up, (sy * portal.metadata.plateSize[1]) / 2);
+            points[section].push({
+              kind: 'portal-plate',
+              position: corner.toArray(),
+            });
+          }
+      }
       if (section === 'projects') {
         for (const xx of [-4.23, -1.77])
           for (const yy of [-0.89, 0.88]) {
@@ -3763,7 +4212,7 @@ export function createSpacecraft(
     group.userData.layout = currentLayout;
     group.userData.layoutScale = layoutScale;
     group.userData.layoutVersion = (group.userData.layoutVersion || 0) + 1;
-    group.userData.portalLabelsAlwaysFrontFacing = true;
+    group.userData.portalLabelsCoplanarWithDoors = true;
     captureOverviewBounds();
     return {
       layout: currentLayout,
@@ -3937,9 +4386,7 @@ export function createSpacecraft(
     sweep.rotation.z = -seconds * 0.34;
     for (const section of Object.keys(roomMaterials)) {
       const selected =
-        section === 'walkway'
-          ? ['projects', 'about'].includes(currentState.activeRoom || '')
-          : currentState.activeRoom === section;
+        section === 'walkway' ? true : currentState.activeRoom === section;
       const goal = !selected && active === section ? 1 : 0;
       strengths[section] = instantHighlight
         ? goal
@@ -3954,57 +4401,48 @@ export function createSpacecraft(
           material.name === 'identification-label' ||
           material.name === 'portal-destination-label' ||
           material.name.startsWith('project-data-label-');
-        const exterior =
-          material.name === 'ceramic-hull' ||
-          material.name === 'brushed-titanium' ||
-          material.name.startsWith('solar-');
-        const idleColor = exterior
-          ? 0.86
-          : material.name === 'passage-borrowed-light-liner'
-            ? 0.46
-            : 0.28;
+        const exterior = !!material.userData.exterior;
+        const idleColor = exterior ? 1 : 0.035;
         material.color
           .copy(material.userData.baseColor)
-          .multiplyScalar(label ? 1 : idleColor + (1 - idleColor) * dimmer);
-        const emissiveScale =
-          material.name === 'warm-light'
-            ? 0.1 + 0.9 * dimmer
+          .multiplyScalar(exterior ? 1 : idleColor + (1 - idleColor) * dimmer);
+        const emissiveScale = exterior
+          ? 1
+          : material.name === 'warm-light'
+            ? 0.015 + 0.985 * dimmer
             : material.name.includes('screen')
-              ? 0.22 + 0.78 * dimmer
-              : 1;
+              ? 0.025 + 0.975 * dimmer
+              : 0.055 + 0.945 * dimmer;
         material.emissive
           .copy(base)
           .multiplyScalar(material.userData.baseIntensity * emissiveScale);
-        const lift = label
-          ? 0
-          : (selected ? 0.16 : amount) * material.userData.highlightScale;
+        const lift =
+          label || exterior
+            ? 0
+            : (selected ? 0.16 : amount) * material.userData.highlightScale;
         material.emissive.r += highlight.r * lift;
         material.emissive.g += highlight.g * lift;
         material.emissive.b += highlight.b * lift;
         material.emissiveIntensity = 1;
       }
       if (roomLights[section]) {
-        const targetIntensity = selected
-          ? section === 'walkway'
-            ? 0.55
-            : 0.9
-          : active === section
-            ? 1.15
-            : 0.06;
+        const targetIntensity = section === 'walkway' ? 0.55 : 0.35;
         for (const light of roomLights[section])
-          light.intensity += (targetIntensity - light.intensity) * blend;
+          light.intensity = targetIntensity;
       }
       group.userData.lightingState ||= {};
       group.userData.lightingState[section] = {
         dimmer,
-        interiorColor: 0.28 + 0.72 * dimmer,
-        exteriorColor: 0.86 + 0.14 * dimmer,
-        screenEmission: 0.22 + 0.78 * dimmer,
-        fixtureEmission: 0.1 + 0.9 * dimmer,
+        interiorColor: section === 'walkway' ? 1 : 0.035 + 0.965 * dimmer,
+        exteriorColor: 1,
+        screenEmission: 0.025 + 0.975 * dimmer,
+        fixtureEmission: 0.015 + 0.985 * dimmer,
         pointIntensities: (roomLights[section] || []).map(
           (light: any) => light.intensity,
         ),
-        labels: 1,
+        labels: section === 'walkway' ? 1 : 0.055 + 0.945 * dimmer,
+        exteriorLabels: 1,
+        emitterPolicy: 'constant; only room surfaces and emission dim',
       };
     }
     // Slot signals are applied last, independently of whole-room highlighting.
@@ -4047,12 +4485,6 @@ export function createSpacecraft(
       0,
       ...portals.filter((p) => p.metadata.via).map((p) => p.strength),
     );
-    for (const material of roomMaterials.walkway) {
-      if (material.name === 'perimeter-signal-light')
-        material.emissive
-          .copy(highlight)
-          .multiplyScalar(0.045 + walkwayRouteStrength * 1.8);
-    }
     group.userData.walkwayRouteStrength = walkwayRouteStrength;
     group.updateMatrixWorld(true);
   }

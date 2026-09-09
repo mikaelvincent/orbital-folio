@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { SceneLoader } from './scene-loader';
 import {
-  cursorRotation,
   moveCameraAxis,
   PROJECTS_PER_PAGE,
   type MotionAxis,
@@ -17,6 +16,8 @@ import {
   fitPerspectiveDistance,
   solveApertureFraming,
   cursorViewSamples,
+  boundedCameraAngles,
+  CAMERA_RANGES,
   type BoundedDrag,
   type Vec3,
 } from '@/lib/scene-controls';
@@ -163,7 +164,14 @@ export function Spacecraft(props: Props) {
           scene.environmentIntensity = 0.24;
           roomEnvironment.dispose();
           pmrem.dispose();
+          let vesselName = String(s.name || '');
+          try {
+            vesselName = new URL(s.domain).hostname;
+          } catch {
+            // The editable owner name also works before a domain is configured.
+          }
           const model = createSpacecraft(THREE, {
+            vesselName,
             accent: s.accent,
             projectPageSize: PROJECTS_PER_PAGE,
             screenLabels: false,
@@ -364,12 +372,17 @@ export function Spacecraft(props: Props) {
                     (p: any) =>
                       p.section === hotspot.section && p.slot === hotspot.slot,
                   );
-              if (source)
+              if (source) {
                 hotspot.object.position.set(
                   ...((hotspot.portalId
                     ? source.labelPosition
                     : source.position) as [number, number, number]),
                 );
+                if (hotspot.portalId && source.labelRotation)
+                  hotspot.object.rotation.set(
+                    ...(source.labelRotation as [number, number, number]),
+                  );
+              }
             }
             el.dataset.layout = layout;
           };
@@ -378,13 +391,19 @@ export function Spacecraft(props: Props) {
           const viewDirection = new THREE.Vector3(-0.28, 0.22, 1).normalize(),
             nextDirection = viewDirection.clone();
           const pointerCurrent = new THREE.Vector2(),
-            pointerGoal = new THREE.Vector2();
+            pointerGoal = new THREE.Vector2(),
+            dragGoal = new THREE.Vector2();
           const axis = (value = 0): MotionAxis => ({ value, velocity: 0 });
           const targetMotion = [axis(), axis(), axis()],
             directionMotion = viewDirection.toArray().map(axis);
           const distanceMotion = axis(23),
             rollMotion = axis(),
             pointerMotion = [axis(), axis()],
+            dragMotion = [axis(), axis()],
+            rangeMotion = [
+              axis(CAMERA_RANGES.overview.pitch),
+              axis(CAMERA_RANGES.overview.yaw),
+            ],
             hoverMotion = [axis(), axis()],
             dollyMotion = axis();
           const resetAxis = (state: MotionAxis, value: number) => {
@@ -484,7 +503,7 @@ export function Spacecraft(props: Props) {
               .querySelector('.flight-navigation')
               ?.getBoundingClientRect();
             bottomReservation = Math.max(
-              mobile() ? 132 : 80,
+              mobile() && isReading ? 132 : 80,
               dock ? rect.bottom - dock.top + 14 : 0,
             );
             const topInset = Math.max(
@@ -526,10 +545,14 @@ export function Spacecraft(props: Props) {
                 (min[2] + max[2]) / 2,
               );
               // Each corner retains its depth, avoiding the old bounding-box padding.
-              const views = cursorViewSamples({
-                target: target.toArray(),
-                direction: direction.toArray(),
-              });
+              const views = cursorViewSamples(
+                {
+                  target: target.toArray(),
+                  direction: direction.toArray(),
+                },
+                4,
+                CAMERA_RANGES.overview,
+              );
               desiredDistance = Math.max(
                 ...views.map((view) =>
                   fitPerspectiveDistance(
@@ -601,10 +624,14 @@ export function Spacecraft(props: Props) {
                       -0.4,
                     ]);
               }
-              const views = cursorViewSamples({
-                target: target.toArray(),
-                direction: direction.toArray(),
-              });
+              const views = cursorViewSamples(
+                {
+                  target: target.toArray(),
+                  direction: direction.toArray(),
+                },
+                4,
+                CAMERA_RANGES.room,
+              );
               const solution = solveApertureFraming({
                 aperture: {
                   center: aperture.center,
@@ -658,6 +685,7 @@ export function Spacecraft(props: Props) {
           };
           const go = (immediate = false, notify = true) => {
             cancelInput();
+            dragGoal.set(0, 0);
             aoDirty = true;
             const previousRoom = active;
             const wasReading = reading;
@@ -686,29 +714,33 @@ export function Spacecraft(props: Props) {
                   anchors[room][2],
                 ],
               });
-              const upper = roomNode('projects'),
-                lower = roomNode('about');
-              const via =
-                model.group.userData.portals.find(
-                  (p: any) => p.from === 'projects' && p.to === 'about',
-                )?.waypoints || [];
-              const nodes: CabinRouteNode[] = [
-                roomNode('experience'),
-                upper,
-                ...via.map((point: Vec3, index: number) => ({
-                  position: [
-                    point[0],
-                    index === 0
-                      ? upper.position[1]
-                      : index === via.length - 1
-                        ? lower.position[1]
-                        : point[1],
-                    point[2],
-                  ] as Vec3,
-                })),
-                lower,
-                roomNode('contact'),
-              ];
+              const circulation: string[] = model.group.userData
+                .circulation || ['projects', 'experience', 'about', 'contact'];
+              const nodes: CabinRouteNode[] = [];
+              for (const [index, room] of circulation.entries()) {
+                const next = roomNode(room);
+                if (index) {
+                  const previous = roomNode(circulation[index - 1]);
+                  const via: Vec3[] =
+                    model.group.userData.portals.find(
+                      (p: any) => p.from === previous.room && p.to === room,
+                    )?.waypoints || [];
+                  nodes.push(
+                    ...via.map((point, step) => ({
+                      position: [
+                        point[0],
+                        step === 0
+                          ? previous.position[1]
+                          : step === via.length - 1
+                            ? next.position[1]
+                            : point[1],
+                        point[2],
+                      ] as Vec3,
+                    })),
+                  );
+                }
+                nodes.push(next);
+              }
               const plan = planCabinItinerary(
                 nodes,
                 currentTarget.toArray(),
@@ -741,9 +773,12 @@ export function Spacecraft(props: Props) {
             aim(itinerary.shift()!);
             flightImmediate = stop || immediate;
             if (stop) {
-              [...pointerMotion, ...hoverMotion, dollyMotion].forEach((s) =>
-                resetAxis(s, 0),
-              );
+              [
+                ...pointerMotion,
+                ...dragMotion,
+                ...hoverMotion,
+                dollyMotion,
+              ].forEach((s) => resetAxis(s, 0));
               pointerCurrent.set(0, 0);
             }
             hoveredProject = '';
@@ -910,10 +945,30 @@ export function Spacecraft(props: Props) {
               speed: 1.6,
               acceleration: 6,
             });
-            const angles = cursorRotation(
-              pointerCurrent.x,
-              pointerCurrent.y,
-              false,
+            for (const [index, goal] of dragGoal.toArray().entries()) {
+              if (stop) resetAxis(dragMotion[index], reading ? 0 : goal);
+              else
+                moveCameraAxis(dragMotion[index], reading ? 0 : goal, delta, {
+                  frequency: 10,
+                  speed: 4,
+                  acceleration: 18,
+                });
+            }
+            const range =
+              active === 'home' ? CAMERA_RANGES.overview : CAMERA_RANGES.room;
+            [range.pitch, range.yaw].forEach((value, index) => {
+              if (stop || flightImmediate) resetAxis(rangeMotion[index], value);
+              else
+                moveCameraAxis(rangeMotion[index], value, delta, {
+                  frequency: 8,
+                  speed: 0.4,
+                  acceleration: 1.5,
+                });
+            });
+            const angles = boundedCameraAngles(
+              [pointerCurrent.x, pointerCurrent.y],
+              [dragMotion[0].value, dragMotion[1].value],
+              { pitch: rangeMotion[0].value, yaw: rangeMotion[1].value },
             );
             const direction = viewDirection
               .clone()
@@ -1056,6 +1111,7 @@ export function Spacecraft(props: Props) {
                   distanceMotion,
                   rollMotion,
                   ...pointerMotion,
+                  ...dragMotion,
                 ].map((s) => s.velocity),
               });
               if (cameraTrace.length > 1200) cameraTrace.shift();
@@ -1104,6 +1160,14 @@ export function Spacecraft(props: Props) {
                   model.group.userData.labelPlaques,
                 ),
                 pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
+                dragResponse: dragMotion
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                cameraAngles: angles.map((v) => v.toFixed(5)).join(','),
+                cameraAngleLimits: rangeMotion
+                  .map((s) => s.value.toFixed(5))
+                  .join(','),
+                vesselName,
                 roomAnchors: JSON.stringify(model.group.userData.roomAnchors),
                 portals: JSON.stringify(model.group.userData.portals),
                 activeRoute: JSON.stringify(model.group.userData.activeRoute),
@@ -1272,7 +1336,8 @@ export function Spacecraft(props: Props) {
                     /* no active native pointer */
                   }
                 }
-                pointerGoal.set(...down.gesture.response);
+                dragGoal.set(...down.gesture.response);
+                pointerGoal.set(0, 0);
                 el.style.cursor = 'grabbing';
                 el.dataset.dragging = 'true';
                 kick();
@@ -1325,7 +1390,8 @@ export function Spacecraft(props: Props) {
                 pointerId: event.pointerId,
                 x: event.clientX,
                 y: event.clientY,
-                response: [pointerGoal.x, pointerGoal.y],
+                response: [dragGoal.x, dragGoal.y],
+                sensitivity: 4,
                 width: el.clientWidth,
                 height: el.clientHeight,
                 targetKey,
@@ -1445,11 +1511,17 @@ export function Spacecraft(props: Props) {
             renderer.shadowMap.needsUpdate = true;
             kick();
           };
-          if (process.env.NODE_ENV === 'development')
+          const motionDiagnostic = () => api.current?.pause(!stop);
+          if (process.env.NODE_ENV === 'development') {
             window.addEventListener(
               'orbital:shadow-diagnostic',
               shadowDiagnostic,
             );
+            window.addEventListener(
+              'orbital:motion-diagnostic',
+              motionDiagnostic,
+            );
+          }
           api.current = {
             go: () => go(),
             hover: hoverSection,
@@ -1478,6 +1550,10 @@ export function Spacecraft(props: Props) {
             window.removeEventListener(
               'orbital:shadow-diagnostic',
               shadowDiagnostic,
+            );
+            window.removeEventListener(
+              'orbital:motion-diagnostic',
+              motionDiagnostic,
             );
             latest.current.onSurfaceReady(null);
             const materials = new Set<Three.Material>(),

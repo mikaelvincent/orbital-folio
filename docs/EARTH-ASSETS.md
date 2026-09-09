@@ -1,21 +1,22 @@
 # Procedural ocean environment
 
-All ocean, cloud and sky visuals are generated in `components/orbital-environment.ts`. No Earth image or external asset service is needed. Historical image credits remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
+All ocean, cloud and sky visuals are generated in `components/orbital-environment.ts`. No Earth image, external noise asset or runtime asset service is used. Historical image credits remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
 
-| Generated GPU texture payload                |                    Desktop |                    Mobile |
-| -------------------------------------------- | -------------------------: | ------------------------: |
-| Periodic R8 noise volume, complete mip chain |        64³ / 299,593 bytes |        32³ / 37,449 bytes |
-| Baked nebula, complete mip chain             |              174,764 bytes |              43,692 bytes |
-| Total                                        | 474,357 bytes (0.4524 MiB) | 81,141 bytes (0.0774 MiB) |
+| Logical GPU texture payload | Desktop | Mobile |
+| --- | ---: | ---: |
+| Periodic RG8 gradient/cellular volume, mip chain | 64³ / 599,186 bytes | 32³ / 74,898 bytes |
+| Baked nebula, mip chain | 174,764 bytes | 43,692 bytes |
+| Total | 773,950 bytes | 118,590 bytes |
+| Cloud texture samples per fragment | 17 | 11 |
 
-These estimates exclude geometry, framebuffers, driver overhead and Three.js’s shared 1 KiB lighting lookup. Memory and image-transfer savings do not prove GPU speed; browser cadence is recorded separately.
+These estimates exclude geometry, framebuffers, driver padding and Three.js’s shared 1 KiB lighting lookup. GPU timing is separate evidence. Volumes generate once and are never updated during animation.
 
-The seamless volume contains a baked periodic gradient field, replacing the earlier random-value plateaus. It controls spatial variation rather than a fixed screen resolution. Quintic interpolation, rotated octave domains, advected wisps, several scales of billows and stretched fibers, and fine edge erosion produce the cloud structure. Explicit gradients and mip filtering soften compressed detail at the horizon without discontinuous cell-edge LOD. The shader uses eight cloud samples per fragment on desktop and seven on mobile. Mips are generated once on upload.
+The cloud algorithm separates regional weather from local texture. A rotating spherical flow axis organizes a broad comma front with changing width. Fractal variation softens the edges and varies a continuous stratiform interior. Smaller cumulus is restricted to the cold side of that front, while weaker directional cirrus follows its shoulder. This replaces the rejected uniform cellular foam. Local billows use separate, mildly warped coordinates to avoid inheriting the weather front’s stretching. Desktop detail uses a bounded two-tap major-axis filter. Two sunward density probes and a bounded screen-derivative density normal provide relief. Exponential extinction approximates optical thickness. This thin shell has no true volumetric parallax, complete ray integration or multiple scattering.
 
-Ocean rotation is 0.003 radians/second. Clouds rotate at 0.0072 radians/second (0.413 degrees/second), 3.43 times the previous rate, with slow morphing. A full cloud turn takes about 14.5 minutes. Ocean, cloud shell and atmospheric edge remain separate meshes.
+The design draws on the separation of weather organization, cloud types, density and lighting in [Guerrilla’s Nubis](https://www.guerrilla-games.com/read/nubis-authoring-real-time-volumetric-cloudscapes-with-the-decima-engine); the organized fronts and clear sectors in [NASA’s cloud streets and comma clouds](https://science.nasa.gov/earth/earth-observatory/clouds-streets-and-comma-clouds-near-svalbard-87749/); and [PBRT’s treatment of transmittance](https://pbr-book.org/4ed/Volume_Scattering/Transmittance). These are primary research and visual references, not copied code or a claim of meteorological simulation.
 
-Meteor groups begin every 5–9 active seconds, alternating direction. Every fourth group includes a slightly delayed, dimmer companion; no more than two appear simultaneously. Events last 1.1–1.55 seconds. The navigation region is masked and tails are tapered. Twinkling stars, meteors, ocean and clouds share the caller’s active clock, preserving reduced motion and hidden/offscreen suspension.
+Ocean rotation remains 0.003 radians/second. Clouds rotate at 0.0072 radians/second (0.413 degrees/second), with slow morphing. A full cloud turn takes about 14.5 minutes. Ocean, cloud shell and atmospheric limb are separate meshes. All texture/derivative operations occur before discard to keep mip gradients valid at cloud edges.
 
-`node scripts/orbital-environment-audit.mjs` checks allocation, periodic continuity, rotation, the meteor schedule over 3,600 active seconds per tier, paused state and disposal. Browser screenshots and observed phases supplement this numeric audit; it does not execute a GPU shader.
+Meteor groups begin every 3.8–5.2 active seconds, alternating direction. Small companions and occasional triples last 1.15–1.50 seconds; at most three appear simultaneously. A 1,800-second numeric sweep observes meteors during about 33.6% of active time and triples during 2.4%. All effects share the caller’s active clock and stop under reduced motion, hidden/offscreen suspension or Reading view. No independent timers are introduced.
 
-The open-walkway revision keeps the same texture allocation and sample counts. Its finer cloud wisps were inspected in browser captures. The CPU shader approximation in `docs/evidence/open-walkway-revision/cloud-sampling-audit.json` has higher cross-resolution alpha error than the former field, so neither temporal anti-aliasing nor faster GPU execution is claimed. See the current validation report for frame-cadence observations and their limits.
+Run `node scripts/orbital-environment-audit.mjs` for allocation, periodic continuity, sampled cellular-field correctness, meteor schedule, pause invariance and disposal checks. It executes CPU code, not GLSL. The [current validation](NATURAL-ORBIT-VALIDATION.md) distinguishes browser evidence from those calculations. Candidate notes, rejected render captures and the portable audit output remain in `docs/evidence/natural-orbit-revision/`.

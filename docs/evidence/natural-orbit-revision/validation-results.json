@@ -1,0 +1,50 @@
+{
+  "scope": "Render-only validation; no separate reader/admin/contact workflows rerun.",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0
+  },
+  "renderAudits": {
+    "commands": [
+      "node scripts/spacecraft-render-audit.mjs . components/spacecraft-model.ts [report] 390",
+      "node scripts/spacecraft-render-audit.mjs . components/spacecraft-model.ts [report] 320",
+      "node scripts/spacecraft-branding-audit.mjs . components/spacecraft-model.ts [report]",
+      "node scripts/render-input-audit.mjs [report]",
+      "node scripts/render-framing-audit.mjs . [report]",
+      "node scripts/orbital-environment-audit.mjs . components/orbital-environment.ts [report]",
+      "node scripts/spacecraft-model-cost-audit.mjs . [baseline.ts] components/spacecraft-model.ts [report]"
+    ],
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "productionLogs": {
+    "levels": [
+      "error",
+      "warn"
+    ],
+    "returnedEntries": [],
+    "scope": "Last ten production browser log entries requested before returning to development."
+  },
+  "localHandoff": {
+    "url": "http://localhost:3000/",
+    "httpStatus": 200,
+    "developmentServerListening": true,
+    "publishedProjectCount": 9,
+    "temporaryProductionPreviewStopped": true
+  }
+}

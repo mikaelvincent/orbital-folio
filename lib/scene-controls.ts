@@ -15,6 +15,33 @@ export type Aperture = {
   width: number;
   height: number;
 };
+/** Shared by actual input and the camera-fit envelope (radians). */
+export const CAMERA_RANGES = {
+  hover: { pitch: 0.025, yaw: 0.045 },
+  overview: { pitch: 0.18, yaw: 0.32 },
+  room: { pitch: 0.12, yaw: 0.22 },
+} as const;
+export function boundedCameraAngles(
+  pointer: readonly [number, number],
+  drag: readonly [number, number],
+  view: boolean | { pitch: number; yaw: number },
+): [number, number] {
+  const limits =
+    typeof view === 'boolean'
+      ? view
+        ? CAMERA_RANGES.overview
+        : CAMERA_RANGES.room
+      : view;
+  const angle = (p: number, d: number, ambient: number, limit: number) =>
+    Math.max(
+      -limit,
+      Math.min(limit, response(p) * ambient + response(d) * limit),
+    );
+  return [
+    angle(pointer[1], drag[1], CAMERA_RANGES.hover.pitch, limits.pitch),
+    angle(pointer[0], drag[0], CAMERA_RANGES.hover.yaw, limits.yaw),
+  ];
+}
 const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
 const sub = (a: Vec3, b: Vec3): Vec3 => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const mul = (a: Vec3, s: number): Vec3 => [a[0] * s, a[1] * s, a[2] * s];
@@ -181,13 +208,17 @@ export function solveApertureFraming(input: {
 }
 
 /** Match current Three Euler XYZ cursor response, without accumulating an orbit. */
-export function cursorViewSamples(view: CameraView, steps = 2): CameraView[] {
+export function cursorViewSamples(
+  view: CameraView,
+  steps = 2,
+  limits: { pitch: number; yaw: number } = CAMERA_RANGES.hover,
+): CameraView[] {
   const divisions = Math.max(1, Math.floor(steps)),
     result: CameraView[] = [];
   for (let iy = 0; iy <= divisions; iy++)
     for (let ix = 0; ix <= divisions; ix++) {
-      const pitch = ((iy * 2) / divisions - 1) * 0.025,
-        yaw = ((ix * 2) / divisions - 1) * 0.045;
+      const pitch = ((iy * 2) / divisions - 1) * limits.pitch,
+        yaw = ((ix * 2) / divisions - 1) * limits.yaw;
       const [x, y, z] = view.direction;
       const qx = Math.cos(yaw) * x + Math.sin(yaw) * z,
         qz = -Math.sin(yaw) * x + Math.cos(yaw) * z;
@@ -224,6 +255,7 @@ export type BoundedDrag = {
   height: number;
   targetKey: string;
   threshold: number;
+  sensitivity: number;
   maximumExcursion: number;
   dragging: boolean;
   response: readonly [number, number];
@@ -237,6 +269,7 @@ export function beginBoundedDrag(input: {
   height: number;
   targetKey?: string;
   threshold?: number;
+  sensitivity?: number;
 }): BoundedDrag {
   const startResponse: [number, number] = [
     response(input.response[0]),
@@ -251,6 +284,7 @@ export function beginBoundedDrag(input: {
     height: positive(input.height, 'Height'),
     targetKey: input.targetKey ?? '',
     threshold: positive(input.threshold ?? 8, 'Drag threshold'),
+    sensitivity: positive(input.sensitivity ?? 2, 'Drag sensitivity'),
     maximumExcursion: 0,
     dragging: false,
     response: startResponse,
@@ -277,8 +311,10 @@ export function updateBoundedDrag(
     maximumExcursion,
     dragging: state.dragging || maximumExcursion >= state.threshold,
     response: [
-      response(state.startResponse[0] + (dx * 2) / state.width),
-      response(state.startResponse[1] - (dy * 2) / state.height),
+      response(state.startResponse[0] + (dx * state.sensitivity) / state.width),
+      response(
+        state.startResponse[1] - (dy * state.sensitivity) / state.height,
+      ),
     ],
   };
 }

@@ -117,3 +117,7 @@ The hosting provider must resolve that callback conflict before deployment can b
 Run `npm run db:migrate` before using this revision with an existing local database. Migration `0002_instrument_navigation.sql` adds editable Previous page, Next page and Return to room labels to draft and published site snapshots only where missing. It preserves unpublished content and bumps the site revision for optimistic concurrency. The delivered local database already has this migration. Hosted migrations remain subject to the existing provider incident above.
 
 When inspecting a new local production build, restart the temporary Wrangler process after `npm run build`; a running emulator can retain an old module manifest while hashed assets have changed. Verify the referenced CSS/JS assets as well as the HTML response.
+
+### Rebuilding the local production preview
+
+After `npm run build`, stop and restart an existing `npm run start` process. Wrangler's watch update can retain an older SSR asset manifest, leaving the loader waiting for chunk URLs that no longer exist. A fresh process loads the matching HTML and assets. This does not affect the normal `npm run dev` hot-reload workflow.

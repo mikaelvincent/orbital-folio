@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from './scene-loader';
 import { WorldReader } from './world-reader';
-import { ArrowLeft, BookOpen, ChevronUp, Compass, Orbit } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronUp, Home, Orbit } from 'lucide-react';
 import type { Portfolio } from '@/lib/content-types';
 import {
   PROJECTS_PER_PAGE,
@@ -519,6 +519,17 @@ export function ImmersivePortfolio({
         </div>
         {immersive && (
           <div className="flight-navigation" ref={navigation}>
+            <a
+              className="flight-home"
+              href={hrefFor({ section: 'home' })}
+              aria-label={s.homeLabel}
+              title={s.homeLabel}
+              aria-current={destination.section === 'home' ? 'page' : undefined}
+              onPointerEnter={() => setHover('')}
+              onFocus={() => setHover('')}
+            >
+              <Home size={18} aria-hidden="true" />
+            </a>
             <button
               className="flight-navigation-toggle"
               ref={navigationToggle}
@@ -542,7 +553,6 @@ export function ImmersivePortfolio({
                 }
               }}
             >
-              <Compass size={17} />
               <span>{s[destination.section + 'Label'] || s.homeLabel}</span>
               <ChevronUp size={14} />
             </button>

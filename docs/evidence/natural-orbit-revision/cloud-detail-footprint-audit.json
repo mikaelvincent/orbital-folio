@@ -1,0 +1,30 @@
+{
+  "artifactSHA256": "5177a434b269eedf6be30e4fae12c129363d42f245c8818f145e14424f19480b",
+  "scope": "Finite-difference camera footprint audit. Two-tap positive-weight partition test. Not GPU aliasing or timing evidence. Phone two-tap figures are hypothetical; its shader keeps single taps.",
+  "rows": [
+    {
+      "tier": "desktop",
+      "sampledPixels": 15337,
+      "samplingGridStep": 4,
+      "weatherWarpFootprintAxisRatioMedian": 6.863398147378878,
+      "localBillowFootprintAxisRatioMedian": 2.7691724283687527,
+      "weatherWarpFootprintAxisRatioP95": 15.196852162614084,
+      "localBillowFootprintAxisRatioP95": 7.43330384000311,
+      "137FrequencyMipReductionMedianForTwoTaps": 0.028202093625827335,
+      "137FrequencyMipReductionP95ForTwoTaps": 1.0,
+      "twoTapEnabled": true
+    },
+    {
+      "tier": "phone",
+      "sampledPixels": 2779,
+      "samplingGridStep": 4,
+      "weatherWarpFootprintAxisRatioMedian": 2.8513796913501435,
+      "localBillowFootprintAxisRatioMedian": 2.0471379329119457,
+      "weatherWarpFootprintAxisRatioP95": 6.589126738496529,
+      "localBillowFootprintAxisRatioP95": 5.701312204998005,
+      "137FrequencyMipReductionMedianForTwoTaps": 0.3746447276020416,
+      "137FrequencyMipReductionP95ForTwoTaps": 1.0,
+      "twoTapEnabled": false
+    }
+  ]
+}

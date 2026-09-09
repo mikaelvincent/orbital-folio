@@ -2,7 +2,9 @@
 
 A reusable developer portfolio with a real, editable Three.js spacecraft, server-rendered case studies, and an authenticated content studio. The initial identity is Mikael Vincent; all career/project/personal copy is clearly marked sample content. Identity and domain references are database records, not rendering constants.
 
-Interactive view makes the ship the main interface. Four cabins keep the same 2×2 order on desktop and phones. Wider desktop cabins connect through open side doorways and a tall passage on the left; the original docking assembly remains. Nine stacked project compartments page through the database collection; unused bays contain spare equipment without invented project actions. Click a room or use the navigation to approach it with a fixed camera; dossiers, the mission log, journal and communications station open within the same scene. Bounded cursor rotation adds depth without free orbiting. Physical lockers, a mission console, journal and communications instrument reveal their attached HTML readers. A compact bottom navigation instrument provides direct routes. Reading view removes the animated scene; reduced-motion preferences are respected. Bounded mouse/touch dragging uses the same range as cursor movement.
+Interactive view makes the ship the main interface. Four cabins retain Experience/Projects above About/Contact on desktop and phones. Open side doorways and a tall left walkway connect Projects → Experience → stairs → About → Contact; the original docking assembly remains. Nine stacked project compartments page through the database collection, with a different piece of secured equipment in every spare bay. Click a room or use the bottom-left navigation and persistent Home control to approach it with a fixed camera. Physical signs sit above the side doors; the published domain/name appears on paired hull bands.
+
+Small cursor movements add depth. Mouse/touch dragging gives a larger, bounded view without free orbiting; camera springs preserve velocity across changing targets. Almost-black idle interiors brighten on hover or selection while the hull, walkway and antennas remain lit. A procedural ocean planet has moving cloud fronts, sheets, cumulus and cirrus. Meteors arrive frequently, sometimes in small groups. Reading view remains available; reduced-motion preferences are respected. Physical lockers, mission console, journal and communications instrument retain their attached semantic HTML readers. Those separate reading interfaces were intentionally outside the latest render-only revision.
 
 ## Run locally
 
@@ -41,20 +43,20 @@ npm run typecheck
 npm run lint
 npm test
 node scripts/database-roundtrip.mjs
-node scripts/spacecraft-layout-audit.mjs
+node scripts/spacecraft-render-audit.mjs
 node scripts/orbital-environment-audit.mjs
-node scripts/spacecraft-peek-audit.mjs
-node scripts/cabin-controls-audit.mjs
-node scripts/scene-controls-audit.mjs
+node scripts/render-input-audit.mjs
+node scripts/render-framing-audit.mjs
+node scripts/spacecraft-branding-audit.mjs
 npm run build
 npm audit
 ```
 
 The HTTP integration suite creates temporary records and restores existing content. It is restricted to localhost. It verifies authentication boundaries, snapshot isolation, publication, personalization, concurrency, media, contact storage and abuse controls, exports, and server-rendered routes. On a fresh database, the suite claims the local test identity using `.dev.vars`.
 
-For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report at the bottom of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
+For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report near the top-right of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. **Toggle reduced-motion diagnostic** exercises the renderer pause path without opening a reader; **Run renderer frame control** then samples host display callbacks. This development-only override does not claim to emulate an operating-system preference. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/OPEN-WALKWAY-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/NATURAL-ORBIT-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 

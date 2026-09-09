@@ -1,0 +1,102 @@
+{
+  "artifact": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/orbital-environment.ts",
+  "sha256": "1cc55d8469828de0177bc066fe44472d150d6a8d99204b5b136953aea7c73a3f",
+  "at": "2026-09-09T05:14:29.149Z",
+  "scope": "CPU allocation, sampled field and animation audit. No WebGL shader compilation or GPU/browser performance claim.",
+  "tiers": [
+    {
+      "mobile": false,
+      "fields": [
+        {
+          "dimensions": [
+            256,
+            128,
+            1
+          ],
+          "format": "RGBA8",
+          "cpuBytes": 131072,
+          "gpuMipBytes": 174764
+        },
+        {
+          "dimensions": [
+            64,
+            64,
+            64
+          ],
+          "format": "RG8",
+          "cpuBytes": 524288,
+          "gpuMipBytes": 599186
+        }
+      ],
+      "initialCpuBytes": 655360,
+      "gpuMipBytes": 773950,
+      "sharedThreeDfgExtraBytes": 1024,
+      "cloudSamples": 17,
+      "sunProbes": 2,
+      "maximumCellularByteError": 0,
+      "periodError": 0,
+      "generationMs": {
+        "first": 203.01,
+        "min": 55.97,
+        "median": 65.52,
+        "max": 185.93
+      },
+      "meteors": {
+        "activeSeconds": 1800,
+        "maxVisible": 3,
+        "visibleFraction": 0.335985155720492,
+        "tripleFraction": 0.024099732225197498,
+        "minGroupGap": 3.829070039334738,
+        "maxGroupGap": 5.151255244376443
+      },
+      "disposedObjects": 14
+    },
+    {
+      "mobile": true,
+      "fields": [
+        {
+          "dimensions": [
+            128,
+            64,
+            1
+          ],
+          "format": "RGBA8",
+          "cpuBytes": 32768,
+          "gpuMipBytes": 43692
+        },
+        {
+          "dimensions": [
+            32,
+            32,
+            32
+          ],
+          "format": "RG8",
+          "cpuBytes": 65536,
+          "gpuMipBytes": 74898
+        }
+      ],
+      "initialCpuBytes": 98304,
+      "gpuMipBytes": 118590,
+      "sharedThreeDfgExtraBytes": 1024,
+      "cloudSamples": 11,
+      "sunProbes": 2,
+      "maximumCellularByteError": 0,
+      "periodError": 0,
+      "generationMs": {
+        "first": 9.53,
+        "min": 7.56,
+        "median": 9.05,
+        "max": 10.26
+      },
+      "meteors": {
+        "activeSeconds": 1800,
+        "maxVisible": 3,
+        "visibleFraction": 0.335985155720492,
+        "tripleFraction": 0.024099732225197498,
+        "minGroupGap": 3.829070039334738,
+        "maxGroupGap": 5.151255244376443
+      },
+      "disposedObjects": 14
+    }
+  ]
+}

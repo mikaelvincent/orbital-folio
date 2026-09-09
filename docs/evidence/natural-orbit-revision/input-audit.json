@@ -1,0 +1,163 @@
+{
+  "scope": "Pure render/input helpers only; no UI, browser, reader, model, DB or network tests",
+  "sourceHashes": {
+    "lib/scene-controls.ts": "1b3b07c48564595ac31b738ec30248a724c55990068a06b2cdd5eb184bb9c7d9",
+    "components/spacecraft.tsx": "7651170678760a59e81762dfe66fb5c147bd4cbf5a03f1bc8fcbc99497bdaf49"
+  },
+  "checks": [
+    {
+      "name": "Sampled orientation matches real Three Euler XYZ",
+      "comparisons": 225,
+      "maxError": 4.577566798522237e-16,
+      "pass": true
+    },
+    {
+      "name": "Camera angle outputs finite and bounded",
+      "cases": 2160,
+      "pass": true
+    },
+    {
+      "name": "25%-viewport drag saturates; sticky excursion prevents out/back activation; pointer identity and tap target checks",
+      "viewports": 12,
+      "pass": true
+    },
+    {
+      "name": "Normalized drag spring speed/acceleration under rapid reversals",
+      "frames": 630,
+      "pass": true
+    },
+    {
+      "name": "Patched live-limit transition: exact zero-time continuity, bounded first frame in both directions",
+      "transitions": [
+        {
+          "hz": 30,
+          "from": "overview",
+          "target": "room",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.0032786458333333157,
+            -0.0050286458333332895
+          ]
+        },
+        {
+          "hz": 30,
+          "from": "room",
+          "target": "overview",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.00047135416666665986,
+            -0.001721354166666661
+          ]
+        },
+        {
+          "hz": 60,
+          "from": "overview",
+          "target": "room",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.0009863281249999911,
+            -0.0015113281249999888
+          ]
+        },
+        {
+          "hz": 60,
+          "from": "room",
+          "target": "overview",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.00013867187499998213,
+            -0.0005136718749999825
+          ]
+        },
+        {
+          "hz": 120,
+          "from": "overview",
+          "target": "room",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.0003290364583333205,
+            -0.0005040364583333568
+          ]
+        },
+        {
+          "hz": 120,
+          "from": "room",
+          "target": "overview",
+          "zeroTimeDelta": [
+            0,
+            0
+          ],
+          "firstFrameDelta": [
+            -0.00004596354166666594,
+            -0.00017096354166667993
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "Patched toolbar CSS width arithmetic, zero horizontal safe-area inset",
+      "toolbar": [
+        {
+          "width": 320,
+          "menu": 108,
+          "leftEnd": 172,
+          "rightMax": 128,
+          "gap": 8
+        },
+        {
+          "width": 390,
+          "menu": 178,
+          "leftEnd": 242,
+          "rightMax": 128,
+          "gap": 8
+        },
+        {
+          "width": 699,
+          "menu": 184,
+          "leftEnd": 248,
+          "rightMax": 431,
+          "gap": 8
+        }
+      ],
+      "pass": true,
+      "note": "Computed layout and long-label browser evidence still needed; nonzero horizontal safe-area inset is not covered by this arithmetic."
+    }
+  ],
+  "observations": [
+    {
+      "name": "Boolean static-limit switch after one decay frame",
+      "yawBefore": 0.32,
+      "yawAfter": 0.219175,
+      "deltaRad": -0.100825,
+      "note": "Historical hazard reproduced by the boolean helper overload; current renderer uses the patched continuous live-limit spring checked above. Not a current renderer failure."
+    },
+    {
+      "name": "25-view fitting against dense 6561-view generic-box probe",
+      "relativeUnderfit": 0.000907360224173109,
+      "coarse": 41.72745910873517,
+      "fine": 41.76535533091089,
+      "aspect": 0.46208530805687204,
+      "limits": {
+        "pitch": 0.12,
+        "yaw": 0.22
+      },
+      "note": "Generic numerical probe only, not final model-framing approval; hover shift/dolly must also fit."
+    }
+  ]
+}
