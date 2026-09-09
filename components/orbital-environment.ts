@@ -4,7 +4,7 @@ type EnvironmentOptions = {
   mobile?: boolean;
 };
 
-/** Texture-free ocean imagery with small procedural fields, driven by caller active time. */
+/** Image-free ocean imagery with small procedural fields, driven by caller active time. */
 export function createOrbitalEnvironment(
   THREE: typeof Three,
   invalidate: () => void,
@@ -22,14 +22,69 @@ export function createOrbitalEnvironment(
     }
   `;
   const generationStarted = performance.now();
-  // A periodic single-channel lattice: 256 KiB desktop / 32 KiB mobile.
-  // Sampling on a sphere in 3D avoids equirectangular seams and pinched poles.
+  // A smooth periodic gradient field, sampled eight times per noise cell.
+  // The texture is still only R8 64³ / 32³; no image or large Earth map is loaded.
+  // Baking the C2 field once avoids interpolated random-value plateaus on clouds.
   const noiseSide = mobile ? 32 : 64;
+  const noiseCells = noiseSide / 8;
   const noiseData = new Uint8Array(noiseSide ** 3);
+  const gradientData = new Float32Array(noiseCells ** 3 * 3);
   let noiseSeed = 803719;
-  for (let i = 0; i < noiseData.length; i++) {
+  const noiseRandom = () => {
     noiseSeed = (Math.imul(noiseSeed, 1664525) + 1013904223) >>> 0;
-    noiseData[i] = noiseSeed >>> 24;
+    return noiseSeed / 4294967296;
+  };
+  for (let i = 0; i < gradientData.length; i += 3) {
+    const z = noiseRandom() * 2 - 1;
+    const angle = noiseRandom() * Math.PI * 2;
+    const radial = Math.sqrt(1 - z * z);
+    gradientData[i] = radial * Math.cos(angle);
+    gradientData[i + 1] = radial * Math.sin(angle);
+    gradientData[i + 2] = z;
+  }
+  const fade = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
+  for (let z = 0; z < noiseSide; z++) {
+    const pz = z / 8,
+      iz = Math.floor(pz),
+      fz = pz - iz,
+      wz = fade(fz);
+    for (let y = 0; y < noiseSide; y++) {
+      const py = y / 8,
+        iy = Math.floor(py),
+        fy = py - iy,
+        wy = fade(fy);
+      for (let x = 0; x < noiseSide; x++) {
+        const px = x / 8,
+          ix = Math.floor(px),
+          fx = px - ix,
+          wx = fade(fx);
+        let sum = 0;
+        for (let dz = 0; dz <= 1; dz++) {
+          for (let dy = 0; dy <= 1; dy++) {
+            for (let dx = 0; dx <= 1; dx++) {
+              const j =
+                ((((iz + dz) % noiseCells) * noiseCells +
+                  ((iy + dy) % noiseCells)) *
+                  noiseCells +
+                  ((ix + dx) % noiseCells)) *
+                3;
+              const dot =
+                gradientData[j] * (fx - dx) +
+                gradientData[j + 1] * (fy - dy) +
+                gradientData[j + 2] * (fz - dz);
+              sum +=
+                dot *
+                (dx ? wx : 1 - wx) *
+                (dy ? wy : 1 - wy) *
+                (dz ? wz : 1 - wz);
+            }
+          }
+        }
+        noiseData[(z * noiseSide + y) * noiseSide + x] = Math.round(
+          Math.max(0, Math.min(1, 0.5 + sum * 0.85)) * 255,
+        );
+      }
+    }
   }
   const cloudNoise = new THREE.Data3DTexture(
     noiseData,
@@ -335,6 +390,8 @@ export function createOrbitalEnvironment(
     uniforms: {
       cloudNoise: { value: cloudNoise },
       noiseSide: { value: noiseSide },
+      noiseCells: { value: noiseCells },
+      cloudMorph: { value: new THREE.Vector3(0, 0.035, 0) },
       time: { value: 0 },
       sunDirection: { value: new THREE.Vector3(-120, 100, 120).normalize() },
     },
@@ -354,16 +411,23 @@ export function createOrbitalEnvironment(
       in vec3 vWorldNormal;
       uniform sampler3D cloudNoise;
       uniform float noiseSide;
+      uniform float noiseCells;
+      uniform vec3 cloudMorph;
       uniform float time;
       uniform vec3 sunDirection;
       out vec4 outColor;
       float n3(vec3 p) {
-        vec3 cell = floor(p), f = fract(p);
-        // C2 interpolation removes visible lattice shoulders. Supply derivatives
-        // before floor/fract so LOD stays continuous across periodic cell borders.
-        vec3 dx = dFdx(p) / noiseSide, dy = dFdy(p) / noiseSide;
-        f = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
-        return textureGrad(cloudNoise, (cell + f + 0.5) / noiseSide, dx, dy).r;
+        // The baked field has eight samples per continuous gradient-noise cell.
+        // Ordinary coordinates and explicit gradients preserve the footprint at
+        // the horizon; there is no floor/fract remap distorting filtered mip levels.
+        vec3 uvw = p / noiseCells + 0.5 / noiseSide;
+        return textureGrad(cloudNoise, uvw, dFdx(p) / noiseCells, dFdy(p) / noiseCells).r;
+      }
+      float resolvedDetail(vec3 p) {
+        // Fade anisotropic fibers before their narrow dimension becomes a pixel.
+        // This prevents crawling dots, rather than sharpening unresolved grain.
+        float footprint = max(length(dFdx(p)), length(dFdy(p)));
+        return 1.0 - smoothstep(0.18, 0.60, footprint);
       }
       vec3 swirl(vec3 p, vec3 axis, float strength) {
         float angle = exp(-dot(p - axis, p - axis) * 9.0) * strength;
@@ -377,12 +441,9 @@ export function createOrbitalEnvironment(
         float shear = sin(p.y * 5.2 + 0.7) * 0.38;
         float c = cos(shear), s = sin(shear);
         p.xz = mat2(c, -s, s, c) * p.xz;
-        vec3 morph = vec3(sin(time * 0.020), cos(time * 0.013), sin(time * 0.017)) * 0.035;
-        p += morph;
+        p += cloudMorph;
         vec2 warp = vec2(n3(p * 3.1 + 11.3), n3(p * 3.1 - 8.7)) - 0.5;
-        vec3 q = p + vec3(warp.x, warp.y * 0.5, -warp.x) * 0.13;
-        // Rotate octave domains so neighboring scales do not reveal the same
-        // axis-aligned lattice. A tiny lattice controls variation, not screen resolution.
+        vec3 q = p + vec3(warp.x, warp.y * 0.5, -warp.x) * 0.24;
         const mat3 octaveTurn = mat3(
           0.00, 0.80, 0.60,
           -0.80, 0.36, -0.48,
@@ -391,31 +452,37 @@ export function createOrbitalEnvironment(
         vec3 r = octaveTurn * q;
         vec3 r2 = octaveTurn * r;
         float regional = n3(q * 4.2 + vec3(5.1, 0.0, 9.2));
-        float bands = n3(r * vec3(9.0, 21.0, 9.0) + 13.2);
-        float billows = n3(r2 * 37.0 - 3.7);
-        float flakes = n3(r * 91.0 + vec3(17.3, -9.1, 2.8));
-        float fibers = n3(q * vec3(185.0, 61.0, 185.0) - 21.7);
-        float detail = fibers;
+        float fronts = n3(r * vec3(8.0, 17.0, 8.0) + 13.2);
+        float billows = n3(r2 * 47.0 - 3.7);
+        // Shared orientation and nested advection make threads follow a wind
+        // direction. Independent isotropic flakes formerly read as blurry pixels.
+        vec3 wispDomain = r * vec3(38.0, 135.0, 38.0)
+          + vec3(0.0, (billows - 0.5) * 1.6, 0.0);
+        float wisps = mix(0.5, n3(wispDomain), resolvedDetail(wispDomain));
+        vec3 fineDomain = r * vec3(74.0, 249.0, 74.0)
+          + vec3(0.0, (wisps - 0.5) * 0.8, 0.0) - 21.7;
+        float fine = mix(0.5, n3(fineDomain), resolvedDetail(fineDomain));
         #if FINE_CLOUD_DETAIL == 1
-          float micro = n3(r2 * 227.0 + vec3(-8.1, 14.2, 4.7));
-          detail = fibers * 0.65 + micro * 0.35;
+          vec3 microDomain = r * vec3(131.0, 419.0, 131.0)
+            + vec3(0.0, (wisps - 0.5) * 1.3, 0.0) + vec3(-8.1, 14.2, 4.7);
+          fine = fine * 0.72 + mix(0.5, n3(microDomain), resolvedDetail(microDomain)) * 0.28;
         #endif
-        float weather = regional * 0.45 + bands * 0.23
-          + billows * 0.19 + flakes * 0.13 + (detail - 0.5) * 0.09;
-        // Fine erosion is strongest around cloud boundaries, leaving quiet white
-        // interiors rather than speckling the whole ocean with high-frequency noise.
-        float edge = 1.0 - smoothstep(0.50, 0.67, weather);
-        weather -= (1.0 - detail) * edge * 0.024;
-        float coverage = pow(smoothstep(0.425, 0.675, weather), 1.12);
-        float cirrus = smoothstep(0.55, 0.76, bands)
-          * smoothstep(0.34, 0.58, regional)
-          * smoothstep(0.43, 0.74, fibers) * 0.20;
+        float weather = regional * 0.45 + fronts * 0.27 + billows * 0.28;
+        float body = smoothstep(0.43, 0.63, weather);
+        float threads = smoothstep(0.37, 0.64, wisps * 0.65 + fine * 0.35);
+        // Keep dense white cores quiet, with long semi-transparent wisps around
+        // their edges. The derivative fade above removes unresolved fine grain.
+        float coverage = body * mix(0.12 + threads * 0.88, 1.0, body * body * 0.28);
+        float cirrus = smoothstep(0.46, 0.64, fronts)
+          * smoothstep(0.39, 0.59, regional)
+          * smoothstep(0.47, 0.65, wisps * 0.8 + fine * 0.2) * 0.24;
         coverage = max(coverage, cirrus);
-        if (coverage < 0.007) discard;
+        coverage *= smoothstep(0.0, 0.035, coverage);
+        if (coverage < 0.001) discard;
         float sun = dot(normalize(vWorldNormal), sunDirection);
         float light = smoothstep(-0.10, 0.75, sun);
         vec3 color = mix(vec3(0.39, 0.56, 0.76), vec3(0.97, 0.985, 1.0), light);
-        color *= 0.92 + flakes * 0.10;
+        color *= 0.95 + billows * 0.06;
         outColor = vec4(color, coverage * 0.94);
       }
     `,
@@ -575,6 +642,11 @@ export function createOrbitalEnvironment(
       clouds.rotation.y = (activeTime * 0.0072) % (Math.PI * 2);
       starsMaterial.uniforms.time.value = activeTime;
       cloudMaterial.uniforms.time.value = activeTime;
+      cloudMaterial.uniforms.cloudMorph.value.set(
+        Math.sin(activeTime * 0.02) * 0.035,
+        Math.cos(activeTime * 0.013) * 0.035,
+        Math.sin(activeTime * 0.017) * 0.035,
+      );
       for (let index = 0; index < meteors.length; index++) {
         const meteor = meteors[index];
         const cycle = Math.floor(activeTime / 7);
@@ -625,7 +697,11 @@ export function createOrbitalEnvironment(
         earthRotationRate: 0.003,
         cloudRotationRate: 0.0072,
         cloudFieldSamples: mobile ? 7 : 8,
-        cloudInterpolation: 'quintic-gradient-mipmapped',
+        cloudInterpolation: 'baked-gradient-trilinear-mipmapped',
+        cloudFieldCells: noiseCells,
+        cloudSamplesPerCell: 8,
+        cloudDetailFadeFootprint: [0.18, 0.6],
+        cloudMorph: cloudMaterial.uniforms.cloudMorph.value.toArray(),
         meteorGroupInterval: [5, 9],
         meteorPairEveryGroups: 4,
         meteorGroupHasPair: pairedGroup(meteors[0].cycle),

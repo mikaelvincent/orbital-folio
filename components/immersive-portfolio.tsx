@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from './scene-loader';
 import { WorldReader } from './world-reader';
-import { ArrowLeft, BookOpen, Orbit } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronUp, Compass, Orbit } from 'lucide-react';
 import type { Portfolio } from '@/lib/content-types';
 import {
   PROJECTS_PER_PAGE,
@@ -46,6 +46,9 @@ export function ImmersivePortfolio({
   });
   const [enhanced, setEnhanced] = useState(false);
   const [reading, setReading] = useState(false);
+  const [navigationOpen, setNavigationOpen] = useState(false);
+  const navigation = useRef<HTMLDivElement>(null);
+  const navigationToggle = useRef<HTMLButtonElement>(null);
   const [hover, setHover] = useState('');
   const [arrived, setArrived] = useState(false);
   const [travel, setTravel] = useState(false);
@@ -99,7 +102,11 @@ export function ImmersivePortfolio({
         !!latest.current.open === !!next.open &&
         !!latest.current.sent === !!next.sent &&
         !!latest.current.error === !!next.error;
-      if (same) return true;
+      setNavigationOpen(false);
+      if (same) {
+        navigationToggle.current?.focus({ preventScroll: true });
+        return true;
+      }
       if (latest.current.slug) returnProject.current = latest.current.slug;
       setArrived(false);
       setTravel(!reading);
@@ -159,6 +166,13 @@ export function ImmersivePortfolio({
       go(next, false);
     };
     const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && navigationOpen) {
+        event.preventDefault();
+        setNavigationOpen(false);
+        setHover('');
+        navigationToggle.current?.focus({ preventScroll: true });
+        return;
+      }
       if (event.key !== 'Escape' || latest.current.section === 'home') return;
       event.preventDefault();
       const previous = latest.current.section;
@@ -167,9 +181,12 @@ export function ImmersivePortfolio({
           ? { section: previous }
           : { section: 'home' },
       );
-      document
-        .querySelector<HTMLAnchorElement>(`[data-room-link="${previous}"]`)
-        ?.focus({ preventScroll: true });
+      (immersive
+        ? navigationToggle.current
+        : document.querySelector<HTMLAnchorElement>(
+            `[data-room-link="${previous}"]`,
+          )
+      )?.focus({ preventScroll: true });
     };
     window.addEventListener('popstate', pop, true);
     window.addEventListener('keydown', escape);
@@ -177,7 +194,23 @@ export function ImmersivePortfolio({
       window.removeEventListener('popstate', pop, true);
       window.removeEventListener('keydown', escape);
     };
-  }, [go, parseURL]);
+  }, [go, parseURL, navigationOpen, immersive]);
+
+  useEffect(() => {
+    if (!navigationOpen) return;
+    const outside = (event: Event) => {
+      if (!navigation.current?.contains(event.target as Node)) {
+        setNavigationOpen(false);
+        setHover('');
+      }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('focusin', outside);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('focusin', outside);
+    };
+  }, [navigationOpen]);
 
   useEffect(() => {
     if (!enhanced) return;
@@ -231,6 +264,8 @@ export function ImmersivePortfolio({
   }, []);
   useEffect(() => {
     if (!arrived || !immersive || destination.section === 'home') return;
+    // A visitor may be choosing a new destination as the current flight ends.
+    if (navigation.current?.querySelector('nav')) return;
     if (readingSurface)
       document
         .querySelector<HTMLElement>('#world-reader')
@@ -325,7 +360,7 @@ export function ImmersivePortfolio({
       >
         {s.skipLabel}
       </a>
-      <header className="flight-header">
+      <header className="flight-header" hidden={immersive}>
         <a
           className="flight-identity"
           href={hrefFor({ section: 'home' })}
@@ -425,45 +460,45 @@ export function ImmersivePortfolio({
             />,
             surface,
           )}
-        {immersive && destination.section !== 'home' && !readingSurface && (
-          <div className="room-transport">
-            <a href={hrefFor({ section: 'home' })}>
-              <ArrowLeft size={17} />
-              {s.homeLabel}
-            </a>
-            {destination.section === 'projects' &&
-              data.projects.length > PROJECTS_PER_PAGE && (
-                <>
-                  <button
-                    type="button"
-                    disabled={projectPage === 0}
-                    onClick={() => setProjectPage(projectPage - 1)}
-                    aria-label={s.previousPageLabel}
-                  >
-                    ←
-                  </button>
-                  <span>
-                    {projectPage + 1} /{' '}
-                    {Math.ceil(data.projects.length / PROJECTS_PER_PAGE)}
-                  </span>
-                  <button
-                    type="button"
-                    disabled={
-                      (projectPage + 1) * PROJECTS_PER_PAGE >=
-                      data.projects.length
-                    }
-                    onClick={() => setProjectPage(projectPage + 1)}
-                    aria-label={s.nextPageLabel}
-                  >
-                    →
-                  </button>
-                </>
+        {immersive &&
+          destination.section === 'projects' &&
+          !readingSurface &&
+          (data.projects.length > PROJECTS_PER_PAGE ||
+            !data.projects.length) && (
+            <div className="room-transport">
+              {destination.section === 'projects' &&
+                data.projects.length > PROJECTS_PER_PAGE && (
+                  <>
+                    <button
+                      type="button"
+                      disabled={projectPage === 0}
+                      onClick={() => setProjectPage(projectPage - 1)}
+                      aria-label={s.previousPageLabel}
+                    >
+                      ←
+                    </button>
+                    <span>
+                      {projectPage + 1} /{' '}
+                      {Math.ceil(data.projects.length / PROJECTS_PER_PAGE)}
+                    </span>
+                    <button
+                      type="button"
+                      disabled={
+                        (projectPage + 1) * PROJECTS_PER_PAGE >=
+                        data.projects.length
+                      }
+                      onClick={() => setProjectPage(projectPage + 1)}
+                      aria-label={s.nextPageLabel}
+                    >
+                      →
+                    </button>
+                  </>
+                )}
+              {destination.section === 'projects' && !data.projects.length && (
+                <p>{s.emptyLabel}</p>
               )}
-            {destination.section === 'projects' && !data.projects.length && (
-              <p>{s.emptyLabel}</p>
-            )}
-          </div>
-        )}
+            </div>
+          )}
         <div className="reader-stage" hidden={immersive}>
           <div
             className={`room-reader reader-${destination.section}`}
@@ -482,11 +517,61 @@ export function ImmersivePortfolio({
             {!immersive && (enhanced ? content : children)}
           </div>
         </div>
-        {immersive && destination.section === 'home' && (
-          <div className="flight-hint" aria-live="polite">
-            <span className={hover ? 'active' : ''}>
-              {hover ? s[hover + 'Label'] : s.shipCaption}
-            </span>
+        {immersive && (
+          <div className="flight-navigation" ref={navigation}>
+            <button
+              className="flight-navigation-toggle"
+              ref={navigationToggle}
+              type="button"
+              aria-expanded={navigationOpen}
+              aria-controls="flight-destinations"
+              aria-label={`${s.sectionLabel} · ${s[destination.section + 'Label'] || s.homeLabel}`}
+              onClick={() => {
+                setNavigationOpen(!navigationOpen);
+                setHover('');
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                  event.preventDefault();
+                  setNavigationOpen(true);
+                  requestAnimationFrame(() =>
+                    navigation.current
+                      ?.querySelector<HTMLAnchorElement>('nav a')
+                      ?.focus(),
+                  );
+                }
+              }}
+            >
+              <Compass size={17} />
+              <span>{s[destination.section + 'Label'] || s.homeLabel}</span>
+              <ChevronUp size={14} />
+            </button>
+            {navigationOpen && (
+              <nav
+                id="flight-destinations"
+                className="flight-destinations"
+                aria-label={s.sectionLabel}
+              >
+                <span className="flight-menu-identity">{s.name}</span>
+                {(['home', ...rooms] as const).map((id) => (
+                  <a
+                    key={id}
+                    data-room-link={id}
+                    href={hrefFor({ section: id })}
+                    aria-current={
+                      destination.section === id ? 'page' : undefined
+                    }
+                    onPointerEnter={() => setHover(id === 'home' ? '' : id)}
+                    onPointerLeave={() => setHover('')}
+                    onFocus={() => setHover(id === 'home' ? '' : id)}
+                    onBlur={() => setHover('')}
+                  >
+                    <span>{id === 'home' ? s.homeLabel : s[id + 'Label']}</span>
+                    <span aria-hidden="true">{id === 'home' ? '◎' : '↗'}</span>
+                  </a>
+                ))}
+              </nav>
+            )}
           </div>
         )}
         <div className="flight-tools" hidden={!enhanced}>
@@ -494,6 +579,7 @@ export function ImmersivePortfolio({
             type="button"
             onClick={() => {
               setReading(!reading);
+              setNavigationOpen(false);
               setArrived(false);
             }}
             aria-pressed={reading}

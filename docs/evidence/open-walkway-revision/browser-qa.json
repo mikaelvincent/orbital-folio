@@ -1,0 +1,2915 @@
+[
+  {
+    "name": "menu-forward-tab",
+    "focus": "Overview◎",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": true,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "68.090",
+      "cameraPosition": "-4.3432,2.5170,18.1251",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":68.09009999999968,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.20427029999999904,\"cloudRotation\":0.4902487199999977,\"cloudMorphTime\":68.09009999999968,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03423840219256443,0.022160492219608616,0.03205351195199734],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":66.16974907844269,\"duration\":1.4510695199329917,\"nextAt\":72.63498902294668},{\"visible\":false,\"phase\":0,\"startAt\":66.62846828948764,\"duration\":1.4871001853985946,\"nextAt\":72.97486964918295}],\"meteorPhase\":0,\"meteorCycle\":9,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":46,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "20",
+      "frameP50": "33.40",
+      "frameP95": "50.10",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.848},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "210",
+      "rendererId": "8334437c-739c-4c95-a753-973b80510918",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "581787"
+    },
+    "url": "http://localhost:3000/?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "menu-current-destination-focus",
+    "focus": "ON BOARD · Overview",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "68.090",
+      "cameraPosition": "-4.3432,2.5170,18.1251",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":68.09009999999968,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.20427029999999904,\"cloudRotation\":0.4902487199999977,\"cloudMorphTime\":68.09009999999968,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03423840219256443,0.022160492219608616,0.03205351195199734],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":66.16974907844269,\"duration\":1.4510695199329917,\"nextAt\":72.63498902294668},{\"visible\":false,\"phase\":0,\"startAt\":66.62846828948764,\"duration\":1.4871001853985946,\"nextAt\":72.97486964918295}],\"meteorPhase\":0,\"meteorCycle\":9,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":46,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "20",
+      "frameP50": "33.40",
+      "frameP95": "50.10",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.848},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "210",
+      "rendererId": "8334437c-739c-4c95-a753-973b80510918",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "581787"
+    },
+    "url": "http://localhost:3000/?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "contact-phone",
+    "focus": "Let’s talk",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Let’s talk",
+        "rect": {
+          "bottom": 430.85784912109375,
+          "height": 30.39459228515625,
+          "left": 148.3225555419922,
+          "right": 246.01953125,
+          "top": 400.4632568359375,
+          "width": 97.6969757080078,
+          "x": 148.3225555419922,
+          "y": 400.4632568359375
+        }
+      },
+      {
+        "label": "Contact → About",
+        "rect": {
+          "bottom": 326.93353271484375,
+          "height": 41.57427978515625,
+          "left": 23.852619171142575,
+          "right": 100.07210159301758,
+          "top": 285.3592529296875,
+          "width": 76.219482421875,
+          "x": 23.852619171142575,
+          "y": 285.3592529296875
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "contact",
+      "activeRoute": "[]",
+      "activeTime": "11.549",
+      "cameraPosition": "1.6500,-1.5300,8.6038",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":11.549299999999889,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.03464789999999967,\"cloudRotation\":0.0831549599999992,\"cloudMorphTime\":11.549299999999889,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.008012810666899335,0.03460625043009066,0.006827768534534817],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":1,\"meteorPhases\":[0.8812013001713017,0],\"meteorStreams\":[{\"visible\":true,\"phase\":0.8812013001713017,\"startAt\":10.417699931640527,\"duration\":1.28415614926962,\"nextAt\":17.15792620715365},{\"visible\":false,\"phase\":0,\"startAt\":10.737103797780001,\"duration\":1.5404743283776043,\"nextAt\":17.444533368203846}],\"meteorPhase\":0.8812013001713017,\"meteorCycle\":1,\"meteorVisible\":true,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":12.3,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.30",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6872037914691943}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "86",
+      "rendererId": "1f906825-e751-424a-8bbf-7e5d1a9a5254",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "369708"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "overview-phone-final",
+    "focus": "Skip to contentMikael VincentProjectsExperienceAboutContactL",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "112.696",
+      "cameraPosition": "-6.3175,4.2859,30.7606",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":112.69620000000204,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.3380886000000061,\"cloudRotation\":0.8114126400000147,\"cloudMorphTime\":112.69620000000204,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.0271460790869595,0.003694206577929398,0.03293717831109973],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":115.7359796500532,\"duration\":1.3523635899950024,\"nextAt\":115.7359796500532},{\"visible\":false,\"phase\":0,\"startAt\":116.15332961193249,\"duration\":1.1947647610921195,\"nextAt\":129.92337954809196}],\"meteorPhase\":0,\"meteorCycle\":16,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.5,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.50",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":31.39678060895763,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512},\"cabinPriority\":true}",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":5.99442826525026e-112,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "212",
+      "rendererId": "a4ca46be-2fc2-47cd-8435-60f5a4ba07be",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "539930"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "projects-phone-final",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 404.0820007324219,
+          "height": 55.217193603515625,
+          "left": 38.45928192138672,
+          "right": 126.80677032470705,
+          "top": 348.86480712890625,
+          "width": 88.34748840332031,
+          "x": 38.45928192138672,
+          "y": 348.86480712890625
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 404.0820007324219,
+          "height": 55.217193603515625,
+          "left": 137.02194213867188,
+          "right": 225.36944580078125,
+          "top": 348.86480712890625,
+          "width": 88.34750366210938,
+          "x": 137.02194213867188,
+          "y": 348.86480712890625
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 404.0820007324219,
+          "height": 55.217193603515625,
+          "left": 235.58460998535156,
+          "right": 323.9320983886719,
+          "top": 348.86480712890625,
+          "width": 88.34748840332031,
+          "x": 235.58460998535156,
+          "y": 348.86480712890625
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 474.46734619140625,
+          "height": 55.217193603515625,
+          "left": 38.45928192138672,
+          "right": 126.80677032470705,
+          "top": 419.2501525878906,
+          "width": 88.34748840332031,
+          "x": 38.45928192138672,
+          "y": 419.2501525878906
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 474.46734619140625,
+          "height": 55.217193603515625,
+          "left": 137.02194213867188,
+          "right": 225.36944580078125,
+          "top": 419.2501525878906,
+          "width": 88.34750366210938,
+          "x": 137.02194213867188,
+          "y": 419.2501525878906
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 474.46734619140625,
+          "height": 55.217193603515625,
+          "left": 235.58460998535156,
+          "right": 323.9320983886719,
+          "top": 419.2501525878906,
+          "width": 88.34748840332031,
+          "x": 235.58460998535156,
+          "y": 419.2501525878906
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 544.8526611328125,
+          "height": 55.2171630859375,
+          "left": 38.45928192138672,
+          "right": 126.80677032470705,
+          "top": 489.635498046875,
+          "width": 88.34748840332031,
+          "x": 38.45928192138672,
+          "y": 489.635498046875
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 544.8526611328125,
+          "height": 55.2171630859375,
+          "left": 137.02194213867188,
+          "right": 225.36944580078125,
+          "top": 489.635498046875,
+          "width": 88.34750366210938,
+          "x": 137.02194213867188,
+          "y": 489.635498046875
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 544.8526611328125,
+          "height": 55.2171630859375,
+          "left": 235.58460998535156,
+          "right": 323.9320983886719,
+          "top": 489.635498046875,
+          "width": 88.34748840332031,
+          "x": 235.58460998535156,
+          "y": 489.635498046875
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 326.904052734375,
+          "height": 41.587127685546875,
+          "left": 289.957275390625,
+          "right": 366.2003784179687,
+          "top": 285.3169250488281,
+          "width": 76.24310302734375,
+          "x": 289.957275390625,
+          "y": 285.3169250488281
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 326.904052734375,
+          "height": 41.587127685546875,
+          "left": 23.799610137939453,
+          "right": 100.04269790649414,
+          "top": 285.3169250488281,
+          "width": 76.24308776855469,
+          "x": 23.799610137939453,
+          "y": 285.3169250488281
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "143.780",
+      "cameraPosition": "-1.6500,1.8700,8.6011",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":143.77950000000507,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.4313385000000152,\"cloudRotation\":1.0352124000000364,\"cloudMorphTime\":143.77950000000507,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.009200687642903405,-0.010287593390397795,0.02247636351079192],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":1,\"meteorPhases\":[0.7684436829320314,0],\"meteorStreams\":[{\"visible\":true,\"phase\":0.7684436829320314,\"startAt\":142.7652157560442,\"duration\":1.3199200754580034,\"nextAt\":150.44908887361817},{\"visible\":false,\"phase\":0,\"startAt\":143.1694705705429,\"duration\":1.458852358348304,\"nextAt\":157.64567287688274}],\"meteorPhase\":0.7684436829320314,\"meteorCycle\":20,\"meteorVisible\":true,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.5,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":1.9354148364984723e-287,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.5499999999999998,0.5499999999999998],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "144",
+      "rendererId": "a4ca46be-2fc2-47cd-8435-60f5a4ba07be",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "434152"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "relay-reader-phone-final",
+    "focus": "Development accessibility audit · 0 violations",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "245.394",
+      "cameraPosition": "-1.6500,1.3238,9.9343",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":245.3943000000202,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.7361829000000606,\"cloudRotation\":1.7668389600001453,\"cloudMorphTime\":245.3943000000202,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.034333293491400164,-0.03495878726046283,-0.030007454534860478],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":247.20941147320264,\"duration\":1.4974920201702844,\"nextAt\":247.20941147320264},{\"visible\":false,\"phase\":0,\"startAt\":247.52700886277177,\"duration\":1.1088837326338763,\"nextAt\":269.17665210050995}],\"meteorPhase\":0,\"meteorCycle\":35,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.5,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.40",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "true",
+      "renderCalls": "155",
+      "rendererId": "a4ca46be-2fc2-47cd-8435-60f5a4ba07be",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "452118"
+    },
+    "url": "http://localhost:3000/projects/relay",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "phone-walkway-arrival",
+    "focus": "PERSONAL LOG",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "PERSONAL LOG",
+        "rect": {
+          "bottom": 499.41510009765625,
+          "height": 30.3240966796875,
+          "left": 156.15345764160156,
+          "right": 263.3666076660156,
+          "top": 469.0910034179687,
+          "width": 107.21315002441406,
+          "x": 156.15345764160156,
+          "y": 469.0910034179687
+        }
+      },
+      {
+        "label": "About → Projects",
+        "rect": {
+          "bottom": 326.94110107421875,
+          "height": 41.57427978515625,
+          "left": 24.18387794494629,
+          "right": 100.40336036682127,
+          "top": 285.3668212890625,
+          "width": 76.219482421875,
+          "x": 24.18387794494629,
+          "y": 285.3668212890625
+        }
+      },
+      {
+        "label": "About → Contact",
+        "rect": {
+          "bottom": 326.94110107421875,
+          "height": 41.57427978515625,
+          "left": 290.2591552734375,
+          "right": 366.4786376953125,
+          "top": 285.3668212890625,
+          "width": 76.219482421875,
+          "x": 290.2591552734375,
+          "y": 285.3668212890625
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "about",
+      "activeRoute": "[]",
+      "activeTime": "249.144",
+      "cameraPosition": "-1.6524,-1.5299,8.6038",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":249.14420000002082,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.7474326000000625,\"cloudRotation\":1.7938382400001498,\"cloudMorphTime\":249.14420000002082,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.03372735593481287,-0.03483451447241981,-0.03109417230061204],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":247.20941147320264,\"duration\":1.4974920201702844,\"nextAt\":255.93544590406236},{\"visible\":false,\"phase\":0,\"startAt\":247.52700886277177,\"duration\":1.1088837326338763,\"nextAt\":269.17665210050995}],\"meteorPhase\":0,\"meteorCycle\":35,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.5,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "1",
+      "frameP50": "16.70",
+      "frameP95": "33.40",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163576,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163576,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":7.69119674472202e-15,\"interiorColor\":0.2800000000000056,\"exteriorColor\":0.8600000000000011,\"screenEmission\":0.220000000000006,\"fixtureEmission\":0.10000000000000693,\"pointIntensities\":[0.06000000000000646,0.06000000000000646],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0.9999999999999925,\"interiorColor\":0.9999999999999946,\"exteriorColor\":0.9999999999999989,\"screenEmission\":0.9999999999999941,\"fixtureEmission\":0.9999999999999932,\"pointIntensities\":[0.8999999999999936,0.8999999999999936],\"labels\":1},\"contact\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "127",
+      "rendererId": "a4ca46be-2fc2-47cd-8435-60f5a4ba07be",
+      "travelledRoute": "[\"projects\",\"about\"]",
+      "travelling": "false",
+      "triangles": "421082"
+    },
+    "url": "http://localhost:3000/about",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "doorway-peek-focus-desktop",
+    "focus": "Projects → Experience",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 417.8662414550781,
+          "height": 147.67880249023438,
+          "left": 216.0023498535156,
+          "right": 453.0383911132813,
+          "top": 270.18743896484375,
+          "width": 237.0360412597656,
+          "x": 216.0023498535156,
+          "y": 270.18743896484375
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.6482238769531,
+          "height": 146.25698852539062,
+          "left": 530.0700073242188,
+          "right": 762.5978393554688,
+          "top": 272.3912353515625,
+          "width": 232.52783203125,
+          "x": 530.0700073242188,
+          "y": 272.3912353515625
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 419.41546630859375,
+          "height": 144.8623046875,
+          "left": 838.1713256835938,
+          "right": 1066.3184814453125,
+          "top": 274.55316162109375,
+          "width": 228.14715576171875,
+          "x": 838.1713256835938,
+          "y": 274.55316162109375
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 640.46142578125,
+          "height": 147.08001708984375,
+          "left": 216.0023498535156,
+          "right": 453.0383911132813,
+          "top": 493.38140869140625,
+          "width": 237.0360412597656,
+          "x": 216.0023498535156,
+          "y": 493.38140869140625
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 639.114501953125,
+          "height": 145.66964721679688,
+          "left": 530.0700073242188,
+          "right": 762.5978393554688,
+          "top": 493.4448547363281,
+          "width": 232.52783203125,
+          "x": 530.0700073242188,
+          "y": 493.4448547363281
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 637.7930908203125,
+          "height": 144.28594970703125,
+          "left": 838.1713256835938,
+          "right": 1066.3184814453125,
+          "top": 493.5071411132813,
+          "width": 228.14715576171875,
+          "x": 838.1713256835938,
+          "y": 493.5071411132813
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 863.6553955078125,
+          "height": 148.64752197265625,
+          "left": 216.0023498535156,
+          "right": 453.0383911132813,
+          "top": 715.0078735351562,
+          "width": 237.0360412597656,
+          "x": 216.0023498535156,
+          "y": 715.0078735351562
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 860.1680908203125,
+          "height": 147.20721435546875,
+          "left": 530.0700073242188,
+          "right": 762.5978393554688,
+          "top": 712.9608764648438,
+          "width": 232.52783203125,
+          "x": 530.0700073242188,
+          "y": 712.9608764648438
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 856.7470703125,
+          "height": 145.79461669921875,
+          "left": 838.1713256835938,
+          "right": 1066.3184814453125,
+          "top": 710.9524536132812,
+          "width": 228.14715576171875,
+          "x": 838.1713256835938,
+          "y": 710.9524536132812
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 250.7848968505859,
+          "height": 111.21720886230467,
+          "left": 1138.85693359375,
+          "right": 1335.8701171875,
+          "top": 139.56768798828125,
+          "width": 197.01318359375,
+          "x": 1138.85693359375,
+          "y": 139.56768798828125
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 242.43667602539065,
+          "height": 115.02052307128906,
+          "left": 65.80255126953125,
+          "right": 276.2797546386719,
+          "top": 127.41615295410156,
+          "width": 210.47720336914065,
+          "x": 65.80255126953125,
+          "y": 127.41615295410156
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[\"projects\",\"experience\"]",
+      "activeTime": "77.942",
+      "cameraPosition": "-2.4084,1.8700,3.6768",
+      "cameraQuaternion": "0.000000,-0.022498,0.000000,0.999747",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":77.9419999999978,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.23382599999999343,\"cloudRotation\":0.5611823999999842,\"cloudMorphTime\":77.9419999999978,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.034997498339169555,0.018518818781990264,0.03394815444302596],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":80.71329014917137,\"duration\":1.3236426256144114,\"nextAt\":80.71329014917137},{\"visible\":false,\"phase\":0,\"startAt\":81.00296327927005,\"duration\":1.3662560119235423,\"nextAt\":100.80447459363218}],\"meteorPhase\":0,\"meteorCycle\":11,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":80.1,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "99",
+      "frameP50": "49.90",
+      "frameP95": "67.00",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[1.1499999999999997,1.1499999999999997],\"labels\":1},\"about\":{\"dimmer\":1.8356166096716863e-49,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "-1.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "115",
+      "rendererId": "13d4a043-39e9-43be-9e83-2b91ca154d16",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "426463"
+    },
+    "url": "http://localhost:3000/projects?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "experience-desktop-final",
+    "focus": "Read all chapters",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Read all chapters",
+        "rect": {
+          "bottom": 512.994873046875,
+          "height": 76.60140991210938,
+          "left": 601.9186401367188,
+          "right": 872.2784423828125,
+          "top": 436.3934631347656,
+          "width": 270.35980224609375,
+          "x": 601.9186401367188,
+          "y": 436.3934631347656
+        }
+      },
+      {
+        "label": "Experience → Projects",
+        "rect": {
+          "bottom": 249.7305908203125,
+          "height": 109.447265625,
+          "left": 94.32646942138672,
+          "right": 294.9797897338867,
+          "top": 140.2833251953125,
+          "width": 200.6533203125,
+          "x": 94.32646942138672,
+          "y": 140.2833251953125
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "experience",
+      "activeRoute": "[]",
+      "activeTime": "0.134",
+      "cameraPosition": "2.2500,1.8700,3.7403",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":0.1335,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.00040050000000000003,\"cloudRotation\":0.0009612,\"cloudMorphTime\":0.1335,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.00009344988896742209,0.034999947290708856,0.00007943243181211134],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":2.7517765642987797,\"duration\":1.1416834194858894,\"nextAt\":2.7517765642987797},{\"visible\":false,\"phase\":0,\"startAt\":3.1476957643500647,\"duration\":1.1857530641165797,\"nextAt\":17.444533368203846}],\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":24.8,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "2",
+      "frameP50": "200.00",
+      "frameP95": "499.97",
+      "frameSamples": "4",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.4591747983349426,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.580317885241845,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0.8856890981349955,\"interiorColor\":0.9176961506571968,\"exteriorColor\":0.9839964737388993,\"screenEmission\":0.9108374965452966,\"fixtureEmission\":0.897120188321496,\"pointIntensities\":[0.8039788424333962,0.8039788424333962],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "rendererId": "2d1e6c50-e159-457b-b1ce-b4c9f356b352",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "337383"
+    },
+    "url": "http://localhost:3000/experience?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "route-experience-projects",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 418.5308837890625,
+          "height": 144.833984375,
+          "left": 230.53485107421875,
+          "right": 462.2691345214844,
+          "top": 273.6968994140625,
+          "width": 231.7342834472656,
+          "x": 230.53485107421875,
+          "y": 273.6968994140625
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.5308837890625,
+          "height": 144.83407592773438,
+          "left": 538.3069458007812,
+          "right": 770.0413818359375,
+          "top": 273.6968078613281,
+          "width": 231.73443603515625,
+          "x": 538.3069458007812,
+          "y": 273.6968078613281
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 418.5308532714844,
+          "height": 144.8341064453125,
+          "left": 846.0792846679688,
+          "right": 1077.8138427734375,
+          "top": 273.6967468261719,
+          "width": 231.73455810546875,
+          "x": 846.0792846679688,
+          "y": 273.6967468261719
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 638.3164672851562,
+          "height": 144.833984375,
+          "left": 230.53485107421875,
+          "right": 462.2691345214844,
+          "top": 493.48248291015625,
+          "width": 231.7342834472656,
+          "x": 230.53485107421875,
+          "y": 493.48248291015625
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 638.3165283203125,
+          "height": 144.83404541015625,
+          "left": 538.3069458007812,
+          "right": 770.0413818359375,
+          "top": 493.48248291015625,
+          "width": 231.73443603515625,
+          "x": 538.3069458007812,
+          "y": 493.48248291015625
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 638.3165283203125,
+          "height": 144.83407592773438,
+          "left": 846.0792846679688,
+          "right": 1077.8138427734375,
+          "top": 493.4824523925781,
+          "width": 231.73455810546875,
+          "x": 846.0792846679688,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 858.10205078125,
+          "height": 144.83404541015625,
+          "left": 230.53485107421875,
+          "right": 462.2691345214844,
+          "top": 713.2680053710938,
+          "width": 231.7342834472656,
+          "x": 230.53485107421875,
+          "y": 713.2680053710938
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 858.1021728515625,
+          "height": 144.8341064453125,
+          "left": 538.3069458007812,
+          "right": 770.0413818359375,
+          "top": 713.26806640625,
+          "width": 231.73443603515625,
+          "x": 538.3069458007812,
+          "y": 713.26806640625
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 858.1022338867188,
+          "height": 144.8341064453125,
+          "left": 846.0792846679688,
+          "right": 1077.8138427734375,
+          "top": 713.2681274414062,
+          "width": 231.73455810546875,
+          "x": 846.0792846679688,
+          "y": 713.2681274414062
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 245.9072723388672,
+          "height": 111.11932373046876,
+          "left": 1150.84765625,
+          "right": 1354.56640625,
+          "top": 134.78794860839844,
+          "width": 203.71875,
+          "x": 1150.84765625,
+          "y": 134.78794860839844
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.90753173828125,
+          "height": 111.11923217773438,
+          "left": 84.10332489013672,
+          "right": 287.8216781616211,
+          "top": 134.78829956054688,
+          "width": 203.7183532714844,
+          "x": 84.10332489013672,
+          "y": 134.78829956054688
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "1.900",
+      "cameraPosition": "-2.2461,1.8700,3.6804",
+      "cameraQuaternion": "0.000000,0.000001,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":1.8997000000000006,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.005699100000000002,\"cloudRotation\":0.013677840000000004,\"cloudMorphTime\":1.8997000000000006,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.0013294700880206198,0.034989327338736026,0.0011301250301205617],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":2.7517765642987797,\"duration\":1.1416834194858894,\"nextAt\":2.7517765642987797},{\"visible\":false,\"phase\":0,\"startAt\":3.1476957643500647,\"duration\":1.1857530641165797,\"nextAt\":17.444533368203846}],\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":24.8,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "30",
+      "frameP50": "66.70",
+      "frameP95": "200.00",
+      "frameSamples": "41",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999998639985106,\"interiorColor\":0.9999999020789276,\"exteriorColor\":0.9999999809597915,\"screenEmission\":0.9999998939188383,\"fixtureEmission\":0.9999998775986595,\"pointIntensities\":[0.8999999041775001,0.8999999041775001],\"labels\":1},\"experience\":{\"dimmer\":2.0966429189346651e-7,\"interiorColor\":0.2800001509582902,\"exteriorColor\":0.8600000293530009,\"screenEmission\":0.2200001635381477,\"fixtureEmission\":0.10000018869786272,\"pointIntensities\":[0.06000017611800519,0.06000017611800519],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9999997903235063,\"interiorColor\":0.9999998490329245,\"exteriorColor\":0.9999999706452909,\"screenEmission\":0.9999998364523349,\"fixtureEmission\":0.9999998112911557,\"pointIntensities\":[0.5499998972585182,0.5499998972585182],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00006,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "225",
+      "rendererId": "2d1e6c50-e159-457b-b1ce-b4c9f356b352",
+      "travelledRoute": "[\"experience\",\"projects\"]",
+      "travelling": "false",
+      "triangles": "755645"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "five-project-spare-equipment",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 231.1832275390625,
+          "right": 462.9185791015625,
+          "top": 273.6959533691406,
+          "width": 231.7353515625,
+          "x": 231.1832275390625,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 538.9567260742188,
+          "right": 770.692138671875,
+          "top": 273.6959533691406,
+          "width": 231.73541259765625,
+          "x": 538.9567260742188,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 846.7302856445312,
+          "right": 1078.465576171875,
+          "top": 273.6959533691406,
+          "width": 231.73529052734375,
+          "x": 846.7302856445312,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 638.3170166015625,
+          "height": 144.83456420898438,
+          "left": 231.1832275390625,
+          "right": 462.9185791015625,
+          "top": 493.4824523925781,
+          "width": 231.7353515625,
+          "x": 231.1832275390625,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 638.3170166015625,
+          "height": 144.83456420898438,
+          "left": 538.9567260742188,
+          "right": 770.692138671875,
+          "top": 493.4824523925781,
+          "width": 231.73541259765625,
+          "x": 538.9567260742188,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 245.90635681152344,
+          "height": 111.1196746826172,
+          "left": 1151.5147705078125,
+          "right": 1355.234130859375,
+          "top": 134.78668212890625,
+          "width": 203.7193603515625,
+          "x": 1151.5147705078125,
+          "y": 134.78668212890625
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.90635681152344,
+          "height": 111.1196746826172,
+          "left": 84.7658920288086,
+          "right": 288.4852828979492,
+          "top": 134.78668212890625,
+          "width": 203.71939086914065,
+          "x": 84.7658920288086,
+          "y": 134.78668212890625
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "0.283",
+      "cameraPosition": "-2.2500,1.8700,3.6804",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":0.2835,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.0008504999999999999,\"cloudRotation\":0.0020412,\"cloudMorphTime\":0.2835,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.00019844893667684174,0.03499976229933969,0.00016868184698637414],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":2.7517765642987797,\"duration\":1.1416834194858894,\"nextAt\":2.7517765642987797},{\"visible\":false,\"phase\":0,\"startAt\":3.1476957643500647,\"duration\":1.1857530641165797,\"nextAt\":17.444533368203846}],\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":25.4,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "4",
+      "frameP50": "66.60",
+      "frameP95": "1283.32",
+      "frameSamples": "7",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9837365225649394,\"interiorColor\":0.9882902962467564,\"exteriorColor\":0.9977231131590916,\"screenEmission\":0.9873144876006527,\"fixtureEmission\":0.9853628703084454,\"pointIntensities\":[0.8863386789545491,0.8863386789545491],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9837365225649394,\"interiorColor\":0.9882902962467564,\"exteriorColor\":0.9977231131590916,\"screenEmission\":0.9873144876006527,\"fixtureEmission\":0.9853628703084454,\"pointIntensities\":[0.5420308960568204,0.5420308960568204],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "207",
+      "rendererId": "1a3cd54d-1c48-438b-a509-f9f0864af863",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "725677"
+    },
+    "url": "http://localhost:3000/projects?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "zero-project-spare-equipment",
+    "focus": "Projects → Experience",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 245.94821166992188,
+          "height": 111.12066650390624,
+          "left": 1151.41064453125,
+          "right": 1355.0736083984375,
+          "top": 134.82754516601562,
+          "width": 203.6629638671875,
+          "x": 1151.41064453125,
+          "y": 134.82754516601562
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.87791442871097,
+          "height": 111.15139770507812,
+          "left": 84.60546875,
+          "right": 288.3812255859375,
+          "top": 134.7265167236328,
+          "width": 203.7757568359375,
+          "x": 84.60546875,
+          "y": 134.7265167236328
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "0.100",
+      "cameraPosition": "-2.2500,1.8700,3.6804",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":0.1,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.00030000000000000003,\"cloudRotation\":0.00072,\"cloudMorphTime\":0.1,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.00006999995333334267,0.03499997042500417,0.00005949997134083748],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":2.7517765642987797,\"duration\":1.1416834194858894,\"nextAt\":2.7517765642987797},{\"visible\":false,\"phase\":0,\"startAt\":3.1476957643500647,\"duration\":1.1857530641165797,\"nextAt\":17.444533368203846}],\"meteorPhase\":0,\"meteorCycle\":0,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":21.9,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "2",
+      "frameP50": "1567.33",
+      "frameP95": "1567.33",
+      "frameSamples": "2",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.8233055542434032,\"interiorColor\":0.8727799990552504,\"exteriorColor\":0.9752627775940764,\"screenEmission\":0.8621783323098545,\"fixtureEmission\":0.8409749988190629,\"pointIntensities\":[0.7515766655644588,0.7515766655644588],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.8233055542434032,\"interiorColor\":0.8727799990552504,\"exteriorColor\":0.9752627775940764,\"screenEmission\":0.8621783323098545,\"fixtureEmission\":0.8409749988190629,\"pointIntensities\":[0.46341972157926764,0.46341972157926764],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "94",
+      "rendererId": "291b25d0-c69f-4a9d-98a4-060eec196d21",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "395437"
+    },
+    "url": "http://localhost:3000/projects?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "final-native-locker-drag",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 417.8988037109375,
+          "height": 144.8885498046875,
+          "left": 232.7933654785156,
+          "right": 464.1181945800781,
+          "top": 273.01025390625,
+          "width": 231.3248291015625,
+          "x": 232.7933654785156,
+          "y": 273.01025390625
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 417.8080139160156,
+          "height": 145.06222534179688,
+          "left": 539.9678955078125,
+          "right": 771.73779296875,
+          "top": 272.74578857421875,
+          "width": 231.7698974609375,
+          "x": 539.9678955078125,
+          "y": 272.74578857421875
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 417.7169799804687,
+          "height": 145.23626708984375,
+          "left": 847.823974609375,
+          "right": 1080.204345703125,
+          "top": 272.480712890625,
+          "width": 232.38037109375,
+          "x": 847.823974609375,
+          "y": 272.480712890625
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 637.3600463867188,
+          "height": 144.63348388671875,
+          "left": 233.10736083984375,
+          "right": 464.2831726074219,
+          "top": 492.7265625,
+          "width": 231.17581176757812,
+          "x": 233.10736083984375,
+          "y": 492.7265625
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 637.5317993164062,
+          "height": 144.8065185546875,
+          "left": 540.0840454101562,
+          "right": 771.7044067382812,
+          "top": 492.7252807617187,
+          "width": 231.620361328125,
+          "x": 540.0840454101562,
+          "y": 492.7252807617187
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 637.7039794921875,
+          "height": 144.97998046875,
+          "left": 847.741455078125,
+          "right": 1079.971435546875,
+          "top": 492.7239990234375,
+          "width": 232.22998046875,
+          "x": 847.741455078125,
+          "y": 492.7239990234375
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 856.6067504882812,
+          "height": 144.64337158203125,
+          "left": 233.42092895507812,
+          "right": 464.4479370117187,
+          "top": 711.96337890625,
+          "width": 231.02700805664065,
+          "x": 233.42092895507812,
+          "y": 711.96337890625
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 857.04052734375,
+          "height": 144.81640625,
+          "left": 540.2000732421875,
+          "right": 771.6710205078125,
+          "top": 712.22412109375,
+          "width": 231.470947265625,
+          "x": 540.2000732421875,
+          "y": 712.22412109375
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 857.475341796875,
+          "height": 144.98992919921875,
+          "left": 847.6589965820312,
+          "right": 1079.73876953125,
+          "top": 712.4854125976562,
+          "width": 232.07977294921875,
+          "x": 847.6589965820312,
+          "y": 712.4854125976562
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 244.6673889160156,
+          "height": 111.7957000732422,
+          "left": 1153.3961181640625,
+          "right": 1358.3236083984375,
+          "top": 132.87168884277344,
+          "width": 204.927490234375,
+          "x": 1153.3961181640625,
+          "y": 132.87168884277344
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.698974609375,
+          "height": 111.33113098144533,
+          "left": 86.4959487915039,
+          "right": 289.7283401489258,
+          "top": 134.3678436279297,
+          "width": 203.23239135742188,
+          "x": 86.4959487915039,
+          "y": 134.3678436279297
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "12.239",
+      "cameraPosition": "-2.2382,1.8789,3.6804",
+      "cameraQuaternion": "-0.001266,0.001675,0.000002,0.999998",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":12.238800000000026,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.03671640000000008,\"cloudRotation\":0.08811936000000019,\"cloudMorphTime\":12.238800000000026,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.008481865278052003,0.03455793504853327,0.007229660809299973],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":10.417699931640527,\"duration\":1.28415614926962,\"nextAt\":17.15792620715365},{\"visible\":false,\"phase\":0,\"startAt\":10.737103797780001,\"duration\":1.5404743283776043,\"nextAt\":17.444533368203846}],\"meteorPhase\":0,\"meteorCycle\":1,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "82",
+      "frameP50": "49.70",
+      "frameP95": "66.70",
+      "frameSamples": "296",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":247.58836806279893,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[0.25,-0.34]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.07446,-0.10127",
+      "readerAttached": "false",
+      "renderCalls": "225",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "755645"
+    },
+    "url": "http://localhost:3000/projects?audit=1",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "arrival-preserves-open-menu",
+    "focus": "Overview◎",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "PERSONAL LOG",
+        "rect": {
+          "bottom": 702.1610107421875,
+          "height": 72.22064208984375,
+          "left": 614.3905639648438,
+          "right": 869.73193359375,
+          "top": 629.9403686523438,
+          "width": 255.34136962890625,
+          "x": 614.3905639648438,
+          "y": 629.9403686523438
+        }
+      },
+      {
+        "label": "About → Projects",
+        "rect": {
+          "bottom": 263.3304138183594,
+          "height": 103.50343322753906,
+          "left": 129.1420440673828,
+          "right": 318.89837646484375,
+          "top": 159.8269805908203,
+          "width": 189.75633239746097,
+          "x": 129.1420440673828,
+          "y": 159.8269805908203
+        }
+      },
+      {
+        "label": "About → Contact",
+        "rect": {
+          "bottom": 263.3304138183594,
+          "height": 103.50343322753906,
+          "left": 1122.775146484375,
+          "right": 1312.531494140625,
+          "top": 159.8269805908203,
+          "width": 189.75634765625,
+          "x": 1122.775146484375,
+          "y": 159.8269805908203
+        }
+      }
+    ],
+    "navigationOpen": true,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "about",
+      "activeRoute": "[]",
+      "activeTime": "72.179",
+      "cameraPosition": "-2.2524,-1.5300,3.9689",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":72.17890000000179,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.21653670000000538,\"cloudRotation\":0.5196880800000129,\"cloudMorphTime\":72.17890000000179,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03471715299031365,0.020689875228975134,0.03295235191448316],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":72.63498902294668,\"duration\":1.188378897929033,\"nextAt\":72.63498902294668},{\"visible\":false,\"phase\":0,\"startAt\":72.97486964918295,\"duration\":1.395237864770752,\"nextAt\":72.97486964918295}],\"meteorPhase\":0,\"meteorCycle\":10,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.40",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.7312855035444468,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.8088908776178285,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[-0.4915961371527777,0.5717231140136718]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":4.907627584423768e-222,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":2.3619701110260736e-290,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"about\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "-0.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "87",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"projects\",\"about\"]",
+      "travelling": "false",
+      "triangles": "406575"
+    },
+    "url": "http://localhost:3000/about",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "route-about-contact-final",
+    "focus": "Let’s talk",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Let’s talk",
+        "rect": {
+          "bottom": 507.8486022949219,
+          "height": 73.25360107421875,
+          "left": 629.0921630859375,
+          "right": 864.5501708984375,
+          "top": 434.5950012207031,
+          "width": 235.4580078125,
+          "x": 629.0921630859375,
+          "y": 434.5950012207031
+        }
+      },
+      {
+        "label": "Contact → About",
+        "rect": {
+          "bottom": 261.1365051269531,
+          "height": 104.459228515625,
+          "left": 123.54312896728516,
+          "right": 315.05176544189453,
+          "top": 156.67727661132812,
+          "width": 191.50863647460935,
+          "x": 123.54312896728516,
+          "y": 156.67727661132812
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "contact",
+      "activeRoute": "[]",
+      "activeTime": "210.673",
+      "cameraPosition": "2.2480,-1.5300,3.9304",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":210.67300000001785,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.6320190000000535,\"cloudRotation\":1.5168456000001285,\"cloudMorphTime\":210.67300000001785,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.03073334364164139,-0.03219824652144973,-0.014903078796590283],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":213.96517388824577,\"duration\":1.2736524256724806,\"nextAt\":213.96517388824577},{\"visible\":false,\"phase\":0,\"startAt\":214.4085935272285,\"duration\":1.3783711282048898,\"nextAt\":214.4085935272285}],\"meteorPhase\":0,\"meteorCycle\":30,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "18",
+      "frameP50": "16.70",
+      "frameP95": "50.10",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.685427236593657,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.770369933379165,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"about\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "-0.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "72",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"about\",\"contact\"]",
+      "travelling": "false",
+      "triangles": "338491"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "route-contact-about-final",
+    "focus": "PERSONAL LOG",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "PERSONAL LOG",
+        "rect": {
+          "bottom": 703.1190795898438,
+          "height": 73.59515380859375,
+          "left": 623.5248413085938,
+          "right": 879.0596923828125,
+          "top": 629.52392578125,
+          "width": 255.53485107421875,
+          "x": 623.5248413085938,
+          "y": 629.52392578125
+        }
+      },
+      {
+        "label": "About → Projects",
+        "rect": {
+          "bottom": 267.564208984375,
+          "height": 103.58821105957033,
+          "left": 144.99037170410156,
+          "right": 328.8990783691406,
+          "top": 163.9759979248047,
+          "width": 183.90870666503903,
+          "x": 144.99037170410156,
+          "y": 163.9759979248047
+        }
+      },
+      {
+        "label": "About → Contact",
+        "rect": {
+          "bottom": 260.3186340332031,
+          "height": 106.88003540039062,
+          "left": 1132.289794921875,
+          "right": 1327.87841796875,
+          "top": 153.4385986328125,
+          "width": 195.588623046875,
+          "x": 1132.289794921875,
+          "y": 153.4385986328125
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "about",
+      "activeRoute": "[\"about\",\"projects\"]",
+      "activeTime": "231.854",
+      "cameraPosition": "-2.0769,-1.5300,3.9650",
+      "cameraQuaternion": "0.000000,0.022498,0.000000,0.999747",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":231.85350000002117,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.6955605000000635,\"cloudRotation\":1.6693452000001523,\"cloudMorphTime\":231.85350000002117,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.0349007703196099,-0.03471591347123489,-0.025105435416454363],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":233.7233822670314,\"duration\":1.2222868605876103,\"nextAt\":233.7233822670314},{\"visible\":false,\"phase\":0,\"startAt\":234.15266977089283,\"duration\":1.5331458804674185,\"nextAt\":241.50220739226003}],\"meteorPhase\":0,\"meteorCycle\":33,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "50",
+      "frameP50": "33.40",
+      "frameP95": "66.90",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.7312855035444468,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.8088908776178285,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[1.1499999999999997,1.1499999999999997],\"labels\":1},\"experience\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"about\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"contact\":{\"dimmer\":7.326082849756321e-118,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "1.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "87",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"contact\",\"about\"]",
+      "travelling": "false",
+      "triangles": "406575"
+    },
+    "url": "http://localhost:3000/about",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "route-about-walkway-projects-final",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 419.7235107421875,
+          "height": 144.283203125,
+          "left": 247.5353546142578,
+          "right": 473.8752746582031,
+          "top": 275.4403076171875,
+          "width": 226.3399200439453,
+          "x": 247.5353546142578,
+          "y": 275.4403076171875
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.9622802734375,
+          "height": 145.66671752929688,
+          "left": 548.8473510742188,
+          "right": 779.5158081054688,
+          "top": 273.2955627441406,
+          "width": 230.66845703125,
+          "x": 548.8473510742188,
+          "y": 273.2955627441406
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 418.18646240234375,
+          "height": 147.0770263671875,
+          "left": 855.9285278320312,
+          "right": 1091.051025390625,
+          "top": 271.10943603515625,
+          "width": 235.12249755859375,
+          "x": 855.9285278320312,
+          "y": 271.10943603515625
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 637.2337036132812,
+          "height": 143.71139526367188,
+          "left": 247.5353546142578,
+          "right": 473.8752746582031,
+          "top": 493.5223083496094,
+          "width": 226.3399200439453,
+          "x": 247.5353546142578,
+          "y": 493.5223083496094
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 638.5443725585938,
+          "height": 145.08392333984375,
+          "left": 548.8473510742188,
+          "right": 779.5158081054688,
+          "top": 493.46044921875,
+          "width": 230.66845703125,
+          "x": 548.8473510742188,
+          "y": 493.46044921875
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 639.88037109375,
+          "height": 146.48300170898438,
+          "left": 855.9285278320312,
+          "right": 1091.051025390625,
+          "top": 493.3973693847656,
+          "width": 235.12249755859375,
+          "x": 855.9285278320312,
+          "y": 493.3973693847656
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 855.315673828125,
+          "height": 145.2080078125,
+          "left": 247.5353546142578,
+          "right": 473.8752746582031,
+          "top": 710.107666015625,
+          "width": 226.3399200439453,
+          "x": 247.5353546142578,
+          "y": 710.107666015625
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 858.7092895507812,
+          "height": 146.6092529296875,
+          "left": 548.8473510742188,
+          "right": 779.5158081054688,
+          "top": 712.1000366210938,
+          "width": 230.66845703125,
+          "x": 548.8473510742188,
+          "y": 712.1000366210938
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 862.1683349609375,
+          "height": 148.0377197265625,
+          "left": 855.9285278320312,
+          "right": 1091.051025390625,
+          "top": 714.130615234375,
+          "width": 235.12249755859375,
+          "x": 855.9285278320312,
+          "y": 714.130615234375
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 242.41896057128903,
+          "height": 115.0235824584961,
+          "left": 1164.55224609375,
+          "right": 1375.0401611328125,
+          "top": 127.39537811279295,
+          "width": 210.4879150390625,
+          "x": 1164.55224609375,
+          "y": 127.39537811279295
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 250.7679748535156,
+          "height": 111.22007751464844,
+          "left": 104.90886688232422,
+          "right": 301.9316635131836,
+          "top": 139.5478973388672,
+          "width": 197.02279663085935,
+          "x": 104.90886688232422,
+          "y": 139.5478973388672
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[\"projects\",\"about\"]",
+      "activeTime": "253.169",
+      "cameraPosition": "-2.0938,1.8700,3.6768",
+      "cameraQuaternion": "0.000000,0.022498,0.000000,0.999747",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":253.16850000002492,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.7595055000000748,\"cloudRotation\":1.8228132000001793,\"cloudMorphTime\":253.16850000002492,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.03286625549900463,-0.034609088327102085,-0.03211977930445526],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":255.93544590406236,\"duration\":1.1018769600486849,\"nextAt\":255.93544590406236},{\"visible\":false,\"phase\":0,\"startAt\":256.35474007078534,\"duration\":1.23788121130674,\"nextAt\":269.17665210050995}],\"meteorPhase\":0,\"meteorCycle\":36,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "40",
+      "frameP50": "33.40",
+      "frameP95": "50.90",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.9000000000000001,0.9000000000000001],\"labels\":1},\"experience\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"about\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[1.1499999999999997,1.1499999999999997],\"labels\":1},\"contact\":{\"dimmer\":3.3422764028794856e-238,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "1.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "115",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"about\",\"projects\"]",
+      "travelling": "false",
+      "triangles": "426463"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "experience-desktop-settled",
+    "focus": "Read all chapters",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Read all chapters",
+        "rect": {
+          "bottom": 512.9949340820312,
+          "height": 76.6016845703125,
+          "left": 602.7105712890625,
+          "right": 873.0713500976562,
+          "top": 436.3932495117187,
+          "width": 270.36077880859375,
+          "x": 602.7105712890625,
+          "y": 436.3932495117187
+        }
+      },
+      {
+        "label": "Experience → Projects",
+        "rect": {
+          "bottom": 249.72959899902344,
+          "height": 109.4477081298828,
+          "left": 95.16929626464844,
+          "right": 295.82342529296875,
+          "top": 140.28189086914062,
+          "width": 200.6541290283203,
+          "x": 95.16929626464844,
+          "y": 140.28189086914062
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "experience",
+      "activeRoute": "[]",
+      "activeTime": "387.052",
+      "cameraPosition": "2.2477,1.8700,3.7403",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":387.0524000000479,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":1.1611572000001438,\"cloudRotation\":2.786777280000345,\"cloudMorphTime\":387.0524000000479,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03477704201902715,0.010986312108516211,0.010232993598778668],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":388.8439787200987,\"duration\":1.116953328978616,\"nextAt\":388.8439787200987},{\"visible\":false,\"phase\":0,\"startAt\":389.23085160154636,\"duration\":1.131050962774316,\"nextAt\":409.0604925697816}],\"meteorPhase\":0,\"meteorCycle\":55,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "59",
+      "frameP50": "33.90",
+      "frameP95": "65.70",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.4591747983349426,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.580317885241845,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"about\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "-0.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"projects\",\"experience\"]",
+      "travelling": "false",
+      "triangles": "337383"
+    },
+    "url": "http://localhost:3000/experience",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "webgl-loss-reading-fallback",
+    "focus": "Experience",
+    "headerHidden": false,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "experience",
+      "activeRoute": "[]",
+      "activeTime": "419.188",
+      "cameraPosition": "2.2477,1.8700,3.7403",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":419.1880000000531,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":1.2575640000001593,\"cloudRotation\":3.018153600000382,\"cloudMorphTime\":419.1880000000531,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.030202168243999947,0.02352385753673194,0.0261327243678282],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":415.9736703680319,\"duration\":1.5221273152121286,\"nextAt\":423.06398779033043},{\"visible\":false,\"phase\":0,\"startAt\":416.36771489765323,\"duration\":1.1059815851154782,\"nextAt\":437.91051983967714}],\"meteorPhase\":0,\"meteorCycle\":59,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":76.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "67",
+      "frameP50": "33.70",
+      "frameP95": "66.70",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.4591747983349426,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.580317885241845,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"about\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"walkway\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "-0.00000,-0.00000",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "rendererId": "4487e561-0f8f-45ea-a3d4-beb0168cc704",
+      "travelledRoute": "[\"projects\",\"experience\"]",
+      "travelling": "false",
+      "triangles": "337383"
+    },
+    "url": "http://localhost:3000/experience",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-overview-desktop",
+    "focus": "<style>.boot-loader { display: none !important; }</style>Ski",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "21.951",
+      "cameraPosition": "-4.3432,2.5170,18.1251",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":21.9507000000001,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.0658521000000003,\"cloudRotation\":0.15804504000000072,\"cloudMorphTime\":21.9507000000001,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.014876651055780787,0.03358462195001473,0.012759654083511547],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":24.923884042305872,\"duration\":1.39156523392885,\"nextAt\":24.923884042305872},{\"visible\":false,\"phase\":0,\"startAt\":25.24281162953572,\"duration\":1.1324545105343533,\"nextAt\":45.20120567809005}],\"meteorPhase\":0,\"meteorCycle\":3,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":22.7,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "98",
+      "frameP50": "50.00",
+      "frameP95": "66.70",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "214",
+      "rendererId": "01275f02-c73d-419f-aab2-eecead7d84d4",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588987"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-overview-project-highlight",
+    "focus": "Overview◎",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": true,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "37.194",
+      "cameraPosition": "-4.3432,2.5170,18.1251",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":37.19370000000002,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.11158110000000007,\"cloudRotation\":0.26779464000000014,\"cloudMorphTime\":37.19370000000002,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.023700028515117186,0.030987769807344103,0.020684857686896898],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":37.66225129482336,\"duration\":1.3771853215628653,\"nextAt\":37.66225129482336},{\"visible\":false,\"phase\":0,\"startAt\":38.06258089196541,\"duration\":1.4367689161774253,\"nextAt\":45.20120567809005}],\"meteorPhase\":0,\"meteorCycle\":5,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":22.7,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "108",
+      "frameP50": "50.00",
+      "frameP95": "66.80",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":3.6255734893560185e-85,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "214",
+      "rendererId": "01275f02-c73d-419f-aab2-eecead7d84d4",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588987"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-projects-settled",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 418.4707336425781,
+          "height": 144.93331909179688,
+          "left": 230.8479766845703,
+          "right": 462.7413330078125,
+          "top": 273.53741455078125,
+          "width": 231.8933563232422,
+          "x": 230.8479766845703,
+          "y": 273.53741455078125
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.47076416015625,
+          "height": 144.93331909179688,
+          "left": 538.831298828125,
+          "right": 770.7245483398438,
+          "top": 273.5374450683594,
+          "width": 231.89324951171875,
+          "x": 538.831298828125,
+          "y": 273.5374450683594
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 418.47076416015625,
+          "height": 144.93325805664062,
+          "left": 846.8145141601562,
+          "right": 1078.7076416015625,
+          "top": 273.5375061035156,
+          "width": 231.89312744140625,
+          "x": 846.8145141601562,
+          "y": 273.5375061035156
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 638.406982421875,
+          "height": 144.93328857421875,
+          "left": 230.8480224609375,
+          "right": 462.7413635253906,
+          "top": 493.47369384765625,
+          "width": 231.89334106445312,
+          "x": 230.8480224609375,
+          "y": 493.47369384765625
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 638.406982421875,
+          "height": 144.93328857421875,
+          "left": 538.831298828125,
+          "right": 770.7245483398438,
+          "top": 493.47369384765625,
+          "width": 231.89324951171875,
+          "x": 538.831298828125,
+          "y": 493.47369384765625
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 638.4069213867188,
+          "height": 144.9332275390625,
+          "left": 846.814453125,
+          "right": 1078.7076416015625,
+          "top": 493.47369384765625,
+          "width": 231.8931884765625,
+          "x": 846.814453125,
+          "y": 493.47369384765625
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 858.3432006835938,
+          "height": 144.93328857421875,
+          "left": 230.8480682373047,
+          "right": 462.7413940429687,
+          "top": 713.409912109375,
+          "width": 231.8933258056641,
+          "x": 230.8480682373047,
+          "y": 713.409912109375
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 858.3431396484375,
+          "height": 144.93328857421875,
+          "left": 538.8313598632812,
+          "right": 770.7245483398438,
+          "top": 713.4098510742188,
+          "width": 231.8931884765625,
+          "x": 538.8313598632812,
+          "y": 713.4098510742188
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 858.3430786132812,
+          "height": 144.9332275390625,
+          "left": 846.814453125,
+          "right": 1078.70751953125,
+          "top": 713.4098510742188,
+          "width": 231.89306640625,
+          "x": 846.814453125,
+          "y": 713.4098510742188
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 245.72503662109375,
+          "height": 111.19712829589844,
+          "left": 1151.813232421875,
+          "right": 1355.6744384765625,
+          "top": 134.5279083251953,
+          "width": 203.8612060546875,
+          "x": 1151.813232421875,
+          "y": 134.5279083251953
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.7248382568359,
+          "height": 111.1972198486328,
+          "left": 84.3207778930664,
+          "right": 288.1823501586914,
+          "top": 134.52761840820312,
+          "width": 203.861572265625,
+          "x": 84.3207778930664,
+          "y": 134.52761840820312
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "142.719",
+      "cameraPosition": "-2.2500,1.8700,3.6777",
+      "cameraQuaternion": "-0.000000,-0.000001,-0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":142.71870000000058,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.42815610000000176,\"cloudRotation\":1.027574640000004,\"cloudMorphTime\":142.71870000000058,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.009915007001598853,-0.009825286732039128,0.02295651205945106],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":142.7652157560442,\"duration\":1.3199200754580034,\"nextAt\":142.7652157560442},{\"visible\":false,\"phase\":0,\"startAt\":143.1694705705429,\"duration\":1.458852358348304,\"nextAt\":157.64567287688274}],\"meteorPhase\":0,\"meteorCycle\":20,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":22.7,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "85",
+      "frameP50": "49.10",
+      "frameP95": "66.70",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.5499999999999999,0.5499999999999999],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "115",
+      "rendererId": "01275f02-c73d-419f-aab2-eecead7d84d4",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "426463"
+    },
+    "url": "http://localhost:4173/projects",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-interrupted-flight-arrival",
+    "focus": "Read all chapters",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Read all chapters",
+        "rect": {
+          "bottom": 512.9948120117188,
+          "height": 76.60140991210938,
+          "left": 602.5125732421875,
+          "right": 872.872314453125,
+          "top": 436.3934020996094,
+          "width": 270.3597412109375,
+          "x": 602.5125732421875,
+          "y": 436.3934020996094
+        }
+      },
+      {
+        "label": "Experience → Projects",
+        "rect": {
+          "bottom": 249.7305145263672,
+          "height": 109.447265625,
+          "left": 94.9600830078125,
+          "right": 295.6134033203125,
+          "top": 140.2832489013672,
+          "width": 200.6533203125,
+          "x": 94.9600830078125,
+          "y": 140.2832489013672
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "experience",
+      "activeRoute": "[]",
+      "activeTime": "165.060",
+      "cameraPosition": "2.2483,1.8700,3.7403",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":165.05950000000368,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.49517850000001107,\"cloudRotation\":1.1884284000000265,\"cloudMorphTime\":165.05950000000368,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.005562223908512035,-0.01903354720650013,0.011526128661791268],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":163.17654803360347,\"duration\":1.1942780110059177,\"nextAt\":171.67804917643298},{\"visible\":false,\"phase\":0,\"startAt\":163.5261658655954,\"duration\":1.4633503629422195,\"nextAt\":184.9898821327089}],\"meteorPhase\":0,\"meteorCycle\":23,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":22.7,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "11",
+      "frameP50": "33.30",
+      "frameP95": "50.00",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.4591747983349426,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.580317885241845,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":5.16921953744819e-126,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"experience\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[0.8999999999999999,0.8999999999999999],\"labels\":1},\"about\":{\"dimmer\":1.4104804842795056e-112,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":1.4104804842795388e-112,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "66",
+      "rendererId": "01275f02-c73d-419f-aab2-eecead7d84d4",
+      "travelledRoute": "[\"projects\",\"experience\"]",
+      "travelling": "false",
+      "triangles": "337383"
+    },
+    "url": "http://localhost:4173/experience",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-overview-keyboard-project-highlight-final",
+    "focus": "Projects↗",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": true,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "553.617",
+      "cameraPosition": "-4.2878,2.4918,17.6781",
+      "cameraQuaternion": "-0.068137,-0.088720,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":553.6170000000282,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":1.6608510000000845,\"cloudRotation\":3.9860424000002026,\"cloudMorphTime\":553.6170000000282,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.034896923578210566,0.02137495318750464,0.0004650999374609736],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":556.5570343246945,\"duration\":1.127159049778021,\"nextAt\":556.5570343246945},{\"visible\":false,\"phase\":0,\"startAt\":556.9716847159326,\"duration\":1.1964288137034602,\"nextAt\":577.9109616224466}],\"meteorPhase\":0,\"meteorCycle\":79,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":22.7,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "33.50",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999999,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999999,\"fixtureEmission\":0.9999999999999999,\"pointIntensities\":[1.1499999999999997,1.1499999999999997],\"labels\":1},\"experience\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"about\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":5e-324,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.060000000000000005,0.060000000000000005],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "214",
+      "rendererId": "01275f02-c73d-419f-aab2-eecead7d84d4",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588987"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-overview-repeat-after-other-work",
+    "focus": "<style>.boot-loader { display: none !important; }</style>Ski",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "43.067",
+      "cameraPosition": "-4.3432,2.5170,18.1251",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":43.06660000000025,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.12919980000000075,\"cloudRotation\":0.3100795200000018,\"cloudMorphTime\":43.06660000000025,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.02655488279691667,0.029656423600005363,0.023395994257092337],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":44.92489106589346,\"duration\":1.2341354241061708,\"nextAt\":44.92489106589346},{\"visible\":false,\"phase\":0,\"startAt\":45.20120567809005,\"duration\":1.5405526853093763,\"nextAt\":45.20120567809005}],\"meteorPhase\":0,\"meteorCycle\":6,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":16.6,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "18.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":18.43978471552264,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "214",
+      "rendererId": "f88737e0-9c98-4a6a-b553-bbfcce6cf0da",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588987"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-projects-repeat-final",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 231.1832275390625,
+          "right": 462.9185791015625,
+          "top": 273.6959533691406,
+          "width": 231.7353515625,
+          "x": 231.1832275390625,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 538.9567260742188,
+          "right": 770.692138671875,
+          "top": 273.6959533691406,
+          "width": 231.73541259765625,
+          "x": 538.9567260742188,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 418.5305480957031,
+          "height": 144.8345947265625,
+          "left": 846.7302856445312,
+          "right": 1078.465576171875,
+          "top": 273.6959533691406,
+          "width": 231.73529052734375,
+          "x": 846.7302856445312,
+          "y": 273.6959533691406
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 638.3170166015625,
+          "height": 144.83456420898438,
+          "left": 231.1832275390625,
+          "right": 462.9185791015625,
+          "top": 493.4824523925781,
+          "width": 231.7353515625,
+          "x": 231.1832275390625,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 638.3170166015625,
+          "height": 144.83456420898438,
+          "left": 538.9567260742188,
+          "right": 770.692138671875,
+          "top": 493.4824523925781,
+          "width": 231.73541259765625,
+          "x": 538.9567260742188,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 638.3170166015625,
+          "height": 144.83456420898438,
+          "left": 846.7302856445312,
+          "right": 1078.465576171875,
+          "top": 493.4824523925781,
+          "width": 231.73529052734375,
+          "x": 846.7302856445312,
+          "y": 493.4824523925781
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 858.103515625,
+          "height": 144.8345947265625,
+          "left": 231.1832275390625,
+          "right": 462.9185791015625,
+          "top": 713.2689208984375,
+          "width": 231.7353515625,
+          "x": 231.1832275390625,
+          "y": 713.2689208984375
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 858.103515625,
+          "height": 144.8345947265625,
+          "left": 538.9567260742188,
+          "right": 770.692138671875,
+          "top": 713.2689208984375,
+          "width": 231.73541259765625,
+          "x": 538.9567260742188,
+          "y": 713.2689208984375
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 858.103515625,
+          "height": 144.8345947265625,
+          "left": 846.7302856445312,
+          "right": 1078.465576171875,
+          "top": 713.2689208984375,
+          "width": 231.73529052734375,
+          "x": 846.7302856445312,
+          "y": 713.2689208984375
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 245.90635681152344,
+          "height": 111.1196746826172,
+          "left": 1151.5147705078125,
+          "right": 1355.234130859375,
+          "top": 134.78668212890625,
+          "width": 203.7193603515625,
+          "x": 1151.5147705078125,
+          "y": 134.78668212890625
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 245.90635681152344,
+          "height": 111.1196746826172,
+          "left": 84.7658920288086,
+          "right": 288.4852828979492,
+          "top": 134.78668212890625,
+          "width": 203.71939086914065,
+          "x": 84.7658920288086,
+          "y": 134.78668212890625
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "42.933",
+      "cameraPosition": "-2.2500,1.8700,3.6804",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "1440,1000",
+      "environment": "{\"activeTime\":42.933300000000195,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.12879990000000058,\"cloudRotation\":0.3091197600000014,\"cloudMorphTime\":42.933300000000195,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.026494003804077203,0.02968858939884781,0.023336944756065563],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":44.92489106589346,\"duration\":1.2341354241061708,\"nextAt\":44.92489106589346},{\"visible\":false,\"phase\":0,\"startAt\":45.20120567809005,\"duration\":1.5405526853093763,\"nextAt\":45.20120567809005}],\"meteorPhase\":0,\"meteorCycle\":6,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":16.8,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-41.527035346144615,-201.13044348115577,-100.11880712885986],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "18.50",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":true,\"minimumDistance\":3.3878590403513544,\"maximumDistance\":4.216319091503084,\"distance\":4.216319091503084,\"chosenDistance\":3.5204126485356313,\"safe\":{\"left\":-0.9666666666666667,\"right\":0.9666666666666667,\"top\":0.952,\"bottom\":-0.84}}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.5499999999999998,0.5499999999999998],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "115",
+      "rendererId": "a55d51aa-2384-4df4-964d-8cd9fb5a9b20",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "426463"
+    },
+    "url": "http://localhost:4173/projects",
+    "viewport": [
+      1440,
+      1000
+    ]
+  },
+  {
+    "name": "production-phone-overview-final",
+    "focus": "<style>.boot-loader { display: none !important; }</style>Ski",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "24.567",
+      "cameraPosition": "-6.3171,4.2855,30.7578",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":24.566599999999855,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.07369979999999957,\"cloudRotation\":0.17687951999999896,\"cloudMorphTime\":24.566599999999855,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.016513025819271863,0.03323021538500998,0.014195905501318573],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":24.923884042305872,\"duration\":1.39156523392885,\"nextAt\":24.923884042305872},{\"visible\":false,\"phase\":0,\"startAt\":25.24281162953572,\"duration\":1.1324545105343533,\"nextAt\":45.20120567809005}],\"meteorPhase\":0,\"meteorCycle\":3,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "18.30",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":31.39678060895763,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512},\"cabinPriority\":true}",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "212",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "539930"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "production-phone-projects-final",
+    "focus": "View case study: Relay",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "View case study: Relay",
+        "rect": {
+          "bottom": 404.0818176269531,
+          "height": 55.217742919921875,
+          "left": 38.45767593383789,
+          "right": 126.80606460571288,
+          "top": 348.86407470703125,
+          "width": 88.348388671875,
+          "x": 38.45767593383789,
+          "y": 348.86407470703125
+        }
+      },
+      {
+        "label": "View case study: Fieldnotes",
+        "rect": {
+          "bottom": 404.0818176269531,
+          "height": 55.217742919921875,
+          "left": 137.0213623046875,
+          "right": 225.3697509765625,
+          "top": 348.86407470703125,
+          "width": 88.348388671875,
+          "x": 137.0213623046875,
+          "y": 348.86407470703125
+        }
+      },
+      {
+        "label": "View case study: Meter",
+        "rect": {
+          "bottom": 404.0818176269531,
+          "height": 55.217742919921875,
+          "left": 235.5850372314453,
+          "right": 323.9334411621094,
+          "top": 348.86407470703125,
+          "width": 88.34840393066406,
+          "x": 235.5850372314453,
+          "y": 348.86407470703125
+        }
+      },
+      {
+        "label": "View case study: Beacon",
+        "rect": {
+          "bottom": 474.4678649902344,
+          "height": 55.217742919921875,
+          "left": 38.45767593383789,
+          "right": 126.80606460571288,
+          "top": 419.2501220703125,
+          "width": 88.348388671875,
+          "x": 38.45767593383789,
+          "y": 419.2501220703125
+        }
+      },
+      {
+        "label": "View case study: Parcel",
+        "rect": {
+          "bottom": 474.4678649902344,
+          "height": 55.217742919921875,
+          "left": 137.0213623046875,
+          "right": 225.3697509765625,
+          "top": 419.2501220703125,
+          "width": 88.348388671875,
+          "x": 137.0213623046875,
+          "y": 419.2501220703125
+        }
+      },
+      {
+        "label": "View case study: Tempo",
+        "rect": {
+          "bottom": 474.4678649902344,
+          "height": 55.217742919921875,
+          "left": 235.5850372314453,
+          "right": 323.9334411621094,
+          "top": 419.2501220703125,
+          "width": 88.34840393066406,
+          "x": 235.5850372314453,
+          "y": 419.2501220703125
+        }
+      },
+      {
+        "label": "View case study: Ledger",
+        "rect": {
+          "bottom": 544.8539428710938,
+          "height": 55.217742919921875,
+          "left": 38.45767593383789,
+          "right": 126.80606460571288,
+          "top": 489.6361999511719,
+          "width": 88.348388671875,
+          "x": 38.45767593383789,
+          "y": 489.6361999511719
+        }
+      },
+      {
+        "label": "View case study: Harbor",
+        "rect": {
+          "bottom": 544.8539428710938,
+          "height": 55.217742919921875,
+          "left": 137.0213623046875,
+          "right": 225.3697509765625,
+          "top": 489.6361999511719,
+          "width": 88.348388671875,
+          "x": 137.0213623046875,
+          "y": 489.6361999511719
+        }
+      },
+      {
+        "label": "View case study: Atlas",
+        "rect": {
+          "bottom": 544.8539428710938,
+          "height": 55.217742919921875,
+          "left": 235.5850372314453,
+          "right": 323.9334411621094,
+          "top": 489.6361999511719,
+          "width": 88.34840393066406,
+          "x": 235.5850372314453,
+          "y": 489.6361999511719
+        }
+      },
+      {
+        "label": "Projects → Experience",
+        "rect": {
+          "bottom": 326.903076171875,
+          "height": 41.58758544921875,
+          "left": 289.958251953125,
+          "right": 366.2021179199219,
+          "top": 285.31549072265625,
+          "width": 76.24386596679688,
+          "x": 289.958251953125,
+          "y": 285.31549072265625
+        }
+      },
+      {
+        "label": "Projects → About",
+        "rect": {
+          "bottom": 326.903076171875,
+          "height": 41.58758544921875,
+          "left": 23.7978458404541,
+          "right": 100.04171943664552,
+          "top": 285.31549072265625,
+          "width": 76.2438735961914,
+          "x": 23.7978458404541,
+          "y": 285.31549072265625
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "74.699",
+      "cameraPosition": "-1.6500,1.8700,8.6010",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":74.6988000000032,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.2240964000000096,\"cloudRotation\":0.5378313600000231,\"cloudMorphTime\":74.6988000000032,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03489677693238957,0.019754164251278034,0.03342728117557665],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":72.63498902294668,\"duration\":1.188378897929033,\"nextAt\":80.71329014917137},{\"visible\":false,\"phase\":0,\"startAt\":72.97486964918295,\"duration\":1.395237864770752,\"nextAt\":100.80447459363218}],\"meteorPhase\":0,\"meteorCycle\":10,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.20",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.5499999999999998,0.5499999999999998],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "143",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "434150"
+    },
+    "url": "http://localhost:4173/projects",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "production-relay-390-final",
+    "focus": "Relay",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "98.632",
+      "cameraPosition": "-1.6500,1.3238,9.9343",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":98.63210000000709,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.29589630000002126,\"cloudRotation\":0.710151120000051,\"cloudMorphTime\":98.63210000000709,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.03221192403134354,0.009960660429986909,0.034803741471551075],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":100.4409627966379,\"duration\":1.4560742309262424,\"nextAt\":100.4409627966379},{\"visible\":false,\"phase\":0,\"startAt\":100.80447459363218,\"duration\":1.5298980714165737,\"nextAt\":100.80447459363218}],\"meteorPhase\":0,\"meteorCycle\":14,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.5499999999999998,0.5499999999999998],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "true",
+      "renderCalls": "155",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "452118"
+    },
+    "url": "http://localhost:4173/projects/relay",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "production-relay-320-final",
+    "focus": "Relay",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "projects",
+      "activeRoute": "[]",
+      "activeTime": "121.565",
+      "cameraPosition": "-1.6500,1.2317,10.6747",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "320,740",
+      "environment": "{\"activeTime\":121.56530000000957,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.3646959000000287,\"cloudRotation\":0.8752701600000689,\"cloudMorphTime\":121.56530000000957,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.022821789598714667,-0.0003343349773588429,0.030785364766799453],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":1,\"meteorPhases\":[0.027269668112236693,0],\"meteorStreams\":[{\"visible\":true,\"phase\":0.027269668112236693,\"startAt\":121.52408162700158,\"duration\":1.51150988850859,\"nextAt\":129.64242830243893},{\"visible\":false,\"phase\":0,\"startAt\":121.840242545683,\"duration\":1.1643726660855465,\"nextAt\":129.92337954809196}],\"meteorPhase\":0.027269668112236693,\"meteorCycle\":17,\"meteorVisible\":true,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-98.39402527251559,-250.2050647143119,-350.4978569889985],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.5499999999999998,0.5499999999999998],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "true",
+      "renderCalls": "156",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "452120"
+    },
+    "url": "http://localhost:4173/projects/relay",
+    "viewport": [
+      320,
+      740
+    ]
+  },
+  {
+    "name": "production-contact-phone-final",
+    "focus": "Let’s talk",
+    "headerHidden": true,
+    "hotspots": [
+      {
+        "label": "Let’s talk",
+        "rect": {
+          "bottom": 431.0747985839844,
+          "height": 30.393218994140625,
+          "left": 148.6187286376953,
+          "right": 246.3112640380859,
+          "top": 400.68157958984375,
+          "width": 97.69253540039062,
+          "x": 148.6187286376953,
+          "y": 400.68157958984375
+        }
+      },
+      {
+        "label": "Contact → About",
+        "rect": {
+          "bottom": 327.159912109375,
+          "height": 41.57232666015625,
+          "left": 24.160892486572266,
+          "right": 100.37683486938477,
+          "top": 285.58758544921875,
+          "width": 76.2159423828125,
+          "x": 24.160892486572266,
+          "y": 285.58758544921875
+        }
+      }
+    ],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "contact",
+      "activeRoute": "[]",
+      "activeTime": "177.698",
+      "cameraPosition": "1.6478,-1.5284,8.6042",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":177.69840000001716,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.5330952000000515,\"cloudRotation\":1.2794284800001234,\"cloudMorphTime\":177.69840000001716,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.014027533837101216,-0.023581535694491226,0.0042149398574716675],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":178.63872095059196,\"duration\":1.4645208180369083,\"nextAt\":178.63872095059196},{\"visible\":false,\"phase\":0,\"startAt\":179.04329023645494,\"duration\":1.5299526754704857,\"nextAt\":184.9898821327089}],\"meteorPhase\":0,\"meteorCycle\":25,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":7.948810688712266e-240,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"walkway\":{\"dimmer\":7.948810688712266e-240,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "85",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "320810"
+    },
+    "url": "http://localhost:4173/contact",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "production-contact-form-390-final",
+    "focus": "Contact",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "contact",
+      "activeRoute": "[]",
+      "activeTime": "247.115",
+      "cameraPosition": "1.6500,-2.0762,9.9343",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "390,844",
+      "environment": "{\"activeTime\":247.11490000002823,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.7413447000000847,\"cloudRotation\":1.7792272800002031,\"cloudMorphTime\":247.11490000002823,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[-0.03407904963603985,-0.034912065074674606,-0.03052149596819209],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":247.20941147320264,\"duration\":1.4974920201702844,\"nextAt\":247.20941147320264},{\"visible\":false,\"phase\":0,\"startAt\":247.52700886277177,\"duration\":1.1088837326338763,\"nextAt\":269.17665210050995}],\"meteorPhase\":0,\"meteorCycle\":35,\"meteorVisible\":false,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":5.3,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-94.35802770540113,-247.33992051593836,-331.53813527139283],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"room\",\"feasible\":false,\"minimumDistance\":8.393803125163574,\"maximumDistance\":4.26161310819426,\"distance\":null,\"chosenDistance\":8.443803125163575,\"safe\":{\"left\":-0.9282051282051282,\"right\":0.9282051282051282,\"top\":0.943127962085308,\"bottom\":-0.6862596267772512}}",
+      "itineraryRemaining": "0",
+      "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":true,\"startedOnControl\":true,\"response\":[0,0]}",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":1e-323,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"walkway\":{\"dimmer\":1e-323,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06000000000000001,0.06000000000000001],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "true",
+      "renderCalls": "94",
+      "rendererId": "876908e5-26a3-4801-9d01-1912295b724a",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "336834"
+    },
+    "url": "http://localhost:4173/contact?open=1",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "name": "production-tablet-overview-final",
+    "focus": "<style>.boot-loader { display: none !important; }</style>Ski",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "103.766",
+      "cameraPosition": "-5.5480,3.6874,26.4854",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "768,1024",
+      "environment": "{\"activeTime\":103.76640000000705,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.31129920000002115,\"cloudRotation\":0.7471180800000508,\"cloudMorphTime\":103.76640000000705,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.030639033545040318,0.007700636971231093,0.0343486018555263],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":true,\"meteorCount\":0,\"meteorPhases\":[0,0],\"meteorStreams\":[{\"visible\":false,\"phase\":0,\"startAt\":100.4409627966379,\"duration\":1.4560742309262424,\"nextAt\":108.94150266713405},{\"visible\":false,\"phase\":0,\"startAt\":100.80447459363218,\"duration\":1.5298980714165737,\"nextAt\":129.92337954809196}],\"meteorPhase\":0,\"meteorCycle\":14,\"meteorVisible\":false,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":17.5,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-67.43607913745996,-225.2090129245608,-208.80271221586463],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.20",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":27.014713803138484,\"safe\":{\"left\":-0.9375,\"right\":0.9375,\"top\":0.953125,\"bottom\":-0.84375},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "214",
+      "rendererId": "024bd56c-7945-45fc-84d8-c1c3b7067e90",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588987"
+    },
+    "url": "http://localhost:4173/",
+    "viewport": [
+      768,
+      1024
+    ]
+  },
+  {
+    "name": "production-short-landscape-reading-fallback",
+    "focus": "Contact",
+    "headerHidden": false,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {},
+    "url": "http://localhost:4173/contact",
+    "viewport": [
+      844,
+      390
+    ]
+  },
+  {
+    "name": "contact-320-final-audited",
+    "focus": "Development accessibility audit · 0 violations",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "contact",
+      "activeRoute": "[]",
+      "activeTime": "60.034",
+      "cameraPosition": "1.6500,-2.1683,10.6747",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "drawingBuffer": "320,740",
+      "environment": "{\"activeTime\":60.03410000000129,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.18010230000000388,\"cloudRotation\":0.43224552000000926,\"cloudMorphTime\":60.03410000000129,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":7,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":4,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.0326300099012918,0.024871059654118947,0.029834394589929494],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":1,\"meteorPhases\":[0.42565251900310697,0],\"meteorStreams\":[{\"visible\":true,\"phase\":0.42565251900310697,\"startAt\":59.498663152131485,\"duration\":1.2579200732179743,\"nextAt\":66.16974907844269},{\"visible\":false,\"phase\":0,\"startAt\":59.82421447810135,\"duration\":1.10870408667397,\"nextAt\":72.97486964918295}],\"meteorPhase\":0.42565251900310697,\"meteorCycle\":8,\"meteorVisible\":true,\"textureSize\":32,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":65536,\"proceduralTextureGpuBytes\":81141,\"proceduralGenerationMs\":7.4,\"proceduralNoiseDimensions\":[32,32,32],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":37449,\"proceduralNoiseMipLevels\":6,\"nebulaDimensions\":[128,64],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.0774,\"earthRadius\":180,\"earthPosition\":[-98.39402527251559,-250.2050647143119,-350.4978569889985],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.70",
+      "frameP95": "17.60",
+      "frameSamples": "360",
+      "itineraryRemaining": "0",
+      "layout": "compact",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.059999999999999984,0.059999999999999984],\"labels\":1},\"contact\":{\"dimmer\":0.9999999999999998,\"interiorColor\":0.9999999999999999,\"exteriorColor\":1,\"screenEmission\":0.9999999999999998,\"fixtureEmission\":0.9999999999999998,\"pointIntensities\":[0.8999999999999998,0.8999999999999998],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "1",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "true",
+      "renderCalls": "96",
+      "rendererId": "2c738ff7-b98b-446b-9fb7-de08300a2620",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "337052"
+    },
+    "url": "http://localhost:3000/contact?open=1&audit=1",
+    "viewport": [
+      320,
+      740
+    ]
+  },
+  {
+    "name": "delivered-localhost-normal-viewport",
+    "focus": "<style>.boot-loader { display: none !important; }</style>Ski",
+    "headerHidden": true,
+    "hotspots": [],
+    "navigationOpen": false,
+    "overflow": false,
+    "scene": {
+      "activeRoom": "home",
+      "activeRoute": "[]",
+      "activeTime": "150.598",
+      "cameraPosition": "-4.7079,2.8006,20.1514",
+      "cameraQuaternion": "-0.068137,-0.088721,-0.006083,0.993705",
+      "drawingBuffer": "2136,1672",
+      "environment": "{\"activeTime\":150.59770000000586,\"ready\":true,\"earthReady\":true,\"earthMode\":\"procedural-water\",\"earthRotation\":0.4517931000000176,\"cloudRotation\":1.0843034400000422,\"cloudMorphTime\":150.59770000000586,\"earthRotationRate\":0.003,\"cloudRotationRate\":0.0072,\"cloudFieldSamples\":8,\"cloudInterpolation\":\"baked-gradient-trilinear-mipmapped\",\"cloudFieldCells\":8,\"cloudSamplesPerCell\":8,\"cloudDetailFadeFootprint\":[0.18,0.6],\"cloudMorph\":[0.004524654289166895,-0.01320856928737457,0.019222734407880623],\"meteorGroupInterval\":[5,9],\"meteorPairEveryGroups\":4,\"meteorGroupHasPair\":false,\"meteorCount\":1,\"meteorPhases\":[0.10922331237791696,0],\"meteorStreams\":[{\"visible\":true,\"phase\":0.10922331237791696,\"startAt\":150.44908887361817,\"duration\":1.3606172817163042,\"nextAt\":157.22016964879003},{\"visible\":false,\"phase\":0,\"startAt\":150.7596549173651,\"duration\":1.3308173381097732,\"nextAt\":157.64567287688274}],\"meteorPhase\":0.10922331237791696,\"meteorCycle\":21,\"meteorVisible\":true,\"textureSize\":64,\"dayTextureSize\":0,\"cloudTextureSize\":0,\"proceduralTextureBytes\":393216,\"proceduralTextureGpuBytes\":474357,\"proceduralGenerationMs\":17.6,\"proceduralNoiseDimensions\":[64,64,64],\"proceduralNoiseFormat\":\"R8\",\"proceduralNoiseMipBytes\":299593,\"proceduralNoiseMipLevels\":7,\"nebulaDimensions\":[256,128],\"externalTextureRequests\":0,\"estimatedTextureMiB\":0.4524,\"earthRadius\":180,\"earthPosition\":[-45.410234837013775,-204.72847206145673,-115.34512480907475],\"drawCallBudget\":8}",
+      "frameOver50": "0",
+      "frameP50": "16.80",
+      "frameP95": "34.00",
+      "frameSamples": "360",
+      "framing": "{\"mode\":\"overview\",\"distance\":20.518115814151777,\"safe\":{\"left\":-0.9550561797752809,\"right\":0.9550561797752809,\"top\":0.9425837320574163,\"bottom\":-0.8086124401913876},\"cabinPriority\":false}",
+      "itineraryRemaining": "0",
+      "layout": "wide",
+      "lightingState": "{\"projects\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"experience\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"about\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"contact\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.05999999999999999,0.05999999999999999],\"labels\":1},\"walkway\":{\"dimmer\":0,\"interiorColor\":0.28,\"exteriorColor\":0.86,\"screenEmission\":0.22,\"fixtureEmission\":0.1,\"pointIntensities\":[0.06,0.06],\"labels\":1}}",
+      "pixelRatio": "2",
+      "pointerResponse": "0.00000,0.00000",
+      "readerAttached": "false",
+      "renderCalls": "215",
+      "rendererId": "d54e16ad-264b-4fda-9dd8-87b812cabbdd",
+      "travelledRoute": "[]",
+      "travelling": "false",
+      "triangles": "588989"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1068,
+      836
+    ]
+  }
+]

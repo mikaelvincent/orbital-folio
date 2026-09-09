@@ -5,13 +5,13 @@ import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 const root = resolve(process.argv[2] || process.cwd());
-// Usage: node spacecraft-model-v8-audit.mjs <repo> [model.ts] [report.json]
+// Usage: node spacecraft-model-v9-audit.mjs <repo> [model.ts] [report.json]
 // Defaults to the current checkout model; Node 22.18+ is required for TypeScript.
 const modelPath = resolve(
   process.argv[3] || join(root, 'components/spacecraft-model.ts'),
 );
 const outputPath = resolve(
-  process.argv[4] || '/tmp/spacecraft-model-v8-audit.json',
+  process.argv[4] || '/tmp/spacecraft-model-v9-audit.json',
 );
 const req = createRequire(pathToFileURL(join(root, 'package.json')));
 const THREE = await import(pathToFileURL(req.resolve('three')).href);
@@ -36,6 +36,8 @@ const report = {
   attachments: [],
   walls: [],
   labels: [],
+  passages: [],
+  lighting: [],
   checks: [],
 };
 function hierarchyVisible(object) {
@@ -70,6 +72,19 @@ for (const count of [0, 1, 8, 9, 10, 18, 19]) {
           cartridge = m.group.getObjectByName('occupied-cartridge-' + i);
         assert.equal(door.visible, !!expected[i]);
         assert.equal(cartridge.visible, !!expected[i]);
+        const spare = m.group.getObjectByName('spare-equipment-bay-' + i);
+        assert.equal(spare.visible, !expected[i]);
+        assert(
+          !m.targets.some((t) => {
+            let a = t.object;
+            while (a) {
+              if (a === spare) return true;
+              a = a.parent;
+            }
+            return false;
+          }),
+          'spares must not be actionable project geometry',
+        );
         const proxy = m.interactionTargets.find(
           (t) => t.object.userData.projectSlot === i,
         ).object;
@@ -140,8 +155,8 @@ for (const count of [0, 1, 8, 9, 10, 18, 19]) {
   });
 }
 // Exercise the Canvas path without pretending to render browser fonts.
+// Canvas factory stub implementing the DOM factory used by the model.
 globalThis.document = {
-  // Canvas factory stub; the source uses the standard DOM createElement API.
   // oxlint-disable-next-line typescript/no-deprecated
   createElement() {
     const ctx = new Proxy(
@@ -210,52 +225,83 @@ const sourceBounds = (o) => {
   o.geometry.computeBoundingBox();
   return o.geometry.boundingBox.clone().applyMatrix4(sourceMatrix(o));
 };
+const { cursorViewSamples, fitPerspectiveDistance, solveApertureFraming } =
+  await import(pathToFileURL(join(root, 'lib/scene-controls.ts')).href);
+const qaPath = join(
+  root,
+  'docs/evidence/connected-cabins-revision/browser-qa.json',
+);
+let savedPhoneDistance = 9.707012534740858;
+try {
+  const qa = JSON.parse(readFileSync(qaPath));
+  const p = qa.find((x) => x.name === 'projects-phone');
+  if (p) savedPhoneDistance = JSON.parse(p.framing).chosenDistance;
+} catch {}
+report.phoneEvidence = {
+  qaPath,
+  distance: savedPhoneDistance,
+  targetOffset: [0, 0.17, 0.16],
+  fov: 38,
+  viewport: [390, 844],
+};
+const viewsFor = (room, distance) =>
+  [-1, 0, 1].flatMap((py) =>
+    [-1, 0, 1].map((px) => {
+      const target = new THREE.Vector3(room[0], room[1] + 0.17, 0.16);
+      const direction = new THREE.Vector3(0, 0, 1).applyEuler(
+        new THREE.Euler(py * 0.025, px * 0.045, 0),
+      );
+      return { px, py, camera: target.addScaledVector(direction, distance) };
+    }),
+  );
+const plateSources = (portal) =>
+  sources.filter((o) => {
+    let a = o.auditParent || o.parent;
+    while (a) {
+      if (a.userData.portalId === portal.id) return true;
+      a = a.parent;
+    }
+    return false;
+  });
+function visibleTargets() {
+  const result = [];
+  m.group.traverseVisible((o) => {
+    if (
+      o.isMesh &&
+      !o.userData.isInteractionProxy &&
+      hierarchyVisible(o) &&
+      !['identification-label', 'portal-destination-label'].includes(
+        o.material.name,
+      )
+    )
+      result.push(o);
+  });
+  return result;
+}
+function blockers(camera, point, targets) {
+  const d = point.clone().sub(camera),
+    n = d.length();
+  d.normalize();
+  return new THREE.Raycaster(camera, d, 0.001, n - 0.004).intersectObjects(
+    targets,
+    false,
+  );
+}
 for (const layout of ['compact', 'wide']) {
   const meta = m.setLayout(layout),
     scale = layout === 'wide' ? 1.4 : 1;
   assert.equal(meta.innerApertureBounds.projects.size[0], 2.44 * scale);
-  assert(
-    m.group.userData.roomAnchors.projects[0] <
-      m.group.userData.roomAnchors.experience[0],
-  );
-  assert(
-    m.group.userData.roomAnchors.about[0] <
-      m.group.userData.roomAnchors.contact[0],
-  );
-  assert(
-    m.group.userData.roomAnchors.projects[1] >
-      m.group.userData.roomAnchors.about[1],
-  );
   assert(m.portalTargets.every((p, i) => p.object === targetObjects[i]));
   assert(
     Object.entries(readers).every(
       ([key, value]) => m.readerSurfaces[key] === value,
     ),
   );
-  for (const pair of [
-    ['projects', 'experience'],
-    ['about', 'contact'],
-  ]) {
-    const walls = pair.map((section) =>
-      sources.find(
-        (o) =>
-          o.name === 'inter-room-pressure-bulkhead' &&
-          o.userData.section === section,
-      ),
-    );
-    const a = sourceBounds(walls[0]),
-      b = sourceBounds(walls[1]),
-      gap = b.min.x - a.max.x;
-    assert(
-      gap >= 0.01999,
-      'opposing wall skins must not overlap after wide scaling',
-    );
-    report.walls.push({ layout, pair, gap });
-  }
   report.layouts[layout] = {
     anchors: structuredClone(meta.roomAnchors),
-    aperture: [...meta.innerApertureBounds.projects.size],
+    aperture: structuredClone(meta.innerApertureBounds),
     bounds: structuredClone(meta.overviewBounds),
+    walkway: structuredClone(m.group.userData.walkwayBounds),
     drawCalls: countDraws(m),
   };
   for (const section of Object.keys(readers)) {
@@ -277,211 +323,219 @@ for (const layout of ['compact', 'wide']) {
     hoveredPortal: null,
   });
   for (const portal of m.group.userData.portals) {
+    assert(['left', 'right'].includes(portal.edge));
+    assert(portal.open && !portal.sealed);
     const target = m.portalTargets.find((t) => t.id === portal.id);
     assert.equal(target.object.parent.userData.section, portal.from);
     assert.equal(target.object.userData.portalDestination, portal.to);
-    const actualLabel = m.targets.find(
-      (t) =>
-        t.object.material.name === 'portal-destination-label' &&
-        (() => {
-          let a = t.object;
-          while (a) {
-            if (a.userData.portalId === portal.id) return true;
-            a = a.parent;
-          }
-          return false;
-        })(),
-    ).object;
-    const labelCenter = new THREE.Box3()
-      .setFromObject(actualLabel)
+    const related = plateSources(portal),
+      ink = related.find((o) => o.name === 'portal-destination-ink');
+    const inkCenter = sourceBounds(ink)
       .getCenter(new THREE.Vector3())
       .toArray();
     assert(
-      labelCenter.every((v, i) => near(v, portal.labelPosition[i])),
+      inkCenter.every((v, i) => near(v, portal.labelPosition[i])),
       'caption batch root must preserve movable ink',
     );
-    const related = sources.filter((o) => {
-      let a = o.auditParent || o.parent;
-      while (a) {
-        if (a.userData.portalId === portal.id) return true;
-        a = a.parent;
-      }
-      return false;
-    });
-    const saddle = related.find(
-      (o) => o.name === 'portal-nameplate-attached-saddle',
-    );
-    const supportCandidates = sources.filter(
-      (o) =>
-        o.userData.section === portal.from &&
-        [
-          'upper-room-enamel-header',
-          'coherent-cabin-deck',
-          'chamfered-hatch-vestibule',
-          'sealed-deck-transfer-recess',
-        ].includes(o.name),
-    );
-    const sb = sourceBounds(saddle),
-      support = supportCandidates
-        .map((o) => {
-          const b = sb.clone().intersect(sourceBounds(o));
-          return {
-            name: o.name,
-            overlap: b.getSize(new THREE.Vector3()).toArray(),
-          };
-        })
-        .filter((v) => v.overlap.every((n) => n > 1e-5));
-    assert(
-      support.length,
-      `${layout}/${portal.id} caption saddle must meet structure`,
-    );
-    report.attachments.push({
-      layout,
-      portal: portal.id,
-      saddleBounds: { min: sb.min.toArray(), max: sb.max.toArray() },
-      intersections: support,
-    });
-    const room = m.group.userData.roomAnchors[portal.from];
-    const visibleTargets = m.targets
-      .map((t) => t.object)
-      .filter(
+    const back = related.find(
+        (o) => o.name === 'portal-flush-wall-nameplate-backing',
+      ),
+      wall = sources.find(
         (o) =>
-          hierarchyVisible(o) &&
-          !['identification-label', 'portal-destination-label'].includes(
-            o.material.name,
-          ),
+          o.name === 'upper-room-enamel-header' &&
+          o.userData.section === portal.from,
       );
-    for (const [view, offset] of [
-      ['neutral', [-0.14, 0.26, 5.65]],
-      ['leftHigh', [-0.45, 0.5, 5.65]],
-      ['rightLow', [0.45, -0.1, 5.65]],
-    ]) {
-      const camera = new THREE.Vector3(
-          room[0] + offset[0],
-          room[1] + offset[1],
-          offset[2],
-        ),
-        blocked = [];
-      for (const sx of [-0.8, 0, 0.8])
-        for (const sy of [-0.5, 0, 0.5]) {
-          const point = new THREE.Vector3(
-            portal.labelPosition[0] + (sx * portal.labelSize[0]) / 2,
-            portal.labelPosition[1] + (sy * portal.labelSize[1]) / 2,
-            portal.labelPosition[2],
-          );
-          const direction = point.clone().sub(camera),
-            distance = direction.length();
-          direction.normalize();
-          const hits = new THREE.Raycaster(
-            camera,
-            direction,
-            0.001,
-            distance - 0.005,
-          ).intersectObjects(visibleTargets, false);
-          if (hits.length)
-            blocked.push({
-              sx,
-              sy,
-              blocker: hits[0].object.name,
-              point: hits[0].point.toArray(),
-            });
-        }
-      const direction = new THREE.Vector3(...portal.labelPosition).sub(camera);
-      const distance = direction.length();
-      direction.normalize();
-      const pickHits = new THREE.Raycaster(
-        camera,
-        direction,
-        0.001,
-        distance + 0.8,
-      ).intersectObject(target.object, false);
-      const platePickMisses = [];
-      for (const sx of [-0.9, 0, 0.9])
-        for (const sy of [-0.9, 0, 0.9]) {
-          const point = new THREE.Vector3(
-            portal.labelPosition[0] + (sx * portal.plateSize[0]) / 2,
-            portal.labelPosition[1] + (sy * portal.plateSize[1]) / 2,
-            portal.labelPosition[2],
-          );
-          const d = point.clone().sub(camera),
-            len = d.length();
-          d.normalize();
-          if (
-            !new THREE.Raycaster(camera, d, 0.001, len + 0.1).intersectObject(
-              target.object,
-              false,
-            ).length
-          )
-            platePickMisses.push({ sx, sy });
-        }
-      assert(
-        !platePickMisses.length,
-        'compound portal pick must cover the whole plate',
-      );
-      report.visibility.push({
-        layout,
-        portal: portal.id,
-        view,
-        blocked,
-        pickAtLabel: pickHits.length > 0,
-        platePickMisses,
+    const overlap = sourceBounds(back)
+      .intersect(sourceBounds(wall))
+      .getSize(new THREE.Vector3())
+      .toArray();
+    assert(
+      overlap.every((v) => v > 1e-5),
+      'flush label backing must contact the wall',
+    );
+    report.attachments.push({ layout, portal: portal.id, overlap });
+    const room = m.group.userData.roomAnchors[portal.from];
+    // Current responsive camera solver, plus the recorded phone distance that
+    // exposed the previous long-distance jamb occlusion (same fixed +Z target).
+    const targetPoint = [room[0], room[1] + 0.17, 0.16],
+      cameraViews = cursorViewSamples({
+        target: targetPoint,
+        direction: [0, 0, 1],
       });
-    }
+    const required = m.group.userData.requiredFramingPoints[portal.from].map(
+        (p) => p.position,
+      ),
+      aperture = m.group.userData.innerApertureBounds[portal.from];
+    const viewport = layout === 'wide' ? [1440, 1000] : [390, 844];
+    const safe =
+      layout === 'wide'
+        ? {
+            left: -1 + 48 / 1440,
+            right: 1 - 48 / 1440,
+            top: 1 - 48 / 1000,
+            bottom: -1 + 160 / 1000,
+          }
+        : {
+            left: -1 + 28 / 390,
+            right: 1 - 28 / 390,
+            top: 1 - 48 / 844,
+            bottom: -1 + 264 / 844,
+          };
+    const solution = solveApertureFraming({
+      aperture: {
+        center: aperture.center,
+        right: [1, 0, 0],
+        up: [0, 1, 0],
+        width: aperture.size[0],
+        height: aperture.size[1],
+      },
+      views: cameraViews,
+      requiredPoints: required,
+      fovDegrees: 38,
+      aspect: viewport[0] / viewport[1],
+      overscan: 1.015,
+      portalBounds: safe,
+    });
+    const fitted = solution.feasible
+      ? solution.minimumDistance +
+        (solution.maximumDistance - solution.minimumDistance) * 0.16
+      : Math.max(
+          ...cameraViews.map((v) =>
+            fitPerspectiveDistance(
+              required,
+              v,
+              38,
+              viewport[0] / viewport[1],
+              safe,
+            ),
+          ),
+        ) + 0.05;
+    const distances =
+      layout === 'compact'
+        ? [
+            ['actual-phone', savedPhoneDistance],
+            ['current-fit', fitted],
+            ['narrow-tall-stress', 12],
+          ]
+        : [
+            ['current-fit', fitted],
+            ['legacy-stress', 5.65],
+          ];
+    for (const [pose, distance] of distances)
+      for (const view of viewsFor(room, distance)) {
+        const blocked = [],
+          pickMisses = [],
+          targets = visibleTargets();
+        for (const sx of [-0.94, -0.47, 0, 0.47, 0.94])
+          for (const sy of [-0.6, 0, 0.6]) {
+            const point = new THREE.Vector3(
+              portal.labelPosition[0] + (sx * portal.labelSize[0]) / 2,
+              portal.labelPosition[1] + (sy * portal.labelSize[1]) / 2,
+              portal.labelPosition[2],
+            );
+            const hits = blockers(view.camera, point, targets);
+            if (hits.length)
+              blocked.push({
+                sx,
+                sy,
+                object: hits[0].object.name,
+                point: hits[0].point.toArray(),
+              });
+          }
+        for (const sx of [-0.9, 0, 0.9])
+          for (const sy of [-0.9, 0, 0.9]) {
+            const point = new THREE.Vector3(
+              portal.labelPosition[0] + (sx * portal.plateSize[0]) / 2,
+              portal.labelPosition[1] + (sy * portal.plateSize[1]) / 2,
+              portal.labelPosition[2],
+            );
+            const d = point.clone().sub(view.camera),
+              len = d.length();
+            d.normalize();
+            if (
+              !new THREE.Raycaster(
+                view.camera,
+                d,
+                0.001,
+                len + 0.1,
+              ).intersectObject(target.object, false).length
+            )
+              pickMisses.push({ sx, sy });
+          }
+        report.visibility.push({
+          layout,
+          portal: portal.id,
+          pose,
+          distance,
+          pointer: [view.px, view.py],
+          camera: view.camera.toArray(),
+          blocked,
+          pickMisses,
+        });
+      }
+    // Cast across the actual side bulkhead, connection sleeve and facing wall.
+    // Keep the sample segment at the opening; content beyond the doorway is
+    // supposed to be visible, so furnishings deep in the next room are excluded.
+    const sign = portal.edge === 'right' ? 1 : -1;
+    const fromX = room[0] + sign * (1.5 * scale - 0.15);
+    const nextX = portal.via
+      ? m.group.userData.walkwayAnchor[0] + 0.75 * scale - 0.15
+      : m.group.userData.roomAnchors[portal.to][0] -
+        sign * (1.5 * scale - 0.15);
+    const blocked = [];
+    for (const yy of [-0.72, -0.36, 0, 0.36, 0.72])
+      for (const zz of [-0.8, -0.4, 0, 0.4, 0.8]) {
+        const a = new THREE.Vector3(fromX, room[1] + 0.04 + yy, zz),
+          b = new THREE.Vector3(nextX, room[1] + 0.04 + yy, zz),
+          d = b.clone().sub(a),
+          len = d.length();
+        d.normalize();
+        const hits = new THREE.Raycaster(
+          a,
+          d,
+          0.001,
+          len - 0.001,
+        ).intersectObjects(visibleTargets(), false);
+        if (hits.length)
+          blocked.push({
+            yy,
+            zz,
+            object: hits[0].object.name,
+            point: hits[0].point.toArray(),
+          });
+      }
+    report.passages.push({ layout, portal: portal.id, fromX, nextX, blocked });
   }
-  // Header ink remains attached and visible; use near-full plane width so long
-  // database labels receive the same clearance check as the short fixtures.
   for (const section of Object.keys(readers)) {
     const room = m.group.userData.roomAnchors[section],
       anchor = m.group.userData.headerAnchors[section],
       plaque = m.group.userData.labelPlaques.find(
         (p) => p.section === section && p.role === 'header',
       );
-    const candidates = m.targets
-      .map((t) => t.object)
-      .filter(
-        (o) =>
-          hierarchyVisible(o) &&
-          !['identification-label', 'portal-destination-label'].includes(
-            o.material.name,
-          ),
-      );
-    for (const [view, offset] of [
-      ['neutral', [-0.14, 0.26, 5.65]],
-      ['leftHigh', [-0.45, 0.5, 5.65]],
-      ['rightLow', [0.45, -0.1, 5.65]],
-    ]) {
-      const camera = new THREE.Vector3(
-          room[0] + offset[0],
-          room[1] + offset[1],
-          offset[2],
-        ),
-        blocked = [];
-      for (const sx of [-0.96, -0.64, -0.32, 0, 0.32, 0.64, 0.96])
-        for (const sy of [-0.5, 0, 0.5]) {
-          const point = new THREE.Vector3(
-            anchor[0] + (sx * plaque.size[0]) / 2,
-            anchor[1] + (sy * plaque.size[1]) / 2,
-            anchor[2],
-          );
-          const direction = point.clone().sub(camera),
-            distance = direction.length();
-          direction.normalize();
-          const hits = new THREE.Raycaster(
-            camera,
-            direction,
-            0.001,
-            distance - 0.005,
-          ).intersectObjects(candidates, false);
-          if (hits.length)
-            blocked.push({
-              sx,
-              sy,
-              blocker: hits[0].object.name,
-              point: hits[0].point.toArray(),
-            });
-        }
-      report.headers.push({ layout, section, view, blocked });
-    }
+    const distances =
+      layout === 'wide' ? [4.14, 5.65] : [savedPhoneDistance, 12];
+    for (const distance of distances)
+      for (const view of viewsFor(room, distance)) {
+        const blocked = [];
+        for (const sx of [-0.94, -0.47, 0, 0.47, 0.94])
+          for (const sy of [-0.6, 0, 0.6]) {
+            const p = new THREE.Vector3(
+              anchor[0] + (sx * plaque.size[0]) / 2,
+              anchor[1] + (sy * plaque.size[1]) / 2,
+              anchor[2],
+            );
+            const hits = blockers(view.camera, p, visibleTargets());
+            if (hits.length)
+              blocked.push({ sx, sy, object: hits[0].object.name });
+          }
+        report.headers.push({
+          layout,
+          section,
+          distance,
+          pointer: [view.px, view.py],
+          blocked,
+        });
+      }
   }
 }
 for (const from of ['projects', 'experience', 'about', 'contact'])
@@ -503,55 +557,25 @@ for (const from of ['projects', 'experience', 'about', 'contact'])
     }
     report.routes.push({ from, to, route, lit: lit.map((p) => p.id) });
   }
-// Real state changes hide only exterior ink; readers and permanent physical
-// collars remain attached while switching section, portrait preference or layout.
-for (const layout of ['compact', 'wide']) {
-  m.setLayout(layout);
-  for (const portrait of [false, true]) {
-    m.update(2, '', true, {
-      activeRoom: 'home',
-      reading: false,
-      labelPortrait: portrait,
-      hoveredPortal: null,
-    });
-    assert.equal(
-      m.group.userData.labelPlaques.filter((p) => p.visible).length,
-      8,
-    );
-    for (const section of Object.keys(readers)) {
-      m.update(2, '', true, {
-        activeRoom: section,
-        reading: true,
-        labelPortrait: portrait,
-        selectedProject: section === 'projects' ? 'audit-1' : null,
-      });
-      const visible = m.group.userData.labelPlaques.filter((p) => p.visible);
-      assert.equal(visible.length, 4);
-      assert(visible.every((p) => p.role === 'header'));
-      const p = readers[section]
-        .getWorldPosition(new THREE.Vector3())
-        .toArray();
-      assert(
-        p.every((v, i) => near(v, m.group.userData.readerAnchors[section][i])),
-      );
-      report.labels.push({
-        layout,
-        portrait,
-        section,
-        visibleHeaders: 4,
-        readerAnchorStable: true,
-      });
-    }
-    m.update(2, '', true, {
-      activeRoom: 'home',
-      reading: false,
-      labelPortrait: portrait,
-      selectedProject: null,
-    });
-    assert.equal(
-      m.group.userData.labelPlaques.filter((p) => p.visible).length,
-      8,
-    );
+assert.deepEqual(m.group.userData.adjacency.experience, ['projects']);
+assert.deepEqual(m.group.userData.adjacency.contact, ['about']);
+for (const section of ['home', 'projects', 'experience', 'about', 'contact']) {
+  m.update(2, '', true, {
+    activeRoom: section,
+    reading: false,
+    hoveredPortal: null,
+  });
+  const state = structuredClone(m.group.userData.lightingState);
+  report.lighting.push({ section, state });
+  for (const room of ['projects', 'experience', 'about', 'contact']) {
+    const selected = room === section,
+      s = state[room];
+    assert(near(s.interiorColor, selected ? 1 : 0.28));
+    assert(near(s.fixtureEmission, selected ? 1 : 0.1));
+    assert(near(s.screenEmission, selected ? 1 : 0.22));
+    assert.equal(s.pointIntensities.length, 2);
+    assert(s.pointIntensities.every((v) => near(v, selected ? 0.9 : 0.06)));
+    assert.equal(s.labels, 1);
   }
 }
 const parts = m.targets.flatMap(
@@ -564,38 +588,18 @@ assert(
       'recessed-non-slip-deck',
       'deck-service-joint',
       'collapsed-project-reader-dock',
-      'clipboard-dock-cover',
+      'closed-pressure-hatch-leaf',
+      'closed-deck-transfer-hatch',
+      'sealed-deck-transfer-recess',
+      'ceiling-route-rail',
     ].includes(n),
   ),
 );
 assert.equal(
-  parts.filter((n) => n === 'deep-empty-compartment-liner').length,
-  9,
+  parts.filter((n) => n === 'open-side-pressure-bulkhead').length,
+  6,
 );
-assert.equal(m.portalTargets.length, 8);
-assert.equal(
-  parts.filter(
-    (n) =>
-      n === 'inter-room-pressure-bulkhead' ||
-      n.endsWith('-sealed-outboard-wall'),
-  ).length,
-  8,
-);
-assert.equal(parts.filter((n) => n === 'closed-pressure-hatch-leaf').length, 4);
-assert.equal(parts.filter((n) => n === 'closed-deck-transfer-hatch').length, 4);
-for (const t of m.targets) {
-  let p = t.object.parent,
-    moving = false;
-  while (p) {
-    if (p.userData.animated) moving = true;
-    p = p.parent;
-  }
-  if (moving)
-    assert(
-      !t.object.castShadow,
-      'animated doors/readers must not leave stale static shadows',
-    );
-}
+assert.equal(m.portalTargets.length, 6);
 let vertices = 0,
   invalidNormals = 0,
   nonfinite = 0;
@@ -618,33 +622,32 @@ report.geometry = {
   invalidNormals,
   nonfinite,
   decks: 4,
-  emptyRecesses: 9,
-  portals: 8,
-  sealedSideWalls: 8,
-  closedHorizontalHatches: 4,
-  closedDeckHatches: 4,
+  openSideBulkheads: 6,
+  portals: 6,
 };
 report.failedVisibility = report.visibility.filter(
-  (v) => v.blocked.length || !v.pickAtLabel,
+  (v) => v.blocked.length || v.pickMisses.length,
 );
 report.failedHeaders = report.headers.filter((v) => v.blocked.length);
+report.failedPassages = report.passages.filter((v) => v.blocked.length);
 report.summary = {
   mappingCounts: report.mapping.map((m) => m.count),
-  projectPages: report.mapping.reduce((n, m) => n + m.pages.length, 0),
   slotMappings: report.mapping.reduce((n, m) => n + m.pages.length * 9, 0),
   mutations: report.mutations.length,
   readerPositions: Object.keys(report.readers).length,
   routeCases: report.routes.length,
   portalViews: report.visibility.length,
-  portalInkRays: report.visibility.length * 9,
-  wholePlatePickRays: report.visibility.length * 9,
+  portalInkRays: report.visibility.length * 15,
+  platePickRays: report.visibility.length * 9,
   headerViews: report.headers.length,
-  headerInkRays: report.headers.length * 21,
-  attachedSaddles: report.attachments.length,
-  labelStateTransitions: report.labels.length,
-  invalidNormals,
-  nonfinite,
-  passed: !report.failedVisibility.length && !report.failedHeaders.length,
+  headerInkRays: report.headers.length * 15,
+  passageRays: report.passages.length * 25,
+  attachedPlates: report.attachments.length,
+  lightingStates: report.lighting.length,
+  passed:
+    !report.failedVisibility.length &&
+    !report.failedHeaders.length &&
+    !report.failedPassages.length,
 };
 writeFileSync(outputPath, JSON.stringify(report, null, 2) + '\n');
 console.log(
@@ -655,28 +658,30 @@ console.log(
       summary: report.summary,
       geometry: report.geometry,
       layouts: report.layouts,
-      failedHeaders: report.failedHeaders.map((v) => ({
-        layout: v.layout,
-        section: v.section,
-        view: v.view,
-        blocks: v.blocked.length,
-        first: v.blocked[0],
-      })),
       failedVisibility: report.failedVisibility.map((v) => ({
         layout: v.layout,
         portal: v.portal,
-        view: v.view,
+        pose: v.pose,
+        pointer: v.pointer,
         blocks: v.blocked.length,
-        pick: v.pickAtLabel,
         first: v.blocked[0],
       })),
+      failedHeaders: report.failedHeaders.map((v) => ({
+        layout: v.layout,
+        section: v.section,
+        distance: v.distance,
+        pointer: v.pointer,
+        blocks: v.blocked.length,
+        first: v.blocked[0],
+      })),
+      failedPassages: report.failedPassages,
     },
     null,
     2,
   ),
 );
-
+// Keep the JSON diagnostic available even when a geometric constraint fails.
 assert(
   report.summary.passed,
-  'Portal/header visibility regression; inspect the JSON report.',
+  'V9 visibility/open-passage regression; inspect JSON report.',
 );

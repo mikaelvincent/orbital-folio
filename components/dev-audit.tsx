@@ -35,8 +35,10 @@ function AuditPanel() {
     }
   }
   async function runFrameControl() {
-    const scene = document.querySelector<HTMLElement>('#ship');
-    if (scene?.dataset.motion !== 'reduced') return;
+    const scene = document.querySelector('#ship canvas')
+      ? document.querySelector<HTMLElement>('#ship')
+      : null;
+    if (scene && scene.dataset.motion !== 'reduced') return;
     const intervals: number[] = [];
     const started = performance.now();
     let last = 0;
@@ -61,10 +63,13 @@ function AuditPanel() {
     setReport((previous: any) => ({
       ...previous,
       frameControl: {
-        scope:
-          'Display callbacks while the spacecraft renderer is paused; host scheduling control, not GPU timing.',
-        motionBefore: 'reduced',
-        motionAfter: scene?.dataset.motion,
+        scope: scene
+          ? 'Display callbacks while the spacecraft renderer is paused; host scheduling control, not GPU timing.'
+          : 'Display callbacks with the renderer absent in Reading view; host scheduling control, not GPU timing.',
+        motionBefore: scene ? 'reduced' : 'renderer absent',
+        motionAfter: scene?.dataset.motion || 'renderer absent',
+        canvasCount: document.querySelectorAll('canvas').length,
+        devicePixelRatio,
         hidden: document.hidden,
         width: innerWidth,
         height: innerHeight,
@@ -176,7 +181,7 @@ function AuditPanel() {
         Toggle shadow diagnostic
       </button>
       <button type="button" className="button" onClick={runFrameControl}>
-        Run paused frame control
+        Run renderer frame control
       </button>
       <button type="button" className="button" onClick={runTouchBranches}>
         Check touch event branches

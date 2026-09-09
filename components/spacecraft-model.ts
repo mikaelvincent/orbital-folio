@@ -1,5 +1,5 @@
 /**
- * Orbital toybox, v8. Self-contained procedural Three.js asset.
+ * Orbital toybox, v9. Self-contained procedural Three.js asset.
  * +Y up and +Z front. Four independent pressure cabins use metadata anchors.
  * Every visible mesh carries userData.section and is returned as a pick target.
  * Static parts are batched per room/material; repeated fittings use instancing.
@@ -113,12 +113,13 @@ export function createSpacecraft(
     draw: (project: SpacecraftProject | null, index: number) => void;
     project: SpacecraftProject | null;
     cartridge: any;
+    spare: any;
   }> = [];
   const readerSurfaces: Record<string, any> = {};
   const structures: Record<string, any> = {};
   const contents: Record<string, any> = {};
   const labelMounts = new Map<any, any>();
-  const verticalCouplings: any[] = [];
+  const walkwayCouplings: any[] = [];
   const portalTargets: Array<{
     object: any;
     section: string;
@@ -128,11 +129,12 @@ export function createSpacecraft(
     id: string;
   }> = [];
   const portals: Array<any> = [];
+  // One continuous C-shaped circulation route; there are no deck openings.
   const adjacency: Record<string, string[]> = {
     projects: ['experience', 'about'],
-    experience: ['projects', 'contact'],
-    about: ['contact', 'projects'],
-    contact: ['about', 'experience'],
+    experience: ['projects'],
+    about: ['projects', 'contact'],
+    contact: ['about'],
   };
   let currentLayout: 'wide' | 'compact' = 'compact';
   let layoutScale = 1;
@@ -287,6 +289,9 @@ export function createSpacecraft(
     roomDimmers[section] = 0;
     roomMaterials[section] = [];
   }
+  roomMaterials.walkway = [];
+  strengths.walkway = 0;
+  roomDimmers.walkway = 0;
   function sectionOf(parent: any): string {
     return (
       parent.userData.section ||
@@ -844,10 +849,12 @@ export function createSpacecraft(
         'external-amber-lifting-tab',
       );
     }
-    const light = new THREE.PointLight(0xffb86c, 2.1, 3.4, 2);
-    light.position.set(x, 0.8, 0.15);
-    room.add(light);
-    roomLights[section] = light;
+    roomLights[section] = [-0.66, 0.66].map((dx) => {
+      const light = new THREE.PointLight(0xffc792, 0.9, 3.1, 2);
+      light.position.set(x + dx, 1.045, 0.48);
+      room.add(light);
+      return light;
+    });
     box(
       2.25,
       0.018,
@@ -925,7 +932,7 @@ export function createSpacecraft(
     );
     plaque(
       options.labels?.[section] || `MOD-0${index + 1}`,
-      1.4,
+      1.26,
       0.18,
       x,
       1.006,
@@ -1083,68 +1090,271 @@ export function createSpacecraft(
       'captive-collar-fasteners',
     );
   }
-  // Each module owns both sealed side walls. Chamfered hatch vestibules
-  // mount against these bulkheads; pressure sleeves bridge the exterior gaps.
+  const passageShape = roundedPath(new THREE.Shape(), 2.5, 2.88, 0.48);
+  const roomOpening = roundedPath(new THREE.Path(), 2.1, 2.06, 0.25);
+  for (const curve of roomOpening.curves) {
+    if (curve.v0) curve.v0.x += 0.1;
+    if (curve.v1) curve.v1.x += 0.1;
+    if (curve.v2) curve.v2.x += 0.1;
+  }
+  passageShape.holes.push(roomOpening);
+  const openWallGeometry = new THREE.ExtrudeGeometry(passageShape, {
+    depth: 0.14,
+    bevelEnabled: true,
+    bevelSize: 0.02,
+    bevelThickness: 0.02,
+    bevelSegments: 3,
+    curveSegments: 16,
+  });
+  openWallGeometry.translate(0, 0, -0.07);
+  openWallGeometry.rotateY(Math.PI / 2);
+  // Projects/About open on both sides; right-column cabins open only left.
   for (const section of Object.keys(roomCenters)) {
     const room = structures[section],
       origin = legacyCenters[section];
     const leftColumn = section === 'projects' || section === 'about';
     for (const sign of [-1, 1]) {
-      const x = origin + sign * 1.5;
-      const passage = leftColumn ? sign === 1 : sign === -1;
+      const passage = leftColumn || sign === -1;
       const wall = mesh(
-        endWallGeometry,
+        passage ? openWallGeometry : endWallGeometry,
         m.shell,
         room,
         passage
-          ? 'inter-room-pressure-bulkhead'
+          ? 'open-side-pressure-bulkhead'
           : section + '-sealed-outboard-wall',
       );
-      wall.position.set(x, 0.04, 0);
+      wall.position.set(origin + sign * 1.5, 0.04, 0);
     }
   }
+
+  const thresholdLiner = mat(
+    'passage-borrowed-light-liner',
+    palette.chalk,
+    0.82,
+    0,
+    {
+      emissive: 0xc9a780,
+      emissiveIntensity: 0.045,
+    },
+  );
+  for (const section of Object.keys(roomCenters)) {
+    const origin = legacyCenters[section];
+    for (const sign of [-1, 1]) {
+      if ((section === 'experience' || section === 'contact') && sign > 0)
+        continue;
+      box(
+        0.3,
+        2.06,
+        0.045,
+        thresholdLiner,
+        origin + sign * 1.365,
+        0.04,
+        -1.25,
+        structures[section],
+        0.019,
+        'visible-neighbor-rear-corner-liner',
+      );
+    }
+  }
+  // Tall cutaway walkway connects the two left hatches with an actual interior.
+  // Its right wall has two matching openings; the docking sleeve enters left
+  // at mid-height. A zero-gravity handrail/ladder gives the vertical run scale.
+  const walkway = new THREE.Group();
+  walkway.name = 'left-vertical-walkway';
+  walkway.userData = { section: 'walkway', batchRoot: true, excludePick: true };
+  group.add(walkway);
+  const walkwayStructure = new THREE.Group();
+  walkwayStructure.userData = {
+    section: 'walkway',
+    batchRoot: true,
+    excludePick: true,
+  };
+  walkway.add(walkwayStructure);
+  const walkwayFurniture = new THREE.Group();
+  walkwayFurniture.userData = {
+    section: 'walkway',
+    batchRoot: true,
+    excludePick: true,
+  };
+  walkway.add(walkwayFurniture);
+  const walkwayFront = mesh(
+    frameGeometry(1.59, 6.38, 0.38, 0.13, 0.19, 0.025),
+    m.shell,
+    walkwayStructure,
+    'walkway-rounded-pressure-collar',
+  );
+  walkwayFront.position.set(0, 0.01, 1.17);
+  const walkwaySeal = mesh(
+    frameGeometry(1.32, 6.1, 0.25, 0.04, 0.06, 0.008),
+    m.gasket,
+    walkwayStructure,
+    'walkway-pressure-collar-seal',
+  );
+  walkwaySeal.position.set(0, 0.01, 1.19);
+  box(
+    1.47,
+    6.15,
+    0.16,
+    m.liner,
+    0,
+    0,
+    -1.05,
+    walkwayStructure,
+    0.07,
+    'walkway-rear-pressure-liner',
+  );
+  for (const yy of [-3.11, 3.11])
+    box(
+      1.5,
+      0.18,
+      2.42,
+      m.shell,
+      0,
+      yy,
+      0,
+      walkwayStructure,
+      0.075,
+      'walkway-end-pressure-cap',
+    );
+  for (const side of [-1, 1]) {
+    const outline = roundedPath(new THREE.Shape(), 2.5, 6.24, 0.38);
+    if (side > 0) {
+      for (const yy of [-1.7, 1.7]) {
+        const opening = roundedPath(new THREE.Path(), 2.1, 2.06, 0.25);
+        for (const curve of opening.curves) {
+          if (curve.v1) {
+            curve.v1.y += yy + 0.04;
+            curve.v1.x += 0.1;
+          }
+          if (curve.v2) {
+            curve.v2.y += yy + 0.04;
+            curve.v2.x += 0.1;
+          }
+          if (curve.v0) {
+            curve.v0.y += yy + 0.04;
+            curve.v0.x += 0.1;
+          }
+        }
+        outline.holes.push(opening);
+      }
+    } else {
+      outline.holes.push(roundedPath(new THREE.Path(), 1.82, 1.9, 0.79));
+    }
+    const skin = new THREE.ExtrudeGeometry(outline, {
+      depth: 0.12,
+      bevelEnabled: true,
+      bevelSize: 0.018,
+      bevelThickness: 0.018,
+      bevelSegments: 3,
+      curveSegments: 16,
+    });
+    skin.translate(0, 0, -0.06);
+    skin.rotateY(Math.PI / 2);
+    const wall = mesh(
+      skin,
+      m.shell,
+      walkwayStructure,
+      side > 0 ? 'walkway-twin-open-room-wall' : 'walkway-open-docking-wall',
+    );
+    wall.position.x = side * 0.75;
+  }
+  for (const yy of [-2.7085, 0.6915]) {
+    // The upper landing leaves a rear ladder well open through to the lower run.
+    box(
+      1.4,
+      0.11,
+      yy > 0 ? 0.98 : 1.76,
+      m.liner,
+      0,
+      yy,
+      yy > 0 ? 0.44 : 0.19,
+      walkwayStructure,
+      0.045,
+      'walkway-room-landing',
+    );
+    box(
+      1.26,
+      0.024,
+      0.046,
+      m.hoverRail,
+      0,
+      yy + 0.06,
+      0.88,
+      walkwayStructure,
+      0.011,
+      'walkway-landing-light-guide',
+    );
+  }
+  for (const xx of [-0.3, 0.3])
+    rod(
+      [xx, -2.79, -0.69],
+      [xx, 2.64, -0.69],
+      0.029,
+      m.amber,
+      walkwayFurniture,
+    );
+  for (let yy = -2.66; yy <= 2.56; yy += 0.43)
+    rod([-0.3, yy, -0.69], [0.3, yy, -0.69], 0.025, m.metal, walkwayFurniture);
+  for (const yy of [-1.7, 1.7]) {
+    box(
+      0.16,
+      1.31,
+      0.1,
+      m.navy,
+      -0.55,
+      yy,
+      -0.9,
+      walkwayFurniture,
+      0.04,
+      'walkway-service-channel',
+    );
+    box(
+      0.044,
+      0.97,
+      0.038,
+      m.hoverRail,
+      -0.55,
+      yy,
+      -0.829,
+      walkwayFurniture,
+      0.017,
+      'walkway-route-light-guide',
+    );
+  }
+  roomLights.walkway = [-1.7, 1.7].map((yy) => {
+    const light = new THREE.PointLight(0xffc792, 0.55, 2.9, 2);
+    light.position.set(0, yy + 0.85, 0.25);
+    walkway.add(light);
+    return light;
+  });
   const utility = new THREE.Group();
   utility.userData = { section: 'contact', batchRoot: true };
   group.add(utility);
-  const sleeveMat = m.gasket.clone();
-  sleeveMat.side = THREE.DoubleSide;
-  for (const y of [1.74, -1.66]) {
-    const sleeveGeometry = new THREE.CylinderGeometry(
-      1.018,
-      1.018,
-      0.34,
-      40,
-      1,
-      true,
-    );
-    sleeveGeometry.rotateZ(-Math.PI / 2);
+  for (const yy of [1.74, -1.66]) {
     const sleeve = mesh(
-      sleeveGeometry,
-      sleeveMat,
+      frameGeometry(2.18, 2.14, 0.27, 0.055, 0.35, 0.01),
+      thresholdLiner,
       utility,
-      'horizontal-pressure-coupling',
+      'open-horizontal-pressure-coupling',
     );
-    sleeve.position.set(0, y, 0);
-    sleeve.scale.z = 0.581;
-  }
-  for (const x of [-1.65, 1.65]) {
+    sleeve.rotation.y = Math.PI / 2;
+    sleeve.position.set(0, yy, -0.1);
     const coupling = new THREE.Group();
-    coupling.position.x = x;
-    coupling.userData = { section: 'contact', batchRoot: true };
+    coupling.userData = {
+      section: 'walkway',
+      batchRoot: true,
+      excludePick: true,
+    };
     utility.add(coupling);
-    verticalCouplings.push(coupling);
-    box(
-      0.63,
-      0.4,
-      1.55,
-      m.navy,
-      0,
-      0.08,
-      -0.34,
+    walkwayCouplings.push(coupling);
+    const tube = mesh(
+      frameGeometry(2.18, 2.14, 0.27, 0.055, 0.3, 0.01),
+      thresholdLiner,
       coupling,
-      0.17,
-      'between-deck-structural-connector',
+      'open-walkway-room-coupling',
     );
+    tube.rotation.y = Math.PI / 2;
+    tube.position.set(0, yy, -0.1);
   }
   // The communications service door sits aft of its ceiling-route nameplate,
   // preserving the full wall without hiding the new inside-jamb caption.
@@ -1209,6 +1419,97 @@ export function createSpacecraft(
       0.025,
       'project-compartment-back',
     );
+    const spare = new THREE.Group();
+    spare.name = 'spare-equipment-bay-' + slotIndex;
+    spare.userData = {
+      section: 'projects',
+      animated: true,
+      excludePick: true,
+      spareEquipment: true,
+    };
+    project.add(spare);
+    if (slotIndex % 3 === 0) {
+      for (const dz of [0, 0.085]) {
+        const roll = cylinder(
+          0.077,
+          0.4,
+          m.blanket,
+          x,
+          y - 0.085 + dz,
+          -0.65,
+          spare,
+          'x',
+        );
+        roll.name = 'stowed-thermal-blanket';
+      }
+      for (const dx of [-0.115, 0.115])
+        box(
+          0.038,
+          0.23,
+          0.16,
+          m.amber,
+          x + dx,
+          y - 0.04,
+          -0.65,
+          spare,
+          0.018,
+          'blanket-retaining-webbing',
+        );
+    } else if (slotIndex % 3 === 1) {
+      for (const radius of [0.068, 0.106, 0.145]) {
+        const coil = torus(
+          radius,
+          0.02,
+          m.metal,
+          x - 0.08,
+          y - 0.025,
+          -0.62,
+          spare,
+        );
+        coil.name = 'coiled-service-hose';
+      }
+      box(
+        0.105,
+        0.09,
+        0.16,
+        m.amber,
+        x + 0.17,
+        y - 0.13,
+        -0.65,
+        spare,
+        0.023,
+        'hose-quick-coupling',
+      );
+      box(
+        0.055,
+        0.28,
+        0.065,
+        m.navy,
+        x - 0.08,
+        y - 0.025,
+        -0.579,
+        spare,
+        0.018,
+        'hose-retaining-strap',
+      );
+    } else {
+      cylinder(0.065, 0.4, m.navy, x, y - 0.07, -0.65, spare, 'x').name =
+        'stowed-inspection-torch';
+      for (const dx of [-0.19, 0.19])
+        cylinder(0.079, 0.06, m.metal, x + dx, y - 0.07, -0.65, spare, 'x');
+      box(
+        0.13,
+        0.065,
+        0.11,
+        m.amber,
+        x,
+        y + 0.045,
+        -0.65,
+        spare,
+        0.025,
+        'torch-retaining-clip',
+      );
+    }
     const cartridge = new THREE.Group();
     cartridge.name = 'occupied-cartridge-' + slotIndex;
     cartridge.userData = {
@@ -1345,6 +1646,7 @@ export function createSpacecraft(
       draw: paint,
       project: null,
       cartridge,
+      spare,
     });
   }
   // The dossier reader is stowed flush until reading=true; no center table.
@@ -2831,246 +3133,142 @@ export function createSpacecraft(
     face.castShadow = false;
     return face;
   }
-  // Eight directed, sealed hatches cover the four physical room adjacencies.
-  // Horizontal entries use chamfered vestibules; the destination plate faces
-  // the observer from the inside jamb, rather than disappearing edge-on.
-  for (const from of Object.keys(roomCenters)) {
-    const left = from === 'projects' || from === 'about';
-    const upper = from === 'projects' || from === 'experience';
-    const horizontal = left
-      ? upper
-        ? 'experience'
-        : 'contact'
-      : upper
-        ? 'projects'
-        : 'about';
-    const vertical = upper
-      ? left
-        ? 'about'
-        : 'contact'
-      : left
-        ? 'projects'
-        : 'experience';
-    for (const [to, edge] of [
-      [horizontal, left ? 'right' : 'left'],
-      [vertical, upper ? 'down' : 'up'],
-    ]) {
-      const id = `${from}:${to}`;
-      const visual = new THREE.Group();
-      visual.name = id + '-sealed-vestibule';
-      visual.userData = {
-        section: from,
-        portal: true,
-        batchRoot: true,
+  // Six open side passages form the C route. Their frames are exactly in the
+  // side-wall plane; no angled leaf or coaming projects into the aperture.
+  const portalConnections = [
+    ['projects', 'experience', 'right'],
+    ['experience', 'projects', 'left'],
+    ['projects', 'about', 'left'],
+    ['about', 'projects', 'left'],
+    ['about', 'contact', 'right'],
+    ['contact', 'about', 'left'],
+  ];
+  for (const [from, to, edge] of portalConnections) {
+    const id = `${from}:${to}`,
+      viaWalkway =
+        (from === 'projects' && to === 'about') ||
+        (from === 'about' && to === 'projects');
+    const visual = new THREE.Group();
+    visual.name = id + '-open-side-passage';
+    visual.userData = {
+      section: from,
+      portal: true,
+      batchRoot: true,
+      portalId: id,
+      portalDestination: to,
+    };
+    rooms[from].add(visual);
+    const signalSource = m.hoverRail.clone();
+    signalSource.name = 'route-signal-' + id;
+    signalSource.userData.highlightScale = 0;
+    const opening = new THREE.Group();
+    opening.userData = { section: from, batchRoot: true };
+    visual.add(opening);
+    const gasket = mesh(
+      frameGeometry(2.33, 2.28, 0.31, 0.115, 0.09, 0.012),
+      m.gasket,
+      opening,
+      'open-hatch-wall-gasket',
+    );
+    gasket.position.z = -0.014;
+    const frame = mesh(
+      frameGeometry(2.3, 2.25, 0.3, 0.095, 0.07, 0.012),
+      m.chalk,
+      opening,
+      'flush-open-pressure-hatch-frame',
+    );
+    frame.position.z = 0.012;
+    const light = mesh(
+      frameGeometry(2.122, 2.072, 0.22, 0.014, 0.012, 0.002),
+      signalSource,
+      opening,
+      'open-hatch-route-light',
+    );
+    light.position.z = 0.054;
+    // A narrow fixed identification plate lies directly against the rear header
+    // wall beside the arch; text is parallel to that wall and never projects.
+    const caption = new THREE.Group();
+    caption.name = id + '-flush-wall-nameplate';
+    caption.userData = { section: from, batchRoot: true };
+    visual.add(caption);
+    const captionSize = [0.55, 0.16],
+      plateSize = [0.62, 0.22];
+    box(
+      plateSize[0],
+      plateSize[1],
+      0.035,
+      m.liner,
+      0,
+      0,
+      -0.03,
+      caption,
+      0.016,
+      'portal-flush-wall-nameplate-backing',
+    );
+    box(
+      0.6,
+      0.2,
+      0.024,
+      m.chalk,
+      0,
+      0,
+      -0.015,
+      caption,
+      0.012,
+      'portal-flush-wall-nameplate-enamel',
+    );
+    portalLabel(
+      options.labels?.[to] || to,
+      caption,
+      captionSize[0],
+      captionSize[1],
+    );
+    const pick = interactionBox(
+      id + '-portal-pick',
+      [0.28, 2.06, 2.18],
+      [0, 0, 0],
+      rooms[from],
+      {
+        isPortal: true,
         portalId: id,
         portalDestination: to,
-      };
-      rooms[from].add(visual);
-      const signalSource = m.hoverRail.clone();
-      signalSource.name = 'route-signal-' + id;
-      signalSource.userData.highlightScale = 0;
-      const horizontalEdge = edge === 'left' || edge === 'right';
-      const door = new THREE.Group();
-      visual.add(door);
-      if (horizontalEdge) {
-        door.rotation.y = (edge === 'right' ? -1 : 1) * 0.88;
-        box(
-          0.87,
-          1.84,
-          0.3,
-          m.gasket,
-          0,
-          0,
-          -0.08,
-          door,
-          0.13,
-          'chamfered-hatch-vestibule',
-        );
-        const rim = mesh(
-          frameGeometry(0.84, 1.79, 0.18, 0.075, 0.08, 0.012),
-          m.chalk,
-          door,
-          'sealed-hatch-coaming',
-        );
-        rim.position.z = 0.095;
-        box(
-          0.65,
-          1.58,
-          0.071,
-          m.chalk,
-          0,
-          0,
-          0.117,
-          door,
-          0.034,
-          'closed-pressure-hatch-leaf',
-        );
-        const light = mesh(
-          frameGeometry(0.706, 1.64, 0.12, 0.019, 0.016, 0.003),
-          signalSource,
-          door,
-          'hatch-route-light',
-        );
-        light.position.z = 0.164;
-        cylinder(0.12, 0.024, m.gasket, 0, 0.37, 0.174, door, 'z');
-        torus(0.12, 0.017, signalSource, 0, -0.23, 0.18, door);
-        box(
-          0.028,
-          0.18,
-          0.032,
-          signalSource,
-          0,
-          -0.23,
-          0.198,
-          door,
-          0.014,
-          'hatch-pressure-handle',
-        );
-      } else {
-        door.rotation.x = edge === 'down' ? -Math.PI / 2 : Math.PI / 2;
-        box(
-          1.16,
-          0.78,
-          0.095,
-          m.gasket,
-          0,
-          0,
-          -0.014,
-          door,
-          0.046,
-          'sealed-deck-transfer-recess',
-        );
-        const rim = mesh(
-          frameGeometry(1.12, 0.74, 0.16, 0.069, 0.06, 0.008),
-          m.chalk,
-          door,
-          'deck-hatch-pressure-coaming',
-        );
-        rim.position.z = 0.038;
-        box(
-          0.944,
-          0.568,
-          0.035,
-          m.chalk,
-          0,
-          0,
-          0.061,
-          door,
-          0.017,
-          'closed-deck-transfer-hatch',
-        );
-        const light = mesh(
-          frameGeometry(1.012, 0.636, 0.1, 0.02, 0.013, 0.003),
-          signalSource,
-          door,
-          'hatch-route-light',
-        );
-        light.position.z = 0.086;
-        box(
-          0.29,
-          0.037,
-          0.035,
-          signalSource,
-          0,
-          0,
-          0.105,
-          door,
-          0.017,
-          'deck-hatch-release-handle',
-        );
-      }
-      const caption = new THREE.Group();
-      caption.name = id + '-inside-jamb-nameplate';
-      caption.userData = { section: from, batchRoot: true };
-      visual.add(caption);
-      const captionSize = edge === 'down' ? [1.02, 0.12] : [0.6, 0.18];
-      // A deep enamel saddle reaches the bulkhead/deck, with a narrow seal
-      // beneath the printed face. No detached sign or unsupported plaque.
-      box(
-        captionSize[0] + 0.09,
-        captionSize[1] + (edge === 'down' ? 0.18 : 0.075),
-        0.6,
-        m.chalk,
-        0,
-        edge === 'down' ? -0.0525 : 0,
-        -0.345,
-        caption,
-        0.045,
-        'portal-nameplate-attached-saddle',
-      );
-      box(
-        captionSize[0] + 0.06,
-        captionSize[1] + 0.045,
-        0.03,
-        m.gasket,
-        0,
-        0,
-        -0.053,
-        caption,
-        0.018,
-        'portal-nameplate-seal',
-      );
-      box(
-        captionSize[0] + 0.04,
-        captionSize[1] + 0.03,
-        0.045,
-        m.chalk,
-        0,
-        0,
-        -0.027,
-        caption,
-        0.021,
-        'portal-nameplate-enamel',
-      );
-      portalLabel(
-        (edge === 'up' ? '↑ ' : edge === 'down' ? '↓ ' : '') +
-          (options.labels?.[to] || to),
-        caption,
-        captionSize[0],
-        captionSize[1],
-      );
-      const ceilingRail = edge === 'up' ? new THREE.Group() : null;
-      if (ceilingRail) {
-        ceilingRail.name = id + '-ceiling-route-rail';
-        ceilingRail.userData = { section: from, batchRoot: true };
-        visual.add(ceilingRail);
-        rod([0, 0, 0], [1, 0, 0], 0.019, signalSource, ceilingRail);
-      }
-      const pick = interactionBox(
-        id + '-portal-pick',
-        horizontalEdge ? [0.63, 2.13, 0.5] : [1.18, 0.29, 0.98],
-        [0, 0, 0],
-        rooms[from],
-        { isPortal: true, portalId: id, portalDestination: to, from, to, edge },
-      );
-      portalTargets.push({ object: pick, section: from, id, from, to, edge });
-      const metadata = {
-        id,
         from,
         to,
         edge,
-        position: [0, 0, 0],
-        size: horizontalEdge ? [0.63, 2.13, 0.5] : [1.18, 0.29, 0.98],
-        labelPosition: [0, 0, 0],
-        labelSize: captionSize,
-        plateSize: [captionSize[0] + 0.09, captionSize[1] + 0.075],
-        sealed: true,
-        label: options.labels?.[to] || to,
-      };
-      portals.push({
-        id,
-        from,
-        to,
-        edge,
-        visual,
-        caption,
-        ceilingRail,
-        pick,
-        metadata,
-        glow: roomMat(signalSource, from),
-        strength: 0,
-      });
-    }
+        via: viaWalkway ? 'walkway' : null,
+      },
+    );
+    portalTargets.push({ object: pick, section: from, id, from, to, edge });
+    const metadata = {
+      id,
+      from,
+      to,
+      edge,
+      via: viaWalkway ? 'walkway' : null,
+      position: [0, 0, 0],
+      size: [0.28, 2.06, 2.18],
+      openingSize: [2.1, 2.06],
+      labelPosition: [0, 0, 0],
+      labelSize: captionSize,
+      plateSize,
+      sealed: false,
+      open: true,
+      label: options.labels?.[to] || to,
+      waypoints: [],
+    };
+    portals.push({
+      id,
+      from,
+      to,
+      edge,
+      visual,
+      opening,
+      caption,
+      pick,
+      metadata,
+      glow: roomMat(signalSource, from),
+      strength: 0,
+    });
   }
 
   // Prop proportions remain uniform in compact mode; hulls resize separately.
@@ -3322,7 +3520,7 @@ export function createSpacecraft(
     // appendages determine overview silhouette, regardless of current selection.
     for (const section of Object.keys(rooms))
       box.union(new THREE.Box3().setFromObject(structures[section]));
-    for (const part of [docking, service, utility])
+    for (const part of [docking, service, utility, walkway])
       box.union(new THREE.Box3().setFromObject(part));
     const center = box.getCenter(new THREE.Vector3()),
       size = box.getSize(new THREE.Vector3());
@@ -3394,72 +3592,62 @@ export function createSpacecraft(
       const mount = labelMounts.get(entry);
       if (mount) mount.position.x = origin + px;
     }
-    const outward = 3 * (layoutScale - 1);
-    docking.position.x = 1.35 - outward;
-    service.position.x = -1.5 + outward;
-    verticalCouplings.forEach(
-      (part, index) => (part.position.x = (index ? 1 : -1) * halfPitch),
+    const outward = 3 * (layoutScale - 1),
+      walkwayOffset = 1.5 * layoutScale + 0.2;
+    const walkwayX = -halfPitch - 2.25 * layoutScale - 0.2;
+    walkway.position.set(walkwayX, 0, 0);
+    walkwayStructure.scale.set(layoutScale, 1, 1);
+    walkwayFurniture.scale.setScalar(currentLayout === 'wide' ? 1 : 0.94);
+    walkwayCouplings.forEach(
+      (part) => (part.position.x = -halfPitch - 1.5 * layoutScale - 0.1),
     );
-    group.userData.dockingAnchor = [-3.78 - outward, 0.21, 1.05];
+    docking.position.x = 1.35 - outward - walkwayOffset;
+    service.position.x = -1.5 + outward;
+    group.userData.dockingAnchor = [
+      -3.78 - outward - walkwayOffset,
+      0.21,
+      1.05,
+    ];
     group.userData.dockingAnchors = {
-      sleeve: [-3.715 - outward, 0.03, 0],
-      hatch: [-5.046 - outward, 0.03, 0],
-      mount: [-3.24 - outward, 0.03, -0.17],
+      sleeve: [-3.715 - outward - walkwayOffset, 0.03, 0],
+      hatch: [-5.046 - outward - walkwayOffset, 0.03, 0],
+      mount: [-3.24 - outward - walkwayOffset, 0.03, -0.17],
     };
     group.userData.communicationsAnchor = [4.14 + outward, 0.23, 1.16];
+    group.userData.walkwayAnchor = [walkwayX, 0, 0.16];
+    group.userData.walkwayBounds = {
+      center: [walkwayX, 0, 0.1],
+      size: [1.75 * layoutScale, 6.5, 2.65],
+    };
     for (const portal of portals) {
-      const origin = legacyCenters[portal.from];
-      const horizontal = portal.edge === 'left' || portal.edge === 'right';
-      if (horizontal) {
-        const sign = portal.edge === 'right' ? 1 : -1;
-        portal.visual.position.set(
-          origin + sign * 1.27 * layoutScale,
-          0.04,
-          -0.05,
-        );
-        portal.caption.position.set(
-          sign * (-0.07 * layoutScale - 0.14),
-          0.966,
-          0.305,
-        );
-        portal.pick.position.set(
-          origin + sign * 1.27 * layoutScale,
-          0.065,
-          0.1,
-        );
-      } else {
-        const down = portal.edge === 'down';
-        portal.visual.position.set(
-          origin,
-          down ? -1.019 : 1.245,
-          down ? -0.25 : -0.4,
-        );
-        // Ceiling routes share the upper bulkhead's opposite inner jamb.
-        // A centered ceiling plate would cover the room header in close views.
-        const jambSign = portal.from === 'about' ? -1 : 1;
-        portal.caption.position.set(
-          down ? 0 : jambSign * (1.2 * layoutScale - 0.14),
-          down ? 0.19 : -0.239,
-          down ? 0.505 : 0.655,
-        );
-        portal.pick.position.set(origin, down ? -0.885 : 1.19, -0.04);
-        if (portal.ceilingRail) {
-          const start = new THREE.Vector3(
-            jambSign * (1.2 * layoutScale - 0.14),
-            -0.099,
-            0.555,
-          );
-          const end = new THREE.Vector3(jambSign * 0.51, 0.02, 0.3);
-          const direction = end.sub(start),
-            length = direction.length();
-          portal.ceilingRail.position.copy(start);
-          portal.ceilingRail.quaternion.setFromUnitVectors(
-            new THREE.Vector3(1, 0, 0),
-            direction.normalize(),
-          );
-          portal.ceilingRail.scale.set(length, 1, 1);
-        }
-      }
+      const origin = legacyCenters[portal.from],
+        sign = portal.edge === 'right' ? 1 : -1;
+      portal.visual.position.set(origin, 0, 0);
+      portal.opening.rotation.y = sign > 0 ? -Math.PI / 2 : Math.PI / 2;
+      portal.opening.position.set(
+        sign * (1.5 * layoutScale - 0.1 * layoutScale - 0.006),
+        0.04,
+        -0.1,
+      );
+      portal.caption.position.set(
+        sign * (1.2 * layoutScale - 0.24),
+        1.006,
+        -0.24,
+      );
+      portal.pick.position.set(
+        origin + sign * (1.5 * layoutScale - 0.04),
+        0.04,
+        -0.1,
+      );
+      const fromY = roomCenters[portal.from][1],
+        toY = roomCenters[portal.to][1];
+      portal.metadata.waypoints = portal.metadata.via
+        ? [
+            [walkwayX, fromY, 0.16],
+            [walkwayX, 0, 0.16],
+            [walkwayX, toY, 0.16],
+          ]
+        : [];
     }
     group.updateMatrixWorld(true);
     for (const portal of portals) {
@@ -3542,7 +3730,7 @@ export function createSpacecraft(
               ],
             });
       };
-      add('header', group.userData.headerAnchors[section], 1.4, 0.18);
+      add('header', group.userData.headerAnchors[section], 1.26, 0.18);
       for (const portal of portals.filter((p) => p.from === section))
         add(
           'portal-plate',
@@ -3623,6 +3811,7 @@ export function createSpacecraft(
       slot.draw(slot.project, index);
       slot.group.visible = !!slot.project;
       slot.cartridge.visible = !!slot.project;
+      slot.spare.visible = !slot.project;
       slot.group.userData.occupied = !!slot.project;
       slot.cartridge.userData.occupied = !!slot.project;
       slot.progress = 0;
@@ -3747,7 +3936,10 @@ export function createSpacecraft(
     group.userData.motionActive = motionActive;
     sweep.rotation.z = -seconds * 0.34;
     for (const section of Object.keys(roomMaterials)) {
-      const selected = currentState.activeRoom === section;
+      const selected =
+        section === 'walkway'
+          ? ['projects', 'about'].includes(currentState.activeRoom || '')
+          : currentState.activeRoom === section;
       const goal = !selected && active === section ? 1 : 0;
       strengths[section] = instantHighlight
         ? goal
@@ -3766,15 +3958,19 @@ export function createSpacecraft(
           material.name === 'ceramic-hull' ||
           material.name === 'brushed-titanium' ||
           material.name.startsWith('solar-');
-        const idleColor = exterior ? 0.9 : 0.73;
+        const idleColor = exterior
+          ? 0.86
+          : material.name === 'passage-borrowed-light-liner'
+            ? 0.46
+            : 0.28;
         material.color
           .copy(material.userData.baseColor)
           .multiplyScalar(label ? 1 : idleColor + (1 - idleColor) * dimmer);
         const emissiveScale =
           material.name === 'warm-light'
-            ? 0.34 + 0.66 * dimmer
+            ? 0.1 + 0.9 * dimmer
             : material.name.includes('screen')
-              ? 0.75 + 0.25 * dimmer
+              ? 0.22 + 0.78 * dimmer
               : 1;
         material.emissive
           .copy(base)
@@ -3789,13 +3985,27 @@ export function createSpacecraft(
       }
       if (roomLights[section]) {
         const targetIntensity = selected
-          ? 2.1
+          ? section === 'walkway'
+            ? 0.55
+            : 0.9
           : active === section
-            ? 2.85
-            : 0.48;
-        roomLights[section].intensity +=
-          (targetIntensity - roomLights[section].intensity) * blend;
+            ? 1.15
+            : 0.06;
+        for (const light of roomLights[section])
+          light.intensity += (targetIntensity - light.intensity) * blend;
       }
+      group.userData.lightingState ||= {};
+      group.userData.lightingState[section] = {
+        dimmer,
+        interiorColor: 0.28 + 0.72 * dimmer,
+        exteriorColor: 0.86 + 0.14 * dimmer,
+        screenEmission: 0.22 + 0.78 * dimmer,
+        fixtureEmission: 0.1 + 0.9 * dimmer,
+        pointIntensities: (roomLights[section] || []).map(
+          (light: any) => light.intensity,
+        ),
+        labels: 1,
+      };
     }
     // Slot signals are applied last, independently of whole-room highlighting.
     for (const slot of doorSlots) {
@@ -3824,12 +4034,26 @@ export function createSpacecraft(
       if (Math.abs(portal.strength - wanted) < 0.002) portal.strength = wanted;
       portal.glow.emissive
         .copy(highlight)
-        .multiplyScalar(0.045 + portal.strength * 2.2);
+        .multiplyScalar(
+          (currentState.activeRoom === portal.from ? 0.18 : 0.045) +
+            portal.strength * 2.2,
+        );
       portal.glow.emissiveIntensity = 1;
       portal.metadata.highlight = portal.strength;
       if (portal.strength !== wanted) group.userData.motionActive = true;
       portal.pick.userData.highlighted = portal.strength > 0.01;
     }
+    const walkwayRouteStrength = Math.max(
+      0,
+      ...portals.filter((p) => p.metadata.via).map((p) => p.strength),
+    );
+    for (const material of roomMaterials.walkway) {
+      if (material.name === 'perimeter-signal-light')
+        material.emissive
+          .copy(highlight)
+          .multiplyScalar(0.045 + walkwayRouteStrength * 1.8);
+    }
+    group.userData.walkwayRouteStrength = walkwayRouteStrength;
     group.updateMatrixWorld(true);
   }
   setProjectPage(0);

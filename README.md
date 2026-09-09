@@ -2,7 +2,7 @@
 
 A reusable developer portfolio with a real, editable Three.js spacecraft, server-rendered case studies, and an authenticated content studio. The initial identity is Mikael Vincent; all career/project/personal copy is clearly marked sample content. Identity and domain references are database records, not rendering constants.
 
-Interactive view makes the ship the main interface. Four cabins form a 2×2 layout, including a dedicated Contact cabin, while the original docking assembly remains. Nine stacked project compartments page through the database collection. Click a room or use the navigation to approach it with a fixed camera; dossiers, the mission log, journal and communications station open within the same scene. Bounded cursor rotation adds depth without free orbiting. Physical lockers, a mission console, journal and communications instrument reveal their attached HTML readers. Reading view and Pause motion are always available.
+Interactive view makes the ship the main interface. Four cabins keep the same 2×2 order on desktop and phones. Wider desktop cabins connect through open side doorways and a tall passage on the left; the original docking assembly remains. Nine stacked project compartments page through the database collection; unused bays contain spare equipment without invented project actions. Click a room or use the navigation to approach it with a fixed camera; dossiers, the mission log, journal and communications station open within the same scene. Bounded cursor rotation adds depth without free orbiting. Physical lockers, a mission console, journal and communications instrument reveal their attached HTML readers. A compact bottom navigation instrument provides direct routes. Reading view removes the animated scene; reduced-motion preferences are respected. Bounded mouse/touch dragging uses the same range as cursor movement.
 
 ## Run locally
 
@@ -41,9 +41,11 @@ npm run typecheck
 npm run lint
 npm test
 node scripts/database-roundtrip.mjs
-node scripts/spacecraft-model-audit.mjs
+node scripts/spacecraft-layout-audit.mjs
 node scripts/orbital-environment-audit.mjs
-node scripts/spacecraft-mounting-audit.mjs
+node scripts/spacecraft-peek-audit.mjs
+node scripts/cabin-controls-audit.mjs
+node scripts/scene-controls-audit.mjs
 npm run build
 npm audit
 ```
@@ -52,12 +54,12 @@ The HTTP integration suite creates temporary records and restores existing conte
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report at the bottom of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/PHYSICAL-LABELS-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/OPEN-WALKWAY-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 
 - `components/spacecraft-model.ts`: editable procedural geometry, materials, cabin props, clickable object targets, and data-driven nameplates.
-- `components/spacecraft.tsx`: lazy renderer, fixed camera flights, pointer picking, cached shadows, pause, offscreen handling and WebGL fallback.
+- `components/spacecraft.tsx`: lazy renderer, fixed camera flights, pointer picking, cached shadows, reduced motion, offscreen handling and WebGL fallback.
 - `components/orbital-environment.ts`: procedural ocean, moving clouds, atmosphere, twinkling stars and staggered meteors; memory and algorithm notes are in `docs/EARTH-ASSETS.md`.
 - `components/immersive-portfolio.tsx`, `lib/flight.ts`: persistent scene navigation, browser history, keyboard focus and readable-view fallback.
 - `components/world-reader.tsx`: native HTML pages attached to physical reader surfaces, including accessible paging and shared contact state.
@@ -74,6 +76,5 @@ Only the five shared interface components used by the studio are retained; unuse
 ## Deployment and operation
 
 Read [OPERATIONS.md](docs/OPERATIONS.md) for hosting, authentication boundaries, secrets, backups, restoration, custom domains, independent demo subdomains, and maintenance tradeoffs. Read [ASSETS.md](docs/ASSETS.md) to edit the spacecraft.
-
 
 Current delivery: the revised local experience and seeded studio are runnable. The latest critic report evaluates this requested local revision. Public hosting remains a separate unresolved provider sign-in callback incident, documented in [OPERATIONS.md](docs/OPERATIONS.md#current-hosting-incident); no live domain deployment is claimed. The original launch review is retained in [CRITIC-REPORT-INITIAL.md](docs/CRITIC-REPORT-INITIAL.md).

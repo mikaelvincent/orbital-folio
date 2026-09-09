@@ -1,0 +1,10 @@
+{
+  "samples": 600,
+  "minimumX": -5.599502990421922,
+  "maximumX": 2.2493471527030224,
+  "rooms": [
+    "about",
+    "contact",
+    "projects"
+  ]
+}

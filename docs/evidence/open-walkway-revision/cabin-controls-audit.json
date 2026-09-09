@@ -1,0 +1,1468 @@
+{
+  "minimumBottomReservation": {
+    "mobile": 132,
+    "desktop": 80
+  },
+  "at": "2026-09-09T02:44:32.305Z",
+  "sourceHashes": {
+    "components/spacecraft-model.ts": "8b61f9bfcc15ec3b6dba315573d21a27f5d6fc6fe0d1078fbd5b9457b2a927d2",
+    "components/spacecraft.tsx": "c0031d9fa5f44c8c54a0d0242350b64accec9db32f2315631cd82655df91e40b",
+    "lib/scene-controls.ts": "900d72b4d055f551f630d946d923cd9b93a6d59104c8b61f9e55ce5afd279698",
+    "lib/flight.ts": "e2aebdd6174b8c1830940452db3d048da08c5de748c8f1513d18866ec556b134",
+    "lib/cabin-itinerary.ts": "9c6e67b841df79ecc1738ec1d6fe8ccdc185a5c5f9263adb83f34dfc2ec31bf8",
+    "app/globals.css": "6be0d5cc36dc2129973a2867ff224fa37e8f5cf0367539c72fb742ed912b6d2a"
+  },
+  "method": "Current Three model and camera helpers, safe insets top24 and current source minimum bottom reservation; zero device safe-area for numeric framing, actual metadata, nine cursor views, fov38, overscan1.015. Non-rendering canvas stub does not claim pixel correctness.",
+  "layouts": [
+    {
+      "layout": "wide",
+      "nodes": [
+        {
+          "room": "experience",
+          "position": [
+            2.2499999999999996,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "room": "projects",
+          "position": [
+            -2.2499999999999996,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -5.6,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -5.6,
+            0,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -5.6,
+            -1.53,
+            0.16
+          ]
+        },
+        {
+          "room": "about",
+          "position": [
+            -2.2499999999999996,
+            -1.53,
+            0.16
+          ]
+        },
+        {
+          "room": "contact",
+          "position": [
+            2.2499999999999996,
+            -1.53,
+            0.16
+          ]
+        }
+      ],
+      "roomPairChecks": 16,
+      "retargetChecks": 72,
+      "offCorridorChecks": 4,
+      "retargetExamples": [
+        {
+          "start": [
+            -5.6,
+            0.9537,
+            0.16
+          ],
+          "to": "experience",
+          "points": [
+            [
+              -5.6,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            0.9537,
+            0.16
+          ],
+          "to": "projects",
+          "points": [
+            [
+              -5.6,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            0.9537,
+            0.16
+          ],
+          "to": "about",
+          "points": [
+            [
+              -5.6,
+              0,
+              0.16
+            ],
+            [
+              -5.6,
+              -1.53,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            0.9537,
+            0.16
+          ],
+          "to": "contact",
+          "points": [
+            [
+              -5.6,
+              0,
+              0.16
+            ],
+            [
+              -5.6,
+              -1.53,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              -1.53,
+              0.16
+            ],
+            [
+              2.2499999999999996,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            -0.7497,
+            0.16
+          ],
+          "to": "experience",
+          "points": [
+            [
+              -5.6,
+              0,
+              0.16
+            ],
+            [
+              -5.6,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            -0.7497,
+            0.16
+          ],
+          "to": "projects",
+          "points": [
+            [
+              -5.6,
+              0,
+              0.16
+            ],
+            [
+              -5.6,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            -0.7497,
+            0.16
+          ],
+          "to": "about",
+          "points": [
+            [
+              -5.6,
+              -1.53,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -5.6,
+            -0.7497,
+            0.16
+          ],
+          "to": "contact",
+          "points": [
+            [
+              -5.6,
+              -1.53,
+              0.16
+            ],
+            [
+              -2.2499999999999996,
+              -1.53,
+              0.16
+            ],
+            [
+              2.2499999999999996,
+              -1.53,
+              0.16
+            ]
+          ]
+        }
+      ],
+      "framing": [
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "room": "experience",
+          "safe": {
+            "left": -0.9666666666666667,
+            "right": 0.9666666666666667,
+            "top": 0.952,
+            "bottom": -0.84
+          },
+          "feasible": true,
+          "minimumDistance": 3.4591747983349426,
+          "maximumDistance": 4.216319091503084,
+          "distance": 4.216319091503084,
+          "chosen": 3.580317885241845,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                3.6799999999999997,
+                0.7500000119209289,
+                -0.3865000009536743
+              ],
+              "minimum": 3.4591747983349426
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                1.1799999999999997,
+                0.7500000119209289,
+                -0.3865000009536743
+              ],
+              "minimum": 3.4443789107589624
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "room": "projects",
+          "safe": {
+            "left": -0.9666666666666667,
+            "right": 0.9666666666666667,
+            "top": 0.952,
+            "bottom": -0.84
+          },
+          "feasible": true,
+          "minimumDistance": 3.3878590403513544,
+          "maximumDistance": 4.216319091503084,
+          "distance": 4.216319091503084,
+          "chosen": 3.5204126485356313,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.4999999999999996,
+                2.816,
+                -0.24
+              ],
+              "minimum": 3.3878590403513544
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -3.9999999999999996,
+                2.816,
+                -0.24
+              ],
+              "minimum": 3.3878590403513544
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "room": "about",
+          "safe": {
+            "left": -0.9666666666666667,
+            "right": 0.9666666666666667,
+            "top": 0.952,
+            "bottom": -0.84
+          },
+          "feasible": true,
+          "minimumDistance": 3.7312855035444468,
+          "maximumDistance": 4.216319091503084,
+          "distance": 4.216319091503084,
+          "chosen": 3.8088908776178285,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                -3.7249999570846555,
+                -2.676000010967255,
+                -0.18949998915195465
+              ],
+              "minimum": 3.7312855035444468
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                -1.2164999771118161,
+                -2.676000010967255,
+                -0.18949998915195465
+              ],
+              "minimum": 3.7131399941245196
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "room": "contact",
+          "safe": {
+            "left": -0.9666666666666667,
+            "right": 0.9666666666666667,
+            "top": 0.952,
+            "bottom": -0.84
+          },
+          "feasible": true,
+          "minimumDistance": 3.685427236593657,
+          "maximumDistance": 4.216319091503084,
+          "distance": 4.216319091503084,
+          "chosen": 3.770369933379165,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                3.660000019073486,
+                -2.6480000138282778,
+                -0.12999999523162842
+              ],
+              "minimum": 3.685427236593657
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                1.1999999809265134,
+                -2.6480000138282778,
+                -0.12999999523162842
+              ],
+              "minimum": 3.6706313490176763
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "room": "experience",
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.9555555555555556,
+            "bottom": -0.8518518518518519
+          },
+          "feasible": true,
+          "minimumDistance": 3.404737873994194,
+          "maximumDistance": 3.7618030235326154,
+          "distance": 3.7618030235326154,
+          "chosen": 3.4618682979203412,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                3.6799999999999997,
+                0.7500000119209289,
+                -0.3865000009536743
+              ],
+              "minimum": 3.404737873994194
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                1.1799999999999997,
+                0.7500000119209289,
+                -0.3865000009536743
+              ],
+              "minimum": 3.389922527002873
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "room": "projects",
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.9555555555555556,
+            "bottom": -0.8518518518518519
+          },
+          "feasible": true,
+          "minimumDistance": 3.304360113516357,
+          "maximumDistance": 3.7618030235326154,
+          "distance": 3.7618030235326154,
+          "chosen": 3.3775509791189586,
+          "drivers": [
+            {
+              "kind": "closed-project-rack",
+              "position": [
+                -3.66,
+                0.8099999999999999,
+                -0.27
+              ],
+              "minimum": 3.304360113516357
+            },
+            {
+              "kind": "closed-project-rack",
+              "position": [
+                -1.1999999999999995,
+                0.8099999999999999,
+                -0.27
+              ],
+              "minimum": 3.2895447665250366
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "room": "about",
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.9555555555555556,
+            "bottom": -0.8518518518518519
+          },
+          "feasible": true,
+          "minimumDistance": 3.6758371283568008,
+          "maximumDistance": 3.7618030235326154,
+          "distance": 3.7618030235326154,
+          "chosen": 3.6895916715849313,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                -3.7249999570846555,
+                -2.676000010967255,
+                -0.18949998915195465
+              ],
+              "minimum": 3.6758371283568008
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                -1.2164999771118161,
+                -2.676000010967255,
+                -0.18949998915195465
+              ],
+              "minimum": 3.657667754129673
+            }
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "room": "contact",
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.9555555555555556,
+            "bottom": -0.8518518518518519
+          },
+          "feasible": true,
+          "minimumDistance": 3.6313932088808434,
+          "maximumDistance": 3.7618030235326154,
+          "distance": 3.7618030235326154,
+          "chosen": 3.652258779225127,
+          "drivers": [
+            {
+              "kind": "cabin-content",
+              "position": [
+                3.660000019073486,
+                -2.6480000138282778,
+                -0.12999999523162842
+              ],
+              "minimum": 3.6313932088808434
+            },
+            {
+              "kind": "cabin-content",
+              "position": [
+                1.1999999809265134,
+                -2.6480000138282778,
+                -0.12999999523162842
+              ],
+              "minimum": 3.616577861889523
+            }
+          ]
+        }
+      ],
+      "overview": [
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "target": [
+            -1.107077561203984,
+            0,
+            0.14684945344924927
+          ],
+          "safe": {
+            "left": -0.9666666666666667,
+            "right": 0.9666666666666667,
+            "top": 0.952,
+            "bottom": -0.84
+          },
+          "allHardwareDistance": 18.43978471552264,
+          "cabinsOnlyPriorityDistance": 18.43978471552264,
+          "cabinsAndWalkwayPriorityDistance": 18.43978471552264,
+          "walkwayIncludedByCurrentSource": true,
+          "note": "Includes no extra hover-dolly margin; current overview hover can reduce distance by 2.5%."
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "target": [
+            -1.107077561203984,
+            0,
+            0.14684945344924927
+          ],
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.9555555555555556,
+            "bottom": -0.8518518518518519
+          },
+          "allHardwareDistance": 17.045616859034762,
+          "cabinsOnlyPriorityDistance": 17.045616859034762,
+          "cabinsAndWalkwayPriorityDistance": 17.045616859034762,
+          "walkwayIncludedByCurrentSource": true,
+          "note": "Includes no extra hover-dolly margin; current overview hover can reduce distance by 2.5%."
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "nodes": [
+        {
+          "room": "experience",
+          "position": [
+            1.65,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "room": "projects",
+          "position": [
+            -1.65,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -4.1,
+            1.8699999999999999,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -4.1,
+            0,
+            0.16
+          ]
+        },
+        {
+          "position": [
+            -4.1,
+            -1.53,
+            0.16
+          ]
+        },
+        {
+          "room": "about",
+          "position": [
+            -1.65,
+            -1.53,
+            0.16
+          ]
+        },
+        {
+          "room": "contact",
+          "position": [
+            1.65,
+            -1.53,
+            0.16
+          ]
+        }
+      ],
+      "roomPairChecks": 16,
+      "retargetChecks": 72,
+      "offCorridorChecks": 4,
+      "retargetExamples": [
+        {
+          "start": [
+            -4.1,
+            0.9537,
+            0.16
+          ],
+          "to": "experience",
+          "points": [
+            [
+              -4.1,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -1.65,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              1.65,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            0.9537,
+            0.16
+          ],
+          "to": "projects",
+          "points": [
+            [
+              -4.1,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -1.65,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            0.9537,
+            0.16
+          ],
+          "to": "about",
+          "points": [
+            [
+              -4.1,
+              0,
+              0.16
+            ],
+            [
+              -4.1,
+              -1.53,
+              0.16
+            ],
+            [
+              -1.65,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            0.9537,
+            0.16
+          ],
+          "to": "contact",
+          "points": [
+            [
+              -4.1,
+              0,
+              0.16
+            ],
+            [
+              -4.1,
+              -1.53,
+              0.16
+            ],
+            [
+              -1.65,
+              -1.53,
+              0.16
+            ],
+            [
+              1.65,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            -0.7497,
+            0.16
+          ],
+          "to": "experience",
+          "points": [
+            [
+              -4.1,
+              0,
+              0.16
+            ],
+            [
+              -4.1,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -1.65,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              1.65,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            -0.7497,
+            0.16
+          ],
+          "to": "projects",
+          "points": [
+            [
+              -4.1,
+              0,
+              0.16
+            ],
+            [
+              -4.1,
+              1.8699999999999999,
+              0.16
+            ],
+            [
+              -1.65,
+              1.8699999999999999,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            -0.7497,
+            0.16
+          ],
+          "to": "about",
+          "points": [
+            [
+              -4.1,
+              -1.53,
+              0.16
+            ],
+            [
+              -1.65,
+              -1.53,
+              0.16
+            ]
+          ]
+        },
+        {
+          "start": [
+            -4.1,
+            -0.7497,
+            0.16
+          ],
+          "to": "contact",
+          "points": [
+            [
+              -4.1,
+              -1.53,
+              0.16
+            ],
+            [
+              -1.65,
+              -1.53,
+              0.16
+            ],
+            [
+              1.65,
+              -1.53,
+              0.16
+            ]
+          ]
+        }
+      ],
+      "framing": [
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "room": "experience",
+          "safe": {
+            "left": -0.9375,
+            "right": 0.9375,
+            "top": 0.953125,
+            "bottom": -0.84375
+          },
+          "feasible": false,
+          "minimumDistance": 4.995966588716668,
+          "maximumDistance": 4.248288139462287,
+          "distance": null,
+          "chosen": 5.045966588716668,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.995966588716668
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.596,
+                -0.24
+              ],
+              "minimum": 4.990472728845806
+            }
+          ]
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "room": "projects",
+          "safe": {
+            "left": -0.9375,
+            "right": 0.9375,
+            "top": 0.953125,
+            "bottom": -0.84375
+          },
+          "feasible": false,
+          "minimumDistance": 4.995966588716668,
+          "maximumDistance": 4.248288139462287,
+          "distance": null,
+          "chosen": 5.045966588716668,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.995966588716668
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.92,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.995966588716668
+            }
+          ]
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "room": "about",
+          "safe": {
+            "left": -0.9375,
+            "right": 0.9375,
+            "top": 0.953125,
+            "bottom": -0.84375
+          },
+          "feasible": false,
+          "minimumDistance": 4.99596658871667,
+          "maximumDistance": 4.248288139462287,
+          "distance": null,
+          "chosen": 5.04596658871667,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.9200000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.99596658871667
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.3800000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.995966588716667
+            }
+          ]
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "room": "contact",
+          "safe": {
+            "left": -0.9375,
+            "right": 0.9375,
+            "top": 0.953125,
+            "bottom": -0.84375
+          },
+          "feasible": false,
+          "minimumDistance": 4.995966588716668,
+          "maximumDistance": 4.248288139462287,
+          "distance": null,
+          "chosen": 5.045966588716668,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.995966588716668
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.8039999999999999,
+                -0.24
+              ],
+              "minimum": 4.990472728845806
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "room": "experience",
+          "safe": {
+            "left": -0.9282051282051282,
+            "right": 0.9282051282051282,
+            "top": 0.943127962085308,
+            "bottom": -0.6872037914691943
+          },
+          "feasible": false,
+          "minimumDistance": 8.393803125163574,
+          "maximumDistance": 4.26161310819426,
+          "distance": null,
+          "chosen": 8.443803125163575,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 8.393803125163574
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.596,
+                -0.24
+              ],
+              "minimum": 8.388309265292712
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "room": "projects",
+          "safe": {
+            "left": -0.9282051282051282,
+            "right": 0.9282051282051282,
+            "top": 0.943127962085308,
+            "bottom": -0.6872037914691943
+          },
+          "feasible": false,
+          "minimumDistance": 8.393803125163574,
+          "maximumDistance": 4.26161310819426,
+          "distance": null,
+          "chosen": 8.443803125163575,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 8.393803125163574
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.92,
+                2.816,
+                -0.24
+              ],
+              "minimum": 8.393803125163574
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "room": "about",
+          "safe": {
+            "left": -0.9282051282051282,
+            "right": 0.9282051282051282,
+            "top": 0.943127962085308,
+            "bottom": -0.6872037914691943
+          },
+          "feasible": false,
+          "minimumDistance": 8.393803125163576,
+          "maximumDistance": 4.26161310819426,
+          "distance": null,
+          "chosen": 8.443803125163576,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.9200000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 8.393803125163576
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.3800000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 8.39380312516357
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "room": "contact",
+          "safe": {
+            "left": -0.9282051282051282,
+            "right": 0.9282051282051282,
+            "top": 0.943127962085308,
+            "bottom": -0.6872037914691943
+          },
+          "feasible": false,
+          "minimumDistance": 8.393803125163574,
+          "maximumDistance": 4.26161310819426,
+          "distance": null,
+          "chosen": 8.443803125163575,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 8.393803125163574
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.8039999999999999,
+                -0.24
+              ],
+              "minimum": 8.388309265292712
+            }
+          ]
+        },
+        {
+          "viewport": [
+            700,
+            900
+          ],
+          "room": "experience",
+          "safe": {
+            "left": -0.9314285714285714,
+            "right": 0.9314285714285714,
+            "top": 0.9466666666666667,
+            "bottom": -0.8222222222222222
+          },
+          "feasible": false,
+          "minimumDistance": 4.8395624935287636,
+          "maximumDistance": 4.247002100281861,
+          "distance": null,
+          "chosen": 4.889562493528763,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.8395624935287636
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                2.596,
+                -0.24
+              ],
+              "minimum": 4.8340686336579015
+            }
+          ]
+        },
+        {
+          "viewport": [
+            700,
+            900
+          ],
+          "room": "projects",
+          "safe": {
+            "left": -0.9314285714285714,
+            "right": 0.9314285714285714,
+            "top": 0.9466666666666667,
+            "bottom": -0.8222222222222222
+          },
+          "feasible": false,
+          "minimumDistance": 4.8395624935287636,
+          "maximumDistance": 4.247002100281861,
+          "distance": null,
+          "chosen": 4.889562493528763,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.37999999999999995,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.8395624935287636
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.92,
+                2.816,
+                -0.24
+              ],
+              "minimum": 4.8395624935287636
+            }
+          ]
+        },
+        {
+          "viewport": [
+            700,
+            900
+          ],
+          "room": "about",
+          "safe": {
+            "left": -0.9314285714285714,
+            "right": 0.9314285714285714,
+            "top": 0.9466666666666667,
+            "bottom": -0.8222222222222222
+          },
+          "feasible": false,
+          "minimumDistance": 4.839562493528765,
+          "maximumDistance": 4.247002100281861,
+          "distance": null,
+          "chosen": 4.889562493528765,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                -2.9200000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.839562493528765
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                -0.3800000000000004,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.839562493528762
+            }
+          ]
+        },
+        {
+          "viewport": [
+            700,
+            900
+          ],
+          "room": "contact",
+          "safe": {
+            "left": -0.9314285714285714,
+            "right": 0.9314285714285714,
+            "top": 0.9466666666666667,
+            "bottom": -0.8222222222222222
+          },
+          "feasible": false,
+          "minimumDistance": 4.8395624935287636,
+          "maximumDistance": 4.247002100281861,
+          "distance": null,
+          "chosen": 4.889562493528763,
+          "drivers": [
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.584,
+                -0.24
+              ],
+              "minimum": 4.8395624935287636
+            },
+            {
+              "kind": "portal-plate",
+              "position": [
+                0.37999999999999995,
+                -0.8039999999999999,
+                -0.24
+              ],
+              "minimum": 4.8340686336579015
+            }
+          ]
+        }
+      ],
+      "overview": [
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "target": [
+            -0.8070775612039842,
+            0,
+            0.14684945344924927
+          ],
+          "safe": {
+            "left": -0.9375,
+            "right": 0.9375,
+            "top": 0.953125,
+            "bottom": -0.84375
+          },
+          "allHardwareDistance": 27.014713803138484,
+          "cabinsOnlyPriorityDistance": 27.014713803138484,
+          "cabinsAndWalkwayPriorityDistance": 27.014713803138484,
+          "walkwayIncludedByCurrentSource": true,
+          "note": "Includes no extra hover-dolly margin; current overview hover can reduce distance by 2.5%."
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "target": [
+            -0.8070775612039842,
+            0,
+            0.14684945344924927
+          ],
+          "safe": {
+            "left": -0.9282051282051282,
+            "right": 0.9282051282051282,
+            "top": 0.943127962085308,
+            "bottom": -0.6872037914691943
+          },
+          "allHardwareDistance": 43.44745119572282,
+          "cabinsOnlyPriorityDistance": 31.39678060895763,
+          "cabinsAndWalkwayPriorityDistance": 31.39678060895763,
+          "walkwayIncludedByCurrentSource": true,
+          "note": "Includes no extra hover-dolly margin; current overview hover can reduce distance by 2.5%."
+        },
+        {
+          "viewport": [
+            700,
+            900
+          ],
+          "target": [
+            -0.8070775612039842,
+            0,
+            0.14684945344924927
+          ],
+          "safe": {
+            "left": -0.9314285714285714,
+            "right": 0.9314285714285714,
+            "top": 0.9466666666666667,
+            "bottom": -0.8222222222222222
+          },
+          "allHardwareDistance": 26.2583067789103,
+          "cabinsOnlyPriorityDistance": 26.2583067789103,
+          "cabinsAndWalkwayPriorityDistance": 26.2583067789103,
+          "walkwayIncludedByCurrentSource": true,
+          "note": "Includes no extra hover-dolly margin; current overview hover can reduce distance by 2.5%."
+        }
+      ]
+    }
+  ],
+  "input": {
+    "stickyOutAndBack": true,
+    "secondaryPointerIgnored": true,
+    "thresholdExactly8CssPixels": true,
+    "responseWithinBounds": true
+  },
+  "initialSettledRoomIsHome": true,
+  "reducedMotion": {
+    "first": {
+      "target": [
+        2,
+        -1.3,
+        0.16
+      ],
+      "travelling": false,
+      "arrivals": 1,
+      "remaining": 0
+    },
+    "second": {
+      "target": [
+        2,
+        -1.3,
+        0.16
+      ],
+      "travelling": false,
+      "arrivals": 1,
+      "remaining": 0
+    },
+    "final": [
+      2,
+      -1.3,
+      0.16
+    ],
+    "finalOnFirstFrame": true
+  },
+  "safeAreaStaticReview": {
+    "measuresCollapsedNavigation": true,
+    "readerUsesSameReservation": true,
+    "breakpointAligned": true,
+    "zeroInset": {
+      "phone": 132,
+      "desktop": 80
+    },
+    "phoneInset34Reservation": 166,
+    "note": "Source review, plus collapsed44px control CSS arithmetic. Real device geometry still requires browser QA."
+  }
+}

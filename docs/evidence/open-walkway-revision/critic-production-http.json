@@ -1,0 +1,553 @@
+{
+  "scope": "Independent GET-only final built-Worker spot check; no JavaScript or simulated gateway authentication",
+  "base": "http://127.0.0.1:4173",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 66517,
+      "elapsedMs": 27.26,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Mikael Vincent \u2014 Developer portfolio \u00b7 Sample content",
+      "h1": [
+        "Good products.\nThoughtful engineering."
+      ],
+      "canonical": "https://mikaelvincent.dev",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects",
+        "/projects/atlas",
+        "/projects/beacon",
+        "/projects/fieldnotes",
+        "/projects/harbor",
+        "/projects/ledger",
+        "/projects/meter",
+        "/projects/parcel",
+        "/projects/relay",
+        "/projects/tempo"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/projects",
+      "status": 200,
+      "bytes": 66711,
+      "elapsedMs": 12.82,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Projects \u2014 Mikael Vincent",
+      "h1": [
+        "The payload rack"
+      ],
+      "canonical": "https://mikaelvincent.dev/projects",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects",
+        "/projects/atlas",
+        "/projects/beacon",
+        "/projects/fieldnotes",
+        "/projects/harbor",
+        "/projects/ledger",
+        "/projects/meter",
+        "/projects/parcel",
+        "/projects/relay",
+        "/projects/tempo"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/projects/relay",
+      "status": 200,
+      "bytes": 56126,
+      "elapsedMs": 12.89,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Relay \u2014 Sample job queue case study",
+      "h1": [
+        "Relay"
+      ],
+      "canonical": "https://mikaelvincent.dev/projects/relay",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/experience",
+      "status": 200,
+      "bytes": 54121,
+      "elapsedMs": 11.96,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Experience \u2014 Mikael Vincent",
+      "h1": [
+        "The mission log"
+      ],
+      "canonical": "https://mikaelvincent.dev/experience",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "bytes": 53146,
+      "elapsedMs": 10.79,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "About \u2014 Mikael Vincent",
+      "h1": [
+        "A little more human"
+      ],
+      "canonical": "https://mikaelvincent.dev/about",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "bytes": 49119,
+      "elapsedMs": 12.03,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Contact \u2014 Mikael Vincent",
+      "h1": [
+        "Good things start with a conversation."
+      ],
+      "canonical": "https://mikaelvincent.dev/contact",
+      "robots": "noindex, follow",
+      "forms": 1,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "bytes": 42560,
+      "elapsedMs": 10.57,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "no-store, must-revalidate",
+      "title": "Privacy \u2014 Mikael Vincent",
+      "h1": [
+        "Privacy"
+      ],
+      "canonical": "https://mikaelvincent.dev/privacy",
+      "robots": "noindex, follow",
+      "forms": 0,
+      "portfolioLinks": [
+        "/about",
+        "/contact",
+        "/experience",
+        "/projects"
+      ],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "bytes": 73,
+      "elapsedMs": 4.66,
+      "contentType": "text/plain",
+      "cacheControl": "public, max-age=300",
+      "title": "",
+      "h1": [],
+      "canonical": null,
+      "robots": null,
+      "forms": 0,
+      "portfolioLinks": [],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "bytes": 998,
+      "elapsedMs": 3.49,
+      "contentType": "application/xml",
+      "cacheControl": "public, max-age=300",
+      "title": "",
+      "h1": [],
+      "canonical": null,
+      "robots": null,
+      "forms": 0,
+      "portfolioLinks": [],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/api/admin",
+      "status": 403,
+      "bytes": 34,
+      "elapsedMs": 3.67,
+      "contentType": "application/json",
+      "cacheControl": "private, no-store",
+      "title": "",
+      "h1": [],
+      "canonical": null,
+      "robots": null,
+      "forms": 0,
+      "portfolioLinks": [],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/api/admin/inbox",
+      "status": 403,
+      "bytes": 34,
+      "elapsedMs": 2.77,
+      "contentType": "application/json",
+      "cacheControl": "private, no-store",
+      "title": "",
+      "h1": [],
+      "canonical": null,
+      "robots": null,
+      "forms": 0,
+      "portfolioLinks": [],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/api/admin/export",
+      "status": 403,
+      "bytes": 34,
+      "elapsedMs": 2.44,
+      "contentType": "application/json",
+      "cacheControl": "private, no-store",
+      "title": "",
+      "h1": [],
+      "canonical": null,
+      "robots": null,
+      "forms": 0,
+      "portfolioLinks": [],
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' ; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com; worker-src 'self' blob:",
+      "nosniff": "nosniff"
+    },
+    {
+      "path": "/admin/preview?section=about",
+      "status": 200,
+      "finalURL": "http://127.0.0.1:4173/admin",
+      "cacheControl": "private, no-store",
+      "robots": "noindex, nofollow",
+      "title": [
+        "Content studio"
+      ],
+      "signInPresent": true,
+      "bytes": 13241
+    },
+    {
+      "path": "/projects/does-not-exist",
+      "status": 404,
+      "finalURL": "http://127.0.0.1:4173/projects/does-not-exist",
+      "cacheControl": null,
+      "robots": null,
+      "title": [
+        "Mikael Vincent \u2014 Developer portfolio \u00b7 Sample content"
+      ],
+      "signInPresent": false,
+      "bytes": 6955
+    }
+  ],
+  "assets": [
+    {
+      "path": "/_next/static/chunks/Icon-jpk45vUa.js",
+      "status": 200,
+      "bytes": 1082,
+      "sha256": "48c25c379ca06adba7620fb106be8d7acf373f9e7ae1cdde73db77010b85ed4d"
+    },
+    {
+      "path": "/_next/static/chunks/contact-form-g1xmV2QG.js",
+      "status": 200,
+      "bytes": 4064,
+      "sha256": "06891b26909c9d5c8e31f5ab3b60fbda1e5e4d79b8b92ed12d1cb73e11d3afec"
+    },
+    {
+      "path": "/_next/static/chunks/framework-DTZGTDtF.js",
+      "status": 200,
+      "bytes": 190109,
+      "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df"
+    },
+    {
+      "path": "/_next/static/chunks/immersive-portfolio-DHy7Nt95.js",
+      "status": 200,
+      "bytes": 56847,
+      "sha256": "71e0424eef70e9138acfb945a2c239a4f75a32a949fd139612a7344509ca20f6"
+    },
+    {
+      "path": "/_next/static/chunks/index-Co3eWc0T.js",
+      "status": 200,
+      "bytes": 118209,
+      "sha256": "14d7a986984519fecba97fe7e5b55dbe49837229e33c0fe93a2ddc14c54ca0b1"
+    },
+    {
+      "path": "/_next/static/chunks/layout-segment-context-BG1V29pF.js",
+      "status": 200,
+      "bytes": 496,
+      "sha256": "94e821127ab69a947fac55a0d467963b20f701eea234dd23de1b12700125be0b"
+    },
+    {
+      "path": "/_next/static/chunks/orbit-CTRZ45eY.js",
+      "status": 200,
+      "bytes": 344,
+      "sha256": "4ae4526b5fe0b3b96928353787f6c99779a0d0f7c53f6f8ed701bfc6fe506c1a"
+    },
+    {
+      "path": "/_next/static/chunks/radio-ChOZJHGg.js",
+      "status": 200,
+      "bytes": 1049,
+      "sha256": "1060c774b2464cd16aa8538436eba6f9ec967f5e1a5a16e5212634fb34db2219"
+    },
+    {
+      "path": "/_next/static/chunks/rolldown-runtime-hePW80VL.js",
+      "status": 200,
+      "bytes": 716,
+      "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
+    },
+    {
+      "path": "/_next/static/chunks/vinext-CjC315i2.js",
+      "status": 200,
+      "bytes": 111711,
+      "sha256": "4d4f2ff29e07aaf7e0c751ef4d7d6807ca339fdabc16d6bc092b8eaadc723bdb"
+    },
+    {
+      "path": "/_next/static/css/index.DugwFdPm.css",
+      "status": 200,
+      "bytes": 93833,
+      "sha256": "1e1e84a093bedde32815ec6be4c24b9ff33a3dbb9c0cb068ed96c51464d5a9f8"
+    }
+  ],
+  "finalRecheck": {
+    "at": "2026-09-09T03:07:03.761669+00:00",
+    "scope": "After scoped sharp patch, tool restarts and final build",
+    "routes": [
+      {
+        "path": "/",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 66517,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/projects",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/projects",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 66711,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/projects/relay",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/projects/relay",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 56126,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/experience",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/experience",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 54121,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/about",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/about",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 53146,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/contact",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/contact",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 49119,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/privacy",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 42560,
+        "cacheControl": "no-store, must-revalidate",
+        "robots": null
+      },
+      {
+        "path": "/api/admin",
+        "status": 403,
+        "finalURL": "http://127.0.0.1:4173/api/admin",
+        "mainCount": 0,
+        "h1Count": 0,
+        "bytes": 34,
+        "cacheControl": "private, no-store",
+        "robots": "noindex, nofollow"
+      },
+      {
+        "path": "/api/admin/inbox",
+        "status": 403,
+        "finalURL": "http://127.0.0.1:4173/api/admin/inbox",
+        "mainCount": 0,
+        "h1Count": 0,
+        "bytes": 34,
+        "cacheControl": "private, no-store",
+        "robots": "noindex, nofollow"
+      },
+      {
+        "path": "/api/admin/export",
+        "status": 403,
+        "finalURL": "http://127.0.0.1:4173/api/admin/export",
+        "mainCount": 0,
+        "h1Count": 0,
+        "bytes": 34,
+        "cacheControl": "private, no-store",
+        "robots": "noindex, nofollow"
+      },
+      {
+        "path": "/admin/preview?section=about",
+        "status": 200,
+        "finalURL": "http://127.0.0.1:4173/admin",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 13241,
+        "cacheControl": "private, no-store",
+        "robots": "noindex, nofollow"
+      },
+      {
+        "path": "/projects/does-not-exist",
+        "status": 404,
+        "finalURL": "http://127.0.0.1:4173/projects/does-not-exist",
+        "mainCount": 1,
+        "h1Count": 1,
+        "bytes": 6964,
+        "cacheControl": null,
+        "robots": null
+      }
+    ],
+    "assets": [
+      {
+        "path": "/_next/static/chunks/Icon-jpk45vUa.js",
+        "status": 200,
+        "sha256": "48c25c379ca06adba7620fb106be8d7acf373f9e7ae1cdde73db77010b85ed4d",
+        "bytes": 1082
+      },
+      {
+        "path": "/_next/static/chunks/contact-form-g1xmV2QG.js",
+        "status": 200,
+        "sha256": "06891b26909c9d5c8e31f5ab3b60fbda1e5e4d79b8b92ed12d1cb73e11d3afec",
+        "bytes": 4064
+      },
+      {
+        "path": "/_next/static/chunks/framework-DTZGTDtF.js",
+        "status": 200,
+        "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df",
+        "bytes": 190109
+      },
+      {
+        "path": "/_next/static/chunks/immersive-portfolio-Dz2kPR1Z.js",
+        "status": 200,
+        "sha256": "ba420a2e15fcfe57e3ddf7b33fe1b0a6a2ef034a918d4254f4ffe0056a9c83b0",
+        "bytes": 56847
+      },
+      {
+        "path": "/_next/static/chunks/index-KLnyZEqy.js",
+        "status": 200,
+        "sha256": "73a982c104bebea862438c4015ad0d2b3f7c8b9db54e8a76ecc6f2750428caa3",
+        "bytes": 118209
+      },
+      {
+        "path": "/_next/static/chunks/layout-segment-context-D49zhY-f.js",
+        "status": 200,
+        "sha256": "30616b97b11543c302ae3b3447147e278ca7eebd39f27abf341e956e8a4b6c99",
+        "bytes": 496
+      },
+      {
+        "path": "/_next/static/chunks/orbit-CTRZ45eY.js",
+        "status": 200,
+        "sha256": "4ae4526b5fe0b3b96928353787f6c99779a0d0f7c53f6f8ed701bfc6fe506c1a",
+        "bytes": 344
+      },
+      {
+        "path": "/_next/static/chunks/radio-ChOZJHGg.js",
+        "status": 200,
+        "sha256": "1060c774b2464cd16aa8538436eba6f9ec967f5e1a5a16e5212634fb34db2219",
+        "bytes": 1049
+      },
+      {
+        "path": "/_next/static/chunks/rolldown-runtime-hePW80VL.js",
+        "status": 200,
+        "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021",
+        "bytes": 716
+      },
+      {
+        "path": "/_next/static/chunks/vinext-DEpsakHI.js",
+        "status": 200,
+        "sha256": "21d2bb47d0b24d9b2f94a1b413f4505631a755cc1ac8935eb1faa3104e9b78f4",
+        "bytes": 111711
+      },
+      {
+        "path": "/_next/static/css/index.DugwFdPm.css",
+        "status": 200,
+        "sha256": "1e1e84a093bedde32815ec6be4c24b9ff33a3dbb9c0cb068ed96c51464d5a9f8",
+        "bytes": 93833
+      }
+    ],
+    "developmentServerStatus": 200,
+    "lockfileSha256": "5cf96e8567e87efdd0043337a329d4e8f64d1fcf007b7dde74f935bc093e05f3"
+  }
+}

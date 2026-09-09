@@ -8,6 +8,7 @@ import {
   type MotionAxis,
 } from '@/lib/flight';
 import type * as Three from 'three';
+import { planCabinItinerary, type CabinRouteNode } from '@/lib/cabin-itinerary';
 import {
   beginBoundedDrag,
   updateBoundedDrag,
@@ -443,14 +444,15 @@ export function Spacecraft(props: Props) {
               mobile: mobile(),
             },
           );
+          let bottomReservation = mobile() ? 132 : 80;
+          const readerInsets = () => ({ top: 20, bottom: bottomReservation });
+          const readerHeight = () =>
+            el.clientHeight - readerInsets().top - readerInsets().bottom;
           const readerStretch = () =>
             mobile()
               ? Math.max(
                   1,
-                  Math.min(
-                    1.5,
-                    (el.clientHeight - 200) / (el.clientWidth - 32) / 1.125,
-                  ),
+                  Math.min(1.5, readerHeight() / (el.clientWidth - 32) / 1.125),
                 )
               : 1;
           const paperPixels = () =>
@@ -459,7 +461,7 @@ export function Spacecraft(props: Props) {
               Math.min(
                 mobile() ? 360 : 560,
                 el.clientWidth - 32,
-                (el.clientHeight - 200) / (1.125 * readerStretch()),
+                readerHeight() / (1.125 * readerStretch()),
               ),
             );
           const pose = (section: string, isReading: boolean) => {
@@ -476,15 +478,24 @@ export function Spacecraft(props: Props) {
               .querySelector('.flight-header')
               ?.getBoundingClientRect();
             const rect = el.getBoundingClientRect();
+            // Measure the collapsed navigation, including CSS safe-area padding.
+            // Cache this on camera/resize updates rather than reading layout per frame.
+            const dock = document
+              .querySelector('.flight-navigation')
+              ?.getBoundingClientRect();
+            bottomReservation = Math.max(
+              mobile() ? 132 : 80,
+              dock ? rect.bottom - dock.top + 14 : 0,
+            );
             const topInset = Math.max(
-              56,
-              (header?.bottom || 64) - rect.top + 10,
+              24,
+              (header?.bottom || 0) - rect.top + 10,
             );
             const safe = {
               left: -1 + (2 * (mobile() ? 14 : 24)) / el.clientWidth,
               right: 1 - (2 * (mobile() ? 14 : 24)) / el.clientWidth,
               top: 1 - (2 * topInset) / el.clientHeight,
-              bottom: -1 + (2 * 60) / el.clientHeight,
+              bottom: -1 + (2 * bottomReservation) / el.clientHeight,
             };
             let desiredDistance: number;
             if (isReading) {
@@ -494,6 +505,13 @@ export function Spacecraft(props: Props) {
                 (2 *
                   Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) *
                   paperPixels());
+              // Center the physical reader in the space above the bottom controls.
+              const insets = readerInsets();
+              target.y -=
+                ((insets.bottom - insets.top) *
+                  desiredDistance *
+                  Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) /
+                el.clientHeight;
             } else if (home) {
               const bounds = model.group.userData.overviewBounds;
               const min = bounds?.min || [-6, -4, -1.5];
@@ -525,9 +543,10 @@ export function Spacecraft(props: Props) {
               );
               if (mobile()) {
                 const cabinPoints: Vec3[] = [];
-                for (const bounds of Object.values(
-                  model.group.userData.roomBounds,
-                ) as { center: number[]; size: number[] }[]) {
+                for (const bounds of [
+                  ...Object.values(model.group.userData.roomBounds),
+                  model.group.userData.walkwayBounds,
+                ].filter(Boolean) as { center: number[]; size: number[] }[]) {
                   for (const sx of [-1, 1])
                     for (const sy of [-1, 1])
                       for (const sz of [-1, 1])
@@ -626,19 +645,100 @@ export function Spacecraft(props: Props) {
             }
             return { target, distance: desiredDistance, roll: 0, direction };
           };
+          type FlightPose = ReturnType<typeof pose>;
+          let itinerary: FlightPose[] = [];
+          let travelledRoute: string[] = [];
+          let lastSettledSection = 'home';
+          let itineraryPlan: unknown = null;
+          const aim = (desired: FlightPose) => {
+            nextTarget.copy(desired.target);
+            nextDirection.copy(desired.direction);
+            nextDistance = desired.distance;
+            nextRoll = desired.roll;
+          };
           const go = (immediate = false, notify = true) => {
             cancelInput();
             aoDirty = true;
+            const previousRoom = active;
+            const wasReading = reading;
             active = latest.current.section;
             reading = latest.current.readingSurface;
             notifyArrival = notify;
             if (model.group.userData.projectPage !== latest.current.projectPage)
               model.setProjectPage(latest.current.projectPage);
             const desired = pose(active, reading);
-            nextTarget.copy(desired.target);
-            nextDirection.copy(desired.direction);
-            nextDistance = desired.distance;
-            nextRoll = desired.roll;
+            itinerary = [];
+            travelledRoute = [];
+            itineraryPlan = null;
+            if (
+              !immediate &&
+              !stop &&
+              !wasReading &&
+              !reading &&
+              lastSettledSection !== 'home' &&
+              (previousRoom !== active || travelling)
+            ) {
+              const roomNode = (room: string): CabinRouteNode => ({
+                room,
+                position: [
+                  anchors[room][0],
+                  model.group.userData.innerApertureBounds[room].center[1],
+                  anchors[room][2],
+                ],
+              });
+              const upper = roomNode('projects'),
+                lower = roomNode('about');
+              const via =
+                model.group.userData.portals.find(
+                  (p: any) => p.from === 'projects' && p.to === 'about',
+                )?.waypoints || [];
+              const nodes: CabinRouteNode[] = [
+                roomNode('experience'),
+                upper,
+                ...via.map((point: Vec3, index: number) => ({
+                  position: [
+                    point[0],
+                    index === 0
+                      ? upper.position[1]
+                      : index === via.length - 1
+                        ? lower.position[1]
+                        : point[1],
+                    point[2],
+                  ] as Vec3,
+                })),
+                lower,
+                roomNode('contact'),
+              ];
+              const plan = planCabinItinerary(
+                nodes,
+                currentTarget.toArray(),
+                active,
+              );
+              if (plan) {
+                itineraryPlan = plan;
+                const between = nodes
+                  .map((node, index) => ({ node, index }))
+                  .filter(
+                    ({ node, index }) =>
+                      node.room &&
+                      index >=
+                        Math.min(plan.station, plan.destinationStation) -
+                          0.001 &&
+                      index <=
+                        Math.max(plan.station, plan.destinationStation) + 0.001,
+                  );
+                if (plan.destinationStation < plan.station) between.reverse();
+                travelledRoute = between.map(({ node }) => node.room!);
+                for (const point of plan.points.slice(0, -1)) {
+                  itinerary.push({
+                    ...desired,
+                    target: new THREE.Vector3(...point),
+                  });
+                }
+              }
+            }
+            itinerary.push(desired);
+            aim(itinerary.shift()!);
             flightImmediate = stop || immediate;
             if (stop) {
               [...pointerMotion, ...hoverMotion, dollyMotion].forEach((s) =>
@@ -648,6 +748,7 @@ export function Spacecraft(props: Props) {
             }
             hoveredProject = '';
             travelling = true;
+            el.dataset.travelling = 'true';
             el.dataset.activeRoom = active;
             kick();
           };
@@ -665,6 +766,10 @@ export function Spacecraft(props: Props) {
               const immediate = flightImmediate || stop;
               const beforeRoll = roll;
               if (immediate) {
+                if (itinerary.length) {
+                  aim(itinerary[itinerary.length - 1]);
+                  itinerary = [];
+                }
                 nextTarget
                   .toArray()
                   .forEach((v, i) => resetAxis(targetMotion[i], v));
@@ -722,9 +827,20 @@ export function Spacecraft(props: Props) {
                 viewDirection.distanceTo(nextDirection) < 0.0003 &&
                 Math.abs(distanceMotion.velocity) < 0.025 &&
                 targetMotion.every((s) => Math.abs(s.velocity) < 0.02);
-              if (immediate || settled) {
-                travelling = false;
-                if (notifyArrival) latest.current.onSettled();
+              // Pass intermediate waypoints without stopping or resetting velocity.
+              const nearWaypoint =
+                itinerary.length > 0 &&
+                currentTarget.distanceTo(nextTarget) < 0.28 &&
+                Math.abs(distance - nextDistance) < 0.3;
+              if (immediate || settled || nearWaypoint) {
+                if (itinerary.length) {
+                  aim(itinerary.shift()!);
+                } else {
+                  travelling = false;
+                  el.dataset.travelling = 'false';
+                  lastSettledSection = active;
+                  if (notifyArrival) latest.current.onSettled();
+                }
               }
             }
             const motionDelta = stop ? 0 : delta;
@@ -741,10 +857,20 @@ export function Spacecraft(props: Props) {
               !!effectiveHover &&
               effectiveHover !== active &&
               !down?.gesture.dragging;
+            const highlightedRoute = model.group.userData.activeRoute || [];
+            const passage = model.group.userData.portals.find(
+              (p: any) =>
+                p.from === active &&
+                (p.to === effectiveHover ||
+                  (highlightedRoute.at(-1) === effectiveHover &&
+                    p.to === highlightedRoute[1])),
+            );
+            // Look slightly across the open threshold so its neighbor is visible.
+            const passagePeek = passage?.edge === 'right' ? -1 : 1;
             pointerCurrent.set(
               moveCameraAxis(
                 pointerMotion[0],
-                reading || inspectingPassage ? 0 : pointerGoal.x,
+                reading ? 0 : inspectingPassage ? passagePeek : pointerGoal.x,
                 motionDelta,
                 pointerLimits,
               ),
@@ -981,6 +1107,12 @@ export function Spacecraft(props: Props) {
                 roomAnchors: JSON.stringify(model.group.userData.roomAnchors),
                 portals: JSON.stringify(model.group.userData.portals),
                 activeRoute: JSON.stringify(model.group.userData.activeRoute),
+                travelledRoute: JSON.stringify(travelledRoute),
+                itineraryRemaining: String(itinerary.length),
+                itineraryPlan: JSON.stringify(itineraryPlan),
+                lightingState: JSON.stringify(
+                  model.group.userData.lightingState,
+                ),
               });
               const sorted = [...frameIntervals].sort((a, b) => a - b);
               el.dataset.frameP50 = (

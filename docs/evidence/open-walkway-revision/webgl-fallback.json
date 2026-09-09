@@ -1,0 +1,12 @@
+{
+  "canvasCount": 0,
+  "h1": "The mission log",
+  "readingPressed": [
+    {
+      "pressed": "true",
+      "text": "Interactive view"
+    }
+  ],
+  "renderHidden": true,
+  "url": "/experience"
+}

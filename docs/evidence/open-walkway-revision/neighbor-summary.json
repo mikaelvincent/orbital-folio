@@ -1,0 +1,26 @@
+[
+  {
+    "portal": "projects:experience",
+    "hasBoundedNeighborPeek": true
+  },
+  {
+    "portal": "experience:projects",
+    "hasBoundedNeighborPeek": true
+  },
+  {
+    "portal": "projects:about",
+    "hasBoundedNeighborPeek": true
+  },
+  {
+    "portal": "about:projects",
+    "hasBoundedNeighborPeek": true
+  },
+  {
+    "portal": "about:contact",
+    "hasBoundedNeighborPeek": true
+  },
+  {
+    "portal": "contact:about",
+    "hasBoundedNeighborPeek": true
+  }
+]

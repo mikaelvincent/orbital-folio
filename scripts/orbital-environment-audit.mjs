@@ -1,6 +1,7 @@
-/** Portable Node audit: node scripts/orbital-environment-audit.mjs [REPO_ROOT] [ARTIFACT.ts] */
+/** Portable Node audit: node audit-orbital-cloud-refinement.mjs REPO_ROOT [ARTIFACT.ts] */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
@@ -37,7 +38,12 @@ const mipBytes = (w, h, d, channels) => {
     d = Math.max(1, d >> 1);
   }
 };
-const report = { artifact, verifiedAt: new Date().toISOString(), tiers: [] };
+const report = {
+  artifact,
+  artifactSha256: createHash('sha256').update(source).digest('hex'),
+  verifiedAt: new Date().toISOString(),
+  tiers: [],
+};
 for (const mobile of [false, true]) {
   let invalidations = 0;
   const env = createOrbitalEnvironment(THREE, () => invalidations++, {
@@ -81,21 +87,24 @@ for (const mobile of [false, true]) {
   assert.equal(volume.format, THREE.RedFormat);
   assert.equal(volume.minFilter, THREE.LinearMipmapLinearFilter);
   assert.equal(volume.generateMipmaps, true);
-  // A periodic R8 volume controls the field; validate seamless C2 interpolation.
+  // Independently sample the baked R8 volume using normalized texture coordinates.
   const N = volume.image.width,
-    data = volume.image.data;
+    data = volume.image.data,
+    cells = N / 8;
   const value = (x, y, z) =>
     data[
       ((((z % N) + N) % N) * N + (((y % N) + N) % N)) * N + (((x % N) + N) % N)
     ] / 255;
-  const f = (t) => t * t * t * (t * (t * 6 - 15) + 10);
   const noise = (x, y, z) => {
+    x *= 8;
+    y *= 8;
+    z *= 8;
     const ix = Math.floor(x),
       iy = Math.floor(y),
       iz = Math.floor(z),
-      fx = f(x - ix),
-      fy = f(y - iy),
-      fz = f(z - iz);
+      fx = x - ix,
+      fy = y - iy,
+      fz = z - iz;
     let n = 0;
     for (let dz = 0; dz < 2; dz++)
       for (let dy = 0; dy < 2; dy++)
@@ -108,24 +117,40 @@ for (const mobile of [false, true]) {
     return n;
   };
   let periodError = 0,
-    seamJump = 0;
+    seamJump = 0,
+    maxVoxelJump = 0;
   for (let i = 0; i < 1000; i++) {
     const x = i * 0.317 - 41,
       y = i * 0.73 - 21,
       z = i * 0.119 + 3;
     periodError = Math.max(
       periodError,
-      Math.abs(noise(x, y, z) - noise(x + N, y - N, z + N)),
+      Math.abs(noise(x, y, z) - noise(x + cells, y - cells, z + cells)),
     );
     seamJump = Math.max(
       seamJump,
-      Math.abs(
-        noise(Math.round(x) - 1e-4, y, z) - noise(Math.round(x) + 1e-4, y, z),
-      ),
+      Math.abs(noise(-1e-5, y, z) - noise(1e-5, y, z)),
     );
   }
+  for (let z = 0; z < N; z++)
+    for (let y = 0; y < N; y++)
+      for (let x = 0; x < N; x++)
+        for (const delta of [
+          [1, 0, 0],
+          [0, 1, 0],
+          [0, 0, 1],
+        ])
+          maxVoxelJump = Math.max(
+            maxVoxelJump,
+            Math.abs(
+              value(x, y, z) - value(x + delta[0], y + delta[1], z + delta[2]),
+            ),
+          );
   assert.ok(periodError < 1e-12);
-  assert.ok(seamJump < 1e-9);
+  assert.ok(seamJump < 0.0001);
+  assert.ok(maxVoxelJump < 0.2);
+  assert.equal(initial.cloudSamplesPerCell, 8);
+  assert.equal(initial.cloudFieldCells, cells);
   env.update(10, true, 0, 0);
   assert.ok(Math.abs(env.getDiagnostics().cloudRotation - 0.072) < 1e-12);
   assert.ok(Math.abs(env.getDiagnostics().earthRotation - 0.03) < 1e-12);
@@ -202,6 +227,7 @@ for (const mobile of [false, true]) {
     },
     periodError,
     seamJump,
+    maxVoxelJump,
     meteorAudit: {
       activeSeconds: 3600,
       stepSeconds: 0.02,
