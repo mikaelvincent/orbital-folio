@@ -2750,6 +2750,14 @@ svg {
 .orbital-experience::after {
   display: none;
 }
+.orbital-experience {
+  --orbital-name-size: clamp(1.25rem, 1.1rem + 1vw, 2rem);
+  --orbital-control-size: clamp(0.875rem, 0.65rem + 0.35vw, 1.125rem);
+  --orbital-ink: #e7f3ff;
+  --orbital-edge: #afdbef38;
+  --orbital-glass: linear-gradient(145deg, #25435c61, #09162494);
+  --orbital-glow: #a7d8ed;
+}
 .orbital-experience.is-immersive {
   height: 100svh;
   overflow: hidden;
@@ -2763,7 +2771,7 @@ svg {
   width: min(52rem, calc(100% - 28rem));
   text-align: center;
   color: #e7f3ff;
-  font-size: clamp(1.25rem, 1.1rem + 1vw, 2rem);
+  font-size: var(--orbital-name-size);
   font-weight: 450;
   line-height: 1.35;
   letter-spacing: 0.11em;
@@ -2843,16 +2851,23 @@ svg {
   top: 0;
   left: 0;
   max-width: calc(50% - 24px);
-  padding: 8px 16px;
-  border: 1px solid #a4c3d98a;
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 1px solid var(--orbital-edge);
   border-radius: 999px;
-  color: #edf6ff;
-  background: linear-gradient(160deg, #162e43e8, #061324e8);
+  color: var(--orbital-ink);
+  background: var(--orbital-glass);
+  backdrop-filter: blur(18px) saturate(125%);
   box-shadow:
-    inset 0 1px 0 #e1f1ff16,
-    0 4px 16px #0003;
-  font: 450 clamp(0.875rem, 1.1vw, 1rem) / 1.3 var(--font-sans);
-  letter-spacing: 0.01em;
+    inset 0 1px #e1f1ff12,
+    0 6px 24px #0002;
+  font: 400
+    min(
+      calc(var(--orbital-name-size) * 0.78),
+      clamp(0.875rem, 0.55rem + 0.7vw, 1.5rem)
+    )
+    / 1.3 var(--font-sans);
+  letter-spacing: 0.045em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2862,12 +2877,12 @@ svg {
 }
 .overview-callout:hover,
 .overview-callout.is-highlighted {
-  border-color: #ffe0a5;
-  color: #fff0d4;
-  background: linear-gradient(160deg, #25425bf5, #0b2036f5);
+  border-color: #bbdeef9c;
+  color: #fff5e4;
+  background: linear-gradient(145deg, #39648287, #10273ca8);
   box-shadow:
-    inset 0 1px 0 #fff2,
-    0 0 18px #9ecff32b;
+    inset 0 1px #f3e3bb59,
+    0 0 24px #9ecff324;
 }
 .overview-annotations .is-highlighted {
   stroke: #ffe0a5;
@@ -2882,10 +2897,13 @@ svg {
   margin-top: 26px;
 }
 @media (max-width: 699px) {
+  .orbital-experience {
+    --orbital-name-size: clamp(1.125rem, 4.8vw, 1.5rem);
+  }
   .orbital-identity {
     top: calc(54px + env(safe-area-inset-top, 0px));
     width: calc(100% - 36px);
-    font-size: clamp(1.125rem, 4.8vw, 1.5rem);
+    font-size: var(--orbital-name-size);
     letter-spacing: 0.07em;
   }
 }
@@ -4174,7 +4192,7 @@ body:has(#room-reader:target) .boot-loader {
 }
 @media (max-width: 699px) {
   .is-immersive {
-    --flight-menu-width: clamp(104px, calc(100vw - 212px), 184px);
+    --flight-menu-width: clamp(104px, calc(100vw - 224px), 184px);
   }
   .flight-navigation {
     left: calc(12px + env(safe-area-inset-left, 0px));
@@ -4185,7 +4203,7 @@ body:has(#room-reader:target) .boot-loader {
     min-width: 0;
     width: var(--flight-menu-width);
     gap: 7px;
-    padding-inline: 11px;
+    padding-inline: 8px;
   }
   .is-immersive .room-transport {
     bottom: calc(128px + env(safe-area-inset-bottom, 0px));
@@ -4209,8 +4227,8 @@ body:has(#room-reader:target) .boot-loader {
   }
   .is-immersive .flight-tools button {
     min-height: 44px;
-    padding-inline: 8px;
-    gap: 6px;
+    padding-inline: 6px;
+    gap: 4px;
     max-width: calc(
       100vw - 84px - var(--flight-menu-width) - env(safe-area-inset-left, 0px) -
         env(safe-area-inset-right, 0px)
@@ -4243,4 +4261,103 @@ body:has(#room-reader:target) .boot-loader {
   max-width: min(420px, calc(100vw - 32px));
   max-height: calc(100svh - 160px);
   overflow: auto;
+}
+
+/* Overview instruments share the identity's cool light, fine strokes and glass. */
+.is-immersive
+  :is(.flight-home, .flight-navigation-toggle, .flight-tools button) {
+  min-height: 44px;
+  color: var(--orbital-ink);
+  border: 1px solid var(--orbital-edge);
+  background: var(--orbital-glass);
+  backdrop-filter: blur(18px) saturate(125%);
+  box-shadow:
+    inset 0 1px #e1f1ff12,
+    0 6px 24px #0002;
+  font-size: var(--orbital-control-size);
+  font-weight: 400;
+  letter-spacing: 0.045em;
+  transition:
+    color 180ms,
+    border-color 180ms,
+    background 180ms,
+    box-shadow 180ms;
+}
+.is-immersive
+  :is(.flight-home, .flight-navigation-toggle, .flight-tools button):hover,
+.is-immersive .flight-navigation-toggle[aria-expanded='true'] {
+  color: #fff5e4;
+  border-color: #bbdeef9c;
+  background: linear-gradient(145deg, #39648287, #10273ca8);
+  box-shadow:
+    inset 0 1px #f3e3bb59,
+    0 0 24px #9ecff324;
+}
+.is-immersive .flight-home[aria-current] {
+  color: #efdbc0;
+  border-color: #d5dce963;
+}
+.is-immersive
+  :is(.flight-home, .flight-navigation-toggle, .flight-tools, .flight-status)
+  svg {
+  stroke-width: 1.4;
+}
+.is-immersive .flight-destinations {
+  background: linear-gradient(145deg, #193044e8, #06121cec);
+  border-color: var(--orbital-edge);
+  border-radius: 18px;
+  backdrop-filter: blur(24px) saturate(125%);
+  box-shadow:
+    inset 0 1px #e1f1ff1a,
+    0 18px 60px #0005;
+}
+.is-immersive .flight-menu-identity {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  color: #abc5d7;
+  border-bottom: 1px solid #afdbef20;
+  margin-bottom: 6px;
+}
+.is-immersive .flight-destinations a {
+  font-size: var(--orbital-control-size);
+  font-weight: 400;
+  letter-spacing: 0.035em;
+  border-radius: 8px;
+}
+.is-immersive
+  .flight-destinations
+  a:is(:hover, :focus-visible, [aria-current]) {
+  background: #94c9e510;
+  border-color: transparent;
+  color: #f3dfbe;
+}
+.is-immersive .flight-status {
+  padding: 6px 0 6px 12px;
+  border-radius: 0;
+  background: transparent;
+  color: #b9cedf;
+  font-size: clamp(0.75rem, 0.55rem + 0.25vw, 0.95rem);
+  letter-spacing: 0.09em;
+}
+.is-immersive .flight-status .status-dot {
+  width: 4px;
+  height: 4px;
+  background: #e0c299;
+  box-shadow: 0 0 9px #e0c29970;
+}
+.is-immersive .flight-status a {
+  border-left: 1px solid #afdbef25;
+  margin-left: 5px;
+  border-radius: 0;
+}
+.overview-callout:focus-visible,
+.is-immersive
+  :is(
+    .flight-home,
+    .flight-navigation-toggle,
+    .flight-tools button
+  ):focus-visible {
+  outline: 2px solid #c4e7ff;
+  outline-offset: 4px;
 }

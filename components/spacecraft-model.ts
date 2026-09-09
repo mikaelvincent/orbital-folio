@@ -917,17 +917,31 @@ export function createSpacecraft(
     // A broad floor and warm continuous rear liner replace the noisy black grid.
     box(
       2.65,
-      0.105,
-      2.12,
+      0.44,
+      2.3,
       m.liner,
       x,
-      -1.006,
-      0.05,
+      -1.1735,
+      0.1,
       room,
       0.05,
       'coherent-cabin-deck',
     );
 
+    // Solid reveals bridge the cutaway aperture and pressure skin. The deck's
+    // walking surface stays fixed; the roof meets the existing fixture bezels.
+    box(
+      2.65,
+      0.3,
+      2.3,
+      m.liner,
+      x,
+      1.45,
+      0.1,
+      room,
+      0.04,
+      'solid-cabin-ceiling-return',
+    );
     box(
       2.61,
       1.93,
@@ -1313,9 +1327,22 @@ export function createSpacecraft(
       2.14,
       0.1,
     ).getPoints(16);
-    const inner = walkwayOutline(new THREE.Shape(), 1.3, 6.12, 1.21, 2.0, 0.04)
+    // The rear wall rolls into the single aperture contour through a small
+    // concave cove. No overlaid skin or triangular end sheet is necessary.
+    const inner = walkwayOutline(
+      new THREE.Shape(),
+      1.17,
+      5.96,
+      1.15,
+      1.93,
+      0.04,
+    )
       .getPoints(16)
-      .map((p: any) => p.add(new THREE.Vector2(0.04, 0)));
+      .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
+    const rim = walkwayOutline(new THREE.Shape(), 1.33, 6.12, 1.23, 2.01, 0.04)
+      .getPoints(16)
+      .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
+    if (rim[0].distanceToSquared(rim[rim.length - 1]) < 1e-12) rim.pop();
     if (outer[0].distanceToSquared(outer[outer.length - 1]) < 1e-12)
       outer.pop();
     if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
@@ -1330,19 +1357,19 @@ export function createSpacecraft(
     for (const p of inner) frontPositions.push(p.x, p.y, frontZ);
     const faces = THREE.ShapeUtils.triangulateShape(inner, []);
     for (const face of faces) frontIndices.push(...face);
-    // A rounded perimeter return reaches the actual outer shell. Separate
-    // face vertices retain a flat liner normal; the return itself is smooth.
+    // Quarter-round cove: tangential to the flat back at the start, then to
+    // the axial wall at the end. Separate back vertices retain a flat normal.
     const ringBase = frontPositions.length / 3,
-      steps = 4;
+      steps = 8;
     for (let step = 0; step <= steps; step++) {
       const a = ((step / steps) * Math.PI) / 2;
       const radial = Math.sin(a),
         depth = 1 - Math.cos(a);
       for (let i = 0; i < n; i++)
         frontPositions.push(
-          inner[i].x + (outer[i].x - inner[i].x) * radial,
-          inner[i].y + (outer[i].y - inner[i].y) * radial,
-          frontZ + (rearZ - frontZ) * depth,
+          inner[i].x + (rim[i].x - inner[i].x) * radial,
+          inner[i].y + (rim[i].y - inner[i].y) * radial,
+          frontZ + 0.08 * depth,
         );
     }
     for (let step = 0; step < steps; step++)
@@ -1357,10 +1384,6 @@ export function createSpacecraft(
     // The shoulder lining continues from this rear wall to the shared front
     // aperture. It replaces the separate inner shell skin, so no second sheet
     // edge remains visible where the rear lining meets the curved shoulders.
-    const rim = walkwayOutline(new THREE.Shape(), 1.33, 6.12, 1.23, 2.01, 0.04)
-      .getPoints(16)
-      .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
-    if (rim[0].distanceToSquared(rim[rim.length - 1]) < 1e-12) rim.pop();
     const shoulderBase = frontPositions.length / 3,
       shoulderSteps = 2;
     const shoulderFrontZ = 1.12;
@@ -1368,15 +1391,15 @@ export function createSpacecraft(
       const t = step / shoulderSteps;
       for (let i = 0; i < n; i++)
         frontPositions.push(
-          inner[i].x + (rim[i].x - inner[i].x) * t,
-          inner[i].y + (rim[i].y - inner[i].y) * t,
-          frontZ + (shoulderFrontZ - frontZ) * t,
+          rim[i].x,
+          rim[i].y,
+          frontZ + 0.08 + (shoulderFrontZ - frontZ - 0.08) * t,
         );
     }
     for (let i = 0; i < n; i++) {
       const j = (i + 1) % n;
-      const upper = Math.min(inner[i].y, inner[j].y) >= 1.06 - 1e-6;
-      const lower = Math.max(inner[i].y, inner[j].y) <= -1.06 + 1e-6;
+      const upper = Math.min(rim[i].y, rim[j].y) >= 1.06 - 1e-6;
+      const lower = Math.max(rim[i].y, rim[j].y) <= -1.04 + 1e-6;
       if (!upper && !lower) continue; // Keep all three actual passages open.
       for (let step = 0; step < shoulderSteps; step++) {
         const a = shoulderBase + step * n + i,
@@ -1386,32 +1409,8 @@ export function createSpacecraft(
         frontIndices.push(a, b, d, a, d, c);
       }
     }
-    // Small end returns terminate inside the docking wall's existing thickness,
-    // joining the curve to that wall without a separate overlaid end plate.
-    for (const sign of [-1, 1]) {
-      const i = inner.findIndex(
-        (p: any) =>
-          Math.abs(p.x + 0.61) < 1e-6 && Math.abs(p.y - sign * 1.06) < 1e-6,
-      );
-      const start = frontPositions.length / 3;
-      const pointAt = (vertex: number) =>
-        frontPositions.slice(vertex * 3, vertex * 3 + 3);
-      const rearMid = pointAt(ringBase + 2 * n + i);
-      frontPositions.push(
-        rearMid[0],
-        rim[i].y,
-        shoulderFrontZ,
-        ...rearMid,
-        ...pointAt(ringBase + n + i),
-        ...pointAt(shoulderBase + i),
-        ...pointAt(shoulderBase + n + i),
-        ...pointAt(shoulderBase + shoulderSteps * n + i),
-      );
-      for (let j = 1; j < 5; j++) {
-        if (sign > 0) frontIndices.push(start, start + j, start + j + 1);
-        else frontIndices.push(start, start + j + 1, start + j);
-      }
-    }
+    // The shoulder ends seat inside the docking wall bevel. There is no
+    // separate fan-shaped end patch protruding into the passage.
     for (const p of outer) rearPositions.push(p.x, p.y, rearZ);
     for (const face of THREE.ShapeUtils.triangulateShape(outer, []))
       rearIndices.push(face[2], face[1], face[0]);
@@ -1541,6 +1540,16 @@ export function createSpacecraft(
   for (const sign of [-1, 1]) {
     const shape = capGeometry.clone();
     if (sign < 0) shape.rotateX(Math.PI);
+    const capPositions = shape.getAttribute('position');
+    for (let i = 0; i < capPositions.count; i++) {
+      const y = capPositions.getY(i);
+      const t = Math.max(0, Math.min(1, (Math.abs(y) - 1.06) / 2.14));
+      capPositions.setY(
+        i,
+        y + sign * (sign > 0 ? 0.12 : 0.07) * t * t * (3 - 2 * t),
+      );
+    }
+    shape.computeVertexNormals();
     const cap = pressureMesh(
       shape,
       m.shell,
@@ -3875,44 +3884,28 @@ export function createSpacecraft(
       tangent = ladderX + 0.565 * s;
     // The same long ladder shoulder flows into uninterrupted roof and keel
     // edges; a broad right return joins both cabins to the service bus.
-    outer.moveTo(tangent, -3.18);
-    outer.bezierCurveTo(
-      tangent + 0.35 * s,
-      -3.18,
-      tangent + 0.35 * s,
-      -3.27,
-      tangent + 0.7 * s,
-      -3.27,
-    );
+    outer.moveTo(tangent, -3.27);
     outer.lineTo(rightX - 0.43 * s, -3.27);
     outer.quadraticCurveTo(rightX, -3.27, rightX, -2.84);
     outer.lineTo(rightX, 2.89);
     outer.quadraticCurveTo(rightX, 3.32, rightX - 0.43 * s, 3.32);
-    outer.lineTo(tangent + 0.7 * s, 3.32);
-    outer.bezierCurveTo(
-      tangent + 0.35 * s,
-      3.32,
-      tangent + 0.35 * s,
-      3.2,
-      tangent,
-      3.2,
-    );
+    outer.lineTo(tangent, 3.32);
     outer.bezierCurveTo(
       tangent - 1.36 * s * k,
-      3.2,
+      3.32,
       left,
-      1.06 + 2.14 * k,
+      1.06 + 2.26 * k,
       left,
       1.06,
     );
     outer.lineTo(left, -1.04);
     outer.bezierCurveTo(
       left,
-      -1.04 - 2.14 * k,
+      -1.04 - 2.23 * k,
       tangent - 1.36 * s * k,
-      -3.18,
+      -3.27,
       tangent,
-      -3.18,
+      -3.27,
     );
     outer.closePath();
     const apertures: any[] = [];

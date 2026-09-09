@@ -87,4 +87,4 @@ Current delivery: the revised local experience and seeded studio are runnable. T
 
 The Case studies room uses `/case-studies` and the existing editable experience records for this design iteration. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels. The separate reading interfaces are deferred during this render pass.
 
-The latest render-only changes and evidence are in [HORIZONTAL-CORNERS-VALIDATION.md](docs/HORIZONTAL-CORNERS-VALIDATION.md) and the independent [critic report](docs/CRITIC-REPORT.md).
+The latest render-only changes and evidence are in [CHASSIS-GLASS-VALIDATION.md](docs/CHASSIS-GLASS-VALIDATION.md) and the independent [critic report](docs/CRITIC-REPORT.md).

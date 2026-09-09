@@ -1,0 +1,6 @@
+PASS: npm run typecheck
+PASS: npm run lint
+PASS: git diff --check
+PASS: independent actual-mesh audit, 324 rays across wide and compact layouts.
+Keyboard Projects callout Enter: /projects, active projects, travelling false. Persistent Overview link returns home.
+Phone320 full text: Overview span client/scroll 63/63 px; Reading view 92/92 px. Menu opens and Escape closes.
