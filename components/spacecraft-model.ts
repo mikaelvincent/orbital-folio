@@ -147,12 +147,6 @@ export function createSpacecraft(
   const structures: Record<string, any> = {};
   const contents: Record<string, any> = {};
   const labelMounts = new Map<any, any>();
-  const exteriorLabelGroups: Record<string, Record<'hull' | 'side', any>> = {};
-  const horizontalLabelHardware: Record<
-    string,
-    Record<'wide' | 'compact', any>
-  > = {};
-  const labelRedraws = new Map<any, (width: number) => void>();
   const walkwayCouplings: any[] = [];
   const portalTargets: Array<{
     object: any;
@@ -174,7 +168,7 @@ export function createSpacecraft(
   let layoutScale = 1;
   const labelPlaques: Array<{
     section: string;
-    role: 'hull' | 'side' | 'header';
+    role: 'header';
     text: string;
     position: number[];
     size: number[];
@@ -185,7 +179,6 @@ export function createSpacecraft(
     inkBounds?: number[];
     visible: boolean;
   }> = [];
-  const labelMaterials = new Map<(typeof labelPlaques)[number], any>();
   let labelPortrait = false;
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
@@ -746,8 +739,8 @@ export function createSpacecraft(
       return geometry;
     });
   }
-  // Each exterior nameplate is a complete, independently batched assembly.
   // Header plaques remain permanently attached inside their original cabins.
+  // Exterior room identification is supplied by renderer-owned callouts.
   function plaque(
     text: string,
     w: number,
@@ -756,7 +749,7 @@ export function createSpacecraft(
     y: number,
     z: number,
     parent: any,
-    role: 'hull' | 'side' | 'header',
+    role: 'header',
   ) {
     const section = sectionOf(parent);
     const entry: (typeof labelPlaques)[number] = {
@@ -770,8 +763,8 @@ export function createSpacecraft(
       ],
       size: [w, h],
       attached: true,
-      rotation: role === 'side' ? -Math.PI / 2 : 0,
-      visible: role !== 'side',
+      rotation: 0,
+      visible: true,
     };
     labelPlaques.push(entry);
     if (typeof document === 'undefined') return;
@@ -782,7 +775,6 @@ export function createSpacecraft(
     if (!context) return;
     const ctx = context;
     let texture: any = null;
-    let drawnWidth = w;
     function drawLabel(width = w) {
       canvas.width = Math.round((1536 * width) / w);
       canvas.height = Math.max(128, Math.round((1536 * h) / w));
@@ -809,17 +801,12 @@ export function createSpacecraft(
       entry.fontSize = fontSize;
       entry.inkBounds = [measured.width * fit, glyphHeight * fit];
       entry.size[0] = width;
-      drawnWidth = width;
       if (texture) {
         texture.dispose();
         texture.needsUpdate = true;
       }
     }
     drawLabel();
-    if (role !== 'header')
-      labelRedraws.set(entry, (width) => {
-        if (Math.abs(width - drawnWidth) > 1e-6) drawLabel(width);
-      });
     texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.generateMipmaps = true;
@@ -834,12 +821,12 @@ export function createSpacecraft(
       emissive: 0xffffff,
       emissiveIntensity: 0.12,
     });
-    material.userData.exterior = role !== 'header';
+    material.userData.exterior = false;
     const mount = new THREE.Group();
     mount.name = role + '-label-mount-' + section;
     mount.userData = { section, batchRoot: true, physicalLabel: true };
-    mount.position.set(role === 'header' ? x : 0, role === 'header' ? y : 0, z);
-    (role === 'header' ? rooms[section] : parent).add(mount);
+    mount.position.set(x, y, z);
+    rooms[section].add(mount);
     labelMounts.set(entry, mount);
     const face = mesh(
       new THREE.PlaneGeometry(w, h),
@@ -848,37 +835,15 @@ export function createSpacecraft(
       role + '-plaque-ink-' + section,
     );
     face.position.set(0, 0, 0);
-    // Exterior orientation is carried by the complete assembly, including ink.
     face.rotation.z = 0;
     face.material.visible = entry.visible;
     face.castShadow = false;
-    labelMaterials.set(entry, face.material);
   }
   function setLabelOrientation(portrait: boolean) {
+    // Kept for renderer compatibility; no exterior label geometry remains.
     labelPortrait = !!portrait;
-    let changed = false;
-    for (const assemblies of Object.values(exteriorLabelGroups))
-      for (const [role, assembly] of Object.entries(assemblies)) {
-        const visible =
-          !options.screenLabels &&
-          currentState.activeRoom === 'home' &&
-          role === (labelPortrait ? 'side' : 'hull');
-        changed ||= assembly.visible !== visible;
-        assembly.visible = visible;
-      }
-    for (const label of labelPlaques) {
-      label.visible =
-        label.role === 'header' ||
-        (currentState.activeRoom === 'home' &&
-          label.role === (labelPortrait ? 'side' : 'hull'));
-      const material = labelMaterials.get(label);
-      if (material) material.visible = label.visible;
-    }
     group.userData.brandInkVisible = false;
     group.userData.labelPortrait = labelPortrait;
-    if (changed && group.userData.labelAssemblyBounds)
-      refreshLabelAssemblyBounds();
-    if (changed && group.userData.overviewBounds) captureOverviewBounds();
   }
 
   // Four complete pressure modules. The rounded front cutout is built in XY;
@@ -916,102 +881,6 @@ export function createSpacecraft(
   // At 1.4× width, opposing bulkhead skins retain a 20 mm gap.
   const endWallGeometry = panelGeometry(2.5, 2.88, 0.48, 0.14, 0.03).clone();
   endWallGeometry.rotateY(Math.PI / 2);
-  function createExteriorLabelAssembly(
-    section: string,
-    role: 'hull' | 'side',
-    x: number,
-    y: number,
-  ) {
-    const assembly = new THREE.Group();
-    assembly.name = `${role}-exterior-label-assembly-${section}`;
-    assembly.userData = {
-      section,
-      labelRole: role,
-      exteriorLabelAssembly: true,
-      physicalLabel: true,
-      exterior: true,
-      excludePick: true,
-      batchRoot: true,
-    };
-    assembly.position.set(x, y, 0);
-    assembly.rotation.z = role === 'side' ? -Math.PI / 2 : 0;
-    rooms[section].add(assembly);
-    exteriorLabelGroups[section] ||= {} as Record<'hull' | 'side', any>;
-    exteriorLabelGroups[section][role] = assembly;
-    const variants = role === 'hull' ? ['wide', 'compact'] : ['side'];
-    for (const variant of variants) {
-      const span =
-        role === 'side' ? 2.86 : 2.65 * (variant === 'wide' ? 1.4 : 1);
-      const hardware = new THREE.Group();
-      hardware.name = `${section}-${role}-${variant}-label-hardware`;
-      hardware.userData = { section, labelHardware: true, batchRoot: true };
-      assembly.add(hardware);
-      if (role === 'hull') {
-        horizontalLabelHardware[section] ||= {} as Record<
-          'wide' | 'compact',
-          any
-        >;
-        horizontalLabelHardware[section][variant as 'wide' | 'compact'] =
-          hardware;
-      }
-      box(
-        span,
-        0.57,
-        0.24,
-        m.shell,
-        0,
-        0,
-        1.208,
-        hardware,
-        0.09,
-        role === 'hull'
-          ? 'reinforced-lower-nameplate-collar'
-          : 'reinforced-side-nameplate-collar',
-      );
-      box(
-        span - 0.1,
-        0.468,
-        0.1,
-        m.gasket,
-        0,
-        0,
-        1.307,
-        hardware,
-        0.048,
-        role === 'hull' ? 'room-label-backing' : 'side-label-backing',
-      );
-      box(
-        span - 0.29,
-        0.402,
-        0.069,
-        m.chalk,
-        0,
-        0,
-        1.381,
-        hardware,
-        0.032,
-        role === 'hull'
-          ? 'room-label-ceramic-insert'
-          : 'side-label-ceramic-insert',
-      );
-      for (const sign of [-1, 1])
-        box(
-          0.13,
-          0.434,
-          0.13,
-          m.amber,
-          sign * (span / 2 - 0.065),
-          0,
-          1.36,
-          hardware,
-          0.04,
-          role === 'hull'
-            ? 'nameplate-amber-clasp'
-            : 'side-nameplate-amber-clasp',
-        );
-    }
-    return assembly;
-  }
   for (const [index, section] of [
     'projects',
     'experience',
@@ -1213,36 +1082,6 @@ export function createSpacecraft(
       room,
       'header',
     );
-    // The complete alternatives share one endpoint and inset convention.
-    const hullLabel = createExteriorLabelAssembly(section, 'hull', x, -1.279);
-    const sideLabel = createExteriorLabelAssembly(
-      section,
-      'side',
-      x - 1.565,
-      0.06,
-    );
-    if (!options.screenLabels) {
-      plaque(
-        options.labels?.[section] || `MOD-0${index + 1}`,
-        2.22,
-        0.35,
-        x,
-        -1.279,
-        1.428,
-        hullLabel,
-        'hull',
-      );
-      plaque(
-        options.labels?.[section] || `MOD-0${index + 1}`,
-        2.43,
-        0.35,
-        x - 1.565,
-        0.06,
-        1.428,
-        sideLabel,
-        'side',
-      );
-    }
     box(
       2.77,
       0.15,
@@ -1779,44 +1618,44 @@ export function createSpacecraft(
     }
   }
   for (const yy of [-2.7085, 0.6915]) {
-    // The upper landing leaves a rear ladder well open through to the lower run.
-    // The lower landing narrows into the taper but still reaches its side entry.
+    // A narrow upper transfer sill joins the side entry to the ladder rail;
+    // its footprint hugs the wall rather than projecting as a mid-bay shelf.
+    // The lower landing remains a full deck within the tapered shoulder.
     box(
-      yy > 0 ? 0.98 : 0.76,
+      yy > 0 ? 0.38 : 0.76,
       0.11,
-      yy > 0 ? 0.98 : 1.76,
+      1.76,
       m.liner,
-      yy > 0 ? 0.2 : 0.3,
+      yy > 0 ? 0.56 : 0.3,
       yy,
-      yy > 0 ? 0.44 : 0.19,
+      0.19,
       walkwayFurniture,
       0.045,
       'walkway-room-landing',
     );
     box(
-      yy > 0 ? 0.84 : 0.62,
+      yy > 0 ? 0.26 : 0.62,
       0.024,
       0.046,
       walkwayTrim,
-      yy > 0 ? 0.2 : 0.3,
+      yy > 0 ? 0.56 : 0.3,
       yy + 0.06,
-      0.88,
+      yy > 0 ? 1.015 : 0.88,
       walkwayFurniture,
       0.011,
       'walkway-landing-light-guide',
     );
   }
-  // The upper landing ends before the sealed docking leaf, while its
-  // right edge remains joined to the cabin entry. Small cleats carry both decks.
+  // Continuous wall cleats carry both decks, clear of the left docking leaf.
   for (const yy of [-2.7085, 0.6915])
     box(
       0.14,
       0.15,
-      yy > 0 ? 0.82 : 1.5,
+      1.5,
       m.metal,
       0.685,
       yy - 0.06,
-      yy > 0 ? 0.44 : 0.19,
+      0.19,
       walkwayFurniture,
       0.02,
       'walkway-landing-wall-cleat',
@@ -3318,6 +3157,7 @@ export function createSpacecraft(
     );
     p.rotation.x = a;
   }
+  const solarWings: any[] = [];
   // Paired upright solar wings read clearly above and below the service module.
   // Their broad blue cells face +Z, with only a few structural grid divisions.
   for (const sign of [-1, 1]) {
@@ -3331,6 +3171,7 @@ export function createSpacecraft(
     cylinder(0.143, 0.223, m.metal, 5.61, sign * 1.242, 0.046, service);
     cylinder(0.126, 0.106, m.amber, 6.094, sign * 1.598, 0.057, service);
     const wing = new THREE.Group();
+    solarWings.push(wing);
     wing.position.set(6.1, sign * 2.685, 0.069);
     wing.rotation.z = sign * -0.035;
     service.add(wing);
@@ -4323,9 +4164,33 @@ export function createSpacecraft(
     };
   }
 
+  // Preserve coarse service subassembly bounds before material batching merges
+  // the two wings. This keeps framing support compact without phantom corners
+  // spanning from a solar tip to the engine nozzle or communications dish.
+  group.updateMatrixWorld(true);
+  const serviceOverviewParts = new Map<string, any>();
+  const serviceInverse = vesselMatrix(service).invert();
+  for (const child of service.children) {
+    const bounds = vesselBounds(child).applyMatrix4(serviceInverse);
+    if (bounds.isEmpty()) continue;
+    const wingIndex = solarWings.indexOf(child);
+    const center = bounds.getCenter(new THREE.Vector3());
+    const name =
+      wingIndex >= 0
+        ? `solar-${wingIndex === 0 ? 'lower' : 'upper'}`
+        : child === dishAssembly
+          ? 'communications-dish'
+          : center.y > 0.96
+            ? 'service-upper-support'
+            : center.y < -0.96
+              ? 'service-lower-support'
+              : 'service-bus';
+    if (!serviceOverviewParts.has(name))
+      serviceOverviewParts.set(name, new THREE.Box3());
+    serviceOverviewParts.get(name).union(bounds);
+  }
   // Static scenery is batched per room. Moving assemblies are instead batched
   // within their own local space, so each hinge and reader remains independent.
-  group.updateMatrixWorld(true);
   let sourceParts = 0;
   const buckets = new Map<
     string,
@@ -4466,7 +4331,7 @@ export function createSpacecraft(
       [x, y - 1.279, 1.428],
     ]),
   );
-  group.userData.labelSizes = { width: 2.22, height: 0.35 };
+  group.userData.labelSizes = { width: 0, height: 0 };
   group.userData.sideLabelAnchors = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
       section,
@@ -4474,25 +4339,24 @@ export function createSpacecraft(
     ]),
   );
   group.userData.sideLabelSizes = {
-    width: 2.43,
-    height: 0.35,
-    collarThickness: 0.57,
-    assemblySpan: 2.86,
+    width: 0,
+    height: 0,
+    collarThickness: 0,
+    assemblySpan: 0,
     rotation: -Math.PI / 2,
   };
+  group.userData.labelAssemblyBounds = {};
+  group.userData.sideLabelBounds = {};
+  group.userData.calloutAnchors = {};
+  group.userData.calloutEdges = {};
   group.userData.labelPlaques = labelPlaques;
   group.userData.labelPortrait = false;
   group.userData.labelOrientation = {
-    attached: true,
+    attached: false,
     portraitModelRoll: Math.PI / 2,
-    toggles: ['hull', 'side'],
+    toggles: [],
     headersAlwaysVisible: true,
-    fixedCollarGeometry: false,
-    completeAssemblyVisibility: true,
-    endpointAlignment: 'front aperture endpoints',
-    endClaspInset: 0,
-    enamelEndInset: 0.145,
-    inkEndInset: 0.215,
+    exteriorLabelsRemoved: true,
   };
   group.userData.innerApertureBounds = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
@@ -4591,32 +4455,6 @@ export function createSpacecraft(
       for (const child of object.children) bounds.union(vesselBounds(child));
     return bounds;
   }
-  function refreshLabelAssemblyBounds() {
-    group.updateMatrixWorld(true);
-    group.userData.labelAssemblyBounds ||= {};
-    group.userData.sideLabelBounds ||= {};
-    for (const [section, assemblies] of Object.entries(exteriorLabelGroups)) {
-      const entries: Record<string, any> = {};
-      for (const [role, assembly] of Object.entries(assemblies)) {
-        const bounds = new THREE.Box3();
-        function include(object: any, root = false) {
-          if (!root && !object.visible) return;
-          if (object.isMesh) bounds.union(vesselBounds(object, false));
-          for (const child of object.children) include(child);
-        }
-        include(assembly, true);
-        entries[role] = {
-          center: bounds.getCenter(new THREE.Vector3()).toArray(),
-          size: bounds.getSize(new THREE.Vector3()).toArray(),
-          min: bounds.min.toArray(),
-          max: bounds.max.toArray(),
-          visible: assembly.visible,
-        };
-      }
-      group.userData.labelAssemblyBounds[section] = entries;
-      group.userData.sideLabelBounds[section] = entries.side;
-    }
-  }
   function captureOverviewBounds() {
     const box = new THREE.Box3();
     group.updateMatrixWorld(true);
@@ -4632,12 +4470,36 @@ export function createSpacecraft(
       chassisVariants[currentLayout],
     ])
       box.union(vesselBounds(part));
-    for (const assemblies of Object.values(exteriorLabelGroups))
-      for (const assembly of Object.values(assemblies))
-        assembly.traverseVisible((object: any) => {
-          if (object.isMesh && object.material.visible !== false)
-            box.union(vesselBounds(object, false));
-        });
+    const supportBounds: Array<{ name: string; bounds: any }> = [];
+    for (const [section, structure] of Object.entries(structures))
+      supportBounds.push({
+        name: section + '-body',
+        bounds: vesselBounds(structure),
+      });
+    for (const [name, part] of [
+      ['chassis', chassisVariants[currentLayout]],
+      ['ladder-bay', walkway],
+      ['docking-sleeve', docking],
+      ['passage-couplings', utility],
+    ] as Array<[string, any]>)
+      supportBounds.push({ name, bounds: vesselBounds(part) });
+    const serviceMatrix = vesselMatrix(service);
+    for (const [name, bounds] of serviceOverviewParts)
+      supportBounds.push({
+        name,
+        bounds: bounds.clone().applyMatrix4(serviceMatrix),
+      });
+    const supportPoints: number[][] = [];
+    group.userData.overviewSupportBounds = supportBounds.map(
+      ({ name, bounds }) => {
+        for (const x of [bounds.min.x, bounds.max.x])
+          for (const y of [bounds.min.y, bounds.max.y])
+            for (const z of [bounds.min.z, bounds.max.z])
+              supportPoints.push([x, y, z]);
+        return { name, min: bounds.min.toArray(), max: bounds.max.toArray() };
+      },
+    );
+    group.userData.overviewSupportPoints = supportPoints;
     const center = box.getCenter(new THREE.Vector3()),
       size = box.getSize(new THREE.Vector3());
     group.userData.overviewBounds = {
@@ -4688,16 +4550,13 @@ export function createSpacecraft(
         y + 0.06,
         1.428,
       ];
-      exteriorLabelGroups[section].hull.position.set(origin, -1.279, 0);
-      exteriorLabelGroups[section].side.position.set(
-        origin - 1.565 * layoutScale,
-        0.06,
-        0,
-      );
-      for (const [variant, hardware] of Object.entries(
-        horizontalLabelHardware[section],
-      ))
-        hardware.visible = variant === currentLayout;
+      group.userData.calloutAnchors[section] = [x, y + 0.17, 1.32];
+      group.userData.calloutEdges[section] = {
+        top: [x, y + 1.32, 1.32],
+        bottom: [x, y - 0.98, 1.32],
+        left: [x - 1.22 * layoutScale, y + 0.17, 1.32],
+        right: [x + 1.22 * layoutScale, y + 0.17, 1.32],
+      };
       group.userData.headerAnchors[section] = [x, y + 1.006, -0.263];
       group.userData.innerApertureBounds[section] = {
         center: [x, y + 0.17, 1.2],
@@ -4709,30 +4568,11 @@ export function createSpacecraft(
     for (const entry of labelPlaques) {
       const origin = legacyCenters[entry.section],
         center = roomCenters[entry.section];
-      const px = entry.role === 'side' ? -1.565 * layoutScale : 0;
-      entry.position[0] = center[0] + px;
-      entry.position[1] =
-        center[1] +
-        (entry.role === 'header'
-          ? 1.006
-          : entry.role === 'side'
-            ? 0.06
-            : -1.279);
+      entry.position[0] = center[0];
+      entry.position[1] = center[1] + 1.006;
       const mount = labelMounts.get(entry);
-      if (entry.role === 'header') {
-        if (mount) mount.position.x = origin;
-      } else {
-        const width = entry.role === 'hull' ? 2.65 * layoutScale - 0.43 : 2.43;
-        labelRedraws.get(entry)?.(width);
-        entry.size[0] = width;
-        if (mount)
-          mount.scale.x = width / (entry.role === 'hull' ? 2.22 : 2.43);
-      }
+      if (mount) mount.position.x = origin;
     }
-    group.userData.labelSizes = {
-      width: 2.65 * layoutScale - 0.43,
-      height: 0.35,
-    };
     const outward = 3 * (layoutScale - 1);
     const walkwayX = -halfPitch - 2.25 * layoutScale - 0.2;
     walkway.position.set(walkwayX, 0, 0);
@@ -4774,8 +4614,10 @@ export function createSpacecraft(
         continuousReturn: true,
       },
       upperLanding: {
-        center: [0.2 * layoutScale, 0.6915, 0.44],
-        size: [0.98 * layoutScale, 0.11, 0.98],
+        center: [0.56 * layoutScale, 0.6915, 0.19],
+        size: [0.38 * layoutScale, 0.11, 1.76],
+        kind: 'wall-supported-transfer-sill',
+        joinedTo: ['right-doorway-wall', 'ladder-right-rail'],
       },
       clearDockingOpening: [1.82, 1.9],
       lowerLanding: {
@@ -4971,7 +4813,6 @@ export function createSpacecraft(
     group.userData.layoutScale = layoutScale;
     group.userData.layoutVersion = (group.userData.layoutVersion || 0) + 1;
     group.userData.portalLabelsCoplanarWithDoors = true;
-    refreshLabelAssemblyBounds();
     captureOverviewBounds();
     return {
       layout: currentLayout,
@@ -4979,6 +4820,9 @@ export function createSpacecraft(
       roomAnchors: group.userData.roomAnchors,
       innerApertureBounds: group.userData.innerApertureBounds,
       overviewBounds: group.userData.overviewBounds,
+      overviewSupportPoints: group.userData.overviewSupportPoints,
+      calloutAnchors: group.userData.calloutAnchors,
+      calloutEdges: group.userData.calloutEdges,
       portals: group.userData.portals,
       requiredFramingPoints: points,
       shadowInvalidated: true,
@@ -5086,8 +4930,7 @@ export function createSpacecraft(
       currentState = { ...currentState, ...state };
       if (state.room !== undefined && state.activeRoom === undefined)
         currentState.activeRoom = state.room;
-      // Close views identify the cabin with its interior header; external display
-      // ink switches off while the physical collar remains part of the hull.
+      // Keep the renderer's orientation preference as compatibility metadata.
       setLabelOrientation(state.labelPortrait ?? labelPortrait);
       if (state.slug !== undefined && state.selectedProject === undefined)
         currentState.selectedProject = state.slug;
@@ -5222,7 +5065,7 @@ export function createSpacecraft(
         screenEmission: level,
         fixtureEmission: level,
         labels: level,
-        exteriorLabels: 1,
+        exteriorLabels: 0,
         selected:
           !currentState.travelling && currentState.activeRoom === section,
         transit:

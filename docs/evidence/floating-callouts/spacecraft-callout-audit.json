@@ -1,0 +1,79 @@
+{
+  "baseline": "git:ff15f6a",
+  "candidate": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+  "states": 10,
+  "preservedCabinSources": 616,
+  "removedExteriorSourceMeshes": 68,
+  "headers": 4,
+  "landings": [
+    {
+      "layout": "wide",
+      "upperCenter": [
+        -4.816,
+        0.6915,
+        0.18999999999999995
+      ],
+      "upperSize": [
+        0.5319999933242805,
+        0.10999999940395355,
+        1.7599999904632568
+      ],
+      "lowerCenter": [
+        -5.18,
+        -2.7085,
+        0.18999999999999995
+      ],
+      "wallCleatOverlap": [
+        0.18899999707937276,
+        0.07000000268220896,
+        1.5
+      ],
+      "ladderContactRayDistance": 0.0034250240335449433,
+      "dockingClearance": 1.5680000033378594
+    },
+    {
+      "layout": "compact",
+      "upperCenter": [
+        -3.5399999999999996,
+        0.6915,
+        0.18999999999999995
+      ],
+      "upperSize": [
+        0.3799999952316284,
+        0.10999999940395355,
+        1.7599999904632568
+      ],
+      "lowerCenter": [
+        -3.8,
+        -2.7085,
+        0.18999999999999995
+      ],
+      "wallCleatOverlap": [
+        0.13499999791383743,
+        0.07000000268220896,
+        1.5
+      ],
+      "ladderContactRayDistance": 0.0024464457382471494,
+      "dockingClearance": 1.1200000023841858
+    }
+  ],
+  "supportParts": [
+    "projects-body",
+    "experience-body",
+    "about-body",
+    "contact-body",
+    "chassis",
+    "ladder-bay",
+    "docking-sleeve",
+    "passage-couplings",
+    "service-bus",
+    "communications-dish",
+    "service-lower-support",
+    "solar-lower",
+    "service-upper-support",
+    "solar-upper"
+  ],
+  "supportPointCount": 112,
+  "passed": true,
+  "removedExteriorCanvasTextures": 8
+}

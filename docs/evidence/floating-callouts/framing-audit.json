@@ -1,0 +1,278 @@
+{
+  "scope": "Independent numerical review of candidate support fitting and world-plane label projection. Uses actual model+fit helpers and source-matched camera math, synthetic measured-inset/max-CSS-width button fixtures with current settled-home scale/lane clamp; not actual DOM typography or GPU evidence.",
+  "sourceHashes": {
+    "components/spacecraft.tsx": "e5caee1912b286f16d7254eb81c7d14c6f1c9d3d3bacd8b390bf5eb0b7863726",
+    "components/spacecraft-model.ts": "d8babef078d63b091f6328f16d23d72705cee1038e8c5d3013255c0e2d620767",
+    "components/overview-annotations.ts": "1a65e5d8bf71b8d01e0ad3e2c6747609a9fa3e545eb875e9decc4ebc431a2a3f",
+    "lib/scene-controls.ts": "0a8a90bfd16bf4aaaa9571a39a1c3da69fd57e0fd55f1ec6011790a6815c77f4"
+  },
+  "cases": [
+    {
+      "viewport": [
+        320,
+        740
+      ],
+      "layout": "compact",
+      "roll": 1.5707963267948966,
+      "assumedTopInset": 114,
+      "supportPointCount": 112,
+      "distance": 31.949252599041614,
+      "restProjectedHeight": 417.4154367837522,
+      "maxSupportOverflowPixels": -4.107825191113079e-14,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 16,
+      "worstLabel": {
+        "section": "experience",
+        "center": [
+          80,
+          137.45770343669824
+        ],
+        "rect": [
+          12,
+          119.45770343669824,
+          148,
+          155.45770343669824
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "layout": "compact",
+      "roll": 1.5707963267948966,
+      "assumedTopInset": 114,
+      "supportPointCount": 112,
+      "distance": 29.65986823655795,
+      "restProjectedHeight": 514.0426353079993,
+      "maxSupportOverflowPixels": 0,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 15.999999999999972,
+      "worstLabel": {
+        "section": "experience",
+        "center": [
+          97.5,
+          137.873664031529
+        ],
+        "rect": [
+          12,
+          119.87366403152899,
+          183,
+          155.873664031529
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        700,
+        480
+      ],
+      "layout": "compact",
+      "roll": 0,
+      "assumedTopInset": 100,
+      "supportPointCount": 112,
+      "distance": 30.718707676996114,
+      "restProjectedHeight": 171.98857628554953,
+      "maxSupportOverflowPixels": 0,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 16,
+      "worstLabel": {
+        "section": "projects",
+        "center": [
+          175,
+          135.36161798189409
+        ],
+        "rect": [
+          12,
+          117.36161798189409,
+          338,
+          153.36161798189409
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "layout": "compact",
+      "roll": 1.5707963267948966,
+      "assumedTopInset": 100,
+      "supportPointCount": 112,
+      "distance": 26.70462798580981,
+      "restProjectedHeight": 695.5113397198165,
+      "maxSupportOverflowPixels": 0,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 15.999999999999943,
+      "worstLabel": {
+        "section": "experience",
+        "center": [
+          192,
+          123.68328047767744
+        ],
+        "rect": [
+          12,
+          105.68328047767744,
+          372,
+          141.68328047767744
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        900,
+        700
+      ],
+      "layout": "wide",
+      "roll": 0,
+      "assumedTopInset": 100,
+      "supportPointCount": 112,
+      "distance": 23.228745447902888,
+      "restProjectedHeight": 336.2649498179994,
+      "maxSupportOverflowPixels": -7.771561172376096e-14,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 16,
+      "worstLabel": {
+        "section": "projects",
+        "center": [
+          225,
+          155.41273907473257
+        ],
+        "rect": [
+          12,
+          137.41273907473257,
+          438,
+          173.41273907473257
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "layout": "wide",
+      "roll": 0,
+      "assumedTopInset": 100,
+      "supportPointCount": 112,
+      "distance": 20.444656878982816,
+      "restProjectedHeight": 492.52769997357586,
+      "maxSupportOverflowPixels": -9.992007221626409e-14,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 16,
+      "worstLabel": {
+        "section": "projects",
+        "center": [
+          360,
+          173.1194771396404
+        ],
+        "rect": [
+          12,
+          155.1194771396404,
+          708,
+          191.1194771396404
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "layout": "wide",
+      "roll": 0,
+      "assumedTopInset": 100,
+      "supportPointCount": 112,
+      "distance": 19.121161869926066,
+      "restProjectedHeight": 632.9090985389755,
+      "maxSupportOverflowPixels": 1.199040866595169e-13,
+      "maxEstimatedLabelOverflowPixels": -12,
+      "labelCenterOutsideViewportSamples": 0,
+      "minimumEstimatedHorizontalGap": 16,
+      "worstLabel": {
+        "section": "projects",
+        "center": [
+          480,
+          188.26411544215915
+        ],
+        "rect": [
+          12,
+          170.26411544215915,
+          948,
+          206.26411544215915
+        ],
+        "direction": [
+          -0.47327960588110607,
+          0.2900954217607955,
+          0.8317758477681658
+        ],
+        "hover": [
+          -1,
+          -1
+        ]
+      }
+    }
+  ],
+  "passed": true
+}

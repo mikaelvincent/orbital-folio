@@ -1,0 +1,482 @@
+{
+  "scope": "CPU and source only; no GPU/frame-rate or visual approval claim",
+  "repo": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "candidatePath": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/orbital-environment.ts",
+  "baseline": "ff15f6a",
+  "sourceHashes": {
+    "candidate": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9",
+    "baseline": "1cc55d8469828de0177bc066fe44472d150d6a8d99204b5b136953aea7c73a3f"
+  },
+  "preserved": [
+    {
+      "name": "procedural field, sky texture, and sky shader",
+      "sha256": "3cdc9f71321cabc9d398a9d4e157150c42843eb1e9a852e874e5ed479cd09620",
+      "identical": true
+    },
+    {
+      "name": "Earth/clouds/atmosphere/light/placement",
+      "sha256": "5f42c181784dc4791a54a7c6c9ed3440c9e5ab910046ef50b7ad4c34bbeded1d",
+      "identical": true
+    },
+    {
+      "name": "caller active clock and Earth/cloud updates",
+      "sha256": "322d6c4720717180957be19db401bc4c7f12df95dfdfc93db759ddd136ea426c",
+      "identical": true
+    },
+    {
+      "name": "resource disposal",
+      "sha256": "73001d7e212630f722e6542a828e8e2f1cf866116a61e0ace6f500c2ff7b3ad2",
+      "identical": true
+    }
+  ],
+  "threeRevision": "185",
+  "standaloneStrictTypecheckPassed": true,
+  "profiles": {
+    "desktop": {
+      "baseline": {
+        "generationMs": 485.13949999999977,
+        "star": {
+          "count": 3100,
+          "bufferBytes": 124000,
+          "positionHash": "bb36e2fed90f73bf9411d4f2d9b59f3f21e43ca6b1146363433567a04d0e6861",
+          "brightnessBlue": {
+            "min": 0.2199999988079071,
+            "max": 0.9591885805130005,
+            "mean": 0.4036237701965917,
+            "p50": 0.31184303760528564,
+            "p95": 0.8599114418029785,
+            "unique": 3087
+          },
+          "pointSize": {
+            "min": 0.8501296043395996,
+            "max": 5.5898332595825195,
+            "mean": 1.654674270749092,
+            "p50": 1.627423644065857,
+            "p95": 2.3329408168792725,
+            "unique": 3100
+          },
+          "twinklePhase": {
+            "min": 0.0003340953844599426,
+            "max": 6.280107498168945,
+            "mean": 3.130471265897917,
+            "p50": 3.1310205459594727,
+            "p95": 5.989377498626709,
+            "unique": 3100
+          },
+          "twinklePrimaryRadiansPerSecond": {
+            "min": 0.3503521680831909,
+            "max": 0.9496522545814514,
+            "mean": 0.6586512350555389,
+            "p50": 0.6575480699539185,
+            "p95": 0.9243472814559937,
+            "unique": 3100
+          },
+          "twinkleSecondaryRadiansPerSecond": {
+            "min": 0.16466551899909973,
+            "max": 0.4463365596532821,
+            "mean": 0.3095660804761029,
+            "p50": 0.30904759287834166,
+            "p95": 0.434443222284317,
+            "unique": 3100
+          },
+          "twinkleAmplitude": {
+            "min": 0.10000696778297424,
+            "max": 0.3567945957183838,
+            "mean": 0.17545986015710138,
+            "p50": 0.1750725656747818,
+            "p95": 0.243264839053154,
+            "unique": 3098
+          },
+          "primarySecondaryCorrelation": 0.9999999999999984
+        },
+        "timing": {
+          "seconds": 630,
+          "sampleIntervalSeconds": 0.025,
+          "meteorStarts": 240,
+          "startsPerMinute": 22.857142857142858,
+          "maxConcurrent": 3,
+          "firstMaximumTimeSeconds": 15.700000000000001,
+          "concurrencyFraction": [
+            {
+              "count": 0,
+              "fraction": 0.6623412698412698
+            },
+            {
+              "count": 1,
+              "fraction": 0.1988095238095238
+            },
+            {
+              "count": 2,
+              "fraction": 0.11412698412698413
+            },
+            {
+              "count": 3,
+              "fraction": 0.024722222222222222
+            },
+            {
+              "count": 4,
+              "fraction": 0
+            },
+            {
+              "count": 5,
+              "fraction": 0
+            },
+            {
+              "count": 6,
+              "fraction": 0
+            },
+            {
+              "count": 7,
+              "fraction": 0
+            },
+            {
+              "count": 8,
+              "fraction": 0
+            },
+            {
+              "count": 9,
+              "fraction": 0
+            }
+          ],
+          "countTransitions": 481,
+          "multiGroups": 0,
+          "parallelMultiGroups": 0,
+          "independentMultiGroups": 0,
+          "uniqueDirections": 0,
+          "uniqueOrigins": 0,
+          "risingEvents": 0,
+          "leftToRightEvents": 0,
+          "rightToLeftEvents": 0,
+          "shallowEvents": 0,
+          "steepEvents": 0,
+          "durationRange": [
+            1.1514598578156436,
+            1.497157800930745
+          ],
+          "cpuUpdateSampleMs": {
+            "min": 0.0008330000000569271,
+            "max": 0.1572919999998703,
+            "mean": 0.002370690476194189,
+            "p50": 0.0014170000004014582,
+            "p95": 0.0025420000001759036,
+            "unique": 137
+          },
+          "stableResourceIdentity": true,
+          "starPositionsStatic": true
+        },
+        "resourceCounts": {
+          "objects": 13,
+          "geometries": 3,
+          "materials": 9,
+          "textures": 2
+        },
+        "proceduralTextureGpuBytes": 773950,
+        "drawCallBudget": 9,
+        "pauseAndFreshReducedMotion": true,
+        "nonfiniteTimeIgnored": true,
+        "deterministicSeek": true,
+        "reset": true,
+        "disposedOnce": true
+      },
+      "candidate": {
+        "generationMs": 412.69904099999985,
+        "star": {
+          "count": 3100,
+          "bufferBytes": 136400,
+          "positionHash": "e9f3f0f27db3cf2cc868555f20c4ff2cfc5f81e604f386871531a2ca4cd80ed4",
+          "brightnessBlue": {
+            "min": 0.30000001192092896,
+            "max": 1.158704161643982,
+            "mean": 0.5571305722575034,
+            "p50": 0.4634663760662079,
+            "p95": 1.0718278884887695,
+            "unique": 3098
+          },
+          "pointSize": {
+            "min": 1.0502246618270874,
+            "max": 5.998024940490723,
+            "mean": 1.8926849646337571,
+            "p50": 1.8695183992385864,
+            "p95": 2.62097430229187,
+            "unique": 3100
+          },
+          "twinklePhase": {
+            "min": 0.0002141975419363007,
+            "max": 6.282140254974365,
+            "mean": 3.1281985470710554,
+            "p50": 3.1217966079711914,
+            "p95": 5.968023300170898,
+            "unique": 3100
+          },
+          "twinklePrimaryRadiansPerSecond": {
+            "min": 0.45000001788139343,
+            "max": 2.649667978286743,
+            "mean": 1.2904776892546685,
+            "p50": 1.161570429801941,
+            "p95": 2.4827213287353516,
+            "unique": 3100
+          },
+          "twinkleSecondaryRadiansPerSecond": {
+            "min": 0.20017234981060028,
+            "max": 1.799328088760376,
+            "mean": 1.0137798700794096,
+            "p50": 1.018420934677124,
+            "p95": 1.725184679031372,
+            "unique": 3100
+          },
+          "twinkleAmplitude": {
+            "min": 0.10000129044055939,
+            "max": 0.5475212335586548,
+            "mean": 0.24518978872847172,
+            "p50": 0.22436442971229553,
+            "p95": 0.4483780860900879,
+            "unique": 3100
+          },
+          "primarySecondaryCorrelation": 0.01842156131972267
+        },
+        "timing": {
+          "seconds": 630,
+          "sampleIntervalSeconds": 0.025,
+          "meteorStarts": 720,
+          "startsPerMinute": 68.57142857142857,
+          "maxConcurrent": 9,
+          "firstMaximumTimeSeconds": 14.875,
+          "concurrencyFraction": [
+            {
+              "count": 0,
+              "fraction": 0.1328968253968254
+            },
+            {
+              "count": 1,
+              "fraction": 0.4296031746031746
+            },
+            {
+              "count": 2,
+              "fraction": 0.34214285714285714
+            },
+            {
+              "count": 3,
+              "fraction": 0.06619047619047619
+            },
+            {
+              "count": 4,
+              "fraction": 0.007698412698412698
+            },
+            {
+              "count": 5,
+              "fraction": 0.002857142857142857
+            },
+            {
+              "count": 6,
+              "fraction": 0.0021031746031746033
+            },
+            {
+              "count": 7,
+              "fraction": 0.0031746031746031746
+            },
+            {
+              "count": 8,
+              "fraction": 0.0034523809523809524
+            },
+            {
+              "count": 9,
+              "fraction": 0.009880952380952381
+            }
+          ],
+          "countTransitions": 1338,
+          "multiGroups": 240,
+          "parallelMultiGroups": 174,
+          "independentMultiGroups": 66,
+          "uniqueDirections": 474,
+          "uniqueOrigins": 720,
+          "risingEvents": 117,
+          "leftToRightEvents": 325,
+          "rightToLeftEvents": 395,
+          "shallowEvents": 290,
+          "steepEvents": 215,
+          "durationRange": [
+            1.1514598578156436,
+            1.499086614544285
+          ],
+          "cpuUpdateSampleMs": {
+            "min": 0.002292000000124972,
+            "max": 0.11300000000028376,
+            "mean": 0.005379006349196263,
+            "p50": 0.003917000000001281,
+            "p95": 0.008084000000053493,
+            "unique": 223
+          },
+          "stableResourceIdentity": true,
+          "starPositionsStatic": true
+        },
+        "resourceCounts": {
+          "objects": 19,
+          "geometries": 3,
+          "materials": 15,
+          "textures": 2
+        },
+        "proceduralTextureGpuBytes": 773950,
+        "drawCallBudget": 15,
+        "pauseAndFreshReducedMotion": true,
+        "nonfiniteTimeIgnored": true,
+        "deterministicSeek": true,
+        "reset": true,
+        "disposedOnce": true
+      }
+    },
+    "mobile": {
+      "baseline": {
+        "generationMs": 133.7631250000004,
+        "star": {
+          "count": 2300,
+          "bufferBytes": 92000,
+          "positionHash": "7b5f1d89a1e55d61a718cf2a449d495b3a7b68a8ad0457200e37f359fe49d135",
+          "brightnessBlue": {
+            "min": 0.2199999988079071,
+            "max": 0.9591885805130005,
+            "mean": 0.4046128085644349,
+            "p50": 0.3131813704967499,
+            "p95": 0.8553534150123596,
+            "unique": 2290
+          },
+          "pointSize": {
+            "min": 0.8501296043395996,
+            "max": 5.5898332595825195,
+            "mean": 1.6517203299895578,
+            "p50": 1.6244854927062988,
+            "p95": 2.3321533203125,
+            "unique": 2300
+          },
+          "twinklePhase": {
+            "min": 0.0016531047876924276,
+            "max": 6.280107498168945,
+            "mean": 3.1096610253712202,
+            "p50": 3.1084272861480713,
+            "p95": 5.986710548400879,
+            "unique": 2300
+          },
+          "twinklePrimaryRadiansPerSecond": {
+            "min": 0.3503521680831909,
+            "max": 0.9496522545814514,
+            "mean": 0.6596423515029576,
+            "p50": 0.6595183610916138,
+            "p95": 0.9245958924293518,
+            "unique": 2300
+          },
+          "twinkleSecondaryRadiansPerSecond": {
+            "min": 0.16466551899909973,
+            "max": 0.4463365596532821,
+            "mean": 0.3100319052063893,
+            "p50": 0.3099736297130585,
+            "p95": 0.4345600694417953,
+            "unique": 2300
+          },
+          "twinkleAmplitude": {
+            "min": 0.10001294314861298,
+            "max": 0.3567945957183838,
+            "mean": 0.175291078566857,
+            "p50": 0.17513221502304077,
+            "p95": 0.24305541813373566,
+            "unique": 2299
+          },
+          "primarySecondaryCorrelation": 0.9999999999999998
+        },
+        "timing": null,
+        "resourceCounts": {
+          "objects": 13,
+          "geometries": 3,
+          "materials": 9,
+          "textures": 2
+        },
+        "proceduralTextureGpuBytes": 118590,
+        "drawCallBudget": 9,
+        "pauseAndFreshReducedMotion": true,
+        "nonfiniteTimeIgnored": true,
+        "deterministicSeek": true,
+        "reset": true,
+        "disposedOnce": true
+      },
+      "candidate": {
+        "generationMs": 139.984375,
+        "star": {
+          "count": 2300,
+          "bufferBytes": 101200,
+          "positionHash": "0c1b8119b529193ac27c1abe578c923e62405884039af0301f0daf26abb0e093",
+          "brightnessBlue": {
+            "min": 0.30000001192092896,
+            "max": 1.158704161643982,
+            "mean": 0.5567537779782129,
+            "p50": 0.46453288197517395,
+            "p95": 1.073222279548645,
+            "unique": 2300
+          },
+          "pointSize": {
+            "min": 1.0502246618270874,
+            "max": 5.998024940490723,
+            "mean": 1.8875139679079471,
+            "p50": 1.8623042106628418,
+            "p95": 2.6211047172546387,
+            "unique": 2300
+          },
+          "twinklePhase": {
+            "min": 0.0002141975419363007,
+            "max": 6.282140254974365,
+            "mean": 3.142348497254975,
+            "p50": 3.153820276260376,
+            "p95": 5.970001697540283,
+            "unique": 2300
+          },
+          "twinklePrimaryRadiansPerSecond": {
+            "min": 0.45000001788139343,
+            "max": 2.6477088928222656,
+            "mean": 1.2862138333139213,
+            "p50": 1.1589206457138062,
+            "p95": 2.4718968868255615,
+            "unique": 2300
+          },
+          "twinkleSecondaryRadiansPerSecond": {
+            "min": 0.20017234981060028,
+            "max": 1.7991969585418701,
+            "mean": 1.0185492827970049,
+            "p50": 1.0269544124603271,
+            "p95": 1.7215806245803833,
+            "unique": 2300
+          },
+          "twinkleAmplitude": {
+            "min": 0.10000129044055939,
+            "max": 0.5475212335586548,
+            "mean": 0.24387438049135002,
+            "p50": 0.22097572684288025,
+            "p95": 0.4479231536388397,
+            "unique": 2300
+          },
+          "primarySecondaryCorrelation": 0.029658192602073655
+        },
+        "timing": null,
+        "resourceCounts": {
+          "objects": 19,
+          "geometries": 3,
+          "materials": 15,
+          "textures": 2
+        },
+        "proceduralTextureGpuBytes": 118590,
+        "drawCallBudget": 15,
+        "pauseAndFreshReducedMotion": true,
+        "nonfiniteTimeIgnored": true,
+        "deterministicSeek": true,
+        "reset": true,
+        "disposedOnce": true
+      }
+    }
+  },
+  "summary": {
+    "creationRatio": 3,
+    "capacityRatio": 3,
+    "extraStarBufferBytesDesktop": 12400,
+    "extraStarBufferBytesMobile": 9200,
+    "brightnessMeanRatio": 1.3803215107627176,
+    "singleMeteorFraction": 0.4296031746031746,
+    "maxEnvironmentDrawCalls": 15,
+    "allAssertionsPassed": true
+  }
+}

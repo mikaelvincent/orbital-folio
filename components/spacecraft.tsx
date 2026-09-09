@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { SceneLoader } from './scene-loader';
+import { createOverviewAnnotations } from './overview-annotations';
 import {
   moveCameraAxis,
   PROJECTS_PER_PAGE,
@@ -14,6 +15,7 @@ import {
   endBoundedDrag,
   pointerResponse,
   fitPerspectiveDistance,
+  fitPerspectiveFrame,
   solveApertureFraming,
   cursorViewSamples,
   boundedCameraAngles,
@@ -197,6 +199,13 @@ export function Spacecraft(props: Props) {
             },
           });
           scene.add(model.group);
+          const annotations = createOverviewAnnotations(THREE, el, s, {
+            hover: (section) => {
+              hoverSection(section);
+              latest.current.onHover(section);
+            },
+            navigate: (section) => latest.current.onNavigate(section),
+          });
           scene.add(new THREE.HemisphereLight(0xe0eaff, 0x394553, 0.28));
           const key = new THREE.DirectionalLight(0xffe3c1, 2.2);
           key.position.set(-7, 10, 12);
@@ -537,7 +546,11 @@ export function Spacecraft(props: Props) {
               home ? 0.14 : 0,
               1,
             ).normalize();
-            const headers = ['.flight-header', '.orbital-identity']
+            const headers = (
+              home
+                ? ['.flight-header', '.orbital-identity']
+                : ['.flight-header']
+            )
               .map((selector) =>
                 document.querySelector(selector)?.getBoundingClientRect(),
               )
@@ -557,10 +570,12 @@ export function Spacecraft(props: Props) {
               ...headers.map((box) => (box?.bottom || 0) - rect.top + 16),
             );
             const safe = {
-              left: -1 + (2 * (mobile() ? 14 : 24)) / el.clientWidth,
-              right: 1 - (2 * (mobile() ? 14 : 24)) / el.clientWidth,
-              top: 1 - (2 * topInset) / el.clientHeight,
-              bottom: -1 + (2 * bottomReservation) / el.clientHeight,
+              left: -1 + (2 * (mobile() ? 12 : 18)) / el.clientWidth,
+              right: 1 - (2 * (mobile() ? 12 : 18)) / el.clientWidth,
+              top: 1 - (2 * (topInset + (home ? 48 : 0))) / el.clientHeight,
+              bottom:
+                -1 +
+                (2 * (bottomReservation + (home ? 48 : 0))) / el.clientHeight,
             };
             let desiredDistance: number;
             if (isReading) {
@@ -582,6 +597,13 @@ export function Spacecraft(props: Props) {
               const min = bounds?.min || [-6, -4, -1.5];
               const max = bounds?.max || [5.5, 5.3, 1.9];
               const points: Vec3[] = [];
+              const support =
+                model.group.userData.overviewSupportPoints ||
+                [min[0], max[0]].flatMap((x) =>
+                  [min[1], max[1]].flatMap((y) =>
+                    [min[2], max[2]].map((z) => [x, y, z]),
+                  ),
+                );
               const rolls = sweep
                 ? Array.from(
                     { length: 17 },
@@ -589,14 +611,12 @@ export function Spacecraft(props: Props) {
                   )
                 : [desiredRoll];
               for (const fitRoll of rolls)
-                for (const x of [min[0], max[0]])
-                  for (const y of [min[1], max[1]])
-                    for (const z of [min[2], max[2]])
-                      points.push(
-                        new THREE.Vector3(x, y, z)
-                          .applyAxisAngle(zAxis, fitRoll)
-                          .toArray(),
-                      );
+                for (const point of support)
+                  points.push(
+                    new THREE.Vector3(...(point as [number, number, number]))
+                      .applyAxisAngle(zAxis, fitRoll)
+                      .toArray(),
+                  );
               target
                 .set(
                   (min[0] + max[0]) / 2,
@@ -604,7 +624,45 @@ export function Spacecraft(props: Props) {
                   (min[2] + max[2]) / 2,
                 )
                 .applyAxisAngle(zAxis, desiredRoll);
-              // Each corner retains its depth, avoiding the old bounding-box padding.
+              const centered = fitPerspectiveFrame(
+                points,
+                {
+                  target: target.toArray(),
+                  direction: direction.toArray(),
+                },
+                camera.fov,
+                camera.aspect,
+                safe,
+              );
+              target.set(...centered.target);
+              const hoverX =
+                Math.max(
+                  ...Object.entries(anchors)
+                    .filter(([k]) => k !== 'home')
+                    .map(([, a]) =>
+                      Math.abs(
+                        new THREE.Vector3(...a).applyAxisAngle(
+                          zAxis,
+                          desiredRoll,
+                        ).x - target.x,
+                      ),
+                    ),
+                ) * 0.022;
+              const hoverY =
+                Math.max(
+                  ...Object.entries(anchors)
+                    .filter(([k]) => k !== 'home')
+                    .map(([, a]) =>
+                      Math.abs(
+                        new THREE.Vector3(...a).applyAxisAngle(
+                          zAxis,
+                          desiredRoll,
+                        ).y - target.y,
+                      ),
+                    ),
+                ) * 0.022;
+              // Fit real subassembly supports over the actual drag range, including
+              // the small hover translation and the 2.5% hover dolly.
               const views = cursorViewSamples(
                 {
                   target: target.toArray(),
@@ -613,22 +671,35 @@ export function Spacecraft(props: Props) {
                 4,
                 CAMERA_RANGES.overview,
               );
-              desiredDistance = Math.max(
-                ...views.map((view) =>
-                  fitPerspectiveDistance(
-                    points,
-                    view,
-                    camera.fov,
-                    camera.aspect,
-                    safe,
+              desiredDistance =
+                Math.max(
+                  ...views.flatMap((view) =>
+                    [-1, 1].flatMap((sx) =>
+                      [-1, 1].map((sy) =>
+                        fitPerspectiveDistance(
+                          points,
+                          {
+                            ...view,
+                            target: [
+                              view.target[0] + sx * hoverX,
+                              view.target[1] + sy * hoverY,
+                              view.target[2],
+                            ],
+                          },
+                          camera.fov,
+                          camera.aspect,
+                          safe,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              );
+                ) / 0.975;
               el.dataset.framing = JSON.stringify({
                 mode: 'overview',
                 distance: desiredDistance,
                 safe,
                 fullCraft: true,
+                supportPoints: support.length,
                 roll: desiredRoll,
               });
             } else {
@@ -722,7 +793,20 @@ export function Spacecraft(props: Props) {
             notifyArrival = notify;
             if (model.group.userData.projectPage !== latest.current.projectPage)
               model.setProjectPage(latest.current.projectPage);
-            const desired = pose(active, reading);
+            const overview = pose('home', false);
+            const support = model.group.userData.overviewSupportPoints || [];
+            annotations.layout(
+              overview,
+              support.length
+                ? support
+                : [
+                    model.group.userData.overviewBounds.min,
+                    model.group.userData.overviewBounds.max,
+                  ],
+              model.group,
+            );
+            const desired =
+              active === 'home' ? overview : pose(active, reading);
             const desiredFraming = el.dataset.framing;
             itinerary = [];
             flightTrace.length = 0;
@@ -1104,6 +1188,14 @@ export function Spacecraft(props: Props) {
             for (const anchor of Object.values(model.readerSurfaces))
               anchor.parent.scale.y *= readerStretch();
             model.group.updateMatrixWorld(true);
+            camera.updateMatrixWorld(true);
+            annotations.update(camera, model.group, {
+              home: active === 'home',
+              travelling,
+              reduced: stop,
+              delta,
+              hover: effectiveHover,
+            });
             const logicalWidth = paperPixels();
             surfaceElement.style.width = `${logicalWidth}px`;
             surfaceElement.style.height = `${logicalWidth * 1.125 * readerStretch()}px`;
@@ -1288,6 +1380,16 @@ export function Spacecraft(props: Props) {
                 activeTime: elapsed.toFixed(3),
                 readerAttached: String(surface.visible),
                 projectPage: String(latest.current.projectPage),
+                overviewSupports: JSON.stringify(
+                  model.group.userData.overviewSupportPoints.map(
+                    (point: [number, number, number]) => {
+                      const p = model.group
+                        .localToWorld(new THREE.Vector3(...point))
+                        .project(camera);
+                      return [p.x, p.y, p.z];
+                    },
+                  ),
+                ),
                 overviewCorners: JSON.stringify(
                   (() => {
                     const { min, max } = model.group.userData.overviewBounds;
@@ -1546,7 +1648,7 @@ export function Spacecraft(props: Props) {
               return;
             const control = (
               event.target as Element
-            ).closest<HTMLButtonElement>('.world-hotspot');
+            ).closest<HTMLButtonElement>('.world-hotspot, .overview-callout');
             if ((event.target as Element).closest('button') && !control) return;
             suppressClickUntil = 0;
             const selection = pick(event);
@@ -1573,7 +1675,7 @@ export function Spacecraft(props: Props) {
             if (!down || event.pointerId !== down.gesture.pointerId) return;
             const control = (
               event.target as Element
-            ).closest<HTMLButtonElement>('.world-hotspot');
+            ).closest<HTMLButtonElement>('.world-hotspot, .overview-callout');
             const completed = endBoundedDrag(
               down.gesture,
               event.pointerId,
@@ -1708,6 +1810,7 @@ export function Spacecraft(props: Props) {
           go(latest.current.section === 'home');
           cleanup = () => {
             cancelAnimationFrame(frame);
+            annotations.dispose();
             observer.disconnect();
             intersection.disconnect();
             document.removeEventListener('visibilitychange', syncVisibility);

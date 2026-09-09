@@ -111,6 +111,48 @@ export function fitPerspectiveDistance(
   return distance;
 }
 
+/** Closest fit with a freely centered target in the view plane. This accounts
+ * for asymmetric UI insets instead of keeping the bounding-box center fixed. */
+export function fitPerspectiveFrame(
+  points: readonly Vec3[],
+  view: CameraView,
+  fovDegrees: number,
+  aspect: number,
+  bounds: NdcBounds,
+) {
+  const frame = basis(view),
+    slope = slopes(fovDegrees, aspect);
+  let left = Infinity,
+    right = -Infinity,
+    bottom = Infinity,
+    top = -Infinity,
+    distance = 0.5;
+  for (const point of points) {
+    const p = sub(point, view.target),
+      x = dot(p, frame.right),
+      y = dot(p, frame.up),
+      z = dot(p, frame.back);
+    left = Math.min(left, x + bounds.left * slope.x * z);
+    right = Math.max(right, x + bounds.right * slope.x * z);
+    bottom = Math.min(bottom, y + bounds.bottom * slope.y * z);
+    top = Math.max(top, y + bounds.top * slope.y * z);
+    distance = Math.max(distance, z + 0.5);
+  }
+  distance = Math.max(
+    distance,
+    (right - left) / (slope.x * (bounds.right - bounds.left)),
+    (top - bottom) / (slope.y * (bounds.top - bounds.bottom)),
+  );
+  const x =
+    (right + left - (bounds.right + bounds.left) * slope.x * distance) / 2;
+  const y =
+    (top + bottom - (bounds.top + bounds.bottom) * slope.y * distance) / 2;
+  return {
+    distance,
+    target: add(view.target, add(mul(frame.right, x), mul(frame.up, y))),
+  };
+}
+
 /** Largest valid room distance: full viewport fits INSIDE the front opening while
  * required portal/label points remain visible. Each supplied view is solved exactly.
  * Supply rest/cursor-extreme views; use overscan to allow interpolation and skin thickness. */

@@ -1,0 +1,9 @@
+{
+  "components/overview-annotations.ts": "1a65e5d8bf71b8d01e0ad3e2c6747609a9fa3e545eb875e9decc4ebc431a2a3f",
+  "components/spacecraft.tsx": "e5caee1912b286f16d7254eb81c7d14c6f1c9d3d3bacd8b390bf5eb0b7863726",
+  "components/spacecraft-model.ts": "d8babef078d63b091f6328f16d23d72705cee1038e8c5d3013255c0e2d620767",
+  "components/orbital-environment.ts": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9",
+  "components/immersive-portfolio.tsx": "4484961b478a8baa10e11b9c775e065ac2ac861a5d3e1bd8a6ccf0d1a987d636",
+  "lib/scene-controls.ts": "0a8a90bfd16bf4aaaa9571a39a1c3da69fd57e0fd55f1ec6011790a6815c77f4",
+  "app/globals.css": "60817610231a8cf4b5be54e3ddb2e6304541f770d276440be7e9d189514ba128"
+}

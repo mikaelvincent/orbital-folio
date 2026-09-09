@@ -393,26 +393,30 @@ export function ImmersivePortfolio({
         </nav>
       </header>
       <main id="main" tabIndex={-1}>
-        {immersive && !readingSurface && (
+        {immersive && (
           <div className="orbital-identity">
-            {destination.section === 'home' ? (
-              <h1>
-                <a href={hrefFor({ section: 'home' })}>
+            <div className="orbital-identity-flight">
+              {destination.section === 'home' ? (
+                <h1>
+                  <a href={hrefFor({ section: 'home' })}>
+                    <span className="orbital-identity-text">
+                      {portfolioName}
+                    </span>
+                    <span className="sr-only">
+                      {' '}
+                      — {s.name} · {s.title}
+                    </span>
+                  </a>
+                </h1>
+              ) : (
+                <a
+                  href={hrefFor({ section: 'home' })}
+                  aria-label={`${portfolioName} · ${s.homeLabel}`}
+                >
                   <span className="orbital-identity-text">{portfolioName}</span>
-                  <span className="sr-only">
-                    {' '}
-                    — {s.name} · {s.title}
-                  </span>
                 </a>
-              </h1>
-            ) : (
-              <a
-                href={hrefFor({ section: 'home' })}
-                aria-label={`${portfolioName} · ${s.homeLabel}`}
-              >
-                <span className="orbital-identity-text">{portfolioName}</span>
-              </a>
-            )}
+              )}
+            </div>
           </div>
         )}
         {!s.sampleMode && !preview && (
