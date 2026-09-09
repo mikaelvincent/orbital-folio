@@ -141,8 +141,8 @@ for (const activeRoom of ['home', ...sections])
         const expected = transitWalkway
             ? 1
             : hoveredWalkway && activeRoom !== 'home' && !travelling
-              ? 0.5
-              : 0.1,
+              ? 1
+              : 0.5,
           actual = m.group.userData.lightingState.walkway;
         assert(near(actual.level, expected));
         assert(near(actual.targetLevel, expected));
@@ -179,7 +179,7 @@ m.update(1, '', false, {
   delta: 1 / 60,
 });
 const mid = m.group.userData.lightingState.walkway;
-assert(mid.level > 0.1 && mid.level < 0.5 && mid.targetLevel === 0.5);
+assert(mid.level > 0.5 && mid.level < 1 && mid.targetLevel === 1);
 report.interpolation = { level: mid.level, target: mid.targetLevel };
 function objects() {
   const result = [];
@@ -433,7 +433,7 @@ for (const [layout, vp] of [
         });
       }
   }
-  assert.equal(m.group.userData.walkwayProfile.leftCornerRadius, 0.74 * scale);
+  assert.equal(m.group.userData.walkwayProfile.leftCornerRadius, 1.36 * scale);
   assert.equal(m.group.userData.walkwaySigns.length, 2);
   for (const section of ['projects', 'experience']) {
     const key = section === 'projects' ? 'project' : 'caseStudy',
@@ -459,13 +459,13 @@ report.walkwaySurfaces = sources
     assert(!o.material.userData.exterior);
     const base = o.material.userData.baseColor.toArray(),
       color = o.material.color.toArray();
-    assert(color.every((v, i) => near(v, base[i] * 0.1)));
+    assert(color.every((v, i) => near(v, base[i] * 0.5)));
     return {
       name: o.name,
       exterior: o.material.userData.exterior,
       baseLinearColor: base,
       idleLinearColor: color,
-      ratio: 0.1,
+      ratio: 0.5,
     };
   });
 assert.equal(report.walkwaySurfaces.length, 4);

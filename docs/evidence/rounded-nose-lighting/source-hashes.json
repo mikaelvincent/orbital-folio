@@ -1,0 +1,7 @@
+{
+  "components/spacecraft-model.ts": "77de516f2b71a832fa7045f8eaa453bb928854f6ca8dc9a76a267ad614cf89a2",
+  "components/spacecraft.tsx": "05527f1c11de8b8e140bb8bf050386f2d7257271c14987266273b6a969d4ae92",
+  "scripts/portrait-ladder-audit.mjs": "343e0381be8356fb05202e53c2700a7c8ed9cdaab0afe7e13e9f06b0aab6efe2",
+  "scripts/walkway-shape-audit.mjs": "b634b9e80152553c7a0d78760d80f40f0d038a1990b51c3465146390a793ccb9",
+  "scripts/lighting-symbol-pairs-audit.mjs": "0f60cc3ef6c49fc3a7edfd5cc5201b65f5e72ebb6dc399410e65ff09f4a03f0d"
+}

@@ -1,0 +1,804 @@
+{
+  "modelPath": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+  "layouts": [
+    {
+      "layout": "wide",
+      "profile": {
+        "leftCornerRadius": 1.904,
+        "leftShoulderRadii": [
+          1.904,
+          2.14
+        ],
+        "leftShoulderHeight": 2.14,
+        "leftStraightHeight": 2.12,
+        "shoulderFraction": 0.66875,
+        "rightCornerRadius": 0.238,
+        "shellDepth": 2.42,
+        "clearDockingOpening": [
+          1.82,
+          1.9
+        ],
+        "lowerLanding": {
+          "center": [
+            0.42,
+            -2.7085,
+            0.19
+          ],
+          "size": [
+            1.0639999999999998,
+            0.11,
+            1.76
+          ]
+        },
+        "ladderBounds": {
+          "min": [
+            -0.15259999999999999,
+            -2.639,
+            -0.719
+          ],
+          "max": [
+            0.5725999999999999,
+            2.579,
+            -0.661
+          ]
+        },
+        "endShoulderContinuity": true
+      },
+      "roomAnchors": {
+        "projects": [
+          -2.2499999999999996,
+          1.7,
+          0.16
+        ],
+        "experience": [
+          2.2499999999999996,
+          1.7,
+          0.16
+        ],
+        "about": [
+          -2.2499999999999996,
+          -1.7,
+          0.16
+        ],
+        "contact": [
+          2.2499999999999996,
+          -1.7,
+          0.16
+        ]
+      },
+      "dockingAnchors": {
+        "sleeve": [
+          -7.214999999999999,
+          0.03,
+          0
+        ],
+        "hatch": [
+          -8.546,
+          0.03,
+          0
+        ],
+        "mount": [
+          -6.739999999999999,
+          0.03,
+          -0.17
+        ]
+      },
+      "walkway": {
+        "center": [
+          -5.6,
+          0,
+          0.1
+        ],
+        "size": [
+          2.4499999999999997,
+          6.5,
+          2.65
+        ]
+      }
+    },
+    {
+      "layout": "compact",
+      "profile": {
+        "leftCornerRadius": 1.36,
+        "leftShoulderRadii": [
+          1.36,
+          2.14
+        ],
+        "leftShoulderHeight": 2.14,
+        "leftStraightHeight": 2.12,
+        "shoulderFraction": 0.66875,
+        "rightCornerRadius": 0.17,
+        "shellDepth": 2.42,
+        "clearDockingOpening": [
+          1.82,
+          1.9
+        ],
+        "lowerLanding": {
+          "center": [
+            0.3,
+            -2.7085,
+            0.19
+          ],
+          "size": [
+            0.76,
+            0.11,
+            1.76
+          ]
+        },
+        "ladderBounds": {
+          "min": [
+            -0.109,
+            -2.639,
+            -0.719
+          ],
+          "max": [
+            0.409,
+            2.579,
+            -0.661
+          ]
+        },
+        "endShoulderContinuity": true
+      },
+      "roomAnchors": {
+        "projects": [
+          -1.65,
+          1.7,
+          0.16
+        ],
+        "experience": [
+          1.65,
+          1.7,
+          0.16
+        ],
+        "about": [
+          -1.65,
+          -1.7,
+          0.16
+        ],
+        "contact": [
+          1.65,
+          -1.7,
+          0.16
+        ]
+      },
+      "dockingAnchors": {
+        "sleeve": [
+          -5.415,
+          0.03,
+          0
+        ],
+        "hatch": [
+          -6.746,
+          0.03,
+          0
+        ],
+        "mount": [
+          -4.94,
+          0.03,
+          -0.17
+        ]
+      },
+      "walkway": {
+        "center": [
+          -4.1,
+          0,
+          0.1
+        ],
+        "size": [
+          1.75,
+          6.5,
+          2.65
+        ]
+      }
+    }
+  ],
+  "passages": [
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "wide",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": -0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "projects:about",
+      "y": 0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": -0.6,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0,
+      "z": 0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": -0.7,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": 0,
+      "open": true
+    },
+    {
+      "layout": "compact",
+      "portal": "about:projects",
+      "y": 0.6,
+      "z": 0.7,
+      "open": true
+    }
+  ],
+  "dockRays": [
+    {
+      "layout": "wide",
+      "y": -0.6,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": -0.6,
+      "z": 0,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": -0.6,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": 0,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": 0,
+      "z": 0,
+      "hit": "walkway-graphite-enamel"
+    },
+    {
+      "layout": "wide",
+      "y": 0,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": 0.6,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": 0.6,
+      "z": 0,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "wide",
+      "y": 0.6,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": -0.6,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": -0.6,
+      "z": 0,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": -0.6,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": 0,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": 0,
+      "z": 0,
+      "hit": "walkway-graphite-enamel"
+    },
+    {
+      "layout": "compact",
+      "y": 0,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": 0.6,
+      "z": -0.55,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": 0.6,
+      "z": 0,
+      "hit": "walkway-warm-insulation"
+    },
+    {
+      "layout": "compact",
+      "y": 0.6,
+      "z": 0.55,
+      "hit": "walkway-warm-insulation"
+    }
+  ],
+  "profileSamples": [
+    {
+      "layout": "wide",
+      "y": 0,
+      "x": -0.8199999928474425
+    },
+    {
+      "layout": "wide",
+      "y": 0,
+      "x": -0.8199999928474425
+    },
+    {
+      "layout": "wide",
+      "y": -0.95,
+      "x": -0.8199999928474425
+    },
+    {
+      "layout": "wide",
+      "y": 0.95,
+      "x": -0.8199999928474425
+    },
+    {
+      "layout": "wide",
+      "y": -1.5,
+      "x": -0.788008896739662
+    },
+    {
+      "layout": "wide",
+      "y": 1.5,
+      "x": -0.7912770429996855
+    },
+    {
+      "layout": "wide",
+      "y": -2,
+      "x": -0.6753848624048109
+    },
+    {
+      "layout": "wide",
+      "y": 2,
+      "x": -0.6815077252808623
+    },
+    {
+      "layout": "wide",
+      "y": -2.5,
+      "x": -0.4562687319675485
+    },
+    {
+      "layout": "wide",
+      "y": 2.5,
+      "x": -0.4678206138234347
+    },
+    {
+      "layout": "wide",
+      "y": -2.9,
+      "x": -0.14215028636340563
+    },
+    {
+      "layout": "wide",
+      "y": 2.9,
+      "x": -0.16307200336953037
+    },
+    {
+      "layout": "wide",
+      "y": -3.15,
+      "x": 0.2575669697811822
+    },
+    {
+      "layout": "wide",
+      "y": 3.15,
+      "x": 0.20813486704254458
+    },
+    {
+      "layout": "compact",
+      "y": 0,
+      "x": -0.8199999928474426
+    },
+    {
+      "layout": "compact",
+      "y": 0,
+      "x": -0.8199999928474426
+    },
+    {
+      "layout": "compact",
+      "y": -0.95,
+      "x": -0.8199999928474426
+    },
+    {
+      "layout": "compact",
+      "y": 0.95,
+      "x": -0.8199999928474426
+    },
+    {
+      "layout": "compact",
+      "y": -1.5,
+      "x": -0.7880088967396617
+    },
+    {
+      "layout": "compact",
+      "y": 1.5,
+      "x": -0.7912770429996856
+    },
+    {
+      "layout": "compact",
+      "y": -2,
+      "x": -0.6753848624048109
+    },
+    {
+      "layout": "compact",
+      "y": 2,
+      "x": -0.6815077252808628
+    },
+    {
+      "layout": "compact",
+      "y": -2.5,
+      "x": -0.45626873196754936
+    },
+    {
+      "layout": "compact",
+      "y": 2.5,
+      "x": -0.46782061382343443
+    },
+    {
+      "layout": "compact",
+      "y": -2.9,
+      "x": -0.14215028636340588
+    },
+    {
+      "layout": "compact",
+      "y": 2.9,
+      "x": -0.1630720033695301
+    },
+    {
+      "layout": "compact",
+      "y": -3.15,
+      "x": 0.25756696978118265
+    },
+    {
+      "layout": "compact",
+      "y": 3.15,
+      "x": 0.2081348670425447
+    }
+  ],
+  "furniture": [
+    {
+      "layout": "wide",
+      "examinedVertices": 9552,
+      "minShellClearance": -0.003000020980834961
+    },
+    {
+      "layout": "compact",
+      "examinedVertices": 9552,
+      "minShellClearance": -0.003000020980834961
+    }
+  ],
+  "normals": {
+    "vertices": 73329,
+    "invalid": 0
+  },
+  "bounds": [
+    {
+      "layout": "wide",
+      "roll": 0,
+      "min": [
+        -6.759200012683868,
+        -3.2179999351501465,
+        -1.2680000066757202
+      ],
+      "max": [
+        -4.440799987316131,
+        3.2249999046325684,
+        1.2899999618530273
+      ],
+      "size": [
+        2.318400025367737,
+        6.442999839782715,
+        2.5579999685287476
+      ]
+    },
+    {
+      "layout": "wide",
+      "roll": 1.5707963267948966,
+      "min": [
+        -3.22499990463257,
+        -6.759200012683869,
+        -1.2680000066757202
+      ],
+      "max": [
+        3.2179999351501456,
+        -4.44079998731613,
+        1.2899999618530273
+      ],
+      "size": [
+        6.442999839782716,
+        2.3184000253677386,
+        2.5579999685287476
+      ]
+    },
+    {
+      "layout": "compact",
+      "roll": 0,
+      "min": [
+        -4.928000009059906,
+        -3.2179999351501465,
+        -1.2680000066757202
+      ],
+      "max": [
+        -3.2719999909400936,
+        3.2249999046325684,
+        1.2899999618530273
+      ],
+      "size": [
+        1.656000018119812,
+        6.442999839782715,
+        2.5579999685287476
+      ]
+    },
+    {
+      "layout": "compact",
+      "roll": 1.5707963267948966,
+      "min": [
+        -3.2249999046325692,
+        -4.9280000090599065,
+        -1.2680000066757202
+      ],
+      "max": [
+        3.2179999351501456,
+        -3.2719999909400928,
+        1.2899999618530273
+      ],
+      "size": [
+        6.442999839782715,
+        1.6560000181198138,
+        2.5579999685287476
+      ]
+    }
+  ],
+  "summary": {
+    "layouts": 2,
+    "openSideEntryRays": 36,
+    "sealedDockRays": 18,
+    "actualContourSamples": 28,
+    "furnitureVertices": 19104,
+    "validNormals": true,
+    "passed": true
+  }
+}

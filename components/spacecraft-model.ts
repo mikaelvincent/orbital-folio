@@ -1343,46 +1343,71 @@ export function createSpacecraft(
     excludePick: true,
   };
   walkway.add(walkwayFurniture);
-  // Broad left shoulders continue through the shell depth; the right corners
-  // remain tighter beside the cabin couplings. This is real hull curvature.
+  // Long elliptical shoulders taper most of the ladder bay's left edge. The
+  // short central straight section retains the full-height docking aperture.
   function walkwayOutline(
     path: any,
     w: number,
     h: number,
-    left: number,
+    leftWidth: number,
+    leftHeight: number,
     right: number,
   ) {
     const x = -w / 2,
-      y = -h / 2;
-    path.moveTo(x + left, y);
+      y = -h / 2,
+      k = 0.5522847498;
+    path.moveTo(x + leftWidth, y);
     path.lineTo(x + w - right, y);
     path.quadraticCurveTo(x + w, y, x + w, y + right);
     path.lineTo(x + w, y + h - right);
     path.quadraticCurveTo(x + w, y + h, x + w - right, y + h);
-    path.lineTo(x + left, y + h);
-    path.quadraticCurveTo(x, y + h, x, y + h - left);
-    path.lineTo(x, y + left);
-    path.quadraticCurveTo(x, y, x + left, y);
+    path.lineTo(x + leftWidth, y + h);
+    path.bezierCurveTo(
+      x + leftWidth * (1 - k),
+      y + h,
+      x,
+      y + h - leftHeight * (1 - k),
+      x,
+      y + h - leftHeight,
+    );
+    path.lineTo(x, y + leftHeight);
+    path.bezierCurveTo(
+      x,
+      y + leftHeight * (1 - k),
+      x + leftWidth * (1 - k),
+      y,
+      x + leftWidth,
+      y,
+    );
     path.closePath();
     return path;
   }
   function walkwayProfile(
     w: number,
     h: number,
-    left: number,
+    leftWidth: number,
+    leftHeight: number,
     right: number,
     thickness: number,
     depth: number,
     bevel: number,
   ) {
-    const shape = walkwayOutline(new THREE.Shape(), w, h, left, right);
+    const shape = walkwayOutline(
+      new THREE.Shape(),
+      w,
+      h,
+      leftWidth,
+      leftHeight,
+      right,
+    );
     if (thickness)
       shape.holes.push(
         walkwayOutline(
           new THREE.Path(),
           w - thickness * 2,
           h - thickness * 2,
-          left - thickness,
+          leftWidth - thickness,
+          leftHeight - thickness,
           right - thickness,
         ),
       );
@@ -1399,34 +1424,50 @@ export function createSpacecraft(
     return geometry;
   }
   const walkwayFront = mesh(
-    walkwayProfile(1.59, 6.38, 0.74, 0.3, 0.13, 0.19, 0.025),
+    walkwayProfile(1.59, 6.38, 1.36, 2.14, 0.17, 0.13, 0.19, 0.025),
     m.shell,
     walkwayStructure,
     'walkway-rounded-pressure-collar',
   );
   walkwayFront.position.set(0, 0.01, 1.17);
   const walkwaySeal = mesh(
-    walkwayProfile(1.32, 6.1, 0.6, 0.17, 0.04, 0.06, 0.008),
+    walkwayProfile(1.32, 6.1, 1.22, 2.0, 0.035, 0.025, 0.06, 0.005),
     m.gasket,
     walkwayStructure,
     'walkway-pressure-collar-seal',
   );
   walkwaySeal.position.set(0, 0.01, 1.19);
   const walkwayRear = mesh(
-    walkwayProfile(1.47, 6.15, 0.68, 0.24, 0, 0.16, 0.018),
+    walkwayProfile(1.47, 6.15, 1.26, 2.06, 0.16, 0, 0.16, 0.018),
     m.liner,
     walkwayFurniture,
     'walkway-rear-pressure-liner',
   );
   walkwayRear.position.z = -1.05;
-  // Quarter-round shoulders replace the former squared-off end-cap blocks.
+  // These hollow shoulder bands continue the same ellipse through the full
+  // pressure-shell depth, rather than merely rounding its front trim.
   const capShape = new THREE.Shape();
-  capShape.moveTo(-0.75, 2.48);
-  capShape.quadraticCurveTo(-0.75, 3.2, -0.03, 3.2);
+  const shoulderK = 0.5522847498;
+  capShape.moveTo(-0.75, 1.06);
+  capShape.bezierCurveTo(
+    -0.75,
+    1.06 + 2.14 * shoulderK,
+    0.6 - 1.35 * shoulderK,
+    3.2,
+    0.6,
+    3.2,
+  );
   capShape.lineTo(0.75, 3.2);
   capShape.lineTo(0.75, 3.06);
-  capShape.lineTo(-0.03, 3.06);
-  capShape.quadraticCurveTo(-0.61, 3.06, -0.61, 2.48);
+  capShape.lineTo(0.6, 3.06);
+  capShape.bezierCurveTo(
+    0.6 - 1.21 * shoulderK,
+    3.06,
+    -0.61,
+    1.06 + 2.0 * shoulderK,
+    -0.61,
+    1.06,
+  );
   capShape.closePath();
   const capGeometry = new THREE.ExtrudeGeometry(capShape, {
     depth: 2.42,
@@ -1453,8 +1494,8 @@ export function createSpacecraft(
     const outline = roundedPath(
       new THREE.Shape(),
       2.5,
-      side > 0 ? 6.24 : 4.96,
-      side > 0 ? 0.38 : 0.12,
+      side > 0 ? 6.24 : 2.12,
+      side > 0 ? 0.38 : 0.08,
     );
     if (side > 0) {
       for (const yy of [-1.7, 1.7]) {
@@ -1499,12 +1540,13 @@ export function createSpacecraft(
   }
   for (const yy of [-2.7085, 0.6915]) {
     // The upper landing leaves a rear ladder well open through to the lower run.
+    // The lower landing narrows into the taper but still reaches its side entry.
     box(
-      1.4,
+      yy > 0 ? 1.4 : 0.76,
       0.11,
       yy > 0 ? 0.98 : 1.76,
       m.liner,
-      0,
+      yy > 0 ? 0 : 0.3,
       yy,
       yy > 0 ? 0.44 : 0.19,
       walkwayFurniture,
@@ -1512,11 +1554,11 @@ export function createSpacecraft(
       'walkway-room-landing',
     );
     box(
-      1.26,
+      yy > 0 ? 1.26 : 0.62,
       0.024,
       0.046,
       walkwayTrim,
-      0,
+      yy > 0 ? 0 : 0.3,
       yy + 0.06,
       0.88,
       walkwayFurniture,
@@ -1524,25 +1566,31 @@ export function createSpacecraft(
       'walkway-landing-light-guide',
     );
   }
-  for (const xx of [-0.3, 0.3])
+  for (const xx of [-0.08, 0.38])
     rod(
-      [xx, -2.79, -0.69],
-      [xx, 2.64, -0.69],
+      [xx, -2.61, -0.69],
+      [xx, 2.55, -0.69],
       0.029,
       m.amber,
       walkwayFurniture,
     );
-  for (let yy = -2.66; yy <= 2.56; yy += 0.43)
-    rod([-0.3, yy, -0.69], [0.3, yy, -0.69], 0.025, m.metal, walkwayFurniture);
+  for (let yy = -2.51; yy <= 2.51; yy += 0.418)
+    rod(
+      [-0.08, yy, -0.69],
+      [0.38, yy, -0.69],
+      0.025,
+      m.metal,
+      walkwayFurniture,
+    );
   for (const yy of [-1.7, 1.7]) {
     box(
       0.16,
       1.31,
       0.1,
       m.navy,
-      -0.55,
+      -0.23,
       yy,
-      -0.9,
+      -0.925,
       walkwayFurniture,
       0.04,
       'walkway-service-channel',
@@ -1552,9 +1600,9 @@ export function createSpacecraft(
       0.97,
       0.038,
       walkwayTrim,
-      -0.55,
+      -0.23,
       yy,
-      -0.829,
+      -0.854,
       walkwayFurniture,
       0.017,
       'walkway-route-light-guide',
@@ -3469,6 +3517,8 @@ export function createSpacecraft(
         );
         rung.position.set(-0.026, dy, 0);
       }
+      // Center the combined ladder/arrow silhouette, so paired marks balance.
+      for (const part of symbol.children) part.position.x -= 0.01;
     }
     return symbol;
   }
@@ -3683,14 +3733,15 @@ export function createSpacecraft(
       captionSize[0],
       captionSize[1],
     );
-    routeSymbol(
-      caption,
-      -0.566,
-      0,
-      0.001,
-      viaWalkway,
-      viaWalkway && to === 'projects',
-    );
+    for (const side of [-1, 1])
+      routeSymbol(
+        caption,
+        side * 0.566,
+        0,
+        0.001,
+        viaWalkway,
+        !viaWalkway || to === 'projects',
+      );
     const pick = interactionBox(
       id + '-portal-pick',
       [0.28, 1.84, 2.18],
@@ -3723,7 +3774,8 @@ export function createSpacecraft(
         ? to === 'projects'
           ? 'ladder-up'
           : 'ladder-down'
-        : 'door-down',
+        : 'door-forward-up',
+      symbolSides: ['left', 'right'],
       backingFront: -0.013,
       enamelFront: -0.003,
       inkFront: 0,
@@ -4109,10 +4161,22 @@ export function createSpacecraft(
     group.userData.communicationsAnchor = [4.14 + outward, 0.23, 1.16];
     group.userData.walkwayAnchor = [walkwayX, 0, 0.16];
     group.userData.walkwayProfile = {
-      leftCornerRadius: 0.74 * layoutScale,
-      rightCornerRadius: 0.3 * layoutScale,
+      leftCornerRadius: 1.36 * layoutScale,
+      leftShoulderRadii: [1.36 * layoutScale, 2.14],
+      leftShoulderHeight: 2.14,
+      leftStraightHeight: 2.12,
+      shoulderFraction: 4.28 / 6.4,
+      rightCornerRadius: 0.17 * layoutScale,
       shellDepth: 2.42,
       clearDockingOpening: [1.82, 1.9],
+      lowerLanding: {
+        center: [0.3 * layoutScale, -2.7085, 0.19],
+        size: [0.76 * layoutScale, 0.11, 1.76],
+      },
+      ladderBounds: {
+        min: [-0.109 * layoutScale, -2.639, -0.719],
+        max: [0.409 * layoutScale, 2.579, -0.661],
+      },
       endShoulderContinuity: true,
     };
     walkway.updateMatrixWorld(true);
@@ -4504,13 +4568,13 @@ export function createSpacecraft(
             : currentState.hoveredWalkway &&
                 !!rooms[currentState.activeRoom || ''] &&
                 !currentState.travelling
-              ? 0.5
-              : 0.1
+              ? 1
+              : 0.5
           : selected
             ? 1
             : preview
-              ? 0.5
-              : 0.1;
+              ? 1
+              : 0.5;
       targetLevels[section] = targetLevel;
       roomDimmers[section] += (targetLevel - roomDimmers[section]) * blend;
       if (Math.abs(roomDimmers[section] - targetLevel) < 0.002)
@@ -4526,7 +4590,7 @@ export function createSpacecraft(
         const materialLevel = exterior
           ? 1
           : linked
-            ? Math.max(...linked.map((key) => roomDimmers[key] ?? 0.1))
+            ? Math.max(...linked.map((key) => roomDimmers[key] ?? 0.5))
             : level;
         material.color
           .copy(material.userData.baseColor)
@@ -4558,12 +4622,16 @@ export function createSpacecraft(
           section === 'walkway'
             ? !!currentState.transitWalkway
             : !!currentState.travelling && currentState.transitRoom === section,
-        hoveredWalkway: section === 'walkway' && targetLevels[section] === 0.5,
+        hoveredWalkway:
+          section === 'walkway' &&
+          !!currentState.hoveredWalkway &&
+          !!rooms[currentState.activeRoom || ''] &&
+          !currentState.travelling,
         pointIntensities: (roomLights[section] || []).map(
           (light: any) => light.intensity,
         ),
         emitterPolicy:
-          'constant room emitters; diffuse idle/preview/selected levels; no pathway emitters',
+          'constant room emitters; medium default, high hover/selected/transit; no pathway emitters',
       };
     }
     for (const [section, slots] of Object.entries(rackSlots))

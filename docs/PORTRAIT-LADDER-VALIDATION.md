@@ -1,6 +1,6 @@
 # Portrait overview and ladder-bay revision
 
-This pass changes only spacecraft geometry, scene lighting, doorway signs, camera framing and related render input. The temporary review target remains **75/100, with 6/10 per equally weighted area**. Separate readers, forms, admin workflows and unchanged Earth/background features are excluded. The prior [Case studies review](CRITIC-REPORT-CASE-STUDY-CABINS.md) is historical; [the current independent report](CRITIC-REPORT.md) covers this pass.
+This pass changes only spacecraft geometry, scene lighting, doorway signs, camera framing and related render input. The temporary review target remains **75/100, with 6/10 per equally weighted area**. Separate readers, forms, admin workflows and unchanged Earth/background features are excluded. The prior [Case studies review](CRITIC-REPORT-CASE-STUDY-CABINS.md) is historical; [the archived independent report](CRITIC-REPORT-PORTRAIT-LADDER.md) covers this pass.
 
 ## Delivered behavior
 
