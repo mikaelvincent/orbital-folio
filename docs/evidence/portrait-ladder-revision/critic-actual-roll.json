@@ -1,0 +1,92 @@
+{
+  "scope": "Independent reprojection of actual recorded rotation-phase frames only; fixed FOV38 and recorded camera pose; conservative model bounds; excludes room approach/departure",
+  "results": [
+    {
+      "name": "phone320-entry-trace.json",
+      "viewport": [
+        320,
+        844
+      ],
+      "totalFrames": 473,
+      "rotationFrames": 97,
+      "durationMs": 7866.699999999999,
+      "rotationDurationMs": 1599,
+      "ndcRanges": {
+        "x": [
+          -0.7954935445581344,
+          0.8277667700474375
+        ],
+        "y": [
+          -0.33559170423341556,
+          0.2768492702702508
+        ],
+        "z": [
+          0.9973605836010104,
+          0.998657381689793
+        ]
+      },
+      "allFullBoundsInsideViewport": true,
+      "violatingCornerSamples": 0,
+      "worst": null,
+      "walkwayMaxDuringRotation": 0.1
+    },
+    {
+      "name": "phone320-return-trace.json",
+      "viewport": [
+        320,
+        844
+      ],
+      "totalFrames": 474,
+      "rotationFrames": 97,
+      "durationMs": 7882.300000000003,
+      "rotationDurationMs": 1599,
+      "ndcRanges": {
+        "x": [
+          -0.8835115527436285,
+          0.7434678093646973
+        ],
+        "y": [
+          -0.304498690897717,
+          0.3098692539599601
+        ],
+        "z": [
+          0.997335164850367,
+          0.9986372658292089
+        ]
+      },
+      "allFullBoundsInsideViewport": true,
+      "violatingCornerSamples": 0,
+      "worst": null,
+      "walkwayMaxDuringRotation": 0.1
+    },
+    {
+      "name": "tall320-entry-trace.json",
+      "viewport": [
+        320,
+        1024
+      ],
+      "totalFrames": 537,
+      "rotationFrames": 97,
+      "durationMs": 8933.3,
+      "rotationDurationMs": 1600,
+      "ndcRanges": {
+        "x": [
+          -0.7981892444889622,
+          0.829608174697809
+        ],
+        "y": [
+          -0.27712216370419956,
+          0.22924505835210246
+        ],
+        "z": [
+          0.9975511809967569,
+          0.9984352922557335
+        ]
+      },
+      "allFullBoundsInsideViewport": true,
+      "violatingCornerSamples": 0,
+      "worst": null,
+      "walkwayMaxDuringRotation": 0.1
+    }
+  ]
+}

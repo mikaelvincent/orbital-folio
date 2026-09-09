@@ -1,0 +1,6264 @@
+{
+  "trace": [
+    {
+      "active": "projects",
+      "delta": 0.017,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.048771618585043,
+        -1.53,
+        4.810633362801839
+      ],
+      "quaternion": [
+        0,
+        0.02244609474714322,
+        0,
+        0.9997480546770784
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.9008583401450976,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4206866721160782,
+        "walkway": 0.4206866721160782
+      },
+      "time": 102039.4,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -0.68,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.20399999999999557,
+        4.653065180212601e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.015700000000011642,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.0679768674952403,
+        -1.53,
+        4.810684195047704
+      ],
+      "quaternion": [
+        0,
+        0.02232414808705536,
+        0,
+        0.9997507851520736
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.8268522057099876,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.36148176456799014,
+        "walkway": 0.36148176456799014
+      },
+      "time": 102055.1,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -1.3080000000004657,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.3924000000001353,
+        4.199549125010156e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01759999999999127,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.1012219105240564,
+        -1.53,
+        4.810771533348009
+      ],
+      "quaternion": [
+        0,
+        0.022113053012001,
+        0,
+        0.9997554765473848
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.7600068816167916,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.30800550529343335,
+        "walkway": 0.30800550529343335
+      },
+      "time": 102072.7,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -2.0120000000001164,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.6036000000000304,
+        3.746625686733143e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.144835963050787,
+        -1.53,
+        4.810884854256641
+      ],
+      "quaternion": [
+        0,
+        0.02183611700087412,
+        0,
+        0.9997615635711968
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.7092664035521791,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.2674131228417433,
+        "walkway": 0.2674131228417433
+      },
+      "time": 102089.4,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -2.68,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.8039999999999954,
+        3.362131382203693e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2003061231365577,
+        -1.53,
+        4.811026917984458
+      ],
+      "quaternion": [
+        0,
+        0.0214838964549542,
+        0,
+        0.999769194460958
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.6684279561500152,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.2347423649200122,
+        "walkway": 0.2347423649200122
+      },
+      "time": 102106.1,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -3.348000000000466,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.0044000000001352,
+        3.016746679391994e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.264029201746627,
+        -1.53,
+        4.811187267840485
+      ],
+      "quaternion": [
+        0,
+        0.021079269592777845,
+        0,
+        0.9997778075119668
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.6373329265169867,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.2098663412135894,
+        "walkway": 0.2098663412135894
+      },
+      "time": 102121.8,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -3.97600000000035,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.1928000000001002,
+        2.722283346116425e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.342961088782249,
+        -1.53,
+        4.811381662819548
+      ],
+      "quaternion": [
+        0,
+        0.020578066652713445,
+        0,
+        0.9997882491672108
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.6106761200149734,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.18854089601197876,
+        "walkway": 0.18854089601197876
+      },
+      "time": 102138.4,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -4.640000000000001,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.3919999999999952,
+        2.442179821704588e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01770000000001164,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.4391253506562034,
+        -1.53,
+        4.811612178908006
+      ],
+      "quaternion": [
+        0,
+        0.019967435980762623,
+        0,
+        0.9998006308761532
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.587927103196605,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.17034168255728405,
+        "walkway": 0.17034168255728405
+      },
+      "time": 102156.1,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -5.348000000000466,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.604400000000135,
+        2.1774834174913812e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.542263132509768,
+        -1.53,
+        4.811851696709473
+      ],
+      "quaternion": [
+        0,
+        0.019312518039362674,
+        0,
+        0.9998134959316058
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5708601416482064,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1566881133185652,
+        "walkway": 0.1566881133185652
+      },
+      "time": 102172.7,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -6.012000000000116,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.80360000000003,
+        1.953676645496933e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.656872979973724,
+        -1.53,
+        4.812108489751946
+      ],
+      "quaternion": [
+        0,
+        0.018584745844184597,
+        0,
+        0.9998272886963564
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5570317481818545,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1456253985454837,
+        "walkway": 0.1456253985454837
+      },
+      "time": 102189.4,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -6.68,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.003999999999995,
+        1.753639173795989e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.783511334843568,
+        -1.53,
+        4.812380766759272
+      ],
+      "quaternion": [
+        0,
+        0.017780583930559618,
+        0,
+        0.999841912921782
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5459616842553541,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1367693474042833,
+        "walkway": 0.1367693474042833
+      },
+      "time": 102206,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -7.344000000000232,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.2032000000000647,
+        1.573512028489235e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.914794175719811,
+        -1.53,
+        4.812650319989123
+      ],
+      "quaternion": [
+        0,
+        0.016946919957953426,
+        0,
+        0.9998563906401452
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5374275887062827,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.12994207096502616,
+        "walkway": 0.12994207096502616
+      },
+      "time": 102221.8,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -7.976000000000349,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.3928000000000997,
+        1.4197289271397122e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01759999999999127,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.072626316335168,
+        -1.53,
+        4.812952989144661
+      ],
+      "quaternion": [
+        0,
+        0.0159590177502599,
+        0,
+        0.9998726467668004
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.529773183279635,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.123818546623708,
+        "walkway": 0.123818546623708
+      },
+      "time": 102239.4,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -8.68,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.5357553775291803,
+        1.267103869634987e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.233974843370723,
+        -1.53,
+        4.813231460611324
+      ],
+      "quaternion": [
+        0,
+        0.01499270907022716,
+        0,
+        0.9998876030208272
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5239941031583308,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11919528252666473,
+        "walkway": 0.11919528252666473
+      },
+      "time": 102256,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -9.344000000000232,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.599165879224618,
+        1.1372015964768391e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.404651439904546,
+        -1.53,
+        4.813495644583836
+      ],
+      "quaternion": [
+        0,
+        0.01401452587876105,
+        0,
+        0.9999017917097628
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5193116414580298,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11544931316642389,
+        "walkway": 0.11544931316642389
+      },
+      "time": 102272.7,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -9.791365068012796,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.6003117926872292,
+        1.021038371396986e-156,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.577652005584874,
+        -1.53,
+        4.8137379014475155
+      ],
+      "quaternion": [
+        0,
+        0.013053260244484218,
+        0,
+        0.9999148025691936
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.515563183585331,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11245054686826483,
+        "walkway": 0.11245054686826483
+      },
+      "time": 102289.3,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -9.88557759991019,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.561942477020393,
+        9.163966567763727e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.750574672273772,
+        -1.53,
+        4.813960513586665
+      ],
+      "quaternion": [
+        0,
+        0.012102817461007128,
+        0,
+        0.9999267582225736
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5125097469745885,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11000779757967084,
+        "walkway": 0.11000779757967084
+      },
+      "time": 102306.1,
+      "transitRoom": "about",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -9.682298307216405,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.4879307727585327,
+        8.22277054782061e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.9065922701774554,
+        -1.53,
+        4.814146536409775
+      ],
+      "quaternion": [
+        0,
+        0.011247160233393222,
+        0,
+        0.9999367486929782
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.43635253947001507,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10816016628725024,
+        "walkway": 0.10816016628725024
+      },
+      "time": 102321.8,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -9.334666519181525,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.39911997952216,
+        7.424714950484037e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01759999999999127,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.0734164602346175,
+        -1.53,
+        4.8143312292944165
+      ],
+      "quaternion": [
+        0,
+        0.010327723694915558,
+        0,
+        0.9999466676394704
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.36756427946239534,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10649131121882335,
+        "walkway": 0.10649131121882335
+      },
+      "time": 102339.4,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -8.809789646038501,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.2817977124980953,
+        6.627071494541666e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.22031980351098,
+        -1.53,
+        4.814482435070862
+      ],
+      "quaternion": [
+        0,
+        0.009509037082127612,
+        0,
+        0.9999547880848269
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.3156291069922807,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1052313247647864,
+        "walkway": 0.1052313247647864
+      },
+      "time": 102356,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -8.246337500839042,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.1614744337042104,
+        5.9481030775489e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.358584534969674,
+        -1.53,
+        4.814614950640987
+      ],
+      "quaternion": [
+        0,
+        0.008728636596833513,
+        0,
+        0.9999619047259553
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.2735489747073234,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10421042901838948,
+        "walkway": 0.27984589671903404
+      },
+      "time": 102372.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -7.640987210394284,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2.0343589988159336,
+        5.340871087972691e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.484558919907195,
+        -1.53,
+        4.814727728773513
+      ],
+      "quaternion": [
+        0,
+        0.00800476640982183,
+        0,
+        0.9999679613441242
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.23986250522960983,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10339316986226224,
+        "walkway": 0.41963035387492387
+      },
+      "time": 102389.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -7.030202646777942,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.906009187682015,
+        4.793813966872914e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01589999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.595485991814908,
+        -1.53,
+        4.814820540316642
+      ],
+      "quaternion": [
+        0,
+        0.007355811534793024,
+        0,
+        0.9999729456523636
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.21374508345519044,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10275954151205167,
+        "walkway": 0.5280064966305175
+      },
+      "time": 102405.2,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -6.453207114832059,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.7835056012868544,
+        4.3236592911983555e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.707460416773907,
+        -1.53,
+        4.814907818039897
+      ],
+      "quaternion": [
+        0,
+        0.00668834772165952,
+        0,
+        0.99997763275223
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1906005093071626,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10219803668740228,
+        "walkway": 0.6240465917650552
+      },
+      "time": 102422.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -5.8416280729074535,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.6514178426595014,
+        3.8625338001824356e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.804298814587329,
+        -1.53,
+        4.8149780365638355
+      ],
+      "quaternion": [
+        0,
+        0.006098545050952978,
+        0,
+        0.9999814037012196
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.17291977283374027,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.6974140947528283
+      },
+      "time": 102439.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -5.287560024567328,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.5293346190295416,
+        3.4682439944471426e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01590000000000873,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.887210377606346,
+        -1.53,
+        4.815034254561872
+      ],
+      "quaternion": [
+        0,
+        0.005581596487715795,
+        0,
+        0.9999844227689992
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1593029964170111,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.7539178996672875
+      },
+      "time": 102455.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -4.789453667164152,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.4173357306725791,
+        3.127577102628429e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01739999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.969536382891052,
+        -1.53,
+        4.815086194679017
+      ],
+      "quaternion": [
+        0,
+        0.005057237197097889,
+        0,
+        0.9999872120942008
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1472976132562014,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.8037351109720369
+      },
+      "time": 102472.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -4.285966224388266,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.3011034172575953,
+        2.7953829841656612e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.040418007509115,
+        -1.53,
+        4.815127742056164
+      ],
+      "quaternion": [
+        0,
+        0.00459492085006778,
+        0,
+        0.9999894432954688
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1380674594502268,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.8420363060583052
+      },
+      "time": 102489.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -3.841173807520694,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.195728530758214,
+        2.5096463106792155e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.103932421165953,
+        -1.53,
+        4.815162369205342
+      ],
+      "quaternion": [
+        0,
+        0.0041706362416277405,
+        0,
+        0.99999130285885
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1306385749560922,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.8728630030196304
+      },
+      "time": 102506.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -3.433582624648564,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.0966054025504457,
+        2.2527934732575908e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.159834403285959,
+        -1.53,
+        4.815190780718692
+      ],
+      "quaternion": [
+        0,
+        0.003787175629256185,
+        0,
+        0.9999928286246624
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1246915192512758,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.8975407435564824
+      },
+      "time": 102522.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -3.0619218606496377,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1.0039123009345403,
+        2.021489673009995e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.210502776499168,
+        -1.53,
+        4.815214670333231
+      ],
+      "quaternion": [
+        0,
+        0.003431743203267638,
+        0,
+        0.9999941115519566
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.11987295643801212,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9175357206961684
+      },
+      "time": 102539.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -2.7265472515071796,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.9176331062983312,
+        1.8147096614588457e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.254931375163945,
+        -1.53,
+        4.815234174364432
+      ],
+      "quaternion": [
+        0,
+        0.0031115996441342677,
+        0,
+        0.9999951589621096
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.11601554534347816,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9335423288161816
+      },
+      "time": 102556,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -2.4230198741863824,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.8375074226099888,
+        1.6284814719046484e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.2950899667080575,
+        -1.53,
+        4.815250508532427
+      ],
+      "quaternion": [
+        0,
+        0.0028156169761735764,
+        0,
+        0.9999960361426656
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.11289010334694186,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9465115778835878
+      },
+      "time": 102572.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -2.1512126636765943,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.7634596180130943,
+        1.4619815507333676e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.330773557594074,
+        -1.522562933333336,
+        4.815263966102159
+      ],
+      "quaternion": [
+        0,
+        0.0025460368118859823,
+        0,
+        0.999996758843024
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.11037459298021988,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.956949871255794
+      },
+      "time": 102589.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.9070102984690136,
+        0.6679999999998836,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.695055393148656,
+        1.3123188645742214e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.362438206323181,
+        -1.503970266666653,
+        4.815275032783695
+      ],
+      "quaternion": [
+        0,
+        0.002300803916350556,
+        0,
+        0.9999973531471664
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.10834998576879082,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.96535112625198
+      },
+      "time": 102606.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.6882483387478555,
+        1.3360000000003494,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.6320309909125682,
+        1.1778203984231044e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01639999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.389743552036981,
+        -1.473991066666661,
+        4.815283901369268
+      ],
+      "quaternion": [
+        0,
+        0.002083549365894376,
+        0,
+        0.999997829408664
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.10674674276122303,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.972003899812893
+      },
+      "time": 102622.5,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.4946310976325596,
+        1.9920000000001163,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.5747607251317286,
+        1.0581440137543554e-157,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.414766985980377,
+        -1.43299906666665,
+        4.815291417548022
+      ],
+      "quaternion": [
+        0,
+        0.0018798699500712072,
+        0,
+        0.9999982330429243
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1054230578456382,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9774966267219234
+      },
+      "time": 102639.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.3198446163129955,
+        2.664000000000233,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.521391009763993,
+        9.491347354271936e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.436773768791879,
+        -1.38107319999999,
+        4.815297531487326
+      ],
+      "quaternion": [
+        0,
+        0.0016962458806168057,
+        0,
+        0.9999985613739216
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.10436474528887564,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9818881717114092
+      },
+      "time": 102656,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.165180168997089,
+        3.3320000000001166,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.4728143849326318,
+        8.518085893178531e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01589999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.455175553539944,
+        -1.3205101000000128,
+        4.815302279049182
+      ],
+      "quaternion": [
+        0,
+        0.0015386173716373836,
+        0,
+        0.9999988163275912
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.103549688433857,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9852703094597816
+      },
+      "time": 102671.9,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -1.032958040134382,
+        3.967999999999884,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.4301925401232099,
+        7.677800712140165e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.473212845368829,
+        -1.2429605996597368,
+        4.815306576398063
+      ],
+      "quaternion": [
+        0,
+        0.0013805040295053006,
+        0,
+        0.9999990471038585
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.10282740642689742,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9882674712229964
+      },
+      "time": 102689.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.9051729524595308,
+        4.658200058333239,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.3876945489302649,
+        6.854555509605091e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.488131301165289,
+        -1.1598375588054888,
+        4.815309862825089
+      ],
+      "quaternion": [
+        0,
+        0.0012461204946937552,
+        0,
+        0.9999992235915548
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.10227859684469508,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9905447965325204
+      },
+      "time": 102706,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.7971786923054999,
+        5.098228052935879,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.3507902795379853,
+        6.149889137535382e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.501521042227967,
+        -1.072626825125307,
+        4.815312583069123
+      ],
+      "quaternion": [
+        0,
+        0.0011227873627239469,
+        0,
+        0.9999993696740704
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.99238998440276
+      },
+      "time": 102722.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.7022160271616775,
+        5.260750784171027,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.317300928455753,
+        5.5200854265276364e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01590000000000873,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.512695103258453,
+        -0.9888783616471464,
+        4.815314687150553
+      ],
+      "quaternion": [
+        0,
+        0.0010171847938387716,
+        0,
+        0.9999994826674138
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9938110513766204
+      },
+      "time": 102738.6,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.6213223284266101,
+        5.257368186312964,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.288040873109257,
+        4.9762173377222924e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01739999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5235737723135685,
+        -0.8989633980765888,
+        4.815316575819431
+      ],
+      "quaternion": [
+        0,
+        0.0009120386486151392,
+        0,
+        0.9999995840926652
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9950639509613862
+      },
+      "time": 102756,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.5438630093523952,
+        5.110111578449514,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.25915838409063174,
+        4.446180704104056e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.532764663891085,
+        -0.8160843011630083,
+        4.81531804451806
+      ],
+      "quaternion": [
+        0,
+        0.0008210179852557342,
+        0,
+        0.9999996629646772
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9960272234963754
+      },
+      "time": 102772.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.4783773779177193,
+        4.881741939385023,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.23404583749871435,
+        3.990504273632208e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.540337275496044,
+        -0.7424787255796322,
+        4.815319165198779
+      ],
+      "quaternion": [
+        0,
+        0.0007441135997304296,
+        0,
+        0.9999997231474368
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.996760674200934
+      },
+      "time": 102788.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.4233988408419342,
+        4.620571812429348,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.21242856545482444,
+        3.601863112132546e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01770000000001164,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.547916119225017,
+        -0.6645561985921212,
+        4.815320198146545
+      ],
+      "quaternion": [
+        0,
+        0.00066540395849906,
+        0,
+        0.9999997786187614
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9974265041656378
+      },
+      "time": 102806.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.369269655720791,
+        4.290625112424713,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.1904976924769349,
+        3.2115566903564134e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01639999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.554026222790771,
+        -0.5981089814243247,
+        4.815320965722207
+      ],
+      "quaternion": [
+        0,
+        0.0006002681120607473,
+        0,
+        0.9999998198390804
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.9979206294630566
+      },
+      "time": 102822.5,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.32483842262502394,
+        3.971420489974683,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.1720153148168446,
+        2.8853908622065534e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01689999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.559628938903516,
+        -0.5347209581638458,
+        4.815321613220813
+      ],
+      "quaternion": [
+        0,
+        0.0005392382860446063,
+        0,
+        0.9999998546110248
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102839.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.2849910342828124,
+        3.640808150423192,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.154931377520708,
+        2.586568578639215e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.015700000000011642,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.56418462242718,
+        -0.4811179845074315,
+        4.815322099840639
+      ],
+      "quaternion": [
+        0,
+        0.0004883779895740591,
+        0,
+        0.9999998807434624
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102855.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.2520204990503984,
+        3.3394470644709866,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.14044383400915075,
+        2.334914302127661e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01769999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.568741342888754,
+        -0.4258680960142429,
+        4.8153225475063275
+      ],
+      "quaternion": [
+        0,
+        0.00043638517239468345,
+        0,
+        0.9999999047839864
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102872.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.21961208894915824,
+        3.0143171786007663,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.12578127535388428,
+        2.0821337548807503e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.572453156160376,
+        -0.3794499411025987,
+        4.815322883031538
+      ],
+      "quaternion": [
+        0,
+        0.00039293167557463937,
+        0,
+        0.9999999228023462
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102889.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.19273296966071,
+        2.7251377378934483,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.1133026425560783,
+        1.8683600886370142e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01630000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.575667049652395,
+        -0.3382905691914493,
+        4.815323150855513
+      ],
+      "quaternion": [
+        0,
+        0.00035444317105232033,
+        0,
+        0.9999999371850172
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102905.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.1695865449828605,
+        2.4600376937333093,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.10225260225934986,
+        1.6802285133839783e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5784559818163855,
+        -0.301843583413198,
+        4.815323365350064
+      ],
+      "quaternion": [
+        0,
+        0.00032030049898765223,
+        0,
+        0.9999999487037938
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102921.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.149601242814543,
+        2.2188091041922657,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.09245170166505336,
+        1.5143058306216976e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5810506657503405,
+        -0.26737992596843807,
+        4.815323548897853
+      ],
+      "quaternion": [
+        0,
+        0.0002878865417088841,
+        0,
+        0.9999999585606686
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102938.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.13140237346248437,
+        1.9882967635206497,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.08327417579801866,
+        1.359810676708461e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01770000000001164,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.583460296348639,
+        -0.22383267325408843,
+        4.815323705213338
+      ],
+      "quaternion": [
+        0,
+        0.0002570793024049689,
+        0,
+        0.9999999669551156
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102956.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.11445134881525532,
+        2.696296763521115,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.07450314250986623,
+        1.2128960318023027e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.585456614009265,
+        -0.17136745063662956,
+        4.815323823856313
+      ],
+      "quaternion": [
+        0,
+        0.00023096980132455988,
+        0,
+        0.9999999733264752
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102972.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.10044760338497737,
+        3.364296763520999,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.06706241386829113,
+        1.0888557119274131e-158,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.58718391121409,
+        -0.10725332436221906,
+        4.815323918420365
+      ],
+      "quaternion": [
+        0,
+        0.00020782324433560163,
+        0,
+        0.9999999784047492
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 102989.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.08808368938849011,
+        4.0282967635206495,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.06033461751673677,
+        9.771396142756287e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.588703773396337,
+        -0.03211679808774703,
+        4.815323994973194
+      ],
+      "quaternion": [
+        0,
+        0.00018699847137436824,
+        0,
+        0.9999999825157858
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103006,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.0772623014179758,
+        4.692296763520882,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.05428284774574762,
+        8.77055671400551e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.589983022637125,
+        0.04951069077589932,
+        4.815324054328661
+      ],
+      "quaternion": [
+        0,
+        0.0001690958885448421,
+        0,
+        0.9999999857032902
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103021.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.06822753483341953,
+        5.324296763520999,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.04909420792179527,
+        7.915664010930638e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.591241093775796,
+        0.15085255080418347,
+        4.815324107890534
+      ],
+      "quaternion": [
+        0,
+        0.00015113128500590986,
+        0,
+        0.9999999885796672
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103039.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.0595136259712784,
+        6.024296763520999,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.04395116793905597,
+        7.071419254735022e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.592296035738101,
+        0.258754169532199,
+        4.815324149013765
+      ],
+      "quaternion": [
+        0,
+        0.00013573455616030524,
+        0,
+        0.9999999907880652
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103056,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.05222575622779886,
+        6.6669307953594945,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.03953894723394207,
+        6.349543702007653e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0165,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.593204040626573,
+        0.3737327992854833,
+        4.815324181588408
+      ],
+      "quaternion": [
+        0,
+        0.0001221688422940952,
+        0,
+        0.9999999925373873
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103072.5,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.04582976870048966,
+        7.040638582197588,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.03557624363625416,
+        5.703000949824914e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01589999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.593977431021554,
+        0.4869042857410916,
+        4.8153242071304705
+      ],
+      "quaternion": [
+        0,
+        0.00011037168519278492,
+        0,
+        0.9999999939090456
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103088.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.040424227708627115,
+        7.124697629143397,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.03213837167286811,
+        5.143665910992476e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01690000000000873,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.594709377416331,
+        0.6060803898160021,
+        4.815324229317475
+      ],
+      "quaternion": [
+        0,
+        0.00009898958540543456,
+        0,
+        0.999999995100531
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103105.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.03541936754233341,
+        6.996721464077272,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.028868682777032473,
+        4.613174866261559e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01739999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.595370240004883,
+        0.7247727243532274,
+        4.815324247649692
+      ],
+      "quaternion": [
+        0,
+        0.00008848720995189878,
+        0,
+        0.9999999960850068
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103122.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.030898927696713045,
+        6.7205529980483245,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.025841165643522165,
+        4.123196287327458e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5959275839130145,
+        0.833133674966544,
+        4.815324261796846
+      ],
+      "quaternion": [
+        0,
+        0.00007943882425337415,
+        0,
+        0.9999999968447366
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103139.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.02709867322127644,
+        6.365224712040017,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.02323095035402697,
+        3.701740160605491e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.596418134176635,
+        0.9349427846747956,
+        4.81532427321199
+      ],
+      "quaternion": [
+        0,
+        0.00007130564984553196,
+        0,
+        0.999999997457752
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103156.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.023758371140057168,
+        5.957710202147432,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.020879619562402887,
+        3.3228861646192556e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.015799999999988358,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.596823940092586,
+        1.0242416062882818,
+        4.8153242819053705
+      ],
+      "quaternion": [
+        0,
+        0.00006442664626569348,
+        0,
+        0.9999999979246036
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103171.9,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.020950757563902935,
+        5.54856111519773,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.01885768933850703,
+        2.997692857440493e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01740000000000873,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5972207023982765,
+        1.115453099965516,
+        4.815324289694573
+      ],
+      "quaternion": [
+        0,
+        0.000057569107064138266,
+        0,
+        0.9999999983428988
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103189.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.01826448756951313,
+        5.088668572509342,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.016869463716182847,
+        2.67855364457259e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.597555219224168,
+        1.195564601377725,
+        4.815324295699868
+      ],
+      "quaternion": [
+        0,
+        0.00005166439728337449,
+        0,
+        0.9999999986653948
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103206,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.016008664285881748,
+        4.65247602438531,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.015156973869786834,
+        2.4041626726167267e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.59783194046071,
+        1.2643125980896843,
+        4.815324300270872
+      ],
+      "quaternion": [
+        0,
+        0.00004667190023372323,
+        0,
+        0.9999999989108668
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103221.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.014113372559561743,
+        4.252089287359368,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.013685095775831602,
+        2.1686716610443877e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01759999999999127,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.598105325318802,
+        1.3341599950798222,
+        4.815324304405594
+      ],
+      "quaternion": [
+        0,
+        0.000041643499080278706,
+        0,
+        0.9999999991329094
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103239.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.012280986507780384,
+        3.829647767825998,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.012222538957115925,
+        1.9350521761620288e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5983194416832465,
+        1.3904074948701273,
+        4.815324307376471
+      ],
+      "quaternion": [
+        0,
+        0.00003761777645953966,
+        0,
+        0.9999999992924512
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103255.2,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.010827690546731324,
+        3.4720596579194125,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.011034842817413274,
+        1.7455920432716677e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01760000000000582,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.59853101883569,
+        1.4471565650714884,
+        4.815324310063501
+      ],
+      "quaternion": [
+        0,
+        0.00003356336835009311,
+        0,
+        0.99999999943675
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103272.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.009422472792839733,
+        3.1038289257740503,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00985481429893842,
+        1.557622564431999e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.598704339132441,
+        1.4946479230403575,
+        4.815324312078948
+      ],
+      "quaternion": [
+        0,
+        0.00003016675055819824,
+        0,
+        0.9999999995449836
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103289.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.008253532474059985,
+        2.78229698261177,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.008849558293127658,
+        1.3976835329480004e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5988568927001365,
+        1.5371477245250131,
+        4.815324313705898
+      ],
+      "quaternion": [
+        0,
+        0.000027116268528459593,
+        0,
+        0.999999999632354
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103306,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.00723230342991945,
+        2.488480102823014,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.007948035387952806,
+        1.2544182104269505e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.5989935257943735,
+        1.5757023738771274,
+        4.815324315038544
+      ],
+      "quaternion": [
+        0,
+        0.000024334351376530748,
+        0,
+        0.9999999997039196
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103322.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.006342534900253844,
+        2.22152437316823,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.007140877943082078,
+        1.1263011740981343e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.599113882626554,
+        1.6100720209193122,
+        4.815324316112824
+      ],
+      "quaternion": [
+        0,
+        0.000021835264871380776,
+        0,
+        0.9999999997616108
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103339.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        -0.005560511096718421,
+        1.9789799174365237,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.006414472910041748,
+        1.0111179815010639e-159,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.591732207476803,
+        1.638837744060184,
+        4.815324316930219
+      ],
+      "quaternion": [
+        0,
+        0.000019722761683434365,
+        0,
+        0.9999999998055062
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103355.2,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        0.626439488903398,
+        1.7695865833695898,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.005790341219725076,
+        9.122370783499292e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.572622552023188,
+        1.6673589910799385,
+        4.815324317665693
+      ],
+      "quaternion": [
+        0,
+        0.000017606661116159227,
+        0,
+        0.9999999998450028
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103372.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        1.326439488903398,
+        1.5624285044371815,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0051737778542748775,
+        8.146479559432442e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.54305080180081,
+        1.6914569199023424,
+        4.81532431822873
+      ],
+      "quaternion": [
+        0,
+        0.00001579627070987814,
+        0,
+        0.9999999998752388
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103389.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        1.994439488903282,
+        1.3853973285765655,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.004646424311999607,
+        7.312502179157874e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.50406370308049,
+        1.711533998016846,
+        4.815324318656978
+      ],
+      "quaternion": [
+        0,
+        0.000014266280167335283,
+        0,
+        0.9999999998982364
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103405.2,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        2.626439488903398,
+        1.2338487090360777,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00419346569786149,
+        6.596680468375923e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.449948612111805,
+        1.731369461235872,
+        4.815324319042183
+      ],
+      "quaternion": [
+        0,
+        0.000012733975132032669,
+        0,
+        0.9999999999189229
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103422.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        3.3264394889033984,
+        1.08521292394304,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0037461595102379662,
+        5.890340824711628e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.386474935360879,
+        1.7477947942351004,
+        4.815324319332762
+      ],
+      "quaternion": [
+        0,
+        0.00001144311287729202,
+        0,
+        0.9999999999345276
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103439.3,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        3.9904394889036303,
+        0.9588248572961712,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0033629431518426606,
+        5.2855981565347253e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.311920168978259,
+        1.7626270551766452,
+        4.8153243195718645
+      ],
+      "quaternion": [
+        0,
+        0.000010259840755193407,
+        0,
+        0.999999999947368
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103456.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        4.662439488903746,
+        0.8463506452195432,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0030181375099606724,
+        4.741849473038963e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01639999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.227396937306402,
+        1.7752830054516149,
+        4.815324319758511
+      ],
+      "quaternion": [
+        0,
+        0.000009231346769163707,
+        0,
+        0.999999999957391
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103472.5,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        5.318439488903514,
+        0.7478136159600856,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.002713030195236502,
+        4.260967710506132e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016199999999997088,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.133373529913002,
+        1.7863389711382172,
+        4.815324319907889
+      ],
+      "quaternion": [
+        0,
+        0.000008317089648350753,
+        0,
+        0.999999999965413
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103488.7,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        5.966439488903398,
+        0.6615454596244809,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0024423882652097875,
+        3.8346454284418163e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.017100000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -5.02355794897759,
+        1.7967279532025733,
+        4.8153243200360905
+      ],
+      "quaternion": [
+        0,
+        0.000007443431411399929,
+        0,
+        0.9999999999722976
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103505.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        6.650439488903632,
+        0.5816238181846112,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0021879471843503214,
+        3.43406940621678e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.905065670831249,
+        1.805661354871711,
+        4.815324320136747
+      ],
+      "quaternion": [
+        0,
+        0.000006677858005222211,
+        0,
+        0.999999999977703
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103522.5,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        7.318439488903516,
+        0.512512937379691,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.001964835232560479,
+        3.0829894817623536e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01689999999999418,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.77377424829887,
+        1.8136154463167953,
+        4.81532432021868
+      ],
+      "quaternion": [
+        0,
+        0.0000059827940028066055,
+        0,
+        0.999999999982103
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103539.4,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        7.994439488903284,
+        0.45057606575477793,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00176187909336128,
+        2.7637713547676507e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.63283578092882,
+        1.8205295223265616,
+        4.8153243202838105
+      ],
+      "quaternion": [
+        0,
+        0.000005366428631592772,
+        0,
+        0.9999999999856006
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103556.1,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        8.662439488903749,
+        0.3964752262081688,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0015817322577162485,
+        2.480549880530204e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.489445600834697,
+        1.8262136321040696,
+        4.815324320333047
+      ],
+      "quaternion": [
+        0,
+        0.000004848754533589575,
+        0,
+        0.9999999999882448
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 103571.8,
+      "transitRoom": "",
+      "transitWalkway": true,
+      "travelling": true,
+      "velocities": [
+        9.290439488903631,
+        0.3510274768499258,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0014280289234189624,
+        2.2389894882605208e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.320405318155205,
+        1.831832374191572,
+        4.815324320377616
+      ],
+      "quaternion": [
+        0,
+        0.000004327064055205904,
+        0,
+        0.9999999999906382
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.8168701793477426
+      },
+      "time": 103589.3,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        9.789159838404066,
+        0.30673550802100275,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0012752787692370312,
+        1.9990227004320905e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -4.15564908075999,
+        1.836535489554524,
+        4.815324320411707
+      ],
+      "quaternion": [
+        0,
+        0.000003880965958591649,
+        0,
+        0.9999999999924688
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.6769725913139807
+      },
+      "time": 103606,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        9.868798532475026,
+        0.2695836918297093,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.001144738797984465,
+        1.7940215197850174e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.9917150396743017,
+        1.8406901636231283,
+        4.815324320439295
+      ],
+      "quaternion": [
+        0,
+        0.0000034783438646576377,
+        0,
+        0.9999999999939504
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 0.5637727935956275
+      },
+      "time": 103622.8,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        9.67793276506005,
+        0.2366251762640245,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.001026747840167921,
+        1.6087879238687518e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.843631341102941,
+        1.8440788033062467,
+        4.8153243204600065
+      ],
+      "quaternion": [
+        0,
+        0.0000031423651428708496,
+        0,
+        0.9999999999950628
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1738476683890477,
+        "walkway": 0.478151444922347
+      },
+      "time": 103638.5,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        9.33879486753709,
+        0.20919059983687455,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0009267591202688916,
+        1.4518598437046467e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01760000000000582,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.685218290614495,
+        1.8474413321371412,
+        4.81532432047884
+      ],
+      "quaternion": [
+        0,
+        0.0000028020664823232117,
+        0,
+        0.9999999999960744
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.24054985956118297,
+        "walkway": 0.4008147910752201
+      },
+      "time": 103656.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        8.820308878084534,
+        0.1823831069629376,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0008268853398317722,
+        1.2951602614715081e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.544170394030734,
+        1.8502354439280504,
+        4.815324320493152
+      ],
+      "quaternion": [
+        0,
+        0.000002512858467824072,
+        0,
+        0.9999999999968427
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.29118168929559357,
+        "walkway": 0.3421106282732557
+      },
+      "time": 103672.8,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        8.25332284112121,
+        0.16009160187030677,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0007420886943299128,
+        1.1621534273647972e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0165,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.4153182170196916,
+        1.8526320884318297,
+        4.815324320504444
+      ],
+      "quaternion": [
+        0,
+        0.0000022586823195561847,
+        0,
+        0.9999999999974492
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.33149514758245924,
+        "walkway": 0.29536991535025453
+      },
+      "time": 103689.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        7.659498102830494,
+        0.1405201177734247,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0006661977164436663,
+        1.0431430683034511e-160,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.3011652071239874,
+        1.854655370694359,
+        4.81532432051322
+      ],
+      "quaternion": [
+        0,
+        0.000002039385106521571,
+        0,
+        0.9999999999979204
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.36278287200578585,
+        "walkway": 0.2590939269476137
+      },
+      "time": 103705.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        7.080091136099771,
+        0.12407308949703848,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0006009941688246887,
+        9.409167178735082e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.191147948239003,
+        1.8565234524502736,
+        4.815324320520683
+      ],
+      "quaternion": [
+        0,
+        0.0000018323372506415271,
+        0,
+        0.9999999999983212
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.389417201605187,
+        "walkway": 0.22821323333796129
+      },
+      "time": 103721.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        6.478044801490698,
+        0.1088570921099781,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000539360231757218,
+        8.443078396439632e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01769999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -3.083821715802036,
+        1.8582820102974111,
+        4.815324320527108
+      ],
+      "quaternion": [
+        0,
+        0.0000016332054146139166,
+        0,
+        0.9999999999986664
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.41214703655209023,
+        "walkway": 0.20185953570972912
+      },
+      "time": 103739.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        5.859623023214246,
+        0.09481279598582457,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0004810788929605138,
+        7.529752375002632e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.993473147219155,
+        1.859709386437034,
+        4.815324320531894
+      ],
+      "quaternion": [
+        0,
+        0.0000014674601630359916,
+        0,
+        0.9999999999989232
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4291996073132001,
+        "walkway": 0.18208823976006155
+      },
+      "time": 103756,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        5.306545389358267,
+        0.08317322556481642,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0004317749928165029,
+        6.757256662112731e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.9106791290289142,
+        1.8609836539707432,
+        4.815324320535809
+      ],
+      "quaternion": [
+        0,
+        0.0000013163961562651817,
+        0,
+        0.9999999999991336
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4430163407386839,
+        "walkway": 0.16606867711230483
+      },
+      "time": 103772.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        4.787300348295222,
+        0.07301203405157551,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00038768297214235374,
+        6.0665585286442605e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.8361593245807857,
+        1.8621019517366049,
+        4.815324320538963
+      ],
+      "quaternion": [
+        0,
+        0.000001180772048875228,
+        0,
+        0.9999999999993028
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4541367314560788,
+        "walkway": 0.15317534044010203
+      },
+      "time": 103789.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        4.303951519115451,
+        0.06406688059792259,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0003480411846219621,
+        5.4456782422721595e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.7703094300251108,
+        1.863066067927126,
+        4.815324320541465
+      ],
+      "quaternion": [
+        0,
+        0.0000010608719650405993,
+        0,
+        0.9999999999994372
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4630389540048346,
+        "walkway": 0.14285381888848586
+      },
+      "time": 103806,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        3.8578398041660327,
+        0.056171418693921435,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0003123372235115109,
+        4.886555298171582e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.7104658905181394,
+        1.8639263771052923,
+        4.815324320543512
+      ],
+      "quaternion": [
+        0,
+        9.516027150728324e-7,
+        0,
+        0.9999999999995473
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4702519213382412,
+        "walkway": 0.13449087386266595
+      },
+      "time": 103822.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        3.4503747547688066,
+        0.04928543685903116,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0002804134446925864,
+        4.386711552030412e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.6601844037450024,
+        1.8646356973953424,
+        4.815324320545069
+      ],
+      "quaternion": [
+        0,
+        8.592867921062232e-7,
+        0,
+        0.9999999999996309
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4757754992883066,
+        "walkway": 0.12808666092130333
+      },
+      "time": 103838.5,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        3.095863364842421,
+        0.04349087856523146,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0002530054608301563,
+        3.957627960930068e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01760000000000582,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.609916689020812,
+        1.8653342990164,
+        4.815324320546475
+      ],
+      "quaternion": [
+        0,
+        7.663675848791824e-7,
+        0,
+        0.9999999999997062
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4807297097013976,
+        "walkway": 0.12234259091295388
+      },
+      "time": 103856.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        2.7404345071364067,
+        0.03787914656571201,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0002258043366746629,
+        3.5318426319995204e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.5682475529975584,
+        1.865904249403745,
+        4.815324320547529
+      ],
+      "quaternion": [
+        0,
+        6.885742856707625e-7,
+        0,
+        0.9999999999997627
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4844701411678743,
+        "walkway": 0.11800581503680169
+      },
+      "time": 103872.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        2.436205946717863,
+        0.03320498131469848,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00020265324303607703,
+        3.169495969943232e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.530634328057101,
+        1.8664127554403251,
+        4.815324320548391
+      ],
+      "quaternion": [
+        0,
+        6.176744965130498e-7,
+        0,
+        0.9999999999998092
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4875008011893247,
+        "walkway": 0.11449197087533504
+      },
+      "time": 103889.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        2.1635667965503025,
+        0.029129748768887815,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000181951030867328,
+        2.845518341303423e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.4972648271167843,
+        1.8668587523412965,
+        4.815324320549086
+      ],
+      "quaternion": [
+        0,
+        5.540237775351945e-7,
+        0,
+        0.9999999999998463
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4899400263326558,
+        "walkway": 0.11166385522800663
+      },
+      "time": 103906.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.9184736347430729,
+        0.02554600378783428,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0001633395261015445,
+        2.554290172975918e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.468185388364117,
+        1.86724302752594,
+        4.815324320549637
+      ],
+      "quaternion": [
+        0,
+        4.977549428935878e-7,
+        0,
+        0.999999999999876
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.491892702782994,
+        "walkway": 0.10939985969710232
+      },
+      "time": 103922.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.6983688587871597,
+        0.022385612301575184,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0001465777512704128,
+        2.292030354659669e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.442456059606123,
+        1.867579847124401,
+        4.815324320550081
+      ],
+      "quaternion": [
+        0,
+        4.472529927195677e-7,
+        0,
+        0.9999999999999
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4934663578317086,
+        "walkway": 0.10757531370185672
+      },
+      "time": 103939.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.5024384316425885,
+        0.01962278670035301,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0001315617688462686,
+        2.057108258770029e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.4193251068331185,
+        1.8678803487904057,
+        4.815324320550444
+      ],
+      "quaternion": [
+        0,
+        4.0122249313116626e-7,
+        0,
+        0.9999999999999194
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4947414014961714,
+        "walkway": 0.10609698729629594
+      },
+      "time": 103956,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.328641280523385,
+        0.017214092541199637,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00011813204949613184,
+        1.8470231887519815e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.3988848104451956,
+        1.8681439049374124,
+        4.8153243205507374
+      ],
+      "quaternion": [
+        0,
+        3.598949489716874e-7,
+        0,
+        0.9999999999999352
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4957676197269157,
+        "walkway": 0.10490715705701836
+      },
+      "time": 103972.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.1736595829498446,
+        0.015095976109892249,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00010605698431503953,
+        1.6581448666039152e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.3811414000901565,
+        1.868370982471436,
+        4.81532432055097
+      ],
+      "quaternion": [
+        0,
+        3.233572927801338e-7,
+        0,
+        0.9999999999999476
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4965891396991758,
+        "walkway": 0.10395466052569416
+      },
+      "time": 103989.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        1.03539200433935,
+        0.013228136061350749,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00009518076332646412,
+        1.488030953114864e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.3651392802183215,
+        1.8685746201378295,
+        4.815324320551161
+      ],
+      "quaternion": [
+        0,
+        2.898731888892591e-7,
+        0,
+        0.999999999999958
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4972583373385637,
+        "walkway": 0.1031787713789778
+      },
+      "time": 104006.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.912713228823954,
+        0.011591437490934322,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00008539938301074171,
+        1.3350534402975504e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.3513533955176986,
+        1.8687489849765928,
+        4.815324320551312
+      ],
+      "quaternion": [
+        0,
+        2.604512918147063e-7,
+        0,
+        0.999999999999966
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.49779050375278966,
+        "walkway": 0.10256176061751944
+      },
+      "time": 104022.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.8042122928690915,
+        0.010157487746147498,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0000766450432428973,
+        1.1981470505514954e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.339000684704841,
+        1.868904505819527,
+        4.8153243205514356
+      ],
+      "quaternion": [
+        0,
+        2.3363613312763685e-7,
+        0,
+        0.9999999999999728
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1020618317017471
+      },
+      "time": 104039.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.7087155408623325,
+        0.008908064939550856,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00006881647755745566,
+        1.0757270229963624e-161,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.328303918278094,
+        1.8690385075182332,
+        4.815324320551533
+      ],
+      "quaternion": [
+        0,
+        2.09926758487315e-7,
+        0,
+        0.9999999999999778
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104056,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.6238525008243542,
+        0.007806196647270154,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000061764290689913,
+        9.65453708487717e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.318727031955297,
+        1.869158028997589,
+        4.815324320551613
+      ],
+      "quaternion": [
+        0,
+        1.8831732854536976e-7,
+        0,
+        0.9999999999999822
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104072.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.5492991682662325,
+        0.0068460938458342144,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00005545749160161761,
+        8.668418166413323e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.3102984032251195,
+        1.8692628284758563,
+        4.815324320551678
+      ],
+      "quaternion": [
+        0,
+        1.6891639713821586e-7,
+        0,
+        0.9999999999999856
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104089.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.4833299712236452,
+        0.006002198214835572,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00004978716965385647,
+        7.781863309775421e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.303011184973216,
+        1.8693530991734224,
+        4.8153243205517295
+      ],
+      "quaternion": [
+        0,
+        1.5176463909729677e-7,
+        0,
+        0.9999999999999885
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104106,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.4248511668427449,
+        0.005258301982376293,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000044680054579368313,
+        6.983401484716973e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01630000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.296710052690522,
+        1.8694309153838888,
+        4.8153243205517695
+      ],
+      "quaternion": [
+        0,
+        1.366257786477627e-7,
+        0,
+        0.9999999999999908
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104122.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.37435666614211655,
+        0.004619578351279433,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000040184822476609734,
+        6.280635683754016e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.017099999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2908426083344233,
+        1.869503189499759,
+        4.815324320551804
+      ],
+      "quaternion": [
+        0,
+        1.2225393547198225e-7,
+        0,
+        0.9999999999999925
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104139.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.32817425775272846,
+        0.004038568816749156,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000035988931950866646,
+        5.624698023996857e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2858966264454694,
+        1.8695639436800984,
+        4.815324320551832
+      ],
+      "quaternion": [
+        0,
+        1.0985377617640574e-7,
+        0,
+        0.999999999999994
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104156,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.28831770182525784,
+        0.003539261655442226,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0000323039005218176,
+        5.048643742432987e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.281475638151236,
+        1.8696181358124675,
+        4.815324320551853
+      ],
+      "quaternion": [
+        0,
+        9.855098279189317e-8,
+        0,
+        0.9999999999999952
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104172.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.2534289865981125,
+        0.0031041434592284423,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000029007838116175997,
+        4.533415151902206e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.277657419341496,
+        1.8696648330380403,
+        4.815324320551871
+      ],
+      "quaternion": [
+        0,
+        8.855604480593704e-8,
+        0,
+        0.999999999999996
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104189.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.22255225851521032,
+        0.002720368835152244,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00002603814105401273,
+        4.069217690499234e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2742457444619473,
+        1.8697064865711024,
+        4.815324320551885
+      ],
+      "quaternion": [
+        0,
+        7.944546446490459e-8,
+        0,
+        0.9999999999999968
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104206,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.1955457802597297,
+        0.0023859296458936265,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.00002338181800532864,
+        3.654018954217945e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.271249028535016,
+        1.8697430115480107,
+        4.8153243205518965
+      ],
+      "quaternion": [
+        0,
+        7.126516946140594e-8,
+        0,
+        0.9999999999999972
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104222.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.17173417879245992,
+        0.002091940308916848,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000020993178015415905,
+        3.2806719559105004e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2686179862383935,
+        1.869775029818273,
+        4.815324320551905
+      ],
+      "quaternion": [
+        0,
+        6.392127667130532e-8,
+        0,
+        0.999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104239.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.15075635521948955,
+        0.0018336430231212797,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000018845773827695176,
+        2.945039888082162e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.015700000000011642,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2664600679709808,
+        1.8698012511917037,
+        4.8153243205519125
+      ],
+      "quaternion": [
+        0,
+        5.7753576574573655e-8,
+        0,
+        0.9999999999999982
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104255.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.13319816828859438,
+        0.001617939686693641,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000017013710178002737,
+        2.658701411328592e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01759999999999127,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2643199408247283,
+        1.86982722497281,
+        4.815324320551919
+      ],
+      "quaternion": [
+        0,
+        5.1505469258283246e-8,
+        0,
+        0.9999999999999988
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104272.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.11606027477794846,
+        0.0014079096918253008,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000015183153778366524,
+        2.372606134384966e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.262649321143747,
+        1.8698474748688436,
+        4.815324320551923
+      ],
+      "quaternion": [
+        0,
+        4.650719337660686e-8,
+        0,
+        0.9999999999999988
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104288.5,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.10244085301892536,
+        0.001241325746941471,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000013698307423955531,
+        2.140546575459051e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2610803315266867,
+        1.8698664745780336,
+        4.815324320551928
+      ],
+      "quaternion": [
+        0,
+        4.17151479818588e-8,
+        0,
+        0.9999999999999992
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104305.2,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.08988901675951246,
+        0.0010881036495353224,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000012297350375273089,
+        1.9216027349950123e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0175,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2596440405294396,
+        1.8698838499293655,
+        4.81532432055193
+      ],
+      "quaternion": [
+        0,
+        3.7223138261416866e-8,
+        0,
+        0.9999999999999992
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104322.7,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.07834314315733354,
+        0.000947403643456716,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000010980172722713553,
+        1.7157563480071798e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2584446453261062,
+        1.8698983463981969,
+        4.815324320551933
+      ],
+      "quaternion": [
+        0,
+        3.338259460250866e-8,
+        0,
+        0.9999999999999992
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104339.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.06869985733450365,
+        0.0008300755802195314,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0000098547948702978,
+        1.5398875981905186e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2574113130136735,
+        1.8699108246874143,
+        4.815324320551936
+      ],
+      "quaternion": [
+        0,
+        2.9988264400341806e-8,
+        0,
+        0.9999999999999996
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104356,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.060196681995264525,
+        0.0007267528161113831,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000008841593610923295,
+        1.3815518941257566e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.256484683408039,
+        1.8699220069080695,
+        4.8153243205519365
+      ],
+      "quaternion": [
+        0,
+        2.6878394635920293e-8,
+        0,
+        0.9999999999999996
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104372.8,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.05274638679806082,
+        0.0006363510382138123,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000007930832234979794,
+        1.2392273722043255e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.0165,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.255695591264247,
+        1.8699315224134936,
+        4.815324320551938
+      ],
+      "quaternion": [
+        0,
+        2.4161682188704577e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104389.3,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.04625729531461239,
+        0.0005576971791147854,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000007120779415236402,
+        1.1126424001987968e-162,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.254987393742649,
+        1.8699400576868592,
+        4.815324320551939
+      ],
+      "quaternion": [
+        0,
+        2.1670795217820263e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104406,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.04056545546445752,
+        0.0004887866871207405,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000006391910373639425,
+        9.987456497008885e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01610000000000582,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2543937958146456,
+        1.869947207543207,
+        4.81532432055194
+      ],
+      "quaternion": [
+        0,
+        1.9529970448178285e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104422.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.035691917605081405,
+        0.0004298353202200278,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000005754753243839877,
+        8.991815218549858e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01729999999998836,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2538295262761032,
+        1.8699540009545672,
+        4.815324320551941
+      ],
+      "quaternion": [
+        0,
+        1.7449975699640942e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104439.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.031148455454647218,
+        0.00037492901200677895,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0000051455152007969295,
+        8.039814497149416e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016700000000011643,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.253352744192539,
+        1.869959738415058,
+        4.815324320551942
+      ],
+      "quaternion": [
+        0,
+        1.565015186225964e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104456.1,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.027307220120907104,
+        0.0003285467349369632,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000004618423898678697,
+        7.21618719767351e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.252934837122831,
+        1.8699647652895857,
+        4.815324320551942
+      ],
+      "quaternion": [
+        0,
+        1.4034834332151456e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104472.8,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.023932976132424073,
+        0.0002878327020618319,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000004144793953382948,
+        6.476106406192715e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.016599999999991268,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.252574993702813,
+        1.8699690919205407,
+        4.815324320551942
+      ],
+      "quaternion": [
+        0,
+        1.2607293352848128e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 0.1
+      },
+      "time": 104489.4,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        0.020960104917920188,
+        0.0002519835548187156,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000003718416121543335,
+        5.809866950393821e-163,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "projects",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "hoveredWalkway": false,
+      "position": [
+        -2.2522734848824513,
+        1.8699727159276816,
+        4.815324320551943
+      ],
+      "quaternion": [
+        0,
+        1.1383270957019588e-8,
+        0,
+        0.9999999999999998
+      ],
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5928392386760422,
+        "walkway": 0.1
+      },
+      "time": 104505.2,
+      "transitRoom": "",
+      "transitWalkway": false,
+      "travelling": false,
+      "velocities": [
+        0.018484369953143315,
+        0.0002221475452141942,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.000003354493695195851,
+        5.2412233016628794e-163,
+        0,
+        0
+      ]
+    }
+  ],
+  "travelling": "false",
+  "url": "http://localhost:3000/projects"
+}

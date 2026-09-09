@@ -1,5 +1,5 @@
 /**
- * Orbital toybox, v12. Self-contained procedural Three.js asset.
+ * Orbital toybox, v13. Self-contained procedural Three.js asset.
  * +Y up and +Z front. Four independent pressure cabins use metadata anchors.
  * Every visible mesh carries userData.section and is returned as a pick target.
  * Static parts are batched per room/material; repeated fittings use instancing.
@@ -14,6 +14,10 @@ export type SpacecraftState = {
   activeRoom?: string;
   travelling?: boolean;
   transitRoom?: string | null;
+  /** Preview the ladder bay only from a cabin; overview hover stays dim. */
+  hoveredWalkway?: boolean;
+  /** True only while the camera is physically passing through the ladder bay. */
+  transitWalkway?: boolean;
   selectedCaseStudy?: string | null;
   hoveredCaseStudy?: string | null;
   caseStudyPage?: number;
@@ -351,7 +355,10 @@ export function createSpacecraft(
     return false;
   }
   function exteriorScope(parent: any, name = '', original?: any) {
-    if (original?.userData.roomSurface) return false;
+    if (original?.userData.roomSurface || name.endsWith('-interior'))
+      return false;
+    for (let p = parent; p; p = p.parent)
+      if (p.userData.roomSurface) return false;
     if (original?.userData.exterior || name.endsWith('-exterior')) return true;
     for (let p = parent; p; p = p.parent) if (p.userData.exterior) return true;
     return /^(rounded-front-pressure-collar|recessed-front-pressure-seal|hover-perimeter-light-guide|external-amber-lifting-tab|roof-latch|reinforced-|room-label-|side-label-|nameplate-amber-clasp|side-nameplate-amber-clasp|underside-service-keel|captive-collar-fasteners)/.test(
@@ -1116,13 +1123,14 @@ export function createSpacecraft(
       'room-label-ceramic-insert',
     );
     // Fixed portrait alternative: +PI/2 ship roll makes this -PI/2 label level.
-    // The band remains outside the compartment doors' frontal sightline.
+    // The added width goes outward: its inner edge remains at local X -1.28,
+    // preserving selected-cabin door sightlines without view-dependent geometry.
     box(
-      0.34,
-      2.7,
+      0.57,
+      2.74,
       0.22,
       m.shell,
-      x - 1.45,
+      x - 1.565,
       0.03,
       1.209,
       room,
@@ -1130,11 +1138,11 @@ export function createSpacecraft(
       'reinforced-side-nameplate-collar',
     );
     const sideBacking = box(
-      2.25,
-      0.35,
+      2.48,
+      0.468,
       0.108,
       m.gasket,
-      x - 1.45,
+      x - 1.565,
       0.03,
       1.305,
       room,
@@ -1143,11 +1151,11 @@ export function createSpacecraft(
     );
     sideBacking.rotation.z = -Math.PI / 2;
     const sideInsert = box(
-      2.12,
-      0.284,
+      2.34,
+      0.402,
       0.071,
       m.chalk,
-      x - 1.45,
+      x - 1.565,
       0.03,
       1.379,
       room,
@@ -1168,9 +1176,9 @@ export function createSpacecraft(
       );
       plaque(
         options.labels?.[section] || `MOD-0${index + 1}`,
-        1.96,
-        0.248,
-        x - 1.45,
+        2.18,
+        0.35,
+        x - 1.565,
         0.03,
         1.428,
         room,
@@ -1191,12 +1199,12 @@ export function createSpacecraft(
         'nameplate-amber-clasp',
       );
       box(
-        0.382,
+        0.434,
         0.12,
         0.13,
         m.amber,
-        x - 1.45,
-        0.03 + sign * 1.13,
+        x - 1.565,
+        0.03 + sign * 1.24,
         1.36,
         room,
         0.04,
@@ -1328,52 +1336,126 @@ export function createSpacecraft(
   walkway.add(walkwayStructure);
   const walkwayFurniture = new THREE.Group();
   walkwayFurniture.userData = {
+    roomSurface: true,
+    surfaceOnly: true,
     section: 'walkway',
     batchRoot: true,
     excludePick: true,
   };
   walkway.add(walkwayFurniture);
+  // Broad left shoulders continue through the shell depth; the right corners
+  // remain tighter beside the cabin couplings. This is real hull curvature.
+  function walkwayOutline(
+    path: any,
+    w: number,
+    h: number,
+    left: number,
+    right: number,
+  ) {
+    const x = -w / 2,
+      y = -h / 2;
+    path.moveTo(x + left, y);
+    path.lineTo(x + w - right, y);
+    path.quadraticCurveTo(x + w, y, x + w, y + right);
+    path.lineTo(x + w, y + h - right);
+    path.quadraticCurveTo(x + w, y + h, x + w - right, y + h);
+    path.lineTo(x + left, y + h);
+    path.quadraticCurveTo(x, y + h, x, y + h - left);
+    path.lineTo(x, y + left);
+    path.quadraticCurveTo(x, y, x + left, y);
+    path.closePath();
+    return path;
+  }
+  function walkwayProfile(
+    w: number,
+    h: number,
+    left: number,
+    right: number,
+    thickness: number,
+    depth: number,
+    bevel: number,
+  ) {
+    const shape = walkwayOutline(new THREE.Shape(), w, h, left, right);
+    if (thickness)
+      shape.holes.push(
+        walkwayOutline(
+          new THREE.Path(),
+          w - thickness * 2,
+          h - thickness * 2,
+          left - thickness,
+          right - thickness,
+        ),
+      );
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+      depth,
+      bevelEnabled: true,
+      bevelSize: bevel,
+      bevelThickness: bevel,
+      bevelSegments: 3,
+      curveSegments: 16,
+      steps: 1,
+    });
+    geometry.translate(0, 0, -depth / 2);
+    return geometry;
+  }
   const walkwayFront = mesh(
-    frameGeometry(1.59, 6.38, 0.38, 0.13, 0.19, 0.025),
+    walkwayProfile(1.59, 6.38, 0.74, 0.3, 0.13, 0.19, 0.025),
     m.shell,
     walkwayStructure,
     'walkway-rounded-pressure-collar',
   );
   walkwayFront.position.set(0, 0.01, 1.17);
   const walkwaySeal = mesh(
-    frameGeometry(1.32, 6.1, 0.25, 0.04, 0.06, 0.008),
+    walkwayProfile(1.32, 6.1, 0.6, 0.17, 0.04, 0.06, 0.008),
     m.gasket,
     walkwayStructure,
     'walkway-pressure-collar-seal',
   );
   walkwaySeal.position.set(0, 0.01, 1.19);
-  box(
-    1.47,
-    6.15,
-    0.16,
+  const walkwayRear = mesh(
+    walkwayProfile(1.47, 6.15, 0.68, 0.24, 0, 0.16, 0.018),
     m.liner,
-    0,
-    0,
-    -1.05,
-    walkwayStructure,
-    0.07,
+    walkwayFurniture,
     'walkway-rear-pressure-liner',
   );
-  for (const yy of [-3.11, 3.11])
-    box(
-      1.5,
-      0.18,
-      2.42,
+  walkwayRear.position.z = -1.05;
+  // Quarter-round shoulders replace the former squared-off end-cap blocks.
+  const capShape = new THREE.Shape();
+  capShape.moveTo(-0.75, 2.48);
+  capShape.quadraticCurveTo(-0.75, 3.2, -0.03, 3.2);
+  capShape.lineTo(0.75, 3.2);
+  capShape.lineTo(0.75, 3.06);
+  capShape.lineTo(-0.03, 3.06);
+  capShape.quadraticCurveTo(-0.61, 3.06, -0.61, 2.48);
+  capShape.closePath();
+  const capGeometry = new THREE.ExtrudeGeometry(capShape, {
+    depth: 2.42,
+    bevelEnabled: true,
+    bevelSize: 0.018,
+    bevelThickness: 0.018,
+    bevelSegments: 3,
+    curveSegments: 16,
+    steps: 1,
+  });
+  capGeometry.translate(0, 0, -1.21);
+  for (const sign of [-1, 1]) {
+    const shape = capGeometry.clone();
+    if (sign < 0) shape.rotateX(Math.PI);
+    pressureMesh(
+      shape,
       m.shell,
-      0,
-      yy,
-      0,
       walkwayStructure,
-      0.075,
-      'walkway-end-pressure-cap',
+      'walkway-curved-end-pressure-cap',
+      0,
     );
+  }
   for (const side of [-1, 1]) {
-    const outline = roundedPath(new THREE.Shape(), 2.5, 6.24, 0.38);
+    const outline = roundedPath(
+      new THREE.Shape(),
+      2.5,
+      side > 0 ? 6.24 : 4.96,
+      side > 0 ? 0.38 : 0.12,
+    );
     if (side > 0) {
       for (const yy of [-1.7, 1.7]) {
         const opening = roundedPath(new THREE.Path(), 2.1, 1.84, 0.25);
@@ -1406,11 +1488,12 @@ export function createSpacecraft(
     });
     skin.translate(0, 0, -0.06);
     skin.rotateY(Math.PI / 2);
-    const wall = mesh(
+    const wall = pressureMesh(
       skin,
       m.shell,
       walkwayStructure,
       side > 0 ? 'walkway-twin-open-room-wall' : 'walkway-open-docking-wall',
+      side,
     );
     wall.position.x = side * 0.75;
   }
@@ -1424,7 +1507,7 @@ export function createSpacecraft(
       0,
       yy,
       yy > 0 ? 0.44 : 0.19,
-      walkwayStructure,
+      walkwayFurniture,
       0.045,
       'walkway-room-landing',
     );
@@ -1436,7 +1519,7 @@ export function createSpacecraft(
       0,
       yy + 0.06,
       0.88,
-      walkwayStructure,
+      walkwayFurniture,
       0.011,
       'walkway-landing-light-guide',
     );
@@ -1483,7 +1566,8 @@ export function createSpacecraft(
   dockingInterior.userData = {
     section: 'walkway',
     batchRoot: true,
-    exterior: true,
+    roomSurface: true,
+    surfaceOnly: true,
     excludePick: true,
   };
   walkway.add(dockingInterior);
@@ -1560,7 +1644,10 @@ export function createSpacecraft(
     coupledLiner.userData.linkedRooms =
       yy > 0 ? ['projects', 'experience'] : ['about', 'contact'];
     const walkwayLiner = thresholdLiner.clone();
-    walkwayLiner.userData.linkedRooms = [yy > 0 ? 'projects' : 'about'];
+    walkwayLiner.userData.linkedRooms = [
+      yy > 0 ? 'projects' : 'about',
+      'walkway',
+    ];
     const sleeve = mesh(
       frameGeometry(2.18, 1.92, 0.27, 0.055, 0.35, 0.01),
       coupledLiner,
@@ -3309,9 +3396,15 @@ export function createSpacecraft(
     ctx.fillText(title, 512, canvas.height * 0.51);
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 4;
+    texture.generateMipmaps = true;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.anisotropy = 8;
     const material = new THREE.MeshLambertMaterial({
       name: 'portal-destination-label',
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1,
       color: 0xffffff,
       map: texture,
       transparent: true,
@@ -3327,6 +3420,84 @@ export function createSpacecraft(
     );
     face.castShadow = false;
     return face;
+  }
+  const navigationPaint = mat('painted-navigation-symbol', palette.navy, 1, 0);
+  navigationPaint.userData.surfaceOnly = true;
+  function routeSymbol(
+    parent: any,
+    x: number,
+    y: number,
+    z: number,
+    ladder: boolean,
+    up: boolean,
+    size = 1,
+  ) {
+    const symbol = new THREE.Group();
+    symbol.userData.section = sectionOf(parent);
+    symbol.position.set(x, y, z);
+    symbol.scale.setScalar(size);
+    parent.add(symbol);
+    const shape = new THREE.Shape();
+    const direction = up ? 1 : -1;
+    shape.moveTo(-0.012, -direction * 0.059);
+    shape.lineTo(0.012, -direction * 0.059);
+    shape.lineTo(0.012, direction * 0.012);
+    shape.lineTo(0.037, direction * 0.012);
+    shape.lineTo(0, direction * 0.059);
+    shape.lineTo(-0.037, direction * 0.012);
+    shape.lineTo(-0.012, direction * 0.012);
+    shape.closePath();
+    const arrow = mesh(
+      new THREE.ShapeGeometry(shape),
+      navigationPaint,
+      symbol,
+      'painted-direction-arrow',
+    );
+    arrow.position.x = ladder ? 0.032 : 0;
+    if (ladder) {
+      const rail = new THREE.PlaneGeometry(0.007, 0.11);
+      for (const dx of [-0.045, -0.007]) {
+        const r = mesh(rail, navigationPaint, symbol, 'painted-ladder-side');
+        r.position.x = dx;
+      }
+      for (const dy of [-0.045, -0.015, 0.015, 0.045]) {
+        const rung = mesh(
+          new THREE.PlaneGeometry(0.031, 0.007),
+          navigationPaint,
+          symbol,
+          'painted-ladder-rung',
+        );
+        rung.position.set(-0.026, dy, 0);
+      }
+    }
+    return symbol;
+  }
+  const walkwaySigns: any[] = [];
+  for (const yy of [-1.7, 1.7]) {
+    const sign = new THREE.Group();
+    sign.name = 'walkway-entrance-ladder-sign';
+    sign.userData = {
+      section: 'walkway',
+      roomSurface: true,
+      surfaceOnly: true,
+      batchRoot: true,
+    };
+    sign.position.set(0.4, yy + 0.66, -0.948);
+    walkwayFurniture.add(sign);
+    box(
+      0.27,
+      0.3,
+      0.052,
+      m.chalk,
+      0,
+      0,
+      0,
+      sign,
+      0.032,
+      'walkway-ladder-sign-enamel',
+    );
+    routeSymbol(sign, 0, 0, 0.03, true, yy < 0, 1.65);
+    walkwaySigns.push(sign);
   }
   const branding = new THREE.Group();
   branding.name = 'top-center-vessel-nameplate';
@@ -3481,22 +3652,22 @@ export function createSpacecraft(
     caption.userData = { section: from, batchRoot: true };
     visual.add(caption);
     const captionSize = [0.96, 0.18],
-      plateSize = [1.04, 0.24];
+      plateSize = [1.3, 0.25];
     box(
       plateSize[0],
       plateSize[1],
-      0.09,
+      0.11,
       m.liner,
       0,
       0,
-      -0.048,
+      -0.068,
       caption,
       0.028,
       'above-door-label-backing',
     );
     box(
-      1.0,
-      0.21,
+      1.26,
+      0.22,
       0.028,
       m.chalk,
       0,
@@ -3511,6 +3682,14 @@ export function createSpacecraft(
       caption,
       captionSize[0],
       captionSize[1],
+    );
+    routeSymbol(
+      caption,
+      -0.566,
+      0,
+      0.001,
+      viaWalkway,
+      viaWalkway && to === 'projects',
     );
     const pick = interactionBox(
       id + '-portal-pick',
@@ -3540,6 +3719,14 @@ export function createSpacecraft(
       labelPosition: [0, 0, 0],
       labelSize: captionSize,
       plateSize,
+      directionSymbol: viaWalkway
+        ? to === 'projects'
+          ? 'ladder-up'
+          : 'ladder-down'
+        : 'door-down',
+      backingFront: -0.013,
+      enamelFront: -0.003,
+      inkFront: 0,
       sealed: false,
       open: true,
       label: options.labels?.[to] || to,
@@ -3725,12 +3912,14 @@ export function createSpacecraft(
   group.userData.sideLabelAnchors = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
       section,
-      [x - 1.45, y + 0.03, 1.428],
+      [x - 1.565, y + 0.03, 1.428],
     ]),
   );
   group.userData.sideLabelSizes = {
-    width: 1.96,
-    height: 0.248,
+    width: 2.18,
+    height: 0.35,
+    collarThickness: 0.57,
+    innerCollarEdge: -1.28,
     rotation: -Math.PI / 2,
   };
   group.userData.labelPlaques = labelPlaques;
@@ -3740,6 +3929,7 @@ export function createSpacecraft(
     portraitModelRoll: Math.PI / 2,
     toggles: ['hull', 'side'],
     headersAlwaysVisible: true,
+    fixedCollarGeometry: true,
   };
   group.userData.innerApertureBounds = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
@@ -3860,10 +4050,17 @@ export function createSpacecraft(
       readerSurfaces[section].userData.deployedPosition = [x, y, 1.72];
       group.userData.labelAnchors[section] = [x, y - 1.279, 1.428];
       group.userData.sideLabelAnchors[section] = [
-        x - 1.45 * layoutScale,
+        x - 1.565 * layoutScale,
         y + 0.03,
         1.428,
       ];
+      group.userData.sideLabelBounds ||= {};
+      group.userData.sideLabelBounds[section] = {
+        center: [x - 1.565 * layoutScale, y + 0.03, 1.2635],
+        size: [0.57 * layoutScale, 2.74, 0.329],
+        min: [x - 1.85 * layoutScale, y - 1.34, 1.099],
+        max: [x - 1.28 * layoutScale, y + 1.4, 1.428],
+      };
       group.userData.headerAnchors[section] = [x, y + 1.006, -0.263];
       group.userData.innerApertureBounds[section] = {
         center: [x, y + 0.17, 1.2],
@@ -3875,7 +4072,7 @@ export function createSpacecraft(
     for (const entry of labelPlaques) {
       const origin = legacyCenters[entry.section],
         center = roomCenters[entry.section];
-      const px = entry.role === 'side' ? -1.45 * layoutScale : 0;
+      const px = entry.role === 'side' ? -1.565 * layoutScale : 0;
       entry.position[0] = center[0] + px;
       entry.position[1] =
         center[1] +
@@ -3893,7 +4090,7 @@ export function createSpacecraft(
     walkway.position.set(walkwayX, 0, 0);
     dockingInterior.position.set(-0.75 * layoutScale + 0.108, 0.03, 0);
     walkwayStructure.scale.set(layoutScale, 1, 1);
-    walkwayFurniture.scale.setScalar(currentLayout === 'wide' ? 1 : 0.94);
+    walkwayFurniture.scale.set(layoutScale, 1, 1);
     walkwayCouplings.forEach(
       (part) => (part.position.x = -halfPitch - 1.5 * layoutScale - 0.1),
     );
@@ -3911,6 +4108,19 @@ export function createSpacecraft(
     };
     group.userData.communicationsAnchor = [4.14 + outward, 0.23, 1.16];
     group.userData.walkwayAnchor = [walkwayX, 0, 0.16];
+    group.userData.walkwayProfile = {
+      leftCornerRadius: 0.74 * layoutScale,
+      rightCornerRadius: 0.3 * layoutScale,
+      shellDepth: 2.42,
+      clearDockingOpening: [1.82, 1.9],
+      endShoulderContinuity: true,
+    };
+    walkway.updateMatrixWorld(true);
+    group.userData.walkwaySigns = walkwaySigns.map((sign) => ({
+      position: sign.getWorldPosition(new THREE.Vector3()).toArray(),
+      symbol: sign.position.y > 0 ? 'ladder-down' : 'ladder-up',
+      size: [0.27 * layoutScale, 0.3],
+    }));
     group.userData.walkwayBounds = {
       center: [walkwayX, 0, 0.1],
       size: [1.75 * layoutScale, 6.5, 2.65],
@@ -3927,7 +4137,7 @@ export function createSpacecraft(
       );
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
-        sign * (1.4 * layoutScale - 0.06),
+        sign * (1.4 * layoutScale - 0.085),
         1.11,
         -0.1,
       );
@@ -4288,7 +4498,19 @@ export function createSpacecraft(
         ? currentState.transitRoom === section
         : active === section;
       const targetLevel =
-        section === 'walkway' ? 1 : selected ? 1 : preview ? 0.5 : 0.1;
+        section === 'walkway'
+          ? currentState.transitWalkway
+            ? 1
+            : currentState.hoveredWalkway &&
+                !!rooms[currentState.activeRoom || ''] &&
+                !currentState.travelling
+              ? 0.5
+              : 0.1
+          : selected
+            ? 1
+            : preview
+              ? 0.5
+              : 0.1;
       targetLevels[section] = targetLevel;
       roomDimmers[section] += (targetLevel - roomDimmers[section]) * blend;
       if (Math.abs(roomDimmers[section] - targetLevel) < 0.002)
@@ -4333,7 +4555,10 @@ export function createSpacecraft(
         selected:
           !currentState.travelling && currentState.activeRoom === section,
         transit:
-          !!currentState.travelling && currentState.transitRoom === section,
+          section === 'walkway'
+            ? !!currentState.transitWalkway
+            : !!currentState.travelling && currentState.transitRoom === section,
+        hoveredWalkway: section === 'walkway' && targetLevels[section] === 0.5,
         pointIntensities: (roomLights[section] || []).map(
           (light: any) => light.intensity,
         ),

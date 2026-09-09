@@ -285,6 +285,13 @@ export function Spacecraft(props: Props) {
             model.group.add(mesh);
             proxies.push(mesh);
           }
+          const walkwayProxy = new THREE.Mesh(
+            new THREE.BoxGeometry(1, 1, 1),
+            proxyMaterial,
+          );
+          walkwayProxy.visible = false;
+          model.group.add(walkwayProxy);
+          let pointerOverWalkway = false;
           const hotspotObjects: {
             object: InstanceType<typeof CSS3DObject>;
             button: HTMLButtonElement;
@@ -329,6 +336,7 @@ export function Spacecraft(props: Props) {
             };
             const enter = () => {
               if (down?.gesture.dragging) return;
+              pointerOverWalkway = false;
               const slug =
                 slot === undefined
                   ? ''
@@ -346,6 +354,7 @@ export function Spacecraft(props: Props) {
             };
             const leave = () => {
               if (down?.gesture.dragging) return;
+              pointerOverWalkway = false;
               hoveredProject = '';
               hoveredCaseStudy = '';
               hoverSection('');
@@ -372,6 +381,13 @@ export function Spacecraft(props: Props) {
               );
               proxy.scale.set(...(bounds.size as [number, number, number]));
             }
+            const walkwayBounds = model.group.userData.walkwayBounds;
+            walkwayProxy.position.set(
+              ...(walkwayBounds.center as [number, number, number]),
+            );
+            walkwayProxy.scale.set(
+              ...(walkwayBounds.size as [number, number, number]),
+            );
             for (const hotspot of hotspotObjects) {
               const source = hotspot.portalId
                 ? model.group.userData.portals.find(
@@ -463,6 +479,10 @@ export function Spacecraft(props: Props) {
             active: string;
             travelling: boolean;
             transitRoom: string;
+            transitWalkway: boolean;
+            hoveredWalkway: boolean;
+            roll: number;
+            cameraFar: number;
             roomLevels: Record<string, number | undefined>;
             velocities: number[];
           }[] = [];
@@ -497,8 +517,18 @@ export function Spacecraft(props: Props) {
                 readerHeight() / (1.125 * readerStretch()),
               ),
             );
-          const pose = (section: string, isReading: boolean) => {
+          const portraitOverview = () => el.clientHeight > el.clientWidth;
+          const zAxis = new THREE.Vector3(0, 0, 1);
+          const pose = (
+            section: string,
+            isReading: boolean,
+            overviewRoll?: number,
+            sweep?: [number, number],
+          ) => {
             const home = section === 'home';
+            const desiredRoll = home
+              ? (overviewRoll ?? (portraitOverview() ? Math.PI / 2 : 0))
+              : 0;
             const target = new THREE.Vector3(
               ...(anchors[section] || anchors.home),
             );
@@ -550,14 +580,28 @@ export function Spacecraft(props: Props) {
               const min = bounds?.min || [-6, -4, -1.5];
               const max = bounds?.max || [5.5, 5.3, 1.9];
               const points: Vec3[] = [];
-              for (const x of [min[0], max[0]])
-                for (const y of [min[1], max[1]])
-                  for (const z of [min[2], max[2]]) points.push([x, y, z]);
-              target.set(
-                (min[0] + max[0]) / 2,
-                (min[1] + max[1]) / 2,
-                (min[2] + max[2]) / 2,
-              );
+              const rolls = sweep
+                ? Array.from(
+                    { length: 17 },
+                    (_, i) => sweep[0] + ((sweep[1] - sweep[0]) * i) / 16,
+                  )
+                : [desiredRoll];
+              for (const fitRoll of rolls)
+                for (const x of [min[0], max[0]])
+                  for (const y of [min[1], max[1]])
+                    for (const z of [min[2], max[2]])
+                      points.push(
+                        new THREE.Vector3(x, y, z)
+                          .applyAxisAngle(zAxis, fitRoll)
+                          .toArray(),
+                      );
+              target
+                .set(
+                  (min[0] + max[0]) / 2,
+                  (min[1] + max[1]) / 2,
+                  (min[2] + max[2]) / 2,
+                )
+                .applyAxisAngle(zAxis, desiredRoll);
               // Each corner retains its depth, avoiding the old bounding-box padding.
               const views = cursorViewSamples(
                 {
@@ -578,49 +622,12 @@ export function Spacecraft(props: Props) {
                   ),
                 ),
               );
-              if (mobile()) {
-                const cabinPoints: Vec3[] = [];
-                for (const bounds of [
-                  ...Object.values(model.group.userData.roomBounds),
-                  model.group.userData.walkwayBounds,
-                ].filter(Boolean) as { center: number[]; size: number[] }[]) {
-                  for (const sx of [-1, 1])
-                    for (const sy of [-1, 1])
-                      for (const sz of [-1, 1])
-                        cabinPoints.push([
-                          bounds.center[0] + (sx * bounds.size[0]) / 2,
-                          bounds.center[1] + (sy * bounds.size[1]) / 2,
-                          bounds.center[2] + (sz * bounds.size[2]) / 2,
-                        ]);
-                }
-                // Keep every cabin readable; peripheral hardware may leave the
-                // portrait edge slightly instead of shrinking the whole ship.
-                desiredDistance = Math.max(
-                  ...views.map((view) =>
-                    fitPerspectiveDistance(
-                      cabinPoints,
-                      view,
-                      camera.fov,
-                      camera.aspect,
-                      safe,
-                    ),
-                  ),
-                  ...views.map((view) =>
-                    fitPerspectiveDistance(
-                      points,
-                      view,
-                      camera.fov,
-                      camera.aspect,
-                      { ...safe, left: -1.3, right: 1.3 },
-                    ),
-                  ),
-                );
-              }
               el.dataset.framing = JSON.stringify({
                 mode: 'overview',
                 distance: desiredDistance,
                 safe,
-                cabinPriority: mobile(),
+                fullCraft: true,
+                roll: desiredRoll,
               });
             } else {
               const aperture =
@@ -684,7 +691,12 @@ export function Spacecraft(props: Props) {
                 safe,
               });
             }
-            return { target, distance: desiredDistance, roll: 0, direction };
+            return {
+              target,
+              distance: desiredDistance,
+              roll: desiredRoll,
+              direction,
+            };
           };
           type FlightPose = ReturnType<typeof pose>;
           let itinerary: FlightPose[] = [];
@@ -709,6 +721,7 @@ export function Spacecraft(props: Props) {
             if (model.group.userData.projectPage !== latest.current.projectPage)
               model.setProjectPage(latest.current.projectPage);
             const desired = pose(active, reading);
+            const desiredFraming = el.dataset.framing;
             itinerary = [];
             flightTrace.length = 0;
             travelledRoute = [];
@@ -784,7 +797,38 @@ export function Spacecraft(props: Props) {
                 }
               }
             }
+            if (!immediate && !stop && Math.abs(roll - desired.roll) > 0.01) {
+              const sweep: [number, number] = [roll, desired.roll];
+              const startOverview = pose('home', false, roll, sweep);
+              const endOverview = pose('home', false, desired.roll, sweep);
+              // Both endpoint targets reserve every intermediate hull orientation.
+              // Independent target/roll springs can therefore never steal clearance.
+              const clearance =
+                Math.max(startOverview.distance, endOverview.distance) * 1.02;
+              // Pull back before rolling the hull. Keep the full diagonal envelope
+              // clear throughout the rotation, then enter the upright cabin.
+              itinerary = [
+                { ...startOverview, distance: clearance },
+                { ...endOverview, distance: clearance },
+              ];
+              travelledRoute = [];
+              itineraryPlan = { kind: 'portrait-clearance', clearance };
+            }
             itinerary.push(desired);
+            const overviewBounds = model.group.userData.overviewBounds;
+            const hullDiameter = new THREE.Vector3(
+              ...overviewBounds.max,
+            ).distanceTo(new THREE.Vector3(...overviewBounds.min));
+            // Very tall portrait screens need a distant clearance pose. Keep the
+            // entire hull inside the depth range as well as the visible frame.
+            camera.far = Math.max(
+              80,
+              Math.max(distance, ...itinerary.map((p) => p.distance)) +
+                hullDiameter +
+                2,
+            );
+            camera.updateProjectionMatrix();
+            if (desiredFraming) el.dataset.framing = desiredFraming;
             aim(itinerary.shift()!);
             flightImmediate = stop || immediate;
             if (stop) {
@@ -798,6 +842,7 @@ export function Spacecraft(props: Props) {
             }
             hoveredProject = '';
             hoveredCaseStudy = '';
+            pointerOverWalkway = false;
             travelling = true;
             el.dataset.travelling = 'true';
             el.dataset.activeRoom = active;
@@ -883,7 +928,8 @@ export function Spacecraft(props: Props) {
               const nearWaypoint =
                 itinerary.length > 0 &&
                 currentTarget.distanceTo(nextTarget) < 0.28 &&
-                Math.abs(distance - nextDistance) < 0.3;
+                Math.abs(distance - nextDistance) < 0.3 &&
+                Math.abs(roll - nextRoll) < 0.01;
               if (immediate || settled || nearWaypoint) {
                 if (itinerary.length) {
                   aim(itinerary.shift()!);
@@ -1004,6 +1050,9 @@ export function Spacecraft(props: Props) {
             cssGroup.rotation.z = roll;
             // The camera's current focus selects the cabin being crossed, rather
             // than lighting the eventual destination for the whole journey.
+            const localFocus = currentTarget
+              .clone()
+              .applyAxisAngle(zAxis, -roll);
             const transitRoom = travelling
               ? Object.entries(model.group.userData.innerApertureBounds).find(
                   ([, value]) => {
@@ -1012,19 +1061,35 @@ export function Spacecraft(props: Props) {
                       size: number[];
                     };
                     return (
-                      Math.abs(currentTarget.x - bounds.center[0]) <=
+                      Math.abs(localFocus.x - bounds.center[0]) <=
                         bounds.size[0] * 0.5 &&
-                      Math.abs(currentTarget.y - bounds.center[1]) <=
+                      Math.abs(localFocus.y - bounds.center[1]) <=
                         bounds.size[1] * 0.5
                     );
                   },
                 )?.[0] || ''
               : '';
+            const walkwayBounds = model.group.userData.walkwayBounds;
+            const transitWalkway =
+              travelling &&
+              (itineraryPlan as { kind?: string } | null)?.kind !==
+                'portrait-clearance' &&
+              Math.abs(localFocus.x - walkwayBounds.center[0]) <
+                walkwayBounds.size[0] / 2 &&
+              Math.abs(localFocus.y - walkwayBounds.center[1]) <
+                walkwayBounds.size[1] / 2;
+            const hoveredWalkway =
+              active !== 'home' &&
+              !reading &&
+              !travelling &&
+              (pointerOverWalkway || passage?.via === 'walkway');
             model.update(elapsed, effectiveHover, stop, {
               activeRoom: active,
               travelling,
               transitRoom,
-              labelPortrait: false,
+              transitWalkway,
+              hoveredWalkway,
+              labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
               hoveredPortal: effectiveHover,
               selectedProject: latest.current.slug,
               hoveredProject,
@@ -1143,6 +1208,10 @@ export function Spacecraft(props: Props) {
                 active,
                 travelling,
                 transitRoom,
+                transitWalkway,
+                hoveredWalkway,
+                roll,
+                cameraFar: camera.far,
                 roomLevels: Object.fromEntries(
                   Object.entries(model.group.userData.lightingState || {}).map(
                     ([section, state]) => [
@@ -1176,6 +1245,7 @@ export function Spacecraft(props: Props) {
             renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
             if (now - lastMetrics > 200 || stop) {
               Object.assign(el.dataset, {
+                cameraFar: String(camera.far),
                 cameraPosition: camera.position
                   .toArray()
                   .map((n) => n.toFixed(4))
@@ -1197,6 +1267,11 @@ export function Spacecraft(props: Props) {
                 hoverProject: hoveredProject,
                 hoverCaseStudy: hoveredCaseStudy,
                 transitRoom,
+                transitWalkway: String(transitWalkway),
+                hoveredWalkway: String(hoveredWalkway),
+                labelPortrait: String(
+                  active === 'home' && Math.abs(roll) > Math.PI / 4,
+                ),
                 hoverOffset: hoverMotion
                   .map((s) => s.value.toFixed(5))
                   .join(','),
@@ -1211,6 +1286,21 @@ export function Spacecraft(props: Props) {
                 activeTime: elapsed.toFixed(3),
                 readerAttached: String(surface.visible),
                 projectPage: String(latest.current.projectPage),
+                overviewCorners: JSON.stringify(
+                  (() => {
+                    const { min, max } = model.group.userData.overviewBounds;
+                    const points = [];
+                    for (const x of [min[0], max[0]])
+                      for (const y of [min[1], max[1]])
+                        for (const z of [min[2], max[2]]) {
+                          const p = model.group
+                            .localToWorld(new THREE.Vector3(x, y, z))
+                            .project(camera);
+                          points.push([p.x, p.y, p.z]);
+                        }
+                    return points;
+                  })(),
+                ),
                 physicalLabels: JSON.stringify(
                   model.group.userData.labelPlaques,
                 ),
@@ -1325,6 +1415,10 @@ export function Spacecraft(props: Props) {
               (-(event.clientY - rect.top) / rect.height) * 2 + 1,
             );
             ray.setFromCamera(pointer, camera);
+            pointerOverWalkway =
+              active !== 'home' &&
+              !reading &&
+              ray.intersectObject(walkwayProxy, false).length > 0;
             if (active !== 'home' && !reading) {
               const portal = ray.intersectObjects(
                 model.portalTargets
@@ -1533,6 +1627,7 @@ export function Spacecraft(props: Props) {
             hoveredProject = '';
             hoveredCaseStudy = '';
             pointerGoal.set(0, 0);
+            pointerOverWalkway = false;
             hoverSection('');
             latest.current.onHover('');
           };
