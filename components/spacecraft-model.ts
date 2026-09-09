@@ -226,6 +226,7 @@ export function createSpacecraft(
     shell: mat('ceramic-hull', palette.ivory, 0.38, 0.07),
     chalk: mat('interior-enamel', palette.chalk, 0.54, 0.04),
     liner: mat('warm-insulation', 0xc7bba2, 0.67, 0.01),
+    wall: mat('plain-cabin-enamel', palette.ivory, 0.82, 0),
     gasket: mat('graphite-gasket', 0x2b3948, 0.63, 0.04),
     navy: mat('graphite-enamel', palette.navy, 0.37, 0.28),
     deep: mat('recess', palette.deep, 0.69, 0.12),
@@ -530,7 +531,13 @@ export function createSpacecraft(
       !name.endsWith('-sealed-outboard-wall')
     )
       mesh(pair[0], material, assembly, name + '-exterior');
-    mesh(pair[1], material, assembly, name + '-interior');
+    const insideMaterial =
+      /continuous-pressure-skin|sealed-outboard-wall|open-side-pressure-bulkhead|walkway-(twin-open-room|open-docking)-wall/.test(
+        name,
+      )
+        ? m.wall
+        : material;
+    mesh(pair[1], insideMaterial, assembly, name + '-interior');
     return assembly;
   }
   function box(
@@ -923,7 +930,7 @@ export function createSpacecraft(
       'hover-perimeter-light-guide',
     );
     hoverPerimeter.position.set(x, 0.06, 1.215);
-    // A broad floor and warm continuous rear liner replace the noisy black grid.
+    // A thin continuous deck meets the unadorned pressure skin.
     box(
       2.65,
       0.105,
@@ -937,30 +944,7 @@ export function createSpacecraft(
       'coherent-cabin-deck',
     );
 
-    box(
-      2.61,
-      2.52,
-      0.087,
-      m.liner,
-      x,
-      -0.035,
-      -1.006,
-      room,
-      0.042,
-      'rounded-warm-cabin-liner',
-    );
-    box(
-      2.48,
-      0.085,
-      0.15,
-      m.liner,
-      x,
-      -0.841 + cabinFloorTop - previousFloorTop,
-      -0.94,
-      room,
-      0.039,
-      'lower-wall-cove',
-    );
+    // The pressure skin itself is the plain rear wall; no raised panels or cove trim.
     // Two generous warm fixtures, sunk into individual rounded ceiling bezels.
     for (const dx of [-0.66, 0.66]) {
       box(
@@ -1060,11 +1044,11 @@ export function createSpacecraft(
     box(
       1.52,
       0.255,
-      0.584,
+      0.744,
       m.gasket,
       x,
       1.006,
-      -0.674,
+      -0.754,
       room,
       0.055,
       'upper-header-wall-saddle',
@@ -1115,22 +1099,23 @@ export function createSpacecraft(
       'captive-collar-fasteners',
     );
   }
+  const passageClear = 1.84;
+  // Nested rebates keep the frame, sleeve and structural opening from sharing
+  // coplanar inner faces. The finished frame defines the usable clear opening.
+  const passageWallClear = 1.94;
+  const passageCorner = 0.255;
+  const passageCenterZ = 0;
   const passageShape = roundedPath(new THREE.Shape(), 2.5, 2.88, 0.48);
-  const roomOpening = roundedPath(new THREE.Path(), 2.1, 1.84, 0.25);
-  for (const curve of roomOpening.curves) {
-    if (curve.v0) {
-      curve.v0.x += 0.1;
-      curve.v0.y -= 0.1;
-    }
-    if (curve.v1) {
-      curve.v1.x += 0.1;
-      curve.v1.y -= 0.1;
-    }
-    if (curve.v2) {
-      curve.v2.x += 0.1;
-      curve.v2.y -= 0.1;
-    }
-  }
+  const roomOpening = offsetPath(
+    roundedPath(
+      new THREE.Path(),
+      passageWallClear,
+      passageWallClear,
+      passageCorner,
+    ),
+    -passageCenterZ,
+    -0.1,
+  );
   passageShape.holes.push(roomOpening);
   const openWallGeometry = new THREE.ExtrudeGeometry(passageShape, {
     depth: 0.14,
@@ -1436,7 +1421,7 @@ export function createSpacecraft(
   const walkwayRear = walkwayRearGeometry();
   mesh(
     walkwayRear.inside,
-    m.liner,
+    m.wall,
     walkwayFurniture,
     'walkway-continuous-rear-liner',
   );
@@ -1565,27 +1550,22 @@ export function createSpacecraft(
   for (const side of [-1, 1]) {
     const outline = roundedPath(
       new THREE.Shape(),
-      2.5,
+      side > 0 ? 2.5 : 2.42,
       side > 0 ? 6.24 : 2.12,
-      side > 0 ? 0.38 : 0.08,
+      side > 0 ? 0.38 : 0,
     );
     if (side > 0) {
       for (const yy of [-1.7, 1.7]) {
-        const opening = roundedPath(new THREE.Path(), 2.1, 1.84, 0.25);
-        for (const curve of opening.curves) {
-          if (curve.v1) {
-            curve.v1.y += yy - 0.06;
-            curve.v1.x += 0.1;
-          }
-          if (curve.v2) {
-            curve.v2.y += yy - 0.06;
-            curve.v2.x += 0.1;
-          }
-          if (curve.v0) {
-            curve.v0.y += yy - 0.06;
-            curve.v0.x += 0.1;
-          }
-        }
+        const opening = offsetPath(
+          roundedPath(
+            new THREE.Path(),
+            passageWallClear,
+            passageWallClear,
+            passageCorner,
+          ),
+          -passageCenterZ,
+          yy - 0.06,
+        );
         outline.holes.push(opening);
       }
     } else {
@@ -1597,14 +1577,14 @@ export function createSpacecraft(
       outline.holes.push(dockingOpening);
     }
     const skin = new THREE.ExtrudeGeometry(outline, {
-      depth: 0.12,
-      bevelEnabled: true,
+      depth: side > 0 ? 0.12 : 0.085,
+      bevelEnabled: side > 0,
       bevelSize: 0.018,
       bevelThickness: 0.018,
       bevelSegments: 3,
       curveSegments: 16,
     });
-    skin.translate(0, 0, -0.06);
+    skin.translate(0, 0, side > 0 ? -0.06 : -0.0425);
     skin.rotateY(Math.PI / 2);
     const wall = pressureMesh(
       skin,
@@ -1613,13 +1593,14 @@ export function createSpacecraft(
       side > 0 ? 'walkway-twin-open-room-wall' : 'walkway-open-docking-wall',
       side,
     );
-    wall.position.x = side * 0.75;
+    // The docking wall shares the shoulder outer/inner datums, without a proud plate.
+    wall.position.x = side > 0 ? 0.75 : -0.7075;
     if (side < 0) {
       // The dock wall and curved shoulder returns share one interior finish.
       // The structural exterior keeps its independent hull material.
       for (const part of wall.children)
         if (part.name.endsWith('-interior'))
-          part.material = roomMat(m.liner, 'walkway', false, true);
+          part.material = roomMat(m.wall, 'walkway', false, true);
     }
   }
   // Zero-gravity transfer bay: no projecting decks, sills or landing cleats.
@@ -1763,13 +1744,13 @@ export function createSpacecraft(
       'walkway',
     ];
     const sleeve = mesh(
-      frameGeometry(2.18, 1.92, 0.27, 0.055, 0.35, 0.01),
+      frameGeometry(2.0, 2.0, 0.285, 0.05, 0.35, 0.01),
       coupledLiner,
       utility,
       'open-horizontal-pressure-coupling',
     );
     sleeve.rotation.y = Math.PI / 2;
-    sleeve.position.set(0, yy, -0.1);
+    sleeve.position.set(0, yy, passageCenterZ);
     const coupling = new THREE.Group();
     coupling.userData = {
       section: 'walkway',
@@ -1779,13 +1760,13 @@ export function createSpacecraft(
     utility.add(coupling);
     walkwayCouplings.push(coupling);
     const tube = mesh(
-      frameGeometry(2.18, 1.92, 0.27, 0.055, 0.3, 0.01),
+      frameGeometry(2.0, 2.0, 0.285, 0.05, 0.3, 0.01),
       walkwayLiner,
       coupling,
       'open-walkway-room-coupling',
     );
     tube.rotation.y = Math.PI / 2;
-    tube.position.set(0, yy, -0.1);
+    tube.position.set(0, yy, passageCenterZ);
   }
   // Nine physical compartments, arranged as three columns by three rows.
   // Each hinge, title texture and signal rail remains independent after batching.
@@ -3656,21 +3637,21 @@ export function createSpacecraft(
     opening.userData = { section: from, batchRoot: true };
     visual.add(opening);
     const gasket = mesh(
-      frameGeometry(2.33, 2.06, 0.31, 0.115, 0.09, 0.012),
+      frameGeometry(2.06, 2.06, 0.315, 0.07, 0.09, 0.012),
       m.gasket,
       opening,
       'open-hatch-wall-gasket',
     );
     gasket.position.z = -0.014;
     const frame = mesh(
-      frameGeometry(2.3, 2.03, 0.3, 0.095, 0.07, 0.012),
+      frameGeometry(2.03, 2.03, 0.3, 0.095, 0.07, 0.012),
       m.chalk,
       opening,
       'flush-open-pressure-hatch-frame',
     );
     frame.position.z = 0.012;
     const light = mesh(
-      frameGeometry(2.122, 1.852, 0.22, 0.014, 0.012, 0.002),
+      frameGeometry(1.852, 1.852, 0.211, 0.014, 0.012, 0.002),
       signalSource,
       opening,
       'open-hatch-painted-route-trim',
@@ -3683,7 +3664,11 @@ export function createSpacecraft(
     caption.userData = { section: from, batchRoot: true };
     visual.add(caption);
     const captionSize = [0.96, 0.18],
-      plateSize = [1.3, 0.25];
+      plateSize = [1.52, 0.25];
+    const enamelWidth = plateSize[0] - 0.04;
+    const iconHalfWidth = 0.059;
+    const iconInset = 0.095;
+    const iconCenter = enamelWidth / 2 - iconInset - iconHalfWidth;
     box(
       plateSize[0],
       plateSize[1],
@@ -3697,7 +3682,7 @@ export function createSpacecraft(
       'above-door-label-backing',
     );
     box(
-      1.26,
+      enamelWidth,
       0.22,
       0.028,
       m.chalk,
@@ -3717,7 +3702,7 @@ export function createSpacecraft(
     for (const side of [-1, 1])
       routeSymbol(
         caption,
-        side * 0.566,
+        side * iconCenter,
         0,
         0.001,
         viaWalkway,
@@ -3725,7 +3710,7 @@ export function createSpacecraft(
       );
     const pick = interactionBox(
       id + '-portal-pick',
-      [0.28, 1.84, 2.18],
+      [0.28, passageClear, passageClear],
       [0, 0, 0],
       rooms[from],
       {
@@ -3746,8 +3731,8 @@ export function createSpacecraft(
       edge,
       via: viaWalkway ? 'walkway' : null,
       position: [0, 0, 0],
-      size: [0.28, 1.84, 2.18],
-      openingSize: [2.1, 1.84],
+      size: [0.28, passageClear, passageClear],
+      openingSize: [passageClear, passageClear],
       labelPosition: [0, 0, 0],
       labelSize: captionSize,
       plateSize,
@@ -3757,6 +3742,9 @@ export function createSpacecraft(
           : 'ladder-down'
         : 'door-forward-up',
       symbolSides: ['left', 'right'],
+      iconInset,
+      iconCenter,
+      enamelWidth,
       backingFront: -0.013,
       enamelFront: -0.003,
       inkFront: 0,
@@ -4528,7 +4516,7 @@ export function createSpacecraft(
     walkway.position.set(walkwayX, 0, 0);
     // Both hatch assemblies derive their position from the actual sidewall.
     const dockingWallX = walkwayX - 0.75 * layoutScale;
-    const dockingInnerFace = 0.078 * layoutScale;
+    const dockingInnerFace = 0.085 * layoutScale;
     const dockingInset = dockingInnerFace - 0.008;
     dockingInterior.position.set(-0.75 * layoutScale + dockingInset, 0.03, 0);
     walkwayStructure.scale.set(layoutScale, 1, 1);
@@ -4557,7 +4545,7 @@ export function createSpacecraft(
       rightCornerRadius: 0.17 * layoutScale,
       shellDepth: 2.42,
       rearLiner: {
-        frontZ: -0.965,
+        frontZ: -0.985,
         rearZ: -1.21,
         sharedShoulders: [1.35, 2.14],
         innerShoulders: [1.21, 2.0],
@@ -4589,18 +4577,18 @@ export function createSpacecraft(
       portal.opening.position.set(
         sign * (1.5 * layoutScale - 0.1 * layoutScale - 0.006),
         -0.06,
-        -0.1,
+        passageCenterZ,
       );
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
         sign * (1.4 * layoutScale - 0.085),
         1.11,
-        -0.1,
+        passageCenterZ,
       );
       portal.pick.position.set(
         origin + sign * (1.5 * layoutScale - 0.04),
         -0.06,
-        -0.1,
+        passageCenterZ,
       );
       const fromY = roomCenters[portal.from][1],
         toY = roomCenters[portal.to][1];

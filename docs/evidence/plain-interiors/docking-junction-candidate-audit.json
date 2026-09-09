@@ -1,0 +1,78 @@
+{
+  "sourceSha256": "edfabdd791027046a2aad9074ac41739e01d24c56f276ddca7db1b86b24e1fe1",
+  "limits": "CPU actual-mesh intersection tests. Uniform finite sampling proves the sampled corridors/seams only, not every infinitesimal triangle. No rendered visual-quality claim.",
+  "layouts": [
+    {
+      "layout": "wide",
+      "apertureClosureRays": 3355,
+      "apertureMisses": [],
+      "horizontalShoulderSeamRays": 3034,
+      "shoulderSeamMisses": [],
+      "verticalSeamRays": 1550,
+      "verticalSeamMisses": [],
+      "planeRays": 16,
+      "planeErrors": [],
+      "maxVisibleJoinStep": 0.020105348495781827,
+      "matchedJoinStepRays": 24,
+      "joinStepErrors": [],
+      "maxMatchedJoinStep": 0.00000617993608921706
+    },
+    {
+      "layout": "compact",
+      "apertureClosureRays": 3355,
+      "apertureMisses": [],
+      "horizontalShoulderSeamRays": 3034,
+      "shoulderSeamMisses": [],
+      "verticalSeamRays": 1550,
+      "verticalSeamMisses": [],
+      "planeRays": 16,
+      "planeErrors": [],
+      "maxVisibleJoinStep": 0.027918923383681182,
+      "matchedJoinStepRays": 24,
+      "joinStepErrors": [],
+      "maxMatchedJoinStep": 0.000006180029854974123
+    }
+  ],
+  "failures": [],
+  "baselineComparison": {
+    "revision": "08b1f26",
+    "source": "Recorded actual-mesh bounds in docking-junction-diagnosis.json, before the correction.",
+    "coordinateSystem": "X relative to walkway origin; Z unchanged by wide layout.",
+    "compact": {
+      "beforeWallX": [
+        -0.8280000016093254,
+        -0.6720000058412552
+      ],
+      "afterWallX": [
+        -0.75,
+        -0.665
+      ],
+      "beforeWallZ": [
+        -1.2680000066757202,
+        1.2680000066757202
+      ],
+      "afterWallZ": [
+        -1.21,
+        1.21
+      ]
+    },
+    "wide": {
+      "beforeWallX": [
+        -1.1592000022530558,
+        -0.9408000081777574
+      ],
+      "afterWallX": [
+        -1.05,
+        -0.931
+      ],
+      "beforeWallZ": [
+        -1.2680000066757202,
+        1.2680000066757202
+      ],
+      "afterWallZ": [
+        -1.21,
+        1.21
+      ]
+    }
+  }
+}

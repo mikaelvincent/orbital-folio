@@ -59,7 +59,7 @@ The HTTP integration suite creates temporary records and restores existing conte
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report near the top-right of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. **Toggle reduced-motion diagnostic** exercises the renderer pause path without opening a reader; **Run renderer frame control** then samples host display callbacks. This development-only override does not claim to emulate an operating-system preference. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/ALIGNED-CABINS-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/PLAIN-INTERIORS-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 
@@ -87,4 +87,4 @@ Current delivery: the revised local experience and seeded studio are runnable. T
 
 The Case studies room uses `/case-studies` and the existing editable experience records for this design iteration. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels. The separate reading interfaces are deferred during this render pass.
 
-The latest cabin alignment changes and evidence are in [ALIGNED-CABINS-VALIDATION.md](docs/ALIGNED-CABINS-VALIDATION.md) and the independent [critic report](docs/CRITIC-REPORT.md).
+The latest interior standardization changes and evidence are in [PLAIN-INTERIORS-VALIDATION.md](docs/PLAIN-INTERIORS-VALIDATION.md) and the independent [critic report](docs/CRITIC-REPORT.md).
