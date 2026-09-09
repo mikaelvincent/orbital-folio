@@ -40,6 +40,12 @@ export function ImmersivePortfolio({
   children: React.ReactNode;
 }) {
   const s = data.site;
+  let portfolioName = s.name;
+  try {
+    portfolioName = new URL(s.domain).hostname || s.name;
+  } catch {
+    // An unfinished domain setting still leaves the editable owner name visible.
+  }
   const [destination, setDestination] = useState<Destination>({
     section: initialSection,
     slug: initialSlug,
@@ -387,6 +393,28 @@ export function ImmersivePortfolio({
         </nav>
       </header>
       <main id="main" tabIndex={-1}>
+        {immersive && !readingSurface && (
+          <div className="orbital-identity">
+            {destination.section === 'home' ? (
+              <h1>
+                <a href={hrefFor({ section: 'home' })}>
+                  <span className="orbital-identity-text">{portfolioName}</span>
+                  <span className="sr-only">
+                    {' '}
+                    — {s.name} · {s.title}
+                  </span>
+                </a>
+              </h1>
+            ) : (
+              <a
+                href={hrefFor({ section: 'home' })}
+                aria-label={`${portfolioName} · ${s.homeLabel}`}
+              >
+                <span className="orbital-identity-text">{portfolioName}</span>
+              </a>
+            )}
+          </div>
+        )}
         {!s.sampleMode && !preview && (
           <script
             type="application/ld+json"
@@ -433,7 +461,7 @@ export function ImmersivePortfolio({
             }}
           />
         </div>
-        {immersive && !readingSurface && (
+        {immersive && !readingSurface && destination.section !== 'home' && (
           <h1 className="sr-only">
             {destination.section === 'home'
               ? `${s.name} — ${s.title}`

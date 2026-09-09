@@ -1,6 +1,6 @@
 # Unified spacecraft chassis
 
-This iteration applies the user's **95/100 independent critic target to the chassis only**. It does not reinstate the original portfolio-wide requirements for future iterations. The final judgment is in [CRITIC-REPORT.md](CRITIC-REPORT.md); the previous [rounded-nose review](CRITIC-REPORT-ROUNDED-NOSE.md) is historical.
+This iteration applies the user's **95/100 independent critic target to the chassis only**. It does not reinstate the original portfolio-wide requirements for future iterations. The final judgment is in [CRITIC-REPORT-UNIFIED-CHASSIS.md](CRITIC-REPORT-UNIFIED-CHASSIS.md); the previous [rounded-nose review](CRITIC-REPORT-ROUNDED-NOSE.md) is historical.
 
 ## Result and scope
 

@@ -1,0 +1,1660 @@
+{
+  "sourceSha256": "a994c80065f88352b61b8551eac7437a36f42d8a632f193501ac7a844f4daef4",
+  "scope": "Independent actual post-batching label hardware visibility with a geometry-only fixture. Does not claim browser text rasterization, responsive projected fit, or deferred reader behavior.",
+  "states": [
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": true,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": true,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": true,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": true,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": true,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "wide",
+      "portrait": false,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": true,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": true,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": true,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": true,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": true,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "home",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": true,
+            "meshCount": 4,
+            "vertexCount": 3000
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "projects",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "experience",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "about",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    },
+    {
+      "layout": "compact",
+      "portrait": false,
+      "active": "contact",
+      "sections": {
+        "projects": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "experience": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "about": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        },
+        "contact": {
+          "hull": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          },
+          "side": {
+            "visible": false,
+            "meshCount": 0,
+            "vertexCount": 0
+          }
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "obsoleteBrandingGeometry": [],
+  "sourceUnchangedDuringAudit": true,
+  "passed": true
+}

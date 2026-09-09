@@ -1,0 +1,542 @@
+{
+  "unchangedBatching": {
+    "baselineSha256": "c4b0bce51632925b31ab2b78361fa335acf0810ce4340131159207fa85eb792a",
+    "candidateSha256": "c4b0bce51632925b31ab2b78361fa335acf0810ce4340131159207fa85eb792a",
+    "matched": true
+  },
+  "baselineRef": "ebff2d0",
+  "baselineSha256": "b516a25dffb335f52734282cdc3b79ea81bac74bd40571842b4c2b84aa7e7194",
+  "candidateSha256": "a994c80065f88352b61b8551eac7437a36f42d8a632f193501ac7a844f4daef4",
+  "threeRevision": "185",
+  "scope": "Selectable cabin source geometry, room-local transforms, material values and texture drawing commands, lights, instance transforms, visibility, control metadata and room navigation anchors. Exact named authorized chassis parts are exempted.",
+  "limitations": [
+    "CPU canvas commands and a deterministic width stub verify preserved texture generation, not GPU font rasterization.",
+    "Changed chassis shadows are expected; source invariance does not prove every visual aperture is unobstructed. Current browser and raycast evidence is required separately."
+  ],
+  "exclusions": [
+    {
+      "name": "reinforced-lower-nameplate-collar",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "room-label-backing",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "room-label-ceramic-insert",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "reinforced-side-nameplate-collar",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "side-label-backing",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "side-label-ceramic-insert",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 4
+    },
+    {
+      "name": "nameplate-amber-clasp",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 8
+    },
+    {
+      "name": "side-nameplate-amber-clasp",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects",
+        "experience",
+        "about",
+        "contact"
+      ],
+      "expectedCount": 8
+    },
+    {
+      "name": "hull-plaque-ink-projects",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "side-plaque-ink-projects",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "projects"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "hull-plaque-ink-experience",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "experience"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "side-plaque-ink-experience",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "experience"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "hull-plaque-ink-about",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "about"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "side-plaque-ink-about",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "about"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "hull-plaque-ink-contact",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "contact"
+      ],
+      "expectedCount": 1
+    },
+    {
+      "name": "side-plaque-ink-contact",
+      "reason": "Explicitly redesigned exterior nameplate assembly; complete orientation family now switches together. Interior headers and all cabin contents remain protected.",
+      "rooms": [
+        "contact"
+      ],
+      "expectedCount": 1
+    }
+  ],
+  "metadataExclusions": [
+    "sideLabelAnchors"
+  ],
+  "counts": {
+    "baseline": 624,
+    "candidate": 624
+  },
+  "states": [
+    {
+      "layout": "wide",
+      "state": "overview",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "c4a3a9de1a1720c158c477e992981e371170eb825fbacacb3849d62626bf5c4e",
+      "candidateDigest": "c4a3a9de1a1720c158c477e992981e371170eb825fbacacb3849d62626bf5c4e"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-projects",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "fc3a978b1f51c8e72ebfb21b05d1902608f03a558a9f5ac51b269794eaf6d1da",
+      "candidateDigest": "fc3a978b1f51c8e72ebfb21b05d1902608f03a558a9f5ac51b269794eaf6d1da"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-experience",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "47b305b802d52f42d121b05bec21ddf0a2647b507ed1a0011b6af4f71c60d476",
+      "candidateDigest": "47b305b802d52f42d121b05bec21ddf0a2647b507ed1a0011b6af4f71c60d476"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-about",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "55f1564da041739181407d98a5b8835ee0b83fee4cbe68dac0e7c45a5e0f2011",
+      "candidateDigest": "55f1564da041739181407d98a5b8835ee0b83fee4cbe68dac0e7c45a5e0f2011"
+    },
+    {
+      "layout": "wide",
+      "state": "hover-contact",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "58cc1eb3b90d57452d122adec39ef0db2edb7551519e1027d6cb8abf08e4c5d2",
+      "candidateDigest": "58cc1eb3b90d57452d122adec39ef0db2edb7551519e1027d6cb8abf08e4c5d2"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-projects",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "fc3a978b1f51c8e72ebfb21b05d1902608f03a558a9f5ac51b269794eaf6d1da",
+      "candidateDigest": "fc3a978b1f51c8e72ebfb21b05d1902608f03a558a9f5ac51b269794eaf6d1da"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-experience",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "47b305b802d52f42d121b05bec21ddf0a2647b507ed1a0011b6af4f71c60d476",
+      "candidateDigest": "47b305b802d52f42d121b05bec21ddf0a2647b507ed1a0011b6af4f71c60d476"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-about",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "55f1564da041739181407d98a5b8835ee0b83fee4cbe68dac0e7c45a5e0f2011",
+      "candidateDigest": "55f1564da041739181407d98a5b8835ee0b83fee4cbe68dac0e7c45a5e0f2011"
+    },
+    {
+      "layout": "wide",
+      "state": "selected-contact",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "58cc1eb3b90d57452d122adec39ef0db2edb7551519e1027d6cb8abf08e4c5d2",
+      "candidateDigest": "58cc1eb3b90d57452d122adec39ef0db2edb7551519e1027d6cb8abf08e4c5d2"
+    },
+    {
+      "layout": "wide",
+      "state": "model-open-project-rack",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "75eef8c32d79d2d37cd4ebf7cdf8c8a8c6d4067efe9bfa8b894a39f662b97120",
+      "candidateDigest": "75eef8c32d79d2d37cd4ebf7cdf8c8a8c6d4067efe9bfa8b894a39f662b97120"
+    },
+    {
+      "layout": "wide",
+      "state": "model-open-case-rack",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "aab836924fc7a67aa7c24fac8a8eec6a9e4a4980bdc8ac72ea8b303da616095a",
+      "candidateDigest": "aab836924fc7a67aa7c24fac8a8eec6a9e4a4980bdc8ac72ea8b303da616095a"
+    },
+    {
+      "layout": "wide",
+      "state": "passing-ladder",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "e179890838db97bd734b6cf21b9b0b736da26f6f70116124547abbbc7d1efc7b",
+      "candidateDigest": "e179890838db97bd734b6cf21b9b0b736da26f6f70116124547abbbc7d1efc7b"
+    },
+    {
+      "layout": "compact",
+      "state": "overview",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "da2dd286bf360c1439d8dd145cb4a951cb03423e8e365b847a2a1e33c41456fe",
+      "candidateDigest": "da2dd286bf360c1439d8dd145cb4a951cb03423e8e365b847a2a1e33c41456fe"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-projects",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "3cd0f663961fd7586972969fd3302c117ba83cfa19b87c45e1c6adc24e2e81e5",
+      "candidateDigest": "3cd0f663961fd7586972969fd3302c117ba83cfa19b87c45e1c6adc24e2e81e5"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-experience",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "f2e01e7c0ee2078d6b507cd6ac00b1a07c47c4addac6077ee6d7c54c33a08e00",
+      "candidateDigest": "f2e01e7c0ee2078d6b507cd6ac00b1a07c47c4addac6077ee6d7c54c33a08e00"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-about",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "d64904456edd4f73c6c3da81c66fb7327331d29109f405b4e11e3b8c2180d305",
+      "candidateDigest": "d64904456edd4f73c6c3da81c66fb7327331d29109f405b4e11e3b8c2180d305"
+    },
+    {
+      "layout": "compact",
+      "state": "hover-contact",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "4e32a842b73a5819f5c93bba6d840c440dafccef30b8a6d4ff6f909f3bf1221e",
+      "candidateDigest": "4e32a842b73a5819f5c93bba6d840c440dafccef30b8a6d4ff6f909f3bf1221e"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-projects",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "493604db4bc8389a3d2cd5d1f8acf9a992f2566fb804dc25c4b1cd7f7f070292",
+      "candidateDigest": "493604db4bc8389a3d2cd5d1f8acf9a992f2566fb804dc25c4b1cd7f7f070292"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-experience",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "28b071dd9007fa6dde98e5751ede3d6aaa1732fa097a1f90ade29a1989585cfe",
+      "candidateDigest": "28b071dd9007fa6dde98e5751ede3d6aaa1732fa097a1f90ade29a1989585cfe"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-about",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "d64904456edd4f73c6c3da81c66fb7327331d29109f405b4e11e3b8c2180d305",
+      "candidateDigest": "d64904456edd4f73c6c3da81c66fb7327331d29109f405b4e11e3b8c2180d305"
+    },
+    {
+      "layout": "compact",
+      "state": "selected-contact",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "4e32a842b73a5819f5c93bba6d840c440dafccef30b8a6d4ff6f909f3bf1221e",
+      "candidateDigest": "4e32a842b73a5819f5c93bba6d840c440dafccef30b8a6d4ff6f909f3bf1221e"
+    },
+    {
+      "layout": "compact",
+      "state": "model-open-project-rack",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "493604db4bc8389a3d2cd5d1f8acf9a992f2566fb804dc25c4b1cd7f7f070292",
+      "candidateDigest": "493604db4bc8389a3d2cd5d1f8acf9a992f2566fb804dc25c4b1cd7f7f070292"
+    },
+    {
+      "layout": "compact",
+      "state": "model-open-case-rack",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "28b071dd9007fa6dde98e5751ede3d6aaa1732fa097a1f90ade29a1989585cfe",
+      "candidateDigest": "28b071dd9007fa6dde98e5751ede3d6aaa1732fa097a1f90ade29a1989585cfe"
+    },
+    {
+      "layout": "compact",
+      "state": "passing-ladder",
+      "protectedParts": 624,
+      "matched": 624,
+      "baselineDigest": "da2dd286bf360c1439d8dd145cb4a951cb03423e8e365b847a2a1e33c41456fe",
+      "candidateDigest": "da2dd286bf360c1439d8dd145cb4a951cb03423e8e365b847a2a1e33c41456fe"
+    }
+  ],
+  "differences": [],
+  "protectedNames": [
+    "",
+    "about-continuous-pressure-skin-interior",
+    "about:contact-portal-pick",
+    "about:projects-portal-pick",
+    "above-door-label-backing",
+    "above-door-label-enamel",
+    "abstract-cabin-art",
+    "abstract-cabin-art-ridge",
+    "actionable-contact-display",
+    "amber-radio-receiver",
+    "berth-buckle-insert",
+    "berth-retaining-strap",
+    "berth-strap-buckle",
+    "blank-reader-surface",
+    "blanket-retaining-webbing",
+    "brushed-titanium",
+    "cabin-cupboard-insert",
+    "cabin-picture-frame",
+    "cabin-soft-stowage-pouch",
+    "cabin-utility-cupboard",
+    "canister-retaining-strap",
+    "captive-collar-fasteners",
+    "caseStudy-door-pick-0",
+    "caseStudy-door-pick-1",
+    "caseStudy-door-pick-2",
+    "caseStudy-door-pick-3",
+    "caseStudy-door-pick-4",
+    "caseStudy-door-pick-5",
+    "caseStudy-door-pick-6",
+    "caseStudy-door-pick-7",
+    "caseStudy-door-pick-8",
+    "ceiling-light-bezel",
+    "channel-signal-line",
+    "closed-journal-front-cover",
+    "coarse-radio-speaker-grille",
+    "coherent-cabin-deck",
+    "coiled-safety-tether",
+    "coiled-service-hose",
+    "communications-console-housing",
+    "communications-control-shelf",
+    "communications-display-gasket",
+    "communications-screen-ceramic-frame",
+    "compartment-amber-latch",
+    "contact-continuous-pressure-skin-interior",
+    "contact-reader-pick",
+    "contact-sealed-outboard-wall-interior",
+    "contact:about-portal-pick",
+    "deep-empty-compartment-liner",
+    "equipment-retaining-cradle",
+    "experience-continuous-pressure-skin-interior",
+    "experience-sealed-outboard-wall-interior",
+    "experience:projects-portal-pick",
+    "external-amber-lifting-tab",
+    "fan-retaining-strap",
+    "flush-open-pressure-hatch-frame",
+    "folded-tripod-leg",
+    "graphite-enamel",
+    "graphite-gasket",
+    "header-plaque-ink-about",
+    "header-plaque-ink-contact",
+    "header-plaque-ink-experience",
+    "header-plaque-ink-projects",
+    "headset-earcup",
+    "headset-securing-loop",
+    "hose-quick-coupling",
+    "hose-retaining-strap",
+    "hover-perimeter-light-guide",
+    "individual-project-hover-light",
+    "instrument-reader-control",
+    "journal-bound-spine",
+    "journal-desk-mount",
+    "journal-desk-tray",
+    "journal-page-block",
+    "journal-page-edge",
+    "journal-reader-pick",
+    "journal-retaining-band",
+    "journal-tray-bumper",
+    "journal-visible-page-block",
+    "live-project-compartment-title",
+    "lower-wall-cove",
+    "nine-slot-case-study-payload-rack",
+    "nine-slot-project-payload-rack",
+    "open-hatch-painted-route-trim",
+    "open-hatch-wall-gasket",
+    "open-side-pressure-bulkhead-exterior",
+    "open-side-pressure-bulkhead-interior",
+    "padded-sleeping-berth",
+    "painted-direction-arrow",
+    "painted-ladder-rung",
+    "painted-ladder-side",
+    "personal-journal-cover",
+    "picture-mat",
+    "picture-retaining-clip",
+    "portal-destination-ink",
+    "pouch-latch",
+    "project-compartment-back",
+    "project-compartment-door",
+    "project-door-pick-0",
+    "project-door-pick-1",
+    "project-door-pick-2",
+    "project-door-pick-3",
+    "project-door-pick-4",
+    "project-door-pick-5",
+    "project-door-pick-6",
+    "project-door-pick-7",
+    "project-door-pick-8",
+    "projects-continuous-pressure-skin-interior",
+    "projects:about-portal-pick",
+    "projects:experience-portal-pick",
+    "radio-channel-indicator",
+    "radio-receiver-lead",
+    "radio-speaker-column",
+    "reader-amber-clip-cap",
+    "reader-mechanical-tray",
+    "reader-paper-retainer",
+    "reader-rigid-backboard",
+    "reader-top-clip",
+    "reader-tray-bumper",
+    "receiver-wall-cradle",
+    "recess",
+    "recessed-front-pressure-seal",
+    "roof-latch",
+    "rounded-warm-cabin-liner",
+    "secured-canvas-tool-roll",
+    "signal-amber",
+    "soft-berth-quilting",
+    "soft-privacy-curtain",
+    "spare-cooling-fan-housing",
+    "spare-fan-blade",
+    "spare-filter-canister",
+    "spare-headset-band",
+    "stowed-inspection-torch",
+    "stowed-project-cartridge",
+    "stowed-thermal-blanket",
+    "tether-locking-carabiner",
+    "tether-securing-strap",
+    "threshold-edge-marker",
+    "tool-roll-buckle-strap",
+    "tool-roll-pockets",
+    "torch-retaining-clip",
+    "tripod-head",
+    "tripod-retaining-band",
+    "underside-service-keel",
+    "upper-header-wall-saddle",
+    "upper-room-enamel-header",
+    "vertical-berth-recess",
+    "visible-neighbor-rear-corner-liner",
+    "warm-ceiling-light",
+    "warm-floor-routing-line"
+  ],
+  "exemptedBaselineCounts": {
+    "reinforced-lower-nameplate-collar": 4,
+    "room-label-backing": 4,
+    "room-label-ceramic-insert": 4,
+    "reinforced-side-nameplate-collar": 4,
+    "side-label-backing": 4,
+    "side-label-ceramic-insert": 4,
+    "nameplate-amber-clasp": 8,
+    "side-nameplate-amber-clasp": 8,
+    "hull-plaque-ink-projects": 1,
+    "side-plaque-ink-projects": 1,
+    "hull-plaque-ink-experience": 1,
+    "side-plaque-ink-experience": 1,
+    "hull-plaque-ink-about": 1,
+    "side-plaque-ink-about": 1,
+    "hull-plaque-ink-contact": 1,
+    "side-plaque-ink-contact": 1
+  },
+  "passed": true
+}

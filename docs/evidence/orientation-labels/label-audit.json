@@ -1,0 +1,1718 @@
+{
+  "baseline": "git:ebff2d0",
+  "candidate": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+  "preservationExemptions": [
+    {
+      "name": "reinforced-lower-nameplate-collar",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 8,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/reinforced-lower-nameplate-collar",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/reinforced-lower-nameplate-collar",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/reinforced-lower-nameplate-collar",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/reinforced-lower-nameplate-collar"
+      ]
+    },
+    {
+      "name": "room-label-backing",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 8,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/room-label-backing",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/room-label-backing",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/room-label-backing",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/room-label-backing"
+      ]
+    },
+    {
+      "name": "room-label-ceramic-insert",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 8,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/room-label-ceramic-insert",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/room-label-ceramic-insert",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/room-label-ceramic-insert",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/room-label-ceramic-insert"
+      ]
+    },
+    {
+      "name": "reinforced-side-nameplate-collar",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 4,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/reinforced-side-nameplate-collar",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/reinforced-side-nameplate-collar",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/reinforced-side-nameplate-collar",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/reinforced-side-nameplate-collar"
+      ]
+    },
+    {
+      "name": "side-label-backing",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 4,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/side-label-backing",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/side-label-backing",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/side-label-backing",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/side-label-backing"
+      ]
+    },
+    {
+      "name": "side-label-ceramic-insert",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 4,
+      "candidateCount": 4,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/side-label-ceramic-insert",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/side-label-ceramic-insert",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/side-label-ceramic-insert",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/side-label-ceramic-insert"
+      ]
+    },
+    {
+      "name": "nameplate-amber-clasp",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 8,
+      "candidateCount": 16,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/nameplate-amber-clasp",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/nameplate-amber-clasp"
+      ]
+    },
+    {
+      "name": "side-nameplate-amber-clasp",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 8,
+      "candidateCount": 8,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/projects-assembly/projects-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/experience-assembly/experience-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/about-assembly/about-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/side-nameplate-amber-clasp",
+        "orbital-pressure-vessel/contact-assembly/contact-pressure-structure/side-nameplate-amber-clasp"
+      ]
+    },
+    {
+      "name": "vessel-nameplate-integrated-hull-band",
+      "reason": "Remove physical portfolio branding assembly",
+      "baselineCount": 1,
+      "candidateCount": 0,
+      "baselinePaths": [
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/vessel-nameplate-integrated-hull-band"
+      ]
+    },
+    {
+      "name": "vessel-nameplate-recessed-gasket",
+      "reason": "Remove physical portfolio branding assembly",
+      "baselineCount": 1,
+      "candidateCount": 0,
+      "baselinePaths": [
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/vessel-nameplate-recessed-gasket"
+      ]
+    },
+    {
+      "name": "vessel-nameplate-enamel",
+      "reason": "Remove physical portfolio branding assembly",
+      "baselineCount": 1,
+      "candidateCount": 0,
+      "baselinePaths": [
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/vessel-nameplate-enamel"
+      ]
+    },
+    {
+      "name": "symmetric-nameplate-end-clasp",
+      "reason": "Remove physical portfolio branding assembly",
+      "baselineCount": 2,
+      "candidateCount": 0,
+      "baselinePaths": [
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/symmetric-nameplate-end-clasp",
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/symmetric-nameplate-end-clasp"
+      ]
+    },
+    {
+      "name": "vessel-nameplate-ink",
+      "reason": "Remove physical portfolio branding assembly",
+      "baselineCount": 1,
+      "candidateCount": 0,
+      "baselinePaths": [
+        "orbital-pressure-vessel/top-center-vessel-nameplate/Group/vessel-nameplate-ink"
+      ]
+    },
+    {
+      "name": "hull-plaque-ink-projects",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/hull-label-mount-projects/hull-plaque-ink-projects"
+      ]
+    },
+    {
+      "name": "side-plaque-ink-projects",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/projects-assembly/side-label-mount-projects/side-plaque-ink-projects"
+      ]
+    },
+    {
+      "name": "hull-plaque-ink-experience",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/experience-assembly/hull-label-mount-experience/hull-plaque-ink-experience"
+      ]
+    },
+    {
+      "name": "side-plaque-ink-experience",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/experience-assembly/side-label-mount-experience/side-plaque-ink-experience"
+      ]
+    },
+    {
+      "name": "hull-plaque-ink-about",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/about-assembly/hull-label-mount-about/hull-plaque-ink-about"
+      ]
+    },
+    {
+      "name": "side-plaque-ink-about",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/about-assembly/side-label-mount-about/side-plaque-ink-about"
+      ]
+    },
+    {
+      "name": "hull-plaque-ink-contact",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/contact-assembly/hull-label-mount-contact/hull-plaque-ink-contact"
+      ]
+    },
+    {
+      "name": "side-plaque-ink-contact",
+      "reason": "Replace full exterior room label assembly and orientation-dependent hardware",
+      "baselineCount": 1,
+      "candidateCount": 1,
+      "baselinePaths": [
+        "orbital-pressure-vessel/contact-assembly/side-label-mount-contact/side-plaque-ink-contact"
+      ]
+    }
+  ],
+  "labelMetadata": {
+    "attached": true,
+    "portraitModelRoll": 1.5707963267948966,
+    "toggles": [
+      "hull",
+      "side"
+    ],
+    "headersAlwaysVisible": true,
+    "fixedCollarGeometry": false,
+    "completeAssemblyVisibility": true,
+    "endpointAlignment": "front aperture endpoints",
+    "endClaspInset": 0,
+    "enamelEndInset": 0.145,
+    "inkEndInset": 0.215
+  },
+  "invariance": [
+    {
+      "layout": "wide",
+      "protectedSourceCount": 616,
+      "exactGeometryTransformMaterialCanvasMatch": true
+    },
+    {
+      "layout": "compact",
+      "protectedSourceCount": 616,
+      "exactGeometryTransformMaterialCanvasMatch": true
+    },
+    {
+      "layout": "wide",
+      "protectedSourceCount": 616,
+      "exactGeometryTransformMaterialCanvasMatch": true
+    }
+  ],
+  "states": [
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "projects",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "projects",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "experience",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "experience",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "about",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "about",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "contact",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "contact",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "projects",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "projects",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "experience",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "experience",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "about",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "about",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "contact",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "contact",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "compact",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "projects",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "projects",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "experience",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "experience",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "about",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "about",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "contact",
+      "portrait": false,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "contact",
+      "portrait": true,
+      "visibleExteriorAssemblies": [],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": true,
+      "visibleExteriorAssemblies": [
+        "side-exterior-label-assembly-projects",
+        "side-exterior-label-assembly-experience",
+        "side-exterior-label-assembly-about",
+        "side-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    },
+    {
+      "layout": "wide",
+      "activeRoom": "home",
+      "portrait": false,
+      "visibleExteriorAssemblies": [
+        "hull-exterior-label-assembly-projects",
+        "hull-exterior-label-assembly-experience",
+        "hull-exterior-label-assembly-about",
+        "hull-exterior-label-assembly-contact"
+      ],
+      "visibleHeaders": 4
+    }
+  ],
+  "alignment": [
+    {
+      "layout": "wide",
+      "section": "projects",
+      "horizontalEnds": [
+        -4.105000019073486,
+        -0.39499998092651323
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        -4.1049999999999995,
+        -0.3949999999999998
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474426
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "horizontalEnds": [
+        0.39499998092651323,
+        4.105000019073486
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        0.3949999999999998,
+        4.1049999999999995
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "horizontalEnds": [
+        -4.105000019073486,
+        -0.39499998092651367
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        -4.1049999999999995,
+        -0.3949999999999998
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474426
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "horizontalEnds": [
+        0.39499998092651323,
+        4.105000019073486
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        0.3949999999999998,
+        4.1049999999999995
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    },
+    {
+      "layout": "compact",
+      "section": "projects",
+      "horizontalEnds": [
+        -2.9750000476837157,
+        -0.3249999523162841
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        -2.9749999999999996,
+        -0.32499999999999996
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474435
+    },
+    {
+      "layout": "compact",
+      "section": "experience",
+      "horizontalEnds": [
+        0.3249999523162841,
+        2.9750000476837157
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        0.32499999999999996,
+        2.9749999999999996
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    },
+    {
+      "layout": "compact",
+      "section": "about",
+      "horizontalEnds": [
+        -2.975000047683716,
+        -0.32499995231628453
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        -2.9749999999999996,
+        -0.32499999999999996
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474435
+    },
+    {
+      "layout": "compact",
+      "section": "contact",
+      "horizontalEnds": [
+        0.3249999523162841,
+        2.9750000476837157
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        0.32499999999999996,
+        2.9749999999999996
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "horizontalEnds": [
+        -4.105000019073486,
+        -0.39499998092651323
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        -4.1049999999999995,
+        -0.3949999999999998
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474426
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "horizontalEnds": [
+        0.39499998092651323,
+        4.105000019073486
+      ],
+      "verticalEnds": [
+        0.3300000524520874,
+        3.1899999475479124
+      ],
+      "expectedHorizontal": [
+        0.3949999999999998,
+        4.1049999999999995
+      ],
+      "expectedVertical": [
+        0.33000000000000007,
+        3.19
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "horizontalEnds": [
+        -4.105000019073486,
+        -0.39499998092651367
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        -4.1049999999999995,
+        -0.3949999999999998
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474426
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "horizontalEnds": [
+        0.39499998092651323,
+        4.105000019073486
+      ],
+      "verticalEnds": [
+        -3.0699999475479123,
+        -0.2100000524520873
+      ],
+      "expectedHorizontal": [
+        0.3949999999999998,
+        4.1049999999999995
+      ],
+      "expectedVertical": [
+        -3.07,
+        -0.20999999999999996
+      ],
+      "horizontalThickness": 0.5699999928474426,
+      "verticalThickness": 0.5699999928474433
+    }
+  ],
+  "typography": [
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "projects",
+      "role": "hull",
+      "width": 2.220000028610229,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        242
+      ],
+      "pixelAspectRatio": 1.0006700616417465,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        1,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "projects",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "experience",
+      "role": "hull",
+      "width": 2.220000028610229,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        242
+      ],
+      "pixelAspectRatio": 1.0006700616417465,
+      "physicalFontHeight": 0.30002849303816553,
+      "worldRight": [
+        1,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "experience",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "about",
+      "role": "hull",
+      "width": 2.220000028610229,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        242
+      ],
+      "pixelAspectRatio": 1.0006700616417465,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        1,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "about",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "contact",
+      "role": "hull",
+      "width": 2.220000028610229,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        242
+      ],
+      "pixelAspectRatio": 1.0006700616417465,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        1,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "compact",
+      "section": "contact",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "hull",
+      "width": 3.2800000422709688,
+      "height": 0.3499999940395355,
+      "canvas": [
+        2269,
+        242
+      ],
+      "pixelAspectRatio": 1.0004913024605748,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        0.9999999999999999,
+        0,
+        0
+      ],
+      "worldUp": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "side",
+      "width": 2.430000066757202,
+      "height": 0.3499999940395355,
+      "canvas": [
+        1536,
+        221
+      ],
+      "pixelAspectRatio": 1.001061348669025,
+      "physicalFontHeight": 0.30099999487400053,
+      "worldRight": [
+        2.220446049250313e-16,
+        -1,
+        0
+      ],
+      "worldUp": [
+        1,
+        2.220446049250313e-16,
+        0
+      ]
+    }
+  ],
+  "mounts": [
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "hull",
+      "attachment": [
+        -2.2499999999999996,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "side",
+      "attachment": [
+        -4.440999999999999,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "hull",
+      "attachment": [
+        2.2499999999999996,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "side",
+      "attachment": [
+        0.05899999999999972,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "hull",
+      "attachment": [
+        -2.2499999999999996,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "side",
+      "attachment": [
+        -4.440999999999999,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "hull",
+      "attachment": [
+        2.2499999999999996,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "side",
+      "attachment": [
+        0.05899999999999972,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "projects",
+      "role": "hull",
+      "attachment": [
+        -1.65,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "projects",
+      "role": "side",
+      "attachment": [
+        -3.215,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "experience",
+      "role": "hull",
+      "attachment": [
+        1.65,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "experience",
+      "role": "side",
+      "attachment": [
+        0.08499999999999996,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "about",
+      "role": "hull",
+      "attachment": [
+        -1.65,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "about",
+      "role": "side",
+      "attachment": [
+        -3.215,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "contact",
+      "role": "hull",
+      "attachment": [
+        1.65,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "compact",
+      "section": "contact",
+      "role": "side",
+      "attachment": [
+        0.08499999999999996,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "hull",
+      "attachment": [
+        -2.2499999999999996,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "projects",
+      "role": "side",
+      "attachment": [
+        -4.440999999999999,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "hull",
+      "attachment": [
+        2.2499999999999996,
+        0.20099999999999985,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "experience",
+      "role": "side",
+      "attachment": [
+        0.05899999999999972,
+        1.76,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "hull",
+      "attachment": [
+        -2.2499999999999996,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "about",
+      "role": "side",
+      "attachment": [
+        -4.440999999999999,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "hull",
+      "attachment": [
+        2.2499999999999996,
+        -3.199,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    },
+    {
+      "layout": "wide",
+      "section": "contact",
+      "role": "side",
+      "attachment": [
+        0.05899999999999972,
+        -1.64,
+        1.3350000381469727
+      ],
+      "bodyFrontZ": 1.328,
+      "sharedFrameFrontZ": 1.3350000381469727
+    }
+  ],
+  "brandingRemoved": true,
+  "changedNames": [
+    "reinforced-lower-nameplate-collar",
+    "room-label-backing",
+    "room-label-ceramic-insert",
+    "reinforced-side-nameplate-collar",
+    "side-label-backing",
+    "side-label-ceramic-insert",
+    "nameplate-amber-clasp",
+    "side-nameplate-amber-clasp",
+    "vessel-nameplate-integrated-hull-band",
+    "vessel-nameplate-recessed-gasket",
+    "vessel-nameplate-enamel",
+    "symmetric-nameplate-end-clasp",
+    "vessel-nameplate-ink",
+    "hull-plaque-ink-projects",
+    "side-plaque-ink-projects",
+    "hull-plaque-ink-experience",
+    "side-plaque-ink-experience",
+    "hull-plaque-ink-about",
+    "side-plaque-ink-about",
+    "hull-plaque-ink-contact",
+    "side-plaque-ink-contact"
+  ],
+  "screenLabelsHidesHardware": true,
+  "summary": {
+    "states": 36,
+    "protectedSources": 616,
+    "alignmentCases": 12,
+    "typographyCases": 24,
+    "mountChecks": 24,
+    "brandingRemoved": true,
+    "passed": true
+  }
+}

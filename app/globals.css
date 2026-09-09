@@ -2754,6 +2754,69 @@ svg {
   height: 100svh;
   overflow: hidden;
 }
+.orbital-identity {
+  position: fixed;
+  z-index: 20;
+  top: calc(22px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(52rem, calc(100% - 28rem));
+  text-align: center;
+  color: #e7f3ff;
+  font-size: clamp(1.25rem, 1.1rem + 1vw, 2rem);
+  font-weight: 450;
+  line-height: 1.35;
+  letter-spacing: 0.11em;
+  text-shadow: 0 0 24px #6dbff043;
+}
+.orbital-identity h1 {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.orbital-identity a {
+  display: inline-block;
+  max-width: 100%;
+  padding: 6px 4px 12px;
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.orbital-identity-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.orbital-identity::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: min(13rem, 60%);
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #a3d9ee9c,
+    #e9bd7b,
+    transparent
+  );
+}
+.orbital-identity a:hover {
+  color: #fff2d8;
+}
+.orbital-experience:has(.preview-banner) .orbital-identity {
+  margin-top: 26px;
+}
+@media (max-width: 699px) {
+  .orbital-identity {
+    top: calc(54px + env(safe-area-inset-top, 0px));
+    width: calc(100% - 36px);
+    font-size: clamp(1.125rem, 4.8vw, 1.5rem);
+    letter-spacing: 0.07em;
+  }
+}
 .flight-header {
   position: fixed;
   z-index: 20;

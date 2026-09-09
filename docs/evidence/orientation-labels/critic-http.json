@@ -1,0 +1,83 @@
+{
+  "scope": "Independent loopback production GETs and referenced JS/CSS; no browser execution or deferred UI tests.",
+  "origin": "http://localhost:4173/",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 66526,
+      "parsedHTMLH1Count": 1
+    },
+    {
+      "path": "/projects",
+      "status": 200,
+      "bytes": 66720,
+      "parsedHTMLH1Count": 1
+    }
+  ],
+  "assets": [
+    {
+      "path": "/_next/static/chunks/Icon-jpk45vUa.js",
+      "status": 200,
+      "bytes": 1082
+    },
+    {
+      "path": "/_next/static/chunks/contact-form-CEFmDbbS.js",
+      "status": 200,
+      "bytes": 4168
+    },
+    {
+      "path": "/_next/static/chunks/framework-DTZGTDtF.js",
+      "status": 200,
+      "bytes": 190109
+    },
+    {
+      "path": "/_next/static/chunks/immersive-portfolio-B9T8Ij57.js",
+      "status": 200,
+      "bytes": 61115
+    },
+    {
+      "path": "/_next/static/chunks/index-DTXc5EHH.js",
+      "status": 200,
+      "bytes": 118664
+    },
+    {
+      "path": "/_next/static/chunks/layout-segment-context-B331-5ja.js",
+      "status": 200,
+      "bytes": 496
+    },
+    {
+      "path": "/_next/static/chunks/orbit-CTRZ45eY.js",
+      "status": 200,
+      "bytes": 344
+    },
+    {
+      "path": "/_next/static/chunks/radio-ChOZJHGg.js",
+      "status": 200,
+      "bytes": 1049
+    },
+    {
+      "path": "/_next/static/chunks/rolldown-runtime-hePW80VL.js",
+      "status": 200,
+      "bytes": 716
+    },
+    {
+      "path": "/_next/static/chunks/vinext-Bc8pIwm3.js",
+      "status": 200,
+      "bytes": 111711
+    },
+    {
+      "path": "/_next/static/css/index.BDEfBYUm.css",
+      "status": 200,
+      "bytes": 96822
+    }
+  ],
+  "timestamp": "2026-09-09T10:09:45Z",
+  "sourceHashes": {
+    "components/spacecraft-model.ts": "a994c80065f88352b61b8551eac7437a36f42d8a632f193501ac7a844f4daef4",
+    "components/spacecraft.tsx": "602e8df9637501d4fb44a7b39164aae7c2e7741809509d6b5ac5c16a96e85073",
+    "components/immersive-portfolio.tsx": "1fd5a410d09644f96689b9b8a26a1f0caaa96e149c01074ca44c8a222e2c9b7a",
+    "app/globals.css": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe"
+  },
+  "passed": true
+}

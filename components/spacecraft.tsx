@@ -537,9 +537,11 @@ export function Spacecraft(props: Props) {
               home ? 0.14 : 0,
               1,
             ).normalize();
-            const header = document
-              .querySelector('.flight-header')
-              ?.getBoundingClientRect();
+            const headers = ['.flight-header', '.orbital-identity']
+              .map((selector) =>
+                document.querySelector(selector)?.getBoundingClientRect(),
+              )
+              .filter((box) => box && box.height > 0);
             const rect = el.getBoundingClientRect();
             // Measure the collapsed navigation, including CSS safe-area padding.
             // Cache this on camera/resize updates rather than reading layout per frame.
@@ -552,7 +554,7 @@ export function Spacecraft(props: Props) {
             );
             const topInset = Math.max(
               24,
-              (header?.bottom || 0) - rect.top + 10,
+              ...headers.map((box) => (box?.bottom || 0) - rect.top + 16),
             );
             const safe = {
               left: -1 + (2 * (mobile() ? 14 : 24)) / el.clientWidth,
@@ -1304,6 +1306,9 @@ export function Spacecraft(props: Props) {
                 physicalLabels: JSON.stringify(
                   model.group.userData.labelPlaques,
                 ),
+                exteriorLabelAssemblies: JSON.stringify(
+                  model.group.userData.labelAssemblyBounds,
+                ),
                 pointerResponse: `${pointerCurrent.x.toFixed(5)},${pointerCurrent.y.toFixed(5)}`,
                 dragResponse: dragMotion
                   .map((s) => s.value.toFixed(5))
@@ -1407,6 +1412,8 @@ export function Spacecraft(props: Props) {
           };
           const observer = new ResizeObserver(resize);
           observer.observe(el);
+          const identity = document.querySelector('.orbital-identity');
+          if (identity) observer.observe(identity);
           resize();
           const pick = (event: PointerEvent) => {
             const rect = el.getBoundingClientRect();

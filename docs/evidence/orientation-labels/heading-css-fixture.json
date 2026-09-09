@@ -1,0 +1,163 @@
+{
+  "cases": [
+    {
+      "availableSceneHeight": 776.609375,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 1440,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "1440-home",
+      "identityBounds": {
+        "bottom": 127.390625,
+        "height": 105.390625,
+        "left": 304,
+        "right": 1136,
+        "top": 22,
+        "width": 832
+      },
+      "mode": "home",
+      "passed": true,
+      "scrollTextHeight": 302,
+      "viewport": [
+        1440,
+        1000
+      ],
+      "visibleTextHeight": 86.390625,
+      "visualLineCount": 1.999782986111111
+    },
+    {
+      "availableSceneHeight": 776.609375,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 1440,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "1440-room",
+      "identityBounds": {
+        "bottom": 127.390625,
+        "height": 105.390625,
+        "left": 304,
+        "right": 1136,
+        "top": 22,
+        "width": 832
+      },
+      "mode": "room",
+      "passed": true,
+      "scrollTextHeight": 302,
+      "viewport": [
+        1440,
+        1000
+      ],
+      "visibleTextHeight": 86.390625,
+      "visualLineCount": 1.999782986111111
+    },
+    {
+      "availableSceneHeight": 522.40625,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 320,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "320-home",
+      "identityBounds": {
+        "bottom": 121.59375,
+        "height": 67.59375,
+        "left": 18,
+        "right": 302,
+        "top": 54,
+        "width": 284
+      },
+      "mode": "home",
+      "passed": true,
+      "scrollTextHeight": 267,
+      "viewport": [
+        320,
+        740
+      ],
+      "visibleTextHeight": 48.59375,
+      "visualLineCount": 1.9997427983539091
+    },
+    {
+      "availableSceneHeight": 522.40625,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 320,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "320-room",
+      "identityBounds": {
+        "bottom": 121.59375,
+        "height": 67.59375,
+        "left": 18,
+        "right": 302,
+        "top": 54,
+        "width": 284
+      },
+      "mode": "room",
+      "passed": true,
+      "scrollTextHeight": 267,
+      "viewport": [
+        320,
+        740
+      ],
+      "visibleTextHeight": 48.59375,
+      "visualLineCount": 1.9997427983539091
+    },
+    {
+      "availableSceneHeight": 276.578125,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 700,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "700-home",
+      "identityBounds": {
+        "bottom": 107.421875,
+        "height": 85.421875,
+        "left": 224,
+        "right": 476,
+        "top": 22,
+        "width": 252
+      },
+      "mode": "home",
+      "passed": true,
+      "scrollTextHeight": 598,
+      "viewport": [
+        700,
+        480
+      ],
+      "visibleTextHeight": 66.421875,
+      "visualLineCount": 2.000056458897922
+    },
+    {
+      "availableSceneHeight": 276.578125,
+      "cssSha256": "b78f148ddd457cd5e85540da46ace13e64883b35e7d95a98c0fe18bc5c199bfe",
+      "documentWidth": 700,
+      "fullNameMarkupPreserved": true,
+      "fullTextLength": 253,
+      "h1Count": 1,
+      "id": "700-room",
+      "identityBounds": {
+        "bottom": 107.421875,
+        "height": 85.421875,
+        "left": 224,
+        "right": 476,
+        "top": 22,
+        "width": 252
+      },
+      "mode": "room",
+      "passed": true,
+      "scrollTextHeight": 598,
+      "viewport": [
+        700,
+        480
+      ],
+      "visibleTextHeight": 66.421875,
+      "visualLineCount": 2.000056458897922
+    }
+  ],
+  "complete": true,
+  "passed": true,
+  "scope": "Isolated browser CSS/DOM fixture. Actual stylesheet and identity markup; no application, DB, admin, physical device or assistive-technology test."
+}

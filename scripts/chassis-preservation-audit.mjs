@@ -1,4 +1,4 @@
-/** Compare protected cabin assets against the committed pre-chassis model. */
+/** Compare protected cabin assets. Args: [repo] [output] [exemptions.json] [baseline-ref]. */
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -18,13 +18,25 @@ const THREE = await import(pathToFileURL(req.resolve('three')).href);
 const ts = req('typescript');
 const hash = (value) => createHash('sha256').update(value).digest('hex');
 const sourcePath = 'components/spacecraft-model.ts';
-const baselineRef = 'bb326e6';
+const baselineRef = process.argv[5] || 'bb326e6';
 const baseline = execFileSync('git', ['show', baselineRef + ':' + sourcePath], {
   cwd: root,
   encoding: 'utf8',
 });
 const candidate = readFileSync(root + '/' + sourcePath, 'utf8');
-const exclusions = JSON.parse(readFileSync(exclusionsFile, 'utf8'));
+const exemptionConfig = JSON.parse(readFileSync(exclusionsFile, 'utf8'));
+const exclusions = Array.isArray(exemptionConfig)
+  ? exemptionConfig
+  : exemptionConfig.parts;
+const metadataExclusions = Array.isArray(exemptionConfig)
+  ? []
+  : exemptionConfig.metadata || [];
+assert(
+  metadataExclusions.every((key) =>
+    ['labelAnchors', 'sideLabelAnchors'].includes(key),
+  ),
+  'Only explicitly redesigned exterior label anchors may be exempted',
+);
 assert(Array.isArray(exclusions));
 for (const e of exclusions)
   assert(e.name && e.reason, 'Every exact-name exemption needs a reason');
@@ -354,6 +366,7 @@ const report = {
     'Changed chassis shadows are expected; source invariance does not prove every visual aperture is unobstructed. Current browser and raycast evidence is required separately.',
   ],
   exclusions,
+  metadataExclusions,
   counts: { baseline: before.assets.length, candidate: after.assets.length },
   states: [],
   differences: [],
@@ -413,6 +426,7 @@ for (const layout of ['wide', 'compact']) {
     'hotspots',
     'portals',
   ]) {
+    if (metadataExclusions.includes(key)) continue;
     if (
       digest(before.model.group.userData[key]) !==
       digest(after.model.group.userData[key])
