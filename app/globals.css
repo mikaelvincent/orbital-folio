@@ -3697,6 +3697,12 @@ body:has(#room-reader:target) .boot-loader {
 }
 .world-hotspot.locker-hotspot:focus-visible {
   opacity: 1;
+  color: transparent;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  outline: 2px solid #ffe6a0;
+  outline-offset: 2px;
 }
 .world-hotspot.portal-hotspot {
   min-width: 0;

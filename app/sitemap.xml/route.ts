@@ -3,8 +3,8 @@ export async function GET() {
   const d = await getPortfolio();
   const paths = [
     '',
+    '/case-studies',
     '/projects',
-    '/experience',
     '/about',
     '/contact',
     '/privacy',

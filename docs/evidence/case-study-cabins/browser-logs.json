@@ -1,0 +1,11 @@
+{
+  "logs": [
+    {
+      "level": "error",
+      "message": "RangeError: Safe NDC bounds must contain the view center.\n    at fitPerspectiveDistance (http://localhost:3000/lib/scene-controls.ts?t=1788924845332:80:91)\n    at solveApertureFraming (http://localhost:3000/lib/scene-controls.ts?t=1788924845332:119:31)\n    at pose (http://localhost:3000/components/spacecraft.tsx?t=1788932597598:406:23)\n    at go (http://localhost:3000/components/spacecraft.tsx?t=1788932597598:466:21)\n    at ResizeObserver.resize (http://localhost:3000/components/spacecraft.tsx?t=1788932597598:837:5)",
+      "timestamp": "2026-09-09T05:43:18.543Z",
+      "url": "http://localhost:3000/lib/scene-controls.ts?t=1788924845332"
+    }
+  ],
+  "note": "This tab retains development logs across navigation. The earlier development resize RangeError led to a guard for transient viewport sizes; no production-source error appears in this log window."
+}

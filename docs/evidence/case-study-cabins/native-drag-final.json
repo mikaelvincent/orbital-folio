@@ -1,0 +1,22 @@
+{
+  "before": {
+    "room": "home",
+    "url": "http://localhost:4173/"
+  },
+  "after": {
+    "gesture": {
+      "activated": false,
+      "dragged": true,
+      "maxExcursion": 246.98178070456936,
+      "pointerType": "mouse",
+      "response": [
+        0.6388888888888888,
+        0.36
+      ],
+      "startedOnControl": false
+    },
+    "response": "0.08155,0.04595",
+    "room": "home",
+    "url": "http://localhost:4173/"
+  }
+}

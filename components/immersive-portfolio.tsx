@@ -407,6 +407,7 @@ export function ImmersivePortfolio({
           <Spacecraft
             site={s}
             projects={data.projects}
+            caseStudies={data.experience}
             section={destination.section}
             slug={destination.slug}
             readingSurface={readingSurface}

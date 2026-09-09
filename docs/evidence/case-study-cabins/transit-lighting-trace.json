@@ -1,0 +1,6303 @@
+{
+  "lighting": {
+    "about": {
+      "dimmer": 0.1,
+      "emitterPolicy": "constant room emitters; diffuse idle/preview/selected levels; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 1,
+      "fixtureEmission": 0.1,
+      "interiorColor": 0.1,
+      "labels": 0.1,
+      "level": 0.1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 0.1,
+      "selected": false,
+      "targetLevel": 0.1,
+      "transit": false
+    },
+    "contact": {
+      "dimmer": 1,
+      "emitterPolicy": "constant room emitters; diffuse idle/preview/selected levels; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 1,
+      "fixtureEmission": 1,
+      "interiorColor": 1,
+      "labels": 1,
+      "level": 1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 1,
+      "selected": true,
+      "targetLevel": 1,
+      "transit": false
+    },
+    "experience": {
+      "dimmer": 0.1,
+      "emitterPolicy": "constant room emitters; diffuse idle/preview/selected levels; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 1,
+      "fixtureEmission": 0.1,
+      "interiorColor": 0.1,
+      "labels": 0.1,
+      "level": 0.1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 0.1,
+      "selected": false,
+      "targetLevel": 0.1,
+      "transit": false
+    },
+    "projects": {
+      "dimmer": 0.1,
+      "emitterPolicy": "constant room emitters; diffuse idle/preview/selected levels; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 1,
+      "fixtureEmission": 0.1,
+      "interiorColor": 0.1,
+      "labels": 0.1,
+      "level": 0.1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 0.1,
+      "selected": false,
+      "targetLevel": 0.1,
+      "transit": false
+    },
+    "walkway": {
+      "dimmer": 1,
+      "emitterPolicy": "constant room emitters; diffuse idle/preview/selected levels; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 1,
+      "fixtureEmission": 1,
+      "interiorColor": 1,
+      "labels": 1,
+      "level": 1,
+      "pointIntensities": [],
+      "screenEmission": 1,
+      "selected": false,
+      "targetLevel": 1,
+      "transit": false
+    }
+  },
+  "renderer": "8ac36e3e-1225-447e-8d4c-8b519ded0633",
+  "trace": [
+    {
+      "active": "contact",
+      "delta": 0.016,
+      "hover": "",
+      "position": [
+        2.24232,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.9061035183559696,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30741,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -0.64,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01729999999999927,
+      "hover": "",
+      "position": [
+        2.2232669333333344,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.8243126755485366,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30758.3,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -1.331999999999971,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        2.1935854666666663,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.761022888380508,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30775,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016799999999999274,
+      "hover": "",
+      "position": [
+        2.1524590666666685,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.7098112041352704,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30791.8,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -2.6719999999999713,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        2.099837066666661,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.669086107740417,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30808.4,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -3.336000000000059,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.036192666666666,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.6362658965170063,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30825,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -4.000000000000001,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        1.9619555999999956,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.6096735359987655,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30841.7,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -4.668000000000031,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015700000000000727,
+      "hover": "",
+      "position": [
+        1.881273299999991,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5894256987050335,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30857.4,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -5.29600000000006,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.0175,
+      "hover": "",
+      "position": [
+        1.7804266333333232,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5712295740766384,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30874.9,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -5.99600000000006,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016899999999997816,
+      "hover": "",
+      "position": [
+        1.6714779666666706,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5571802236616106,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30891.8,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -6.671999999999972,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        1.5524559666666542,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5460813401196382,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30908.4,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -7.336000000000059,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        1.4224115666666652,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.537136789107167,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30925,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        1.1282893166666723,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5240878628732542,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30958.3,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -9.331999999999972,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032400000000001455,
+      "hover": "",
+      "position": [
+        0.7996885166666574,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5158078728633539,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 30990.7,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -10.628000000000029,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016799999999999274,
+      "hover": "",
+      "position": [
+        0.6136117166666654,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.5127064291597396,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 31007.5,
+      "transitRoom": "experience",
+      "travelling": true,
+      "velocities": [
+        -11.299999999999995,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017599999999998544,
+      "hover": "",
+      "position": [
+        0.40656428076979423,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.4283028530767419,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 31025.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -11.988176573333286,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        0.007263235567866899,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.31294555334306245,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 31058.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -11.964089513740827,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -0.18940290906459503,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.2713891179473054,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 31075.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -11.655883954447756,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -0.376954312925685,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.2381218843017044,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 31091.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -11.165251878570272,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -0.724262406854929,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.18947296520718643,
+        "projects": 0.24088692560333877,
+        "walkway": 1
+      },
+      "time": 31125.1,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -9.866065220892734,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "position": [
+        -0.8726570373450602,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.17285976126334004,
+        "projects": 0.2889986467193281,
+        "walkway": 1
+      },
+      "time": 31140.9,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -9.23406522089262,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03409999999999855,
+      "hover": "",
+      "position": [
+        -1.1596312213774875,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.146769744785603,
+        "projects": 0.3645551499038567,
+        "walkway": 1
+      },
+      "time": 31175,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -7.87006522089268,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -1.2836242438997336,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.13764260478597992,
+        "projects": 0.390987282786395,
+        "walkway": 1
+      },
+      "time": 31191.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -7.202065220892649,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -1.4973997822775356,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.12438422763598432,
+        "projects": 0.4293834492361224,
+        "walkway": 1
+      },
+      "time": 31225.1,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -5.866065220892734,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -1.5865096649443655,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.11965116285480484,
+        "projects": 0.4430903713653946,
+        "walkway": 1
+      },
+      "time": 31241.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -5.2020652208926474,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -1.7351029725730998,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.11274624240616354,
+        "projects": 0.463086972146075,
+        "walkway": 1
+      },
+      "time": 31275,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -4.0531210667735635,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033,
+      "hover": "",
+      "position": [
+        -1.849877523113103,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.10829984230252172,
+        "projects": 0.47596371539678073,
+        "walkway": 1
+      },
+      "time": 31308,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -3.160035058568393,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017,
+      "hover": "",
+      "position": [
+        -1.8992465712992128,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.10665412201770984,
+        "projects": 0.4807297097013967,
+        "walkway": 1
+      },
+      "time": 31325,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -2.7811517056804393,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        -1.9792288134624023,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.10431042503354808,
+        "projects": 0.4875170395905325,
+        "walkway": 1
+      },
+      "time": 31358.4,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -2.157409250692088,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -2.078792791510446,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.10279585095076274,
+        "projects": 0.49190323542167824,
+        "walkway": 1
+      },
+      "time": 31391.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -3.4894092506920584,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -2.1445029926636736,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.10225023918480874,
+        "projects": 0.49348332323676247,
+        "walkway": 1
+      },
+      "time": 31408.4,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -4.157409250692088,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -2.310666970711716,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4957731182464589,
+        "walkway": 1
+      },
+      "time": 31441.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -5.48940925069206,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -2.409777171864945,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4965979964172352,
+        "walkway": 1
+      },
+      "time": 31458.4,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -6.1574092506920906,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -2.642541149912986,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.4977933742316957,
+        "walkway": 1
+      },
+      "time": 31491.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -7.489409250692063,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -2.919660727961025,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 1
+      },
+      "time": 31525,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -8.821409250692035,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        -3.241069236934154,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 1
+      },
+      "time": 31558.4,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -10.157409250692092,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -3.415478827484003,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 1
+      },
+      "time": 31575,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -10.584011832284675,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -3.5926875447747624,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 1
+      },
+      "time": 31591.7,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -10.58989846433301,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016099999999998546,
+      "hover": "",
+      "position": [
+        -3.7606011318648553,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.5,
+        "walkway": 1
+      },
+      "time": 31607.8,
+      "transitRoom": "projects",
+      "travelling": true,
+      "velocities": [
+        -10.358019356391669,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033600000000002184,
+      "hover": "",
+      "position": [
+        -4.089932217762043,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.3584402554468713,
+        "walkway": 1
+      },
+      "time": 31641.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -9.3664398244894,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -4.375794959613411,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.2676309014268442,
+        "walkway": 1
+      },
+      "time": 31674.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -8.09846392078531,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03370000000000073,
+      "hover": "",
+      "position": [
+        -4.621922725859935,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.20816572558094645,
+        "walkway": 1
+      },
+      "time": 31708.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -6.780023226427294,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -4.728192346906951,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1870571280236252,
+        "walkway": 1
+      },
+      "time": 31725.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -6.15837895023596,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -4.823060529174377,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1701590317316111,
+        "walkway": 1
+      },
+      "time": 31741.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -5.570213081437618,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -4.909909799673743,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1564674602298241,
+        "walkway": 1
+      },
+      "time": 31758.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -5.019988648701265,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032299999999999274,
+      "hover": "",
+      "position": [
+        -5.052382181682623,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1371054755290712,
+        "walkway": 1
+      },
+      "time": 31790.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -4.065130944864065,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01770000000000073,
+      "hover": "",
+      "position": [
+        -5.118906385836258,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1294785991374003,
+        "walkway": 1
+      },
+      "time": 31808.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -3.6099276629271055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -5.223221706331842,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11912056671534615,
+        "walkway": 1
+      },
+      "time": 31841.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -2.8650985274929734,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.3064757487294525,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.11238597206454952,
+        "walkway": 1
+      },
+      "time": 31875.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -2.261287866948181,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -5.340792344769067,
+        1.87,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10998181110302371,
+        "walkway": 1
+      },
+      "time": 31891.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -2.0049904337371673,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -5.398265779732615,
+        1.842277750000001,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10647445573128342,
+        "walkway": 1
+      },
+      "time": 31925,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -1.5710057305122975,
+        -1.331999999999971,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.422461257166333,
+        1.812596283333333,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10521096233075974,
+        "walkway": 1
+      },
+      "time": 31941.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -1.390005250815022,
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.462560072368371,
+        1.7190228433333408,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10337557117522088,
+        "walkway": 1
+      },
+      "time": 31975.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -1.0838708252691946,
+        -3.335999999999913,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -5.478945242699211,
+        1.6553784433333327,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.10272036087763388,
+        "walkway": 1
+      },
+      "time": 31991.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.9560934991211916,
+        -4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.5064675643375045,
+        1.4950050033333449,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32025.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.7428560845320014,
+        -5.335999999999915,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.517876515027275,
+        1.3991207292994972,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32041.8,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.6545106413108805,
+        -5.911257062760045,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -5.536493454193826,
+        1.1928053391042612,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32075.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.5065133294625699,
+        -6.24343224494676,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.5442679860454165,
+        1.0899199379469415,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32091.8,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.4458772888486989,
+        -6.104651709263009,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03320000000000073,
+      "hover": "",
+      "position": [
+        -5.556906165795498,
+        0.8980085653540476,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32125,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.344786511127715,
+        -5.54858005593924,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015900000000001455,
+      "hover": "",
+      "position": [
+        -5.561907580272954,
+        0.8138578625362994,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32140.9,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.30488368525158993,
+        -5.204721428623239,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017,
+      "hover": "",
+      "position": [
+        -5.56666164846068,
+        0.7297882119281862,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32157.9,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.26755687123999683,
+        -4.814140488615027,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033799999999999275,
+      "hover": "",
+      "position": [
+        -5.574411368536465,
+        0.5829729893986025,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32191.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.2058812628750047,
+        -4.033338521659639,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.577567597518494,
+        0.5197352946238079,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32208.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.1809010841581616,
+        -3.665207005453265,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -5.580292459838759,
+        0.46325677294037254,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32225,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.15880626684458585,
+        -3.31647822959375,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.582726493357451,
+        0.41153559260220907,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32241.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.1394929749395232,
+        -2.9898729039918828,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.586720401258041,
+        0.3236365398151596,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32275.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.10740711043460986,
+        -2.405834056334726,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015700000000000727,
+      "hover": "",
+      "position": [
+        -5.588258118654023,
+        0.2887351586092365,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32290.8,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.09491888725832884,
+        -2.1638630291653125,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03420000000000073,
+      "hover": "",
+      "position": [
+        -5.591029917839825,
+        0.2243258278149274,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32325,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.07259064785898568,
+        -1.7085841822116676,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.592141860729159,
+        0.188355405305324,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32341.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.0637056917603328,
+        -2.3765841822116966,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.59311746268859,
+        0.14122938279571962,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32358.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.05588742206307882,
+        -3.0445841822117257,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033299999999999275,
+      "hover": "",
+      "position": [
+        -5.594699588693768,
+        0.012122479528072584,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32391.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.04292064156011828,
+        -4.376584182211697,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015700000000000727,
+      "hover": "",
+      "position": [
+        -5.595313962884293,
+        -0.06398459213265492,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32407.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.0379213043817681,
+        -5.004584182211725,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.034299999999999276,
+      "hover": "",
+      "position": [
+        -5.596423764406835,
+        -0.25870384667906615,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32441.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.028964967845796843,
+        -5.9669106847808155,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01589999999999782,
+      "hover": "",
+      "position": [
+        -5.596843136841888,
+        -0.3546738117803079,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32457.6,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.025548604437248545,
+        -6.042841395637488,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016900000000001456,
+      "hover": "",
+      "position": [
+        -5.59723875859791,
+        -0.45579308057202017,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32474.5,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.022385475003945627,
+        -5.937669755819625,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03390000000000146,
+      "hover": "",
+      "position": [
+        -5.597887168045332,
+        -0.6472850174831345,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32508.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.017140546052402204,
+        -5.41350105417191,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016299999999999273,
+      "hover": "",
+      "position": [
+        -5.5981409039154375,
+        -0.7314723173268224,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32524.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.015064640506745736,
+        -5.079216949077615,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033,
+      "hover": "",
+      "position": [
+        -5.598564374858661,
+        -0.8840591659779696,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32557.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.011607318838028536,
+        -4.346642091916503,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.0165,
+      "hover": "",
+      "position": [
+        -5.5987381919939185,
+        -0.9512346141879972,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32574.2,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.010192241696145556,
+        -3.980131236093977,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.0175,
+      "hover": "",
+      "position": [
+        -5.598901155002927,
+        -1.0164915614200989,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32591.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.008891438669769602,
+        -3.605175715810603,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.59915560964018,
+        -1.1234398379315371,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32625.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.0068407571007614255,
+        -2.944330250714245,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000002182,
+      "hover": "",
+      "position": [
+        -5.599258574308972,
+        -1.1685967835334643,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32641.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.005999346361489053,
+        -2.647579492040688,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000000728,
+      "hover": "",
+      "position": [
+        -5.599350473650673,
+        -1.209741486114022,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32658.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.005265159373126408,
+        -2.3743485229508665,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03339999999999782,
+      "hover": "",
+      "position": [
+        -5.5995010868607205,
+        -1.2791806723695636,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32691.8,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        -0.004047898337475919,
+        -1.8940897536995227,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03320000000000073,
+      "hover": "",
+      "position": [
+        -5.5720794770855235,
+        -1.333680290080846,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32725,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        1.3239521016625533,
+        -1.5002940437354917,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032400000000001455,
+      "hover": "",
+      "position": [
+        -5.5029394289916524,
+        -1.3758263026539443,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32757.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        2.6199521016626113,
+        -1.1893961684690428,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017599999999998544,
+      "hover": "",
+      "position": [
+        -5.448568005335728,
+        -1.3950739050539849,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32775,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        3.3239521016625524,
+        -1.0475334291920786,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        -5.310774565140191,
+        -1.425355861637447,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32808.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        4.6599521016626095,
+        -0.8196610889302787,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -5.225516298375775,
+        -1.4379691977976092,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32825.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        5.327952101662493,
+        -0.7243209508466625,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -5.128805493488186,
+        -1.4489225284948946,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32841.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        5.991952101662434,
+        -0.6392091584293035,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000004364,
+      "hover": "",
+      "position": [
+        -5.021302826723727,
+        -1.458749885933124,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32858.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        6.659952101662609,
+        -0.5640735684732004,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03329999999999563,
+      "hover": "",
+      "position": [
+        -4.7718041717384,
+        -1.474821955064961,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32891.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        7.991952101662435,
+        -0.437729153642897,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000004364,
+      "hover": "",
+      "position": [
+        -4.630901504973931,
+        -1.48154579728622,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32908.4,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        8.659952101662611,
+        -0.3857663229998982,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -4.478843238209526,
+        -1.4874684643578489,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32925.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        9.327952101662497,
+        -0.33971421422276404,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -4.3174578933565,
+        -1.4925933860990503,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32941.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        9.814565511673123,
+        -0.2988376215024605,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        -3.989746865718698,
+        -1.5010883454950863,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32975,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        9.717437735386316,
+        -0.23103762878079845,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -3.831622379745438,
+        -1.504633608810464,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.17806020786695315,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 32991.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        9.328101538034108,
+        -0.20329667479645036,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        -3.540849730690637,
+        -1.5104649868878235,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.29145297672447024,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33025.1,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        8.253319608530742,
+        -0.15701695134321253,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01630000000000291,
+      "hover": "",
+      "position": [
+        -3.4135318956176657,
+        -1.5127927383629585,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.33127594882599837,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33041.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        7.661749211496416,
+        -0.13826945396991727,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033699999999997086,
+      "hover": "",
+      "position": [
+        -3.1803750836920592,
+        -1.5167864470904735,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.3911289072429284,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33075.1,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        6.427904044373556,
+        -0.10642615027830483,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        -2.990347846835168,
+        -1.5198055052774802,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4293834492361257,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33108.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        5.288809984740449,
+        -0.0820056185475996,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01569999999999709,
+      "hover": "",
+      "position": [
+        -2.9131181822534775,
+        -1.520980526611995,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4424206182950981,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33124.1,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        4.798533955162481,
+        -0.07255083164220713,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017599999999998544,
+      "hover": "",
+      "position": [
+        -2.8346828300414337,
+        -1.5221472708858768,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4541963149675155,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33141.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        4.29009113118573,
+        -0.06329948342115432,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01580000000000291,
+      "hover": "",
+      "position": [
+        -2.771948390559152,
+        -1.5230592046958646,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4627010734614617,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33157.5,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        3.8669121207038977,
+        -0.05593283845136844,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03419999999999709,
+      "hover": "",
+      "position": [
+        -2.6565003466045085,
+        -1.5246937980413775,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4760883796686997,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33191.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        3.0685382041569693,
+        -0.04283075596621896,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "position": [
+        -2.6097736300061176,
+        -1.525338848917542,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4807297097013976,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33208.3,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        2.7331687414218098,
+        -0.03759197493037081,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.0335,
+      "hover": "",
+      "position": [
+        -2.5301296410747427,
+        -1.5264182320794906,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4875332568955329,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33241.8,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        2.156462640335766,
+        -0.02893746907070464,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -2.497399708476873,
+        -1.5268539808129884,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4899530958014279,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33258.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        1.9123679291055744,
+        -0.02539313083038863,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -2.4573876008537243,
+        -1.5272364154475024,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.49190323542167824,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33275,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        2.5763679291055164,
+        -0.022287394951891755,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        -2.344563472021594,
+        -1.5278747461147024,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4947550560936129,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33308.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        3.9123679291055735,
+        -0.017170242083581,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03329999999999563,
+      "hover": "",
+      "position": [
+        -2.186559369982403,
+        -1.5283614448053344,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.49659799641723507,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33341.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        5.2443679291054,
+        -0.01321372822453074,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        -1.984199667943173,
+        -1.5287361696200137,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.4977933742316957,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33375,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        6.576367929105518,
+        -0.010176575399822328,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        -1.866937256860466,
+        -1.5288921627571854,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33391.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        7.244367929105402,
+        -0.008940338854038114,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        -1.5979775548212298,
+        -1.5291456531036938,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33425,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        8.576367929105519,
+        -0.0068833850708811,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01680000000000291,
+      "hover": "",
+      "position": [
+        -1.4463681736122294,
+        -1.529251734000677,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33441.8,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        9.248367929105637,
+        -0.006041670230043158,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -1.2845784659890909,
+        -1.5293427200012388,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33458.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        9.912367929105578,
+        -0.005302354991084709,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03329999999999563,
+      "hover": "",
+      "position": [
+        -0.9267743639499256,
+        -1.5294930746163664,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33491.7,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        11.2443679291054,
+        -0.0040830256850751135,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016700000000004364,
+      "hover": "",
+      "position": [
+        -0.7315563528671458,
+        -1.529555659362973,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33508.4,
+      "transitRoom": "about",
+      "travelling": true,
+      "velocities": [
+        11.912367929105578,
+        -0.0035868082906500643,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        -0.5323563528671633,
+        -1.52960967794298,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.42235858601986,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33525,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        12,
+        -0.0031480618082981486,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        -0.13275635286712834,
+        -1.5296989501250795,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.3090899510362779,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33558.3,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        12,
+        -0.0024243577345914695,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015799999999995634,
+      "hover": "",
+      "position": [
+        0.055946822750081227,
+        -1.5297338821762054,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.2702664472982561,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33574.1,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        11.900100407470624,
+        -0.0021426400098457123,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017599999999998544,
+      "hover": "",
+      "position": [
+        0.26091821204002297,
+        -1.5297683347460016,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.2354448500961498,
+        "contact": 0.1,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33591.7,
+      "transitRoom": "",
+      "travelling": true,
+      "velocities": [
+        11.493186795137342,
+        -0.0018690259793724647,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        0.6196539360099514,
+        -1.5298213320954008,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.18785296344790145,
+        "contact": 0.240549859561183,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33625,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        10.290040013583948,
+        -0.001439176031626138,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016199999999997088,
+      "hover": "",
+      "position": [
+        0.7784793842299843,
+        -1.5298425422546529,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.17116951361142452,
+        "contact": 0.2898199494158616,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33641.2,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        9.642040013584063,
+        -0.0012677876620189631,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03390000000000146,
+      "hover": "",
+      "position": [
+        1.077763500690496,
+        -1.529879325955242,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.14580368503248442,
+        "contact": 0.3647311138076664,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33675.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        8.28604001358401,
+        -0.0009734751383946176,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        1.20704496491598,
+        -1.5298939883502254,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.13691302785392676,
+        "contact": 0.390987282786395,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33691.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        7.622040013584069,
+        -0.0008545158899022181,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032400000000001455,
+      "hover": "",
+      "position": [
+        1.4277550613561123,
+        -1.529917672522627,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.12422450071169344,
+        "contact": 0.4284594410359732,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33724.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        6.326040013584009,
+        -0.0006629868119575747,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016900000000001456,
+      "hover": "",
+      "position": [
+        1.5270488709190235,
+        -1.5299279460763788,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.11944645025246203,
+        "contact": 0.4425701302377836,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33741,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        5.650040013583951,
+        -0.0005815137586759696,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03409999999999855,
+      "hover": "",
+      "position": [
+        1.6931414340501625,
+        -1.529944892311511,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.11248296040946816,
+        "contact": 0.4631349279042896,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33775.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        4.38808423744992,
+        -0.00044537753193015184,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        1.7594856495155904,
+        -1.5299515985563097,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.11005997366734512,
+        "contact": 0.4702905687142664,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33791.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        3.8714241079674,
+        -0.0003907970579199074,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032400000000001455,
+      "hover": "",
+      "position": [
+        1.8673527595404176,
+        -1.5299624255983253,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.10660194661431154,
+        "contact": 0.4805029231908783,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33824.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        3.0291444569149197,
+        -0.00030300305698840443,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017599999999998544,
+      "hover": "",
+      "position": [
+        1.9161821128437593,
+        -1.529967296614804,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.10525176676736456,
+        "contact": 0.4844903168673112,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33841.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        2.652308180003588,
+        -0.00026421826816102614,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        1.9916840158762832,
+        -1.529974785987652,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.10340642906336162,
+        "contact": 0.4899400263326559,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33875,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        2.055171557996041,
+        -0.00020333397133140288,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.0232400760153166,
+        -1.52997790216754,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.10274166266143651,
+        "contact": 0.49190323542167824,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33891.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        1.8100900890246696,
+        -0.00017857673358013238,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        2.074705613421661,
+        -1.5299829636862483,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.4947482332326359,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33925,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        1.39988624988265,
+        -0.00013741339934018057,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.0961887915864805,
+        -1.529985069547545,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.4957731182464589,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33941.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        1.2319710259343306,
+        -0.00012067744368308354,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        2.1311864497163766,
+        -1.5299884898327116,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.4972583373385637,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33975,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.9514493318944393,
+        -0.00009285354688931152,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.1457821147844514,
+        -1.5299899127850447,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.4977933742316957,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 33991.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.836837794804179,
+        -0.00008154216329707875,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        2.169539724805711,
+        -1.5299922238054928,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34025,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.6456258570029115,
+        -0.00006273805133561182,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.1794411118432557,
+        -1.529993185232532,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34041.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.5676116156536228,
+        -0.00005509407530809591,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "position": [
+        2.187994254897889,
+        -1.5299940147660795,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34058.3,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.4985471985832032,
+        -0.00004833908509305273,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.0335,
+      "hover": "",
+      "position": [
+        2.2023196747645355,
+        -1.5299954022583993,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34091.8,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.3842467390135326,
+        -0.000037189005659803686,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.2081081049623963,
+        -1.5299959621565666,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34108.4,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.337364778375231,
+        -0.00003262585427145336,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.213190854293802,
+        -1.5299964534371353,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34125,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.2962469394726661,
+        -0.000028629057429505233,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.217732232257615,
+        -1.5299968921290148,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34141.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.26028627404044136,
+        -0.00002513805056629278,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        2.2251131162324085,
+        -1.5299976044698853,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34175,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.20043765152922335,
+        -0.000019336383401888145,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.2281854597574156,
+        -1.5299979007696995,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34191.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.1760805974841852,
+        -0.000016978729619825785,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016600000000005822,
+      "hover": "",
+      "position": [
+        2.2308373208915913,
+        -1.5299981563948932,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34208.3,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.15454405476367072,
+        -0.000014895594446853624,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.015799999999995634,
+      "hover": "",
+      "position": [
+        2.233063614620697,
+        -1.5299983709145837,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34224.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.13654472219165348,
+        -0.000013155852621585265,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03430000000000291,
+      "hover": "",
+      "position": [
+        2.237063402963948,
+        -1.5299987561296706,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34258.4,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.10445688077892704,
+        -0.000010057321940337587,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.01669999999999709,
+      "hover": "",
+      "position": [
+        2.2386639676882982,
+        -1.5299989102062077,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34275.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.09171428168144367,
+        -0.00000882792723946543,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.240044715982577,
+        -1.5299990430833337,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34291.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.0804565984371192,
+        -0.000007742272163968249,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        2.2423478893352677,
+        -1.5299992646562488,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34325.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.06193079448532488,
+        -0.0000059568575940718985,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.243280199231042,
+        -1.5299993543178974,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34341.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.05432495901425998,
+        -0.000005224253721273093,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.033400000000001456,
+      "hover": "",
+      "position": [
+        2.244835204823095,
+        -1.5299995038277494,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34375.1,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.041810938226390225,
+        -0.000004019467567891218,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.016599999999998546,
+      "hover": "",
+      "position": [
+        2.2454646033901886,
+        -1.5299995643279136,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34391.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.036674050184214546,
+        -0.000003525117505108397,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.032900000000001456,
+      "hover": "",
+      "position": [
+        2.2464934414891027,
+        -1.529999663204644,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34424.6,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.02830416827090063,
+        -0.0000027199201107629517,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.017099999999998543,
+      "hover": "",
+      "position": [
+        2.246936621227382,
+        -1.5299997057894044,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.5,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34441.7,
+      "transitRoom": "contact",
+      "travelling": true,
+      "velocities": [
+        0.02477429110735438,
+        -0.0000023804531907448407,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "active": "contact",
+      "delta": 0.03330000000000291,
+      "hover": "",
+      "position": [
+        2.247638682070775,
+        -1.5299997732394568,
+        4.748383646772944
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "roomLevels": {
+        "about": 0.1,
+        "contact": 0.6756873244514787,
+        "experience": 0.1,
+        "projects": 0.1,
+        "walkway": 1
+      },
+      "time": 34475,
+      "transitRoom": "",
+      "travelling": false,
+      "velocities": [
+        0.01905779563856927,
+        -0.0000018308347769951717,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "travelled": [
+    "experience",
+    "projects",
+    "about",
+    "contact"
+  ],
+  "travelling": "false",
+  "url": "http://localhost:3000/contact"
+}

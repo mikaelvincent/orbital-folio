@@ -29,6 +29,13 @@
       "when": 1788896742585,
       "tag": "0003_interactive_view",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1788932262763,
+      "tag": "0004_case_studies_room",
+      "breakpoints": true
     }
   ]
 }

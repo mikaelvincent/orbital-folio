@@ -25,6 +25,7 @@ import {
 type Props = {
   site: Record<string, any>;
   projects: Record<string, any>[];
+  caseStudies: Record<string, any>[];
   section: string;
   slug?: string;
   readingSurface: boolean;
@@ -183,6 +184,11 @@ export function Spacecraft(props: Props) {
               category: p.category,
               sample: p.sample && (s.sampleMode || s._preview),
             })),
+            caseStudies: latest.current.caseStudies.map((p) => ({
+              title: String(p.title),
+              slug: String(p.slug),
+              sample: p.sample && (s.sampleMode || s._preview),
+            })),
             labels: {
               projects: s.projectsLabel,
               experience: s.experienceLabel,
@@ -286,6 +292,12 @@ export function Spacecraft(props: Props) {
             slot?: number;
             portalId?: string;
           }[] = [];
+          const recordAtSlot = (section: string, slot: number) =>
+            section === 'experience'
+              ? latest.current.caseStudies[slot]
+              : latest.current.projects[
+                  latest.current.projectPage * PROJECTS_PER_PAGE + slot
+                ];
           const addHotspot = (
             section: string,
             position: [number, number, number],
@@ -312,21 +324,17 @@ export function Spacecraft(props: Props) {
                 return;
               }
               const p =
-                slot === undefined
-                  ? undefined
-                  : latest.current.projects[
-                      latest.current.projectPage * PROJECTS_PER_PAGE + slot
-                    ];
+                slot === undefined ? undefined : recordAtSlot(section, slot);
               latest.current.onOpen(section, p?.slug);
             };
             const enter = () => {
               if (down?.gesture.dragging) return;
-              hoveredProject =
+              const slug =
                 slot === undefined
                   ? ''
-                  : latest.current.projects[
-                      latest.current.projectPage * PROJECTS_PER_PAGE + slot
-                    ]?.slug || '';
+                  : recordAtSlot(section, slot)?.slug || '';
+              hoveredProject = section === 'projects' ? slug : '';
+              hoveredCaseStudy = section === 'experience' ? slug : '';
               const portal =
                 portalId &&
                 model.group.userData.portals.find(
@@ -339,6 +347,7 @@ export function Spacecraft(props: Props) {
             const leave = () => {
               if (down?.gesture.dragging) return;
               hoveredProject = '';
+              hoveredCaseStudy = '';
               hoverSection('');
               latest.current.onHover('');
             };
@@ -418,6 +427,7 @@ export function Spacecraft(props: Props) {
           let active = 'home',
             hovered = '',
             hoveredProject = '',
+            hoveredCaseStudy = '',
             reading = false,
             distance = 23,
             nextDistance = 23,
@@ -451,8 +461,12 @@ export function Spacecraft(props: Props) {
             quaternion: number[];
             hover: string;
             active: string;
+            travelling: boolean;
+            transitRoom: string;
+            roomLevels: Record<string, number | undefined>;
             velocities: number[];
           }[] = [];
+          const flightTrace: typeof cameraTrace = [];
           const background = createOrbitalEnvironment(
             THREE,
             () =>
@@ -696,6 +710,7 @@ export function Spacecraft(props: Props) {
               model.setProjectPage(latest.current.projectPage);
             const desired = pose(active, reading);
             itinerary = [];
+            flightTrace.length = 0;
             travelledRoute = [];
             itineraryPlan = null;
             if (
@@ -715,7 +730,7 @@ export function Spacecraft(props: Props) {
                 ],
               });
               const circulation: string[] = model.group.userData
-                .circulation || ['projects', 'experience', 'about', 'contact'];
+                .circulation || ['experience', 'projects', 'about', 'contact'];
               const nodes: CabinRouteNode[] = [];
               for (const [index, room] of circulation.entries()) {
                 const next = roomNode(room);
@@ -782,6 +797,7 @@ export function Spacecraft(props: Props) {
               pointerCurrent.set(0, 0);
             }
             hoveredProject = '';
+            hoveredCaseStudy = '';
             travelling = true;
             el.dataset.travelling = 'true';
             el.dataset.activeRoom = active;
@@ -789,6 +805,7 @@ export function Spacecraft(props: Props) {
           };
           const draw = (now: number, delta: number, rawDelta: number) => {
             if (destroyed) return;
+            const wasTravelling = travelling;
             const started = performance.now();
             if (!stop) {
               elapsed += delta;
@@ -985,12 +1002,33 @@ export function Spacecraft(props: Props) {
             camera.lookAt(cameraTarget);
             model.group.rotation.z = roll;
             cssGroup.rotation.z = roll;
+            // The camera's current focus selects the cabin being crossed, rather
+            // than lighting the eventual destination for the whole journey.
+            const transitRoom = travelling
+              ? Object.entries(model.group.userData.innerApertureBounds).find(
+                  ([, value]) => {
+                    const bounds = value as {
+                      center: number[];
+                      size: number[];
+                    };
+                    return (
+                      Math.abs(currentTarget.x - bounds.center[0]) <=
+                        bounds.size[0] * 0.5 &&
+                      Math.abs(currentTarget.y - bounds.center[1]) <=
+                        bounds.size[1] * 0.5
+                    );
+                  },
+                )?.[0] || ''
+              : '';
             model.update(elapsed, effectiveHover, stop, {
               activeRoom: active,
+              travelling,
+              transitRoom,
               labelPortrait: false,
               hoveredPortal: effectiveHover,
               selectedProject: latest.current.slug,
               hoveredProject,
+              hoveredCaseStudy,
               projectPage: latest.current.projectPage,
               reading,
               delta,
@@ -1026,9 +1064,7 @@ export function Spacecraft(props: Props) {
               const project =
                 h.slot === undefined
                   ? undefined
-                  : latest.current.projects[
-                      latest.current.projectPage * PROJECTS_PER_PAGE + h.slot
-                    ];
+                  : recordAtSlot(h.section, h.slot);
               h.object.visible =
                 active === h.section &&
                 !reading &&
@@ -1098,13 +1134,23 @@ export function Spacecraft(props: Props) {
             }
             cssRenderer.render(cssScene, camera);
             if (auditMotion) {
-              cameraTrace.push({
+              const sample = {
                 time: now,
                 delta,
                 position: camera.position.toArray(),
                 quaternion: camera.quaternion.toArray(),
                 hover: hovered,
                 active,
+                travelling,
+                transitRoom,
+                roomLevels: Object.fromEntries(
+                  Object.entries(model.group.userData.lightingState || {}).map(
+                    ([section, state]) => [
+                      section,
+                      (state as { level?: number }).level,
+                    ],
+                  ),
+                ),
                 velocities: [
                   ...targetMotion,
                   ...hoverMotion,
@@ -1113,7 +1159,14 @@ export function Spacecraft(props: Props) {
                   ...pointerMotion,
                   ...dragMotion,
                 ].map((s) => s.velocity),
-              });
+              };
+              cameraTrace.push(sample);
+              if (wasTravelling) {
+                flightTrace.push(sample);
+                if (flightTrace.length > 1800) flightTrace.shift();
+                if (!travelling)
+                  el.dataset.lastFlightTrace = JSON.stringify(flightTrace);
+              }
               if (cameraTrace.length > 1200) cameraTrace.shift();
             }
             if (firstFrame) {
@@ -1142,6 +1195,8 @@ export function Spacecraft(props: Props) {
                 renderCpuMs: renderCost.toFixed(2),
                 hoverRoom: effectiveHover,
                 hoverProject: hoveredProject,
+                hoverCaseStudy: hoveredCaseStudy,
+                transitRoom,
                 hoverOffset: hoverMotion
                   .map((s) => s.value.toFixed(5))
                   .join(','),
@@ -1235,6 +1290,9 @@ export function Spacecraft(props: Props) {
               frame = requestAnimationFrame(loop);
           }
           const resize = () => {
+            // Skip hidden/transient panel sizes while the native short-screen
+            // fallback or a browser resize settles; these cannot frame a cabin.
+            if (el.clientWidth < 240 || el.clientHeight < 480) return;
             const w = Math.max(1, el.clientWidth),
               h = Math.max(1, el.clientHeight);
             // Bound retina fill cost without changing cloud detail or HTML sharpness.
@@ -1290,6 +1348,7 @@ export function Spacecraft(props: Props) {
                   while (object) {
                     if (
                       object.userData.projectSlug ||
+                      object.userData.caseStudySlug ||
                       object.userData.openReader
                     )
                       return true;
@@ -1299,10 +1358,15 @@ export function Spacecraft(props: Props) {
                 });
               let object: Three.Object3D | null = hit?.object || null;
               while (object) {
-                if (object.userData.projectSlug || object.userData.openReader)
+                if (
+                  object.userData.projectSlug ||
+                  object.userData.caseStudySlug ||
+                  object.userData.openReader
+                )
                   return {
                     section: active,
-                    slug: object.userData.projectSlug as string | undefined,
+                    slug: (object.userData.projectSlug ||
+                      object.userData.caseStudySlug) as string | undefined,
                     open: true,
                   };
                 object = object.parent;
@@ -1353,8 +1417,14 @@ export function Spacecraft(props: Props) {
             if (performance.now() - lastPick > 70 && !travelling) {
               const { section, slug } = pick(event);
               const nextProject = active === 'projects' ? slug || '' : '';
-              if (hoveredProject !== nextProject) aoDirty = true;
+              const nextCaseStudy = active === 'experience' ? slug || '' : '';
+              if (
+                hoveredProject !== nextProject ||
+                hoveredCaseStudy !== nextCaseStudy
+              )
+                aoDirty = true;
               hoveredProject = nextProject;
+              hoveredCaseStudy = nextCaseStudy;
               if (hovered !== section) {
                 hoverSection(section);
                 latest.current.onHover(section);
@@ -1461,6 +1531,7 @@ export function Spacecraft(props: Props) {
             if (down?.gesture.dragging) return;
             cancelInput();
             hoveredProject = '';
+            hoveredCaseStudy = '';
             pointerGoal.set(0, 0);
             hoverSection('');
             latest.current.onHover('');

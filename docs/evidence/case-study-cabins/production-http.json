@@ -1,0 +1,63 @@
+{
+  "scope": "Final rebuild/restart: Case studies render route and referenced assets only.",
+  "status": 200,
+  "headingPresent": true,
+  "canonical": "https://mikaelvincent.dev/case-studies",
+  "assets": [
+    {
+      "url": "/_next/static/css/index.Dc7X6mZb.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/index-HByTX5Sr.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/rolldown-runtime-hePW80VL.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/framework-DTZGTDtF.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/vinext-DB1i0UkR.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/layout-segment-context-BfAnCXC7.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/immersive-portfolio-COswmc36.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/radio-ChOZJHGg.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/Icon-jpk45vUa.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/contact-form-CEFmDbbS.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "/_next/static/chunks/orbit-CTRZ45eY.js",
+      "status": 200,
+      "type": "text/javascript; charset=utf-8"
+    }
+  ]
+}

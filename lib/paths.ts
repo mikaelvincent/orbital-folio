@@ -1,4 +1,7 @@
 export function pathFor(path: string, site: Record<string, any>) {
+  // Preserve existing links and persisted section IDs, with one public URL.
+  if (!site._preview)
+    path = path.replace(/^\/experience(?=$|[?#])/, '/case-studies');
   if (
     !site._preview ||
     !path.startsWith('/') ||
@@ -12,7 +15,7 @@ export function pathFor(path: string, site: Record<string, any>) {
   if (!parts.length) return '/admin/preview?section=home';
   return (
     '/admin/preview?section=' +
-    encodeURIComponent(parts[0]) +
+    encodeURIComponent(parts[0] === 'case-studies' ? 'experience' : parts[0]) +
     (parts[1] ? '&slug=' + encodeURIComponent(parts[1]) : '') +
     (hash ? '#' + hash : '')
   );

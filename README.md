@@ -2,7 +2,7 @@
 
 A reusable developer portfolio with a real, editable Three.js spacecraft, server-rendered case studies, and an authenticated content studio. The initial identity is Mikael Vincent; all career/project/personal copy is clearly marked sample content. Identity and domain references are database records, not rendering constants.
 
-Interactive view makes the ship the main interface. Four cabins retain Experience/Projects above About/Contact on desktop and phones. Open side doorways and a tall left walkway connect Projects → Experience → stairs → About → Contact; the original docking assembly remains. Nine stacked project compartments page through the database collection, with a different piece of secured equipment in every spare bay. Click a room or use the bottom-left navigation and persistent Home control to approach it with a fixed camera. Physical signs sit above the side doors; the published domain/name appears on paired hull bands.
+Interactive view makes the ship the main interface. Four cabins retain Projects/Case studies above About/Contact on desktop and phones. Open side doorways and a tall left walkway connect Case studies → Projects → stairs → About → Contact; the original docking assembly remains. Nine stacked project compartments page through the database collection, with a different piece of secured equipment in every spare bay. Click a room or use the bottom-left navigation and persistent Home control to approach it with a fixed camera. Physical signs sit above the side doors; the published domain/name appears on one enlarged upper hull plate. Idle, hovered/passing and selected cabins have three distinct brightness levels.
 
 Small cursor movements add depth. Mouse/touch dragging gives a larger, bounded view without free orbiting; camera springs preserve velocity across changing targets. Almost-black idle interiors brighten on hover or selection while the hull, walkway and antennas remain lit. A procedural ocean planet has moving cloud fronts, sheets, cumulus and cirrus. Meteors arrive frequently, sometimes in small groups. Reading view remains available; reduced-motion preferences are respected. Physical lockers, mission console, journal and communications instrument retain their attached semantic HTML readers. Those separate reading interfaces were intentionally outside the latest render-only revision.
 
@@ -43,11 +43,11 @@ npm run typecheck
 npm run lint
 npm test
 node scripts/database-roundtrip.mjs
-node scripts/spacecraft-render-audit.mjs
+node scripts/case-study-cabins-audit.mjs
 node scripts/orbital-environment-audit.mjs
 node scripts/render-input-audit.mjs
-node scripts/render-framing-audit.mjs
-node scripts/spacecraft-branding-audit.mjs
+node scripts/room-lighting-audit.mjs
+node scripts/case-studies-routing-migration-audit.mjs
 npm run build
 npm audit
 ```
@@ -56,7 +56,7 @@ The HTTP integration suite creates temporary records and restores existing conte
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report near the top-right of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. **Toggle reduced-motion diagnostic** exercises the renderer pause path without opening a reader; **Run renderer frame control** then samples host display callbacks. This development-only override does not claim to emulate an operating-system preference. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/NATURAL-ORBIT-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/CASE-STUDY-CABINS-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 
@@ -80,3 +80,5 @@ Only the five shared interface components used by the studio are retained; unuse
 Read [OPERATIONS.md](docs/OPERATIONS.md) for hosting, authentication boundaries, secrets, backups, restoration, custom domains, independent demo subdomains, and maintenance tradeoffs. Read [ASSETS.md](docs/ASSETS.md) to edit the spacecraft.
 
 Current delivery: the revised local experience and seeded studio are runnable. The latest critic report evaluates this requested local revision. Public hosting remains a separate unresolved provider sign-in callback incident, documented in [OPERATIONS.md](docs/OPERATIONS.md#current-hosting-incident); no live domain deployment is claimed. The original launch review is retained in [CRITIC-REPORT-INITIAL.md](docs/CRITIC-REPORT-INITIAL.md).
+
+The Case studies room uses `/case-studies` and the existing editable experience records for this design iteration. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels. The separate reading interfaces are deferred during this render pass.

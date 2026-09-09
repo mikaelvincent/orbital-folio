@@ -29,7 +29,7 @@ export const seedSite = {
     'Demonstration content. Projects, experience, and personal copy are samples, not claims about the owner’s history.',
   homeLabel: 'Overview',
   projectsLabel: 'Projects',
-  experienceLabel: 'Experience',
+  experienceLabel: 'Case studies',
   aboutLabel: 'About',
   contactLabel: 'Contact',
   exploreLabel: 'Explore the ship',
@@ -51,7 +51,7 @@ export const seedSite = {
   projectsHeading: 'The payload rack',
   projectsIntro:
     'Useful products, examined closely. Open a locker to find the problem, the system, and the reasoning behind it.',
-  experienceHeading: 'The mission log',
+  experienceHeading: 'The case study rack',
   experienceIntro:
     'A record of responsibilities, decisions, and lessons. These entries show the shape of a story; the real chapters are still to come.',
   aboutHeading: 'A little more human',
@@ -61,7 +61,7 @@ export const seedSite = {
   contactIntro:
     'Have a role in mind or something worth building? Leave a message at the communications station.',
   projectsRoom: 'PAYLOAD BAY',
-  experienceRoom: 'MISSION CONTROL',
+  experienceRoom: 'CASE STUDIES',
   aboutRoom: 'CREW QUARTERS',
   contactRoom: 'COMMUNICATIONS',
   sampleLabel: 'SAMPLE / CONCEPT',

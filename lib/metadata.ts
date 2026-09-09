@@ -1,4 +1,5 @@
 import type { Portfolio } from './content-types';
+import { pathFor } from './paths';
 export function socialImage(data: Portfolio, id?: string) {
   const media = data.media.find((m) => m.id === id);
   return media
@@ -11,9 +12,15 @@ export function pageMetadata(
   record?: Record<string, any>,
 ) {
   const s = data.site;
-  const path = section === 'home' ? '' : '/' + section + (record ? '/' + record.slug : '');
+  const path =
+    section === 'home'
+      ? ''
+      : pathFor('/' + section + (record ? '/' + record.slug : ''), s);
   const title =
-    record?.seoTitle || (section === 'home' ? s.seoTitle : `${s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
+    record?.seoTitle ||
+    (section === 'home'
+      ? s.seoTitle
+      : `${s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
   const description =
     record?.seoDescription || s[section + 'Intro'] || s.seoDescription;
   const images = socialImage(data, record ? record.mediaId : s.seoImageId);

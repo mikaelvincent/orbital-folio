@@ -1,0 +1,246 @@
+{
+  "at": "2026-09-09T05:41:12.496Z",
+  "scope": "Isolated in-memory SQLite migration and pure URL helpers only. No UI, admin/contact/reader workflows, application writes or framework runtime tests.",
+  "sourceHashes": {
+    "drizzle/0000_graceful_korath.sql": "ee82af2a899087e646cabbf8e57a3511b6316e40e99e6e52633908650d58b25d",
+    "drizzle/0004_case_studies_room.sql": "3eae5dcb8a159ca7f5b5d32ec6409165a1709ed7583029a9ce6053dfb3660ef1",
+    "lib/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+    "lib/paths.ts": "9a96a01c75a81de6aacf79fe717d58e2540eebe63c4a33707a17bc3ec297b9c7",
+    "app/case-studies/page.tsx": "a503bd9e3eb38620d26c908a88ce63bf5d0e4ecf9cc107ddedc2ef753f24eb00",
+    "app/experience/page.tsx": "4bdf7b256de13a6c6688265bd966923142ba61d2810c61138ee51b030b81bb5c"
+  },
+  "migration": [
+    {
+      "name": "Original defaults in both snapshots",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 13,
+      "revisionDelta": 6,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Owner-customized text in both snapshots",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 7,
+      "revisionDelta": 0,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Draft-only defaults stay unpublished",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 10,
+      "revisionDelta": 3,
+      "publishedNullPreserved": true,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Original draft / custom published snapshots stay independent",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 10,
+      "revisionDelta": 3,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Custom draft / original published snapshots stay independent",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 10,
+      "revisionDelta": 3,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Mixed per-field ownership is preserved",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 10,
+      "revisionDelta": 3,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Already renamed defaults are a no-op",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 7,
+      "revisionDelta": 0,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Missing and null fields remain untouched",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 7,
+      "revisionDelta": 0,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    },
+    {
+      "name": "Case and whitespace customizations are not normalized",
+      "pass": true,
+      "revisionBefore": 7,
+      "revisionAfter": 7,
+      "revisionDelta": 0,
+      "idempotent": true,
+      "unrelatedRowsPreserved": true
+    }
+  ],
+  "routing": [
+    {
+      "name": "Public parse /case-studies",
+      "pass": true,
+      "destination": {
+        "section": "experience",
+        "open": false,
+        "sent": false,
+        "error": false
+      }
+    },
+    {
+      "name": "Public parse /case-studies/",
+      "pass": true,
+      "destination": {
+        "section": "experience",
+        "open": false,
+        "sent": false,
+        "error": false
+      }
+    },
+    {
+      "name": "Public parse /experience",
+      "pass": true,
+      "destination": {
+        "section": "experience",
+        "open": false,
+        "sent": false,
+        "error": false
+      }
+    },
+    {
+      "name": "Public parse /experience/",
+      "pass": true,
+      "destination": {
+        "section": "experience",
+        "open": false,
+        "sent": false,
+        "error": false
+      }
+    },
+    {
+      "name": "Public open query /case-studies?open=1",
+      "pass": true
+    },
+    {
+      "name": "Public open query /experience?open=1",
+      "pass": true
+    },
+    {
+      "name": "Unsupported path /case-studies/unknown",
+      "pass": true
+    },
+    {
+      "name": "Unsupported path /case-studies/extra/part",
+      "pass": true
+    },
+    {
+      "name": "Unsupported path /missing",
+      "pass": true
+    },
+    {
+      "name": "Public canonical path /experience",
+      "pass": true,
+      "actual": "/case-studies"
+    },
+    {
+      "name": "Public canonical path /case-studies",
+      "pass": true,
+      "actual": "/case-studies"
+    },
+    {
+      "name": "Public canonical mapping preserves query/hash",
+      "pass": true
+    },
+    {
+      "name": "Plain preview mapping /experience",
+      "pass": true,
+      "actual": "/admin/preview?section=experience"
+    },
+    {
+      "name": "Plain preview mapping /case-studies",
+      "pass": true,
+      "actual": "/admin/preview?section=experience"
+    },
+    {
+      "name": "Plain preview mapping /case-studies#rack",
+      "pass": true,
+      "actual": "/admin/preview?section=experience#rack"
+    },
+    {
+      "name": "Preview parse case-studies",
+      "pass": true
+    },
+    {
+      "name": "Preview parse experience",
+      "pass": true
+    },
+    {
+      "name": "Preview parser requires preview pathname",
+      "pass": true
+    },
+    {
+      "name": "Canonical scene/nav order",
+      "pass": true,
+      "internalRooms": [
+        "experience",
+        "projects",
+        "about",
+        "contact"
+      ],
+      "publicPaths": [
+        "/case-studies",
+        "/projects",
+        "/about",
+        "/contact"
+      ],
+      "previewPaths": [
+        "/admin/preview?section=experience",
+        "/admin/preview?section=projects",
+        "/admin/preview?section=about",
+        "/admin/preview?section=contact"
+      ]
+    }
+  ],
+  "sourceChecks": [
+    {
+      "name": "New page re-exports existing page contract",
+      "pass": true,
+      "kind": "source assertion; framework runtime integration belongs to root"
+    }
+  ],
+  "deferredObservations": [
+    {
+      "name": "Existing generic preview helper does not accept embedded query strings",
+      "input": "/case-studies?open=1",
+      "actual": "/admin/preview?section=case-studies%3Fopen%3D1",
+      "parsed": null,
+      "scope": "Deferred existing helper edge case. Current hrefFor appends open=1 after pathFor(pathname), so this is not an in-scope runtime failure and is not counted as a failed check."
+    }
+  ],
+  "summary": {
+    "migrationScenarios": 9,
+    "routingCases": 19,
+    "sourceChecks": 1,
+    "passed": 29,
+    "failed": 0,
+    "deferredObservations": 1,
+    "revisionPolicy": "One increment for each matching field/snapshot UPDATE: six increments when all three defaults match in both draft and published; no increment when no field matches. This is monotonic and idempotent."
+  }
+}

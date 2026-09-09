@@ -1,4 +1,5 @@
-export const rooms = ['projects', 'experience', 'about', 'contact'] as const;
+// Keep the persisted experience key while its rendered room is Case studies.
+export const rooms = ['experience', 'projects', 'about', 'contact'] as const;
 export type Room = (typeof rooms)[number];
 export type Destination = {
   section: string;
@@ -28,6 +29,7 @@ export function destinationFromURL(
     section = parts[0] || 'home';
     slug = parts[1];
   }
+  if (section === 'case-studies') section = 'experience';
   if (!['home', 'privacy', ...rooms].includes(section)) return null;
   return {
     section,

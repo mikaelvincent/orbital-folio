@@ -1,0 +1,20 @@
+{
+  "output": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/case-study-cabins/model-audit.json",
+  "summary": {
+    "mappingCases": 24,
+    "slotMappings": 216,
+    "lightingCases": 50,
+    "routePairs": 16,
+    "portalViews": 108,
+    "visibilityFailures": 0,
+    "physicalPortalMounts": 12,
+    "passageRays": 108,
+    "invalidNormals": 0,
+    "vertices": 917917,
+    "calls": 263,
+    "triangles": 490632,
+    "passedCore": true,
+    "passedVisibility": true
+  },
+  "visibilityFailures": []
+}
