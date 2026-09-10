@@ -2751,7 +2751,7 @@ svg {
   display: none;
 }
 .orbital-experience {
-  --orbital-name-size: clamp(1.25rem, 1.1rem + 1vw, 2rem);
+  --orbital-name-size: max(1.875rem, min(4.4vw, 7svh));
   --orbital-control-size: clamp(0.875rem, 0.65rem + 0.35vw, 1.125rem);
   --orbital-ink: #e7f3ff;
   --orbital-edge: #afdbef38;
@@ -2768,13 +2768,13 @@ svg {
   top: calc(22px + env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
-  width: min(52rem, calc(100% - 28rem));
+  width: calc(100% - max(8rem, 18vw));
   text-align: center;
   color: #e7f3ff;
   font-size: var(--orbital-name-size);
   font-weight: 450;
   line-height: 1.35;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.085em;
   text-shadow: 0 0 24px #6dbff043;
 }
 .orbital-identity h1 {
@@ -2898,7 +2898,7 @@ svg {
 }
 @media (max-width: 699px) {
   .orbital-experience {
-    --orbital-name-size: clamp(1.125rem, 4.8vw, 1.5rem);
+    --orbital-name-size: clamp(1.5rem, 7vw, 2.25rem);
   }
   .orbital-identity {
     top: calc(54px + env(safe-area-inset-top, 0px));

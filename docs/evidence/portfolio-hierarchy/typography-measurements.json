@@ -1,0 +1,26 @@
+[
+  {
+    "fontSize": "63px",
+    "height": 900,
+    "textHeight": 85.046875,
+    "textWidth": 591.78125,
+    "viewportOverflow": false,
+    "width": 1440
+  },
+  {
+    "fontSize": "30.1px",
+    "height": 932,
+    "textHeight": 40.6328125,
+    "textWidth": 275.0625,
+    "viewportOverflow": false,
+    "width": 430
+  },
+  {
+    "fontSize": "100.8px",
+    "height": 1440,
+    "textHeight": 136.0703125,
+    "textWidth": 946.84375,
+    "viewportOverflow": false,
+    "width": 2560
+  }
+]

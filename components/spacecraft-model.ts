@@ -1082,8 +1082,8 @@ export function createSpacecraft(
       header.position.set(x, headerPosition(section)[0], 0.33);
       rooms[section].add(header);
       box(
-        2.02,
-        0.32,
+        1.76,
+        0.265,
         0.1,
         m.gasket,
         0,
@@ -1094,8 +1094,8 @@ export function createSpacecraft(
         'cabin-identification-rim',
       );
       box(
-        1.89,
-        0.282,
+        1.64,
+        0.227,
         0.022,
         m.chalk,
         0,
@@ -1109,11 +1109,11 @@ export function createSpacecraft(
         // The standoffs meet the actual ceiling; the sign is not a floating plaque.
         box(
           0.082,
-          0.151,
+          0.203,
           0.085,
           m.gasket,
-          side * 0.72,
-          0.227,
+          side * 0.62,
+          0.208,
           -0.016,
           header,
           0.01,
@@ -1124,7 +1124,7 @@ export function createSpacecraft(
           0.12,
           0.01,
           m.amber,
-          side * 0.89,
+          side * 0.765,
           0,
           0.061,
           header,
@@ -1135,7 +1135,7 @@ export function createSpacecraft(
           0.018,
           0.009,
           m.chalk,
-          side * 0.974,
+          side * 0.845,
           0,
           0.052,
           header,
@@ -1148,7 +1148,7 @@ export function createSpacecraft(
           0.003,
           0.003,
           m.gasket,
-          side * 0.974,
+          side * 0.845,
           0,
           0.058,
           header,
@@ -1158,8 +1158,8 @@ export function createSpacecraft(
       }
       plaque(
         options.labels?.[section] || section,
-        1.64,
-        0.24,
+        1.42,
+        0.18,
         x,
         ...headerPosition(section),
         room,
@@ -4756,8 +4756,8 @@ export function createSpacecraft(
       add(
         'header',
         group.userData.headerAnchors[section],
-        hasEquipmentHeader(section) ? 1.64 : 1.26,
-        hasEquipmentHeader(section) ? 0.24 : 0.18,
+        hasEquipmentHeader(section) ? 1.42 : 1.26,
+        0.18,
       );
       for (const portal of portals.filter((p) => p.from === section)) {
         const c = new THREE.Vector3(...portal.metadata.labelPosition);

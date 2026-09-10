@@ -7,9 +7,9 @@ export function buildProjectsWorkshop(
   floorRoot: any,
   options: { projectCount?: number; accent?: any; screenLabels?: boolean } = {},
 ) {
-  // Leave a clear heading band without stretching the payload enclosures.
-  // Floor fittings stay fixed; the supporting stanchions shorten accordingly.
-  const lowering = 0.24;
+  // Match Contact's 0.731-high working surface. Move the bank and worktop
+  // together to retain screen clearance; grounded feet and support joints stay fitted.
+  const lowering = 0.7345 - 0.731;
   const parent = new THREE.Group();
   parent.name = 'projects-workshop-equipment-mount';
   parent.position.y = -lowering;

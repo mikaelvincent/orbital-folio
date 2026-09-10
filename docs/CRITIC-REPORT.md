@@ -1,34 +1,35 @@
-# Independent critic — room-label legibility
+# Independent critic: portfolio hierarchy and Projects workbench
 
-Date: 2026-09-10
-Reviewer: sign_legibility_review (read-only diagnosis and comparison)
-Verdict: PASS — 97/100, scoped to the requested Projects/Contact sign readability fixes.
+**Result: 98/100 — pass against the requested 95+ threshold.**
 
-## Evidence reviewed
+Scope is limited to the current request: the portfolio identity should have a larger visible type scale than the indoor room signs; the Projects and Contact signs should remain readable and fit physically; the Projects workbench should match the accepted Contact worktop height with properly fitted supports. Deferred interactions and unrelated rooms are not scored.
 
-Baseline: all six images in `docs/evidence/room-identification`, plus the previous Projects workshop overview.
-Final: all eight images in `docs/evidence/room-label-legibility`: selected desktop Projects/Contact, portrait selected Contact/Projects with unchanged legacy room signs visible, portrait/desktop overviews, and both oblique selected views. I separately inspected a crop of the Contact sign in the final desktop overview to distinguish frame occlusion from letter occlusion.
+The reviewer did not edit application code, operate the browser, or generate the submitted screenshots. Review compared baseline `8c24695` images in `docs/evidence/room-label-legibility/` against the final nine images in `docs/evidence/portfolio-hierarchy/`, and read the relevant source diff, typography measurements, and geometry audit.
 
-Reviewed source: spacecraft-model.ts, projects-workshop.ts, contact-flight-console.ts, their diffs, and final geometry-audit.json. This visual review did not operate the browser or alter the checkout.
+## Assessment
 
-## Score
+| Criterion | Score | Evidence |
+| --- | ---: | --- |
+| Portfolio-name hierarchy across tested sizes | 40/40 | The identity is visibly larger than the selected-room title in the 1440×900 and 2560×1440 overview/Projects pairs. The 430×932 identity also exceeds the selected Projects and Contact titles. The name remains on one line without viewport overflow. The uncapped `min(4.4vw, 7svh)` rule avoids the previous fixed upper font-size limit on large desktop screens. |
+| Sign readability and physical fit | 28/30 | Projects and Contact retain crisp dark text on ivory, balanced side margins, visible mounts, and complete frames. Text is legible in desktop, oblique, portrait, and large-screen captures. The only minor visual reservation is the very narrow apparent clearance between the Projects sign and the upper payload-module fittings in portrait and frontal views; it does not obscure either category title or cause visible intersection. |
+| Workbench height, proportions, and grounding | 30/30 | The Projects table now reads as a work surface rather than a low platform. Its two supports extend continuously from the same grounded feet to the apron, and the module bank remains seated on its mounting structure. Audit values put both accepted worktops at 0.731 above the cabin floor, within floating-point precision. |
 
-- Letter size and immediate identification: 35/35. The new titles are markedly easier to recognize. Both selected portrait images directly demonstrate that Projects/Contact are now at least as legible as the legacy About/Case Studies signs shown in the same captures.
-- Contrast and lettering treatment: 25/25. Dark print on ivory solves the prior pale-text-on-gray appearance. The heavy letterforms remain distinct from the hardware and monitor content in desktop and portrait views.
-- Sign placement and equipment separation: 19/20. The deliberate wall gap makes the sign a room heading rather than an equipment strip. The ceiling relationship remains close in small views, but neither equipment nor lights touch the text.
-- Overview and oblique visibility: 8/10. Titles remain readable in both oblique views. Contact's upper frame is partially hidden by the aperture in the desktop overview, and the lettering has little upper breathing room there; the CONTACT letter shapes themselves remain visible. This is a small composition limitation, not the former unreadability or an incomplete-word defect. The portrait overview retains the established physical room orientation with exterior upright callouts; no new overlap is evident.
-- Physical fit and preservation: 10/10. Floor feet stay planted, shortened posts connect to the lowered furniture, and equipment retains its proportions. The supplied geometry audit supports what is visible: 14 checks pass, with 629 protected meshes unchanged across 12 states and no header/light or header/equipment collisions.
+## Evidence inspected
 
-## Why it resolves the complaint
+- `01-overview-desktop.png` and `02-projects-desktop.png`: corrected identity/sign hierarchy and restored workbench height.
+- `03-projects-oblique.png`: readable sign, intact frame, fitted supports and module mounts from an angled camera.
+- `04-contact-desktop.png`: smaller Contact sign retains readability and clearance above its monitor.
+- `05-overview-portrait.png`, `06-projects-portrait.png`, and `07-contact-portrait.png`: identity stays larger; the signs remain readable at the smaller render scale.
+- `08-overview-large.png` and `09-projects-large.png`: hierarchy persists at 2560×1440 rather than failing at a capped identity font size.
 
-The original equipment headings used a 0.14-high ink plane versus 0.18 for legacy signs, a pale-on-slate treatment, and a center at Y1.32 close to the lights and top equipment. The final headings use a 0.24-high ink plane, dark print on ivory, and Y1.16 placement with forward depth that keeps the lower Contact room title visible. Equipment moves down as rigid assemblies while their floor support chains are adjusted, giving the larger headings space without distorting the objects.
+Source/audit checks support the visual result: unchanged feet, a positive leg-to-apron overlap, preserved module shapes translated vertically as a unit, and no differences in the audit's 825 protected meshes across eight sampled states. The recorded 0.7135 header-to-payload depth separation and 0.252 payload-to-ceiling clearance support the absence of physical collision in the reviewed views.
 
-## Limits
+No blocking visual issue remains within this request. This assessment covers the submitted still views and source evidence; it does not claim a fresh live-browser motion or performance audit by this reviewer.
 
-This is a visual comparison of the eight supplied final captures and the three-file source diff, supplemented by the supplied geometry audit. Static screenshots do not prove temporal shimmer-free behavior on every GPU or every viewport. No deductions were made for deferred interactions, readers, category browsing, or unrelated room/environment design.
+## Reviewed application hashes
 
-## Final source hashes
+- `app/globals.css`: `62d097c68878befd0c10a2989fbb3e050d783698b2af19885e9f2e052df03834`
+- `components/projects-workshop.ts`: `d76ccf803615f6bd20d87b78d15904f369d448f98373fd796cfb77315ba9d128`
+- `components/spacecraft-model.ts`: `881561e509fec05383802aa858f01ea328673a5347370108e1f145b441e23eff`
 
-- components/spacecraft-model.ts: 79de089c184f9a8b23cd1236a7602b9b8baf030bd690e30b7209bc2730b178a9
-- components/projects-workshop.ts: aa26a4aa3b04821f763a5350ac4002ea50ca1613790b6fff8e9e28b9daff550d
-- components/contact-flight-console.ts: 21227200c95bd4505c20fd09c345b45a73ddb618fe39a1719d70b58c3b1938ab
+The final refreshed geometry audit records these exact application hashes and passes. The typography measurements reflect the final responsive sizing.
