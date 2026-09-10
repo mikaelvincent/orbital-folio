@@ -1,0 +1,20 @@
+{
+  "annotationsSha256": "cb7698bd069a3a0f6e2e7d1e20c088587e85c4ee395214aba7489870b360d266",
+  "typecheck": {
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "build": {
+    "exitCode": 0,
+    "warnings": [
+      "Upstream module.register deprecation",
+      "Minified chunks over 500 kB",
+      "Static route classification incomplete"
+    ]
+  },
+  "scope": "Portrait overview callout arrival only; horizontal actual-module comparison and bounded live GPU checks. No room geometry, readers, admin, deployment or physical-device certification.",
+  "localOverviewHttpStatus": 200,
+  "inspectedBrowserErrorsAndWarnings": []
+}

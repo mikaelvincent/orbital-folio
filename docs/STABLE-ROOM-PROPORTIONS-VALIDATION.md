@@ -36,4 +36,4 @@ Across 11 orientation/update scenarios, all **763 generated objects** preserve v
 node docs/evidence/stable-room-proportions/geometry-audit.mjs . 64c68d0 /tmp/stable-room-audit.json
 ```
 
-Typecheck, lint and production build pass, with existing warnings in [checks.json](evidence/stable-room-proportions/checks.json). The [independent critic report](CRITIC-REPORT.md) scores this requested correction only. Coverage is finite desktop-browser viewport testing and CPU/source checks, not physical-device, performance, reader/admin or production-runtime certification.
+Typecheck, lint and production build pass, with existing warnings in [checks.json](evidence/stable-room-proportions/checks.json). The [independent critic report](CRITIC-REPORT-STABLE-ROOM-PROPORTIONS.md) scores this requested correction only. Coverage is finite desktop-browser viewport testing and CPU/source checks, not physical-device, performance, reader/admin or production-runtime certification.

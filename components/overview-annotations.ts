@@ -67,6 +67,7 @@ export function createOverviewAnnotations(
   const identityWorld = new THREE.Vector3();
   const identityBase = new THREE.Vector2();
   const presence = { value: 1, velocity: 0 };
+  const portraitArrival = { value: 1, velocity: 0 };
   let width = 1,
     height = 1,
     depth = 1,
@@ -269,8 +270,24 @@ export function createOverviewAnnotations(
         acceleration: 2.5,
       });
     const opacity = clamp(presence.value, 0, 1);
-    layer.style.opacity = String(opacity);
-    layer.inert = !state.home || state.travelling || opacity < 0.9;
+    // Portrait leaders are routed for the final, rotated overview. Keep the
+    // whole callout group hidden while its room anchors are still moving.
+    // This is separate from identity presence and the approved landscape fade.
+    if (portrait && state.home && state.travelling) {
+      portraitArrival.value = 0;
+      portraitArrival.velocity = 0;
+    } else if (!portrait || state.reduced) {
+      portraitArrival.value = 1;
+      portraitArrival.velocity = 0;
+    } else if (state.home)
+      moveCameraAxis(portraitArrival, 1, state.delta, {
+        frequency: 8,
+        speed: 2,
+        acceleration: 8,
+      });
+    const calloutOpacity = opacity * clamp(portraitArrival.value, 0, 1);
+    layer.style.opacity = String(calloutOpacity);
+    layer.inert = !state.home || state.travelling || calloutOpacity < 0.9;
     layer.setAttribute('aria-hidden', String(layer.inert));
     if (state.home && !state.travelling) {
       const worldProject = (v: number[]) =>
@@ -354,6 +371,7 @@ export function createOverviewAnnotations(
       identityFlight.setAttribute('aria-hidden', String(identityFlight.inert));
     }
     host.dataset.overviewPresence = opacity.toFixed(4);
+    host.dataset.overviewCalloutPresence = calloutOpacity.toFixed(4);
   }
   return {
     layout,

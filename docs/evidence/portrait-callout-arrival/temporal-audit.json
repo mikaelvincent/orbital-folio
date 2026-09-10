@@ -1,0 +1,87 @@
+{
+  "baseline": "2271e8b",
+  "baselineSha256": "4b6018653ab677a2513ce49cb7d5376ad49321391c4cf71a05e576c3b9b56260",
+  "candidateSha256": "cb7698bd069a3a0f6e2e7d1e20c088587e85c4ee395214aba7489870b360d266",
+  "limits": [
+    "Runs the real baseline/candidate annotation code and real spring math with fixed DOM measurements; GPU rendering, pointer dispatch, and browser layout are checked separately.",
+    "Synthetic camera interpolation deliberately moves and rotates anchors during travel so every path/button transform is compared, not just opacity."
+  ],
+  "horizontal": [
+    {
+      "reduced": false,
+      "frames": 450,
+      "mismatch": 0
+    },
+    {
+      "reduced": true,
+      "frames": 450,
+      "mismatch": 0
+    }
+  ],
+  "portrait": {
+    "flightFrames": 120,
+    "baselineVisibleFrames": 120,
+    "prematureCandidateFrames": 0,
+    "flightInertFailures": 0,
+    "identityMismatch": 0,
+    "fadeFrames": 180,
+    "decreasing": 0,
+    "earlyInteractive": 0,
+    "fade": [
+      {
+        "frame": 0,
+        "opacity": 0.0016649406085566668,
+        "inert": true
+      },
+      {
+        "frame": 5,
+        "opacity": 0.04330346268159597,
+        "inert": true
+      },
+      {
+        "frame": 15,
+        "opacity": 0.2915776556544759,
+        "inert": true
+      },
+      {
+        "frame": 30,
+        "opacity": 0.752019210128424,
+        "inert": true
+      },
+      {
+        "frame": 60,
+        "opacity": 0.9876035217545446,
+        "inert": false
+      },
+      {
+        "frame": 120,
+        "opacity": 0.9999778617637876,
+        "inert": false
+      },
+      {
+        "frame": 179,
+        "opacity": 0.9999999566041979,
+        "inert": false
+      }
+    ]
+  },
+  "edgeCases": {
+    "interruptedReturn": {
+      "visibleWhileCancelledOrReturning": 0,
+      "firstSettledOpacity": 0.0014518250723585075
+    },
+    "freshOverview": {
+      "matchesBaseline": true,
+      "opacity": 1
+    },
+    "reducedMotion": {
+      "travelOpacity": 0,
+      "settledOpacity": 1,
+      "settledInert": false
+    },
+    "portraitToLandscape": {
+      "matchesBaseline": true
+    }
+  },
+  "failures": []
+}
