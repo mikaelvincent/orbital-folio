@@ -3187,33 +3187,6 @@ export function createSpacecraft(
     }
     return symbol;
   }
-  const walkwaySigns: any[] = [];
-  for (const yy of [-1.7, 1.7]) {
-    const sign = new THREE.Group();
-    sign.name = 'walkway-entrance-ladder-sign';
-    sign.userData = {
-      section: 'walkway',
-      roomSurface: true,
-      surfaceOnly: true,
-      batchRoot: true,
-    };
-    sign.position.set(0.4, yy + 0.66, -0.948);
-    walkwayFurniture.add(sign);
-    box(
-      0.27,
-      0.3,
-      0.052,
-      m.chalk,
-      0,
-      0,
-      0,
-      sign,
-      0.032,
-      'walkway-ladder-sign-enamel',
-    );
-    routeSymbol(sign, 0, 0, 0.03, true, yy < 0, 1.65);
-    walkwaySigns.push(sign);
-  }
   // Portfolio identity is rendered by the page heading, not the spacecraft.
   group.userData.branding = [];
   group.userData.circulation = ['experience', 'projects', 'about', 'contact'];
@@ -4182,11 +4155,7 @@ export function createSpacecraft(
       endShoulderContinuity: true,
     };
     walkway.updateMatrixWorld(true);
-    group.userData.walkwaySigns = walkwaySigns.map((sign) => ({
-      position: vesselPosition(sign).toArray(),
-      symbol: sign.position.y > 0 ? 'ladder-down' : 'ladder-up',
-      size: [0.27 * layoutScale, 0.3],
-    }));
+    group.userData.walkwaySigns = [];
     group.userData.walkwayBounds = {
       center: [walkwayX, 0, 0.1],
       size: [1.75 * layoutScale, 6.5, 2.65],
