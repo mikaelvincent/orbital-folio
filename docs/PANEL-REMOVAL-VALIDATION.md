@@ -39,4 +39,4 @@ node docs/evidence/panel-removal/geometry-audit.mjs . git:ebde2b8:components/spa
 node docs/evidence/panel-removal/material-audit.mjs . components/spacecraft-model.ts /tmp/panel-material.json
 ```
 
-Typecheck, lint and the production build pass; see [checks.json](evidence/panel-removal/checks.json). Existing build warnings remain documented there. The [independent critic report](CRITIC-REPORT.md) scores only this removal and its immediate regressions. Finite CPU samples and desktop development-render captures do not certify every camera pose, device or production runtime.
+Typecheck, lint and the production build pass; see [checks.json](evidence/panel-removal/checks.json). Existing build warnings remain documented there. The [independent critic report](CRITIC-REPORT-PANEL-REMOVAL.md) scores only this removal and its immediate regressions. Finite CPU samples and desktop development-render captures do not certify every camera pose, device or production runtime.

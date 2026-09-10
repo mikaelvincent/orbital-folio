@@ -930,15 +930,16 @@ export function createSpacecraft(
       'hover-perimeter-light-guide',
     );
     hoverPerimeter.position.set(x, 0.06, 1.215);
-    // A thin continuous deck meets the unadorned pressure skin.
+    // Keep the deck's front edge inside the chassis face, rather than
+    // projecting through it as an exterior bar. Rear edge and height stay fixed.
     box(
       2.65,
       0.105,
-      2.46,
+      2.39,
       m.liner,
       x,
       cabinFloorTop - 0.0525,
-      0.11,
+      0.075,
       room,
       0.025,
       'coherent-cabin-deck',
@@ -4171,22 +4172,6 @@ export function createSpacecraft(
         );
         screw.name = 'service-root-captive-fastener';
       }
-    // Long recessed edge channels make the chassis construction read as one
-    // object. They are surface paint, not additional lights or cabin detail.
-    const railSpan = Math.max(1, span - 0.7 * s);
-    for (const yy of [3.17, -3.13])
-      box(
-        railSpan,
-        0.027,
-        0.024,
-        m.gasket,
-        centerX,
-        yy,
-        1.341,
-        frame,
-        0.01,
-        'continuous-hull-edge-channel',
-      );
     chassisMetadata[variant] = {
       apertures,
       ladderAperture: {

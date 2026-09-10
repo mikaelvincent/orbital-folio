@@ -1,21 +1,19 @@
-# Independent critic — redundant ladder-door panel
+# Independent critic — misplaced hull bars and strips
 
-**96.0/100. The scoped removal passes; no remaining blocker was found.** This fresh score covers the redundant panel beside the Projects/About ladder doorway, its enclosure, and preservation of the recent lighting fix. It does not score the whole portfolio.
+**96.8/100. The scoped fix passes; no remaining blocker was found.** This is a fresh assessment of the raised cream bars below cabin apertures and the long dark exterior strips. It does not score unrelated portfolio features.
 
-Reviewed model SHA: `2654abc143b04057cab9c29c4cfef038d6fcb5813930964e7c3cc923d06d30c8`.
+Reviewed model SHA: `d49e9153b13d6f221176e16ae522e487f3312ab5686f5608753f168b364a2c67`.
 
 | Equally weighted area | Score /10 | Finding |
 | --- | ---: | --- |
-| Actual removal of the overlapping panel | 9.8 | Both oversized return meshes are removed. The lining no longer extends across the doorway; no opacity or visibility workaround substitutes for removal. |
-| Continuous enclosure at the exposed join | 9.6 | The existing curved return now meets the actual rear jamb. The intermediate dark slit is absent in final renders and targeted seam tests. |
-| Preservation of doorway and stairs geometry | 9.8 | 749 unrelated geometries and their transforms remain exact across both layouts and selected rooms. |
-| Preservation of lighting behavior | 9.7 | Selected-room neutral surfaces stay steady; the ladder still brightens and dims. Permitted portal tint remains separate. |
-| Current visual and source evidence | 9.1 | Fresh desktop views show the removal and closed join, supported by actual-model bounds, first-hit and animated material checks. Limits are stated below. |
+| Dark-strip removal | 9.9 | The decorative channel geometry is deleted from both layout variants. The legitimate aperture seals remain. |
+| Cream-bar correction | 9.8 | The actual deck fronts are seated inside the chassis face; no covering panel or visibility trick replaces the protruding bars. |
+| Floor and enclosure integrity | 9.7 | Floor heights, width and rear edges are preserved. Targeted downward/oblique rays and the close render show a supported threshold without new gaps. |
+| Preservation of the remaining render | 9.8 | The model comparison is limited to deck depth/center and channel construction. The audit preserves 742 unrelated geometries and their transforms. |
+| Current visual/source verification | 9.2 | Fresh front, oblique, selected-room and portrait renders corroborate the actual-mesh checks. Coverage remains finite. |
 
-I compared the [original About view](evidence/panel-removal/before-about.jpg) with the [final neutral view](evidence/panel-removal/final-about-neutral.jpg). The folded overlapping return is gone. The [final Projects view](evidence/panel-removal/final-projects-neutral.jpg) also shows a clean join, without the black slit seen in the rejected intermediate candidate. The surviving curved return was shortened to seat on the rear jamb; another bridging panel was not added.
+I inspected the three supplied annotations and the final [front overview](evidence/hull-bars/overview-front.jpg), [oblique overview](evidence/hull-bars/overview-oblique.jpg), [Projects threshold](evidence/hull-bars/projects-threshold.jpg), and [430×932 portrait](evidence/hull-bars/overview-portrait.jpg). The unwanted straight strips are absent above and below the cabin rows. The four deck edges stay within their apertures instead of forming raised exterior bars. The close threshold remains continuous, and the ordinary aperture seals are intact.
 
-The [geometry audit](evidence/panel-removal/geometry-audit.json), whose source and results I inspected, confirms that the flat rear plane ends at local X≈0.585 and the curved return at X≈0.672. The old extension reached X≈1.17. Each wide room’s **628 former panel-hit samples** now reaches its original cabin pressure skin, frame or bulkhead. **30,616 screen-grid rays** find no new misses; **5,412 direct seam rays** cover both rooms and layouts without misses. An additional independent bounds check confirmed the removed geometry is absent while the surviving lining remains opaque and visible.
+The [actual-mesh audit](evidence/hull-bars/geometry-audit.json), whose implementation and results I reviewed, confirms **four decorative channel objects removed** across the two variants. All four decks retain their width, vertical extent, walking height and rear edge at Z≈−1.12; only the front moves from Z≈1.34 to Z≈1.27. **742 unrelated geometries/transforms** remain exact in both layouts. Across **540 targeted samples**, 180 former bar hits now reach the original chassis face, and 360 front-threshold rays introduce no new misses or exposed backing surfaces.
 
-My [animated material audit](evidence/panel-removal/material-audit.json) passes **952 frames** across Projects/About and wide/compact, including hover-on, leave, reversals and portal hover. Selected neutral materials have zero color/emission drift. The actual ladder and 72 sampled surviving curved-return points track the stairs dimmer. The [Projects highlight](evidence/panel-removal/final-projects-stairs.jpg) and [About highlight](evidence/panel-removal/final-about-stairs.jpg) corroborate that response visually; each final neutral/highlight pair has matching recorded camera, renderer and scroll position.
-
-Limits: the old-to-new About camera differs by 0.0022 model units in X, so that comparison is visual evidence rather than pixel subtraction. Fresh GPU evidence is desktop and uses the shared keyboard-focus hover handler. Compact coverage comes from actual-model seam/material tests; its screen-grid region did not intersect the old panel. Finite samples do not establish every view or device. No production-runtime or unrelated UI claim is included. Earlier slit-bearing candidates and scrolled captures are excluded from the passing result.
+Limits: these are current desktop GPU captures, including a resized portrait viewport, and finite CPU probes—not physical-device testing or an exhaustive camera sweep. The score makes no new performance, deployment, reader or admin claim. Earlier unrelated defects and deferred features are outside this iteration.

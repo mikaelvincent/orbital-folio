@@ -1,0 +1,279 @@
+{
+  "baseline": {
+    "file": "git:641a70f:components/spacecraft-model.ts",
+    "sha256": "2654abc143b04057cab9c29c4cfef038d6fcb5813930964e7c3cc923d06d30c8"
+  },
+  "candidate": {
+    "file": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+    "sha256": "d49e9153b13d6f221176e16ae522e487f3312ab5686f5608753f168b364a2c67"
+  },
+  "limits": [
+    "CPU evidence uses actual generated meshes. Appearance is checked separately in fresh GPU captures.",
+    "Finite targeted rays cover the annotated exterior bar and front threshold; this is not a complete camera sweep.",
+    "Empty content fixtures keep this audit focused on cabin decks, pressure faces, and exterior channels."
+  ],
+  "removedChannels": {
+    "before": 4,
+    "after": 0
+  },
+  "preservation": {
+    "unchangedUnrelatedMeshes": 742
+  },
+  "layouts": [
+    {
+      "layout": "wide",
+      "unchangedTransforms": 742,
+      "decks": [
+        {
+          "before": {
+            "min": [
+              -4.105000066757201,
+              0.27500000163912763,
+              -1.1200000190734862
+            ],
+            "max": [
+              -0.39499993324279714,
+              0.37999999836087217,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              -4.105000066757201,
+              0.27500000163912763,
+              -1.1200000524520874
+            ],
+            "max": [
+              -0.39499993324279714,
+              0.37999999836087217,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              0.3949999332427976,
+              0.27500000163912763,
+              -1.1200000190734862
+            ],
+            "max": [
+              4.105000066757201,
+              0.37999999836087217,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              0.3949999332427976,
+              0.27500000163912763,
+              -1.1200000524520874
+            ],
+            "max": [
+              4.105000066757201,
+              0.37999999836087217,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              -4.105000066757202,
+              -3.124999998360872,
+              -1.1200000190734862
+            ],
+            "max": [
+              -0.39499993324279803,
+              -3.0200000016391275,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              -4.105000066757202,
+              -3.124999998360872,
+              -1.1200000524520874
+            ],
+            "max": [
+              -0.39499993324279803,
+              -3.0200000016391275,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              0.3949999332427976,
+              -3.124999998360872,
+              -1.1200000190734862
+            ],
+            "max": [
+              4.105000066757201,
+              -3.0200000016391275,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              0.3949999332427976,
+              -3.124999998360872,
+              -1.1200000524520874
+            ],
+            "max": [
+              4.105000066757201,
+              -3.0200000016391275,
+              1.2700000524520874
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "unchangedTransforms": 742,
+      "decks": [
+        {
+          "before": {
+            "min": [
+              -2.9750000476837157,
+              0.27500000163912763,
+              -1.1200000190734862
+            ],
+            "max": [
+              -0.3249999523162841,
+              0.37999999836087217,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              -2.9750000476837157,
+              0.27500000163912763,
+              -1.1200000524520874
+            ],
+            "max": [
+              -0.3249999523162841,
+              0.37999999836087217,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              0.3249999523162841,
+              0.27500000163912763,
+              -1.1200000190734862
+            ],
+            "max": [
+              2.9750000476837157,
+              0.37999999836087217,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              0.3249999523162841,
+              0.27500000163912763,
+              -1.1200000524520874
+            ],
+            "max": [
+              2.9750000476837157,
+              0.37999999836087217,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              -2.975000047683716,
+              -3.124999998360872,
+              -1.1200000190734862
+            ],
+            "max": [
+              -0.32499995231628453,
+              -3.0200000016391275,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              -2.975000047683716,
+              -3.124999998360872,
+              -1.1200000524520874
+            ],
+            "max": [
+              -0.32499995231628453,
+              -3.0200000016391275,
+              1.2700000524520874
+            ]
+          }
+        },
+        {
+          "before": {
+            "min": [
+              0.3249999523162841,
+              -3.124999998360872,
+              -1.1200000190734862
+            ],
+            "max": [
+              2.9750000476837157,
+              -3.0200000016391275,
+              1.3400000190734864
+            ]
+          },
+          "after": {
+            "min": [
+              0.3249999523162841,
+              -3.124999998360872,
+              -1.1200000524520874
+            ],
+            "max": [
+              2.9750000476837157,
+              -3.0200000016391275,
+              1.2700000524520874
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "rays": [
+    {
+      "layout": "wide",
+      "barRays": 90,
+      "baselineDeckHits": 90,
+      "replacedBarHits": 90,
+      "barReplacementNames": {
+        "one-piece-five-aperture-pressure-face": 90
+      },
+      "thresholdRays": 180,
+      "newMisses": [],
+      "thresholdReplacements": {
+        "one-piece-five-aperture-pressure-face -> one-piece-five-aperture-pressure-face": 72,
+        "coherent-cabin-deck -> coherent-cabin-deck": 72,
+        "coherent-cabin-deck -> one-piece-five-aperture-pressure-face": 36
+      }
+    },
+    {
+      "layout": "compact",
+      "barRays": 90,
+      "baselineDeckHits": 90,
+      "replacedBarHits": 90,
+      "barReplacementNames": {
+        "one-piece-five-aperture-pressure-face": 90
+      },
+      "thresholdRays": 180,
+      "newMisses": [],
+      "thresholdReplacements": {
+        "one-piece-five-aperture-pressure-face -> one-piece-five-aperture-pressure-face": 72,
+        "coherent-cabin-deck -> coherent-cabin-deck": 72,
+        "coherent-cabin-deck -> one-piece-five-aperture-pressure-face": 36
+      }
+    }
+  ],
+  "failures": []
+}
