@@ -185,8 +185,18 @@ export function createSpacecraft(
   let labelPortrait = false;
   const hasEquipmentHeader = (section: string) =>
     section === 'projects' || section === 'contact';
-  const headerPosition = (section: string): [number, number] =>
-    hasEquipmentHeader(section) ? [1.16, 0.403] : [1.006, -0.263];
+  // Shared physical scale and elevation for room headings and doorway signs.
+  const wayfinding = {
+    textHeight: 0.18,
+    textWidth: 0.96,
+    inkWidthRatio: 940 / 1024,
+    fontRatio: 0.7,
+    plateHeight: 0.25,
+    enamelHeight: 0.22,
+    centerY: 1.11,
+  };
+  const headerPosition = (_section: string): [number, number] =>
+    [wayfinding.centerY, -0.427];
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
   // under filmic lighting rather than a pale yellow reflective finish.
@@ -802,7 +812,7 @@ export function createSpacecraft(
       ctx.textBaseline = 'middle';
       ctx.fillStyle = inkColor;
       const title = text.trim().toUpperCase();
-      const baseSize = canvas.height * 0.86;
+      const baseSize = canvas.height * wayfinding.fontRatio;
       ctx.font = `800 ${baseSize}px Arial, sans-serif`;
       const measured = ctx.measureText(title);
       const glyphHeight =
@@ -811,6 +821,9 @@ export function createSpacecraft(
       const fit = Math.min(
         1,
         (canvas.width * 0.94) / Math.max(1, measured.width),
+        // Long room names use the doorway's width-fit too, even on a wider plaque.
+        (wayfinding.textWidth * wayfinding.inkWidthRatio * canvas.height) /
+          (h * Math.max(1, measured.width)),
         (canvas.height * 0.88) / Math.max(1, glyphHeight),
       );
       const fontSize = baseSize * fit;
@@ -1067,8 +1080,7 @@ export function createSpacecraft(
       }
     }
     if (hasEquipmentHeader(section)) {
-      // A full-height enamel heading occupies its own band above the equipment.
-      // Keep it outside the furniture group so floors and props need no offsets.
+      // Rear-mounted enamel heading, at the same elevation as the door signs.
       const header = new THREE.Group();
       header.name = `cabin-identification-${section}`;
       header.userData = {
@@ -1077,13 +1089,11 @@ export function createSpacecraft(
         batchRoot: true,
         excludePick: true,
       };
-      // Forward of the equipment so the cutaway ceiling does not hide the title
-      // when the lower Contact cabin is seen from the overview camera.
-      header.position.set(x, headerPosition(section)[0], 0.33);
+      header.position.set(x, headerPosition(section)[0], -0.5);
       rooms[section].add(header);
       box(
         1.76,
-        0.265,
+        wayfinding.plateHeight,
         0.1,
         m.gasket,
         0,
@@ -1095,7 +1105,7 @@ export function createSpacecraft(
       );
       box(
         1.64,
-        0.227,
+        wayfinding.enamelHeight,
         0.022,
         m.chalk,
         0,
@@ -1106,15 +1116,15 @@ export function createSpacecraft(
         'cabin-identification-inset',
       );
       for (const side of [-1, 1]) {
-        // The standoffs meet the actual ceiling; the sign is not a floating plaque.
+        // Two rear standoffs seat in the pressure wall, away from the lights.
         box(
           0.082,
-          0.203,
-          0.085,
+          0.13,
+          0.6,
           m.gasket,
           side * 0.62,
-          0.208,
-          -0.016,
+          0,
+          -0.34,
           header,
           0.01,
           'cabin-identification-standoff',
@@ -1159,7 +1169,7 @@ export function createSpacecraft(
       plaque(
         options.labels?.[section] || section,
         1.42,
-        0.18,
+        wayfinding.textHeight,
         x,
         ...headerPosition(section),
         room,
@@ -1169,24 +1179,24 @@ export function createSpacecraft(
     } else {
       box(
         1.52,
-        0.255,
-        0.744,
+        wayfinding.plateHeight,
+        0.65,
         m.gasket,
         x,
-        1.006,
-        -0.754,
+        wayfinding.centerY,
+        -0.82,
         room,
         0.055,
         'upper-header-wall-saddle',
       );
       box(
         1.48,
-        0.232,
+        wayfinding.enamelHeight,
         0.13,
         m.chalk,
         x,
-        1.006,
-        -0.34,
+        wayfinding.centerY,
+        -0.504,
         room,
         0.055,
         'upper-room-enamel-header',
@@ -1194,10 +1204,9 @@ export function createSpacecraft(
       plaque(
         options.labels?.[section] || `MOD-0${index + 1}`,
         1.26,
-        0.18,
+        wayfinding.textHeight,
         x,
-        1.006,
-        -0.263,
+        ...headerPosition(section),
         room,
         'header',
       );
@@ -3544,9 +3553,12 @@ export function createSpacecraft(
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#203448';
     const title = preserveCase ? text.trim() : text.trim().toUpperCase();
-    let font = canvas.height * (preserveCase ? 0.9 : 0.7);
+    let font = canvas.height * (preserveCase ? 0.9 : wayfinding.fontRatio);
     ctx.font = `800 ${font}px Arial, sans-serif`;
-    font *= Math.min(1, 940 / Math.max(1, ctx.measureText(title).width));
+    font *= Math.min(
+      1,
+      (canvas.width * wayfinding.inkWidthRatio) / Math.max(1, ctx.measureText(title).width),
+    );
     ctx.font = `800 ${font}px Arial, sans-serif`;
     ctx.fillText(title, 512, canvas.height * 0.51);
     const texture = new THREE.CanvasTexture(canvas);
@@ -3720,8 +3732,8 @@ export function createSpacecraft(
     caption.name = id + '-above-door-wall-nameplate';
     caption.userData = { section: from, batchRoot: true };
     visual.add(caption);
-    const captionSize = [0.96, 0.18],
-      plateSize = [1.52, 0.25];
+    const captionSize = [wayfinding.textWidth, wayfinding.textHeight],
+      plateSize = [1.52, wayfinding.plateHeight];
     const enamelWidth = plateSize[0] - 0.04;
     const iconHalfWidth = 0.059;
     const iconInset = 0.095;
@@ -3740,7 +3752,7 @@ export function createSpacecraft(
     );
     box(
       enamelWidth,
-      0.22,
+      wayfinding.enamelHeight,
       0.028,
       m.chalk,
       0,
@@ -4640,7 +4652,7 @@ export function createSpacecraft(
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
         sign * (1.4 * layoutScale - 0.085),
-        1.11,
+        wayfinding.centerY,
         passageCenterZ,
       );
       portal.pick.position.set(
@@ -4757,7 +4769,7 @@ export function createSpacecraft(
         'header',
         group.userData.headerAnchors[section],
         hasEquipmentHeader(section) ? 1.42 : 1.26,
-        0.18,
+        wayfinding.textHeight,
       );
       for (const portal of portals.filter((p) => p.from === section)) {
         const c = new THREE.Vector3(...portal.metadata.labelPosition);

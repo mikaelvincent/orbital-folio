@@ -88,20 +88,20 @@ export function buildProjectsWorkshop(
 
   // Narrow rails and shoes terminate on the existing pressure wall. No new wall sheet.
   for (const sign of [-1, 1]) {
-    const x = sign * 1.405;
+    const x = sign * 1.245;
     box(
       0.067,
-      2.47 - lowering,
+      2.08 - lowering,
       0.084,
       m.graphite,
       x,
-      1.285 + lowering / 2,
+      1.09 + lowering / 2,
       -0.943,
       parent,
       0.021,
       'wall-upright',
     );
-    for (const y of [0.15 + lowering, 0.72, 1.68, 2.47]) {
+    for (const y of [0.15 + lowering, 0.72, 1.48, 2.08]) {
       box(
         0.127,
         0.143,
@@ -118,20 +118,20 @@ export function buildProjectsWorkshop(
     }
     box(
       0.031,
-      2.3 - lowering,
+      1.91 - lowering,
       0.012,
       m.metal,
       x,
-      1.28 + lowering / 2,
+      1.085 + lowering / 2,
       -0.897,
       parent,
       0.006,
       'upright-insert',
     );
   }
-  for (const y of [0.875, 1.66, 2.395]) {
+  for (const y of [0.875, 1.45, 2.025]) {
     box(
-      2.83,
+      2.51,
       0.065,
       0.094,
       m.graphite,
@@ -142,7 +142,7 @@ export function buildProjectsWorkshop(
       0.021,
       'mounting-crossrail',
     );
-    for (const x of [-1.27, 0, 1.27]) screws.push([x, y, -0.888]);
+    for (const x of [-1.11, 0, 1.11]) screws.push([x, y, -0.888]);
   }
 
   // Two grounded stanchions, each with a broad sole, collar and continuous apron connection.
@@ -452,19 +452,19 @@ export function buildProjectsWorkshop(
   );
   for (const x of [0.81, 1.01]) screws.push([x, 0.445, -0.722]);
   rod(
-    [1.473, 0.476, -0.797],
-    [1.473, 2.39, -0.797],
+    [1.313, 0.476, -0.797],
+    [1.313, 2.02, -0.797],
     0.018,
     m.rubber,
     'protected-power-trunk',
   );
-  for (const y of [0.59, 1.58, 2.31]) {
+  for (const y of [0.59, 1.38, 1.96]) {
     box(
       0.061,
       0.04,
       0.06,
       m.metal,
-      1.473,
+      1.313,
       y,
       -0.797,
       parent,
@@ -474,7 +474,7 @@ export function buildProjectsWorkshop(
   }
   rod(
     [0.99, 0.49, -0.81],
-    [1.473, 0.49, -0.797],
+    [1.313, 0.49, -0.797],
     0.018,
     m.rubber,
     'junction-lead',
@@ -507,25 +507,27 @@ export function buildProjectsWorkshop(
     );
   }
 
+  // Uniformly smaller enclosures retain round hardware and graphic proportions.
+  const moduleScale = 0.78;
   const configs = [
     {
       label: 'All projects',
       kind: 'all' as const,
-      x: -0.735,
-      y: 2.1,
+      x: -0.635,
+      y: 1.81,
       count: options.projectCount,
     },
-    { label: 'Systems', kind: 'systems' as const, x: 0.735, y: 2.1 },
-    { label: 'Interfaces', kind: 'interfaces' as const, x: -0.735, y: 1.18 },
-    { label: 'Experiments', kind: 'experiments' as const, x: 0.735, y: 1.18 },
+    { label: 'Systems', kind: 'systems' as const, x: 0.635, y: 1.81 },
+    { label: 'Interfaces', kind: 'interfaces' as const, x: -0.635, y: 1.09 },
+    { label: 'Experiments', kind: 'experiments' as const, x: 0.635, y: 1.09 },
   ];
   const moduleMaterials = new Map<string, any>();
   const modules = configs.map((config) => {
     // Small standoffs touch both the rear shell and the rack; no hovering displays.
-    for (const dx of [-0.44, 0.44]) {
+    for (const dx of [-0.44 * moduleScale, 0.44 * moduleScale]) {
       box(
         0.095,
-        0.39,
+        0.5 * moduleScale,
         0.08,
         m.graphite,
         config.x + dx,
@@ -535,11 +537,11 @@ export function buildProjectsWorkshop(
         0.018,
         'module-rear-rail',
       );
-      for (const dy of [-0.145, 0.145]) {
+      for (const dy of [-0.145 * moduleScale, 0.145 * moduleScale]) {
         box(
           0.113,
           0.092,
-          0.267,
+          0.287,
           m.graphite,
           config.x + dx,
           config.y + dy,
@@ -553,6 +555,7 @@ export function buildProjectsWorkshop(
     const carrier = new THREE.Group();
     carrier.name = `projects-workshop-module-${config.kind}`;
     carrier.position.set(config.x, config.y, -0.58);
+    carrier.scale.setScalar(moduleScale);
     parent.add(carrier);
     return buildProjectPayloadModule(THREE, h, carrier, {
       label: config.label,

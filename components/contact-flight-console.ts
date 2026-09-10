@@ -265,7 +265,8 @@ export function buildContactFlightConsole(
     if (typeof document === 'undefined') return mat;
     const canvas = document.createElement('canvas');
     canvas.width = kind === 'contact' ? 1024 : 512;
-    canvas.height = kind === 'contact' ? 1024 : 768;
+    // Match the resized glass so lettering and signal arcs keep their proportions.
+    canvas.height = kind === 'contact' ? Math.round((canvas.width * height) / w) : 768;
     const ctx = canvas.getContext('2d');
     if (!ctx) return mat;
     const cw = canvas.width,
@@ -295,7 +296,7 @@ export function buildContactFlightConsole(
       ctx.moveTo(68, 304);
       ctx.lineTo(955, 304);
       ctx.stroke();
-      // The existing native action remains in the lower center. No fake form fields.
+      // Static signal diagram with a separate status footer.
       ctx.strokeStyle = '#739fba';
       ctx.lineWidth = 4;
       const cx = 512,
@@ -312,15 +313,15 @@ export function buildContactFlightConsole(
       ctx.strokeStyle = '#4d6b80';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(68, 697);
-      ctx.lineTo(955, 697);
+      ctx.moveTo(68, ch - 125);
+      ctx.lineTo(955, ch - 125);
       ctx.stroke();
       ctx.fillStyle = '#94b1c1';
       ctx.font = '500 21px monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('COM / 04', 69, 733);
+      ctx.fillText('COM / 04', 69, ch - 89);
       ctx.textAlign = 'right';
-      ctx.fillText('STANDBY', 952, 733);
+      ctx.fillText('STANDBY', 952, ch - 89);
     } else {
       ctx.fillStyle = '#dce5e6';
       ctx.font = '500 40px sans-serif';
@@ -562,7 +563,9 @@ export function buildContactFlightConsole(
       );
     }
   };
-  display('contact', 0, 1.77, 1.63, 1.49, 0);
+  // Keep the monitor's lower edge and deck height; a shorter enclosure leaves
+  // a deliberate wall band below the rear-mounted room sign.
+  display('contact', 0, 1.605, 1.63, 1.16, 0);
   display('link', -1.158, 1.49, 0.65, 0.92, 0.12);
   display('signal', 1.158, 1.49, 0.65, 0.92, -0.12);
 

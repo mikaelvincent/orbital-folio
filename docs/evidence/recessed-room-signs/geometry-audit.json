@@ -1,0 +1,589 @@
+{
+  "layouts": {
+    "wide": {
+      "projects": {
+        "wallSupportSeating": [
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          },
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.79967,
+        "headerFurnitureVerticalGap": 0.18533,
+        "closestEquipment": [
+          {
+            "name": "projects-workshop-task-strip-socket",
+            "top": 0.79967
+          },
+          {
+            "name": "projects-workshop-task-strip-socket",
+            "top": 0.79967
+          },
+          {
+            "name": "projects-workshop-task-strip-end-cap",
+            "top": 0.7946
+          }
+        ],
+        "lightDepthGap": 0.8755,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25,
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22,
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": [],
+        "unchangedTablesAndSupports": {
+          "checked": 22,
+          "changed": []
+        },
+        "joins": {
+          "moduleRailsJoinedToCrossrail": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "standoffsJoinedToEnclosure": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "standoffsJoinedToRearRail": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "minimumStandOffEnclosureDepthOverlap": 0.0026
+        },
+        "screenGaps": {
+          "betweenFullAssemblies": 0.09366,
+          "fullLowerAssemblyToBench": 0.04233,
+          "betweenEnclosures": 0.13812,
+          "lowerEnclosureToBench": 0.06456
+        }
+      },
+      "contact": {
+        "wallSupportSeating": [
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          },
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.69,
+        "headerFurnitureVerticalGap": 0.295,
+        "closestEquipment": [
+          {
+            "name": "contact-flight-contact-mounting-rail",
+            "top": 0.69
+          },
+          {
+            "name": "contact-flight-contact-mounting-rail",
+            "top": 0.69
+          },
+          {
+            "name": "contact-flight-contact-bezel",
+            "top": 0.625
+          }
+        ],
+        "lightDepthGap": 0.8755,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": [],
+        "unchangedTablesAndSupports": {
+          "checked": 20,
+          "changed": []
+        },
+        "joins": {
+          "mainBezelBounds": {
+            "min": [
+              1.435,
+              -0.535,
+              -0.77
+            ],
+            "max": [
+              3.065,
+              0.625,
+              -0.59
+            ]
+          },
+          "standoffBezelOverlap": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "standoffRailOverlap": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "shoeRailOverlap": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      },
+      "about": {
+        "wallSupportSeating": [
+          {
+            "support": "upper-header-wall-saddle",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.091212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.6775,
+        "headerFurnitureVerticalGap": 0.3075,
+        "closestEquipment": [
+          {
+            "name": "vertical-berth-recess",
+            "top": 0.6775
+          },
+          {
+            "name": "brushed-titanium",
+            "top": 0.6635
+          },
+          {
+            "name": "cabin-utility-cupboard",
+            "top": 0.647
+          }
+        ],
+        "lightDepthGap": 0.8805,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25,
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22,
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": []
+      },
+      "experience": {
+        "wallSupportSeating": [
+          {
+            "support": "upper-header-wall-saddle",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.091212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.602,
+        "headerFurnitureVerticalGap": 0.383,
+        "closestEquipment": [
+          {
+            "name": "nine-slot-case-study-payload-rack",
+            "top": 0.602
+          },
+          {
+            "name": "deep-empty-compartment-liner",
+            "top": 0.519
+          },
+          {
+            "name": "deep-empty-compartment-liner",
+            "top": 0.519
+          }
+        ],
+        "lightDepthGap": 0.8805,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": []
+      }
+    },
+    "compact": {
+      "projects": {
+        "wallSupportSeating": [
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          },
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.460523,
+        "headerFurnitureVerticalGap": 0.524477,
+        "closestEquipment": [
+          {
+            "name": "projects-workshop-task-strip-socket",
+            "top": 0.460523
+          },
+          {
+            "name": "projects-workshop-task-strip-socket",
+            "top": 0.460523
+          },
+          {
+            "name": "projects-workshop-task-strip-end-cap",
+            "top": 0.456264
+          }
+        ],
+        "lightDepthGap": 0.8755,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25,
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22,
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": [],
+        "unchangedTablesAndSupports": {
+          "checked": 22,
+          "changed": []
+        },
+        "joins": {
+          "moduleRailsJoinedToCrossrail": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "standoffsJoinedToEnclosure": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "standoffsJoinedToRearRail": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "minimumStandOffEnclosureDepthOverlap": 0.002184
+        },
+        "screenGaps": {
+          "betweenFullAssemblies": 0.078674,
+          "fullLowerAssemblyToBench": 0.035557,
+          "betweenEnclosures": 0.116021,
+          "lowerEnclosureToBench": 0.05423
+        }
+      },
+      "contact": {
+        "wallSupportSeating": [
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          },
+          {
+            "support": "cabin-identification-standoff",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.086212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.3684,
+        "headerFurnitureVerticalGap": 0.6166,
+        "closestEquipment": [
+          {
+            "name": "contact-flight-contact-mounting-rail",
+            "top": 0.3684
+          },
+          {
+            "name": "contact-flight-contact-mounting-rail",
+            "top": 0.3684
+          },
+          {
+            "name": "contact-flight-contact-bezel",
+            "top": 0.3138
+          }
+        ],
+        "lightDepthGap": 0.8755,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": [],
+        "unchangedTablesAndSupports": {
+          "checked": 20,
+          "changed": []
+        },
+        "joins": {
+          "mainBezelBounds": {
+            "min": [
+              0.9142,
+              -0.6606,
+              -0.6468
+            ],
+            "max": [
+              2.2834,
+              0.3138,
+              -0.4956
+            ]
+          },
+          "standoffBezelOverlap": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "standoffRailOverlap": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "shoeRailOverlap": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      },
+      "about": {
+        "wallSupportSeating": [
+          {
+            "support": "upper-header-wall-saddle",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.091212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.3579,
+        "headerFurnitureVerticalGap": 0.6271,
+        "closestEquipment": [
+          {
+            "name": "vertical-berth-recess",
+            "top": 0.3579
+          },
+          {
+            "name": "brushed-titanium",
+            "top": 0.34614
+          },
+          {
+            "name": "cabin-utility-cupboard",
+            "top": 0.33228
+          }
+        ],
+        "lightDepthGap": 0.8805,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25,
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22,
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": []
+      },
+      "experience": {
+        "wallSupportSeating": [
+          {
+            "support": "upper-header-wall-saddle",
+            "wallZ": -1.053788,
+            "wallPenetration": 0.091212,
+            "seated": true
+          }
+        ],
+        "frameHeight": 0.25,
+        "centerY": 1.11,
+        "headerBottom": 0.985,
+        "highestOverlappingFurnitureTop": 0.29448,
+        "headerFurnitureVerticalGap": 0.69052,
+        "closestEquipment": [
+          {
+            "name": "nine-slot-case-study-payload-rack",
+            "top": 0.29448
+          },
+          {
+            "name": "deep-empty-compartment-liner",
+            "top": 0.22476
+          },
+          {
+            "name": "deep-empty-compartment-liner",
+            "top": 0.22476
+          }
+        ],
+        "lightDepthGap": 0.8805,
+        "lightToInkDepthGap": 0.8685,
+        "doorFrameHeights": [
+          0.25
+        ],
+        "enamelHeights": [
+          0.22
+        ],
+        "doorEnamelHeights": [
+          0.22
+        ],
+        "headerFurnitureAabbCollisions": []
+      }
+    }
+  },
+  "checks": [],
+  "limitations": [
+    "No browser pixel rendering; geometry bounds use real pre-batch geometry transformed through current layout parents.",
+    "Font-size parity uses Canvas draw recording with macOS Arial-BoldMT widths measured by AppKit; this does not inspect browser rasterized pixels."
+  ],
+  "textParity": [
+    {
+      "section": "projects",
+      "headerEm": 0.126,
+      "doorEm": 0.126,
+      "matched": true
+    },
+    {
+      "section": "experience",
+      "headerEm": 0.119247,
+      "doorEm": 0.119247,
+      "matched": true
+    },
+    {
+      "section": "about",
+      "headerEm": 0.126,
+      "doorEm": 0.126,
+      "matched": true
+    },
+    {
+      "section": "contact",
+      "headerEm": 0.126,
+      "doorEm": 0.126,
+      "matched": true
+    }
+  ]
+}
