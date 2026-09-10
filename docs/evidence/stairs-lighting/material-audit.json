@@ -1,0 +1,1293 @@
+{
+  "sourceSha256": "9593e93f3dab21813db8d56a85b7c3fbc883935fb9442e109f27c0216b27fc94",
+  "scope": "Selected-room doorway material invariance through animated stairs hover, leave, reversal, and separately enabled portal tint. Actual model material state; rear boundary rays target the union of rear-wall meshes, not all-scene visibility. Not a pixel/GPU claim.",
+  "cases": [
+    {
+      "layout": "wide",
+      "room": "projects",
+      "neutralMeshes": 101,
+      "revealMeshes": 1,
+      "rearReturnMeshes": 1,
+      "boundarySamples": [
+        {
+          "x": 0.572,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            2,
+            -0.9850000143051147
+          ]
+        }
+      ],
+      "maxBoundaryMaterialError": 0,
+      "revealInitialLevels": [
+        1
+      ],
+      "ladderMeshes": 2,
+      "frames": 238,
+      "maxNeutralDelta": 0,
+      "maxLadderTrackingError": 0,
+      "maxAccentDeltaWithoutPortal": 0,
+      "portalTintChanged": true,
+      "portalEmissionStayedZero": true,
+      "stages": [
+        {
+          "name": "off",
+          "frames": 3,
+          "firstLadderLevel": 0.5,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.5
+        },
+        {
+          "name": "hover-on",
+          "frames": 45,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 1,
+          "min": 0.5974008379909648,
+          "max": 1
+        },
+        {
+          "name": "hover-off",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        },
+        {
+          "name": "reverse-on",
+          "frames": 5,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 0.8307672874466289,
+          "min": 0.5974008379909648,
+          "max": 0.8307672874466289
+        },
+        {
+          "name": "reverse-off",
+          "frames": 5,
+          "firstLadderLevel": 0.766333265492029,
+          "lastLadderLevel": 0.6119532905570273,
+          "min": 0.6119532905570273,
+          "max": 0.766333265492029
+        },
+        {
+          "name": "reverse-on-settle",
+          "frames": 45,
+          "firstLadderLevel": 0.6875454399157912,
+          "lastLadderLevel": 1,
+          "min": 0.6875454399157912,
+          "max": 1
+        },
+        {
+          "name": "portal-tint",
+          "frames": 45,
+          "firstLadderLevel": 1,
+          "lastLadderLevel": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "name": "portal-leave",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        }
+      ],
+      "failures": []
+    },
+    {
+      "layout": "wide",
+      "room": "about",
+      "neutralMeshes": 49,
+      "revealMeshes": 1,
+      "rearReturnMeshes": 1,
+      "boundarySamples": [
+        {
+          "x": 0.572,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.7992,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6872,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -4.6598999999999995,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            -2,
+            -0.985000014305115
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6585,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            -2,
+            -0.985000014305115
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.6312,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -4.5192,
+            -1.4,
+            -0.9850000143051147
+          ]
+        }
+      ],
+      "maxBoundaryMaterialError": 0,
+      "revealInitialLevels": [
+        1
+      ],
+      "ladderMeshes": 2,
+      "frames": 238,
+      "maxNeutralDelta": 0,
+      "maxLadderTrackingError": 0,
+      "maxAccentDeltaWithoutPortal": 0,
+      "portalTintChanged": true,
+      "portalEmissionStayedZero": true,
+      "stages": [
+        {
+          "name": "off",
+          "frames": 3,
+          "firstLadderLevel": 0.5,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.5
+        },
+        {
+          "name": "hover-on",
+          "frames": 45,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 1,
+          "min": 0.5974008379909648,
+          "max": 1
+        },
+        {
+          "name": "hover-off",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        },
+        {
+          "name": "reverse-on",
+          "frames": 5,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 0.8307672874466289,
+          "min": 0.5974008379909648,
+          "max": 0.8307672874466289
+        },
+        {
+          "name": "reverse-off",
+          "frames": 5,
+          "firstLadderLevel": 0.766333265492029,
+          "lastLadderLevel": 0.6119532905570273,
+          "min": 0.6119532905570273,
+          "max": 0.766333265492029
+        },
+        {
+          "name": "reverse-on-settle",
+          "frames": 45,
+          "firstLadderLevel": 0.6875454399157912,
+          "lastLadderLevel": 1,
+          "min": 0.6875454399157912,
+          "max": 1
+        },
+        {
+          "name": "portal-tint",
+          "frames": 45,
+          "firstLadderLevel": 1,
+          "lastLadderLevel": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "name": "portal-leave",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        }
+      ],
+      "failures": []
+    },
+    {
+      "layout": "compact",
+      "room": "projects",
+      "neutralMeshes": 101,
+      "revealMeshes": 1,
+      "rearReturnMeshes": 1,
+      "boundarySamples": [
+        {
+          "x": 0.572,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": -0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0.3,
+          "expectedOwner": "projects",
+          "parts": [
+            "walkway-projects-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            2,
+            -0.9850000143051147
+          ]
+        }
+      ],
+      "maxBoundaryMaterialError": 0,
+      "revealInitialLevels": [
+        1
+      ],
+      "ladderMeshes": 2,
+      "frames": 238,
+      "maxNeutralDelta": 0,
+      "maxLadderTrackingError": 0,
+      "maxAccentDeltaWithoutPortal": 0,
+      "portalTintChanged": true,
+      "portalEmissionStayedZero": true,
+      "stages": [
+        {
+          "name": "off",
+          "frames": 3,
+          "firstLadderLevel": 0.5,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.5
+        },
+        {
+          "name": "hover-on",
+          "frames": 45,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 1,
+          "min": 0.5974008379909648,
+          "max": 1
+        },
+        {
+          "name": "hover-off",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        },
+        {
+          "name": "reverse-on",
+          "frames": 5,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 0.8307672874466289,
+          "min": 0.5974008379909648,
+          "max": 0.8307672874466289
+        },
+        {
+          "name": "reverse-off",
+          "frames": 5,
+          "firstLadderLevel": 0.766333265492029,
+          "lastLadderLevel": 0.6119532905570273,
+          "min": 0.6119532905570273,
+          "max": 0.766333265492029
+        },
+        {
+          "name": "reverse-on-settle",
+          "frames": 45,
+          "firstLadderLevel": 0.6875454399157912,
+          "lastLadderLevel": 1,
+          "min": 0.6875454399157912,
+          "max": 1
+        },
+        {
+          "name": "portal-tint",
+          "frames": 45,
+          "firstLadderLevel": 1,
+          "lastLadderLevel": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "name": "portal-leave",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        }
+      ],
+      "failures": []
+    },
+    {
+      "layout": "compact",
+      "room": "about",
+      "neutralMeshes": 49,
+      "revealMeshes": 1,
+      "rearReturnMeshes": 1,
+      "boundarySamples": [
+        {
+          "x": 0.572,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.572,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.5279999999999996,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.652,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4479999999999995,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": -0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6715,
+          "dy": 0.3,
+          "expectedOwner": "walkway",
+          "parts": [
+            "walkway-continuous-rear-liner"
+          ],
+          "point": [
+            -3.4284999999999997,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            -2,
+            -0.985000014305115
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.6725,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4274999999999998,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            -2,
+            -0.985000014305115
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.692,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.4079999999999995,
+            -1.4,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": -0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            -2,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            -1.7,
+            -0.9850000143051147
+          ]
+        },
+        {
+          "x": 0.772,
+          "dy": 0.3,
+          "expectedOwner": "about",
+          "parts": [
+            "walkway-about-rear-return-interior"
+          ],
+          "point": [
+            -3.3279999999999994,
+            -1.4,
+            -0.9850000143051147
+          ]
+        }
+      ],
+      "maxBoundaryMaterialError": 0,
+      "revealInitialLevels": [
+        1
+      ],
+      "ladderMeshes": 2,
+      "frames": 238,
+      "maxNeutralDelta": 0,
+      "maxLadderTrackingError": 0,
+      "maxAccentDeltaWithoutPortal": 0,
+      "portalTintChanged": true,
+      "portalEmissionStayedZero": true,
+      "stages": [
+        {
+          "name": "off",
+          "frames": 3,
+          "firstLadderLevel": 0.5,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.5
+        },
+        {
+          "name": "hover-on",
+          "frames": 45,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 1,
+          "min": 0.5974008379909648,
+          "max": 1
+        },
+        {
+          "name": "hover-off",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        },
+        {
+          "name": "reverse-on",
+          "frames": 5,
+          "firstLadderLevel": 0.5974008379909648,
+          "lastLadderLevel": 0.8307672874466289,
+          "min": 0.5974008379909648,
+          "max": 0.8307672874466289
+        },
+        {
+          "name": "reverse-off",
+          "frames": 5,
+          "firstLadderLevel": 0.766333265492029,
+          "lastLadderLevel": 0.6119532905570273,
+          "min": 0.6119532905570273,
+          "max": 0.766333265492029
+        },
+        {
+          "name": "reverse-on-settle",
+          "frames": 45,
+          "firstLadderLevel": 0.6875454399157912,
+          "lastLadderLevel": 1,
+          "min": 0.6875454399157912,
+          "max": 1
+        },
+        {
+          "name": "portal-tint",
+          "frames": 45,
+          "firstLadderLevel": 1,
+          "lastLadderLevel": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "name": "portal-leave",
+          "frames": 45,
+          "firstLadderLevel": 0.9025991620090352,
+          "lastLadderLevel": 0.5,
+          "min": 0.5,
+          "max": 0.9025991620090352
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "sourceUnchangedDuringAudit": true,
+  "passed": true
+}

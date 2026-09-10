@@ -1418,13 +1418,99 @@ export function createSpacecraft(
       outside: make(rearPositions, rearIndices),
     };
   }
+  const sharedWalkwayWalls: Record<string, any> = {};
+  for (const room of ['projects', 'about']) {
+    const material = m.wall.clone();
+    material.userData.linkedRooms = [room, 'walkway'];
+    material.userData.surfaceOnly = true;
+    sharedWalkwayWalls[room] = material;
+  }
+  // Split material ownership at a physical boundary without moving the wall.
+  // Crossing triangles are clipped, preserving their interpolated attributes.
+  function splitWallSurface(geometry: any, axis: number, boundary: number) {
+    const source = geometry.index ? geometry.toNonIndexed() : geometry;
+    const names = Object.keys(source.attributes);
+    const count = source.getAttribute('position').count;
+    const halves = [-1, 1].map((side) => {
+      const data: Record<string, number[]> = Object.fromEntries(
+        names.map((name) => [name, []]),
+      );
+      for (let i = 0; i < count; i += 3) {
+        const triangle = [0, 1, 2].map(
+          (offset) =>
+            Object.fromEntries(
+              names.map((name) => {
+                const attribute = source.getAttribute(name);
+                return [
+                  name,
+                  Array.from(
+                    attribute.array.slice(
+                      (i + offset) * attribute.itemSize,
+                      (i + offset + 1) * attribute.itemSize,
+                    ),
+                  ) as number[],
+                ];
+              }),
+            ) as Record<string, number[]>,
+        );
+        const polygon: Record<string, number[]>[] = [];
+        let previous = triangle[2];
+        for (const current of triangle) {
+          const a = previous.position[axis] - boundary;
+          const b = current.position[axis] - boundary;
+          if (a * side >= 0 !== b * side >= 0) {
+            const t = a / (a - b);
+            const intersection = Object.fromEntries(
+              names.map((name) => [
+                name,
+                previous[name].map(
+                  (value, component) =>
+                    value + (current[name][component] - value) * t,
+                ),
+              ]),
+            );
+            intersection.position[axis] = boundary;
+            polygon.push(intersection);
+          }
+          if (b * side >= 0) polygon.push(current);
+          previous = current;
+        }
+        for (let j = 1; j < polygon.length - 1; j++)
+          for (const vertex of [polygon[0], polygon[j], polygon[j + 1]])
+            for (const name of names) data[name].push(...vertex[name]);
+      }
+      const result = new THREE.BufferGeometry();
+      for (const name of names)
+        result.setAttribute(
+          name,
+          new THREE.Float32BufferAttribute(
+            data[name],
+            source.getAttribute(name).itemSize,
+          ),
+        );
+      result.computeBoundingSphere();
+      return result;
+    });
+    if (source !== geometry) source.dispose();
+    geometry.dispose();
+    return halves;
+  }
   const walkwayRear = walkwayRearGeometry();
-  mesh(
+  const [ladderRear, doorwayRear] = splitWallSurface(
     walkwayRear.inside,
-    m.wall,
-    walkwayFurniture,
-    'walkway-continuous-rear-liner',
+    0,
+    0.672,
   );
+  const roomReturns = splitWallSurface(doorwayRear, 1, 0);
+  mesh(ladderRear, m.wall, walkwayFurniture, 'walkway-continuous-rear-liner');
+  ['about', 'projects'].forEach((room, index) => {
+    mesh(
+      roomReturns[index],
+      sharedWalkwayWalls[room],
+      walkwayFurniture,
+      `walkway-${room}-rear-return-interior`,
+    );
+  });
   mesh(
     walkwayRear.outside,
     m.shell,
@@ -1587,6 +1673,66 @@ export function createSpacecraft(
       }
     }
   }
+  function shareWalkwayDoorwayLighting(wall: any) {
+    const interior = wall.children.find((part: any) =>
+      part.name.endsWith('-interior'),
+    );
+    const original = interior.geometry;
+    const p = original.getAttribute('position');
+    const n = original.getAttribute('normal');
+    const buckets: number[][] = [[], [], []];
+    const openingHalf = passageWallClear / 2 + 0.025;
+    for (let i = 0; i < p.count; i += 3) {
+      let y = 0,
+        z = 0,
+        ladderPlane = true;
+      for (let j = i; j < i + 3; j++) {
+        y += p.getY(j) / 3;
+        z += p.getZ(j) / 3;
+        ladderPlane &&=
+          n.getX(j) < -0.999 &&
+          Math.abs(n.getY(j)) < 0.0001 &&
+          Math.abs(n.getZ(j)) < 0.0001;
+      }
+      // The flat stairwell wall stays ladder-owned. Only the tunnel and its
+      // inner bevel borrow light from the adjoining cabin, like the coupling.
+      const opening =
+        !ladderPlane && Math.abs(z - passageCenterZ) <= openingHalf
+          ? [1.64, -1.76].findIndex(
+              (center) => Math.abs(y - center) <= openingHalf,
+            )
+          : -1;
+      buckets[opening + 1].push(i, i + 1, i + 2);
+    }
+    buckets.forEach((vertices, index) => {
+      const geometry = new THREE.BufferGeometry();
+      for (const name of Object.keys(original.attributes)) {
+        const attribute = original.getAttribute(name);
+        const values = new Float32Array(vertices.length * attribute.itemSize);
+        vertices.forEach((vertex, offset) => {
+          for (let c = 0; c < attribute.itemSize; c++)
+            values[offset * attribute.itemSize + c] =
+              attribute.array[vertex * attribute.itemSize + c];
+        });
+        geometry.setAttribute(
+          name,
+          new THREE.Float32BufferAttribute(values, attribute.itemSize),
+        );
+      }
+      geometry.computeBoundingSphere();
+      if (index === 0) interior.geometry = geometry;
+      else {
+        const room = index === 1 ? 'projects' : 'about';
+        mesh(
+          geometry,
+          sharedWalkwayWalls[room],
+          wall,
+          `walkway-${room}-doorway-reveal-interior`,
+        );
+      }
+    });
+    original.dispose();
+  }
   for (const side of [-1, 1]) {
     const outline = roundedPath(
       new THREE.Shape(),
@@ -1635,7 +1781,8 @@ export function createSpacecraft(
     );
     // The docking wall shares the shoulder outer/inner datums, without a proud plate.
     wall.position.x = side > 0 ? 0.75 : -0.7075;
-    if (side < 0) {
+    if (side > 0) shareWalkwayDoorwayLighting(wall);
+    else {
       // The dock wall and curved shoulder returns share one interior finish.
       // The structural exterior keeps its independent hull material.
       for (const part of wall.children)

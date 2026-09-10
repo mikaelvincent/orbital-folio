@@ -38,7 +38,7 @@ Reproduce the actual-mesh comparison from the repository root (it takes a few mi
 node docs/evidence/ladder-lip/actual-mesh-audit.mjs . git:b6cd2c1:components/spacecraft-model.ts /tmp/ladder-lip-audit.json
 ```
 
-The [independent critic report](CRITIC-REPORT.md) assesses this defect only. Both root and critic inspected the corrected GPU captures; the geometry comparison supplements that visual evidence. Finite geometry probes and a few camera poses do not certify every possible view.
+The [independent critic report](CRITIC-REPORT-LADDER-LIP.md) assesses this defect only. Both root and critic inspected the corrected GPU captures; the geometry comparison supplements that visual evidence. Finite geometry probes and a few camera poses do not certify every possible view.
 
 Typecheck, repository lint and the Sites production build passed. Lint initially found an unused helper in the previous docking audit; that unused declaration was removed. Build warnings concern an upstream deprecated module API, bundle size, plugin timing and route classification. The development site remains running at `http://localhost:3000/`; this revision was not deployed.
 

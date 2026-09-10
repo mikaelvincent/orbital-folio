@@ -1,0 +1,21 @@
+{
+  "modelSha256": "9593e93f3dab21813db8d56a85b7c3fbc883935fb9442e109f27c0216b27fc94",
+  "typecheck": {
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "sitesBuild": {
+    "exitCode": 0,
+    "warnings": [
+      "module.register deprecation",
+      "large client chunks",
+      "plugin timing",
+      "route classification"
+    ]
+  },
+  "visualMethod": "Fresh renderer after source reload. Native drag to oblique room angles. Doorway highlight entered using keyboard focus, which uses the same enter handler as pointer hover. About focus scrolled the page; Home restored scrollY=0 without changing hover for the final capture. Intermediate shifted captures discarded.",
+  "nativeNavigation": "Projects to About and back through doorway controls; no readers opened.",
+  "scope": "Shared doorway and rear return lighting only."
+}
