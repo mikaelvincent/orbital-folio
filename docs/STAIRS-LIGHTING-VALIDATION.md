@@ -1,5 +1,7 @@
 # Stairs hover lighting ownership
 
+This is historical evidence for the lighting-only revision. The subsequent [panel removal](PANEL-REMOVAL-VALIDATION.md) removes the redundant geometry itself while preserving doorway lighting.
+
 The doorway between the ladder and a selected Projects/About room now keeps the selected room’s brightness while the ladder responds to hover.
 
 Two ladder-owned surfaces caused the leak:
@@ -30,7 +32,7 @@ Browser testing used native camera dragging and doorway focus; pointer-enter and
 
 The [animated material audit](evidence/stairs-lighting/material-audit.json) checks Projects/About in wide/compact layouts through 952 frames of highlight entry, exit and rapid reversal. Selected-room neutral materials stay exactly unchanged, while ladder materials follow their own dimmer. It also verifies 72 points on opposite sides of the rear-wall ownership boundary and checks route tint independently.
 
-The [geometry and sightline comparison](evidence/stairs-lighting/geometry-audit.json) preserves all 1,838 doorway triangles/attributes and 746 unrelated meshes/transforms. The clipped rear surface deviates by at most 0.00000012 model units, with total area differing by 0.00000000167. Across 2,632 first-hit rays, each room’s 46 previously changing doorway hits and three rear-strip hits now stay steady; 718 visible ladder hits per room still brighten. There are no new holes or shifted first-hit positions in those samples. The [independent critic report](CRITIC-REPORT.md) assesses this lighting defect only.
+The [geometry and sightline comparison](evidence/stairs-lighting/geometry-audit.json) preserves all 1,838 doorway triangles/attributes and 746 unrelated meshes/transforms. The clipped rear surface deviates by at most 0.00000012 model units, with total area differing by 0.00000000167. Across 2,632 first-hit rays, each room’s 46 previously changing doorway hits and three rear-strip hits now stay steady; 718 visible ladder hits per room still brighten. There are no new holes or shifted first-hit positions in those samples. The [independent critic report](CRITIC-REPORT-STAIRS-LIGHTING.md) assesses this lighting defect only.
 
 Reproduce the material check from the repository root:
 

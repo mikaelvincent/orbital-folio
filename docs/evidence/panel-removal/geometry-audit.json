@@ -1,0 +1,317 @@
+{
+  "baseline": {
+    "file": "git:ebde2b8:components/spacecraft-model.ts",
+    "sha256": "9593e93f3dab21813db8d56a85b7c3fbc883935fb9442e109f27c0216b27fc94"
+  },
+  "candidate": {
+    "file": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+    "sha256": "2654abc143b04057cab9c29c4cfef038d6fcb5813930964e7c3cc923d06d30c8"
+  },
+  "limits": [
+    "CPU audit of actual generated meshes. GPU captures separately confirm appearance.",
+    "About rays use the saved 1280x900 oblique camera. Projects translates this pose +3.4 in Y. Compact camera translates +0.6 X; it is a synthetic geometry probe, not a captured view.",
+    "Finite ray samples do not prove every possible camera. Empty content fixtures keep checks focused on chassis and doorway geometry."
+  ],
+  "geometry": {
+    "unchangedUnrelatedMeshes": 749,
+    "rear": {
+      "box": {
+        "min": [
+          -0.6650000214576721,
+          -3.049999952316284,
+          -0.9850000143051147
+        ],
+        "max": [
+          0.671999990940094,
+          3.069999933242798,
+          1.1200000047683716
+        ]
+      },
+      "flatRearPlaneMaxX": 0.5849999785423279,
+      "removedReturnMeshes": 2,
+      "baselineChangedMeshes": [
+        {
+          "name": "walkway-continuous-rear-liner",
+          "vertices": 3051
+        },
+        {
+          "name": "walkway-about-rear-return-interior",
+          "vertices": 978
+        },
+        {
+          "name": "walkway-projects-rear-return-interior",
+          "vertices": 993
+        }
+      ],
+      "candidateVertices": 884
+    }
+  },
+  "layouts": [
+    {
+      "layout": "wide",
+      "room": "about",
+      "preservedTransforms": 749
+    },
+    {
+      "layout": "wide",
+      "room": "projects",
+      "preservedTransforms": 749
+    },
+    {
+      "layout": "compact",
+      "room": "about",
+      "preservedTransforms": 749
+    },
+    {
+      "layout": "compact",
+      "room": "projects",
+      "preservedTransforms": 749
+    }
+  ],
+  "sightlines": [
+    {
+      "layout": "wide",
+      "room": "about",
+      "rays": 7654,
+      "newMisses": [],
+      "removedPanelHits": 628,
+      "replacements": {
+        "open-side-pressure-bulkhead-interior": 2,
+        "about-continuous-pressure-skin-interior": 502,
+        "flush-open-pressure-hatch-frame": 124
+      },
+      "seamSamples": [
+        {
+          "pixel": [
+            228,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.70265636466056,
+              -1.6325,
+              -0.982595395685598
+            ]
+          }
+        },
+        {
+          "pixel": [
+            230,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.690638139356,
+              -1.6325,
+              -0.9816472512401875
+            ]
+          }
+        },
+        {
+          "pixel": [
+            232,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.678434958287319,
+              -1.6325,
+              -0.9803572476254692
+            ]
+          }
+        },
+        {
+          "pixel": [
+            234,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.6656718948509734,
+              -1.6325,
+              -0.9780690982524654
+            ]
+          }
+        },
+        {
+          "pixel": [
+            236,
+            450
+          ],
+          "hit": {
+            "name": "walkway-about-doorway-reveal-interior",
+            "point": [
+              -4.639969538084201,
+              -1.6325,
+              -0.9531425466031749
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "layout": "wide",
+      "room": "projects",
+      "rays": 7654,
+      "newMisses": [],
+      "removedPanelHits": 628,
+      "replacements": {
+        "open-side-pressure-bulkhead-interior": 2,
+        "projects-continuous-pressure-skin-interior": 502,
+        "flush-open-pressure-hatch-frame": 124
+      },
+      "seamSamples": [
+        {
+          "pixel": [
+            228,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.70265636466056,
+              1.7674999999999998,
+              -0.982595395685598
+            ]
+          }
+        },
+        {
+          "pixel": [
+            230,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.690638139356,
+              1.7674999999999998,
+              -0.9816472512401866
+            ]
+          }
+        },
+        {
+          "pixel": [
+            232,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.678434958287319,
+              1.7674999999999998,
+              -0.9803572476254692
+            ]
+          }
+        },
+        {
+          "pixel": [
+            234,
+            450
+          ],
+          "hit": {
+            "name": "walkway-continuous-rear-liner",
+            "point": [
+              -4.665671894850975,
+              1.7674999999999998,
+              -0.9780690982524671
+            ]
+          }
+        },
+        {
+          "pixel": [
+            236,
+            450
+          ],
+          "hit": {
+            "name": "walkway-projects-doorway-reveal-interior",
+            "point": [
+              -4.639969538084202,
+              1.7674999999999998,
+              -0.9531425466031758
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "room": "about",
+      "rays": 7654,
+      "newMisses": [],
+      "removedPanelHits": 0,
+      "replacements": {},
+      "seamSamples": []
+    },
+    {
+      "layout": "compact",
+      "room": "projects",
+      "rays": 7654,
+      "newMisses": [],
+      "removedPanelHits": 0,
+      "replacements": {},
+      "seamSamples": []
+    }
+  ],
+  "seamCoverage": [
+    {
+      "layout": "wide",
+      "room": "about",
+      "rays": 1353,
+      "misses": [],
+      "firstHits": {
+        "walkway-continuous-rear-liner": 677,
+        "walkway-about-doorway-reveal-interior": 123,
+        "open-walkway-room-coupling": 535,
+        "walkway-ladder-sign-enamel": 18
+      }
+    },
+    {
+      "layout": "wide",
+      "room": "projects",
+      "rays": 1353,
+      "misses": [],
+      "firstHits": {
+        "walkway-continuous-rear-liner": 677,
+        "walkway-projects-doorway-reveal-interior": 123,
+        "open-walkway-room-coupling": 535,
+        "walkway-ladder-sign-enamel": 18
+      }
+    },
+    {
+      "layout": "compact",
+      "room": "about",
+      "rays": 1353,
+      "misses": [],
+      "firstHits": {
+        "walkway-continuous-rear-liner": 683,
+        "walkway-about-doorway-reveal-interior": 41,
+        "open-walkway-room-coupling": 617,
+        "walkway-ladder-sign-enamel": 12
+      }
+    },
+    {
+      "layout": "compact",
+      "room": "projects",
+      "rays": 1353,
+      "misses": [],
+      "firstHits": {
+        "walkway-continuous-rear-liner": 683,
+        "walkway-projects-doorway-reveal-interior": 41,
+        "open-walkway-room-coupling": 617,
+        "walkway-ladder-sign-enamel": 12
+      }
+    }
+  ],
+  "failures": [],
+  "cameraInput": {
+    "file": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/panel-removal/ray-camera-state.json",
+    "sha256": "b36d6d077d24cdfa1375aacfe2fcab8cc1409af5f8fb18662efa04c04e02750e",
+    "note": "This file supplies a repeatable camera only; its renderer ID is not candidate render evidence."
+  },
+  "totalPixelRays": 30616,
+  "totalSeamRays": 5412
+}

@@ -1217,15 +1217,16 @@ export function createSpacecraft(
     leftWidth: number,
     leftHeight: number,
     right: number,
+    rightEdge = w / 2,
   ) {
     const x = -w / 2,
       y = -h / 2,
       k = 0.5522847498;
     path.moveTo(x + leftWidth, y);
-    path.lineTo(x + w - right, y);
-    path.quadraticCurveTo(x + w, y, x + w, y + right);
-    path.lineTo(x + w, y + h - right);
-    path.quadraticCurveTo(x + w, y + h, x + w - right, y + h);
+    path.lineTo(rightEdge - right, y);
+    path.quadraticCurveTo(rightEdge, y, rightEdge, y + right);
+    path.lineTo(rightEdge, y + h - right);
+    path.quadraticCurveTo(rightEdge, y + h, rightEdge - right, y + h);
     path.lineTo(x + leftWidth, y + h);
     path.bezierCurveTo(
       x + leftWidth * (1 - k),
@@ -1319,7 +1320,17 @@ export function createSpacecraft(
     )
       .getPoints(16)
       .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
-    const rim = walkwayOutline(new THREE.Shape(), 1.33, 6.12, 1.23, 2.01, 0.04)
+    // Seat the existing cove directly on the twin wall's inner face:
+    // 0.75 wall center - 0.06 half-depth - 0.018 bevel. No bridging sheet.
+    const rim = walkwayOutline(
+      new THREE.Shape(),
+      1.33,
+      6.12,
+      1.23,
+      2.01,
+      0.04,
+      0.672,
+    )
       .getPoints(16)
       .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
     if (rim[0].distanceToSquared(rim[rim.length - 1]) < 1e-12) rim.pop();
@@ -1327,10 +1338,15 @@ export function createSpacecraft(
       outer.pop();
     if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
       inner.pop();
-    for (const p of inner) if (p.x > 0.5) p.x += 0.585;
+    // Keep the rear lining within the ladder bay. Extending this contour
+    // through the shared wall creates a folded panel inside the cabin doorway.
     const n = inner.length,
       frontZ = -0.985,
       rearZ = -1.21;
+    // The right-hand cove meets the rear jamb at z=-0.975, just behind
+    // the opening's z=-0.970 edge. A full-depth return would end inside
+    // the open doorway and leave a slit between these existing surfaces.
+    const coveDepth = rim.map((p: any) => (p.x > 0.6 ? 0.01 : 0.08));
     const frontPositions: number[] = [],
       frontIndices: number[] = [];
     const rearPositions: number[] = [],
@@ -1350,7 +1366,7 @@ export function createSpacecraft(
         frontPositions.push(
           inner[i].x + (rim[i].x - inner[i].x) * radial,
           inner[i].y + (rim[i].y - inner[i].y) * radial,
-          frontZ + 0.08 * depth,
+          frontZ + coveDepth[i] * depth,
         );
     }
     for (let step = 0; step < steps; step++)
@@ -1374,7 +1390,7 @@ export function createSpacecraft(
         frontPositions.push(
           rim[i].x,
           rim[i].y,
-          frontZ + 0.08 + (shoulderFrontZ - frontZ - 0.08) * t,
+          frontZ + coveDepth[i] + (shoulderFrontZ - frontZ - coveDepth[i]) * t,
         );
     }
     for (let i = 0; i < n; i++) {
@@ -1425,92 +1441,13 @@ export function createSpacecraft(
     material.userData.surfaceOnly = true;
     sharedWalkwayWalls[room] = material;
   }
-  // Split material ownership at a physical boundary without moving the wall.
-  // Crossing triangles are clipped, preserving their interpolated attributes.
-  function splitWallSurface(geometry: any, axis: number, boundary: number) {
-    const source = geometry.index ? geometry.toNonIndexed() : geometry;
-    const names = Object.keys(source.attributes);
-    const count = source.getAttribute('position').count;
-    const halves = [-1, 1].map((side) => {
-      const data: Record<string, number[]> = Object.fromEntries(
-        names.map((name) => [name, []]),
-      );
-      for (let i = 0; i < count; i += 3) {
-        const triangle = [0, 1, 2].map(
-          (offset) =>
-            Object.fromEntries(
-              names.map((name) => {
-                const attribute = source.getAttribute(name);
-                return [
-                  name,
-                  Array.from(
-                    attribute.array.slice(
-                      (i + offset) * attribute.itemSize,
-                      (i + offset + 1) * attribute.itemSize,
-                    ),
-                  ) as number[],
-                ];
-              }),
-            ) as Record<string, number[]>,
-        );
-        const polygon: Record<string, number[]>[] = [];
-        let previous = triangle[2];
-        for (const current of triangle) {
-          const a = previous.position[axis] - boundary;
-          const b = current.position[axis] - boundary;
-          if (a * side >= 0 !== b * side >= 0) {
-            const t = a / (a - b);
-            const intersection = Object.fromEntries(
-              names.map((name) => [
-                name,
-                previous[name].map(
-                  (value, component) =>
-                    value + (current[name][component] - value) * t,
-                ),
-              ]),
-            );
-            intersection.position[axis] = boundary;
-            polygon.push(intersection);
-          }
-          if (b * side >= 0) polygon.push(current);
-          previous = current;
-        }
-        for (let j = 1; j < polygon.length - 1; j++)
-          for (const vertex of [polygon[0], polygon[j], polygon[j + 1]])
-            for (const name of names) data[name].push(...vertex[name]);
-      }
-      const result = new THREE.BufferGeometry();
-      for (const name of names)
-        result.setAttribute(
-          name,
-          new THREE.Float32BufferAttribute(
-            data[name],
-            source.getAttribute(name).itemSize,
-          ),
-        );
-      result.computeBoundingSphere();
-      return result;
-    });
-    if (source !== geometry) source.dispose();
-    geometry.dispose();
-    return halves;
-  }
   const walkwayRear = walkwayRearGeometry();
-  const [ladderRear, doorwayRear] = splitWallSurface(
+  mesh(
     walkwayRear.inside,
-    0,
-    0.672,
+    m.wall,
+    walkwayFurniture,
+    'walkway-continuous-rear-liner',
   );
-  const roomReturns = splitWallSurface(doorwayRear, 1, 0);
-  mesh(ladderRear, m.wall, walkwayFurniture, 'walkway-continuous-rear-liner');
-  ['about', 'projects'].forEach((room, index) => {
-    mesh(
-      roomReturns[index],
-      sharedWalkwayWalls[room],
-      walkwayFurniture,
-      `walkway-${room}-rear-return-interior`,
-    );
-  });
   mesh(
     walkwayRear.outside,
     m.shell,
