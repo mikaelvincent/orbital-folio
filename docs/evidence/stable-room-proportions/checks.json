@@ -1,0 +1,21 @@
+{
+  "rendererSha256": "55bcd774fa88f95cf5d5402eb410b4dcfb198eb3a2321b02ce6b9380030e2f23",
+  "modelSha256": "d49e9153b13d6f221176e16ae522e487f3312ab5686f5608753f168b364a2c67",
+  "typecheck": {
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "build": {
+    "exitCode": 0,
+    "warnings": [
+      "Upstream module.register deprecation",
+      "Minified chunks over 500 kB",
+      "Static route classification incomplete",
+      "Build plugin timing notices"
+    ]
+  },
+  "scope": "Live responsive renderer, actual generated geometry, and source contracts. No readers/admin/device-hardware certification or deployment.",
+  "localOverviewHttpStatus": 200
+}

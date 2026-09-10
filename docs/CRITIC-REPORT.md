@@ -1,19 +1,21 @@
-# Independent critic — misplaced hull bars and strips
+# Independent critic — stable room proportions
 
-**96.8/100. The scoped fix passes; no remaining blocker was found.** This is a fresh assessment of the raised cream bars below cabin apertures and the long dark exterior strips. It does not score unrelated portfolio features.
+**96.4/100. The scoped fix passes; no remaining blocker was found.** This fresh score covers room proportions and relative contents placement during viewport changes, with the existing camera fit and orientation behavior. It does not score unrelated portfolio features.
 
-Reviewed model SHA: `d49e9153b13d6f221176e16ae522e487f3312ab5686f5608753f168b364a2c67`.
+Reviewed renderer SHA: `55bcd774fa88f95cf5d5402eb410b4dcfb198eb3a2321b02ce6b9380030e2f23`. The physical model remains unchanged at `d49e9153b13d6f221176e16ae522e487f3312ab5686f5608753f168b364a2c67`.
 
 | Equally weighted area | Score /10 | Finding |
 | --- | ---: | --- |
-| Dark-strip removal | 9.9 | The decorative channel geometry is deleted from both layout variants. The legitimate aperture seals remain. |
-| Cream-bar correction | 9.8 | The actual deck fronts are seated inside the chassis face; no covering panel or visibility trick replaces the protruding bars. |
-| Floor and enclosure integrity | 9.7 | Floor heights, width and rear edges are preserved. Targeted downward/oblique rays and the close render show a supported threshold without new gaps. |
-| Preservation of the remaining render | 9.8 | The model comparison is limited to deck depth/center and channel construction. The audit preserves 742 unrelated geometries and their transforms. |
-| Current visual/source verification | 9.2 | Fresh front, oblique, selected-room and portrait renders corroborate the actual-mesh checks. Coverage remains finite. |
+| Constant cabin proportions | 9.9 | Construction stays wide at every viewport. Resize no longer changes hull width or requests the compact model. |
+| Preserved contents and relative placement | 9.8 | Vessel-space geometry, transforms and relevant anchors remain invariant; the approved model source is unchanged. |
+| Thresholds, fresh load and return path | 9.8 | The live sequence crosses both old morph thresholds, the portrait boundary, and returns to desktop. Fresh portrait initialization also uses the same construction. |
+| Camera fit and orientation | 9.4 | Overview rotates as one rigid vessel; selected Projects remains upright. The complete overview fits in all recorded overview states. |
+| Current source/runtime/visual proof | 9.3 | Actual-source checks, geometry fingerprints, 14 browser records and fresh screenshots corroborate the correction, with finite coverage limits. |
 
-I inspected the three supplied annotations and the final [front overview](evidence/hull-bars/overview-front.jpg), [oblique overview](evidence/hull-bars/overview-oblique.jpg), [Projects threshold](evidence/hull-bars/projects-threshold.jpg), and [430×932 portrait](evidence/hull-bars/overview-portrait.jpg). The unwanted straight strips are absent above and below the cabin rows. The four deck edges stay within their apertures instead of forming raised exterior bars. The close threshold remains continuous, and the ordinary aperture seals are intact.
+The original defect came from two different breakpoints: compact construction began at width < 900 or aspect < 1.05, while portrait rotation began below aspect 1. The source now constructs the wide vessel once and resizes its camera/canvas without calling the model’s layout-changing API. I inspected that implementation and the [source/geometry audit](evidence/stable-room-proportions/geometry-audit.json). Its 763-object vessel-space fingerprint and geometry/portal/framing metadata stay invariant through 11 orientation/update cases; aperture dimensions remain 3.416×2.775 model units. These are CPU/source checks, not browser resize claims.
 
-The [actual-mesh audit](evidence/hull-bars/geometry-audit.json), whose implementation and results I reviewed, confirms **four decorative channel objects removed** across the two variants. All four decks retain their width, vertical extent, walking height and rear edge at Z≈−1.12; only the front moves from Z≈1.34 to Z≈1.27. **742 unrelated geometries/transforms** remain exact in both layouts. Across **540 targeted samples**, 180 former bar hits now reach the original chassis face, and 360 front-threshold rays introduce no new misses or exposed backing surfaces.
+I independently compared the [14 live browser records](evidence/stable-room-proportions/resize-samples.json). Every record retains the same room anchors and portal metadata. The first 13 share one renderer, including the resize sequence and return to desktop; the final fresh portrait load correctly has a new renderer. The 1050→1049 pair crosses the old aspect threshold without a shape change, 900→899 at height 700 crosses the old width threshold, and 1000→999 at height 1000 changes only the overview orientation. All 11 recorded overview support sets remain inside the camera frustum.
 
-Limits: these are current desktop GPU captures, including a resized portrait viewport, and finite CPU probes—not physical-device testing or an exhaustive camera sweep. The score makes no new performance, deployment, reader or admin claim. Earlier unrelated defects and deferred features are outside this iteration.
+The [1050-pixel](evidence/stable-room-proportions/overview-1050.jpg) and [1049-pixel](evidence/stable-room-proportions/overview-1049.jpg) views show no cabin squeeze. The [fresh portrait overview](evidence/stable-room-proportions/overview-fresh-portrait.jpg) preserves the same construction after rotation. The [portrait Projects view](evidence/stable-room-proportions/projects-430.jpg) retains its locker arrangement and proportions. Fitting an unchanged wide chamber into a tall screen exposes more surrounding hull; this is a camera-fit tradeoff, not a model deformation.
+
+Limits: screen-projected proportions can still vary with perspective and the intentional rigid rotation. The evidence consists of discrete browser samples, resized desktop viewports and bounded CPU checks, not every animation frame or physical-device testing. No new reader/admin, performance or production-runtime claim is included.

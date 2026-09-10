@@ -123,8 +123,6 @@ export function Spacecraft(props: Props) {
           }
           const el = host.current;
           const mobile = () => el.clientWidth < 700;
-          const compactLayout = () =>
-            el.clientWidth < 900 || el.clientWidth / el.clientHeight < 1.05;
           const memory = (navigator as Navigator & { deviceMemory?: number })
             .deviceMemory;
           const capableShading =
@@ -178,7 +176,9 @@ export function Spacecraft(props: Props) {
             accent: s.accent,
             projectPageSize: PROJECTS_PER_PAGE,
             screenLabels: false,
-            layout: compactLayout() ? 'compact' : 'wide',
+            // Viewport changes frame the same vessel; they must not squeeze
+            // cabin walls or rescale their contents before portrait rotation.
+            layout: 'wide',
             sampleLabel: s.sampleLabel,
             projects: latest.current.projects.map((p) => ({
               title: String(p.title),
@@ -377,9 +377,7 @@ export function Spacecraft(props: Props) {
             addHotspot(hotspot.section, hotspot.position, hotspot.slot);
           for (const portal of model.group.userData.portals)
             addHotspot(portal.from, portal.labelPosition, undefined, portal.id);
-          const syncLayout = () => {
-            const layout = compactLayout() ? 'compact' : 'wide';
-            if (model.group.userData.layout !== layout) model.setLayout(layout);
+          const syncSceneTargets = () => {
             Object.assign(anchors, model.group.userData.roomAnchors);
             readerAnchors = model.group.userData.readerAnchors;
             for (const proxy of proxies) {
@@ -418,7 +416,7 @@ export function Spacecraft(props: Props) {
                   );
               }
             }
-            el.dataset.layout = layout;
+            el.dataset.layout = model.group.userData.layout;
           };
           const currentTarget = new THREE.Vector3(),
             nextTarget = new THREE.Vector3();
@@ -1519,7 +1517,7 @@ export function Spacecraft(props: Props) {
             aoDirty = true;
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
-            syncLayout();
+            syncSceneTargets();
             background.resize(w, h, renderer.getPixelRatio());
             renderer.shadowMap.needsUpdate = true;
             go(true, travelling);

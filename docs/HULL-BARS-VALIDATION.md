@@ -34,4 +34,4 @@ Reproduce:
 node docs/evidence/hull-bars/geometry-audit.mjs . git:641a70f:components/spacecraft-model.ts /tmp/hull-bars-audit.json
 ```
 
-Typecheck, lint and production build pass; the existing build warnings are retained in [checks.json](evidence/hull-bars/checks.json). The [independent critic](CRITIC-REPORT.md) scores only this requested correction and its immediate regressions. No unrelated UI, production runtime or deployment claim is included.
+Typecheck, lint and production build pass; the existing build warnings are retained in [checks.json](evidence/hull-bars/checks.json). The [independent critic](CRITIC-REPORT-HULL-BARS.md) scores only this requested correction and its immediate regressions. No unrelated UI, production runtime or deployment claim is included.
