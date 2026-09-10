@@ -10,7 +10,6 @@ const req=createRequire(root+'/package.json'),T=await import(pathToFileURL(req.r
 const {createSpacecraft}=await import(pathToFileURL(file).href);const source=[];
 class Mesh extends T.Mesh{constructor(...a){super(...a);source.push(this);}removeFromParent(){if(this.parent&&!this.auditParent)this.auditParent=this.parent;return super.removeFromParent();}}
 const m=createSpacecraft({...T,Mesh},{projects:[],caseStudies:[]}),report={sourceSha256:hash,limits:'CPU actual-mesh intersection tests. Uniform finite sampling proves the sampled corridors/seams only, not every infinitesimal triangle. No rendered visual-quality claim.',layouts:[],failures:[]};
-const find=n=>source.filter(o=>o.name===n);
 function visible(o){for(let p=o;p;p=p.parent||p.auditParent)if(!p.visible)return false;return true;}
 const ray=new T.Raycaster();
 for(const layout of ['wide','compact']){

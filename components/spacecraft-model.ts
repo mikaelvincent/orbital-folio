@@ -1518,6 +1518,41 @@ export function createSpacecraft(
     }
     normals.needsUpdate = true;
   }
+  function withoutForwardShoulderCap(geometry: any) {
+    // The common chassis already closes this end. The legacy cap follows a
+    // smaller aperture and leaves a raised strip inside the ladder opening.
+    // Remove its forward face and bevel, retaining the longitudinal hull skin.
+    const p = geometry.getAttribute('position');
+    const keep: number[] = [];
+    const a = new THREE.Vector3(),
+      b = new THREE.Vector3(),
+      c = new THREE.Vector3();
+    for (let i = 0; i < p.count; i += 3) {
+      a.fromBufferAttribute(p, i);
+      b.fromBufferAttribute(p, i + 1);
+      c.fromBufferAttribute(p, i + 2);
+      const forward =
+        Math.min(a.z, b.z, c.z) >= 1.21 - 1e-6 &&
+        b.sub(a).cross(c.sub(a)).normalize().z > 0.0001;
+      if (!forward) keep.push(i, i + 1, i + 2);
+    }
+    const result = new THREE.BufferGeometry();
+    for (const name of Object.keys(geometry.attributes)) {
+      const attribute = geometry.getAttribute(name);
+      const values = new Float32Array(keep.length * attribute.itemSize);
+      keep.forEach((index, offset) => {
+        for (let component = 0; component < attribute.itemSize; component++)
+          values[offset * attribute.itemSize + component] =
+            attribute.array[index * attribute.itemSize + component];
+      });
+      result.setAttribute(
+        name,
+        new THREE.Float32BufferAttribute(values, attribute.itemSize),
+      );
+    }
+    result.computeBoundingSphere();
+    return result;
+  }
   for (const sign of [-1, 1]) {
     const shape = capGeometry.clone();
     if (sign < 0) shape.rotateX(Math.PI);
@@ -1544,7 +1579,12 @@ export function createSpacecraft(
       if (part.name.endsWith('-interior')) {
         part.removeFromParent();
         part.geometry.dispose();
-      } else smoothShoulderNormals(part.geometry);
+      } else {
+        const oldGeometry = part.geometry;
+        part.geometry = withoutForwardShoulderCap(oldGeometry);
+        oldGeometry.dispose();
+        smoothShoulderNormals(part.geometry);
+      }
     }
   }
   for (const side of [-1, 1]) {
