@@ -1,4 +1,5 @@
 import { buildContactFlightConsole } from './contact-flight-console.ts';
+import { buildProjectsWorkshop } from './projects-workshop.ts';
 
 /**
  * Orbital toybox, v14. Self-contained procedural Three.js asset.
@@ -1042,9 +1043,9 @@ export function createSpacecraft(
         sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, exteriorHardware);
       }
     }
-    // Contact identifies itself on the integrated console. Other cabins retain
-    // the existing wall header and its mounted saddle.
-    if (section !== 'contact') {
+    // The new workshop and Contact console identify themselves on their displays.
+    // Their upper wall area remains clear for the mounted equipment.
+    if (section !== 'contact' && section !== 'projects') {
       box(
         1.52,
         0.255,
@@ -2363,7 +2364,23 @@ export function createSpacecraft(
       });
     }
   }
-  buildPayloadRack('projects', doorSlots);
+  // Projects is a static category workshop. The previous individual-project
+  // lockers and their pick surfaces disappear with the replaced furnishings.
+  // Catalog interaction is intentionally deferred; keep the public reader APIs.
+  const workshop = new THREE.Group();
+  workshop.name = 'projects-workshop';
+  workshop.position.set(legacyCenters.projects + 0.18, previousFloorTop, 0);
+  workshop.userData.batchRoot = true;
+  rooms.projects.add(workshop);
+  const projectWorkshop = buildProjectsWorkshop(
+    THREE,
+    { box, mesh, cylinder, torus, rod, instances },
+    workshop,
+    {
+      projectCount: projectData.length,
+      accent: m.amber,
+    },
+  );
   buildPayloadRack('experience', caseStudySlots);
   // The dossier reader is stowed flush until reading=true; no center table.
 
@@ -4143,6 +4160,13 @@ export function createSpacecraft(
     result.userData.parts = names;
     bucket.parent.add(result);
   }
+  // Preserve the four backlit display surfaces after static geometry batching.
+  workshop.traverse((object: any) => {
+    if (object.isMesh && object.material?.userData.displaySize) {
+      object.castShadow = false;
+      object.receiveShadow = false;
+    }
+  });
   group.traverse((object: any) => {
     if (
       object.isMesh &&
@@ -4222,6 +4246,7 @@ export function createSpacecraft(
   group.userData.readerSize = { width: 2.4, height: 2.7 };
   group.userData.projectPageSize = projectPageSize;
   group.userData.projectCapacity = 9;
+  group.userData.projectCategoryCapacity = 4;
   group.userData.caseStudyPageSize = projectPageSize;
   group.userData.caseStudyCapacity = 9;
   group.userData.hotspots = [
@@ -4255,7 +4280,7 @@ export function createSpacecraft(
     'https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking',
   ];
   group.userData.description =
-    'A two-by-two toybox spacecraft with nine project compartments, nine case-study compartments, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
+    'A two-by-two toybox spacecraft with a four-module project workshop, nine case-study compartments, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
   group.userData.detailStats = {
     staticSourceParts: sourceParts,
     drawCalls: targets.length,
@@ -4737,6 +4762,7 @@ export function createSpacecraft(
   }
   function setProjects(items: SpacecraftProject[]) {
     projectData = items.slice();
+    projectWorkshop.setProjectCount(projectData.length);
     return setProjectPage(currentProjectPage);
   }
   function setCaseStudies(items: SpacecraftProject[]) {

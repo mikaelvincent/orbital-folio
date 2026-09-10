@@ -1,0 +1,37 @@
+{
+  "baseline": "3a19df9",
+  "recordedAt": "2026-09-10T12:37:18.781247+00:00",
+  "sourceHashes": {
+    "components/spacecraft-model.ts": "76e78cbb1c2a0a64c5bcb2ed39b34578f8edbe6f38e469778f429bb366521562",
+    "components/projects-workshop.ts": "927ecf365fafa59a7b0a91a51e1bc7f82e3e7782aa4be23ca526d76c030ce927",
+    "components/projects-payload-module.ts": "08bd03f26a304e8a914ce8deb195ab22ef053d0f94e45abaf81a4f0173ca4d5e"
+  },
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "command": "node /Users/mikaelvincent/.codex/plugins/cache/openai-bundled/sites/0.1.66/scripts/build-site.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node docs/evidence/projects-workshop/geometry-audit.mjs . docs/evidence/projects-workshop/geometry-audit.json 3a19df9",
+      "exitCode": 0
+    }
+  ],
+  "criticScore": 95.5,
+  "criticApplicationFingerprintsMatch": true,
+  "browserEvidence": "browser-check.json",
+  "scope": "Static Projects room only. Existing camera used solely for visual inspection. Category interactions, catalogs and distinct readers intentionally deferred.",
+  "buildWarnings": [
+    "Node module.register deprecation",
+    "Client chunk size warning",
+    "vinext route classification warning"
+  ],
+  "deployment": "none; local preview retained"
+}
