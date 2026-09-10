@@ -4,9 +4,16 @@ import { buildContactAudio } from './contact-flight-audio.ts';
 export function buildContactFlightConsole(
   THREE: any,
   h: any,
-  parent: any,
+  floorRoot: any,
   options: { title?: string; accent?: any } = {},
 ) {
+  // The console stays a rigid assembly below the room heading. Shorten its
+  // stanchions while leaving the feet on the original cabin floor.
+  const lowering = 0.24;
+  const parent = new THREE.Group();
+  parent.name = 'contact-flight-equipment-mount';
+  parent.position.y = -lowering;
+  floorRoot.add(parent);
   const material = (
     name: string,
     color: number,
@@ -85,7 +92,7 @@ export function buildContactFlightConsole(
       x,
       0.017,
       -0.15,
-      parent,
+      floorRoot,
       0.015,
       'isolator-foot',
     );
@@ -97,39 +104,44 @@ export function buildContactFlightConsole(
       x,
       0.053,
       -0.15,
-      parent,
+      floorRoot,
       0.03,
       'anchored-foot',
     );
     box(
       0.17,
-      0.75,
+      0.75 - lowering,
       0.33,
       m.face,
       x,
-      0.43,
+      0.43 - lowering / 2,
       -0.15,
-      parent,
+      floorRoot,
       0.022,
       'console-stanchion',
     );
     box(
       0.1,
-      0.48,
+      0.48 - lowering,
       0.014,
       m.dark,
       x,
-      0.43,
+      0.43 - lowering / 2,
       0.022,
-      parent,
+      floorRoot,
       0.024,
       'stanchion-recess',
     );
     box(0.23, 0.09, 0.4, m.metal, x, 0.773, -0.15, parent, 0.018, 'deck-mount');
     // Rear braces end at a mounting shoe on the plain pressure wall.
     box(0.19, 0.28, 0.07, m.face, x, 0.66, -0.947, parent, 0.025, 'wall-mount');
-    h.rod([x, 0.28, -0.27], [x, 0.735, -0.92], 0.035, m.face, parent).name =
-      'contact-flight-diagonal-brace';
+    h.rod(
+      [x, 0.28 + lowering, -0.27],
+      [x, 0.735, -0.92],
+      0.035,
+      m.face,
+      parent,
+    ).name = 'contact-flight-diagonal-brace';
     box(
       0.18,
       0.15,
@@ -144,7 +156,7 @@ export function buildContactFlightConsole(
     );
     fasteners(
       [
-        [x, 0.15, 0.023],
+        [x, 0.15 + lowering, 0.023],
         [x, 0.7, 0.023],
         [x, 0.63, -0.908],
       ],

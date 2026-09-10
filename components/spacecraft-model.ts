@@ -186,7 +186,7 @@ export function createSpacecraft(
   const hasEquipmentHeader = (section: string) =>
     section === 'projects' || section === 'contact';
   const headerPosition = (section: string): [number, number] =>
-    hasEquipmentHeader(section) ? [1.32, -0.247] : [1.006, -0.263];
+    hasEquipmentHeader(section) ? [1.16, 0.403] : [1.006, -0.263];
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
   // under filmic lighting rather than a pale yellow reflective finish.
@@ -1067,7 +1067,7 @@ export function createSpacecraft(
       }
     }
     if (hasEquipmentHeader(section)) {
-      // A shallow ceiling-mounted identification rail clears the equipment below.
+      // A full-height enamel heading occupies its own band above the equipment.
       // Keep it outside the furniture group so floors and props need no offsets.
       const header = new THREE.Group();
       header.name = `cabin-identification-${section}`;
@@ -1077,13 +1077,15 @@ export function createSpacecraft(
         batchRoot: true,
         excludePick: true,
       };
-      header.position.set(x, headerPosition(section)[0], -0.32);
+      // Forward of the equipment so the cutaway ceiling does not hide the title
+      // when the lower Contact cabin is seen from the overview camera.
+      header.position.set(x, headerPosition(section)[0], 0.33);
       rooms[section].add(header);
       box(
-        1.86,
-        0.2,
+        2.02,
+        0.32,
         0.1,
-        m.chalk,
+        m.gasket,
         0,
         0,
         0,
@@ -1092,10 +1094,10 @@ export function createSpacecraft(
         'cabin-identification-rim',
       );
       box(
-        1.72,
-        0.161,
+        1.89,
+        0.282,
         0.022,
-        m.navy,
+        m.chalk,
         0,
         0,
         0.046,
@@ -1107,11 +1109,11 @@ export function createSpacecraft(
         // The standoffs meet the actual ceiling; the sign is not a floating plaque.
         box(
           0.082,
-          0.07,
+          0.151,
           0.085,
           m.gasket,
           side * 0.72,
-          0.117,
+          0.227,
           -0.016,
           header,
           0.01,
@@ -1119,10 +1121,10 @@ export function createSpacecraft(
         );
         box(
           0.024,
-          0.09,
+          0.12,
           0.01,
           m.amber,
-          side * 0.81,
+          side * 0.89,
           0,
           0.061,
           header,
@@ -1132,8 +1134,8 @@ export function createSpacecraft(
         cylinder(
           0.018,
           0.009,
-          m.gasket,
-          side * 0.891,
+          m.chalk,
+          side * 0.974,
           0,
           0.052,
           header,
@@ -1145,8 +1147,8 @@ export function createSpacecraft(
           0.017,
           0.003,
           0.003,
-          m.chalk,
-          side * 0.891,
+          m.gasket,
+          side * 0.974,
           0,
           0.058,
           header,
@@ -1156,13 +1158,13 @@ export function createSpacecraft(
       }
       plaque(
         options.labels?.[section] || section,
-        1.47,
-        0.14,
+        1.64,
+        0.24,
         x,
         ...headerPosition(section),
         room,
         'header',
-        '#edf0e8',
+        '#152333',
       );
     } else {
       box(
@@ -4754,8 +4756,8 @@ export function createSpacecraft(
       add(
         'header',
         group.userData.headerAnchors[section],
-        hasEquipmentHeader(section) ? 1.47 : 1.26,
-        hasEquipmentHeader(section) ? 0.14 : 0.18,
+        hasEquipmentHeader(section) ? 1.64 : 1.26,
+        hasEquipmentHeader(section) ? 0.24 : 0.18,
       );
       for (const portal of portals.filter((p) => p.from === section)) {
         const c = new THREE.Vector3(...portal.metadata.labelPosition);

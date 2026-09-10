@@ -4,9 +4,16 @@ import { buildProjectPayloadModule } from './projects-payload-module.ts';
 export function buildProjectsWorkshop(
   THREE: any,
   h: any,
-  parent: any,
+  floorRoot: any,
   options: { projectCount?: number; accent?: any; screenLabels?: boolean } = {},
 ) {
+  // Leave a clear heading band without stretching the payload enclosures.
+  // Floor fittings stay fixed; the supporting stanchions shorten accordingly.
+  const lowering = 0.24;
+  const parent = new THREE.Group();
+  parent.name = 'projects-workshop-equipment-mount';
+  parent.position.y = -lowering;
+  floorRoot.add(parent);
   const material = (
     name: string,
     color: number,
@@ -84,17 +91,17 @@ export function buildProjectsWorkshop(
     const x = sign * 1.405;
     box(
       0.067,
-      2.47,
+      2.47 - lowering,
       0.084,
       m.graphite,
       x,
-      1.285,
+      1.285 + lowering / 2,
       -0.943,
       parent,
       0.021,
       'wall-upright',
     );
-    for (const y of [0.15, 0.72, 1.68, 2.47]) {
+    for (const y of [0.15 + lowering, 0.72, 1.68, 2.47]) {
       box(
         0.127,
         0.143,
@@ -111,11 +118,11 @@ export function buildProjectsWorkshop(
     }
     box(
       0.031,
-      2.3,
+      2.3 - lowering,
       0.012,
       m.metal,
       x,
-      1.28,
+      1.28 + lowering / 2,
       -0.897,
       parent,
       0.006,
@@ -149,7 +156,7 @@ export function buildProjectsWorkshop(
       x,
       0.014,
       -0.34,
-      parent,
+      floorRoot,
       0.014,
       'floor-isolator',
     );
@@ -161,7 +168,7 @@ export function buildProjectsWorkshop(
       x,
       0.043,
       -0.34,
-      parent,
+      floorRoot,
       0.022,
       'anchored-sole',
     );
@@ -173,11 +180,22 @@ export function buildProjectsWorkshop(
       x,
       0.072,
       -0.34,
-      parent,
+      floorRoot,
       0.018,
       'foot-retainer',
     );
-    box(0.27, 0.433, 0.5, m.shell, x, 0.295, -0.34, parent, 0.037, 'bench-leg');
+    box(
+      0.27,
+      0.433 - lowering,
+      0.5,
+      m.shell,
+      x,
+      0.295 - lowering / 2,
+      -0.34,
+      floorRoot,
+      0.037,
+      'bench-leg',
+    );
     box(
       0.295,
       0.115,
@@ -192,19 +210,25 @@ export function buildProjectsWorkshop(
     );
     box(
       0.037,
-      0.26,
+      0.26 - lowering / 2,
       0.012,
       m.graphite,
       x - sign * 0.075,
-      0.29,
+      0.29 - lowering / 2,
       -0.083,
-      parent,
+      floorRoot,
       0.009,
       'leg-service-insert',
     );
-    screws.push([x, 0.16, -0.085], [x, 0.415, -0.085]);
+    screws.push([x, 0.11 + lowering, -0.085], [x, 0.415, -0.085]);
     // Braces run from stanchion to the wall shoe, leaving the knee space open.
-    rod([x, 0.18, -0.51], [x, 0.545, -0.913], 0.032, m.graphite, 'wall-brace');
+    rod(
+      [x, 0.13 + lowering, -0.51],
+      [x, 0.545, -0.913],
+      0.032,
+      m.graphite,
+      'wall-brace',
+    );
     box(
       0.13,
       0.18,
@@ -465,7 +489,7 @@ export function buildProjectsWorkshop(
       x,
       0.118,
       -0.924,
-      parent,
+      floorRoot,
       0.018,
       'underbench-task-housing',
     );
@@ -477,7 +501,7 @@ export function buildProjectsWorkshop(
       x,
       0.118,
       -0.882,
-      parent,
+      floorRoot,
       0.01,
       'underbench-task-diffuser',
     );
