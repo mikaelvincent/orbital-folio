@@ -35,4 +35,4 @@ The [portable audit](evidence/portrait-callout-arrival/temporal-audit.mjs) execu
 node docs/evidence/portrait-callout-arrival/temporal-audit.mjs . 2271e8b /tmp/portrait-callout-audit.json
 ```
 
-Typecheck, lint and production build pass; existing build warnings are recorded in [checks.json](evidence/portrait-callout-arrival/checks.json). Browser error/warning logs were empty in the inspected preview. The [independent critic](CRITIC-REPORT.md) scores only this fix. Coverage is bounded source/module and desktop-browser viewport inspection; no physical-device, performance, reader/admin or deployment certification is claimed. The local preview remains running.
+Typecheck, lint and production build pass; existing build warnings are recorded in [checks.json](evidence/portrait-callout-arrival/checks.json). Browser error/warning logs were empty in the inspected preview. The [independent critic](CRITIC-REPORT-PORTRAIT-CALLOUT-ARRIVAL.md) scores only this fix. Coverage is bounded source/module and desktop-browser viewport inspection; no physical-device, performance, reader/admin or deployment certification is claimed. The local preview remains running.

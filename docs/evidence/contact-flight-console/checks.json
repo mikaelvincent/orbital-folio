@@ -1,0 +1,50 @@
+{
+  "baseline": "e68fd31",
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "command": "node /Users/mikaelvincent/.codex/plugins/cache/openai-bundled/sites/0.1.66/scripts/build-site.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node docs/evidence/contact-flight-console/geometry-audit.mjs . docs/evidence/contact-flight-console/geometry-audit.json e68fd31",
+      "exitCode": 0
+    },
+    {
+      "command": "node docs/evidence/portrait-callout-arrival/temporal-audit.mjs . 2271e8b /tmp/contact-portrait-audit-regression.json",
+      "exitCode": 0
+    }
+  ],
+  "buildWarnings": [
+    "Node module.register() deprecation",
+    "Client chunk exceeds 500 kB minified",
+    "vinext cannot statically classify /case-studies",
+    "Informational plugin-hook timing warning during server reference analysis"
+  ],
+  "candidateSha256": {
+    "components/spacecraft-model.ts": "51f7d840646a54eb11fb89f82c49c165ffc6b24ab4c6f94dd5003bfe7a50fad9",
+    "components/contact-flight-console.ts": "f5d3b413cf3f148cee37cdbecb9de154c5afd70bbafb9223bb5a534137b63b9e",
+    "components/contact-flight-audio.ts": "1d5a30af85cbfe0cb0819a7ebcbb840d19e6fa56f84bf6f68c7d4ee2f118d91c",
+    "tsconfig.json": "d786050f85f25104fda8973a02149df0d37fd0be0d7510aecbd82b386b5ad654"
+  },
+  "preview": "http://localhost:3000/contact",
+  "scope": "Static Contact room visual rebuild only; no new animations, controls, lighting emitters, camera logic, or reader implementation.",
+  "nativeModuleImport": {
+    "passed": true,
+    "entry": "components/spacecraft-model.ts",
+    "console": "contact-flight-console",
+    "note": "Native Node import resolves explicit TypeScript module graph and constructs the static assembly."
+  },
+  "historicalAudit": {
+    "command": "node scripts/spacecraft-model-audit.mjs --root . --output /tmp/contact-native-model-audit.json",
+    "exitCode": 1,
+    "reason": "Older audit expects compact reader X=-1.65; unchanged live wide model uses -2.25. Reader transforms are preserved by the baseline comparison and not changed in this task."
+  }
+}

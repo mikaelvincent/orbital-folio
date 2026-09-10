@@ -104,11 +104,15 @@ function fixture(create, portrait) {
     identity = new Element('identity'),
     identityFlight = new Element('identity-flight');
   identity.flight = identityFlight;
-  globalThis.document = {
-    createElement: (t) => new Element(t),
-    createElementNS: (_, t) => new Element(t),
-    querySelector: (s) => (s === '.orbital-identity' ? identity : null),
-  };
+  Object.defineProperty(globalThis, 'document', {
+    configurable: true,
+    writable: true,
+    value: {
+      createElement: (t) => new Element(t),
+      createElementNS: (_, t) => new Element(t),
+      querySelector: (s) => (s === '.orbital-identity' ? identity : null),
+    },
+  });
   const model = new T.Group();
   model.userData.calloutAnchors = {};
   model.userData.calloutEdges = {};
@@ -205,13 +209,11 @@ function snapshot(f) {
       style: { ...e.style },
       classes: [...e.classes],
     })),
-    buttons: f.layer.children
-      .slice(1)
-      .map((e) => ({
-        style: { ...e.style },
-        dataset: { ...e.dataset },
-        classes: [...e.classes],
-      })),
+    buttons: f.layer.children.slice(1).map((e) => ({
+      style: { ...e.style },
+      dataset: { ...e.dataset },
+      classes: [...e.classes],
+    })),
     identity: {
       style: { ...f.identityFlight.style },
       inert: f.identityFlight.inert,

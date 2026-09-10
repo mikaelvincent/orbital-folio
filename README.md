@@ -36,6 +36,8 @@ Public content is plain text, not arbitrary HTML. Paragraphs and line breaks are
 
 ## Validate
 
+For the current render-only Contact revision, run `npm run typecheck`, `npm run lint`, `npm run build`, and `node docs/evidence/contact-flight-console/geometry-audit.mjs . /tmp/contact-geometry.json e68fd31`. This audit loads the modular model and compares protected geometry against the pre-rebuild revision. Older standalone geometry scripts target historical shapes and may need their assertions/import loaders updated before use against the current room design.
+
 With the local development server running:
 
 ```sh
@@ -59,11 +61,12 @@ The HTTP integration suite creates temporary records and restores existing conte
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report near the top-right of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. **Toggle reduced-motion diagnostic** exercises the renderer pause path without opening a reader; **Run renderer frame control** then samples host display callbacks. This development-only override does not claim to emulate an operating-system preference. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current validation evidence](docs/CONTACT-FLIGHT-CONSOLE-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
 ## Source map
 
 - `components/spacecraft-model.ts`: editable procedural geometry, materials, cabin props, clickable object targets, interior signs and framing/callout anchors.
+- `components/contact-flight-console.ts`, `components/contact-flight-audio.ts`: static Contact console, displays, physical controls and docked audio hardware.
 - `components/spacecraft.tsx`: lazy renderer, fixed camera flights, pointer picking, cached shadows, reduced motion, offscreen handling and WebGL fallback.
 - `components/overview-annotations.ts`: projected native callouts and the travelling portfolio identity.
 - `components/orbital-environment.ts`: procedural ocean, moving clouds, atmosphere, twinkling stars and staggered meteors; memory and algorithm notes are in `docs/EARTH-ASSETS.md`.
@@ -87,4 +90,6 @@ Current delivery: the revised local experience and seeded studio are runnable. T
 
 The Case studies room uses `/case-studies` and the existing editable experience records for this design iteration. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels. The separate reading interfaces are deferred during this render pass.
 
-The latest correction keeps portrait overview callouts hidden during the return flight, then fades labels and leaders in together after arrival. Horizontal timing and the travelling portfolio identity stay unchanged. Evidence is in [PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md](docs/PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md) and the [critic report](docs/CRITIC-REPORT.md). The preceding fixed-dimension correction is retained in [STABLE-ROOM-PROPORTIONS-VALIDATION.md](docs/STABLE-ROOM-PROPORTIONS-VALIDATION.md). The earlier hull-bar correction is retained in [HULL-BARS-VALIDATION.md](docs/HULL-BARS-VALIDATION.md). The preceding ladder-panel removal is retained in [PANEL-REMOVAL-VALIDATION.md](docs/PANEL-REMOVAL-VALIDATION.md). The earlier shoulder-strip removal is retained in [LADDER-LIP-VALIDATION.md](docs/LADDER-LIP-VALIDATION.md). Earlier interior standardization is retained in [PLAIN-INTERIORS-VALIDATION.md](docs/PLAIN-INTERIORS-VALIDATION.md).
+The current Contact room is a static Flight Operations Console with three displays, a supported control deck and detailed microphone/headset assemblies. Camera, interaction and reader behavior remain unchanged. See [CONTACT-FLIGHT-CONSOLE-VALIDATION.md](docs/CONTACT-FLIGHT-CONSOLE-VALIDATION.md) and the [critic report](docs/CRITIC-REPORT.md).
+
+The preceding correction keeps portrait overview callouts hidden during the return flight, then fades labels and leaders in together after arrival. Horizontal timing and the travelling portfolio identity stay unchanged. Evidence is in [PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md](docs/PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md) and its [archived critic report](docs/CRITIC-REPORT-PORTRAIT-CALLOUT-ARRIVAL.md). The preceding fixed-dimension correction is retained in [STABLE-ROOM-PROPORTIONS-VALIDATION.md](docs/STABLE-ROOM-PROPORTIONS-VALIDATION.md). The earlier hull-bar correction is retained in [HULL-BARS-VALIDATION.md](docs/HULL-BARS-VALIDATION.md). The preceding ladder-panel removal is retained in [PANEL-REMOVAL-VALIDATION.md](docs/PANEL-REMOVAL-VALIDATION.md). The earlier shoulder-strip removal is retained in [LADDER-LIP-VALIDATION.md](docs/LADDER-LIP-VALIDATION.md). Earlier interior standardization is retained in [PLAIN-INTERIORS-VALIDATION.md](docs/PLAIN-INTERIORS-VALIDATION.md).

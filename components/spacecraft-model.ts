@@ -1,3 +1,5 @@
+import { buildContactFlightConsole } from './contact-flight-console.ts';
+
 /**
  * Orbital toybox, v14. Self-contained procedural Three.js asset.
  * +Y up and +Z front. One continuous chassis surrounds four cabins with stable metadata anchors.
@@ -1040,42 +1042,44 @@ export function createSpacecraft(
         sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, exteriorHardware);
       }
     }
-    // Every room gets the same cream upper bulkhead header. Its deep rear
-    // saddle reaches the liner, so it is mounted rather than a floating sign.
-    box(
-      1.52,
-      0.255,
-      0.744,
-      m.gasket,
-      x,
-      1.006,
-      -0.754,
-      room,
-      0.055,
-      'upper-header-wall-saddle',
-    );
-    box(
-      1.48,
-      0.232,
-      0.13,
-      m.chalk,
-      x,
-      1.006,
-      -0.34,
-      room,
-      0.055,
-      'upper-room-enamel-header',
-    );
-    plaque(
-      options.labels?.[section] || `MOD-0${index + 1}`,
-      1.26,
-      0.18,
-      x,
-      1.006,
-      -0.263,
-      room,
-      'header',
-    );
+    // Contact identifies itself on the integrated console. Other cabins retain
+    // the existing wall header and its mounted saddle.
+    if (section !== 'contact') {
+      box(
+        1.52,
+        0.255,
+        0.744,
+        m.gasket,
+        x,
+        1.006,
+        -0.754,
+        room,
+        0.055,
+        'upper-header-wall-saddle',
+      );
+      box(
+        1.48,
+        0.232,
+        0.13,
+        m.chalk,
+        x,
+        1.006,
+        -0.34,
+        room,
+        0.055,
+        'upper-room-enamel-header',
+      );
+      plaque(
+        options.labels?.[section] || `MOD-0${index + 1}`,
+        1.26,
+        0.18,
+        x,
+        1.006,
+        -0.263,
+        room,
+        'header',
+      );
+    }
     box(
       2.77,
       0.15,
@@ -2661,231 +2665,21 @@ export function createSpacecraft(
     'pouch-latch',
   );
 
-  // CONTACT — a dedicated communications cabin, separate from the docking nose.
+  // CONTACT — static, floor-referenced flight operations console.
+  // The existing content transform lowers legacy props to the cabin floor.
+  // Cancel its horizontal inset so this wide console stays centered on the wall.
   const contact = rooms.contact;
   const contactConsole = new THREE.Group();
+  contactConsole.name = 'contact-flight-console';
+  contactConsole.position.set(-0.18, previousFloorTop, 0);
   contactConsole.userData.openReader = true;
+  contactConsole.userData.batchRoot = true;
   contact.add(contactConsole);
-  box(
-    2.46,
-    1.94,
-    0.243,
-    m.navy,
-    0,
-    0.022,
-    -0.828,
+  buildContactFlightConsole(
+    THREE,
+    { box, mesh, cylinder, torus, rod, instances },
     contactConsole,
-    0.115,
-    'communications-console-housing',
-  );
-  box(
-    1.56,
-    1.1,
-    0.106,
-    m.chalk,
-    -0.1,
-    0.258,
-    -0.636,
-    contactConsole,
-    0.051,
-    'communications-screen-ceramic-frame',
-  );
-  box(
-    1.436,
-    0.976,
-    0.041,
-    m.deep,
-    -0.1,
-    0.258,
-    -0.549,
-    contactConsole,
-    0.02,
-    'communications-display-gasket',
-  );
-  const commsMaterial = m.screen.clone();
-  commsMaterial.name = 'communications-screen';
-  if (typeof document !== 'undefined') {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1200;
-    canvas.height = 780;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      const g = ctx.createLinearGradient(0, 0, 0, 780);
-      g.addColorStop(0, '#214565');
-      g.addColorStop(1, '#102b42');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, 1200, 780);
-      ctx.fillStyle = '#dbe7df';
-      ctx.font = '600 84px Arial';
-      ctx.fillText(
-        (options.labels?.contact || 'COM-04').toUpperCase(),
-        77,
-        128,
-        1040,
-      );
-      ctx.strokeStyle = '#9dcee3';
-      ctx.lineWidth = 7;
-      for (const radius of [92, 150, 211]) {
-        ctx.beginPath();
-        ctx.arc(600, 424, radius, -Math.PI * 0.83, -Math.PI * 0.17);
-        ctx.stroke();
-      }
-      ctx.fillStyle = '#eab26c';
-      ctx.beginPath();
-      ctx.arc(600, 431, 28, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#83b6cf';
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      for (let i = 0; i < 57; i++) {
-        const x = 90 + i * 18,
-          y = 617 + Math.sin(i * 0.6) * (18 + Math.sin(i * 0.18) * 14);
-        if (i) ctx.lineTo(x, y);
-        else ctx.moveTo(x, y);
-      }
-      ctx.stroke();
-      ctx.fillStyle = '#9cbbc7';
-      ctx.font = '34px monospace';
-      ctx.fillText('04 / 024', 80, 726);
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      commsMaterial.map = texture;
-      commsMaterial.emissiveMap = texture;
-      commsMaterial.color.set(0xffffff);
-      commsMaterial.emissive.set(0xa0bfd0);
-      commsMaterial.emissiveIntensity = 0.3;
-    }
-  }
-  box(
-    1.374,
-    0.914,
-    0.025,
-    commsMaterial,
-    -0.1,
-    0.258,
-    -0.502,
-    contactConsole,
-    0.012,
-    'actionable-contact-display',
-  );
-  // A large amber receiver, coiled lead, speaker and radio controls read at overview scale.
-  box(
-    0.239,
-    1.04,
-    0.117,
-    m.gasket,
-    -1.028,
-    0.213,
-    -0.613,
-    contactConsole,
-    0.055,
-    'receiver-wall-cradle',
-  );
-  rod(
-    [-1.028, -0.101, -0.446],
-    [-1.028, 0.492, -0.446],
-    0.049,
-    m.amber,
-    contactConsole,
-  );
-  for (const yy of [-0.091, 0.483])
-    box(
-      0.198,
-      0.185,
-      0.16,
-      m.amber,
-      -1.028,
-      yy,
-      -0.422,
-      contactConsole,
-      0.073,
-      'amber-radio-receiver',
-    );
-  const leadPoints = [
-    [-1.03, -0.14, -0.46],
-    [-1.07, -0.37, -0.37],
-    [-0.97, -0.66, -0.36],
-    [-0.71, -0.68, -0.4],
-    [-0.66, -0.49, -0.58],
-  ].map((p) => new THREE.Vector3(...p));
-  mesh(
-    new THREE.TubeGeometry(
-      new THREE.CatmullRomCurve3(leadPoints),
-      30,
-      0.018,
-      8,
-      false,
-    ),
-    m.gasket,
-    contactConsole,
-    'radio-receiver-lead',
-  );
-  box(
-    0.399,
-    1.586,
-    0.079,
-    m.gasket,
-    0.978,
-    0.094,
-    -0.595,
-    contactConsole,
-    0.038,
-    'radio-speaker-column',
-  );
-  cylinder(0.147, 0.045, m.metal, 0.978, 0.568, -0.523, contactConsole, 'z');
-  cylinder(0.112, 0.039, m.deep, 0.978, 0.568, -0.475, contactConsole, 'z');
-  sphere(0.07, m.navy, 0.978, 0.568, -0.445, contactConsole).scale.z = 0.41;
-  const speakerSlots: Transform[] = [];
-  for (let i = 0; i < 7; i++)
-    speakerSlots.push({
-      p: [0.978, 0.26 - i * 0.084, -0.539],
-      s: [0.217, 0.028, 0.017],
-    });
-  instances(
-    unitBox,
-    m.deep,
-    speakerSlots,
-    contactConsole,
-    'coarse-radio-speaker-grille',
-  );
-  cylinder(0.176, 0.051, m.gasket, -0.144, -0.556, -0.617, contactConsole, 'z');
-  torus(0.142, 0.021, m.amber, -0.144, -0.556, -0.571, contactConsole);
-  cylinder(0.122, 0.123, m.navy, -0.144, -0.556, -0.489, contactConsole, 'z');
-  box(
-    0.315,
-    0.207,
-    0.059,
-    m.glass,
-    0.383,
-    -0.564,
-    -0.611,
-    contactConsole,
-    0.028,
-    'radio-channel-indicator',
-  );
-  box(
-    0.164,
-    0.018,
-    0.013,
-    m.display,
-    0.383,
-    -0.561,
-    -0.57,
-    contactConsole,
-    0.006,
-    'channel-signal-line',
-  );
-  box(
-    0.994,
-    0.16,
-    0.47,
-    m.chalk,
-    -0.01,
-    -0.771,
-    -0.365,
-    contactConsole,
-    0.073,
-    'communications-control-shelf',
+    { title: options.labels?.contact, accent: m.amber },
   );
 
   // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
