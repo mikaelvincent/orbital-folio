@@ -183,6 +183,10 @@ export function createSpacecraft(
     visible: boolean;
   }> = [];
   let labelPortrait = false;
+  const hasEquipmentHeader = (section: string) =>
+    section === 'projects' || section === 'contact';
+  const headerPosition = (section: string): [number, number] =>
+    hasEquipmentHeader(section) ? [1.32, -0.247] : [1.006, -0.263];
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
   // under filmic lighting rather than a pale yellow reflective finish.
@@ -764,6 +768,7 @@ export function createSpacecraft(
     z: number,
     parent: any,
     role: 'header',
+    inkColor = '#233549',
   ) {
     const section = sectionOf(parent);
     const entry: (typeof labelPlaques)[number] = {
@@ -795,7 +800,7 @@ export function createSpacecraft(
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#233549';
+      ctx.fillStyle = inkColor;
       const title = text.trim().toUpperCase();
       const baseSize = canvas.height * 0.86;
       ctx.font = `800 ${baseSize}px Arial, sans-serif`;
@@ -810,7 +815,19 @@ export function createSpacecraft(
       );
       const fontSize = baseSize * fit;
       ctx.font = `800 ${fontSize}px Arial, sans-serif`;
-      ctx.fillText(title, canvas.width / 2, canvas.height / 2);
+      if (hasEquipmentHeader(section)) {
+        ctx.textBaseline = 'alphabetic';
+        const ink = ctx.measureText(title);
+        const ascent = ink.actualBoundingBoxAscent || fontSize * 0.73;
+        const descent = ink.actualBoundingBoxDescent || 0;
+        ctx.fillText(
+          title,
+          canvas.width / 2,
+          (canvas.height + ascent - descent) / 2,
+        );
+      } else {
+        ctx.fillText(title, canvas.width / 2, canvas.height / 2);
+      }
       entry.canvasSize = [canvas.width, canvas.height];
       entry.fontSize = fontSize;
       entry.inkBounds = [measured.width * fit, glyphHeight * fit];
@@ -826,7 +843,7 @@ export function createSpacecraft(
     texture.generateMipmaps = true;
     texture.minFilter = THREE.LinearMipmapLinearFilter;
     texture.magFilter = THREE.LinearFilter;
-    texture.anisotropy = 4;
+    texture.anisotropy = hasEquipmentHeader(section) ? 8 : 4;
     const material = mat('identification-label', 0xffffff, 0.7, 0, {
       map: texture,
       transparent: true,
@@ -836,9 +853,15 @@ export function createSpacecraft(
       emissiveIntensity: 0.12,
     });
     material.userData.exterior = false;
+    if (hasEquipmentHeader(section)) {
+      material.roughness = 1;
+      material.envMapIntensity = 0;
+      material.userData.cabinHeaderInk = true;
+    }
     const mount = new THREE.Group();
     mount.name = role + '-label-mount-' + section;
     mount.userData = { section, batchRoot: true, physicalLabel: true };
+    if (hasEquipmentHeader(section)) mount.userData.excludePick = true;
     mount.position.set(x, y, z);
     rooms[section].add(mount);
     labelMounts.set(entry, mount);
@@ -1043,9 +1066,105 @@ export function createSpacecraft(
         sphere(0.049, m.amber, x + sign * 1.29, 0.36, 1.354, exteriorHardware);
       }
     }
-    // The new workshop and Contact console identify themselves on their displays.
-    // Their upper wall area remains clear for the mounted equipment.
-    if (section !== 'contact' && section !== 'projects') {
+    if (hasEquipmentHeader(section)) {
+      // A shallow ceiling-mounted identification rail clears the equipment below.
+      // Keep it outside the furniture group so floors and props need no offsets.
+      const header = new THREE.Group();
+      header.name = `cabin-identification-${section}`;
+      header.userData = {
+        section,
+        physicalLabel: true,
+        batchRoot: true,
+        excludePick: true,
+      };
+      header.position.set(x, headerPosition(section)[0], -0.32);
+      rooms[section].add(header);
+      box(
+        1.86,
+        0.2,
+        0.1,
+        m.chalk,
+        0,
+        0,
+        0,
+        header,
+        0.025,
+        'cabin-identification-rim',
+      );
+      box(
+        1.72,
+        0.161,
+        0.022,
+        m.navy,
+        0,
+        0,
+        0.046,
+        header,
+        0.015,
+        'cabin-identification-inset',
+      );
+      for (const side of [-1, 1]) {
+        // The standoffs meet the actual ceiling; the sign is not a floating plaque.
+        box(
+          0.082,
+          0.07,
+          0.085,
+          m.gasket,
+          side * 0.72,
+          0.117,
+          -0.016,
+          header,
+          0.01,
+          'cabin-identification-standoff',
+        );
+        box(
+          0.024,
+          0.09,
+          0.01,
+          m.amber,
+          side * 0.81,
+          0,
+          0.061,
+          header,
+          0.004,
+          'cabin-identification-index',
+        );
+        cylinder(
+          0.018,
+          0.009,
+          m.gasket,
+          side * 0.891,
+          0,
+          0.052,
+          header,
+          'z',
+          undefined,
+          12,
+        );
+        box(
+          0.017,
+          0.003,
+          0.003,
+          m.chalk,
+          side * 0.891,
+          0,
+          0.058,
+          header,
+          0.001,
+          'cabin-identification-fastener-slot',
+        );
+      }
+      plaque(
+        options.labels?.[section] || section,
+        1.47,
+        0.14,
+        x,
+        ...headerPosition(section),
+        room,
+        'header',
+        '#edf0e8',
+      );
+    } else {
       box(
         1.52,
         0.255,
@@ -4168,6 +4287,12 @@ export function createSpacecraft(
     }
   });
   group.traverse((object: any) => {
+    if (object.isMesh && object.material?.userData.cabinHeaderInk) {
+      object.castShadow = false;
+      object.receiveShadow = false;
+    }
+  });
+  group.traverse((object: any) => {
     if (
       object.isMesh &&
       !object.userData.isInteractionProxy &&
@@ -4234,7 +4359,7 @@ export function createSpacecraft(
   group.userData.headerAnchors = Object.fromEntries(
     Object.entries(roomCenters).map(([section, [x, y]]) => [
       section,
-      [x, y + 1.006, -0.263],
+      [x, y + headerPosition(section)[0], headerPosition(section)[1]],
     ]),
   );
   group.userData.readerAnchors = Object.fromEntries(
@@ -4265,7 +4390,6 @@ export function createSpacecraft(
       position: [0, 0, 0],
     })),
     { section: 'about', position: [-1.404, -2.045, -0.45] },
-    { section: 'contact', position: [1.55, -1.442, -0.4] },
   ];
   group.userData.dockingAnchor = [-3.78, 0.21, 1.05];
   group.userData.dockingAnchors = {
@@ -4423,7 +4547,11 @@ export function createSpacecraft(
         left: [x - 1.22 * layoutScale, y + 0.17, 1.32],
         right: [x + 1.22 * layoutScale, y + 0.17, 1.32],
       };
-      group.userData.headerAnchors[section] = [x, y + 1.006, -0.263];
+      group.userData.headerAnchors[section] = [
+        x,
+        y + headerPosition(section)[0],
+        headerPosition(section)[1],
+      ];
       group.userData.innerApertureBounds[section] = {
         center: [x, y + (cabinFloorTop + cabinCeiling) / 2, 1.2],
         size: [2.44 * layoutScale, cabinCeiling - cabinFloorTop, 0.04],
@@ -4435,7 +4563,7 @@ export function createSpacecraft(
       const origin = legacyCenters[entry.section],
         center = roomCenters[entry.section];
       entry.position[0] = center[0];
-      entry.position[1] = center[1] + 1.006;
+      entry.position[1] = center[1] + headerPosition(entry.section)[0];
       const mount = labelMounts.get(entry);
       if (mount) mount.position.x = origin;
     }
@@ -4623,7 +4751,12 @@ export function createSpacecraft(
               ],
             });
       };
-      add('header', group.userData.headerAnchors[section], 1.26, 0.18);
+      add(
+        'header',
+        group.userData.headerAnchors[section],
+        hasEquipmentHeader(section) ? 1.47 : 1.26,
+        hasEquipmentHeader(section) ? 0.14 : 0.18,
+      );
       for (const portal of portals.filter((p) => p.from === section)) {
         const c = new THREE.Vector3(...portal.metadata.labelPosition);
         const right = new THREE.Vector3(...portal.metadata.labelRight),

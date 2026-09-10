@@ -1,0 +1,3157 @@
+{
+  "baselineRef": "4b0e87c",
+  "sourceHash": "1720749210411622c39c02ea49c2ccf380bf72ebdacc8ef3cfc6a08cdeebd7f6",
+  "states": [
+    {
+      "layout": "wide",
+      "state": "overview",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "wide",
+      "state": "projects",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "wide",
+      "state": "contact",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "wide",
+      "state": "projects-hover-about",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "compact",
+      "state": "overview",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "compact",
+      "state": "projects",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "compact",
+      "state": "contact",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    },
+    {
+      "layout": "compact",
+      "state": "projects-hover-about",
+      "beforeMeshes": 1170,
+      "afterMeshes": 1192,
+      "removed": [],
+      "added": [
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-rim#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-inset#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-index#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/graphite-gasket#1",
+        "orbital-pressure-vessel/projects-assembly/cabin-identification-projects/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/projects-assembly/header-label-mount-projects/header-plaque-ink-projects#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-rim#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-inset#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#0",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-standoff#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-index#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/graphite-gasket#1",
+        "orbital-pressure-vessel/contact-assembly/cabin-identification-contact/cabin-identification-fastener-slot#1",
+        "orbital-pressure-vessel/contact-assembly/header-label-mount-contact/header-plaque-ink-contact#0"
+      ],
+      "changed": []
+    }
+  ],
+  "geometry": [
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-rim"
+      ],
+      "min": [
+        -3.180000007152557,
+        2.919999998509884,
+        -0.37000000074505807
+      ],
+      "max": [
+        -1.3199999928474422,
+        3.120000001490116,
+        -0.26999999925494195
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-inset"
+      ],
+      "min": [
+        -3.1100000143051143,
+        2.9395000007748604,
+        -0.2849999999403954
+      ],
+      "max": [
+        -1.3899999856948848,
+        3.1004999992251396,
+        -0.26300000005960467
+      ],
+      "material": [
+        {
+          "name": "graphite-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.37,
+          "metalness": 0.28
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-standoff"
+      ],
+      "min": [
+        -3.011000001132488,
+        3.1019999998509884,
+        -0.37850000044703486
+      ],
+      "max": [
+        -2.9289999988675115,
+        3.1720000001490116,
+        -0.2934999995529652
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-index"
+      ],
+      "min": [
+        -3.0720000001043077,
+        2.9749999982118607,
+        -0.2639999998882413
+      ],
+      "max": [
+        -3.0479999998956915,
+        3.0650000017881394,
+        -0.2540000001117587
+      ],
+      "material": [
+        {
+          "name": "signal-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.25,
+          "metalness": 0.055
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "graphite-gasket"
+      ],
+      "min": [
+        -3.158999999225139,
+        3.0020000007748604,
+        -0.2724999998062849
+      ],
+      "max": [
+        -3.12300000077486,
+        3.0379999992251396,
+        -0.2635000001937151
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-fastener-slot"
+      ],
+      "min": [
+        -3.1495000004619356,
+        3.0184999999869615,
+        -0.2635000000130385
+      ],
+      "max": [
+        -3.1324999995380636,
+        3.0215000000130385,
+        -0.2604999999869615
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-standoff"
+      ],
+      "min": [
+        -1.5710000011324878,
+        3.1019999998509884,
+        -0.37850000044703486
+      ],
+      "max": [
+        -1.4889999988675113,
+        3.1720000001490116,
+        -0.2934999995529652
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-index"
+      ],
+      "min": [
+        -1.4520000001043076,
+        2.9749999982118607,
+        -0.2639999998882413
+      ],
+      "max": [
+        -1.4279999998956914,
+        3.0650000017881394,
+        -0.2540000001117587
+      ],
+      "material": [
+        {
+          "name": "signal-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.25,
+          "metalness": 0.055
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "graphite-gasket"
+      ],
+      "min": [
+        -1.3769999992251392,
+        3.0020000007748604,
+        -0.2724999998062849
+      ],
+      "max": [
+        -1.34100000077486,
+        3.0379999992251396,
+        -0.2635000001937151
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "cabin-identification-projects",
+        "cabin-identification-fastener-slot"
+      ],
+      "min": [
+        -1.3675000004619355,
+        3.0184999999869615,
+        -0.2635000000130385
+      ],
+      "max": [
+        -1.3504999995380635,
+        3.0215000000130385,
+        -0.2604999999869615
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "header-label-mount-projects",
+        "header-plaque-ink-projects"
+      ],
+      "min": [
+        -2.9850000143051143,
+        2.949999999701977,
+        -0.247
+      ],
+      "max": [
+        -1.5149999856948848,
+        3.0900000002980232,
+        -0.247
+      ],
+      "material": [
+        {
+          "name": "identification-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "roughness": 1,
+          "metalness": 0,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience-pressure-structure",
+        "upper-header-wall-saddle"
+      ],
+      "min": [
+        1.1860000133514401,
+        2.5785000023841858,
+        -1.1260000088214874
+      ],
+      "max": [
+        3.313999986648559,
+        2.833499997615814,
+        -0.3819999911785126
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience-pressure-structure",
+        "upper-room-enamel-header"
+      ],
+      "min": [
+        1.2139999866485591,
+        2.59000000333786,
+        -0.40499999761581423
+      ],
+      "max": [
+        3.28600001335144,
+        2.82199999666214,
+        -0.2750000023841858
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "header-label-mount-experience",
+        "header-plaque-ink-experience"
+      ],
+      "min": [
+        1.6200000047683711,
+        2.6159999964237213,
+        -0.263
+      ],
+      "max": [
+        2.879999995231628,
+        2.7960000035762786,
+        -0.263
+      ],
+      "material": [
+        {
+          "name": "identification-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "roughness": 0.7,
+          "metalness": 0,
+          "anisotropy": 4
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about-pressure-structure",
+        "upper-header-wall-saddle"
+      ],
+      "min": [
+        -3.313999986648559,
+        -0.8214999976158142,
+        -1.1260000088214874
+      ],
+      "max": [
+        -1.1860000133514406,
+        -0.5665000023841857,
+        -0.3819999911785126
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about-pressure-structure",
+        "upper-room-enamel-header"
+      ],
+      "min": [
+        -3.2860000133514404,
+        -0.8099999966621398,
+        -0.40499999761581423
+      ],
+      "max": [
+        -1.2139999866485596,
+        -0.5780000033378601,
+        -0.2750000023841858
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "header-label-mount-about",
+        "header-plaque-ink-about"
+      ],
+      "min": [
+        -2.8799999952316284,
+        -0.7840000035762786,
+        -0.263
+      ],
+      "max": [
+        -1.6200000047683716,
+        -0.6039999964237213,
+        -0.263
+      ],
+      "material": [
+        {
+          "name": "identification-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "roughness": 0.7,
+          "metalness": 0,
+          "anisotropy": 4
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-rim"
+      ],
+      "min": [
+        1.3199999928474422,
+        -0.480000001490116,
+        -0.37000000074505807
+      ],
+      "max": [
+        3.180000007152557,
+        -0.2799999985098838,
+        -0.26999999925494195
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-inset"
+      ],
+      "min": [
+        1.3899999856948848,
+        -0.4604999992251395,
+        -0.2849999999403954
+      ],
+      "max": [
+        3.1100000143051143,
+        -0.2995000007748603,
+        -0.26300000005960467
+      ],
+      "material": [
+        {
+          "name": "graphite-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.37,
+          "metalness": 0.28
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-standoff"
+      ],
+      "min": [
+        1.4889999988675113,
+        -0.2980000001490115,
+        -0.37850000044703486
+      ],
+      "max": [
+        1.5710000011324878,
+        -0.2279999998509883,
+        -0.2934999995529652
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-index"
+      ],
+      "min": [
+        1.4279999998956914,
+        -0.42500000178813924,
+        -0.2639999998882413
+      ],
+      "max": [
+        1.4520000001043076,
+        -0.33499999821186055,
+        -0.2540000001117587
+      ],
+      "material": [
+        {
+          "name": "signal-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.25,
+          "metalness": 0.055
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "graphite-gasket"
+      ],
+      "min": [
+        1.34100000077486,
+        -0.3979999992251395,
+        -0.2724999998062849
+      ],
+      "max": [
+        1.3769999992251392,
+        -0.3620000007748603,
+        -0.2635000001937151
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-fastener-slot"
+      ],
+      "min": [
+        1.3504999995380635,
+        -0.3815000000130384,
+        -0.2635000000130385
+      ],
+      "max": [
+        1.3675000004619355,
+        -0.3784999999869614,
+        -0.2604999999869615
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-standoff"
+      ],
+      "min": [
+        2.9289999988675115,
+        -0.2980000001490115,
+        -0.37850000044703486
+      ],
+      "max": [
+        3.011000001132488,
+        -0.2279999998509883,
+        -0.2934999995529652
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-index"
+      ],
+      "min": [
+        3.0479999998956915,
+        -0.42500000178813924,
+        -0.2639999998882413
+      ],
+      "max": [
+        3.0720000001043077,
+        -0.33499999821186055,
+        -0.2540000001117587
+      ],
+      "material": [
+        {
+          "name": "signal-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.25,
+          "metalness": 0.055
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "graphite-gasket"
+      ],
+      "min": [
+        3.12300000077486,
+        -0.3979999992251395,
+        -0.2724999998062849
+      ],
+      "max": [
+        3.158999999225139,
+        -0.3620000007748603,
+        -0.2635000001937151
+      ],
+      "material": [
+        {
+          "name": "graphite-gasket",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.63,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "cabin-identification-contact",
+        "cabin-identification-fastener-slot"
+      ],
+      "min": [
+        3.1324999995380636,
+        -0.3815000000130384,
+        -0.2635000000130385
+      ],
+      "max": [
+        3.1495000004619356,
+        -0.3784999999869614,
+        -0.2604999999869615
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "header-label-mount-contact",
+        "header-plaque-ink-contact"
+      ],
+      "min": [
+        1.5149999856948848,
+        -0.4500000002980231,
+        -0.247
+      ],
+      "max": [
+        2.9850000143051143,
+        -0.30999999970197667,
+        -0.247
+      ],
+      "material": [
+        {
+          "name": "identification-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "roughness": 1,
+          "metalness": 0,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-all",
+        "projects-workshop-all-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -3.6435000000130375,
+        2.207000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -3.6404999999869605,
+        2.236999999664724,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-all",
+        "projects-workshop-all-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -2.3295000000130375,
+        2.207000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -2.3264999999869604,
+        2.236999999664724,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-systems",
+        "projects-workshop-systems-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -2.173500000013038,
+        2.207000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -2.1704999999869607,
+        2.236999999664724,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-systems",
+        "projects-workshop-systems-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -0.8595000000130377,
+        2.207000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -0.8564999999869607,
+        2.236999999664724,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-interfaces",
+        "projects-workshop-interfaces-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -3.6435000000130375,
+        1.287000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -3.6404999999869605,
+        1.3169999996647237,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-interfaces",
+        "projects-workshop-interfaces-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -2.3295000000130375,
+        1.287000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -2.3264999999869604,
+        1.3169999996647237,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-experiments",
+        "projects-workshop-experiments-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -2.173500000013038,
+        1.287000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -2.1704999999869607,
+        1.3169999996647237,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects-cabin-contents",
+        "projects-workshop",
+        "projects-workshop-module-experiments",
+        "projects-workshop-experiments-payload-module",
+        "projects-workshop-connector-identification-ring"
+      ],
+      "min": [
+        -0.8595000000130377,
+        1.287000000335276,
+        -0.6089999996647238
+      ],
+      "max": [
+        -0.8564999999869607,
+        1.3169999996647237,
+        -0.5790000003352761
+      ],
+      "material": [
+        {
+          "name": "projects-workshop-amber-latches",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.47,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact-cabin-contents",
+        "contact-flight-console",
+        "contact-flight-audio-headset-assembly",
+        "contact-flight-audio-headset-hardware",
+        "contact-flight-audio-headset-left-earcup",
+        "contact-flight-audio-headset-left-identification-disc"
+      ],
+      "min": [
+        3.3171294642487115,
+        -1.8423205134051654,
+        -0.005608658474395225
+      ],
+      "max": [
+        3.3303481424058776,
+        -1.816812292677953,
+        0.020677639662830156
+      ],
+      "material": [
+        {
+          "name": "contact-flight-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.37,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact-cabin-contents",
+        "contact-flight-console",
+        "contact-flight-audio-headset-assembly",
+        "contact-flight-audio-headset-hardware",
+        "contact-flight-audio-headset-right-earcup",
+        "contact-flight-audio-headset-right-identification-disc"
+      ],
+      "min": [
+        3.735831138509395,
+        -1.8423205134051654,
+        0.0924275593591892
+      ],
+      "max": [
+        3.7490498166665613,
+        -1.816812292677953,
+        0.11871385749641458
+      ],
+      "material": [
+        {
+          "name": "contact-flight-amber",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.37,
+          "metalness": 0.15
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience:projects-open-side-passage",
+        "experience:projects-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        0.25200000029802283,
+        2.685,
+        -0.7599999904632568
+      ],
+      "max": [
+        0.3619999997019767,
+        2.935,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience:projects-open-side-passage",
+        "experience:projects-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        0.3439999995678659,
+        2.7000000005960465,
+        -0.7400000095367432
+      ],
+      "max": [
+        0.3720000004321336,
+        2.9199999994039536,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience:projects-open-side-passage",
+        "experience:projects-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        0.37499999999999967,
+        2.7199999964237214,
+        -0.47999998927116394
+      ],
+      "max": [
+        0.3749999999999999,
+        2.9000000035762787,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience:projects-open-side-passage",
+        "experience:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        0.37599999999999967,
+        2.750999999642372,
+        0.5489999995231629
+      ],
+      "max": [
+        0.37599999999999967,
+        2.869000000357628,
+        0.6230000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "experience-assembly",
+        "experience:projects-open-side-passage",
+        "experience:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        0.3759999999999999,
+        2.750999999642372,
+        -0.6230000004768372
+      ],
+      "max": [
+        0.3759999999999999,
+        2.869000000357628,
+        -0.5489999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:experience-open-side-passage",
+        "projects:experience-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        -0.3619999997019767,
+        2.685,
+        -0.7599999904632568
+      ],
+      "max": [
+        -0.25200000029802283,
+        2.935,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:experience-open-side-passage",
+        "projects:experience-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        -0.3720000004321336,
+        2.7000000005960465,
+        -0.7400000095367432
+      ],
+      "max": [
+        -0.3439999995678659,
+        2.9199999994039536,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:experience-open-side-passage",
+        "projects:experience-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        -0.3749999999999999,
+        2.7199999964237214,
+        -0.47999998927116394
+      ],
+      "max": [
+        -0.37499999999999967,
+        2.9000000035762787,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:experience-open-side-passage",
+        "projects:experience-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -0.3759999999999999,
+        2.750999999642372,
+        -0.6230000004768372
+      ],
+      "max": [
+        -0.3759999999999999,
+        2.869000000357628,
+        -0.5489999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:experience-open-side-passage",
+        "projects:experience-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -0.37599999999999967,
+        2.750999999642372,
+        0.5489999995231629
+      ],
+      "max": [
+        -0.37599999999999967,
+        2.869000000357628,
+        0.6230000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        -4.2479999997019755,
+        2.685,
+        -0.7599999904632568
+      ],
+      "max": [
+        -4.138000000298022,
+        2.935,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        -4.156000000432133,
+        2.7000000005960465,
+        -0.7400000095367432
+      ],
+      "max": [
+        -4.127999999567866,
+        2.9199999994039536,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        -4.124999999999999,
+        2.7199999964237214,
+        -0.47999998927116394
+      ],
+      "max": [
+        -4.124999999999999,
+        2.9000000035762787,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -4.124,
+        2.750999999642372,
+        0.5269999995231629
+      ],
+      "max": [
+        -4.124,
+        2.869000000357628,
+        0.6010000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.124,
+        2.7550000002980233,
+        0.6374999998919667
+      ],
+      "max": [
+        -4.124,
+        2.864999999701977,
+        0.6445000001080335
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.124,
+        2.7550000002980233,
+        0.5994999998919667
+      ],
+      "max": [
+        -4.124,
+        2.864999999701977,
+        0.6065000001080335
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        2.7614999998919667,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.124,
+        2.7685000001080335,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        2.7914999998919665,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.124,
+        2.7985000001080333,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        2.8214999998919668,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.124,
+        2.8285000001080336,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        2.8514999998919666,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.124,
+        2.8585000001080334,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.750999999642372,
+        -0.6450000004768373
+      ],
+      "max": [
+        -4.123999999999999,
+        2.869000000357628,
+        -0.5709999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.7550000002980233,
+        -0.5345000001080334
+      ],
+      "max": [
+        -4.123999999999999,
+        2.864999999701977,
+        -0.5274999998919666
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.7550000002980233,
+        -0.5725000001080335
+      ],
+      "max": [
+        -4.123999999999999,
+        2.864999999701977,
+        -0.5654999998919666
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.7614999998919667,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.123999999999999,
+        2.7685000001080335,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.7914999998919665,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.123999999999999,
+        2.7985000001080333,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.8214999998919668,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.123999999999999,
+        2.8285000001080336,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "projects-assembly",
+        "projects:about-open-side-passage",
+        "projects:about-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.123999999999999,
+        2.8514999998919666,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.123999999999999,
+        2.8585000001080334,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        -4.247999999701976,
+        -0.7149999999999999,
+        -0.7599999904632568
+      ],
+      "max": [
+        -4.138000000298023,
+        -0.46499999999999986,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        -4.156000000432134,
+        -0.6999999994039534,
+        -0.7400000095367432
+      ],
+      "max": [
+        -4.127999999567867,
+        -0.4800000005960463,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        -4.125,
+        -0.6800000035762785,
+        -0.47999998927116394
+      ],
+      "max": [
+        -4.125,
+        -0.49999999642372117,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.6490000003576277,
+        0.5269999995231629
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.530999999642372,
+        0.6010000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.6449999997019766,
+        0.6374999998919667
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.5350000002980231,
+        0.6445000001080335
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.6449999997019766,
+        0.5994999998919667
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.5350000002980231,
+        0.6065000001080335
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.6385000001080333,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.6314999998919665,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.6085000001080333,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.6014999998919665,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.5785000001080333,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.5714999998919664,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.1240000000000006,
+        -0.5485000001080332,
+        0.6065000002533198
+      ],
+      "max": [
+        -4.1240000000000006,
+        -0.5414999998919664,
+        0.6374999997466804
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -4.124,
+        -0.6490000003576277,
+        -0.6450000004768373
+      ],
+      "max": [
+        -4.124,
+        -0.530999999642372,
+        -0.5709999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.124,
+        -0.6449999997019766,
+        -0.5345000001080334
+      ],
+      "max": [
+        -4.124,
+        -0.5350000002980231,
+        -0.5274999998919666
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-side"
+      ],
+      "min": [
+        -4.124,
+        -0.6449999997019766,
+        -0.5725000001080335
+      ],
+      "max": [
+        -4.124,
+        -0.5350000002980231,
+        -0.5654999998919666
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        -0.6385000001080333,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.124,
+        -0.6314999998919665,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        -0.6085000001080333,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.124,
+        -0.6014999998919665,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        -0.5785000001080333,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.124,
+        -0.5714999998919664,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:projects-open-side-passage",
+        "about:projects-above-door-wall-nameplate",
+        "Group",
+        "painted-ladder-rung"
+      ],
+      "min": [
+        -4.124,
+        -0.5485000001080332,
+        -0.5654999997466803
+      ],
+      "max": [
+        -4.124,
+        -0.5414999998919664,
+        -0.5345000002533198
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:contact-open-side-passage",
+        "about:contact-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        -0.36199999970197716,
+        -0.7149999999999999,
+        -0.7599999904632568
+      ],
+      "max": [
+        -0.2520000002980233,
+        -0.46499999999999986,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:contact-open-side-passage",
+        "about:contact-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        -0.37200000043213405,
+        -0.6999999994039534,
+        -0.7400000095367432
+      ],
+      "max": [
+        -0.34399999956786637,
+        -0.4800000005960463,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:contact-open-side-passage",
+        "about:contact-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        -0.37500000000000033,
+        -0.6800000035762785,
+        -0.47999998927116394
+      ],
+      "max": [
+        -0.3750000000000001,
+        -0.49999999642372117,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:contact-open-side-passage",
+        "about:contact-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -0.37600000000000033,
+        -0.6490000003576277,
+        -0.6230000004768372
+      ],
+      "max": [
+        -0.37600000000000033,
+        -0.530999999642372,
+        -0.5489999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "about-assembly",
+        "about:contact-open-side-passage",
+        "about:contact-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        -0.3760000000000001,
+        -0.6490000003576277,
+        0.5489999995231629
+      ],
+      "max": [
+        -0.3760000000000001,
+        -0.530999999642372,
+        0.6230000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact:about-open-side-passage",
+        "contact:about-above-door-wall-nameplate",
+        "above-door-label-backing"
+      ],
+      "min": [
+        0.25200000029802283,
+        -0.7149999999999999,
+        -0.7599999904632568
+      ],
+      "max": [
+        0.3619999997019767,
+        -0.46499999999999986,
+        0.7599999904632568
+      ],
+      "material": [
+        {
+          "name": "warm-insulation",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.67,
+          "metalness": 0.01
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact:about-open-side-passage",
+        "contact:about-above-door-wall-nameplate",
+        "above-door-label-enamel"
+      ],
+      "min": [
+        0.3439999995678659,
+        -0.6999999994039534,
+        -0.7400000095367432
+      ],
+      "max": [
+        0.3720000004321336,
+        -0.4800000005960463,
+        0.7400000095367432
+      ],
+      "material": [
+        {
+          "name": "interior-enamel",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 0.54,
+          "metalness": 0.04
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact:about-open-side-passage",
+        "contact:about-above-door-wall-nameplate",
+        "portal-destination-ink"
+      ],
+      "min": [
+        0.37499999999999967,
+        -0.6800000035762785,
+        -0.47999998927116394
+      ],
+      "max": [
+        0.3749999999999999,
+        -0.49999999642372117,
+        0.47999998927116394
+      ],
+      "material": [
+        {
+          "name": "portal-destination-label",
+          "depthTest": true,
+          "depthWrite": false,
+          "transparent": true,
+          "anisotropy": 8
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact:about-open-side-passage",
+        "contact:about-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        0.37599999999999967,
+        -0.6490000003576277,
+        0.5489999995231629
+      ],
+      "max": [
+        0.37599999999999967,
+        -0.530999999642372,
+        0.6230000004768372
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    },
+    {
+      "names": [
+        "orbital-pressure-vessel",
+        "contact-assembly",
+        "contact:about-open-side-passage",
+        "contact:about-above-door-wall-nameplate",
+        "Group",
+        "painted-direction-arrow"
+      ],
+      "min": [
+        0.3759999999999999,
+        -0.6490000003576277,
+        -0.6230000004768372
+      ],
+      "max": [
+        0.3759999999999999,
+        -0.530999999642372,
+        -0.5489999995231629
+      ],
+      "material": [
+        {
+          "name": "painted-navigation-symbol",
+          "depthTest": true,
+          "depthWrite": true,
+          "transparent": false,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ]
+    }
+  ],
+  "hotspotBefore": [
+    {
+      "section": "experience",
+      "slot": 0,
+      "position": [
+        1.036,
+        1.68074,
+        -0.2772
+      ],
+      "caseStudySlug": "audit-0"
+    },
+    {
+      "section": "experience",
+      "slot": 1,
+      "position": [
+        1.75,
+        1.68074,
+        -0.2772
+      ],
+      "caseStudySlug": "audit-1"
+    },
+    {
+      "section": "experience",
+      "slot": 2,
+      "position": [
+        2.464,
+        1.68074,
+        -0.2772
+      ],
+      "caseStudySlug": "audit-2"
+    },
+    {
+      "section": "experience",
+      "slot": 3,
+      "position": [
+        1.036,
+        1.1708599999999998,
+        -0.2772
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 4,
+      "position": [
+        1.75,
+        1.1708599999999998,
+        -0.2772
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 5,
+      "position": [
+        2.464,
+        1.1708599999999998,
+        -0.2772
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 6,
+      "position": [
+        1.036,
+        0.6609799999999999,
+        -0.2772
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 7,
+      "position": [
+        1.75,
+        0.6609799999999999,
+        -0.2772
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 8,
+      "position": [
+        2.464,
+        0.6609799999999999,
+        -0.2772
+      ]
+    },
+    {
+      "section": "about",
+      "position": [
+        -1.5433600000000007,
+        -2.50886,
+        -0.4494
+      ]
+    },
+    {
+      "section": "contact",
+      "position": [
+        1.666,
+        -2.0023400000000002,
+        -0.4284
+      ]
+    }
+  ],
+  "hotspotAfter": [
+    {
+      "section": "experience",
+      "slot": 0,
+      "position": [
+        1.5799999999999996,
+        1.9284999999999999,
+        -0.33
+      ],
+      "caseStudySlug": "audit-0"
+    },
+    {
+      "section": "experience",
+      "slot": 1,
+      "position": [
+        2.4299999999999997,
+        1.9284999999999999,
+        -0.33
+      ],
+      "caseStudySlug": "audit-1"
+    },
+    {
+      "section": "experience",
+      "slot": 2,
+      "position": [
+        3.28,
+        1.9284999999999999,
+        -0.33
+      ],
+      "caseStudySlug": "audit-2"
+    },
+    {
+      "section": "experience",
+      "slot": 3,
+      "position": [
+        1.5799999999999996,
+        1.3215,
+        -0.33
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 4,
+      "position": [
+        2.4299999999999997,
+        1.3215,
+        -0.33
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 5,
+      "position": [
+        3.28,
+        1.3215,
+        -0.33
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 6,
+      "position": [
+        1.5799999999999996,
+        0.7144999999999999,
+        -0.33
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 7,
+      "position": [
+        2.4299999999999997,
+        0.7144999999999999,
+        -0.33
+      ]
+    },
+    {
+      "section": "experience",
+      "slot": 8,
+      "position": [
+        3.28,
+        0.7144999999999999,
+        -0.33
+      ]
+    },
+    {
+      "section": "about",
+      "position": [
+        -2.184,
+        -2.4115,
+        -0.535
+      ]
+    }
+  ],
+  "issues": []
+}
