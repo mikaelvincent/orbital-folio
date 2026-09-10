@@ -1,3 +1,4 @@
+import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
 
@@ -195,8 +196,10 @@ export function createSpacecraft(
     enamelHeight: 0.22,
     centerY: 1.11,
   };
-  const headerPosition = (_section: string): [number, number] =>
-    [wayfinding.centerY, -0.427];
+  const headerPosition = (_section: string): [number, number] => [
+    wayfinding.centerY,
+    -0.427,
+  ];
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
   // under filmic lighting rather than a pale yellow reflective finish.
@@ -2028,472 +2031,6 @@ export function createSpacecraft(
     tube.rotation.y = Math.PI / 2;
     tube.position.set(0, yy, passageCenterZ);
   }
-  // Nine physical compartments, arranged as three columns by three rows.
-  // Each hinge, title texture and signal rail remains independent after batching.
-  function buildPayloadRack(
-    section: 'projects' | 'experience',
-    slots: typeof doorSlots,
-  ) {
-    const project = rooms[section],
-      origin = legacyCenters[section];
-    const prefix = section === 'projects' ? 'project' : 'case-study';
-    const rackFrame = mesh(
-      frameGeometry(2.66, 1.985, 0.145, 0.075, 0.46, 0.014),
-      m.gasket,
-      project,
-      'nine-slot-' + prefix + '-payload-rack',
-    );
-    rackFrame.position.set(origin, -0.038, -0.75);
-    for (let slotIndex = 0; slotIndex < 9; slotIndex++) {
-      const col = slotIndex % 3,
-        row = Math.floor(slotIndex / 3);
-      const x = origin - 0.85 + col * 0.85,
-        y = 0.595 - row * 0.607;
-      const bay = mesh(
-        frameGeometry(0.792, 0.565, 0.064, 0.036, 0.39, 0.008),
-        m.navy,
-        project,
-        'deep-empty-compartment-liner',
-      );
-      bay.position.set(x, y, -0.705);
-      box(
-        0.693,
-        0.477,
-        0.051,
-        m.deep,
-        x,
-        y,
-        -0.925,
-        project,
-        0.025,
-        'project-compartment-back',
-      );
-      const spare = new THREE.Group();
-      spare.name =
-        (section === 'projects'
-          ? 'spare-equipment-bay-'
-          : 'case-study-spare-equipment-bay-') + slotIndex;
-      spare.userData = {
-        section,
-        animated: true,
-        excludePick: true,
-        spareEquipment: true,
-      };
-      project.add(spare);
-      const spareKinds = [
-        'thermal-blanket',
-        'service-hose',
-        'inspection-torch',
-        'tool-roll',
-        'filter-canister',
-        'headset',
-        'cooling-fan',
-        'safety-tether',
-        'folded-tripod',
-      ];
-      spare.userData.spareKind = spareKinds[slotIndex];
-      box(
-        0.49,
-        0.025,
-        0.23,
-        m.navy,
-        x,
-        y - 0.18,
-        -0.66,
-        spare,
-        0.012,
-        'equipment-retaining-cradle',
-      );
-      if (slotIndex === 0) {
-        for (const yy of [-0.09, 0.045])
-          cylinder(0.069, 0.39, m.blanket, x, y + yy, -0.67, spare, 'x').name =
-            'stowed-thermal-blanket';
-        for (const dx of [-0.12, 0.12])
-          box(
-            0.036,
-            0.24,
-            0.15,
-            m.amber,
-            x + dx,
-            y - 0.02,
-            -0.67,
-            spare,
-            0.017,
-            'blanket-retaining-webbing',
-          );
-      } else if (slotIndex === 1) {
-        for (const r of [0.068, 0.106, 0.145])
-          torus(r, 0.02, m.metal, x - 0.045, y - 0.02, -0.63, spare).name =
-            'coiled-service-hose';
-        box(
-          0.055,
-          0.29,
-          0.06,
-          m.navy,
-          x - 0.045,
-          y - 0.02,
-          -0.59,
-          spare,
-          0.018,
-          'hose-retaining-strap',
-        );
-        box(
-          0.09,
-          0.09,
-          0.15,
-          m.amber,
-          x + 0.19,
-          y - 0.12,
-          -0.65,
-          spare,
-          0.024,
-          'hose-quick-coupling',
-        );
-      } else if (slotIndex === 2) {
-        cylinder(0.065, 0.4, m.navy, x, y - 0.05, -0.65, spare, 'x').name =
-          'stowed-inspection-torch';
-        for (const dx of [-0.19, 0.19])
-          cylinder(0.079, 0.06, m.metal, x + dx, y - 0.05, -0.65, spare, 'x');
-        box(
-          0.12,
-          0.065,
-          0.12,
-          m.amber,
-          x,
-          y + 0.05,
-          -0.65,
-          spare,
-          0.025,
-          'torch-retaining-clip',
-        );
-      } else if (slotIndex === 3) {
-        box(
-          0.43,
-          0.23,
-          0.17,
-          m.linen,
-          x,
-          y - 0.04,
-          -0.69,
-          spare,
-          0.065,
-          'secured-canvas-tool-roll',
-        );
-        for (const dx of [-0.14, 0, 0.14])
-          box(
-            0.048,
-            0.21,
-            0.035,
-            m.navy,
-            x + dx,
-            y - 0.02,
-            -0.585,
-            spare,
-            0.019,
-            'tool-roll-pockets',
-          );
-        box(
-          0.46,
-          0.035,
-          0.035,
-          m.amber,
-          x,
-          y - 0.11,
-          -0.558,
-          spare,
-          0.016,
-          'tool-roll-buckle-strap',
-        );
-      } else if (slotIndex === 4) {
-        cylinder(0.095, 0.25, m.chalk, x, y - 0.015, -0.69, spare, 'y').name =
-          'spare-filter-canister';
-        for (const yy of [-0.145, 0.115])
-          cylinder(0.107, 0.042, m.metal, x, y + yy, -0.69, spare, 'y');
-        box(
-          0.045,
-          0.25,
-          0.055,
-          m.amber,
-          x,
-          y - 0.01,
-          -0.574,
-          spare,
-          0.021,
-          'canister-retaining-strap',
-        );
-      } else if (slotIndex === 5) {
-        const band = mesh(
-          new THREE.TorusGeometry(0.15, 0.025, 8, 24, Math.PI),
-          m.navy,
-          spare,
-          'spare-headset-band',
-        );
-        band.position.set(x, y - 0.04, -0.66);
-        for (const dx of [-0.145, 0.145])
-          box(
-            0.085,
-            0.12,
-            0.13,
-            m.upholstery,
-            x + dx,
-            y - 0.07,
-            -0.66,
-            spare,
-            0.04,
-            'headset-earcup',
-          );
-        box(
-          0.3,
-          0.032,
-          0.055,
-          m.amber,
-          x,
-          y - 0.13,
-          -0.572,
-          spare,
-          0.014,
-          'headset-securing-loop',
-        );
-      } else if (slotIndex === 6) {
-        cylinder(0.145, 0.07, m.navy, x, y - 0.02, -0.67, spare, 'z').name =
-          'spare-cooling-fan-housing';
-        torus(0.142, 0.02, m.metal, x, y - 0.02, -0.62, spare);
-        for (let k = 0; k < 5; k++) {
-          const a = (k * Math.PI * 2) / 5;
-          const blade = box(
-            0.13,
-            0.045,
-            0.028,
-            m.slate,
-            x + Math.cos(a) * 0.06,
-            y - 0.02 + Math.sin(a) * 0.06,
-            -0.615,
-            spare,
-            0.018,
-            'spare-fan-blade',
-          );
-          blade.rotation.z = a;
-        }
-        box(
-          0.035,
-          0.32,
-          0.048,
-          m.amber,
-          x,
-          y - 0.02,
-          -0.578,
-          spare,
-          0.017,
-          'fan-retaining-strap',
-        );
-      } else if (slotIndex === 7) {
-        for (const dx of [-0.12, 0, 0.12]) {
-          const loop = torus(
-            0.075,
-            0.022,
-            m.amber,
-            x + dx,
-            y - 0.01,
-            -0.65,
-            spare,
-          );
-          loop.scale.y = 1.42;
-          loop.name = 'coiled-safety-tether';
-        }
-        torus(0.045, 0.012, m.metal, x + 0.215, y - 0.1, -0.625, spare).name =
-          'tether-locking-carabiner';
-        box(
-          0.4,
-          0.028,
-          0.045,
-          m.navy,
-          x,
-          y - 0.11,
-          -0.585,
-          spare,
-          0.013,
-          'tether-securing-strap',
-        );
-      } else {
-        for (const dx of [-0.1, 0, 0.1])
-          rod(
-            [x + dx - 0.035, y - 0.14, -0.68],
-            [x + dx + 0.035, y + 0.14, -0.68],
-            0.023,
-            m.metal,
-            spare,
-          ).name = 'folded-tripod-leg';
-        box(
-          0.26,
-          0.07,
-          0.1,
-          m.navy,
-          x,
-          y + 0.125,
-          -0.66,
-          spare,
-          0.032,
-          'tripod-head',
-        );
-        box(
-          0.34,
-          0.035,
-          0.052,
-          m.amber,
-          x,
-          y - 0.045,
-          -0.6,
-          spare,
-          0.016,
-          'tripod-retaining-band',
-        );
-      }
-      const cartridge = new THREE.Group();
-      cartridge.name =
-        (section === 'projects'
-          ? 'occupied-cartridge-'
-          : 'occupied-case-study-cartridge-') + slotIndex;
-      cartridge.userData = {
-        section,
-        animated: true,
-        projectSlot: slotIndex,
-      };
-      project.add(cartridge);
-      box(
-        0.561,
-        0.12,
-        0.166,
-        m.navy,
-        x,
-        y - 0.115,
-        -0.62,
-        cartridge,
-        0.037,
-        'stowed-project-cartridge',
-      );
-      for (const yy of [-0.16, 0.16])
-        cylinder(0.022, 0.078, m.metal, x - 0.383, y + yy, -0.379, project);
-      const door = new THREE.Group();
-      door.name = `${prefix}-compartment-hinge-${slotIndex}`;
-      door.position.set(x - 0.371, y, -0.362);
-      door.userData.animated = true;
-      door.userData.surfaceOnly = true;
-      door.userData.projectSlot = slotIndex;
-      project.add(door);
-      box(
-        0.754,
-        0.523,
-        0.124,
-        m.chalk,
-        0.371,
-        0,
-        0,
-        door,
-        0.059,
-        'project-compartment-door',
-      );
-      box(
-        0.093,
-        0.094,
-        0.044,
-        m.amber,
-        0.624,
-        -0.159,
-        0.093,
-        door,
-        0.021,
-        'compartment-amber-latch',
-      );
-      const signalSource = m.amber.clone();
-      signalSource.userData.surfaceOnly = true;
-      signalSource.userData.highlightScale = 0;
-      signalSource.name = prefix + '-slot-trim-' + slotIndex;
-      const signal = mesh(
-        frameGeometry(0.697, 0.466, 0.06, 0.012, 0.011, 0.003),
-        signalSource,
-        door,
-        'individual-project-hover-light',
-      );
-      signal.position.set(0.371, 0, 0.077);
-      let paint = (_item: SpacecraftProject | null, _index: number) => {};
-      if (typeof document !== 'undefined') {
-        const canvas = document.createElement('canvas');
-        canvas.width = 1024;
-        canvas.height = 560;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          const texture = new THREE.CanvasTexture(canvas);
-          texture.colorSpace = THREE.SRGBColorSpace;
-          const labelMaterial = mat(
-            prefix + '-data-label-' + slotIndex,
-            0xffffff,
-            0.79,
-            0.0,
-            { map: texture, transparent: true, depthWrite: false },
-          );
-          const label = mesh(
-            new THREE.PlaneGeometry(0.61, 0.334),
-            labelMaterial,
-            door,
-            'live-project-compartment-title',
-          );
-          label.position.set(0.366, 0.055, 0.091);
-          paint = (item: SpacecraftProject | null, index: number) => {
-            ctx.clearRect(0, 0, 1024, 560);
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'top';
-            ctx.fillStyle = '#667070';
-            ctx.font = '500 70px monospace';
-            ctx.fillText(String(index + 1).padStart(2, '0'), 38, 12);
-            if (!item) {
-              texture.needsUpdate = true;
-              return;
-            }
-            ctx.fillStyle = '#233549';
-            ctx.font = '600 147px Arial, sans-serif';
-            const words = item.title.split(/\s+/);
-            let line = '',
-              lineIndex = 0;
-            for (const word of words) {
-              const candidate = line ? line + ' ' + word : word;
-              if (
-                lineIndex === 0 &&
-                line &&
-                ctx.measureText(candidate).width > 948
-              ) {
-                ctx.fillText(line, 38, 124, 948);
-                line = word;
-                lineIndex = 1;
-              } else line = candidate;
-            }
-            if (lineIndex && ctx.measureText(line).width > 948) {
-              while (line.length > 1 && ctx.measureText(line + '…').width > 948)
-                line = line.slice(0, -1);
-              line = line.trimEnd() + '…';
-            }
-            ctx.fillText(line, 38, 124 + lineIndex * 168, 948);
-            if (item.sample && options.sampleLabel) {
-              ctx.fillStyle = '#8c714b';
-              ctx.font = '500 48px Arial';
-              ctx.fillText(options.sampleLabel, 39, 486, 720);
-            }
-            texture.needsUpdate = true;
-          };
-        }
-      }
-      slots.push({
-        group: door,
-        progress: 0,
-        hover: 0,
-        baseZ: -0.362,
-        glow: signal.material,
-        draw: paint,
-        project: null,
-        cartridge,
-        spare,
-      });
-    }
-  }
   // Projects is a static category workshop. The previous individual-project
   // lockers and their pick surfaces disappear with the replaced furnishings.
   // Catalog interaction is intentionally deferred; keep the public reader APIs.
@@ -2511,11 +2048,19 @@ export function createSpacecraft(
       accent: m.amber,
     },
   );
-  buildPayloadRack('experience', caseStudySlots);
-  // The dossier reader is stowed flush until reading=true; no center table.
-
-  // The experience key is now a second data-backed payload cabinet.
-  // Its public display name comes from options.labels.experience.
+  // Case Studies uses a fixed archive rack with a raked terminal. Its old
+  // individual-case doors and hotspots leave with the replaced furnishings.
+  const archive = new THREE.Group();
+  archive.name = 'case-study-flight-recorder-archive';
+  archive.position.set(-0.18, previousFloorTop, 0);
+  archive.userData.batchRoot = true;
+  rooms.experience.add(archive);
+  const caseArchive = buildCaseStudyArchive(
+    THREE,
+    { box, mesh, cylinder, torus, rod, instances },
+    archive,
+    { caseCount: caseStudyData.length, accent: m.amber },
+  );
   // ABOUT — a vertical quilted berth, curtain, journal desk and storage cupboard.
   const cabin = rooms.about;
   box(
@@ -3557,7 +3102,8 @@ export function createSpacecraft(
     ctx.font = `800 ${font}px Arial, sans-serif`;
     font *= Math.min(
       1,
-      (canvas.width * wayfinding.inkWidthRatio) / Math.max(1, ctx.measureText(title).width),
+      (canvas.width * wayfinding.inkWidthRatio) /
+        Math.max(1, ctx.measureText(title).width),
     );
     ctx.font = `800 ${font}px Arial, sans-serif`;
     ctx.fillText(title, 512, canvas.height * 0.51);
@@ -4293,13 +3839,18 @@ export function createSpacecraft(
     result.userData.parts = names;
     bucket.parent.add(result);
   }
-  // Preserve the four backlit display surfaces after static geometry batching.
-  workshop.traverse((object: any) => {
-    if (object.isMesh && object.material?.userData.displaySize) {
-      object.castShadow = false;
-      object.receiveShadow = false;
-    }
-  });
+  // Keep printed archive labels and backlit screens free of self-shadows after batching.
+  for (const equipment of [workshop, archive])
+    equipment.traverse((object: any) => {
+      if (
+        object.isMesh &&
+        (object.material?.userData.displaySize ||
+          object.material?.userData.archiveInk)
+      ) {
+        object.castShadow = false;
+        object.receiveShadow = false;
+      }
+    });
   group.traverse((object: any) => {
     if (object.isMesh && object.material?.userData.cabinHeaderInk) {
       object.castShadow = false;
@@ -4388,6 +3939,7 @@ export function createSpacecraft(
   group.userData.projectCategoryCapacity = 4;
   group.userData.caseStudyPageSize = projectPageSize;
   group.userData.caseStudyCapacity = 9;
+  group.userData.caseStudyCategoryCapacity = 5;
   group.userData.hotspots = [
     ...doorSlots.map((_, i) => ({
       section: 'projects',
@@ -4418,7 +3970,7 @@ export function createSpacecraft(
     'https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking',
   ];
   group.userData.description =
-    'A two-by-two toybox spacecraft with a four-module project workshop, nine case-study compartments, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
+    'A two-by-two toybox spacecraft with a four-module project workshop, five flight-recorder category cartridges and a raked archive terminal, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
   group.userData.detailStats = {
     staticSourceParts: sourceParts,
     drawCalls: targets.length,
@@ -4914,6 +4466,7 @@ export function createSpacecraft(
   }
   function setCaseStudies(items: SpacecraftProject[]) {
     caseStudyData = items.slice();
+    caseArchive.setCaseCount(caseStudyData.length);
     return setCaseStudyPage(currentCaseStudyPage);
   }
   function setReading(section: string, reading: boolean, instant = false) {

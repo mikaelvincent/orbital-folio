@@ -1,16 +1,37 @@
-# Independent scoped review
+# Case Studies archive — independent final visual review
 
-Score: 98/100 — passes the requested 95+ target.
+Score: **95/100** for the requested static room design, reference-informed fidelity, spacecraft cohesion, visual distinction, and visible assembly/fit. This is a human-style visual assessment from rendered evidence, not an automated quality measurement.
 
-Scope: indoor room signs match doorway text size, plaque height, and elevation; signs are set farther back from ceiling lights; screens are resized/lowered to leave clear wall space; preferred table heights are preserved. Reviewed source diff against c0dc435, all ten final screenshots in docs/evidence/recessed-room-signs, final geometry-audit.json, and browser-console.json. No checkout edits or browser control performed by this reviewer.
+Disposition: **Pass. No blocking visual issue remains in the scoped room.**
 
-Findings:
-- Room and doorway signs share a 0.25 frame height, 0.22 enamel height, and center elevation 1.11. Recorded font em parity is exact for each matching room name, including Case Studies width fitting.
-- Desktop Projects, Contact, About, and Case Studies views show clear separation between ceiling lights, room signs, and furnishings. Projects and Contact oblique views establish the rearward placement without collisions or disconnected visible mounts.
-- The smaller Projects screen bank keeps its graphic proportions and leaves a clean gap below its sign. The shorter Contact display leaves a larger open wall band. Its initially compressed screen graphic was corrected; final desktop, oblique, and portrait screenshots preserve lettering and signal-arc proportions.
-- Projects and Contact table/deck/support geometry remains unchanged according to source diff and the geometry report. Both work surfaces retain their previous visual height.
-- Portrait selected views retain readable room signs and clear gaps. The ten final screenshots show no requested-scope overlap or clipping in the selected cabin views.
+## Evidence reviewed
 
-Remaining limitation: rearward lower-deck room signs are occluded by the cutaway ceiling from the distant overview camera. External callouts remain readable, and all selected room signs are clear. This is a small visibility tradeoff of the requested rearward placement and accounts for the two-point deduction; it does not justify moving the signs forward again.
+User references:
+- /var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/codex-clipboard-92a0fb87-cecb-4773-8a69-c5b9b2662b7f.png — whole-room archive reference, five horizontal cartridges.
+- /var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/codex-clipboard-1d5286b0-7182-4c30-9d61-bc3b511df7d5.png — angled terminal beneath the cartridges.
 
-Required fixes: none. No deductions for deferred interactions, background treatment, unrelated content, or unchanged room styling. Browser console evidence is empty. Build/typecheck/lint success was reported by the implementing agent, not independently rerun here.
+Final render evidence, under /Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/case-study-archive/:
+- desktop-room.png
+- desktop-oblique-right.png
+- desktop-oblique-left.png — reviewed again after its true opposite-angle recapture.
+- desktop-overview.png
+- portrait-room.png
+- portrait-overview.png
+
+Comparison evidence: prior Case Studies, Projects, and Contact desktop views under docs/evidence/recessed-room-signs. First working archive render was also reviewed before the cartridge/terminal proportion refinement.
+
+## Findings
+
+The room now reads immediately as a flight-recorder archive. Five broad horizontal cartridges replace the previous display-case grid. Three cream faces followed by two darker faces closely follow the reference hierarchy. Dark runners and gaps, graphite enclosure layers, amber end locks, captive pins, pull recesses, screw heads, rack perforations, and crossmember plates make each row read as installed equipment rather than a flat UI card.
+
+The refinement addressed the material first-pass proportion problems. Increased cartridge body height gives the archive more mass. Reducing the terminal makes its outer footprint fit within the rack's visual width; it now supports the tall archive composition instead of dominating the room. Its angled face, side amber hardware, lower housing, and paired feet remain legible from the frontal and both oblique views.
+
+The assembly looks physically credible in the evidence. Rack uprights terminate in visible floor feet; rails connect the stacked cartridges; terminal feet sit on the floor; hardware has consistent offsets and alignment. Neither oblique exposes an obvious floating component, penetrating support, open cartridge back, or clipped enclosure. This paragraph is a visual finding. The separately reported structural/geometry audit was performed by another reviewer, not independently reproduced here.
+
+The established cream, navy/graphite, metal, and amber palette keeps the new equipment in the same spacecraft. Its tall storage silhouette is distinct from Projects' four-screen workbench and Contact's communication-console desk, including at spacecraft overview scale. Portrait evidence preserves all five rows, terminal, rack feet, and room title without clipping the assembly.
+
+The remaining five-point margin reflects refinement potential rather than a blocking defect: cartridge proportions are still slimmer than the cinematic source; the equipment finish is cleaner and less materially varied; and the rack header sits fairly close below the room sign. None of these prevents the reference-informed design from reading clearly or fitting the established visual style. No further static design change is required to clear the requested 95-point threshold.
+
+## Scope boundaries
+
+Camera behavior/framing choices, animation, cartridge selection, terminal interaction, article/reader states, and other deferred functionality were not scored or deducted. Existing neighboring-room designs were used only as cohesion/distinction comparisons. No checkout file was modified for this review.

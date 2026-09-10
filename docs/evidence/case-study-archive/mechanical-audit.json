@@ -1,0 +1,141 @@
+{
+  "clips": [
+    {
+      "name": "case-archive-loom-clip",
+      "path": "orbital-pressure-vessel/experience-assembly/experience-cabin-contents/case-study-flight-recorder-archive/case-archive-loom-clip",
+      "min": [
+        3.3159999981522557,
+        1.0600000004470347,
+        -0.8804999997913837
+      ],
+      "max": [
+        3.3840000018477436,
+        1.099999999552965,
+        -0.8035000002086162
+      ],
+      "distanceFromClipAabbToSampledLoomSurface": 0
+    }
+  ],
+  "anchorGaps": [],
+  "joinPairs": [
+    {
+      "a": "case-archive-terminal-front-strut",
+      "b": "case-archive-terminal-foot",
+      "intersections": [
+        true,
+        true
+      ]
+    },
+    {
+      "a": "case-archive-terminal-front-strut",
+      "b": "case-archive-terminal-hinge-housing",
+      "intersections": [
+        true,
+        true
+      ]
+    },
+    {
+      "a": "case-archive-terminal-rear-strut",
+      "b": "case-archive-terminal-rear-saddle",
+      "intersections": [
+        true,
+        true
+      ]
+    },
+    {
+      "a": "case-archive-terminal-rear-strut",
+      "b": "case-archive-terminal-foot",
+      "intersections": [
+        true,
+        true
+      ]
+    },
+    {
+      "a": "case-archive-rack-upright",
+      "b": "case-archive-rack-anchored-foot",
+      "intersections": [
+        true,
+        true
+      ]
+    }
+  ],
+  "cableEndJoins": {
+    "terminalEndpointInEnclosureLocal": [
+      0.9600000000000004,
+      -0.007687306543473493,
+      -0.09268713674564932
+    ],
+    "terminalEndpointDistanceToEnclosure": 0.012687138533788667,
+    "localCableRadius": 0.030588235294117645,
+    "terminalConnectionOverlap": 0.01790109676032898,
+    "junctionBackplaneOverlap": true,
+    "upperEndpointInsideJunction": true
+  },
+  "screenBatches": [
+    {
+      "name": "experience-case-archive-terminal-screen-ink",
+      "castShadow": false,
+      "receiveShadow": false,
+      "transparent": false,
+      "emissiveIntensity": 1,
+      "mapVersion": 2
+    }
+  ],
+  "countRefresh": {
+    "initialVersion": 2,
+    "updatedVersion": 3,
+    "lastTextOperations": [
+      [
+        "fillText",
+        [
+          "LIBRARY ONLINE",
+          1469,
+          288
+        ]
+      ],
+      [
+        "fillText",
+        [
+          "All case studies",
+          170,
+          114,
+          1030
+        ]
+      ],
+      [
+        "fillText",
+        [
+          "12",
+          1471,
+          114,
+          220
+        ]
+      ],
+      [
+        "fillText",
+        [
+          "Ideas. Systems. People. Progress.",
+          170,
+          224,
+          1100
+        ]
+      ],
+      [
+        "fillText",
+        [
+          "ARCHIVE INDEX  /  FLIGHT RECORDS",
+          67,
+          288
+        ]
+      ],
+      [
+        "fillText",
+        [
+          "LIBRARY ONLINE",
+          1469,
+          288
+        ]
+      ]
+    ]
+  }
+}
