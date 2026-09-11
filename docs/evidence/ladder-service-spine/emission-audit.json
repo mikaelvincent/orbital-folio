@@ -1,0 +1,662 @@
+{
+  "sourceHashes": {
+    "model": "1f8450bdef0f0f37f545cdb552daa9fd1763f3f6b648933fdab71a0608c58a20",
+    "builder": "0412511a2259fd14b2f7bbdc46c5beaa4f1203808715a82036312a92ca97f12b"
+  },
+  "fixtureSourceCount": 3,
+  "states": [
+    {
+      "layout": "wide",
+      "state": "overview",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    },
+    {
+      "layout": "wide",
+      "state": "overview-hover-does-not-highlight-bay",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    },
+    {
+      "layout": "wide",
+      "state": "cabin-hover",
+      "lighting": {
+        "level": 1,
+        "target": 1,
+        "fixtureEmission": 1,
+        "transit": false,
+        "hoveredWalkway": true
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 1.7
+        }
+      ]
+    },
+    {
+      "layout": "wide",
+      "state": "transit",
+      "lighting": {
+        "level": 1,
+        "target": 1,
+        "fixtureEmission": 1,
+        "transit": true,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 1.7
+        }
+      ]
+    },
+    {
+      "layout": "wide",
+      "state": "return-to-cabin",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "state": "overview",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "state": "overview-hover-does-not-highlight-bay",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "state": "cabin-hover",
+      "lighting": {
+        "level": 1,
+        "target": 1,
+        "fixtureEmission": 1,
+        "transit": false,
+        "hoveredWalkway": true
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 1.7
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "state": "transit",
+      "lighting": {
+        "level": 1,
+        "target": 1,
+        "fixtureEmission": 1,
+        "transit": true,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            1.7,
+            1.216678951,
+            0.605880245
+          ],
+          "effectiveEmissionMultiplier": 1.7,
+          "colorMultiplier": 1
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 1.7
+        }
+      ]
+    },
+    {
+      "layout": "compact",
+      "state": "return-to-cabin",
+      "lighting": {
+        "level": 0.5,
+        "target": 0.5,
+        "fixtureEmission": 0.5,
+        "transit": false,
+        "hoveredWalkway": false
+      },
+      "fixtures": [
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-channel-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        },
+        {
+          "name": "service-spine-header-light-diffuser",
+          "material": "service-spine-protected-diffuser",
+          "surfaceOnly": false,
+          "baseIntensity": 1.7,
+          "emissive": [
+            0.85,
+            0.608339475,
+            0.302940123
+          ],
+          "effectiveEmissionMultiplier": 0.85,
+          "colorMultiplier": 0.5
+        }
+      ],
+      "nonfixtureEmission": [],
+      "liveEmitting": [
+        {
+          "name": "walkway-service-spine-protected-diffuser",
+          "parts": [
+            "service-spine-channel-light-diffuser",
+            "service-spine-channel-light-diffuser",
+            "service-spine-header-light-diffuser"
+          ],
+          "surfaceOnly": false,
+          "emissionMultiplier": 0.85
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "passed": true,
+  "sourceUnchangedDuringAudit": true
+}

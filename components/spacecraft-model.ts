@@ -1,6 +1,10 @@
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
+import {
+  buildLadderServiceSpine,
+  getServiceSpineRecesses,
+} from './ladder-service-spine.ts';
 
 /**
  * Orbital toybox, v14. Self-contained procedural Three.js asset.
@@ -1320,8 +1324,6 @@ export function createSpacecraft(
   // Tall cutaway walkway connects the two left hatches with an actual interior.
   // Its right wall has two matching openings; the docking sleeve enters left
   // at mid-height. A zero-gravity handrail/ladder gives the vertical run scale.
-  const walkwayTrim = mat('painted-walkway-rail', palette.amber, 1, 0);
-  walkwayTrim.userData.surfaceOnly = true;
   const walkway = new THREE.Group();
   walkway.name = 'left-vertical-walkway';
   walkway.userData = {
@@ -1438,6 +1440,7 @@ export function createSpacecraft(
   // The rear lining is one closed pressure-panel volume. Its curved return
   // shares the shell's shoulder endpoints, rather than stacking a smaller
   // floating slab in front of a differently shaped shell.
+  const serviceSpineRecesses = getServiceSpineRecesses(THREE);
   function walkwayRearGeometry() {
     const outer = walkwayOutline(
       new THREE.Shape(),
@@ -1491,7 +1494,17 @@ export function createSpacecraft(
     const rearPositions: number[] = [],
       rearIndices: number[] = [];
     for (const p of inner) frontPositions.push(p.x, p.y, frontZ);
-    const faces = THREE.ShapeUtils.triangulateShape(inner, []);
+    // Service pockets alter only the flat rear face. The established cove,
+    // shoulder returns and every passage retain their shared datums.
+    const serviceHoles = serviceSpineRecesses.map(({ shape }) => {
+      const points = shape.getPoints(32);
+      if (points[0].distanceToSquared(points[points.length - 1]) < 1e-12)
+        points.pop();
+      return points;
+    });
+    for (const hole of serviceHoles)
+      for (const p of hole) frontPositions.push(p.x, p.y, frontZ);
+    const faces = THREE.ShapeUtils.triangulateShape(inner, serviceHoles);
     for (const face of faces) frontIndices.push(...face);
     // Quarter-round cove: tangential to the flat back at the start, then to
     // the axial wall at the end. Separate back vertices retain a flat normal.
@@ -1866,65 +1879,21 @@ export function createSpacecraft(
           part.material = roomMat(m.wall, 'walkway', false, true);
     }
   }
-  // Zero-gravity transfer bay: no projecting decks, sills or landing cleats.
-  // Ladder stand-offs overlap both the liner and the rail; there is no
-  // unsupported quarter-unit gap behind the ladder assembly.
-  for (const xx of [-0.08, 0.38])
-    for (const yy of [-2.16, -0.56, 1.04, 2.3]) {
-      const support = cylinder(
-        0.026,
-        0.27,
-        m.metal,
-        xx,
-        yy,
-        -0.835,
-        walkwayFurniture,
-        'z',
-      );
-      support.name = 'walkway-ladder-rigid-stand-off';
-    }
-  for (const xx of [-0.08, 0.38])
-    rod(
-      [xx, -2.61, -0.69],
-      [xx, 2.55, -0.69],
-      0.029,
-      m.amber,
-      walkwayFurniture,
-    );
-  for (let yy = -2.51; yy <= 2.51; yy += 0.418)
-    rod(
-      [-0.08, yy, -0.69],
-      [0.38, yy, -0.69],
-      0.025,
-      m.metal,
-      walkwayFurniture,
-    );
-  for (const yy of [-1.7, 1.7]) {
-    box(
-      0.16,
-      1.31,
-      0.1,
-      m.navy,
-      -0.23,
-      yy,
-      -0.925,
-      walkwayFurniture,
-      0.04,
-      'walkway-service-channel',
-    );
-    box(
-      0.044,
-      0.97,
-      0.038,
-      walkwayTrim,
-      -0.23,
-      yy,
-      -0.854,
-      walkwayFurniture,
-      0.017,
-      'walkway-route-light-guide',
-    );
-  }
+  buildLadderServiceSpine(
+    THREE,
+    {
+      box,
+      mesh,
+      cylinder,
+      rod,
+      instances,
+      fixtureMaterial: (material: any) =>
+        roomMat(material, 'walkway', false, false),
+    },
+    walkwayFurniture,
+    serviceSpineRecesses,
+    m.amber,
+  );
   roomLights.walkway = [];
   const dockingInterior = new THREE.Group();
   dockingInterior.name = 'walkway-finished-inner-docking-hatch';
@@ -4149,8 +4118,8 @@ export function createSpacecraft(
       landings: [],
       clearDockingOpening: [1.82, 1.9],
       ladderBounds: {
-        min: [-0.109 * layoutScale, -2.639, -0.719],
-        max: [0.409 * layoutScale, 2.579, -0.661],
+        min: [-0.146 * layoutScale, -2.65, -0.9525],
+        max: [0.446 * layoutScale, 2.59, -0.628],
       },
       endShoulderContinuity: true,
     };
