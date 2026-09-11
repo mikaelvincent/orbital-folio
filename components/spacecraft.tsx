@@ -15,6 +15,7 @@ import {
 } from '@/lib/flight';
 import type * as Three from 'three';
 import { planCabinItinerary, type CabinRouteNode } from '@/lib/cabin-itinerary';
+import { requiredPortalIds } from '@/lib/iris-navigation';
 import {
   beginBoundedDrag,
   updateBoundedDrag,
@@ -755,6 +756,8 @@ export function Spacecraft(props: Props) {
           let travelledRoute: string[] = [];
           let lastSettledSection = 'home';
           let itineraryPlan: unknown = null;
+          let openPortalIds: string[] = [];
+          const doorHoldTarget = new THREE.Vector3();
           const aim = (desired: FlightPose) => {
             nextTarget.copy(desired.target);
             nextDirection.copy(desired.direction);
@@ -791,6 +794,8 @@ export function Spacecraft(props: Props) {
             flightTrace.length = 0;
             travelledRoute = [];
             itineraryPlan = null;
+            openPortalIds = [];
+            doorHoldTarget.copy(currentTarget);
             if (
               !immediate &&
               !stop &&
@@ -841,6 +846,10 @@ export function Spacecraft(props: Props) {
               );
               if (plan) {
                 itineraryPlan = plan;
+                openPortalIds = requiredPortalIds(
+                  model.group.userData.portals,
+                  [currentTarget.toArray() as Vec3, ...plan.points],
+                );
                 const between = nodes
                   .map((node, index) => ({ node, index }))
                   .filter(
@@ -878,6 +887,7 @@ export function Spacecraft(props: Props) {
               ];
               travelledRoute = [];
               itineraryPlan = { kind: 'portrait-clearance', clearance };
+              openPortalIds = [];
             }
             itinerary.push(desired);
             const overviewBounds = model.group.userData.overviewBounds;
@@ -896,6 +906,7 @@ export function Spacecraft(props: Props) {
             if (desiredFraming) el.dataset.framing = desiredFraming;
             aim(itinerary.shift()!);
             flightImmediate = stop || immediate;
+            if (flightImmediate) openPortalIds = [];
             if (stop) {
               [
                 ...pointerMotion,
@@ -924,6 +935,14 @@ export function Spacecraft(props: Props) {
             }
             if (travelling) {
               const immediate = flightImmediate || stop;
+              const waitingForDoors =
+                !immediate &&
+                openPortalIds.some(
+                  (id) =>
+                    (model.group.userData.portals.find((p: any) => p.id === id)
+                      ?.openProgress ?? 0) < 0.999,
+                );
+              el.dataset.waitingForDoors = String(waitingForDoors);
               const beforeRoll = roll;
               if (immediate) {
                 if (itinerary.length) {
@@ -939,26 +958,38 @@ export function Spacecraft(props: Props) {
                 resetAxis(distanceMotion, nextDistance);
                 resetAxis(rollMotion, nextRoll);
               } else {
-                nextTarget
+                (waitingForDoors ? doorHoldTarget : nextTarget)
                   .toArray()
                   .forEach((v, i) => moveCameraAxis(targetMotion[i], v, delta));
-                nextDirection.toArray().forEach((v, i) =>
-                  moveCameraAxis(directionMotion[i], v, delta, {
-                    frequency: 10,
-                    speed: 1,
-                    acceleration: 4,
-                  }),
+                (waitingForDoors ? viewDirection : nextDirection)
+                  .toArray()
+                  .forEach((v, i) =>
+                    moveCameraAxis(directionMotion[i], v, delta, {
+                      frequency: 10,
+                      speed: 1,
+                      acceleration: 4,
+                    }),
+                  );
+                moveCameraAxis(
+                  distanceMotion,
+                  waitingForDoors ? distance : nextDistance,
+                  delta,
+                  {
+                    frequency: 9,
+                    speed: 18,
+                    acceleration: 45,
+                  },
                 );
-                moveCameraAxis(distanceMotion, nextDistance, delta, {
-                  frequency: 9,
-                  speed: 18,
-                  acceleration: 45,
-                });
-                moveCameraAxis(rollMotion, nextRoll, delta, {
-                  frequency: 10,
-                  speed: 1.2,
-                  acceleration: 4,
-                });
+                moveCameraAxis(
+                  rollMotion,
+                  waitingForDoors ? roll : nextRoll,
+                  delta,
+                  {
+                    frequency: 10,
+                    speed: 1.2,
+                    acceleration: 4,
+                  },
+                );
               }
               currentTarget.set(
                 ...(targetMotion.map((s) => s.value) as [
@@ -993,12 +1024,17 @@ export function Spacecraft(props: Props) {
                 currentTarget.distanceTo(nextTarget) < 0.28 &&
                 Math.abs(distance - nextDistance) < 0.3 &&
                 Math.abs(roll - nextRoll) < 0.01;
-              if (immediate || settled || nearWaypoint) {
+              if (
+                immediate ||
+                (!waitingForDoors && (settled || nearWaypoint))
+              ) {
                 if (itinerary.length) {
                   aim(itinerary.shift()!);
                 } else {
                   travelling = false;
+                  openPortalIds = [];
                   el.dataset.travelling = 'false';
+                  el.dataset.waitingForDoors = 'false';
                   lastSettledSection = active;
                   if (notifyArrival) latest.current.onSettled();
                 }
@@ -1169,6 +1205,9 @@ export function Spacecraft(props: Props) {
               hoveredWalkway,
               labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
               hoveredPortal: effectiveHover,
+              openPortalIds:
+                travelling && !stop && !flightImmediate ? openPortalIds : [],
+              immediateDoors: stop || flightImmediate,
               hoveredObject: effectiveObject,
               selectedProject: null,
               hoveredProject: null,
@@ -1261,6 +1300,10 @@ export function Spacecraft(props: Props) {
                 aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5 ||
                 aoRoll !== roll
               ) {
+                // The AO override shader cannot see the iris aperture mask.
+                // Exclude its concealed storage geometry from that static pass.
+                for (const hatch of model.group.userData.irisHatches)
+                  hatch.visible = false;
                 ao.render(
                   renderer,
                   ao.pdRenderTarget,
@@ -1268,6 +1311,8 @@ export function Spacecraft(props: Props) {
                   delta,
                   false,
                 );
+                for (const hatch of model.group.userData.irisHatches)
+                  hatch.visible = true;
                 aoCameraPosition.copy(camera.position);
                 aoCameraQuaternion.copy(camera.quaternion);
                 aoRoll = roll;
@@ -1287,6 +1332,14 @@ export function Spacecraft(props: Props) {
                 hover: hovered,
                 active,
                 travelling,
+                focus: currentTarget.toArray(),
+                waitingForDoors: el.dataset.waitingForDoors === 'true',
+                irisOpen: Object.fromEntries(
+                  model.group.userData.portals.map((portal: any) => [
+                    portal.id,
+                    portal.openProgress,
+                  ]),
+                ),
                 transitRoom,
                 transitWalkway,
                 hoveredWalkway,
