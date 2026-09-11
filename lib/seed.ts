@@ -113,6 +113,31 @@ export const seedSite = {
 export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
   [
     { id: 'site', kind: 'site', data: seedSite },
+    // Demo destinations only. Owners replace these with their own profile URLs.
+    {
+      id: 'link-github',
+      kind: 'link',
+      data: {
+        title: 'GitHub',
+        platform: 'github',
+        screen: 'left',
+        description: 'Code & projects',
+        url: 'https://github.com',
+        order: 0,
+      },
+    },
+    {
+      id: 'link-linkedin',
+      kind: 'link',
+      data: {
+        title: 'LinkedIn',
+        platform: 'linkedin',
+        screen: 'right',
+        description: 'Work & connections',
+        url: 'https://www.linkedin.com',
+        order: 1,
+      },
+    },
     {
       id: 'project-relay',
       kind: 'project',

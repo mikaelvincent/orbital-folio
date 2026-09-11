@@ -1,3 +1,5 @@
+import type { SocialScreenLinks } from '../lib/social-links.ts';
+import { drawSocialChannel } from './contact-social-display.ts';
 import { buildContactAudio } from './contact-flight-audio.ts';
 
 /** Static, floor-referenced Contact furnishings. No camera, input or animation state. */
@@ -5,11 +7,12 @@ export function buildContactFlightConsole(
   THREE: any,
   h: any,
   floorRoot: any,
-  options: { title?: string; accent?: any } = {},
+  options: { title?: string; accent?: any; socials?: SocialScreenLinks } = {},
 ) {
   // The console stays a rigid assembly below the room heading. Shorten its
   // stanchions while leaving the feet on the original cabin floor.
   const lowering = 0.24;
+  floorRoot.userData.socialScreens = [];
   const parent = new THREE.Group();
   parent.name = 'contact-flight-equipment-mount';
   parent.position.y = -lowering;
@@ -264,9 +267,9 @@ export function buildContactFlightConsole(
     mat.roughness = 0.76;
     if (typeof document === 'undefined') return mat;
     const canvas = document.createElement('canvas');
-    canvas.width = kind === 'contact' ? 1024 : 512;
+    canvas.width = kind === 'contact' ? 1024 : 768;
     // Match the resized glass so lettering and signal arcs keep their proportions.
-    canvas.height = kind === 'contact' ? Math.round((canvas.width * height) / w) : 768;
+    canvas.height = Math.round((canvas.width * height) / w);
     const ctx = canvas.getContext('2d');
     if (!ctx) return mat;
     const cw = canvas.width,
@@ -323,67 +326,8 @@ export function buildContactFlightConsole(
       ctx.textAlign = 'right';
       ctx.fillText('STANDBY', 952, ch - 89);
     } else {
-      ctx.fillStyle = '#dce5e6';
-      ctx.font = '500 40px sans-serif';
-      ctx.fillText(kind === 'link' ? 'LINK STATUS' : 'SIGNAL', 40, 75);
-      ctx.strokeStyle = '#3e627a';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(40, 123);
-      ctx.lineTo(472, 123);
-      ctx.stroke();
-      if (kind === 'link') {
-        ctx.strokeStyle = '#6998b6';
-        for (const radius of [55, 111, 166]) {
-          ctx.beginPath();
-          ctx.arc(250, 345, radius, -2.75, 2.75);
-          ctx.stroke();
-        }
-        ctx.beginPath();
-        ctx.moveTo(250, 345);
-        ctx.lineTo(341, 233);
-        ctx.stroke();
-        ctx.fillStyle = '#89b9d2';
-        ctx.beginPath();
-        ctx.arc(250, 345, 20, 0, Math.PI * 2);
-        ctx.fill();
-        for (const [i, label] of ['UPLINK', 'RELAY', 'STANDBY'].entries()) {
-          ctx.fillStyle = i === 0 ? '#a9bfba' : '#6b8496';
-          ctx.beginPath();
-          ctx.arc(65, 580 + i * 57, 8, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#b4c7d1';
-          ctx.font = '24px monospace';
-          ctx.fillText(label, 92, 580 + i * 57);
-        }
-      } else {
-        ctx.strokeStyle = '#294b65';
-        for (let i = 0; i < 5; i++) {
-          ctx.beginPath();
-          ctx.moveTo(44, 206 + 59 * i);
-          ctx.lineTo(471, 206 + 59 * i);
-          ctx.stroke();
-        }
-        ctx.strokeStyle = '#83bad1';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        for (let i = 0; i <= 200; i++) {
-          const x = 45 + i * 2.12,
-            y = 325 + Math.sin(i * 0.123) * (28 + 14 * Math.cos(i * 0.07));
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-        ctx.fillStyle = '#abc5d2';
-        ctx.font = '24px monospace';
-        ctx.fillText('RECEIVE', 45, 557);
-        ctx.fillText('TRANSMIT', 45, 655);
-        for (let row = 0; row < 2; row++)
-          for (let col = 0; col < 11; col++) {
-            ctx.fillStyle = col < (row ? 6 : 9) ? '#7d9caa' : '#2d4558';
-            ctx.fillRect(45 + col * 37, 581 + row * 98, 25, 15);
-          }
-      }
+      const side = kind === 'link' ? 'left' : 'right';
+      drawSocialChannel(ctx, cw, ch, options.socials?.[side] || null, side);
     }
     const texture = new THREE.CanvasTexture(canvas);
     texture.name = `contact-flight-${kind}-display`;
@@ -411,6 +355,7 @@ export function buildContactFlightConsole(
     mount.name = `contact-flight-${kind}-display-assembly`;
     mount.position.set(x, y, kind === 'contact' ? -0.68 : -0.61);
     mount.rotation.y = yaw;
+    mount.userData.excludePick = kind !== 'contact';
     parent.add(mount);
     box(w, height, 0.18, m.shell, 0, 0, 0, mount, 0.065, `${kind}-bezel`);
     box(
@@ -465,6 +410,32 @@ export function buildContactFlightConsole(
     );
     face.position.z = 0.132;
     face.castShadow = false;
+    if (kind !== 'contact') {
+      const side = kind === 'link' ? 'left' : 'right';
+      // A geometry-free anchor survives static mesh batching and remains fitted
+      // to the actual glass at every room layout and camera angle.
+      const anchor = new THREE.Object3D();
+      anchor.name = `contact-social-${side}-anchor`;
+      anchor.position.z = 0.134;
+      mount.add(anchor);
+      floorRoot.userData.socialScreens.push({
+        side,
+        anchor,
+        width: sw,
+        height: sh,
+        link: options.socials?.[side] || null,
+      });
+      fasteners(
+        [
+          [-w / 2 + 0.028, height / 2 - 0.038, 0.096],
+          [w / 2 - 0.028, height / 2 - 0.038, 0.096],
+          [-w / 2 + 0.028, -height / 2 + 0.038, 0.096],
+          [w / 2 - 0.028, -height / 2 + 0.038, 0.096],
+        ],
+        mount,
+        `${kind}-bezel`,
+      );
+    }
     // Screens have their own opaque, inset plane; bezel faces cannot z-fight with it.
     if (kind === 'contact') {
       for (const side of [-1, 1]) {
@@ -566,8 +537,8 @@ export function buildContactFlightConsole(
   // Keep the monitor's lower edge and deck height; a shorter enclosure leaves
   // a deliberate wall band below the rear-mounted room sign.
   display('contact', 0, 1.605, 1.63, 1.16, 0);
-  display('link', -1.158, 1.49, 0.65, 0.92, 0.12);
-  display('signal', 1.158, 1.49, 0.65, 0.92, -0.12);
+  display('link', -1.215, 1.49, 0.72, 0.92, 0.16);
+  display('signal', 1.215, 1.49, 0.72, 0.92, -0.16);
 
   // Center controls share a shallow inclined, solid-backed equipment cassette.
   const wedge = new THREE.Shape();
@@ -790,8 +761,12 @@ export function buildContactFlightConsole(
     'contact-flight-deck-vent-perforations',
   );
   const audio = buildContactAudio(THREE, h, parent, m);
+  // Keep the microphone capsule outside the left screen's text and icon.
+  audio.microphone.position.x = -1.49;
   // The outboard dock keeps the upper signal trace visible from the fixed camera.
-  audio.headset.position.x += 0.1;
-  audio.headset.scale.setScalar(0.9);
+  // The retained headset now docks below the console, clear of the right
+  // channel. Its bolted foot sits on the cabin floor, not in free space.
+  audio.headset.position.set(1.25, 0.247, 0.035);
+  audio.headset.scale.setScalar(0.82);
   return m;
 }

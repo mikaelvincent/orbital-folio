@@ -1,3 +1,4 @@
+import type { SocialScreenLinks } from '../lib/social-links.ts';
 import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
@@ -50,6 +51,7 @@ export function createSpacecraft(
     labels?: Record<string, string>;
     projects?: SpacecraftProject[];
     caseStudies?: SpacecraftProject[];
+    socials?: SocialScreenLinks;
     sampleLabel?: string;
     projectPageSize?: number;
     screenLabels?: boolean;
@@ -2059,8 +2061,14 @@ export function createSpacecraft(
     THREE,
     { box, mesh, cylinder, torus, rod, instances },
     contactConsole,
-    { title: options.labels?.contact, accent: m.amber },
+    {
+      title: options.labels?.contact,
+      accent: m.amber,
+      socials: options.socials,
+    },
   );
+
+  group.userData.socialScreens = contactConsole.userData.socialScreens;
 
   // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
   const docking = new THREE.Group();

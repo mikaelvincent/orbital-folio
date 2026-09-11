@@ -1,0 +1,44 @@
+[
+  {
+    "id": "github",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/github.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "linkedin",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/linkedin.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "13.21.0"
+  },
+  {
+    "id": "gitlab",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/gitlab.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "youtube",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/youtube.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "instagram",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/instagram.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "bluesky",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/bluesky.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "x",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/x.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  }
+]

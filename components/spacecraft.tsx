@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { resolveSocialScreens } from '@/lib/social-links';
 import { SceneLoader } from './scene-loader';
 import { createOverviewAnnotations } from './overview-annotations';
 import {
@@ -28,6 +29,7 @@ type Props = {
   site: Record<string, any>;
   projects: Record<string, any>[];
   caseStudies: Record<string, any>[];
+  links: Record<string, any>[];
   section: string;
   slug?: string;
   readingSurface: boolean;
@@ -173,6 +175,7 @@ export function Spacecraft(props: Props) {
           }
           const model = createSpacecraft(THREE, {
             vesselName,
+            socials: resolveSocialScreens(latest.current.links),
             accent: s.accent,
             projectPageSize: PROJECTS_PER_PAGE,
             screenLabels: false,
@@ -377,6 +380,34 @@ export function Spacecraft(props: Props) {
             addHotspot(hotspot.section, hotspot.position, hotspot.slot);
           for (const portal of model.group.userData.portals)
             addHotspot(portal.from, portal.labelPosition, undefined, portal.id);
+          // Genuine links aligned with the two physical screen faces. Their
+          // geometry remains in WebGL; this transparent layer supplies native
+          // keyboard, touch, new-tab and context-menu behavior.
+          const socialControls = (model.group.userData.socialScreens || [])
+            .filter((screen: any) => screen.link)
+            .map((screen: any) => {
+              const link = document.createElement('a');
+              link.className = 'world-social-screen';
+              link.href = screen.link.url;
+              link.target = screen.link.url.startsWith('mailto:')
+                ? '_self'
+                : '_blank';
+              link.draggable = false;
+              link.rel = 'noopener noreferrer';
+              link.setAttribute(
+                'aria-label',
+                screen.link.url.startsWith('mailto:')
+                  ? `Email ${screen.link.title}`
+                  : `Open ${screen.link.title} (new tab)`,
+              );
+              link.dataset.targetKey = `social:${screen.side}:${screen.link.id}`;
+              link.dataset.screen = screen.side;
+              link.style.width = '500px';
+              link.style.height = `${(500 * screen.height) / screen.width}px`;
+              const object = new CSS3DObject(link);
+              cssScene.add(object);
+              return { screen, link, object };
+            });
           const syncSceneTargets = () => {
             Object.assign(anchors, model.group.userData.roomAnchors);
             readerAnchors = model.group.userData.readerAnchors;
@@ -466,7 +497,7 @@ export function Spacecraft(props: Props) {
             firstFrame = true;
           let down: {
             gesture: BoundedDrag;
-            control: HTMLButtonElement | null;
+            control: HTMLElement | null;
             pointerType: string;
             section: string;
             slug?: string;
@@ -1264,6 +1295,16 @@ export function Spacecraft(props: Props) {
               }
               h.button.dataset.projectSlug = project?.slug || '';
             }
+            for (const { screen, link, object } of socialControls) {
+              screen.anchor.matrixWorld.decompose(
+                object.position,
+                object.quaternion,
+                object.scale,
+              );
+              object.scale.multiplyScalar(screen.width / 500);
+              object.visible = active === 'contact' && !reading && !travelling;
+              link.inert = !object.visible;
+            }
             background.update(
               elapsed,
               !stop,
@@ -1528,6 +1569,9 @@ export function Spacecraft(props: Props) {
           if (identity) observer.observe(identity);
           resize();
           const pick = (event: PointerEvent) => {
+            if ((event.target as Element).closest('.world-social-screen'))
+              return { section: 'contact' };
+
             const rect = el.getBoundingClientRect();
             pointer.set(
               ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -1656,9 +1700,9 @@ export function Spacecraft(props: Props) {
               (event.target as Element).closest('.world-surface')
             )
               return;
-            const control = (
-              event.target as Element
-            ).closest<HTMLButtonElement>('.world-hotspot, .overview-callout');
+            const control = (event.target as Element).closest<HTMLElement>(
+              '.world-hotspot, .overview-callout, .world-social-screen',
+            );
             if ((event.target as Element).closest('button') && !control) return;
             suppressClickUntil = 0;
             const selection = pick(event);
@@ -1683,9 +1727,9 @@ export function Spacecraft(props: Props) {
           };
           const pointerUp = (event: PointerEvent) => {
             if (!down || event.pointerId !== down.gesture.pointerId) return;
-            const control = (
-              event.target as Element
-            ).closest<HTMLButtonElement>('.world-hotspot, .overview-callout');
+            const control = (event.target as Element).closest<HTMLElement>(
+              '.world-hotspot, .overview-callout, .world-social-screen',
+            );
             const completed = endBoundedDrag(
               down.gesture,
               event.pointerId,
@@ -1887,7 +1931,7 @@ export function Spacecraft(props: Props) {
       destroyed = true;
       cleanup();
     };
-  }, [props.enabled, s]);
+  }, [props.enabled, s, props.links]);
   return (
     <div id="ship" className="ship-stage immersive-ship" ref={host}>
       {state !== 'ready' && (

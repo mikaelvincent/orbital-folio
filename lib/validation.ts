@@ -1,3 +1,4 @@
+import { socialPlatforms, socialScreens } from './social-links';
 import { kinds, type Kind } from './content-types';
 import { seedSite } from './seed';
 import { HttpError } from './http-error';
@@ -40,7 +41,7 @@ const fields: Record<Kind, string[]> = {
     'sample',
   ],
   journal: ['slug', 'title', 'subtitle', 'body', 'order', 'sample'],
-  link: ['title', 'url', 'order'],
+  link: ['title', 'url', 'order', 'platform', 'screen', 'description'],
   media: ['title', 'alt', 'url', 'mime', 'size', 'order'],
 };
 export function safeUrl(value: string, allowMail = false) {
@@ -155,6 +156,22 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       !(kind === 'media' && /^\/media\/[a-zA-Z0-9-]+$/.test(clean[key]))
     )
       throw new HttpError(400, `${key} must be a safe HTTPS URL.`);
+  if (kind === 'link') {
+    if (clean.platform && !socialPlatforms.some((p) => p.id === clean.platform))
+      throw new HttpError(400, 'Choose a social platform or Custom.');
+    if (clean.screen && !socialScreens.some((s) => s.id === clean.screen))
+      throw new HttpError(400, 'Choose a valid contact screen placement.');
+    if (clean.title.length > 60 || (clean.description || '').length > 64)
+      throw new HttpError(
+        400,
+        'Keep the social name under 61 characters and its caption under 65.',
+      );
+    if (clean.url.length > 2000)
+      throw new HttpError(
+        400,
+        'Keep the destination URL under 2,001 characters.',
+      );
+  }
   if (kind === 'media' && !clean.alt)
     throw new HttpError(400, 'Add descriptive alternative text for the image.');
   return clean;

@@ -30,6 +30,8 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from '@/components/ui/alert-dialog';
+import { SocialLinkFields } from './social-link-fields';
+import { socialLinkDraft } from '@/lib/social-links';
 import type { Content, Kind } from '@/lib/content-types';
 const names: Record<Kind, string> = {
   site: 'Identity & copy',
@@ -84,7 +86,14 @@ const templates: Record<string, Record<string, any>> = {
     order: 0,
     sample: true,
   },
-  link: { title: '', url: '', order: 0 },
+  link: {
+    title: '',
+    url: '',
+    order: 0,
+    platform: 'custom',
+    screen: 'auto',
+    description: '',
+  },
   media: { title: '', alt: '', url: '', mime: '', size: 0, order: 0 },
 };
 const labels: Record<string, string> = {
@@ -633,94 +642,103 @@ export function AdminStudio({
                       action: 'save',
                       id: selected === 'new' ? undefined : selected,
                       kind,
-                      data,
+                      data: kind === 'link' ? socialLinkDraft(data) : data,
                       revision: current?.revision,
                     });
                   }}
                 >
                   <div className="editor-fields">
-                    {filteredKeys.map((key) => {
-                      const value = data[key];
-                      if (typeof value === 'boolean')
-                        return (
-                          <label className="studio-check" key={key}>
-                            <Checkbox
-                              checked={value}
-                              onCheckedChange={(v) =>
-                                setData({ ...data, [key]: v })
-                              }
-                            />
-                            <span>{label(key)}</span>
-                          </label>
-                        );
-                      if (
-                        ['mediaId', 'portraitMediaId', 'seoImageId'].includes(
-                          key,
+                    {kind === 'link' ? (
+                      <SocialLinkFields
+                        data={data}
+                        onChange={setData}
+                        records={records}
+                        selected={selected}
+                      />
+                    ) : (
+                      filteredKeys.map((key) => {
+                        const value = data[key];
+                        if (typeof value === 'boolean')
+                          return (
+                            <label className="studio-check" key={key}>
+                              <Checkbox
+                                checked={value}
+                                onCheckedChange={(v) =>
+                                  setData({ ...data, [key]: v })
+                                }
+                              />
+                              <span>{label(key)}</span>
+                            </label>
+                          );
+                        if (
+                          ['mediaId', 'portraitMediaId', 'seoImageId'].includes(
+                            key,
+                          )
                         )
-                      )
+                          return (
+                            <label className="studio-field" key={key}>
+                              {label(key)}
+                              <NativeSelect
+                                value={value}
+                                onChange={(e) =>
+                                  setData({ ...data, [key]: e.target.value })
+                                }
+                              >
+                                <NativeSelectOption value="">
+                                  No image
+                                </NativeSelectOption>
+                                {records
+                                  .filter((r) => r.kind === 'media')
+                                  .map((r) => (
+                                    <NativeSelectOption key={r.id} value={r.id}>
+                                      {r.draft.title}
+                                      {r.published ? '' : ' (draft)'}
+                                    </NativeSelectOption>
+                                  ))}
+                              </NativeSelect>
+                            </label>
+                          );
                         return (
-                          <label className="studio-field" key={key}>
+                          <label
+                            className={`studio-field ${longKeys.has(key) ? 'wide-field' : ''}`}
+                            key={key}
+                          >
                             {label(key)}
-                            <NativeSelect
-                              value={value}
-                              onChange={(e) =>
-                                setData({ ...data, [key]: e.target.value })
-                              }
-                            >
-                              <NativeSelectOption value="">
-                                No image
-                              </NativeSelectOption>
-                              {records
-                                .filter((r) => r.kind === 'media')
-                                .map((r) => (
-                                  <NativeSelectOption key={r.id} value={r.id}>
-                                    {r.draft.title}
-                                    {r.published ? '' : ' (draft)'}
-                                  </NativeSelectOption>
-                                ))}
-                            </NativeSelect>
+                            {longKeys.has(key) || String(value).length > 150 ? (
+                              <textarea
+                                rows={key === 'body' ? 12 : 4}
+                                value={value}
+                                maxLength={20000}
+                                onChange={(e) =>
+                                  setData({ ...data, [key]: e.target.value })
+                                }
+                              />
+                            ) : (
+                              <input
+                                type={
+                                  typeof value === 'number'
+                                    ? 'number'
+                                    : key === 'accent'
+                                      ? 'color'
+                                      : 'text'
+                                }
+                                value={value}
+                                onChange={(e) =>
+                                  setData({
+                                    ...data,
+                                    [key]:
+                                      typeof value === 'number'
+                                        ? Number(e.target.value)
+                                        : e.target.value,
+                                  })
+                                }
+                                maxLength={20000}
+                              />
+                            )}
                           </label>
                         );
-                      return (
-                        <label
-                          className={`studio-field ${longKeys.has(key) ? 'wide-field' : ''}`}
-                          key={key}
-                        >
-                          {label(key)}
-                          {longKeys.has(key) || String(value).length > 150 ? (
-                            <textarea
-                              rows={key === 'body' ? 12 : 4}
-                              value={value}
-                              maxLength={20000}
-                              onChange={(e) =>
-                                setData({ ...data, [key]: e.target.value })
-                              }
-                            />
-                          ) : (
-                            <input
-                              type={
-                                typeof value === 'number'
-                                  ? 'number'
-                                  : key === 'accent'
-                                    ? 'color'
-                                    : 'text'
-                              }
-                              value={value}
-                              onChange={(e) =>
-                                setData({
-                                  ...data,
-                                  [key]:
-                                    typeof value === 'number'
-                                      ? Number(e.target.value)
-                                      : e.target.value,
-                                })
-                              }
-                              maxLength={20000}
-                            />
-                          )}
-                        </label>
-                      );
-                    })}
+                      })
+                    )}
                   </div>
                   <div className="editor-actions">
                     <button
