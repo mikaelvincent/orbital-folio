@@ -15,7 +15,6 @@ export function createOverviewAnnotations(
   host: HTMLElement,
   site: Record<string, any>,
   callbacks: {
-    hover: (section: string) => void;
     navigate: (section: string) => void;
   },
 ) {
@@ -38,10 +37,9 @@ export function createOverviewAnnotations(
       button.className = 'overview-callout';
       button.textContent = String(site[section + 'Label'] || '');
       button.dataset.section = section;
+      button.dataset.sceneRoom = section;
       button.dataset.targetKey = `room:${section}`;
       button.onclick = () => callbacks.navigate(section);
-      button.onpointerenter = button.onfocus = () => callbacks.hover(section);
-      button.onpointerleave = button.onblur = () => callbacks.hover('');
       layer.appendChild(button);
       return {
         section,

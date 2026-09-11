@@ -28,6 +28,8 @@ Brand paths are bundled, with no runtime network requests or added packages. See
 
 Only configured social monitors register for object interaction. Furnishing pick proxies and scene-to-reader activation paths are removed. The portal-only navigation controls remain independent of object actions.
 
+Hover and focus now use the shared [scene feedback controller](scene-feedback.md). Pointer input takes over from retained keyboard focus without blurring the control; leaving a monitor cannot revive its old focus highlight.
+
 ## Verification
 
 - Preset/custom selection and saved custom draft inspected in the studio and private room preview.

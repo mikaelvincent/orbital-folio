@@ -2875,7 +2875,6 @@ svg {
   pointer-events: auto;
   will-change: transform;
 }
-.overview-callout:hover,
 .overview-callout.is-highlighted {
   border-color: #bbdeef9c;
   color: #fff5e4;
@@ -4183,8 +4182,8 @@ body:has(#room-reader:target) .boot-loader {
 .flight-destinations a > span:last-child {
   color: #879fb4;
 }
-.flight-destinations a:hover,
-.flight-destinations a:focus-visible,
+.is-immersive[data-scene-input='pointer'] .flight-destinations a:hover,
+.is-immersive[data-scene-input='keyboard'] .flight-destinations a:focus-visible,
 .flight-destinations a[aria-current] {
   background: #f6bf6514;
   border-color: #f6bf6533;
@@ -4325,9 +4324,9 @@ body:has(#room-reader:target) .boot-loader {
   letter-spacing: 0.035em;
   border-radius: 8px;
 }
-.is-immersive
-  .flight-destinations
-  a:is(:hover, :focus-visible, [aria-current]) {
+.is-immersive[data-scene-input='pointer'] .flight-destinations a:hover,
+.is-immersive[data-scene-input='keyboard'] .flight-destinations a:focus-visible,
+.is-immersive .flight-destinations a[aria-current] {
   background: #94c9e510;
   border-color: transparent;
   color: #f3dfbe;
@@ -4412,4 +4411,13 @@ body:has(#room-reader:target) .boot-loader {
 
 .editor-fields > .setup-help {
   color: #52616d;
+}
+
+/* A mouse click may retain DOM focus for accessibility. Only keyboard input
+   paints focus feedback; switching inputs never blurs the actual control. */
+.is-immersive:not([data-scene-input='keyboard']) :is(a, button):focus-visible {
+  outline: none;
+}
+.is-immersive:not([data-scene-input='keyboard']) .portal-hotspot:focus-visible {
+  opacity: 0;
 }

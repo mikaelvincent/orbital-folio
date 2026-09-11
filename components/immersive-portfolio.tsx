@@ -55,7 +55,6 @@ export function ImmersivePortfolio({
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
   const navigationToggle = useRef<HTMLButtonElement>(null);
-  const [hover, setHover] = useState('');
   const [arrived, setArrived] = useState(false);
   const [travel, setTravel] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -76,7 +75,6 @@ export function ImmersivePortfolio({
   );
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
-  const returnProject = useRef(initialSlug);
   latest.current = destination;
   const immersive = enhanced && !reading && destination.section !== 'privacy';
   const readingSurface = !!(destination.slug || destination.open);
@@ -113,10 +111,8 @@ export function ImmersivePortfolio({
         navigationToggle.current?.focus({ preventScroll: true });
         return true;
       }
-      if (latest.current.slug) returnProject.current = latest.current.slug;
       setArrived(false);
       setTravel(!reading);
-      setHover('');
       latest.current = next;
       setDestination(next);
       if (next.slug)
@@ -175,7 +171,6 @@ export function ImmersivePortfolio({
       if (event.key === 'Escape' && navigationOpen) {
         event.preventDefault();
         setNavigationOpen(false);
-        setHover('');
         navigationToggle.current?.focus({ preventScroll: true });
         return;
       }
@@ -207,7 +202,6 @@ export function ImmersivePortfolio({
     const outside = (event: Event) => {
       if (!navigation.current?.contains(event.target as Node)) {
         setNavigationOpen(false);
-        setHover('');
       }
     };
     document.addEventListener('pointerdown', outside);
@@ -277,14 +271,11 @@ export function ImmersivePortfolio({
         .querySelector<HTMLElement>('#world-reader')
         ?.focus({ preventScroll: true });
     else
-      (returnProject.current && destination.section === 'projects'
-        ? document.querySelector<HTMLButtonElement>(
-            `[data-project-slug="${CSS.escape(returnProject.current)}"]`,
-          )
-        : document.querySelector<HTMLButtonElement>(
-            '.world-hotspot:not([inert])',
-          )
-      )?.focus({ preventScroll: true });
+      // Announce arrival without selecting a door or moving the camera toward
+      // an arbitrary neighbor. Tab still reaches every visible scene control.
+      document
+        .querySelector<HTMLElement>('#main')
+        ?.focus({ preventScroll: true });
   }, [arrived, immersive, destination, readingSurface]);
 
   const capture = (event: React.MouseEvent) => {
@@ -379,13 +370,10 @@ export function ImmersivePortfolio({
             <a
               key={id}
               data-room-link={id}
+              data-scene-room={id}
               title={s[id + 'Label']}
               href={hrefFor({ section: id })}
               aria-current={destination.section === id ? 'page' : undefined}
-              onPointerEnter={() => setHover(id)}
-              onPointerLeave={() => setHover('')}
-              onFocus={() => setHover(id)}
-              onBlur={() => setHover('')}
             >
               {s[id + 'Label']}
             </a>
@@ -447,8 +435,6 @@ export function ImmersivePortfolio({
             projectPage={projectPage}
             paused={reduced}
             enabled={immersive}
-            hover={hover}
-            onHover={setHover}
             onNavigate={(id) => go({ section: id })}
             onSurfaceReady={setSurface}
             onSettled={settled}
@@ -551,8 +537,6 @@ export function ImmersivePortfolio({
               aria-label={s.homeLabel}
               title={s.homeLabel}
               aria-current={destination.section === 'home' ? 'page' : undefined}
-              onPointerEnter={() => setHover('')}
-              onFocus={() => setHover('')}
             >
               <Home size={18} aria-hidden="true" />
             </a>
@@ -565,7 +549,6 @@ export function ImmersivePortfolio({
               aria-label={`${s.sectionLabel} · ${s[destination.section + 'Label'] || s.homeLabel}`}
               onClick={() => {
                 setNavigationOpen(!navigationOpen);
-                setHover('');
               }}
               onKeyDown={(event) => {
                 if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
@@ -593,14 +576,11 @@ export function ImmersivePortfolio({
                   <a
                     key={id}
                     data-room-link={id}
+                    data-scene-room={id}
                     href={hrefFor({ section: id })}
                     aria-current={
                       destination.section === id ? 'page' : undefined
                     }
-                    onPointerEnter={() => setHover(id === 'home' ? '' : id)}
-                    onPointerLeave={() => setHover('')}
-                    onFocus={() => setHover(id === 'home' ? '' : id)}
-                    onBlur={() => setHover('')}
                   >
                     <span>{id === 'home' ? s.homeLabel : s[id + 'Label']}</span>
                     <span aria-hidden="true">{id === 'home' ? '◎' : '↗'}</span>

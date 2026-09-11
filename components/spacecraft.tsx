@@ -2,6 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { resolveSocialScreens } from '@/lib/social-links';
 import { SceneLoader } from './scene-loader';
+import {
+  createSceneFeedback,
+  EMPTY_SCENE_FEEDBACK,
+  type SceneFeedbackTarget,
+} from '@/lib/scene-feedback';
 import { createOverviewAnnotations } from './overview-annotations';
 import {
   moveCameraAxis,
@@ -36,8 +41,6 @@ type Props = {
   projectPage: number;
   paused: boolean;
   enabled: boolean;
-  hover: string;
-  onHover: (section: string) => void;
   onNavigate: (section: string) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onSettled: () => void;
@@ -46,7 +49,6 @@ type Props = {
 type SceneAPI = {
   go: () => void;
   pause: (paused: boolean) => void;
-  hover: (section: string) => void;
 };
 export function Spacecraft(props: Props) {
   const host = useRef<HTMLDivElement>(null),
@@ -61,9 +63,6 @@ export function Spacecraft(props: Props) {
   useEffect(() => {
     api.current?.pause(props.paused);
   }, [props.paused]);
-  useEffect(() => {
-    api.current?.hover(props.hover);
-  }, [props.hover]);
   useEffect(() => {
     if (!props.enabled) return;
     let destroyed = false,
@@ -202,10 +201,6 @@ export function Spacecraft(props: Props) {
           });
           scene.add(model.group);
           const annotations = createOverviewAnnotations(THREE, el, s, {
-            hover: (section) => {
-              hoverSection(section);
-              latest.current.onHover(section);
-            },
             navigate: (section) => latest.current.onNavigate(section),
           });
           scene.add(new THREE.HemisphereLight(0xe0eaff, 0x394553, 0.28));
@@ -302,7 +297,6 @@ export function Spacecraft(props: Props) {
           );
           walkwayProxy.visible = false;
           model.group.add(walkwayProxy);
-          let pointerOverWalkway = false;
           const hotspotObjects: {
             object: InstanceType<typeof CSS3DObject>;
             button: HTMLButtonElement;
@@ -328,29 +322,8 @@ export function Spacecraft(props: Props) {
               portalId: portal.id,
             });
             button.onclick = () => latest.current.onNavigate(portal.to);
-            const enter = () => {
-              if (down?.gesture.dragging) return;
-              pointerOverWalkway = false;
-              hoverSection(portal.to);
-              latest.current.onHover(portal.to);
-            };
-            const leave = () => {
-              if (down?.gesture.dragging) return;
-              pointerOverWalkway = false;
-              hoverSection('');
-              latest.current.onHover('');
-            };
-            button.onpointerenter = button.onfocus = enter;
-            button.onpointerleave = button.onblur = leave;
+            button.dataset.sceneRoom = portal.to;
           }
-          let pointedObject = '',
-            focusedObject = '';
-          const setObjectFeedback = (id: string, focus = false) => {
-            if (focus) focusedObject = id;
-            else pointedObject = id;
-            aoDirty = true;
-            kick();
-          };
           // Genuine links aligned with the two physical screen faces. Their
           // geometry remains in WebGL; this transparent layer supplies native
           // keyboard, touch, new-tab and context-menu behavior.
@@ -373,14 +346,7 @@ export function Spacecraft(props: Props) {
               );
               link.dataset.targetKey = `social:${screen.side}:${screen.link.id}`;
               link.dataset.screen = screen.side;
-              link.onpointerenter = () => {
-                if (!down?.gesture.dragging)
-                  setObjectFeedback(screen.interactableId);
-              };
-              link.onpointerleave = () => setObjectFeedback('');
-              link.onfocus = () =>
-                setObjectFeedback(screen.interactableId, true);
-              link.onblur = () => setObjectFeedback('', true);
+              link.dataset.sceneObject = screen.interactableId;
               link.style.width = '500px';
               link.style.height = `${(500 * screen.height) / screen.width}px`;
               const object = new CSS3DObject(link);
@@ -452,6 +418,7 @@ export function Spacecraft(props: Props) {
             lastFrame = 0;
           let active = 'home',
             hovered = '',
+            highlightedObject = '',
             reading = false,
             distance = 23,
             nextDistance = 23,
@@ -459,7 +426,6 @@ export function Spacecraft(props: Props) {
             nextRoll = 0;
           let flightImmediate = false,
             travelling = false,
-            lastPick = 0,
             lastMetrics = 0,
             elapsed = 0,
             notifyArrival = true,
@@ -471,6 +437,10 @@ export function Spacecraft(props: Props) {
             pointerType: string;
             section: string;
           } | null = null;
+          const feedback = createSceneFeedback();
+          const interactionScope = el.closest<HTMLElement>(
+            '.orbital-experience',
+          )!;
           let suppressClickUntil = 0;
           const frameIntervals: number[] = [];
           const auditMotion =
@@ -935,9 +905,7 @@ export function Spacecraft(props: Props) {
               ].forEach((s) => resetAxis(s, 0));
               pointerCurrent.set(0, 0);
             }
-            pointedObject = '';
-            focusedObject = '';
-            pointerOverWalkway = false;
+            feedback.reset();
             travelling = true;
             el.dataset.travelling = 'true';
             el.dataset.activeRoom = active;
@@ -1038,13 +1006,28 @@ export function Spacecraft(props: Props) {
             }
             const motionDelta = stop ? 0 : delta;
             const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
-            const focusedElement = document.activeElement as HTMLElement | null;
-            const focusedDestination =
-              focusedElement?.classList.contains('portal-hotspot') &&
-              !focusedElement.inert
-                ? focusedElement.dataset.destination || ''
-                : '';
-            const effectiveHover = hovered || focusedDestination;
+            const feedbackTarget = feedback.resolve(
+              travelling ||
+                reading ||
+                !latest.current.enabled ||
+                !!down?.gesture.dragging ||
+                document.hidden,
+              pointerFeedback,
+              () => targetFeedback(document.activeElement),
+            );
+            const effectiveHover = feedbackTarget.room;
+            const effectiveObject = feedbackTarget.object;
+            if (
+              hovered !== effectiveHover ||
+              highlightedObject !== effectiveObject
+            )
+              aoDirty = true;
+            hovered = effectiveHover;
+            highlightedObject = effectiveObject;
+            interactionScope.dataset.sceneInput = feedback.input;
+            if (!down?.gesture.dragging)
+              el.style.cursor =
+                effectiveHover || effectiveObject ? 'pointer' : 'grab';
             const inspectingPassage =
               active !== 'home' &&
               !!effectiveHover &&
@@ -1177,7 +1160,7 @@ export function Spacecraft(props: Props) {
               active !== 'home' &&
               !reading &&
               !travelling &&
-              (pointerOverWalkway || passage?.via === 'walkway');
+              (feedbackTarget.walkway || passage?.via === 'walkway');
             model.update(elapsed, effectiveHover, stop, {
               activeRoom: active,
               travelling,
@@ -1186,9 +1169,7 @@ export function Spacecraft(props: Props) {
               hoveredWalkway,
               labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
               hoveredPortal: effectiveHover,
-              hoveredObject: down?.gesture.dragging
-                ? ''
-                : pointedObject || focusedObject,
+              hoveredObject: effectiveObject,
               selectedProject: null,
               hoveredProject: null,
               hoveredCaseStudy: null,
@@ -1256,7 +1237,7 @@ export function Spacecraft(props: Props) {
                 'is-object-active',
                 object.visible &&
                   !down?.gesture.dragging &&
-                  (pointedObject || focusedObject) === screen.interactableId,
+                  effectiveObject === screen.interactableId,
               );
             }
             background.update(
@@ -1363,7 +1344,7 @@ export function Spacecraft(props: Props) {
                 triangles: String(renderer.info.render.triangles),
                 renderCpuMs: renderCost.toFixed(2),
                 hoverRoom: effectiveHover,
-                hoverObject: pointedObject || focusedObject,
+                hoverObject: effectiveObject,
                 transitRoom,
                 transitWalkway: String(transitWalkway),
                 hoveredWalkway: String(hoveredWalkway),
@@ -1521,17 +1502,34 @@ export function Spacecraft(props: Props) {
           const identity = document.querySelector('.orbital-identity');
           if (identity) observer.observe(identity);
           resize();
-          const pick = (event: PointerEvent) => {
-            if ((event.target as Element).closest('.world-social-screen'))
-              return { section: 'contact' };
-
+          function targetFeedback(
+            element: Element | null,
+          ): SceneFeedbackTarget {
+            const target = element?.closest<HTMLElement>(
+              '[data-scene-room], [data-scene-object]',
+            );
+            if (
+              !target ||
+              !interactionScope.contains(target) ||
+              target.closest('[inert], [hidden], [aria-hidden="true"]') ||
+              !target.checkVisibility({ visibilityProperty: true })
+            )
+              return EMPTY_SCENE_FEEDBACK;
+            const room = target.dataset.sceneRoom || '';
+            return {
+              room: room === 'home' ? '' : room,
+              object: target.dataset.sceneObject || '',
+              walkway: false,
+            };
+          }
+          function pickAt(x: number, y: number) {
             const rect = el.getBoundingClientRect();
             pointer.set(
-              ((event.clientX - rect.left) / rect.width) * 2 - 1,
-              (-(event.clientY - rect.top) / rect.height) * 2 + 1,
+              ((x - rect.left) / rect.width) * 2 - 1,
+              (-(y - rect.top) / rect.height) * 2 + 1,
             );
             ray.setFromCamera(pointer, camera);
-            pointerOverWalkway =
+            const walkway =
               active !== 'home' &&
               !reading &&
               ray.intersectObject(walkwayProxy, false).length > 0;
@@ -1545,17 +1543,56 @@ export function Spacecraft(props: Props) {
               if (portal)
                 return {
                   section: portal.object.userData.portalDestination as string,
+                  walkway,
                 };
             }
             const hit = ray.intersectObjects(proxies, false)[0];
             const section = hit?.object.userData.section || '';
-            return { section: section === active ? '' : section };
+            return { section: section === active ? '' : section, walkway };
+          }
+          function pick(event: PointerEvent) {
+            const target = targetFeedback(event.target as Element);
+            if (target.room || target.object) return { section: target.room };
+            return pickAt(event.clientX, event.clientY);
+          }
+          function pointerFeedback(x: number, y: number): SceneFeedbackTarget {
+            // Resolve the CURRENT topmost element, including after the camera
+            // moves. Never raycast through the dropdown or unrelated toolbar UI.
+            const element = document.elementFromPoint(x, y);
+            const target = targetFeedback(element);
+            if (target.room || target.object) return target;
+            if (
+              !element ||
+              !el.contains(element) ||
+              element.closest(
+                'a, button, input, textarea, select, .world-surface, [inert]',
+              )
+            )
+              return EMPTY_SCENE_FEEDBACK;
+            const hit = pickAt(x, y);
+            return { room: hit.section, object: '', walkway: hit.walkway };
+          }
+          const feedbackChanged = () => kick();
+          const trackPointer = (event: PointerEvent) => {
+            if (!event.isPrimary) return;
+            feedback.move(event.clientX, event.clientY, event.pointerType);
+            feedbackChanged();
           };
-          const hoverSection = (section: string) => {
-            aoDirty = true;
-            hovered = section;
-            el.style.cursor = section ? 'pointer' : 'grab';
-            kick();
+          const trackPress = (event: PointerEvent) => {
+            if (!event.isPrimary) return;
+            feedback.press(event.clientX, event.clientY, event.pointerType);
+            feedbackChanged();
+          };
+          const trackKeyboard = (event: KeyboardEvent) => {
+            if (
+              ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key) ||
+              event.metaKey ||
+              event.ctrlKey ||
+              event.altKey
+            )
+              return;
+            feedback.keyboard();
+            feedbackChanged();
           };
           const move = (event: PointerEvent) => {
             if ((event.target as Element).closest('.world-surface')) return;
@@ -1576,6 +1613,7 @@ export function Spacecraft(props: Props) {
                     /* no active native pointer */
                   }
                 }
+                feedback.reset();
                 dragGoal.set(...down.gesture.response);
                 pointerGoal.set(0, 0);
                 el.style.cursor = 'grabbing';
@@ -1590,14 +1628,6 @@ export function Spacecraft(props: Props) {
               pointerGoal.set(
                 ...pointerResponse(event.clientX, event.clientY, rect),
               );
-            if (performance.now() - lastPick > 70 && !travelling) {
-              const { section } = pick(event);
-              if (hovered !== section) {
-                hoverSection(section);
-                latest.current.onHover(section);
-              }
-              lastPick = performance.now();
-            }
             if (stop) kick();
           };
           const pointerDown = (event: PointerEvent) => {
@@ -1662,6 +1692,7 @@ export function Spacecraft(props: Props) {
             )
               suppressClickUntil = performance.now() + 450;
             cancelInput();
+            if (completed.state.dragging) feedback.reset();
             if (event.pointerType === 'touch') pointerGoal.set(0, 0);
             if (completed.activate && !action.control && action.section) {
               latest.current.onNavigate(action.section);
@@ -1689,12 +1720,8 @@ export function Spacecraft(props: Props) {
           const leave = () => {
             if (down?.gesture.dragging) return;
             cancelInput();
-            pointedObject = '';
-            focusedObject = '';
             pointerGoal.set(0, 0);
-            pointerOverWalkway = false;
-            hoverSection('');
-            latest.current.onHover('');
+            kick();
           };
           const cancelPointer = (event: Event) => {
             if (
@@ -1704,6 +1731,7 @@ export function Spacecraft(props: Props) {
             )
               return;
             cancelInput();
+            feedback.reset();
             leave();
           };
           el.addEventListener('pointerdown', pointerDown, true);
@@ -1714,9 +1742,19 @@ export function Spacecraft(props: Props) {
           el.addEventListener('lostpointercapture', cancelPointer);
           el.addEventListener('click', suppressDraggedClick, true);
           window.addEventListener('blur', cancelPointer);
+          document.addEventListener('pointermove', trackPointer, true);
+          document.addEventListener('pointerdown', trackPress, true);
+          document.addEventListener('keydown', trackKeyboard, true);
+          document.addEventListener('focusin', feedbackChanged);
+          document.addEventListener('focusout', feedbackChanged);
+          document.documentElement.addEventListener(
+            'pointerleave',
+            cancelPointer,
+          );
           const syncVisibility = () => {
             const nextVisible = inViewport && !document.hidden;
             visible = nextVisible;
+            if (!visible) cancelPointer(new Event('visibilitychange'));
             lastFrame = 0;
             if (visible) kick();
             else {
@@ -1755,7 +1793,6 @@ export function Spacecraft(props: Props) {
           }
           api.current = {
             go: () => go(),
-            hover: hoverSection,
             pause(value) {
               stop = value;
               lastFrame = 0;
@@ -1778,6 +1815,16 @@ export function Spacecraft(props: Props) {
             el.removeEventListener('lostpointercapture', cancelPointer);
             el.removeEventListener('click', suppressDraggedClick, true);
             window.removeEventListener('blur', cancelPointer);
+            document.removeEventListener('pointermove', trackPointer, true);
+            document.removeEventListener('pointerdown', trackPress, true);
+            document.removeEventListener('keydown', trackKeyboard, true);
+            document.removeEventListener('focusin', feedbackChanged);
+            document.removeEventListener('focusout', feedbackChanged);
+            document.documentElement.removeEventListener(
+              'pointerleave',
+              cancelPointer,
+            );
+            delete interactionScope.dataset.sceneInput;
             renderer.domElement.removeEventListener('webglcontextlost', lost);
             window.removeEventListener(
               'orbital:shadow-diagnostic',
