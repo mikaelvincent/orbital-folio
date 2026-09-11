@@ -9,6 +9,8 @@ export type IrisNavigationPortal = {
   size: IrisRoutePoint;
   /** Optional clear aperture height and width; pick bounds may be larger. */
   openingSize?: readonly [number, number];
+  /** The ladder bay has separate upper and lower physical hatches. */
+  via?: string | null;
 };
 
 const EPSILON = 1e-8;
@@ -102,28 +104,71 @@ export function requiredPortalIds(
   ];
 }
 
-/** Interlock one itinerary leg. Finish closing the preceding physical hatch
- * before opening the next; the camera can still move along a door-free leg.
- * Retargeting through the current hatch preserves its open intent.
+export type IrisPortalState = {
+  id: string;
+  via?: string | null;
+  openProgress?: number;
+};
+
+/** Only the two ladder hatches share an interlock. Adjacent cabin doors open
+ * independently and never delay the camera. If both ladder hatches are
+ * requested, keep the requested hatch already in use, otherwise choose the
+ * first request; close the other completely before opening the chosen one.
+ * The caller decides whether this door readiness should hold the camera.
  */
-export function interlockPortals(
-  portals: readonly { id: string; openProgress?: number }[],
-  requiredIds: readonly string[],
+export function interlockLadderPortals(
+  portals: readonly IrisPortalState[],
+  requestedIds: readonly string[],
 ) {
-  const required = new Set(requiredIds);
-  const closingPrevious = portals.some(
-    (p) => !required.has(p.id) && (p.openProgress ?? 0) > 0.001,
+  const byId = new Map(portals.map((portal) => [portal.id, portal]));
+  const requested = [...new Set(requestedIds)].filter((id) => byId.has(id));
+  const ladderRequests = requested.filter(
+    (id) => byId.get(id)!.via === 'walkway',
   );
-  const openPortalIds = requiredIds.filter(
+  const selectedId =
+    ladderRequests.find((id) => (byId.get(id)!.openProgress ?? 0) > 0.001) ||
+    ladderRequests[0];
+  const closingPrevious =
+    !!selectedId &&
+    portals.some(
+      (portal) =>
+        portal.via === 'walkway' &&
+        portal.id !== selectedId &&
+        (portal.openProgress ?? 0) > 0.001,
+    );
+  const openPortalIds = requested.filter(
     (id) =>
-      !closingPrevious ||
-      (portals.find((p) => p.id === id)?.openProgress ?? 0) > 0.001,
+      byId.get(id)!.via !== 'walkway' ||
+      (id === selectedId && !closingPrevious),
   );
   const waiting =
-    requiredIds.length > 0 &&
-    (closingPrevious ||
-      requiredIds.some(
-        (id) => (portals.find((p) => p.id === id)?.openProgress ?? 0) < 0.999,
-      ));
+    !!selectedId &&
+    (closingPrevious || (byId.get(selectedId)!.openProgress ?? 0) < 0.999);
   return { openPortalIds, waiting };
+}
+
+/** A ladder exit travels rightward through the bay's wall into a cabin. Entry
+ * and vertical bay travel retain the ordinary camera spring, including a
+ * same-threshold reversal. requiredPortalIds supplies the near-start clearance
+ * so reversing just inside a hatch still observes that hatch's readiness.
+ */
+export function isLadderExitLeg(
+  portals: readonly IrisNavigationPortal[],
+  requiredIds: readonly string[],
+  start: IrisRoutePoint,
+  end: IrisRoutePoint,
+): boolean {
+  if (
+    ![...start, ...end].every(Number.isFinite) ||
+    end[0] <= start[0] + EPSILON
+  )
+    return false;
+  const required = new Set(requiredIds);
+  return portals.some(
+    (portal) =>
+      portal.via === 'walkway' &&
+      required.has(portal.id) &&
+      start[0] <= portal.position[0] + START_CLEARANCE + EPSILON &&
+      end[0] > portal.position[0] + EPSILON,
+  );
 }

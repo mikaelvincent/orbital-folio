@@ -15,7 +15,11 @@ import {
 } from '@/lib/flight';
 import type * as Three from 'three';
 import { planCabinItinerary, type CabinRouteNode } from '@/lib/cabin-itinerary';
-import { requiredPortalIds, interlockPortals } from '@/lib/iris-navigation';
+import {
+  requiredPortalIds,
+  interlockLadderPortals,
+  isLadderExitLeg,
+} from '@/lib/iris-navigation';
 import {
   beginBoundedDrag,
   updateBoundedDrag,
@@ -758,6 +762,7 @@ export function Spacecraft(props: Props) {
           let itineraryPlan: unknown = null;
           let openPortalIds: string[] = [];
           let legPortalIds: string[] = [];
+          let ladderExitLeg = false;
           let cabinFlight = false;
           const doorHoldTarget = new THREE.Vector3();
           const aim = (desired: FlightPose) => {
@@ -768,6 +773,14 @@ export function Spacecraft(props: Props) {
                   desired.target.toArray() as Vec3,
                 ])
               : [];
+            ladderExitLeg =
+              cabinFlight &&
+              isLadderExitLeg(
+                model.group.userData.portals,
+                legPortalIds,
+                currentTarget.toArray() as Vec3,
+                desired.target.toArray() as Vec3,
+              );
             nextTarget.copy(desired.target);
             nextDirection.copy(desired.direction);
             nextDistance = desired.distance;
@@ -805,6 +818,7 @@ export function Spacecraft(props: Props) {
             itineraryPlan = null;
             openPortalIds = [];
             legPortalIds = [];
+            ladderExitLeg = false;
             cabinFlight = false;
             doorHoldTarget.copy(currentTarget);
             if (
@@ -944,12 +958,16 @@ export function Spacecraft(props: Props) {
             }
             if (travelling) {
               const immediate = flightImmediate || stop;
-              const interlock = interlockPortals(
+              const interlock = interlockLadderPortals(
                 model.group.userData.portals,
                 immediate ? [] : legPortalIds,
               );
               openPortalIds = interlock.openPortalIds;
-              const waitingForDoors = interlock.waiting;
+              // Ordinary cabin movement and ladder entry follow their original
+              // springs immediately. Only leaving the ladder bay waits for its
+              // previous hatch to close and its exit hatch to finish opening.
+              const waitingForDoors =
+                !immediate && ladderExitLeg && interlock.waiting;
               el.dataset.waitingForDoors = String(waitingForDoors);
               const beforeRoll = roll;
               if (immediate) {
@@ -1042,6 +1060,7 @@ export function Spacecraft(props: Props) {
                   travelling = false;
                   openPortalIds = [];
                   legPortalIds = [];
+                  ladderExitLeg = false;
                   cabinFlight = false;
                   el.dataset.travelling = 'false';
                   el.dataset.waitingForDoors = 'false';
@@ -1217,7 +1236,7 @@ export function Spacecraft(props: Props) {
               hoveredPortal: effectiveHover,
               openPortalIds:
                 travelling && !stop && !flightImmediate ? openPortalIds : [],
-              immediateDoors: stop || flightImmediate,
+              immediateDoors: stop || (wasTravelling && flightImmediate),
               hoveredObject: effectiveObject,
               selectedProject: null,
               hoveredProject: null,

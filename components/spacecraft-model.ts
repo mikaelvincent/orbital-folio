@@ -5,6 +5,7 @@ import { clipGeometryPlane } from './clip-geometry-plane.ts';
 import { createObjectHighlight } from './interactable-object-highlight.ts';
 import { buildIrisHatch } from './iris-hatch.ts';
 import { moveCameraAxis } from '../lib/flight.ts';
+import { interlockLadderPortals } from '../lib/iris-navigation.ts';
 import {
   PRESSURE_WALL,
   PRESSURE_THROAT_START,
@@ -69,7 +70,7 @@ export type SpacecraftState = {
   layout?: 'wide' | 'compact';
   /** Directed portal ID or a destination room; nonadjacent rooms use first hop. */
   hoveredPortal?: string | null;
-  /** Passage intent comes from the camera itinerary, never pointer hover. */
+  /** Passage intent from the camera itinerary; hover can also open a hatch. */
   openPortalIds?: string[];
   immediateDoors?: boolean;
 };
@@ -4444,6 +4445,22 @@ export function createSpacecraft(
       destination,
     );
     group.userData.activeRoute = route;
+    const hoveredHatch =
+      !currentState.reading && !currentState.travelling && route.length > 1
+        ? portals.find((p) => p.from === route[0] && p.to === route[1])?.iris
+            .group.userData.physicalHatch
+        : null;
+    const requestedDoors = new Set(currentState.openPortalIds || []);
+    if (hoveredHatch)
+      for (const portal of portals)
+        if (portal.iris.group.userData.physicalHatch === hoveredHatch)
+          requestedDoors.add(portal.id);
+    // Hover and travel share one intent. The two blade faces move together,
+    // while the ladder's separate upper/lower entrances stay mutually exclusive.
+    const { openPortalIds } = interlockLadderPortals(
+      portals.map((p) => p.metadata),
+      [...requestedDoors],
+    );
     for (const portal of portals) {
       const wanted =
         !currentState.reading &&
@@ -4472,7 +4489,7 @@ export function createSpacecraft(
               ),
             ),
           );
-      const doorGoal = currentState.openPortalIds?.includes(portal.id) ? 1 : 0;
+      const doorGoal = openPortalIds.includes(portal.id) ? 1 : 0;
       if (currentState.immediateDoors || instantHighlight) {
         portal.doorMotion.value = doorGoal;
         portal.doorMotion.velocity = 0;

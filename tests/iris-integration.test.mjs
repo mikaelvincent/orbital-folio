@@ -2,9 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
-import { requiredPortalIds, interlockPortals } from '../lib/iris-navigation.ts';
+import {
+  requiredPortalIds,
+  interlockLadderPortals,
+} from '../lib/iris-navigation.ts';
 
-test('Integrated hatches replace coamings, stay closed on hover, and preserve room lighting', () => {
+test('Integrated hatches open on hover, close on departure, and preserve room lighting', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const portals = model.group.userData.portals;
   assert.equal(model.group.userData.irisHatches.length, 8);
@@ -27,17 +30,15 @@ test('Integrated hatches replace coamings, stay closed on hover, and preserve ro
   });
   const left = portals.find((p) => p.id === 'projects:about');
   assert.equal(left.highlight, 1);
-  assert.ok(
-    portals.every((p) => p.openProgress === 0),
-    'Hover cannot open a hatch',
-  );
+  assert.equal(left.openProgress, 1, 'Hover opens the approached ladder door');
+  assert.ok(portals.filter((p) => p !== left).every((p) => p.sealed));
   model.update(2, '', true, {
     activeRoom: 'projects',
     hoveredPortal: '',
     openPortalIds: [],
   });
   assert.ok(
-    portals.every((p) => p.highlight === 0),
+    portals.every((p) => p.highlight === 0 && p.sealed),
     'Leaving restores neutral doors',
   );
   for (const hatch of model.group.userData.irisHatches) {
@@ -52,7 +53,7 @@ test('Integrated hatches replace coamings, stay closed on hover, and preserve ro
   }
 });
 
-test('Actual C-route opens one physical hatch at a time, reverses smoothly, and settles closed', () => {
+test('Actual C-route interlocks ladder entrances, reverses smoothly, and settles closed', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const portals = model.group.userData.portals;
   const a = model.group.userData.roomAnchors;
@@ -83,9 +84,12 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
     p.via === 'walkway' ? p.id : [p.from, p.to].sort().join(':');
   const assertOne = () =>
     assert.ok(
-      new Set(portals.filter((p) => p.openProgress > 0.001).map(hatchKey))
-        .size <= 1,
-      'Physical hatches cannot overlap their opening intervals',
+      new Set(
+        portals
+          .filter((p) => p.via === 'walkway' && p.openProgress > 0.001)
+          .map(hatchKey),
+      ).size <= 1,
+      'Ladder entrances cannot overlap their opening intervals',
     );
   const assertPairedMotion = () => {
     const progress = new Map();
@@ -109,7 +113,7 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
   for (const wanted of legs) {
     let ready = false;
     for (let i = 0; i < 160; i++) {
-      const gate = interlockPortals(portals, wanted);
+      const gate = interlockLadderPortals(portals, wanted);
       step(gate.openPortalIds);
       assertOne();
       assertPairedMotion();
@@ -141,13 +145,124 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
   const after = portals.find((p) => p.id === 'projects:about').openProgress;
   assert.ok(Math.abs(after - before) < 0.06, 'Reversal must not snap progress');
   for (let i = 0; i < 120; i++) step([]);
-  model.update(++time, '', false, { openPortalIds: ids, immediateDoors: true });
-  assert.ok(portals.filter((p) => ids.includes(p.id)).every((p) => p.open));
+  model.update(++time, '', false, {
+    openPortalIds: ['about:contact', 'contact:about'],
+    immediateDoors: true,
+  });
+  assert.ok(
+    portals
+      .filter((p) => p.id === 'about:contact' || p.id === 'contact:about')
+      .every((p) => p.open),
+  );
   model.update(++time, '', false, { openPortalIds: [], immediateDoors: true });
   assert.ok(
     portals.every((p) => p.sealed),
     'Reduced motion/resize cannot retain an opening',
   );
+});
+
+test('Hover opens both faces of the first route door and transfers smoothly into travel', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const portals = model.group.userData.portals;
+  let time = 0;
+  const step = (state) =>
+    model.update((time += 1 / 60), '', false, {
+      activeRoom: 'experience',
+      travelling: false,
+      reading: false,
+      hoveredPortal: '',
+      openPortalIds: [],
+      delta: 1 / 60,
+      ...state,
+    });
+  for (const layout of ['wide', 'compact']) {
+    model.setLayout(layout);
+    for (const target of ['projects', 'experience:projects', 'contact']) {
+      for (let i = 0; i < 100; i++) step({ hoveredPortal: target });
+      const opened = portals.filter((p) => p.open).map((p) => p.id);
+      assert.deepEqual(
+        opened,
+        ['experience:projects', 'projects:experience'],
+        'A destination or exact portal opens only the first physical doorway',
+      );
+      const before = portals.find((p) => p.id === opened[0]).openProgress;
+      step({
+        travelling: true,
+        hoveredPortal: 'contact',
+        openPortalIds: opened,
+      });
+      assert.ok(
+        portals
+          .filter((p) => opened.includes(p.id))
+          .every((p) => p.openProgress >= before),
+        'Clicking a hovered door must not send a closing pulse',
+      );
+      for (let i = 0; i < 120; i++) step({});
+      assert.ok(
+        portals.every((p) => p.sealed),
+        'Hover departure settles every door closed',
+      );
+    }
+    for (const state of [
+      { activeRoom: 'home' },
+      { reading: true },
+      { travelling: true },
+      { activeRoom: 'experience', hoveredPortal: 'experience' },
+    ]) {
+      for (let i = 0; i < 100; i++)
+        step({ hoveredPortal: 'projects', ...state });
+      assert.ok(
+        portals.every((p) => p.sealed),
+        'Inactive hover cannot open a door',
+      );
+    }
+  }
+});
+
+test('Rapid ladder hover changes keep the two entrances interlocked in both layouts', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const portals = model.group.userData.portals;
+  const ladder = portals.filter((p) => p.via === 'walkway');
+  let time = 0;
+  for (const layout of ['wide', 'compact']) {
+    model.setLayout(layout);
+    for (const [activeRoom, hoveredPortal, frames] of [
+      ['projects', 'about', 100],
+      ['about', 'projects', 8],
+      ['projects', 'about', 8],
+      ['about', 'projects', 180],
+      ['about', '', 120],
+    ]) {
+      for (let i = 0; i < frames; i++) {
+        model.update((time += 1 / 60), '', false, {
+          activeRoom,
+          hoveredPortal,
+          openPortalIds: [],
+          delta: 1 / 60,
+        });
+        assert.ok(
+          ladder.filter((p) => p.openProgress > 0.001).length <= 1,
+          'Closing entrance and opening exit must never overlap, even on reversal',
+        );
+        for (const portal of ladder) {
+          const faces = model.group.userData.irisHatches.filter(
+            (h) => h.userData.physicalHatch === portal.id,
+          );
+          assert.equal(faces.length, 2);
+          assert.equal(
+            faces[0].userData.openProgress,
+            faces[1].userData.openProgress,
+          );
+        }
+      }
+      if (frames >= 100 && hoveredPortal)
+        assert.ok(
+          ladder.find((p) => p.from === activeRoom).open,
+          'Requested entrance eventually opens',
+        );
+    }
+    assert.ok(portals.every((p) => p.sealed));
+  }
 });
 
 test('Every physical passage has two opposing blade assemblies and one continuous dark liner', () => {
