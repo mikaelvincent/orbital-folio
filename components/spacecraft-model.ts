@@ -1,3 +1,4 @@
+import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
@@ -189,7 +190,7 @@ export function createSpacecraft(
   }> = [];
   let labelPortrait = false;
   const hasEquipmentHeader = (section: string) =>
-    section === 'projects' || section === 'contact';
+    section === 'projects' || section === 'contact' || section === 'about';
   // Shared physical scale and elevation for room headings and doorway signs.
   const wayfinding = {
     textHeight: 0.18,
@@ -2030,300 +2031,18 @@ export function createSpacecraft(
     archive,
     { caseCount: caseStudyData.length, accent: m.amber },
   );
-  // ABOUT — a vertical quilted berth, curtain, journal desk and storage cupboard.
+  // ABOUT — a static crew study with retained personal belongings and paper tabs.
   const cabin = rooms.about;
-  box(
-    0.79,
-    2.02,
-    0.329,
-    m.gasket,
-    2.1,
-    0.034,
-    -0.808,
-    cabin,
-    0.16,
-    'vertical-berth-recess',
-  );
-  box(
-    0.658,
-    1.864,
-    0.277,
-    m.upholstery,
-    2.1,
-    0.026,
-    -0.576,
-    cabin,
-    0.13,
-    'padded-sleeping-berth',
-  );
-  for (let i = 0; i < 6; i++)
-    box(
-      0.594,
-      0.256,
-      0.088,
-      m.upholstery,
-      2.1,
-      -0.71 + i * 0.278,
-      -0.4,
-      cabin,
-      0.043,
-      'soft-berth-quilting',
-    );
-  for (const yy of [-0.594, 0.059, 0.646]) {
-    box(
-      0.696,
-      0.103,
-      0.059,
-      m.amber,
-      2.1,
-      yy,
-      -0.329,
-      cabin,
-      0.028,
-      'berth-retaining-strap',
-    );
-    box(
-      0.117,
-      0.13,
-      0.056,
-      m.metal,
-      2.215,
-      yy,
-      -0.28,
-      cabin,
-      0.026,
-      'berth-strap-buckle',
-    );
-    box(
-      0.059,
-      0.068,
-      0.018,
-      m.navy,
-      2.215,
-      yy,
-      -0.237,
-      cabin,
-      0.008,
-      'berth-buckle-insert',
-    );
-  }
-  const curtain: Transform[] = [];
-  for (let i = 0; i < 4; i++)
-    curtain.push({
-      p: [2.508 + i * 0.072, 0.027, -0.46 + (i % 2) * 0.014],
-      s: [0.047, 0.966, 0.059],
-    });
-  instances(
-    new THREE.CylinderGeometry(1, 1, 2, 16, 1),
-    m.upholstery,
-    curtain,
-    cabin,
-    'soft-privacy-curtain',
-  );
-  rod([2.467, 1.011, -0.45], [2.782, 1.011, -0.45], 0.019, m.metal, cabin);
-  // Small physical art is abstract geometry, with no person or content baked in.
-  box(
-    0.522,
-    0.689,
-    0.066,
-    m.chalk,
-    3.204,
-    0.571,
-    -0.836,
-    cabin,
-    0.032,
-    'cabin-picture-frame',
-  );
-  box(
-    0.408,
-    0.567,
-    0.022,
-    m.paper,
-    3.204,
-    0.571,
-    -0.783,
-    cabin,
-    0.011,
-    'picture-mat',
-  );
-  const mountain = new THREE.Shape();
-  mountain.moveTo(-0.182, -0.228);
-  mountain.lineTo(-0.022, 0.112);
-  mountain.lineTo(0.182, -0.228);
-  mountain.closePath();
-  const mountainMesh = mesh(
-    new THREE.ShapeGeometry(mountain),
-    m.upholstery,
-    cabin,
-    'abstract-cabin-art',
-  );
-  mountainMesh.position.set(3.204, 0.556, -0.764);
-  const mountain2 = new THREE.Shape();
-  mountain2.moveTo(-0.06, -0.226);
-  mountain2.lineTo(0.095, 0.017);
-  mountain2.lineTo(0.182, -0.226);
-  mountain2.closePath();
-  const ridge = mesh(
-    new THREE.ShapeGeometry(mountain2),
-    m.navy,
-    cabin,
-    'abstract-cabin-art-ridge',
-  );
-  ridge.position.set(3.204, 0.556, -0.758);
-  const sun = sphere(0.035, m.amber, 3.108, 0.741, -0.754, cabin);
-  sun.scale.z = 0.12;
-  box(
-    0.091,
-    0.131,
-    0.045,
-    m.amber,
-    3.204,
-    0.926,
-    -0.774,
-    cabin,
-    0.021,
-    'picture-retaining-clip',
-  );
-  const journal = new THREE.Group();
-  journal.userData.openReader = true;
-  cabin.add(journal);
-  box(
-    0.895,
-    0.162,
-    0.707,
-    m.chalk,
-    3.246,
-    -0.521,
-    -0.543,
-    journal,
-    0.078,
-    'journal-desk-tray',
-  );
-  box(
-    0.527,
-    0.322,
-    0.269,
-    m.liner,
-    3.246,
-    -0.752,
-    -0.745,
-    journal,
-    0.087,
-    'journal-desk-mount',
-  );
-  const book = new THREE.Group();
-  book.position.set(3.246, -0.368, -0.554);
-  book.rotation.x = -0.11;
-  journal.add(book);
-  box(
-    0.649,
-    0.096,
-    0.455,
-    m.navy,
-    0,
-    0,
-    0,
-    book,
-    0.046,
-    'personal-journal-cover',
-  );
-  box(
-    0.565,
-    0.055,
-    0.393,
-    m.paper,
-    -0.006,
-    -0.005,
-    0.016,
-    book,
-    0.025,
-    'journal-page-block',
-  );
-  box(
-    0.649,
-    0.039,
-    0.455,
-    m.upholstery,
-    0,
-    0.062,
-    0,
-    book,
-    0.019,
-    'closed-journal-front-cover',
-  );
-  box(
-    0.072,
-    0.038,
-    0.467,
-    m.amber,
-    0.214,
-    0.097,
-    0,
-    book,
-    0.018,
-    'journal-retaining-band',
-  );
-  for (const sign of [-1, 1])
-    box(
-      0.088,
-      0.134,
-      0.638,
-      m.amber,
-      3.246 + sign * 0.46,
-      -0.487,
-      -0.543,
-      journal,
-      0.037,
-      'journal-tray-bumper',
-    );
-  box(
-    0.441,
-    1.953,
-    0.248,
-    m.chalk,
-    3.993,
-    0.037,
-    -0.79,
-    cabin,
-    0.118,
-    'cabin-utility-cupboard',
-  );
-  box(
-    0.345,
-    1.767,
-    0.035,
-    m.shell,
-    3.993,
-    0.037,
-    -0.633,
-    cabin,
-    0.017,
-    'cabin-cupboard-insert',
-  );
-  rod([4.067, -0.46, -0.548], [4.067, 0.028, -0.548], 0.029, m.amber, cabin);
-  box(
-    0.268,
-    0.347,
-    0.063,
-    m.upholstery,
-    3.568,
-    0.375,
-    -0.807,
-    cabin,
-    0.031,
-    'cabin-soft-stowage-pouch',
-  );
-  box(
-    0.077,
-    0.103,
-    0.041,
-    m.amber,
-    3.568,
-    0.407,
-    -0.748,
-    cabin,
-    0.02,
-    'pouch-latch',
+  const personalStudy = new THREE.Group();
+  personalStudy.name = 'about-personal-study';
+  personalStudy.position.set(legacyCenters.about + 0.18, previousFloorTop, 0);
+  personalStudy.userData.batchRoot = true;
+  cabin.add(personalStudy);
+  buildAboutPersonalStudy(
+    THREE,
+    { box, mesh, cylinder, torus, rod, instances },
+    personalStudy,
+    { accent: m.amber },
   );
 
   // CONTACT — static, floor-referenced flight operations console.
@@ -3029,14 +2748,6 @@ export function createSpacecraft(
         },
       );
     }
-  interactionBox(
-    'journal-reader-pick',
-    [0.729, 0.268, 0.58],
-    [3.246, -0.345, -0.535],
-    cabin,
-    { openReader: true },
-  );
-
   interactionBox(
     'contact-reader-pick',
     [1.46, 1.0, 0.14],
@@ -3782,12 +3493,13 @@ export function createSpacecraft(
     bucket.parent.add(result);
   }
   // Keep printed archive labels and backlit screens free of self-shadows after batching.
-  for (const equipment of [workshop, archive])
+  for (const equipment of [workshop, archive, personalStudy])
     equipment.traverse((object: any) => {
       if (
         object.isMesh &&
         (object.material?.userData.displaySize ||
-          object.material?.userData.archiveInk)
+          object.material?.userData.archiveInk ||
+          object.material?.userData.studyInk)
       ) {
         object.castShadow = false;
         object.receiveShadow = false;
@@ -3897,7 +3609,6 @@ export function createSpacecraft(
       slot: i,
       position: [0, 0, 0],
     })),
-    { section: 'about', position: [-1.404, -2.045, -0.45] },
   ];
   group.userData.dockingAnchor = [-3.78, 0.21, 1.05];
   group.userData.dockingAnchors = {
@@ -3912,7 +3623,7 @@ export function createSpacecraft(
     'https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking',
   ];
   group.userData.description =
-    'A two-by-two toybox spacecraft with a four-module project workshop, five flight-recorder category cartridges and a raked archive terminal, a personal cabin and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
+    'A two-by-two toybox spacecraft with a four-module project workshop, five flight-recorder category cartridges and a raked archive terminal, a retained personal study and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
   group.userData.detailStats = {
     staticSourceParts: sourceParts,
     drawCalls: targets.length,
@@ -4019,6 +3730,8 @@ export function createSpacecraft(
     layoutScale = currentLayout === 'wide' ? 1.4 : 1;
     const halfPitch = 1.5 * layoutScale + 0.15;
     const propScale = currentLayout === 'wide' ? 1 : 0.84;
+    // Preserve the study's rear mounting plane when its furniture scales down.
+    personalStudy.position.z = -1.1 * (1 / propScale - 1);
     for (const section of Object.keys(rooms)) {
       const left = section === 'projects' || section === 'about';
       const x = (left ? -1 : 1) * halfPitch,
