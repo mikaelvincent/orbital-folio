@@ -11,6 +11,12 @@ import {
   CABIN_CEILING,
   CABIN_HALF_WIDTH,
   DECK_HALF_PITCH,
+  LADDER_CENTER_Y,
+  LADDER_HEIGHT,
+  LADDER_HALF_STRAIGHT,
+  LADDER_SHOULDER_RISE,
+  LADDER_CONTENT_SCALE,
+  LADDER_CONTENT_OFFSET,
   wallLayout,
 } from '../lib/spacecraft-wall-layout.ts';
 import type { SocialScreenLinks } from '../lib/social-links.ts';
@@ -1506,41 +1512,66 @@ export function createSpacecraft(
     return geometry;
   }
   const walkwaySeal = mesh(
-    walkwayProfile(1.32, 6.1, 1.22, 2.0, 0.035, 0.025, 0.06, 0.005),
+    walkwayProfile(
+      1.32,
+      LADDER_HEIGHT - 0.02,
+      1.22,
+      LADDER_SHOULDER_RISE - 0.01,
+      0.035,
+      0.025,
+      0.06,
+      0.005,
+    ),
     m.gasket,
     walkwayStructure,
     'walkway-pressure-collar-seal',
   );
-  walkwaySeal.position.set(0, 0.01, 1.19);
+  walkwaySeal.position.set(0, LADDER_CENTER_Y, 1.19);
   // The rear lining is one closed pressure-panel volume. Its curved return
   // shares the shell's shoulder endpoints, rather than stacking a smaller
   // floating slab in front of a differently shaped shell.
-  const serviceSpineRecesses = getServiceSpineRecesses(THREE);
+  const rawServiceSpineRecesses = getServiceSpineRecesses(THREE);
+  // Scale the fixed ladder fittings and their actual pressure-wall apertures
+  // together. Sampling is identical to the service builder's pocket rims.
+  const serviceSpineRecesses = rawServiceSpineRecesses.map((recess) => ({
+    ...recess,
+    shape: new THREE.Shape(
+      recess.shape
+        .getPoints(32)
+        .map(
+          (point: any) =>
+            new THREE.Vector2(
+              point.x,
+              point.y * LADDER_CONTENT_SCALE + LADDER_CONTENT_OFFSET,
+            ),
+        ),
+    ),
+  }));
   function walkwayRearGeometry() {
     // The rear wall rolls into the single aperture contour through a small
     // concave cove. No overlaid skin or triangular end sheet is necessary.
     const inner = walkwayOutline(
       new THREE.Shape(),
       1.17,
-      5.96,
+      LADDER_HEIGHT - 0.16,
       1.15,
-      1.93,
+      LADDER_SHOULDER_RISE - 0.08,
       0.04,
     )
       .getPoints(16)
-      .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
+      .map((p: any) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
     // Seat the existing cove on the fixed ladder-side wall datum.
     const rim = walkwayOutline(
       new THREE.Shape(),
       1.33,
-      6.12,
+      LADDER_HEIGHT,
       1.23,
-      2.01,
+      LADDER_SHOULDER_RISE,
       0.04,
       0.69,
     )
       .getPoints(16)
-      .map((p: any) => p.add(new THREE.Vector2(0, 0.01)));
+      .map((p: any) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
     if (rim[0].distanceToSquared(rim[rim.length - 1]) < 1e-12) rim.pop();
     if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
       inner.pop();
@@ -1608,8 +1639,12 @@ export function createSpacecraft(
     }
     for (let i = 0; i < n; i++) {
       const j = (i + 1) % n;
-      const upper = Math.min(rim[i].y, rim[j].y) >= 1.06 - 1e-6;
-      const lower = Math.max(rim[i].y, rim[j].y) <= -1.04 + 1e-6;
+      const upper =
+        Math.min(rim[i].y, rim[j].y) >=
+        LADDER_CENTER_Y + LADDER_HALF_STRAIGHT - 1e-6;
+      const lower =
+        Math.max(rim[i].y, rim[j].y) <=
+        LADDER_CENTER_Y - LADDER_HALF_STRAIGHT + 1e-6;
       if (!upper && !lower) continue; // Keep all three actual passages open.
       for (let step = 0; step < shoulderSteps; step++) {
         const a = shoulderBase + step * n + i,
@@ -1842,9 +1877,10 @@ export function createSpacecraft(
     const outline = roundedPath(
       new THREE.Shape(),
       side > 0 ? 2.5 : 2.42,
-      side > 0 ? 6.24 : 2.12,
+      side > 0 ? LADDER_HEIGHT + 0.12 : 2.1,
       side > 0 ? 0.38 : 0,
     );
+    offsetPath(outline, 0, LADDER_CENTER_Y);
     if (side > 0) {
       for (const yy of [-DECK_HALF_PITCH, DECK_HALF_PITCH]) {
         const opening = passageCircle(-passageCenterZ, yy - 0.06);
@@ -1855,7 +1891,7 @@ export function createSpacecraft(
       // Match both the external sleeve and the inner leaf's shared Y/Z axis.
       for (const curve of dockingOpening.curves)
         for (const key of ['v0', 'v1', 'v2'])
-          if (curve[key]) curve[key].y += 0.03;
+          if (curve[key]) curve[key].y += LADDER_CENTER_Y;
       outline.holes.push(dockingOpening);
     }
     const skin = new THREE.ExtrudeGeometry(outline, {
@@ -1887,7 +1923,7 @@ export function createSpacecraft(
           part.material = roomMat(m.wall, 'walkway', false, true);
     }
   }
-  buildLadderServiceSpine(
+  const serviceSpine = buildLadderServiceSpine(
     THREE,
     {
       box,
@@ -1899,9 +1935,11 @@ export function createSpacecraft(
         roomMat(material, 'walkway', false, false),
     },
     walkwayFurniture,
-    serviceSpineRecesses,
+    rawServiceSpineRecesses,
     m.amber,
   );
+  serviceSpine.scale.y = LADDER_CONTENT_SCALE;
+  serviceSpine.position.y = LADDER_CONTENT_OFFSET;
   roomLights.walkway = [];
   const dockingInterior = new THREE.Group();
   dockingInterior.name = 'walkway-finished-inner-docking-hatch';
@@ -3150,8 +3188,8 @@ export function createSpacecraft(
       size: [2 * CABIN_HALF_WIDTH * s, cabinCeiling - cabinFloorTop],
       radius: [0.35 * s, 0.35],
     }));
-    // Retain the tall ladder's usable curved envelope. Its new outer shell is
-    // a thin offset, not the old thick caps and independent rear sheet.
+    // The symmetric bow and cabins now share the same roof and keel datum.
+    // The outer shell is a single thin offset from that fitted inner contour.
     const bow = thinChassisOutline(THREE, {
       scale: s,
       thickness: PRESSURE_WALL,
@@ -3208,8 +3246,10 @@ export function createSpacecraft(
       // The flat docking and shared cabin walls are already real thin panels.
       // Keep the outer shell only along the two curved shoulder portions.
       if (
-        Math.max(bowPoints[i].y, bowPoints[j].y) < 1.06 &&
-        Math.min(bowPoints[i].y, bowPoints[j].y) > -1.04
+        Math.max(bowPoints[i].y, bowPoints[j].y) <
+          LADDER_CENTER_Y + LADDER_HALF_STRAIGHT &&
+        Math.min(bowPoints[i].y, bowPoints[j].y) >
+          LADDER_CENTER_Y - LADDER_HALF_STRAIGHT
       )
         continue;
       if (Math.min(bowPoints[i].x, bowPoints[j].x) >= closures.replaceBowAfterX)
@@ -3303,9 +3343,9 @@ export function createSpacecraft(
     chassisMetadata[variant] = {
       apertures,
       ladderAperture: {
-        center: [ladderX, 0.01, 1.17],
-        size: [1.33 * s, 6.12],
-        leftRadii: [1.23 * s, 2.01],
+        center: [ladderX, LADDER_CENTER_Y, 1.17],
+        size: [1.33 * s, LADDER_HEIGHT],
+        leftRadii: [1.23 * s, LADDER_SHOULDER_RISE],
       },
       frontFace: {
         minZ: PRESSURE_FACE_FRONT - PRESSURE_WALL,
@@ -3782,7 +3822,11 @@ export function createSpacecraft(
     const dockingWallX = layoutWalls.dockingOuterWall;
     const dockingInnerFace = PRESSURE_WALL;
     const dockingInset = dockingInnerFace - 0.008;
-    dockingInterior.position.set(-0.665 * layoutScale - 0.008, 0.03, 0);
+    dockingInterior.position.set(
+      -0.665 * layoutScale - 0.008,
+      LADDER_CENTER_Y,
+      0,
+    );
     walkwayStructure.scale.set(layoutScale, 1, 1);
     walkwayFurniture.scale.set(layoutScale, 1, 1);
     for (const wall of roomWallMounts) {
@@ -3812,46 +3856,65 @@ export function createSpacecraft(
       // Ends sit beneath the two recessed guides, never on top of the wall.
       entry.group.scale.set(Math.abs(near - far) - 0.008, 1, 1);
     }
-    docking.position.x = dockingWallX + 4.5;
+    docking.position.set(dockingWallX + 4.5, LADDER_CENTER_Y - 0.03, 0);
     service.position.x = -1.5 + outward;
-    group.userData.dockingAnchor = [docking.position.x - 5.137, 0.208, 1.05];
+    group.userData.dockingAnchor = [
+      docking.position.x - 5.137,
+      0.208 + LADDER_CENTER_Y - 0.03,
+      1.05,
+    ];
     group.userData.dockingAnchors = {
-      sleeve: [docking.position.x - 5.065, 0.03, 0],
-      hatch: [docking.position.x - 6.396, 0.03, 0],
-      mount: [docking.position.x - 4.58, 0.03, 0],
-      wall: [dockingWallX, 0.03, 0],
-      innerHatch: [dockingWallX + dockingInset, 0.03, 0],
+      sleeve: [docking.position.x - 5.065, LADDER_CENTER_Y, 0],
+      hatch: [docking.position.x - 6.396, LADDER_CENTER_Y, 0],
+      mount: [docking.position.x - 4.58, LADDER_CENTER_Y, 0],
+      wall: [dockingWallX, LADDER_CENTER_Y, 0],
+      innerHatch: [dockingWallX + dockingInset, LADDER_CENTER_Y, 0],
     };
     group.userData.communicationsAnchor = [4.14 + outward, 0.23, 1.16];
     group.userData.walkwayAnchor = [walkwayX, 0, 0.16];
     group.userData.walkwayProfile = {
-      leftCornerRadius: 1.36 * layoutScale,
-      leftShoulderRadii: [1.36 * layoutScale, 2.14],
-      leftShoulderHeight: 2.14,
-      leftStraightHeight: 2.12,
-      shoulderFraction: 4.28 / 6.4,
+      centerY: LADDER_CENTER_Y,
+      height: LADDER_HEIGHT,
+      leftCornerRadius: 1.23 * layoutScale + PRESSURE_WALL,
+      leftShoulderRadii: [
+        1.23 * layoutScale + PRESSURE_WALL,
+        LADDER_SHOULDER_RISE + PRESSURE_WALL,
+      ],
+      leftShoulderHeight: LADDER_SHOULDER_RISE + PRESSURE_WALL,
+      leftStraightHeight: LADDER_HALF_STRAIGHT * 2,
+      shoulderFraction:
+        (2 * (LADDER_SHOULDER_RISE + PRESSURE_WALL)) /
+        (LADDER_HEIGHT + PRESSURE_WALL * 2),
       rightCornerRadius: 0.17 * layoutScale,
       shellDepth: 2.42,
       rearLiner: {
         frontZ: -0.985,
-        rearZ: -1.21,
-        sharedShoulders: [1.35, 2.14],
-        innerShoulders: [1.21, 2.0],
+        rearZ: -0.985 - PRESSURE_WALL,
+        sharedShoulders: [1.23, LADDER_SHOULDER_RISE],
+        innerShoulders: [1.15, LADDER_SHOULDER_RISE - 0.08],
         continuousReturn: true,
       },
       landings: [],
       clearDockingOpening: [1.82, 1.9],
       ladderBounds: {
-        min: [-0.133 * layoutScale, -2.635, -0.96],
-        max: [0.433 * layoutScale, 2.575, -0.647],
+        min: [
+          -0.133 * layoutScale,
+          -2.555 * LADDER_CONTENT_SCALE + LADDER_CONTENT_OFFSET,
+          -0.96,
+        ],
+        max: [
+          0.433 * layoutScale,
+          2.575 * LADDER_CONTENT_SCALE + LADDER_CONTENT_OFFSET,
+          -0.647,
+        ],
       },
       endShoulderContinuity: true,
     };
     walkway.updateMatrixWorld(true);
     group.userData.walkwaySigns = [];
     group.userData.walkwayBounds = {
-      center: [walkwayX, 0, 0.1],
-      size: [1.75 * layoutScale, 6.5, 2.65],
+      center: [walkwayX, LADDER_CENTER_Y, 0.1],
+      size: [1.75 * layoutScale, LADDER_HEIGHT + PRESSURE_WALL * 2, 2.65],
     };
     for (const portal of portals) {
       const origin = legacyCenters[portal.from],

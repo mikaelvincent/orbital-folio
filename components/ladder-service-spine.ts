@@ -249,7 +249,7 @@ export function buildLadderServiceSpine(
   );
   for (const x of railXs) {
     rod(
-      [x, -2.61, -0.69],
+      [x, -2.53, -0.69],
       [x, 2.55, -0.69],
       0.0215,
       m.graphite,
@@ -293,7 +293,7 @@ export function buildLadderServiceSpine(
         for (const dy of [-0.034, 0.034]) screws.push([x + dx, y + dy, -0.929]);
       cylinder(0.009, 0.012, m.alloy, x, y, -0.653, 'z', 'rail-clamp-bolt');
     }
-    for (const y of [-2.585, 2.525])
+    for (const y of [-2.505, 2.525])
       cylinder(0.03, 0.1, m.graphite, x, y, -0.69, 'y', 'rail-end-cap');
     // Graphite grips stay visually light; amber is a small joint marker,
     // rather than a second set of unevenly placed oversized handles.
@@ -316,16 +316,17 @@ export function buildLadderServiceSpine(
   for (const y of rungYs) {
     for (const x of railXs) {
       cylinder(0.029, 0.064, m.graphite, x, y, -0.69, 'y', 'rung-rail-sleeve');
-      cylinder(
-        0.0295,
-        0.016,
-        m.amber,
-        x,
-        y + 0.036,
-        -0.69,
-        'y',
-        'amber-joint-marker',
-      );
+      for (const dy of [-0.036, 0.036])
+        cylinder(
+          0.0295,
+          0.016,
+          m.amber,
+          x,
+          y + dy,
+          -0.69,
+          'y',
+          'amber-joint-marker',
+        );
     }
     cylinder(0.019, 0.46, m.tread, 0.15, y, -0.69, 'x', 'satin-rung');
     cylinder(0.0205, 0.27, m.tread, 0.15, y, -0.69, 'x', 'rung-grip-insert');
@@ -495,7 +496,7 @@ export function buildLadderServiceSpine(
         'vent-louvre',
         0.002,
       );
-      blade.rotation.x = -0.34;
+      blade.rotation.x = -0.34 * side;
     }
   }
   // Three guarded isolation levers, with a small engraved position scale.
@@ -599,44 +600,38 @@ export function buildLadderServiceSpine(
       geo,
       m.graphite,
       root,
-      prefix + (side > 0 ? 'upper-header-anchor' : 'lower-rail-anchor'),
+      prefix + (side > 0 ? 'upper-terminal-anchor' : 'lower-terminal-anchor'),
     );
     const y = side > 0 ? 2.47 : -2.45;
     for (const x of [-0.07, 0.46]) screws.push([x, y, -0.629]);
   }
-  box(
-    0.452,
-    0.097,
-    0.024,
-    m.rubber,
-    0.235,
-    2.535,
-    -0.624,
-    'header-light-bezel',
-    0.017,
-  );
-  box(
-    0.398,
-    0.058,
-    0.016,
-    m.lamp,
-    0.235,
-    2.535,
-    -0.606,
-    'header-light-diffuser',
-    0.014,
-  );
-  box(
-    0.39,
-    0.016,
-    0.018,
-    m.amber,
-    0.23,
-    -2.555,
-    -0.634,
-    'lower-anchor-index-strip',
-    0.005,
-  );
+  // Matching protected lamps make both ends readable from either deck. Each
+  // lens, bezel and mounting depth is an exact mirror of its counterpart.
+  const terminalLightYs = [2.535, 0.02 - 2.535];
+  for (const y of terminalLightYs) {
+    box(
+      0.452,
+      0.097,
+      0.024,
+      m.rubber,
+      0.235,
+      y,
+      -0.624,
+      'terminal-light-bezel',
+      0.017,
+    );
+    box(
+      0.398,
+      0.058,
+      0.016,
+      m.lamp,
+      0.235,
+      y,
+      -0.606,
+      'terminal-light-diffuser',
+      0.014,
+    );
+  }
   const screwGeo = new THREE.CylinderGeometry(0.01, 0.01, 0.007, 12);
   screwGeo.rotateX(Math.PI / 2);
   h.instances(
@@ -667,6 +662,9 @@ export function buildLadderServiceSpine(
     railRadius: 0.0215,
     gripRadius: 0.0235,
     worklightCenters: [rungYs[2], rungYs[10]],
+    symmetryCenterY: 0.01,
+    terminalLightCenters: terminalLightYs,
+    railEnds: [-2.53, 2.55],
   };
   return root;
 }

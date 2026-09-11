@@ -22,3 +22,5 @@ Closer spacing exposed an ambient-occlusion artifact: fittings behind closed shu
 Screenshots: `docs/evidence/consistent-walls/`.
 
 Independent scoped critic: **97/100**, above the requested 95+ threshold. No blocking findings. The remaining deduction is a minor exterior contour mismatch: at the strongest dragged angle, square sidewall corner tips peek a few pixels beyond the rounded front face. It is not a hole or interior-size regression; any future adjustment should trim only the exterior tips.
+
+The subsequent [ladder symmetry revision](ladder-symmetry.md) brings the ladder bay into the cabin roof/keel envelope and fits its contents, removing the taller bow junction retained during the wall revision.

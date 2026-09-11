@@ -4,6 +4,10 @@ import {
   CABIN_FLOOR,
   CABIN_CEILING,
   CABIN_HALF_WIDTH,
+  LADDER_CENTER_Y,
+  LADDER_HEIGHT,
+  LADDER_HALF_STRAIGHT,
+  LADDER_SHOULDER_RISE,
 } from '../lib/spacecraft-wall-layout.ts';
 
 /** One continuous pressure face, offset from fixed cabin interior datums. */
@@ -29,8 +33,8 @@ export function thinChassisOutline(
   const left = ladderX - 0.665 * s - coreOffset;
   const tangent = ladderX + 0.565 * s;
   const right = halfPitch + halfRoom + coreOffset;
-  const noseTop = 3.07 + coreOffset;
-  const noseBottom = -3.05 - coreOffset;
+  const noseTop = LADDER_CENTER_Y + LADDER_HEIGHT / 2 + coreOffset;
+  const noseBottom = LADDER_CENTER_Y - LADDER_HEIGHT / 2 - coreOffset;
   const roof = rowHalfPitch + ceiling + coreOffset;
   const keel = -rowHalfPitch + floor - coreOffset;
   const stepStartX = ladderX + ladderFrontRight * s + coreOffset;
@@ -39,7 +43,9 @@ export function thinChassisOutline(
   const cornerX = 0.35 * s + coreOffset;
   const cornerY = 0.35 + coreOffset;
   const leftRadiusX = 1.23 * s + coreOffset;
-  const leftRadiusY = 2.01 + coreOffset;
+  const leftRadiusY = LADDER_SHOULDER_RISE + coreOffset;
+  const upperTangentY = LADDER_CENTER_Y + LADDER_HALF_STRAIGHT;
+  const lowerTangentY = LADDER_CENTER_Y - LADDER_HALF_STRAIGHT;
   const k = 0.5522847498;
   const outer = new THREE.Shape();
   outer.moveTo(tangent, noseBottom);
@@ -70,14 +76,14 @@ export function thinChassisOutline(
     tangent - leftRadiusX * k,
     noseTop,
     left,
-    1.06 + leftRadiusY * k,
+    upperTangentY + leftRadiusY * k,
     left,
-    1.06,
+    upperTangentY,
   );
-  outer.lineTo(left, -1.04);
+  outer.lineTo(left, lowerTangentY);
   outer.bezierCurveTo(
     left,
-    -1.04 - leftRadiusY * k,
+    lowerTangentY - leftRadiusY * k,
     tangent - leftRadiusX * k,
     noseBottom,
     tangent,
@@ -113,16 +119,15 @@ export function thinChassisOutline(
       roomHoles.push(p);
     }
 
-  // The original long bow and its usable height remain intact. Only its
-  // straight right cutaway edge can extend .025*S to meet the wall datum;
-  // pass ladderFrontRight=.665 for exact old cutaway bounds instead.
+  // The bow and cabin tops share one tangent roof line. The bottom is its
+  // exact reflection around the combined deck center; neither end needs a hump.
   const lh = new THREE.Path();
   const ll = ladderX - 0.665 * s - b;
   const lr = ladderX + ladderFrontRight * s + b;
-  const lt = 3.07 + b;
-  const lb = -3.05 - b;
+  const lt = LADDER_CENTER_Y + LADDER_HEIGHT / 2 + b;
+  const lb = LADDER_CENTER_Y - LADDER_HEIGHT / 2 - b;
   const lrx = 1.23 * s + b;
-  const lry = 2.01 + b;
+  const lry = LADDER_SHOULDER_RISE + b;
   const rrx = 0.04 * s + b;
   const rry = 0.04 + b;
   lh.moveTo(tangent, lb);
@@ -131,9 +136,23 @@ export function thinChassisOutline(
   lh.lineTo(lr, lt - rry);
   lh.quadraticCurveTo(lr, lt, lr - rrx, lt);
   lh.lineTo(tangent, lt);
-  lh.bezierCurveTo(tangent - lrx * k, lt, ll, 1.06 + lry * k, ll, 1.06);
-  lh.lineTo(ll, -1.04);
-  lh.bezierCurveTo(ll, -1.04 - lry * k, tangent - lrx * k, lb, tangent, lb);
+  lh.bezierCurveTo(
+    tangent - lrx * k,
+    lt,
+    ll,
+    upperTangentY + lry * k,
+    ll,
+    upperTangentY,
+  );
+  lh.lineTo(ll, lowerTangentY);
+  lh.bezierCurveTo(
+    ll,
+    lowerTangentY - lry * k,
+    tangent - lrx * k,
+    lb,
+    tangent,
+    lb,
+  );
   lh.closePath();
   outer.holes.push(lh);
 
@@ -166,6 +185,10 @@ export function thinChassisOutline(
       right,
       noseTop,
       noseBottom,
+      ladderCenterY: LADDER_CENTER_Y,
+      ladderHeight: LADDER_HEIGHT,
+      upperTangentY,
+      lowerTangentY,
       roof,
       keel,
       stepStartX,

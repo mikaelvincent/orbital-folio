@@ -12,6 +12,16 @@ export const CABIN_HALF_WIDTH = 1.43;
 export const DECK_HALF_PITCH =
   (CABIN_CEILING - CABIN_FLOOR + PRESSURE_WALL) / 2;
 
+// The ladder bay shares the combined cabin envelope; its bow is symmetric
+// around the center of the two usable decks instead of adding separate humps.
+export const LADDER_CENTER_Y = (CABIN_CEILING + CABIN_FLOOR) / 2;
+export const LADDER_HEIGHT = 2 * DECK_HALF_PITCH + CABIN_CEILING - CABIN_FLOOR;
+export const LADDER_HALF_STRAIGHT = 1.05;
+export const LADDER_SHOULDER_RISE = LADDER_HEIGHT / 2 - LADDER_HALF_STRAIGHT;
+export const LADDER_CONTENT_SCALE = 0.9;
+export const LADDER_CONTENT_OFFSET =
+  LADDER_CENTER_Y - 0.01 * LADDER_CONTENT_SCALE;
+
 export function wallLayout(scale: number) {
   const halfWidth = CABIN_HALF_WIDTH * scale;
   const halfPitch = halfWidth + PRESSURE_WALL / 2;

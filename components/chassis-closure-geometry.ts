@@ -66,8 +66,8 @@ export function buildChassisClosures(
         ? Math.max(...values)
         : Math.min(...values)
       : upper
-        ? 3.07
-        : -3.05;
+        ? d.noseTop
+        : d.noseBottom;
   }
   const geometry = (positions: number[], indices: number[]) => {
     const g = new THREE.BufferGeometry();
@@ -83,9 +83,9 @@ export function buildChassisClosures(
     const nose = upper ? d.noseTop : d.noseBottom;
     const rows: { x: number; blend: number; rearZ: number; lead: boolean }[] =
       [];
-    // The original bow offset rounded its tiny upper-right/lower-right corner,
-    // unlike the continuous chassis outline. Own the short flat shoulder here
-    // too; omit matching bow skin segments after tangentX (integration note).
+    // Both bow ends meet the cabin roof/keel on one straight front tangent.
+    // This exterior surface only blends their different rear coves in depth;
+    // it adds no rise, bulge, or overlaid face at the cabin join.
     for (let i = 0; i < 9; i++)
       rows.push({
         x: tangentX + ((startX - tangentX) * i) / 8,
