@@ -187,14 +187,10 @@ test('Every physical passage has two opposing blade assemblies and one continuou
       assert.ok(Math.abs(box.min.x - positions[0].x - 0.004) < 1e-5);
       assert.ok(Math.abs(box.max.x - positions[1].x + 0.004) < 1e-5);
       const materials = new Set();
-      // Radial rays along the full tunnel length detect any missing sleeve or
-      // per-room seam. End samples sit beneath the recessed guide rings.
+      // Radial rays within the actual sleeve detect any missing surface or seam.
+      // The endpoint assertions above verify its overlap with both guide rings.
       for (const fraction of [0.04, 0.25, 0.5, 0.75, 0.96]) {
-        const x = THREE.MathUtils.lerp(
-          positions[0].x,
-          positions[1].x,
-          fraction,
-        );
+        const x = THREE.MathUtils.lerp(box.min.x, box.max.x, fraction);
         for (let i = 0; i < 24; i++) {
           const angle = (i * Math.PI) / 12;
           const ray = new THREE.Raycaster(

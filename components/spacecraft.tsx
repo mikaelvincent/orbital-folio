@@ -1310,10 +1310,10 @@ export function Spacecraft(props: Props) {
                 aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5 ||
                 aoRoll !== roll
               ) {
-                // The AO override shader cannot see the iris aperture mask.
-                // Exclude its concealed storage geometry from that static pass.
+                // Render the bounded shutter silhouette in the AO pass.
+                // Its opening matches the visible leaves; concealed wings stay out.
                 for (const hatch of model.group.userData.irisHatches)
-                  hatch.visible = false;
+                  hatch.userData.setOcclusionPass(true);
                 ao.render(
                   renderer,
                   ao.pdRenderTarget,
@@ -1322,7 +1322,7 @@ export function Spacecraft(props: Props) {
                   false,
                 );
                 for (const hatch of model.group.userData.irisHatches)
-                  hatch.visible = true;
+                  hatch.userData.setOcclusionPass(false);
                 aoCameraPosition.copy(camera.position);
                 aoCameraQuaternion.copy(camera.quaternion);
                 aoRoll = roll;

@@ -235,3 +235,48 @@ test('Closed overlapping leaves remain sealed at the strongly oblique room-view 
     }
   dispose(hatch, materials);
 });
+
+test('Door occlusion matches the physical opening and cannot include concealed storage wings', () => {
+  const { hatch, materials } = build();
+  const proxy = hatch.group.getObjectByName('iris-occlusion-silhouette');
+  const ray = new THREE.Raycaster();
+  const direction = new THREE.Vector3(0, 0, -1);
+  assert.equal(
+    proxy.visible,
+    false,
+    'The shading silhouette cannot appear in the color pass',
+  );
+  for (const p of [0, 0.2, 0.5, 0.8, 1]) {
+    hatch.setOpen(p);
+    hatch.group.userData.setOcclusionPass(true);
+    assert.equal(proxy.visible, true);
+    assert.ok(
+      hatch.group.children.filter((c) => c !== proxy).every((c) => !c.visible),
+    );
+    for (let i = 0; i < 24; i++) {
+      const angle = ((i + 0.31) * Math.PI) / 12;
+      for (const fraction of [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05]) {
+        const x = Math.cos(angle) * hatch.apertureRadius * fraction;
+        const y = Math.sin(angle) * hatch.apertureRadius * fraction;
+        ray.set(new THREE.Vector3(x, y, 2), direction);
+        const occluded = ray.intersectObject(proxy, false).length > 0;
+        if (fraction > 1)
+          assert.equal(occluded, false, 'Hidden blade wings must not enter AO');
+        else {
+          const leafHit = ray.intersectObjects(hatch.leaves, false).length > 0;
+          assert.equal(
+            occluded,
+            leafHit,
+            `AO and physical shutter agree at ${p}, ${fraction}, ${i}`,
+          );
+        }
+      }
+    }
+    hatch.group.userData.setOcclusionPass(false);
+    assert.equal(proxy.visible, false);
+    assert.ok(
+      hatch.group.children.filter((c) => c !== proxy).every((c) => c.visible),
+    );
+  }
+  dispose(hatch, materials);
+});

@@ -4,6 +4,7 @@
  */
 export type IrisHatchOptions = {
   radius?: number;
+  guideDepth?: number;
   bladeMaterial: any;
   rimMaterial: any;
   accentMaterial: any;
@@ -106,12 +107,12 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
   ringHole.absarc(0, 0, radius, 0, Math.PI * 2, true);
   ringShape.holes.push(ringHole);
   const ringGeometry = new THREE.ExtrudeGeometry(ringShape, {
-    depth: 0.076,
+    depth: options.guideDepth ?? 0.076,
     steps: 1,
     bevelEnabled: false,
     curveSegments: 96,
   });
-  ringGeometry.translate(0, 0, -0.078);
+  ringGeometry.translate(0, 0, -(options.guideDepth ?? 0.076) - 0.002);
   const rim = new THREE.Mesh(ringGeometry, options.rimMaterial);
   rim.name = 'recessed-iris-guide';
   rim.castShadow = false;
@@ -181,6 +182,62 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     leaves.push(leaf);
   }
 
+  // GTAO replaces materials, so it cannot use the blade aperture shader. A
+  // bounded, depth-only silhouette keeps nearby fittings from ghosting through
+  // closed shutters without including the concealed blade storage wings.
+  const occlusionSegments = 192;
+  const occlusionGeometry = new THREE.RingGeometry(
+    0,
+    radius,
+    occlusionSegments,
+  );
+  occlusionGeometry.translate(0, 0, -0.012);
+  const occlusion = new THREE.Mesh(
+    occlusionGeometry,
+    new THREE.MeshStandardMaterial(),
+  );
+  occlusion.name = 'iris-occlusion-silhouette';
+  occlusion.visible = false;
+  occlusion.castShadow = false;
+  group.add(occlusion);
+  const occlusionPositions = occlusionGeometry.getAttribute('position');
+  let occlusionProgress = -1;
+  const updateOcclusion = (p: number, travel: number, twist: number) => {
+    if (p === occlusionProgress) return;
+    occlusionProgress = p;
+    for (let j = 0; j <= occlusionSegments; j++) {
+      const angle = (j / occlusionSegments) * Math.PI * 2;
+      let innerRadius = 0;
+      if (travel > 0) {
+        innerRadius = radius;
+        for (let i = 0; i < 6; i++) {
+          const relative = angle - (i * Math.PI) / 3 - twist;
+          const a = k * Math.sin(relative) ** 2;
+          const b = Math.cos(relative);
+          const crossing =
+            a > 1e-10
+              ? (-b + Math.sqrt(b * b + 4 * a * travel)) / (2 * a)
+              : b > 0
+                ? travel / b
+                : Infinity;
+          innerRadius = Math.min(innerRadius, crossing);
+        }
+      }
+      occlusionPositions.setXYZ(
+        j,
+        Math.cos(angle) * innerRadius,
+        Math.sin(angle) * innerRadius,
+        -0.012,
+      );
+    }
+    occlusionPositions.needsUpdate = true;
+    occlusionGeometry.computeBoundingSphere();
+  };
+  group.userData.setOcclusionPass = (enabled: boolean) => {
+    for (const child of group.children)
+      child.visible = child === occlusion ? enabled : !enabled;
+  };
+
   const setOpen = (progress: number) => {
     const p = Number.isFinite(progress)
       ? Math.max(0, Math.min(1, progress))
@@ -195,6 +252,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
       blade.position.y = Math.sin(angle) * travel;
       blade.rotation.z = angle;
     }
+    updateOcclusion(p, travel, twist);
     motion.travel.value = travel;
     motion.twist.value = twist;
     group.userData.openProgress = p;
