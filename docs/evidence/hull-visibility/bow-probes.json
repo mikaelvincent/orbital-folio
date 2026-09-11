@@ -1,0 +1,24 @@
+{
+  "wide": {
+    "surfaces": {
+      "bow": {
+        "total": 387,
+        "frontHits": 387,
+        "backHits": 0,
+        "missExamples": []
+      }
+    },
+    "probeCount": 387
+  },
+  "compact": {
+    "surfaces": {
+      "bow": {
+        "total": 387,
+        "frontHits": 387,
+        "backHits": 0,
+        "missExamples": []
+      }
+    },
+    "probeCount": 387
+  }
+}

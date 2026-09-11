@@ -3254,7 +3254,9 @@ export function createSpacecraft(
         continue;
       if (Math.min(bowPoints[i].x, bowPoints[j].x) >= closures.replaceBowAfterX)
         continue;
-      bowIndices.push(2 * i, 2 * j + 1, 2 * j, 2 * i, 2 * i + 1, 2 * j + 1);
+      // The outline runs counterclockwise; back-to-front quads must face
+      // outward so the pressure skin stays visible from exterior tilt angles.
+      bowIndices.push(2 * i, 2 * j, 2 * j + 1, 2 * i, 2 * j + 1, 2 * i + 1);
     }
     const bowGeometry = new THREE.BufferGeometry();
     bowGeometry.setAttribute(

@@ -1,0 +1,116 @@
+{
+  "wide": {
+    "projects-roof-floor-rear": {
+      "total": 171,
+      "hits": 171,
+      "misses": []
+    },
+    "experience-roof-floor-rear": {
+      "total": 171,
+      "hits": 171,
+      "misses": []
+    },
+    "about-roof-floor-rear": {
+      "total": 168,
+      "hits": 168,
+      "misses": []
+    },
+    "contact-roof-floor-rear": {
+      "total": 168,
+      "hits": 168,
+      "misses": []
+    },
+    "continuous-roof-shoulder-fairing": {
+      "total": 626,
+      "hits": 626,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    },
+    "continuous-keel-shoulder-fairing": {
+      "total": 626,
+      "hits": 626,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    },
+    "continuous-roof-shoulder-rear-closure": {
+      "total": 9,
+      "hits": 9,
+      "misses": [],
+      "degenerate": 6,
+      "wrongDirection": 0
+    },
+    "continuous-keel-shoulder-rear-closure": {
+      "total": 9,
+      "hits": 9,
+      "misses": [],
+      "degenerate": 6,
+      "wrongDirection": 0
+    },
+    "continuous-middeck-rear-pressure-bridge": {
+      "total": 2,
+      "hits": 2,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    }
+  },
+  "compact": {
+    "projects-roof-floor-rear": {
+      "total": 171,
+      "hits": 171,
+      "misses": []
+    },
+    "experience-roof-floor-rear": {
+      "total": 171,
+      "hits": 171,
+      "misses": []
+    },
+    "about-roof-floor-rear": {
+      "total": 168,
+      "hits": 168,
+      "misses": []
+    },
+    "contact-roof-floor-rear": {
+      "total": 168,
+      "hits": 168,
+      "misses": []
+    },
+    "continuous-roof-shoulder-fairing": {
+      "total": 626,
+      "hits": 626,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    },
+    "continuous-keel-shoulder-fairing": {
+      "total": 626,
+      "hits": 626,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    },
+    "continuous-roof-shoulder-rear-closure": {
+      "total": 9,
+      "hits": 9,
+      "misses": [],
+      "degenerate": 6,
+      "wrongDirection": 0
+    },
+    "continuous-keel-shoulder-rear-closure": {
+      "total": 9,
+      "hits": 9,
+      "misses": [],
+      "degenerate": 6,
+      "wrongDirection": 0
+    },
+    "continuous-middeck-rear-pressure-bridge": {
+      "total": 2,
+      "hits": 2,
+      "misses": [],
+      "degenerate": 0,
+      "wrongDirection": 0
+    }
+  }
+}
