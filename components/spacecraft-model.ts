@@ -1,5 +1,7 @@
-import { buildChassisClosures } from './chassis-closure-geometry.ts';
+import { buildContinuousExteriorSkin } from './continuous-exterior-skin.ts';
 import { thinChassisOutline } from './thin-chassis-outline.ts';
+import { ladderOpeningOutline } from './ladder-opening-outline.ts';
+import { clipGeometryPlane } from './clip-geometry-plane.ts';
 import { createObjectHighlight } from './interactable-object-highlight.ts';
 import { buildIrisHatch } from './iris-hatch.ts';
 import { moveCameraAxis } from '../lib/flight.ts';
@@ -15,6 +17,8 @@ import {
   LADDER_HEIGHT,
   LADDER_HALF_STRAIGHT,
   LADDER_SHOULDER_RISE,
+  LADDER_SHOULDER_RUN,
+  LADDER_RIGHT_RADIUS,
   LADDER_CONTENT_SCALE,
   LADDER_CONTENT_OFFSET,
   wallLayout,
@@ -569,6 +573,22 @@ export function createSpacecraft(
         const outside = side
           ? normal.x * side > 0.1
           : normal.dot(center.sub(new THREE.Vector3(0, 0.05, 0))) >= -0.015;
+        // The continuous chassis owns the exterior. Do not leave old pod
+        // roofs, square end caps, or differently lit divider rims under it.
+        if (name.endsWith('-continuous-pressure-skin') && outside) continue;
+        if (name.endsWith('-sealed-outboard-wall') && normal.x > -0.999)
+          continue;
+        if (
+          /open-side-pressure-bulkhead|walkway-twin-open-room-wall/.test(name)
+        ) {
+          const centers = name.startsWith('walkway-')
+            ? [DECK_HALF_PITCH - 0.06, -DECK_HALF_PITCH - 0.06]
+            : [-0.06];
+          const passage = centers.some(
+            (y) => Math.abs(Math.hypot(center.y - y, center.z) - 0.97) < 0.025,
+          );
+          if (Math.abs(normal.x) < 0.999 && !passage) continue;
+        }
         const frontClosure =
           name.endsWith('-continuous-pressure-skin') &&
           center.z > 1.2 &&
@@ -1010,13 +1030,6 @@ export function createSpacecraft(
   wallOutline.moveTo(exteriorPoints[0].x, exteriorPoints[0].y);
   for (const p of exteriorPoints.slice(1)) wallOutline.lineTo(p.x, p.y);
   wallOutline.closePath();
-  const endWallGeometry = new THREE.ExtrudeGeometry(wallOutline, {
-    depth: PRESSURE_WALL,
-    bevelEnabled: false,
-    steps: 1,
-  });
-  endWallGeometry.translate(0, 0, -PRESSURE_WALL / 2);
-  endWallGeometry.rotateY(Math.PI / 2);
   for (const [index, section] of [
     'projects',
     'experience',
@@ -1309,18 +1322,17 @@ export function createSpacecraft(
         'header',
       );
     }
-    box(
-      2.77,
-      0.15,
-      1.61,
+    // Preserve the dark deck finish as paint on the existing floor. The old
+    // thick backing block protruded through the rounded outer keel corners.
+    const floorFinish = mesh(
+      new THREE.PlaneGeometry(2.77, 1.61),
       m.navy,
-      x,
-      -1.389,
-      -0.06,
       room,
-      0.071,
-      'underside-service-keel',
+      'flush-deck-finish-interior',
     );
+    floorFinish.rotation.x = -Math.PI / 2;
+    floorFinish.position.set(x, cabinFloorTop + 0.003, -0.06);
+    floorFinish.castShadow = false;
   }
 
   const passageClear = 1.84;
@@ -1349,7 +1361,10 @@ export function createSpacecraft(
   for (const section of Object.keys(roomCenters)) {
     const origin = legacyCenters[section];
     const leftColumn = section === 'projects' || section === 'about';
-    const finish = leftColumn ? m.wall.clone() : m.shell;
+    // The shared skin supplies the rounded outboard wall; its inset room
+    // faces are created from that same contour for each layout below.
+    if (!leftColumn) continue;
+    const finish = m.wall.clone();
     if (leftColumn) {
       finish.userData.cabinPartitionPaint = true;
       finish.userData.linkedRooms = [
@@ -1358,12 +1373,10 @@ export function createSpacecraft(
       ];
     }
     const wall = pressureMesh(
-      leftColumn ? openWallGeometry : endWallGeometry,
+      openWallGeometry,
       finish,
       structures[section],
-      leftColumn
-        ? 'open-side-pressure-bulkhead'
-        : section + '-sealed-outboard-wall',
+      'open-side-pressure-bulkhead',
       1,
     );
     wall.userData.batchRoot = true;
@@ -1441,35 +1454,16 @@ export function createSpacecraft(
     right: number,
     rightEdge = w / 2,
   ) {
-    const x = -w / 2,
-      y = -h / 2,
-      k = 0.5522847498;
-    path.moveTo(x + leftWidth, y);
-    path.lineTo(rightEdge - right, y);
-    path.quadraticCurveTo(rightEdge, y, rightEdge, y + right);
-    path.lineTo(rightEdge, y + h - right);
-    path.quadraticCurveTo(rightEdge, y + h, rightEdge - right, y + h);
-    path.lineTo(x + leftWidth, y + h);
-    path.bezierCurveTo(
-      x + leftWidth * (1 - k),
-      y + h,
-      x,
-      y + h - leftHeight * (1 - k),
-      x,
-      y + h - leftHeight,
-    );
-    path.lineTo(x, y + leftHeight);
-    path.bezierCurveTo(
-      x,
-      y + leftHeight * (1 - k),
-      x + leftWidth * (1 - k),
-      y,
-      x + leftWidth,
-      y,
-    );
-    path.closePath();
-    return path;
+    return ladderOpeningOutline(path, {
+      width: w,
+      height: h,
+      leftWidth,
+      leftHeight,
+      rightRadius: right,
+      rightEdge,
+    });
   }
+
   function walkwayProfile(
     w: number,
     h: number,
@@ -1487,6 +1481,7 @@ export function createSpacecraft(
       leftWidth,
       leftHeight,
       right,
+      0.68,
     );
     if (thickness)
       shape.holes.push(
@@ -1497,6 +1492,7 @@ export function createSpacecraft(
           leftWidth - thickness,
           leftHeight - thickness,
           right - thickness,
+          0.68 - thickness,
         ),
       );
     const geometry = new THREE.ExtrudeGeometry(shape, {
@@ -1515,9 +1511,9 @@ export function createSpacecraft(
     walkwayProfile(
       1.32,
       LADDER_HEIGHT - 0.02,
-      1.22,
+      LADDER_SHOULDER_RUN - 0.01,
       LADDER_SHOULDER_RISE - 0.01,
-      0.035,
+      LADDER_RIGHT_RADIUS - 0.01,
       0.025,
       0.06,
       0.005,
@@ -1554,9 +1550,10 @@ export function createSpacecraft(
       new THREE.Shape(),
       1.17,
       LADDER_HEIGHT - 0.16,
-      1.15,
+      LADDER_SHOULDER_RUN - 0.08,
       LADDER_SHOULDER_RISE - 0.08,
-      0.04,
+      LADDER_RIGHT_RADIUS - 0.08,
+      0.61,
     )
       .getPoints(16)
       .map((p: any) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
@@ -1565,9 +1562,9 @@ export function createSpacecraft(
       new THREE.Shape(),
       1.33,
       LADDER_HEIGHT,
-      1.23,
+      LADDER_SHOULDER_RUN,
       LADDER_SHOULDER_RISE,
-      0.04,
+      LADDER_RIGHT_RADIUS,
       0.69,
     )
       .getPoints(16)
@@ -1904,8 +1901,13 @@ export function createSpacecraft(
     });
     skin.translate(0, 0, -PRESSURE_WALL / 2);
     skin.rotateY(Math.PI / 2);
+    const fittedSkin =
+      side > 0
+        ? clipGeometryPlane(THREE, skin, 2, -0.985 - PRESSURE_WALL)
+        : skin;
+    if (fittedSkin !== skin) skin.dispose();
     const wall = pressureMesh(
-      skin,
+      fittedSkin,
       m.shell,
       walkwayStructure,
       side > 0 ? 'walkway-twin-open-room-wall' : 'walkway-open-docking-wall',
@@ -3190,31 +3192,43 @@ export function createSpacecraft(
     }));
     // The symmetric bow and cabins now share the same roof and keel datum.
     // The outer shell is a single thin offset from that fitted inner contour.
-    const bow = thinChassisOutline(THREE, {
+    const bowOutline = thinChassisOutline(THREE, {
       scale: s,
       thickness: PRESSURE_WALL,
       bevel: 0,
-    }).ladderHole;
-    const bowPoints = bow.getPoints(64);
-    if (bowPoints[0].distanceTo(bowPoints[bowPoints.length - 1]) < 1e-8)
-      bowPoints.pop();
-    const outerBow = bowPoints.map((p: any, i: number) => {
-      const before = p
-        .clone()
-        .sub(bowPoints[(i + bowPoints.length - 1) % bowPoints.length])
-        .normalize();
-      const after = bowPoints[(i + 1) % bowPoints.length]
-        .clone()
-        .sub(p)
-        .normalize();
-      const n0 = new THREE.Vector2(before.y, -before.x),
-        n1 = new THREE.Vector2(after.y, -after.x);
-      const normal = n0.clone().add(n1).normalize();
-      return p
-        .clone()
-        .addScaledVector(normal, PRESSURE_WALL / Math.max(0.5, normal.dot(n0)));
     });
-    const closures = buildChassisClosures(THREE, {
+    // Use the very same contour as the front frame. Offsetting separately
+    // sampled inner curves leaves slivers where their two approximations meet.
+    const outerBow = bowOutline.bowEnvelope.getPoints(64);
+    if (outerBow[0].distanceTo(outerBow[outerBow.length - 1]) < 1e-8)
+      outerBow.pop();
+    // Match the actual bevel join, not an independently approximated offset
+    // ellipse. Even a subpixel mismatch here produces a dotted overlap seam.
+    const facePositions = faceGeometry.getAttribute('position');
+    const join = new Map<string, any>();
+    for (let i = 0; i < facePositions.count; i++) {
+      if (Math.abs(facePositions.getZ(i) - PRESSURE_THROAT_START) > 1e-6)
+        continue;
+      const point = new THREE.Vector2(
+        facePositions.getX(i),
+        facePositions.getY(i),
+      );
+      join.set(`${point.x}:${point.y}`, point);
+    }
+    for (const point of outerBow) {
+      if (point.x > bowOutline.datums.bowTangentX + 1e-6) continue;
+      let nearest = point,
+        distance = 0.0001;
+      for (const candidate of join.values()) {
+        const d = candidate.distanceToSquared(point);
+        if (d < distance) {
+          nearest = candidate;
+          distance = d;
+        }
+      }
+      point.copy(nearest);
+    }
+    const closures = buildContinuousExteriorSkin(THREE, {
       datums: thinChassisOutline(THREE, {
         scale: s,
         thickness: PRESSURE_WALL,
@@ -3224,12 +3238,51 @@ export function createSpacecraft(
       outerBow,
       frontZ: PRESSURE_THROAT_START,
     });
-    for (const part of [
-      ...closures.surfaces,
-      ...closures.rears,
-      closures.rearBridge,
-    ])
+    for (const part of closures.surfaces)
       mesh(part.geometry, m.shell, frame, part.name);
+    // The inward side faces terminate on the same rounded outer envelope,
+    // removing the old square cap protrusions without moving a cabin datum.
+    const innerSide = closures.profiles
+      .sideOutlineAtX(rightX - PRESSURE_WALL)
+      .getPoints(1);
+    for (const [section, sign] of [
+      ['experience', 1],
+      ['contact', -1],
+    ] as const) {
+      const points: any[] = [];
+      for (let i = 0; i < innerSide.length; i++) {
+        const a = innerSide[i],
+          b = innerSide[(i + 1) % innerSide.length];
+        const da = sign * (a.y - LADDER_CENTER_Y);
+        const db = sign * (b.y - LADDER_CENTER_Y);
+        if (da >= 0) points.push(a.clone());
+        if (da >= 0 !== db >= 0) points.push(a.clone().lerp(b, da / (da - db)));
+      }
+      const geometry = new THREE.ShapeGeometry(new THREE.Shape(points));
+      const indices = geometry.index;
+      for (let i = 0; i < indices.count; i += 3) {
+        const v = indices.getX(i + 1);
+        indices.setX(i + 1, indices.getX(i + 2));
+        indices.setX(i + 2, v);
+      }
+      geometry.computeVertexNormals();
+      geometry.rotateY(Math.PI / 2);
+      geometry.translate(rightX - PRESSURE_WALL, 0, 0);
+      const roomFace = new THREE.Group();
+      roomFace.userData = {
+        section,
+        roomSurface: true,
+        surfaceOnly: true,
+        batchRoot: true,
+      };
+      frame.add(roomFace);
+      mesh(
+        geometry,
+        m.wall,
+        roomFace,
+        section + '-sealed-outboard-wall-interior',
+      );
+    }
     const bowVertices: number[] = [],
       bowIndices: number[] = [];
     for (const p of outerBow)
@@ -3246,13 +3299,13 @@ export function createSpacecraft(
       // The flat docking and shared cabin walls are already real thin panels.
       // Keep the outer shell only along the two curved shoulder portions.
       if (
-        Math.max(bowPoints[i].y, bowPoints[j].y) <
+        Math.max(outerBow[i].y, outerBow[j].y) <
           LADDER_CENTER_Y + LADDER_HALF_STRAIGHT &&
-        Math.min(bowPoints[i].y, bowPoints[j].y) >
+        Math.min(outerBow[i].y, outerBow[j].y) >
           LADDER_CENTER_Y - LADDER_HALF_STRAIGHT
       )
         continue;
-      if (Math.min(bowPoints[i].x, bowPoints[j].x) >= closures.replaceBowAfterX)
+      if (Math.min(outerBow[i].x, outerBow[j].x) >= closures.replaceBowAfterX)
         continue;
       // The outline runs counterclockwise; back-to-front quads must face
       // outward so the pressure skin stays visible from exterior tilt angles.
@@ -3347,7 +3400,8 @@ export function createSpacecraft(
       ladderAperture: {
         center: [ladderX, LADDER_CENTER_Y, 1.17],
         size: [1.33 * s, LADDER_HEIGHT],
-        leftRadii: [1.23 * s, LADDER_SHOULDER_RISE],
+        leftRadii: [LADDER_SHOULDER_RUN * s, LADDER_SHOULDER_RISE],
+        rightRadii: [LADDER_RIGHT_RADIUS * s, LADDER_RIGHT_RADIUS],
       },
       frontFace: {
         minZ: PRESSURE_FACE_FRONT - PRESSURE_WALL,
@@ -3877,9 +3931,9 @@ export function createSpacecraft(
     group.userData.walkwayProfile = {
       centerY: LADDER_CENTER_Y,
       height: LADDER_HEIGHT,
-      leftCornerRadius: 1.23 * layoutScale + PRESSURE_WALL,
+      leftCornerRadius: LADDER_SHOULDER_RUN * layoutScale + PRESSURE_WALL,
       leftShoulderRadii: [
-        1.23 * layoutScale + PRESSURE_WALL,
+        LADDER_SHOULDER_RUN * layoutScale + PRESSURE_WALL,
         LADDER_SHOULDER_RISE + PRESSURE_WALL,
       ],
       leftShoulderHeight: LADDER_SHOULDER_RISE + PRESSURE_WALL,
@@ -3887,13 +3941,16 @@ export function createSpacecraft(
       shoulderFraction:
         (2 * (LADDER_SHOULDER_RISE + PRESSURE_WALL)) /
         (LADDER_HEIGHT + PRESSURE_WALL * 2),
-      rightCornerRadius: 0.17 * layoutScale,
+      rightCornerRadius: LADDER_RIGHT_RADIUS * layoutScale,
       shellDepth: 2.42,
       rearLiner: {
         frontZ: -0.985,
         rearZ: -0.985 - PRESSURE_WALL,
-        sharedShoulders: [1.23, LADDER_SHOULDER_RISE],
-        innerShoulders: [1.15, LADDER_SHOULDER_RISE - 0.08],
+        sharedShoulders: [LADDER_SHOULDER_RUN, LADDER_SHOULDER_RISE],
+        innerShoulders: [
+          LADDER_SHOULDER_RUN - 0.08,
+          LADDER_SHOULDER_RISE - 0.08,
+        ],
         continuousReturn: true,
       },
       landings: [],

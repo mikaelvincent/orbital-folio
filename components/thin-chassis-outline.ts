@@ -8,7 +8,10 @@ import {
   LADDER_HEIGHT,
   LADDER_HALF_STRAIGHT,
   LADDER_SHOULDER_RISE,
+  LADDER_SHOULDER_RUN,
+  LADDER_RIGHT_RADIUS,
 } from '../lib/spacecraft-wall-layout.ts';
+import { ladderOpeningOutline } from './ladder-opening-outline.ts';
 
 /** One continuous pressure face, offset from fixed cabin interior datums. */
 export function thinChassisOutline(
@@ -31,7 +34,7 @@ export function thinChassisOutline(
   const rowHalfPitch = (ceiling - floor + t) / 2;
   const ladderX = -halfPitch - halfRoom - t - 0.69 * s;
   const left = ladderX - 0.665 * s - coreOffset;
-  const tangent = ladderX + 0.565 * s;
+  const tangent = ladderX + (LADDER_SHOULDER_RUN - 0.665) * s;
   const right = halfPitch + halfRoom + coreOffset;
   const noseTop = LADDER_CENTER_Y + LADDER_HEIGHT / 2 + coreOffset;
   const noseBottom = LADDER_CENTER_Y - LADDER_HEIGHT / 2 - coreOffset;
@@ -42,11 +45,11 @@ export function thinChassisOutline(
   const stepEndX = stepStartX + stepWidth;
   const cornerX = 0.35 * s + coreOffset;
   const cornerY = 0.35 + coreOffset;
-  const leftRadiusX = 1.23 * s + coreOffset;
+  const leftRadiusX = LADDER_SHOULDER_RUN * s + coreOffset;
   const leftRadiusY = LADDER_SHOULDER_RISE + coreOffset;
   const upperTangentY = LADDER_CENTER_Y + LADDER_HALF_STRAIGHT;
   const lowerTangentY = LADDER_CENTER_Y - LADDER_HALF_STRAIGHT;
-  const k = 0.5522847498;
+  const k = 0.5522847498307936;
   const outer = new THREE.Shape();
   outer.moveTo(tangent, noseBottom);
   outer.lineTo(stepStartX, noseBottom);
@@ -121,45 +124,26 @@ export function thinChassisOutline(
 
   // The bow and cabin tops share one tangent roof line. The bottom is its
   // exact reflection around the combined deck center; neither end needs a hump.
-  const lh = new THREE.Path();
-  const ll = ladderX - 0.665 * s - b;
-  const lr = ladderX + ladderFrontRight * s + b;
-  const lt = LADDER_CENTER_Y + LADDER_HEIGHT / 2 + b;
-  const lb = LADDER_CENTER_Y - LADDER_HEIGHT / 2 - b;
-  const lrx = 1.23 * s + b;
-  const lry = LADDER_SHOULDER_RISE + b;
-  const rrx = 0.04 * s + b;
-  const rry = 0.04 + b;
-  lh.moveTo(tangent, lb);
-  lh.lineTo(lr - rrx, lb);
-  lh.quadraticCurveTo(lr, lb, lr, lb + rry);
-  lh.lineTo(lr, lt - rry);
-  lh.quadraticCurveTo(lr, lt, lr - rrx, lt);
-  lh.lineTo(tangent, lt);
-  lh.bezierCurveTo(
-    tangent - lrx * k,
-    lt,
-    ll,
-    upperTangentY + lry * k,
-    ll,
-    upperTangentY,
-  );
-  lh.lineTo(ll, lowerTangentY);
-  lh.bezierCurveTo(
-    ll,
-    lowerTangentY - lry * k,
-    tangent - lrx * k,
-    lb,
-    tangent,
-    lb,
-  );
-  lh.closePath();
+  const ladderContour = (offset: number) =>
+    ladderOpeningOutline(new THREE.Path(), {
+      width: 1.33 * s + 2 * offset,
+      height: LADDER_HEIGHT + 2 * offset,
+      leftWidth: LADDER_SHOULDER_RUN * s + offset,
+      leftHeight: LADDER_SHOULDER_RISE + offset,
+      rightRadius: LADDER_RIGHT_RADIUS * s + offset,
+      rightRadiusY: LADDER_RIGHT_RADIUS + offset,
+      rightEdge: ladderFrontRight * s + offset,
+      centerX: ladderX,
+      centerY: LADDER_CENTER_Y,
+    });
+  const lh = ladderContour(b);
   outer.holes.push(lh);
 
   return {
     outer,
     roomHoles,
     ladderHole: lh,
+    bowEnvelope: ladderContour(coreOffset),
     extrusion: {
       // Finished front-to-back thickness is also T. Pick the desired mounting
       // center explicitly; never retain the old .22+.07 face depth by accident.
@@ -168,7 +152,7 @@ export function thinChassisOutline(
       bevelSize: b,
       bevelThickness: b,
       bevelSegments: 3,
-      curveSegments: 32,
+      curveSegments: 64,
       steps: 1,
     },
     datums: {
@@ -181,6 +165,7 @@ export function thinChassisOutline(
       floor,
       ceiling,
       ladderX,
+      bowTangentX: tangent,
       left,
       right,
       noseTop,

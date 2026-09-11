@@ -18,6 +18,9 @@ export const LADDER_CENTER_Y = (CABIN_CEILING + CABIN_FLOOR) / 2;
 export const LADDER_HEIGHT = 2 * DECK_HALF_PITCH + CABIN_CEILING - CABIN_FLOOR;
 export const LADDER_HALF_STRAIGHT = 1.05;
 export const LADDER_SHOULDER_RISE = LADDER_HEIGHT / 2 - LADDER_HALF_STRAIGHT;
+// Leave a short tangent run between the elliptical bow and the rounded jamb.
+export const LADDER_SHOULDER_RUN = 1.03;
+export const LADDER_RIGHT_RADIUS = 0.25;
 export const LADDER_CONTENT_SCALE = 0.9;
 export const LADDER_CONTENT_OFFSET =
   LADDER_CENTER_Y - 0.01 * LADDER_CONTENT_SCALE;

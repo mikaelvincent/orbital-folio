@@ -108,7 +108,7 @@ test('Rendered cabin, ladder and docking partitions measure 0.17 in both layouts
     const datums = wallLayout(scale);
     const partitions = meshesMatching(
       model.group,
-      /open-side-pressure-bulkhead|sealed-outboard-wall|walkway-twin-open-room-wall|walkway-open-docking-wall|walkway-(?:projects|about)-cabin-facing-wall/,
+      /open-side-pressure-bulkhead|sealed-outboard-wall|continuous-rounded-outboard-wall|walkway-twin-open-room-wall|walkway-open-docking-wall|walkway-(?:projects|about)-cabin-facing-wall/,
     );
     const probes = [
       {
@@ -187,7 +187,10 @@ test('Rendered roofs, floors and the shared deck retain 0.17 walls around unchan
   for (const [layout] of layouts) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
-    const skins = meshesMatching(model.group, /continuous-pressure-skin/);
+    const skins = meshesMatching(
+      model.group,
+      /continuous-pressure-skin|continuous-exterior-(?:roof|keel)/,
+    );
     const a = model.group.userData.roomAnchors;
     for (const section of sections) {
       const [x, y] = a[section];

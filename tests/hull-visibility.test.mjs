@@ -21,7 +21,7 @@ for (const [layout, scale] of [
       `${layout}-common-pressure-frame`,
     );
     const { datums } = thinChassisOutline(THREE, { scale, bevel: 0 });
-    const tangentX = datums.ladderX + 0.565 * scale;
+    const tangentX = datums.bowTangentX;
     const hulls = [];
     frame.traverse((object) => {
       if (
