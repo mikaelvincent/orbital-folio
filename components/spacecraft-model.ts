@@ -165,7 +165,8 @@ export function createSpacecraft(
   const structures: Record<string, any> = {};
   const contents: Record<string, any> = {};
   const labelMounts = new Map<any, any>();
-  const walkwayCouplings: any[] = [];
+  const passageCouplings: Array<{ group: any; walkway: boolean; y: number }> =
+    [];
   const portalTargets: Array<{
     object: any;
     section: string;
@@ -1987,8 +1988,8 @@ export function createSpacecraft(
   group.add(utility);
   function circularCoupling(depth: number) {
     const shape = new THREE.Shape();
-    shape.absarc(0, 0, 1.005, 0, Math.PI * 2, false);
-    shape.holes.push(passageCircle());
+    shape.absarc(0, 0, passageWallClear / 2 + 0.018, 0, Math.PI * 2, false);
+    shape.holes.push(passageCircle(0, 0, passageClear / 2 + 0.004));
     const geometry = new THREE.ExtrudeGeometry(shape, {
       depth,
       bevelEnabled: false,
@@ -1999,38 +2000,39 @@ export function createSpacecraft(
     return geometry;
   }
   for (const yy of [1.64, -1.76]) {
-    const coupledLiner = thresholdLiner.clone();
-    coupledLiner.userData.linkedRooms =
-      yy > 0 ? ['projects', 'experience'] : ['about', 'contact'];
-    const walkwayLiner = thresholdLiner.clone();
-    walkwayLiner.userData.linkedRooms = [
-      yy > 0 ? 'projects' : 'about',
-      'walkway',
-    ];
-    const sleeve = mesh(
-      circularCoupling(0.35),
-      coupledLiner,
-      utility,
-      'open-horizontal-pressure-coupling',
-    );
-    sleeve.rotation.y = Math.PI / 2;
-    sleeve.position.set(0, yy, passageCenterZ);
-    const coupling = new THREE.Group();
-    coupling.userData = {
-      section: 'walkway',
-      batchRoot: true,
-      excludePick: true,
-    };
-    utility.add(coupling);
-    walkwayCouplings.push(coupling);
-    const tube = mesh(
-      circularCoupling(0.3),
-      walkwayLiner,
-      coupling,
-      'open-walkway-room-coupling',
-    );
-    tube.rotation.y = Math.PI / 2;
-    tube.position.set(0, yy, passageCenterZ);
+    const room = yy > 0 ? 'projects' : 'about';
+    for (const viaWalkway of [false, true]) {
+      const liner = m.gasket.clone();
+      liner.name = 'continuous-graphite-passage-liner';
+      liner.roughness = 0.82;
+      liner.metalness = 0;
+      liner.userData.surfaceOnly = true;
+      liner.userData.roomSurface = true;
+      liner.userData.neutralPaint = true;
+      liner.userData.linkedRooms = [
+        room,
+        viaWalkway ? 'walkway' : yy > 0 ? 'experience' : 'contact',
+      ];
+      const coupling = new THREE.Group();
+      coupling.name = `${room}-${viaWalkway ? 'ladder' : 'cabin'}-continuous-passage`;
+      coupling.userData = {
+        section: room,
+        batchRoot: true,
+        excludePick: true,
+        passageLiner: true,
+      };
+      utility.add(coupling);
+      passageCouplings.push({ group: coupling, walkway: viaWalkway, y: yy });
+      // One full-depth sleeve hides the independently lit wall reveals. Its
+      // shared finish and dimmer cannot split at the boundary between rooms.
+      const tube = mesh(
+        circularCoupling(1),
+        liner,
+        coupling,
+        'continuous-graphite-passage-reveal',
+      );
+      tube.rotation.y = Math.PI / 2;
+    }
   }
   // Projects is a static category workshop. The previous individual-project
   // lockers and their pick surfaces disappear with the replaced furnishings.
@@ -2894,8 +2896,8 @@ export function createSpacecraft(
   group.userData.branding = [];
   group.userData.circulation = ['experience', 'projects', 'about', 'contact'];
 
-  // Six inward-facing irises serve the C route. The old rectangular coamings
-  // are gone: a recessed mechanism sits in the side wall's circular opening.
+  // Six directed routes retain their room-facing iris and sign. Ladder routes
+  // also carry a mirrored stairwell assembly, giving every passage two sets.
   const portalConnections = [
     ['experience', 'projects', 'left'],
     ['projects', 'experience', 'right'],
@@ -2937,26 +2939,38 @@ export function createSpacecraft(
     bladeSource.userData.linkedRooms = viaWalkway
       ? [from, 'walkway']
       : [from, to];
+    signalSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
     const rimSource = m.gasket.clone();
+    rimSource.roughness = 0.82;
+    rimSource.metalness = 0;
+    rimSource.userData.neutralPaint = true;
+    rimSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
     bladeSource.name = 'iris-enamel-' + id;
     rimSource.name = 'iris-guide-' + id;
-    const iris = buildIrisHatch(THREE, {
+    const irisOptions = {
       radius: passageClear / 2,
       bladeMaterial: roomMat(bladeSource, from, false, true),
       rimMaterial: roomMat(rimSource, from, false, true),
       accentMaterial: roomMat(signalSource, from, false, true),
-    });
-    iris.group.userData.irisHatch = true;
-    iris.group.traverse((part: any) => {
-      part.userData.section = from;
-      part.userData.excludePick = true;
-    });
-    opening.add(iris.group);
-    roomMaterials[from].push(...iris.materials);
+    };
+    const iris = buildIrisHatch(THREE, irisOptions);
+    const backIris = viaWalkway ? buildIrisHatch(THREE, irisOptions) : null;
+    const irises = backIris ? [iris, backIris] : [iris];
     const irisMaterials = new Set<any>();
-    iris.group.traverse((part: any) => {
-      if (part.isMesh) irisMaterials.add(part.material);
-    });
+    for (const assembly of irises) {
+      assembly.group.userData.irisHatch = true;
+      assembly.group.userData.physicalHatch = viaWalkway
+        ? id
+        : [from, to].sort().join(':');
+      assembly.group.traverse((part: any) => {
+        part.userData.section = from;
+        part.userData.excludePick = true;
+        if (part.isMesh) irisMaterials.add(part.material);
+      });
+      opening.add(assembly.group);
+      roomMaterials[from].push(...assembly.materials);
+    }
+    if (backIris) backIris.group.rotation.y = Math.PI;
     // Navigation plaques sit literally above the side door, on the same
     // inward-facing wall plane. They are distinct from the frontal room title.
     const caption = new THREE.Group();
@@ -3053,6 +3067,7 @@ export function createSpacecraft(
       openProgress: 0,
       doorType: 'integrated-iris',
       raisedDoorFrame: false,
+      bladeSetCount: 2,
       label: options.labels?.[to] || to,
       waypoints: [],
     };
@@ -3067,6 +3082,8 @@ export function createSpacecraft(
       pick,
       metadata,
       iris,
+      irises,
+      backIris,
       irisMaterials,
       doorMotion: { value: 0, velocity: 0 },
       strength: 0,
@@ -3838,9 +3855,17 @@ export function createSpacecraft(
     dockingInterior.position.set(-0.75 * layoutScale + dockingInset, 0.03, 0);
     walkwayStructure.scale.set(layoutScale, 1, 1);
     walkwayFurniture.scale.set(layoutScale, 1, 1);
-    walkwayCouplings.forEach(
-      (part) => (part.position.x = -halfPitch - 1.5 * layoutScale - 0.1),
-    );
+    const roomHatchPlane = -halfPitch - 1.43 * layoutScale + 0.002;
+    const ladderHatchPlane = walkwayX + 0.69 * layoutScale - 0.002;
+    for (const entry of passageCouplings) {
+      const near = entry.walkway
+        ? roomHatchPlane
+        : halfPitch - 1.43 * layoutScale + 0.002;
+      const far = entry.walkway ? ladderHatchPlane : -near;
+      entry.group.position.set((near + far) / 2, entry.y, passageCenterZ);
+      // Ends sit beneath the two recessed guides, never on top of the wall.
+      entry.group.scale.set(Math.abs(near - far) - 0.008, 1, 1);
+    }
     docking.position.x = dockingWallX + 4.5;
     service.position.x = -1.5 + outward;
     group.userData.dockingAnchor = [docking.position.x - 5.137, 0.208, 1.05];
@@ -3892,6 +3917,8 @@ export function createSpacecraft(
         -0.06,
         passageCenterZ,
       );
+      if (portal.backIris)
+        portal.backIris.group.position.z = ladderHatchPlane - roomHatchPlane;
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
         sign * (1.4 * layoutScale - 0.085),
@@ -4386,10 +4413,17 @@ export function createSpacecraft(
       }
       // A warm painted guide makes the navigation target unambiguous without
       // adding a separate doorway light or brightening the surrounding wall.
-      portal.iris.rim.material.color
-        .copy(portal.iris.rim.material.userData.baseColor)
-        .lerp(paintedHover, portal.strength * 0.82)
-        .multiplyScalar(roomDimmers[portal.from]);
+      for (const iris of portal.irises)
+        iris.rim.material.color
+          .copy(iris.rim.material.userData.baseColor)
+          .lerp(paintedHover, portal.strength * 0.82)
+          .multiplyScalar(
+            Math.max(
+              ...iris.rim.material.userData.linkedRooms.map(
+                (room: string) => roomDimmers[room],
+              ),
+            ),
+          );
       const doorGoal = currentState.openPortalIds?.includes(portal.id) ? 1 : 0;
       if (currentState.immediateDoors || instantHighlight) {
         portal.doorMotion.value = doorGoal;
@@ -4409,7 +4443,7 @@ export function createSpacecraft(
         }
       }
       const openingProgress = Math.max(0, Math.min(1, portal.doorMotion.value));
-      portal.iris.setOpen(openingProgress);
+      for (const iris of portal.irises) iris.setOpen(openingProgress);
       portal.metadata.openProgress = openingProgress;
       portal.metadata.open = openingProgress >= 0.999;
       portal.metadata.sealed = openingProgress <= 0.001;
@@ -4429,7 +4463,10 @@ export function createSpacecraft(
   setCaseStudyPage(0);
   update(0, '', true);
   group.userData.portals = portals.map((p) => p.metadata);
-  group.userData.irisHatches = portals.map((p) => p.iris.group);
+  group.userData.irisHatches = portals.flatMap((p) =>
+    p.irises.map((iris: any) => iris.group),
+  );
+  group.userData.passageLinings = passageCouplings.map((entry) => entry.group);
   group.userData.adjacency = adjacency;
   group.userData.activeRoute = [];
   setLayout(options.layout || 'wide');

@@ -7,7 +7,7 @@ import { requiredPortalIds, interlockPortals } from '../lib/iris-navigation.ts';
 test('Integrated hatches replace coamings, stay closed on hover, and preserve room lighting', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const portals = model.group.userData.portals;
-  assert.equal(model.group.userData.irisHatches.length, 6);
+  assert.equal(model.group.userData.irisHatches.length, 8);
   const parts = [];
   model.group.traverse((o) => parts.push(o.name, ...(o.userData.parts || [])));
   assert.ok(
@@ -87,6 +87,19 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
         .size <= 1,
       'Physical hatches cannot overlap their opening intervals',
     );
+  const assertPairedMotion = () => {
+    const progress = new Map();
+    for (const hatch of model.group.userData.irisHatches) {
+      const key = hatch.userData.physicalHatch;
+      if (progress.has(key))
+        assert.equal(
+          hatch.userData.openProgress,
+          progress.get(key),
+          'Both blade sets of a passage must move together',
+        );
+      progress.set(key, hatch.userData.openProgress);
+    }
+  };
   const legs = [
     ['projects:about'],
     [],
@@ -99,6 +112,7 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
       const gate = interlockPortals(portals, wanted);
       step(gate.openPortalIds);
       assertOne();
+      assertPairedMotion();
       if (!gate.waiting) {
         ready = true;
         break;
@@ -134,6 +148,89 @@ test('Actual C-route opens one physical hatch at a time, reverses smoothly, and 
     portals.every((p) => p.sealed),
     'Reduced motion/resize cannot retain an opening',
   );
+});
+
+test('Every physical passage has two opposing blade assemblies and one continuous dark liner', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  for (const layout of ['wide', 'compact', 'wide']) {
+    model.setLayout(layout);
+    const pairs = new Map();
+    for (const hatch of model.group.userData.irisHatches) {
+      const id = hatch.userData.physicalHatch;
+      pairs.set(id, [...(pairs.get(id) || []), hatch]);
+    }
+    assert.equal(pairs.size, 4);
+    assert.equal(model.group.userData.passageLinings.length, 4);
+    for (const [id, hatches] of pairs) {
+      assert.equal(hatches.length, 2, `${id} needs blades on both faces`);
+      const positions = hatches
+        .map((h) => h.getWorldPosition(new THREE.Vector3()))
+        .sort((a, b) => a.x - b.x);
+      const normals = hatches.map((h) =>
+        new THREE.Vector3(0, 0, 1).transformDirection(h.matrixWorld),
+      );
+      assert.ok(
+        normals[0].dot(normals[1]) < -0.9999,
+        'The two guides face their respective cabins',
+      );
+      assert.ok(
+        Math.abs(positions[0].y - positions[1].y) < 1e-6 &&
+          Math.abs(positions[0].z - positions[1].z) < 1e-6,
+      );
+      const center = positions[0].clone().add(positions[1]).multiplyScalar(0.5);
+      const liner = model.group.userData.passageLinings.find(
+        (g) =>
+          g.getWorldPosition(new THREE.Vector3()).distanceTo(center) < 0.001,
+      );
+      assert.ok(liner, `${id} must have a centered continuous liner`);
+      const box = new THREE.Box3().setFromObject(liner);
+      assert.ok(Math.abs(box.min.x - positions[0].x - 0.004) < 1e-5);
+      assert.ok(Math.abs(box.max.x - positions[1].x + 0.004) < 1e-5);
+      const materials = new Set();
+      // Radial rays along the full tunnel length detect any missing sleeve or
+      // per-room seam. End samples sit beneath the recessed guide rings.
+      for (const fraction of [0.04, 0.25, 0.5, 0.75, 0.96]) {
+        const x = THREE.MathUtils.lerp(
+          positions[0].x,
+          positions[1].x,
+          fraction,
+        );
+        for (let i = 0; i < 24; i++) {
+          const angle = (i * Math.PI) / 12;
+          const ray = new THREE.Raycaster(
+            new THREE.Vector3(x, center.y, center.z),
+            new THREE.Vector3(0, Math.cos(angle), Math.sin(angle)),
+            0,
+            1.1,
+          );
+          const hit = ray.intersectObject(liner, true)[0];
+          assert.ok(hit, `${id} liner must cover every angle and depth`);
+          assert.ok(Math.abs(hit.distance - 0.924) < 0.001);
+          materials.add(hit.object.material);
+        }
+      }
+      assert.equal(
+        materials.size,
+        1,
+        'The tunnel must not split into differently lit sections',
+      );
+      const material = [...materials][0];
+      assert.equal(material.userData.baseColor.getHex(), 0x2b3948);
+      assert.equal(material.userData.exterior, false);
+      const [a, b] = material.userData.linkedRooms;
+      model.update(1, '', true, { activeRoom: a, transitWalkway: false });
+      const fromA = material.color.clone();
+      model.update(2, '', true, {
+        activeRoom: b === 'walkway' ? '' : b,
+        transitWalkway: b === 'walkway',
+      });
+      assert.ok(
+        fromA.equals(material.color),
+        'The finish cannot swap when the viewing room changes',
+      );
+      assert.equal(material.emissive.getHex(), 0);
+    }
+  }
 });
 
 test('Both wall faces use cabin paint and both blade faces share white non-emissive paint', () => {
