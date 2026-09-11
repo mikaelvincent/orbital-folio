@@ -15,7 +15,7 @@ import {
 } from '@/lib/flight';
 import type * as Three from 'three';
 import { planCabinItinerary, type CabinRouteNode } from '@/lib/cabin-itinerary';
-import { requiredPortalIds } from '@/lib/iris-navigation';
+import { requiredPortalIds, interlockPortals } from '@/lib/iris-navigation';
 import {
   beginBoundedDrag,
   updateBoundedDrag,
@@ -757,8 +757,17 @@ export function Spacecraft(props: Props) {
           let lastSettledSection = 'home';
           let itineraryPlan: unknown = null;
           let openPortalIds: string[] = [];
+          let legPortalIds: string[] = [];
+          let cabinFlight = false;
           const doorHoldTarget = new THREE.Vector3();
           const aim = (desired: FlightPose) => {
+            doorHoldTarget.copy(currentTarget);
+            legPortalIds = cabinFlight
+              ? requiredPortalIds(model.group.userData.portals, [
+                  currentTarget.toArray() as Vec3,
+                  desired.target.toArray() as Vec3,
+                ])
+              : [];
             nextTarget.copy(desired.target);
             nextDirection.copy(desired.direction);
             nextDistance = desired.distance;
@@ -795,6 +804,8 @@ export function Spacecraft(props: Props) {
             travelledRoute = [];
             itineraryPlan = null;
             openPortalIds = [];
+            legPortalIds = [];
+            cabinFlight = false;
             doorHoldTarget.copy(currentTarget);
             if (
               !immediate &&
@@ -846,10 +857,7 @@ export function Spacecraft(props: Props) {
               );
               if (plan) {
                 itineraryPlan = plan;
-                openPortalIds = requiredPortalIds(
-                  model.group.userData.portals,
-                  [currentTarget.toArray() as Vec3, ...plan.points],
-                );
+                cabinFlight = true;
                 const between = nodes
                   .map((node, index) => ({ node, index }))
                   .filter(
@@ -888,6 +896,7 @@ export function Spacecraft(props: Props) {
               travelledRoute = [];
               itineraryPlan = { kind: 'portrait-clearance', clearance };
               openPortalIds = [];
+              cabinFlight = false;
             }
             itinerary.push(desired);
             const overviewBounds = model.group.userData.overviewBounds;
@@ -935,13 +944,12 @@ export function Spacecraft(props: Props) {
             }
             if (travelling) {
               const immediate = flightImmediate || stop;
-              const waitingForDoors =
-                !immediate &&
-                openPortalIds.some(
-                  (id) =>
-                    (model.group.userData.portals.find((p: any) => p.id === id)
-                      ?.openProgress ?? 0) < 0.999,
-                );
+              const interlock = interlockPortals(
+                model.group.userData.portals,
+                immediate ? [] : legPortalIds,
+              );
+              openPortalIds = interlock.openPortalIds;
+              const waitingForDoors = interlock.waiting;
               el.dataset.waitingForDoors = String(waitingForDoors);
               const beforeRoll = roll;
               if (immediate) {
@@ -1033,6 +1041,8 @@ export function Spacecraft(props: Props) {
                 } else {
                   travelling = false;
                   openPortalIds = [];
+                  legPortalIds = [];
+                  cabinFlight = false;
                   el.dataset.travelling = 'false';
                   el.dataset.waitingForDoors = 'false';
                   lastSettledSection = active;

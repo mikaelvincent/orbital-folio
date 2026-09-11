@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { requiredPortalIds } from '../lib/iris-navigation.ts';
+import { requiredPortalIds, interlockPortals } from '../lib/iris-navigation.ts';
 
 const portal = (from, to, x, y) => ({
   id: `${from}:${to}`,
@@ -30,7 +30,21 @@ test('An adjacent cabin route opens both door faces and no other connection', ()
   );
 });
 
-test('Ladder passage opens both physically separate entrances', () => {
+test('Ladder route identifies both entrances without coupling their individual legs', () => {
+  assert.deepEqual(
+    requiredPortalIds(portals, [
+      [-1.7, 1.7, 0],
+      [-4, 1.7, 0],
+    ]),
+    ['projects:about'],
+  );
+  assert.deepEqual(
+    requiredPortalIds(portals, [
+      [-4, -1.7, 0],
+      [-1.7, -1.7, 0],
+    ]),
+    ['about:projects'],
+  );
   assert.deepEqual(
     requiredPortalIds(portals, [
       [-1.7, 1.7, 0],
@@ -42,7 +56,7 @@ test('Ladder passage opens both physically separate entrances', () => {
   );
 });
 
-test('A full nonadjacent itinerary opens every C-route connection', () => {
+test('A full nonadjacent itinerary identifies every C-route connection', () => {
   assert.deepEqual(
     requiredPortalIds(portals, [
       [1.7, 1.7, 0],
@@ -75,15 +89,52 @@ test('Retargeting inside a threshold keeps both faces clear without stale route 
   );
 });
 
-test('Retargeting from within the ladder retains only its entrance pair', () => {
+test('Retargeting from within the ladder retains only the approached entrance', () => {
   assert.deepEqual(
     requiredPortalIds(portals, [
       [-4, 0, 0],
       [-4, 1.7, 0],
       [-1.7, 1.7, 0],
     ]),
-    ['projects:about', 'about:projects'],
+    ['projects:about'],
   );
+});
+
+test('Interlock closes the previous hatch before starting the next', () => {
+  const states = portals.map((p) => ({
+    ...p,
+    openProgress: p.id === 'projects:about' ? 0.3 : 0,
+  }));
+  assert.deepEqual(interlockPortals(states, ['about:projects']), {
+    openPortalIds: [],
+    waiting: true,
+  });
+  assert.deepEqual(
+    interlockPortals(states, []),
+    { openPortalIds: [], waiting: false },
+    'Door-free ladder travel continues during closure',
+  );
+  states.find((p) => p.id === 'projects:about').openProgress = 0;
+  assert.deepEqual(interlockPortals(states, ['about:projects']), {
+    openPortalIds: ['about:projects'],
+    waiting: true,
+  });
+  states.find((p) => p.id === 'about:projects').openProgress = 1;
+  assert.deepEqual(interlockPortals(states, ['about:projects']), {
+    openPortalIds: ['about:projects'],
+    waiting: false,
+  });
+});
+
+test('A retarget through the current physical hatch does not close it', () => {
+  const states = portals.map((p) => ({
+    ...p,
+    openProgress: p.id === 'projects:about' ? 0.7 : 0,
+  }));
+  assert.deepEqual(interlockPortals(states, ['projects:about']), {
+    openPortalIds: ['projects:about'],
+    waiting: true,
+  });
 });
 
 test('Plane crossing outside the circular aperture does not open a door', () => {

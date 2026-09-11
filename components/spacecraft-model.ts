@@ -377,6 +377,21 @@ export function createSpacecraft(
       clone.userData.baseColor = original.color.clone();
       clone.userData.baseIntensity = original.emissiveIntensity;
       clone.userData.highlightScale = original.userData.highlightScale ?? 0.035;
+      if (original.name === m.wall.name || original.userData.neutralPaint) {
+        // Keep diffuse shading and shadows, but suppress the blue rim / amber
+        // key's color cast on cabin paint. Opposite faces should read as the
+        // same ivory wall or white shutter, rather than different finishes.
+        clone.onBeforeCompile = (shader: any) => {
+          shader.fragmentShader = shader.fragmentShader.replace(
+            'vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;',
+            `vec3 paintIrradiance = totalDiffuse / max(diffuseColor.rgb, vec3(0.0001));
+             float paintLuminance = dot(paintIrradiance, vec3(0.2126, 0.7152, 0.0722));
+             totalDiffuse = mix(totalDiffuse, diffuseColor.rgb * paintLuminance, 0.9);
+             vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;`,
+          );
+        };
+        clone.customProgramCacheKey = () => 'neutral-cabin-paint-v1';
+      }
       roomMaterials[section].push(clone);
       materials.set(key, clone);
     }
@@ -560,11 +575,18 @@ export function createSpacecraft(
     parent.add(assembly);
     // The common chassis replaces only the external faces of the former pods.
     // Their interior triangles retain their original geometry and materials.
+    const cabinPartition =
+      /open-side-pressure-bulkhead|walkway-twin-open-room-wall/.test(name);
     if (
       !name.endsWith('-continuous-pressure-skin') &&
       !name.endsWith('-sealed-outboard-wall')
     )
-      mesh(pair[0], material, assembly, name + '-exterior');
+      mesh(
+        pair[0],
+        cabinPartition ? m.wall : material,
+        assembly,
+        name + (cabinPartition ? '-other-room-interior' : '-exterior'),
+      );
     const insideMaterial =
       /continuous-pressure-skin|sealed-outboard-wall|open-side-pressure-bulkhead|walkway-(twin-open-room|open-docking)-wall/.test(
         name,
@@ -1297,7 +1319,7 @@ export function createSpacecraft(
 
   const thresholdLiner = mat(
     'passage-borrowed-light-liner',
-    palette.chalk,
+    palette.ivory,
     0.82,
     0,
     {
@@ -1307,6 +1329,7 @@ export function createSpacecraft(
   );
   thresholdLiner.userData.surfaceOnly = true;
   thresholdLiner.userData.roomSurface = true;
+  thresholdLiner.userData.neutralPaint = true;
   for (const section of Object.keys(roomCenters)) {
     const origin = legacyCenters[section];
     for (const sign of [-1, 1]) {
@@ -1768,8 +1791,8 @@ export function createSpacecraft(
     }
   }
   function shareWalkwayDoorwayLighting(wall: any) {
-    const interior = wall.children.find((part: any) =>
-      part.name.endsWith('-interior'),
+    const interior = wall.children.find(
+      (part: any) => part.name === 'walkway-twin-open-room-wall-interior',
     );
     const original = interior.geometry;
     const p = original.getAttribute('position');
@@ -2905,6 +2928,15 @@ export function createSpacecraft(
     opening.userData = { section: from, batchRoot: true };
     visual.add(opening);
     const bladeSource = m.chalk.clone();
+    // Neutral white paint on every cap and edge, with shared passage lighting
+    // on the two visible faces. The surrounding partition stays cabin ivory.
+    bladeSource.color.set(0xffffff);
+    bladeSource.roughness = 0.72;
+    bladeSource.metalness = 0;
+    bladeSource.userData.neutralPaint = true;
+    bladeSource.userData.linkedRooms = viaWalkway
+      ? [from, 'walkway']
+      : [from, to];
     const rimSource = m.gasket.clone();
     bladeSource.name = 'iris-enamel-' + id;
     rimSource.name = 'iris-guide-' + id;
@@ -4364,9 +4396,9 @@ export function createSpacecraft(
         portal.doorMotion.velocity = 0;
       } else {
         moveCameraAxis(portal.doorMotion, doorGoal, dt, {
-          frequency: 12,
-          speed: 2.8,
-          acceleration: 14,
+          frequency: doorGoal ? 15 : 12,
+          speed: doorGoal ? 3.5 : 2.8,
+          acceleration: doorGoal ? 20 : 14,
         });
         if (
           Math.abs(portal.doorMotion.value - doorGoal) < 0.001 &&

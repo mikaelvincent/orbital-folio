@@ -84,14 +84,46 @@ export function requiredPortalIds(
 
     if (!crossed) continue;
     selected.add(portal.id);
-    // Adjacent cabins expose opposite faces of one hatch. The ladder route has
-    // an entrance at each end. In both cases the complete connection must open.
+    // Adjacent cabins expose two faces of one physical hatch. The reciprocal
+    // ladder entrance is in the other row, so it is a separate door.
     for (const reciprocal of portals)
-      if (reciprocal.from === portal.to && reciprocal.to === portal.from)
+      if (
+        reciprocal.from === portal.to &&
+        reciprocal.to === portal.from &&
+        Math.abs(reciprocal.position[0] - x) < 0.65 &&
+        Math.hypot(reciprocal.position[1] - y, reciprocal.position[2] - z) <
+          0.05
+      )
         selected.add(reciprocal.id);
   }
 
   return [
     ...new Set(portals.filter((p) => selected.has(p.id)).map((p) => p.id)),
   ];
+}
+
+/** Interlock one itinerary leg. Finish closing the preceding physical hatch
+ * before opening the next; the camera can still move along a door-free leg.
+ * Retargeting through the current hatch preserves its open intent.
+ */
+export function interlockPortals(
+  portals: readonly { id: string; openProgress?: number }[],
+  requiredIds: readonly string[],
+) {
+  const required = new Set(requiredIds);
+  const closingPrevious = portals.some(
+    (p) => !required.has(p.id) && (p.openProgress ?? 0) > 0.001,
+  );
+  const openPortalIds = requiredIds.filter(
+    (id) =>
+      !closingPrevious ||
+      (portals.find((p) => p.id === id)?.openProgress ?? 0) > 0.001,
+  );
+  const waiting =
+    requiredIds.length > 0 &&
+    (closingPrevious ||
+      requiredIds.some(
+        (id) => (portals.find((p) => p.id === id)?.openProgress ?? 0) < 0.999,
+      ));
+  return { openPortalIds, waiting };
 }
