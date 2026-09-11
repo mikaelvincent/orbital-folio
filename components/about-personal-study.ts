@@ -785,7 +785,7 @@ export function buildAboutPersonalStudy(
     'personal-note',
     'curiosity-note',
   ].entries())
-    note(kind, 0.32 + (index - 1) * 0.434, 1.6, 0.3, 0.28);
+    note(kind, 0.32 + (index - 1) * 0.434, 1.575, 0.3, 0.28);
 
   // Fold-down desk, same working elevation as Contact. Supports are continuous
   // from the wall to the underside, leaving open knees and an unobstructed aisle.

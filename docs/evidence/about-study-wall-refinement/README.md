@@ -11,3 +11,5 @@ Baseline: `c451e33`.
 `01-desktop.png` and `02-oblique.png` show the layout before the final photo-height adjustment. `03-final-desktop.png` and `04-final-portrait.png` show the completed room. Screenshots are from the running application and were only losslessly converted to PNG as needed.
 
 Production build, type check and whitespace check passed. Browser warning/error log was empty during final inspection. Existing build-tool deprecation, size and route-classification notices remain. No new interactions, animations, camera changes or other-room changes were made. The local preview remains running.
+
+Follow-up: lowered the complete poster row from 1.60 to 1.575 to balance its visible clearance to the library/photo above and the open journal below. `05-centered-posters.png` shows this final vertical spacing. The production build and diff check passed again.
