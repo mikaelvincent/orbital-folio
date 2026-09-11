@@ -67,6 +67,47 @@ for (const [layout, scale] of [
   ['wide', 1.4],
   ['compact', 1],
 ]) {
+  test(`${layout} exterior service housing stays behind the cabin sidewall`, () => {
+    const { meshes, datums: d } = selectHull(layout, scale);
+    const insideX = d.right - d.thickness;
+    const hulls = meshes.filter((object) =>
+      [object.name, ...(object.userData.parts || [])].includes(
+        'aft-service-pressure-hull',
+      ),
+    );
+    assert.ok(hulls.length > 0, 'Inspect the actual rendered service housing');
+    for (const hull of hulls) {
+      const positions = hull.geometry.getAttribute('position');
+      for (let i = 0; i < positions.count; i++) {
+        const point = new THREE.Vector3()
+          .fromBufferAttribute(positions, i)
+          .applyMatrix4(hull.matrixWorld);
+        assert.ok(
+          point.x >= insideX + 0.0049,
+          'The housing must terminate within the wall, never inside a cabin',
+        );
+      }
+    }
+    // Cover both rooms beside the bus. The old circular hull crossed the
+    // pressure wall here, even though exterior-only ray tests were passing.
+    for (const side of [-1, 1])
+      for (const y of [0.25, 0.45, 0.7])
+        for (const z of [-0.4, 0, 0.4, 0.65]) {
+          const ray = new THREE.Raycaster(
+            new THREE.Vector3(insideX - 0.25, side * y, z),
+            new THREE.Vector3(1, 0, 0),
+            0,
+            0.3,
+          );
+          const hit = ray.intersectObjects(meshes, false)[0];
+          assert.ok(hit, 'The inner pressure wall must remain closed');
+          assert.ok(
+            Math.abs(hit.point.x - insideX) < 2e-6,
+            `The cabin wall must be flat, without service-hull intrusion: ${hit.point.toArray().join(',')}`,
+          );
+        }
+  });
+
   test(`${layout} exterior roof and keel keep one continuous hull finish across the cabin divider`, () => {
     const { meshes, datums: d } = selectHull(layout, scale);
     for (const side of [-1, 1]) {

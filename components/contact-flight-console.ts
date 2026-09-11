@@ -1,18 +1,32 @@
 import type { SocialScreenLinks } from '../lib/social-links.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
 import { buildContactAudio } from './contact-flight-audio.ts';
+import { CABIN_FLOOR } from '../lib/spacecraft-wall-layout.ts';
 
 /** Static, floor-referenced Contact furnishings. No camera, input or animation state. */
 export function buildContactFlightConsole(
   THREE: any,
   h: any,
   floorRoot: any,
-  options: { title?: string; accent?: any; socials?: SocialScreenLinks } = {},
+  options: {
+    title?: string;
+    accent?: any;
+    socials?: SocialScreenLinks;
+    rearWallProfile?: Array<{ y: number; z: number }>;
+  } = {},
 ) {
   // The console stays a rigid assembly below the room heading. Shorten its
   // stanchions while leaving the feet on the original cabin floor.
   const lowering = 0.24;
   floorRoot.userData.socialScreens = [];
+  const rearAnchors: Array<{
+    id: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    frontZ: number;
+  }> = [];
   const parent = new THREE.Group();
   parent.name = 'contact-flight-equipment-mount';
   parent.position.y = -lowering;
@@ -138,6 +152,14 @@ export function buildContactFlightConsole(
     box(0.23, 0.09, 0.4, m.metal, x, 0.773, -0.15, parent, 0.018, 'deck-mount');
     // Rear braces end at a mounting shoe on the plain pressure wall.
     box(0.19, 0.28, 0.07, m.face, x, 0.66, -0.947, parent, 0.025, 'wall-mount');
+    rearAnchors.push({
+      id: `frame-${side}`,
+      x,
+      y: 0.66,
+      width: 0.14,
+      height: 0.23,
+      frontZ: -0.98,
+    });
     h.rod(
       [x, 0.28 + lowering, -0.27],
       [x, 0.735, -0.92],
@@ -508,6 +530,14 @@ export function buildContactFlightConsole(
           0.015,
           `${kind}-wall-shoe`,
         );
+        rearAnchors.push({
+          id: `${kind}-${side}-${yy}`,
+          x: xx,
+          y: yy,
+          width: 0.1,
+          height: 0.13,
+          frontZ: -0.988,
+        });
         box(
           0.085,
           0.07,
@@ -762,12 +792,88 @@ export function buildContactFlightConsole(
     'contact-flight-deck-vent-perforations',
   );
   const audio = buildContactAudio(THREE, h, parent, m);
-  // Keep the microphone capsule outside the left screen's text and icon.
-  audio.microphone.position.x = -1.49;
-  // The outboard dock keeps the upper signal trace visible from the fixed camera.
-  // The retained headset now docks below the console, clear of the right
-  // channel. Its bolted foot sits on the cabin floor, not in free space.
-  audio.headset.position.set(1.25, 0.247, 0.035);
-  audio.headset.scale.setScalar(0.82);
+  // Seat the complete microphone base and cable on the working deck. Its
+  // bent neck keeps the capsule clear of the left screen without overhanging
+  // the desk with an unsupported foot or connector.
+  audio.microphone.position.set(-1.3, 0.977, 0.06);
+  // Reference the headset dock directly to the floor, independently of the
+  // lowered console. It clears the right support foot and the desk underside.
+  floorRoot.add(audio.headset);
+  audio.headset.position.set(1.48, 0.0036, 0.035);
+  audio.headset.scale.setScalar(0.72);
+  // Mounting necks bridge from the unchanged equipment shoes to the actual
+  // rear pressure surface. Both fixed layout variants are batched once; only
+  // their visibility changes when the cabin furnishing scale changes.
+  const rearProfile = options.rearWallProfile || [
+    { y: -1.32, z: -1.1 },
+    { y: 1.455, z: -1.1 },
+  ];
+  function rearZAt(y: number) {
+    const zs: number[] = [];
+    for (let i = 0; i + 1 < rearProfile.length; i++) {
+      const a = rearProfile[i],
+        b = rearProfile[i + 1];
+      if (y < Math.min(a.y, b.y) - 1e-8 || y > Math.max(a.y, b.y) + 1e-8)
+        continue;
+      if (Math.abs(b.y - a.y) < 1e-8) zs.push(a.z, b.z);
+      else zs.push(a.z + ((b.z - a.z) * (y - a.y)) / (b.y - a.y));
+    }
+    if (!zs.length)
+      throw new Error(`Contact rear mounting height outside the cabin: ${y}`);
+    return Math.min(...zs);
+  }
+  const rearVariants = [1, 0.84].map((propScale) => {
+    const variant = new THREE.Group();
+    variant.name = `contact-flight-rear-mounts-${propScale === 1 ? 'wide' : 'compact'}`;
+    variant.userData.batchRoot = true;
+    variant.userData.propScale = propScale;
+    parent.add(variant);
+    const anchors = [];
+    for (const anchor of rearAnchors) {
+      const bottom = anchor.y - anchor.height / 2;
+      const top = anchor.y + anchor.height / 2;
+      const ys = [
+        bottom,
+        top,
+        ...rearProfile.map((p) => (p.y - CABIN_FLOOR) / propScale + lowering),
+      ]
+        .filter((y) => y >= bottom && y <= top)
+        .sort((a, b) => a - b);
+      const sampledY = ys.filter((y, i) => !i || y - ys[i - 1] > 1e-8);
+      const points = sampledY.map((y) => ({
+        y,
+        z: rearZAt(CABIN_FLOOR + propScale * (y - lowering)) / propScale,
+      }));
+      const shape = new THREE.Shape();
+      shape.moveTo(-anchor.frontZ, bottom);
+      shape.lineTo(-anchor.frontZ, top);
+      for (const point of [...points].reverse())
+        shape.lineTo(-point.z, point.y);
+      shape.closePath();
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: anchor.width,
+        bevelEnabled: false,
+        steps: 1,
+      });
+      geometry.rotateY(Math.PI / 2);
+      geometry.translate(anchor.x - anchor.width / 2, 0, 0);
+      h.mesh(
+        geometry,
+        m.face,
+        variant,
+        `contact-flight-rear-anchor-${anchor.id}`,
+      );
+      anchors.push({ ...anchor, points });
+    }
+    variant.userData.anchors = anchors;
+    return variant;
+  });
+  floorRoot.userData.setPropScale = (propScale: number) => {
+    const selected = propScale > 0.9 ? 1 : 0.84;
+    for (const variant of rearVariants)
+      variant.visible = variant.userData.propScale === selected;
+    floorRoot.userData.rearMountScale = selected;
+  };
+  floorRoot.userData.setPropScale(1);
   return m;
 }

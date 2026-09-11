@@ -180,10 +180,10 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
   lead(
     [
       [-0.037, 0.078, -0.034],
-      [-0.032, 0.21, -0.019],
-      [-0.011, 0.38, 0.019],
-      [-0.009, 0.475, 0.042],
-      [-0.018, 0.53, 0.043],
+      [-0.068, 0.21, -0.019],
+      [-0.14, 0.38, 0.019],
+      [-0.187, 0.475, 0.042],
+      [-0.208, 0.53, 0.043],
     ],
     0.0085,
     m.dark,
@@ -195,14 +195,14 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.012,
     0.022,
     m.metal,
-    -0.018,
+    -0.208,
     0.535,
     0.043,
     microphone,
     'y',
     'microphone-capsule-collar',
   );
-  const capsule = group('microphone-capsule', microphone, -0.018, 0.586, 0.043);
+  const capsule = group('microphone-capsule', microphone, -0.208, 0.586, 0.043);
   capsule.rotation.x = -0.14;
   const capsuleBack = solid(
     new THREE.SphereGeometry(1, 24, 16),

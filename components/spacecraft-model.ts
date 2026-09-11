@@ -435,7 +435,7 @@ export function createSpacecraft(
       if (p.userData.roomSurface) return false;
     if (original?.userData.exterior || name.endsWith('-exterior')) return true;
     for (let p = parent; p; p = p.parent) if (p.userData.exterior) return true;
-    return /^(rounded-front-pressure-collar|recessed-front-pressure-seal|hover-perimeter-light-guide|external-amber-lifting-tab|roof-latch|reinforced-|room-label-|side-label-|nameplate-amber-clasp|side-nameplate-amber-clasp|underside-service-keel|captive-collar-fasteners)/.test(
+    return /^(rounded-front-pressure-collar|recessed-front-pressure-seal|hover-perimeter-light-guide|roof-latch|reinforced-|room-label-|side-label-|nameplate-amber-clasp|side-nameplate-amber-clasp|underside-service-keel|captive-collar-fasteners)/.test(
       name,
     );
   }
@@ -1109,18 +1109,6 @@ export function createSpacecraft(
         0.017,
         'warm-ceiling-light',
       );
-      box(
-        0.15,
-        0.045,
-        0.2,
-        m.amber,
-        x + dx * 1.48,
-        cabinCeiling + PRESSURE_WALL + 0.0225,
-        0.34,
-        room,
-        0.022,
-        'external-amber-lifting-tab',
-      );
     }
     roomLights[section] = [-0.66, 0.66].map((dx) => {
       const light = new THREE.PointLight(0xffc792, 0.35, 3.1, 2);
@@ -1128,31 +1116,7 @@ export function createSpacecraft(
       room.add(light);
       return light;
     });
-    box(
-      2.25,
-      0.018,
-      0.032,
-      m.hoverRail,
-      x,
-      cabinFloorTop + 0.009,
-      -0.743,
-      room,
-      0.008,
-      'warm-floor-routing-line',
-    );
     for (const sign of [-1, 1]) {
-      box(
-        0.027,
-        0.018,
-        1.55,
-        m.hoverRail,
-        x + sign * 1.155,
-        cabinFloorTop + 0.009,
-        0.03,
-        room,
-        0.008,
-        'threshold-edge-marker',
-      );
       box(
         0.077,
         0.14,
@@ -2123,6 +2087,10 @@ export function createSpacecraft(
       title: options.labels?.contact,
       accent: m.amber,
       socials: options.socials,
+      rearWallProfile: interiorPoints.map((point: any) => ({
+        y: point.y,
+        z: -point.x,
+      })),
     },
   );
 
@@ -2420,7 +2388,7 @@ export function createSpacecraft(
       dishAssembly,
     );
 
-  axialHull(
+  const servicePressureHull = axialHull(
     [
       [0.81, -0.43],
       [0.89, -0.39],
@@ -2436,6 +2404,17 @@ export function createSpacecraft(
     service,
     'aft-service-pressure-hull',
   );
+  // The service assembly's X=4.75 datum follows the outside of the pressure
+  // wall in both layouts. Terminate its inboard shell inside that wall, so the
+  // circular housing cannot emerge into Contact or Case Studies above it.
+  const serviceHullSource = servicePressureHull.geometry;
+  servicePressureHull.geometry = clipGeometryPlane(
+    THREE,
+    serviceHullSource,
+    0,
+    4.75 - PRESSURE_WALL + 0.005 - servicePressureHull.position.x,
+  );
+  serviceHullSource.dispose();
   torus(0.911, 0.033, m.metal, 4.95, 0.03, 0, service, 'x');
   cylinder(0.733, 0.17, m.gasket, 5.268, 0.03, 0, service, 'x');
   cylinder(0.631, 0.274, m.navy, 5.462, 0.03, 0, service, 'x');
@@ -3815,6 +3794,7 @@ export function createSpacecraft(
     const propScale = currentLayout === 'wide' ? 1 : 0.84;
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
+    contactConsole.userData.setPropScale(propScale);
     for (const section of Object.keys(rooms)) {
       const left = section === 'projects' || section === 'about';
       const x = (left ? -1 : 1) * halfPitch,
