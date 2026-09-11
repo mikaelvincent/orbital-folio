@@ -4118,8 +4118,8 @@ export function createSpacecraft(
       landings: [],
       clearDockingOpening: [1.82, 1.9],
       ladderBounds: {
-        min: [-0.146 * layoutScale, -2.65, -0.9525],
-        max: [0.446 * layoutScale, 2.59, -0.628],
+        min: [-0.133 * layoutScale, -2.635, -0.96],
+        max: [0.433 * layoutScale, 2.575, -0.647],
       },
       endShoulderContinuity: true,
     };

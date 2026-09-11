@@ -239,62 +239,71 @@ export function buildLadderServiceSpine(
     for (const x of [-0.12, 0.42])
       for (const dy of [-0.403, 0.403]) screws.push([x, y + dy, -0.933]);
   }
-  // Rails stay at the established ladder datums. Brackets span continuously
-  // from the closeout to the rails; collars capture every joint.
-  for (const x of [-0.08, 0.38]) {
+  // One repeated ladder bay drives grips, rung joints and wall anchors.
+  // Both rails use the same slim diameters and collar positions throughout.
+  const railXs = [-0.08, 0.38];
+  const rungPitch = 0.38;
+  const rungYs = Array.from(
+    { length: 13 },
+    (_, i) => 0.01 + (i - 6) * rungPitch,
+  );
+  for (const x of railXs) {
     rod(
       [x, -2.61, -0.69],
       [x, 2.55, -0.69],
-      0.032,
+      0.0215,
       m.graphite,
       'continuous-rail',
     );
-    for (const y of [-2.18, -0.72, 0.74, 2.18]) {
+    for (const index of [0, 4, 8, 12]) {
+      const y = rungYs[index];
       box(
-        0.132,
-        0.17,
-        0.027,
+        0.106,
+        0.12,
+        0.029,
         m.graphite,
         x,
         y,
-        -0.939,
+        -0.9455,
         'rail-anchor-plate',
-        0.015,
+        0.012,
       );
       cylinder(
-        0.036,
-        0.231,
+        0.026,
+        0.239,
         m.alloy,
         x,
         y,
-        -0.8235,
+        -0.8245,
         'z',
         'rail-rigid-stand-off',
       );
       box(
-        0.091,
-        0.11,
-        0.089,
+        0.07,
+        0.076,
+        0.068,
         m.graphite,
         x,
         y,
-        -0.688,
+        -0.69,
         'rail-split-clamp',
-        0.018,
+        0.014,
       );
-      for (const dx of [-0.044, 0.044])
-        for (const dy of [-0.055, 0.055])
-          screws.push([x + dx, y + dy, -0.9225]);
-      cylinder(0.011, 0.016, m.alloy, x, y, -0.636, 'z', 'rail-clamp-bolt');
+      for (const dx of [-0.035, 0.035])
+        for (const dy of [-0.034, 0.034]) screws.push([x + dx, y + dy, -0.929]);
+      cylinder(0.009, 0.012, m.alloy, x, y, -0.653, 'z', 'rail-clamp-bolt');
     }
     for (const y of [-2.585, 2.525])
-      cylinder(0.044, 0.13, m.graphite, x, y, -0.69, 'y', 'rail-end-cap');
-    for (const y of [-1.75, -1.22, -0.26, 0.27, 1.23, 1.76]) {
-      cylinder(0.035, 0.44, m.amber, x, y, -0.69, 'y', 'amber-grip-sleeve');
-      for (const dy of [-0.224, 0.224])
+      cylinder(0.03, 0.1, m.graphite, x, y, -0.69, 'y', 'rail-end-cap');
+    // Graphite grips stay visually light; amber is a small joint marker,
+    // rather than a second set of unevenly placed oversized handles.
+    for (let i = 0; i < rungYs.length - 1; i++) {
+      const y = (rungYs[i] + rungYs[i + 1]) / 2;
+      cylinder(0.0235, 0.276, m.hose, x, y, -0.69, 'y', 'uniform-grip-sleeve');
+      for (const dy of [-0.14, 0.14])
         cylinder(
-          0.04,
-          0.029,
+          0.0245,
+          0.016,
           m.graphite,
           x,
           y + dy,
@@ -304,29 +313,84 @@ export function buildLadderServiceSpine(
         );
     }
   }
-  for (let i = 0; i < 13; i++) {
-    const y = -2.47 + i * 0.405;
-    // A vertical socket sleeve hides the raw cylinder intersection and gives
-    // each rung a continuous, mechanically legible connection to its rail.
-    for (const x of [-0.08, 0.38])
-      cylinder(0.044, 0.095, m.graphite, x, y, -0.69, 'y', 'rung-rail-sleeve');
-    cylinder(0.024, 0.46, m.tread, 0.15, y, -0.69, 'x', 'satin-rung');
-    cylinder(0.027, 0.27, m.tread, 0.15, y, -0.69, 'x', 'rung-grip-insert');
-    for (const x of [0.08, 0.15, 0.22])
+  for (const y of rungYs) {
+    for (const x of railXs) {
+      cylinder(0.029, 0.064, m.graphite, x, y, -0.69, 'y', 'rung-rail-sleeve');
       cylinder(
-        0.0277,
-        0.004,
-        m.alloy,
+        0.0295,
+        0.016,
+        m.amber,
         x,
-        y,
+        y + 0.036,
         -0.69,
-        'x',
-        'tread-machining-ring',
+        'y',
+        'amber-joint-marker',
       );
-    for (const x of [-0.055, 0.355])
-      cylinder(0.036, 0.05, m.graphite, x, y, -0.69, 'x', 'rung-end-socket');
-    for (const x of [0.02, 0.28])
-      cylinder(0.028, 0.024, m.alloy, x, y, -0.69, 'x', 'rung-grip-ferrule');
+    }
+    cylinder(0.019, 0.46, m.tread, 0.15, y, -0.69, 'x', 'satin-rung');
+    cylinder(0.0205, 0.27, m.tread, 0.15, y, -0.69, 'x', 'rung-grip-insert');
+    for (const x of [0.08, 0.15, 0.22])
+      cylinder(0.021, 0.004, m.alloy, x, y, -0.69, 'x', 'tread-machining-ring');
+    for (const x of [-0.061, 0.361])
+      cylinder(0.026, 0.038, m.graphite, x, y, -0.69, 'x', 'rung-end-socket');
+    for (const x of [0.012, 0.288])
+      cylinder(0.023, 0.018, m.alloy, x, y, -0.69, 'x', 'rung-grip-ferrule');
+  }
+
+  // A matched pair of guarded worklights seats on the existing rear lining.
+  // Their housings, lenses and end fixings remain behind the handhold plane.
+  for (const y of [rungYs[2], rungYs[10]]) {
+    box(
+      0.083,
+      0.46,
+      0.06,
+      m.graphite,
+      0.535,
+      y,
+      -0.957,
+      'bay-worklight-housing',
+      0.015,
+    );
+    box(
+      0.066,
+      0.38,
+      0.034,
+      m.rubber,
+      0.535,
+      y,
+      -0.928,
+      'bay-worklight-bezel',
+      0.012,
+    );
+    box(
+      0.033,
+      0.29,
+      0.016,
+      m.lamp,
+      0.535,
+      y,
+      -0.905,
+      'bay-worklight-diffuser',
+      0.007,
+    );
+    for (const x of [0.51, 0.56]) {
+      for (const dy of [-0.18, 0.18])
+        rod(
+          [x, y + dy, -0.926],
+          [x, y + dy, -0.895],
+          0.006,
+          m.graphite,
+          'bay-worklight-guard-return',
+        );
+      rod(
+        [x, y - 0.18, -0.895],
+        [x, y + 0.18, -0.895],
+        0.006,
+        m.graphite,
+        'bay-worklight-guard',
+      );
+    }
+    for (const dy of [-0.205, 0.205]) screws.push([0.535, y + dy, -0.925]);
   }
 
   // Each three-line harness follows the shoulder taper and turns into its
@@ -598,7 +662,11 @@ export function buildLadderServiceSpine(
     backingFront: -0.936,
     railCenters: [-0.08, 0.38],
     railZ: -0.69,
-    rungCount: 13,
+    rungCount: rungYs.length,
+    rungPitch,
+    railRadius: 0.0215,
+    gripRadius: 0.0235,
+    worklightCenters: [rungYs[2], rungYs[10]],
   };
   return root;
 }
