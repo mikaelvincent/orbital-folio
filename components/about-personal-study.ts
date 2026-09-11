@@ -266,6 +266,11 @@ export function buildAboutPersonalStudy(
       kind === 'landscape-postcard' ? 640 : 1024,
       (ctx) => drawStudyArtwork(ctx, kind),
     );
+    if (kind === 'landscape-postcard' && mat.map) {
+      const visibleWidth = w / height / (512 / 320);
+      mat.map.repeat.x = visibleWidth;
+      mat.map.offset.x = (1 - visibleWidth) / 2;
+    }
     mat.userData.studyInk = true;
     const part = mesh(
       new THREE.PlaneGeometry(w, height),
@@ -771,83 +776,16 @@ export function buildAboutPersonalStudy(
         screwPoints.push([xx, yy, -1.05]);
       }
   }
-  note('landscape-postcard', 0.83, 1.98, 0.41, 0.278);
-  note('mountain-note', -0.067, 1.6, 0.32, 0.28);
-  note('personal-note', 0.334, 1.6, 0.29, 0.28);
-
-  // Sealed drink pouch inside a bolted, strapped holster; no free-standing cup.
-  box(
-    0.185,
-    0.3,
-    0.115,
-    m.navy,
-    0.897,
-    1.357,
-    -1.043,
-    'drink-holster',
-    root,
-    0.031,
-  );
-  for (const y of [1.237, 1.477]) screwPoints.push([0.897, y, -0.998]);
-  box(
-    0.133,
-    0.226,
-    0.085,
-    m.linen,
-    0.897,
-    1.36,
-    -0.969,
-    'sealed-drink-pouch',
-    root,
-    0.042,
-  );
-  cylinder(
-    0.018,
-    0.056,
-    m.graphite,
-    0.919,
-    1.497,
-    -0.967,
-    'sealed-pouch-spout',
-    root,
-    'y',
-  );
-  cylinder(
-    0.022,
-    0.021,
-    m.rubber,
-    0.919,
-    1.532,
-    -0.967,
-    'pouch-spout-cap',
-    root,
-    'y',
-  );
-  box(
-    0.186,
-    0.035,
-    0.024,
-    m.rubber,
-    0.897,
-    1.343,
-    -0.913,
-    'drink-pouch-retaining-band',
-    root,
-    0.007,
-  );
-  for (const x of [0.814, 0.98])
-    box(
-      0.018,
-      0.035,
-      0.107,
-      m.rubber,
-      x,
-      1.343,
-      -0.964,
-      'drink-band-return',
-      root,
-      0.005,
-    );
+  // Compensate for the photo's deeper wall position so its visible height
+  // matches the library. Crop the artwork rather than stretching the mountains.
+  note('landscape-postcard', 0.858, 2.01, 0.5, 0.405);
+  // One centered row of equal paper sizes, equal gaps, and identical retainers.
+  for (const [index, kind] of [
+    'mountain-note',
+    'personal-note',
+    'curiosity-note',
+  ].entries())
+    note(kind, 0.32 + (index - 1) * 0.434, 1.6, 0.3, 0.28);
 
   // Fold-down desk, same working elevation as Contact. Supports are continuous
   // from the wall to the underside, leaving open knees and an unobstructed aisle.
@@ -1293,8 +1231,8 @@ export function buildAboutPersonalStudy(
     0.019,
   );
   const a = [1.078, 1.289, -0.919],
-    b = [1.063, 1.555, -0.799],
-    c = [0.898, 1.645, -0.608];
+    b = [1.093, 1.5, -0.799],
+    c = [1.06, 1.49, -0.608];
   rod(a, b, 0.013, m.graphite, 'lamp-lower-arm');
   rod(b, c, 0.014, m.graphite, 'lamp-upper-arm');
   for (const p of [a, b, c]) {
@@ -1344,8 +1282,8 @@ export function buildAboutPersonalStudy(
     [
       [1.105, 1.197, -0.948],
       [1.112, 1.399, -0.908],
-      [1.091, 1.566, -0.815],
-      [0.923, 1.662, -0.627],
+      [1.12, 1.511, -0.815],
+      [1.085, 1.507, -0.627],
     ],
     0.0045,
     m.rubber,
@@ -1353,7 +1291,7 @@ export function buildAboutPersonalStudy(
   );
   for (const [x, y, z] of [
     [1.105, 1.33, -0.927],
-    [1.095, 1.482, -0.862],
+    [1.118, 1.456, -0.862],
   ])
     box(
       0.021,

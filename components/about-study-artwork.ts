@@ -585,6 +585,24 @@ export function drawStudyArtwork(ctx: any, kind: string) {
       ctx.fillStyle = ink;
       ctx.font = 'italic 30px Georgia, serif';
       ctx.fillText('Look a little closer.', 101, 811);
+    } else if (kind === 'curiosity-note') {
+      ctx.save();
+      ctx.translate(95, 260);
+      ctx.rotate(0.018);
+      ctx.fillStyle = ink;
+      ctx.font = 'italic 85px Georgia, serif';
+      ctx.fillText('Stay', 36, 164);
+      ctx.fillText('curious.', 36, 286);
+      path(
+        [
+          [49, 331],
+          [320, 337],
+          [419, 328],
+        ],
+        ink,
+        3.5,
+      );
+      ctx.restore();
     } else if (kind === 'personal-note') {
       ctx.save();
       ctx.translate(95, 260);
