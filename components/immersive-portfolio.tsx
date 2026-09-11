@@ -450,14 +450,6 @@ export function ImmersivePortfolio({
             hover={hover}
             onHover={setHover}
             onNavigate={(id) => go({ section: id })}
-            onOpen={(section, slug) => {
-              const selected =
-                section === 'projects'
-                  ? slug || data.projects[projectPage * PROJECTS_PER_PAGE]?.slug
-                  : undefined;
-              if (section === 'projects' && !selected) return;
-              go({ section, slug: selected, open: !selected });
-            }}
             onSurfaceReady={setSurface}
             onSettled={settled}
             onUnavailable={() => {

@@ -4363,7 +4363,7 @@ body:has(#room-reader:target) .boot-loader {
 }
 
 /* Transparent native anchors sit precisely over the physical social displays. */
-.world-social-screen {
+.world-object-target {
   display: block;
   pointer-events: auto;
   touch-action: pinch-zoom;
@@ -4376,11 +4376,8 @@ body:has(#room-reader:target) .boot-loader {
     border-color 160ms ease,
     background 160ms ease;
 }
-.world-social-screen:hover,
-.world-social-screen:focus-visible {
-  border-color: #ffcf83;
-  background: #ffd48b0c;
-  box-shadow: inset 0 0 28px #ffc77422;
+.world-object-target.is-object-active {
+  /* The shared 3D rim supplies the visible hover and keyboard-focus indicator. */
   outline: none;
 }
 .social-channel-preview {

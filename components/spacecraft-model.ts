@@ -1,3 +1,4 @@
+import { createObjectHighlight } from './interactable-object-highlight.ts';
 import type { SocialScreenLinks } from '../lib/social-links.ts';
 import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
@@ -34,6 +35,7 @@ export type SpacecraftState = {
   room?: string;
   selectedProject?: string | null;
   hoveredProject?: string | null;
+  hoveredObject?: string | null;
   slug?: string | null;
   projectPage?: number;
   reading?: boolean;
@@ -2054,7 +2056,6 @@ export function createSpacecraft(
   const contactConsole = new THREE.Group();
   contactConsole.name = 'contact-flight-console';
   contactConsole.position.set(-0.18, previousFloorTop, 0);
-  contactConsole.userData.openReader = true;
   contactConsole.userData.batchRoot = true;
   contact.add(contactConsole);
   buildContactFlightConsole(
@@ -2069,6 +2070,17 @@ export function createSpacecraft(
   );
 
   group.userData.socialScreens = contactConsole.userData.socialScreens;
+  const objectHighlights = group.userData.socialScreens
+    .filter((screen: any) => screen.link)
+    .map((screen: any) => {
+      screen.interactableId = `contact-social-${screen.side}`;
+      return createObjectHighlight(THREE, screen.root, screen.interactableId, {
+        width: screen.width,
+        height: screen.height,
+        radius: 0.055,
+        z: 0.096,
+      });
+    });
 
   // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
   const docking = new THREE.Group();
@@ -2716,10 +2728,11 @@ export function createSpacecraft(
     readerSurfaces[section] = surface;
     readerTrays[section] = { group: tray, progress: 0 };
   }
-  // Optional cheap picking surfaces. The renderer can test these before its
-  // general room boxes; they stay hidden and are not included in normal targets.
+  // Furnishings are currently display-only. Room and portal navigation remain
+  // active; the two configured social monitors use their native scene anchors.
+
   const proxyMaterial = new THREE.MeshBasicMaterial({ visible: false });
-  function interactionBox(
+  function portalPickBox(
     name: string,
     size: number[],
     p: number[],
@@ -2742,31 +2755,6 @@ export function createSpacecraft(
     interactionTargets.push({ object, section: object.userData.section });
     return object;
   }
-  for (const [section, slots] of Object.entries(rackSlots))
-    for (const [index, slot] of slots.entries()) {
-      const key = section === 'projects' ? 'project' : 'caseStudy';
-      interactionBox(
-        key + '-door-pick-' + index,
-        [0.765, 0.535, 0.194],
-        [0.371, 0, 0.032],
-        slot.group,
-        {
-          [key + 'Slot']: index,
-          ...(section === 'experience' ? { openReader: true } : {}),
-        },
-      );
-    }
-  interactionBox(
-    'contact-reader-pick',
-    [1.46, 1.0, 0.14],
-    [-0.1, 0.258, -0.51],
-    contact,
-    { openReader: true },
-  );
-  docking.traverse((object: any) => {
-    if (object.isMesh && /docking-control|comms-status/.test(object.name))
-      object.userData.openReader = true;
-  });
 
   function portalLabel(
     text: string,
@@ -2984,7 +2972,7 @@ export function createSpacecraft(
         viaWalkway,
         !viaWalkway || to === 'projects',
       );
-    const pick = interactionBox(
+    const pick = portalPickBox(
       id + '-portal-pick',
       [0.28, passageClear, passageClear],
       [0, 0, 0],
@@ -4300,6 +4288,19 @@ export function createSpacecraft(
         emitterPolicy:
           'constant room emitters; medium default, high hover/selected/transit; no pathway emitters',
       };
+    }
+    for (const highlight of objectHighlights) {
+      if (
+        highlight.update(
+          currentState.hoveredObject === highlight.id,
+          currentState.activeRoom === 'contact' &&
+            !currentState.travelling &&
+            !currentState.reading,
+          dt,
+          instantHighlight,
+        )
+      )
+        group.userData.motionActive = true;
     }
     for (const [section, slots] of Object.entries(rackSlots))
       for (const slot of slots) {

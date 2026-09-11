@@ -18,9 +18,15 @@ The initial GitHub and LinkedIn URLs are demo platform homepages, not the owner'
 
 The side screens reuse the Contact console enclosures with modestly wider faces, matching captive fasteners, and inward angles. The microphone sits clear of the left screen. The existing headset is secured on its floor-level dock below the right side of the desk.
 
-A canvas texture supplies the icon and text. Geometry-free anchors survive mesh batching and position transparent native HTML links precisely on the glass. These links are only active in the settled Contact room, and participate in the existing bounded-drag cancellation. Main display geometry, screen graphics, camera paths, and central reader target are unchanged.
+A canvas texture supplies the icon and text. Geometry-free anchors survive mesh batching and position transparent native HTML links over the physical monitor enclosures. These links are only active in the settled Contact room, and participate in the existing bounded-drag cancellation. Main display geometry, screen graphics, and camera paths are unchanged. All other scene-object actions, including the central reader target, are disabled; doors, room navigation, dragging, and the explicit reading-view control remain available.
 
 Brand paths are bundled, with no runtime network requests or added packages. See [icon provenance](social-icons/README.md).
+
+## Shared object feedback
+
+`createObjectHighlight` isolates an assembly's materials before batching. Every registered object uses the same smooth transition from subdued to bright, plus an amber physical rim. The rim participates in scene depth, so foreground switches occlude it correctly. Pointer hover and keyboard focus use the same feedback; dragging, travel, and reading mode clear it.
+
+Only configured social monitors register for object interaction. Furnishing pick proxies and scene-to-reader activation paths are removed. The portal-only navigation controls remain independent of object actions.
 
 ## Verification
 
@@ -31,4 +37,6 @@ Brand paths are bundled, with no runtime network requests or added packages. See
 - Desktop and portrait room screenshots inspected, including keyboard focus alignment.
 - Automated tests cover placement, legacy records, custom content, URL rejection, gesture cancellation, and draft/publish/unpublish persistence.
 
-Independent visual review: **96/100** for this iteration's scope. No blocking overlap, clipping, or integration defects. Secondary captions are small at mobile room scale; existing camera framing was outside this change. Main console unchanged. Production build, typecheck and lint pass. The full test run passed all runnable cases; an existing extensionless metadata import prevented the flight test file from loading under Node 26. Adding the explicit `.ts` extension resolved that, and all four flight tests passed on rerun.
+Initial social-channel visual review: **96/100** for this iteration's scope. No blocking overlap, clipping, or integration defects. Secondary captions are small at mobile room scale; existing camera framing was outside this change. Main console unchanged. Production build, typecheck and lint pass. The full test run passed all runnable cases; an existing extensionless metadata import prevented the flight test file from loading under Node 26. Adding the explicit `.ts` extension resolved that, and all four flight tests passed on rerun.
+
+Object-feedback follow-up review: **96/100**, with no blocking issues. Both monitors were inspected under pointer hover and keyboard focus; their physical rims correctly disappear behind foreground controls. Hover remains local to the monitor. Clicking the central screen does not open a reader, and Contact → About → Contact door navigation and bounded dragging still work. Three object-interaction tests and twelve camera, flight, and social-link regression tests pass, along with typecheck, lint, and the production build.

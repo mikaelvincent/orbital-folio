@@ -420,9 +420,10 @@ export function buildContactFlightConsole(
       mount.add(anchor);
       floorRoot.userData.socialScreens.push({
         side,
+        root: mount,
         anchor,
-        width: sw,
-        height: sh,
+        width: w,
+        height,
         link: options.socials?.[side] || null,
       });
       fasteners(

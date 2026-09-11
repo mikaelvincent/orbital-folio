@@ -39,7 +39,6 @@ type Props = {
   hover: string;
   onHover: (section: string) => void;
   onNavigate: (section: string) => void;
-  onOpen: (section: string, slug?: string) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onSettled: () => void;
   onUnavailable: () => void;
@@ -308,78 +307,50 @@ export function Spacecraft(props: Props) {
             object: InstanceType<typeof CSS3DObject>;
             button: HTMLButtonElement;
             section: string;
-            slot?: number;
-            portalId?: string;
+            portalId: string;
           }[] = [];
-          const recordAtSlot = (section: string, slot: number) =>
-            section === 'experience'
-              ? latest.current.caseStudies[slot]
-              : latest.current.projects[
-                  latest.current.projectPage * PROJECTS_PER_PAGE + slot
-                ];
-          const addHotspot = (
-            section: string,
-            position: [number, number, number],
-            slot?: number,
-            portalId?: string,
-          ) => {
+          // Object actions are deliberately absent here: only doors navigate.
+          for (const portal of model.group.userData.portals) {
             const button = document.createElement('button');
             button.type = 'button';
-            button.className = 'world-hotspot';
-            button.dataset.targetKey = portalId
-              ? `portal:${portalId}`
-              : `instrument:${section}:${slot ?? 'reader'}`;
+            button.className = 'world-hotspot portal-hotspot';
+            button.dataset.targetKey = `portal:${portal.id}`;
             const object = new CSS3DObject(button);
-            object.position.set(...position);
+            object.position.set(
+              ...(portal.labelPosition as [number, number, number]),
+            );
             object.scale.setScalar(0.004);
             cssGroup.add(object);
-            hotspotObjects.push({ object, button, section, slot, portalId });
-            button.onclick = () => {
-              if (portalId) {
-                const portal = model.group.userData.portals.find(
-                  (p: any) => p.id === portalId,
-                );
-                if (portal) latest.current.onNavigate(portal.to);
-                return;
-              }
-              const p =
-                slot === undefined ? undefined : recordAtSlot(section, slot);
-              latest.current.onOpen(section, p?.slug);
-            };
+            hotspotObjects.push({
+              object,
+              button,
+              section: portal.from,
+              portalId: portal.id,
+            });
+            button.onclick = () => latest.current.onNavigate(portal.to);
             const enter = () => {
               if (down?.gesture.dragging) return;
               pointerOverWalkway = false;
-              const slug =
-                slot === undefined
-                  ? ''
-                  : recordAtSlot(section, slot)?.slug || '';
-              hoveredProject = section === 'projects' ? slug : '';
-              hoveredCaseStudy = section === 'experience' ? slug : '';
-              const portal =
-                portalId &&
-                model.group.userData.portals.find(
-                  (p: any) => p.id === portalId,
-                );
-              const destination = portal ? portal.to : section;
-              hoverSection(destination);
-              latest.current.onHover(destination);
+              hoverSection(portal.to);
+              latest.current.onHover(portal.to);
             };
             const leave = () => {
               if (down?.gesture.dragging) return;
               pointerOverWalkway = false;
-              hoveredProject = '';
-              hoveredCaseStudy = '';
               hoverSection('');
               latest.current.onHover('');
             };
             button.onpointerenter = button.onfocus = enter;
             button.onpointerleave = button.onblur = leave;
+          }
+          let pointedObject = '',
+            focusedObject = '';
+          const setObjectFeedback = (id: string, focus = false) => {
+            if (focus) focusedObject = id;
+            else pointedObject = id;
+            aoDirty = true;
+            kick();
           };
-          const hotspotLayout = model.group.userData.hotspots;
-          for (const hotspot of hotspotLayout)
-            addHotspot(hotspot.section, hotspot.position, hotspot.slot);
-          for (const portal of model.group.userData.portals)
-            addHotspot(portal.from, portal.labelPosition, undefined, portal.id);
           // Genuine links aligned with the two physical screen faces. Their
           // geometry remains in WebGL; this transparent layer supplies native
           // keyboard, touch, new-tab and context-menu behavior.
@@ -387,7 +358,7 @@ export function Spacecraft(props: Props) {
             .filter((screen: any) => screen.link)
             .map((screen: any) => {
               const link = document.createElement('a');
-              link.className = 'world-social-screen';
+              link.className = 'world-object-target world-social-screen';
               link.href = screen.link.url;
               link.target = screen.link.url.startsWith('mailto:')
                 ? '_self'
@@ -402,6 +373,14 @@ export function Spacecraft(props: Props) {
               );
               link.dataset.targetKey = `social:${screen.side}:${screen.link.id}`;
               link.dataset.screen = screen.side;
+              link.onpointerenter = () => {
+                if (!down?.gesture.dragging)
+                  setObjectFeedback(screen.interactableId);
+              };
+              link.onpointerleave = () => setObjectFeedback('');
+              link.onfocus = () =>
+                setObjectFeedback(screen.interactableId, true);
+              link.onblur = () => setObjectFeedback('', true);
               link.style.width = '500px';
               link.style.height = `${(500 * screen.height) / screen.width}px`;
               const object = new CSS3DObject(link);
@@ -427,19 +406,12 @@ export function Spacecraft(props: Props) {
               ...(walkwayBounds.size as [number, number, number]),
             );
             for (const hotspot of hotspotObjects) {
-              const source = hotspot.portalId
-                ? model.group.userData.portals.find(
-                    (p: any) => p.id === hotspot.portalId,
-                  )
-                : model.group.userData.hotspots.find(
-                    (p: any) =>
-                      p.section === hotspot.section && p.slot === hotspot.slot,
-                  );
+              const source = model.group.userData.portals.find(
+                (p: any) => p.id === hotspot.portalId,
+              );
               if (source) {
                 hotspot.object.position.set(
-                  ...((hotspot.portalId
-                    ? source.labelPosition
-                    : source.position) as [number, number, number]),
+                  ...(source.labelPosition as [number, number, number]),
                 );
                 if (hotspot.portalId && source.labelRotation)
                   hotspot.object.rotation.set(
@@ -480,8 +452,6 @@ export function Spacecraft(props: Props) {
             lastFrame = 0;
           let active = 'home',
             hovered = '',
-            hoveredProject = '',
-            hoveredCaseStudy = '',
             reading = false,
             distance = 23,
             nextDistance = 23,
@@ -500,8 +470,6 @@ export function Spacecraft(props: Props) {
             control: HTMLElement | null;
             pointerType: string;
             section: string;
-            slug?: string;
-            open?: boolean;
           } | null = null;
           let suppressClickUntil = 0;
           const frameIntervals: number[] = [];
@@ -967,8 +935,8 @@ export function Spacecraft(props: Props) {
               ].forEach((s) => resetAxis(s, 0));
               pointerCurrent.set(0, 0);
             }
-            hoveredProject = '';
-            hoveredCaseStudy = '';
+            pointedObject = '';
+            focusedObject = '';
             pointerOverWalkway = false;
             travelling = true;
             el.dataset.travelling = 'true';
@@ -1218,9 +1186,12 @@ export function Spacecraft(props: Props) {
               hoveredWalkway,
               labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
               hoveredPortal: effectiveHover,
-              selectedProject: latest.current.slug,
-              hoveredProject,
-              hoveredCaseStudy,
+              hoveredObject: down?.gesture.dragging
+                ? ''
+                : pointedObject || focusedObject,
+              selectedProject: null,
+              hoveredProject: null,
+              hoveredCaseStudy: null,
               projectPage: latest.current.projectPage,
               reading,
               delta,
@@ -1256,44 +1227,21 @@ export function Spacecraft(props: Props) {
             surface.visible = reading && !travelling;
             surfaceElement.inert = !surface.visible;
             for (const h of hotspotObjects) {
-              const portal =
-                h.portalId &&
-                model.group.userData.portals.find(
-                  (p: any) => p.id === h.portalId,
-                );
-              const project =
-                h.slot === undefined
-                  ? undefined
-                  : recordAtSlot(h.section, h.slot);
+              const portal = model.group.userData.portals.find(
+                (p: any) => p.id === h.portalId,
+              );
               h.object.visible =
-                active === h.section &&
-                !reading &&
-                !travelling &&
-                (h.slot === undefined || !!project);
+                active === h.section && !reading && !travelling;
               h.button.inert = !h.object.visible;
-              const label = portal
-                ? `${s[portal.from + 'Label']} → ${s[portal.to + 'Label']}`
-                : project
-                  ? `${s.projectCta}: ${project.title}`
-                  : h.section === 'about'
-                    ? s.journalLabel
-                    : h.section === 'experience'
-                      ? s.readAllLabel
-                      : s.inviteLabel;
-              const visibleLabel = portal
-                ? s[portal.to + 'Label']
-                : project?.title || label;
-              if (h.button.textContent !== visibleLabel)
-                h.button.textContent = visibleLabel;
-              h.button.setAttribute('aria-label', label);
-              h.button.classList.toggle('locker-hotspot', h.slot !== undefined);
-              h.button.classList.toggle('portal-hotspot', !!portal);
-              if (portal) {
-                h.button.style.width = `${portal.labelSize[0] / 0.004}px`;
-                h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
-                h.button.dataset.destination = portal.to;
-              }
-              h.button.dataset.projectSlug = project?.slug || '';
+              if (h.button.textContent !== s[portal.to + 'Label'])
+                h.button.textContent = s[portal.to + 'Label'];
+              h.button.setAttribute(
+                'aria-label',
+                `${s[portal.from + 'Label']} → ${s[portal.to + 'Label']}`,
+              );
+              h.button.style.width = `${portal.labelSize[0] / 0.004}px`;
+              h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
+              h.button.dataset.destination = portal.to;
             }
             for (const { screen, link, object } of socialControls) {
               screen.anchor.matrixWorld.decompose(
@@ -1304,6 +1252,12 @@ export function Spacecraft(props: Props) {
               object.scale.multiplyScalar(screen.width / 500);
               object.visible = active === 'contact' && !reading && !travelling;
               link.inert = !object.visible;
+              link.classList.toggle(
+                'is-object-active',
+                object.visible &&
+                  !down?.gesture.dragging &&
+                  (pointedObject || focusedObject) === screen.interactableId,
+              );
             }
             background.update(
               elapsed,
@@ -1409,8 +1363,7 @@ export function Spacecraft(props: Props) {
                 triangles: String(renderer.info.render.triangles),
                 renderCpuMs: renderCost.toFixed(2),
                 hoverRoom: effectiveHover,
-                hoverProject: hoveredProject,
-                hoverCaseStudy: hoveredCaseStudy,
+                hoverObject: pointedObject || focusedObject,
                 transitRoom,
                 transitWalkway: String(transitWalkway),
                 hoveredWalkway: String(hoveredWalkway),
@@ -1593,49 +1546,15 @@ export function Spacecraft(props: Props) {
                 return {
                   section: portal.object.userData.portalDestination as string,
                 };
-              const hit = ray
-                .intersectObjects(
-                  model.interactionTargets
-                    .filter((t) => t.section === active)
-                    .map((t) => t.object),
-                  false,
-                )
-                .find((h) => {
-                  let object: Three.Object3D | null = h.object;
-                  while (object) {
-                    if (
-                      object.userData.projectSlug ||
-                      object.userData.caseStudySlug ||
-                      object.userData.openReader
-                    )
-                      return true;
-                    object = object.parent;
-                  }
-                  return false;
-                });
-              let object: Three.Object3D | null = hit?.object || null;
-              while (object) {
-                if (
-                  object.userData.projectSlug ||
-                  object.userData.caseStudySlug ||
-                  object.userData.openReader
-                )
-                  return {
-                    section: active,
-                    slug: (object.userData.projectSlug ||
-                      object.userData.caseStudySlug) as string | undefined,
-                    open: true,
-                  };
-                object = object.parent;
-              }
             }
             const hit = ray.intersectObjects(proxies, false)[0];
-            return { section: hit?.object.userData.section || '' };
+            const section = hit?.object.userData.section || '';
+            return { section: section === active ? '' : section };
           };
           const hoverSection = (section: string) => {
             aoDirty = true;
             hovered = section;
-            el.style.cursor = section ? 'pointer' : 'default';
+            el.style.cursor = section ? 'pointer' : 'grab';
             kick();
           };
           const move = (event: PointerEvent) => {
@@ -1672,16 +1591,7 @@ export function Spacecraft(props: Props) {
                 ...pointerResponse(event.clientX, event.clientY, rect),
               );
             if (performance.now() - lastPick > 70 && !travelling) {
-              const { section, slug } = pick(event);
-              const nextProject = active === 'projects' ? slug || '' : '';
-              const nextCaseStudy = active === 'experience' ? slug || '' : '';
-              if (
-                hoveredProject !== nextProject ||
-                hoveredCaseStudy !== nextCaseStudy
-              )
-                aoDirty = true;
-              hoveredProject = nextProject;
-              hoveredCaseStudy = nextCaseStudy;
+              const { section } = pick(event);
               if (hovered !== section) {
                 hoverSection(section);
                 latest.current.onHover(section);
@@ -1754,19 +1664,11 @@ export function Spacecraft(props: Props) {
             cancelInput();
             if (event.pointerType === 'touch') pointerGoal.set(0, 0);
             if (completed.activate && !action.control && action.section) {
-              if (action.open)
-                latest.current.onOpen(action.section, action.slug);
-              else latest.current.onNavigate(action.section);
+              latest.current.onNavigate(action.section);
             }
           };
-          function pickKey(value: {
-            section: string;
-            slug?: string;
-            open?: boolean;
-          }) {
-            return value.section
-              ? `${value.section}:${value.open ? value.slug || 'reader' : 'room'}`
-              : '';
+          function pickKey(value: { section: string }) {
+            return value.section ? `${value.section}:room` : '';
           }
           function cancelInput() {
             const pointerId = down?.gesture.pointerId;
@@ -1787,8 +1689,8 @@ export function Spacecraft(props: Props) {
           const leave = () => {
             if (down?.gesture.dragging) return;
             cancelInput();
-            hoveredProject = '';
-            hoveredCaseStudy = '';
+            pointedObject = '';
+            focusedObject = '';
             pointerGoal.set(0, 0);
             pointerOverWalkway = false;
             hoverSection('');
