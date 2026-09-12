@@ -4569,15 +4569,23 @@ export function createSpacecraft(
       (p) => p.id === currentState.hoveredPortal,
     );
     const destination = requestedPortal?.to || currentState.hoveredPortal || '';
-    const route = routeTo(
-      (currentState.travelling
-        ? currentState.transitRoom
-        : currentState.activeRoom) || '',
-      destination,
-    );
+    const travelHover =
+      currentState.travelling &&
+      requestedPortal &&
+      requestedPortal.metadata.via !== 'walkway' &&
+      requestedPortal.from === currentState.activeRoom
+        ? requestedPortal
+        : null;
+    const route = currentState.travelling
+      ? travelHover
+        ? [travelHover.from, travelHover.to]
+        : []
+      : routeTo(currentState.activeRoom || '', destination);
     group.userData.activeRoute = route;
     const hoveredHatch =
-      !currentState.reading && !currentState.travelling && route.length > 1
+      !currentState.reading &&
+      (!currentState.travelling || travelHover) &&
+      route.length > 1
         ? portals.find((p) => p.from === route[0] && p.to === route[1])?.iris
             .group.userData.physicalHatch
         : null;

@@ -37,6 +37,7 @@ export function buildCabinUtilityFittings(
     metal: material('alloy', 0x879494, 0.48, 0.48),
     amber: material('retainers', 0xc78528, 0.54, 0.14),
     cloth: material('retained-textile', 0x65717a, 0.98, 0),
+    bedding: material('rolled-linen', 0xa59b83, 0.98, 0),
     seam: material('textile-binding', 0x354552, 0.96, 0),
   };
   root.userData.equipmentKind = 'cabin-utilities';
@@ -431,11 +432,73 @@ export function buildCabinUtilityFittings(
             );
         }
       });
-      assembly('bench-cooling-column', () => {
+      assembly('retained-diagnostic-lead', () => {
         const x = halfWidth - 0.18 * s,
           y = 1.37 * s;
-        const face = mountedBox(x, y, 0.22 * s, 0.72 * s, 0.035 * s, m.enamel);
-        slots(x, y, face + 0.004 * s, 0.125 * s, 12, 0.042 * s);
+        const face = mountedBox(x, y, 0.2 * s, 0.72 * s, 0.025 * s, m.frame);
+        // A spare test lead is coiled on its cradle, with both plugs captive.
+        const points = [
+          new THREE.Vector3(x, y + 0.25 * s, face + 0.035 * s),
+          ...Array.from({ length: 169 }, (_, i) => {
+            const u = i / 168;
+            const angle = Math.PI / 2 + u * Math.PI * 7;
+            return new THREE.Vector3(
+              x + Math.cos(angle) * (0.054 + u * 0.021) * s,
+              y + Math.sin(angle) * (0.2 + u * 0.028) * s,
+              face + (0.018 + u * 0.05) * s,
+            );
+          }),
+          new THREE.Vector3(x, y - 0.25 * s, face + 0.035 * s),
+        ];
+        h.mesh(
+          new THREE.TubeGeometry(
+            new THREE.CatmullRomCurve3(points),
+            192,
+            0.006 * s,
+            8,
+            false,
+          ),
+          m.cloth,
+          into,
+          prefix + 'coiled-diagnostic-cable',
+        );
+        for (const side of [-1, 1]) {
+          box(
+            0.174 * s,
+            0.031 * s,
+            0.083 * s,
+            m.enamel,
+            x,
+            y + side * 0.12 * s,
+            face + 0.038 * s,
+            'coil-keeper',
+            0.006 * s,
+          );
+          const plug = h.cylinder(
+            0.026 * s,
+            0.09 * s,
+            m.metal,
+            x,
+            y + side * 0.29 * s,
+            face + 0.035 * s,
+            into,
+            'y',
+            0.026 * s,
+            16,
+          );
+          plug.name = prefix + 'captive-test-plug';
+          box(
+            0.065 * s,
+            0.025 * s,
+            0.061 * s,
+            m.amber,
+            x,
+            y + side * 0.295 * s,
+            face + 0.024 * s,
+            'plug-lock',
+            0.006 * s,
+          );
+        }
       });
     }
 
@@ -488,8 +551,61 @@ export function buildCabinUtilityFittings(
           const x = side * (halfWidth - 0.16 * s),
             y = 1.35 * s;
           const face = mountedBox(x, y, 0.17 * s, 0.88 * s, 0.036 * s, m.frame);
-          if (side < 0) slots(x, y, face + 0.004 * s, 0.088 * s, 16, 0.043 * s);
-          else {
+          if (side < 0) {
+            // Sealed spare recorder cores, docked individually for servicing.
+            for (const dy of [-0.26, 0, 0.26]) {
+              const core = h.cylinder(
+                0.046 * s,
+                0.18 * s,
+                m.enamel,
+                x,
+                y + dy * s,
+                face + 0.05 * s,
+                into,
+                'y',
+                0.046 * s,
+                16,
+              );
+              core.name = prefix + 'spare-recorder-core';
+              for (const end of [-1, 1]) {
+                const cap = h.cylinder(
+                  0.052 * s,
+                  0.025 * s,
+                  m.metal,
+                  x,
+                  y + (dy + end * 0.088) * s,
+                  face + 0.05 * s,
+                  into,
+                  'y',
+                  0.052 * s,
+                  16,
+                );
+                cap.name = prefix + 'recorder-core-end-cap';
+              }
+              box(
+                0.137 * s,
+                0.032 * s,
+                0.113 * s,
+                m.recess,
+                x,
+                y + dy * s,
+                face + 0.048 * s,
+                'core-retaining-band',
+                0.006 * s,
+              );
+              box(
+                0.027 * s,
+                0.032 * s,
+                0.009 * s,
+                m.amber,
+                x,
+                y + dy * s,
+                face + 0.108 * s,
+                'core-captive-latch',
+                0.004 * s,
+              );
+            }
+          } else {
             for (const dx of [-0.03, 0.03])
               box(
                 0.018 * s,
@@ -635,62 +751,81 @@ export function buildCabinUtilityFittings(
           0.006 * s,
         );
       });
-      for (const y of [0.9, 1.48])
-        assembly(`crew-soft-stowage-${y}`, () => {
-          const x = -(halfWidth - 0.14 * s);
-          const face = mountedBox(
-            x,
-            y * s,
-            0.2 * s,
-            0.38 * s,
-            0.048 * s,
-            m.seam,
+      assembly('retained-bedding-roll', () => {
+        const x = -(halfWidth - 0.14 * s);
+        const y = 1.2 * s;
+        const face = mountedBox(x, y, 0.2 * s, 0.87 * s, 0.025 * s, m.seam);
+        const z = face + 0.083 * s;
+        const roll = h.cylinder(
+          0.076 * s,
+          0.66 * s,
+          m.bedding,
+          x,
+          y,
+          z,
+          into,
+          'y',
+          0.076 * s,
+          24,
+        );
+        roll.name = prefix + 'rolled-crew-bedding';
+        for (const end of [-1, 1]) {
+          const cap = h.mesh(
+            new THREE.SphereGeometry(0.076 * s, 24, 12),
+            m.bedding,
+            into,
+            prefix + 'soft-roll-end',
           );
-          box(
-            0.18 * s,
-            0.315 * s,
-            0.044 * s,
-            m.cloth,
-            x,
-            y * s,
-            face + 0.018 * s,
-            'retained-pouch',
-            0.025 * s,
-          );
-          box(
-            0.17 * s,
-            0.085 * s,
-            0.028 * s,
-            m.seam,
-            x,
-            y * s + 0.1 * s,
-            face + 0.034 * s,
-            'pouch-folded-flap',
-            0.02 * s,
-          );
-          box(
-            0.022 * s,
-            0.34 * s,
-            0.012 * s,
-            m.recess,
-            x,
-            y * s,
-            face + 0.045 * s,
-            'webbing-restraint',
-            0.005 * s,
-          );
-          box(
+          cap.position.set(x, y + end * 0.33 * s, z);
+          cap.scale.y = 0.35;
+          const strap = h.cylinder(
+            0.079 * s,
             0.042 * s,
-            0.034 * s,
-            0.014 * s,
+            m.seam,
+            x,
+            y + end * 0.23 * s,
+            z,
+            into,
+            'y',
+            0.079 * s,
+            24,
+          );
+          strap.name = prefix + 'bedding-restraint-band';
+          box(
+            0.06 * s,
+            0.042 * s,
+            0.025 * s,
+            m.seam,
+            x,
+            y + end * 0.23 * s,
+            face + 0.008 * s,
+            'bedding-strap-wall-keeper',
+            0.003 * s,
+          );
+          box(
+            0.044 * s,
+            0.05 * s,
+            0.018 * s,
             m.metal,
             x,
-            y * s - 0.055 * s,
-            face + 0.055 * s,
-            'pouch-buckle',
-            0.005 * s,
+            y + end * 0.23 * s,
+            z + 0.082 * s,
+            'bedding-buckle',
+            0.006 * s,
           );
-        });
+        }
+        box(
+          0.013 * s,
+          0.62 * s,
+          0.006 * s,
+          m.cloth,
+          x + 0.025 * s,
+          y,
+          z + 0.073 * s,
+          'bound-blanket-edge',
+          0.002 * s,
+        );
+      });
     }
 
     // Fasteners batch with their room, never creating additional hit targets.

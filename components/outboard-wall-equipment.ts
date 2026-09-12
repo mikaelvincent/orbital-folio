@@ -171,8 +171,22 @@ export function buildOutboardWallEquipment(
     }
     // Clamped cable looms join the radio tray to the lower distribution block.
     box(0.97, 0.29, 0.075, m.dark, 0, -0.55, 0.064, 'distribution-enclosure');
-    box(0.88, 0.2, 0.015, m.ivory, 0, -0.55, 0.109, 'distribution-cover');
-    label('SIGNAL DISTRIBUTION', 0.62, 0.044, 0, -0.535, 0.118);
+    box(0.88, 0.2, 0.015, m.rubber, 0, -0.55, 0.109, 'connector-panel');
+    for (const x of [-0.28, 0, 0.28]) {
+      pin(0.065, 0.018, m.alloy, x, -0.55, 0.122, 'bayonet-socket-ring');
+      pin(0.049, 0.026, m.dark, x, -0.55, 0.136, 'sealed-connector-cap');
+      box(
+        0.062,
+        0.015,
+        0.016,
+        m.amber,
+        x,
+        -0.55,
+        0.155,
+        'cap-locking-bar',
+        0.004,
+      );
+    }
     for (const y of [-0.11, -0.365])
       box(
         1.09,
@@ -213,7 +227,6 @@ export function buildOutboardWallEquipment(
         box(0.048, 0.038, 0.031, m.alloy, x, y, 0.079, 'cable-clamp', 0.006);
         box(0.052, 0.017, 0.014, m.amber, x, y, 0.099, 'clamp-index', 0.002);
       }
-      box(0.1, 0.022, 0.014, m.rubber, x, -0.603, 0.123, 'guarded-port');
     }
     // Ventilation belongs to the enclosure, with a narrow service-light canopy.
     for (let i = 0; i < 9; i++)

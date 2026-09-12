@@ -2,6 +2,7 @@ export type SceneFeedbackTarget = {
   room: string;
   object: string;
   walkway: boolean;
+  portalId?: string;
 };
 
 export const EMPTY_SCENE_FEEDBACK: SceneFeedbackTarget = {

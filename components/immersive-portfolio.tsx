@@ -55,6 +55,9 @@ export function ImmersivePortfolio({
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
   const navigationToggle = useRef<HTMLButtonElement>(null);
+  const requestSceneNavigation = useRef<((section: string) => boolean) | null>(
+    null,
+  );
   const [arrived, setArrived] = useState(false);
   const [travel, setTravel] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -100,13 +103,27 @@ export function ImmersivePortfolio({
     (next: Destination, push = true) => {
       if (next.slug && !data.projects.some((p) => p.slug === next.slug))
         return false;
+      setNavigationOpen(false);
+      // Leave the URL and current destination unchanged until the camera
+      // arrives. Every ordinary door, menu item, and Home shares this slot.
+      if (
+        push &&
+        immersive &&
+        !next.slug &&
+        !next.open &&
+        !next.sent &&
+        !next.error &&
+        (next.section === 'home' ||
+          rooms.some((room) => room === next.section)) &&
+        requestSceneNavigation.current?.(next.section)
+      )
+        return true;
       const same =
         latest.current.section === next.section &&
         latest.current.slug === next.slug &&
         !!latest.current.open === !!next.open &&
         !!latest.current.sent === !!next.sent &&
         !!latest.current.error === !!next.error;
-      setNavigationOpen(false);
       if (same) {
         navigationToggle.current?.focus({ preventScroll: true });
         return true;
@@ -125,7 +142,7 @@ export function ImmersivePortfolio({
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
       return true;
     },
-    [data.projects, hrefFor, reading],
+    [data.projects, hrefFor, reading, immersive],
   );
 
   useEffect(() => {
@@ -436,6 +453,9 @@ export function ImmersivePortfolio({
             paused={reduced}
             enabled={immersive}
             onNavigate={(id) => go({ section: id })}
+            onNavigationReady={(request) => {
+              requestSceneNavigation.current = request;
+            }}
             onSurfaceReady={setSurface}
             onSettled={settled}
             onUnavailable={() => {

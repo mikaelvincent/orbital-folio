@@ -1,6 +1,10 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { resolveSocialScreens } from '@/lib/social-links';
+import {
+  canUseDoorDuringTravel,
+  createDoorNavigationQueue,
+} from '@/lib/door-navigation';
 import { SceneLoader } from './scene-loader';
 import {
   createSceneFeedback,
@@ -48,6 +52,7 @@ type Props = {
   paused: boolean;
   enabled: boolean;
   onNavigate: (section: string) => void;
+  onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onSettled: () => void;
   onUnavailable: () => void;
@@ -327,8 +332,9 @@ export function Spacecraft(props: Props) {
               section: portal.from,
               portalId: portal.id,
             });
-            button.onclick = () => latest.current.onNavigate(portal.to);
+            button.onclick = () => navigateDoor(portal.id);
             button.dataset.sceneRoom = portal.to;
+            button.dataset.scenePortal = portal.id;
           }
           // Genuine links aligned with the two physical screen faces. Their
           // geometry remains in WebGL; this transparent layer supplies native
@@ -442,7 +448,20 @@ export function Spacecraft(props: Props) {
             control: HTMLElement | null;
             pointerType: string;
             section: string;
+            portalId?: string;
+            navigationOnly: boolean;
           } | null = null;
+          const doorQueue = createDoorNavigationQueue();
+          function navigateDoor(id: string) {
+            if (reading || !latest.current.enabled) return;
+            const portal = model.group.userData.portals.find(
+              (p: any) => p.id === id,
+            );
+            if (!portal || portal.from !== active) return;
+            const destination = doorQueue.request(portal, active, travelling);
+            el.dataset.queuedRoom = doorQueue.destination;
+            if (destination) latest.current.onNavigate(destination);
+          }
           const feedback = createSceneFeedback();
           const interactionScope = el.closest<HTMLElement>(
             '.orbital-experience',
@@ -1041,23 +1060,29 @@ export function Spacecraft(props: Props) {
                   el.dataset.travelling = 'false';
                   el.dataset.waitingForDoors = 'false';
                   lastSettledSection = active;
-                  if (notifyArrival) latest.current.onSettled();
+                  const queuedRoom = doorQueue.arrive(active);
+                  el.dataset.queuedRoom = '';
+                  if (queuedRoom) latest.current.onNavigate(queuedRoom);
+                  else if (notifyArrival) latest.current.onSettled();
                 }
               }
             }
             const motionDelta = stop ? 0 : delta;
             const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
             const feedbackTarget = feedback.resolve(
-              travelling ||
-                reading ||
+              reading ||
                 !latest.current.enabled ||
                 !!down?.gesture.dragging ||
                 document.hidden,
               pointerFeedback,
               () => targetFeedback(document.activeElement),
             );
-            const effectiveHover = feedbackTarget.room;
-            const effectiveObject = feedbackTarget.object;
+            // Door feedback can operate during a flight without steering the
+            // camera or enabling objects and general room hover along the way.
+            const effectiveHover = travelling ? '' : feedbackTarget.room;
+            const effectiveObject = travelling ? '' : feedbackTarget.object;
+            const effectivePortal = feedbackTarget.portalId || effectiveHover;
+            el.dataset.hoverPortal = effectivePortal;
             if (
               hovered !== effectiveHover ||
               highlightedObject !== effectiveObject
@@ -1068,9 +1093,10 @@ export function Spacecraft(props: Props) {
             interactionScope.dataset.sceneInput = feedback.input;
             if (!down?.gesture.dragging)
               el.style.cursor =
-                effectiveHover || effectiveObject ? 'pointer' : 'grab';
+                effectivePortal || effectiveObject ? 'pointer' : 'grab';
             const inspectingPassage =
               active !== 'home' &&
+              !travelling &&
               !!effectiveHover &&
               effectiveHover !== active &&
               !down?.gesture.dragging;
@@ -1209,7 +1235,7 @@ export function Spacecraft(props: Props) {
               transitWalkway,
               hoveredWalkway,
               labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
-              hoveredPortal: effectiveHover,
+              hoveredPortal: effectivePortal,
               openPortalIds:
                 travelling && !stop && !flightImmediate ? openPortalIds : [],
               immediateDoors: stop || (wasTravelling && flightImmediate),
@@ -1256,7 +1282,9 @@ export function Spacecraft(props: Props) {
                 (p: any) => p.id === h.portalId,
               );
               h.object.visible =
-                active === h.section && !reading && !travelling;
+                active === h.section &&
+                !reading &&
+                (!travelling || canUseDoorDuringTravel(portal, active));
               h.button.inert = !h.object.visible;
               if (h.button.textContent !== s[portal.to + 'Label'])
                 h.button.textContent = s[portal.to + 'Label'];
@@ -1335,6 +1363,8 @@ export function Spacecraft(props: Props) {
                 position: camera.position.toArray(),
                 quaternion: camera.quaternion.toArray(),
                 hover: hovered,
+                hoverPortal: effectivePortal,
+                queuedRoom: doorQueue.destination,
                 active,
                 travelling,
                 focus: currentTarget.toArray(),
@@ -1574,10 +1604,22 @@ export function Spacecraft(props: Props) {
             )
               return EMPTY_SCENE_FEEDBACK;
             const room = target.dataset.sceneRoom || '';
+            const portalId = target.dataset.scenePortal;
+            if (
+              travelling &&
+              !canUseDoorDuringTravel(
+                model.group.userData.portals.find(
+                  (p: any) => p.id === portalId,
+                ),
+                active,
+              )
+            )
+              return EMPTY_SCENE_FEEDBACK;
             return {
               room: room === 'home' ? '' : room,
               object: target.dataset.sceneObject || '',
               walkway: false,
+              ...(portalId ? { portalId } : {}),
             };
           }
           function pickAt(x: number, y: number) {
@@ -1589,28 +1631,42 @@ export function Spacecraft(props: Props) {
             ray.setFromCamera(pointer, camera);
             const walkway =
               active !== 'home' &&
+              !travelling &&
               !reading &&
               ray.intersectObject(walkwayProxy, false).length > 0;
             if (active !== 'home' && !reading) {
               const portal = ray.intersectObjects(
                 model.portalTargets
-                  .filter((p) => p.from === active)
+                  .filter(
+                    (p) =>
+                      p.from === active &&
+                      (!travelling ||
+                        canUseDoorDuringTravel(
+                          model.group.userData.portals.find(
+                            (portal: any) => portal.id === p.id,
+                          ),
+                          active,
+                        )),
+                  )
                   .map((p) => p.object),
                 false,
               )[0];
               if (portal)
                 return {
                   section: portal.object.userData.portalDestination as string,
+                  portalId: portal.object.userData.portalId as string,
                   walkway,
                 };
             }
+            if (travelling) return { section: '', walkway: false };
             const hit = ray.intersectObjects(proxies, false)[0];
             const section = hit?.object.userData.section || '';
             return { section: section === active ? '' : section, walkway };
           }
           function pick(event: PointerEvent) {
             const target = targetFeedback(event.target as Element);
-            if (target.room || target.object) return { section: target.room };
+            if (target.room || target.object)
+              return { section: target.room, portalId: target.portalId };
             return pickAt(event.clientX, event.clientY);
           }
           function pointerFeedback(x: number, y: number): SceneFeedbackTarget {
@@ -1628,7 +1684,12 @@ export function Spacecraft(props: Props) {
             )
               return EMPTY_SCENE_FEEDBACK;
             const hit = pickAt(x, y);
-            return { room: hit.section, object: '', walkway: hit.walkway };
+            return {
+              room: hit.section,
+              object: '',
+              walkway: hit.walkway,
+              ...('portalId' in hit ? { portalId: hit.portalId } : {}),
+            };
           }
           const feedbackChanged = () => kick();
           const trackPointer = (event: PointerEvent) => {
@@ -1672,7 +1733,8 @@ export function Spacecraft(props: Props) {
                   }
                 }
                 feedback.reset();
-                dragGoal.set(...down.gesture.response);
+                if (!down.navigationOnly)
+                  dragGoal.set(...down.gesture.response);
                 pointerGoal.set(0, 0);
                 el.style.cursor = 'grabbing';
                 el.dataset.dragging = 'true';
@@ -1694,7 +1756,6 @@ export function Spacecraft(props: Props) {
               !event.isPrimary ||
               event.button !== 0 ||
               reading ||
-              travelling ||
               (event.target as Element).closest('.world-surface')
             )
               return;
@@ -1704,6 +1765,16 @@ export function Spacecraft(props: Props) {
             if ((event.target as Element).closest('button') && !control) return;
             suppressClickUntil = 0;
             const selection = pick(event);
+            if (
+              travelling &&
+              !canUseDoorDuringTravel(
+                model.group.userData.portals.find(
+                  (p: any) => p.id === selection.portalId,
+                ),
+                active,
+              )
+            )
+              return;
             const targetKey = control
               ? control.dataset.targetKey || ''
               : pickKey(selection);
@@ -1711,6 +1782,7 @@ export function Spacecraft(props: Props) {
               ...selection,
               control,
               pointerType: event.pointerType,
+              navigationOnly: travelling,
               gesture: beginBoundedDrag({
                 pointerId: event.pointerId,
                 x: event.clientX,
@@ -1753,10 +1825,12 @@ export function Spacecraft(props: Props) {
             if (completed.state.dragging) feedback.reset();
             if (event.pointerType === 'touch') pointerGoal.set(0, 0);
             if (completed.activate && !action.control && action.section) {
-              latest.current.onNavigate(action.section);
+              if (action.portalId) navigateDoor(action.portalId);
+              else if (!travelling) latest.current.onNavigate(action.section);
             }
           };
-          function pickKey(value: { section: string }) {
+          function pickKey(value: { section: string; portalId?: string }) {
+            if (value.portalId) return `portal:${value.portalId}`;
             return value.section ? `${value.section}:room` : '';
           }
           function cancelInput() {
@@ -1850,7 +1924,13 @@ export function Spacecraft(props: Props) {
             );
           }
           api.current = {
-            go: () => go(),
+            go: () => {
+              // Browser history and reader changes supersede a queued hop.
+              // Internal resize() calls go directly and preserves the queue.
+              doorQueue.clear();
+              el.dataset.queuedRoom = '';
+              go();
+            },
             pause(value) {
               stop = value;
               lastFrame = 0;
@@ -1858,8 +1938,21 @@ export function Spacecraft(props: Props) {
               kick();
             },
           };
+          latest.current.onNavigationReady((section) => {
+            if (
+              !travelling ||
+              reading ||
+              !latest.current.enabled ||
+              (section !== 'home' && !anchors[section])
+            )
+              return false;
+            doorQueue.requestDestination(section, active, true);
+            el.dataset.queuedRoom = doorQueue.destination;
+            return true;
+          });
           go(latest.current.section === 'home');
           cleanup = () => {
+            latest.current.onNavigationReady(null);
             cancelAnimationFrame(frame);
             annotations.dispose();
             observer.disconnect();
