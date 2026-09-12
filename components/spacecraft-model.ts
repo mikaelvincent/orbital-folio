@@ -29,6 +29,7 @@ import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
+import { buildOutboardWallEquipment } from './outboard-wall-equipment.ts';
 import {
   buildLadderServiceSpine,
   getServiceSpineRecesses,
@@ -2064,6 +2065,21 @@ export function createSpacecraft(
   );
 
   group.userData.socialScreens = contactConsole.userData.socialScreens;
+  // Outboard fixtures follow the actual wall, independently of furniture scale.
+  const outboardEquipment = ['contact', 'experience'].map((section) => {
+    const root = new THREE.Group();
+    root.name = `${section}-outboard-equipment`;
+    root.userData = { section, batchRoot: true, excludePick: true };
+    root.rotation.y = -Math.PI / 2;
+    group.add(root);
+    buildOutboardWallEquipment(
+      THREE,
+      { box, mesh, cylinder, instances },
+      root,
+      section === 'contact' ? 'communications' : 'recorder',
+    );
+    return { section, root };
+  });
   const objectHighlights = group.userData.socialScreens
     .filter((screen: any) => screen.link)
     .map((screen: any) => {
@@ -3766,6 +3782,14 @@ export function createSpacecraft(
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
     contactConsole.userData.setPropScale(propScale);
+    for (const { section, root } of outboardEquipment) {
+      root.position.set(
+        halfPitch + CABIN_HALF_WIDTH * layoutScale,
+        roomCenters[section][1] + 0.08,
+        0.18,
+      );
+      root.scale.setScalar(propScale);
+    }
     for (const section of Object.keys(rooms)) {
       const left = section === 'projects' || section === 'about';
       const x = (left ? -1 : 1) * halfPitch,

@@ -90,6 +90,13 @@ for (const [layout, scale] of [
     }
     // Cover both rooms beside the bus. The old circular hull crossed the
     // pressure wall here, even though exterior-only ray tests were passing.
+    // Intentional wall-mounted equipment now occupies this area. Its cabin
+    // containment is checked separately; these rays inspect the underlying skin.
+    const wallAndHull = meshes.filter((object) => {
+      for (let owner = object; owner; owner = owner.parent)
+        if (owner.userData.equipmentKind) return false;
+      return true;
+    });
     for (const side of [-1, 1])
       for (const y of [0.25, 0.45, 0.7])
         for (const z of [-0.4, 0, 0.4, 0.65]) {
@@ -99,7 +106,7 @@ for (const [layout, scale] of [
             0,
             0.3,
           );
-          const hit = ray.intersectObjects(meshes, false)[0];
+          const hit = ray.intersectObjects(wallAndHull, false)[0];
           assert.ok(hit, 'The inner pressure wall must remain closed');
           assert.ok(
             Math.abs(hit.point.x - insideX) < 2e-6,
