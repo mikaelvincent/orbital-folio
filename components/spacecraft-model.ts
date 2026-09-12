@@ -2997,11 +2997,12 @@ export function createSpacecraft(
       hatch = { iris, doorMotion: { value: 0, velocity: 0 }, portals: [] };
       physicalHatches.set(physicalId, hatch);
     }
-    // Navigation plaques sit literally above the side door, on the same
-    // inward-facing wall plane. They are distinct from the frontal room title.
+    // Shallow, serviceable enamel signs share the cabin equipment's graphite
+    // carrier and captive fittings. Rear feet bridge to the pressure wall;
+    // the face stays at the established text plane and wayfinding scale.
     const caption = new THREE.Group();
     caption.name = id + '-above-door-wall-nameplate';
-    caption.userData = { section: from, batchRoot: true };
+    caption.userData = { section: from, batchRoot: true, excludePick: true };
     visual.add(caption);
     const captionSize = [wayfinding.textWidth, wayfinding.textHeight],
       plateSize = [1.52, wayfinding.plateHeight];
@@ -3012,27 +3013,82 @@ export function createSpacecraft(
     box(
       plateSize[0],
       plateSize[1],
-      0.11,
-      m.liner,
+      0.064,
+      m.gasket,
       0,
       0,
-      -0.068,
+      -0.05,
       caption,
-      0.028,
+      0.017,
       'above-door-label-backing',
     );
     box(
       enamelWidth,
       wayfinding.enamelHeight,
-      0.028,
+      0.015,
       m.chalk,
       0,
       0,
-      -0.017,
+      -0.0105,
       caption,
-      0.013,
+      0.011,
       'above-door-label-enamel',
     );
+    for (const side of [-1, 1]) {
+      box(
+        0.09,
+        0.14,
+        0.047,
+        m.gasket,
+        side * 0.63,
+        0,
+        -0.1,
+        caption,
+        0.008,
+        'above-door-label-wall-foot',
+      );
+      // Narrow captive amber keepers and flush screws sit beyond the symbols.
+      box(
+        0.012,
+        0.066,
+        0.005,
+        m.amber,
+        side * 0.713,
+        0,
+        -0.0005,
+        caption,
+        0.002,
+        'above-door-label-retainer',
+      );
+      for (const y of [-0.083, 0.083]) {
+        const screw = cylinder(
+          0.008,
+          0.003,
+          m.metal,
+          side * 0.713,
+          y,
+          -0.001,
+          caption,
+          'z',
+          undefined,
+          12,
+        );
+        screw.name = 'above-door-label-captive-screw';
+        screw.castShadow = false;
+        box(
+          0.009,
+          0.0018,
+          0.001,
+          m.gasket,
+          side * 0.713,
+          y,
+          0.001,
+          caption,
+          0,
+          'above-door-label-screw-slot',
+        );
+      }
+    }
     portalLabel(
       options.labels?.[to] || to,
       caption,
@@ -3085,7 +3141,7 @@ export function createSpacecraft(
       iconInset,
       iconCenter,
       enamelWidth,
-      backingFront: -0.013,
+      backingFront: -0.018,
       enamelFront: -0.003,
       inkFront: 0,
       sealed: true,

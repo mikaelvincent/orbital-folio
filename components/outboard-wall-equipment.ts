@@ -111,19 +111,6 @@ export function buildOutboardWallEquipment(
     }
     box(0.068, 1.62, 0.045, m.dark, x, 0.01, 0.047, 'equipment-rail');
   }
-  box(1.04, 0.17, 0.054, m.dark, 0, 0.9, 0.033, 'header-gasket');
-  box(0.99, 0.13, 0.022, m.ivory, 0, 0.9, 0.066, 'header-enamel');
-  label(
-    kind === 'communications' ? 'COMMS / UPLINK' : 'RECORDER / STORES',
-    0.86,
-    0.065,
-    0,
-    0.9,
-    0.079,
-  );
-  for (const x of [-0.49, 0.49])
-    box(0.017, 0.085, 0.008, m.amber, x, 0.9, 0.081, 'header-index', 0.003);
-
   if (kind === 'communications') {
     // Two replaceable radio trays, with guarded selectors and captive handles.
     for (const [index, y] of [0.53, 0.12].entries()) {
