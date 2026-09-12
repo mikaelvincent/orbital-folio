@@ -31,6 +31,10 @@ import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
 import { buildOutboardWallEquipment } from './outboard-wall-equipment.ts';
 import {
+  buildCabinUtilityFittings,
+  buildLadderWebFittings,
+} from './cabin-utility-fittings.ts';
+import {
   buildLadderServiceSpine,
   getServiceSpineRecesses,
 } from './ladder-service-spine.ts';
@@ -2080,6 +2084,34 @@ export function createSpacecraft(
     );
     return { section, root };
   });
+  // These additions are mounted to the pressure shell rather than the legacy
+  // furniture transform. Neither layout changes nor furniture scale detach them.
+  const cabinUtilities = (
+    ['projects', 'experience', 'about', 'contact'] as const
+  ).map((section) => {
+    const root = new THREE.Group();
+    root.name = `${section}-cabin-utilities`;
+    root.userData = { section, excludePick: true };
+    group.add(root);
+    const fittings = buildCabinUtilityFittings(
+      THREE,
+      { box, mesh, cylinder, instances },
+      root,
+      section,
+      interiorPoints.map((point: any) => ({ y: point.y, z: -point.x })),
+    );
+    return { section, root, fittings };
+  });
+  const ladderWebFittings = new THREE.Group();
+  ladderWebFittings.name = 'ladder-wall-isolation-cassette';
+  ladderWebFittings.userData = {
+    section: 'walkway',
+    batchRoot: true,
+    excludePick: true,
+  };
+  ladderWebFittings.rotation.y = -Math.PI / 2;
+  group.add(ladderWebFittings);
+  buildLadderWebFittings(THREE, { box, cylinder }, ladderWebFittings);
   const objectHighlights = group.userData.socialScreens
     .filter((screen: any) => screen.link)
     .map((screen: any) => {
@@ -3779,6 +3811,20 @@ export function createSpacecraft(
     const layoutWalls = wallLayout(layoutScale);
     const { halfPitch } = layoutWalls;
     const propScale = currentLayout === 'wide' ? 1 : 0.84;
+    for (const { section, root, fittings } of cabinUtilities) {
+      const left = section === 'projects' || section === 'about';
+      root.position.set(
+        (left ? -1 : 1) * halfPitch,
+        roomCenters[section][1] + cabinFloorTop,
+        0,
+      );
+      fittings.setLayout(currentLayout);
+    }
+    ladderWebFittings.position.set(
+      layoutWalls.ladderRightWall,
+      LADDER_CENTER_Y,
+      0.12,
+    );
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
     contactConsole.userData.setPropScale(propScale);

@@ -184,6 +184,12 @@ test('Ladder lights, end anchors, rail grips and rungs are mirrored after fittin
     'terminal-light-diffuser',
     'bay-worklight-housing',
     'bay-worklight-diffuser',
+    'service-feed-end-junction',
+    'service-feed-junction-cover',
+    'junction-captive-retainer',
+    'outer-service-feed',
+    'service-feed-inner-termination',
+    'service-feed-termination-cap',
   ]) {
     const pair = byName(name);
     assert.equal(pair.length, 2, `Exactly two ${name} fixtures`);

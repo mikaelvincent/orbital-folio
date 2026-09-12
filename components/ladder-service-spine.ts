@@ -499,6 +499,87 @@ export function buildLadderServiceSpine(
       blade.rotation.x = -0.34 * side;
     }
   }
+  // Mirrored protected service feeds occupy the narrow outer strip. They stay
+  // behind the handhold plane and terminate in captive junctions at both ends.
+  for (const side of [-1, 1]) {
+    const y = (offset: number) => 0.01 + side * offset;
+    rod(
+      [0.617, y(0.34), -0.965],
+      [0.617, y(2.12), -0.965],
+      0.009,
+      m.hose,
+      'outer-service-feed',
+    );
+    box(
+      0.045,
+      0.072,
+      0.036,
+      m.graphite,
+      0.617,
+      y(0.325),
+      -0.965,
+      'service-feed-inner-termination',
+      0.008,
+    );
+    box(
+      0.028,
+      0.018,
+      0.01,
+      m.alloy,
+      0.617,
+      y(0.335),
+      -0.943,
+      'service-feed-termination-cap',
+      0.004,
+    );
+    for (const at of [0.4, 1.02, 1.98]) {
+      box(
+        0.044,
+        0.045,
+        0.033,
+        m.alloy,
+        0.617,
+        y(at),
+        -0.974,
+        'outer-feed-retainer',
+        0.006,
+      );
+      screws.push([0.617, y(at), -0.953]);
+    }
+    box(
+      0.109,
+      0.15,
+      0.046,
+      m.graphite,
+      0.599,
+      y(2.185),
+      -0.966,
+      'service-feed-end-junction',
+      0.017,
+    );
+    box(
+      0.079,
+      0.11,
+      0.017,
+      m.ivory,
+      0.599,
+      y(2.185),
+      -0.937,
+      'service-feed-junction-cover',
+      0.012,
+    );
+    box(
+      0.018,
+      0.05,
+      0.009,
+      m.amber,
+      0.599,
+      y(2.185),
+      -0.924,
+      'junction-captive-retainer',
+      0.004,
+    );
+  }
   // Three guarded isolation levers, with a small engraved position scale.
   for (let i = 0; i < 3; i++) {
     const y = 0.01 + (i - 1) * 0.27;
