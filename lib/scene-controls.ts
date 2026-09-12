@@ -15,6 +15,10 @@ export type Aperture = {
   width: number;
   height: number;
 };
+export type RoomCameraFrame = {
+  aperture: Aperture;
+  requiredPoints: readonly Vec3[];
+};
 /** Shared by actual input and the camera-fit envelope (radians). */
 export const CAMERA_RANGES = {
   hover: { pitch: 0.025, yaw: 0.045 },
@@ -247,6 +251,45 @@ export function solveApertureFraming(input: {
     maximumDistance: maximum,
     distance: feasible ? maximum : null,
   };
+}
+
+/** One cabin-local fit for every room. Furnishings never change the lens distance. */
+export function fitRoomCameraFrame(
+  frame: RoomCameraFrame,
+  fovDegrees: number,
+  aspect: number,
+  safe: NdcBounds,
+) {
+  const views = cursorViewSamples(
+    { target: [0, 0, 0], direction: [0, 0, 1] },
+    4,
+    CAMERA_RANGES.room,
+  );
+  const solution = solveApertureFraming({
+    ...frame,
+    views,
+    fovDegrees,
+    aspect,
+    overscan: 1.015,
+    portalBounds: safe,
+  });
+  // Portrait views keep navigation visible even when the front opening cannot
+  // cover the entire viewport. The same compromise applies to every cabin.
+  const chosenDistance = solution.feasible
+    ? solution.minimumDistance +
+      (solution.maximumDistance - solution.minimumDistance) * 0.16
+    : Math.max(
+        ...views.map((view) =>
+          fitPerspectiveDistance(
+            frame.requiredPoints,
+            view,
+            fovDegrees,
+            aspect,
+            safe,
+          ),
+        ),
+      ) + 0.05;
+  return { ...solution, chosenDistance };
 }
 
 /** Match current Three Euler XYZ cursor response, without accumulating an orbit. */

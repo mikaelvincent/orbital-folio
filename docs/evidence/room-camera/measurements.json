@@ -1,0 +1,294 @@
+{
+  "beforeDesktop": {
+    "about": {
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 4.874649718735907,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.824649718735907,
+        "mode": "room",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "position": "-2.0870,-1.4050,5.0346",
+      "room": "about"
+    },
+    "contact": {
+      "angles": "0.00000,-0.00000",
+      "framing": {
+        "chosenDistance": 6.044026139859968,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 5.994026139859968,
+        "mode": "room",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "position": "2.0846,-1.4050,6.2035",
+      "room": "contact"
+    }
+  },
+  "afterDesktop": {
+    "contact": {
+      "anchors": {
+        "about": [
+          -2.0869999999999997,
+          -1.4725,
+          0.16
+        ],
+        "contact": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ],
+        "experience": [
+          2.0869999999999997,
+          1.4725,
+          0.16
+        ],
+        "projects": [
+          -2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 4.917947257181159,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.867947257181159,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "position": "2.0870,-1.4050,5.0779",
+      "room": "contact"
+    },
+    "about": {
+      "angles": "-0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 4.917947257181159,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.867947257181159,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "pointer": "0.00000,-0.00000",
+      "position": "-2.0852,-1.4050,5.0779",
+      "room": "about"
+    },
+    "projects": {
+      "angles": "0.00000,-0.00000",
+      "framing": {
+        "chosenDistance": 4.917947257181159,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.867947257181159,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "pointer": "-0.00000,0.00000",
+      "position": "-2.0891,1.5399,5.0779",
+      "room": "projects"
+    },
+    "experience": {
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 4.917947257181159,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.867947257181159,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "pointer": "0.00000,0.00000",
+      "position": "2.0870,1.5400,5.0779",
+      "room": "experience",
+      "travelling": "false"
+    }
+  },
+  "narrow": {
+    "experience": {
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 14.362401954735589,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 4.714661733354185,
+        "minimumDistance": 14.312401954735588,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.8104265402843602,
+          "left": -0.9384615384615383,
+          "right": 0.9384615384615383,
+          "top": 0.943127962085308
+        }
+      },
+      "position": "2.0870,1.5400,14.5224",
+      "room": "experience",
+      "travelling": "false"
+    },
+    "projects": {
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 14.362401954735589,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 4.714661733354185,
+        "minimumDistance": 14.312401954735588,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.8104265402843602,
+          "left": -0.9384615384615383,
+          "right": 0.9384615384615383,
+          "top": 0.943127962085308
+        }
+      },
+      "position": "-2.0847,1.5400,14.5224",
+      "room": "projects",
+      "travelling": "false"
+    },
+    "about": {
+      "angles": "0.00000,0.00000",
+      "framing": {
+        "chosenDistance": 14.362401954735589,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 4.714661733354185,
+        "minimumDistance": 14.312401954735588,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.8104265402843602,
+          "left": -0.9384615384615383,
+          "right": 0.9384615384615383,
+          "top": 0.943127962085308
+        }
+      },
+      "position": "-2.0892,-1.4049,14.5224",
+      "room": "about",
+      "travelling": "false"
+    },
+    "contact": {
+      "angles": "0.00000,-0.00000",
+      "framing": {
+        "chosenDistance": 14.362401954735589,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 4.714661733354185,
+        "minimumDistance": 14.312401954735588,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.8104265402843602,
+          "left": -0.9384615384615383,
+          "right": 0.9384615384615383,
+          "top": 0.943127962085308
+        }
+      },
+      "position": "2.0846,-1.4050,14.5224",
+      "room": "contact",
+      "travelling": "false"
+    }
+  },
+  "tabletContact": {
+    "angles": "0.00000,-0.00000",
+    "framing": {
+      "chosenDistance": 5.043984687907106,
+      "distance": null,
+      "feasible": false,
+      "maximumDistance": 4.347188992834841,
+      "minimumDistance": 4.993984687907107,
+      "mode": "room",
+      "reference": "shared-cabin-architecture",
+      "safe": {
+        "bottom": -0.7916666666666666,
+        "left": -0.96484375,
+        "right": 0.96484375,
+        "top": 0.9375
+      }
+    },
+    "position": "2.0870,-1.4050,5.2040",
+    "room": "contact"
+  },
+  "angleReset": {
+    "before": {
+      "angles": "0.01111,-0.02180",
+      "pointer": "-0.48437,0.44444"
+    },
+    "after": {
+      "angles": "0.00000,-0.00000",
+      "framing": {
+        "chosenDistance": 4.917947257181159,
+        "distance": null,
+        "feasible": false,
+        "maximumDistance": 3.58064401025148,
+        "minimumDistance": 4.867947257181159,
+        "mode": "room",
+        "reference": "shared-cabin-architecture",
+        "safe": {
+          "bottom": -0.7777777777777778,
+          "left": -0.971875,
+          "right": 0.971875,
+          "top": 0.9333333333333332
+        }
+      },
+      "layout": "wide",
+      "pointer": "-0.00000,0.00000",
+      "position": "-2.0891,1.5399,5.0779",
+      "room": "projects"
+    }
+  },
+  "ladder": {
+    "waitPeriods": 1,
+    "overlap": 0
+  }
+}

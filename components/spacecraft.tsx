@@ -27,7 +27,7 @@ import {
   pointerResponse,
   fitPerspectiveDistance,
   fitPerspectiveFrame,
-  solveApertureFraming,
+  fitRoomCameraFrame,
   cursorViewSamples,
   boundedCameraAngles,
   CAMERA_RANGES,
@@ -690,61 +690,17 @@ export function Spacecraft(props: Props) {
               const aperture =
                 model.group.userData.innerApertureBounds[section];
               target.y = aperture.center[1];
-              const required: Vec3[] = (
-                model.group.userData.requiredFramingPoints?.[section] || []
-              ).map((p: { position: Vec3 }) => p.position);
-              if (!required.length) {
-                for (const x of [-1.13, 1.13])
-                  for (const y of [-0.86, 1.08])
-                    required.push([
-                      target.x + x,
-                      anchors[section][1] + y,
-                      -0.4,
-                    ]);
-              }
-              const views = cursorViewSamples(
-                {
-                  target: target.toArray(),
-                  direction: direction.toArray(),
-                },
-                4,
-                CAMERA_RANGES.room,
+              const solution = fitRoomCameraFrame(
+                model.group.userData.roomCameraFrame,
+                camera.fov,
+                camera.aspect,
+                safe,
               );
-              const solution = solveApertureFraming({
-                aperture: {
-                  center: aperture.center,
-                  right: [1, 0, 0],
-                  up: [0, 1, 0],
-                  width: aperture.size[0],
-                  height: aperture.size[1],
-                },
-                views,
-                requiredPoints: required,
-                fovDegrees: camera.fov,
-                aspect: camera.aspect,
-                overscan: 1.015,
-                portalBounds: safe,
-              });
-              // Use the closest safe fit. Tall viewports preserve real controls even
-              // when their aspect makes hiding every part of the front frame impossible.
-              desiredDistance = solution.feasible
-                ? solution.minimumDistance +
-                  (solution.maximumDistance - solution.minimumDistance) * 0.16
-                : Math.max(
-                    ...views.map((view) =>
-                      fitPerspectiveDistance(
-                        required,
-                        view,
-                        camera.fov,
-                        camera.aspect,
-                        safe,
-                      ),
-                    ),
-                  ) + 0.05;
+              desiredDistance = solution.chosenDistance;
               el.dataset.framing = JSON.stringify({
                 mode: 'room',
+                reference: 'shared-cabin-architecture',
                 ...solution,
-                chosenDistance: desiredDistance,
                 safe,
               });
             }
@@ -789,6 +745,9 @@ export function Spacecraft(props: Props) {
           const go = (immediate = false, notify = true) => {
             cancelInput();
             dragGoal.set(0, 0);
+            // A pointer position from the previous room must not tilt the arrival.
+            // Preserve spring velocity so the view returns to center smoothly.
+            pointerGoal.set(0, 0);
             aoDirty = true;
             const previousRoom = active;
             const wasReading = reading;

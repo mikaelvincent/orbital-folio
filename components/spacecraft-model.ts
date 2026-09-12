@@ -4136,6 +4136,45 @@ export function createSpacecraft(
       }
     }
     group.userData.requiredFramingPoints = points;
+    // All cabins share the same architecture and camera frame. Fitting each
+    // furniture bounding box made Contact pull back farther than the other rooms.
+    // Keep the reference local to the cabin focus and symmetric at both doors.
+    const roomFocusZ = 0.16;
+    const halfHeight = (cabinCeiling - cabinFloorTop) / 2;
+    const framingPoints = new Map<string, number[]>();
+    const addFramingPoint = (point: number[]) => {
+      framingPoints.set(point.map((v) => v.toFixed(6)).join(','), point);
+    };
+    for (const sx of [-1, 1])
+      for (const sy of [-1, 1])
+        addFramingPoint([
+          sx * CABIN_HALF_WIDTH * layoutScale,
+          sy * halfHeight,
+          -1.1 - roomFocusZ,
+        ]);
+    for (const [section, roomPoints] of Object.entries(points)) {
+      const [x, y] = group.userData.innerApertureBounds[section].center;
+      for (const point of roomPoints) {
+        if (point.kind !== 'header' && point.kind !== 'portal-plate') continue;
+        const local = [
+          point.position[0] - x,
+          point.position[1] - y,
+          point.position[2] - roomFocusZ,
+        ];
+        addFramingPoint(local);
+        addFramingPoint([-local[0], local[1], local[2]]);
+      }
+    }
+    group.userData.roomCameraFrame = {
+      aperture: {
+        center: [0, 0, 1.2 - roomFocusZ],
+        right: [1, 0, 0],
+        up: [0, 1, 0],
+        width: 2.44 * layoutScale,
+        height: 2 * halfHeight,
+      },
+      requiredPoints: [...framingPoints.values()],
+    };
     group.userData.layout = currentLayout;
     group.userData.layoutScale = layoutScale;
     group.userData.layoutVersion = (group.userData.layoutVersion || 0) + 1;
