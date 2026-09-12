@@ -3889,6 +3889,14 @@ export function createSpacecraft(
     );
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
+    const studyInset = currentLayout === 'compact' ? 0.0512 : 0;
+    const studyRightEdge = 1.1437;
+    const lockerCenter =
+      (CABIN_HALF_WIDTH * layoutScale +
+        studyInset +
+        studyRightEdge * propScale) /
+      2;
+    personalStudy.userData.setLockerX((lockerCenter - studyInset) / propScale);
     contactConsole.userData.setPropScale(propScale);
     for (const { section, root } of outboardEquipment) {
       root.position.set(

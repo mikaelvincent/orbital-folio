@@ -242,68 +242,136 @@ export function buildOutboardWallEquipment(
         0.002,
       );
   } else {
-    // Two individually restrained media sleds; different silhouette from radios.
-    box(1.08, 0.91, 0.075, m.dark, 0, 0.3, 0.06, 'storage-cradle');
-    for (const [index, x] of [-0.26, 0.26].entries()) {
-      box(0.455, 0.79, 0.025, m.rubber, x, 0.31, 0.11, 'sled-isolator');
-      box(0.405, 0.73, 0.073, m.ivory, x, 0.31, 0.129, 'media-sled', 0.035);
-      box(0.28, 0.21, 0.006, m.dark, x, 0.455, 0.169, 'sled-label');
-      label(`0${index + 1}`, 0.2, 0.093, x, 0.469, 0.174, true);
-      label(
-        index === 0 ? 'FLIGHT LOGS' : 'FIELD DATA',
-        0.29,
-        0.039,
-        x,
-        0.29,
-        0.17,
-      );
-      // A rigid bridge with locking buckle captures each cartridge at its waist.
-      box(0.434, 0.071, 0.035, m.dark, x, 0.09, 0.18, 'retaining-bridge');
-      box(0.089, 0.081, 0.014, m.amber, x, 0.09, 0.201, 'captive-buckle');
-      box(0.042, 0.04, 0.01, m.rubber, x, 0.09, 0.214, 'buckle-inset', 0.004);
-      for (const sy of [-0.028, 0.657]) {
-        box(0.17, 0.039, 0.035, m.alloy, x, sy, 0.175, 'sled-end-stop');
-      }
+    // Closed thermal-service loop: a retained accumulator and two insulated
+    // fluid lines. No displays, labels, numbered slots, trays or loose handles.
+    for (const y of [-0.31, 0.31]) {
+      box(1.12, 0.067, 0.037, m.dark, 0, y, 0.067, 'saddle-crossmember');
+      box(0.22, 0.09, 0.065, m.rubber, 0, y, 0.087, 'accumulator-saddle');
+      fasteners.push([-0.49, y, 0.088], [0.49, y, 0.088]);
     }
-    // Stowed inspection leaf: hinge barrels, rubber stops and a mechanical latch.
-    box(1.045, 0.47, 0.051, m.rubber, 0, -0.474, 0.045, 'stowed-tray-stop');
-    box(
-      1.0,
-      0.43,
-      0.052,
+    const body = h.cylinder(
+      0.098,
+      0.9,
       m.ivory,
       0,
-      -0.474,
-      0.086,
-      'folded-inspection-leaf',
-      0.025,
+      0,
+      0.132,
+      root,
+      'y',
+      0.098,
+      32,
     );
-    box(0.87, 0.3, 0.014, m.dark, 0, -0.474, 0.12, 'inspection-pad');
-    // Shallow ribs make a retained tool mat instead of an inactive computer.
-    for (const y of [-0.39, -0.435, -0.48, -0.525, -0.57])
-      box(0.74, 0.008, 0.004, m.alloy, 0, y, 0.131, 'pad-rib', 0.001);
-    for (const x of [-0.37, 0.37]) {
-      const hinge = h.cylinder(
-        0.026,
-        0.17,
+    body.name = prefix + 'sealed-coolant-accumulator';
+    for (const side of [-1, 1]) {
+      const cap = h.mesh(
+        new THREE.SphereGeometry(0.098, 32, 16),
         m.alloy,
-        x,
-        -0.711,
-        0.083,
         root,
-        'x',
-        0.026,
-        16,
+        prefix + 'formed-accumulator-end-cap',
       );
-      hinge.name = prefix + 'tray-hinge';
-      box(0.06, 0.064, 0.025, m.dark, x, -0.699, 0.033, 'hinge-wall-shoe');
+      cap.position.set(0, side * 0.45, 0.132);
+      cap.scale.y = 0.42;
+      const ferrule = h.cylinder(
+        0.031,
+        0.096,
+        m.alloy,
+        0,
+        side * 0.526,
+        0.132,
+        root,
+        'y',
+        0.031,
+        20,
+      );
+      ferrule.name = prefix + 'fluid-port-ferrule';
+      const strap = h.cylinder(
+        0.104,
+        0.051,
+        m.dark,
+        0,
+        side * 0.31,
+        0.132,
+        root,
+        'y',
+        0.104,
+        32,
+      );
+      strap.name = prefix + 'accumulator-restraint-band';
+      box(
+        0.039,
+        0.05,
+        0.014,
+        m.alloy,
+        0.027,
+        side * 0.31,
+        0.23,
+        'band-captive-fastener',
+        0.006,
+      );
+      box(
+        0.008,
+        0.022,
+        0.003,
+        m.amber,
+        0.027,
+        side * 0.31,
+        0.238,
+        'band-lock-witness',
+        0.002,
+      );
     }
-    box(0.12, 0.045, 0.025, m.amber, 0, -0.25, 0.135, 'tray-lock');
+    for (const side of [-1, 1]) {
+      // Each line terminates at a sealed wall gland and a tank ferrule. The
+      // opposite bends avoid crossings and expose an understandable flow path.
+      const x = side * 0.39;
+      const endY = side * 0.68;
+      pin(0.068, 0.035, m.rubber, x, endY, 0.0175, 'sealed-wall-gland');
+      pin(0.046, 0.037, m.alloy, x, endY, 0.051, 'bulkhead-union');
+      const points = [
+        [x, endY, 0.068],
+        [x, side * 0.63, 0.13],
+        [x, side * 0.43, 0.145],
+        [x, -side * 0.42, 0.145],
+        [side * 0.31, -side * 0.555, 0.145],
+        [side * 0.08, -side * 0.555, 0.132],
+        [0, -side * 0.555, 0.132],
+      ];
+      const curve = new THREE.CatmullRomCurve3(
+        points.map(([px, py, pz]) => new THREE.Vector3(px, py, pz)),
+        false,
+        'centripetal',
+      );
+      h.mesh(
+        new THREE.TubeGeometry(curve, 64, 0.024, 12, false),
+        m.rubber,
+        root,
+        prefix + 'insulated-coolant-line',
+      );
+      for (const y of [-0.31, 0.31]) {
+        box(0.078, 0.064, 0.065, m.dark, x, y, 0.105, 'pipe-saddle');
+        box(
+          0.072,
+          0.041,
+          0.041,
+          m.alloy,
+          x,
+          y,
+          0.151,
+          'pipe-retaining-clamp',
+          0.01,
+        );
+        fasteners.push([x + 0.026, y, 0.175]);
+      }
+    }
   }
 
-  // Shielded warm service lamp, mounted directly to the same load rails.
-  box(1.15, 0.06, 0.1, m.dark, 0, 0.797, 0.075, 'lamp-hood');
-  box(0.86, 0.014, 0.027, m.light, 0, 0.766, 0.097, 'lamp-diffuser', 0.005);
+  if (kind === 'communications') {
+    // The radio stack retains its service light; the passive thermal loop has
+    // no illuminated header that could be mistaken for an interface.
+    box(1.15, 0.06, 0.1, m.dark, 0, 0.797, 0.075, 'lamp-hood');
+    box(0.86, 0.014, 0.027, m.light, 0, 0.766, 0.097, 'lamp-diffuser', 0.005);
+  }
+
   const bolt = new THREE.CylinderGeometry(0.013, 0.013, 0.004, 12);
   bolt.rotateX(Math.PI / 2);
   h.instances(

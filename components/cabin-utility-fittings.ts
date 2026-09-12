@@ -62,6 +62,16 @@ export function buildCabinUtilityFittings(
   for (const layout of ['wide', 'compact']) {
     const s = layout === 'wide' ? 1 : 0.84;
     const halfWidth = CABIN_HALF_WIDTH * (layout === 'wide' ? 1.4 : 1);
+    // Furniture keeps its own scale/inset while the pressure shell changes
+    // width. Center fittings in the gap to the nearest actual furniture edge.
+    const furnitureInset =
+      layout === 'compact'
+        ? section === 'projects' || section === 'about'
+          ? 0.0512
+          : -0.0512
+        : 0;
+    const edgeCenter = (side: number, furnitureEdge: number) =>
+      (side * halfWidth + furnitureInset + furnitureEdge * s) / 2;
     const variant = new THREE.Group();
     variant.name = prefix + layout;
     variant.userData = {
@@ -137,6 +147,8 @@ export function buildCabinUtilityFittings(
       front: number,
       width = 0.065 * s,
       height = 0.06 * s,
+      addScrew = true,
+      name = 'contoured-wall-shoe',
     ) => {
       const bottom = y - height / 2,
         top = y + height / 2;
@@ -155,8 +167,8 @@ export function buildCabinUtilityFittings(
       });
       geo.rotateY(Math.PI / 2);
       geo.translate(x - width / 2, 0, 0);
-      h.mesh(geo, m.frame, into, prefix + itemName + '-contoured-wall-shoe');
-      screws.push([x, y, front + 0.004]);
+      h.mesh(geo, m.frame, into, prefix + itemName + '-' + name);
+      if (addScrew) screws.push([x, y, front + 0.004]);
       mountPoints.push([x, y, rearAt(y)]);
     };
     const mountedBox = (
@@ -269,7 +281,28 @@ export function buildCabinUtilityFittings(
       assembly(`upper-air-return-${side}`, () => {
         const x = side * (halfWidth - 0.28 * s),
           y = 2.4;
-        const face = mountedBox(x, y, 0.39 * s, 0.18 * s, 0.038 * s, m.enamel);
+        const width = 0.39 * s,
+          height = 0.18 * s;
+        const front =
+          Math.max(rearAt(y - height / 2), rearAt(y + height / 2)) + 0.035 * s;
+        // One continuous casing meets the curved wall over its full footprint;
+        // there are no stand-off bars or open space behind the return grille.
+        shoe(x, y, front, width, height, false, 'flush-air-return-housing');
+        box(
+          width - 0.014 * s,
+          height - 0.014 * s,
+          0.016 * s,
+          m.enamel,
+          x,
+          y,
+          front + 0.007 * s,
+          'air-return-face',
+          0.012 * s,
+        );
+        const face = front + 0.015 * s;
+        for (const dx of [-0.174, 0.174])
+          for (const dy of [-0.065, 0.065])
+            screws.push([x + dx * s, y + dy * s, face + 0.003 * s]);
         slots(x, y, face + 0.003 * s, 0.29 * s, 3, 0.033 * s);
       });
 
@@ -353,7 +386,7 @@ export function buildCabinUtilityFittings(
 
     if (section === 'projects') {
       assembly('retained-tool-board', () => {
-        const x = -(halfWidth - 0.22 * s),
+        const x = edgeCenter(-1, -1.3085),
           y = 1.45 * s;
         const face = mountedBox(x, y, 0.3 * s, 0.8 * s, 0.042 * s, m.frame);
         // Two captive drivers, with round shafts, grip collars and seated bits.
@@ -433,7 +466,7 @@ export function buildCabinUtilityFittings(
         }
       });
       assembly('retained-diagnostic-lead', () => {
-        const x = halfWidth - 0.18 * s,
+        const x = edgeCenter(1, 1.3435),
           y = 1.37 * s;
         const face = mountedBox(x, y, 0.2 * s, 0.72 * s, 0.025 * s, m.frame);
         // A spare test lead is coiled on its cradle, with both plugs captive.
@@ -504,7 +537,7 @@ export function buildCabinUtilityFittings(
 
     if (section === 'experience') {
       assembly('retained-recorder-transport', () => {
-        const x = layout === 'compact' ? -1.32 : -(halfWidth - 0.23 * s),
+        const x = edgeCenter(-1, -1.3925),
           y = 0.34 * s;
         const width = layout === 'compact' ? 0.17 : 0.36 * s;
         const t = width / (0.36 * s);
@@ -548,7 +581,7 @@ export function buildCabinUtilityFittings(
       });
       for (const side of [-1, 1])
         assembly(`archive-service-column-${side}`, () => {
-          const x = side * (halfWidth - 0.16 * s),
+          const x = edgeCenter(side, side * 1.3925),
             y = 1.35 * s;
           const face = mountedBox(x, y, 0.17 * s, 0.88 * s, 0.036 * s, m.frame);
           if (side < 0) {
@@ -752,7 +785,7 @@ export function buildCabinUtilityFittings(
         );
       });
       assembly('retained-bedding-roll', () => {
-        const x = -(halfWidth - 0.14 * s);
+        const x = edgeCenter(-1, -1.385);
         const y = 1.2 * s;
         const face = mountedBox(x, y, 0.2 * s, 0.87 * s, 0.025 * s, m.seam);
         const z = face + 0.083 * s;

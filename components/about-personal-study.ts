@@ -658,6 +658,8 @@ export function buildAboutPersonalStudy(
     );
 
   // Narrow sealed personal locker, with seated latches and discreet ventilation.
+  const beforeLocker = new Set(root.children);
+  const lockerScrewStart = screwPoints.length;
   const lx = 1.337;
   box(
     0.292,
@@ -743,6 +745,17 @@ export function buildAboutPersonalStudy(
       root,
       0.008,
     );
+
+  // Keep the complete locker and its mounting hardware together so each layout
+  // can center it in the wall gap without stretching or displacing its parts.
+  const locker = group('personal-locker');
+  locker.userData.batchRoot = true;
+  for (const part of [...root.children])
+    if (part !== locker && !beforeLocker.has(part)) locker.add(part);
+  screwSet(screwPoints.splice(lockerScrewStart), locker, 'locker-fasteners');
+  root.userData.setLockerX = (x: number) => {
+    locker.position.x = x - lx;
+  };
 
   // Pictures are thin mounted paper with four clips, not loose ornaments.
   function note(kind: string, x: number, y: number, w: number, height: number) {
@@ -1304,32 +1317,6 @@ export function buildAboutPersonalStudy(
       'lamp-cable-clip',
       root,
       0.004,
-    );
-  // Ventilation grille is shallow, seated on the lining, and clear of fabrics.
-  box(
-    0.26,
-    0.106,
-    0.026,
-    m.cream,
-    -1.065,
-    2.185,
-    -1.083,
-    'crew-vent-surround',
-    root,
-    0.014,
-  );
-  for (let i = 0; i < 4; i++)
-    box(
-      0.209,
-      0.008,
-      0.004,
-      m.graphite,
-      -1.065,
-      2.185 + (i - 1.5) * 0.02,
-      -1.067,
-      'crew-vent-slot',
-      root,
-      0.003,
     );
   screwSet(screwPoints);
   root.userData.personalStudy = {
