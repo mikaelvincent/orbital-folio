@@ -4,6 +4,8 @@ import {
   requiredPortalIds,
   interlockLadderPortals,
   isLadderExitLeg,
+  approachingLadderPortalIds,
+  ladderExitHoldPoint,
 } from '../lib/iris-navigation.ts';
 import { planCabinItinerary } from '../lib/cabin-itinerary.ts';
 
@@ -305,6 +307,106 @@ test('Near-threshold reversals preserve the requested ladder hatch without a clo
       false,
     );
   }
+});
+
+test('Ladder exits pre-open on center departure in either direction, without opening distant cabin doors', () => {
+  for (const direction of [-1, 1]) {
+    const entry = [-4, -direction * 1.7, 0];
+    const center = [-4, 0, 0];
+    const landing = [-4, direction * 1.7, 0];
+    const cabin = [-1.7, direction * 1.7, 0];
+    const exitId = direction > 0 ? 'projects:about' : 'about:projects';
+    assert.deepEqual(
+      approachingLadderPortalIds(portals, entry, center, landing),
+      [],
+    );
+    assert.deepEqual(
+      approachingLadderPortalIds(portals, center, landing, cabin),
+      [exitId],
+    );
+    assert.deepEqual(
+      approachingLadderPortalIds(
+        portals,
+        [-4, direction * 0.7, 0],
+        landing,
+        cabin,
+      ),
+      [exitId],
+    );
+    assert.deepEqual(
+      approachingLadderPortalIds(portals, landing, cabin, [
+        1.7,
+        direction * 1.7,
+        0,
+      ]),
+      [],
+    );
+    assert.deepEqual(approachingLadderPortalIds(portals, center, landing), []);
+  }
+});
+
+test('Anticipation still waits for the entry seal, and a mid-bay reversal discards the old exit', () => {
+  const upper = ['projects:about'];
+  const lower = ['about:projects'];
+  const states = portals.map((p) => ({
+    ...p,
+    openProgress: p.id === upper[0] ? 0.4 : 0,
+  }));
+  const downward = approachingLadderPortalIds(
+    states,
+    [-4, 0, 0],
+    [-4, -1.7, 0],
+    [-1.7, -1.7, 0],
+  );
+  assert.deepEqual(downward, lower);
+  assert.deepEqual(interlockLadderPortals(states, downward).openPortalIds, []);
+  states.find((p) => p.id === upper[0]).openProgress = 0;
+  assert.deepEqual(
+    interlockLadderPortals(states, downward).openPortalIds,
+    lower,
+  );
+  states.find((p) => p.id === lower[0]).openProgress = 0.2;
+  assert.deepEqual(
+    approachingLadderPortalIds(states, [-4, -0.5, 0], [-4, 0, 0], [-4, 1.7, 0]),
+    [],
+  );
+  const upward = approachingLadderPortalIds(
+    states,
+    [-4, 0, 0],
+    [-4, 1.7, 0],
+    [-1.7, 1.7, 0],
+  );
+  assert.deepEqual(upward, upper);
+  assert.deepEqual(interlockLadderPortals(states, upward).openPortalIds, []);
+});
+
+test('A pending ladder exit permits approach up to the threshold margin without backing up a reversal', () => {
+  for (const y of [-1.7, 1.7]) {
+    const start = [-4, y, 0];
+    const end = [-1.7, y, 0];
+    const ids = requiredPortalIds(portals, [start, end]);
+    assert.deepEqual(ladderExitHoldPoint(portals, ids, start, end), [
+      -3.47,
+      y,
+      0,
+    ]);
+    assert.deepEqual(ladderExitHoldPoint(portals, ids, [-3.2, y, 0], end), [
+      -3.2,
+      y,
+      0,
+    ]);
+    assert.equal(ladderExitHoldPoint(portals, ids, end, start), null);
+    assert.equal(ladderExitHoldPoint(portals, [], start, end), null);
+  }
+  assert.equal(
+    ladderExitHoldPoint(
+      portals,
+      ['about:contact', 'contact:about'],
+      [-1.7, -1.7, 0],
+      [1.7, -1.7, 0],
+    ),
+    null,
+  );
 });
 
 test('Mid-bay retargeting gates only the final exit in either direction', () => {

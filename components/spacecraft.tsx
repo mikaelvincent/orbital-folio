@@ -18,7 +18,8 @@ import { planCabinItinerary, type CabinRouteNode } from '@/lib/cabin-itinerary';
 import {
   requiredPortalIds,
   interlockLadderPortals,
-  isLadderExitLeg,
+  approachingLadderPortalIds,
+  ladderExitHoldPoint,
 } from '@/lib/iris-navigation';
 import {
   beginBoundedDrag,
@@ -729,14 +730,16 @@ export function Spacecraft(props: Props) {
                   desired.target.toArray() as Vec3,
                 ])
               : [];
-            ladderExitLeg =
-              cabinFlight &&
-              isLadderExitLeg(
-                model.group.userData.portals,
-                legPortalIds,
-                currentTarget.toArray() as Vec3,
-                desired.target.toArray() as Vec3,
-              );
+            const exitHold = cabinFlight
+              ? ladderExitHoldPoint(
+                  model.group.userData.portals,
+                  legPortalIds,
+                  currentTarget.toArray() as Vec3,
+                  desired.target.toArray() as Vec3,
+                )
+              : null;
+            ladderExitLeg = !!exitHold;
+            if (exitHold) doorHoldTarget.set(...exitHold);
             nextTarget.copy(desired.target);
             nextDirection.copy(desired.direction);
             nextDistance = desired.distance;
@@ -929,14 +932,27 @@ export function Spacecraft(props: Props) {
                   : [];
               const interlock = interlockLadderPortals(
                 model.group.userData.portals,
-                immediate ? [] : legPortalIds,
+                cabinFlight && !immediate
+                  ? [
+                      ...legPortalIds,
+                      ...approachingLadderPortalIds(
+                        model.group.userData.portals,
+                        currentTarget.toArray() as Vec3,
+                        nextTarget.toArray() as Vec3,
+                        itinerary[0]?.target.toArray() as Vec3 | undefined,
+                      ),
+                    ]
+                  : [],
               );
               openPortalIds = interlock.openPortalIds;
               // Ordinary cabin movement and ladder entry follow their original
-              // springs immediately. Only leaving the ladder bay waits for its
-              // previous hatch to close and its exit hatch to finish opening.
-              const waitingForDoors =
+              // springs immediately. The exit opens during the approach from
+              // the bay center; retain a readiness hold for interrupted routes
+              // whose previous hatch has not yet sealed.
+              const exitBlocked =
                 !immediate && ladderExitLeg && interlock.waiting;
+              const waitingForDoors =
+                exitBlocked && currentTarget.distanceTo(doorHoldTarget) < 0.01;
               el.dataset.waitingForDoors = String(waitingForDoors);
               const beforeRoll = roll;
               if (immediate) {
@@ -953,38 +969,32 @@ export function Spacecraft(props: Props) {
                 resetAxis(distanceMotion, nextDistance);
                 resetAxis(rollMotion, nextRoll);
               } else {
-                (waitingForDoors ? doorHoldTarget : nextTarget)
+                (exitBlocked ? doorHoldTarget : nextTarget)
                   .toArray()
                   .forEach((v, i) => moveCameraAxis(targetMotion[i], v, delta));
-                (waitingForDoors ? viewDirection : nextDirection)
-                  .toArray()
-                  .forEach((v, i) =>
-                    moveCameraAxis(directionMotion[i], v, delta, {
-                      frequency: 10,
-                      speed: 1,
-                      acceleration: 4,
-                    }),
-                  );
-                moveCameraAxis(
-                  distanceMotion,
-                  waitingForDoors ? distance : nextDistance,
-                  delta,
-                  {
-                    frequency: 9,
-                    speed: 18,
-                    acceleration: 45,
-                  },
-                );
-                moveCameraAxis(
-                  rollMotion,
-                  waitingForDoors ? roll : nextRoll,
-                  delta,
-                  {
+                // A reversal can carry residual velocity toward a closed hatch.
+                // Never let the spring overshoot its reserved threshold margin.
+                if (exitBlocked && targetMotion[0].value > doorHoldTarget.x) {
+                  targetMotion[0].value = doorHoldTarget.x;
+                  targetMotion[0].velocity = 0;
+                }
+                nextDirection.toArray().forEach((v, i) =>
+                  moveCameraAxis(directionMotion[i], v, delta, {
                     frequency: 10,
-                    speed: 1.2,
+                    speed: 1,
                     acceleration: 4,
-                  },
+                  }),
                 );
+                moveCameraAxis(distanceMotion, nextDistance, delta, {
+                  frequency: 9,
+                  speed: 18,
+                  acceleration: 45,
+                });
+                moveCameraAxis(rollMotion, nextRoll, delta, {
+                  frequency: 10,
+                  speed: 1.2,
+                  acceleration: 4,
+                });
               }
               currentTarget.set(
                 ...(targetMotion.map((s) => s.value) as [
@@ -1019,10 +1029,7 @@ export function Spacecraft(props: Props) {
                 currentTarget.distanceTo(nextTarget) < 0.28 &&
                 Math.abs(distance - nextDistance) < 0.3 &&
                 Math.abs(roll - nextRoll) < 0.01;
-              if (
-                immediate ||
-                (!waitingForDoors && (settled || nearWaypoint))
-              ) {
+              if (immediate || (!exitBlocked && (settled || nearWaypoint))) {
                 if (itinerary.length) {
                   aim(itinerary.shift()!);
                 } else {

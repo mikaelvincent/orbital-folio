@@ -2,19 +2,36 @@
 
 Doors open in approximately 0.53 seconds at 60 Hz, compared with the original
 1.00 second opening. Opening motion uses twice the original frequency and speed,
-with four times the acceleration. Closing motion retains its previous settings.
+with four times the acceleration. During travel, ladder hatches close at that
+same rate so the entry can seal before the camera departs the center of the bay.
+Ordinary cabin doors and idle hover closure retain their previous settings.
 
 During travel, the requested doors are recalculated from the current camera focus
 to the current waypoint. Both faces remain open until the focus clears the doorway
 by the existing 0.35-unit margin. They then begin closing while the camera finishes
 moving into the room. Reversing direction requests the doorway again.
 
-The ladder exit classification stays fixed for each travel leg. The entrance seals
-before the exit opens, and the camera still pauses before the exit until it is
-ready. Releasing a crossed exit does not create another pause. Ordinary room
-passages and ladder entry continue without waiting for doors.
+The ladder exit is requested one leg early: as the camera leaves the center
+waypoint toward the exit landing. The entrance still seals before the exit
+opens. While the iris retracts, the camera can approach the doorway's existing
+0.35-unit clearance boundary instead of stopping at the landing. A hard spring
+bound protects that clearance during interrupted routes; crossing still requires
+a fully open iris. Releasing a crossed exit does not create another pause.
+Ordinary room passages and ladder entry retain their existing camera movement.
 
-## Validation
+## Current validation
+
+- `npm run check`: all 105 tests passed. New coverage verifies center-departure
+  anticipation, mid-bay retargeting, threshold clearance, and ladder-only travel
+  closure at 30, 60, and 120 Hz.
+- Sites production build passed.
+- Actual browser traces for both ladder directions at desktop and 390 × 844:
+  zero door-wait frames and zero simultaneous ladder openings. The camera keeps
+  moving while the exit opens. Ordinary About → Contact travel also has no waits.
+- No browser console errors. Independent scoped review: 98/100, no blockers.
+- Flight evidence: [ladder anticipation traces](evidence/ladder-exit-anticipation/flights.json).
+
+## Earlier opening-speed validation
 
 - `npm run check`: 95 tests passed, including opening/closing timing at 30, 60,
   and 120 Hz, paired-face clearance, reversal, and ladder sequencing.

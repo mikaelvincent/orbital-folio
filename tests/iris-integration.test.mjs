@@ -197,6 +197,40 @@ test('Door opening takes about half the original duration across refresh rates, 
   }
 });
 
+test('Travel seals ladder hatches at the opening rate while ordinary and hover closure stay unchanged', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const portals = model.group.userData.portals;
+  let time = 0;
+  for (const hz of [30, 60, 120]) {
+    for (const [id, travelling, fast] of [
+      ['projects:about', true, true],
+      ['about:projects', true, true],
+      ['projects:about', false, false],
+      ['about:contact', true, false],
+    ]) {
+      const portal = portals.find((p) => p.id === id);
+      model.update(++time, '', true, { openPortalIds: [] });
+      model.update(++time, '', true, { openPortalIds: [id] });
+      let frames = 0;
+      do {
+        model.update((time += 1 / hz), '', false, {
+          travelling,
+          openPortalIds: [],
+          delta: 1 / hz,
+        });
+        frames++;
+      } while (!portal.sealed && frames < hz * 2);
+      const duration = frames / hz;
+      assert.ok(
+        fast
+          ? duration >= 0.48 && duration <= 0.6
+          : duration >= 0.95 && duration <= 1.1,
+        `${id}, travelling=${travelling}, ${hz}Hz closed in ${duration}s`,
+      );
+    }
+  }
+});
+
 test('Hover opens both faces of the first route door and transfers smoothly into travel', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const portals = model.group.userData.portals;

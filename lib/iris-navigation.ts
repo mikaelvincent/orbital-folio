@@ -172,3 +172,51 @@ export function isLadderExitLeg(
       end[0] > portal.position[0] + EPSILON,
   );
 }
+
+/** Pre-open the next ladder exit while travelling from the bay's center toward
+ * its landing. Look ahead exactly one leg, so the approach to the center and
+ * distant cabin doors retain their existing timing. The normal ladder
+ * interlock still seals the entry hatch before this request can take effect.
+ */
+export function approachingLadderPortalIds(
+  portals: readonly IrisNavigationPortal[],
+  current: IrisRoutePoint,
+  landing: IrisRoutePoint,
+  exit?: IrisRoutePoint,
+): string[] {
+  if (!exit || !current.every(Number.isFinite)) return [];
+  const upcoming = new Set(requiredPortalIds(portals, [landing, exit]));
+  return portals
+    .filter(
+      (portal) =>
+        portal.via === 'walkway' &&
+        upcoming.has(portal.id) &&
+        current[0] < portal.position[0] - START_CLEARANCE &&
+        landing[0] < portal.position[0] - START_CLEARANCE &&
+        exit[0] > portal.position[0] + EPSILON,
+    )
+    .map((portal) => portal.id);
+}
+
+/** Let an exit approach continue while the iris opens, but reserve the same
+ * threshold clearance used when releasing a crossed hatch. A retarget already
+ * inside that clearance holds in place instead of backing the camera up.
+ */
+export function ladderExitHoldPoint(
+  portals: readonly IrisNavigationPortal[],
+  requiredIds: readonly string[],
+  start: IrisRoutePoint,
+  end: IrisRoutePoint,
+): IrisRoutePoint | null {
+  if (!isLadderExitLeg(portals, requiredIds, start, end)) return null;
+  const planes = portals
+    .filter(
+      (portal) => portal.via === 'walkway' && requiredIds.includes(portal.id),
+    )
+    .map((portal) => portal.position[0]);
+  return [
+    Math.max(start[0], Math.min(...planes) - START_CLEARANCE),
+    end[1],
+    end[2],
+  ];
+}

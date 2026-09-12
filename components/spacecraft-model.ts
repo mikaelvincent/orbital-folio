@@ -4516,12 +4516,17 @@ export function createSpacecraft(
         doorMotion.value = doorGoal;
         doorMotion.velocity = 0;
       } else {
-        // Double the original opening rate: frequency/speed scale by two,
-        // acceleration by four. Keep the established closing motion.
+        // Seal a crossed ladder entrance at the opening rate so its interlocked
+        // exit can open during the center-to-landing approach. Ordinary cabin
+        // doors and idle hover retain their established closing motion.
+        const fast =
+          doorGoal ||
+          (currentState.travelling &&
+            hatch.portals.some((p: any) => p.metadata.via === 'walkway'));
         moveCameraAxis(doorMotion, doorGoal, dt, {
-          frequency: doorGoal ? 24 : 12,
-          speed: doorGoal ? 5.6 : 2.8,
-          acceleration: doorGoal ? 56 : 14,
+          frequency: fast ? 24 : 12,
+          speed: fast ? 5.6 : 2.8,
+          acceleration: fast ? 56 : 14,
         });
         if (
           Math.abs(doorMotion.value - doorGoal) < 0.001 &&
