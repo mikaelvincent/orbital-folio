@@ -2,6 +2,11 @@ import {
   CABIN_FLOOR,
   CABIN_HALF_WIDTH,
 } from '../lib/spacecraft-wall-layout.ts';
+import {
+  PROJECTS_GRID,
+  ARCHIVE_GRID,
+  CONTACT_GRID,
+} from '../lib/cabin-composition.ts';
 
 type CabinKind = 'projects' | 'experience' | 'about' | 'contact';
 type ProfilePoint = { y: number; z: number };
@@ -62,16 +67,10 @@ export function buildCabinUtilityFittings(
   for (const layout of ['wide', 'compact']) {
     const s = layout === 'wide' ? 1 : 0.84;
     const halfWidth = CABIN_HALF_WIDTH * (layout === 'wide' ? 1.4 : 1);
-    // Furniture keeps its own scale/inset while the pressure shell changes
+    // Furniture keeps its own uniform scale while the pressure shell changes
     // width. Center fittings in the gap to the nearest actual furniture edge.
-    const furnitureInset =
-      layout === 'compact'
-        ? section === 'projects' || section === 'about'
-          ? 0.0512
-          : -0.0512
-        : 0;
     const edgeCenter = (side: number, furnitureEdge: number) =>
-      (side * halfWidth + furnitureInset + furnitureEdge * s) / 2;
+      (side * halfWidth + furnitureEdge * s) / 2;
     const variant = new THREE.Group();
     variant.name = prefix + layout;
     variant.userData = {
@@ -310,8 +309,7 @@ export function buildCabinUtilityFittings(
       for (const side of [-1, 1])
         assembly(`underbench-${side}`, () => {
           const x =
-            side * (section === 'projects' ? 0.66 : 0.825) * s +
-            (section === 'contact' && layout === 'compact' ? -0.0512 : 0);
+            side * (section === 'projects' ? PROJECTS_GRID.columnX : 0.825) * s;
           const y = (section === 'projects' ? 0.25 : 0.24) * s;
           const w = (section === 'projects' ? 0.6 : 0.36) * s;
           const ht = (section === 'projects' ? 0.19 : 0.23) * s;
@@ -385,9 +383,13 @@ export function buildCabinUtilityFittings(
     }
 
     if (section === 'projects') {
+      const bankCenterY =
+        ((PROJECTS_GRID.topY + PROJECTS_GRID.bottomY) / 2 -
+          PROJECTS_GRID.lowering) *
+        s;
       assembly('retained-tool-board', () => {
         const x = edgeCenter(-1, -1.3085),
-          y = 1.45 * s;
+          y = bankCenterY;
         const face = mountedBox(x, y, 0.3 * s, 0.8 * s, 0.042 * s, m.frame);
         // Two captive drivers, with round shafts, grip collars and seated bits.
         for (const dx of [-0.066, 0.055]) {
@@ -467,7 +469,7 @@ export function buildCabinUtilityFittings(
       });
       assembly('retained-diagnostic-lead', () => {
         const x = edgeCenter(1, 1.3435),
-          y = 1.37 * s;
+          y = bankCenterY;
         const face = mountedBox(x, y, 0.2 * s, 0.72 * s, 0.025 * s, m.frame);
         // A spare test lead is coiled on its cradle, with both plugs captive.
         const points = [
@@ -536,9 +538,11 @@ export function buildCabinUtilityFittings(
     }
 
     if (section === 'experience') {
+      const serviceHeight = 0.88;
       assembly('retained-recorder-transport', () => {
         const x = edgeCenter(-1, -1.3925),
-          y = 0.34 * s;
+          // Equal clear space above and below the case, within the floor-to-column gap.
+          y = ((ARCHIVE_GRID.centerY - serviceHeight / 2) / 2) * s;
         const width = layout === 'compact' ? 0.17 : 0.36 * s;
         const t = width / (0.36 * s);
         const face = mountedBox(x, y, width, 0.49 * s, 0.2 * s, m.frame);
@@ -582,8 +586,15 @@ export function buildCabinUtilityFittings(
       for (const side of [-1, 1])
         assembly(`archive-service-column-${side}`, () => {
           const x = edgeCenter(side, side * 1.3925),
-            y = 1.35 * s;
-          const face = mountedBox(x, y, 0.17 * s, 0.88 * s, 0.036 * s, m.frame);
+            y = ARCHIVE_GRID.centerY * s;
+          const face = mountedBox(
+            x,
+            y,
+            0.17 * s,
+            serviceHeight * s,
+            0.036 * s,
+            m.frame,
+          );
           if (side < 0) {
             // Sealed spare recorder cores, docked individually for servicing.
             for (const dy of [-0.26, 0, 0.26]) {
@@ -672,7 +683,7 @@ export function buildCabinUtilityFittings(
       for (const side of [-1, 1])
         assembly(`console-umbilical-${side}`, () => {
           const x = side * (halfWidth - 0.082 * s),
-            y = 1.13 * s;
+            y = (CONTACT_GRID.sideY - CONTACT_GRID.lowering) * s;
           for (const dy of [-0.44, 0.44]) shoe(x, y + dy * s, -0.988);
           box(
             0.05 * s,
@@ -786,7 +797,8 @@ export function buildCabinUtilityFittings(
       });
       assembly('retained-bedding-roll', () => {
         const x = edgeCenter(-1, -1.385);
-        const y = 1.2 * s;
+        // Share the berth's vertical midpoint while retaining its own wall column.
+        const y = 1.15 * s;
         const face = mountedBox(x, y, 0.2 * s, 0.87 * s, 0.025 * s, m.seam);
         const z = face + 0.083 * s;
         const roll = h.cylinder(

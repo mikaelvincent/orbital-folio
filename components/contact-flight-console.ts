@@ -2,6 +2,7 @@ import type { SocialScreenLinks } from '../lib/social-links.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
 import { buildContactAudio } from './contact-flight-audio.ts';
 import { CABIN_FLOOR } from '../lib/spacecraft-wall-layout.ts';
+import { CONTACT_GRID } from '../lib/cabin-composition.ts';
 
 /** Static, floor-referenced Contact furnishings. No camera, input or animation state. */
 export function buildContactFlightConsole(
@@ -17,7 +18,7 @@ export function buildContactFlightConsole(
 ) {
   // The console stays a rigid assembly below the room heading. Shorten its
   // stanchions while leaving the feet on the original cabin floor.
-  const lowering = 0.24;
+  const lowering = CONTACT_GRID.lowering;
   floorRoot.userData.socialScreens = [];
   const rearAnchors: Array<{
     id: string;
@@ -325,7 +326,9 @@ export function buildContactFlightConsole(
       ctx.strokeStyle = '#739fba';
       ctx.lineWidth = 4;
       const cx = 512,
-        cy = 443;
+        // The arcs extend above the signal origin; center the whole graphic
+        // between the header and footer rules, including the status dot.
+        cy = Math.round((304 + (ch - 125) + 157 - 13) / 2);
       for (const radius of [58, 107, 157]) {
         ctx.beginPath();
         ctx.arc(cx, cy, radius, -2.48, -0.66);
@@ -463,7 +466,7 @@ export function buildContactFlightConsole(
     if (kind === 'contact') {
       for (const side of [-1, 1]) {
         for (let row = 0; row < 5; row++) {
-          const yy = 0.37 - row * 0.165;
+          const yy = (2 - row) * 0.165;
           box(
             0.075,
             0.105,
@@ -567,9 +570,9 @@ export function buildContactFlightConsole(
   };
   // Keep the monitor's lower edge and deck height; a shorter enclosure leaves
   // a deliberate wall band below the rear-mounted room sign.
-  display('contact', 0, 1.605, 1.63, 1.16, 0);
-  display('link', -1.215, 1.49, 0.72, 0.92, 0.16);
-  display('signal', 1.215, 1.49, 0.72, 0.92, -0.16);
+  display('contact', 0, CONTACT_GRID.mainY, 1.63, 1.16, 0);
+  display('link', -1.215, CONTACT_GRID.sideY, 0.72, 0.92, 0.16);
+  display('signal', 1.215, CONTACT_GRID.sideY, 0.72, 0.92, -0.16);
 
   // Center controls share a shallow inclined, solid-backed equipment cassette.
   const wedge = new THREE.Shape();
@@ -603,13 +606,16 @@ export function buildContactFlightConsole(
     deck,
     'control-panel',
   );
-  box(0.72, 0.345, 0.02, m.dark, -0.025, 0, 0.037, deck, 0.01, 'keypad-recess');
+  // Three aligned control groups: equal gaps and equal outer margins.
+  const switchX = -0.65,
+    encoderX = 0.65;
+  box(0.72, 0.345, 0.02, m.dark, 0, 0, 0.037, deck, 0.01, 'keypad-recess');
   const keys: { p: number[]; s: number[] }[] = [];
   const keyMarks: { p: number[]; s: number[] }[] = [];
   for (let row = 0; row < 4; row++)
     for (let col = 0; col < 10; col++) {
-      const x = -0.335 + col * 0.069,
-        y = 0.126 - row * 0.081;
+      const x = (col - 4.5) * 0.069,
+        y = (1.5 - row) * 0.081;
       if (!(row === 3 && col === 0))
         keys.push({ p: [x, y, 0.061], s: [0.057, 0.062, 0.026] });
       keyMarks.push({ p: [x, y + 0.009, 0.075], s: [0.012, 0.004, 0.0015] });
@@ -621,8 +627,8 @@ export function buildContactFlightConsole(
     0.062,
     0.03,
     m.accent,
-    -0.335,
-    -0.117,
+    -4.5 * 0.069,
+    -1.5 * 0.081,
     0.061,
     deck,
     0.007,
@@ -633,7 +639,7 @@ export function buildContactFlightConsole(
     0.345,
     0.018,
     m.dark,
-    -0.671,
+    switchX,
     0,
     0.036,
     deck,
@@ -646,7 +652,7 @@ export function buildContactFlightConsole(
     0.16,
     0.027,
     m.face,
-    -0.804,
+    switchX - 0.133,
     0,
     0.057,
     deck,
@@ -658,14 +664,14 @@ export function buildContactFlightConsole(
     0.085,
     0.04,
     m.accent,
-    -0.804,
+    switchX - 0.133,
     0,
     0.086,
     deck,
     0.008,
     'power-rocker',
   );
-  for (const x of [-0.859, -0.749])
+  for (const x of [switchX - 0.188, switchX - 0.078])
     box(
       0.017,
       0.198,
@@ -678,7 +684,7 @@ export function buildContactFlightConsole(
       0.008,
       'switch-guard',
     );
-  for (const x of [-0.62, -0.51])
+  for (const x of [switchX + 0.051, switchX + 0.161])
     for (const y of [-0.083, 0.083]) {
       h.cylinder(0.022, 0.012, m.metal, x, y, 0.057, deck, 'z');
       h.rod([x, y, 0.065], [x, y + 0.017, 0.126], 0.006, m.metal, deck).name =
@@ -701,14 +707,14 @@ export function buildContactFlightConsole(
     0.345,
     0.018,
     m.dark,
-    0.659,
+    encoderX,
     0,
     0.036,
     deck,
     0.009,
     'encoder-recess',
   );
-  for (const x of [0.54, 0.77]) {
+  for (const x of [encoderX - 0.115, encoderX + 0.115]) {
     h.cylinder(0.071, 0.014, m.accent, x, 0.055, 0.056, deck, 'z');
     h.cylinder(0.06, 0.07, m.face, x, 0.055, 0.096, deck, 'z');
     h.cylinder(0.048, 0.006, m.metal, x, 0.055, 0.134, deck, 'z');
@@ -799,7 +805,7 @@ export function buildContactFlightConsole(
   // Reference the headset dock directly to the floor, independently of the
   // lowered console. It clears the right support foot and the desk underside.
   floorRoot.add(audio.headset);
-  audio.headset.position.set(1.48, 0.0036, 0.035);
+  audio.headset.position.set(1.47, 0.0036, 0.035);
   audio.headset.scale.setScalar(0.72);
   // Mounting necks bridge from the unchanged equipment shoes to the actual
   // rear pressure surface. Both fixed layout variants are batched once; only

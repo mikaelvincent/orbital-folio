@@ -1,3 +1,5 @@
+import { ARCHIVE_GRID } from '../lib/cabin-composition.ts';
+
 /** Static flight-recorder library. Floor origin, +Y up, +Z toward the visitor. */
 export function buildCaseStudyArchive(
   THREE: any,
@@ -457,7 +459,7 @@ export function buildCaseStudyArchive(
     { title: 'Field notes', kind: 'notes', code: 'FR–05', active: false },
   ];
   categories.forEach((category, index) => {
-    const y = 1.94 - index * 0.274;
+    const y = ARCHIVE_GRID.centerY + (2 - index) * ARCHIVE_GRID.rowPitch;
     const cartridge = new THREE.Group();
     cartridge.name = prefix + 'cartridge-' + index;
     cartridge.position.set(0, y, -0.65);

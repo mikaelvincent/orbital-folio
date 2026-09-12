@@ -1,4 +1,5 @@
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
+import { PROJECTS_GRID } from '../lib/cabin-composition.ts';
 
 /** Static category workshop. Origin is the cabin floor; +Z faces the visitor. */
 export function buildProjectsWorkshop(
@@ -9,7 +10,7 @@ export function buildProjectsWorkshop(
 ) {
   // Match Contact's 0.731-high working surface. Move the bank and worktop
   // together to retain screen clearance; grounded feet and support joints stay fitted.
-  const lowering = 0.7345 - 0.731;
+  const lowering = PROJECTS_GRID.lowering;
   const parent = new THREE.Group();
   parent.name = 'projects-workshop-equipment-mount';
   parent.position.y = -lowering;
@@ -480,7 +481,7 @@ export function buildProjectsWorkshop(
     'junction-lead',
   );
   // Luminous diffusers are static materials, not new sources of room lighting.
-  for (const x of [-0.7, 0.7]) {
+  for (const x of [-PROJECTS_GRID.columnX, PROJECTS_GRID.columnX]) {
     box(
       0.39,
       0.044,
@@ -513,13 +514,28 @@ export function buildProjectsWorkshop(
     {
       label: 'All projects',
       kind: 'all' as const,
-      x: -0.635,
-      y: 1.81,
+      x: -PROJECTS_GRID.columnX,
+      y: PROJECTS_GRID.topY,
       count: options.projectCount,
     },
-    { label: 'Systems', kind: 'systems' as const, x: 0.635, y: 1.81 },
-    { label: 'Interfaces', kind: 'interfaces' as const, x: -0.635, y: 1.09 },
-    { label: 'Experiments', kind: 'experiments' as const, x: 0.635, y: 1.09 },
+    {
+      label: 'Systems',
+      kind: 'systems' as const,
+      x: PROJECTS_GRID.columnX,
+      y: PROJECTS_GRID.topY,
+    },
+    {
+      label: 'Interfaces',
+      kind: 'interfaces' as const,
+      x: -PROJECTS_GRID.columnX,
+      y: PROJECTS_GRID.bottomY,
+    },
+    {
+      label: 'Experiments',
+      kind: 'experiments' as const,
+      x: PROJECTS_GRID.columnX,
+      y: PROJECTS_GRID.bottomY,
+    },
   ];
   const moduleMaterials = new Map<string, any>();
   const modules = configs.map((config) => {

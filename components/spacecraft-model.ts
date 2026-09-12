@@ -30,6 +30,7 @@ import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
+import { ARCHIVE_GRID, CONTACT_GRID } from '../lib/cabin-composition.ts';
 import { buildOutboardWallEquipment } from './outboard-wall-equipment.ts';
 import {
   buildCabinUtilityFittings,
@@ -3889,19 +3890,19 @@ export function createSpacecraft(
     );
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
-    const studyInset = currentLayout === 'compact' ? 0.0512 : 0;
     const studyRightEdge = 1.1437;
     const lockerCenter =
-      (CABIN_HALF_WIDTH * layoutScale +
-        studyInset +
-        studyRightEdge * propScale) /
-      2;
-    personalStudy.userData.setLockerX((lockerCenter - studyInset) / propScale);
+      (CABIN_HALF_WIDTH * layoutScale + studyRightEdge * propScale) / 2;
+    personalStudy.userData.setLockerX(lockerCenter / propScale);
     contactConsole.userData.setPropScale(propScale);
     for (const { section, root } of outboardEquipment) {
+      const equipmentCenterY =
+        section === 'experience'
+          ? ARCHIVE_GRID.centerY
+          : CONTACT_GRID.mainY - CONTACT_GRID.lowering - 0.01;
       root.position.set(
         halfPitch + CABIN_HALF_WIDTH * layoutScale,
-        roomCenters[section][1] + 0.08,
+        roomCenters[section][1] + cabinFloorTop + equipmentCenterY * propScale,
         0.18,
       );
       root.scale.setScalar(propScale);
@@ -3921,7 +3922,9 @@ export function createSpacecraft(
         cabinFloorTop - propScale * previousFloorTop;
       contents[section].position.x =
         origin * (1 - propScale) +
-        (left ? -1 : 1) * (currentLayout === 'wide' ? 0.18 : 0.1);
+        // Cancel the furniture's legacy origin in the same scale as its meshes.
+        // A separate compact offset shifted the whole assembly off the room grid.
+        (left ? -1 : 1) * 0.18 * propScale;
       group.userData.roomAnchors[section] = [x, y, 0.16];
       group.userData.roomBounds[section] = {
         center: [x, y + 0.045, 0.035],

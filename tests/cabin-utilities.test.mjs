@@ -21,6 +21,62 @@ const visibleMeshes = (root) => {
   return result;
 };
 
+test('Furniture stays on the room centerline and secondary fittings retain their grid across layout changes', () => {
+  const furniture = {
+    projects: 'projects-workshop',
+    experience: 'case-study-flight-recorder-archive',
+    about: 'about-personal-study',
+    contact: 'contact-flight-console',
+  };
+  const worldPosition = (name) =>
+    model.group.getObjectByName(name).getWorldPosition(new THREE.Vector3());
+  const close = (a, b, message) => assert.ok(Math.abs(a - b) < 1e-5, message);
+  for (const layout of ['wide', 'compact', 'wide']) {
+    model.setLayout(layout);
+    model.group.updateMatrixWorld(true);
+    for (const [room, name] of Object.entries(furniture))
+      close(
+        worldPosition(name).x,
+        model.group.userData.roomAnchors[room][0],
+        `${room}/${layout}: primary furniture must share the room and heading centerline`,
+      );
+
+    const utilities = model.group.getObjectByName('projects-cabin-utilities');
+    const variant = utilities.children.find((child) => child.visible);
+    const fittingCenter = (name) => {
+      const part = variant.userData.utilityParts.find(
+        (part) => part.name === name,
+      );
+      return variant.localToWorld(
+        new THREE.Vector3(
+          (part.min[0] + part.max[0]) / 2,
+          (part.min[1] + part.max[1]) / 2,
+          (part.min[2] + part.max[2]) / 2,
+        ),
+      );
+    };
+    const topLeft = worldPosition('projects-workshop-module-all');
+    const bottomLeft = worldPosition('projects-workshop-module-interfaces');
+    const topRight = worldPosition('projects-workshop-module-systems');
+    close(
+      fittingCenter('underbench--1').x,
+      topLeft.x,
+      'Left drawer follows the left display column',
+    );
+    close(
+      fittingCenter('underbench-1').x,
+      topRight.x,
+      'Right drawer follows the right display column',
+    );
+    for (const name of ['retained-tool-board', 'retained-diagnostic-lead'])
+      close(
+        fittingCenter(name).y,
+        (topLeft.y + bottomLeft.y) / 2,
+        `${name}: side equipment follows the bank midpoint`,
+      );
+  }
+});
+
 test('Cabin additions remain passive and inside the unchanged pressure shell in both layouts', () => {
   for (const [layout, scale] of [
     ['wide', 1.4],
