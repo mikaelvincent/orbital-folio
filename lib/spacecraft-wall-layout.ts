@@ -9,6 +9,24 @@ export const PRESSURE_THROAT_START =
 export const CABIN_FLOOR = -1.32;
 export const CABIN_CEILING = 1.455;
 export const CABIN_HALF_WIDTH = 1.43;
+// Justify a hatch and its caption within the wall: equal floor, inter-item,
+// and ceiling gaps. Both faces of each physical opening use these datums.
+export const PASSAGE_RADIUS = 0.92;
+export const PASSAGE_GUIDE_WIDTH = 0.065;
+export const PORTAL_SIGN_HEIGHT = 0.25;
+const passageGap =
+  (CABIN_CEILING -
+    CABIN_FLOOR -
+    2 * (PASSAGE_RADIUS + PASSAGE_GUIDE_WIDTH) -
+    PORTAL_SIGN_HEIGHT) /
+  3;
+export const PASSAGE_CENTER_Y =
+  CABIN_FLOOR + passageGap + PASSAGE_RADIUS + PASSAGE_GUIDE_WIDTH;
+export const PORTAL_SIGN_CENTER_Y =
+  CABIN_CEILING - passageGap - PORTAL_SIGN_HEIGHT / 2;
+export const PASSAGE_CABIN_Z =
+  (PRESSURE_THROAT_START - 1.1 - PRESSURE_WALL) / 2;
+export const PASSAGE_LADDER_Z = (1.25 - 0.985 - PRESSURE_WALL) / 2;
 export const DECK_HALF_PITCH =
   (CABIN_CEILING - CABIN_FLOOR + PRESSURE_WALL) / 2;
 
@@ -41,7 +59,7 @@ export function wallLayout(scale: number) {
     dockingOuterWall: ladderX - 0.665 * scale - PRESSURE_WALL,
     roof: DECK_HALF_PITCH + CABIN_CEILING + PRESSURE_WALL,
     keel: -DECK_HALF_PITCH + CABIN_FLOOR - PRESSURE_WALL,
-    upperPassageY: DECK_HALF_PITCH - 0.06,
-    lowerPassageY: -DECK_HALF_PITCH - 0.06,
+    upperPassageY: DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+    lowerPassageY: -DECK_HALF_PITCH + PASSAGE_CENTER_Y,
   };
 }

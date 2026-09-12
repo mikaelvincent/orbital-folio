@@ -1,5 +1,8 @@
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
-import { PROJECTS_GRID } from '../lib/cabin-composition.ts';
+import {
+  PROJECTS_GRID,
+  PROJECTS_UNDERBENCH,
+} from '../lib/cabin-composition.ts';
 
 /** Static category workshop. Origin is the cabin floor; +Z faces the visitor. */
 export function buildProjectsWorkshop(
@@ -481,14 +484,14 @@ export function buildProjectsWorkshop(
     'junction-lead',
   );
   // Luminous diffusers are static materials, not new sources of room lighting.
-  for (const x of [-PROJECTS_GRID.columnX, PROJECTS_GRID.columnX]) {
+  for (const x of [-PROJECTS_UNDERBENCH.columnX, PROJECTS_UNDERBENCH.columnX]) {
     box(
       0.39,
       0.044,
       0.075,
       m.graphite,
       x,
-      0.118,
+      0.118 + PROJECTS_UNDERBENCH.lift,
       -0.924,
       floorRoot,
       0.018,
@@ -500,7 +503,7 @@ export function buildProjectsWorkshop(
       0.009,
       m.diffuser,
       x,
-      0.118,
+      0.118 + PROJECTS_UNDERBENCH.lift,
       -0.882,
       floorRoot,
       0.01,

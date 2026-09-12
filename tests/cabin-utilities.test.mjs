@@ -21,7 +21,7 @@ const visibleMeshes = (root) => {
   return result;
 };
 
-test('Furniture stays on the room centerline and secondary fittings retain their grid across layout changes', () => {
+test('Furniture remains centered and secondary fittings justify their available space across layout changes', () => {
   const furniture = {
     projects: 'projects-workshop',
     experience: 'case-study-flight-recorder-archive',
@@ -41,39 +41,108 @@ test('Furniture stays on the room centerline and secondary fittings retain their
         `${room}/${layout}: primary furniture must share the room and heading centerline`,
       );
 
-    const utilities = model.group.getObjectByName('projects-cabin-utilities');
-    const variant = utilities.children.find((child) => child.visible);
-    const fittingCenter = (name) => {
+    const boundsOf = (room, name) => {
+      const root = model.group.getObjectByName(`${room}-cabin-utilities`);
+      const variant = root.children.find((child) => child.visible);
       const part = variant.userData.utilityParts.find(
         (part) => part.name === name,
       );
-      return variant.localToWorld(
-        new THREE.Vector3(
-          (part.min[0] + part.max[0]) / 2,
-          (part.min[1] + part.max[1]) / 2,
-          (part.min[2] + part.max[2]) / 2,
-        ),
-      );
+      return new THREE.Box3(
+        new THREE.Vector3(...part.min),
+        new THREE.Vector3(...part.max),
+      ).applyMatrix4(variant.matrixWorld);
     };
-    const topLeft = worldPosition('projects-workshop-module-all');
-    const bottomLeft = worldPosition('projects-workshop-module-interfaces');
-    const topRight = worldPosition('projects-workshop-module-systems');
+    const scale = layout === 'wide' ? 1 : 0.84;
+    const roomX = model.group.userData.roomAnchors.projects[0];
+    const left = boundsOf('projects', 'underbench--1');
+    const right = boundsOf('projects', 'underbench-1');
+    const middleGap = right.min.x - left.max.x;
     close(
-      fittingCenter('underbench--1').x,
-      topLeft.x,
-      'Left drawer follows the left display column',
+      left.min.x - (roomX - 1.165 * scale),
+      middleGap,
+      'Drawers have equal gaps between the bench supports',
     );
     close(
-      fittingCenter('underbench-1').x,
-      topRight.x,
-      'Right drawer follows the right display column',
+      roomX + 1.165 * scale - right.max.x,
+      middleGap,
+      'Drawers have equal outside margins',
     );
-    for (const name of ['retained-tool-board', 'retained-diagnostic-lead'])
+    const projectsFloor =
+      model.group.userData.roomAnchors.projects[1] + CABIN_FLOOR;
+    for (const [name, side] of [
+      ['retained-tool-board', -1],
+      ['retained-diagnostic-lead', 1],
+    ]) {
+      const fitting = boundsOf('projects', name);
+      const vent = boundsOf('projects', `upper-air-return-${side}`);
       close(
-        fittingCenter(name).y,
-        (topLeft.y + bottomLeft.y) / 2,
-        `${name}: side equipment follows the bank midpoint`,
+        vent.min.y - fitting.max.y,
+        fitting.min.y - (projectsFloor + 0.731 * scale),
+        'Side equipment has balanced space between the worktop and vent',
       );
+    }
+    const caseFloor =
+      model.group.userData.roomAnchors.experience[1] + CABIN_FLOOR;
+    const transport = boundsOf('experience', 'retained-recorder-transport');
+    const column = boundsOf('experience', 'archive-service-column--1');
+    const vent = boundsOf('experience', 'upper-air-return--1');
+    close(
+      transport.min.y - caseFloor,
+      column.min.y - transport.max.y,
+      'Left archive fittings have equal lower and intermediate gaps',
+    );
+    close(
+      transport.min.y - caseFloor,
+      vent.min.y - column.max.y,
+      'Left archive fittings have equal upper and lower gaps',
+    );
+  }
+});
+
+test('Upper vents share the room heading centerline and justify its wall gaps', () => {
+  for (const layout of ['wide', 'compact']) {
+    model.setLayout(layout);
+    model.group.updateMatrixWorld(true);
+    const halfWidth = CABIN_HALF_WIDTH * (layout === 'wide' ? 1.4 : 1);
+    for (const room of rooms) {
+      const header = new THREE.Box3().setFromObject(
+        model.group.getObjectByName(`cabin-identification-${room}`),
+      );
+      const headingCenter = header.getCenter(new THREE.Vector3());
+      const root = model.group.getObjectByName(`${room}-cabin-utilities`);
+      const variant = root.children.find((child) => child.visible);
+      for (const side of [-1, 1]) {
+        const part = variant.userData.utilityParts.find(
+          (part) => part.name === `upper-air-return-${side}`,
+        );
+        const bounds = new THREE.Box3(
+          new THREE.Vector3(...part.min),
+          new THREE.Vector3(...part.max),
+        ).applyMatrix4(variant.matrixWorld);
+        const center = bounds.getCenter(new THREE.Vector3());
+        assert.ok(
+          Math.abs(center.y - headingCenter.y) < 1e-6,
+          'Vent and heading share the same physical centerline',
+        );
+        const leftGap =
+          side < 0
+            ? bounds.min.x - (headingCenter.x - halfWidth)
+            : bounds.min.x - header.max.x;
+        const rightGap =
+          side < 0
+            ? header.min.x - bounds.max.x
+            : headingCenter.x + halfWidth - bounds.max.x;
+        assert.ok(
+          Math.abs(leftGap - rightGap) < 1e-5,
+          'Vent is centered in the gap between the complete plaque and wall',
+        );
+        assert.ok(
+          Math.abs(bounds.max.z - model.group.userData.headerAnchors[room][2]) <
+            0.001,
+          'Vent and lettering faces remain coplanar for perspective alignment',
+        );
+      }
+    }
   }
 });
 

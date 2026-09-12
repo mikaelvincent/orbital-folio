@@ -14,6 +14,11 @@ import {
   CABIN_FLOOR,
   CABIN_CEILING,
   CABIN_HALF_WIDTH,
+  PASSAGE_RADIUS,
+  PASSAGE_CENTER_Y,
+  PORTAL_SIGN_CENTER_Y,
+  PASSAGE_CABIN_Z,
+  PASSAGE_LADDER_Z,
   DECK_HALF_PITCH,
   LADDER_CENTER_Y,
   LADDER_HEIGHT,
@@ -30,7 +35,7 @@ import { buildAboutPersonalStudy } from './about-personal-study.ts';
 import { buildCaseStudyArchive } from './case-study-archive.ts';
 import { buildContactFlightConsole } from './contact-flight-console.ts';
 import { buildProjectsWorkshop } from './projects-workshop.ts';
-import { ARCHIVE_GRID, CONTACT_GRID } from '../lib/cabin-composition.ts';
+import { CABIN_WAYFINDING } from '../lib/cabin-composition.ts';
 import { buildOutboardWallEquipment } from './outboard-wall-equipment.ts';
 import {
   buildCabinUtilityFittings,
@@ -240,18 +245,10 @@ export function createSpacecraft(
     section === 'about' ||
     section === 'experience';
   // Shared physical scale and elevation for room headings and doorway signs.
-  const wayfinding = {
-    textHeight: 0.18,
-    textWidth: 0.96,
-    inkWidthRatio: 940 / 1024,
-    fontRatio: 0.7,
-    plateHeight: 0.25,
-    enamelHeight: 0.22,
-    centerY: 1.11,
-  };
+  const wayfinding = CABIN_WAYFINDING;
   const headerPosition = (_section: string): [number, number] => [
     wayfinding.centerY,
-    -0.427,
+    wayfinding.roomSignFaceZ,
   ];
   const readerTrays: Record<string, { group: any; progress: number }> = {};
   // Preserve the owner's hue while making the material a rich painted accent
@@ -594,11 +591,18 @@ export function createSpacecraft(
         if (
           /open-side-pressure-bulkhead|walkway-twin-open-room-wall/.test(name)
         ) {
-          const centers = name.startsWith('walkway-')
-            ? [DECK_HALF_PITCH - 0.06, -DECK_HALF_PITCH - 0.06]
-            : [-0.06];
+          const ladderWall = name.startsWith('walkway-');
+          const centers = ladderWall
+            ? [
+                DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+                -DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+              ]
+            : [PASSAGE_CENTER_Y];
+          const centerZ = ladderWall ? PASSAGE_LADDER_Z : PASSAGE_CABIN_Z;
           const passage = centers.some(
-            (y) => Math.abs(Math.hypot(center.y - y, center.z) - 0.97) < 0.025,
+            (y) =>
+              Math.abs(Math.hypot(center.y - y, center.z - centerZ) - 0.97) <
+              0.025,
           );
           if (Math.abs(normal.x) < 0.999 && !passage) continue;
         }
@@ -1168,7 +1172,7 @@ export function createSpacecraft(
     }
 
     if (hasEquipmentHeader(section)) {
-      // Rear-mounted enamel heading, at the same elevation as the door signs.
+      // A shallow, wall-fitted heading shares the air returns' visible plane.
       const header = new THREE.Group();
       header.name = `cabin-identification-${section}`;
       header.userData = {
@@ -1177,46 +1181,71 @@ export function createSpacecraft(
         batchRoot: true,
         excludePick: true,
       };
-      header.position.set(x, headerPosition(section)[0], -0.5);
+      header.position.set(x, headerPosition(section)[0], 0);
       rooms[section].add(header);
+      const headerHalfHeight = wayfinding.plateHeight / 2;
+      const headerBottom = wayfinding.centerY - headerHalfHeight;
+      const headerTop = wayfinding.centerY + headerHalfHeight;
+      const rearAt = (y: number) => {
+        for (let i = 1; i < interiorPoints.length; i++) {
+          const a = interiorPoints[i - 1],
+            b = interiorPoints[i];
+          if (b.y <= a.y || y < a.y || y > b.y) continue;
+          return -(a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
+        }
+        return -1.1;
+      };
+      const mountProfile = new THREE.Shape();
+      mountProfile.moveTo(1.031, -headerHalfHeight);
+      mountProfile.lineTo(1.031, headerHalfHeight);
+      const mountYs = [
+        headerBottom,
+        headerTop,
+        ...interiorPoints.map((p: any) => p.y),
+      ]
+        .filter((y) => y >= headerBottom && y <= headerTop)
+        .sort((a, b) => b - a);
+      for (const y of mountYs)
+        mountProfile.lineTo(-rearAt(y) + 0.0005, y - wayfinding.centerY);
+      mountProfile.closePath();
+      const mountGeometry = new THREE.ExtrudeGeometry(mountProfile, {
+        depth: wayfinding.roomSignWidth,
+        bevelEnabled: false,
+        steps: 1,
+      });
+      mountGeometry.rotateY(Math.PI / 2);
+      mountGeometry.translate(-wayfinding.roomSignWidth / 2, 0, 0);
+      mesh(
+        mountGeometry,
+        m.gasket,
+        header,
+        'cabin-identification-contoured-mount',
+      );
       box(
-        1.76,
+        wayfinding.roomSignWidth,
         wayfinding.plateHeight,
-        0.1,
+        0.016,
         m.gasket,
         0,
         0,
-        0,
+        -1.024,
         header,
-        0.025,
+        0.008,
         'cabin-identification-rim',
       );
       box(
         1.64,
         wayfinding.enamelHeight,
-        0.022,
+        0.018,
         m.chalk,
         0,
         0,
-        0.046,
+        -1.008,
         header,
         0.015,
         'cabin-identification-inset',
       );
       for (const side of [-1, 1]) {
-        // Two rear standoffs seat in the pressure wall, away from the lights.
-        box(
-          0.082,
-          0.13,
-          0.6,
-          m.gasket,
-          side * 0.62,
-          0,
-          -0.34,
-          header,
-          0.01,
-          'cabin-identification-standoff',
-        );
         box(
           0.024,
           0.12,
@@ -1224,7 +1253,7 @@ export function createSpacecraft(
           m.amber,
           side * 0.765,
           0,
-          0.061,
+          -0.998,
           header,
           0.004,
           'cabin-identification-index',
@@ -1235,7 +1264,7 @@ export function createSpacecraft(
           m.chalk,
           side * 0.845,
           0,
-          0.052,
+          -1.0125,
           header,
           'z',
           undefined,
@@ -1248,7 +1277,7 @@ export function createSpacecraft(
           m.gasket,
           side * 0.845,
           0,
-          0.058,
+          -1.007,
           header,
           0.001,
           'cabin-identification-fastener-slot',
@@ -1312,18 +1341,17 @@ export function createSpacecraft(
     floorFinish.castShadow = false;
   }
 
-  const passageClear = 1.84;
+  const passageClear = 2 * PASSAGE_RADIUS;
   // A circular aperture is cut directly into each continuous side wall.
   // There is no rectangular insert or second doorway surround.
   const passageWallClear = 1.94;
-  const passageCenterZ = 0;
   function passageCircle(x = 0, y = 0, radius = passageWallClear / 2) {
     const path = new THREE.Path();
     path.absarc(x, y, radius, 0, Math.PI * 2, true);
     return path;
   }
   const passageShape = wallOutline.clone();
-  const roomOpening = passageCircle(-passageCenterZ, -0.06);
+  const roomOpening = passageCircle(-PASSAGE_CABIN_Z, PASSAGE_CENTER_Y);
   passageShape.holes.push(roomOpening);
   const openWallGeometry = new THREE.ExtrudeGeometry(passageShape, {
     depth: PRESSURE_WALL,
@@ -1554,7 +1582,7 @@ export function createSpacecraft(
     const n = inner.length,
       frontZ = -0.985;
     // The right-hand cove meets the rear jamb at z=-0.975, just behind
-    // the opening's z=-0.970 edge. A full-depth return would end inside
+    // the opening's shifted rear edge. A full-depth return would end inside
     // the open doorway and leave a slit between these existing surfaces.
     const coveDepth = rim.map((p: any) => (p.x > 0.6 ? 0.01 : 0.08));
     const frontPositions: number[] = [],
@@ -1811,10 +1839,11 @@ export function createSpacecraft(
       // The flat stairwell wall stays ladder-owned. Only the tunnel and its
       // inner bevel borrow light from the adjoining cabin, like the coupling.
       const opening =
-        !ladderPlane && Math.abs(z - passageCenterZ) <= openingHalf
-          ? [DECK_HALF_PITCH - 0.06, -DECK_HALF_PITCH - 0.06].findIndex(
-              (center) => Math.abs(y - center) <= openingHalf,
-            )
+        !ladderPlane && Math.abs(z - PASSAGE_LADDER_Z) <= openingHalf
+          ? [
+              DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+              -DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+            ].findIndex((center) => Math.abs(y - center) <= openingHalf)
           : -1;
       buckets[opening + 1].push(i, i + 1, i + 2);
     }
@@ -1857,7 +1886,7 @@ export function createSpacecraft(
     offsetPath(outline, 0, LADDER_CENTER_Y);
     if (side > 0) {
       for (const yy of [-DECK_HALF_PITCH, DECK_HALF_PITCH]) {
-        const opening = passageCircle(-passageCenterZ, yy - 0.06);
+        const opening = passageCircle(-PASSAGE_LADDER_Z, yy + PASSAGE_CENTER_Y);
         outline.holes.push(opening);
       }
     } else {
@@ -1991,7 +2020,10 @@ export function createSpacecraft(
     excludePick: true,
   };
   group.add(utility);
-  for (const yy of [DECK_HALF_PITCH - 0.06, -DECK_HALF_PITCH - 0.06]) {
+  for (const yy of [
+    DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+    -DECK_HALF_PITCH + PASSAGE_CENTER_Y,
+  ]) {
     const room = yy > 0 ? 'projects' : 'about';
     for (const viaWalkway of [false, true]) {
       const coupling = new THREE.Group();
@@ -2996,7 +3028,7 @@ export function createSpacecraft(
       const coupling = passageCouplings.find(
         (entry) =>
           entry.walkway === viaWalkway &&
-          Math.abs(entry.y - (roomCenters[from][1] - 0.06)) < 0.001,
+          Math.abs(entry.y - (roomCenters[from][1] + PASSAGE_CENTER_Y)) < 0.001,
       )!;
       coupling.group.add(iris.group);
       iris.group.rotation.y = Math.PI / 2;
@@ -3890,19 +3922,19 @@ export function createSpacecraft(
     );
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
-    const studyRightEdge = 1.1437;
+    const studyRightEdge = 1.2287;
     const lockerCenter =
       (CABIN_HALF_WIDTH * layoutScale + studyRightEdge * propScale) / 2;
     personalStudy.userData.setLockerX(lockerCenter / propScale);
     contactConsole.userData.setPropScale(propScale);
     for (const { section, root } of outboardEquipment) {
+      // Each complete wall rack is centered in its own floor-to-ceiling area.
+      // The rails/feet footprint spans local Y=-.84..+.86.
       const equipmentCenterY =
-        section === 'experience'
-          ? ARCHIVE_GRID.centerY
-          : CONTACT_GRID.mainY - CONTACT_GRID.lowering - 0.01;
+        (CABIN_CEILING - CABIN_FLOOR) / 2 - 0.01 * propScale;
       root.position.set(
         halfPitch + CABIN_HALF_WIDTH * layoutScale,
-        roomCenters[section][1] + cabinFloorTop + equipmentCenterY * propScale,
+        roomCenters[section][1] + cabinFloorTop + equipmentCenterY,
         0.18,
       );
       root.scale.setScalar(propScale);
@@ -4002,7 +4034,11 @@ export function createSpacecraft(
         ? roomHatchPlane
         : halfPitch - 1.43 * layoutScale + 0.002;
       const far = entry.walkway ? ladderHatchPlane : -near;
-      entry.group.position.set((near + far) / 2, entry.y, passageCenterZ);
+      entry.group.position.set(
+        (near + far) / 2,
+        entry.y,
+        entry.walkway ? PASSAGE_LADDER_Z : PASSAGE_CABIN_Z,
+      );
       // The guide and blade stock already have real dimensions. Never stretch
       // the shutter along the wall thickness when switching cabin layouts.
       entry.group.scale.set(1, 1, 1);
@@ -4073,17 +4109,18 @@ export function createSpacecraft(
     for (const portal of portals) {
       const origin = legacyCenters[portal.from],
         sign = portal.edge === 'right' ? 1 : -1;
+      const passageZ = portal.metadata.via ? PASSAGE_LADDER_Z : PASSAGE_CABIN_Z;
       portal.visual.position.set(origin, 0, 0);
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
         sign * (1.4 * layoutScale - 0.085),
-        wayfinding.centerY,
-        passageCenterZ,
+        PORTAL_SIGN_CENTER_Y,
+        passageZ,
       );
       portal.pick.position.set(
         origin + sign * (1.5 * layoutScale - 0.04),
-        -0.06,
-        passageCenterZ,
+        PASSAGE_CENTER_Y,
+        passageZ,
       );
       const fromY = roomCenters[portal.from][1],
         toY = roomCenters[portal.to][1];

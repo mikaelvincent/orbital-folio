@@ -602,7 +602,23 @@ export function buildAboutPersonalStudy(
         screwPoints.push([xx, yy, front + 0.095]);
   }
   stowage(bx, 0.328, 0.72, 0.325, 0.19, 'blanket-stowage', 'quilt');
+  // Keep the reading station rigid while giving its desk and library a clear
+  // gap beside the curtain. Mounts, retained props and fasteners move with it.
+  const readingStation = group('reading-station', 0.085);
+  readingStation.userData.batchRoot = true;
+  const attachReadingStation = (
+    previousParts: Set<any>,
+    firstScrew: number,
+    name: string,
+  ) => {
+    for (const part of [...root.children])
+      if (!previousParts.has(part)) readingStation.add(part);
+    screwSet(screwPoints.splice(firstScrew), readingStation, name);
+  };
+  const beforeLibrary = new Set(root.children);
+  const libraryScrewStart = screwPoints.length;
   stowage(0.12, 1.98, 0.85, 0.38, 0.16, 'personal-library', 'books');
+  attachReadingStation(beforeLibrary, libraryScrewStart, 'library-fasteners');
 
   // One continuous cloth surface, shaped into pleats, held by matching tracks.
   const cx = -0.472,
@@ -757,6 +773,8 @@ export function buildAboutPersonalStudy(
     locker.position.x = x - lx;
   };
 
+  const beforeWritingStation = new Set(root.children);
+  const writingScrewStart = screwPoints.length;
   // Pictures are thin mounted paper with four clips, not loose ornaments.
   function note(kind: string, x: number, y: number, w: number, height: number) {
     box(
@@ -1318,6 +1336,11 @@ export function buildAboutPersonalStudy(
       root,
       0.004,
     );
+  attachReadingStation(
+    beforeWritingStation,
+    writingScrewStart,
+    'writing-station-fasteners',
+  );
   screwSet(screwPoints);
   root.userData.personalStudy = {
     floorReferenced: true,
@@ -1328,6 +1351,7 @@ export function buildAboutPersonalStudy(
     pageFlagsAttachedTo: 'paper-leaves',
     enclosedStowage: true,
     retainedCurtain: ['top-track', 'bottom-track'],
+    readingStationOffset: 0.085,
     noNewInteractions: true,
   };
   return root;

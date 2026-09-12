@@ -1,5 +1,7 @@
 # Room composition and alignment
 
+The secondary grid choices below were subsequently refined to justified spacing; see [Justified room spacing](justified-spacing.md) for the current arrangement.
+
 Reviewed all five rooms for balanced spacing and consistent horizontal and vertical alignment. Existing primary furniture proportions, architecture, headings, camera framing, and interactions are preserved.
 
 - All four furnished cabins now keep their furniture origin on the room centerline in both layouts. The legacy horizontal correction scales with the furniture; it no longer leaves a 0.0512 m sideways offset in compact views. Edge fittings and the About locker use the same centered frame of reference.

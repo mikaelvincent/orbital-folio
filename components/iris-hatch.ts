@@ -1,3 +1,5 @@
+import { PASSAGE_GUIDE_WIDTH } from '../lib/spacecraft-wall-layout.ts';
+
 /**
  * Six rigid curved leaves recessed into a circular opening in a continuous wall.
  * Local XY is the wall plane; Z=0 is the center of the wall and shutter stock.
@@ -126,7 +128,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
   const bladeMaterial = apertureMaterial(options.bladeMaterial);
   const syncMask = () => worldToHatch.copy(group.matrixWorld).invert();
 
-  const outerRadius = radius + 0.065;
+  const outerRadius = radius + PASSAGE_GUIDE_WIDTH;
   const guideDepth = options.guideDepth ?? 0.174;
   const ringShape = new THREE.Shape();
   ringShape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);

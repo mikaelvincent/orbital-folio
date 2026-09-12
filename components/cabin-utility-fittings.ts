@@ -3,9 +3,9 @@ import {
   CABIN_HALF_WIDTH,
 } from '../lib/spacecraft-wall-layout.ts';
 import {
-  PROJECTS_GRID,
-  ARCHIVE_GRID,
   CONTACT_GRID,
+  CABIN_WAYFINDING,
+  PROJECTS_UNDERBENCH,
 } from '../lib/cabin-composition.ts';
 
 type CabinKind = 'projects' | 'experience' | 'about' | 'contact';
@@ -275,15 +275,17 @@ export function buildCabinUtilityFittings(
       );
     };
 
-    // A matched air-return pair occupies the corners, leaving a clean sign band.
+    const signY = CABIN_WAYFINDING.centerY - CABIN_FLOOR;
+    const ventBottom = signY - 0.09 * s;
+    // Justify each air return in the actual label-to-wall gap. Its visible
+    // face shares the shallow room sign's plane, so perspective preserves alignment.
     for (const side of [-1, 1])
       assembly(`upper-air-return-${side}`, () => {
-        const x = side * (halfWidth - 0.28 * s),
-          y = 2.4;
+        const x = (side * (halfWidth + CABIN_WAYFINDING.roomSignWidth / 2)) / 2,
+          y = signY;
         const width = 0.39 * s,
           height = 0.18 * s;
-        const front =
-          Math.max(rearAt(y - height / 2), rearAt(y + height / 2)) + 0.035 * s;
+        const front = CABIN_WAYFINDING.roomSignFaceZ - 0.03 * s;
         // One continuous casing meets the curved wall over its full footprint;
         // there are no stand-off bars or open space behind the return grille.
         shoe(x, y, front, width, height, false, 'flush-air-return-housing');
@@ -309,8 +311,12 @@ export function buildCabinUtilityFittings(
       for (const side of [-1, 1])
         assembly(`underbench-${side}`, () => {
           const x =
-            side * (section === 'projects' ? PROJECTS_GRID.columnX : 0.825) * s;
-          const y = (section === 'projects' ? 0.25 : 0.24) * s;
+            side *
+            (section === 'projects' ? PROJECTS_UNDERBENCH.columnX : 0.825) *
+            s;
+          const y =
+            (section === 'projects' ? 0.25 + PROJECTS_UNDERBENCH.lift : 0.24) *
+            s;
           const w = (section === 'projects' ? 0.6 : 0.36) * s;
           const ht = (section === 'projects' ? 0.19 : 0.23) * s;
           const face = mountedBox(x, y, w, ht, 0.16 * s, m.enamel);
@@ -383,13 +389,10 @@ export function buildCabinUtilityFittings(
     }
 
     if (section === 'projects') {
-      const bankCenterY =
-        ((PROJECTS_GRID.topY + PROJECTS_GRID.bottomY) / 2 -
-          PROJECTS_GRID.lowering) *
-        s;
+      const serviceCenterY = (0.731 * s + ventBottom) / 2;
       assembly('retained-tool-board', () => {
         const x = edgeCenter(-1, -1.3085),
-          y = bankCenterY;
+          y = serviceCenterY;
         const face = mountedBox(x, y, 0.3 * s, 0.8 * s, 0.042 * s, m.frame);
         // Two captive drivers, with round shafts, grip collars and seated bits.
         for (const dx of [-0.066, 0.055]) {
@@ -469,7 +472,7 @@ export function buildCabinUtilityFittings(
       });
       assembly('retained-diagnostic-lead', () => {
         const x = edgeCenter(1, 1.3435),
-          y = bankCenterY;
+          y = serviceCenterY;
         const face = mountedBox(x, y, 0.2 * s, 0.72 * s, 0.025 * s, m.frame);
         // A spare test lead is coiled on its cradle, with both plugs captive.
         const points = [
@@ -539,13 +542,21 @@ export function buildCabinUtilityFittings(
 
     if (section === 'experience') {
       const serviceHeight = 0.88;
+      const transportHeight = 0.49;
+      const gap = (ventBottom - (serviceHeight + transportHeight) * s) / 3;
       assembly('retained-recorder-transport', () => {
         const x = edgeCenter(-1, -1.3925),
-          // Equal clear space above and below the case, within the floor-to-column gap.
-          y = ((ARCHIVE_GRID.centerY - serviceHeight / 2) / 2) * s;
+          y = gap + (transportHeight * s) / 2;
         const width = layout === 'compact' ? 0.17 : 0.36 * s;
         const t = width / (0.36 * s);
-        const face = mountedBox(x, y, width, 0.49 * s, 0.2 * s, m.frame);
+        const face = mountedBox(
+          x,
+          y,
+          width,
+          transportHeight * s,
+          0.2 * s,
+          m.frame,
+        );
         box(
           0.255 * s * t,
           0.34 * s,
@@ -586,7 +597,10 @@ export function buildCabinUtilityFittings(
       for (const side of [-1, 1])
         assembly(`archive-service-column-${side}`, () => {
           const x = edgeCenter(side, side * 1.3925),
-            y = ARCHIVE_GRID.centerY * s;
+            y =
+              side < 0
+                ? 2 * gap + (transportHeight + serviceHeight / 2) * s
+                : ventBottom / 2;
           const face = mountedBox(
             x,
             y,
@@ -682,7 +696,7 @@ export function buildCabinUtilityFittings(
       // Service umbilicals descend behind the social displays, outside their faces.
       for (const side of [-1, 1])
         assembly(`console-umbilical-${side}`, () => {
-          const x = side * (halfWidth - 0.082 * s),
+          const x = (side * (halfWidth + 1.585 * s)) / 2,
             y = (CONTACT_GRID.sideY - CONTACT_GRID.lowering) * s;
           for (const dy of [-0.44, 0.44]) shoe(x, y + dy * s, -0.988);
           box(
@@ -736,7 +750,7 @@ export function buildCabinUtilityFittings(
 
     if (section === 'about') {
       assembly('folded-crew-perch', () => {
-        const x = 0.394 * s,
+        const x = 0.479 * s,
           y = 0.475 * s;
         const face = mountedBox(x, y, 0.51 * s, 0.225 * s, 0.081 * s, m.frame);
         box(
