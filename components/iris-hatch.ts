@@ -1,6 +1,7 @@
 /**
  * Six rigid curved leaves recessed into a circular opening in a continuous wall.
- * Local XY is the wall plane; +Z faces the room. The caller supplies the wall.
+ * Local XY is the wall plane; Z=0 is the center of the wall and shutter stock.
+ * One mechanism, full-depth graphite guide and indicators visible from both sides.
  */
 export type IrisHatchOptions = {
   radius?: number;
@@ -35,6 +36,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
   // even where a neighboring cabin/cutaway removes the back of that wall.
   const apertureMaterial = (source: any) => {
     const material = source.clone();
+    material.alphaToCoverage = true;
     const sourceCompile = source.onBeforeCompile;
     const sourceKey = source.customProgramCacheKey?.bind(source);
     material.userData = { ...source.userData, irisApertureMasked: true };
@@ -47,10 +49,10 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
       shader.uniforms.irisCurveFactor = motion.curve;
       shader.uniforms.irisNominalRadius = motion.radius;
       shader.vertexShader =
-        'uniform mat4 irisWorldToLocal;\nvarying vec2 vIrisAperture;\n' +
+        'uniform mat4 irisWorldToLocal;\nvarying vec3 vIrisLocal;\n' +
         shader.vertexShader.replace(
           '#include <project_vertex>',
-          'vIrisAperture = (irisWorldToLocal * modelMatrix * vec4(transformed, 1.0)).xy;\n#include <project_vertex>',
+          'vIrisLocal = (irisWorldToLocal * modelMatrix * vec4(transformed, 1.0)).xyz;\n#include <project_vertex>',
         );
       shader.fragmentShader =
         `uniform float irisApertureRadius;
@@ -58,81 +60,130 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
          uniform float irisOpenTwist;
          uniform float irisCurveFactor;
          uniform float irisNominalRadius;
-         varying vec2 vIrisAperture;\n` +
+         uniform mat4 irisWorldToLocal;
+         varying vec3 vIrisLocal;\n` +
         shader.fragmentShader
           .replace(
             '#include <clipping_planes_fragment>',
             `#include <clipping_planes_fragment>
-          if (dot(vIrisAperture, vIrisAperture) > irisApertureRadius * irisApertureRadius) discard;
-          // The intersection of these six convex inequalities is one central
-          // opening. Hard clipping just removes tessellation slivers along the
-          // actual curved cutting edges of the rigid overlapping metal leaves.
-          bool insideIrisOpening = true;
+          vec2 vIrisAperture = vIrisLocal.xy;
+          // Signed distances retain opaque metal while MSAA covers subpixel
+          // cutting edges instead of producing hard discarded stair steps.
+          float irisOpeningDistance = -1e6;
           for (int irisIndex = 0; irisIndex < 6; irisIndex++) {
             float irisAngle = float(irisIndex) * 1.0471975512 + irisOpenTwist;
             vec2 irisNormal = vec2(cos(irisAngle), sin(irisAngle));
             float irisX = dot(vIrisAperture, irisNormal);
             float irisY = dot(vIrisAperture, vec2(-irisNormal.y, irisNormal.x));
-            if (irisX + irisCurveFactor * irisY * irisY >= irisOpenTravel) insideIrisOpening = false;
+            float irisEdge = (irisX + irisCurveFactor * irisY * irisY - irisOpenTravel) /
+              sqrt(1.0 + 4.0 * irisCurveFactor * irisCurveFactor * irisY * irisY);
+            irisOpeningDistance = max(irisOpeningDistance, irisEdge);
           }
-          if (insideIrisOpening) discard;`,
+          float irisEdgeAA = max(fwidth(irisOpeningDistance), 0.00001);
+          float irisOuterDistance = irisApertureRadius - length(vIrisAperture);
+          float irisOuterAA = max(fwidth(irisOuterDistance), 0.00001);
+          float irisInnerCoverage = irisOpenTravel <= 0.0 ? 1.0 :
+            smoothstep(-0.5 * irisEdgeAA, 0.5 * irisEdgeAA, irisOpeningDistance);
+          float irisCoverage = irisInnerCoverage *
+            smoothstep(-0.5 * irisOuterAA, 0.5 * irisOuterAA, irisOuterDistance);
+          if (irisCoverage <= 0.001) discard;`,
           )
           .replace(
             '#include <color_fragment>',
             `#include <color_fragment>
-          // Six flush inset seam markings stay legible without stacking raised
-          // outlines at different depths. They stop exactly at the open edge.
-          float irisRadial = length(vIrisAperture);
+          diffuseColor.a *= irisCoverage;
+          // Project all overlapping stock onto one seam datum. Otherwise the
+          // same marking jumps sideways at each leaf overlap at oblique angles.
+          vec3 irisEye = (irisWorldToLocal * vec4(cameraPosition, 1.0)).xyz;
+          vec3 irisRay = vIrisLocal - irisEye;
+          float irisRayDepth = irisRay.z < 0.0 ? min(irisRay.z, -0.00001) : max(irisRay.z, 0.00001);
+          vec2 irisSeamPoint = vIrisLocal.xy - irisRay.xy * vIrisLocal.z / irisRayDepth;
+          float irisR2 = max(dot(irisSeamPoint, irisSeamPoint), 0.00000001);
+          float irisRadial = sqrt(irisR2);
           float irisT = clamp(irisRadial / irisNominalRadius, 0.0, 1.0);
           float irisSpiral = 1.12 * (1.0 - irisT) * (1.0 - irisT * 0.2);
-          float irisPhase = (atan(vIrisAperture.y, vIrisAperture.x) - irisOpenTwist - irisSpiral) / 1.0471975512;
-          float irisSeamDistance = abs(fract(irisPhase + 0.5) - 0.5) * 1.0471975512 * irisRadial;
+          float irisPhase = atan(irisSeamPoint.y, irisSeamPoint.x) - irisOpenTwist - irisSpiral;
+          // Analytic phase derivatives avoid the atan wrap and abs/fract cusps.
+          float irisSpiralDerivative = irisRadial < irisNominalRadius ?
+            1.12 * (-1.2 + 0.4 * irisT) / irisNominalRadius : 0.0;
+          vec2 irisPhaseGradient = vec2(-irisSeamPoint.y, irisSeamPoint.x) / irisR2 -
+            irisSpiralDerivative * irisSeamPoint / irisRadial;
+          float irisSeamAA = max(abs(dot(irisPhaseGradient, dFdx(irisSeamPoint))) +
+            abs(dot(irisPhaseGradient, dFdy(irisSeamPoint))), 0.00001);
+          float irisSeamDistance = abs(fract(irisPhase / 1.0471975512 + 0.5) - 0.5) * 1.0471975512;
           float irisSeamWidth = irisNominalRadius * 0.0028;
-          float irisSeamAA = max(fwidth(irisSeamDistance), irisNominalRadius * 0.0002);
-          float irisSeam = (1.0 - smoothstep(irisSeamWidth, irisSeamWidth + irisSeamAA, irisSeamDistance)) * smoothstep(irisNominalRadius * 0.002, irisNominalRadius * 0.015, irisRadial);
-          diffuseColor.rgb *= 1.0 - irisSeam * 0.58;`,
+          float irisHalfAngle = irisSeamWidth / irisRadial;
+          float irisSeam = (clamp((irisHalfAngle + 0.5 * irisSeamAA - irisSeamDistance) / irisSeamAA, 0.0, 1.0) -
+            clamp((-irisHalfAngle + 0.5 * irisSeamAA - irisSeamDistance) / irisSeamAA, 0.0, 1.0)) *
+            smoothstep(irisNominalRadius * 0.002, irisNominalRadius * 0.015, irisRadial);
+          diffuseColor.rgb *= 1.0 - irisSeam * 0.48;`,
           );
     };
     material.customProgramCacheKey = () =>
-      `${sourceKey?.() ?? ''}|integrated-iris-aperture-v2`;
+      `${sourceKey?.() ?? ''}|centered-iris-coverage-v3`;
     return material;
   };
   const bladeMaterial = apertureMaterial(options.bladeMaterial);
   const syncMask = () => worldToHatch.copy(group.matrixWorld).invert();
 
-  const outerRadius = radius + 0.055;
+  const outerRadius = radius + 0.065;
+  const guideDepth = options.guideDepth ?? 0.174;
   const ringShape = new THREE.Shape();
   ringShape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
   const ringHole = new THREE.Path();
   ringHole.absarc(0, 0, radius, 0, Math.PI * 2, true);
   ringShape.holes.push(ringHole);
   const ringGeometry = new THREE.ExtrudeGeometry(ringShape, {
-    depth: options.guideDepth ?? 0.076,
+    depth: guideDepth,
     steps: 1,
     bevelEnabled: false,
     curveSegments: 96,
   });
-  ringGeometry.translate(0, 0, -(options.guideDepth ?? 0.076) - 0.002);
+  ringGeometry.translate(0, 0, -guideDepth / 2);
   const rim = new THREE.Mesh(ringGeometry, options.rimMaterial);
   rim.name = 'recessed-iris-guide';
   rim.castShadow = false;
   rim.receiveShadow = true;
   group.add(rim);
 
-  const indexGeometry = new THREE.BoxGeometry(0.022, 0.05, 0.0015);
-  for (let i = 0; i < 4; i++) {
-    const angle = i * Math.PI * 0.5;
-    const mark = new THREE.Mesh(indexGeometry, options.accentMaterial);
-    mark.name = 'iris-alignment-index';
-    mark.position.set(
-      Math.sin(angle) * (radius + 0.028),
-      Math.cos(angle) * (radius + 0.028),
-      -0.0007,
-    );
-    mark.rotation.z = -angle;
-    mark.castShadow = false;
-    group.add(mark);
+  // Four recessed, segmented status lenses at each mouth of the single guide.
+  // The dark perimeter never changes paint color on hover.
+  const indicatorMaterial = options.accentMaterial.clone();
+  indicatorMaterial.name = 'iris-recessed-amber-indicator';
+  indicatorMaterial.roughness = 0.4;
+  indicatorMaterial.metalness = 0;
+  const amber = new THREE.Color(0xffb345);
+  const indicators: any[] = [];
+  for (const side of [-1, 1]) {
+    for (let i = 0; i < 4; i++) {
+      const center = Math.PI / 4 + (i * Math.PI) / 2;
+      const arc = new THREE.Mesh(
+        new THREE.RingGeometry(
+          radius + 0.024,
+          radius + 0.038,
+          48,
+          1,
+          center - Math.PI / 9,
+          (2 * Math.PI) / 9,
+        ),
+        indicatorMaterial,
+      );
+      arc.name = `iris-status-lens-${side > 0 ? 'front' : 'back'}-${i}`;
+      arc.position.z = side * (guideDepth / 2 + 0.0008);
+      if (side < 0) arc.rotation.y = Math.PI;
+      arc.castShadow = false;
+      group.add(arc);
+      indicators.push(arc);
+    }
   }
+  const setHighlight = (strength: number) => {
+    const p = Math.max(0, Math.min(1, strength));
+    indicatorMaterial.color.copy(amber).multiplyScalar(0.34 + p * 0.66);
+    indicatorMaterial.emissive.copy(amber);
+    indicatorMaterial.emissiveIntensity = 0.07 + p * 1.6;
+    group.userData.highlight = p;
+  };
+  setHighlight(0);
 
   const bladeCount = 6;
   // Broad overlapping shutter leaves, not six wedges. A leaf's cutting edge
@@ -160,7 +211,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     bevelEnabled: false,
     curveSegments: 64,
   });
-  bladeGeometry.translate(0, 0, -0.00035);
+  bladeGeometry.translate(0, 0, -0.000175);
 
   const blades: any[] = [];
   const leaves: any[] = [];
@@ -170,7 +221,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     blade.userData.animated = true;
     blade.userData.irisBladeIndex = i;
     blade.rotation.z = (i / bladeCount) * Math.PI * 2;
-    blade.position.z = -0.012 - i * 0.0006;
+    blade.position.z = (2.5 - i) * 0.0006;
     const leaf = new THREE.Mesh(bladeGeometry, bladeMaterial);
     leaf.name = 'iris-rigid-leaf';
     leaf.castShadow = false;
@@ -191,7 +242,31 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     radius,
     occlusionSegments,
   );
-  occlusionGeometry.translate(0, 0, -0.012);
+  // GTAO replaces materials with a FrontSide normal material. Give the proxy
+  // real reverse-wound back triangles and normals instead of relying on the
+  // material's DoubleSide flag, which that override would discard.
+  const occlusionFrontCount = occlusionGeometry.getAttribute('position').count;
+  for (const name of Object.keys(occlusionGeometry.attributes)) {
+    const attribute = occlusionGeometry.getAttribute(name);
+    const data = new Float32Array(attribute.array.length * 2);
+    data.set(attribute.array);
+    for (let i = 0; i < attribute.array.length; i++)
+      data[attribute.array.length + i] =
+        attribute.array[i] * (name === 'normal' ? -1 : 1);
+    occlusionGeometry.setAttribute(
+      name,
+      new THREE.BufferAttribute(data, attribute.itemSize),
+    );
+  }
+  const frontIndices = Array.from(occlusionGeometry.index.array) as number[];
+  const bothIndices = [...frontIndices];
+  for (let i = 0; i < frontIndices.length; i += 3)
+    bothIndices.push(
+      frontIndices[i + 2] + occlusionFrontCount,
+      frontIndices[i + 1] + occlusionFrontCount,
+      frontIndices[i] + occlusionFrontCount,
+    );
+  occlusionGeometry.setIndex(bothIndices);
   const occlusion = new THREE.Mesh(
     occlusionGeometry,
     new THREE.MeshStandardMaterial(),
@@ -227,7 +302,13 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
         j,
         Math.cos(angle) * innerRadius,
         Math.sin(angle) * innerRadius,
-        -0.012,
+        0,
+      );
+      occlusionPositions.setXYZ(
+        j + occlusionFrontCount,
+        Math.cos(angle) * innerRadius,
+        Math.sin(angle) * innerRadius,
+        0,
       );
     }
     occlusionPositions.needsUpdate = true;
@@ -235,7 +316,8 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
   };
   group.userData.setOcclusionPass = (enabled: boolean) => {
     for (const child of group.children)
-      child.visible = child === occlusion ? enabled : !enabled;
+      child.visible =
+        child === rim || (child === occlusion ? enabled : !enabled);
   };
 
   const setOpen = (progress: number) => {
@@ -264,9 +346,11 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
     blades,
     leaves,
     rim,
+    indicators,
+    setHighlight,
     setOpen,
     apertureRadius: radius,
     outerRadius,
-    materials: [bladeMaterial],
+    materials: [bladeMaterial, indicatorMaterial],
   };
 }

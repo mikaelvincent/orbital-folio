@@ -6,11 +6,12 @@ import {
   requiredPortalIds,
   interlockLadderPortals,
 } from '../lib/iris-navigation.ts';
+import { PRESSURE_WALL } from '../lib/spacecraft-wall-layout.ts';
 
 test('Integrated hatches open on hover, close on departure, and preserve room lighting', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const portals = model.group.userData.portals;
-  assert.equal(model.group.userData.irisHatches.length, 8);
+  assert.equal(model.group.userData.irisHatches.length, 4);
   const parts = [];
   model.group.traverse((o) => parts.push(o.name, ...(o.userData.parts || [])));
   assert.ok(
@@ -283,11 +284,8 @@ test('Rapid ladder hover changes keep the two entrances interlocked in both layo
           const faces = model.group.userData.irisHatches.filter(
             (h) => h.userData.physicalHatch === portal.id,
           );
-          assert.equal(faces.length, 2);
-          assert.equal(
-            faces[0].userData.openProgress,
-            faces[1].userData.openProgress,
-          );
+          assert.equal(faces.length, 1);
+          assert.equal(faces[0].userData.openProgress, portal.openProgress);
         }
       }
       if (frames >= 100 && hoveredPortal)
@@ -300,7 +298,7 @@ test('Rapid ladder hover changes keep the two entrances interlocked in both layo
   }
 });
 
-test('Every physical passage has two opposing blade assemblies and one continuous dark liner', () => {
+test('Every physical passage has one centered blade stack and one continuous dark guide', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   for (const layout of ['wide', 'compact', 'wide']) {
     model.setLayout(layout);
@@ -312,33 +310,62 @@ test('Every physical passage has two opposing blade assemblies and one continuou
     assert.equal(pairs.size, 4);
     assert.equal(model.group.userData.passageLinings.length, 4);
     for (const [id, hatches] of pairs) {
-      assert.equal(hatches.length, 2, `${id} needs blades on both faces`);
-      const positions = hatches
-        .map((h) => h.getWorldPosition(new THREE.Vector3()))
-        .sort((a, b) => a.x - b.x);
-      const normals = hatches.map((h) =>
-        new THREE.Vector3(0, 0, 1).transformDirection(h.matrixWorld),
+      assert.equal(
+        hatches.length,
+        1,
+        `${id} must share one physical blade set`,
+      );
+      const hatch = hatches[0];
+      const center = hatch.getWorldPosition(new THREE.Vector3());
+      const leaves = [];
+      hatch.traverse((o) => {
+        if (o.name === 'iris-rigid-leaf') leaves.push(o);
+      });
+      assert.equal(leaves.length, 6);
+      const stock = new THREE.Box3();
+      leaves.forEach((leaf) =>
+        stock.union(new THREE.Box3().setFromObject(leaf)),
       );
       assert.ok(
-        normals[0].dot(normals[1]) < -0.9999,
-        'The two guides face their respective cabins',
+        Math.abs((stock.min.x + stock.max.x) / 2 - center.x) < 1e-7,
+        'The actual blade stock, not just its origin, is centered',
       );
-      assert.ok(
-        Math.abs(positions[0].y - positions[1].y) < 1e-6 &&
-          Math.abs(positions[0].z - positions[1].z) < 1e-6,
+      assert.ok(stock.max.x - stock.min.x < PRESSURE_WALL / 10);
+      const directions = model.group.userData.portals.filter(
+        (p) => p.physicalHatch === id,
       );
-      const center = positions[0].clone().add(positions[1]).multiplyScalar(0.5);
+      assert.ok(directions.every((p) => p.bladeSetCount === 1));
+      if (directions.length === 2) {
+        assert.ok(
+          Math.abs(
+            (directions[0].position[0] + directions[1].position[0]) / 2 -
+              center.x,
+          ) < 1e-7,
+        );
+      } else {
+        const p = directions[0];
+        assert.ok(
+          Math.abs(
+            center.x -
+              (model.group.userData.roomAnchors[p.from][0] -
+                1.43 * model.group.userData.layoutScale -
+                PRESSURE_WALL / 2),
+          ) < 1e-7,
+        );
+      }
       const liner = model.group.userData.passageLinings.find(
         (g) =>
           g.getWorldPosition(new THREE.Vector3()).distanceTo(center) < 0.001,
       );
       assert.ok(liner, `${id} must have a centered continuous liner`);
       const box = new THREE.Box3().setFromObject(liner);
-      assert.ok(Math.abs(box.min.x - positions[0].x - 0.004) < 1e-5);
-      assert.ok(Math.abs(box.max.x - positions[1].x + 0.004) < 1e-5);
+      assert.ok(Math.abs((box.min.x + box.max.x) / 2 - center.x) < 1e-5);
+      assert.ok(
+        Math.abs(box.max.x - box.min.x - (PRESSURE_WALL + 0.004)) < 1e-5,
+      );
       const materials = new Set();
       // Radial rays within the actual sleeve detect any missing surface or seam.
-      // The endpoint assertions above verify its overlap with both guide rings.
+      // The endpoint assertions above verify that it spans the complete wall.
       for (const fraction of [0.04, 0.25, 0.5, 0.75, 0.96]) {
         const x = THREE.MathUtils.lerp(box.min.x, box.max.x, fraction);
         for (let i = 0; i < 24; i++) {
@@ -351,7 +378,7 @@ test('Every physical passage has two opposing blade assemblies and one continuou
           );
           const hit = ray.intersectObject(liner, true)[0];
           assert.ok(hit, `${id} liner must cover every angle and depth`);
-          assert.ok(Math.abs(hit.distance - 0.924) < 0.001);
+          assert.ok(Math.abs(hit.distance - 0.92) < 0.001);
           materials.add(hit.object.material);
         }
       }
@@ -411,4 +438,91 @@ test('Both wall faces use cabin paint and both blade faces share white non-emiss
         assert.equal(o.material.userData.linkedRooms.length, 2);
       }
     });
+});
+
+test('Hover lights both mouths while preserving the dark guide and single-step opening speed', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const portals = model.group.userData.portals;
+  let time = 0;
+  for (const [room, next] of [
+    ['about', 'contact'],
+    ['contact', 'about'],
+    ['projects', 'experience'],
+    ['experience', 'projects'],
+    ['projects', 'about'],
+    ['about', 'projects'],
+  ]) {
+    model.update(++time, '', true, {
+      activeRoom: room,
+      hoveredPortal: '',
+      openPortalIds: [],
+    });
+    const portal = portals.find((p) => p.from === room && p.to === next);
+    const hatch = model.group.userData.irisHatches.find(
+      (h) => h.userData.physicalHatch === portal.physicalHatch,
+    );
+    const rim = hatch.getObjectByName('recessed-iris-guide').material;
+    const guideColor = rim.color.clone();
+    const lenses = hatch.children.filter((o) =>
+      o.name.startsWith('iris-status-lens-'),
+    );
+    assert.equal(lenses.length, 8, 'Four indicator segments on each side');
+    const dimEmission = lenses[0].material.emissiveIntensity;
+    let frames = 0;
+    do {
+      model.update((time += 1 / 60), '', false, {
+        activeRoom: room,
+        hoveredPortal: next,
+        delta: 1 / 60,
+      });
+      frames++;
+    } while (!portal.open && frames < 120);
+    assert.ok(
+      frames >= 29 && frames <= 34,
+      `${room} → ${next} took ${frames} frames`,
+    );
+    assert.ok(rim.color.equals(guideColor), 'Hover cannot repaint the guide');
+    assert.equal(rim.emissive.getHex(), 0);
+    assert.ok(
+      lenses.every((o) => o.material.emissiveIntensity > dimEmission * 10),
+    );
+    for (const p of portals.filter(
+      (p) => p.physicalHatch === portal.physicalHatch,
+    ))
+      assert.equal(p.openProgress, hatch.userData.openProgress);
+    for (let i = 0; i < 120; i++)
+      model.update((time += 1 / 60), '', false, {
+        hoveredPortal: '',
+        delta: 1 / 60,
+      });
+    assert.equal(portal.sealed, true);
+    assert.equal(lenses[0].material.emissiveIntensity, dimEmission);
+    assert.ok(rim.color.equals(guideColor));
+  }
+});
+
+test('Resizing with a door open cannot change overview or room framing', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const d = model.group.userData;
+  for (const layout of ['wide', 'compact']) {
+    model.update(1, '', true, { openPortalIds: [], hoveredPortal: '' });
+    model.setLayout(layout);
+    const before = structuredClone({
+      bounds: d.overviewBounds,
+      supports: d.overviewSupportPoints,
+      room: d.roomCameraFrame,
+    });
+    for (const p of d.portals) {
+      model.update(2, '', true, { openPortalIds: [p.id] });
+      model.setLayout(layout);
+      assert.deepEqual(
+        {
+          bounds: d.overviewBounds,
+          supports: d.overviewSupportPoints,
+          room: d.roomCameraFrame,
+        },
+        before,
+      );
+    }
+  }
 });

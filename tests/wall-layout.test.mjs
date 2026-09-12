@@ -232,50 +232,29 @@ test('Rendered roofs, floors and the shared deck retain 0.17 walls around unchan
   }
 });
 
-test('Paired hatch guides fit inside the shared wall without overlapping each other', () => {
+test('One continuous hatch guide spans each shared wall with only a flush lip', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
-  for (const [layout] of layouts) {
+  for (const [layout, scale] of layouts) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
-    const pairs = new Map();
-    for (const hatch of model.group.userData.irisHatches) {
+    const datums = wallLayout(scale);
+    const hatches = model.group.userData.irisHatches;
+    assert.equal(hatches.length, 4);
+    for (const hatch of hatches) {
       const id = hatch.userData.physicalHatch;
-      pairs.set(id, [...(pairs.get(id) || []), hatch]);
-    }
-    assert.equal(pairs.size, 4);
-    for (const [id, hatches] of pairs) {
-      assert.equal(hatches.length, 2);
-      const positions = hatches
-        .map((h) => h.getWorldPosition(new THREE.Vector3()))
-        .sort((a, b) => a.x - b.x);
-      near(
-        positions[1].x - positions[0].x,
-        0.174,
-        `${layout} ${id} face spacing includes only the wall and flush offsets`,
+      const isLadder = id === 'projects:about' || id === 'about:projects';
+      const wallMin = isLadder ? datums.ladderRightWall : -PRESSURE_WALL / 2;
+      const wallMax = isLadder ? datums.leftCabinWall : PRESSURE_WALL / 2;
+      const guide = new THREE.Box3().setFromObject(
+        hatch.getObjectByName('recessed-iris-guide'),
       );
-      const wallMin = positions[0].x + 0.002;
-      const wallMax = positions[1].x - 0.002;
-      near(wallMax - wallMin, 0.17, `${id} underlying shared wall`);
-      const guides = hatches
-        .map((h) =>
-          new THREE.Box3().setFromObject(
-            h.getObjectByName('recessed-iris-guide'),
-          ),
-        )
-        .sort((a, b) => a.min.x - b.min.x);
-      for (const guide of guides) {
-        assert.ok(
-          guide.min.x >= wallMin - EPSILON,
-          `${id} guide cannot protrude from left wall face`,
-        );
-        assert.ok(
-          guide.max.x <= wallMax + EPSILON,
-          `${id} guide cannot protrude from right wall face`,
-        );
-      }
-      assert.ok(
-        guides[1].min.x - guides[0].max.x > 0.002,
-        `${id} mirrored guides must not intersect in the center of the wall`,
+      near(wallMax - wallMin, PRESSURE_WALL, `${id} underlying shared wall`);
+      near(guide.min.x, wallMin - 0.002, `${layout} ${id} left flush lip`);
+      near(guide.max.x, wallMax + 0.002, `${layout} ${id} right flush lip`);
+      near(
+        hatch.getWorldPosition(new THREE.Vector3()).x,
+        (wallMin + wallMax) / 2,
+        `${layout} ${id} mechanism centered between structural wall faces`,
       );
     }
   }

@@ -1979,33 +1979,9 @@ export function createSpacecraft(
     excludePick: true,
   };
   group.add(utility);
-  function circularCoupling(depth: number) {
-    const shape = new THREE.Shape();
-    shape.absarc(0, 0, passageWallClear / 2 + 0.018, 0, Math.PI * 2, false);
-    shape.holes.push(passageCircle(0, 0, passageClear / 2 + 0.004));
-    const geometry = new THREE.ExtrudeGeometry(shape, {
-      depth,
-      bevelEnabled: false,
-      curveSegments: 96,
-      steps: 1,
-    });
-    geometry.translate(0, 0, -depth / 2);
-    return geometry;
-  }
   for (const yy of [DECK_HALF_PITCH - 0.06, -DECK_HALF_PITCH - 0.06]) {
     const room = yy > 0 ? 'projects' : 'about';
     for (const viaWalkway of [false, true]) {
-      const liner = m.gasket.clone();
-      liner.name = 'continuous-graphite-passage-liner';
-      liner.roughness = 0.82;
-      liner.metalness = 0;
-      liner.userData.surfaceOnly = true;
-      liner.userData.roomSurface = true;
-      liner.userData.neutralPaint = true;
-      liner.userData.linkedRooms = [
-        room,
-        viaWalkway ? 'walkway' : yy > 0 ? 'experience' : 'contact',
-      ];
       const coupling = new THREE.Group();
       coupling.name = `${room}-${viaWalkway ? 'ladder' : 'cabin'}-continuous-passage`;
       coupling.userData = {
@@ -2016,15 +1992,7 @@ export function createSpacecraft(
       };
       utility.add(coupling);
       passageCouplings.push({ group: coupling, walkway: viaWalkway, y: yy });
-      // One full-depth sleeve hides the independently lit wall reveals. Its
-      // shared finish and dimmer cannot split at the boundary between rooms.
-      const tube = mesh(
-        circularCoupling(1),
-        liner,
-        coupling,
-        'continuous-graphite-passage-reveal',
-      );
-      tube.rotation.y = Math.PI / 2;
+      // The shared shutter added below includes this passage's full-depth guide.
     }
   }
   // Projects is a static category workshop. The previous individual-project
@@ -2904,8 +2872,9 @@ export function createSpacecraft(
   group.userData.branding = [];
   group.userData.circulation = ['experience', 'projects', 'about', 'contact'];
 
-  // Six directed routes retain their room-facing iris and sign. Ladder routes
-  // also carry a mirrored stairwell assembly, giving every passage two sets.
+  // Six navigation directions refer to four physical mechanisms. Reciprocal
+  // room routes share a shutter; the ladder's upper/lower entrances stay separate.
+  const physicalHatches = new Map<string, any>();
   const portalConnections = [
     ['experience', 'projects', 'left'],
     ['projects', 'experience', 'right'],
@@ -2930,56 +2899,56 @@ export function createSpacecraft(
       portalDestination: to,
     };
     rooms[from].add(visual);
-    const signalSource = m.amber.clone();
-    signalSource.userData.surfaceOnly = true;
-    signalSource.name = 'route-paint-' + id;
-    signalSource.userData.highlightScale = 0;
-    const opening = new THREE.Group();
-    opening.userData = { section: from, batchRoot: true };
-    visual.add(opening);
-    const bladeSource = m.chalk.clone();
-    // Neutral white paint on every cap and edge, with shared passage lighting
-    // on the two visible faces. The surrounding partition stays cabin ivory.
-    bladeSource.color.set(0xffffff);
-    bladeSource.roughness = 0.72;
-    bladeSource.metalness = 0;
-    bladeSource.userData.neutralPaint = true;
-    bladeSource.userData.linkedRooms = viaWalkway
-      ? [from, 'walkway']
-      : [from, to];
-    signalSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
-    const rimSource = m.gasket.clone();
-    rimSource.roughness = 0.82;
-    rimSource.metalness = 0;
-    rimSource.userData.neutralPaint = true;
-    rimSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
-    bladeSource.name = 'iris-enamel-' + id;
-    rimSource.name = 'iris-guide-' + id;
-    const irisOptions = {
-      radius: passageClear / 2,
-      guideDepth: PRESSURE_WALL / 2 - 0.006,
-      bladeMaterial: roomMat(bladeSource, from, false, true),
-      rimMaterial: roomMat(rimSource, from, false, true),
-      accentMaterial: roomMat(signalSource, from, false, true),
-    };
-    const iris = buildIrisHatch(THREE, irisOptions);
-    const backIris = viaWalkway ? buildIrisHatch(THREE, irisOptions) : null;
-    const irises = backIris ? [iris, backIris] : [iris];
-    const irisMaterials = new Set<any>();
-    for (const assembly of irises) {
-      assembly.group.userData.irisHatch = true;
-      assembly.group.userData.physicalHatch = viaWalkway
-        ? id
-        : [from, to].sort().join(':');
-      assembly.group.traverse((part: any) => {
+    const physicalId = viaWalkway ? id : [from, to].sort().join(':');
+    let hatch = physicalHatches.get(physicalId);
+    if (!hatch) {
+      const signalSource = m.amber.clone();
+      signalSource.userData.surfaceOnly = true;
+      signalSource.name = 'route-paint-' + id;
+      signalSource.userData.highlightScale = 0;
+      const bladeSource = m.chalk.clone();
+      // Neutral white paint on every cap and edge, with shared passage lighting
+      // on the two visible faces. The surrounding partition stays cabin ivory.
+      bladeSource.color.set(0xffffff);
+      bladeSource.roughness = 0.72;
+      bladeSource.metalness = 0;
+      bladeSource.userData.neutralPaint = true;
+      bladeSource.userData.linkedRooms = viaWalkway
+        ? [from, 'walkway']
+        : [from, to];
+      signalSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
+      const rimSource = m.gasket.clone();
+      rimSource.roughness = 0.82;
+      rimSource.metalness = 0;
+      rimSource.userData.neutralPaint = true;
+      rimSource.userData.linkedRooms = bladeSource.userData.linkedRooms;
+      bladeSource.name = 'iris-enamel-' + id;
+      rimSource.name = 'iris-guide-' + id;
+      const irisOptions = {
+        radius: passageClear / 2,
+        guideDepth: PRESSURE_WALL + 0.004,
+        bladeMaterial: roomMat(bladeSource, from, false, true),
+        rimMaterial: roomMat(rimSource, from, false, true),
+        accentMaterial: roomMat(signalSource, from, false, true),
+      };
+      const iris = buildIrisHatch(THREE, irisOptions);
+      iris.group.userData.irisHatch = true;
+      iris.group.userData.physicalHatch = physicalId;
+      iris.group.traverse((part: any) => {
         part.userData.section = from;
         part.userData.excludePick = true;
-        if (part.isMesh) irisMaterials.add(part.material);
       });
-      opening.add(assembly.group);
-      roomMaterials[from].push(...assembly.materials);
+      const coupling = passageCouplings.find(
+        (entry) =>
+          entry.walkway === viaWalkway &&
+          Math.abs(entry.y - (roomCenters[from][1] - 0.06)) < 0.001,
+      )!;
+      coupling.group.add(iris.group);
+      iris.group.rotation.y = Math.PI / 2;
+      roomMaterials[from].push(...iris.materials);
+      hatch = { iris, doorMotion: { value: 0, velocity: 0 }, portals: [] };
+      physicalHatches.set(physicalId, hatch);
     }
-    if (backIris) backIris.group.rotation.y = Math.PI;
     // Navigation plaques sit literally above the side door, on the same
     // inward-facing wall plane. They are distinct from the frontal room title.
     const caption = new THREE.Group();
@@ -3076,27 +3045,25 @@ export function createSpacecraft(
       openProgress: 0,
       doorType: 'integrated-iris',
       raisedDoorFrame: false,
-      bladeSetCount: 2,
+      bladeSetCount: 1,
+      physicalHatch: physicalId,
       label: options.labels?.[to] || to,
       waypoints: [],
     };
-    portals.push({
+    const portal = {
       id,
       from,
       to,
       edge,
       visual,
-      opening,
       caption,
       pick,
       metadata,
-      iris,
-      irises,
-      backIris,
-      irisMaterials,
-      doorMotion: { value: 0, velocity: 0 },
+      iris: hatch.iris,
       strength: 0,
-    });
+    };
+    portals.push(portal);
+    hatch.portals.push(portal);
   }
 
   // Prop proportions remain uniform in compact mode; hulls resize separately.
@@ -3733,11 +3700,14 @@ export function createSpacecraft(
     for (const part of [
       docking,
       service,
-      utility,
       walkway,
       chassisVariants[currentLayout],
     ])
       box.union(vesselBounds(part));
+    const passageBounds = new THREE.Box3();
+    for (const hatch of physicalHatches.values())
+      passageBounds.union(vesselBounds(hatch.iris.rim));
+    box.union(passageBounds);
     const supportBounds: Array<{ name: string; bounds: any }> = [];
     for (const [section, structure] of Object.entries(structures))
       supportBounds.push({
@@ -3748,9 +3718,9 @@ export function createSpacecraft(
       ['chassis', chassisVariants[currentLayout]],
       ['ladder-bay', walkway],
       ['docking-sleeve', docking],
-      ['passage-couplings', utility],
     ] as Array<[string, any]>)
       supportBounds.push({ name, bounds: vesselBounds(part) });
+    supportBounds.push({ name: 'passage-couplings', bounds: passageBounds });
     const serviceMatrix = vesselMatrix(service);
     for (const [name, bounds] of serviceOverviewParts)
       supportBounds.push({
@@ -3890,8 +3860,9 @@ export function createSpacecraft(
         : halfPitch - 1.43 * layoutScale + 0.002;
       const far = entry.walkway ? ladderHatchPlane : -near;
       entry.group.position.set((near + far) / 2, entry.y, passageCenterZ);
-      // Ends sit beneath the two recessed guides, never on top of the wall.
-      entry.group.scale.set(Math.abs(near - far) - 0.008, 1, 1);
+      // The guide and blade stock already have real dimensions. Never stretch
+      // the shutter along the wall thickness when switching cabin layouts.
+      entry.group.scale.set(1, 1, 1);
     }
     docking.position.set(dockingWallX + 4.5, LADDER_CENTER_Y - 0.03, 0);
     service.position.x = -1.5 + outward;
@@ -3960,14 +3931,6 @@ export function createSpacecraft(
       const origin = legacyCenters[portal.from],
         sign = portal.edge === 'right' ? 1 : -1;
       portal.visual.position.set(origin, 0, 0);
-      portal.opening.rotation.y = sign > 0 ? -Math.PI / 2 : Math.PI / 2;
-      portal.opening.position.set(
-        sign * (1.43 * layoutScale - 0.002),
-        -0.06,
-        passageCenterZ,
-      );
-      if (portal.backIris)
-        portal.backIris.group.position.z = ladderHatchPlane - roomHatchPlane;
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
         sign * (1.4 * layoutScale - 0.085),
@@ -4494,7 +4457,7 @@ export function createSpacecraft(
       for (const portal of portals)
         if (portal.iris.group.userData.physicalHatch === hoveredHatch)
           requestedDoors.add(portal.id);
-    // Hover and travel share one intent. The two blade faces move together,
+    // Hover and travel share one physical mechanism from either direction,
     // while the ladder's separate upper/lower entrances stay mutually exclusive.
     const { openPortalIds } = interlockLadderPortals(
       portals.map((p) => p.metadata),
@@ -4510,53 +4473,48 @@ export function createSpacecraft(
           : 0;
       portal.strength += (wanted - portal.strength) * blend;
       if (Math.abs(portal.strength - wanted) < 0.002) portal.strength = wanted;
-      for (const material of portal.irisMaterials) {
-        material.color.multiplyScalar(1 + portal.strength * 0.3);
-        material.emissive.set(0x000000);
-        material.emissiveIntensity = 0;
-      }
-      // A warm painted guide makes the navigation target unambiguous without
-      // adding a separate doorway light or brightening the surrounding wall.
-      for (const iris of portal.irises)
-        iris.rim.material.color
-          .copy(iris.rim.material.userData.baseColor)
-          .lerp(paintedHover, portal.strength * 0.82)
-          .multiplyScalar(
-            Math.max(
-              ...iris.rim.material.userData.linkedRooms.map(
-                (room: string) => roomDimmers[room],
-              ),
-            ),
-          );
-      const doorGoal = openPortalIds.includes(portal.id) ? 1 : 0;
+      portal.metadata.highlight = portal.strength;
+      if (portal.strength !== wanted) group.userData.motionActive = true;
+      portal.pick.userData.highlighted = portal.strength > 0.01;
+    }
+    for (const hatch of physicalHatches.values()) {
+      const { iris, doorMotion } = hatch;
+      const highlight = Math.max(...hatch.portals.map((p: any) => p.strength));
+      // Only the recessed indicator lenses respond; the graphite surround and
+      // white shutter retain their finish from both rooms.
+      iris.setHighlight(highlight);
+      const doorGoal = hatch.portals.some((p: any) =>
+        openPortalIds.includes(p.id),
+      )
+        ? 1
+        : 0;
       if (currentState.immediateDoors || instantHighlight) {
-        portal.doorMotion.value = doorGoal;
-        portal.doorMotion.velocity = 0;
+        doorMotion.value = doorGoal;
+        doorMotion.velocity = 0;
       } else {
         // Double the original opening rate: frequency/speed scale by two,
         // acceleration by four. Keep the established closing motion.
-        moveCameraAxis(portal.doorMotion, doorGoal, dt, {
+        moveCameraAxis(doorMotion, doorGoal, dt, {
           frequency: doorGoal ? 24 : 12,
           speed: doorGoal ? 5.6 : 2.8,
           acceleration: doorGoal ? 56 : 14,
         });
         if (
-          Math.abs(portal.doorMotion.value - doorGoal) < 0.001 &&
-          Math.abs(portal.doorMotion.velocity) < 0.015
+          Math.abs(doorMotion.value - doorGoal) < 0.001 &&
+          Math.abs(doorMotion.velocity) < 0.015
         ) {
-          portal.doorMotion.value = doorGoal;
-          portal.doorMotion.velocity = 0;
+          doorMotion.value = doorGoal;
+          doorMotion.velocity = 0;
         }
       }
-      const openingProgress = Math.max(0, Math.min(1, portal.doorMotion.value));
-      for (const iris of portal.irises) iris.setOpen(openingProgress);
-      portal.metadata.openProgress = openingProgress;
-      portal.metadata.open = openingProgress >= 0.999;
-      portal.metadata.sealed = openingProgress <= 0.001;
+      const openingProgress = Math.max(0, Math.min(1, doorMotion.value));
+      iris.setOpen(openingProgress);
+      for (const portal of hatch.portals) {
+        portal.metadata.openProgress = openingProgress;
+        portal.metadata.open = openingProgress >= 0.999;
+        portal.metadata.sealed = openingProgress <= 0.001;
+      }
       if (openingProgress !== doorGoal) group.userData.motionActive = true;
-      portal.metadata.highlight = portal.strength;
-      if (portal.strength !== wanted) group.userData.motionActive = true;
-      portal.pick.userData.highlighted = portal.strength > 0.01;
     }
     const walkwayRouteStrength = Math.max(
       0,
@@ -4569,10 +4527,12 @@ export function createSpacecraft(
   setCaseStudyPage(0);
   update(0, '', true);
   group.userData.portals = portals.map((p) => p.metadata);
-  group.userData.irisHatches = portals.flatMap((p) =>
-    p.irises.map((iris: any) => iris.group),
+  group.userData.irisHatches = [...physicalHatches.values()].map(
+    (h) => h.iris.group,
   );
-  group.userData.passageLinings = passageCouplings.map((entry) => entry.group);
+  group.userData.passageLinings = [...physicalHatches.values()].map(
+    (h) => h.iris.rim,
+  );
   group.userData.adjacency = adjacency;
   group.userData.activeRoute = [];
   setLayout(options.layout || 'wide');

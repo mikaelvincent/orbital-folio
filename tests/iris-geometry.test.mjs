@@ -129,11 +129,22 @@ test('The wall aperture mask stays in hatch coordinates and does not mutate shar
   const shader = {
     uniforms: {},
     vertexShader: '#include <project_vertex>',
-    fragmentShader: '#include <clipping_planes_fragment>',
+    fragmentShader:
+      '#include <clipping_planes_fragment>\n#include <color_fragment>',
   };
   hatch.materials[0].onBeforeCompile(shader, null);
   assert.match(shader.vertexShader, /irisWorldToLocal \* modelMatrix/);
   assert.match(shader.fragmentShader, /discard;/);
+  assert.equal(hatch.materials[0].alphaToCoverage, true);
+  assert.equal(hatch.materials[0].transparent, false);
+  assert.equal(hatch.materials[0].depthWrite, true);
+  assert.match(shader.fragmentShader, /diffuseColor.a \*= irisCoverage/);
+  assert.match(
+    shader.fragmentShader,
+    /irisRay.xy \* vIrisLocal.z \/ irisRayDepth/,
+  );
+  assert.match(shader.fragmentShader, /irisOpenTravel <= 0.0 \? 1.0/);
+  assert.doesNotMatch(shader.fragmentShader, /fwidth\(irisSeamDistance\)/);
   assert.equal(shader.uniforms.irisApertureRadius.value, 0.923);
   assert.notEqual(hatch.materials[0], materials.bladeMaterial);
   assert.equal(materials.bladeMaterial.userData.irisApertureMasked, undefined);
@@ -246,29 +257,50 @@ test('Door occlusion matches the physical opening and cannot include concealed s
     false,
     'The shading silhouette cannot appear in the color pass',
   );
+  // Match GTAO's actual override; back visibility must come from geometry.
+  proxy.material.dispose();
+  proxy.material = new THREE.MeshNormalMaterial();
+  assert.equal(proxy.material.side, THREE.FrontSide);
   for (const p of [0, 0.2, 0.5, 0.8, 1]) {
     hatch.setOpen(p);
     hatch.group.userData.setOcclusionPass(true);
     assert.equal(proxy.visible, true);
     assert.ok(
-      hatch.group.children.filter((c) => c !== proxy).every((c) => !c.visible),
+      hatch.group.children
+        .filter((c) => c !== proxy && c !== hatch.rim)
+        .every((c) => !c.visible),
+    );
+    assert.equal(
+      hatch.rim.visible,
+      true,
+      'The continuous guide stays in the AO depth pass',
     );
     for (let i = 0; i < 24; i++) {
       const angle = ((i + 0.31) * Math.PI) / 12;
       for (const fraction of [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05]) {
         const x = Math.cos(angle) * hatch.apertureRadius * fraction;
         const y = Math.sin(angle) * hatch.apertureRadius * fraction;
-        ray.set(new THREE.Vector3(x, y, 2), direction);
-        const occluded = ray.intersectObject(proxy, false).length > 0;
-        if (fraction > 1)
-          assert.equal(occluded, false, 'Hidden blade wings must not enter AO');
-        else {
-          const leafHit = ray.intersectObjects(hatch.leaves, false).length > 0;
-          assert.equal(
-            occluded,
-            leafHit,
-            `AO and physical shutter agree at ${p}, ${fraction}, ${i}`,
+        for (const side of [-1, 1]) {
+          ray.set(
+            new THREE.Vector3(x, y, side * 2),
+            direction.clone().multiplyScalar(side),
           );
+          const occluded = ray.intersectObject(proxy, false).length > 0;
+          if (fraction > 1)
+            assert.equal(
+              occluded,
+              false,
+              'Hidden blade wings must not enter AO',
+            );
+          else {
+            const leafHit =
+              ray.intersectObjects(hatch.leaves, false).length > 0;
+            assert.equal(
+              occluded,
+              leafHit,
+              `AO and physical shutter agree at ${p}, ${fraction}, ${i}`,
+            );
+          }
         }
       }
     }

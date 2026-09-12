@@ -1,5 +1,7 @@
 # Integrated iris passages
 
+Historical implementation notes. The current single-shutter construction and hover lights are documented in [centered-iris.md](centered-iris.md).
+
 Room entrances are circular cutouts in continuous side walls. The former rectangular frame, painted trim, and rectangular connecting sleeves are replaced by recessed circular guides and matching circular tunnels. Existing room furnishings, destination signs, route order, and camera poses remain intact.
 
 Every physical passage has two opposing shutter assemblies, each with six white leaves that rotate and translate behind the wall. Both stair entrances now include their ladder-facing assembly: four passages, eight blade sets in total. The two sets share opening progress; no extra navigation targets are introduced. Broad overlapping cutting edges keep the opening connected as it grows from the center; flush spiral joins avoid parallax gaps at the strongly oblique room angle. An aperture shader masks concealed storage wings. Moving leaves do not enter static geometry batches or cached shadow passes. A bounded silhouette follows the exact opening during the AO pass, preventing nearby fittings from showing through closed leaves while excluding concealed storage wings.
