@@ -4494,10 +4494,12 @@ export function createSpacecraft(
         portal.doorMotion.value = doorGoal;
         portal.doorMotion.velocity = 0;
       } else {
+        // Double the original opening rate: frequency/speed scale by two,
+        // acceleration by four. Keep the established closing motion.
         moveCameraAxis(portal.doorMotion, doorGoal, dt, {
-          frequency: doorGoal ? 15 : 12,
-          speed: doorGoal ? 3.5 : 2.8,
-          acceleration: doorGoal ? 20 : 14,
+          frequency: doorGoal ? 24 : 12,
+          speed: doorGoal ? 5.6 : 2.8,
+          acceleration: doorGoal ? 56 : 14,
         });
         if (
           Math.abs(portal.doorMotion.value - doorGoal) < 0.001 &&

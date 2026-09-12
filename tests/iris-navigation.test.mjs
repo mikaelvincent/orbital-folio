@@ -106,6 +106,66 @@ test('Retargeting from within the ladder retains only the approached entrance', 
   );
 });
 
+test('Live travel releases crossed doorways before arrival while retaining threshold clearance', () => {
+  for (const [start, end, inside, cleared, expected] of [
+    [
+      [-1.7, 1.7, 0],
+      [1.7, 1.7, 0],
+      [0.2, 1.7, 0],
+      [0.6, 1.7, 0],
+      ['experience:projects', 'projects:experience'],
+    ],
+    [
+      [1.7, 1.7, 0],
+      [-1.7, 1.7, 0],
+      [-0.2, 1.7, 0],
+      [-0.6, 1.7, 0],
+      ['experience:projects', 'projects:experience'],
+    ],
+    [
+      [-1.7, 1.7, 0],
+      [-4, 1.7, 0],
+      [-3.25, 1.7, 0],
+      [-3.6, 1.7, 0],
+      ['projects:about'],
+    ],
+    [
+      [-4, -1.7, 0],
+      [-1.7, -1.7, 0],
+      [-3, -1.7, 0],
+      [-2.6, -1.7, 0],
+      ['about:projects'],
+    ],
+  ]) {
+    assert.deepEqual(requiredPortalIds(portals, [start, end]), expected);
+    assert.deepEqual(
+      requiredPortalIds(portals, [inside, end]),
+      expected,
+      'Both faces stay clear while the camera is inside the threshold',
+    );
+    const remaining = requiredPortalIds(portals, [cleared, end]);
+    assert.deepEqual(
+      remaining,
+      [],
+      'The door can close before reaching the room center',
+    );
+    const states = portals.map((p) => ({
+      ...p,
+      openProgress: expected.includes(p.id) ? 0.8 : 0,
+    }));
+    assert.deepEqual(
+      interlockLadderPortals(states, remaining),
+      { openPortalIds: [], waiting: false },
+      'A closing door behind the camera must not restart the ladder exit pause',
+    );
+    assert.deepEqual(
+      requiredPortalIds(portals, [cleared, start]),
+      expected,
+      'A reversal reopens the doorway that is ahead of the camera again',
+    );
+  }
+});
+
 test('Ladder interlock closes the entrance before opening the exit', () => {
   const states = portals.map((p) => ({
     ...p,

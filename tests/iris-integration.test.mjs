@@ -135,8 +135,8 @@ test('Actual C-route interlocks ladder entrances, reverses smoothly, and settles
     openFrames < 120
   );
   assert.ok(
-    openFrames <= 50,
-    `Opening should take at most 0.83s, took ${openFrames / 60}s`,
+    openFrames <= 34,
+    `Opening should take about half a second, took ${openFrames / 60}s`,
   );
   for (let i = 0; i < 120; i++) step([]);
   for (let i = 0; i < 12; i++) step(['projects:about']);
@@ -159,6 +159,41 @@ test('Actual C-route interlocks ladder entrances, reverses smoothly, and settles
     portals.every((p) => p.sealed),
     'Reduced motion/resize cannot retain an opening',
   );
+});
+
+test('Door opening takes about half the original duration across refresh rates, with unchanged closing', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' });
+  const portal = model.group.userData.portals.find(
+    (p) => p.id === 'projects:about',
+  );
+  let time = 0;
+  for (const hz of [30, 60, 120]) {
+    model.update(++time, '', true, {
+      openPortalIds: [],
+      immediateDoors: false,
+    });
+    for (const opening of [true, false]) {
+      // Start each motion at rest, including closure after a fully open door.
+      model.update(++time, '', true, {
+        openPortalIds: opening ? [] : [portal.id],
+      });
+      let frames = 0;
+      do {
+        model.update((time += 1 / hz), '', false, {
+          openPortalIds: opening ? [portal.id] : [],
+          delta: 1 / hz,
+        });
+        frames++;
+      } while (!(opening ? portal.open : portal.sealed) && frames < hz * 2);
+      const duration = frames / hz;
+      assert.ok(
+        opening
+          ? duration >= 0.48 && duration <= 0.6
+          : duration >= 0.95 && duration <= 1.1,
+        `${hz}Hz ${opening ? 'opening' : 'closing'} took ${duration}s`,
+      );
+    }
+  }
 });
 
 test('Hover opens both faces of the first route door and transfers smoothly into travel', () => {

@@ -958,6 +958,16 @@ export function Spacecraft(props: Props) {
             }
             if (travelling) {
               const immediate = flightImmediate || stop;
+              // Keep only doorways still ahead of the live focus or containing
+              // it. Release both faces after clearing the threshold, while the
+              // camera continues toward the room's final pose.
+              legPortalIds =
+                cabinFlight && !immediate
+                  ? requiredPortalIds(model.group.userData.portals, [
+                      currentTarget.toArray() as Vec3,
+                      nextTarget.toArray() as Vec3,
+                    ])
+                  : [];
               const interlock = interlockLadderPortals(
                 model.group.userData.portals,
                 immediate ? [] : legPortalIds,
