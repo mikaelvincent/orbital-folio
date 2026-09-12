@@ -231,7 +231,10 @@ export function createSpacecraft(
   }> = [];
   let labelPortrait = false;
   const hasEquipmentHeader = (section: string) =>
-    section === 'projects' || section === 'contact' || section === 'about';
+    section === 'projects' ||
+    section === 'contact' ||
+    section === 'about' ||
+    section === 'experience';
   // Shared physical scale and elevation for room headings and doorway signs.
   const wayfinding = {
     textHeight: 0.18,
