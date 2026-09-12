@@ -6,6 +6,7 @@ import { createObjectHighlight } from './interactable-object-highlight.ts';
 import { buildIrisHatch } from './iris-hatch.ts';
 import { moveCameraAxis } from '../lib/flight.ts';
 import { interlockLadderPortals } from '../lib/iris-navigation.ts';
+import { canUseDoorDuringTravel } from '../lib/door-navigation.ts';
 import {
   PRESSURE_WALL,
   PRESSURE_THROAT_START,
@@ -59,6 +60,8 @@ export type SpacecraftState = {
   hoveredWalkway?: boolean;
   /** True only while the camera is physically passing through the ladder bay. */
   transitWalkway?: boolean;
+  /** Ladder hatches reserved by the remaining journey, including future legs. */
+  routeLadderPortalIds?: readonly string[];
   selectedCaseStudy?: string | null;
   hoveredCaseStudy?: string | null;
   caseStudyPage?: number;
@@ -4572,8 +4575,12 @@ export function createSpacecraft(
     const travelHover =
       currentState.travelling &&
       requestedPortal &&
-      requestedPortal.metadata.via !== 'walkway' &&
-      requestedPortal.from === currentState.activeRoom
+      canUseDoorDuringTravel(
+        requestedPortal.metadata,
+        currentState.activeRoom || '',
+        currentState.transitWalkway,
+        currentState.routeLadderPortalIds,
+      )
         ? requestedPortal
         : null;
     const route = currentState.travelling

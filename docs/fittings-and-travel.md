@@ -11,11 +11,11 @@ These passive fittings stay within the existing room envelopes. Main signs, door
 
 ## Navigation behavior
 
-Ordinary doors belonging to the room being approached can open on hover or keyboard focus during camera travel. Their exact portal identity is carried through feedback and picking; this does not enable general room highlighting, object interaction, or camera steering during a flight. Moving away removes only the hover request; the camera continues to own any door needed for its current route.
+Doors belonging to the room being approached can open on hover or keyboard focus during camera travel, including room-side ladder entries. Their exact portal identity is carried through feedback and picking; this does not enable general room highlighting, object interaction, or camera steering during a flight. Moving away removes only the hover request; the camera continues to own any door needed for its current route.
 
 Door clicks, room-menu choices, and Home/overview share one pending destination. The newest valid request replaces the previous one. Selecting the current arrival room clears that pending detour. Intermediate waypoints and resizing cannot consume the queue. Only final arrival consumes it, before dispatching the next move, without an intermediate arrival-focus jump. URL and content state change when the next move starts, rather than when it is queued.
 
-Ladder-door hover, route anticipation, and the one-door interlock are unchanged. Browser history and reading-view transitions bypass or discard the queue rather than leaving a hidden pending flight.
+Ladder-entry clicks join the same queue when approached from outside the bay. While the camera is inside the ladder room, ladder doors do not accept manual hover or queued clicks; the exit retains its automatic timing. Remaining ladder route legs reserve their hatches so an opposite preview cannot delay the entry hatch while its camera keeps moving. The reservation only limits manual previews: automatic route anticipation, one-door interlock, and camera movement remain unchanged. Browser history and reading-view transitions bypass or discard the queue rather than leaving a hidden pending flight.
 
 ## Verification
 
@@ -25,5 +25,11 @@ Ladder-door hover, route anticipation, and the one-door interlock are unchanged.
 - Live approach to Projects: the ordinary Case studies door was opening while the camera was still traveling. A queued move began on the next rendered frame after Projects arrival (33.3 ms in the captured run), with no door-wait frames.
 - Live replacement sequence: Case studies → Home → Case studies → Home while approaching Projects ended at Home with an empty queue. A separate menu sequence Projects → Home → current arrival cleared the queue and stopped at that arrival.
 - Evidence is in `docs/evidence/fittings-and-travel/`: room screenshots, `queued-flight.json`, and `single-queue.json`.
+
+### Ladder-entry refinement
+
+- Type checking, the full 115-test suite, and the updated eight navigation regressions passed. The latter include the final safeguard reserving hatches along future ladder legs, both entry directions/layouts, and automatic exits inside the bay.
+- Live Projects approach recorded 84 frames with the upper ladder entry opening during travel. A click on About → Projects while still approaching About queued Projects and then completed the ladder trip. Its trace recorded 28 frames inside the bay, no manual ladder hover there, and no simultaneous open ladder hatches.
+- Visual inspection during the reverse trip confirmed ladder exit controls were inert inside the bay while ordinary room controls remained available. Live evidence: `ladder-entry-queue.json`.
 
 Local preview only; no deployment.

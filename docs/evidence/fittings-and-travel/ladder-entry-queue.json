@@ -1,0 +1,334 @@
+{
+  "entryHover": {
+    "frames": 86,
+    "openingFrames": 84,
+    "sample": {
+      "active": "projects",
+      "cameraFar": 80,
+      "delta": 0.016,
+      "focus": [
+        -1.7751074147413772,
+        0.5178391134095587,
+        0.0806364509313821
+      ],
+      "hover": "",
+      "hoverPortal": "projects:about",
+      "hoveredWalkway": false,
+      "irisOpen": {
+        "about:contact": 0,
+        "about:projects": 0,
+        "contact:about": 0,
+        "experience:projects": 0,
+        "projects:about": 0.20791815333335523,
+        "projects:experience": 0
+      },
+      "position": [
+        -5.413680052403481,
+        3.237223347401778,
+        23.226981016634006
+      ],
+      "quaternion": [
+        -0.05756465333116096,
+        -0.07775240828325178,
+        -0.004496929246041545,
+        0.995299277263062
+      ],
+      "queuedRoom": "",
+      "roll": 0,
+      "roomLevels": {
+        "about": 0.5,
+        "contact": 0.5,
+        "experience": 0.5,
+        "projects": 0.8626670734830003,
+        "walkway": 0.5
+      },
+      "time": 40259.9,
+      "transitRoom": "projects",
+      "transitWalkway": false,
+      "travelling": true,
+      "velocities": [
+        -1.6167196334799228,
+        3.9138171389617575,
+        0.4122703591074301,
+        0,
+        0,
+        -4.473000000000066,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "waitingForDoors": false
+    }
+  },
+  "queuedLadderEntryProof": {
+    "active": "about",
+    "buttons": [
+      {
+        "id": "contact:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, 0.212, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:projects",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, -0.3625, 0, 1);"
+      },
+      {
+        "id": "about:contact",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, -0.3625, 0, 1);"
+      }
+    ],
+    "hover": "",
+    "inside": "false",
+    "portals": [
+      {
+        "highlight": 0,
+        "id": "experience:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:experience",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:about",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:contact",
+        "open": 0.30333333333333334
+      },
+      {
+        "highlight": 0,
+        "id": "contact:about",
+        "open": 0.30333333333333334
+      }
+    ],
+    "position": "1.8703,-1.4050,5.0779",
+    "queued": "projects",
+    "travelling": "true"
+  },
+  "arrival": {
+    "active": "projects",
+    "buttons": [
+      {
+        "id": "contact:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, 0.212, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:projects",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:contact",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "projects:experience",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, 2.5825, 0, 1);"
+      },
+      {
+        "id": "projects:about",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, 2.5825, 0, 1);"
+      }
+    ],
+    "hover": "",
+    "inside": "false",
+    "portals": [
+      {
+        "highlight": 0,
+        "id": "experience:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:experience",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:about",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:contact",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "contact:about",
+        "open": 0
+      }
+    ],
+    "position": "-2.0892,1.5400,5.0779",
+    "queued": "",
+    "travelling": "false"
+  },
+  "queuedTrip": {
+    "frames": 54,
+    "insideFrames": 28,
+    "manualLadderHoverInside": 0,
+    "overlappingHatches": 0
+  },
+  "insideLadderExitProof": {
+    "active": "about",
+    "buttons": [
+      {
+        "id": "contact:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, 0.212, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:projects",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:contact",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, -0.3625, 0, 1);"
+      },
+      {
+        "id": "projects:experience",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, 2.5825, 0, 1); display: none;"
+      },
+      {
+        "id": "projects:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, 2.5825, 0, 1); display: none;"
+      }
+    ],
+    "hover": "",
+    "inside": "true",
+    "portals": [
+      {
+        "highlight": 0,
+        "id": "experience:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:experience",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:about",
+        "open": 0.9965655609624308
+      },
+      {
+        "highlight": 0,
+        "id": "about:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:contact",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "contact:about",
+        "open": 0
+      }
+    ],
+    "position": "-4.7040,1.5400,5.0779",
+    "queued": "",
+    "travelling": "true"
+  },
+  "reverseArrival": {
+    "active": "about",
+    "buttons": [
+      {
+        "id": "contact:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, 0.212, -0.3625, 0, 1); display: none;"
+      },
+      {
+        "id": "about:projects",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, -0.3625, 0, 1);"
+      },
+      {
+        "id": "about:contact",
+        "inert": null,
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, -0.3625, 0, 1);"
+      },
+      {
+        "id": "projects:experience",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, 0.004, 0, 0, -0.004, 0, 0, -0.004, 0, 0, 0, -0.212, 2.5825, 0, 1); display: none;"
+      },
+      {
+        "id": "projects:about",
+        "inert": "",
+        "style": "position: absolute; pointer-events: auto; user-select: none; width: 240px; height: 75px; transform: translate(-50%, -50%) matrix3d(0, 0, -0.004, 0, 0, -0.004, 0, 0, 0.004, 0, 0, 0, -3.962, 2.5825, 0, 1); display: none;"
+      }
+    ],
+    "hover": "",
+    "inside": "false",
+    "portals": [
+      {
+        "highlight": 0,
+        "id": "experience:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:experience",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "projects:about",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:projects",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "about:contact",
+        "open": 0
+      },
+      {
+        "highlight": 0,
+        "id": "contact:about",
+        "open": 0
+      }
+    ],
+    "position": "-2.0890,-1.4050,5.0779",
+    "queued": "",
+    "travelling": "false"
+  },
+  "reverseTrip": {
+    "frames": 53,
+    "insideFrames": 28,
+    "overlappingHatches": 0
+  }
+}

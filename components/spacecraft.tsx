@@ -458,7 +458,13 @@ export function Spacecraft(props: Props) {
               (p: any) => p.id === id,
             );
             if (!portal || portal.from !== active) return;
-            const destination = doorQueue.request(portal, active, travelling);
+            const destination = doorQueue.request(
+              portal,
+              active,
+              travelling,
+              insideLadderRoom(),
+              routeLadderPortalIds,
+            );
             el.dataset.queuedRoom = doorQueue.destination;
             if (destination) latest.current.onNavigate(destination);
           }
@@ -737,6 +743,27 @@ export function Spacecraft(props: Props) {
           let lastSettledSection = 'home';
           let itineraryPlan: unknown = null;
           let openPortalIds: string[] = [];
+          let routeLadderPortalIds: string[] = [];
+          function insideLadderRoom(
+            focus = currentTarget.clone().applyAxisAngle(zAxis, -roll),
+          ) {
+            const bounds = model.group.userData.walkwayBounds;
+            return (
+              travelling &&
+              (itineraryPlan as { kind?: string } | null)?.kind !==
+                'portrait-clearance' &&
+              Math.abs(focus.x - bounds.center[0]) < bounds.size[0] / 2 &&
+              Math.abs(focus.y - bounds.center[1]) < bounds.size[1] / 2
+            );
+          }
+          function canPreviewDoor(portal: any) {
+            return canUseDoorDuringTravel(
+              portal,
+              active,
+              insideLadderRoom(),
+              routeLadderPortalIds,
+            );
+          }
           let legPortalIds: string[] = [];
           let ladderExitLeg = false;
           let cabinFlight = false;
@@ -798,6 +825,7 @@ export function Spacecraft(props: Props) {
             travelledRoute = [];
             itineraryPlan = null;
             openPortalIds = [];
+            routeLadderPortalIds = [];
             legPortalIds = [];
             ladderExitLeg = false;
             cabinFlight = false;
@@ -949,8 +977,7 @@ export function Spacecraft(props: Props) {
                       nextTarget.toArray() as Vec3,
                     ])
                   : [];
-              const interlock = interlockLadderPortals(
-                model.group.userData.portals,
+              const routeRequests =
                 cabinFlight && !immediate
                   ? [
                       ...legPortalIds,
@@ -961,7 +988,29 @@ export function Spacecraft(props: Props) {
                         itinerary[0]?.target.toArray() as Vec3 | undefined,
                       ),
                     ]
-                  : [],
+                  : [];
+              // Reserve both ladder hatches along the remaining journey for
+              // automatic travel. Pre-opening the opposite hatch even one leg
+              // early would delay the entry seal while its camera keeps moving.
+              // This reservation never opens doors earlier than routeRequests.
+              const remainingRouteDoors =
+                cabinFlight && !immediate
+                  ? requiredPortalIds(model.group.userData.portals, [
+                      currentTarget.toArray() as Vec3,
+                      nextTarget.toArray() as Vec3,
+                      ...itinerary.map(
+                        (point) => point.target.toArray() as Vec3,
+                      ),
+                    ])
+                  : [];
+              routeLadderPortalIds = remainingRouteDoors.filter((id) =>
+                model.group.userData.portals.some(
+                  (p: any) => p.id === id && p.via === 'walkway',
+                ),
+              );
+              const interlock = interlockLadderPortals(
+                model.group.userData.portals,
+                routeRequests,
               );
               openPortalIds = interlock.openPortalIds;
               // Ordinary cabin movement and ladder entry follow their original
@@ -1054,6 +1103,7 @@ export function Spacecraft(props: Props) {
                 } else {
                   travelling = false;
                   openPortalIds = [];
+                  routeLadderPortalIds = [];
                   legPortalIds = [];
                   ladderExitLeg = false;
                   cabinFlight = false;
@@ -1214,15 +1264,7 @@ export function Spacecraft(props: Props) {
                   },
                 )?.[0] || ''
               : '';
-            const walkwayBounds = model.group.userData.walkwayBounds;
-            const transitWalkway =
-              travelling &&
-              (itineraryPlan as { kind?: string } | null)?.kind !==
-                'portrait-clearance' &&
-              Math.abs(localFocus.x - walkwayBounds.center[0]) <
-                walkwayBounds.size[0] / 2 &&
-              Math.abs(localFocus.y - walkwayBounds.center[1]) <
-                walkwayBounds.size[1] / 2;
+            const transitWalkway = insideLadderRoom(localFocus);
             const hoveredWalkway =
               active !== 'home' &&
               !reading &&
@@ -1233,6 +1275,7 @@ export function Spacecraft(props: Props) {
               travelling,
               transitRoom,
               transitWalkway,
+              routeLadderPortalIds,
               hoveredWalkway,
               labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
               hoveredPortal: effectivePortal,
@@ -1284,7 +1327,7 @@ export function Spacecraft(props: Props) {
               h.object.visible =
                 active === h.section &&
                 !reading &&
-                (!travelling || canUseDoorDuringTravel(portal, active));
+                (!travelling || canPreviewDoor(portal));
               h.button.inert = !h.object.visible;
               if (h.button.textContent !== s[portal.to + 'Label'])
                 h.button.textContent = s[portal.to + 'Label'];
@@ -1607,11 +1650,10 @@ export function Spacecraft(props: Props) {
             const portalId = target.dataset.scenePortal;
             if (
               travelling &&
-              !canUseDoorDuringTravel(
+              !canPreviewDoor(
                 model.group.userData.portals.find(
                   (p: any) => p.id === portalId,
                 ),
-                active,
               )
             )
               return EMPTY_SCENE_FEEDBACK;
@@ -1641,11 +1683,10 @@ export function Spacecraft(props: Props) {
                     (p) =>
                       p.from === active &&
                       (!travelling ||
-                        canUseDoorDuringTravel(
+                        canPreviewDoor(
                           model.group.userData.portals.find(
                             (portal: any) => portal.id === p.id,
                           ),
-                          active,
                         )),
                   )
                   .map((p) => p.object),
@@ -1767,11 +1808,10 @@ export function Spacecraft(props: Props) {
             const selection = pick(event);
             if (
               travelling &&
-              !canUseDoorDuringTravel(
+              !canPreviewDoor(
                 model.group.userData.portals.find(
                   (p: any) => p.id === selection.portalId,
                 ),
-                active,
               )
             )
               return;
