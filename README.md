@@ -63,6 +63,8 @@ For a browser accessibility audit during development, append `?audit=1` to a rou
 
 See [the current validation evidence](docs/PROJECTS-WORKSHOP-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
+For repeatable rendering measurements, append `?perf=1` to any spacecraft route. The opt-in **Scene diagnostics** panel records CPU/GPU phases, draw workload and AO refreshes, offers temporary isolation controls, and exports named captures. It works in development and production builds. See the [performance testing guide and initial M4 measurements](docs/performance-diagnostics.md) before comparing results; normal visits do not start this instrumentation.
+
 ## Source map
 
 - `components/spacecraft-model.ts`: editable procedural geometry, materials, cabin props, clickable object targets, interior signs and framing/callout anchors.

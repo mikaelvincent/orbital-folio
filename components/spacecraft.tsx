@@ -6,6 +6,8 @@ import {
   createDoorNavigationQueue,
 } from '@/lib/door-navigation';
 import { SceneLoader } from './scene-loader';
+import { createScenePerformance } from '@/lib/scene-performance';
+import { mountPerformancePanel } from './performance-panel';
 import {
   createSceneFeedback,
   EMPTY_SCENE_FEEDBACK,
@@ -133,6 +135,22 @@ export function Spacecraft(props: Props) {
             return;
           }
           const el = host.current;
+          // Explicit local diagnostics only; regular visitors collect nothing.
+          const gl = renderer.getContext();
+          const diagnostics =
+            new URLSearchParams(location.search).get('perf') === '1'
+              ? createScenePerformance('beginQuery' in gl ? gl : null, {
+                  maxFrames: 1800,
+                })
+              : null;
+          type Experiment =
+            | 'normal'
+            | 'no-background'
+            | 'no-ao'
+            | 'half-resolution'
+            | 'no-spacecraft'
+            | 'render-once';
+          let experiment: Experiment = 'normal';
           const mobile = () => el.clientWidth < 700;
           const memory = (navigator as Navigator & { deviceMemory?: number })
             .deviceMemory;
@@ -504,6 +522,68 @@ export function Spacecraft(props: Props) {
               mobile: mobile(),
             },
           );
+          const sceneInventory = diagnostics
+            ? (() => {
+                const parts: {
+                  name: string;
+                  triangles: number;
+                  instances: number;
+                }[] = [];
+                const geometries = new Set<Three.BufferGeometry>();
+                const materials = new Set<Three.Material>();
+                let nodes = 0,
+                  lights = 0,
+                  shadowCasters = 0,
+                  geometryBytes = 0;
+                for (const root of [scene, background.scene])
+                  root.traverse((object) => {
+                    nodes++;
+                    if (object instanceof THREE.Light) lights++;
+                    if (!(object instanceof THREE.Mesh)) return;
+                    if (object.castShadow) shadowCasters++;
+                    const geometry = object.geometry;
+                    const instances =
+                      object instanceof THREE.InstancedMesh ? object.count : 1;
+                    parts.push({
+                      name:
+                        object.name ||
+                        object.userData.parts?.[0] ||
+                        'unnamed mesh',
+                      triangles:
+                        ((geometry.index?.count ??
+                          geometry.attributes.position?.count ??
+                          0) /
+                          3) *
+                        instances,
+                      instances,
+                    });
+                    for (const material of Array.isArray(object.material)
+                      ? object.material
+                      : [object.material])
+                      materials.add(material);
+                    if (geometries.has(geometry)) return;
+                    geometries.add(geometry);
+                    for (const attribute of Object.values(
+                      geometry.attributes,
+                    ) as Three.BufferAttribute[])
+                      geometryBytes += attribute.array.byteLength;
+                    geometryBytes += geometry.index?.array.byteLength ?? 0;
+                  });
+                return {
+                  nodes,
+                  meshes: parts.length,
+                  lights,
+                  shadowCasters,
+                  geometries: geometries.size,
+                  materials: materials.size,
+                  geometryAttributeBytes: geometryBytes,
+                  largestMeshes: parts
+                    .sort((a, b) => b.triangles - a.triangles)
+                    .slice(0, 15),
+                  note: 'Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.',
+                };
+              })()
+            : null;
           let bottomReservation = mobile() ? 132 : 80;
           const readerInsets = () => ({ top: 20, bottom: bottomReservation });
           const readerHeight = () =>
@@ -958,6 +1038,31 @@ export function Spacecraft(props: Props) {
             if (destroyed) return;
             const wasTravelling = travelling;
             const started = performance.now();
+            diagnostics?.beginFrame(now, {
+              room: active,
+              activity: travelling
+                ? 'travel'
+                : down?.gesture.dragging
+                  ? 'drag'
+                  : hovered || highlightedObject
+                    ? 'hover'
+                    : stop
+                      ? 'reduced-motion'
+                      : pointerMotion.some(
+                            (axis) => Math.abs(axis.velocity) > 0.001,
+                          )
+                        ? 'camera-settling'
+                        : 'idle',
+              experiment,
+              reading,
+              visible,
+              reducedMotion: stop,
+              width: el.clientWidth,
+              height: el.clientHeight,
+              pixelRatio: renderer.getPixelRatio(),
+              drawingWidth: renderer.domElement.width,
+              drawingHeight: renderer.domElement.height,
+            });
             if (!stop) {
               elapsed += delta;
               if (delta > 0) {
@@ -1117,6 +1222,7 @@ export function Spacecraft(props: Props) {
                 }
               }
             }
+            diagnostics?.mark('navigation');
             const motionDelta = stop ? 0 : delta;
             const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
             const feedbackTarget = feedback.resolve(
@@ -1160,6 +1266,7 @@ export function Spacecraft(props: Props) {
             );
             // Look slightly across the open threshold so its neighbor is visible.
             const passagePeek = passage?.edge === 'right' ? -1 : 1;
+            diagnostics?.mark('pointer-feedback');
             pointerCurrent.set(
               moveCameraAxis(
                 pointerMotion[0],
@@ -1270,6 +1377,7 @@ export function Spacecraft(props: Props) {
               !reading &&
               !travelling &&
               (feedbackTarget.walkway || passage?.via === 'walkway');
+            diagnostics?.mark('camera');
             model.update(elapsed, effectiveHover, stop, {
               activeRoom: active,
               travelling,
@@ -1290,11 +1398,13 @@ export function Spacecraft(props: Props) {
               reading,
               delta,
             });
+            diagnostics?.mark('model-update');
             // Moving doors/readers do not cast into the cached static shadow map.
             for (const anchor of Object.values(model.readerSurfaces))
               anchor.parent.scale.y *= readerStretch();
             model.group.updateMatrixWorld(true);
             camera.updateMatrixWorld(true);
+            diagnostics?.mark('matrices');
             annotations.update(camera, model.group, {
               home: active === 'home',
               travelling,
@@ -1302,6 +1412,7 @@ export function Spacecraft(props: Props) {
               delta,
               hover: effectiveHover,
             });
+            diagnostics?.mark('annotations');
             const logicalWidth = paperPixels();
             surfaceElement.style.width = `${logicalWidth}px`;
             surfaceElement.style.height = `${logicalWidth * 1.125 * readerStretch()}px`;
@@ -1355,18 +1466,36 @@ export function Spacecraft(props: Props) {
                   effectiveObject === screen.interactableId,
               );
             }
-            background.update(
-              elapsed,
-              !stop,
-              pointerCurrent.x * 0.12,
-              pointerCurrent.y * 0.08,
-            );
+            diagnostics?.mark('html-sync');
+            if (experiment !== 'no-background') {
+              background.update(
+                elapsed,
+                !stop,
+                pointerCurrent.x * 0.12,
+                pointerCurrent.y * 0.08,
+              );
+            }
+            diagnostics?.mark('background-update');
             renderer.info.reset();
+            diagnostics?.beginPass('background', renderer.info.render);
             renderer.clear();
-            renderer.render(background.scene, background.camera);
+            if (experiment !== 'no-background')
+              renderer.render(background.scene, background.camera);
+            diagnostics?.endPass('background', renderer.info.render);
             renderer.clearDepth();
-            renderer.render(scene, camera);
-            if (!mobile() && contactShading) {
+            if (experiment !== 'no-spacecraft') {
+              if (renderer.shadowMap.needsUpdate)
+                diagnostics?.count('shadow-refresh');
+              diagnostics?.beginPass('spacecraft', renderer.info.render);
+              renderer.render(scene, camera);
+              diagnostics?.endPass('spacecraft', renderer.info.render);
+            }
+            if (
+              !mobile() &&
+              contactShading &&
+              experiment !== 'no-ao' &&
+              experiment !== 'no-spacecraft'
+            ) {
               const geometryMotion = !!model.group.userData.motionActive;
               if (
                 aoDirty ||
@@ -1376,6 +1505,21 @@ export function Spacecraft(props: Props) {
                 aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5 ||
                 aoRoll !== roll
               ) {
+                if (diagnostics) {
+                  diagnostics.count('ao-refresh');
+                  if (aoDirty) diagnostics.count('ao-dirty');
+                  if (geometryMotion) diagnostics.count('ao-geometry-motion');
+                  if (previousGeometryMotion)
+                    diagnostics.count('ao-geometry-settling');
+                  if (
+                    aoCameraPosition.distanceToSquared(camera.position) > 1e-8
+                  )
+                    diagnostics.count('ao-camera-position');
+                  if (aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5)
+                    diagnostics.count('ao-camera-angle');
+                  if (aoRoll !== roll) diagnostics.count('ao-roll');
+                  diagnostics.beginPass('ao-refresh', renderer.info.render);
+                }
                 // Render the bounded shutter silhouette in the AO pass.
                 // Its opening matches the visible leaves; concealed wings stay out.
                 for (const hatch of model.group.userData.irisHatches)
@@ -1389,16 +1533,20 @@ export function Spacecraft(props: Props) {
                 );
                 for (const hatch of model.group.userData.irisHatches)
                   hatch.userData.setOcclusionPass(false);
+                diagnostics?.endPass('ao-refresh', renderer.info.render);
                 aoCameraPosition.copy(camera.position);
                 aoCameraQuaternion.copy(camera.quaternion);
                 aoRoll = roll;
                 aoDirty = false;
-              }
+              } else diagnostics?.count('ao-cached');
               previousGeometryMotion = geometryMotion;
+              diagnostics?.beginPass('ao-composite', renderer.info.render);
               renderer.setRenderTarget(null);
               aoQuad.render(renderer);
+              diagnostics?.endPass('ao-composite', renderer.info.render);
             }
             cssRenderer.render(cssScene, camera);
+            diagnostics?.mark('css-render');
             if (auditMotion) {
               const sample = {
                 time: now,
@@ -1453,6 +1601,7 @@ export function Spacecraft(props: Props) {
               firstFrame = false;
               setState('ready');
             }
+            diagnostics?.mark('audit-trace');
             renderCost = renderCost * 0.9 + (performance.now() - started) * 0.1;
             if (now - lastMetrics > 200 || stop) {
               Object.assign(el.dataset, {
@@ -1589,6 +1738,8 @@ export function Spacecraft(props: Props) {
               }
               lastMetrics = now;
             }
+            diagnostics?.mark('legacy-metrics');
+            diagnostics?.endFrame();
           };
           const loop = (now: number) => {
             frame = 0;
@@ -1596,13 +1747,14 @@ export function Spacecraft(props: Props) {
             const rawDelta = lastFrame ? (now - lastFrame) / 1000 : 0;
             lastFrame = now;
             draw(now, Math.min(0.05, rawDelta), rawDelta);
-            if (!stop || travelling) frame = requestAnimationFrame(loop);
+            if ((!stop || travelling) && experiment !== 'render-once')
+              frame = requestAnimationFrame(loop);
           };
           function kick() {
             if (!destroyed && visible && !frame)
               frame = requestAnimationFrame(loop);
           }
-          const resize = () => {
+          const setDrawingSize = () => {
             // Skip hidden/transient panel sizes while the native short-screen
             // fallback or a browser resize settles; these cannot frame a cabin.
             if (el.clientWidth < 240 || el.clientHeight < 480) return;
@@ -1615,17 +1767,24 @@ export function Spacecraft(props: Props) {
                 devicePixelRatio,
                 mobile() ? 1.75 : 2,
                 Math.sqrt(4_000_000 / (w * h)),
-              ),
+              ) * (experiment === 'half-resolution' ? 0.5 : 1),
             );
             renderer.setSize(w, h);
             cssRenderer.setSize(w, h);
             ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
             aoDirty = true;
+            background.resize(w, h, renderer.getPixelRatio());
+          };
+          const resize = () => {
+            if (el.clientWidth < 240 || el.clientHeight < 480) return;
+            const w = Math.max(1, el.clientWidth),
+              h = Math.max(1, el.clientHeight);
+            setDrawingSize();
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
             syncSceneTargets();
-            background.resize(w, h, renderer.getPixelRatio());
             renderer.shadowMap.needsUpdate = true;
+            diagnostics?.reset('viewport changed');
             go(true, travelling);
           };
           const observer = new ResizeObserver(resize);
@@ -1735,15 +1894,18 @@ export function Spacecraft(props: Props) {
           const feedbackChanged = () => kick();
           const trackPointer = (event: PointerEvent) => {
             if (!event.isPrimary) return;
+            if ((event.target as Element).closest('[data-scene-perf]')) return;
             feedback.move(event.clientX, event.clientY, event.pointerType);
             feedbackChanged();
           };
           const trackPress = (event: PointerEvent) => {
             if (!event.isPrimary) return;
+            if ((event.target as Element).closest('[data-scene-perf]')) return;
             feedback.press(event.clientX, event.clientY, event.pointerType);
             feedbackChanged();
           };
           const trackKeyboard = (event: KeyboardEvent) => {
+            if ((event.target as Element).closest('[data-scene-perf]')) return;
             if (
               ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key) ||
               event.metaKey ||
@@ -1925,6 +2087,8 @@ export function Spacecraft(props: Props) {
           );
           const syncVisibility = () => {
             const nextVisible = inViewport && !document.hidden;
+            if (nextVisible !== visible)
+              diagnostics?.reset('scene visibility changed');
             visible = nextVisible;
             if (!visible) cancelPointer(new Event('visibilitychange'));
             lastFrame = 0;
@@ -1944,6 +2108,7 @@ export function Spacecraft(props: Props) {
             event.preventDefault();
             cancelAnimationFrame(frame);
             frame = 0;
+            diagnostics?.dispose();
             unavailable();
           };
           renderer.domElement.addEventListener('webglcontextlost', lost);
@@ -1990,8 +2155,66 @@ export function Spacecraft(props: Props) {
             el.dataset.queuedRoom = doorQueue.destination;
             return true;
           });
+          const unmountPerformancePanel = diagnostics
+            ? mountPerformancePanel({
+                collector: diagnostics,
+                getSettings: () => ({
+                  experiment,
+                  build: process.env.NODE_ENV,
+                  threeRevision: THREE.REVISION,
+                  userAgent: navigator.userAgent,
+                  hardwareConcurrency: navigator.hardwareConcurrency,
+                  viewport: [el.clientWidth, el.clientHeight],
+                  drawingBuffer: [
+                    renderer.domElement.width,
+                    renderer.domElement.height,
+                  ],
+                  pixelRatio: renderer.getPixelRatio(),
+                  nativePixelRatio: devicePixelRatio,
+                  room: active,
+                  visible,
+                  reducedMotion: stop,
+                  travelling,
+                  cameraPosition: camera.position.toArray(),
+                  cameraQuaternion: camera.quaternion.toArray(),
+                  aoEnabled:
+                    contactShading &&
+                    !mobile() &&
+                    experiment !== 'no-ao' &&
+                    experiment !== 'no-spacecraft',
+                  aoBuffer: [ao.width, ao.height],
+                  aoSamples: 32,
+                  denoiseSamples: 32,
+                  shadowsEnabled: renderer.shadowMap.enabled,
+                  shadowMap: key.shadow.mapSize.toArray(),
+                  resources: {
+                    ...renderer.info.memory,
+                    programs: renderer.info.programs?.length ?? null,
+                  },
+                  inventory: sceneInventory,
+                  notes: [
+                    'CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.',
+                    'Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.',
+                    'Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload.',
+                  ],
+                }),
+                setExperiment: (value: Experiment) => {
+                  const resizeBuffer =
+                    experiment === 'half-resolution' ||
+                    value === 'half-resolution';
+                  experiment = value;
+                  if (resizeBuffer) setDrawingSize();
+                  aoDirty = true;
+                  diagnostics.reset('experiment changed');
+                  lastFrame = 0;
+                  kick();
+                },
+              })
+            : () => {};
           go(latest.current.section === 'home');
           cleanup = () => {
+            unmountPerformancePanel();
+            diagnostics?.dispose();
             latest.current.onNavigationReady(null);
             cancelAnimationFrame(frame);
             annotations.dispose();

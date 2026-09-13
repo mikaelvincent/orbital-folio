@@ -1,0 +1,1795 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-13T15:16:38.796Z",
+  "captures": [
+    {
+      "name": "M4-overview-normal-1",
+      "startedAt": "2026-09-13T15:14:10.319Z",
+      "completedAt": "2026-09-13T15:14:20.330Z",
+      "requestedDurationMs": 10000,
+      "actualDurationMs": 10001.5,
+      "warmupMs": 3000,
+      "settings": {
+        "experiment": "normal",
+        "build": "development",
+        "threeRevision": "185",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 10,
+        "viewport": [
+          794,
+          827
+        ],
+        "drawingBuffer": [
+          1588,
+          1654
+        ],
+        "pixelRatio": 2,
+        "nativePixelRatio": 2,
+        "room": "home",
+        "visible": true,
+        "reducedMotion": false,
+        "travelling": false,
+        "cameraPosition": [
+          -6.186759312023312,
+          3.8333958192104998,
+          33.40811358557785
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.006083469704735432,
+          0.9937046726144274
+        ],
+        "aoEnabled": true,
+        "aoBuffer": [
+          516,
+          538
+        ],
+        "aoSamples": 32,
+        "denoiseSamples": 32,
+        "shadowsEnabled": true,
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "resources": {
+          "geometries": 386,
+          "textures": 52,
+          "programs": 31
+        },
+        "inventory": {
+          "nodes": 796,
+          "meshes": 550,
+          "lights": 14,
+          "shadowCasters": 374,
+          "geometries": 450,
+          "materials": 294,
+          "geometryAttributeBytes": 44674056,
+          "largestMeshes": [
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876,
+              "instances": 1
+            },
+            {
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528,
+              "instances": 1
+            },
+            {
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348,
+              "instances": 1
+            },
+            {
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072,
+              "instances": 1
+            }
+          ],
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory."
+        },
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ]
+      },
+      "context": {
+        "room": "home",
+        "activity": "idle",
+        "experiment": "normal",
+        "reading": false,
+        "visible": true,
+        "reducedMotion": false,
+        "width": 794,
+        "height": 827,
+        "pixelRatio": 2,
+        "drawingWidth": 1588,
+        "drawingHeight": 1654
+      },
+      "report": {
+        "schemaVersion": 1,
+        "window": {
+          "frames": 479,
+          "durationMs": 9966.70000000007,
+          "renderedFps": 47.95970582038154
+        },
+        "frameInterval": {
+          "samples": 478,
+          "mean": 20.850836820083828,
+          "p50": 16.79999999993015,
+          "p95": 33.40000000002328,
+          "max": 64.70000000006985
+        },
+        "cpuTotal": {
+          "samples": 479,
+          "mean": 11.239248434239162,
+          "p50": 11.5,
+          "p95": 12.700000000186265,
+          "max": 14.399999999906868
+        },
+        "cpuPhases": {
+          "diagnostics": {
+            "samples": 479,
+            "mean": 0.03736951983959603,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "navigation": {
+            "samples": 479,
+            "mean": 0.0058455114828379895,
+            "p50": 0,
+            "p95": 0.09999999962747097,
+            "max": 0.10000000009313226
+          },
+          "pointer-feedback": {
+            "samples": 479,
+            "mean": 0.03423799582638453,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.19999999972060323
+          },
+          "camera": {
+            "samples": 479,
+            "mean": 0.026931106471621852,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "model-update": {
+            "samples": 479,
+            "mean": 0.9722338204606512,
+            "p50": 1,
+            "p95": 1.1000000000931323,
+            "max": 1.400000000372529
+          },
+          "matrices": {
+            "samples": 479,
+            "mean": 0.4634655532242423,
+            "p50": 0.5,
+            "p95": 0.6000000000931323,
+            "max": 0.7999999998137355
+          },
+          "annotations": {
+            "samples": 479,
+            "mean": 0.39937369520085747,
+            "p50": 0.39999999990686774,
+            "p95": 0.5,
+            "max": 0.7000000001862645
+          },
+          "html-sync": {
+            "samples": 479,
+            "mean": 0.23235908140659736,
+            "p50": 0.20000000018626451,
+            "p95": 0.3000000002793968,
+            "max": 0.5
+          },
+          "background-update": {
+            "samples": 479,
+            "mean": 0.024634655537803137,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "unattributed": {
+            "samples": 479,
+            "mean": 0.02797494780968307,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.3000000002793968
+          },
+          "background": {
+            "samples": 479,
+            "mean": 0.281419624215758,
+            "p50": 0.2999999998137355,
+            "p95": 0.39999999990686774,
+            "max": 0.6000000000931323
+          },
+          "spacecraft": {
+            "samples": 479,
+            "mean": 8.572442588723014,
+            "p50": 8.800000000279397,
+            "p95": 9.899999999906868,
+            "max": 11.300000000279397
+          },
+          "ao-composite": {
+            "samples": 479,
+            "mean": 0.06075156576705937,
+            "p50": 0.09999999962747097,
+            "p95": 0.19999999972060323,
+            "max": 0.20000000018626451
+          },
+          "css-render": {
+            "samples": 479,
+            "mean": 0.043841336121771,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "audit-trace": {
+            "samples": 479,
+            "mean": 0.0014613778699803825,
+            "p50": 0,
+            "p95": 0,
+            "max": 0.10000000009313226
+          },
+          "legacy-metrics": {
+            "samples": 479,
+            "mean": 0.05490605428130492,
+            "p50": 0,
+            "p95": 0.5,
+            "max": 0.8999999999068677
+          }
+        },
+        "gpu": {
+          "status": "available",
+          "phases": {
+            "background": {
+              "samples": 32,
+              "mean": 2.668533375,
+              "p50": 2.701458,
+              "p95": 2.89,
+              "max": 2.899583
+            },
+            "spacecraft": {
+              "samples": 32,
+              "mean": 7.606054281249999,
+              "p50": 7.558708,
+              "p95": 8.764291,
+              "max": 8.938708
+            },
+            "ao-composite": {
+              "samples": 32,
+              "mean": 7.79562840625,
+              "p50": 7.72175,
+              "p95": 8.630666,
+              "max": 8.788
+            }
+          },
+          "pending": 0,
+          "sampleEvery": 15,
+          "discardedSamples": 0,
+          "skippedSamples": 0
+        },
+        "passes": {
+          "background": {
+            "calls": {
+              "samples": 479,
+              "mean": 7.444676409185804,
+              "p50": 7,
+              "p95": 14,
+              "max": 15
+            },
+            "triangles": {
+              "samples": 479,
+              "mean": 97284.88935281837,
+              "p50": 97284,
+              "p95": 97298,
+              "max": 97300
+            },
+            "points": {
+              "samples": 479,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "max": 3100
+            },
+            "lines": {
+              "samples": 479,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "samples": 479,
+              "mean": 466,
+              "p50": 466,
+              "p95": 466,
+              "max": 466
+            },
+            "triangles": {
+              "samples": 479,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "max": 886144
+            },
+            "points": {
+              "samples": 479,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 479,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "ao-composite": {
+            "calls": {
+              "samples": 479,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "triangles": {
+              "samples": 479,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "points": {
+              "samples": 479,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 479,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          }
+        },
+        "counters": {
+          "ao-cached": 479
+        },
+        "context": {
+          "room": "home",
+          "activity": "idle",
+          "experiment": "normal",
+          "reading": false,
+          "visible": true,
+          "reducedMotion": false,
+          "width": 794,
+          "height": 827,
+          "pixelRatio": 2,
+          "drawingWidth": 1588,
+          "drawingHeight": 1654
+        },
+        "activity": {
+          "idle": {
+            "frames": 479,
+            "cpuMeanMs": 11.239248434239162
+          }
+        },
+        "resetReason": "capture started",
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ]
+      }
+    },
+    {
+      "name": "M4-overview-half-resolution",
+      "startedAt": "2026-09-13T15:14:44.649Z",
+      "completedAt": "2026-09-13T15:14:54.656Z",
+      "requestedDurationMs": 10000,
+      "actualDurationMs": 10001.200000000186,
+      "warmupMs": 3000,
+      "settings": {
+        "experiment": "half-resolution",
+        "build": "development",
+        "threeRevision": "185",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 10,
+        "viewport": [
+          794,
+          827
+        ],
+        "drawingBuffer": [
+          794,
+          827
+        ],
+        "pixelRatio": 1,
+        "nativePixelRatio": 2,
+        "room": "home",
+        "visible": true,
+        "reducedMotion": false,
+        "travelling": false,
+        "cameraPosition": [
+          -6.186759312023312,
+          3.8333958192104998,
+          33.40811358557785
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.006083469704735432,
+          0.9937046726144274
+        ],
+        "aoEnabled": true,
+        "aoBuffer": [
+          516,
+          538
+        ],
+        "aoSamples": 32,
+        "denoiseSamples": 32,
+        "shadowsEnabled": true,
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "resources": {
+          "geometries": 386,
+          "textures": 52,
+          "programs": 31
+        },
+        "inventory": {
+          "nodes": 796,
+          "meshes": 550,
+          "lights": 14,
+          "shadowCasters": 374,
+          "geometries": 450,
+          "materials": 294,
+          "geometryAttributeBytes": 44674056,
+          "largestMeshes": [
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876,
+              "instances": 1
+            },
+            {
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528,
+              "instances": 1
+            },
+            {
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348,
+              "instances": 1
+            },
+            {
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072,
+              "instances": 1
+            }
+          ],
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory."
+        },
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ]
+      },
+      "context": {
+        "room": "home",
+        "activity": "idle",
+        "experiment": "half-resolution",
+        "reading": false,
+        "visible": true,
+        "reducedMotion": false,
+        "width": 794,
+        "height": 827,
+        "pixelRatio": 1,
+        "drawingWidth": 794,
+        "drawingHeight": 827
+      },
+      "report": {
+        "schemaVersion": 1,
+        "window": {
+          "frames": 600,
+          "durationMs": 9983.29999999993,
+          "renderedFps": 60.00020033455913
+        },
+        "frameInterval": {
+          "samples": 599,
+          "mean": 16.666611018363824,
+          "p50": 16.699999999953434,
+          "p95": 17.400000000023283,
+          "max": 18.599999999976717
+        },
+        "cpuTotal": {
+          "samples": 600,
+          "mean": 4.323999999986651,
+          "p50": 4.2999999998137355,
+          "p95": 4.7999999998137355,
+          "max": 5.600000000093132
+        },
+        "cpuPhases": {
+          "diagnostics": {
+            "samples": 600,
+            "mean": 0.016499999996740372,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "navigation": {
+            "samples": 600,
+            "mean": 0.002833333333643774,
+            "p50": 0,
+            "p95": 0,
+            "max": 0.10000000009313226
+          },
+          "pointer-feedback": {
+            "samples": 600,
+            "mean": 0.01483333332464099,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.10000000009313226
+          },
+          "camera": {
+            "samples": 600,
+            "mean": 0.01899999999674037,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "model-update": {
+            "samples": 600,
+            "mean": 0.4781666666812574,
+            "p50": 0.5,
+            "p95": 0.7000000001862645,
+            "max": 1
+          },
+          "matrices": {
+            "samples": 600,
+            "mean": 0.13999999998214965,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.3000000002793968
+          },
+          "annotations": {
+            "samples": 600,
+            "mean": 0.20100000000636403,
+            "p50": 0.20000000018626451,
+            "p95": 0.3000000002793968,
+            "max": 0.40000000037252903
+          },
+          "html-sync": {
+            "samples": 600,
+            "mean": 0.10016666667613511,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.3000000002793968
+          },
+          "background-update": {
+            "samples": 600,
+            "mean": 0.009333333332712452,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.10000000009313226
+          },
+          "unattributed": {
+            "samples": 600,
+            "mean": 0.009500000001086544,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "background": {
+            "samples": 600,
+            "mean": 0.10766666666294138,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.3000000002793968
+          },
+          "spacecraft": {
+            "samples": 600,
+            "mean": 3.1684999999885135,
+            "p50": 3.1999999997206032,
+            "p95": 3.5,
+            "max": 4.100000000093132
+          },
+          "ao-composite": {
+            "samples": 600,
+            "mean": 0.015333333330539366,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.19999999972060323
+          },
+          "css-render": {
+            "samples": 600,
+            "mean": 0.016833333334264657,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "audit-trace": {
+            "samples": 600,
+            "mean": 0.0001666666668218871,
+            "p50": 0,
+            "p95": 0,
+            "max": 0.10000000009313226
+          },
+          "legacy-metrics": {
+            "samples": 600,
+            "mean": 0.024166666672099383,
+            "p50": 0,
+            "p95": 0.2999999998137355,
+            "max": 0.40000000037252903
+          }
+        },
+        "gpu": {
+          "status": "available",
+          "phases": {
+            "background": {
+              "samples": 40,
+              "mean": 1.8302984250000005,
+              "p50": 1.80575,
+              "p95": 2.343249,
+              "max": 3.0335
+            },
+            "spacecraft": {
+              "samples": 40,
+              "mean": 7.880897425000001,
+              "p50": 8.071208,
+              "p95": 8.768166,
+              "max": 9.193
+            },
+            "ao-composite": {
+              "samples": 40,
+              "mean": 5.960319375000001,
+              "p50": 5.966416,
+              "p95": 6.925125,
+              "max": 7.381958
+            }
+          },
+          "pending": 0,
+          "sampleEvery": 15,
+          "discardedSamples": 0,
+          "skippedSamples": 0
+        },
+        "passes": {
+          "background": {
+            "calls": {
+              "samples": 600,
+              "mean": 7.343333333333334,
+              "p50": 7,
+              "p95": 8,
+              "max": 9
+            },
+            "triangles": {
+              "samples": 600,
+              "mean": 97284.68666666666,
+              "p50": 97284,
+              "p95": 97286,
+              "max": 97288
+            },
+            "points": {
+              "samples": 600,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "max": 3100
+            },
+            "lines": {
+              "samples": 600,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "samples": 600,
+              "mean": 466,
+              "p50": 466,
+              "p95": 466,
+              "max": 466
+            },
+            "triangles": {
+              "samples": 600,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "max": 886144
+            },
+            "points": {
+              "samples": 600,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 600,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "ao-composite": {
+            "calls": {
+              "samples": 600,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "triangles": {
+              "samples": 600,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "points": {
+              "samples": 600,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 600,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          }
+        },
+        "counters": {
+          "ao-cached": 600
+        },
+        "context": {
+          "room": "home",
+          "activity": "idle",
+          "experiment": "half-resolution",
+          "reading": false,
+          "visible": true,
+          "reducedMotion": false,
+          "width": 794,
+          "height": 827,
+          "pixelRatio": 1,
+          "drawingWidth": 794,
+          "drawingHeight": 827
+        },
+        "activity": {
+          "idle": {
+            "frames": 600,
+            "cpuMeanMs": 4.323999999986651
+          }
+        },
+        "resetReason": "capture started",
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ]
+      }
+    },
+    {
+      "name": "M4-overview-normal-2",
+      "startedAt": "2026-09-13T15:16:04.069Z",
+      "completedAt": "2026-09-13T15:16:14.077Z",
+      "requestedDurationMs": 10000,
+      "actualDurationMs": 10002.200000000186,
+      "warmupMs": 3000,
+      "settings": {
+        "experiment": "normal",
+        "build": "development",
+        "threeRevision": "185",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 10,
+        "viewport": [
+          794,
+          827
+        ],
+        "drawingBuffer": [
+          1588,
+          1654
+        ],
+        "pixelRatio": 2,
+        "nativePixelRatio": 2,
+        "room": "home",
+        "visible": true,
+        "reducedMotion": false,
+        "travelling": false,
+        "cameraPosition": [
+          -6.186759312023312,
+          3.8333958192104998,
+          33.40811358557785
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.006083469704735432,
+          0.9937046726144274
+        ],
+        "aoEnabled": true,
+        "aoBuffer": [
+          516,
+          538
+        ],
+        "aoSamples": 32,
+        "denoiseSamples": 32,
+        "shadowsEnabled": true,
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "resources": {
+          "geometries": 386,
+          "textures": 52,
+          "programs": 31
+        },
+        "inventory": {
+          "nodes": 796,
+          "meshes": 550,
+          "lights": 14,
+          "shadowCasters": 374,
+          "geometries": 450,
+          "materials": 294,
+          "geometryAttributeBytes": 44674056,
+          "largestMeshes": [
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "contact-ceramic-hull",
+              "triangles": 77776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "unnamed mesh",
+              "triangles": 24320,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876,
+              "instances": 1
+            },
+            {
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528,
+              "instances": 1
+            },
+            {
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348,
+              "instances": 1
+            },
+            {
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440,
+              "instances": 1
+            },
+            {
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072,
+              "instances": 1
+            },
+            {
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072,
+              "instances": 1
+            }
+          ],
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory."
+        },
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ]
+      },
+      "context": {
+        "room": "home",
+        "activity": "idle",
+        "experiment": "normal",
+        "reading": false,
+        "visible": true,
+        "reducedMotion": false,
+        "width": 794,
+        "height": 827,
+        "pixelRatio": 2,
+        "drawingWidth": 1588,
+        "drawingHeight": 1654
+      },
+      "report": {
+        "schemaVersion": 1,
+        "window": {
+          "frames": 543,
+          "durationMs": 9966.699999999953,
+          "renderedFps": 54.38108902645836
+        },
+        "frameInterval": {
+          "samples": 542,
+          "mean": 18.38874538745379,
+          "p50": 16.699999999953434,
+          "p95": 33.300000000046566,
+          "max": 68.19999999995343
+        },
+        "cpuTotal": {
+          "samples": 543,
+          "mean": 4.863535911596893,
+          "p50": 4.7999999998137355,
+          "p95": 5.7999999998137355,
+          "max": 12.899999999906868
+        },
+        "cpuPhases": {
+          "diagnostics": {
+            "samples": 543,
+            "mean": 0.02578268877125961,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "navigation": {
+            "samples": 543,
+            "mean": 0.003499079188657839,
+            "p50": 0,
+            "p95": 0,
+            "max": 0.10000000009313226
+          },
+          "pointer-feedback": {
+            "samples": 543,
+            "mean": 0.01823204419700837,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.19999999972060323
+          },
+          "camera": {
+            "samples": 543,
+            "mean": 0.016390423569999785,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "model-update": {
+            "samples": 543,
+            "mean": 0.5174953959544376,
+            "p50": 0.5,
+            "p95": 0.7999999998137355,
+            "max": 1.7000000001862645
+          },
+          "matrices": {
+            "samples": 543,
+            "mean": 0.14272559851641264,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.8000000002793968
+          },
+          "annotations": {
+            "samples": 543,
+            "mean": 0.17163904235161442,
+            "p50": 0.19999999972060323,
+            "p95": 0.3000000002793968,
+            "max": 0.5
+          },
+          "html-sync": {
+            "samples": 543,
+            "mean": 0.10423572744374913,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.40000000037252903
+          },
+          "background-update": {
+            "samples": 543,
+            "mean": 0.009023941069683591,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.10000000009313226
+          },
+          "unattributed": {
+            "samples": 543,
+            "mean": 0.01086556169326189,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.10000000009313226
+          },
+          "background": {
+            "samples": 543,
+            "mean": 0.11546961326258424,
+            "p50": 0.10000000009313226,
+            "p95": 0.20000000018626451,
+            "max": 0.6999999997206032
+          },
+          "spacecraft": {
+            "samples": 543,
+            "mean": 3.6578268876520514,
+            "p50": 3.6000000000931323,
+            "p95": 4.2999999998137355,
+            "max": 9
+          },
+          "ao-composite": {
+            "samples": 543,
+            "mean": 0.02007366482658967,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.10000000009313226
+          },
+          "css-render": {
+            "samples": 543,
+            "mean": 0.019337016578873493,
+            "p50": 0,
+            "p95": 0.10000000009313226,
+            "max": 0.20000000018626451
+          },
+          "audit-trace": {
+            "samples": 543,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "legacy-metrics": {
+            "samples": 543,
+            "mean": 0.030939226520709132,
+            "p50": 0,
+            "p95": 0.3000000002793968,
+            "max": 0.6000000000931323
+          }
+        },
+        "gpu": {
+          "status": "available",
+          "phases": {
+            "background": {
+              "samples": 37,
+              "mean": 3.3485626756756757,
+              "p50": 2.853541,
+              "p95": 7.339125,
+              "max": 10.617166
+            },
+            "spacecraft": {
+              "samples": 37,
+              "mean": 8.823554702702705,
+              "p50": 7.970791,
+              "p95": 15.611416,
+              "max": 29.8185
+            },
+            "ao-composite": {
+              "samples": 37,
+              "mean": 8.84908837837838,
+              "p50": 8.107958,
+              "p95": 14.603083,
+              "max": 25.976624
+            }
+          },
+          "pending": 0,
+          "sampleEvery": 15,
+          "discardedSamples": 0,
+          "skippedSamples": 0
+        },
+        "passes": {
+          "background": {
+            "calls": {
+              "samples": 543,
+              "mean": 7.285451197053407,
+              "p50": 7,
+              "p95": 8,
+              "max": 9
+            },
+            "triangles": {
+              "samples": 543,
+              "mean": 97284.5709023941,
+              "p50": 97284,
+              "p95": 97286,
+              "max": 97288
+            },
+            "points": {
+              "samples": 543,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "max": 3100
+            },
+            "lines": {
+              "samples": 543,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "samples": 543,
+              "mean": 466,
+              "p50": 466,
+              "p95": 466,
+              "max": 466
+            },
+            "triangles": {
+              "samples": 543,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "max": 886144
+            },
+            "points": {
+              "samples": 543,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 543,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          },
+          "ao-composite": {
+            "calls": {
+              "samples": 543,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "triangles": {
+              "samples": 543,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "max": 1
+            },
+            "points": {
+              "samples": 543,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            },
+            "lines": {
+              "samples": 543,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "max": 0
+            }
+          }
+        },
+        "counters": {
+          "ao-cached": 543
+        },
+        "context": {
+          "room": "home",
+          "activity": "idle",
+          "experiment": "normal",
+          "reading": false,
+          "visible": true,
+          "reducedMotion": false,
+          "width": 794,
+          "height": 827,
+          "pixelRatio": 2,
+          "drawingWidth": 1588,
+          "drawingHeight": 1654
+        },
+        "activity": {
+          "idle": {
+            "frames": 543,
+            "cpuMeanMs": 4.863535911596893
+          }
+        },
+        "resetReason": "capture started",
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ]
+      }
+    }
+  ],
+  "current": {
+    "settings": {
+      "experiment": "normal",
+      "build": "development",
+      "threeRevision": "185",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 10,
+      "viewport": [
+        794,
+        827
+      ],
+      "drawingBuffer": [
+        1588,
+        1654
+      ],
+      "pixelRatio": 2,
+      "nativePixelRatio": 2,
+      "room": "home",
+      "visible": true,
+      "reducedMotion": false,
+      "travelling": false,
+      "cameraPosition": [
+        -6.186759312023312,
+        3.8333958192104998,
+        33.40811358557785
+      ],
+      "cameraQuaternion": [
+        -0.06813725567632742,
+        -0.08872051290149265,
+        -0.006083469704735432,
+        0.9937046726144274
+      ],
+      "aoEnabled": true,
+      "aoBuffer": [
+        516,
+        538
+      ],
+      "aoSamples": 32,
+      "denoiseSamples": 32,
+      "shadowsEnabled": true,
+      "shadowMap": [
+        2048,
+        2048
+      ],
+      "resources": {
+        "geometries": 386,
+        "textures": 52,
+        "programs": 31
+      },
+      "inventory": {
+        "nodes": 796,
+        "meshes": 550,
+        "lights": 14,
+        "shadowCasters": 374,
+        "geometries": 450,
+        "materials": 294,
+        "geometryAttributeBytes": 44674056,
+        "largestMeshes": [
+          {
+            "name": "contact-ceramic-hull",
+            "triangles": 77776,
+            "instances": 1
+          },
+          {
+            "name": "contact-ceramic-hull",
+            "triangles": 77776,
+            "instances": 1
+          },
+          {
+            "name": "projects-projects-workshop-recess",
+            "triangles": 52752,
+            "instances": 1
+          },
+          {
+            "name": "unnamed mesh",
+            "triangles": 24320,
+            "instances": 1
+          },
+          {
+            "name": "unnamed mesh",
+            "triangles": 24320,
+            "instances": 1
+          },
+          {
+            "name": "unnamed mesh",
+            "triangles": 24320,
+            "instances": 1
+          },
+          {
+            "name": "unnamed mesh",
+            "triangles": 24320,
+            "instances": 1
+          },
+          {
+            "name": "experience-case-archive-rack-graphite",
+            "triangles": 24280,
+            "instances": 1
+          },
+          {
+            "name": "projects-projects-workshop-structural-graphite",
+            "triangles": 22876,
+            "instances": 1
+          },
+          {
+            "name": "contact-contact-flight-graphite",
+            "triangles": 20528,
+            "instances": 1
+          },
+          {
+            "name": "walkway-service-spine-graphite-casings",
+            "triangles": 20348,
+            "instances": 1
+          },
+          {
+            "name": "about-personal-study-page-edge-shadow",
+            "triangles": 19440,
+            "instances": 1
+          },
+          {
+            "name": "experience-case-archive-satin-edge",
+            "triangles": 15776,
+            "instances": 1
+          },
+          {
+            "name": "projects-projects-workshop-enamel-edge",
+            "triangles": 15072,
+            "instances": 1
+          },
+          {
+            "name": "projects-projects-workshop-ivory-enamel",
+            "triangles": 15072,
+            "instances": 1
+          }
+        ],
+        "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory."
+      },
+      "notes": [
+        "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+        "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+        "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+      ]
+    },
+    "report": {
+      "schemaVersion": 1,
+      "window": {
+        "frames": 1800,
+        "durationMs": 31185.199999999953,
+        "renderedFps": 57.68762105101146
+      },
+      "frameInterval": {
+        "samples": 1800,
+        "mean": 17.333333333333332,
+        "p50": 16.699999999953434,
+        "p95": 18.699999999953434,
+        "max": 68.19999999995343
+      },
+      "cpuTotal": {
+        "samples": 1800,
+        "mean": 5.3088333333361275,
+        "p50": 4.7999999998137355,
+        "p95": 10.100000000093132,
+        "max": 12.5
+      },
+      "cpuPhases": {
+        "diagnostics": {
+          "samples": 1800,
+          "mean": 0.042944444447186675,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "navigation": {
+          "samples": 1800,
+          "mean": 0.004055555556228177,
+          "p50": 0,
+          "p95": 0,
+          "max": 0.10000000009313226
+        },
+        "pointer-feedback": {
+          "samples": 1800,
+          "mean": 0.017777777778036477,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "camera": {
+          "samples": 1800,
+          "mean": 0.014555555555917737,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "model-update": {
+          "samples": 1800,
+          "mean": 0.5505555555540034,
+          "p50": 0.5,
+          "p95": 0.8999999999068677,
+          "max": 1.3999999999068677
+        },
+        "matrices": {
+          "samples": 1800,
+          "mean": 0.17838888888687102,
+          "p50": 0.19999999972060323,
+          "p95": 0.39999999990686774,
+          "max": 0.8000000002793968
+        },
+        "annotations": {
+          "samples": 1800,
+          "mean": 0.19549999999968956,
+          "p50": 0.20000000018626451,
+          "p95": 0.3000000002793968,
+          "max": 0.5
+        },
+        "html-sync": {
+          "samples": 1800,
+          "mean": 0.11011111111224939,
+          "p50": 0.10000000009313226,
+          "p95": 0.20000000018626451,
+          "max": 0.40000000037252903
+        },
+        "background-update": {
+          "samples": 1800,
+          "mean": 0.010166666667597989,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.10000000009313226
+        },
+        "unattributed": {
+          "samples": 1800,
+          "mean": 0.009666666666614927,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "background": {
+          "samples": 1800,
+          "mean": 0.12105555555524511,
+          "p50": 0.10000000009313226,
+          "p95": 0.2999999998137355,
+          "max": 0.6000000000931323
+        },
+        "spacecraft": {
+          "samples": 1800,
+          "mean": 3.985944444445583,
+          "p50": 3.6000000000931323,
+          "p95": 7.5,
+          "max": 9.799999999813735
+        },
+        "ao-composite": {
+          "samples": 1800,
+          "mean": 0.018277777777208636,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "css-render": {
+          "samples": 1800,
+          "mean": 0.019944444444392705,
+          "p50": 0,
+          "p95": 0.10000000009313226,
+          "max": 0.20000000018626451
+        },
+        "audit-trace": {
+          "samples": 1800,
+          "mean": 0.0006111111106454498,
+          "p50": 0,
+          "p95": 0,
+          "max": 0.10000000009313226
+        },
+        "legacy-metrics": {
+          "samples": 1800,
+          "mean": 0.02927777777865736,
+          "p50": 0,
+          "p95": 0.3000000002793968,
+          "max": 0.6999999997206032
+        }
+      },
+      "gpu": {
+        "status": "available",
+        "phases": {
+          "background": {
+            "samples": 120,
+            "mean": 2.827598475,
+            "p50": 2.66525,
+            "p95": 3.8465,
+            "max": 10.617166
+          },
+          "spacecraft": {
+            "samples": 120,
+            "mean": 7.444874524999998,
+            "p50": 7.228166,
+            "p95": 11.156124,
+            "max": 13.273458
+          },
+          "ao-composite": {
+            "samples": 120,
+            "mean": 7.638047700000002,
+            "p50": 7.465374,
+            "p95": 11.157249,
+            "max": 12.882999
+          }
+        },
+        "pending": 0,
+        "sampleEvery": 15,
+        "discardedSamples": 0,
+        "skippedSamples": 0
+      },
+      "passes": {
+        "background": {
+          "calls": {
+            "samples": 1800,
+            "mean": 7.477222222222222,
+            "p50": 7,
+            "p95": 10,
+            "max": 15
+          },
+          "triangles": {
+            "samples": 1800,
+            "mean": 97284.95444444445,
+            "p50": 97284,
+            "p95": 97290,
+            "max": 97300
+          },
+          "points": {
+            "samples": 1800,
+            "mean": 3100,
+            "p50": 3100,
+            "p95": 3100,
+            "max": 3100
+          },
+          "lines": {
+            "samples": 1800,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          }
+        },
+        "spacecraft": {
+          "calls": {
+            "samples": 1800,
+            "mean": 466,
+            "p50": 466,
+            "p95": 466,
+            "max": 466
+          },
+          "triangles": {
+            "samples": 1800,
+            "mean": 886144,
+            "p50": 886144,
+            "p95": 886144,
+            "max": 886144
+          },
+          "points": {
+            "samples": 1800,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "lines": {
+            "samples": 1800,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          }
+        },
+        "ao-composite": {
+          "calls": {
+            "samples": 1800,
+            "mean": 1,
+            "p50": 1,
+            "p95": 1,
+            "max": 1
+          },
+          "triangles": {
+            "samples": 1800,
+            "mean": 1,
+            "p50": 1,
+            "p95": 1,
+            "max": 1
+          },
+          "points": {
+            "samples": 1800,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "lines": {
+            "samples": 1800,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "max": 0
+          }
+        }
+      },
+      "counters": {
+        "ao-cached": 1800
+      },
+      "context": {
+        "room": "home",
+        "activity": "idle",
+        "experiment": "normal",
+        "reading": false,
+        "visible": true,
+        "reducedMotion": false,
+        "width": 794,
+        "height": 827,
+        "pixelRatio": 2,
+        "drawingWidth": 1588,
+        "drawingHeight": 1654
+      },
+      "activity": {
+        "idle": {
+          "frames": 1800,
+          "cpuMeanMs": 5.3088333333361275
+        }
+      },
+      "resetReason": "capture started",
+      "limitations": [
+        "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+        "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+        "This report cannot measure device temperature, power consumption, or thermal throttling.",
+        "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+        "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+      ]
+    }
+  },
+  "notes": "Local diagnostics; no temperature or power readings. Compare the same viewport and browser profile. Captures include instrumentation overhead.",
+  "rawFramesIncluded": false,
+  "rawFrameArchive": "m4-overview-captures.json.gz",
+  "host": {
+    "processor": "Apple M4",
+    "memoryGiB": 16,
+    "source": "Local sysctl; the browser user agent does not identify the actual processor."
+  }
+}
