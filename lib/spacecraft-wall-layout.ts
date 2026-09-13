@@ -14,6 +14,7 @@ export const CABIN_HALF_WIDTH = 1.43;
 export const PASSAGE_RADIUS = 0.92;
 export const PASSAGE_GUIDE_WIDTH = 0.065;
 export const PORTAL_SIGN_HEIGHT = 0.25;
+export const PORTAL_SIGN_STANDOFF = 0.032;
 const passageGap =
   (CABIN_CEILING -
     CABIN_FLOOR -
@@ -24,9 +25,17 @@ export const PASSAGE_CENTER_Y =
   CABIN_FLOOR + passageGap + PASSAGE_RADIUS + PASSAGE_GUIDE_WIDTH;
 export const PORTAL_SIGN_CENTER_Y =
   CABIN_CEILING - passageGap - PORTAL_SIGN_HEIGHT / 2;
-export const PASSAGE_CABIN_Z =
-  (PRESSURE_THROAT_START - 1.1 - PRESSURE_WALL) / 2;
-export const PASSAGE_LADDER_Z = (1.25 - 0.985 - PRESSURE_WALL) / 2;
+// Center in the exposed interior, not the outer pressure-wall bounds. Rear
+// stock and the front collar are hidden; the ladder's rear cove ends at -.975.
+export const PASSAGE_CABIN_Z = (PRESSURE_THROAT_START - 1.1) / 2;
+export const PASSAGE_LADDER_Z = (PRESSURE_THROAT_START - 0.975) / 2;
+// The caption sits in the upper rear cove. Evaluate that quadratic at its
+// center height instead of including the hidden rear part of the partition.
+const captionCoveT =
+  1 -
+  Math.sqrt((CABIN_CEILING - PORTAL_SIGN_CENTER_Y) / (CABIN_CEILING - 0.89));
+const captionRearZ = -1.1 + 0.43 * captionCoveT ** 2;
+export const PORTAL_SIGN_CABIN_Z = (PRESSURE_THROAT_START + captionRearZ) / 2;
 export const DECK_HALF_PITCH =
   (CABIN_CEILING - CABIN_FLOOR + PRESSURE_WALL) / 2;
 

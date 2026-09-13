@@ -47,7 +47,36 @@ function hits(meshes, origin, direction, far) {
   );
 }
 
-test('Door and caption bounds have equal vertical gaps and share the actual wall depth center', () => {
+function exposedWallDepth(model, portal, sampleY = portal.position[1]) {
+  const ladder = portal.via === 'walkway';
+  const meshes = meshesMatching(
+    model.group,
+    ladder
+      ? /walkway-continuous-rear-liner/
+      : new RegExp(`${portal.from}-continuous-pressure-skin-interior`),
+  );
+  assert.ok(meshes.length, `${portal.id}: exposed interior lining exists`);
+  const bounds = new THREE.Box3();
+  for (const mesh of meshes) bounds.union(new THREE.Box3().setFromObject(mesh));
+  // At the requested height, sample the actual rear lining. The ladder's
+  // rightmost cove meets its sidewall at the visible rear edge; the flat
+  // panel behind it and the outer wall stock are not alignment datums.
+  const origin = new THREE.Vector3(
+    ladder
+      ? bounds.max.x - 1e-8
+      : model.group.userData.innerApertureBounds[portal.from].center[0],
+    sampleY,
+    0,
+  );
+  const rear = hits(meshes, origin, new THREE.Vector3(0, 0, -1), 1.5)[0];
+  assert.ok(rear, `${portal.id}: exposed rear boundary exists`);
+  if (sampleY === portal.position[1])
+    close(rear.point.z, ladder ? -0.975 : -1.1, `${portal.id}: rear boundary`);
+  close(bounds.max.z, 1.121, `${portal.id}: front throat boundary`);
+  return { rear: rear.point.z, front: bounds.max.z };
+}
+
+test('Door and caption bounds have equal vertical gaps and center on the exposed wall span', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   for (const layout of ['wide', 'compact', 'wide']) {
     model.setLayout(layout);
@@ -68,9 +97,25 @@ test('Door and caption bounds have equal vertical gaps and share the actual wall
       const captionBounds = new THREE.Box3().setFromObject(caption);
       const captionCenter = captionBounds.getCenter(new THREE.Vector3());
       const wall = wallFor(model, portal);
-      const wallCenterZ = (wall.bounds.min.z + wall.bounds.max.z) / 2;
+      const exposed = exposedWallDepth(model, portal);
+      const wallCenterZ = (exposed.rear + exposed.front) / 2;
       close(guideCenter.z, wallCenterZ, `${context}: centered iris`);
-      close(captionCenter.z, wallCenterZ, `${context}: centered caption`);
+      const captionExposed =
+        portal.via === 'walkway'
+          ? exposed
+          : exposedWallDepth(model, portal, captionCenter.y);
+      // The ordinary caption meets the curved rear profile at its own height.
+      // Allow the analytic layout datum to differ from the sampled mesh curve.
+      close(
+        captionCenter.z,
+        (captionExposed.rear + captionExposed.front) / 2,
+        `${context}: caption centered in its exposed wall span`,
+        portal.via === 'walkway' ? 2e-6 : 1e-4,
+      );
+      const rearGap = guideBounds.min.z - exposed.rear;
+      const frontGap = exposed.front - guideBounds.max.z;
+      assert.ok(rearGap > 0 && frontGap > 0, `${context}: clear iris margins`);
+      close(rearGap, frontGap, `${context}: balanced exposed depth margins`);
       close(portal.position[1], guideCenter.y, `${context}: pick center Y`);
       close(portal.position[2], guideCenter.z, `${context}: pick center Z`);
       close(portal.labelPosition[1], captionCenter.y, `${context}: label Y`);
@@ -92,6 +137,35 @@ test('Door and caption bounds have equal vertical gaps and share the actual wall
       // Sample the whole plate footprint, including its corners. Bounding-box
       // containment alone would miss the sidewall's curved rear shoulder.
       const normal = new THREE.Vector3(...portal.labelNormal);
+      const labelPosition = new THREE.Vector3(...portal.labelPosition);
+      const wallHit = hits(
+        wall.meshes,
+        labelPosition.clone().addScaledVector(normal, 0.1),
+        normal.clone().negate(),
+        0.75,
+      )[0];
+      assert.ok(wallHit, `${context}: actual mounting wall face exists`);
+      const standoff = labelPosition.clone().sub(wallHit.point).dot(normal);
+      assert.ok(
+        standoff >= 0 && standoff <= 0.033,
+        `${context}: caption plane stays within 0.033 of the wall, received ${standoff}`,
+      );
+      const backing = meshesMatching(caption, /above-door-label-backing/);
+      assert.ok(backing.length, `${context}: physical caption backing exists`);
+      let rearSeparation = Infinity;
+      for (const mesh of backing) {
+        const positions = mesh.geometry.getAttribute('position');
+        for (let index = 0; index < positions.count; index++) {
+          const vertex = new THREE.Vector3()
+            .fromBufferAttribute(positions, index)
+            .applyMatrix4(mesh.matrixWorld);
+          rearSeparation = Math.min(
+            rearSeparation,
+            vertex.sub(wallHit.point).dot(normal),
+          );
+        }
+      }
+      close(rearSeparation, 0, `${context}: backing rear seats against wall`);
       for (const y of [
         captionBounds.min.y,
         captionCenter.y,

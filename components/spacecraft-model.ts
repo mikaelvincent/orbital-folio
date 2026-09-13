@@ -17,6 +17,8 @@ import {
   PASSAGE_RADIUS,
   PASSAGE_CENTER_Y,
   PORTAL_SIGN_CENTER_Y,
+  PORTAL_SIGN_STANDOFF,
+  PORTAL_SIGN_CABIN_Z,
   PASSAGE_CABIN_Z,
   PASSAGE_LADDER_Z,
   DECK_HALF_PITCH,
@@ -3036,9 +3038,9 @@ export function createSpacecraft(
       hatch = { iris, doorMotion: { value: 0, velocity: 0 }, portals: [] };
       physicalHatches.set(physicalId, hatch);
     }
-    // Shallow, serviceable enamel signs share the cabin equipment's graphite
-    // carrier and captive fittings. Rear feet bridge to the pressure wall;
-    // the face stays at the established text plane and wayfinding scale.
+    // Wall-mounted enamel signs retain their wayfinding scale. A shallow
+    // carrier seats directly against the wall so mounting parallax does not
+    // make the sign appear displaced toward the curved rear edge.
     const caption = new THREE.Group();
     caption.name = id + '-above-door-wall-nameplate';
     caption.userData = { section: from, batchRoot: true, excludePick: true };
@@ -3052,13 +3054,13 @@ export function createSpacecraft(
     box(
       plateSize[0],
       plateSize[1],
-      0.064,
+      0.014,
       m.gasket,
       0,
       0,
-      -0.05,
+      -0.025,
       caption,
-      0.017,
+      0.006,
       'above-door-label-backing',
     );
     box(
@@ -3074,18 +3076,6 @@ export function createSpacecraft(
       'above-door-label-enamel',
     );
     for (const side of [-1, 1]) {
-      box(
-        0.09,
-        0.14,
-        0.047,
-        m.gasket,
-        side * 0.63,
-        0,
-        -0.1,
-        caption,
-        0.008,
-        'above-door-label-wall-foot',
-      );
       // Narrow captive amber keepers and flush screws sit beyond the symbols.
       box(
         0.012,
@@ -4113,9 +4103,9 @@ export function createSpacecraft(
       portal.visual.position.set(origin, 0, 0);
       portal.caption.rotation.set(0, sign > 0 ? -Math.PI / 2 : Math.PI / 2, 0);
       portal.caption.position.set(
-        sign * (1.4 * layoutScale - 0.085),
+        sign * (CABIN_HALF_WIDTH * layoutScale - PORTAL_SIGN_STANDOFF),
         PORTAL_SIGN_CENTER_Y,
-        passageZ,
+        portal.metadata.via ? PASSAGE_LADDER_Z : PORTAL_SIGN_CABIN_Z,
       );
       portal.pick.position.set(
         origin + sign * (1.5 * layoutScale - 0.04),
