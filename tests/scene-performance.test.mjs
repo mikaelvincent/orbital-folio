@@ -73,6 +73,30 @@ function renderPass(collector, name = 'spacecraft') {
   collector.endPass(name, { calls: 4, triangles: 200, points: 0, lines: 8 });
 }
 
+test('Long recordings retain their complete window, then shrink without resetting capture identity', () => {
+  const { collector, advance } = fixture();
+  collector.reset('sustained capture');
+  collector.setWindowSize(14400);
+  for (let i = 0; i < 4000; i++) {
+    collector.beginFrame(i * 16, { activity: 'idle' });
+    advance(1);
+    collector.endFrame();
+  }
+  const full = collector.snapshot(true);
+  assert.equal(full.window.frames, 4000);
+  assert.equal(full.window.durationMs, 3999 * 16);
+  collector.setWindowSize(1800);
+  const live = collector.snapshot(true);
+  assert.equal(live.window.frames, 1800);
+  assert.equal(live.frames.at(-1).id, full.frames.at(-1).id);
+  assert.equal(live.resetReason, full.resetReason);
+  assert.equal(
+    full.frames.length,
+    4000,
+    'saved recording is independent of live retention',
+  );
+});
+
 test('CPU phases partition callback time and counters report cumulative pass deltas', () => {
   const { collector, advance } = fixture();
   collector.beginFrame(0, { activity: 'idle', pixelRatio: 2 });

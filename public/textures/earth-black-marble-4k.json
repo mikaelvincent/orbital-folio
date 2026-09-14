@@ -1,0 +1,36 @@
+{
+  "title": "NASA Black Marble (2016): Earth at night, color composite",
+  "asset": "/textures/earth-black-marble-4k.jpg",
+  "width": 4096,
+  "height": 2048,
+  "format": "jpeg",
+  "quality": 90,
+  "chromaSubsampling": "4:4:4",
+  "encodedBytes": 637946,
+  "sha256": "f2e4e44a0cc209f076ba9169753a005d216939e6b39011d16bc66a08dfba411e",
+  "colorSpace": "sRGB",
+  "projection": "equirectangular",
+  "orientation": "north-to-south rows; -180 to +180 longitude columns; antimeridian at the seam",
+  "textureLoaderFlipY": true,
+  "estimatedRgba8WithMipmapsBytes": 44739244,
+  "memoryNote": "Nominal RGBA8 full mip chain; excludes driver padding and decoded CPU image memory.",
+  "source": {
+    "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/144000/144898/BlackMarble_2016_3km_geo.tif",
+    "page": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+    "processingPage": "https://science.nasa.gov/earth/earth-observatory/night-light-maps-open-up-new-applications-90008/",
+    "width": 13500,
+    "height": 6750,
+    "bytes": 64383740,
+    "sha256": "e915ef2a20d84e2a59e1547d3ad564463ad4bcf22bfa02e0e0b8ed1cd722e9c0",
+    "credit": "NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC",
+    "usageGuidelines": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "note": "Historical 2016 night-light composite selected from cloud-free nights. Not live weather or one simultaneous full-globe photograph. No added clouds, glow, sharpening or color adjustments."
+  },
+  "preparation": {
+    "command": "node scripts/prepare-night-earth-texture.mjs /path/to/BlackMarble_2016_3km_geo.tif 4096",
+    "processing": "Lanczos3 downsample from verified 13500×6750 GeoTIFF; sRGB; remove alpha; JPEG quality 90, mozjpeg, 4:4:4 chroma; strip metadata; no geographic flip or crop; no upscaling or artistic enhancement.",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mozjpeg": "0826579"
+  }
+}

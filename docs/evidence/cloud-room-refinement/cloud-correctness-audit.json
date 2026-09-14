@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "at": "2026-09-14T05:44:30.598Z",
+  "scope": "CPU correctness: actual cloud material/volume, injected atlas, resize/animation, memory accounting, resource disposal, asynchronous delivery/cancellation, small deterministic bakes and lossless codec. No GPU compilation, rendered appearance, thermal or performance claim.",
+  "passed": true,
+  "exitCode": 0,
+  "signal": null,
+  "sources": [
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/orbital-environment.ts",
+      "sha256": "10f1c6f2c706a220a90f303f69d56628ad0bd9f2ef206b904ee03f07b11d3fad"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/cloud-volume.ts",
+      "sha256": "dbcae420b7a2556bd0e218d546def4a4eb9746d5b0422245bad7fa4ab60eb95b"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field.ts",
+      "sha256": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field-codec.ts",
+      "sha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-environment.test.mjs",
+      "sha256": "09ede6d1fee43f181598e71fee3b039e280da8ecbdac7b13b497ab3894d07790"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-field-codec.test.mjs",
+      "sha256": "9d43b6477d7017931b726a037ba5d2b06b41bdb9949f1d578a00fccaf1ec2fea"
+    }
+  ],
+  "stdout": "✔ Small cloud fields are deterministic, nonempty and encode wrapped slopes (4.846875ms)\n✔ Cloud texture preserves bytes, mip/seam settings and bounded volume material (0.389834ms)\n✔ Cloud environment wide: ready, placement, pause, memory and cleanup (14.605833ms)\n✔ Cloud environment compact: ready, placement, pause, memory and cleanup (5.529834ms)\n✔ Malformed injection rejects and disposal prevents a queued installation (5.438291ms)\n✔ HTTP already decompressed CFD1 becomes the exact cloud texture (48.297917ms)\n✔ HTTP gzip archive CFD1 becomes the exact cloud texture (52.2385ms)\n✔ Pending fetch aborts and late rejection does not generate or invalidate (2.054208ms)\n✔ CFD1 defines channel order, little-endian dimensions, row resets and wraparound (1.196708ms)\n✔ Random and extreme bytes round-trip across rows, channels, and non-power-of-two sizes (5.065416ms)\n✔ Codec respects typed-array offsets and does not mutate packet bytes (0.110709ms)\n✔ Malformed headers, lengths and dimensions fail before decoding (0.3135ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 357.948208\n",
+  "stderr": "",
+  "error": null
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "at": "2026-09-14T06:22:32.139Z",
+  "scope": "CPU correctness: actual cloud material/volume, injected atlas, resize/animation, memory accounting, resource disposal, asynchronous delivery/cancellation, small deterministic bakes, satellite-mask conversion, shipped atlas/source hashes and distribution guards, and lossless codec. No full-size field bake, GPU compilation, rendered appearance, thermal or performance claim.",
+  "passed": true,
+  "exitCode": 0,
+  "signal": null,
+  "sources": [
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/orbital-environment.ts",
+      "sha256": "f8ac59540a4d624a4adaea9607086cc375629f95a9cda5e3ab97e4bc72d5f9a9"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/cloud-volume.ts",
+      "sha256": "03bdcb459577948ad7015fdb68e9b4fa3655b91156ab6c0db737bc4f0e4c2df2"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field.ts",
+      "sha256": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/satellite-cloud-field.ts",
+      "sha256": "5cfec41b62d6a5282ab81035217148e98ec11d9e536b2be41793c9ceb2ef825d"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field-codec.ts",
+      "sha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-environment.test.mjs",
+      "sha256": "09ede6d1fee43f181598e71fee3b039e280da8ecbdac7b13b497ab3894d07790"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-field-codec.test.mjs",
+      "sha256": "9d43b6477d7017931b726a037ba5d2b06b41bdb9949f1d578a00fccaf1ec2fea"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/satellite-cloud-field.test.mjs",
+      "sha256": "fae4f3eb0b1ef464cb79ddf76c33b9ba6e520699bc97d2e4602be501238695c2"
+    }
+  ],
+  "stdout": "✔ Small cloud fields are deterministic, nonempty and encode wrapped slopes (5.310625ms)\n✔ Cloud texture preserves bytes, mip/seam settings and bounded volume material (0.445709ms)\n✔ Cloud environment wide: ready, placement, pause, memory and cleanup (15.899583ms)\n✔ Cloud environment compact: ready, placement, pause, memory and cleanup (6.7065ms)\n✔ Malformed injection rejects and disposal prevents a queued installation (7.820416ms)\n✔ HTTP already decompressed CFD1 becomes the exact cloud texture (43.661208ms)\n✔ HTTP gzip archive CFD1 becomes the exact cloud texture (56.240875ms)\n✔ Pending fetch aborts and late rejection does not generate or invalidate (2.532458ms)\n✔ CFD1 defines channel order, little-endian dimensions, row resets and wraparound (1.212583ms)\n✔ Random and extreme bytes round-trip across rows, channels, and non-power-of-two sizes (4.402417ms)\n✔ Codec respects typed-array offsets and does not mutate packet bytes (0.39ms)\n✔ Malformed headers, lengths and dimensions fail before decoding (0.352084ms)\n✔ Satellite conversion rejects malformed dimensions and mask payloads (0.789208ms)\n✔ Original mask is preserved, including typed-array offsets, and conversion is deterministic (3.912208ms)\n✔ Ocean gaps stay empty beside bright clouds; north/south orientation is unchanged (0.814417ms)\n✔ Uniform thin, medium, and bright layers have increasing opacity and independently varied height (3.303292ms)\n✔ An isolated bright speck remains lower than a coherent bright core, without enlarging either (3.151667ms)\n✔ Smoothing and all four output channels wrap across longitude without a seam (4.176042ms)\n✔ Shipped satellite atlas matches its source record and preserves ocean gaps, thin clouds, and varied heights (60.044125ms)\nℹ tests 19\nℹ suites 0\nℹ pass 19\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 582.242708\n",
+  "stderr": "",
+  "error": null
+}

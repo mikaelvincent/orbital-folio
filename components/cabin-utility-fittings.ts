@@ -21,6 +21,7 @@ export function buildCabinUtilityFittings(
   root: any,
   section: CabinKind,
   rearProfile: ProfilePoint[],
+  cornerRadius: number,
 ) {
   const prefix = `${section}-utility-`;
   const material = (
@@ -67,10 +68,13 @@ export function buildCabinUtilityFittings(
   for (const layout of ['wide', 'compact']) {
     const s = layout === 'wide' ? 1 : 0.84;
     const halfWidth = CABIN_HALF_WIDTH * (layout === 'wide' ? 1.4 : 1);
+    const flatHalfWidth =
+      halfWidth - cornerRadius * (layout === 'wide' ? 1.4 : 1);
     // Furniture keeps its own uniform scale while the pressure shell changes
-    // width. Center fittings in the gap to the nearest actual furniture edge.
+    // width. Justify fittings in the usable flat wall between the rounded
+    // corner and furniture; their mounting feet must not sink into the return.
     const edgeCenter = (side: number, furnitureEdge: number) =>
-      (side * halfWidth + furnitureEdge * s) / 2;
+      (side * flatHalfWidth + furnitureEdge * s) / 2;
     const variant = new THREE.Group();
     variant.name = prefix + layout;
     variant.userData = {
@@ -180,9 +184,12 @@ export function buildCabinUtilityFittings(
     ) => {
       const back =
         Math.max(rearAt(y - height / 2), rearAt(y + height / 2)) + 0.028 * s;
+      // Narrow cases need proportionate feet: a fixed-size shoe used to
+      // extend beyond compact side equipment into the curved wall junction.
+      const shoeWidth = Math.min(0.065 * s, w * 0.22);
       for (const dx of [-w * 0.38, w * 0.38])
         for (const dy of [-height * 0.33, height * 0.33])
-          shoe(x + dx, y + dy, back + 0.006 * s);
+          shoe(x + dx, y + dy, back + 0.006 * s, shoeWidth);
       box(
         w,
         height,
@@ -596,11 +603,24 @@ export function buildCabinUtilityFittings(
       });
       for (const side of [-1, 1])
         assembly(`archive-service-column-${side}`, () => {
-          const x = edgeCenter(side, side * 1.3925),
+          const centeredX = edgeCenter(side, side * 1.3925);
+          // Give the right conduit more air beside the archive rack. Limit the
+          // shift to the usable flat wall so compact layouts clear the cove.
+          const rightShift =
+            side > 0
+              ? Math.min(
+                  0.07 * s,
+                  Math.max(
+                    0,
+                    flatHalfWidth - 0.085 * s - 0.012 * s - centeredX,
+                  ),
+                )
+              : 0;
+          const x = centeredX + rightShift,
             y =
               side < 0
                 ? 2 * gap + (transportHeight + serviceHeight / 2) * s
-                : ventBottom / 2;
+                : ventBottom / 2 + 0.13 * s;
           const face = mountedBox(
             x,
             y,
@@ -696,7 +716,14 @@ export function buildCabinUtilityFittings(
       // Service umbilicals descend behind the social displays, outside their faces.
       for (const side of [-1, 1])
         assembly(`console-umbilical-${side}`, () => {
-          const x = (side * (halfWidth + 1.585 * s)) / 2,
+          const x =
+              side *
+              Math.min(
+                (halfWidth + 1.585 * s) / 2,
+                // Keep the whole strain-relief footprint inside the flat rear
+                // wall in the narrow layout. It remains behind the console.
+                flatHalfWidth - (0.075 * s) / 2 - 0.004,
+              ),
             y = (CONTACT_GRID.sideY - CONTACT_GRID.lowering) * s;
           for (const dy of [-0.44, 0.44]) shoe(x, y + dy * s, -0.988);
           box(
@@ -810,7 +837,7 @@ export function buildCabinUtilityFittings(
         );
       });
       assembly('retained-bedding-roll', () => {
-        const x = edgeCenter(-1, -1.385);
+        const x = edgeCenter(-1, -1.295);
         // Share the berth's vertical midpoint while retaining its own wall column.
         const y = 1.15 * s;
         const face = mountedBox(x, y, 0.2 * s, 0.87 * s, 0.025 * s, m.seam);

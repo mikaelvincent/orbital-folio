@@ -1,0 +1,13 @@
+{
+  "appearance": "night",
+  "openingElapsed": 0,
+  "ready": true,
+  "view": {
+    "horizon": 0.7,
+    "latitude": 14,
+    "longitude": 126,
+    "motion": false,
+    "roll": -20,
+    "scale": 1.12
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "before": {
+    "method": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "layouts": {
+      "wide": {
+        "scene": {
+          "meshes": 412,
+          "triangles": 885386,
+          "uniqueGeometries": 352,
+          "attributeBytes": 36227100,
+          "bounds": {
+            "min": [
+              -8.35600020980835,
+              -3.7988064855903243,
+              -1.6435063574759272
+            ],
+            "max": [
+              6.27484508740038,
+              3.7988064855903243,
+              1.7270063574759271
+            ]
+          }
+        },
+        "furniture": {
+          "projects": {
+            "meshes": 43,
+            "triangles": 188252,
+            "uniqueGeometries": 43,
+            "attributeBytes": 10190600,
+            "bounds": {
+              "min": [
+                -3.6520000572204587,
+                0.15200000044191264,
+                -0.9850000143051147
+              ],
+              "max": [
+                -0.5219999427795408,
+                2.3005000019073485,
+                0.3374720513820648
+              ]
+            }
+          },
+          "about": {
+            "meshes": 54,
+            "triangles": 90154,
+            "uniqueGeometries": 47,
+            "attributeBytes": 2510692,
+            "bounds": {
+              "min": [
+                -3.471999990463256,
+                -2.6515000271797184,
+                -1.1059999465942383
+              ],
+              "max": [
+                -0.3166500162124628,
+                -0.5675000953674321,
+                -0.15299999713897705
+              ]
+            }
+          },
+          "caseStudies": {
+            "meshes": 22,
+            "triangles": 75864,
+            "uniqueGeometries": 9,
+            "attributeBytes": 2179992,
+            "bounds": {
+              "min": [
+                0.6720000381469724,
+                0.1519999999180437,
+                -1.0149999856948853
+              ],
+              "max": [
+                3.501999961853027,
+                2.3650000953674315,
+                0.27540385723114014
+              ]
+            }
+          },
+          "contact": {
+            "meshes": 34,
+            "triangles": 70668,
+            "uniqueGeometries": 21,
+            "attributeBytes": 1967784,
+            "bounds": {
+              "min": [
+                0.5117956275939939,
+                -2.793000000081957,
+                -1.100000023841858
+              ],
+              "max": [
+                3.739731895446777,
+                -0.7825000095367436,
+                0.5090000033378601
+              ]
+            }
+          }
+        }
+      },
+      "compact": {
+        "scene": {
+          "meshes": 412,
+          "triangles": 883930,
+          "uniqueGeometries": 352,
+          "attributeBytes": 36183036,
+          "bounds": {
+            "min": [
+              -6.670000209808349,
+              -3.7988064855903243,
+              -1.6435063574759272
+            ],
+            "max": [
+              5.130845087400381,
+              3.7988064855903243,
+              1.7270063574759271
+            ]
+          }
+        },
+        "furniture": {
+          "projects": {
+            "meshes": 43,
+            "triangles": 188252,
+            "uniqueGeometries": 43,
+            "attributeBytes": 10190600,
+            "bounds": {
+              "min": [
+                -2.8296000480651853,
+                0.15208000037120664,
+                -0.8274000120162963
+              ],
+              "max": [
+                -0.20039995193481408,
+                1.9568200016021728,
+                0.2834765231609344
+              ]
+            }
+          },
+          "about": {
+            "meshes": 54,
+            "triangles": 90154,
+            "uniqueGeometries": 47,
+            "attributeBytes": 2510692,
+            "bounds": {
+              "min": [
+                -2.678399991989135,
+                -2.6740600228309637,
+                -1.10503995513916
+              ],
+              "max": [
+                -0.15374601361846874,
+                -0.923500080108643,
+                -0.3045199975967407
+              ]
+            }
+          },
+          "caseStudies": {
+            "meshes": 22,
+            "triangles": 75864,
+            "uniqueGeometries": 9,
+            "attributeBytes": 2179992,
+            "bounds": {
+              "min": [
+                0.326400032043457,
+                0.15207999993115673,
+                -0.8525999879837036
+              ],
+              "max": [
+                2.703599967956543,
+                2.0110000801086425,
+                0.2313392400741577
+              ]
+            }
+          },
+          "contact": {
+            "meshes": 34,
+            "triangles": 70668,
+            "uniqueGeometries": 21,
+            "attributeBytes": 1967784,
+            "bounds": {
+              "min": [
+                0.19182832717895493,
+                -2.7929200000688437,
+                -1.100000009536743
+              ],
+              "max": [
+                2.9032947921752927,
+                -1.1041000080108647,
+                0.42756000280380246
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "after": {
+    "method": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "layouts": {
+      "wide": {
+        "scene": {
+          "meshes": 412,
+          "triangles": 822410,
+          "uniqueGeometries": 352,
+          "attributeBytes": 30961596,
+          "bounds": {
+            "min": [
+              -8.35600020980835,
+              -3.7988064855903243,
+              -1.6435063574759272
+            ],
+            "max": [
+              6.27484508740038,
+              3.7988064855903243,
+              1.7270063574759271
+            ]
+          }
+        },
+        "furniture": {
+          "projects": {
+            "meshes": 43,
+            "triangles": 144476,
+            "uniqueGeometries": 43,
+            "attributeBytes": 5408936,
+            "bounds": {
+              "min": [
+                -3.6520000572204587,
+                0.15200000044191264,
+                -0.9850000143051147
+              ],
+              "max": [
+                -0.5219999427795408,
+                2.3005000019073485,
+                0.3374720513820648
+              ]
+            }
+          },
+          "about": {
+            "meshes": 54,
+            "triangles": 70954,
+            "uniqueGeometries": 47,
+            "attributeBytes": 2026852,
+            "bounds": {
+              "min": [
+                -3.471999990463256,
+                -2.6515000271797184,
+                -1.1059999465942383
+              ],
+              "max": [
+                -0.3166500162124628,
+                -0.5675000953674321,
+                -0.15299999713897705
+              ]
+            }
+          },
+          "caseStudies": {
+            "meshes": 22,
+            "triangles": 75864,
+            "uniqueGeometries": 9,
+            "attributeBytes": 2179992,
+            "bounds": {
+              "min": [
+                0.6720000381469724,
+                0.1519999999180437,
+                -1.0149999856948853
+              ],
+              "max": [
+                3.501999961853027,
+                2.3650000953674315,
+                0.27540385723114014
+              ]
+            }
+          },
+          "contact": {
+            "meshes": 34,
+            "triangles": 70668,
+            "uniqueGeometries": 21,
+            "attributeBytes": 1967784,
+            "bounds": {
+              "min": [
+                0.5117956275939939,
+                -2.793000000081957,
+                -1.100000023841858
+              ],
+              "max": [
+                3.739731895446777,
+                -0.7825000095367436,
+                0.5090000033378601
+              ]
+            }
+          }
+        }
+      },
+      "compact": {
+        "scene": {
+          "meshes": 412,
+          "triangles": 820954,
+          "uniqueGeometries": 352,
+          "attributeBytes": 30917532,
+          "bounds": {
+            "min": [
+              -6.670000209808349,
+              -3.7988064855903243,
+              -1.6435063574759272
+            ],
+            "max": [
+              5.130845087400381,
+              3.7988064855903243,
+              1.7270063574759271
+            ]
+          }
+        },
+        "furniture": {
+          "projects": {
+            "meshes": 43,
+            "triangles": 144476,
+            "uniqueGeometries": 43,
+            "attributeBytes": 5408936,
+            "bounds": {
+              "min": [
+                -2.8296000480651853,
+                0.15208000037120664,
+                -0.8274000120162963
+              ],
+              "max": [
+                -0.20039995193481408,
+                1.9568200016021728,
+                0.2834765231609344
+              ]
+            }
+          },
+          "about": {
+            "meshes": 54,
+            "triangles": 70954,
+            "uniqueGeometries": 47,
+            "attributeBytes": 2026852,
+            "bounds": {
+              "min": [
+                -2.678399991989135,
+                -2.6740600228309637,
+                -1.10503995513916
+              ],
+              "max": [
+                -0.15374601361846874,
+                -0.923500080108643,
+                -0.3045199975967407
+              ]
+            }
+          },
+          "caseStudies": {
+            "meshes": 22,
+            "triangles": 75864,
+            "uniqueGeometries": 9,
+            "attributeBytes": 2179992,
+            "bounds": {
+              "min": [
+                0.326400032043457,
+                0.15207999993115673,
+                -0.8525999879837036
+              ],
+              "max": [
+                2.703599967956543,
+                2.0110000801086425,
+                0.2313392400741577
+              ]
+            }
+          },
+          "contact": {
+            "meshes": 34,
+            "triangles": 70668,
+            "uniqueGeometries": 21,
+            "attributeBytes": 1967784,
+            "bounds": {
+              "min": [
+                0.19182832717895493,
+                -2.7929200000688437,
+                -1.100000009536743
+              ],
+              "max": [
+                2.9032947921752927,
+                -1.1041000080108647,
+                0.42756000280380246
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

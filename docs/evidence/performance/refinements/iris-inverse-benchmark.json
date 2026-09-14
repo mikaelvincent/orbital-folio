@@ -1,0 +1,96 @@
+{
+  "recordedAt": "2026-09-14T03:04:55.421Z",
+  "node": "v26.0.0",
+  "threeRevision": "185",
+  "irisSourceSha256": "06d61199491b4856b90dd70208e537d7009833bfaa33dbab67ea0bf9206783c2",
+  "hatches": 4,
+  "leavesPerHatch": 6,
+  "framesPerRun": 10000,
+  "methodology": "Quiet Node CPU microbenchmark after root reported browser blank and no build/tests. Real model hatch world matrices, six callbacks per hatch; ABBA/ABBA after 2000 warmup frames each. Moving changes source translation every frame. Inversion counters measured separately, never inside timed loops. Does not measure GPU/FPS/power or whole callback savings.",
+  "settled": {
+    "runs": [
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.0004169582999999989
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0006076708000000053
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0006098749999999995
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.00038994999999999893
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.00039136250000000247
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0005957083000000011
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0005855750000000057
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.0003793042000000014
+      }
+    ],
+    "referenceMeanMs": 0.0003943937500000004,
+    "candidateMeanMs": 0.0005997072750000029,
+    "differenceMs": 0.0002053135250000025,
+    "inversionsOver100Frames": {
+      "reference": 2400,
+      "candidate": 4
+    }
+  },
+  "moving": {
+    "runs": [
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.000455966699999999
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0007232874999999922
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0007237582999999972
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.00042649589999999764
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.0004233833000000004
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.000721712500000001
+      },
+      {
+        "variant": "candidate",
+        "meanMsPerFrame": 0.0007084917000000019
+      },
+      {
+        "variant": "reference",
+        "meanMsPerFrame": 0.00042342919999999824
+      }
+    ],
+    "referenceMeanMs": 0.0004323187749999988,
+    "candidateMeanMs": 0.0007193124999999982,
+    "differenceMs": 0.00028699372499999936,
+    "inversionsOver100Frames": {
+      "reference": 2400,
+      "candidate": 400
+    }
+  }
+}

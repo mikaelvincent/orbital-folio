@@ -1,0 +1,410 @@
+[
+  {
+    "viewport": "desktop",
+    "preset": "mediterranean",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.3510000000000275,
+    "ready": true,
+    "rotation": 0.0010530000000000823,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "mediterranean",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.4843000000008715,
+    "ready": true,
+    "rotation": 0.016452900000002615,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "mediterranean",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.567600000001775,
+    "ready": true,
+    "rotation": 0.031702800000005325,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "east-asia",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.36670000000007974,
+    "ready": true,
+    "rotation": 0.0011001000000002393,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "east-asia",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.450100000000944,
+    "ready": true,
+    "rotation": 0.016350300000002833,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "east-asia",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.599200000001858,
+    "ready": true,
+    "rotation": 0.031797600000005574,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "india",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.4157000000000579,
+    "ready": true,
+    "rotation": 0.0012471000000001738,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "india",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.499900000001034,
+    "ready": true,
+    "rotation": 0.016499700000003104,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "india",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.433300000001935,
+    "ready": true,
+    "rotation": 0.031299900000005806,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "north-america",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.46670000000008827,
+    "ready": true,
+    "rotation": 0.0014001000000002648,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "north-america",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.583300000001017,
+    "ready": true,
+    "rotation": 0.01674990000000305,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "desktop",
+    "preset": "north-america",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.51670000000199,
+    "ready": true,
+    "rotation": 0.03155010000000597,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "mediterranean",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.4001000000000374,
+    "ready": true,
+    "rotation": 0.0012003000000001124,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "mediterranean",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.533400000000967,
+    "ready": true,
+    "rotation": 0.0166002000000029,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "mediterranean",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.633300000001782,
+    "ready": true,
+    "rotation": 0.031899900000005345,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": 18,
+      "motion": true,
+      "roll": -12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "east-asia",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.4490999999999872,
+    "ready": true,
+    "rotation": 0.0013472999999999617,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "east-asia",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.366600000000872,
+    "ready": true,
+    "rotation": 0.016099800000002617,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "east-asia",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.4832000000018,
+    "ready": true,
+    "rotation": 0.03144960000000541,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 32,
+      "longitude": 121,
+      "motion": true,
+      "roll": 12,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "india",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.31670000000005416,
+    "ready": true,
+    "rotation": 0.0009501000000001624,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "india",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.483300000001009,
+    "ready": true,
+    "rotation": 0.016449900000003025,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "india",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.400000000001995,
+    "ready": true,
+    "rotation": 0.031200000000005987,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 23,
+      "longitude": 79,
+      "motion": true,
+      "roll": -18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "north-america",
+    "sample": 0,
+    "appearance": "night",
+    "elapsed": 0.48420000000008656,
+    "ready": true,
+    "rotation": 0.0014526000000002596,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "north-america",
+    "sample": 5,
+    "appearance": "night",
+    "elapsed": 5.4009000000009735,
+    "ready": true,
+    "rotation": 0.01620270000000292,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  },
+  {
+    "viewport": "compact",
+    "preset": "north-america",
+    "sample": 10,
+    "appearance": "night",
+    "elapsed": 10.484300000001896,
+    "ready": true,
+    "rotation": 0.03145290000000568,
+    "view": {
+      "horizon": 0.76,
+      "latitude": 38,
+      "longitude": -83,
+      "motion": true,
+      "roll": 18,
+      "scale": 1
+    }
+  }
+]

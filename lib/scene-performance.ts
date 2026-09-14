@@ -110,7 +110,7 @@ export function createScenePerformance(
   } = {},
 ) {
   const now = options.now ?? (() => performance.now());
-  const maxFrames = boundedInteger(options.maxFrames, 600, 1800);
+  let maxFrames = boundedInteger(options.maxFrames, 600, 1800);
   const sampleEvery = boundedInteger(options.gpuSampleEvery, 15, 600);
   const maxPending = boundedInteger(options.maxPendingQueries, 32, 32);
   let extension: TimerExtension | null = null;
@@ -340,6 +340,15 @@ export function createScenePerformance(
       resetReason = reason ?? null;
       discardedSamples = 0;
       skippedSamples = 0;
+    },
+    setWindowSize(limit: number) {
+      // Longer recordings opt into a larger bounded window, then return to
+      // the small live window. Resizing retention never changes capture identity.
+      maxFrames = boundedInteger(limit, 1800, 14400);
+      if (frames.length > maxFrames)
+        frames.splice(0, frames.length - maxFrames);
+      const oldest = frames[0]?.id ?? Infinity;
+      gpuSamples = gpuSamples.filter((sample) => sample.frameId >= oldest);
     },
     snapshot(includeFrames = false): ScenePerformanceReport {
       const cpuValues = dictionary<number[]>();

@@ -1,0 +1,36 @@
+{
+  "recordedAt": "2026-09-14T05:35:49.794Z",
+  "inputPath": "/tmp/cloud-field-codec-source.rgba.gz",
+  "inputBytes": 4259591,
+  "inputSha256": "bc9047ba5099f85a9400cfcc95bc6dca9e575b50f4b893399879593532816f28",
+  "inputFormat": "raw-rgba",
+  "width": 2048,
+  "height": 1024,
+  "channels": 4,
+  "payloadSha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+  "decodedSha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+  "codecSourceSha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347",
+  "exactActualFieldRoundtrip": true,
+  "compressedRoundtrips": true,
+  "layouts": [
+    {
+      "name": "raw-rgba",
+      "unpackedBytes": 8388608,
+      "gzipLevel9": 4259591,
+      "brotliQuality5": 4219702
+    },
+    {
+      "name": "interleaved-row-delta",
+      "unpackedBytes": 8388608,
+      "gzipLevel9": 3311438,
+      "brotliQuality5": 3182793
+    },
+    {
+      "name": "CFD1-planar-row-delta",
+      "unpackedBytes": 8388616,
+      "gzipLevel9": 3165073,
+      "brotliQuality5": 3091163
+    }
+  ],
+  "scope": "Untimed lossless byte-layout/compression comparison. No CPU speed, browser decode, GPU, or appearance change claim."
+}

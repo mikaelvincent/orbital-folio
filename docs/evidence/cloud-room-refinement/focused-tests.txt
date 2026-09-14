@@ -1,0 +1,31 @@
+✔ Small cloud fields are deterministic, nonempty and encode wrapped slopes (5.319708ms)
+✔ Cloud texture preserves bytes, mip/seam settings and bounded volume material (0.442834ms)
+✔ Cloud environment wide: ready, placement, pause, memory and cleanup (15.634875ms)
+✔ Cloud environment compact: ready, placement, pause, memory and cleanup (7.526792ms)
+✔ Malformed injection rejects and disposal prevents a queued installation (7.807542ms)
+✔ HTTP already decompressed CFD1 becomes the exact cloud texture (44.249333ms)
+✔ HTTP gzip archive CFD1 becomes the exact cloud texture (53.743041ms)
+✔ Pending fetch aborts and late rejection does not generate or invalidate (1.641917ms)
+✔ CFD1 defines channel order, little-endian dimensions, row resets and wraparound (1.229542ms)
+✔ Random and extreme bytes round-trip across rows, channels, and non-power-of-two sizes (4.782708ms)
+✔ Codec respects typed-array offsets and does not mutate packet bytes (0.089333ms)
+✔ Malformed headers, lengths and dimensions fail before decoding (0.307542ms)
+✔ wide: all eight cabin side junctions have closed rounded rear, floor and ceiling returns (39.346667ms)
+✔ wide: the rounded chassis preserves the real cabin and ladder door apertures (3.264042ms)
+✔ compact: all eight cabin side junctions have closed rounded rear, floor and ceiling returns (32.499666ms)
+✔ compact: the rounded chassis preserves the real cabin and ladder door apertures (3.080417ms)
+✔ pressure mount has continuous radial shading, flat mating faces and a closed clear bore (68.434416ms)
+✔ retaining ring has continuous radial shading, flat mating faces and a closed clear bore (20.155125ms)
+✔ Production docking mount preserves radial normals through batching and both layouts (547.020375ms)
+✔ Thicker walls retain the established cabin dimensions and C-shaped room arrangement (670.130791ms)
+✔ Rendered cabin, ladder and docking partitions measure 0.17 in both layouts (553.863416ms)
+✔ Rendered roofs, floors and the shared deck retain 0.17 walls around unchanged interiors (660.740833ms)
+✔ One continuous hatch guide spans each shared wall with only a flush lip (403.712333ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4476.925292

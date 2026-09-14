@@ -1,0 +1,33 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (25.261375ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (11.440833ms)
+✔ Disposal before injected texture installation releases it without invalidating (15.384333ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (49.993042ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (109.404667ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (24.613792ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.957625ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.658875ms)
+✔ Earth loader propagates fetch and decode failures (0.89575ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.50475ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.998125ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.203583ms)
+✔ Texture construction/configuration failure releases owned resources (0.905875ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.057042ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.284416ms)
+✔ Night defaults to 2K while the historical day and explicit 8K night remain available (0.316208ms)
+✔ The shipped 2K night map matches its source manifest and texture memory estimate (5.014875ms)
+✔ Night Earth shares one geometry with one atmosphere and has no unused daylight rig (15.40575ms)
+✔ Mediterranean stays visible for the first ten seconds at 1280×720 (10.755834ms)
+✔ Mediterranean stays visible for the first ten seconds at 2560×600 (7.031125ms)
+✔ Mediterranean stays visible for the first ten seconds at 390×844 (3.238375ms)
+✔ Mediterranean stays visible for the first ten seconds at 768×4096 (2.916459ms)
+✔ Night lighting stays photographic and resizing reuses every loaded resource (26.49225ms)
+✔ The opening waits for image readiness and respects the global active clock (16.563208ms)
+✔ The shipped night asset matches its manifest, real 2K dimensions and source provenance (3.469584ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 895.7095

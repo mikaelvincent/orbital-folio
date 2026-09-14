@@ -95,6 +95,7 @@ export function buildProjectPayloadModule(
     height: number,
     radius: number,
     hole = false,
+    curveSegments = 32,
   ) => {
     const path = hole ? new THREE.Path() : new THREE.Shape();
     const x = -width / 2,
@@ -111,7 +112,7 @@ export function buildProjectPayloadModule(
     path.quadraticCurveTo(x, y, x + r, y);
     path.closePath();
     if (hole) {
-      const points = path.getPoints(32).reverse();
+      const points = path.getPoints(curveSegments).reverse();
       const reversePath = new THREE.Path(points);
       reversePath.closePath();
       return reversePath;
@@ -130,15 +131,21 @@ export function buildProjectPayloadModule(
     mat: any,
     bevel: number,
     name: string,
+    curveSegments = 12,
+    bevelSegments = 2,
   ) => {
     const outline = rounded(width, height, radius);
-    outline.holes.push(rounded(insideWidth, insideHeight, insideRadius, true));
+    outline.holes.push(
+      rounded(insideWidth, insideHeight, insideRadius, true, curveSegments),
+    );
+    // Reserve dense curvature for the readable screen. The surrounding hardware
+    // needs far fewer corner samples while retaining its closed rebates and bevels.
     const geometry = new THREE.ExtrudeGeometry(outline, {
       depth,
       steps: 1,
-      curveSegments: 32,
+      curveSegments,
       bevelEnabled: bevel > 0,
-      bevelSegments: 2,
+      bevelSegments,
       bevelThickness: bevel,
       bevelSize: bevel,
     });
@@ -317,6 +324,8 @@ export function buildProjectPayloadModule(
       m.dark,
       0.002,
       'side-grab-loop',
+      8,
+      1,
     );
     handle.position.x = side * 0.617;
     for (const y of [-0.123, 0.123]) {

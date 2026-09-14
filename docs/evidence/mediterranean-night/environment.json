@@ -1,0 +1,280 @@
+{
+  "activeTime": 162.89970000001574,
+  "ready": true,
+  "earthReady": true,
+  "earthMode": "satellite-night-lights",
+  "earthAppearance": "night",
+  "earthOpening": {
+    "longitude": 18,
+    "latitude": 38,
+    "roll": -12
+  },
+  "earthOpeningElapsed": 162.84970000001573,
+  "earthSource": "local-satellite-image",
+  "earthLoadError": null,
+  "earthRotation": 0.4885491000000472,
+  "earthRotationRate": 0.003,
+  "earthTextureFetchMs": 156,
+  "earthTextureDecodeMs": 16.899999998509884,
+  "earthTextureReadyMs": 176.30000000447035,
+  "earthEncodedBytes": 179391,
+  "earthResponseBytes": 179391,
+  "earthTextureDimensions": [
+    2048,
+    1024
+  ],
+  "earthTextureBytes": 8388608,
+  "earthTextureGpuBytes": 11184812,
+  "earthTextureSamples": 1,
+  "cloudRotation": 0.4885491000000472,
+  "cloudRotationRate": 0.003,
+  "cloudFieldSamples": 0,
+  "cloudWeatherModel": "cloud-free-night-composite",
+  "cloudLightingModel": "photographic-night-lights",
+  "cloudReady": true,
+  "cloudTextureSize": 0,
+  "starCount": 2300,
+  "starBufferBytes": 101200,
+  "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+  "starTwinklePrimaryFrequencyRange": [
+    0.45,
+    2.65
+  ],
+  "starTwinkleSecondaryFrequencyRange": [
+    0.2,
+    1.8
+  ],
+  "starTwinkleAmplitudeRange": [
+    0.1,
+    0.55
+  ],
+  "meteorCapacity": 9,
+  "meteorTimingBanks": 3,
+  "meteorCreationFrequencyMultiplier": 3,
+  "meteorBankPeriod": 4.5,
+  "meteorGroupInterval": [
+    0.14,
+    4.38
+  ],
+  "meteorPairEveryGroups": 2,
+  "meteorTripleEveryGroups": 7,
+  "meteorAlignedShowerEveryCycles": 14,
+  "meteorGroupSize": 1,
+  "meteorGroupHasPair": false,
+  "meteorCount": 1,
+  "meteorPhases": [
+    0.1438525584593359,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "meteorStreams": [
+    {
+      "visible": true,
+      "phase": 0.1438525584593359,
+      "startAt": 162.704835672325,
+      "duration": 1.3546114839926302,
+      "nextAt": 167.13524217193248,
+      "cycle": 36,
+      "bank": 0,
+      "member": 0,
+      "groupId": 108,
+      "parallel": false,
+      "origin": [
+        0.835151279783895,
+        0.6631441022641957
+      ],
+      "direction": [
+        -0.6213865445868201,
+        -0.7835041558322788
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 158.2755516126408,
+      "duration": 1.4910026478497456,
+      "nextAt": 167.40225213639306,
+      "cycle": 35,
+      "bank": 0,
+      "member": 1,
+      "groupId": 105,
+      "parallel": false,
+      "origin": [
+        0.6667141726906266,
+        0.4305801619729027
+      ],
+      "direction": [
+        -0.9476955073159646,
+        0.31917585343057625
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 158.48435030742536,
+      "duration": 1.154529190082394,
+      "nextAt": 172.14619049753006,
+      "cycle": 35,
+      "bank": 0,
+      "member": 2,
+      "groupId": 105,
+      "parallel": false,
+      "origin": [
+        0.7251527482384518,
+        0.8051622803027567
+      ],
+      "direction": [
+        -0.646830167405018,
+        -0.7626340764316767
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 159.47339130385896,
+      "duration": 1.2492994141335656,
+      "nextAt": 164.00239181705402,
+      "cycle": 35,
+      "bank": 1,
+      "member": 0,
+      "groupId": 106,
+      "parallel": true,
+      "origin": [
+        0.8873896643707667,
+        0.6947671653563157
+      ],
+      "direction": [
+        -0.6011104888286936,
+        -0.7991659278398503
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 159.65948342897667,
+      "duration": 1.263661656388831,
+      "nextAt": 168.67421480071812,
+      "cycle": 35,
+      "bank": 1,
+      "member": 1,
+      "groupId": 106,
+      "parallel": true,
+      "origin": [
+        0.8733896643707667,
+        0.6807671653563157
+      ],
+      "direction": [
+        -0.6011104888286936,
+        -0.7991659278398503
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 159.8455755540944,
+      "duration": 1.3877365090718738,
+      "nextAt": 173.2575186010395,
+      "cycle": 35,
+      "bank": 1,
+      "member": 2,
+      "groupId": 106,
+      "parallel": true,
+      "origin": [
+        0.8593896643707667,
+        0.6667671653563156
+      ],
+      "direction": [
+        -0.6011104888286936,
+        -0.7991659278398503
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 160.7321190758873,
+      "duration": 1.4150724440527482,
+      "nextAt": 165.25647902162513,
+      "cycle": 35,
+      "bank": 2,
+      "member": 0,
+      "groupId": 107,
+      "parallel": true,
+      "origin": [
+        0.7911273517867358,
+        0.7453737845242723
+      ],
+      "direction": [
+        -0.5666311916029528,
+        -0.8239715363424985
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 160.9208956461145,
+      "duration": 1.2454712634362295,
+      "nextAt": 169.99156973096078,
+      "cycle": 35,
+      "bank": 2,
+      "member": 1,
+      "groupId": 107,
+      "parallel": true,
+      "origin": [
+        0.7771273517867358,
+        0.7313737845242723
+      ],
+      "direction": [
+        -0.5666311916029528,
+        -0.8239715363424985
+      ]
+    },
+    {
+      "visible": false,
+      "phase": 0,
+      "startAt": 161.10967221634172,
+      "duration": 1.4467614852237602,
+      "nextAt": 174.80815292619562,
+      "cycle": 35,
+      "bank": 2,
+      "member": 2,
+      "groupId": 107,
+      "parallel": true,
+      "origin": [
+        0.7631273517867357,
+        0.7173737845242723
+      ],
+      "direction": [
+        -0.5666311916029528,
+        -0.8239715363424985
+      ]
+    }
+  ],
+  "meteorPhase": 0.1438525584593359,
+  "meteorCycle": 36,
+  "meteorVisible": true,
+  "textureSize": 2048,
+  "dayTextureSize": 2048,
+  "proceduralTextureBytes": 32768,
+  "proceduralTextureGpuBytes": 43692,
+  "proceduralGenerationMs": 1.8,
+  "nebulaDimensions": [
+    128,
+    64
+  ],
+  "externalTextureRequests": 1,
+  "estimatedTextureMiB": 10.7083,
+  "earthRadius": 180,
+  "earthPosition": [
+    -35.47595482077385,
+    -195.71853949523836,
+    -77.72328445216223
+  ],
+  "earthAtmosphereLayers": 1,
+  "drawCallBudget": 13
+}

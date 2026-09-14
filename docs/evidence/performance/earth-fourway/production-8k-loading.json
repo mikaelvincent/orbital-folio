@@ -1,0 +1,13 @@
+[
+  {
+    "dimensions": [
+      8192,
+      4096
+    ],
+    "encodedBytes": 6615276,
+    "error": null,
+    "gpuBytes": 178956972,
+    "ready": true,
+    "source": "local-satellite-image"
+  }
+]

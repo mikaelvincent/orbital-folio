@@ -1,0 +1,598 @@
+{
+  "status": "complete-with-inconclusive-cases",
+  "protocolVersion": 2,
+  "startedAt": "2026-09-14T04:20:07.492Z",
+  "completedAt": "2026-09-14T04:47:58.467Z",
+  "scope": "CPU-only, warmed repeated algorithms in Node26; startup includes full fresh construction and failed readiness. No browser/GPU/FPS/thermal improvement measured.",
+  "cases": {
+    "local-matrix": {
+      "status": "inconclusive-insufficient-stable-blocks",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 2,
+      "excludedComparisonAttempts": 4,
+      "failedReadinessGates": 1,
+      "readinessControlSpreads": [
+        0.0391475714667856,
+        0.005207371684473203,
+        0.0066308529547560975,
+        0.0065889274596054904
+      ],
+      "cohorts": {
+        "AC Power": {
+          "acceptedBlocks": 2,
+          "orderCounts": {
+            "BAAB": 1,
+            "ABBA": 1
+          },
+          "medianReferenceMs": 0.08371522461906927,
+          "medianCandidateMs": 0.09562308602425285,
+          "medianRatio": 1.1422609355799738,
+          "ratioRange": [
+            1.134877278478153,
+            1.1496445926817944
+          ],
+          "medianDifferenceMs": 0.011907861405183573
+        }
+      },
+      "allComparisonAttempts": [
+        {
+          "block": 1,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.08392443956385497,
+          "candidateMs": 0.09524393957003195,
+          "ratio": 1.134877278478153,
+          "differenceMs": 0.011319500006176986,
+          "exclusionReasons": []
+        },
+        {
+          "block": 2,
+          "attempt": 1,
+          "accepted": false,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.08361558218717,
+          "candidateMs": 0.09666906769697364,
+          "ratio": 1.1561130732855984,
+          "differenceMs": 0.013053485509803647,
+          "exclusionReasons": [
+            "monotonic-control-drift"
+          ]
+        },
+        {
+          "block": 2,
+          "attempt": 2,
+          "accepted": false,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.08604062610365132,
+          "candidateMs": 0.09563700321650524,
+          "ratio": 1.111533092533443,
+          "differenceMs": 0.009596377112853924,
+          "exclusionReasons": [
+            "control-spread-exceeds-limit"
+          ]
+        },
+        {
+          "block": 3,
+          "attempt": 1,
+          "accepted": false,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.08339722643063782,
+          "candidateMs": 0.09675998872297603,
+          "ratio": 1.160230296189192,
+          "differenceMs": 0.01336276229233821,
+          "exclusionReasons": [
+            "monotonic-control-drift"
+          ]
+        },
+        {
+          "block": 3,
+          "attempt": 2,
+          "accepted": false,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.08361571675990495,
+          "candidateMs": 0.09596122078459461,
+          "ratio": 1.1476457357907806,
+          "differenceMs": 0.01234550402468966,
+          "exclusionReasons": [
+            "monotonic-control-drift"
+          ]
+        },
+        {
+          "block": 4,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0835060096742836,
+          "candidateMs": 0.09600223247847375,
+          "ratio": 1.1496445926817944,
+          "differenceMs": 0.01249622280419016,
+          "exclusionReasons": []
+        }
+      ],
+      "verification": {
+        "worldMatricesCompared": 718
+      }
+    },
+    "lighting-settled": {
+      "status": "complete-accepted-blocks",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 4,
+      "excludedComparisonAttempts": 2,
+      "failedReadinessGates": 0,
+      "readinessControlSpreads": [
+        0.006679531972241885,
+        0.008977283243899912,
+        0.007171994572197207
+      ],
+      "cohorts": {
+        "AC Power": {
+          "acceptedBlocks": 4,
+          "orderCounts": {
+            "ABBA": 2,
+            "BAAB": 2
+          },
+          "medianReferenceMs": 0.008435891170910897,
+          "medianCandidateMs": 0.007531480613088701,
+          "medianRatio": 0.8924962408467604,
+          "ratioRange": [
+            0.8734237957314493,
+            0.9454369540541414
+          ],
+          "medianDifferenceMs": -0.0009078977470774402
+        }
+      },
+      "allComparisonAttempts": [
+        {
+          "block": 1,
+          "attempt": 1,
+          "accepted": false,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008757720030581829,
+          "candidateMs": 0.007604618873128573,
+          "ratio": 0.868333178792352,
+          "differenceMs": -0.0011531011574532554,
+          "exclusionReasons": [
+            "control-spread-exceeds-limit"
+          ]
+        },
+        {
+          "block": 1,
+          "attempt": 2,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008412225708200514,
+          "candidateMs": 0.007953229050377037,
+          "ratio": 0.9454369540541414,
+          "differenceMs": -0.0004589966578234777,
+          "exclusionReasons": []
+        },
+        {
+          "block": 2,
+          "attempt": 1,
+          "accepted": false,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008321769728312054,
+          "candidateMs": 0.007471416666579004,
+          "ratio": 0.897815838518097,
+          "differenceMs": -0.0008503530617330508,
+          "exclusionReasons": [
+            "control-spread-exceeds-limit"
+          ]
+        },
+        {
+          "block": 2,
+          "attempt": 2,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008516080925969088,
+          "candidateMs": 0.0075303067415588565,
+          "ratio": 0.8842455593154129,
+          "differenceMs": -0.000985774184410232,
+          "exclusionReasons": []
+        },
+        {
+          "block": 3,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008459556633621279,
+          "candidateMs": 0.007388778065142659,
+          "ratio": 0.8734237957314493,
+          "differenceMs": -0.0010707785684786197,
+          "exclusionReasons": []
+        },
+        {
+          "block": 4,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008362675794363193,
+          "candidateMs": 0.007532654484618545,
+          "ratio": 0.9007469223781078,
+          "differenceMs": -0.0008300213097446486,
+          "exclusionReasons": []
+        }
+      ],
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      }
+    },
+    "lighting-changing": {
+      "status": "inconclusive-insufficient-stable-blocks",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 3,
+      "excludedComparisonAttempts": 2,
+      "failedReadinessGates": 0,
+      "readinessControlSpreads": [
+        0.024056000940580392,
+        0.011262346707679716
+      ],
+      "cohorts": {
+        "AC Power": {
+          "acceptedBlocks": 3,
+          "orderCounts": {
+            "ABBA": 2,
+            "BAAB": 1
+          },
+          "medianReferenceMs": 0.00873191835026415,
+          "medianCandidateMs": 0.008640546263788258,
+          "medianRatio": 0.989535851938752,
+          "ratioRange": [
+            0.9851832899762297,
+            1.0077221952569564
+          ],
+          "medianDifferenceMs": -9.13720864758917e-05
+        }
+      },
+      "allComparisonAttempts": [
+        {
+          "block": 1,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008730766174125208,
+          "candidateMs": 0.008798186855264633,
+          "ratio": 1.0077221952569564,
+          "differenceMs": 6.74206811394247e-05,
+          "exclusionReasons": []
+        },
+        {
+          "block": 2,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.00873191835026415,
+          "candidateMs": 0.008640546263788258,
+          "ratio": 0.989535851938752,
+          "differenceMs": -9.13720864758917e-05,
+          "exclusionReasons": []
+        },
+        {
+          "block": 3,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008742205537082045,
+          "candidateMs": 0.008612674812670902,
+          "ratio": 0.9851832899762297,
+          "differenceMs": -0.00012953072441114315,
+          "exclusionReasons": []
+        },
+        {
+          "block": 4,
+          "attempt": 1,
+          "accepted": false,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.008730480718164731,
+          "candidateMs": 0.008463886742357615,
+          "ratio": 0.9694639980989319,
+          "differenceMs": -0.0002665939758071164,
+          "exclusionReasons": [
+            "monotonic-control-drift"
+          ]
+        },
+        {
+          "block": 4,
+          "attempt": 2,
+          "accepted": false,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.009180994561490137,
+          "candidateMs": 0.008793906272531214,
+          "ratio": 0.9578380875441782,
+          "differenceMs": -0.00038708828895892347,
+          "exclusionReasons": [
+            "control-spread-exceeds-limit"
+          ]
+        }
+      ],
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      }
+    },
+    "iris-settled": {
+      "status": "inconclusive-insufficient-stable-blocks",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 3,
+      "excludedComparisonAttempts": 1,
+      "failedReadinessGates": 1,
+      "readinessControlSpreads": [
+        0.0029203510881440345,
+        0.04562199404910771
+      ],
+      "cohorts": {
+        "AC Power": {
+          "acceptedBlocks": 3,
+          "orderCounts": {
+            "ABBA": 2,
+            "BAAB": 1
+          },
+          "medianReferenceMs": 0.0009884950051061302,
+          "medianCandidateMs": 0.0018584297428164277,
+          "medianRatio": 1.880059821462524,
+          "ratioRange": [
+            1.8774090245485746,
+            1.8907319671630944
+          ],
+          "medianDifferenceMs": 0.0008699347377102975
+        }
+      },
+      "allComparisonAttempts": [
+        {
+          "block": 1,
+          "attempt": 1,
+          "accepted": false,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0010511151957640495,
+          "candidateMs": 0.0018551548424155105,
+          "ratio": 1.764939608799975,
+          "differenceMs": 0.000804039646651461,
+          "exclusionReasons": [
+            "control-spread-exceeds-limit"
+          ]
+        },
+        {
+          "block": 2,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0009889356757611803,
+          "candidateMs": 0.001856636762372083,
+          "ratio": 1.8774090245485746,
+          "differenceMs": 0.0008677010866109027,
+          "exclusionReasons": []
+        },
+        {
+          "block": 3,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0009858897443458044,
+          "candidateMs": 0.001864053255732863,
+          "ratio": 1.8907319671630944,
+          "differenceMs": 0.0008781635113870585,
+          "exclusionReasons": []
+        },
+        {
+          "block": 4,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0009884950051061302,
+          "candidateMs": 0.0018584297428164277,
+          "ratio": 1.880059821462524,
+          "differenceMs": 0.0008699347377102975,
+          "exclusionReasons": []
+        }
+      ],
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      }
+    },
+    "iris-moving": {
+      "status": "complete-accepted-blocks",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 4,
+      "excludedComparisonAttempts": 0,
+      "failedReadinessGates": 0,
+      "readinessControlSpreads": [
+        0.005430440584870578
+      ],
+      "cohorts": {
+        "AC Power": {
+          "acceptedBlocks": 2,
+          "orderCounts": {
+            "BAAB": 1,
+            "ABBA": 1
+          },
+          "medianReferenceMs": 0.001087405102657214,
+          "medianCandidateMs": 0.002041117605246727,
+          "medianRatio": 1.8770043582420515,
+          "ratioRange": [
+            1.8559950164172767,
+            1.8980137000668265
+          ],
+          "medianDifferenceMs": 0.0009537125025895133
+        },
+        "Battery Power": {
+          "acceptedBlocks": 2,
+          "orderCounts": {
+            "ABBA": 1,
+            "BAAB": 1
+          },
+          "medianReferenceMs": 0.001086454659347595,
+          "medianCandidateMs": 0.0020205546063608946,
+          "medianRatio": 1.8597726206791512,
+          "ratioRange": [
+            1.8555937321516893,
+            1.863951509206613
+          ],
+          "medianDifferenceMs": 0.0009340999470132998
+        }
+      },
+      "allComparisonAttempts": [
+        {
+          "block": 1,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "Battery Power",
+          "sourceAfter": "Battery Power",
+          "referenceMs": 0.0010854920342309522,
+          "candidateMs": 0.00202330451543654,
+          "ratio": 1.863951509206613,
+          "differenceMs": 0.0009378124812055876,
+          "exclusionReasons": []
+        },
+        {
+          "block": 2,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "Battery Power",
+          "sourceAfter": "Battery Power",
+          "referenceMs": 0.0010874172844642373,
+          "candidateMs": 0.0020178046972852493,
+          "ratio": 1.8555937321516893,
+          "differenceMs": 0.0009303874128210119,
+          "exclusionReasons": []
+        },
+        {
+          "block": 3,
+          "attempt": 1,
+          "accepted": true,
+          "order": "BAAB",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.0010899510360299562,
+          "candidateMs": 0.002068741998786888,
+          "ratio": 1.8980137000668265,
+          "differenceMs": 0.000978790962756932,
+          "exclusionReasons": []
+        },
+        {
+          "block": 4,
+          "attempt": 1,
+          "accepted": true,
+          "order": "ABBA",
+          "powerSource": "AC Power",
+          "sourceAfter": "AC Power",
+          "referenceMs": 0.001084859169284472,
+          "candidateMs": 0.0020134932117065667,
+          "ratio": 1.8559950164172767,
+          "differenceMs": 0.0009286340424220947,
+          "exclusionReasons": []
+        }
+      ],
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      }
+    },
+    "indexing-startup": {
+      "status": "inconclusive-initial-controls",
+      "requestedBlocks": 4,
+      "acceptedBlocks": 0,
+      "excludedComparisonAttempts": 0,
+      "failedReadinessGates": 2,
+      "readinessControlSpreads": [
+        0.28467458376678845,
+        0.22082615988825802
+      ],
+      "cohorts": {},
+      "allComparisonAttempts": [],
+      "verification": {
+        "exactExpandedDrawInputs": "passed",
+        "forcedHashCollisionFixture": "passed",
+        "groups": {
+          "ladder": {
+            "checked": 14,
+            "changed": 8,
+            "milliseconds": 15.822124999999687,
+            "bytesSaved": 733056,
+            "verticesBefore": 81774,
+            "verticesAfter": 58866
+          },
+          "projects": {
+            "checked": 15,
+            "changed": 5,
+            "milliseconds": 25.438793000000032,
+            "bytesSaved": 376576,
+            "verticesBefore": 86816,
+            "verticesAfter": 75048
+          }
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "Moving-iris results are split by power source; no claim of constant power across the full run.",
+    "Settled-iris, matrix and changing-lighting incomplete block sets remain formally inconclusive; inspect direction without promoting selected subsets into completed comparisons.",
+    "Idle lighting showed a tiny consistent saving; this does not establish end-to-end benefit.",
+    "Startup controls failed; no qualified net-startup timing comparison is available.",
+    "All candidate implementations remain disabled."
+  ],
+  "sourceHashMatches": {
+    "components/spacecraft-model.ts": true,
+    "components/flush-window-reveals.ts": true,
+    "components/case-study-archive.ts": true,
+    "components/rounded-cabin-interior.ts": true,
+    "lib/spacecraft-wall-layout.ts": true,
+    "components/iris-hatch.ts": true,
+    "scripts/benchmark-controlled-performance.mjs": true,
+    "scripts/benchmarks/controlled-cases.mjs": true,
+    "scripts/benchmarks/controlled-kernel.mjs": true,
+    "scripts/benchmarks/controlled-protocol.mjs": true,
+    "scripts/benchmarks/local-transform-cache-candidate.ts": true,
+    "scripts/benchmarks/material-lighting-candidate.ts": true,
+    "scripts/benchmarks/exact-matrix-inverse-candidate.ts": true,
+    "scripts/probe-targeted-exact-indexing.mjs": true
+  }
+}

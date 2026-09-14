@@ -1,0 +1,55 @@
+{
+  "applicationTests": {
+    "command": "npm test",
+    "tests": 159,
+    "passed": 159,
+    "failed": 0,
+    "log": "application-tests.txt"
+  },
+  "candidateCorrectnessTests": {
+    "command": "node --test scripts/benchmarks/*.test.mjs",
+    "passed": 6,
+    "failed": 0,
+    "scope": "Benchmark-only prototypes, not activated application code"
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "status": "passed"
+  },
+  "productionBuild": {
+    "command": "node /Users/mikaelvincent/.codex/plugins/cache/openai-bundled/sites/0.1.66/scripts/build-site.mjs",
+    "status": "passed"
+  },
+  "initialIntegrationFailure": {
+    "test": "Cabin additions remain passive and inside the unchanged pressure shell in both layouts",
+    "reason": "Compact Projects rear mounting shoe intersected the newly curved wall",
+    "resolution": "Rejustify secondary fittings on flat span and fit hidden mounting feet within housings; original containment tolerance preserved"
+  },
+  "performanceResults": "CPU candidates were not enabled; startup and isolated timing results are not claims about FPS, GPU time, temperature or power.",
+  "productionBrowser": {
+    "browser": "Chromium 152",
+    "checks": [
+      "All four rooms at 1280 \u00d7 720",
+      "About-to-Projects ladder navigation",
+      "Projects-to-Case Studies door navigation",
+      "390 \u00d7 844 direct About entry",
+      "Normal diagnostics capture completed and exported",
+      "No browser console errors observed"
+    ],
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "capture": "../performance/refinements/production-overview-after.json"
+  },
+  "additionalDevelopmentViewport": [
+    768,
+    1024
+  ]
+}

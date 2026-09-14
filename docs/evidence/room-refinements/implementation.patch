@@ -1,0 +1,949 @@
+--- a/components/about-personal-study.ts
++++ b/components/about-personal-study.ts
+@@ -26,7 +26,6 @@
+     navy: material('navy-cloth', 0x26384c, 0.97),
+     navySeam: material('navy-stitch', 0x3b4e61, 0.98),
+     linen: material('oatmeal-weave', 0xbdb098, 0.99),
+-    linenSeam: material('linen-seams', 0x94846b, 0.97),
+     rust: material('stored-quilt', 0x9b6340, 0.99),
+     graphite: material('graphite-frame', 0x202d37, 0.62, 0.12),
+     rubber: material('webbing-and-seals', 0x14202a, 0.98),
+@@ -306,7 +305,9 @@
+   }
+ 
+   // Berth: fixed backing, quilted sleep restraint, captive headpad and lower stowage.
+-  const bx = -0.99;
++  // Opening the former divider gap lets the complete berth move inward as one
++  // assembly. The retained bedding roll uses this frame's left edge for spacing.
++  const bx = -0.9;
+   box(
+     0.79,
+     1.89,
+@@ -603,7 +604,7 @@
+   }
+   stowage(bx, 0.328, 0.72, 0.325, 0.19, 'blanket-stowage', 'quilt');
+   // Keep the reading station rigid while giving its desk and library a clear
+-  // gap beside the curtain. Mounts, retained props and fasteners move with it.
++  // gap beside the berth access rail. Mounts, retained props and fasteners move with it.
+   const readingStation = group('reading-station', 0.085);
+   readingStation.userData.batchRoot = true;
+   const attachReadingStation = (
+@@ -620,58 +621,145 @@
+   stowage(0.12, 1.98, 0.85, 0.38, 0.16, 'personal-library', 'books');
+   attachReadingStation(beforeLibrary, libraryScrewStart, 'library-fasteners');
+ 
+-  // One continuous cloth surface, shaped into pleats, held by matching tracks.
+-  const cx = -0.472,
+-    cWidth = 0.284,
+-    cHeight = 1.89,
+-    cy = 1.151;
+-  const clothGeo = new THREE.PlaneGeometry(cWidth, cHeight, 40, 36);
+-  const cp = clothGeo.attributes.position;
+-  for (let i = 0; i < cp.count; i++) {
+-    const x = cp.getX(i),
+-      y = cp.getY(i);
+-    cp.setZ(
+-      i,
+-      0.031 * Math.cos((x / cWidth + 0.5) * Math.PI * 8) +
+-        0.002 * Math.cos(y * 9),
+-    );
+-  }
+-  clothGeo.computeVertexNormals();
+-  const curtainMat = m.linen.clone();
+-  curtainMat.name = prefix + 'privacy-fabric';
+-  curtainMat.side = THREE.DoubleSide;
+-  const curtain = mesh(clothGeo, curtainMat, 'continuous-pleated-curtain');
+-  curtain.position.set(cx, cy, -0.598);
+-  for (const y of [cy - cHeight / 2, cy + cHeight / 2]) {
+-    rod(
+-      [cx - cWidth / 2 - 0.035, y, -0.598],
+-      [cx + cWidth / 2 + 0.035, y, -0.598],
+-      0.013,
+-      m.metal,
+-      'curtain-captive-track',
+-    );
+-    for (const x of [cx - cWidth / 2 - 0.03, cx + cWidth / 2 + 0.03])
+-      wallAnchor(x, y, -0.601, 'curtain-track');
+-    for (let i = 0; i < 5; i++) {
+-      const x = cx - cWidth / 2 + (i * cWidth) / 4;
+-      cylinder(0.021, 0.01, m.graphite, x, y, -0.597, 'curtain-captive-slider');
+-      rod(
+-        [x, y, -0.58],
+-        [x, y + (y > cy ? -0.035 : 0.035), -0.568],
+-        0.006,
+-        m.metal,
+-        'curtain-hem-attachment',
+-      );
+-    }
+-  }
+-  for (const x of [cx - cWidth / 2, cx + cWidth / 2])
+-    rod(
+-      [x, cy - cHeight / 2, -0.568],
+-      [x, cy + cHeight / 2, -0.568],
+-      0.005,
+-      m.linenSeam,
+-      'curtain-stitched-edge',
+-    );
++  // A rigid berth service rail replaces the cloth divider. Rounded returns meet
++  // the bulkhead at both ends; the small amber grip remains within easy reach of
++  // the sleeping restraint. Its narrow profile leaves a clear gap to the desk.
++  const berthRailX = bx + 0.48;
++  for (const y of [0.58, 1.82]) {
++    wallAnchor(berthRailX, y, -0.921, 'berth-service');
++    box(
++      0.104,
++      0.104,
++      0.069,
++      m.graphite,
++      berthRailX,
++      y,
++      -0.889,
++      'berth-rail-mount',
++      root,
++      0.025,
++    );
++  }
++  box(
++    0.064,
++    1.415,
++    0.054,
++    m.graphite,
++    berthRailX,
++    1.25,
++    -0.937,
++    'berth-service-spine',
++    root,
++    0.017,
++  );
++  // Explicit straight and quarter-turn sections keep the grip coaxial with the
++  // rail; a spline through long unequal spans would bow away from the sleeve.
++  const railPoint = (y: number, z: number) =>
++    new THREE.Vector3(berthRailX, y, z);
++  const railPath = new THREE.CurvePath();
++  railPath.add(
++    new THREE.LineCurve3(railPoint(0.58, -0.864), railPoint(0.58, -0.752)),
++  );
++  railPath.add(
++    new THREE.QuadraticBezierCurve3(
++      railPoint(0.58, -0.752),
++      railPoint(0.58, -0.685),
++      railPoint(0.647, -0.685),
++    ),
++  );
++  railPath.add(
++    new THREE.LineCurve3(railPoint(0.647, -0.685), railPoint(1.753, -0.685)),
++  );
++  railPath.add(
++    new THREE.QuadraticBezierCurve3(
++      railPoint(1.753, -0.685),
++      railPoint(1.82, -0.685),
++      railPoint(1.82, -0.752),
++    ),
++  );
++  railPath.add(
++    new THREE.LineCurve3(railPoint(1.82, -0.752), railPoint(1.82, -0.864)),
++  );
++  mesh(
++    new THREE.TubeGeometry(railPath, 44, 0.017, 8, false),
++    m.graphite,
++    'rounded-berth-access-rail',
++  );
++  cylinder(
++    0.02,
++    0.32,
++    m.amber,
++    berthRailX,
++    1.2,
++    -0.685,
++    'berth-rail-grip',
++    root,
++    'y',
++  );
++  for (const y of [1.035, 1.365])
++    cylinder(
++      0.022,
++      0.016,
++      m.rubber,
++      berthRailX,
++      y,
++      -0.685,
++      'berth-grip-collar',
++      root,
++      'y',
++    );
++
++  // A fixed, shielded reading lamp terminates the service spine at head height.
++  // The lens is emissive only: it adds no light/shadow work or new interaction.
++  wallAnchor(berthRailX, 1.967, -0.921, 'berth-light');
++  box(
++    0.057,
++    0.072,
++    0.199,
++    m.graphite,
++    berthRailX,
++    1.967,
++    -0.832,
++    'berth-light-retained-arm',
++    root,
++    0.015,
++  );
++  box(
++    0.182,
++    0.083,
++    0.111,
++    m.graphite,
++    berthRailX,
++    1.964,
++    -0.716,
++    'berth-reading-light-housing',
++    root,
++    0.025,
++  );
++  box(
++    0.143,
++    0.041,
++    0.014,
++    m.cream,
++    berthRailX,
++    1.955,
++    -0.656,
++    'berth-reading-light-recess',
++    root,
++    0.009,
++  );
++  box(
++    0.123,
++    0.022,
++    0.006,
++    m.diffuser,
++    berthRailX,
++    1.952,
++    -0.646,
++    'berth-reading-light-lens',
++    root,
++    0.005,
++  );
+ 
+   // Narrow sealed personal locker, with seated latches and discreet ventilation.
+   const beforeLocker = new Set(root.children);
+@@ -1342,7 +1430,9 @@
+     pageFlags: ['My story', 'How I work', 'Beyond work'],
+     pageFlagsAttachedTo: 'paper-leaves',
+     enclosedStowage: true,
+-    retainedCurtain: ['top-track', 'bottom-track'],
++    berthCenter: bx,
++    berthLeftEdge: bx - 0.395,
++    berthFixture: 'rigid-access-rail-with-reading-light',
+     readingStationOffset: 0.085,
+     noNewInteractions: true,
+   };
+--- a/components/cabin-utility-fittings.ts
++++ b/components/cabin-utility-fittings.ts
+@@ -21,6 +21,7 @@
+   root: any,
+   section: CabinKind,
+   rearProfile: ProfilePoint[],
++  cornerRadius: number,
+ ) {
+   const prefix = `${section}-utility-`;
+   const material = (
+@@ -67,10 +68,13 @@
+   for (const layout of ['wide', 'compact']) {
+     const s = layout === 'wide' ? 1 : 0.84;
+     const halfWidth = CABIN_HALF_WIDTH * (layout === 'wide' ? 1.4 : 1);
++    const flatHalfWidth =
++      halfWidth - cornerRadius * (layout === 'wide' ? 1.4 : 1);
+     // Furniture keeps its own uniform scale while the pressure shell changes
+-    // width. Center fittings in the gap to the nearest actual furniture edge.
++    // width. Justify fittings in the usable flat wall between the rounded
++    // corner and furniture; their mounting feet must not sink into the return.
+     const edgeCenter = (side: number, furnitureEdge: number) =>
+-      (side * halfWidth + furnitureEdge * s) / 2;
++      (side * flatHalfWidth + furnitureEdge * s) / 2;
+     const variant = new THREE.Group();
+     variant.name = prefix + layout;
+     variant.userData = {
+@@ -180,9 +184,12 @@
+     ) => {
+       const back =
+         Math.max(rearAt(y - height / 2), rearAt(y + height / 2)) + 0.028 * s;
++      // Narrow cases need proportionate feet: a fixed-size shoe used to
++      // extend beyond compact side equipment into the curved wall junction.
++      const shoeWidth = Math.min(0.065 * s, w * 0.22);
+       for (const dx of [-w * 0.38, w * 0.38])
+         for (const dy of [-height * 0.33, height * 0.33])
+-          shoe(x + dx, y + dy, back + 0.006 * s);
++          shoe(x + dx, y + dy, back + 0.006 * s, shoeWidth);
+       box(
+         w,
+         height,
+@@ -696,7 +703,14 @@
+       // Service umbilicals descend behind the social displays, outside their faces.
+       for (const side of [-1, 1])
+         assembly(`console-umbilical-${side}`, () => {
+-          const x = (side * (halfWidth + 1.585 * s)) / 2,
++          const x =
++              side *
++              Math.min(
++                (halfWidth + 1.585 * s) / 2,
++                // Keep the whole strain-relief footprint inside the flat rear
++                // wall in the narrow layout. It remains behind the console.
++                flatHalfWidth - (0.075 * s) / 2 - 0.004,
++              ),
+             y = (CONTACT_GRID.sideY - CONTACT_GRID.lowering) * s;
+           for (const dy of [-0.44, 0.44]) shoe(x, y + dy * s, -0.988);
+           box(
+@@ -810,7 +824,7 @@
+         );
+       });
+       assembly('retained-bedding-roll', () => {
+-        const x = edgeCenter(-1, -1.385);
++        const x = edgeCenter(-1, -1.295);
+         // Share the berth's vertical midpoint while retaining its own wall column.
+         const y = 1.15 * s;
+         const face = mountedBox(x, y, 0.2 * s, 0.87 * s, 0.025 * s, m.seam);
+--- a/components/spacecraft-model.ts
++++ b/components/spacecraft-model.ts
+@@ -1,4 +1,8 @@
+ import { buildContinuousExteriorSkin } from './continuous-exterior-skin.ts';
++import {
++  buildRoundedCabinInterior,
++  trimCabinSideWall,
++} from './rounded-cabin-interior.ts';
+ import { coalesceStaticInstances } from '../lib/coalesce-static-instances.ts';
+ import { thinChassisOutline } from './thin-chassis-outline.ts';
+ import { ladderOpeningOutline } from './ladder-opening-outline.ts';
+@@ -1032,19 +1036,13 @@
+       .clone()
+       .addScaledVector(normal, PRESSURE_WALL / Math.max(0.5, normal.dot(n0)));
+   });
+-  const shellShape = new THREE.Shape();
+-  shellShape.moveTo(exteriorPoints[0].x, exteriorPoints[0].y);
+-  for (const p of exteriorPoints.slice(1)) shellShape.lineTo(p.x, p.y);
+-  for (const p of [...interiorPoints].reverse()) shellShape.lineTo(p.x, p.y);
+-  shellShape.closePath();
+-  const shellGeometry = new THREE.ExtrudeGeometry(shellShape, {
+-    depth: 2 * CABIN_HALF_WIDTH,
+-    bevelEnabled: false,
+-    steps: 1,
+-  });
+-  smoothShoulderNormals(shellGeometry);
+-  shellGeometry.rotateY(Math.PI / 2);
+-  shellGeometry.translate(-CABIN_HALF_WIDTH, 0, 0);
++  const cabinLining = buildRoundedCabinInterior(
++    THREE,
++    interiorPoints,
++    CABIN_HALF_WIDTH,
++    0.08,
++    8,
++  );
+   const unitBox = new THREE.BoxGeometry(1, 1, 1);
+   const boltGeometry = new THREE.CylinderGeometry(0.021, 0.021, 0.013, 6);
+   boltGeometry.rotateX(Math.PI / 2);
+@@ -1064,28 +1062,11 @@
+     const exteriorHardware = new THREE.Group();
+     exteriorHardware.userData = { section, exterior: true };
+     room.add(exteriorHardware);
+-    const skinGeometry = shellGeometry.clone();
+-    const positions = skinGeometry.getAttribute('position');
+-    const normals = skinGeometry.getAttribute('normal');
+-    const kept: number[] = [];
+-    const upper = roomCenters[section][1] > 0;
+-    for (let i = 0; i < positions.count; i += 3) {
+-      const hiddenSharedFace = [i, i + 1, i + 2].every((j) =>
+-        upper
+-          ? normals.getY(j) < -0.999 &&
+-            positions.getY(j) < cabinFloorTop - PRESSURE_WALL + 1e-5
+-          : normals.getY(j) > 0.999 &&
+-            positions.getY(j) > cabinCeiling + PRESSURE_WALL - 1e-5,
+-      );
+-      if (!hiddenSharedFace) kept.push(i, i + 1, i + 2);
+-    }
+-    skinGeometry.setIndex(kept);
+-    const skin = pressureMesh(
+-      skinGeometry,
+-      m.shell,
++    const skin = mesh(
++      cabinLining.geometry,
++      m.wall,
+       room,
+-      section + '-continuous-pressure-skin',
+-      0,
++      section + '-continuous-pressure-skin-interior',
+     );
+     skin.position.set(x, 0, 0);
+     const seal = mesh(
+@@ -1337,7 +1318,10 @@
+     // Preserve the dark deck finish as paint on the existing floor. The old
+     // thick backing block protruded through the rounded outer keel corners.
+     const floorFinish = mesh(
+-      new THREE.PlaneGeometry(2.77, 1.61),
++      new THREE.PlaneGeometry(
++        2 * (CABIN_HALF_WIDTH - cabinLining.radius),
++        1.61,
++      ),
+       m.navy,
+       room,
+       'flush-deck-finish-interior',
+@@ -1359,14 +1343,20 @@
+   const passageShape = wallOutline.clone();
+   const roomOpening = passageCircle(-PASSAGE_CABIN_Z, PASSAGE_CENTER_Y);
+   passageShape.holes.push(roomOpening);
+-  const openWallGeometry = new THREE.ExtrudeGeometry(passageShape, {
++  const untrimmedOpenWall = new THREE.ExtrudeGeometry(passageShape, {
+     depth: PRESSURE_WALL,
+     bevelEnabled: false,
+     curveSegments: 96,
+     steps: 1,
+   });
+-  openWallGeometry.translate(0, 0, -PRESSURE_WALL / 2);
+-  openWallGeometry.rotateY(Math.PI / 2);
++  untrimmedOpenWall.translate(0, 0, -PRESSURE_WALL / 2);
++  untrimmedOpenWall.rotateY(Math.PI / 2);
++  const openWallGeometry = trimCabinSideWall(
++    THREE,
++    untrimmedOpenWall,
++    cabinLining.sideProfile,
++  );
++  untrimmedOpenWall.dispose();
+   // One physical divider per row. The continuous ladder wall supplies the
+   // left entrances; adding another room wall there would double its thickness.
+   for (const section of Object.keys(roomCenters)) {
+@@ -1698,58 +1688,6 @@
+     walkwayFurniture,
+     'walkway-continuous-rear-liner',
+   );
+-  // Extruded curve faces duplicate their vertices and otherwise retain one
+-  // normal per segment. Smooth the longitudinal inner and outer shoulder faces;
+-  // keep the bevels, planar end faces and deliberate hard creases unchanged.
+-  function smoothShoulderNormals(geometry: any) {
+-    const positions = geometry.getAttribute('position');
+-    const normals = geometry.getAttribute('normal');
+-    const neighbors = new Map<string, Array<{ normal: any; weight: number }>>();
+-    const key = (p: any) =>
+-      `${Math.round(p.x * 1e6)}:${Math.round(p.y * 1e6)}:${Math.round(p.z * 1e6)}`;
+-    const points = [
+-      new THREE.Vector3(),
+-      new THREE.Vector3(),
+-      new THREE.Vector3(),
+-    ];
+-    for (let i = 0; i < positions.count; i += 3) {
+-      for (let j = 0; j < 3; j++)
+-        points[j].fromBufferAttribute(positions, i + j);
+-      const normal = points[1]
+-        .clone()
+-        .sub(points[0])
+-        .cross(points[2].clone().sub(points[0]))
+-        .normalize();
+-      if (Math.abs(normal.z) > 1e-5 || normal.lengthSq() < 0.5) continue;
+-      for (let j = 0; j < 3; j++) {
+-        const a = points[(j + 1) % 3].clone().sub(points[j]).normalize();
+-        const b = points[(j + 2) % 3].clone().sub(points[j]).normalize();
+-        const weight = Math.acos(Math.max(-1, Math.min(1, a.dot(b))));
+-        const k = key(points[j]),
+-          list = neighbors.get(k) || [];
+-        list.push({ normal, weight });
+-        neighbors.set(k, list);
+-      }
+-    }
+-    const point = new THREE.Vector3(),
+-      original = new THREE.Vector3();
+-    const average = new THREE.Vector3(),
+-      crease = Math.cos(Math.PI / 4);
+-    for (let i = 0; i < positions.count; i++) {
+-      original.fromBufferAttribute(normals, i);
+-      if (Math.abs(original.z) > 1e-5) continue;
+-      point.fromBufferAttribute(positions, i);
+-      average.set(0, 0, 0);
+-      for (const neighbor of neighbors.get(key(point)) || [])
+-        if (original.dot(neighbor.normal) > crease)
+-          average.addScaledVector(neighbor.normal, neighbor.weight);
+-      if (average.lengthSq() > 1e-12) {
+-        average.normalize();
+-        normals.setXYZ(i, average.x, average.y, average.z);
+-      }
+-    }
+-    normals.needsUpdate = true;
+-  }
+   function shareWalkwayDoorwayLighting(wall: any) {
+     // This single partition replaces both former cabin walls. Its cabin-facing
+     // surface must inherit the adjacent room, not the ladder's dimmer state.
+@@ -1812,8 +1750,15 @@
+           new THREE.Float32BufferAttribute(values[name], attribute.itemSize),
+         );
+       geometry.computeBoundingSphere();
++      const roundedFace = trimCabinSideWall(
++        THREE,
++        geometry,
++        cabinLining.sideProfile,
++        sign * DECK_HALF_PITCH,
++      );
++      geometry.dispose();
+       mesh(
+-        geometry,
++        roundedFace,
+         sharedWalkwayWalls[room],
+         wall,
+         `walkway-${room}-cabin-facing-wall`,
+@@ -2144,6 +2089,7 @@
+       root,
+       section,
+       interiorPoints.map((point: any) => ({ y: point.y, z: -point.x })),
++      cabinLining.radius,
+     );
+     return { section, root, fittings };
+   });
+@@ -3352,6 +3298,13 @@
+       geometry.computeVertexNormals();
+       geometry.rotateY(Math.PI / 2);
+       geometry.translate(rightX - PRESSURE_WALL, 0, 0);
++      const roundedFace = trimCabinSideWall(
++        THREE,
++        geometry,
++        cabinLining.sideProfile,
++        sign * DECK_HALF_PITCH,
++      );
++      geometry.dispose();
+       const roomFace = new THREE.Group();
+       roomFace.userData = {
+         section,
+@@ -3361,7 +3314,7 @@
+       };
+       frame.add(roomFace);
+       mesh(
+-        geometry,
++        roundedFace,
+         m.wall,
+         roomFace,
+         section + '-sealed-outboard-wall-interior',
+--- a/components/spacecraft.tsx
++++ b/components/spacecraft.tsx
+@@ -1821,21 +1821,65 @@
+             aoDirty = true;
+             background.resize(w, h, renderer.getPixelRatio());
+           };
++          const identity = document.querySelector('.orbital-identity');
++          let initializedCamera = false;
++          let previousViewport = '';
+           const resize = () => {
+             if (el.clientWidth < 240 || el.clientHeight < 480) return;
+             const w = Math.max(1, el.clientWidth),
+               h = Math.max(1, el.clientHeight);
++            const identityBounds = identity?.getBoundingClientRect();
++            const viewport = [
++              w,
++              h,
++              devicePixelRatio,
++              identityBounds?.top,
++              identityBounds?.bottom,
++            ].join(',');
++            // ResizeObserver also delivers an initial notification after setup.
++            // Reframing an unchanged viewport here would cancel the entrance.
++            if (viewport === previousViewport) return;
++            previousViewport = viewport;
+             setDrawingSize();
+             camera.aspect = w / h;
+             camera.updateProjectionMatrix();
+             syncSceneTargets();
+             renderer.shadowMap.needsUpdate = true;
+             resetDiagnostics('viewport changed');
+-            go(true, travelling);
++            if (!initializedCamera) {
++              // Deep links start at precisely the responsive overview pose,
++              // including portrait hull rotation. go() then uses the same
++              // itinerary and springs as an overview room selection.
++              const overview = pose('home', false);
++              currentTarget.copy(overview.target);
++              viewDirection.copy(overview.direction);
++              distance = overview.distance;
++              roll = overview.roll;
++              overview.target
++                .toArray()
++                .forEach((v, i) => resetAxis(targetMotion[i], v));
++              overview.direction
++                .toArray()
++                .forEach((v, i) => resetAxis(directionMotion[i], v));
++              resetAxis(distanceMotion, distance);
++              resetAxis(rollMotion, roll);
++              model.update(
++                0,
++                '',
++                true,
++                {
++                  activeRoom: 'home',
++                  reading: false,
++                  travelling: false,
++                  delta: 0,
++                },
++                true,
++              );
++              initializedCamera = true;
++            } else go(true, travelling);
+           };
+           const observer = new ResizeObserver(resize);
+           observer.observe(el);
+-          const identity = document.querySelector('.orbital-identity');
+           if (identity) observer.observe(identity);
+           resize();
+           function targetFeedback(
+--- a/components/rounded-cabin-interior.ts
++++ b/components/rounded-cabin-interior.ts
+@@ -0,0 +1,162 @@
++/**
++ * A single cabin lining, including the returns onto both side walls. The
++ * quarter-round replaces the old edge strips; adjoining side faces are cut
++ * back to the same boundary rather than covered by another raised panel.
++ */
++export function buildRoundedCabinInterior(
++  THREE: any,
++  profile: any[],
++  halfWidth: number,
++  radius = 0.08,
++  steps = 12,
++) {
++  const normals = profile.map((point: any, i: number) => {
++    const before = point
++      .clone()
++      .sub(profile[Math.max(0, i - 1)])
++      .normalize();
++    const after = profile[Math.min(profile.length - 1, i + 1)]
++      .clone()
++      .sub(point)
++      .normalize();
++    if (!i) before.copy(after);
++    if (i === profile.length - 1) after.copy(before);
++    const n0 = new THREE.Vector2(-before.y, before.x);
++    const n1 = new THREE.Vector2(-after.y, after.x);
++    const normal = n0.clone().add(n1).normalize();
++    return {
++      normal,
++      // Intersect the two offset profile segments. Both the return and the
++      // trimmed wall use this exact boundary, including the rear coves.
++      offset: normal.clone().multiplyScalar(radius / normal.dot(n0)),
++    };
++  });
++  const sideProfile = profile.map((p: any, i: number) =>
++    p.clone().add(normals[i].offset),
++  );
++  const columns: Array<{ x: number; angle: number; sign: number }> = [];
++  for (const sign of [-1, 1])
++    for (let step = 0; step <= steps; step++) {
++      const angle = (((sign < 0 ? steps - step : step) / steps) * Math.PI) / 2;
++      columns.push({
++        x: sign * (halfWidth - radius + radius * Math.sin(angle)),
++        angle,
++        sign,
++      });
++    }
++  const positions: number[] = [];
++  const vertexNormals: number[] = [];
++  const uvs: number[] = [];
++  const indices: number[] = [];
++  for (const { x, angle, sign } of columns)
++    for (let i = 0; i < profile.length; i++) {
++      const point = profile[i]
++        .clone()
++        .addScaledVector(normals[i].offset, 1 - Math.cos(angle));
++      positions.push(x, point.y, -point.x);
++      vertexNormals.push(
++        -sign * Math.sin(angle),
++        normals[i].normal.y * Math.cos(angle),
++        -normals[i].normal.x * Math.cos(angle),
++      );
++      uvs.push(x / (2 * halfWidth) + 0.5, i / (profile.length - 1));
++    }
++  for (let x = 0; x + 1 < columns.length; x++)
++    for (let p = 0; p + 1 < profile.length; p++) {
++      const a = x * profile.length + p;
++      const b = (x + 1) * profile.length + p;
++      indices.push(a, b, b + 1, a, b + 1, a + 1);
++    }
++  const geometry = new THREE.BufferGeometry();
++  geometry.setAttribute(
++    'position',
++    new THREE.Float32BufferAttribute(positions, 3),
++  );
++  geometry.setAttribute(
++    'normal',
++    new THREE.Float32BufferAttribute(vertexNormals, 3),
++  );
++  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
++  geometry.setIndex(indices);
++  geometry.computeBoundingSphere();
++  geometry.userData = { radius, replacesSideStrips: true };
++  return { geometry, sideProfile, radius };
++}
++
++/** Clip a planar side-wall face to the matching rounded lining's contour.
++ * Aperture holes and their physical throat faces remain unchanged.
++ */
++export function trimCabinSideWall(
++  THREE: any,
++  source: any,
++  sideProfile: any[],
++  centerY = 0,
++) {
++  const attributes = Object.entries(source.attributes) as Array<[string, any]>;
++  const values = Object.fromEntries(
++    attributes.map(([name]) => [name, [] as number[]]),
++  );
++  const count = source.index?.count ?? source.getAttribute('position').count;
++  for (let i = 0; i < count; i += 3) {
++    let polygon = [0, 1, 2].map((offset) => {
++      const index = source.index ? source.index.getX(i + offset) : i + offset;
++      return Object.fromEntries(
++        attributes.map(([name, attribute]) => [
++          name,
++          Array.from(
++            { length: attribute.itemSize },
++            (_, c) => attribute.array[index * attribute.itemSize + c],
++          ),
++        ]),
++      );
++    });
++    if (polygon.every((vertex) => Math.abs(vertex.normal[0]) > 0.999)) {
++      for (let edge = 0; edge < sideProfile.length && polygon.length; edge++) {
++        const a = sideProfile[edge];
++        const b = sideProfile[(edge + 1) % sideProfile.length];
++        const distance = (vertex: any) =>
++          (b.x - a.x) * (vertex.position[1] - centerY - a.y) -
++          (b.y - a.y) * (-vertex.position[2] - a.x);
++        const clipped: typeof polygon = [];
++        for (let j = 0; j < polygon.length; j++) {
++          const p = polygon[j];
++          const q = polygon[(j + 1) % polygon.length];
++          const dp = distance(p);
++          const dq = distance(q);
++          if (dp >= -1e-10) clipped.push(p);
++          if (dp >= -1e-10 !== dq >= -1e-10) {
++            const fraction = dp / (dp - dq);
++            clipped.push(
++              Object.fromEntries(
++                attributes.map(([name]) => [
++                  name,
++                  p[name].map(
++                    (value, c) => value + (q[name][c] - value) * fraction,
++                  ),
++                ]),
++              ),
++            );
++          }
++        }
++        polygon = clipped;
++      }
++    }
++    for (let j = 1; j + 1 < polygon.length; j++) {
++      const triangle = [polygon[0], polygon[j], polygon[j + 1]];
++      const [a, b, c] = triangle.map(
++        (vertex) => new THREE.Vector3(...vertex.position),
++      );
++      if (b.sub(a).cross(c.sub(a)).lengthSq() < 1e-18) continue;
++      for (const vertex of triangle)
++        for (const [name] of attributes) values[name].push(...vertex[name]);
++    }
++  }
++  const geometry = new THREE.BufferGeometry();
++  for (const [name, attribute] of attributes)
++    geometry.setAttribute(
++      name,
++      new THREE.Float32BufferAttribute(values[name], attribute.itemSize),
++    );
++  geometry.computeBoundingSphere();
++  return geometry;
++}
+--- a/tests/rounded-cabin-interior.test.mjs
++++ b/tests/rounded-cabin-interior.test.mjs
+@@ -0,0 +1,180 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import { createSpacecraft } from '../components/spacecraft-model.ts';
++import {
++  CABIN_CEILING,
++  CABIN_FLOOR,
++  CABIN_HALF_WIDTH,
++  PASSAGE_CENTER_Y,
++  PASSAGE_CABIN_Z,
++  PASSAGE_LADDER_Z,
++  DECK_HALF_PITCH,
++  wallLayout,
++} from '../lib/spacecraft-wall-layout.ts';
++
++const model = createSpacecraft(THREE);
++const radius = 0.08;
++const wallParts =
++  /continuous-pressure-skin-interior|open-side-pressure-bulkhead|sealed-outboard-wall-interior|walkway-(projects|about)-cabin-facing-wall/;
++
++function visibleWalls(layout) {
++  model.setLayout(layout);
++  model.group.updateMatrixWorld(true);
++  const walls = [];
++  model.group.traverseVisible((object) => {
++    if (
++      object.isMesh &&
++      [object.name, ...(object.userData.parts || [])].some((name) =>
++        wallParts.test(name),
++      )
++    )
++      walls.push(object);
++  });
++  return walls;
++}
++
++function checkSurface(walls, point, normal, label) {
++  const ray = new THREE.Raycaster(
++    point.clone().addScaledVector(normal, 0.045),
++    normal.clone().negate(),
++    0,
++    0.075,
++  );
++  const hits = ray.intersectObjects(walls, false);
++  assert.ok(hits.length, `${label}: the lining must remain closed`);
++  assert.ok(
++    hits[0].point.distanceTo(point) < 0.0007,
++    `${label}: the corner must follow its rounded contour, without the old 90-degree junction`,
++  );
++  const shadingNormal = hits[0].normal
++    .clone()
++    .applyMatrix3(
++      new THREE.Matrix3().getNormalMatrix(hits[0].object.matrixWorld),
++    )
++    .normalize();
++  assert.ok(
++    shadingNormal.dot(normal) > 0.995,
++    `${label}: the rounded return must remain tangent to the wall finish`,
++  );
++  // Coplanar edges can report twice, but two interior triangle hits expose an
++  // overlaid panel. Check barycentrics because production batching combines
++  // different source surfaces into the same mesh.
++  const interiors = hits.filter((hit) => {
++    if (hit.distance > hits[0].distance + 1e-5) return false;
++    const p = hit.object.geometry.getAttribute('position');
++    const points = [hit.face.a, hit.face.b, hit.face.c].map((i) =>
++      new THREE.Vector3()
++        .fromBufferAttribute(p, i)
++        .applyMatrix4(hit.object.matrixWorld),
++    );
++    const bary = new THREE.Triangle(...points).getBarycoord(
++      hit.point,
++      new THREE.Vector3(),
++    );
++    return bary && Math.min(...bary.toArray()) > 1e-5;
++  });
++  assert.ok(
++    interiors.length <= 1,
++    `${label}: a return must replace the flat edge, not overlap it`,
++  );
++}
++
++for (const [layout, scale] of [
++  ['wide', 1.4],
++  ['compact', 1],
++]) {
++  test(`${layout}: all eight cabin side junctions have closed rounded rear, floor and ceiling returns`, () => {
++    const walls = visibleWalls(layout);
++    const d = wallLayout(scale);
++    for (const [section, column, row] of [
++      ['projects', -1, 1],
++      ['experience', 1, 1],
++      ['about', -1, -1],
++      ['contact', 1, -1],
++    ]) {
++      const center = new THREE.Vector3(
++        column * d.halfPitch,
++        row * DECK_HALF_PITCH,
++        0,
++      );
++      for (const side of [-1, 1]) {
++        // Include samples close to both tangent joins as well as the middle.
++        for (const angle of [0.035, 0.31, 0.67, 1.02, 1.535]) {
++          const x =
++            side *
++            scale *
++            (CABIN_HALF_WIDTH - radius + radius * Math.sin(angle));
++          const offset = radius * (1 - Math.cos(angle));
++          for (const y of [-0.48, 0.18, 0.76]) {
++            const point = center
++              .clone()
++              .add(new THREE.Vector3(x, y, -1.1 + offset));
++            const inward = new THREE.Vector3(
++              (-side * Math.sin(angle)) / scale,
++              0,
++              Math.cos(angle),
++            ).normalize();
++            checkSurface(
++              walls,
++              point,
++              inward,
++              `${section} side ${side} rear angle ${angle}`,
++            );
++          }
++          for (const [level, sign] of [
++            [CABIN_FLOOR, 1],
++            [CABIN_CEILING, -1],
++          ]) {
++            const point = center
++              .clone()
++              .add(new THREE.Vector3(x, level + sign * offset, 0.32));
++            const inward = new THREE.Vector3(
++              (-side * Math.sin(angle)) / scale,
++              sign * Math.cos(angle),
++              0,
++            ).normalize();
++            checkSurface(
++              walls,
++              point,
++              inward,
++              `${section} side ${side} ${sign > 0 ? 'floor' : 'ceiling'} angle ${angle}`,
++            );
++          }
++        }
++      }
++    }
++  });
++
++  test(`${layout}: the rounded chassis preserves the real cabin and ladder door apertures`, () => {
++    const walls = visibleWalls(layout);
++    const d = wallLayout(scale);
++    for (const [column, row] of [
++      [-1, 1],
++      [1, 1],
++      [-1, -1],
++      [1, -1],
++    ]) {
++      for (const side of [-1, 1]) {
++        if (column > 0 && side > 0) continue;
++        const z = column < 0 && side < 0 ? PASSAGE_LADDER_Z : PASSAGE_CABIN_Z;
++        const start = new THREE.Vector3(
++          column * d.halfPitch + side * (d.halfWidth - 0.1),
++          row * DECK_HALF_PITCH + PASSAGE_CENTER_Y,
++          z,
++        );
++        const ray = new THREE.Raycaster(
++          start,
++          new THREE.Vector3(side, 0, 0),
++          0,
++          0.3,
++        );
++        assert.equal(
++          ray.intersectObjects(walls, false).length,
++          0,
++          'The new return must not cover a doorway or extend into its opening',
++        );
++      }
++    }
++  });
++}
+--- a/tests/tiny-hardware-detail.test.mjs
++++ b/tests/tiny-hardware-detail.test.mjs
+@@ -217,7 +217,9 @@
+   const report = await measureHardwareGeometry();
+   for (const layout of Object.values(report.layouts)) {
+     assert.equal(layout.furniture.projects.triangles, 144476);
+-    assert.equal(layout.furniture.about.triangles, 70954);
++    // About's approved berth redesign also removes the pleated divider. Keep
++    // the hardware budget without tying later art changes to the old room total.
++    assert.ok(layout.furniture.about.triangles <= 70954);
+     assert.ok(layout.furniture.projects.attributeBytes < 5_500_000);
+     assert.ok(layout.furniture.about.attributeBytes < 2_100_000);
+   }

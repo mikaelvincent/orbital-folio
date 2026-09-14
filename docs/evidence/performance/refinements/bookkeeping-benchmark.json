@@ -1,0 +1,135 @@
+{
+  "recordedAt": "2026-09-14T02:59:19.278Z",
+  "node": "v26.0.0",
+  "threeRevision": "185",
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/spacecraft-model.ts",
+  "sourceSha256": "60b4a1e1d4eebe4fa4a674d81381420dcf3a85bd10e7eae7953be34e23511e11",
+  "methodology": "Node CPU microbenchmark, no browser/GPU rendering. Four samples per version in ABBA/ABBA order after 1000 warmup iterations each. Results measure only the isolated operation and do not establish FPS, GPU, temperature, or power improvement.",
+  "measurements": {
+    "lighting": {
+      "materials": 234,
+      "settled": {
+        "iterationsPerRun": 10000,
+        "runs": [
+          {
+            "variant": "reference",
+            "meanMs": 0.058021279200000025
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.04526764590000003
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.05336361250000009
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.07067558750000008
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.06316710420000017
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.09398350410000003
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.10816373340000009
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.07642121669999997
+          }
+        ],
+        "referenceMeanMs": 0.06707129690000006,
+        "candidateMeanMs": 0.07519462397500006,
+        "differenceMs": 0.008123327074999992
+      },
+      "changing": {
+        "iterationsPerRun": 10000,
+        "runs": [
+          {
+            "variant": "reference",
+            "meanMs": 0.07978217919999989
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.08492951670000003
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.08462381669999995
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.11030395419999986
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.10338419160000012
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.10879077079999988
+          },
+          {
+            "variant": "candidate",
+            "meanMs": 0.1181270625000001
+          },
+          {
+            "variant": "reference",
+            "meanMs": 0.1090776167
+          }
+        ],
+        "referenceMeanMs": 0.10063698542499996,
+        "candidateMeanMs": 0.099117791675,
+        "differenceMs": -0.001519193749999967
+      }
+    },
+    "rejectedLocalMatrixCache": {
+      "nodes": 702,
+      "decision": "Not activated: exact TRS and direct-matrix checks can cost more than native composition. Retained only as a reproducible rejected candidate.",
+      "iterationsPerRun": 3000,
+      "runs": [
+        {
+          "variant": "reference",
+          "meanMs": 0.7919545139999997
+        },
+        {
+          "variant": "candidate",
+          "meanMs": 1.0227506946666667
+        },
+        {
+          "variant": "candidate",
+          "meanMs": 0.9821502636666677
+        },
+        {
+          "variant": "reference",
+          "meanMs": 0.7769994723333318
+        },
+        {
+          "variant": "reference",
+          "meanMs": 0.7700014446666659
+        },
+        {
+          "variant": "candidate",
+          "meanMs": 0.9803133750000004
+        },
+        {
+          "variant": "candidate",
+          "meanMs": 0.9938423610000003
+        },
+        {
+          "variant": "reference",
+          "meanMs": 0.7542570556666663
+        }
+      ],
+      "referenceMeanMs": 0.7733031216666659,
+      "candidateMeanMs": 0.9947641735833339,
+      "differenceMs": 0.22146105191666798
+    }
+  }
+}

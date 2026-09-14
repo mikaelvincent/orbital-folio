@@ -249,10 +249,18 @@ export function buildOutboardWallEquipment(
       box(0.22, 0.09, 0.065, m.rubber, 0, y, 0.087, 'accumulator-saddle');
       fasteners.push([-0.49, y, 0.088], [0.49, y, 0.088]);
     }
+    // A muted blue service-vessel enamel separates the tank from the cream
+    // pressure wall while retaining the graphite restraints and alloy ends.
+    const accumulatorEnamel = material(
+      'coolant-blue-enamel',
+      0x536f7b,
+      0.47,
+      0.16,
+    );
     const body = h.cylinder(
       0.098,
       0.9,
-      m.ivory,
+      accumulatorEnamel,
       0,
       0,
       0.132,

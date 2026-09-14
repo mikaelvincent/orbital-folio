@@ -1,0 +1,23 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (91.320125ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (32.213292ms)
+✔ Disposal before injected texture installation releases it without invalidating (53.1195ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (105.230125ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (89.004959ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (148.857916ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (7.860542ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (3.406834ms)
+✔ Earth loader propagates fetch and decode failures (2.018ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (20.160875ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (6.665334ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (1.253292ms)
+✔ Texture construction/configuration failure releases owned resources (13.51725ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.448084ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (5.950625ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 865.864459

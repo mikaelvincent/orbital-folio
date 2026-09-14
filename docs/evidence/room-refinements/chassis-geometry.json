@@ -1,0 +1,428 @@
+{
+  "method": "CPU inventory of visible production geometry, including instance counts; fixed current source versus the pre-refinements snapshot. Includes only chassis/pressure-structure scopes, excluding About furniture and camera/performance code. Counts are submitted potential, not GPU timings.",
+  "scope": "Intentional visual design change: 0.08-unit continuous cabin corner returns, matching side-wall trimming and deck paint edge.",
+  "deltaTriangles": 13788,
+  "caveat": "Four removed mesh entries were the obsolete empty outer faces of cabin pressure skins. Projects/About structure bounds retract hidden divider stock above/below the room by 0.16; fixed room datums and global exterior bounds remain unchanged.",
+  "measurements": {
+    "before": {
+      "wide": {
+        "projects-pressure-structure": {
+          "triangles": 14672,
+          "meshes": 13,
+          "bounds": {
+            "min": [
+              -4.2080000018477435,
+              -0.017500009536743022,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              3.0975,
+              1.3389999866485596
+            ]
+          }
+        },
+        "experience-pressure-structure": {
+          "triangles": 11916,
+          "meshes": 10,
+          "bounds": {
+            "min": [
+              -0.033999979972839434,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              4.2080000018477435,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "about-pressure-structure": {
+          "triangles": 14672,
+          "meshes": 13,
+          "bounds": {
+            "min": [
+              -4.2080000018477435,
+              -2.9625000095367433,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089407056,
+              0.15249999999999986,
+              1.3389999866485596
+            ]
+          }
+        },
+        "contact-pressure-structure": {
+          "triangles": 11916,
+          "meshes": 10,
+          "bounds": {
+            "min": [
+              -0.033999979972839434,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              4.2080000018477435,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "left-vertical-walkway": {
+          "triangles": 90330,
+          "meshes": 32,
+          "bounds": {
+            "min": [
+              -6.326000000894069,
+              -2.8524999618530273,
+              -1.2100000381469727
+            ],
+            "max": [
+              -4.08899999910593,
+              2.987499952316284,
+              1.25
+            ]
+          }
+        },
+        "continuous-spacecraft-chassis": {
+          "triangles": 80978,
+          "meshes": 5,
+          "bounds": {
+            "min": [
+              -6.326000213623047,
+              -2.9625000953674316,
+              -1.2699999809265137
+            ],
+            "max": [
+              4.434000015258789,
+              3.0975000858306885,
+              1.284999966621399
+            ]
+          }
+        }
+      },
+      "compact": {
+        "projects-pressure-structure": {
+          "triangles": 14672,
+          "meshes": 13,
+          "bounds": {
+            "min": [
+              -3.0640000018477433,
+              -0.017500009536743022,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              3.0975,
+              1.3389999866485596
+            ]
+          }
+        },
+        "experience-pressure-structure": {
+          "triangles": 11916,
+          "meshes": 10,
+          "bounds": {
+            "min": [
+              1.4305114648394124e-08,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              3.064000001847744,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "about-pressure-structure": {
+          "triangles": 14672,
+          "meshes": 13,
+          "bounds": {
+            "min": [
+              -3.0640000018477433,
+              -2.9625000095367433,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              0.15249999999999986,
+              1.3389999866485596
+            ]
+          }
+        },
+        "contact-pressure-structure": {
+          "triangles": 11916,
+          "meshes": 10,
+          "bounds": {
+            "min": [
+              1.4305114648394124e-08,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              3.064000001847744,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "left-vertical-walkway": {
+          "triangles": 90330,
+          "meshes": 32,
+          "bounds": {
+            "min": [
+              -4.640000000894069,
+              -2.8524999618530273,
+              -1.2100000381469727
+            ],
+            "max": [
+              -2.94499999910593,
+              2.987499952316284,
+              1.25
+            ]
+          }
+        },
+        "continuous-spacecraft-chassis": {
+          "triangles": 80978,
+          "meshes": 5,
+          "bounds": {
+            "min": [
+              -4.639999866485596,
+              -2.9625000953674316,
+              -1.2699999809265137
+            ],
+            "max": [
+              3.2899999618530273,
+              3.0975000858306885,
+              1.284999966621399
+            ]
+          }
+        }
+      }
+    },
+    "after": {
+      "wide": {
+        "projects-pressure-structure": {
+          "triangles": 18240,
+          "meshes": 12,
+          "bounds": {
+            "min": [
+              -4.2080000018477435,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "experience-pressure-structure": {
+          "triangles": 15084,
+          "meshes": 9,
+          "bounds": {
+            "min": [
+              -0.033999979972839434,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              4.2080000018477435,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "about-pressure-structure": {
+          "triangles": 18240,
+          "meshes": 12,
+          "bounds": {
+            "min": [
+              -4.2080000018477435,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089407056,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "contact-pressure-structure": {
+          "triangles": 15084,
+          "meshes": 9,
+          "bounds": {
+            "min": [
+              -0.033999979972839434,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              4.2080000018477435,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "left-vertical-walkway": {
+          "triangles": 90640,
+          "meshes": 32,
+          "bounds": {
+            "min": [
+              -6.326000000894069,
+              -2.8524999618530273,
+              -1.2100000381469727
+            ],
+            "max": [
+              -4.08899999910593,
+              2.987499952316284,
+              1.25
+            ]
+          }
+        },
+        "continuous-spacecraft-chassis": {
+          "triangles": 80984,
+          "meshes": 5,
+          "bounds": {
+            "min": [
+              -6.326000213623047,
+              -2.9625000953674316,
+              -1.2699999809265137
+            ],
+            "max": [
+              4.434000015258789,
+              3.0975000858306885,
+              1.284999966621399
+            ]
+          }
+        }
+      },
+      "compact": {
+        "projects-pressure-structure": {
+          "triangles": 18240,
+          "meshes": 12,
+          "bounds": {
+            "min": [
+              -3.0640000018477433,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "experience-pressure-structure": {
+          "triangles": 15084,
+          "meshes": 9,
+          "bounds": {
+            "min": [
+              1.4305114648394124e-08,
+              0.1424999570846559,
+              -1.2725000381469727
+            ],
+            "max": [
+              3.064000001847744,
+              2.937500033378601,
+              1.3389999866485596
+            ]
+          }
+        },
+        "about-pressure-structure": {
+          "triangles": 18240,
+          "meshes": 12,
+          "bounds": {
+            "min": [
+              -3.0640000018477433,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              0.08500000089406967,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "contact-pressure-structure": {
+          "triangles": 15084,
+          "meshes": 9,
+          "bounds": {
+            "min": [
+              1.4305114648394124e-08,
+              -2.8025000429153444,
+              -1.2725000381469727
+            ],
+            "max": [
+              3.064000001847744,
+              -0.007499966621399068,
+              1.3389999866485596
+            ]
+          }
+        },
+        "left-vertical-walkway": {
+          "triangles": 90640,
+          "meshes": 32,
+          "bounds": {
+            "min": [
+              -4.640000000894069,
+              -2.8524999618530273,
+              -1.2100000381469727
+            ],
+            "max": [
+              -2.94499999910593,
+              2.987499952316284,
+              1.25
+            ]
+          }
+        },
+        "continuous-spacecraft-chassis": {
+          "triangles": 80984,
+          "meshes": 5,
+          "bounds": {
+            "min": [
+              -4.639999866485596,
+              -2.9625000953674316,
+              -1.2699999809265137
+            ],
+            "max": [
+              3.2899999618530273,
+              3.0975000858306885,
+              1.284999966621399
+            ]
+          }
+        }
+      }
+    }
+  },
+  "integrationFitReview": {
+    "problem": "The full utility suite exposed real mounting-foot penetration at the new compact corner returns; the old foot datum assumed a full-width flat rear wall. A fixed foot width also overhung some narrow equipment cases.",
+    "fix": "Pass the actual cabin lining radius to the utility builder; justify side equipment between the flat wall boundary and the adjacent furniture. Limit covered mounting shoes to 22% of housing width. Clamp compact contact umbilicals so their full strain-relief footprint stays inside the flat wall.",
+    "movedFittings": [
+      "Projects retained tool board",
+      "Projects retained diagnostic lead",
+      "Case Studies recorder transport",
+      "Case Studies both archive service columns",
+      "About retained bedding roll"
+    ],
+    "inwardShiftModelUnits": {
+      "wide": 0.056,
+      "compact": 0.04,
+      "contactUmbilicalWide": 0,
+      "contactUmbilicalCompact": 0.0662
+    },
+    "preserved": [
+      "Main furniture, signs, vents, screen positions and label legibility",
+      "Equipment housing sizes and all vertical justification",
+      "Original containment and occlusion assertions; no loosened tolerances"
+    ],
+    "validation": "node --test tests/cabin-utilities.test.mjs: 5/5 pass, including every solid vertex against the rendered liner and main text/screen visibility across the normal camera range in both layouts.",
+    "chassisTriangleDeltaUnchanged": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "customBefore": {
+    "activeTime": 109.19970000000914,
+    "bytes": 2329878,
+    "elapsed": 0.04950000000000898,
+    "rotation": 0.00014850000000002695,
+    "source": "local-satellite-image",
+    "view": {
+      "horizon": 0.7,
+      "latitude": 14,
+      "longitude": 126,
+      "motion": false,
+      "roll": -20,
+      "scale": 1.12
+    }
+  },
+  "customAfter": {
+    "activeTime": 111.14970000000947,
+    "elapsed": 0.04950000000000898,
+    "rotation": 0.00014850000000002695,
+    "view": {
+      "horizon": 0.7,
+      "latitude": 14,
+      "longitude": 126,
+      "motion": false,
+      "roll": -20,
+      "scale": 1.12
+    }
+  }
+}

@@ -1,0 +1,30 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (22.807334ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (7.803791ms)
+✔ Disposal before injected texture installation releases it without invalidating (13.86825ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (30.796959ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (128.162708ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (30.70375ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.859458ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.355166ms)
+✔ Earth loader propagates fetch and decode failures (0.534459ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.232417ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.31875ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.179375ms)
+✔ Texture construction/configuration failure releases owned resources (0.888375ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.057083ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.299333ms)
+✔ Earth view normalization rejects corrupt stored values and clamps only finite numbers (1.275417ms)
+✔ Preset matching tolerates motion pause but recognizes manual framing (0.143917ms)
+✔ Night openings stay in the visible foreground at desktop sizes and manual bounds (22.783416ms)
+✔ Night openings stay in the visible foreground at compact sizes and manual bounds (9.040041ms)
+✔ Night lighting stays photographic and view changes reuse every loaded resource (30.008542ms)
+✔ Earth pause, resume and replay preserve the independent star and meteor clocks (10.70575ms)
+✔ The shipped night asset matches its manifest, real 8K dimensions and source provenance (8.7395ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 849.949709

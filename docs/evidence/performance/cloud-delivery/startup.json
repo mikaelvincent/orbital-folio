@@ -1,0 +1,1858 @@
+{
+  "schemaVersion": 1,
+  "status": "complete-descriptive-startup-samples",
+  "startedAt": "2026-09-14T05:49:45.382Z",
+  "config": {
+    "mode": "run",
+    "sizes": [
+      {
+        "key": "2048x1024",
+        "width": 2048,
+        "height": 1024
+      }
+    ],
+    "assets": {
+      "2048x1024": "public/textures/cloud-banks-v1.cfd.gz"
+    },
+    "seed": null,
+    "pairs": 4,
+    "initialRestMs": 60000,
+    "restMs": 10000,
+    "recoveryMs": 60000,
+    "maxRecoveryAttempts": 3,
+    "telemetryArgv": [
+      "/tmp/orbital-folio-mac-thermal-snapshot",
+      "--pmset"
+    ],
+    "notes": ""
+  },
+  "machine": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "osRelease": "25.6.0",
+    "totalMemoryBytes": 17179869184
+  },
+  "sources": {
+    "lib/cloud-field.ts": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957",
+    "lib/cloud-field-codec.ts": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347",
+    "scripts/benchmarks/cloud-reference.ts": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9",
+    "scripts/benchmark-cloud-delivery.mjs": "537375267ac1926e06acb9c2d2ffe90f9db6ee18369f75549bd8edd280743f2b"
+  },
+  "limitations": [
+    "A is the original complete environment factory; its proceduralGenerationMs includes clouds and nebula. It is not an isolated cloud field cost.",
+    "B generates the new field. C reads an already-built local raw/gzip asset, decodes it if necessary, and prepares a byte view. Both represent the same field payload.",
+    "Local reads use a warmed filesystem cache. They do not predict HTTP latency, bandwidth, browser cache, browser decompression, or first correct cloud frame.",
+    "Node gzip/Brotli inflate figures are supplemental delivery costs, not browser timings. Compression is developer work, outside client timings.",
+    "No WebGL texture upload, mip generation, shader compilation, GPU/FPS/energy or visual-quality conclusion is measured here.",
+    "Nominal pressure and matching boundary settings do not prove thermal equilibrium. Timings are descriptive; no candidate is automatically selected.",
+    "The prebuilt and startup fields must match exactly. That equality does not imply the redesigned field matches the original animated 3D representation.",
+    "Determinism checks use this Node runtime. They do not establish identical floating-point generator output in every browser/architecture; the downloaded asset itself fixes the bytes."
+  ],
+  "tiers": [
+    {
+      "size": "2048x1024",
+      "width": 2048,
+      "height": 1024,
+      "channels": 4,
+      "version": "orbital-cloud-banks-v1",
+      "payloadSha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+      "decodedAssetSha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+      "transportBodySha256": "05b22f953c562eeb2efae64dbcd1952580dd787244d511ca256389e1ca8a0e75",
+      "assetFileSha256": "3893a218a0349cca5e6e2489e1d7ead30dab2d20f875e6050c6edc021b61d84c",
+      "assetEncoding": "gzip",
+      "assetCodec": "CFD1",
+      "assetPath": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/public/textures/cloud-banks-v1.cfd.gz",
+      "verification": {
+        "deterministicGeneration": true,
+        "assetByteEquality": true,
+        "gzipRoundtrip": true,
+        "brotliRoundtrip": true
+      },
+      "bytes": {
+        "raw": 8388608,
+        "transportBody": 8388616,
+        "actualAssetFile": 3165073,
+        "gzipLevel9": 3165073,
+        "brotliQuality5": 3091163,
+        "estimatedRgba8GpuMipChain": 11184812
+      },
+      "runs": [
+        {
+          "variant": "A",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 85.68874999764375,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 84.14075000109733,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 177.46875000011642,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:50:57Z",
+            "uptimeSeconds": 29937.9809305
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 82.87625000230037,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 82.27608333254466,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 175.77062499913154,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:50:57Z",
+                "uptimeSeconds": 29937.788733458336
+              }
+            ]
+          },
+          "factoryMs": 78.282291,
+          "cpuMs": 129.702,
+          "diagnostics": {
+            "activeTime": 0,
+            "ready": true,
+            "earthReady": true,
+            "earthMode": "procedural-water",
+            "earthRotation": 0,
+            "cloudRotation": 0,
+            "cloudMorphTime": 0,
+            "earthRotationRate": 0.003,
+            "cloudRotationRate": 0.0072,
+            "cloudFieldSamples": 17,
+            "cloudInterpolation": "rg8-two-tap-major-axis-detail",
+            "cloudFieldCells": 8,
+            "cloudSamplesPerCell": 8,
+            "cloudWeatherModel": "authored-front-stratiform-cold-sector-cumulus-cirrus",
+            "cloudLightingModel": "thin-shell-local-billows-gradient-relief-two-probes",
+            "cloudSunProbes": 2,
+            "cloudMorph": [
+              0,
+              0.024,
+              0
+            ],
+            "starCount": 3100,
+            "starBufferBytes": 136400,
+            "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+            "starTwinklePrimaryFrequencyRange": [
+              0.45,
+              2.65
+            ],
+            "starTwinkleSecondaryFrequencyRange": [
+              0.2,
+              1.8
+            ],
+            "starTwinkleAmplitudeRange": [
+              0.1,
+              0.55
+            ],
+            "meteorCapacity": 9,
+            "meteorTimingBanks": 3,
+            "meteorCreationFrequencyMultiplier": 3,
+            "meteorBankPeriod": 4.5,
+            "meteorGroupInterval": [
+              0.14,
+              4.38
+            ],
+            "meteorPairEveryGroups": 2,
+            "meteorTripleEveryGroups": 7,
+            "meteorAlignedShowerEveryCycles": 14,
+            "meteorGroupSize": 1,
+            "meteorGroupHasPair": false,
+            "meteorCount": 0,
+            "meteorPhases": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "meteorStreams": [
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  0.9629640197141817,
+                  -0.2696299255199709
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              }
+            ],
+            "meteorPhase": 0,
+            "meteorCycle": -1,
+            "meteorVisible": false,
+            "textureSize": 64,
+            "dayTextureSize": 0,
+            "cloudTextureSize": 0,
+            "proceduralTextureBytes": 655360,
+            "proceduralTextureGpuBytes": 773950,
+            "proceduralGenerationMs": 67.83,
+            "proceduralNoiseDimensions": [
+              64,
+              64,
+              64
+            ],
+            "proceduralNoiseFormat": "RG8",
+            "proceduralNoiseMipBytes": 599186,
+            "proceduralNoiseMipLevels": 7,
+            "nebulaDimensions": [
+              256,
+              128
+            ],
+            "externalTextureRequests": 0,
+            "estimatedTextureMiB": 0.7381,
+            "earthRadius": 180,
+            "earthPosition": [
+              -56.652,
+              -215.289,
+              -161.903
+            ],
+            "drawCallBudget": 15
+          },
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 83.02366666612215,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 82.69908333386411,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 170.14750000089407,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:50:57Z",
+            "uptimeSeconds": 29938.244226583334
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "B",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 84.6994999992603,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 86.76550000018324,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 176.71883333605365,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:07Z",
+            "uptimeSeconds": 29948.599844333334
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 81.25220833244384,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 81.46091666640132,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 166.95279166742694,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:51:07Z",
+                "uptimeSeconds": 29948.42447
+              }
+            ]
+          },
+          "generationMs": 567.3675,
+          "cpuMs": 593.586,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 87.37795833076234,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 84.34758333169157,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 175.50074999962817,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:08Z",
+            "uptimeSeconds": 29949.350873000003
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "C",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 100.20941666516592,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 86.48908333634608,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 193.08266666848795,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:19Z",
+            "uptimeSeconds": 29959.750246958334
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 99.36095833472791,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 88.50866666762158,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 198.9937916659983,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:51:18Z",
+                "uptimeSeconds": 29959.539820125003
+              }
+            ]
+          },
+          "localWarmFileReadMs": 1.423583,
+          "assetEncoding": "gzip",
+          "assetCodec": "CFD1",
+          "nodeAssetDecodeMs": 21.866625,
+          "codecDecodeMs": 13.393167,
+          "rawViewMs": 0.051208,
+          "rawViewCpuMs": 0.058,
+          "nodeGzipInflateMs": 21.866625,
+          "nodeBrotliInflateMs": 28.352083,
+          "localReadDecodeAndViewMs": 36.734583,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 87.58708333334653,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 81.99704166690935,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 173.81724999722792,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:19Z",
+            "uptimeSeconds": 29960.023880375004
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "C",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 82.98733333140262,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 85.36366666521644,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 176.15674999979092,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:29Z",
+            "uptimeSeconds": 29970.421481208334
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 96.48395833210088,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 85.59554166640737,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 192.95720833179075,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:51:29Z",
+                "uptimeSeconds": 29970.212643333336
+              }
+            ]
+          },
+          "localWarmFileReadMs": 2.272292,
+          "assetEncoding": "gzip",
+          "assetCodec": "CFD1",
+          "nodeAssetDecodeMs": 21.592209,
+          "codecDecodeMs": 127.10625,
+          "rawViewMs": 0.006084,
+          "rawViewCpuMs": 0.008,
+          "nodeGzipInflateMs": 21.592209,
+          "nodeBrotliInflateMs": 23.387541,
+          "localReadDecodeAndViewMs": 150.976835,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 84.54150000034133,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 86.20333333601593,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 174.56095833040308,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:30Z",
+            "uptimeSeconds": 29970.78530541667
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "B",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 99.32862499772455,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 88.4506666661764,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 194.77229166659527,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:40Z",
+            "uptimeSeconds": 29981.160804416668
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 82.890416666487,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 81.60737499929382,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 174.46625000229687,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:51:40Z",
+                "uptimeSeconds": 29980.973199958335
+              }
+            ]
+          },
+          "generationMs": 562.172791,
+          "cpuMs": 567.056,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 81.6129583363363,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 78.98520833259681,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 164.10333333260496,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:41Z",
+            "uptimeSeconds": 29981.926900000002
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "B",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 83.07562499976484,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 79.33937499910826,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 169.9217083332769,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:51Z",
+            "uptimeSeconds": 29992.304887583334
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 87.99562500280445,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 87.4857916678593,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 186.81800000194926,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:51:51Z",
+                "uptimeSeconds": 29992.104318916667
+              }
+            ]
+          },
+          "generationMs": 560.299209,
+          "cpuMs": 565.082,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 87.98237500013784,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:09 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 79.26112499990268,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 170.69350000019767,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:51:52Z",
+            "uptimeSeconds": 29993.04308191667
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "C",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 87.37062499858439,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 81.15350000298349,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 175.90616666711867,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:02Z",
+            "uptimeSeconds": 30003.438394750003
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 101.06774999803747,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 86.0958750017744,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 198.0526250008552,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:52:02Z",
+                "uptimeSeconds": 30003.228384375
+              }
+            ]
+          },
+          "localWarmFileReadMs": 1.7765,
+          "assetEncoding": "gzip",
+          "assetCodec": "CFD1",
+          "nodeAssetDecodeMs": 21.564084,
+          "codecDecodeMs": 15.877542,
+          "rawViewMs": 0.013125,
+          "rawViewCpuMs": 0.015,
+          "nodeGzipInflateMs": 21.564084,
+          "nodeBrotliInflateMs": 27.61325,
+          "localReadDecodeAndViewMs": 39.231251,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 83.1046666680777,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 80.27133333598613,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 167.42420833179494,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:03Z",
+            "uptimeSeconds": 30003.69674391667
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "C",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 82.65458333335118,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 84.65579166659154,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 175.42287499964004,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:13Z",
+            "uptimeSeconds": 30014.072672916667
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 82.62004166681436,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 87.3349999965285,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 180.20758333295817,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:52:13Z",
+                "uptimeSeconds": 30013.877502500003
+              }
+            ]
+          },
+          "localWarmFileReadMs": 2.324792,
+          "assetEncoding": "gzip",
+          "assetCodec": "CFD1",
+          "nodeAssetDecodeMs": 22.610458,
+          "codecDecodeMs": 16.507959,
+          "rawViewMs": 0.020375,
+          "rawViewCpuMs": 0.022,
+          "nodeGzipInflateMs": 22.610458,
+          "nodeBrotliInflateMs": 27.822375,
+          "localReadDecodeAndViewMs": 41.463584,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 87.08050000132062,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 4:19 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 85.10129166825209,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 176.3606249987788,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:13Z",
+            "uptimeSeconds": 30014.332993875003
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "B",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 88.40758333462873,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 80.71658333210507,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 175.91358333447715,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:24Z",
+            "uptimeSeconds": 30024.721200083335
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 93.40145833266433,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 79.57125000029919,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 183.89550000210875,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:52:23Z",
+                "uptimeSeconds": 30024.524396666668
+              }
+            ]
+          },
+          "generationMs": 560.958083,
+          "cpuMs": 566.204,
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 86.56495833565714,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 85.52583333221264,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 175.60574999879464,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:24Z",
+            "uptimeSeconds": 30025.466474083336
+          },
+          "contextIssues": []
+        },
+        {
+          "variant": "A",
+          "before": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 84.87520833296003,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 80.76095833166619,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 173.0497499993362,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:35Z",
+            "uptimeSeconds": 30035.853313083335
+          },
+          "gate": {
+            "qualified": true,
+            "observations": [
+              {
+                "lowPowerMode": false,
+                "osVersion": "Version 26.6.2 (Build 25G83)",
+                "pmset": {
+                  "battery": {
+                    "arguments": [
+                      "-g",
+                      "batt"
+                    ],
+                    "durationMs": 85.0475416664267,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                    "timedOut": false
+                  },
+                  "therm": {
+                    "arguments": [
+                      "-g",
+                      "therm"
+                    ],
+                    "durationMs": 88.47266666634823,
+                    "exitCode": 0,
+                    "stderr": "",
+                    "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                    "timedOut": false
+                  }
+                },
+                "sampleDurationMs": 184.67241666439804,
+                "schemaVersion": 1,
+                "thermalSource": "ProcessInfo.thermalState",
+                "thermalState": "nominal",
+                "thermalStateDoesNotMeasureTemperature": true,
+                "thermalStateRaw": 0,
+                "timestamp": "2026-09-14T05:52:35Z",
+                "uptimeSeconds": 30035.656388875002
+              }
+            ]
+          },
+          "factoryMs": 62.621875,
+          "cpuMs": 107.006,
+          "diagnostics": {
+            "activeTime": 0,
+            "ready": true,
+            "earthReady": true,
+            "earthMode": "procedural-water",
+            "earthRotation": 0,
+            "cloudRotation": 0,
+            "cloudMorphTime": 0,
+            "earthRotationRate": 0.003,
+            "cloudRotationRate": 0.0072,
+            "cloudFieldSamples": 17,
+            "cloudInterpolation": "rg8-two-tap-major-axis-detail",
+            "cloudFieldCells": 8,
+            "cloudSamplesPerCell": 8,
+            "cloudWeatherModel": "authored-front-stratiform-cold-sector-cumulus-cirrus",
+            "cloudLightingModel": "thin-shell-local-billows-gradient-relief-two-probes",
+            "cloudSunProbes": 2,
+            "cloudMorph": [
+              0,
+              0.024,
+              0
+            ],
+            "starCount": 3100,
+            "starBufferBytes": 136400,
+            "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+            "starTwinklePrimaryFrequencyRange": [
+              0.45,
+              2.65
+            ],
+            "starTwinkleSecondaryFrequencyRange": [
+              0.2,
+              1.8
+            ],
+            "starTwinkleAmplitudeRange": [
+              0.1,
+              0.55
+            ],
+            "meteorCapacity": 9,
+            "meteorTimingBanks": 3,
+            "meteorCreationFrequencyMultiplier": 3,
+            "meteorBankPeriod": 4.5,
+            "meteorGroupInterval": [
+              0.14,
+              4.38
+            ],
+            "meteorPairEveryGroups": 2,
+            "meteorTripleEveryGroups": 7,
+            "meteorAlignedShowerEveryCycles": 14,
+            "meteorGroupSize": 1,
+            "meteorGroupHasPair": false,
+            "meteorCount": 0,
+            "meteorPhases": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "meteorStreams": [
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  0.9629640197141817,
+                  -0.2696299255199709
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 0,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 1,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 0,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 1,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              },
+              {
+                "visible": false,
+                "phase": 0,
+                "startAt": 0,
+                "duration": 0,
+                "nextAt": 0,
+                "cycle": -1,
+                "bank": 2,
+                "member": 2,
+                "groupId": -1,
+                "parallel": false,
+                "origin": [
+                  0,
+                  0
+                ],
+                "direction": [
+                  -0.9766444667050899,
+                  -0.21486178267511977
+                ]
+              }
+            ],
+            "meteorPhase": 0,
+            "meteorCycle": -1,
+            "meteorVisible": false,
+            "textureSize": 64,
+            "dayTextureSize": 0,
+            "cloudTextureSize": 0,
+            "proceduralTextureBytes": 655360,
+            "proceduralTextureGpuBytes": 773950,
+            "proceduralGenerationMs": 57.24,
+            "proceduralNoiseDimensions": [
+              64,
+              64,
+              64
+            ],
+            "proceduralNoiseFormat": "RG8",
+            "proceduralNoiseMipBytes": 599186,
+            "proceduralNoiseMipLevels": 7,
+            "nebulaDimensions": [
+              256,
+              128
+            ],
+            "externalTextureRequests": 0,
+            "estimatedTextureMiB": 0.7381,
+            "earthRadius": 180,
+            "earthPosition": [
+              -56.652,
+              -215.289,
+              -161.903
+            ],
+            "drawCallBudget": 15
+          },
+          "after": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "pmset": {
+              "battery": {
+                "arguments": [
+                  "-g",
+                  "batt"
+                ],
+                "durationMs": 83.05366666536429,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t59%; discharging; 4:29 remaining present: true\n",
+                "timedOut": false
+              },
+              "therm": {
+                "arguments": [
+                  "-g",
+                  "therm"
+                ],
+                "durationMs": 80.86570833256701,
+                "exitCode": 0,
+                "stderr": "",
+                "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                "timedOut": false
+              }
+            },
+            "sampleDurationMs": 168.31566666587605,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T05:52:35Z",
+            "uptimeSeconds": 30036.095811083334
+          },
+          "contextIssues": []
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-09-14T05:52:35.618Z"
+}

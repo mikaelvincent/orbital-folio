@@ -1,0 +1,177 @@
+import type * as Three from 'three';
+
+export const EARTH_TEXTURE_WIDTH = 8192;
+export const EARTH_TEXTURE_HEIGHT = 4096;
+export const EARTH_TEXTURE_ASSET = '/textures/earth-blue-marble-8k.jpg';
+export const EARTH_NIGHT_TEXTURE_WIDTH = 8192;
+export const EARTH_NIGHT_TEXTURE_ASSET = '/textures/earth-black-marble-8k.jpg';
+
+export type EarthTextureWidth = 2048 | 4096 | 8192;
+export type EarthAppearance = 'day' | 'night';
+
+/** Fixed local assets; audits can compare sizes through the production loader. */
+export function earthTextureSpec(
+  requestedWidth?: EarthTextureWidth,
+  appearance: EarthAppearance = 'day',
+) {
+  const width =
+    requestedWidth ??
+    (appearance === 'night' ? EARTH_NIGHT_TEXTURE_WIDTH : EARTH_TEXTURE_WIDTH);
+  if (![2048, 4096, 8192].includes(width))
+    throw new Error('Unsupported Earth texture width');
+  if (appearance !== 'day' && appearance !== 'night')
+    throw new Error('Unsupported Earth appearance');
+  return {
+    width,
+    height: width / 2,
+    asset:
+      appearance === 'night'
+        ? `/textures/earth-black-marble-${width / 1024}k.jpg`
+        : `/textures/earth-blue-marble-${width / 1024}k.jpg`,
+  };
+}
+
+const ownedBitmaps = new WeakMap<Three.Texture, ImageBitmap>();
+const disposedTextures = new WeakSet<Three.Texture>();
+
+export function configureEarthTexture(
+  THREE: typeof Three,
+  texture: Three.Texture,
+): void {
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
+  texture.anisotropy = 4;
+  // ImageBitmap ignores Texture.flipY; orientation is applied during decode.
+  texture.flipY = false;
+  texture.premultiplyAlpha = false;
+  texture.needsUpdate = true;
+}
+
+/** Release an owned bitmap and GPU texture once, including injected test assets. */
+export function disposeEarthTexture(texture: Three.Texture): void {
+  if (disposedTextures.has(texture)) return;
+  disposedTextures.add(texture);
+  const image = texture.image as ImageBitmap | undefined;
+  const bitmap =
+    ownedBitmaps.get(texture) ??
+    (typeof image?.close === 'function' ? image : undefined);
+  ownedBitmaps.delete(texture);
+  bitmap?.close();
+  texture.dispose();
+}
+
+function abortError(): DOMException {
+  return new DOMException('Earth texture loading was aborted', 'AbortError');
+}
+
+function checkAbort(signal: AbortSignal): void {
+  if (signal.aborted) throw abortError();
+}
+
+/** Browser bitmap decode cannot be canceled, so close results that arrive late. */
+function decodeBitmap(blob: Blob, signal: AbortSignal): Promise<ImageBitmap> {
+  checkAbort(signal);
+  return new Promise((resolve, reject) => {
+    const onAbort = () => reject(abortError());
+    signal.addEventListener('abort', onAbort, { once: true });
+    let pending: Promise<ImageBitmap>;
+    try {
+      pending = createImageBitmap(blob, {
+        imageOrientation: 'flipY',
+        colorSpaceConversion: 'none',
+        premultiplyAlpha: 'none',
+      });
+    } catch (error) {
+      signal.removeEventListener('abort', onAbort);
+      reject(error);
+      return;
+    }
+    pending.then(
+      (bitmap) => {
+        signal.removeEventListener('abort', onAbort);
+        if (signal.aborted) {
+          bitmap.close();
+          reject(abortError());
+        } else resolve(bitmap);
+      },
+      (error) => {
+        signal.removeEventListener('abort', onAbort);
+        reject(error);
+      },
+    );
+  });
+}
+
+export type EarthTextureLoad = {
+  texture: Three.Texture;
+  /** HTTP Content-Length, when available; it may differ from decoded body bytes. */
+  encodedBytes: number | null;
+  responseBytes: number;
+  fetchMs: number;
+  decodeMs: number;
+};
+
+/** The successful caller owns texture until disposeEarthTexture is called. */
+export async function loadEarthTexture(
+  THREE: typeof Three,
+  signal: AbortSignal,
+  width?: EarthTextureWidth,
+  appearance: EarthAppearance = 'day',
+): Promise<EarthTextureLoad> {
+  const spec = earthTextureSpec(width, appearance);
+  checkAbort(signal);
+  const fetchStart = performance.now();
+  const response = await fetch(spec.asset, {
+    signal,
+    mode: 'same-origin',
+    credentials: 'same-origin',
+  });
+  checkAbort(signal);
+  if (!response.ok)
+    throw new Error(`Earth texture request failed (${response.status})`);
+  const bytes = await response.arrayBuffer();
+  checkAbort(signal);
+  const fetchMs = performance.now() - fetchStart;
+  const lengthHeader = response.headers.get('content-length');
+  const contentLength =
+    lengthHeader !== null && /^\d+$/.test(lengthHeader)
+      ? Number(lengthHeader)
+      : NaN;
+  const encodedBytes = Number.isSafeInteger(contentLength)
+    ? contentLength
+    : null;
+  const decodeStart = performance.now();
+  let bitmap: ImageBitmap | undefined;
+  let texture: Three.Texture | undefined;
+  try {
+    bitmap = await decodeBitmap(
+      new Blob([bytes], { type: 'image/jpeg' }),
+      signal,
+    );
+    checkAbort(signal);
+    if (bitmap.width !== spec.width || bitmap.height !== spec.height) {
+      throw new Error(
+        `Earth texture must be ${spec.width}×${spec.height}; received ${bitmap.width}×${bitmap.height}`,
+      );
+    }
+    const decodeMs = performance.now() - decodeStart;
+    texture = new THREE.Texture(bitmap);
+    ownedBitmaps.set(texture, bitmap);
+    configureEarthTexture(THREE, texture);
+    return {
+      texture,
+      encodedBytes,
+      responseBytes: bytes.byteLength,
+      fetchMs,
+      decodeMs,
+    };
+  } catch (error) {
+    if (texture) disposeEarthTexture(texture);
+    else bitmap?.close();
+    throw error;
+  }
+}

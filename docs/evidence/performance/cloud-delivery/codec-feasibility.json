@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-09-14T05:32:18.004Z",
+  "sourcePath": "public/textures/cloud-banks-v1.rgba.gz",
+  "sourceSnapshot": "/tmp/cloud-field-codec-source.rgba.gz",
+  "inputCompressedBytes": 4259591,
+  "payloadSha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+  "width": 2048,
+  "height": 1024,
+  "channels": 4,
+  "layouts": [
+    {
+      "name": "raw-rgba",
+      "rawBytes": 8388608,
+      "gzipLevel9": 4259591,
+      "brotliQuality5": 4219702
+    },
+    {
+      "name": "interleaved-row-delta",
+      "rawBytes": 8388608,
+      "gzipLevel9": 3311438,
+      "brotliQuality5": 3182793
+    },
+    {
+      "name": "planar-row-delta",
+      "rawBytes": 8388608,
+      "gzipLevel9": 3165054,
+      "brotliQuality5": 3091281
+    }
+  ],
+  "scope": "Untimed lossless layout size comparison only; no CPU or browser speed claim."
+}

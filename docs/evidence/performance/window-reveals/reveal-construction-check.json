@@ -1,0 +1,40 @@
+{
+  "method": "Bounded Node development check, alternating old/new helper calls on identical already-created ExtrudeGeometry. Three measured pairs per layout, both implementations in the same process. This is a construction check, not a browser/GPU, power, temperature or release-decision benchmark. System load was not controlled.",
+  "sourceTrianglesPerLayout": 27056,
+  "outputEquivalence": "Every position, normal and UV Float32 array was byte-identical for shell, dark reveal and all five orange bands in both layouts on all three pairs.",
+  "beforeSha256": "f36dd54050f828897deaf0308774a30339e7fb5a8f487501211f4c4e1aeb5fb1",
+  "afterSha256": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+  "helperMs": {
+    "compact": {
+      "before": [
+        163.506417,
+        146.562375,
+        146.430292
+      ],
+      "after": [
+        47.726375,
+        44.719375,
+        44.691708
+      ]
+    },
+    "wide": {
+      "before": [
+        145.770583,
+        147.7205,
+        141.47525
+      ],
+      "after": [
+        33.157458,
+        37.374584,
+        38.790667
+      ]
+    }
+  },
+  "currentModelConstructionMs": [
+    651.381959,
+    428.742375
+  ],
+  "modelNote": "Current complete model, default CPU-only model construction; two successive calls in a separate Node process. No matched pre-change complete-model comparison was made.",
+  "change": "Index nearby aperture contour segments in a temporary build-time grid; copy original attributes directly for triangles wholly owned by one material. Polygon clipping remains only at paint boundaries. No renderer callbacks, render-time caching or geometry reductions added.",
+  "validation": "node --test tests/flush-window-reveals.test.mjs: 3/3 pass. Changed helper/test lint and git diff checks clean."
+}

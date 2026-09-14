@@ -1,0 +1,1761 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-14T13:34:02.819Z",
+  "status": "passed",
+  "rawFiles": [
+    {
+      "name": "chromium-background-ABC.json",
+      "sha256": "cdf21c510da3a0d5c42ca05d4656977ff7307947ed8072a8e333515ba117d543",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "chromium-background-ACB.json",
+      "sha256": "882381fee283b5fa6ad89018680a39951b7c038050afdf40b58dcfbb3bc8a790",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "chromium-background-BAC.json",
+      "sha256": "c49c86187b67b3129f337f654a199288a2c2eda743607314928e293ac83db137",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "chromium-background-BCA.json",
+      "sha256": "2d15b6e37aee0c3fa435529537361fc807e1cce40ad89f192a61a777b95b1bbe",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "chromium-background-CAB.json",
+      "sha256": "a4be7abfc7cd6bd7838fdbb29fe5e75554d80b1e15e4ba2b502cdd54688c9a45",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "chromium-background-CBA.json",
+      "sha256": "6bc521c8783975322823c49137ee4f03219f65920e21c492efc97b0aeade9597",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      }
+    },
+    {
+      "name": "safari-ABC.json",
+      "sha256": "b2d234597287217fe4c844c3c7e3f3706a70f7e952d40c5734d5f644c377afbd",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      }
+    },
+    {
+      "name": "safari-ACB.json",
+      "sha256": "8b7d5f953a6a43bf80f5d8691563fe7ab12cef2171416fda644f7c7de12107a6",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      }
+    },
+    {
+      "name": "safari-BAC.json",
+      "sha256": "81fd330b5cbeaaa774877af109513538755dfc188caa5beefb683465a214008d",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Replacement of lock-interrupted final round; native Safari accessible before and after."
+      }
+    },
+    {
+      "name": "safari-BCA.json",
+      "sha256": "e96fc64562ad050d7b2e1976561bcdfa540aa6a35fbf03794e90fc50768deaa2",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      }
+    },
+    {
+      "name": "safari-CAB.json",
+      "sha256": "da17beb7b0c2aaa300812c08525a166fff0748b871523a2c083b1a64693b5ad0",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      }
+    },
+    {
+      "name": "safari-CBA.json",
+      "sha256": "95ac86dbbd11589451234975a54c7338726b8c612387510d2d3fb46edded2349",
+      "condition": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      }
+    }
+  ],
+  "excludedReports": [
+    {
+      "name": "safari-BAC-interrupted.json",
+      "sha256": "74c1982daa056dcea8aae06ea2f361ad20a232aea7f3f9cedc4306fe777172cf",
+      "condition": {
+        "displayState": "unobserved",
+        "note": "Screen lock interrupted native observation; excluded."
+      },
+      "status": "complete",
+      "reason": "Native tool reported Mac locked during this round. Retained but excluded despite reported complete status.",
+      "rawReason": null,
+      "decisionSource": "exclusions.json",
+      "frames": 360,
+      "contextFlags": []
+    }
+  ],
+  "explicitExclusions": {
+    "sha256": "eeb204fb7f818d0d1e3a0df5407e6fa941f063414f29226e1ccba66e00c186e7",
+    "entries": [
+      {
+        "file": "safari-BAC-interrupted.json",
+        "reason": "Native tool reported Mac locked during this round. Retained but excluded despite reported complete status."
+      }
+    ]
+  },
+  "displayConditions": {
+    "sha256": "c742b4d6a44094e2ee92d4f11b3d3f1a6c360089291cdeb42f72e417f02f4ce2",
+    "entries": {
+      "chromium-background-ACB.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "chromium-background-CAB.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "chromium-background-BCA.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "chromium-background-ABC.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "safari-CBA.json": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      },
+      "chromium-background-BAC.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "safari-ABC.json": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      },
+      "chromium-background-CBA.json": {
+        "displayState": "unobserved",
+        "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+      },
+      "safari-BCA.json": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      },
+      "safari-CAB.json": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      },
+      "safari-ACB.json": {
+        "displayState": "unlocked",
+        "note": "Native Safari foreground, observed and saved before lock interruption."
+      },
+      "safari-BAC-interrupted.json": {
+        "displayState": "unobserved",
+        "note": "Screen lock interrupted native observation; excluded."
+      },
+      "safari-BAC.json": {
+        "displayState": "unlocked",
+        "note": "Replacement of lock-interrupted final round; native Safari accessible before and after."
+      }
+    }
+  },
+  "validation": {
+    "errors": [],
+    "warnings": [
+      "Chromium 1422x871 DPR2 (unobserved display): native display state was not continuously observed and may have changed. Order balance does not establish a controlled display condition; timings are descriptive and cannot establish ordinary foreground website performance.",
+      "Safari 1422x871 DPR2 (unlocked display): all recorded CPU wall durations are whole milliseconds; coarse timing limits interpretation of small submission differences.",
+      "1 raw reports retained but excluded by status or an explicit interruption record; no timing-based trimming performed."
+    ],
+    "frozenManifestSha256": "b0ef03843dc3b758c550b9cd6254f0a5289b68d962920f60ade5f5c42e4b61b4",
+    "snapshotId": "3afcad19-1977-41be-bcb2-8935ee673fdd",
+    "sourceChecks": [
+      {
+        "path": "scripts/benchmarks/cloud-reference.ts",
+        "frozenSha256": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9",
+        "matchesCurrentWorktree": true
+      },
+      {
+        "path": "components/earth-satellite.ts",
+        "frozenSha256": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+        "matchesCurrentWorktree": true
+      },
+      {
+        "path": "components/earth-view-transform.ts",
+        "frozenSha256": "2fa389ce0c9881a370c0ff4d5f1109df7b5f01a28018d7d31235e22bdd364347",
+        "matchesCurrentWorktree": true
+      },
+      {
+        "path": "components/night-atmosphere.ts",
+        "frozenSha256": "949349c583e6db475fda3c568f2a07d9b6b4224d62bff75f826bda5fb49ab409",
+        "matchesCurrentWorktree": true
+      },
+      {
+        "path": "components/orbital-environment.ts",
+        "frozenSha256": "7a82e91ab785f10ee52b0fdd9e3fb37ff6001e759d5d1887f597806fb97998c2",
+        "matchesCurrentWorktree": true
+      },
+      {
+        "path": "scripts/benchmarks/earth-resolution-lab.ts",
+        "frozenSha256": "1cad8851a2edd48c7208eaf2328201577f9c2c32bae5987d93d6bfa2d23e4d4b",
+        "matchesCurrentWorktree": true
+      }
+    ],
+    "nominalNativeSnapshots": 84,
+    "powerSources": [
+      "Battery Power"
+    ]
+  },
+  "assets": {
+    "2k": {
+      "path": "textures/earth-black-marble-2k.jpg",
+      "width": 2048,
+      "height": 1024,
+      "bytes": 179391,
+      "sha256": "83c0929a419f416741592b2dbf6b189aebd55c4b141c963518fa391a42d595d6",
+      "nominalRgba8MipBytes": 11184812,
+      "nominalDecodedRgbaBytes": 8388608
+    },
+    "4k": {
+      "path": "textures/earth-black-marble-4k.jpg",
+      "width": 4096,
+      "height": 2048,
+      "bytes": 637946,
+      "sha256": "f2e4e44a0cc209f076ba9169753a005d216939e6b39011d16bc66a08dfba411e",
+      "nominalRgba8MipBytes": 44739244,
+      "nominalDecodedRgbaBytes": 33554432
+    },
+    "8k": {
+      "path": "textures/earth-black-marble-8k.jpg",
+      "width": 8192,
+      "height": 4096,
+      "bytes": 2329878,
+      "sha256": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+      "nominalRgba8MipBytes": 178956972,
+      "nominalDecodedRgbaBytes": 134217728
+    }
+  },
+  "cohorts": {
+    "Chromium 1422x871 DPR2 (unobserved display)": {
+      "browser": "Chromium",
+      "displayState": "unobserved",
+      "configuration": {
+        "width": 1422,
+        "height": 871,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 0
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2844,
+          "height": 1742
+        },
+        "maxTextureSize": 16384,
+        "rendererMemory": {
+          "geometries": 0,
+          "textures": 0
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "orders": [
+        "ABC",
+        "ACB",
+        "BAC",
+        "BCA",
+        "CAB",
+        "CBA"
+      ],
+      "completeBalancedDesign": true,
+      "powerSources": [
+        "Battery Power"
+      ],
+      "drawTrianglePointCounters": [
+        "4/48642/3100"
+      ],
+      "allCpuSamplesWholeMilliseconds": false,
+      "uniquePreparations": 3,
+      "variants": {
+        "2k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 720,
+            "mean": 2.2426097027777785,
+            "min": 1.237499,
+            "max": 4.965916,
+            "median": 2.1370625,
+            "p95": 3.351458
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.3304166665714648,
+            "min": 0.09999999403953552,
+            "max": 1.1000000014901161,
+            "median": 0.29999999701976776,
+            "p95": 0.6000000014901161
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 33.3315126050422,
+            "min": 31.29999999993015,
+            "max": 35.40000000002328,
+            "median": 33.300000000046566,
+            "p95": 35.29999999998836
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 1,
+              "gpuMs": 2.548071408333333,
+              "cpuSubmissionWallMs": 0.5391666668777665,
+              "report": "chromium-background-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 1,
+              "gpuMs": 2.1093505416666662,
+              "cpuSubmissionWallMs": 0.2375,
+              "report": "chromium-background-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 2,
+              "gpuMs": 2.147340133333332,
+              "cpuSubmissionWallMs": 0.3116666664679845,
+              "report": "chromium-background-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 3,
+              "gpuMs": 2.0909502166666676,
+              "cpuSubmissionWallMs": 0.2616666669026017,
+              "report": "chromium-background-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 2,
+              "gpuMs": 2.32987385,
+              "cpuSubmissionWallMs": 0.31416666638106105,
+              "report": "chromium-background-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 3,
+              "gpuMs": 2.230072066666667,
+              "cpuSubmissionWallMs": 0.31833333279937504,
+              "report": "chromium-background-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 6,
+            "mean": 2.2426097027777776,
+            "min": 2.0909502166666676,
+            "max": 2.548071408333333,
+            "median": 2.1887060999999997,
+            "p95": 2.548071408333333
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.3304166665714648,
+            "min": 0.2375,
+            "max": 0.5391666668777665,
+            "median": 0.31291666642452276,
+            "p95": 0.5391666668777665
+          },
+          "preparations": [
+            {
+              "version": "2k",
+              "startedAt": "2026-09-14T13:18:08.076Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 2.5,
+              "factoryCpuMs": 9.099999994039536,
+              "readyWaitWallMs": 18,
+              "compileAsyncWallMs": 13.699999995529652,
+              "firstRenderCpuMs": 24.80000000447035,
+              "firstSubmittedFrameWallMs": 73.89999999850988,
+              "firstRenderGpuMs": 16.296249,
+              "firstRenderGpuStatus": "valid",
+              "textureFetchMs": 2.100000001490116,
+              "textureDecodeMs": 16
+            }
+          ]
+        },
+        "4k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 720,
+            "mean": 2.181860677777777,
+            "min": 1.335,
+            "max": 4.601125,
+            "median": 2.0838745000000003,
+            "p95": 3.303375
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.3158333335692684,
+            "min": 0,
+            "max": 0.8999999985098839,
+            "median": 0.29999999701976776,
+            "p95": 0.5
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 33.330532212885274,
+            "min": 31.29999999993015,
+            "max": 35.40000000002328,
+            "median": 33.300000000046566,
+            "p95": 35.20000000001164
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 2,
+              "gpuMs": 2.01652415,
+              "cpuSubmissionWallMs": 0.2950000004221996,
+              "report": "chromium-background-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 3,
+              "gpuMs": 2.1080550750000002,
+              "cpuSubmissionWallMs": 0.24499999998758237,
+              "report": "chromium-background-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 1,
+              "gpuMs": 2.1639904250000006,
+              "cpuSubmissionWallMs": 0.305833333854874,
+              "report": "chromium-background-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 1,
+              "gpuMs": 2.2775353000000007,
+              "cpuSubmissionWallMs": 0.3883333336561918,
+              "report": "chromium-background-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 3,
+              "gpuMs": 2.2804703750000006,
+              "cpuSubmissionWallMs": 0.33250000029802323,
+              "report": "chromium-background-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 2,
+              "gpuMs": 2.2445887416666666,
+              "cpuSubmissionWallMs": 0.32833333319673935,
+              "report": "chromium-background-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 6,
+            "mean": 2.181860677777778,
+            "min": 2.01652415,
+            "max": 2.2804703750000006,
+            "median": 2.204289583333334,
+            "p95": 2.2804703750000006
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.3158333335692684,
+            "min": 0.24499999998758237,
+            "max": 0.3883333336561918,
+            "median": 0.31708333352580664,
+            "p95": 0.3883333336561918
+          },
+          "preparations": [
+            {
+              "version": "4k",
+              "startedAt": "2026-09-14T13:18:08.167Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 0.5,
+              "factoryCpuMs": 8.100000001490116,
+              "readyWaitWallMs": 57.70000000298023,
+              "compileAsyncWallMs": 0.29999999701976776,
+              "firstRenderCpuMs": 59.30000000447035,
+              "firstSubmittedFrameWallMs": 133.80000000447035,
+              "firstRenderGpuMs": 21.043833,
+              "firstRenderGpuStatus": "valid",
+              "textureFetchMs": 2.600000001490116,
+              "textureDecodeMs": 55.30000000447035
+            }
+          ]
+        },
+        "8k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 720,
+            "mean": 2.2071232958333376,
+            "min": 1.160583,
+            "max": 5.028583,
+            "median": 2.088125,
+            "p95": 3.388083
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.2893055554893282,
+            "min": 0,
+            "max": 0.7000000029802322,
+            "median": 0.29999999701976776,
+            "p95": 0.5
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 33.33753501400552,
+            "min": 31.199999999953434,
+            "max": 35.40000000002328,
+            "median": 33.300000000046566,
+            "p95": 35.29999999993015
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 3,
+              "gpuMs": 2.095045308333334,
+              "cpuSubmissionWallMs": 0.28000000001241765,
+              "report": "chromium-background-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 2,
+              "gpuMs": 1.9977467749999995,
+              "cpuSubmissionWallMs": 0.23083333323399227,
+              "report": "chromium-background-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 3,
+              "gpuMs": 2.230209874999999,
+              "cpuSubmissionWallMs": 0.3150000002856056,
+              "report": "chromium-background-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 2,
+              "gpuMs": 2.177019316666666,
+              "cpuSubmissionWallMs": 0.3416666662941376,
+              "report": "chromium-background-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 1,
+              "gpuMs": 2.401576283333333,
+              "cpuSubmissionWallMs": 0.24833333318432171,
+              "report": "chromium-background-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 1,
+              "gpuMs": 2.341142216666667,
+              "cpuSubmissionWallMs": 0.3199999999254942,
+              "report": "chromium-background-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 6,
+            "mean": 2.2071232958333327,
+            "min": 1.9977467749999995,
+            "max": 2.401576283333333,
+            "median": 2.2036145958333324,
+            "p95": 2.401576283333333
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.2893055554893282,
+            "min": 0.23083333323399227,
+            "max": 0.3416666662941376,
+            "median": 0.2975000001490116,
+            "p95": 0.3416666662941376
+          },
+          "preparations": [
+            {
+              "version": "8k",
+              "startedAt": "2026-09-14T13:18:08.319Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 0.29999999701976776,
+              "factoryCpuMs": 10,
+              "readyWaitWallMs": 225.80000000447035,
+              "compileAsyncWallMs": 0.30000000447034836,
+              "firstRenderCpuMs": 211.10000000149012,
+              "firstSubmittedFrameWallMs": 466.8999999985099,
+              "firstRenderGpuMs": 46.373333,
+              "firstRenderGpuStatus": "valid",
+              "textureFetchMs": 4.5,
+              "textureDecodeMs": 221.39999999850988
+            }
+          ]
+        }
+      },
+      "sameRoundRatios": {
+        "4k / 2k": [
+          {
+            "order": "ABC",
+            "gpuRatio": 0.7913923226033086,
+            "cpuSubmissionWallRatio": 0.5471406497187604
+          },
+          {
+            "order": "ACB",
+            "gpuRatio": 0.9993858457183497,
+            "cpuSubmissionWallRatio": 1.0315789473161363
+          },
+          {
+            "order": "BAC",
+            "gpuRatio": 1.0077539144396384,
+            "cpuSubmissionWallRatio": 0.9812834247588369
+          },
+          {
+            "order": "BCA",
+            "gpuRatio": 1.0892345890619919,
+            "cpuSubmissionWallRatio": 1.484076433016737
+          },
+          {
+            "order": "CAB",
+            "gpuRatio": 0.9787956438070674,
+            "cpuSubmissionWallRatio": 1.0583554395765373
+          },
+          {
+            "order": "CBA",
+            "gpuRatio": 1.0065095093638377,
+            "cpuSubmissionWallRatio": 1.0314136138664016
+          }
+        ],
+        "8k / 4k": [
+          {
+            "order": "ABC",
+            "gpuRatio": 1.038938863357195,
+            "cpuSubmissionWallRatio": 0.9491525410565621
+          },
+          {
+            "order": "ACB",
+            "gpuRatio": 0.9476729515712483,
+            "cpuSubmissionWallRatio": 0.9421768703905791
+          },
+          {
+            "order": "BAC",
+            "gpuRatio": 1.0306006206104161,
+            "cpuSubmissionWallRatio": 1.0299727512210342
+          },
+          {
+            "order": "BCA",
+            "gpuRatio": 0.9558663335170546,
+            "cpuSubmissionWallRatio": 0.8798283244894701
+          },
+          {
+            "order": "CAB",
+            "gpuRatio": 1.053105670505951,
+            "cpuSubmissionWallRatio": 0.7468671668022194
+          },
+          {
+            "order": "CBA",
+            "gpuRatio": 1.0430161094581214,
+            "cpuSubmissionWallRatio": 0.9746192895186437
+          }
+        ]
+      }
+    },
+    "Safari 1422x871 DPR2 (unlocked display)": {
+      "browser": "Safari",
+      "displayState": "unlocked",
+      "configuration": {
+        "width": 1422,
+        "height": 871,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 0
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.2 Safari/605.1.15",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 8,
+        "deviceMemoryGiB": null,
+        "nativePixelRatio": 2,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0",
+        "shadingLanguage": "WebGL GLSL ES 3.00",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Apple Inc.",
+        "unmaskedRenderer": "Apple GPU",
+        "drawingBuffer": {
+          "width": 2844,
+          "height": 1742
+        },
+        "maxTextureSize": 16384,
+        "rendererMemory": {
+          "geometries": 0,
+          "textures": 0
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false
+        },
+        "gpuTimerAvailable": false,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "orders": [
+        "ABC",
+        "ACB",
+        "BAC",
+        "BCA",
+        "CAB",
+        "CBA"
+      ],
+      "completeBalancedDesign": true,
+      "powerSources": [
+        "Battery Power"
+      ],
+      "drawTrianglePointCounters": [
+        "4/48642/3100"
+      ],
+      "allCpuSamplesWholeMilliseconds": true,
+      "uniquePreparations": 3,
+      "variants": {
+        "2k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.3527777777766055,
+            "min": 0,
+            "max": 1.0000000002328306,
+            "median": 0,
+            "p95": 1.0000000000291038
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 16.668067226890756,
+            "min": 15,
+            "max": 18,
+            "median": 17,
+            "p95": 17
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.5999999999997575,
+              "report": "safari-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.2916666666647264,
+              "report": "safari-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.29999999999029875,
+              "report": "safari-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.42499999999805976,
+              "report": "safari-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.2166666666676368,
+              "report": "safari-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.2833333333391541,
+              "report": "safari-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.3527777777766055,
+            "min": 0.2166666666676368,
+            "max": 0.5999999999997575,
+            "median": 0.2958333333275126,
+            "p95": 0.5999999999997575
+          },
+          "preparations": [
+            {
+              "version": "2k",
+              "startedAt": "2026-09-14T13:05:54.663Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 4,
+              "factoryCpuMs": 21.000000000014552,
+              "readyWaitWallMs": 18.999999999985448,
+              "compileAsyncWallMs": 14,
+              "firstRenderCpuMs": 31,
+              "firstSubmittedFrameWallMs": 90,
+              "firstRenderGpuMs": null,
+              "firstRenderGpuStatus": "unsupported",
+              "textureFetchMs": 3,
+              "textureDecodeMs": 17
+            }
+          ]
+        },
+        "4k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.3944444444423627,
+            "min": 0,
+            "max": 1.0000000002328306,
+            "median": 0,
+            "p95": 1.000000000014552
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 16.669467787114847,
+            "min": 15,
+            "max": 18,
+            "median": 17,
+            "p95": 18
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.6250000000010913,
+              "report": "safari-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.34166666666569656,
+              "report": "safari-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.34999999998835846,
+              "report": "safari-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.38333333333284825,
+              "report": "safari-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.3499999999995149,
+              "report": "safari-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.31666666666666665,
+              "report": "safari-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.39444444444236265,
+            "min": 0.31666666666666665,
+            "max": 0.6250000000010913,
+            "median": 0.3499999999939367,
+            "p95": 0.6250000000010913
+          },
+          "preparations": [
+            {
+              "version": "4k",
+              "startedAt": "2026-09-14T13:05:54.753Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 0,
+              "factoryCpuMs": 14,
+              "readyWaitWallMs": 55.00000000001455,
+              "compileAsyncWallMs": 0,
+              "firstRenderCpuMs": 44,
+              "firstSubmittedFrameWallMs": 114,
+              "firstRenderGpuMs": null,
+              "firstRenderGpuStatus": "unsupported",
+              "textureFetchMs": 3,
+              "textureDecodeMs": 52.00000000001455
+            }
+          ]
+        },
+        "8k": {
+          "measuredFrames": 720,
+          "blocks": 6,
+          "gpuMs": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuSubmissionWallMs": {
+            "count": 720,
+            "mean": 0.3416666666656561,
+            "min": 0,
+            "max": 1.0000000001164153,
+            "median": 0,
+            "p95": 1
+          },
+          "frameIntervalMs": {
+            "count": 714,
+            "mean": 16.666666666666668,
+            "min": 15,
+            "max": 18,
+            "median": 17,
+            "p95": 17
+          },
+          "blockMeans": [
+            {
+              "order": "ABC",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.5999999999997575,
+              "report": "safari-ABC.json"
+            },
+            {
+              "order": "ACB",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.31666666666666665,
+              "report": "safari-ACB.json"
+            },
+            {
+              "order": "BAC",
+              "position": 3,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.20833333332751255,
+              "report": "safari-BAC.json"
+            },
+            {
+              "order": "BCA",
+              "position": 2,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.39999999999902985,
+              "report": "safari-BCA.json"
+            },
+            {
+              "order": "CAB",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.3083333333338184,
+              "report": "safari-CAB.json"
+            },
+            {
+              "order": "CBA",
+              "position": 1,
+              "gpuMs": null,
+              "cpuSubmissionWallMs": 0.21666666666715173,
+              "report": "safari-CBA.json"
+            }
+          ],
+          "gpuBlockMeanRange": {
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "median": null,
+            "p95": null
+          },
+          "cpuBlockMeanRange": {
+            "count": 6,
+            "mean": 0.3416666666656561,
+            "min": 0.20833333332751255,
+            "max": 0.5999999999997575,
+            "median": 0.31250000000024253,
+            "p95": 0.5999999999997575
+          },
+          "preparations": [
+            {
+              "version": "8k",
+              "startedAt": "2026-09-14T13:05:54.866Z",
+              "trigger": "comparison",
+              "moduleImportWallMs": 0,
+              "factoryCpuMs": 8,
+              "readyWaitWallMs": 234,
+              "compileAsyncWallMs": 1,
+              "firstRenderCpuMs": 176,
+              "firstSubmittedFrameWallMs": 419,
+              "firstRenderGpuMs": null,
+              "firstRenderGpuStatus": "unsupported",
+              "textureFetchMs": 30,
+              "textureDecodeMs": 205
+            }
+          ]
+        }
+      },
+      "sameRoundRatios": {
+        "4k / 2k": [
+          {
+            "order": "ABC",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.0416666666689065
+          },
+          {
+            "order": "ACB",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.1714285714330381
+          },
+          {
+            "order": "BAC",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.1666666666655887
+          },
+          {
+            "order": "BCA",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.9019607843167018
+          },
+          {
+            "order": "CAB",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.6153846153751437
+          },
+          {
+            "order": "CBA",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.1176470588005685
+          }
+        ],
+        "8k / 4k": [
+          {
+            "order": "ABC",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.9599999999979357
+          },
+          {
+            "order": "ACB",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.9268292682953144
+          },
+          {
+            "order": "BAC",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.595238095241263
+          },
+          {
+            "order": "BCA",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 1.0434782608683548
+          },
+          {
+            "order": "CAB",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.8809523809549878
+          },
+          {
+            "order": "CBA",
+            "gpuRatio": null,
+            "cpuSubmissionWallRatio": 0.6842105263173213
+          }
+        ]
+      }
+    }
+  },
+  "nativeObservations": [
+    {
+      "label": "chromium-background-ABC.json/initial",
+      "capturedAt": "2026-09-14T13:18:07.903Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/2k/before",
+      "capturedAt": "2026-09-14T13:18:28.810Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/2k/after",
+      "capturedAt": "2026-09-14T13:18:33.311Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/4k/before",
+      "capturedAt": "2026-09-14T13:18:53.496Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/4k/after",
+      "capturedAt": "2026-09-14T13:18:57.995Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/8k/before",
+      "capturedAt": "2026-09-14T13:19:18.194Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ABC.json/8k/after",
+      "capturedAt": "2026-09-14T13:19:22.695Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/initial",
+      "capturedAt": "2026-09-14T13:24:34.229Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/2k/before",
+      "capturedAt": "2026-09-14T13:24:54.425Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/2k/after",
+      "capturedAt": "2026-09-14T13:24:58.927Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/8k/before",
+      "capturedAt": "2026-09-14T13:25:19.127Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/8k/after",
+      "capturedAt": "2026-09-14T13:25:23.629Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/4k/before",
+      "capturedAt": "2026-09-14T13:25:43.826Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-ACB.json/4k/after",
+      "capturedAt": "2026-09-14T13:25:48.330Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/initial",
+      "capturedAt": "2026-09-14T13:27:37.962Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/4k/before",
+      "capturedAt": "2026-09-14T13:27:58.148Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/4k/after",
+      "capturedAt": "2026-09-14T13:28:02.646Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/2k/before",
+      "capturedAt": "2026-09-14T13:28:22.842Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/2k/after",
+      "capturedAt": "2026-09-14T13:28:27.343Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/8k/before",
+      "capturedAt": "2026-09-14T13:28:47.540Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BAC.json/8k/after",
+      "capturedAt": "2026-09-14T13:28:52.046Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/initial",
+      "capturedAt": "2026-09-14T13:20:57.399Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/4k/before",
+      "capturedAt": "2026-09-14T13:21:17.581Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/4k/after",
+      "capturedAt": "2026-09-14T13:21:22.078Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/8k/before",
+      "capturedAt": "2026-09-14T13:21:42.277Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/8k/after",
+      "capturedAt": "2026-09-14T13:21:46.778Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/2k/before",
+      "capturedAt": "2026-09-14T13:22:06.994Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-BCA.json/2k/after",
+      "capturedAt": "2026-09-14T13:22:11.494Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/initial",
+      "capturedAt": "2026-09-14T13:22:49.030Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/8k/before",
+      "capturedAt": "2026-09-14T13:23:09.214Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/8k/after",
+      "capturedAt": "2026-09-14T13:23:13.713Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/2k/before",
+      "capturedAt": "2026-09-14T13:23:33.909Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/2k/after",
+      "capturedAt": "2026-09-14T13:23:38.411Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/4k/before",
+      "capturedAt": "2026-09-14T13:23:58.609Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CAB.json/4k/after",
+      "capturedAt": "2026-09-14T13:24:03.112Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/initial",
+      "capturedAt": "2026-09-14T13:26:05.896Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/8k/before",
+      "capturedAt": "2026-09-14T13:26:26.080Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/8k/after",
+      "capturedAt": "2026-09-14T13:26:30.579Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/4k/before",
+      "capturedAt": "2026-09-14T13:26:50.776Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/4k/after",
+      "capturedAt": "2026-09-14T13:26:55.279Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/2k/before",
+      "capturedAt": "2026-09-14T13:27:15.484Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "chromium-background-CBA.json/2k/after",
+      "capturedAt": "2026-09-14T13:27:19.979Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/initial",
+      "capturedAt": "2026-09-14T13:05:54.488Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/2k/before",
+      "capturedAt": "2026-09-14T13:06:15.295Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/2k/after",
+      "capturedAt": "2026-09-14T13:06:17.655Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/4k/before",
+      "capturedAt": "2026-09-14T13:06:37.853Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/4k/after",
+      "capturedAt": "2026-09-14T13:06:40.205Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/8k/before",
+      "capturedAt": "2026-09-14T13:07:00.401Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ABC.json/8k/after",
+      "capturedAt": "2026-09-14T13:07:02.771Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/initial",
+      "capturedAt": "2026-09-14T13:11:16.393Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/2k/before",
+      "capturedAt": "2026-09-14T13:11:36.576Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/2k/after",
+      "capturedAt": "2026-09-14T13:11:38.920Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/8k/before",
+      "capturedAt": "2026-09-14T13:11:59.110Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/8k/after",
+      "capturedAt": "2026-09-14T13:12:01.471Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/4k/before",
+      "capturedAt": "2026-09-14T13:12:21.658Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-ACB.json/4k/after",
+      "capturedAt": "2026-09-14T13:12:24.004Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/initial",
+      "capturedAt": "2026-09-14T13:30:06.995Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/4k/before",
+      "capturedAt": "2026-09-14T13:30:27.203Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/4k/after",
+      "capturedAt": "2026-09-14T13:30:29.556Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/2k/before",
+      "capturedAt": "2026-09-14T13:30:49.748Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/2k/after",
+      "capturedAt": "2026-09-14T13:30:52.096Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/8k/before",
+      "capturedAt": "2026-09-14T13:31:12.284Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BAC.json/8k/after",
+      "capturedAt": "2026-09-14T13:31:14.682Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/initial",
+      "capturedAt": "2026-09-14T13:07:50.743Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/4k/before",
+      "capturedAt": "2026-09-14T13:08:10.925Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/4k/after",
+      "capturedAt": "2026-09-14T13:08:13.288Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/8k/before",
+      "capturedAt": "2026-09-14T13:08:33.476Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/8k/after",
+      "capturedAt": "2026-09-14T13:08:35.855Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/2k/before",
+      "capturedAt": "2026-09-14T13:08:56.036Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-BCA.json/2k/after",
+      "capturedAt": "2026-09-14T13:08:58.404Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/initial",
+      "capturedAt": "2026-09-14T13:09:39.859Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/8k/before",
+      "capturedAt": "2026-09-14T13:10:00.038Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/8k/after",
+      "capturedAt": "2026-09-14T13:10:02.404Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/2k/before",
+      "capturedAt": "2026-09-14T13:10:22.592Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/2k/after",
+      "capturedAt": "2026-09-14T13:10:24.953Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/4k/before",
+      "capturedAt": "2026-09-14T13:10:45.138Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CAB.json/4k/after",
+      "capturedAt": "2026-09-14T13:10:47.503Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/initial",
+      "capturedAt": "2026-09-14T13:12:52.875Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/8k/before",
+      "capturedAt": "2026-09-14T13:13:13.055Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/8k/after",
+      "capturedAt": "2026-09-14T13:13:15.387Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/4k/before",
+      "capturedAt": "2026-09-14T13:13:35.591Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/4k/after",
+      "capturedAt": "2026-09-14T13:13:37.954Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/2k/before",
+      "capturedAt": "2026-09-14T13:13:58.155Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    },
+    {
+      "label": "safari-CBA.json/2k/after",
+      "capturedAt": "2026-09-14T13:14:00.503Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power"
+    }
+  ],
+  "limits": [
+    "Per-frame observations within a block are correlated; six order-balanced blocks per resolution are the relevant repeated observations. Pooled frame p95 is descriptive, not a confidence interval.",
+    "Measurements cover the orbital background only, including the same stars, frozen initial Mediterranean view and cinematic atmosphere. They exclude the spacecraft, app UI, camera travel and whole-site FPS.",
+    "GPU timer queries measure elapsed rendering work. CPU fields are elapsed JavaScript/update/render-submission wall durations, not native CPU utilization, power or temperature. Display-paced intervals are not maximum attainable FPS.",
+    "Safari without GPU timer support supplies CPU/frame measurements only. Unsupported GPU values remain null and are never replaced by CPU measurements or zero.",
+    "Recorded native-display lock states are separate experimental conditions. A visible in-app browser can submit real GPU work while the native display is locked; such timings are not established ordinary foreground website or display performance. Never pool locked and unlocked observations.",
+    "An explicitly unobserved display-state cohort retains valid timing records without pretending that its native display state stayed fixed. Possible changes remain an uncontrolled environmental factor; balanced order alone cannot remove that uncertainty.",
+    "All three Earth environments and their images remain resident during this lab. The nominal combined Earth texture mip payload is 234,881,028 bytes. Production retains one Earth; driver overhead, decoded images, framebuffers and geometry are additional.",
+    "Nominal RGBA8 mip storage and illustrative decoded-RGBA storage are calculations, not measured physical GPU allocation/process memory. File bytes represent the Earth image payload, not total website download.",
+    "Preparations are deduplicated by version/start timestamp. Shared module/shader/driver caches and fixed preparation order limit comparison; these local submission milestones are neither cold-network page load times nor replicated startup benchmarks.",
+    "Twenty-second blank rests and observed nominal thermal pressure do not prove complete cooling, identical clocks or absence of throttling. Native snapshots outside timed frames can miss transient changes.",
+    "Compact viewports, if present, use the same desktop machine and do not establish performance on physical mobile hardware. Small inconsistent timing differences should remain inconclusive."
+  ]
+}

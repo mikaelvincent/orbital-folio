@@ -1,0 +1,6 @@
+[
+  {
+    "file": "safari-BAC-interrupted.json",
+    "reason": "Native tool reported Mac locked during this round. Retained but excluded despite reported complete status."
+  }
+]

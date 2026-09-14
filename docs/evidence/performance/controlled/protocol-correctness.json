@@ -1,0 +1,335 @@
+{
+  "recordedAt": "2026-09-14T03:54:09.689Z",
+  "status": "correctness-only-passed",
+  "config": {
+    "selected": [
+      "local-matrix",
+      "lighting-settled",
+      "lighting-changing",
+      "iris-settled",
+      "iris-moving",
+      "indexing-startup"
+    ],
+    "blocks": 4,
+    "burstMs": 120,
+    "initialRestMs": 60000,
+    "sampleRestMs": 1000,
+    "blockRestMs": 20000,
+    "controlRestMs": 10000,
+    "recoveryRestMs": 60000,
+    "thermalPollMs": 5000,
+    "maxCoolPolls": 12,
+    "maxAttempts": 2,
+    "driftLimit": 0.05,
+    "seed": 20260914,
+    "thermalGate": "unknown-allowed",
+    "telemetryArgv": null,
+    "contextTelemetryArgv": null,
+    "notes": "",
+    "gc": "before-block; before-every-startup-sample; outside-timer"
+  },
+  "schedule": [
+    {
+      "name": "iris-moving",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "iris-settled",
+      "orders": [
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "name": "local-matrix",
+      "orders": [
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "lighting-settled",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "name": "indexing-startup",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "lighting-changing",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "node": "v26.0.0",
+    "threeRevision": "185",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "osRelease": "25.6.0",
+    "cpuModel": "Apple M4",
+    "logicalCpus": 10,
+    "totalMemoryBytes": 17179869184,
+    "execArgv": [
+      "--expose-gc"
+    ],
+    "sourceHashes": {
+      "components/spacecraft-model.ts": "28af5dfd48587e36bfd228ae74076929ad7ff6664a6428caba2f71c9c02c37b7",
+      "components/iris-hatch.ts": "06d61199491b4856b90dd70208e537d7009833bfaa33dbab67ea0bf9206783c2",
+      "scripts/benchmark-controlled-performance.mjs": "3584107fb13edcf27d776c199e8e350d3beec17b4bd9684ba60620a6477a6b94",
+      "scripts/benchmarks/controlled-cases.mjs": "9fb23d0d625d77bc889621cedd1e916bdde490a1a62cab77fe6501beea4ea3e2",
+      "scripts/benchmarks/controlled-protocol.mjs": "751a57e2bee73280865f4a0eb14ccf824826e0e6f83726f1779322405c3988b7",
+      "scripts/benchmarks/local-transform-cache-candidate.ts": "876c16a7b24082fbd5c158aeff605c115a342c4ebfb8c335e032cb9dbce0bcaa",
+      "scripts/benchmarks/material-lighting-candidate.ts": "53796d3f85e18c4b9827800cd2d179ce3ddfee14446ca1cb05123a7992207225",
+      "scripts/benchmarks/exact-matrix-inverse-candidate.ts": "6b1c57b01fe2168c06c4d7918ff49ce03b0c0bc6ed114ff9d41e20f49308dcfb",
+      "scripts/probe-targeted-exact-indexing.mjs": "ea2a9d0a594895910ed83f7edcfd21b5ef7001c0db7f3c7049ba4f7d6ae79dc2"
+    },
+    "initialSystemContext": {
+      "timestamp": "2026-09-14T03:54:09.692Z",
+      "telemetry": {
+        "thermalState": "unavailable",
+        "reason": "no external telemetry configured"
+      },
+      "systemLoadAverage": [
+        3.00048828125,
+        2.728515625,
+        2.50830078125
+      ],
+      "freeMemoryBytes": 724926464,
+      "processMemory": {
+        "rss": 107036672,
+        "heapTotal": 15990784,
+        "heapUsed": 12465040,
+        "external": 7491501,
+        "arrayBuffers": 405263
+      }
+    }
+  },
+  "methodology": "Balanced seeded ABBA/BAAB blocks with identical work counts, short calibrated bursts, real idle rests, nominal-OS-pressure gate when telemetry is available, and repeated reference controls. Every attempt and rejection is retained; timings are never thermally corrected.",
+  "limitations": [
+    "Nominal OS thermal pressure plus stable controls does not prove cold hardware, peak clocks, or absence of throttling.",
+    "Rests are configurable minimum idle periods, not guaranteed cooldown times. Drift and telemetry can invalidate a block.",
+    "CPU-only Node kernels. No browser CanvasTextures, GPU uploads/draws, FPS, energy or device-temperature conclusions.",
+    "Steady frame kernels reuse fixtures. Indexing intentionally creates one fresh model per sample and reports construction and compaction separately.",
+    "All candidates remain benchmark-only; paired timings never automatically activate production changes."
+  ],
+  "checkpoints": [],
+  "cases": {
+    "local-matrix": {
+      "verification": {
+        "worldMatricesCompared": 718
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "lighting-settled": {
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "lighting-changing": {
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "iris-settled": {
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "iris-moving": {
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "indexing-startup": {
+      "verification": {
+        "exactExpandedDrawInputs": "passed",
+        "forcedHashCollisionFixture": "passed",
+        "groups": {
+          "ladder": {
+            "checked": 14,
+            "changed": 8,
+            "milliseconds": 67.43904199999997,
+            "bytesSaved": 733056,
+            "verticesBefore": 81774,
+            "verticesAfter": 58866
+          },
+          "projects": {
+            "checked": 15,
+            "changed": 5,
+            "milliseconds": 78.03829099999984,
+            "bytesSaved": 376576,
+            "verticesBefore": 86816,
+            "verticesAfter": 75048
+          }
+        }
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    }
+  }
+}

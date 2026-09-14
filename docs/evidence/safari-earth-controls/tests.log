@@ -1,0 +1,37 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (25.740917ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (10.131959ms)
+✔ Disposal before injected texture installation releases it without invalidating (18.322ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (31.841875ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (78.434875ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (42.736792ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (1.401708ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.698833ms)
+✔ Earth loader propagates fetch and decode failures (1.071791ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.6575ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.573791ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.320791ms)
+✔ Texture construction/configuration failure releases owned resources (1.545208ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.111625ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.607375ms)
+✔ Earth view normalization rejects corrupt stored values and clamps only finite numbers (3.050042ms)
+✔ Preset matching tolerates motion pause but recognizes manual framing (0.476125ms)
+✔ Night openings stay in the visible foreground at desktop sizes and manual bounds (34.242833ms)
+✔ Night openings stay in the visible foreground at compact sizes and manual bounds (15.050333ms)
+✔ Night lighting stays photographic and view changes reuse every loaded resource (46.091541ms)
+✔ Earth pause, resume and replay preserve the independent star and meteor clocks (16.470291ms)
+✔ The shipped night asset matches its manifest, real 8K dimensions and source provenance (11.340375ms)
+✔ Safari ancestor focus during an inside press preserves the preset click (3.681542ms)
+✔ Inside input focus and editing are retained without moving focus back (0.531292ms)
+✔ An outside press dismisses even after Safari moved focus to an ancestor (0.299708ms)
+✔ Tab-out still dismisses after pointer use, including focus on the same ancestor (0.419041ms)
+✔ Outside focus only tolerates the ancestor caused by the inside press (0.327459ms)
+✔ Escape is consumed and returns focus to the toggle after dismissal (0.293625ms)
+✔ Cleanup removes every registered listener and leaves later input untouched (1.641875ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1315.053125

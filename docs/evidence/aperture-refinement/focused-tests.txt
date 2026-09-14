@@ -1,0 +1,21 @@
+✔ A seeded schedule counterbalances both version positions without changing work counts (1.394917ms)
+✔ Controls reject broad variation and sustained drift while retaining measured values (0.156916ms)
+✔ Unknown telemetry never becomes evidence of nominal pressure (0.074875ms)
+✔ Rejected attempts stay outside paired summaries and small wins are never auto-approved (0.143875ms)
+✔ Six iris leaves reuse one exact inverse while source or result changes invalidate immediately (9.959209ms)
+✔ Parent transforms, zero scales, negative zeros and direct matrix edits match native copy/invert (3.557458ms)
+✔ Aliased matrices retain repeated in-place inversion semantics (0.23125ms)
+✔ Lighting exactly matches the former calculation for changing levels and externally mutated inputs/outputs (2.297166ms)
+✔ Settled material components receive no redundant writes but external edits are corrected immediately (0.194417ms)
+✔ Actual room, door and social-highlight lighting inputs remain exact throughout route/reading/reduced-motion states (755.715958ms)
+✔ Shared room framing preserves the same projected architecture and visible navigation across viewports (15.197375ms)
+✔ Adding or rearranging furniture cannot change the shared room framing (5.595ms)
+✔ Overview pointers use the true front-opening edge midpoints in both layouts (3.204125ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 944.811958

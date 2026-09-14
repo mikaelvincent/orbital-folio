@@ -1,0 +1,6485 @@
+{
+  "schemaVersion": 2,
+  "runId": "da317e77-4572-4e3b-ac96-9f286bd2e60f",
+  "startedAt": "2026-09-14T10:40:16.430Z",
+  "status": "complete",
+  "buildManifest": {
+    "snapshotId": "a8164cba-f996-45ed-894a-05c59a9ca5e4",
+    "builtAt": "2026-09-14T10:19:51.530Z",
+    "node": "v26.0.0",
+    "sourceFiles": [
+      {
+        "path": "node_modules/three/build/three.core.js",
+        "bytes": 1443056,
+        "sha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759"
+      },
+      {
+        "path": "node_modules/three/build/three.module.js",
+        "bytes": 650153,
+        "sha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7"
+      },
+      {
+        "path": "scripts/benchmarks/cloud-reference.ts",
+        "bytes": 37901,
+        "sha256": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9"
+      },
+      {
+        "path": "components/earth-satellite.ts",
+        "bytes": 5117,
+        "sha256": "9a4ef117ef1c88d50d91227242f574a5140062ef300cff1d822a63cdcf83ca8d"
+      },
+      {
+        "path": "components/orbital-environment.ts",
+        "bytes": 27186,
+        "sha256": "6b9057cde947b226b49bc9397dacd72e5ae57b43ff37f40b13fd0b3a8cc5c566"
+      },
+      {
+        "path": "scripts/benchmarks/earth-resolution-lab.ts",
+        "bytes": 34669,
+        "sha256": "81dd26db0b715e367bb1b6c73dd454bb659ef6f52b22685769c1734a53220d29"
+      }
+    ],
+    "nativeContext": {
+      "enabled": true,
+      "executable": "/tmp/orbital-folio-mac-thermal-snapshot",
+      "sha256": "0c52c1c7ef862144255c0be467bf4a31fb4de7cc51d8fe7c9154785af74f1cf1",
+      "arguments": [
+        "--pmset"
+      ],
+      "timeoutMs": 6000
+    },
+    "bundleFiles": [
+      {
+        "path": "chunks/chunk-54KOYG5C.js",
+        "bytes": 234,
+        "sha256": "a08c5b856a144fdba7180f1683a1189fc47227ad04cf6b23668b8f0d7710f6c9"
+      },
+      {
+        "path": "chunks/chunk-54KOYG5C.js.map",
+        "bytes": 93,
+        "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
+      },
+      {
+        "path": "chunks/cloud-reference-Q5MM575H.js",
+        "bytes": 35011,
+        "sha256": "080324edfe8e1296a0abfe3338bb6fe587b9357bbd03642014acb0c7d5220271"
+      },
+      {
+        "path": "chunks/cloud-reference-Q5MM575H.js.map",
+        "bytes": 57170,
+        "sha256": "5276b68c885a3912b2ff6ab3e808622488f89bcec2fdc06158e1abb30f6943eb"
+      },
+      {
+        "path": "chunks/orbital-environment-DNRMA2GA.js",
+        "bytes": 28010,
+        "sha256": "5e22081f1b6837ddf4ef5cc2c683a2af4f3388b2a7b9c1b1e883f23e2513274a"
+      },
+      {
+        "path": "chunks/orbital-environment-DNRMA2GA.js.map",
+        "bytes": 51052,
+        "sha256": "4813d1d1ff390a2a0a5fa8bc9963c0d4cade97f290b84808e15ac53ee2ebf4b6"
+      },
+      {
+        "path": "earth-resolution-lab.js",
+        "bytes": 1716691,
+        "sha256": "f316ec3b1c79eba9d3f556e057d13cd5076c2e12c1ae50b9b91bcc5305351e5a"
+      },
+      {
+        "path": "earth-resolution-lab.js.map",
+        "bytes": 3183234,
+        "sha256": "bff97a86f5e2691c513a285cccadf63d92173771d165b0a21e9170c8da130fcc"
+      }
+    ],
+    "publicFiles": [
+      {
+        "path": "textures/README.md",
+        "bytes": 1563,
+        "sha256": "7dc47577b270caae511c3b7914cb59db0e750d118a84930e3170683dc49940ed"
+      },
+      {
+        "path": "textures/cloud-banks-v1.cfd.gz",
+        "bytes": 3165073,
+        "sha256": "3893a218a0349cca5e6e2489e1d7ead30dab2d20f875e6050c6edc021b61d84c"
+      },
+      {
+        "path": "textures/cloud-banks-v1.json",
+        "bytes": 369,
+        "sha256": "a2b1efa2e7fecca4d87cffb1e3cf6555b10922b2b4d01f1be2aa69242b6a73a9"
+      },
+      {
+        "path": "textures/cloud-satellite-v2.cfd.gz",
+        "bytes": 2781463,
+        "sha256": "221a07423e3fe04f2b32f5cd18764db33b4a7dc6c205b7e8a0df1ef39c80738b"
+      },
+      {
+        "path": "textures/cloud-satellite-v2.json",
+        "bytes": 1290,
+        "sha256": "a00357c8417b81ab1b9887dc1c974f1714f432876e85cc7308c6fb3237a0cba6"
+      },
+      {
+        "path": "textures/earth-blue-marble-2k.jpg",
+        "bytes": 526263,
+        "sha256": "d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5"
+      },
+      {
+        "path": "textures/earth-blue-marble-2k.json",
+        "bytes": 1591,
+        "sha256": "cd3e764c0bf9b027ebfcc17ac67d93f7cd9ae2fc70d0024604783947c609b562"
+      },
+      {
+        "path": "textures/earth-blue-marble-4k.jpg",
+        "bytes": 1925103,
+        "sha256": "ea8940c7f59de7aea44dce96c021f9c9bf7d1adae328fe9fbdc0449fa6535797"
+      },
+      {
+        "path": "textures/earth-blue-marble-4k.json",
+        "bytes": 1597,
+        "sha256": "ec8b2fae048e0e12a447bdaea4e38b2adc42e6855c8a3cabe0d967cb2a6ecb8d"
+      },
+      {
+        "path": "textures/earth-blue-marble-8k.jpg",
+        "bytes": 6615276,
+        "sha256": "f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de"
+      },
+      {
+        "path": "textures/earth-blue-marble-8k.json",
+        "bytes": 1598,
+        "sha256": "f0d36ca84e25b847f8c3caa0289bcaf42761eabcd240841b22aaf9631e16baef"
+      }
+    ],
+    "note": "Compiled modules and public assets are frozen when this server starts. No source watchers or live app routes. Restart explicitly to compare newer code."
+  },
+  "device": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "platform": "MacIntel",
+    "hardwareConcurrency": 10,
+    "deviceMemoryGiB": 16,
+    "nativePixelRatio": 1,
+    "threeRevision": "185",
+    "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+    "vendor": "WebKit",
+    "renderer": "WebKit WebGL",
+    "unmaskedVendor": "Google Inc. (Apple)",
+    "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "drawingBuffer": {
+      "width": 390,
+      "height": 844
+    },
+    "maxTextureSize": 16384,
+    "rendererMemory": {
+      "geometries": 12,
+      "textures": 9
+    },
+    "contextAttributes": {
+      "alpha": true,
+      "antialias": true,
+      "depth": true,
+      "desynchronized": false,
+      "failIfMajorPerformanceCaveat": false,
+      "powerPreference": "high-performance",
+      "premultipliedAlpha": true,
+      "preserveDrawingBuffer": false,
+      "stencil": false,
+      "xrCompatible": false
+    },
+    "gpuTimerAvailable": true,
+    "visibility": "visible",
+    "fullscreen": false
+  },
+  "configuration": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1,
+    "mobile": true,
+    "frozenTime": 180,
+    "comparison": {
+      "procedural": {
+        "label": "Previous procedural clouds",
+        "source": "scripts/benchmarks/cloud-reference.ts",
+        "expectedAsset": null,
+        "expectedTextureDimensions": null
+      },
+      "2k": {
+        "label": "2K satellite Earth",
+        "source": "components/orbital-environment.ts",
+        "expectedAsset": "/textures/earth-blue-marble-2k.jpg",
+        "expectedTextureDimensions": [
+          2048,
+          1024
+        ]
+      },
+      "4k": {
+        "label": "4K satellite Earth",
+        "source": "components/orbital-environment.ts",
+        "expectedAsset": "/textures/earth-blue-marble-4k.jpg",
+        "expectedTextureDimensions": [
+          4096,
+          2048
+        ]
+      },
+      "8k": {
+        "label": "8K satellite Earth",
+        "source": "components/orbital-environment.ts",
+        "expectedAsset": "/textures/earth-blue-marble-8k.jpg",
+        "expectedTextureDimensions": [
+          8192,
+          4096
+        ]
+      }
+    },
+    "order": "ABDC",
+    "williamsRounds": [
+      "ABDC",
+      "BCAD",
+      "CDBA",
+      "DACB"
+    ],
+    "letters": {
+      "A": "procedural",
+      "B": "2k",
+      "C": "4k",
+      "D": "8k"
+    },
+    "framesPerBlock": 60,
+    "measuredFramesPerVersion": 60,
+    "warmupFramesPerBlock": 10,
+    "idleRestMs": 20000,
+    "blocks": 4,
+    "frozenView": {
+      "x": 0,
+      "y": 0
+    },
+    "queryScope": "renderer.render(environment.scene, environment.camera)",
+    "sampleUnit": "one background render"
+  },
+  "blocks": [
+    {
+      "index": 0,
+      "version": "procedural",
+      "startedAt": "2026-09-14T10:40:36.607Z",
+      "warmupFrames": 10,
+      "measuredFramesTarget": 60,
+      "environmentDiagnostics": {
+        "activeTime": 180,
+        "ready": true,
+        "earthReady": true,
+        "earthMode": "procedural-water",
+        "earthRotation": 0.54,
+        "cloudRotation": 1.296,
+        "cloudMorphTime": 180,
+        "earthRotationRate": 0.003,
+        "cloudRotationRate": 0.0072,
+        "cloudFieldSamples": 11,
+        "cloudInterpolation": "rg8-gradient-mips",
+        "cloudFieldCells": 4,
+        "cloudSamplesPerCell": 8,
+        "cloudWeatherModel": "authored-front-stratiform-cold-sector-cumulus-cirrus",
+        "cloudLightingModel": "thin-shell-local-billows-gradient-relief-two-probes",
+        "cloudSunProbes": 2,
+        "cloudMorph": [
+          0.013975935588577964,
+          -0.005452850272634091,
+          0.019953203058688394
+        ],
+        "starCount": 2300,
+        "starBufferBytes": 101200,
+        "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+        "starTwinklePrimaryFrequencyRange": [
+          0.45,
+          2.65
+        ],
+        "starTwinkleSecondaryFrequencyRange": [
+          0.2,
+          1.8
+        ],
+        "starTwinkleAmplitudeRange": [
+          0.1,
+          0.55
+        ],
+        "meteorCapacity": 9,
+        "meteorTimingBanks": 3,
+        "meteorCreationFrequencyMultiplier": 3,
+        "meteorBankPeriod": 4.5,
+        "meteorGroupInterval": [
+          0.14,
+          4.38
+        ],
+        "meteorPairEveryGroups": 2,
+        "meteorTripleEveryGroups": 7,
+        "meteorAlignedShowerEveryCycles": 14,
+        "meteorGroupSize": 2,
+        "meteorGroupHasPair": true,
+        "meteorCount": 1,
+        "meteorPhases": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.8561872118171588,
+          0
+        ],
+        "meteorStreams": [
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.19570472805208,
+            "duration": 1.4818623983881478,
+            "nextAt": 180.66254701847095,
+            "cycle": 39,
+            "bank": 0,
+            "member": 0,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.24545032571663797,
+              0.7766174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.37864943737048,
+            "duration": 1.4783212451649888,
+            "nextAt": 185.40662985548522,
+            "cycle": 39,
+            "bank": 0,
+            "member": 1,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.25945032571663795,
+              0.7626174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.5615941466889,
+            "duration": 1.154652343978705,
+            "nextAt": 203.6867256320917,
+            "cycle": 39,
+            "bank": 0,
+            "member": 2,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.27345032571663797,
+              0.7486174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.50498644568174,
+            "duration": 1.4233460777250002,
+            "nextAt": 182.00112770814218,
+            "cycle": 39,
+            "bank": 1,
+            "member": 0,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.29799600238138735,
+              0.5555927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.75648606372653,
+            "duration": 1.4567612887392896,
+            "nextAt": 186.6232624146373,
+            "cycle": 39,
+            "bank": 1,
+            "member": 1,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.31199600238138736,
+              0.5415927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.00798568177134,
+            "duration": 1.174533675260318,
+            "nextAt": 203.8313916151147,
+            "cycle": 39,
+            "bank": 1,
+            "member": 2,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.3259960023813874,
+              0.5275927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.75201990878966,
+            "duration": 1.182495441152423,
+            "nextAt": 183.198783696614,
+            "cycle": 39,
+            "bank": 2,
+            "member": 0,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.21293985878819513,
+              0.8004886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": true,
+            "phase": 0.8561872118171588,
+            "startAt": 178.98784519116612,
+            "duration": 1.1821652961689324,
+            "nextAt": 188.00255832774872,
+            "cycle": 39,
+            "bank": 2,
+            "member": 1,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.22693985878819514,
+              0.7864886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 179.2236704735426,
+            "duration": 1.3704092465006397,
+            "nextAt": 203.93023318192456,
+            "cycle": 39,
+            "bank": 2,
+            "member": 2,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.24093985878819513,
+              0.7724886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          }
+        ],
+        "meteorPhase": 0.8561872118171588,
+        "meteorCycle": 39,
+        "meteorVisible": true,
+        "textureSize": 32,
+        "dayTextureSize": 0,
+        "cloudTextureSize": 0,
+        "proceduralTextureBytes": 98304,
+        "proceduralTextureGpuBytes": 118590,
+        "proceduralGenerationMs": 17.2,
+        "proceduralNoiseDimensions": [
+          32,
+          32,
+          32
+        ],
+        "proceduralNoiseFormat": "RG8",
+        "proceduralNoiseMipBytes": 74898,
+        "proceduralNoiseMipLevels": 6,
+        "nebulaDimensions": [
+          128,
+          64
+        ],
+        "externalTextureRequests": 0,
+        "estimatedTextureMiB": 0.1131,
+        "earthRadius": 180,
+        "earthPosition": [
+          -94.35802770540113,
+          -247.33992051593836,
+          -331.53813527139283
+        ],
+        "drawCallBudget": 15
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rafTimestamp": 218394.2,
+          "frameIntervalMs": null,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.19999999552965164,
+          "gpuNs": 1408958,
+          "gpuMs": 1.408958,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 1,
+          "rafTimestamp": 218411,
+          "frameIntervalMs": 16.79999999998836,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 1528291,
+          "gpuMs": 1.528291,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 2,
+          "rafTimestamp": 218427.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 1427875,
+          "gpuMs": 1.427875,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 3,
+          "rafTimestamp": 218444.3,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 1467291,
+          "gpuMs": 1.467291,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 4,
+          "rafTimestamp": 218461,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 1423500,
+          "gpuMs": 1.4235,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 5,
+          "rafTimestamp": 218477.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.10000000149011612,
+          "gpuNs": 1360916,
+          "gpuMs": 1.360916,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 6,
+          "rafTimestamp": 218494.3,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.09999999403953552,
+          "totalCpuMs": 0.09999999403953552,
+          "gpuNs": 1443125,
+          "gpuMs": 1.443125,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 7,
+          "rafTimestamp": 218511,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.10000000149011612,
+          "gpuNs": 1382750,
+          "gpuMs": 1.38275,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 8,
+          "rafTimestamp": 218527.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0,
+          "totalCpuMs": 0,
+          "gpuNs": 1560208,
+          "gpuMs": 1.560208,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 9,
+          "rafTimestamp": 218544.3,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.19999999552965164,
+          "gpuNs": 1396750,
+          "gpuMs": 1.39675,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 10,
+          "rafTimestamp": 218561,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.10000000149011612,
+          "gpuNs": 1433583,
+          "gpuMs": 1.433583,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 11,
+          "rafTimestamp": 218577.6,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0,
+          "totalCpuMs": 0,
+          "gpuNs": 1314416,
+          "gpuMs": 1.314416,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 12,
+          "rafTimestamp": 218594.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.19999999552965164,
+          "gpuNs": 1229749,
+          "gpuMs": 1.229749,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 13,
+          "rafTimestamp": 218611,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 1404333,
+          "gpuMs": 1.404333,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 14,
+          "rafTimestamp": 218627.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.19999999552965164,
+          "gpuNs": 1219125,
+          "gpuMs": 1.219125,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 15,
+          "rafTimestamp": 218644.3,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 1186708,
+          "gpuMs": 1.186708,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 16,
+          "rafTimestamp": 218661,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1746791,
+          "gpuMs": 1.746791,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 17,
+          "rafTimestamp": 218677,
+          "frameIntervalMs": 16,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 1157999,
+          "gpuMs": 1.157999,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 18,
+          "rafTimestamp": 218694,
+          "frameIntervalMs": 17,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.10000000149011612,
+          "gpuNs": 2106375,
+          "gpuMs": 2.106375,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 19,
+          "rafTimestamp": 218709,
+          "frameIntervalMs": 15,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.19999999552965164,
+          "gpuNs": 1357291,
+          "gpuMs": 1.357291,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 20,
+          "rafTimestamp": 218727.7,
+          "frameIntervalMs": 18.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 947166,
+          "gpuMs": 0.947166,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 21,
+          "rafTimestamp": 218742.3,
+          "frameIntervalMs": 14.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 1228791,
+          "gpuMs": 1.228791,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 22,
+          "rafTimestamp": 218759,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 878749,
+          "gpuMs": 0.878749,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 23,
+          "rafTimestamp": 218775.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1333749,
+          "gpuMs": 1.333749,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 24,
+          "rafTimestamp": 218793.4,
+          "frameIntervalMs": 17.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1841750,
+          "gpuMs": 1.84175,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 25,
+          "rafTimestamp": 218809,
+          "frameIntervalMs": 15.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1113791,
+          "gpuMs": 1.113791,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 26,
+          "rafTimestamp": 218827.7,
+          "frameIntervalMs": 18.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 1679958,
+          "gpuMs": 1.679958,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 27,
+          "rafTimestamp": 218844.3,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5999999940395355,
+          "gpuNs": 977583,
+          "gpuMs": 0.977583,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 28,
+          "rafTimestamp": 218859.3,
+          "frameIntervalMs": 15,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 1283666,
+          "gpuMs": 1.283666,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 29,
+          "rafTimestamp": 218877.7,
+          "frameIntervalMs": 18.400000000023283,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 1110874,
+          "gpuMs": 1.110874,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 30,
+          "rafTimestamp": 218892.4,
+          "frameIntervalMs": 14.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 330125,
+          "gpuMs": 0.330125,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 31,
+          "rafTimestamp": 218909.1,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 329124,
+          "gpuMs": 0.329124,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 32,
+          "rafTimestamp": 218925.7,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 548666,
+          "gpuMs": 0.548666,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 33,
+          "rafTimestamp": 218944.2,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6999999955296516,
+          "totalCpuMs": 0.6999999955296516,
+          "gpuNs": 339041,
+          "gpuMs": 0.339041,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 34,
+          "rafTimestamp": 218961,
+          "frameIntervalMs": 16.79999999998836,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 432250,
+          "gpuMs": 0.43225,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 35,
+          "rafTimestamp": 218975.8,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 688208,
+          "gpuMs": 0.688208,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 36,
+          "rafTimestamp": 218992.4,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 618333,
+          "gpuMs": 0.618333,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 37,
+          "rafTimestamp": 219011,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 647083,
+          "gpuMs": 0.647083,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 38,
+          "rafTimestamp": 219025.7,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 616375,
+          "gpuMs": 0.616375,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 39,
+          "rafTimestamp": 219044.3,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 481833,
+          "gpuMs": 0.481833,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 40,
+          "rafTimestamp": 219061,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 868999,
+          "gpuMs": 0.868999,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 41,
+          "rafTimestamp": 219077.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.7000000029802322,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 845624,
+          "gpuMs": 0.845624,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 42,
+          "rafTimestamp": 219092.4,
+          "frameIntervalMs": 14.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5999999940395355,
+          "gpuNs": 680749,
+          "gpuMs": 0.680749,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 43,
+          "rafTimestamp": 219111,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 629124,
+          "gpuMs": 0.629124,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 44,
+          "rafTimestamp": 219127.6,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 682374,
+          "gpuMs": 0.682374,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 45,
+          "rafTimestamp": 219144.4,
+          "frameIntervalMs": 16.79999999998836,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 1321791,
+          "gpuMs": 1.321791,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 46,
+          "rafTimestamp": 219159,
+          "frameIntervalMs": 14.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 498250,
+          "gpuMs": 0.49825,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 47,
+          "rafTimestamp": 219177.1,
+          "frameIntervalMs": 18.10000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 571249,
+          "gpuMs": 0.571249,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 48,
+          "rafTimestamp": 219194.3,
+          "frameIntervalMs": 17.199999999982538,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6999999955296516,
+          "gpuNs": 351000,
+          "gpuMs": 0.351,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 49,
+          "rafTimestamp": 219210.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 548541,
+          "gpuMs": 0.548541,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 50,
+          "rafTimestamp": 219225.7,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 686708,
+          "gpuMs": 0.686708,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 51,
+          "rafTimestamp": 219242.4,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.8000000044703484,
+          "totalCpuMs": 0.8000000044703484,
+          "gpuNs": 572541,
+          "gpuMs": 0.572541,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 52,
+          "rafTimestamp": 219260.9,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 575833,
+          "gpuMs": 0.575833,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 53,
+          "rafTimestamp": 219277.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 558125,
+          "gpuMs": 0.558125,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 54,
+          "rafTimestamp": 219294.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 591000,
+          "gpuMs": 0.591,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 55,
+          "rafTimestamp": 219311,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.7000000029802322,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 548500,
+          "gpuMs": 0.5485,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 56,
+          "rafTimestamp": 219327.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 636374,
+          "gpuMs": 0.636374,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 57,
+          "rafTimestamp": 219342.4,
+          "frameIntervalMs": 14.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 622625,
+          "gpuMs": 0.622625,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 58,
+          "rafTimestamp": 219360.9,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.7000000029802322,
+          "gpuNs": 847250,
+          "gpuMs": 0.84725,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        },
+        {
+          "index": 59,
+          "rafTimestamp": 219375.7,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 687833,
+          "gpuMs": 0.687833,
+          "gpuStatus": "valid",
+          "calls": 7,
+          "triangles": 48388,
+          "points": 2300
+        }
+      ],
+      "disjointEvents": [],
+      "contextFlags": [],
+      "nativeContextBefore": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:40:36.610Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 87.2138749982696,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:37 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 83.94466666504741,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 181.37254166504135,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:40:36Z",
+          "uptimeSeconds": 47317.21199258334
+        },
+        "stderr": "",
+        "sampleWallMs": 193.18650000006892
+      },
+      "finishedAt": "2026-09-14T10:40:37.961Z",
+      "nativeContextAfter": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:40:37.965Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 82.94012500118697,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:37 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 86.11758333427133,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 178.8896250000107,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:40:37Z",
+          "uptimeSeconds": 47318.56466425
+        },
+        "stderr": "",
+        "sampleWallMs": 190.26787499990314
+      }
+    },
+    {
+      "index": 1,
+      "version": "2k",
+      "startedAt": "2026-09-14T10:40:58.159Z",
+      "warmupFrames": 10,
+      "measuredFramesTarget": 60,
+      "environmentDiagnostics": {
+        "activeTime": 180,
+        "ready": true,
+        "earthReady": true,
+        "earthMode": "satellite-land-ocean-clouds",
+        "earthSource": "local-satellite-image",
+        "earthLoadError": null,
+        "earthRotation": 0.54,
+        "earthRotationRate": 0.003,
+        "earthTextureFetchMs": 2.5,
+        "earthTextureDecodeMs": 23,
+        "earthTextureReadyMs": 35.20000000298023,
+        "earthEncodedBytes": 526263,
+        "earthResponseBytes": 526263,
+        "earthTextureDimensions": [
+          2048,
+          1024
+        ],
+        "earthTextureBytes": 8388608,
+        "earthTextureGpuBytes": 11184812,
+        "earthTextureSamples": 1,
+        "cloudRotation": 0.54,
+        "cloudRotationRate": 0.003,
+        "cloudFieldSamples": 0,
+        "cloudWeatherModel": "combined-satellite-image",
+        "cloudLightingModel": "photographic-clouds-diffuse-globe",
+        "cloudReady": true,
+        "cloudTextureSize": 0,
+        "starCount": 2300,
+        "starBufferBytes": 101200,
+        "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+        "starTwinklePrimaryFrequencyRange": [
+          0.45,
+          2.65
+        ],
+        "starTwinkleSecondaryFrequencyRange": [
+          0.2,
+          1.8
+        ],
+        "starTwinkleAmplitudeRange": [
+          0.1,
+          0.55
+        ],
+        "meteorCapacity": 9,
+        "meteorTimingBanks": 3,
+        "meteorCreationFrequencyMultiplier": 3,
+        "meteorBankPeriod": 4.5,
+        "meteorGroupInterval": [
+          0.14,
+          4.38
+        ],
+        "meteorPairEveryGroups": 2,
+        "meteorTripleEveryGroups": 7,
+        "meteorAlignedShowerEveryCycles": 14,
+        "meteorGroupSize": 2,
+        "meteorGroupHasPair": true,
+        "meteorCount": 1,
+        "meteorPhases": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.8561872118171588,
+          0
+        ],
+        "meteorStreams": [
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.19570472805208,
+            "duration": 1.4818623983881478,
+            "nextAt": 180.66254701847095,
+            "cycle": 39,
+            "bank": 0,
+            "member": 0,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.24545032571663797,
+              0.7766174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.37864943737048,
+            "duration": 1.4783212451649888,
+            "nextAt": 185.40662985548522,
+            "cycle": 39,
+            "bank": 0,
+            "member": 1,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.25945032571663795,
+              0.7626174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.5615941466889,
+            "duration": 1.154652343978705,
+            "nextAt": 203.6867256320917,
+            "cycle": 39,
+            "bank": 0,
+            "member": 2,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.27345032571663797,
+              0.7486174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.50498644568174,
+            "duration": 1.4233460777250002,
+            "nextAt": 182.00112770814218,
+            "cycle": 39,
+            "bank": 1,
+            "member": 0,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.29799600238138735,
+              0.5555927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.75648606372653,
+            "duration": 1.4567612887392896,
+            "nextAt": 186.6232624146373,
+            "cycle": 39,
+            "bank": 1,
+            "member": 1,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.31199600238138736,
+              0.5415927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.00798568177134,
+            "duration": 1.174533675260318,
+            "nextAt": 203.8313916151147,
+            "cycle": 39,
+            "bank": 1,
+            "member": 2,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.3259960023813874,
+              0.5275927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.75201990878966,
+            "duration": 1.182495441152423,
+            "nextAt": 183.198783696614,
+            "cycle": 39,
+            "bank": 2,
+            "member": 0,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.21293985878819513,
+              0.8004886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": true,
+            "phase": 0.8561872118171588,
+            "startAt": 178.98784519116612,
+            "duration": 1.1821652961689324,
+            "nextAt": 188.00255832774872,
+            "cycle": 39,
+            "bank": 2,
+            "member": 1,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.22693985878819514,
+              0.7864886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 179.2236704735426,
+            "duration": 1.3704092465006397,
+            "nextAt": 203.93023318192456,
+            "cycle": 39,
+            "bank": 2,
+            "member": 2,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.24093985878819513,
+              0.7724886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          }
+        ],
+        "meteorPhase": 0.8561872118171588,
+        "meteorCycle": 39,
+        "meteorVisible": true,
+        "textureSize": 2048,
+        "dayTextureSize": 2048,
+        "proceduralTextureBytes": 32768,
+        "proceduralTextureGpuBytes": 43692,
+        "proceduralGenerationMs": 5.1,
+        "nebulaDimensions": [
+          128,
+          64
+        ],
+        "externalTextureRequests": 1,
+        "estimatedTextureMiB": 10.7083,
+        "earthRadius": 180,
+        "earthPosition": [
+          -94.35802770540113,
+          -247.33992051593836,
+          -331.53813527139283
+        ],
+        "drawCallBudget": 14
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rafTimestamp": 239944.3,
+          "frameIntervalMs": null,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 534124,
+          "gpuMs": 0.534124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 1,
+          "rafTimestamp": 239959.1,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 320125,
+          "gpuMs": 0.320125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 2,
+          "rafTimestamp": 239977.6,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 474416,
+          "gpuMs": 0.474416,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 3,
+          "rafTimestamp": 239994.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 303250,
+          "gpuMs": 0.30325,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 4,
+          "rafTimestamp": 240009,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 399083,
+          "gpuMs": 0.399083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 5,
+          "rafTimestamp": 240025.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 569291,
+          "gpuMs": 0.569291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 6,
+          "rafTimestamp": 240044.2,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 529083,
+          "gpuMs": 0.529083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 7,
+          "rafTimestamp": 240060.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1060125,
+          "gpuMs": 1.060125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 8,
+          "rafTimestamp": 240075.7,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 401708,
+          "gpuMs": 0.401708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 9,
+          "rafTimestamp": 240094.3,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 987999,
+          "gpuMs": 0.987999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 10,
+          "rafTimestamp": 240110.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 1141125,
+          "gpuMs": 1.141125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 11,
+          "rafTimestamp": 240127.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 284874,
+          "gpuMs": 0.284874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 12,
+          "rafTimestamp": 240144.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 272083,
+          "gpuMs": 0.272083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 13,
+          "rafTimestamp": 240160.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 156250,
+          "gpuMs": 0.15625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 14,
+          "rafTimestamp": 240177.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 153749,
+          "gpuMs": 0.153749,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 15,
+          "rafTimestamp": 240194.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5999999940395355,
+          "totalCpuMs": 0.7999999970197678,
+          "gpuNs": 340999,
+          "gpuMs": 0.340999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 16,
+          "rafTimestamp": 240210.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 418499,
+          "gpuMs": 0.418499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 17,
+          "rafTimestamp": 240225.7,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 460499,
+          "gpuMs": 0.460499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 18,
+          "rafTimestamp": 240244.3,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 432374,
+          "gpuMs": 0.432374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 19,
+          "rafTimestamp": 240259,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 444000,
+          "gpuMs": 0.444,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 20,
+          "rafTimestamp": 240277.5,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 236499,
+          "gpuMs": 0.236499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 21,
+          "rafTimestamp": 240294.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 319874,
+          "gpuMs": 0.319874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 22,
+          "rafTimestamp": 240310.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 473916,
+          "gpuMs": 0.473916,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 23,
+          "rafTimestamp": 240327.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 475624,
+          "gpuMs": 0.475624,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 24,
+          "rafTimestamp": 240344.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 263208,
+          "gpuMs": 0.263208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 25,
+          "rafTimestamp": 240360.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0.19999999552965164,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6999999955296516,
+          "gpuNs": 485625,
+          "gpuMs": 0.485625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 26,
+          "rafTimestamp": 240377.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 777958,
+          "gpuMs": 0.777958,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 27,
+          "rafTimestamp": 240394.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1049333,
+          "gpuMs": 1.049333,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 28,
+          "rafTimestamp": 240410.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1257208,
+          "gpuMs": 1.257208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 29,
+          "rafTimestamp": 240427.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 387499,
+          "gpuMs": 0.387499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 30,
+          "rafTimestamp": 240444.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 322499,
+          "gpuMs": 0.322499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 31,
+          "rafTimestamp": 240459,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 334374,
+          "gpuMs": 0.334374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 32,
+          "rafTimestamp": 240475.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 166375,
+          "gpuMs": 0.166375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 33,
+          "rafTimestamp": 240494.2,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 402041,
+          "gpuMs": 0.402041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 34,
+          "rafTimestamp": 240510.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 300125,
+          "gpuMs": 0.300125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 35,
+          "rafTimestamp": 240527.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 268458,
+          "gpuMs": 0.268458,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 36,
+          "rafTimestamp": 240544.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 360874,
+          "gpuMs": 0.360874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 37,
+          "rafTimestamp": 240560.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 243833,
+          "gpuMs": 0.243833,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 38,
+          "rafTimestamp": 240577.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 420500,
+          "gpuMs": 0.4205,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 39,
+          "rafTimestamp": 240592.3,
+          "frameIntervalMs": 14.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 423791,
+          "gpuMs": 0.423791,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 40,
+          "rafTimestamp": 240610.9,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 597375,
+          "gpuMs": 0.597375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 41,
+          "rafTimestamp": 240627.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 548750,
+          "gpuMs": 0.54875,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 42,
+          "rafTimestamp": 240644.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 585875,
+          "gpuMs": 0.585875,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 43,
+          "rafTimestamp": 240660.9,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 474249,
+          "gpuMs": 0.474249,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 44,
+          "rafTimestamp": 240675.7,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.10000000149011612,
+          "totalCpuMs": 0.20000000298023224,
+          "gpuNs": 295999,
+          "gpuMs": 0.295999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 45,
+          "rafTimestamp": 240692.4,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 1052250,
+          "gpuMs": 1.05225,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 46,
+          "rafTimestamp": 240711,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 447083,
+          "gpuMs": 0.447083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 47,
+          "rafTimestamp": 240725.7,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 376249,
+          "gpuMs": 0.376249,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 48,
+          "rafTimestamp": 240744.3,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 371000,
+          "gpuMs": 0.371,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 49,
+          "rafTimestamp": 240759,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 352374,
+          "gpuMs": 0.352374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 50,
+          "rafTimestamp": 240775.7,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 431791,
+          "gpuMs": 0.431791,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 51,
+          "rafTimestamp": 240794.2,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 152874,
+          "gpuMs": 0.152874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 52,
+          "rafTimestamp": 240810.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 372041,
+          "gpuMs": 0.372041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 53,
+          "rafTimestamp": 240827.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 391250,
+          "gpuMs": 0.39125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 54,
+          "rafTimestamp": 240842.3,
+          "frameIntervalMs": 14.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 519374,
+          "gpuMs": 0.519374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 55,
+          "rafTimestamp": 240859.9,
+          "frameIntervalMs": 17.60000000000582,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5999999940395355,
+          "gpuNs": 382124,
+          "gpuMs": 0.382124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 56,
+          "rafTimestamp": 240877.6,
+          "frameIntervalMs": 17.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 374208,
+          "gpuMs": 0.374208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 57,
+          "rafTimestamp": 240894.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 564499,
+          "gpuMs": 0.564499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 58,
+          "rafTimestamp": 240909,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 553875,
+          "gpuMs": 0.553875,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 59,
+          "rafTimestamp": 240927.6,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 370750,
+          "gpuMs": 0.37075,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        }
+      ],
+      "disjointEvents": [],
+      "contextFlags": [],
+      "nativeContextBefore": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:40:58.162Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 82.1759166647098,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:37 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 81.8989583349321,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 174.62937499658437,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:40:58Z",
+          "uptimeSeconds": 47338.763534958336
+        },
+        "stderr": "",
+        "sampleWallMs": 187.99445799994282
+      },
+      "finishedAt": "2026-09-14T10:40:59.513Z",
+      "nativeContextAfter": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:40:59.516Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 85.10399999795482,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:37 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 84.4293749978533,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 180.0089583339286,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:40:59Z",
+          "uptimeSeconds": 47340.11581808334
+        },
+        "stderr": "",
+        "sampleWallMs": 191.0810829999391
+      }
+    },
+    {
+      "index": 2,
+      "version": "8k",
+      "startedAt": "2026-09-14T10:41:19.712Z",
+      "warmupFrames": 10,
+      "measuredFramesTarget": 60,
+      "environmentDiagnostics": {
+        "activeTime": 180,
+        "ready": true,
+        "earthReady": true,
+        "earthMode": "satellite-land-ocean-clouds",
+        "earthSource": "local-satellite-image",
+        "earthLoadError": null,
+        "earthRotation": 0.54,
+        "earthRotationRate": 0.003,
+        "earthTextureFetchMs": 9.200000002980232,
+        "earthTextureDecodeMs": 225.59999999403954,
+        "earthTextureReadyMs": 245.09999999403954,
+        "earthEncodedBytes": 6615276,
+        "earthResponseBytes": 6615276,
+        "earthTextureDimensions": [
+          8192,
+          4096
+        ],
+        "earthTextureBytes": 134217728,
+        "earthTextureGpuBytes": 178956972,
+        "earthTextureSamples": 1,
+        "cloudRotation": 0.54,
+        "cloudRotationRate": 0.003,
+        "cloudFieldSamples": 0,
+        "cloudWeatherModel": "combined-satellite-image",
+        "cloudLightingModel": "photographic-clouds-diffuse-globe",
+        "cloudReady": true,
+        "cloudTextureSize": 0,
+        "starCount": 2300,
+        "starBufferBytes": 101200,
+        "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+        "starTwinklePrimaryFrequencyRange": [
+          0.45,
+          2.65
+        ],
+        "starTwinkleSecondaryFrequencyRange": [
+          0.2,
+          1.8
+        ],
+        "starTwinkleAmplitudeRange": [
+          0.1,
+          0.55
+        ],
+        "meteorCapacity": 9,
+        "meteorTimingBanks": 3,
+        "meteorCreationFrequencyMultiplier": 3,
+        "meteorBankPeriod": 4.5,
+        "meteorGroupInterval": [
+          0.14,
+          4.38
+        ],
+        "meteorPairEveryGroups": 2,
+        "meteorTripleEveryGroups": 7,
+        "meteorAlignedShowerEveryCycles": 14,
+        "meteorGroupSize": 2,
+        "meteorGroupHasPair": true,
+        "meteorCount": 1,
+        "meteorPhases": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.8561872118171588,
+          0
+        ],
+        "meteorStreams": [
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.19570472805208,
+            "duration": 1.4818623983881478,
+            "nextAt": 180.66254701847095,
+            "cycle": 39,
+            "bank": 0,
+            "member": 0,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.24545032571663797,
+              0.7766174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.37864943737048,
+            "duration": 1.4783212451649888,
+            "nextAt": 185.40662985548522,
+            "cycle": 39,
+            "bank": 0,
+            "member": 1,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.25945032571663795,
+              0.7626174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.5615941466889,
+            "duration": 1.154652343978705,
+            "nextAt": 203.6867256320917,
+            "cycle": 39,
+            "bank": 0,
+            "member": 2,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.27345032571663797,
+              0.7486174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.50498644568174,
+            "duration": 1.4233460777250002,
+            "nextAt": 182.00112770814218,
+            "cycle": 39,
+            "bank": 1,
+            "member": 0,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.29799600238138735,
+              0.5555927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.75648606372653,
+            "duration": 1.4567612887392896,
+            "nextAt": 186.6232624146373,
+            "cycle": 39,
+            "bank": 1,
+            "member": 1,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.31199600238138736,
+              0.5415927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.00798568177134,
+            "duration": 1.174533675260318,
+            "nextAt": 203.8313916151147,
+            "cycle": 39,
+            "bank": 1,
+            "member": 2,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.3259960023813874,
+              0.5275927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.75201990878966,
+            "duration": 1.182495441152423,
+            "nextAt": 183.198783696614,
+            "cycle": 39,
+            "bank": 2,
+            "member": 0,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.21293985878819513,
+              0.8004886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": true,
+            "phase": 0.8561872118171588,
+            "startAt": 178.98784519116612,
+            "duration": 1.1821652961689324,
+            "nextAt": 188.00255832774872,
+            "cycle": 39,
+            "bank": 2,
+            "member": 1,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.22693985878819514,
+              0.7864886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 179.2236704735426,
+            "duration": 1.3704092465006397,
+            "nextAt": 203.93023318192456,
+            "cycle": 39,
+            "bank": 2,
+            "member": 2,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.24093985878819513,
+              0.7724886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          }
+        ],
+        "meteorPhase": 0.8561872118171588,
+        "meteorCycle": 39,
+        "meteorVisible": true,
+        "textureSize": 8192,
+        "dayTextureSize": 8192,
+        "proceduralTextureBytes": 32768,
+        "proceduralTextureGpuBytes": 43692,
+        "proceduralGenerationMs": 7.3,
+        "nebulaDimensions": [
+          128,
+          64
+        ],
+        "externalTextureRequests": 1,
+        "estimatedTextureMiB": 170.7083,
+        "earthRadius": 180,
+        "earthPosition": [
+          -94.35802770540113,
+          -247.33992051593836,
+          -331.53813527139283
+        ],
+        "drawCallBudget": 14
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rafTimestamp": 261510.8,
+          "frameIntervalMs": null,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 451208,
+          "gpuMs": 0.451208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 1,
+          "rafTimestamp": 261527.6,
+          "frameIntervalMs": 16.800000000017462,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 294874,
+          "gpuMs": 0.294874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 2,
+          "rafTimestamp": 261544.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 516749,
+          "gpuMs": 0.516749,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 3,
+          "rafTimestamp": 261560.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 420500,
+          "gpuMs": 0.4205,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 4,
+          "rafTimestamp": 261577.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5999999940395355,
+          "gpuNs": 376874,
+          "gpuMs": 0.376874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 5,
+          "rafTimestamp": 261594.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 471375,
+          "gpuMs": 0.471375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 6,
+          "rafTimestamp": 261610.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 303916,
+          "gpuMs": 0.303916,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 7,
+          "rafTimestamp": 261627.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 679124,
+          "gpuMs": 0.679124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 8,
+          "rafTimestamp": 261644.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 323708,
+          "gpuMs": 0.323708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 9,
+          "rafTimestamp": 261660.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 758250,
+          "gpuMs": 0.75825,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 10,
+          "rafTimestamp": 261677.1,
+          "frameIntervalMs": 16.20000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 373374,
+          "gpuMs": 0.373374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 11,
+          "rafTimestamp": 261694.2,
+          "frameIntervalMs": 17.10000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 453375,
+          "gpuMs": 0.453375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 12,
+          "rafTimestamp": 261710.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 375000,
+          "gpuMs": 0.375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 13,
+          "rafTimestamp": 261727.6,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 691124,
+          "gpuMs": 0.691124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 14,
+          "rafTimestamp": 261744.2,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 372958,
+          "gpuMs": 0.372958,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 15,
+          "rafTimestamp": 261759,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 359874,
+          "gpuMs": 0.359874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 16,
+          "rafTimestamp": 261777.2,
+          "frameIntervalMs": 18.20000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 353666,
+          "gpuMs": 0.353666,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 17,
+          "rafTimestamp": 261794.2,
+          "frameIntervalMs": 17,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 304750,
+          "gpuMs": 0.30475,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 18,
+          "rafTimestamp": 261810.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 340124,
+          "gpuMs": 0.340124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 19,
+          "rafTimestamp": 261825.6,
+          "frameIntervalMs": 14.800000000017462,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 295625,
+          "gpuMs": 0.295625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 20,
+          "rafTimestamp": 261842.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 430291,
+          "gpuMs": 0.430291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 21,
+          "rafTimestamp": 261859,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 457999,
+          "gpuMs": 0.457999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 22,
+          "rafTimestamp": 261875.6,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 318124,
+          "gpuMs": 0.318124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 23,
+          "rafTimestamp": 261892.3,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 461958,
+          "gpuMs": 0.461958,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 24,
+          "rafTimestamp": 261910.8,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 531041,
+          "gpuMs": 0.531041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 25,
+          "rafTimestamp": 261927.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 459374,
+          "gpuMs": 0.459374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 26,
+          "rafTimestamp": 261944.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 426708,
+          "gpuMs": 0.426708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 27,
+          "rafTimestamp": 261959,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 363874,
+          "gpuMs": 0.363874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 28,
+          "rafTimestamp": 261977.5,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 483750,
+          "gpuMs": 0.48375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 29,
+          "rafTimestamp": 261994.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 985624,
+          "gpuMs": 0.985624,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 30,
+          "rafTimestamp": 262010.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 395416,
+          "gpuMs": 0.395416,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 31,
+          "rafTimestamp": 262025.9,
+          "frameIntervalMs": 15.10000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 308041,
+          "gpuMs": 0.308041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 32,
+          "rafTimestamp": 262044.2,
+          "frameIntervalMs": 18.300000000017462,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1272708,
+          "gpuMs": 1.272708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 33,
+          "rafTimestamp": 262060.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 1138999,
+          "gpuMs": 1.138999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 34,
+          "rafTimestamp": 262077.5,
+          "frameIntervalMs": 16.60000000000582,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 1255499,
+          "gpuMs": 1.255499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 35,
+          "rafTimestamp": 262094.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 335583,
+          "gpuMs": 0.335583,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 36,
+          "rafTimestamp": 262110.9,
+          "frameIntervalMs": 16.699999999982538,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 308666,
+          "gpuMs": 0.308666,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 37,
+          "rafTimestamp": 262125.6,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 405250,
+          "gpuMs": 0.40525,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 38,
+          "rafTimestamp": 262144.2,
+          "frameIntervalMs": 18.60000000000582,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 383625,
+          "gpuMs": 0.383625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 39,
+          "rafTimestamp": 262160.9,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 407874,
+          "gpuMs": 0.407874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 40,
+          "rafTimestamp": 262176.8,
+          "frameIntervalMs": 15.899999999965075,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 305125,
+          "gpuMs": 0.305125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 41,
+          "rafTimestamp": 262194.2,
+          "frameIntervalMs": 17.400000000023283,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 469291,
+          "gpuMs": 0.469291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 42,
+          "rafTimestamp": 262210.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 271874,
+          "gpuMs": 0.271874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 43,
+          "rafTimestamp": 262227.6,
+          "frameIntervalMs": 16.79999999998836,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 452250,
+          "gpuMs": 0.45225,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 44,
+          "rafTimestamp": 262244.2,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 250083,
+          "gpuMs": 0.250083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 45,
+          "rafTimestamp": 262258.9,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 313291,
+          "gpuMs": 0.313291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 46,
+          "rafTimestamp": 262277.5,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 596041,
+          "gpuMs": 0.596041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 47,
+          "rafTimestamp": 262294.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 312041,
+          "gpuMs": 0.312041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 48,
+          "rafTimestamp": 262310.9,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.19999999552965164,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 336249,
+          "gpuMs": 0.336249,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 49,
+          "rafTimestamp": 262327.5,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.20000000298023224,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 421749,
+          "gpuMs": 0.421749,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 50,
+          "rafTimestamp": 262344.2,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 450874,
+          "gpuMs": 0.450874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 51,
+          "rafTimestamp": 262360.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1180749,
+          "gpuMs": 1.180749,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 52,
+          "rafTimestamp": 262377.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 339875,
+          "gpuMs": 0.339875,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 53,
+          "rafTimestamp": 262394.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 465999,
+          "gpuMs": 0.465999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 54,
+          "rafTimestamp": 262410.9,
+          "frameIntervalMs": 16.800000000046566,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 1250000,
+          "gpuMs": 1.25,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 55,
+          "rafTimestamp": 262427,
+          "frameIntervalMs": 16.099999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 399999,
+          "gpuMs": 0.399999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 56,
+          "rafTimestamp": 262444.2,
+          "frameIntervalMs": 17.20000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 322250,
+          "gpuMs": 0.32225,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 57,
+          "rafTimestamp": 262459,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 475374,
+          "gpuMs": 0.475374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 58,
+          "rafTimestamp": 262477.6,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 316625,
+          "gpuMs": 0.316625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 59,
+          "rafTimestamp": 262494.2,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 414499,
+          "gpuMs": 0.414499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        }
+      ],
+      "disjointEvents": [],
+      "contextFlags": [],
+      "nativeContextBefore": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:41:19.716Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 87.42179166438291,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:47 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 83.41924999695038,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 181.39941666595405,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:41:19Z",
+          "uptimeSeconds": 47360.316531125005
+        },
+        "stderr": "",
+        "sampleWallMs": 193.57049999991432
+      },
+      "finishedAt": "2026-09-14T10:41:21.080Z",
+      "nativeContextAfter": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:41:21.082Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 82.76933333399938,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:47 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 85.89333332929527,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 178.697250004916,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:41:21Z",
+          "uptimeSeconds": 47361.6814115
+        },
+        "stderr": "",
+        "sampleWallMs": 189.64616600004956
+      }
+    },
+    {
+      "index": 3,
+      "version": "4k",
+      "startedAt": "2026-09-14T10:41:41.276Z",
+      "warmupFrames": 10,
+      "measuredFramesTarget": 60,
+      "environmentDiagnostics": {
+        "activeTime": 180,
+        "ready": true,
+        "earthReady": true,
+        "earthMode": "satellite-land-ocean-clouds",
+        "earthSource": "local-satellite-image",
+        "earthLoadError": null,
+        "earthRotation": 0.54,
+        "earthRotationRate": 0.003,
+        "earthTextureFetchMs": 5.600000001490116,
+        "earthTextureDecodeMs": 70.69999999552965,
+        "earthTextureReadyMs": 87.60000000149012,
+        "earthEncodedBytes": 1925103,
+        "earthResponseBytes": 1925103,
+        "earthTextureDimensions": [
+          4096,
+          2048
+        ],
+        "earthTextureBytes": 33554432,
+        "earthTextureGpuBytes": 44739244,
+        "earthTextureSamples": 1,
+        "cloudRotation": 0.54,
+        "cloudRotationRate": 0.003,
+        "cloudFieldSamples": 0,
+        "cloudWeatherModel": "combined-satellite-image",
+        "cloudLightingModel": "photographic-clouds-diffuse-globe",
+        "cloudReady": true,
+        "cloudTextureSize": 0,
+        "starCount": 2300,
+        "starBufferBytes": 101200,
+        "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+        "starTwinklePrimaryFrequencyRange": [
+          0.45,
+          2.65
+        ],
+        "starTwinkleSecondaryFrequencyRange": [
+          0.2,
+          1.8
+        ],
+        "starTwinkleAmplitudeRange": [
+          0.1,
+          0.55
+        ],
+        "meteorCapacity": 9,
+        "meteorTimingBanks": 3,
+        "meteorCreationFrequencyMultiplier": 3,
+        "meteorBankPeriod": 4.5,
+        "meteorGroupInterval": [
+          0.14,
+          4.38
+        ],
+        "meteorPairEveryGroups": 2,
+        "meteorTripleEveryGroups": 7,
+        "meteorAlignedShowerEveryCycles": 14,
+        "meteorGroupSize": 2,
+        "meteorGroupHasPair": true,
+        "meteorCount": 1,
+        "meteorPhases": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.8561872118171588,
+          0
+        ],
+        "meteorStreams": [
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.19570472805208,
+            "duration": 1.4818623983881478,
+            "nextAt": 180.66254701847095,
+            "cycle": 39,
+            "bank": 0,
+            "member": 0,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.24545032571663797,
+              0.7766174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.37864943737048,
+            "duration": 1.4783212451649888,
+            "nextAt": 185.40662985548522,
+            "cycle": 39,
+            "bank": 0,
+            "member": 1,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.25945032571663795,
+              0.7626174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 176.5615941466889,
+            "duration": 1.154652343978705,
+            "nextAt": 203.6867256320917,
+            "cycle": 39,
+            "bank": 0,
+            "member": 2,
+            "groupId": 117,
+            "parallel": true,
+            "origin": [
+              0.27345032571663797,
+              0.7486174769739155
+            ],
+            "direction": [
+              0.4927823031254931,
+              -0.8701526312816245
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.50498644568174,
+            "duration": 1.4233460777250002,
+            "nextAt": 182.00112770814218,
+            "cycle": 39,
+            "bank": 1,
+            "member": 0,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.29799600238138735,
+              0.5555927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 177.75648606372653,
+            "duration": 1.4567612887392896,
+            "nextAt": 186.6232624146373,
+            "cycle": 39,
+            "bank": 1,
+            "member": 1,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.31199600238138736,
+              0.5415927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.00798568177134,
+            "duration": 1.174533675260318,
+            "nextAt": 203.8313916151147,
+            "cycle": 39,
+            "bank": 1,
+            "member": 2,
+            "groupId": 118,
+            "parallel": true,
+            "origin": [
+              0.3259960023813874,
+              0.5275927968368632
+            ],
+            "direction": [
+              0.9281766541321625,
+              0.3721398913366099
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 178.75201990878966,
+            "duration": 1.182495441152423,
+            "nextAt": 183.198783696614,
+            "cycle": 39,
+            "bank": 2,
+            "member": 0,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.21293985878819513,
+              0.8004886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": true,
+            "phase": 0.8561872118171588,
+            "startAt": 178.98784519116612,
+            "duration": 1.1821652961689324,
+            "nextAt": 188.00255832774872,
+            "cycle": 39,
+            "bank": 2,
+            "member": 1,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.22693985878819514,
+              0.7864886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          },
+          {
+            "visible": false,
+            "phase": 0,
+            "startAt": 179.2236704735426,
+            "duration": 1.3704092465006397,
+            "nextAt": 203.93023318192456,
+            "cycle": 39,
+            "bank": 2,
+            "member": 2,
+            "groupId": 119,
+            "parallel": true,
+            "origin": [
+              0.24093985878819513,
+              0.7724886915092357
+            ],
+            "direction": [
+              0.9576126219965609,
+              -0.28805913662453325
+            ]
+          }
+        ],
+        "meteorPhase": 0.8561872118171588,
+        "meteorCycle": 39,
+        "meteorVisible": true,
+        "textureSize": 4096,
+        "dayTextureSize": 4096,
+        "proceduralTextureBytes": 32768,
+        "proceduralTextureGpuBytes": 43692,
+        "proceduralGenerationMs": 6.5,
+        "nebulaDimensions": [
+          128,
+          64
+        ],
+        "externalTextureRequests": 1,
+        "estimatedTextureMiB": 42.7083,
+        "earthRadius": 180,
+        "earthPosition": [
+          -94.35802770540113,
+          -247.33992051593836,
+          -331.53813527139283
+        ],
+        "drawCallBudget": 14
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rafTimestamp": 283077.5,
+          "frameIntervalMs": null,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 180499,
+          "gpuMs": 0.180499,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 1,
+          "rafTimestamp": 283094.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 334125,
+          "gpuMs": 0.334125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 2,
+          "rafTimestamp": 283108.9,
+          "frameIntervalMs": 14.800000000046566,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 339541,
+          "gpuMs": 0.339541,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 3,
+          "rafTimestamp": 283125.9,
+          "frameIntervalMs": 17,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 458458,
+          "gpuMs": 0.458458,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 4,
+          "rafTimestamp": 283144.2,
+          "frameIntervalMs": 18.29999999998836,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 470291,
+          "gpuMs": 0.470291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 5,
+          "rafTimestamp": 283158.9,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 431708,
+          "gpuMs": 0.431708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 6,
+          "rafTimestamp": 283177.5,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 479291,
+          "gpuMs": 0.479291,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 7,
+          "rafTimestamp": 283192.3,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 408166,
+          "gpuMs": 0.408166,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 8,
+          "rafTimestamp": 283209.5,
+          "frameIntervalMs": 17.20000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 411000,
+          "gpuMs": 0.411,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 9,
+          "rafTimestamp": 283227.4,
+          "frameIntervalMs": 17.900000000023283,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 586416,
+          "gpuMs": 0.586416,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 10,
+          "rafTimestamp": 283244.1,
+          "frameIntervalMs": 16.699999999953434,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 578666,
+          "gpuMs": 0.578666,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 11,
+          "rafTimestamp": 283258.9,
+          "frameIntervalMs": 14.800000000046566,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 517874,
+          "gpuMs": 0.517874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 12,
+          "rafTimestamp": 283275.5,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 418999,
+          "gpuMs": 0.418999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 13,
+          "rafTimestamp": 283292.3,
+          "frameIntervalMs": 16.79999999998836,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 315999,
+          "gpuMs": 0.315999,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 14,
+          "rafTimestamp": 283308.9,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1513041,
+          "gpuMs": 1.513041,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 15,
+          "rafTimestamp": 283327.5,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1256666,
+          "gpuMs": 1.256666,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 16,
+          "rafTimestamp": 283344.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 949458,
+          "gpuMs": 0.949458,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 17,
+          "rafTimestamp": 283360.8,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 357833,
+          "gpuMs": 0.357833,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 18,
+          "rafTimestamp": 283375.6,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 509500,
+          "gpuMs": 0.5095,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 19,
+          "rafTimestamp": 283394.2,
+          "frameIntervalMs": 18.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 1118208,
+          "gpuMs": 1.118208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 20,
+          "rafTimestamp": 283410.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 593374,
+          "gpuMs": 0.593374,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 21,
+          "rafTimestamp": 283425.6,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 365624,
+          "gpuMs": 0.365624,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 22,
+          "rafTimestamp": 283444.1,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 614750,
+          "gpuMs": 0.61475,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 23,
+          "rafTimestamp": 283460.8,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 371124,
+          "gpuMs": 0.371124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 24,
+          "rafTimestamp": 283477.4,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 153624,
+          "gpuMs": 0.153624,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 25,
+          "rafTimestamp": 283494.1,
+          "frameIntervalMs": 16.699999999953434,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.4000000059604645,
+          "gpuNs": 152624,
+          "gpuMs": 0.152624,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 26,
+          "rafTimestamp": 283509.5,
+          "frameIntervalMs": 15.400000000023283,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 335124,
+          "gpuMs": 0.335124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 27,
+          "rafTimestamp": 283525.6,
+          "frameIntervalMs": 16.099999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 442833,
+          "gpuMs": 0.442833,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 28,
+          "rafTimestamp": 283544.1,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 379874,
+          "gpuMs": 0.379874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 29,
+          "rafTimestamp": 283558.9,
+          "frameIntervalMs": 14.800000000046566,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.4000000059604645,
+          "totalCpuMs": 0.5,
+          "gpuNs": 448124,
+          "gpuMs": 0.448124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 30,
+          "rafTimestamp": 283577.5,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 499250,
+          "gpuMs": 0.49925,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 31,
+          "rafTimestamp": 283594.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.09999999403953552,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 469625,
+          "gpuMs": 0.469625,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 32,
+          "rafTimestamp": 283610.8,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 299375,
+          "gpuMs": 0.299375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 33,
+          "rafTimestamp": 283627.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.5,
+          "gpuNs": 390958,
+          "gpuMs": 0.390958,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 34,
+          "rafTimestamp": 283644.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 477916,
+          "gpuMs": 0.477916,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 35,
+          "rafTimestamp": 283660.8,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 452916,
+          "gpuMs": 0.452916,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 36,
+          "rafTimestamp": 283675.5,
+          "frameIntervalMs": 14.700000000011642,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.6000000014901161,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 479333,
+          "gpuMs": 0.479333,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 37,
+          "rafTimestamp": 283692.6,
+          "frameIntervalMs": 17.099999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.30000000447034836,
+          "gpuNs": 660375,
+          "gpuMs": 0.660375,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 38,
+          "rafTimestamp": 283708.9,
+          "frameIntervalMs": 16.300000000046566,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 549833,
+          "gpuMs": 0.549833,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 39,
+          "rafTimestamp": 283725.5,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 320208,
+          "gpuMs": 0.320208,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 40,
+          "rafTimestamp": 283744.1,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0.20000000298023224,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 1362083,
+          "gpuMs": 1.362083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 41,
+          "rafTimestamp": 283760.8,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 434666,
+          "gpuMs": 0.434666,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 42,
+          "rafTimestamp": 283775.6,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 500125,
+          "gpuMs": 0.500125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 43,
+          "rafTimestamp": 283792.2,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 499583,
+          "gpuMs": 0.499583,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 44,
+          "rafTimestamp": 283808.9,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 572749,
+          "gpuMs": 0.572749,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 45,
+          "rafTimestamp": 283827.5,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 321916,
+          "gpuMs": 0.321916,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 46,
+          "rafTimestamp": 283842.3,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 562000,
+          "gpuMs": 0.562,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 47,
+          "rafTimestamp": 283860.8,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 343874,
+          "gpuMs": 0.343874,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 48,
+          "rafTimestamp": 283877.4,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 504124,
+          "gpuMs": 0.504124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 49,
+          "rafTimestamp": 283892.2,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.29999999701976776,
+          "gpuNs": 1498166,
+          "gpuMs": 1.498166,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 50,
+          "rafTimestamp": 283910.8,
+          "frameIntervalMs": 18.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 717750,
+          "gpuMs": 0.71775,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 51,
+          "rafTimestamp": 283927.5,
+          "frameIntervalMs": 16.70000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.30000000447034836,
+          "totalCpuMs": 0.5,
+          "gpuNs": 342083,
+          "gpuMs": 0.342083,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 52,
+          "rafTimestamp": 283944.1,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.5,
+          "gpuNs": 346125,
+          "gpuMs": 0.346125,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 53,
+          "rafTimestamp": 283960.7,
+          "frameIntervalMs": 16.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.3999999985098839,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 327875,
+          "gpuMs": 0.327875,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 54,
+          "rafTimestamp": 283975.6,
+          "frameIntervalMs": 14.899999999965075,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 391708,
+          "gpuMs": 0.391708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 55,
+          "rafTimestamp": 283994.2,
+          "frameIntervalMs": 18.600000000034925,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.3999999985098839,
+          "gpuNs": 379124,
+          "gpuMs": 0.379124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 56,
+          "rafTimestamp": 284010.8,
+          "frameIntervalMs": 16.599999999976717,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 334416,
+          "gpuMs": 0.334416,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 57,
+          "rafTimestamp": 284025.6,
+          "frameIntervalMs": 14.799999999988358,
+          "updateCpuMs": 0,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.5,
+          "gpuNs": 481458,
+          "gpuMs": 0.481458,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 58,
+          "rafTimestamp": 284044.1,
+          "frameIntervalMs": 18.5,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.29999999701976776,
+          "totalCpuMs": 0.5,
+          "gpuNs": 457124,
+          "gpuMs": 0.457124,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        },
+        {
+          "index": 59,
+          "rafTimestamp": 284060.3,
+          "frameIntervalMs": 16.20000000001164,
+          "updateCpuMs": 0.10000000149011612,
+          "renderCpuMs": 0.5,
+          "totalCpuMs": 0.6000000014901161,
+          "gpuNs": 373708,
+          "gpuMs": 0.373708,
+          "gpuStatus": "valid",
+          "calls": 6,
+          "triangles": 36292,
+          "points": 2300
+        }
+      ],
+      "disjointEvents": [],
+      "contextFlags": [],
+      "nativeContextBefore": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:41:41.279Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 99.4858749982086,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:47 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 81.79833333997522,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 191.3929166694288,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:41:41Z",
+          "uptimeSeconds": 47381.88067775
+        },
+        "stderr": "",
+        "sampleWallMs": 204.92508299998008
+      },
+      "finishedAt": "2026-09-14T10:41:42.646Z",
+      "nativeContextAfter": {
+        "availability": "available",
+        "capturedAt": "2026-09-14T10:41:42.649Z",
+        "native": {
+          "lowPowerMode": false,
+          "osVersion": "Version 26.6.2 (Build 25G83)",
+          "pmset": {
+            "battery": {
+              "arguments": [
+                "-g",
+                "batt"
+              ],
+              "durationMs": 81.62583333614748,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:47 remaining present: true\n",
+              "timedOut": false
+            },
+            "therm": {
+              "arguments": [
+                "-g",
+                "therm"
+              ],
+              "durationMs": 95.66645833547227,
+              "exitCode": 0,
+              "stderr": "",
+              "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+              "timedOut": false
+            }
+          },
+          "sampleDurationMs": 187.13287499849685,
+          "schemaVersion": 1,
+          "thermalSource": "ProcessInfo.thermalState",
+          "thermalState": "nominal",
+          "thermalStateDoesNotMeasureTemperature": true,
+          "thermalStateRaw": 0,
+          "timestamp": "2026-09-14T10:41:42Z",
+          "uptimeSeconds": 47383.248521458336
+        },
+        "stderr": "",
+        "sampleWallMs": 199.3106249999255
+      }
+    }
+  ],
+  "contextFlags": [],
+  "limits": [
+    "GPU timings are direct elapsed timer queries, not power or temperature measurements.",
+    "This finite background-only comparison excludes spacecraft rendering, app UI and camera motion.",
+    "Frame intervals include browser scheduling; CPU submission duration is not GPU execution time.",
+    "Run all four Williams rounds at a matched viewport/DPR. Native context is sampled outside timed frames when enabled; unavailable context is unknown. Nominal pressure does not prove identical clocks or complete cooling.",
+    "All four environments remain resident during steady measurement, including their CPU image data and GPU allocations. Aggregate lab memory exceeds one production Earth. This is a controlled steady workload, not an isolated low-memory startup benchmark.",
+    "Hidden tabs, viewport changes and lost WebGL contexts stop and invalidate the comparison.",
+    "Timer disjoint invalidates the affected entire block. Unsupported/invalid query results are null, never zero."
+  ],
+  "nativeContextInitial": {
+    "availability": "available",
+    "capturedAt": "2026-09-14T10:40:16.431Z",
+    "native": {
+      "lowPowerMode": false,
+      "osVersion": "Version 26.6.2 (Build 25G83)",
+      "pmset": {
+        "battery": {
+          "arguments": [
+            "-g",
+            "batt"
+          ],
+          "durationMs": 83.24654166790424,
+          "exitCode": 0,
+          "stderr": "",
+          "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t69%; discharging; 7:37 remaining present: true\n",
+          "timedOut": false
+        },
+        "therm": {
+          "arguments": [
+            "-g",
+            "therm"
+          ],
+          "durationMs": 81.11412499420112,
+          "exitCode": 0,
+          "stderr": "",
+          "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+          "timedOut": false
+        }
+      },
+      "sampleDurationMs": 168.13808333245106,
+      "schemaVersion": 1,
+      "thermalSource": "ProcessInfo.thermalState",
+      "thermalState": "nominal",
+      "thermalStateDoesNotMeasureTemperature": true,
+      "thermalStateRaw": 0,
+      "timestamp": "2026-09-14T10:40:16Z",
+      "uptimeSeconds": 47297.025378375
+    },
+    "stderr": "",
+    "sampleWallMs": 172.01624999986961
+  },
+  "preparationMs": 0.10000000149011612,
+  "preparation": {
+    "reusedVersions": [
+      "procedural",
+      "2k",
+      "4k",
+      "8k"
+    ],
+    "phases": [
+      {
+        "version": "procedural",
+        "startedAt": "2026-09-14T10:37:09.806Z",
+        "trigger": "preview",
+        "moduleImportWallMs": 5.5999999940395355,
+        "factoryCpuMs": 20.700000002980232,
+        "readyWaitWallMs": 0,
+        "compileAsyncWallMs": 13.199999995529652,
+        "firstRenderCpuMs": 7,
+        "firstSubmittedFrameWallMs": 46.79999999701977,
+        "firstRenderGpuMs": 6.692749,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "procedural-water",
+          "earthRotation": 0.54,
+          "cloudRotation": 1.296,
+          "cloudMorphTime": 180,
+          "earthRotationRate": 0.003,
+          "cloudRotationRate": 0.0072,
+          "cloudFieldSamples": 11,
+          "cloudInterpolation": "rg8-gradient-mips",
+          "cloudFieldCells": 4,
+          "cloudSamplesPerCell": 8,
+          "cloudWeatherModel": "authored-front-stratiform-cold-sector-cumulus-cirrus",
+          "cloudLightingModel": "thin-shell-local-billows-gradient-relief-two-probes",
+          "cloudSunProbes": 2,
+          "cloudMorph": [
+            0.013975935588577964,
+            -0.005452850272634091,
+            0.019953203058688394
+          ],
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 32,
+          "dayTextureSize": 0,
+          "cloudTextureSize": 0,
+          "proceduralTextureBytes": 98304,
+          "proceduralTextureGpuBytes": 118590,
+          "proceduralGenerationMs": 17.2,
+          "proceduralNoiseDimensions": [
+            32,
+            32,
+            32
+          ],
+          "proceduralNoiseFormat": "RG8",
+          "proceduralNoiseMipBytes": 74898,
+          "proceduralNoiseMipLevels": 6,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 0,
+          "estimatedTextureMiB": 0.1131,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 15
+        }
+      },
+      {
+        "version": "2k",
+        "startedAt": "2026-09-14T10:37:44.623Z",
+        "trigger": "preview",
+        "moduleImportWallMs": 6.600000001490116,
+        "factoryCpuMs": 10.200000002980232,
+        "readyWaitWallMs": 25.399999998509884,
+        "compileAsyncWallMs": 13.5,
+        "firstRenderCpuMs": 3.2000000029802322,
+        "firstSubmittedFrameWallMs": 59.30000000447035,
+        "firstRenderGpuMs": 1.600958,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "satellite-land-ocean-clouds",
+          "earthSource": "local-satellite-image",
+          "earthLoadError": null,
+          "earthRotation": 0.54,
+          "earthRotationRate": 0.003,
+          "earthTextureFetchMs": 2.5,
+          "earthTextureDecodeMs": 23,
+          "earthTextureReadyMs": 35.20000000298023,
+          "earthEncodedBytes": 526263,
+          "earthResponseBytes": 526263,
+          "earthTextureDimensions": [
+            2048,
+            1024
+          ],
+          "earthTextureBytes": 8388608,
+          "earthTextureGpuBytes": 11184812,
+          "earthTextureSamples": 1,
+          "cloudRotation": 0.54,
+          "cloudRotationRate": 0.003,
+          "cloudFieldSamples": 0,
+          "cloudWeatherModel": "combined-satellite-image",
+          "cloudLightingModel": "photographic-clouds-diffuse-globe",
+          "cloudReady": true,
+          "cloudTextureSize": 0,
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 2048,
+          "dayTextureSize": 2048,
+          "proceduralTextureBytes": 32768,
+          "proceduralTextureGpuBytes": 43692,
+          "proceduralGenerationMs": 5.1,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 10.7083,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 14
+        }
+      },
+      {
+        "version": "4k",
+        "startedAt": "2026-09-14T10:37:54.768Z",
+        "trigger": "preview",
+        "moduleImportWallMs": 11,
+        "factoryCpuMs": 11.699999995529652,
+        "readyWaitWallMs": 76.10000000149012,
+        "compileAsyncWallMs": 0.20000000298023224,
+        "firstRenderCpuMs": 42.400000005960464,
+        "firstSubmittedFrameWallMs": 141.60000000149012,
+        "firstRenderGpuMs": 2.495125,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "satellite-land-ocean-clouds",
+          "earthSource": "local-satellite-image",
+          "earthLoadError": null,
+          "earthRotation": 0.54,
+          "earthRotationRate": 0.003,
+          "earthTextureFetchMs": 5.600000001490116,
+          "earthTextureDecodeMs": 70.69999999552965,
+          "earthTextureReadyMs": 87.60000000149012,
+          "earthEncodedBytes": 1925103,
+          "earthResponseBytes": 1925103,
+          "earthTextureDimensions": [
+            4096,
+            2048
+          ],
+          "earthTextureBytes": 33554432,
+          "earthTextureGpuBytes": 44739244,
+          "earthTextureSamples": 1,
+          "cloudRotation": 0.54,
+          "cloudRotationRate": 0.003,
+          "cloudFieldSamples": 0,
+          "cloudWeatherModel": "combined-satellite-image",
+          "cloudLightingModel": "photographic-clouds-diffuse-globe",
+          "cloudReady": true,
+          "cloudTextureSize": 0,
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 4096,
+          "dayTextureSize": 4096,
+          "proceduralTextureBytes": 32768,
+          "proceduralTextureGpuBytes": 43692,
+          "proceduralGenerationMs": 6.5,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 42.7083,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 14
+        }
+      },
+      {
+        "version": "8k",
+        "startedAt": "2026-09-14T10:38:11.870Z",
+        "trigger": "preview",
+        "moduleImportWallMs": 8.899999998509884,
+        "factoryCpuMs": 10.699999995529652,
+        "readyWaitWallMs": 234.5,
+        "compileAsyncWallMs": 0.30000000447034836,
+        "firstRenderCpuMs": 182.40000000596046,
+        "firstSubmittedFrameWallMs": 437,
+        "firstRenderGpuMs": 24.07825,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "satellite-land-ocean-clouds",
+          "earthSource": "local-satellite-image",
+          "earthLoadError": null,
+          "earthRotation": 0.54,
+          "earthRotationRate": 0.003,
+          "earthTextureFetchMs": 9.200000002980232,
+          "earthTextureDecodeMs": 225.59999999403954,
+          "earthTextureReadyMs": 245.09999999403954,
+          "earthEncodedBytes": 6615276,
+          "earthResponseBytes": 6615276,
+          "earthTextureDimensions": [
+            8192,
+            4096
+          ],
+          "earthTextureBytes": 134217728,
+          "earthTextureGpuBytes": 178956972,
+          "earthTextureSamples": 1,
+          "cloudRotation": 0.54,
+          "cloudRotationRate": 0.003,
+          "cloudFieldSamples": 0,
+          "cloudWeatherModel": "combined-satellite-image",
+          "cloudLightingModel": "photographic-clouds-diffuse-globe",
+          "cloudReady": true,
+          "cloudTextureSize": 0,
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 8192,
+          "dayTextureSize": 8192,
+          "proceduralTextureBytes": 32768,
+          "proceduralTextureGpuBytes": 43692,
+          "proceduralGenerationMs": 7.3,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 170.7083,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 14
+        }
+      }
+    ],
+    "residentRendererMemory": {
+      "geometries": 12,
+      "textures": 9
+    },
+    "residentEnvironmentCount": 4,
+    "note": "First submitted frame is a CPU-side submission milestone, not a presentation timestamp. Cold means first environment load in this page, not a guaranteed cold browser/driver cache. Reload before a cold comparison; do not preview first. Shader compilation is measured with renderer.compileAsync; first render separately includes initial upload work."
+  },
+  "finishedAt": "2026-09-14T10:41:42.850Z",
+  "contextStatus": "nominal-observed",
+  "summary": {
+    "procedural": {
+      "measuredFrames": 60,
+      "gpuMs": {
+        "count": 60,
+        "mean": 0.9884606500000002,
+        "median": 0.9129575,
+        "p95": 1.679958,
+        "min": 0.329124,
+        "max": 2.106375
+      },
+      "updateCpuMs": {
+        "count": 60,
+        "mean": 0.03333333333333333,
+        "median": 0,
+        "p95": 0.10000000149011612,
+        "min": 0,
+        "max": 0.20000000298023224
+      },
+      "renderCpuMs": {
+        "count": 60,
+        "mean": 0.4133333339045445,
+        "median": 0.5,
+        "p95": 0.6999999955296516,
+        "min": 0,
+        "max": 0.8000000044703484
+      },
+      "totalCpuMs": {
+        "count": 60,
+        "mean": 0.4583333337058624,
+        "median": 0.5,
+        "p95": 0.7000000029802322,
+        "min": 0,
+        "max": 0.8000000044703484
+      },
+      "frameIntervalMs": {
+        "count": 59,
+        "mean": 16.635593220338983,
+        "median": 16.70000000001164,
+        "p95": 18.60000000000582,
+        "min": 14.599999999976717,
+        "max": 18.70000000001164
+      },
+      "invalidGpuFrames": 0
+    },
+    "2k": {
+      "measuredFrames": 60,
+      "gpuMs": {
+        "count": 60,
+        "mean": 0.4644543333333334,
+        "median": 0.4018745,
+        "p95": 1.05225,
+        "min": 0.152874,
+        "max": 1.257208
+      },
+      "updateCpuMs": {
+        "count": 60,
+        "mean": 0.04833333343267441,
+        "median": 0,
+        "p95": 0.20000000298023224,
+        "min": 0,
+        "max": 0.20000000298023224
+      },
+      "renderCpuMs": {
+        "count": 60,
+        "mean": 0.40166666693985464,
+        "median": 0.3999999985098839,
+        "p95": 0.5,
+        "min": 0.10000000149011612,
+        "max": 0.6000000014901161
+      },
+      "totalCpuMs": {
+        "count": 60,
+        "mean": 0.4716666671137015,
+        "median": 0.5,
+        "p95": 0.6000000014901161,
+        "min": 0.20000000298023224,
+        "max": 0.7999999970197678
+      },
+      "frameIntervalMs": {
+        "count": 59,
+        "mean": 16.66610169491555,
+        "median": 16.699999999982538,
+        "p95": 18.60000000000582,
+        "min": 14.699999999982538,
+        "max": 18.60000000000582
+      },
+      "invalidGpuFrames": 0
+    },
+    "4k": {
+      "measuredFrames": 60,
+      "gpuMs": {
+        "count": 60,
+        "mean": 0.5140543333333335,
+        "median": 0.45052000000000003,
+        "p95": 1.256666,
+        "min": 0.152624,
+        "max": 1.513041
+      },
+      "updateCpuMs": {
+        "count": 60,
+        "mean": 0.040000000347693764,
+        "median": 0,
+        "p95": 0.10000000149011612,
+        "min": 0,
+        "max": 0.20000000298023224
+      },
+      "renderCpuMs": {
+        "count": 60,
+        "mean": 0.37833333301047484,
+        "median": 0.3999999985098839,
+        "p95": 0.5,
+        "min": 0.29999999701976776,
+        "max": 0.6000000014901161
+      },
+      "totalCpuMs": {
+        "count": 60,
+        "mean": 0.43999999985098837,
+        "median": 0.4000000059604645,
+        "p95": 0.5,
+        "min": 0.29999999701976776,
+        "max": 0.6000000014901161
+      },
+      "frameIntervalMs": {
+        "count": 59,
+        "mean": 16.65762711864387,
+        "median": 16.600000000034925,
+        "p95": 18.599999999976717,
+        "min": 14.700000000011642,
+        "max": 18.600000000034925
+      },
+      "invalidGpuFrames": 0
+    },
+    "8k": {
+      "measuredFrames": 60,
+      "gpuMs": {
+        "count": 60,
+        "mean": 0.483184833333333,
+        "median": 0.406562,
+        "p95": 1.180749,
+        "min": 0.250083,
+        "max": 1.272708
+      },
+      "updateCpuMs": {
+        "count": 60,
+        "mean": 0.023333333432674408,
+        "median": 0,
+        "p95": 0.10000000149011612,
+        "min": 0,
+        "max": 0.20000000298023224
+      },
+      "renderCpuMs": {
+        "count": 60,
+        "mean": 0.3799999998261531,
+        "median": 0.3999999985098839,
+        "p95": 0.5,
+        "min": 0.19999999552965164,
+        "max": 0.6000000014901161
+      },
+      "totalCpuMs": {
+        "count": 60,
+        "mean": 0.425,
+        "median": 0.3999999985098839,
+        "p95": 0.5999999940395355,
+        "min": 0.29999999701976776,
+        "max": 0.6000000014901161
+      },
+      "frameIntervalMs": {
+        "count": 59,
+        "mean": 16.667796610169887,
+        "median": 16.699999999982538,
+        "p95": 18.599999999976717,
+        "min": 14.700000000011642,
+        "max": 18.60000000000582
+      },
+      "invalidGpuFrames": 0
+    }
+  }
+}

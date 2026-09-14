@@ -1,0 +1,1870 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-14T10:51:43.469Z",
+  "status": "passed",
+  "inputFiles": [
+    {
+      "name": "desktop-ABDC.json",
+      "sha256": "c0ef12f96a5a11747ba1af506805bd1845d61df2256df6ce141596e6fa32bb66"
+    },
+    {
+      "name": "desktop-BCAD.json",
+      "sha256": "9d45081794f6aebf42c7e0a5ac1de54417a41ba312e843dcc2a01f2960164f96"
+    },
+    {
+      "name": "desktop-CDBA.json",
+      "sha256": "fc25cf3e048e3b84ed164e9e7942ccda1923c06f770047989007ead25c1413b1"
+    },
+    {
+      "name": "desktop-DACB.json",
+      "sha256": "df235c04d2c5597f5d6e8aae6a34cc081b64c5fc68d49497a91540e0b304d2cd"
+    },
+    {
+      "name": "compact-ABDC.json",
+      "sha256": "8120abf7626b310d272c436b973a0c3837ec1dd3b989f7c81b3d119bf4e2eda9"
+    },
+    {
+      "name": "compact-BCAD.json",
+      "sha256": "a44cf30069f61dc987b08462bc56faa0e5dcfbebe135a236c11e3906026865f2"
+    },
+    {
+      "name": "compact-CDBA.json",
+      "sha256": "5f1a773b4ce0becb9ef1c45016005ecd1d04ff38f8772370c69afba3fad8746a"
+    },
+    {
+      "name": "compact-DACB.json",
+      "sha256": "3fd940377f51e1ff9ae385d805a8b35ae9c9e1c1fac234d17bf27453f82b45f0"
+    }
+  ],
+  "missingFiles": [],
+  "extraRawReports": [],
+  "validation": {
+    "acceptedRounds": 8,
+    "measuredGpuQueries": 1920,
+    "nativeSnapshotCount": 72,
+    "allSourcesAndAssetsSameSnapshot": true,
+    "manifestSha256": "0c58a49e2bd3289b6f09d76a343729946626b8ce6597ca942a08a2eae4bb371e",
+    "snapshotId": "a8164cba-f996-45ed-894a-05c59a9ca5e4",
+    "proceduralSourceSha256": "ec83790e30c7559d17580076fbda53addc2aa67a1d1c9895dffb29bbb0de21c9",
+    "powerSources": [
+      "Battery Power"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "assets": {
+    "2k": {
+      "path": "textures/earth-blue-marble-2k.jpg",
+      "bytes": 526263,
+      "sha256": "d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5"
+    },
+    "4k": {
+      "path": "textures/earth-blue-marble-4k.jpg",
+      "bytes": 1925103,
+      "sha256": "ea8940c7f59de7aea44dce96c021f9c9bf7d1adae328fe9fbdc0449fa6535797"
+    },
+    "8k": {
+      "path": "textures/earth-blue-marble-8k.jpg",
+      "bytes": 6615276,
+      "sha256": "f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de"
+    }
+  },
+  "cohorts": {
+    "desktop": {
+      "configuration": {
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "mobile": false
+      },
+      "completeWilliamsDesign": true,
+      "order": [
+        "ABDC",
+        "BCAD",
+        "CDBA",
+        "DACB"
+      ],
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2560,
+          "height": 1440
+        },
+        "maxTextureSize": 16384,
+        "rendererMemory": {
+          "geometries": 12,
+          "textures": 9
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "uniquePreparationCount": 4,
+      "preparationChronologicalOrder": [
+        "procedural",
+        "2k",
+        "4k",
+        "8k"
+      ],
+      "residentRendererMemory": {
+        "geometries": 12,
+        "textures": 9
+      },
+      "estimatedAggregateEnvironmentTextureGpuBytes": 236179270,
+      "variants": {
+        "procedural": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 6.920774312499999,
+            "median": 6.9561455,
+            "p95": 11.455499,
+            "min": 2.461083,
+            "max": 14.346999
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 1,
+              "meanGpuMs": 6.870643233333334,
+              "p95GpuMs": 10.863416,
+              "meanTotalCpuMs": 0.6816666671385367,
+              "meanFrameIntervalMs": 16.66610169491555,
+              "rawReport": "desktop-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 3,
+              "meanGpuMs": 6.143411249999999,
+              "p95GpuMs": 11.298708,
+              "meanTotalCpuMs": 0.5050000001986822,
+              "meanFrameIntervalMs": 16.666101694915056,
+              "rawReport": "desktop-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 4,
+              "meanGpuMs": 7.809150233333332,
+              "p95GpuMs": 11.455499,
+              "meanTotalCpuMs": 0.40499999932944775,
+              "meanFrameIntervalMs": 16.661016949152543,
+              "rawReport": "desktop-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 2,
+              "meanGpuMs": 6.859892533333332,
+              "p95GpuMs": 10.662041,
+              "meanTotalCpuMs": 0.425,
+              "meanFrameIntervalMs": 16.66610169491407,
+              "rawReport": "desktop-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            6.143411249999999,
+            7.809150233333332
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.5041666666666667,
+            "median": 0.5,
+            "p95": 0.7999999970197678,
+            "min": 0.29999999701976776,
+            "max": 1.1000000014901161
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.05041666682809591,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.4337499997578561,
+            "median": 0.3999999985098839,
+            "p95": 0.7000000029802322,
+            "min": 0.19999999552965164,
+            "max": 1
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.664830508474306,
+            "median": 16.699999999953434,
+            "p95": 18.60000000000582,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            7
+          ],
+          "triangles": [
+            97284
+          ],
+          "points": [
+            3100
+          ],
+          "earthDownloadBytes": 0,
+          "earthTextureDimensions": null,
+          "earthTextureGpuBytes": 599186,
+          "environmentTextureGpuBytes": 773950,
+          "preparation": {
+            "version": "procedural",
+            "startedAt": "2026-09-14T10:21:20.341Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 3.100000001490116,
+            "factoryCpuMs": 49.5,
+            "readyWaitWallMs": 0,
+            "compileAsyncWallMs": 14.5,
+            "firstRenderCpuMs": 9.200000002980232,
+            "firstSubmittedFrameWallMs": 77.10000000149012,
+            "firstRenderGpuMs": 29.064833,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": null,
+          "preparationTextureDecodeMs": null
+        },
+        "2k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.5958373499999996,
+            "median": 3.9663744999999997,
+            "p95": 4.783166,
+            "min": 1.178458,
+            "max": 4.996124
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 2,
+              "meanGpuMs": 3.2352307833333334,
+              "p95GpuMs": 4.567583,
+              "meanTotalCpuMs": 0.4966666668653488,
+              "meanFrameIntervalMs": 16.69830508474596,
+              "rawReport": "desktop-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 1,
+              "meanGpuMs": 3.9227488999999998,
+              "p95GpuMs": 4.789874,
+              "meanTotalCpuMs": 0.4666666666666667,
+              "meanFrameIntervalMs": 16.632203389830313,
+              "rawReport": "desktop-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 3,
+              "meanGpuMs": 3.2002168499999994,
+              "p95GpuMs": 4.612749,
+              "meanTotalCpuMs": 0.4216666668653488,
+              "meanFrameIntervalMs": 16.67457627118723,
+              "rawReport": "desktop-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 4,
+              "meanGpuMs": 4.025152866666668,
+              "p95GpuMs": 4.884583,
+              "meanTotalCpuMs": 0.37333333380520345,
+              "meanFrameIntervalMs": 16.666101694916044,
+              "rawReport": "desktop-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            3.2002168499999994,
+            4.025152866666668
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.43958333355064194,
+            "median": 0.4000000059604645,
+            "p95": 0.6000000014901161,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.033333333457509676,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.38708333348234497,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.667796610169887,
+            "median": 16.699999999953434,
+            "p95": 18.600000000093132,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            72964
+          ],
+          "points": [
+            3100
+          ],
+          "earthDownloadBytes": 526263,
+          "earthTextureDimensions": [
+            2048,
+            1024
+          ],
+          "earthTextureGpuBytes": 11184812,
+          "environmentTextureGpuBytes": 11359576,
+          "preparation": {
+            "version": "2k",
+            "startedAt": "2026-09-14T10:21:21.266Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 11.299999997019768,
+            "factoryCpuMs": 14.399999998509884,
+            "readyWaitWallMs": 24.80000000447035,
+            "compileAsyncWallMs": 13.100000001490116,
+            "firstRenderCpuMs": 4,
+            "firstSubmittedFrameWallMs": 68.10000000149012,
+            "firstRenderGpuMs": 8.417458,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 3.600000001490116,
+          "preparationTextureDecodeMs": 21.69999999552965
+        },
+        "4k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.281320183333335,
+            "median": 2.8898325,
+            "p95": 4.646499,
+            "min": 1.133875,
+            "max": 4.774708
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 4,
+              "meanGpuMs": 2.80326975,
+              "p95GpuMs": 4.720125,
+              "meanTotalCpuMs": 0.4583333333333333,
+              "meanFrameIntervalMs": 16.69830508474596,
+              "rawReport": "desktop-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 2,
+              "meanGpuMs": 3.3478106166666675,
+              "p95GpuMs": 4.650375,
+              "meanTotalCpuMs": 0.44833333330849806,
+              "meanFrameIntervalMs": 16.700000000000788,
+              "rawReport": "desktop-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 1,
+              "meanGpuMs": 3.6183327833333325,
+              "p95GpuMs": 4.520249,
+              "meanTotalCpuMs": 0.4100000000248353,
+              "meanFrameIntervalMs": 16.700000000000788,
+              "rawReport": "desktop-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 3,
+              "meanGpuMs": 3.3558675833333336,
+              "p95GpuMs": 4.603124,
+              "meanTotalCpuMs": 0.4016666663189729,
+              "meanFrameIntervalMs": 16.667796610167912,
+              "rawReport": "desktop-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            2.80326975,
+            3.6183327833333325
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.4295833332464099,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.7999999970197678
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.03458333325882753,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.10000000149011612
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.37708333327124516,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6999999955296516
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.691525423728862,
+            "median": 16.699999999953434,
+            "p95": 18.600000000093132,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            72964
+          ],
+          "points": [
+            3100
+          ],
+          "earthDownloadBytes": 1925103,
+          "earthTextureDimensions": [
+            4096,
+            2048
+          ],
+          "earthTextureGpuBytes": 44739244,
+          "environmentTextureGpuBytes": 44914008,
+          "preparation": {
+            "version": "4k",
+            "startedAt": "2026-09-14T10:21:22.163Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 13.799999997019768,
+            "factoryCpuMs": 6.9000000059604645,
+            "readyWaitWallMs": 65.09999999403954,
+            "compileAsyncWallMs": 0.20000000298023224,
+            "firstRenderCpuMs": 47.69999999552965,
+            "firstSubmittedFrameWallMs": 133.79999999701977,
+            "firstRenderGpuMs": 11.060249,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 2.600000001490116,
+          "preparationTextureDecodeMs": 62.69999999552965
+        },
+        "8k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.412955929166668,
+            "median": 2.9703535,
+            "p95": 4.74075,
+            "min": 1.240375,
+            "max": 4.893875
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 3,
+              "meanGpuMs": 3.507610566666668,
+              "p95GpuMs": 4.785249,
+              "meanTotalCpuMs": 0.47166666674117247,
+              "meanFrameIntervalMs": 16.63389830508514,
+              "rawReport": "desktop-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 4,
+              "meanGpuMs": 3.299700966666667,
+              "p95GpuMs": 4.705916,
+              "meanTotalCpuMs": 0.4100000000248353,
+              "meanFrameIntervalMs": 16.699999999999804,
+              "rawReport": "desktop-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 2,
+              "meanGpuMs": 3.3206015166666676,
+              "p95GpuMs": 4.664125,
+              "meanTotalCpuMs": 0.3799999998261531,
+              "meanFrameIntervalMs": 16.63389830508514,
+              "rawReport": "desktop-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 1,
+              "meanGpuMs": 3.5239106666666666,
+              "p95GpuMs": 4.763916,
+              "meanTotalCpuMs": 0.3733333330601454,
+              "meanFrameIntervalMs": 16.647457627117856,
+              "rawReport": "desktop-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            3.299700966666667,
+            3.5239106666666666
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.40874999991307653,
+            "median": 0.3999999985098839,
+            "p95": 0.5999999940395355,
+            "min": 0.19999999552965164,
+            "max": 0.8999999985098839
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.034583333289871614,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.10000000149011612
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.35708333319053054,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.8999999985098839
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.653813559321986,
+            "median": 16.699999999953434,
+            "p95": 18.599999999976717,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            72964
+          ],
+          "points": [
+            3100
+          ],
+          "earthDownloadBytes": 6615276,
+          "earthTextureDimensions": [
+            8192,
+            4096
+          ],
+          "earthTextureGpuBytes": 178956972,
+          "environmentTextureGpuBytes": 179131736,
+          "preparation": {
+            "version": "8k",
+            "startedAt": "2026-09-14T10:21:23.017Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 9.799999997019768,
+            "factoryCpuMs": 21.5,
+            "readyWaitWallMs": 231.39999999850988,
+            "compileAsyncWallMs": 0.19999999552965164,
+            "firstRenderCpuMs": 184.20000000298023,
+            "firstSubmittedFrameWallMs": 447.3999999985099,
+            "firstRenderGpuMs": 26.687208,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 5.300000004470348,
+          "preparationTextureDecodeMs": 226.19999999552965
+        }
+      }
+    },
+    "compact": {
+      "configuration": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "mobile": true
+      },
+      "completeWilliamsDesign": true,
+      "order": [
+        "ABDC",
+        "BCAD",
+        "CDBA",
+        "DACB"
+      ],
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 390,
+          "height": 844
+        },
+        "maxTextureSize": 16384,
+        "rendererMemory": {
+          "geometries": 12,
+          "textures": 9
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "uniquePreparationCount": 4,
+      "preparationChronologicalOrder": [
+        "procedural",
+        "2k",
+        "4k",
+        "8k"
+      ],
+      "residentRendererMemory": {
+        "geometries": 12,
+        "textures": 9
+      },
+      "estimatedAggregateEnvironmentTextureGpuBytes": 235130694,
+      "variants": {
+        "procedural": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 0.9177989833333334,
+            "median": 0.832729,
+            "p95": 1.644625,
+            "min": 0.329124,
+            "max": 2.689499
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 1,
+              "meanGpuMs": 0.9884606500000002,
+              "p95GpuMs": 1.679958,
+              "meanTotalCpuMs": 0.4583333337058624,
+              "meanFrameIntervalMs": 16.635593220338983,
+              "rawReport": "compact-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 3,
+              "meanGpuMs": 0.9907154833333333,
+              "p95GpuMs": 1.727124,
+              "meanTotalCpuMs": 0.4766666671882073,
+              "meanFrameIntervalMs": 16.666101694915056,
+              "rawReport": "compact-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 4,
+              "meanGpuMs": 0.8955848999999997,
+              "p95GpuMs": 1.531291,
+              "meanTotalCpuMs": 0.358333333209157,
+              "meanFrameIntervalMs": 16.667796610169887,
+              "rawReport": "compact-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 2,
+              "meanGpuMs": 0.7964349,
+              "p95GpuMs": 1.469416,
+              "meanTotalCpuMs": 0.4533333332588275,
+              "meanFrameIntervalMs": 16.63389830508514,
+              "rawReport": "compact-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            0.7964349,
+            0.9907154833333333
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.43666666684051353,
+            "median": 0.5,
+            "p95": 0.7000000029802322,
+            "min": 0,
+            "max": 0.8000000044703484
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.04166666679084301,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.3750000000931323,
+            "median": 0.3999999985098839,
+            "p95": 0.6000000014901161,
+            "min": 0,
+            "max": 0.8000000044703484
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.65084745762727,
+            "median": 16.699999999953434,
+            "p95": 18.600000000093132,
+            "min": 14.599999999976717,
+            "max": 18.79999999998836
+          },
+          "drawCalls": [
+            7
+          ],
+          "triangles": [
+            48388
+          ],
+          "points": [
+            2300
+          ],
+          "earthDownloadBytes": 0,
+          "earthTextureDimensions": null,
+          "earthTextureGpuBytes": 74898,
+          "environmentTextureGpuBytes": 118590,
+          "preparation": {
+            "version": "procedural",
+            "startedAt": "2026-09-14T10:37:09.806Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 5.5999999940395355,
+            "factoryCpuMs": 20.700000002980232,
+            "readyWaitWallMs": 0,
+            "compileAsyncWallMs": 13.199999995529652,
+            "firstRenderCpuMs": 7,
+            "firstSubmittedFrameWallMs": 46.79999999701977,
+            "firstRenderGpuMs": 6.692749,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": null,
+          "preparationTextureDecodeMs": null
+        },
+        "2k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 0.4612864833333335,
+            "median": 0.406979,
+            "p95": 1.05225,
+            "min": 0.151375,
+            "max": 1.398041
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 2,
+              "meanGpuMs": 0.4644543333333334,
+              "p95GpuMs": 1.05225,
+              "meanTotalCpuMs": 0.4716666671137015,
+              "meanFrameIntervalMs": 16.66610169491555,
+              "rawReport": "compact-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 1,
+              "meanGpuMs": 0.4662911999999998,
+              "p95GpuMs": 1.054083,
+              "meanTotalCpuMs": 0.4283333335071802,
+              "meanFrameIntervalMs": 16.632203389830313,
+              "rawReport": "compact-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 3,
+              "meanGpuMs": 0.47308009999999995,
+              "p95GpuMs": 0.877833,
+              "meanTotalCpuMs": 0.38166666676600774,
+              "meanFrameIntervalMs": 16.666101694916044,
+              "rawReport": "compact-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 4,
+              "meanGpuMs": 0.44132029999999994,
+              "p95GpuMs": 0.716499,
+              "meanTotalCpuMs": 0.3900000003476938,
+              "meanFrameIntervalMs": 16.667796610169887,
+              "rawReport": "compact-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            0.44132029999999994,
+            0.47308009999999995
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.4179166669336458,
+            "median": 0.3999999985098839,
+            "p95": 0.6000000014901161,
+            "min": 0.19999999552965164,
+            "max": 0.7999999970197678
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.034999999993791185,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.3650000002856056,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.10000000149011612,
+            "max": 0.6000000014901161
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.658050847457947,
+            "median": 16.699999999953434,
+            "p95": 18.699999999953434,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            36292
+          ],
+          "points": [
+            2300
+          ],
+          "earthDownloadBytes": 526263,
+          "earthTextureDimensions": [
+            2048,
+            1024
+          ],
+          "earthTextureGpuBytes": 11184812,
+          "environmentTextureGpuBytes": 11228504,
+          "preparation": {
+            "version": "2k",
+            "startedAt": "2026-09-14T10:37:44.623Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 6.600000001490116,
+            "factoryCpuMs": 10.200000002980232,
+            "readyWaitWallMs": 25.399999998509884,
+            "compileAsyncWallMs": 13.5,
+            "firstRenderCpuMs": 3.2000000029802322,
+            "firstSubmittedFrameWallMs": 59.30000000447035,
+            "firstRenderGpuMs": 1.600958,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 2.5,
+          "preparationTextureDecodeMs": 23
+        },
+        "4k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 0.47421581666666657,
+            "median": 0.435145,
+            "p95": 0.765041,
+            "min": 0.150958,
+            "max": 1.513041
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 4,
+              "meanGpuMs": 0.5140543333333335,
+              "p95GpuMs": 1.256666,
+              "meanTotalCpuMs": 0.43999999985098837,
+              "meanFrameIntervalMs": 16.65762711864387,
+              "rawReport": "compact-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 2,
+              "meanGpuMs": 0.4296848666666666,
+              "p95GpuMs": 0.589124,
+              "meanTotalCpuMs": 0.44833333330849806,
+              "meanFrameIntervalMs": 16.6677966101689,
+              "rawReport": "compact-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 1,
+              "meanGpuMs": 0.4644154833333334,
+              "p95GpuMs": 0.670208,
+              "meanTotalCpuMs": 0.39333333298563955,
+              "meanFrameIntervalMs": 16.667796610167912,
+              "rawReport": "compact-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 3,
+              "meanGpuMs": 0.48870858333333334,
+              "p95GpuMs": 0.765041,
+              "meanTotalCpuMs": 0.36000000064571697,
+              "meanFrameIntervalMs": 16.666101694916044,
+              "rawReport": "compact-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            0.4296848666666666,
+            0.5140543333333335
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.41041666669771076,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.03416666664804022,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.35625000012417635,
+            "median": 0.30000000447034836,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.664830508474182,
+            "median": 16.699999999953434,
+            "p95": 18.600000000034925,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            36292
+          ],
+          "points": [
+            2300
+          ],
+          "earthDownloadBytes": 1925103,
+          "earthTextureDimensions": [
+            4096,
+            2048
+          ],
+          "earthTextureGpuBytes": 44739244,
+          "environmentTextureGpuBytes": 44782936,
+          "preparation": {
+            "version": "4k",
+            "startedAt": "2026-09-14T10:37:54.768Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 11,
+            "factoryCpuMs": 11.699999995529652,
+            "readyWaitWallMs": 76.10000000149012,
+            "compileAsyncWallMs": 0.20000000298023224,
+            "firstRenderCpuMs": 42.400000005960464,
+            "firstSubmittedFrameWallMs": 141.60000000149012,
+            "firstRenderGpuMs": 2.495125,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 5.600000001490116,
+          "preparationTextureDecodeMs": 70.69999999552965
+        },
+        "8k": {
+          "measuredFrames": 240,
+          "blockCount": 4,
+          "gpuMs": {
+            "count": 240,
+            "mean": 0.5137878583333333,
+            "median": 0.4178325,
+            "p95": 1.121,
+            "min": 0.156249,
+            "max": 2.494625
+          },
+          "blockMeans": [
+            {
+              "order": "ABDC",
+              "position": 3,
+              "meanGpuMs": 0.483184833333333,
+              "p95GpuMs": 1.180749,
+              "meanTotalCpuMs": 0.425,
+              "meanFrameIntervalMs": 16.667796610169887,
+              "rawReport": "compact-ABDC.json"
+            },
+            {
+              "order": "BCAD",
+              "position": 4,
+              "meanGpuMs": 0.6270620833333334,
+              "p95GpuMs": 2.173249,
+              "meanTotalCpuMs": 0.34166666654249034,
+              "meanFrameIntervalMs": 16.666101694915056,
+              "rawReport": "compact-BCAD.json"
+            },
+            {
+              "order": "CDBA",
+              "position": 2,
+              "meanGpuMs": 0.4836786499999999,
+              "p95GpuMs": 0.762958,
+              "meanTotalCpuMs": 0.3466666664928198,
+              "meanFrameIntervalMs": 16.677966101694917,
+              "rawReport": "compact-CDBA.json"
+            },
+            {
+              "order": "DACB",
+              "position": 1,
+              "meanGpuMs": 0.4612258666666666,
+              "p95GpuMs": 0.703583,
+              "meanTotalCpuMs": 0.358333333209157,
+              "meanFrameIntervalMs": 16.666101694916044,
+              "rawReport": "compact-DACB.json"
+            }
+          ],
+          "blockMeanRangeMs": [
+            0.4612258666666666,
+            0.6270620833333334
+          ],
+          "totalCpuMs": {
+            "count": 240,
+            "mean": 0.36791666656111677,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0,
+            "max": 0.6000000014901161
+          },
+          "updateCpuMs": {
+            "count": 240,
+            "mean": 0.025833333500971396,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 240,
+            "mean": 0.3220833331036071,
+            "median": 0.30000000447034836,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.6000000014901161
+          },
+          "frameIntervalMs": {
+            "count": 236,
+            "mean": 16.669491525423975,
+            "median": 16.699999999953434,
+            "p95": 18.599999999976717,
+            "min": 14.599999999976717,
+            "max": 18.70000000006985
+          },
+          "drawCalls": [
+            6
+          ],
+          "triangles": [
+            36292
+          ],
+          "points": [
+            2300
+          ],
+          "earthDownloadBytes": 6615276,
+          "earthTextureDimensions": [
+            8192,
+            4096
+          ],
+          "earthTextureGpuBytes": 178956972,
+          "environmentTextureGpuBytes": 179000664,
+          "preparation": {
+            "version": "8k",
+            "startedAt": "2026-09-14T10:38:11.870Z",
+            "trigger": "preview",
+            "moduleImportWallMs": 8.899999998509884,
+            "factoryCpuMs": 10.699999995529652,
+            "readyWaitWallMs": 234.5,
+            "compileAsyncWallMs": 0.30000000447034836,
+            "firstRenderCpuMs": 182.40000000596046,
+            "firstSubmittedFrameWallMs": 437,
+            "firstRenderGpuMs": 24.07825,
+            "firstRenderGpuStatus": "valid"
+          },
+          "preparationTextureFetchMs": 9.200000002980232,
+          "preparationTextureDecodeMs": 225.59999999403954
+        }
+      }
+    }
+  },
+  "nativeObservations": [
+    {
+      "label": "desktop-ABDC.json/initial",
+      "timestamp": "2026-09-14T10:24:31Z",
+      "capturedAt": "2026-09-14T10:24:31.282Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-1/procedural/before",
+      "timestamp": "2026-09-14T10:24:51Z",
+      "capturedAt": "2026-09-14T10:24:51.470Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-1/procedural/after",
+      "timestamp": "2026-09-14T10:24:52Z",
+      "capturedAt": "2026-09-14T10:24:52.830Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-2/2k/before",
+      "timestamp": "2026-09-14T10:25:13Z",
+      "capturedAt": "2026-09-14T10:25:13.029Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-2/2k/after",
+      "timestamp": "2026-09-14T10:25:14Z",
+      "capturedAt": "2026-09-14T10:25:14.381Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-3/8k/before",
+      "timestamp": "2026-09-14T10:25:34Z",
+      "capturedAt": "2026-09-14T10:25:34.579Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-3/8k/after",
+      "timestamp": "2026-09-14T10:25:35Z",
+      "capturedAt": "2026-09-14T10:25:35.947Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-4/4k/before",
+      "timestamp": "2026-09-14T10:25:56Z",
+      "capturedAt": "2026-09-14T10:25:56.146Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-ABDC.json/block-4/4k/after",
+      "timestamp": "2026-09-14T10:25:57Z",
+      "capturedAt": "2026-09-14T10:25:57.497Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/initial",
+      "timestamp": "2026-09-14T10:28:02Z",
+      "capturedAt": "2026-09-14T10:28:02.399Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-1/2k/before",
+      "timestamp": "2026-09-14T10:28:22Z",
+      "capturedAt": "2026-09-14T10:28:22.588Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-1/2k/after",
+      "timestamp": "2026-09-14T10:28:23Z",
+      "capturedAt": "2026-09-14T10:28:23.964Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-2/4k/before",
+      "timestamp": "2026-09-14T10:28:44Z",
+      "capturedAt": "2026-09-14T10:28:44.170Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-2/4k/after",
+      "timestamp": "2026-09-14T10:28:45Z",
+      "capturedAt": "2026-09-14T10:28:45.531Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-3/procedural/before",
+      "timestamp": "2026-09-14T10:29:05Z",
+      "capturedAt": "2026-09-14T10:29:05.728Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-3/procedural/after",
+      "timestamp": "2026-09-14T10:29:07Z",
+      "capturedAt": "2026-09-14T10:29:07.081Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-4/8k/before",
+      "timestamp": "2026-09-14T10:29:27Z",
+      "capturedAt": "2026-09-14T10:29:27.279Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-BCAD.json/block-4/8k/after",
+      "timestamp": "2026-09-14T10:29:28Z",
+      "capturedAt": "2026-09-14T10:29:28.630Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/initial",
+      "timestamp": "2026-09-14T10:30:03Z",
+      "capturedAt": "2026-09-14T10:30:03.865Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-1/4k/before",
+      "timestamp": "2026-09-14T10:30:24Z",
+      "capturedAt": "2026-09-14T10:30:24.053Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-1/4k/after",
+      "timestamp": "2026-09-14T10:30:25Z",
+      "capturedAt": "2026-09-14T10:30:25.414Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-2/8k/before",
+      "timestamp": "2026-09-14T10:30:45Z",
+      "capturedAt": "2026-09-14T10:30:45.613Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-2/8k/after",
+      "timestamp": "2026-09-14T10:30:46Z",
+      "capturedAt": "2026-09-14T10:30:46.963Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-3/2k/before",
+      "timestamp": "2026-09-14T10:31:07Z",
+      "capturedAt": "2026-09-14T10:31:07.163Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-3/2k/after",
+      "timestamp": "2026-09-14T10:31:08Z",
+      "capturedAt": "2026-09-14T10:31:08.514Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-4/procedural/before",
+      "timestamp": "2026-09-14T10:31:28Z",
+      "capturedAt": "2026-09-14T10:31:28.712Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-CDBA.json/block-4/procedural/after",
+      "timestamp": "2026-09-14T10:31:30Z",
+      "capturedAt": "2026-09-14T10:31:30.064Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/initial",
+      "timestamp": "2026-09-14T10:32:31Z",
+      "capturedAt": "2026-09-14T10:32:31.315Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-1/8k/before",
+      "timestamp": "2026-09-14T10:32:51Z",
+      "capturedAt": "2026-09-14T10:32:51.493Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-1/8k/after",
+      "timestamp": "2026-09-14T10:32:52Z",
+      "capturedAt": "2026-09-14T10:32:52.847Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-2/procedural/before",
+      "timestamp": "2026-09-14T10:33:13Z",
+      "capturedAt": "2026-09-14T10:33:13.044Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-2/procedural/after",
+      "timestamp": "2026-09-14T10:33:14Z",
+      "capturedAt": "2026-09-14T10:33:14.397Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-3/4k/before",
+      "timestamp": "2026-09-14T10:33:34Z",
+      "capturedAt": "2026-09-14T10:33:34.589Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-3/4k/after",
+      "timestamp": "2026-09-14T10:33:35Z",
+      "capturedAt": "2026-09-14T10:33:35.947Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-4/2k/before",
+      "timestamp": "2026-09-14T10:33:56Z",
+      "capturedAt": "2026-09-14T10:33:56.155Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "desktop-DACB.json/block-4/2k/after",
+      "timestamp": "2026-09-14T10:33:57Z",
+      "capturedAt": "2026-09-14T10:33:57.514Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/initial",
+      "timestamp": "2026-09-14T10:40:16Z",
+      "capturedAt": "2026-09-14T10:40:16.431Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-1/procedural/before",
+      "timestamp": "2026-09-14T10:40:36Z",
+      "capturedAt": "2026-09-14T10:40:36.610Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-1/procedural/after",
+      "timestamp": "2026-09-14T10:40:37Z",
+      "capturedAt": "2026-09-14T10:40:37.965Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-2/2k/before",
+      "timestamp": "2026-09-14T10:40:58Z",
+      "capturedAt": "2026-09-14T10:40:58.162Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-2/2k/after",
+      "timestamp": "2026-09-14T10:40:59Z",
+      "capturedAt": "2026-09-14T10:40:59.516Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-3/8k/before",
+      "timestamp": "2026-09-14T10:41:19Z",
+      "capturedAt": "2026-09-14T10:41:19.716Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-3/8k/after",
+      "timestamp": "2026-09-14T10:41:21Z",
+      "capturedAt": "2026-09-14T10:41:21.082Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-4/4k/before",
+      "timestamp": "2026-09-14T10:41:41Z",
+      "capturedAt": "2026-09-14T10:41:41.279Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-ABDC.json/block-4/4k/after",
+      "timestamp": "2026-09-14T10:41:42Z",
+      "capturedAt": "2026-09-14T10:41:42.649Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/initial",
+      "timestamp": "2026-09-14T10:42:57Z",
+      "capturedAt": "2026-09-14T10:42:57.983Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-1/2k/before",
+      "timestamp": "2026-09-14T10:43:18Z",
+      "capturedAt": "2026-09-14T10:43:18.171Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-1/2k/after",
+      "timestamp": "2026-09-14T10:43:19Z",
+      "capturedAt": "2026-09-14T10:43:19.532Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-2/4k/before",
+      "timestamp": "2026-09-14T10:43:39Z",
+      "capturedAt": "2026-09-14T10:43:39.731Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-2/4k/after",
+      "timestamp": "2026-09-14T10:43:41Z",
+      "capturedAt": "2026-09-14T10:43:41.082Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-3/procedural/before",
+      "timestamp": "2026-09-14T10:44:01Z",
+      "capturedAt": "2026-09-14T10:44:01.297Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-3/procedural/after",
+      "timestamp": "2026-09-14T10:44:02Z",
+      "capturedAt": "2026-09-14T10:44:02.649Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-4/8k/before",
+      "timestamp": "2026-09-14T10:44:22Z",
+      "capturedAt": "2026-09-14T10:44:22.844Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-BCAD.json/block-4/8k/after",
+      "timestamp": "2026-09-14T10:44:24Z",
+      "capturedAt": "2026-09-14T10:44:24.182Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/initial",
+      "timestamp": "2026-09-14T10:45:41Z",
+      "capturedAt": "2026-09-14T10:45:41.167Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-1/4k/before",
+      "timestamp": "2026-09-14T10:46:01Z",
+      "capturedAt": "2026-09-14T10:46:01.354Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-1/4k/after",
+      "timestamp": "2026-09-14T10:46:02Z",
+      "capturedAt": "2026-09-14T10:46:02.715Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-2/8k/before",
+      "timestamp": "2026-09-14T10:46:22Z",
+      "capturedAt": "2026-09-14T10:46:22.916Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-2/8k/after",
+      "timestamp": "2026-09-14T10:46:24Z",
+      "capturedAt": "2026-09-14T10:46:24.265Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-3/2k/before",
+      "timestamp": "2026-09-14T10:46:44Z",
+      "capturedAt": "2026-09-14T10:46:44.462Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-3/2k/after",
+      "timestamp": "2026-09-14T10:46:45Z",
+      "capturedAt": "2026-09-14T10:46:45.816Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-4/procedural/before",
+      "timestamp": "2026-09-14T10:47:06Z",
+      "capturedAt": "2026-09-14T10:47:06.019Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-CDBA.json/block-4/procedural/after",
+      "timestamp": "2026-09-14T10:47:07Z",
+      "capturedAt": "2026-09-14T10:47:07.399Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/initial",
+      "timestamp": "2026-09-14T10:48:01Z",
+      "capturedAt": "2026-09-14T10:48:01.900Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-1/8k/before",
+      "timestamp": "2026-09-14T10:48:22Z",
+      "capturedAt": "2026-09-14T10:48:22.088Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-1/8k/after",
+      "timestamp": "2026-09-14T10:48:23Z",
+      "capturedAt": "2026-09-14T10:48:23.449Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-2/procedural/before",
+      "timestamp": "2026-09-14T10:48:43Z",
+      "capturedAt": "2026-09-14T10:48:43.644Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-2/procedural/after",
+      "timestamp": "2026-09-14T10:48:44Z",
+      "capturedAt": "2026-09-14T10:48:44.983Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-3/4k/before",
+      "timestamp": "2026-09-14T10:49:05Z",
+      "capturedAt": "2026-09-14T10:49:05.180Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-3/4k/after",
+      "timestamp": "2026-09-14T10:49:06Z",
+      "capturedAt": "2026-09-14T10:49:06.532Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-4/2k/before",
+      "timestamp": "2026-09-14T10:49:26Z",
+      "capturedAt": "2026-09-14T10:49:26.731Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    },
+    {
+      "label": "compact-DACB.json/block-4/2k/after",
+      "timestamp": "2026-09-14T10:49:28Z",
+      "capturedAt": "2026-09-14T10:49:28.099Z",
+      "thermalState": "nominal",
+      "lowPowerMode": false,
+      "powerSource": "Battery Power",
+      "noRecordedCpuStatus": true,
+      "noRecordedWarning": true
+    }
+  ],
+  "limits": [
+    "Per-frame samples within a block are correlated. The four balanced blocks per variant/viewport are the relevant repeated observations; 1,920 frames are not 1,920 independent trials. No inferential confidence interval or significance claim is made.",
+    "GPU time covers the orbital background renderer only. It excludes spacecraft, app UI and camera motion and is not whole-site FPS, Safari, physical-phone, power, temperature or battery-life performance.",
+    "Both viewport cohorts run on the same Apple M4 desktop browser. Compact means a 390×844 browser viewport, not mobile hardware.",
+    "All four environments and their images remain resident. Aggregate texture/geometry/decoded-image memory exceeds single-Earth production memory. Texture storage figures are RGBA8/mipmap estimates, not measured physical VRAM or process RSS.",
+    "Preparation is one fixed-order preview sequence per viewport, deduplicated across rounds. Shared browser/module/shader/driver caches and prior preparation affect timings. These are local startup observations, not cold-network tests or replicated startup benchmarks.",
+    "OS nominal thermal pressure plus blank rests does not prove complete cooling or identical clocks. Native snapshots are outside measured frames. Historical pmset warnings are not current temperature or guaranteed frequency observations.",
+    "Original procedural clouds retain their original appearance and geographic orientation. The comparison tests final design workloads, not identical rendered pixels. Satellite variants differ only in their requested image asset dimensions.",
+    "Browser fields named CpuMs are performance.now elapsed wall durations around JavaScript/update/render submission, not native process CPU time or utilization. GPU query time measures different work. Display-paced frame intervals include browser scheduling and should not be converted to unconstrained FPS."
+  ]
+}

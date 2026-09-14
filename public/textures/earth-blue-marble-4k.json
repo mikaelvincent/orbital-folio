@@ -1,0 +1,33 @@
+{
+  "title": "NASA Blue Marble (2002): land, ocean color, sea ice and clouds",
+  "asset": "/textures/earth-blue-marble-4k.jpg",
+  "width": 4096,
+  "height": 2048,
+  "format": "jpeg",
+  "quality": 85,
+  "encodedBytes": 1925103,
+  "sha256": "ea8940c7f59de7aea44dce96c021f9c9bf7d1adae328fe9fbdc0449fa6535797",
+  "colorSpace": "sRGB",
+  "projection": "equirectangular",
+  "orientation": "north-to-south rows; -180 to +180 longitude columns; antimeridian at the seam",
+  "textureLoaderFlipY": true,
+  "estimatedRgba8WithMipmapsBytes": 44739244,
+  "memoryNote": "Nominal RGBA8 full mip chain; excludes driver padding and decoded CPU image memory.",
+  "source": {
+    "url": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57735/land_ocean_ice_cloud_8192.tif",
+    "page": "https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/",
+    "width": 8192,
+    "height": 4096,
+    "bytes": 51115006,
+    "sha256": "edd98f81cae53b4a4aceb65aa1dd41eaadf590149a8b41d21c1de51489b586a3",
+    "credit": "NASA Goddard Space Flight Center; Reto Stöckli; enhancements by Robert Simmon; MODIS science teams",
+    "note": "Historical satellite composite, not live weather. Clouds and surface share one color map."
+  },
+  "preparation": {
+    "command": "node scripts/prepare-earth-texture.mjs /path/to/land_ocean_ice_cloud_8192.tif 4096",
+    "processing": "Lanczos3 resize; sRGB; remove alpha; JPEG quality 85, mozjpeg, 4:2:0 chroma; strip metadata; no geographic flip or crop.",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mozjpeg": "0826579"
+  }
+}

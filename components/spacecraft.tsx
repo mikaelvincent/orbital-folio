@@ -7,6 +7,7 @@ import {
 } from '@/lib/door-navigation';
 import { SceneLoader } from './scene-loader';
 import { createScenePerformance } from '@/lib/scene-performance';
+import { updateRenderSceneMatrices } from '@/lib/scene-matrices';
 import {
   createSpacecraftPerformance,
   type SpacecraftPerformanceFilter,
@@ -246,6 +247,10 @@ export function Spacecraft(props: Props) {
             },
           });
           scene.add(model.group);
+          // This loop synchronizes the scene after animation/reader transforms.
+          // Reuse those exact matrices for shadows, color, and AO instead of
+          // traversing every spacecraft object again for each render pass.
+          scene.matrixWorldAutoUpdate = false;
           const annotations = createOverviewAnnotations(THREE, el, s, {
             navigate: (section) => latest.current.onNavigate(section),
           });
@@ -537,8 +542,14 @@ export function Spacecraft(props: Props) {
               }),
             {
               mobile: mobile(),
+              earthAppearance: 'night',
             },
           );
+          let backgroundSettled = false;
+          void background.ready.then(() => {
+            backgroundSettled = true;
+            if (!destroyed) kick();
+          });
           const collectSceneInventory = () => {
             const parts: {
               name: string;
@@ -1392,31 +1403,38 @@ export function Spacecraft(props: Props) {
               !travelling &&
               (feedbackTarget.walkway || passage?.via === 'walkway');
             diagnostics?.mark('camera');
-            model.update(elapsed, effectiveHover, stop, {
-              activeRoom: active,
-              travelling,
-              transitRoom,
-              transitWalkway,
-              routeLadderPortalIds,
-              hoveredWalkway,
-              labelPortrait: active === 'home' && Math.abs(roll) > Math.PI / 4,
-              hoveredPortal: effectivePortal,
-              openPortalIds:
-                travelling && !stop && !flightImmediate ? openPortalIds : [],
-              immediateDoors: stop || (wasTravelling && flightImmediate),
-              hoveredObject: effectiveObject,
-              selectedProject: null,
-              hoveredProject: null,
-              hoveredCaseStudy: null,
-              projectPage: latest.current.projectPage,
-              reading,
-              delta,
-            });
+            model.update(
+              elapsed,
+              effectiveHover,
+              stop,
+              {
+                activeRoom: active,
+                travelling,
+                transitRoom,
+                transitWalkway,
+                routeLadderPortalIds,
+                hoveredWalkway,
+                labelPortrait:
+                  active === 'home' && Math.abs(roll) > Math.PI / 4,
+                hoveredPortal: effectivePortal,
+                openPortalIds:
+                  travelling && !stop && !flightImmediate ? openPortalIds : [],
+                immediateDoors: stop || (wasTravelling && flightImmediate),
+                hoveredObject: effectiveObject,
+                selectedProject: null,
+                hoveredProject: null,
+                hoveredCaseStudy: null,
+                projectPage: latest.current.projectPage,
+                reading,
+                delta,
+              },
+              true,
+            );
             diagnostics?.mark('model-update');
             // Moving doors/readers do not cast into the cached static shadow map.
             for (const anchor of Object.values(model.readerSurfaces))
               anchor.parent.scale.y *= readerStretch();
-            model.group.updateMatrixWorld(true);
+            updateRenderSceneMatrices(scene);
             camera.updateMatrixWorld(true);
             diagnostics?.mark('matrices');
             annotations.update(camera, model.group, {
@@ -1631,7 +1649,7 @@ export function Spacecraft(props: Props) {
               }
               if (cameraTrace.length > 1200) cameraTrace.shift();
             }
-            if (firstFrame) {
+            if (firstFrame && backgroundSettled) {
               firstFrame = false;
               setState('ready');
             }
@@ -1809,21 +1827,65 @@ export function Spacecraft(props: Props) {
             aoDirty = true;
             background.resize(w, h, renderer.getPixelRatio());
           };
+          const identity = document.querySelector('.orbital-identity');
+          let initializedCamera = false;
+          let previousViewport = '';
           const resize = () => {
             if (el.clientWidth < 240 || el.clientHeight < 480) return;
             const w = Math.max(1, el.clientWidth),
               h = Math.max(1, el.clientHeight);
+            const identityBounds = identity?.getBoundingClientRect();
+            const viewport = [
+              w,
+              h,
+              devicePixelRatio,
+              identityBounds?.top,
+              identityBounds?.bottom,
+            ].join(',');
+            // ResizeObserver also delivers an initial notification after setup.
+            // Reframing an unchanged viewport here would cancel the entrance.
+            if (viewport === previousViewport) return;
+            previousViewport = viewport;
             setDrawingSize();
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
             syncSceneTargets();
             renderer.shadowMap.needsUpdate = true;
             resetDiagnostics('viewport changed');
-            go(true, travelling);
+            if (!initializedCamera) {
+              // Deep links start at precisely the responsive overview pose,
+              // including portrait hull rotation. go() then uses the same
+              // itinerary and springs as an overview room selection.
+              const overview = pose('home', false);
+              currentTarget.copy(overview.target);
+              viewDirection.copy(overview.direction);
+              distance = overview.distance;
+              roll = overview.roll;
+              overview.target
+                .toArray()
+                .forEach((v, i) => resetAxis(targetMotion[i], v));
+              overview.direction
+                .toArray()
+                .forEach((v, i) => resetAxis(directionMotion[i], v));
+              resetAxis(distanceMotion, distance);
+              resetAxis(rollMotion, roll);
+              model.update(
+                0,
+                '',
+                true,
+                {
+                  activeRoom: 'home',
+                  reading: false,
+                  travelling: false,
+                  delta: 0,
+                },
+                true,
+              );
+              initializedCamera = true;
+            } else go(true, travelling);
           };
           const observer = new ResizeObserver(resize);
           observer.observe(el);
-          const identity = document.querySelector('.orbital-identity');
           if (identity) observer.observe(identity);
           resize();
           function targetFeedback(
@@ -2221,6 +2283,10 @@ export function Spacecraft(props: Props) {
                 snapshot: (includeFrames) =>
                   diagnostics!.snapshot(includeFrames),
                 reset: (reason) => resetDiagnostics(reason || 'reset'),
+                setWindowSize: (frames) => {
+                  diagnostics!.setWindowSize(frames);
+                  spacecraftPerformance!.setWindowSize(frames);
+                },
               },
               getSpacecraftReport: () => spacecraftPerformance!.snapshot(),
               getSpacecraftGroups: () => spacecraftPerformance!.getGroups(),

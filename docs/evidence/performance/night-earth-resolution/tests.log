@@ -1,0 +1,33 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (26.258666ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (9.179458ms)
+✔ Disposal before injected texture installation releases it without invalidating (14.085833ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (33.040542ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (34.820208ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (24.405041ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.933833ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.442834ms)
+✔ Earth loader propagates fetch and decode failures (1.097958ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.269666ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.354334ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.185875ms)
+✔ Texture construction/configuration failure releases owned resources (0.950917ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.059042ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.304542ms)
+✔ Night defaults to 8K while historical day defaults and all night comparison sizes remain available (0.3605ms)
+✔ The shipped 8K night map matches its source manifest and texture memory estimate (12.863959ms)
+✔ Night Earth shares one geometry with one atmosphere and has no unused daylight rig (19.950416ms)
+✔ Mediterranean stays visible for the first ten seconds at 1280×720 (15.183167ms)
+✔ Mediterranean stays visible for the first ten seconds at 2560×600 (10.55775ms)
+✔ Mediterranean stays visible for the first ten seconds at 390×844 (3.273ms)
+✔ Mediterranean stays visible for the first ten seconds at 768×4096 (5.516666ms)
+✔ Night lighting stays photographic and resizing reuses every loaded resource (32.321ms)
+✔ The opening waits for image readiness and respects the global active clock (17.930209ms)
+✔ The shipped night asset matches its manifest, real 8K dimensions and source provenance (5.695ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 797.088542

@@ -30,6 +30,7 @@ export function createOverviewAnnotations(
       const path = document.createElementNS(ns, 'path');
       const dot = document.createElementNS(ns, 'circle');
       dot.setAttribute('r', '2.5');
+      dot.dataset.section = section;
       svg.appendChild(path);
       svg.appendChild(dot);
       const button = document.createElement('button');
@@ -141,7 +142,9 @@ export function createOverviewAnnotations(
       let knee: Point, end: Point, label: Point;
       if (portrait) {
         const x = e.lane ? width - rail : rail;
-        knee = { x, y: a.y + sy * Math.abs(x - a.x) };
+        // Leave along the cabin edge before turning up/down the outside rail.
+        // A diagonal from the midpoint cuts across the solar panels or ladder.
+        knee = { x, y: a.y };
         end = { x, y: e.upper ? top : bottom };
         // Meet the rounded pill 12px from its outer end; the pill extends inward.
         const radius = (e.height * labelScale) / 2;
@@ -209,22 +212,19 @@ export function createOverviewAnnotations(
         entry.upper = sorted.slice(0, 2).some((item) => item.entry === entry);
         entry.lane = lane;
         const edges = model.userData.calloutEdges[entry.section];
-        if (portrait) {
-          // Attach at the outboard corner nearest the central beam. The diagonal
-          // exits beside its own cabin, well below the solar-panel envelope.
-          entry.anchor.set(
-            entry.upper ? edges.left[0] + 0.1 : edges.right[0] - 0.1,
-            lane ? edges.bottom[1] + 0.1 : edges.top[1] - 0.1,
-            1.32,
-          );
-        } else
-          entry.anchor.set(
-            ...(edges[entry.upper ? 'top' : 'bottom'] as [
-              number,
-              number,
-              number,
-            ]),
-          );
+        // Select the upper/lower midpoint after orientation, so portrait
+        // callouts attach to an edge center too, never an arbitrary corner.
+        const edge = portrait
+          ? ['left', 'right'].sort(
+              (a, b) =>
+                project(rotated(edges[a]), reference).y -
+                project(rotated(edges[b]), reference).y,
+            )[entry.upper ? 0 : 1]
+          : entry.upper
+            ? 'top'
+            : 'bottom';
+        entry.anchor.set(...(edges[edge] as [number, number, number]));
+        entry.dot.dataset.localAnchor = JSON.stringify(entry.anchor.toArray());
         entry.button.style.maxWidth = `${Math.max(64, maxWidth)}px`;
         entry.width = entry.button.offsetWidth;
         entry.height = entry.button.offsetHeight;

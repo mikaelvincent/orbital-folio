@@ -1,0 +1,41 @@
+{"timestamp":"2026-09-14T04:07:10.279Z","type":"prepare","output":"/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/performance/rested-retests/run-20260914.json","schedule":[{"name":"iris-moving","orders":[["A","B","B","A"],["B","A","A","B"],["B","A","A","B"],["A","B","B","A"]]},{"name":"iris-settled","orders":[["B","A","A","B"],["A","B","B","A"],["A","B","B","A"],["B","A","A","B"]]},{"name":"local-matrix","orders":[["B","A","A","B"],["B","A","A","B"],["A","B","B","A"],["A","B","B","A"]]},{"name":"lighting-settled","orders":[["A","B","B","A"],["A","B","B","A"],["B","A","A","B"],["B","A","A","B"]]},{"name":"indexing-startup","orders":[["A","B","B","A"],["B","A","A","B"],["B","A","A","B"],["A","B","B","A"]]},{"name":"lighting-changing","orders":[["A","B","B","A"],["A","B","B","A"],["B","A","A","B"],["B","A","A","B"]]}]}
+{"timestamp":"2026-09-14T04:07:12.180Z","type":"rest","milliseconds":60000,"reason":"Initial idle recovery after setup and correctness checks"}
+{"timestamp":"2026-09-14T04:08:12.202Z","type":"rest","milliseconds":5000,"reason":"iris-moving: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:08:17.447Z","type":"rest","milliseconds":5000,"reason":"iris-moving: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:08:22.555Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":66.054583,"meanMs":0.0012740781753303114}
+{"timestamp":"2026-09-14T04:08:22.555Z","type":"rest","milliseconds":10000,"reason":"iris-moving: separate baseline controls"}
+{"timestamp":"2026-09-14T04:08:32.659Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":73.435959,"meanMs":0.0014164520975986112}
+{"timestamp":"2026-09-14T04:08:32.659Z","type":"rest","milliseconds":10000,"reason":"iris-moving: separate baseline controls"}
+{"timestamp":"2026-09-14T04:08:42.763Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":73.449625,"meanMs":0.0014167156910020252}
+{"timestamp":"2026-09-14T04:08:42.763Z","type":"rest","milliseconds":60000,"reason":"iris-moving: baseline or thermal gate needs recovery"}
+{"timestamp":"2026-09-14T04:09:42.786Z","type":"rest","milliseconds":5000,"reason":"iris-moving: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:09:47.897Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":65.900375,"meanMs":0.0012711037708554344}
+{"timestamp":"2026-09-14T04:09:47.897Z","type":"rest","milliseconds":10000,"reason":"iris-moving: separate baseline controls"}
+{"timestamp":"2026-09-14T04:09:57.999Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":73.129583,"meanMs":0.0014105426367055647}
+{"timestamp":"2026-09-14T04:09:58.000Z","type":"rest","milliseconds":10000,"reason":"iris-moving: separate baseline controls"}
+{"timestamp":"2026-09-14T04:10:08.102Z","type":"sample","case":"iris-moving","variant":"A","role":"stability-control","iterations":51845,"elapsedMs":71.367167,"meanMs":0.0013765486932201755}
+{"timestamp":"2026-09-14T04:10:08.102Z","type":"rest","milliseconds":60000,"reason":"iris-moving: baseline or thermal gate needs recovery"}
+{"timestamp":"2026-09-14T04:11:08.125Z","type":"rest","milliseconds":5000,"reason":"iris-settled: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:11:13.331Z","type":"rest","milliseconds":5000,"reason":"iris-settled: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:11:18.435Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":58.328125,"meanMs":0.0012390993775625093}
+{"timestamp":"2026-09-14T04:11:18.436Z","type":"rest","milliseconds":10000,"reason":"iris-settled: separate baseline controls"}
+{"timestamp":"2026-09-14T04:11:28.526Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":62.372333,"meanMs":0.0013250129161090222}
+{"timestamp":"2026-09-14T04:11:28.526Z","type":"rest","milliseconds":10000,"reason":"iris-settled: separate baseline controls"}
+{"timestamp":"2026-09-14T04:11:38.621Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":63.908209,"meanMs":0.0013576404520638159}
+{"timestamp":"2026-09-14T04:11:38.621Z","type":"rest","milliseconds":60000,"reason":"iris-settled: baseline or thermal gate needs recovery"}
+{"timestamp":"2026-09-14T04:12:38.627Z","type":"rest","milliseconds":5000,"reason":"iris-settled: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:12:43.727Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":56.49425,"meanMs":0.0012001412699424298}
+{"timestamp":"2026-09-14T04:12:43.727Z","type":"rest","milliseconds":10000,"reason":"iris-settled: separate baseline controls"}
+{"timestamp":"2026-09-14T04:12:53.823Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":64.519166,"meanMs":0.0013706193784122534}
+{"timestamp":"2026-09-14T04:12:53.823Z","type":"rest","milliseconds":10000,"reason":"iris-settled: separate baseline controls"}
+{"timestamp":"2026-09-14T04:13:03.918Z","type":"sample","case":"iris-settled","variant":"A","role":"stability-control","iterations":47073,"elapsedMs":64.191958,"meanMs":0.0013636683024238947}
+{"timestamp":"2026-09-14T04:13:03.918Z","type":"rest","milliseconds":60000,"reason":"iris-settled: baseline or thermal gate needs recovery"}
+{"timestamp":"2026-09-14T04:14:03.943Z","type":"rest","milliseconds":5000,"reason":"local-matrix: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:14:09.214Z","type":"rest","milliseconds":5000,"reason":"local-matrix: waiting for consecutive acceptable thermal observations"}
+{"timestamp":"2026-09-14T04:14:14.357Z","type":"sample","case":"local-matrix","variant":"A","role":"stability-control","iterations":1031,"elapsedMs":97.443375,"meanMs":0.09451345780795345}
+{"timestamp":"2026-09-14T04:14:14.357Z","type":"rest","milliseconds":10000,"reason":"local-matrix: separate baseline controls"}
+{"timestamp":"2026-09-14T04:14:24.491Z","type":"sample","case":"local-matrix","variant":"A","role":"stability-control","iterations":1031,"elapsedMs":102.374709,"meanMs":0.09929651697381182}
+{"timestamp":"2026-09-14T04:14:24.491Z","type":"rest","milliseconds":10000,"reason":"local-matrix: separate baseline controls"}
+{"timestamp":"2026-09-14T04:14:34.628Z","type":"sample","case":"local-matrix","variant":"A","role":"stability-control","iterations":1031,"elapsedMs":105.773041,"meanMs":0.10259266828322018}
+{"timestamp":"2026-09-14T04:14:34.628Z","type":"rest","milliseconds":60000,"reason":"local-matrix: baseline or thermal gate needs recovery"}
+{"timestamp":"2026-09-14T04:14:57.172Z","type":"interrupted","output":"/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/performance/rested-retests/run-20260914.json","error":"The operation was aborted"}

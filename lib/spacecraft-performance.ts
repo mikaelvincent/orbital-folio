@@ -214,7 +214,7 @@ export function createSpacecraftPerformance(
   root: Object3D,
   options: { maxSamplesPerPass?: number } = {},
 ) {
-  const maxSamples = Number.isFinite(options.maxSamplesPerPass)
+  let maxSamples = Number.isFinite(options.maxSamplesPerPass)
     ? Math.max(1, Math.min(1800, Math.floor(options.maxSamplesPerPass!)))
     : 1800;
   const groups = new Map<string, SpacecraftPerformanceGroup>();
@@ -320,6 +320,14 @@ export function createSpacecraftPerformance(
 
   return {
     getGroups,
+    setWindowSize(limit: number) {
+      maxSamples = Number.isFinite(limit)
+        ? Math.max(1, Math.min(14400, Math.floor(limit)))
+        : 1800;
+      for (const samples of windows.values())
+        if (samples.length > maxSamples)
+          samples.splice(0, samples.length - maxSamples);
+    },
     beginPass(name: string, info?: SceneRenderCounts) {
       if (disposed) return;
       // An interrupted pass is discarded instead of mixing its callbacks into

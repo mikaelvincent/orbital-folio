@@ -2,6 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
+import { thinChassisOutline } from '../components/thin-chassis-outline.ts';
+import {
+  PRESSURE_FACE_BEVEL,
+  PRESSURE_FACE_FRONT,
+} from '../lib/spacecraft-wall-layout.ts';
 import {
   fitRoomCameraFrame,
   cursorViewSamples,
@@ -129,4 +134,50 @@ test('Adding or rearranging furniture cannot change the shared room framing', ()
   console.remove(decoration);
   decoration.geometry.dispose();
   decoration.material.dispose();
+});
+
+test('Overview pointers use the true front-opening edge midpoints in both layouts', () => {
+  const sections = ['about', 'projects', 'contact', 'experience'];
+  for (const [layout, scale] of [
+    ['wide', 1.4],
+    ['compact', 1],
+  ]) {
+    model.setLayout(layout);
+    const outline = thinChassisOutline(THREE, { scale });
+    for (const [index, hole] of outline.roomHoles.entries()) {
+      const bounds = new THREE.Box2().setFromPoints(hole.getPoints(64));
+      const center = bounds.getCenter(new THREE.Vector2());
+      // The straight reveal closes the sampled outline by the bevel width.
+      const expected = {
+        top: [
+          center.x,
+          bounds.max.y - PRESSURE_FACE_BEVEL,
+          PRESSURE_FACE_FRONT - 0.025,
+        ],
+        bottom: [
+          center.x,
+          bounds.min.y + PRESSURE_FACE_BEVEL,
+          PRESSURE_FACE_FRONT - 0.025,
+        ],
+        left: [
+          bounds.min.x + PRESSURE_FACE_BEVEL,
+          center.y,
+          PRESSURE_FACE_FRONT - 0.025,
+        ],
+        right: [
+          bounds.max.x - PRESSURE_FACE_BEVEL,
+          center.y,
+          PRESSURE_FACE_FRONT - 0.025,
+        ],
+      };
+      for (const edge of Object.keys(expected))
+        assert.ok(
+          data.calloutEdges[sections[index]][edge].every(
+            (v, axis) => Math.abs(v - expected[edge][axis]) < 1e-10,
+          ),
+          `${layout}/${sections[index]}/${edge}: pointer must meet the aperture midpoint`,
+        );
+    }
+  }
+  model.setLayout('wide');
 });

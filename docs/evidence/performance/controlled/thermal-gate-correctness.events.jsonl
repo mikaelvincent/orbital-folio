@@ -1,0 +1,2 @@
+{"timestamp":"2026-09-14T03:55:52.803Z","type":"prepare","output":"/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/performance/controlled/thermal-gate-correctness.json","schedule":[{"name":"iris-settled","orders":[["B","A","A","B"],["A","B","B","A"]]}]}
+{"timestamp":"2026-09-14T03:55:59.358Z","type":"complete","output":"/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/performance/controlled/thermal-gate-correctness.json","status":"complete"}

@@ -1,0 +1,15 @@
+# 2K satellite Earth — declared comparison protocol
+
+Approved implementation: replace iteration 06's plain ocean plus 12-sample shallow satellite cloud volume with a single 2048×1024 photographic land/ocean/cloud map on the existing rotating sphere. Atmosphere, stars, meteors, globe screen framing, room geometry and navigation stay unchanged. Initial geographic tilt changes to show visible ocean and land; this is included in the final-design comparison. Combined clouds share the existing .003 rad/s surface rotation.
+
+Before: `scripts/benchmarks/satellite-volume-reference.ts`, copied from the pre-edit production module with only import paths and a provenance comment adjusted. Its cloud-volume and codec/generator dependencies must remain unmodified during this comparison. After: actual `components/orbital-environment.ts` plus `components/earth-satellite.ts`. The lab freezes source, assets and SHA-256 build inventory at server startup. This is a visible redesign cost comparison, not pixel-identical optimization.
+
+1. Complete builds, automated correctness checks and visual checks before timing. Serialize measurement; no agent builds/probes during measured blocks.
+2. Use the in-app Chromium browser on this host. Default desktop 1280×720 DPR2 and compact 390×844 DPR1 are viewport configurations, not physical-device or Safari benchmarks. Record actual dimensions, GPU timer support and renderer identity.
+3. Use frozen time 180 seconds in every measured frame, zero pointer displacement. Run both ABBA and BAAB, 10 warmup and 60 measured frames per block. Keep all four-block reports and raw GPU queries. No total-site FPS/heat/power claim.
+4. Both production environments must successfully load their intended asset; the fixture rejects missing/failed/recovery paths. Preparation times are separate, local observations with A-then-B import order; not cold-cache or network-performance proof.
+5. After all setup, idle at least 60 seconds; observe native thermal state and power mode twice. If elevated, extend idle in bounded one-minute intervals. Start only at nominal observed pressure. Nominal is not a temperature or guarantee of constant clocks. Twenty-second blank, non-rendering intervals precede every block; they are declared scheduling choices, not proven cooling intervals.
+6. Log native thermal state, Low Power Mode and power context before/after each finite run. Pause and preserve/flag reports if pressure/power mode changes. Record repeated reference block drift and all paired block means; large variability prevents a universal speedup claim.
+7. Report background GPU milliseconds, CPU submission observations, draw calls/triangles, bytes downloaded and estimated texture+mip storage. Asset bytes are exact; GPU texture payload is an RGBA8 estimate, not measured driver allocation. Whole-site and battery effects require separate work.
+
+Thermal interpretation and prior external evidence: [rested protocol research](../rested-retests/research.md). No unrelated optimization candidates are enabled.

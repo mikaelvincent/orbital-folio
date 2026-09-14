@@ -1,16 +1,39 @@
 import type * as Three from 'three';
+import {
+  earthTextureSpec,
+  type EarthTextureWidth,
+  type EarthAppearance,
+  configureEarthTexture,
+  loadEarthTexture,
+  disposeEarthTexture,
+} from './earth-satellite';
+import {
+  MEDITERRANEAN_OPENING,
+  orientMediterraneanEarth,
+} from './earth-view-transform';
+import { createNightAtmosphere } from './night-atmosphere';
 
 type EnvironmentOptions = {
   mobile?: boolean;
+  /** Developer audits may inject a decoded texture; the environment owns it. */
+  earthTexture?: Three.Texture;
+  /** Developer comparisons use the same loader and renderer at each shipped size. */
+  earthTextureWidth?: EarthTextureWidth;
+  /** Portfolio uses night; the day default retains reproducible historical audits. */
+  earthAppearance?: EarthAppearance;
 };
 
-/** Image-free ocean imagery with small procedural fields, driven by caller active time. */
+/** Satellite Earth, atmosphere and stars, driven by the caller's active clock. */
 export function createOrbitalEnvironment(
   THREE: typeof Three,
   invalidate: () => void,
   options: EnvironmentOptions = {},
 ) {
   const mobile = options.mobile ?? false;
+  const appearance = options.earthAppearance ?? 'day';
+  const earthSpec = earthTextureSpec(options.earthTextureWidth, appearance);
+  let openingElapsed = 0,
+    previousEarthTime = 0;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
   const screenGeometry = new THREE.PlaneGeometry(2, 2);
@@ -22,115 +45,18 @@ export function createOrbitalEnvironment(
     }
   `;
   const generationStarted = performance.now();
-  // Original thin-shell adaptation of separate weather and Perlin/cellular shape:
-  // https://www.guerrilla-games.com/read/nubis-authoring-real-time-volumetric-cloudscapes-with-the-decima-engine
-  // Extinction reference: https://pbr-book.org/4ed/Volume_Scattering/Transmittance
-  // No external cloud textures or implementation code are copied.
-  const noiseSide = mobile ? 32 : 64;
-  const noiseCells = noiseSide / 8;
-  const noiseData = new Uint8Array(noiseSide ** 3 * 2);
-  const gradientData = new Float32Array(noiseCells ** 3 * 3);
-  const featureData = new Float32Array(gradientData.length);
-  let noiseSeed = 803719;
-  const noiseRandom = () => {
-    noiseSeed = (Math.imul(noiseSeed, 1664525) + 1013904223) >>> 0;
-    return noiseSeed / 4294967296;
+  let earthTexture: Three.Texture | undefined;
+  const earthStatus = {
+    ready: false,
+    source: 'loading' as string,
+    error: null as string | null,
+    fetchMs: 0,
+    decodeMs: 0,
+    readyMs: 0,
+    encodedBytes: null as number | null,
+    responseBytes: 0,
   };
-  for (let i = 0; i < gradientData.length; i += 3) {
-    const z = noiseRandom() * 2 - 1;
-    const angle = noiseRandom() * Math.PI * 2;
-    const radial = Math.sqrt(1 - z * z);
-    gradientData[i] = radial * Math.cos(angle);
-    gradientData[i + 1] = radial * Math.sin(angle);
-    gradientData[i + 2] = z;
-    featureData[i] = 0.28 + noiseRandom() * 0.44;
-    featureData[i + 1] = 0.28 + noiseRandom() * 0.44;
-    featureData[i + 2] = 0.28 + noiseRandom() * 0.44;
-  }
-  const mask = noiseCells - 1;
-  const featureIndex = (x: number, y: number, z: number) =>
-    (((z & mask) * noiseCells + (y & mask)) * noiseCells + (x & mask)) * 3;
-  const fade = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
-  // Keeping features in [0.28, 0.72] makes the 27-cell F1 search complete:
-  // every point has an in-cell feature within sqrt(3)*0.72 < 1.28, the closest
-  // possible distance to any feature beyond those neighboring cells.
-  const neighbors = new Float32Array(27 * 3);
-  for (let iz = 0; iz < noiseCells; iz++) {
-    for (let iy = 0; iy < noiseCells; iy++) {
-      for (let ix = 0; ix < noiseCells; ix++) {
-        let neighbor = 0;
-        for (let dz = -1; dz <= 1; dz++)
-          for (let dy = -1; dy <= 1; dy++)
-            for (let dx = -1; dx <= 1; dx++) {
-              const j = featureIndex(ix + dx, iy + dy, iz + dz);
-              neighbors[neighbor++] = dx + featureData[j];
-              neighbors[neighbor++] = dy + featureData[j + 1];
-              neighbors[neighbor++] = dz + featureData[j + 2];
-            }
-        for (let sz = 0; sz < 8; sz++) {
-          const fz = sz / 8,
-            wz = fade(fz),
-            z = iz * 8 + sz;
-          for (let sy = 0; sy < 8; sy++) {
-            const fy = sy / 8,
-              wy = fade(fy),
-              y = iy * 8 + sy;
-            for (let sx = 0; sx < 8; sx++) {
-              const fx = sx / 8,
-                wx = fade(fx),
-                x = ix * 8 + sx;
-              let perlin = 0;
-              for (let dz = 0; dz <= 1; dz++)
-                for (let dy = 0; dy <= 1; dy++)
-                  for (let dx = 0; dx <= 1; dx++) {
-                    const j = featureIndex(ix + dx, iy + dy, iz + dz);
-                    const dot =
-                      gradientData[j] * (fx - dx) +
-                      gradientData[j + 1] * (fy - dy) +
-                      gradientData[j + 2] * (fz - dz);
-                    perlin +=
-                      dot *
-                      (dx ? wx : 1 - wx) *
-                      (dy ? wy : 1 - wy) *
-                      (dz ? wz : 1 - wz);
-                  }
-              let closest = 3;
-              for (let j = 0; j < neighbors.length; j += 3) {
-                const dx = fx - neighbors[j],
-                  dy = fy - neighbors[j + 1],
-                  dz = fz - neighbors[j + 2];
-                closest = Math.min(closest, dx * dx + dy * dy + dz * dz);
-              }
-              const offset = ((z * noiseSide + y) * noiseSide + x) * 2;
-              noiseData[offset] = Math.round(
-                Math.max(0, Math.min(1, 0.5 + perlin * 0.85)) * 255,
-              );
-              noiseData[offset + 1] = Math.round(
-                Math.max(0, 1 - Math.sqrt(closest)) * 255,
-              );
-            }
-          }
-        }
-      }
-    }
-  }
-  const cloudNoise = new THREE.Data3DTexture(
-    noiseData,
-    noiseSide,
-    noiseSide,
-    noiseSide,
-  );
-  cloudNoise.format = THREE.RGFormat;
-  cloudNoise.type = THREE.UnsignedByteType;
-  cloudNoise.colorSpace = THREE.NoColorSpace;
-  cloudNoise.minFilter = THREE.LinearMipmapLinearFilter;
-  cloudNoise.magFilter = THREE.LinearFilter;
-  cloudNoise.wrapS = THREE.RepeatWrapping;
-  cloudNoise.wrapT = THREE.RepeatWrapping;
-  cloudNoise.wrapR = THREE.RepeatWrapping;
-  cloudNoise.generateMipmaps = true;
-  cloudNoise.unpackAlignment = 1;
-  cloudNoise.needsUpdate = true;
+  const assetAbort = new AbortController();
 
   const smooth = (a: number, b: number, value: number) => {
     const t = Math.max(0, Math.min(1, (value - a) / (b - a)));
@@ -206,12 +132,17 @@ export function createOrbitalEnvironment(
     skyGpuBytes += w * h * 4;
     if (w === 1 && h === 1) break;
   }
-  const proceduralTextureBytes = noiseData.byteLength + skyData.byteLength;
-  // Exact RG8 volume mip chain: each level halves all three dimensions.
-  let noiseGpuBytes = 0;
-  for (let side = noiseSide; side >= 1; side >>= 1)
-    noiseGpuBytes += side ** 3 * 2;
-  const proceduralTextureGpuBytes = noiseGpuBytes + skyGpuBytes;
+  const earthTextureBytes = earthSpec.width * earthSpec.height * 4;
+  let earthGpuBytes = 0;
+  for (
+    let w: number = earthSpec.width, h = earthSpec.height;
+    ;
+    w = Math.max(1, w >> 1), h = Math.max(1, h >> 1)
+  ) {
+    earthGpuBytes += w * h * 4;
+    if (w === 1 && h === 1) break;
+  }
+
   const generationMs = performance.now() - generationStarted;
   const sky = new THREE.Mesh(
     screenGeometry,
@@ -406,257 +337,164 @@ export function createOrbitalEnvironment(
   let disposed = false;
   const earth = new THREE.Group();
   earth.position.set(-56.652, -215.289, -161.903);
-  earth.rotation.set(-0.6, 1.3, 0.18);
+  // Start over the Indian Ocean: broken clouds, visible water and nearby land.
+  // This only selects geography; globe position, radius and active rotation are unchanged.
+  earth.rotation.set(-1.2, -1.05, 0.18);
   const sphereGeometry = new THREE.SphereGeometry(
     1,
     mobile ? 96 : 128,
     mobile ? 64 : 96,
   );
-  const surface = new THREE.Mesh(
+  const surface = new THREE.Mesh<Three.SphereGeometry, Three.Material>(
     sphereGeometry,
-    new THREE.MeshStandardMaterial({
-      color: 0x1664a7,
-      roughness: 0.62,
-      metalness: 0,
-      emissive: 0x06182f,
-      emissiveIntensity: 0.2,
-    }),
+    appearance === 'night'
+      ? new THREE.MeshBasicMaterial({ color: 0x020713, toneMapped: false })
+      : new THREE.MeshStandardMaterial({
+          color: 0x1664a7,
+          roughness: 0.62,
+          metalness: 0,
+          emissive: 0x06182f,
+          emissiveIntensity: 0.2,
+        }),
   );
   surface.scale.setScalar(180);
   earth.add(surface);
-  const cloudMaterial = new THREE.ShaderMaterial({
-    glslVersion: THREE.GLSL3,
-    transparent: true,
-    depthWrite: false,
-    toneMapped: false,
-    uniforms: {
-      cloudNoise: { value: cloudNoise },
-      noiseSide: { value: noiseSide },
-      noiseCells: { value: noiseCells },
-      cloudMorph: { value: new THREE.Vector3(0, 0.024, 0) },
-      sunLocal: { value: new THREE.Vector3() },
-      time: { value: 0 },
-      sunDirection: { value: new THREE.Vector3(-120, 100, 120).normalize() },
-    },
-    defines: { FINE_CLOUD_DETAIL: mobile ? 0 : 1 },
-    vertexShader: `
-      out vec3 vLocal;
-      out vec3 vWorldNormal;
-      out vec3 vWorldPosition;
-      void main() {
-        vLocal = position;
-        vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
-        vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  surface.name = 'satellite-earth-surface';
+  const earthReady = (async () => {
+    try {
+      const loaded = options.earthTexture
+        ? {
+            texture: options.earthTexture,
+            encodedBytes: null,
+            responseBytes: 0,
+            fetchMs: 0,
+            decodeMs: 0,
+          }
+        : await loadEarthTexture(
+            THREE,
+            assetAbort.signal,
+            earthSpec.width,
+            appearance,
+          );
+      // Yield for injected textures too, keeping readiness/lifetime behavior consistent.
+      await Promise.resolve();
+      if (disposed) {
+        disposeEarthTexture(loaded.texture);
+        return;
       }
-    `,
-    fragmentShader: `
-      precision highp sampler3D;
-      in vec3 vLocal;
-      in vec3 vWorldNormal;
-      in vec3 vWorldPosition;
-      uniform sampler3D cloudNoise;
-      uniform float noiseSide;
-      uniform float noiseCells;
-      uniform vec3 cloudMorph;
-      uniform vec3 sunDirection;
-      uniform vec3 sunLocal;
-      out vec4 outColor;
-      vec2 field(vec3 p) {
-        return textureGrad(cloudNoise, p / noiseCells + 0.5 / noiseSide,
-          dFdx(p) / noiseCells, dFdy(p) / noiseCells).rg;
-      }
-      vec2 detailField(vec3 p) {
-        #if FINE_CLOUD_DETAIL == 1
-          // Two half-footprint samples retain cross-streak detail at grazing
-          // angles. This integrates along the major screen derivative instead
-          // of applying a negative mip bias to the whole pixel footprint.
-          vec3 dx = dFdx(p) / noiseCells, dy = dFdy(p) / noiseCells;
-          bool xMajor = dot(dx, dx) > dot(dy, dy);
-          vec3 along = xMajor ? dx : dy;
-          vec3 gx = dx * (xMajor ? 0.5 : 1.0);
-          vec3 gy = dy * (xMajor ? 1.0 : 0.5);
-          vec3 uv = p / noiseCells + 0.5 / noiseSide;
-          return (textureGrad(cloudNoise, uv - along * 0.25, gx, gy).rg
-            + textureGrad(cloudNoise, uv + along * 0.25, gx, gy).rg) * 0.5;
-        #else
-          return field(p);
-        #endif
-      }
-      void main() {
-        const mat3 octaveTurn = mat3(
-          0.00, 0.80, 0.60, -0.80, 0.36, -0.48, -0.60, -0.48, 0.64
-        );
-        vec3 p = normalize(vLocal) + cloudMorph;
-        vec3 detailP = p;
-        // Author a comma/front in the initial visible region. These spherical
-        // coordinates rotate with the planet; no screen-space mask is involved.
-        vec3 axis = normalize(vec3(-0.48, 0.79, 0.38));
-        vec3 tangentU = normalize(cross(vec3(0.0, 1.0, 0.0), axis));
-        vec3 tangentV = cross(axis, tangentU);
-        vec2 warp = field(p * 4.7 + vec3(5.1, 0.0, 9.2));
-        vec2 regional = field(p * 11.3 - vec3(4.2, 11.0, 0.0));
-        p += vec3(warp.r - 0.5, regional.r - 0.5, 0.5 - warp.r) * 0.038;
-        // Weather advection is coherent over hundreds of kilometers. Local
-        // convection has a gentler warp, avoiding uniformly stretched billows.
-        detailP += vec3(regional.r - 0.5, 0.5 - warp.r, warp.r - 0.5) * 0.008;
-        float angle = exp(-dot(p - axis, p - axis) * 22.0) * 1.8;
-        float c = cos(angle), s = sin(angle);
-        vec3 q = p * c + cross(axis, p) * s + axis * dot(axis, p) * (1.0 - c);
-        vec3 r = vec3(dot(q, tangentU), dot(q, tangentV), dot(q, axis));
-        vec2 large = field(q * 23.0 + vec3(8.1, -9.3, 2.7));
-        vec2 medium = detailField(octaveTurn * detailP * 137.0 - 17.3);
-        vec2 fine = detailField(detailP * 379.0 + 4.2);
-        float billows = large.r * 0.10 + medium.r * 0.55 + fine.r * 0.35;
-        float edgeErosion = (1.0 - fine.g) * 0.10;
-        #if FINE_CLOUD_DETAIL == 1
-          vec2 micro = detailField(octaveTurn * detailP * 997.0 + vec3(-8.1, 14.2, 4.7));
-          billows = large.r * 0.10 + medium.r * 0.43 + fine.r * 0.30 + micro.r * 0.17;
-          edgeErosion += (1.0 - micro.g) * 0.035;
-        #endif
-        billows += (medium.g - 0.45) * 0.08 + (fine.g - 0.45) * 0.04;
-        // The main cloud body is a continuous stratiform sheet. Fractal density
-        // alters both its boundary and interior; cellular holes do not define it.
-        float frontDistance = r.x + 0.015 + (regional.r - 0.5) * 0.025
-          + (large.r - 0.5) * 0.055 + (medium.r - 0.5) * 0.021 + (fine.r - 0.5) * 0.006;
-        float frontWidth = 0.026 + 0.049 * smoothstep(-0.12, 0.10, r.y);
-        float regionGate = smoothstep(0.66, 0.89, dot(p, axis));
-        float envelope = exp(-pow(frontDistance / frontWidth, 2.0)) * regionGate;
-        float sheetMask = smoothstep(0.08, 0.88, envelope);
-        float sheet = clamp(sheetMask * (0.66 + (billows - 0.5) * 3.2)
-          - edgeErosion * (1.0 - sheetMask * 0.7), 0.0, 1.0);
-        float secondary = smoothstep(0.52, 0.68, warp.r * 0.58 + regional.r * 0.42
-          + (large.r - 0.5) * 0.14 + (medium.r - 0.5) * 0.075)
-          * (1.0 - regionGate * 0.65);
-        float secondaryDensity = clamp(secondary * (0.58 + (billows - 0.5) * 2.7)
-          - edgeErosion * (1.0 - secondary * 0.6), 0.0, 1.0);
-        sheet = max(sheet, secondaryDensity);
-        // Small cumulus occupies only the cold side of the front. It does not
-        // punch an even field of holes through the broad frontal sheet.
-        float coldSector = smoothstep(0.015, 0.075, frontDistance)
-          * (1.0 - smoothstep(0.10, 0.22, frontDistance))
-          * smoothstep(0.42, 0.62, regional.r) * (1.0 - sheetMask);
-        vec2 cumulusBase = field(octaveTurn * detailP * 147.0 + vec3(13.2, -3.1, 7.4));
-        vec2 cumulusFine = field(detailP * 389.0 - 11.7);
-        float cumulusShape = clamp((cumulusBase.r - (1.0 - cumulusBase.g) * 0.34)
-          / 0.66, 0.0, 1.0) * 0.75 + cumulusFine.r * 0.25;
-        float cumulus = smoothstep(0.37, 0.68, cumulusShape) * coldSector * 0.66;
-        // Fine, directional cirrus follows the frontal shoulder. Its coverage
-        // is distinct from the density of the lower cloud types.
-        vec2 cirrusA = field(r * vec3(181.0, 31.0, 89.0) + vec3(7.3, -14.7, 3.4));
-        vec2 cirrusB = field(r * vec3(431.0, 79.0, 211.0)
-          + vec3(medium.r * 1.1, 0.0, 0.0) - 7.8);
-        float wisps = cirrusA.r * 0.65 + cirrusB.r * 0.35;
-        float cirrus = smoothstep(0.44, 0.63, wisps) * smoothstep(0.015, 0.35, envelope)
-          * (1.0 - sheetMask * 0.8) * 0.21;
-        float density = sheet + cumulus + cirrus;
-        vec3 normal = normalize(vWorldNormal);
-        vec3 view = normalize(cameraPosition - vWorldPosition);
-        float mu = abs(dot(normal, view));
-        float slant = 0.7 + 0.3 * inversesqrt(mu * mu + 0.18);
-        float alpha = (1.0 - exp(-density * 2.15 * slant)) * smoothstep(0.0, 0.012, density);
-        // Two bounded sunward probes and a density-gradient normal add relief.
-        // This is a thin-shell approximation, not full volumetric transport.
-        float nearDensity = detailField(octaveTurn * detailP * 137.0 - 17.3
-          + octaveTurn * sunLocal * 0.55).r;
-        float farDensity = detailField(detailP * 379.0 + 4.2 + sunLocal * 0.85).r;
-        float shadow = max(0.0, (nearDensity - medium.r) * 0.55
-          + (farDensity - fine.r) * 0.45);
-        vec3 dpdx = dFdx(vWorldPosition), dpdy = dFdy(vWorldPosition);
-        vec3 tx = cross(dpdy, normal), ty = cross(normal, dpdx);
-        float determinant = dot(dpdx, tx);
-        float reliefHeight = billows * 0.8 + sheet * 0.2;
-        vec3 gradient = sign(determinant) * (tx * dFdx(reliefHeight) + ty * dFdy(reliefHeight))
-          / max(abs(determinant), 0.000001) * 0.60;
-        gradient /= max(1.0, length(gradient) / 0.65);
-        vec3 cloudNormal = normalize(normal - gradient);
-        float daylight = smoothstep(-0.12, 0.72, dot(normal, sunDirection));
-        float direct = clamp(dot(cloudNormal, sunDirection), 0.0, 1.0);
-        float relief = clamp((0.50 + 0.50 * sqrt(direct)) * exp(-shadow * 3.0), 0.50, 1.0);
-        vec3 color = mix(vec3(0.30, 0.43, 0.62), vec3(0.98, 0.99, 1.0), daylight) * relief;
-        // All implicit/explicit gradients have been evaluated before discard.
-        if (alpha < 0.001) discard;
-        outColor = vec4(color, alpha);
-      }
-    `,
-  });
-  const clouds = new THREE.Mesh(sphereGeometry, cloudMaterial);
-  clouds.scale.setScalar(180.57);
-  clouds.renderOrder = 2;
-  const cloudSunRotation = new THREE.Quaternion();
-  earth.add(clouds);
-
-  const atmosphereVertex = `
-    varying vec3 vNormal;
-    varying vec3 vWorldNormal;
-    varying vec3 vView;
-    void main() {
-      vec4 p = modelViewMatrix * vec4(position, 1.0);
-      vNormal = normalize(normalMatrix * normal);
-      vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
-      vView = normalize(-p.xyz);
-      gl_Position = projectionMatrix * p;
+      if (options.earthTexture) configureEarthTexture(THREE, loaded.texture);
+      earthTexture = loaded.texture;
+      // The source already contains the clouds and their photographic shading.
+      // A single diffuse surface adds the globe's broad day/night illumination.
+      // City lights belong to the night photograph: do not relight them with the day sun.
+      const material =
+        appearance === 'night'
+          ? new THREE.MeshBasicMaterial({
+              map: earthTexture,
+              toneMapped: false,
+            })
+          : new THREE.MeshLambertMaterial({ map: earthTexture });
+      surface.material.dispose();
+      surface.material = material;
+      Object.assign(earthStatus, {
+        ready: true,
+        source: options.earthTexture
+          ? 'injected-satellite-texture'
+          : 'local-satellite-image',
+        encodedBytes: loaded.encodedBytes,
+        responseBytes: loaded.responseBytes,
+        fetchMs: loaded.fetchMs,
+        decodeMs: loaded.decodeMs,
+        readyMs: performance.now() - generationStarted,
+      });
+      invalidate();
+    } catch (error) {
+      if (disposed) return;
+      earthStatus.error =
+        error instanceof Error ? error.message : String(error);
+      earthStatus.source = 'ocean-fallback';
+      // Keep the inexpensive ocean surface if the image cannot load. Diagnostics
+      // distinguish that state; a failed request never starts a procedural bake.
+      invalidate();
     }
-  `;
-  const sunDirection = new THREE.Vector3(-120, 100, 120).normalize();
-  const atmosphere = new THREE.Mesh(
-    sphereGeometry,
-    new THREE.ShaderMaterial({
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
-      depthWrite: false,
-      uniforms: { sunDirection: { value: sunDirection } },
-      vertexShader: atmosphereVertex,
-      fragmentShader: `
-      varying vec3 vNormal;
-      varying vec3 vWorldNormal;
-      varying vec3 vView;
-      uniform vec3 sunDirection;
-      void main() {
-        float mu = abs(dot(normalize(vNormal), normalize(vView)));
-        // Fade to zero at the outer silhouette instead of ending in a hard ring.
-        float rim = pow(1.0 - mu, 2.4) * smoothstep(0.0, 0.18, mu);
-        float daylight = smoothstep(-0.3, 0.45, dot(normalize(vWorldNormal), sunDirection));
-        gl_FragColor = vec4(0.16, 0.52, 1.0, rim * (0.20 + daylight * 0.66));
-      }
-    `,
-    }),
-  );
-  atmosphere.scale.setScalar(181.5);
-  atmosphere.renderOrder = 3;
-  earth.add(atmosphere);
+  })();
 
-  // This inner scattering layer sits below the clouds and has no flat haze baseline.
-  const haze = new THREE.Mesh(
-    sphereGeometry,
-    new THREE.ShaderMaterial({
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      uniforms: { sunDirection: { value: sunDirection } },
-      vertexShader: atmosphereVertex,
-      fragmentShader: `
+  if (appearance === 'night') {
+    earth.add(createNightAtmosphere(THREE, sphereGeometry));
+  } else {
+    // Retain the day atmosphere for historical resolution comparisons.
+    const atmosphereVertex = `
       varying vec3 vNormal;
       varying vec3 vWorldNormal;
       varying vec3 vView;
-      uniform vec3 sunDirection;
       void main() {
-        float rim = pow(1.0 - max(0.0, dot(normalize(vNormal), normalize(vView))), 2.6);
-        float daylight = smoothstep(-0.25, 0.45, dot(normalize(vWorldNormal), sunDirection));
-        gl_FragColor = vec4(0.09, 0.38, 0.88, rim * (0.035 + daylight * 0.21));
+        vec4 p = modelViewMatrix * vec4(position, 1.0);
+        vNormal = normalize(normalMatrix * normal);
+        vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
+        vView = normalize(-p.xyz);
+        gl_Position = projectionMatrix * p;
       }
-    `,
-    }),
-  );
-  haze.scale.setScalar(180.27);
-  haze.renderOrder = 1;
-  earth.add(haze);
+    `;
+    const sunDirection = new THREE.Vector3(-120, 100, 120).normalize();
+    const atmosphere = new THREE.Mesh(
+      sphereGeometry,
+      new THREE.ShaderMaterial({
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide,
+        depthWrite: false,
+        uniforms: { sunDirection: { value: sunDirection } },
+        vertexShader: atmosphereVertex,
+        fragmentShader: `
+        varying vec3 vNormal;
+        varying vec3 vWorldNormal;
+        varying vec3 vView;
+        uniform vec3 sunDirection;
+        void main() {
+          float mu = abs(dot(normalize(vNormal), normalize(vView)));
+          // Fade to zero at the outer silhouette instead of ending in a hard ring.
+          float rim = pow(1.0 - mu, 2.4) * smoothstep(0.0, 0.18, mu);
+          float daylight = smoothstep(-0.3, 0.45, dot(normalize(vWorldNormal), sunDirection));
+          gl_FragColor = vec4(0.16, 0.52, 1.0, rim * (0.20 + daylight * 0.66));
+        }
+      `,
+      }),
+    );
+    atmosphere.scale.setScalar(181.5);
+    atmosphere.renderOrder = 3;
+    earth.add(atmosphere);
+
+    // Inner atmospheric scattering retains the existing soft horizon.
+    const haze = new THREE.Mesh(
+      sphereGeometry,
+      new THREE.ShaderMaterial({
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        uniforms: { sunDirection: { value: sunDirection } },
+        vertexShader: atmosphereVertex,
+        fragmentShader: `
+        varying vec3 vNormal;
+        varying vec3 vWorldNormal;
+        varying vec3 vView;
+        uniform vec3 sunDirection;
+        void main() {
+          float rim = pow(1.0 - max(0.0, dot(normalize(vNormal), normalize(vView))), 2.6);
+          float daylight = smoothstep(-0.25, 0.45, dot(normalize(vWorldNormal), sunDirection));
+          gl_FragColor = vec4(0.09, 0.38, 0.88, rim * (0.035 + daylight * 0.21));
+        }
+      `,
+      }),
+    );
+    haze.scale.setScalar(180.27);
+    haze.renderOrder = 1;
+    earth.add(haze);
+    scene.add(new THREE.AmbientLight(0x527dab, 0.65));
+    const sunlight = new THREE.DirectionalLight(0xf0f7ff, 3.2);
+    sunlight.position.set(-120, 100, 120);
+    scene.add(sunlight);
+  }
   scene.add(earth);
-  scene.add(new THREE.AmbientLight(0x527dab, 0.65));
-  const sunlight = new THREE.DirectionalLight(0xf0f7ff, 3.2);
-  sunlight.position.set(-120, 100, 120);
-  scene.add(sunlight);
 
   // The reference horizon begins at 76% viewport height and leaves the bottom
   // at 86% viewport width. Showing more of the globe avoids stretching a tiny
@@ -690,6 +528,7 @@ export function createOrbitalEnvironment(
       .copy(horizonBisector)
       .multiplyScalar((180 * Math.cos(sweep)) / sinHalfAngle)
       .addScaledVector(horizonNormal, 180 * Math.sin(sweep));
+    if (appearance === 'night') orientMediterraneanEarth(THREE, earth, camera);
   };
 
   let activeTime = 0;
@@ -782,6 +621,7 @@ export function createOrbitalEnvironment(
   return {
     scene,
     camera,
+    ready: earthReady,
     resize(width: number, height: number, pixelRatio: number) {
       const safeHeight = Math.max(1, height);
       camera.aspect = Math.max(1, width) / safeHeight;
@@ -801,22 +641,15 @@ export function createOrbitalEnvironment(
       if (disposed) return;
       camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
-      surface.rotation.y = (activeTime * 0.003) % (Math.PI * 2);
-      clouds.rotation.y = (activeTime * 0.0072) % (Math.PI * 2);
+      if (appearance === 'night') {
+        if (moving && earthStatus.ready)
+          openingElapsed += Math.max(0, activeTime - previousEarthTime);
+        previousEarthTime = activeTime;
+      }
+      surface.rotation.y =
+        ((appearance === 'night' ? openingElapsed : activeTime) * 0.003) %
+        (Math.PI * 2);
       starsMaterial.uniforms.time.value = activeTime;
-      cloudMaterial.uniforms.time.value = activeTime;
-      cloudMaterial.uniforms.cloudMorph.value.set(
-        Math.sin(activeTime * 0.014) * 0.024,
-        Math.cos(activeTime * 0.01) * 0.024,
-        Math.sin(activeTime * 0.012) * 0.024,
-      );
-      cloudSunRotation
-        .copy(earth.quaternion)
-        .multiply(clouds.quaternion)
-        .invert();
-      cloudMaterial.uniforms.sunLocal.value
-        .copy(sunDirection)
-        .applyQuaternion(cloudSunRotation);
       for (let index = 0; index < meteors.length; index++) {
         const meteor = meteors[index];
         const currentCycle = Math.floor(activeTime / meteorBankPeriod);
@@ -849,25 +682,42 @@ export function createOrbitalEnvironment(
       return {
         activeTime,
         ready: !disposed,
-        earthReady: !disposed,
-        earthMode: 'procedural-water',
+        earthReady: earthStatus.ready && !disposed,
+        earthMode:
+          appearance === 'night'
+            ? 'satellite-night-lights'
+            : 'satellite-land-ocean-clouds',
+        earthAppearance: appearance,
+        earthOpening:
+          appearance === 'night' ? { ...MEDITERRANEAN_OPENING } : null,
+        earthOpeningElapsed:
+          appearance === 'night' ? openingElapsed : activeTime,
+        earthSource: earthStatus.source,
+        earthLoadError: earthStatus.error,
         earthRotation: surface.rotation.y,
-        cloudRotation: clouds.rotation.y,
-        cloudMorphTime: cloudMaterial.uniforms.time.value,
         earthRotationRate: 0.003,
-        cloudRotationRate: 0.0072,
-        cloudFieldSamples: mobile ? 11 : 17,
-        cloudInterpolation: mobile
-          ? 'rg8-gradient-mips'
-          : 'rg8-two-tap-major-axis-detail',
-        cloudFieldCells: noiseCells,
-        cloudSamplesPerCell: 8,
+        earthTextureFetchMs: earthStatus.fetchMs,
+        earthTextureDecodeMs: earthStatus.decodeMs,
+        earthTextureReadyMs: earthStatus.readyMs,
+        earthEncodedBytes: earthStatus.encodedBytes,
+        earthResponseBytes: earthStatus.responseBytes,
+        earthTextureDimensions: [earthSpec.width, earthSpec.height],
+        earthTextureBytes: earthStatus.ready ? earthTextureBytes : 0,
+        earthTextureGpuBytes: earthStatus.ready ? earthGpuBytes : 0,
+        earthTextureSamples: 1,
+        cloudRotation: surface.rotation.y,
+        cloudRotationRate: 0.003,
+        cloudFieldSamples: 0,
         cloudWeatherModel:
-          'authored-front-stratiform-cold-sector-cumulus-cirrus',
+          appearance === 'night'
+            ? 'cloud-free-night-composite'
+            : 'combined-satellite-image',
         cloudLightingModel:
-          'thin-shell-local-billows-gradient-relief-two-probes',
-        cloudSunProbes: 2,
-        cloudMorph: cloudMaterial.uniforms.cloudMorph.value.toArray(),
+          appearance === 'night'
+            ? 'photographic-night-lights'
+            : 'photographic-clouds-diffuse-globe',
+        cloudReady: earthStatus.ready && !disposed,
+        cloudTextureSize: 0,
         starCount: count,
         starBufferBytes:
           positions.byteLength +
@@ -907,29 +757,30 @@ export function createOrbitalEnvironment(
         meteorPhase: meteors.find((m) => m.mesh.visible)?.phase ?? 0,
         meteorCycle: meteors[0].cycle,
         meteorVisible: meteorCount > 0,
-        textureSize: noiseSide,
-        dayTextureSize: 0,
-        cloudTextureSize: 0,
-        proceduralTextureBytes,
-        proceduralTextureGpuBytes,
+        textureSize: earthSpec.width,
+        dayTextureSize: earthSpec.width,
+        proceduralTextureBytes: skyData.byteLength,
+        proceduralTextureGpuBytes: skyGpuBytes,
         proceduralGenerationMs: Math.round(generationMs * 100) / 100,
-        proceduralNoiseDimensions: [noiseSide, noiseSide, noiseSide],
-        proceduralNoiseFormat: 'RG8',
-        proceduralNoiseMipBytes: noiseGpuBytes,
-        proceduralNoiseMipLevels: Math.log2(noiseSide) + 1,
         nebulaDimensions: [skyWidth, skyHeight],
-        externalTextureRequests: 0,
+        externalTextureRequests: options.earthTexture ? 0 : 1,
         estimatedTextureMiB:
-          Math.round((proceduralTextureGpuBytes / 1048576) * 10000) / 10000,
+          Math.round(
+            ((skyGpuBytes + (earthStatus.ready ? earthGpuBytes : 0)) /
+              1048576) *
+              10000,
+          ) / 10000,
         earthRadius: 180,
         earthPosition: earth.position.toArray(),
-        drawCallBudget: 15,
+        earthAtmosphereLayers: appearance === 'night' ? 1 : 2,
+        drawCallBudget: appearance === 'night' ? 13 : 14,
       };
     },
     dispose() {
       if (disposed) return;
       disposed = true;
-      cloudNoise.dispose();
+      assetAbort.abort();
+      if (earthTexture) disposeEarthTexture(earthTexture);
       skyTexture.dispose();
       const geometries = new Set<Three.BufferGeometry>();
       const materials = new Set<Three.Material>();

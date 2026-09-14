@@ -1,0 +1,92 @@
+Window: "Mikael Vincent — Developer portfolio · Sample content", App: Safari.
+0 standard window Mikael Vincent — Developer portfolio · Sample content, ID: SafariWindow?IsSecure=false&UUID=8EAE841D-2197-4157-A3F5-01D5A0C1D065, Secondary Actions: Raise
+	1 split group
+		2 tab group
+			3 scroll area
+				4 HTML content Description: Mikael Vincent — Developer portfolio · Sample content, URL: localhost:3000/
+					5 link Skip to content, Value: localhost:3000/#main
+					6 container
+						7 heading mikaelvincent.dev — Mikael Vincent · Full-stack developer & systems thinker, Value: 1
+							8 link mikaelvincent.dev — Mikael Vincent · Full-stack developer & systems thinker, Value: localhost:3000/
+						9 button Projects
+						10 button Case studies
+						11 button About
+						12 button Contact
+						13 link Overview, Value: localhost:3000/
+						14 button (collapsed) ON BOARD · Overview, Secondary Actions: Expand
+						15 toggle button Reading view, Value: off
+						16 text SAMPLE / CONCEPT
+						17 pop up button Close Earth controls, Help: Earth controls
+						18 container Choose your opening
+							19 container
+								20 text EARTH AT NIGHT
+								21 heading Choose your opening, Value: 2
+									22 text Choose your opening
+								23 button Close Earth controls panel
+							24 container Earth opening views
+								25 toggle button 01 Mediterranean, Value: off
+								26 toggle button 02 East Asia, Value: off
+								27 toggle button 03 India, Value: off
+								28 toggle button 04 North America, Value: off
+							29 text Custom view. Fine-tune the globe to find your own opening.
+							30 container (collapsed) Secondary Actions: Expand
+								31 summary Fine-tune the globe, Value: off
+									32 text Fine-tune the globe
+								33 stepper 0
+									34 unknown
+									35 unknown
+								36 value indicator 126
+								37 stepper 0
+									38 unknown
+									39 unknown
+								40 value indicator 22
+								41 stepper 0
+									42 unknown
+									43 unknown
+								44 value indicator -10
+								45 stepper 0
+									46 unknown
+									47 unknown
+								48 value indicator 112
+								49 stepper 0
+									50 unknown
+									51 unknown
+								52 value indicator 72
+							53 toggle button Resume rotation, Value: on
+							54 button Replay opening
+							55 container
+								56 text Remembered in this browser.
+								57 button Reset
+						58 toggle button Open scene diagnostics, Help: Scene diagnostics, Value: off
+						59 link Content studio, Value: localhost:3000/admin
+	60 image WindowControlShadowView._shadowImageView
+	61 toolbar
+		62 container Secondary Actions: Move next, Remove from toolbar
+			63 button Description: show sidebar, Help: Show sidebar, ID: SidebarButton
+			64 menu button Description: Tab Group picker, ID: TabGroupPickerButton?TabGroup=
+		65 container BackForwardSegmentedControl
+			66 button Description: Go back, Help: Show the previous page, ID: BackButton
+			67 button (disabled) Description: Go forward, Help: Show the next page, ID: ForwardButton
+		68 container Secondary Actions: Move previous, Move next, Remove from toolbar
+			69 button Page Menu, ID: AssistantButton
+			70 button Add page to Reading List, ID: OneStepBookmarkingButton
+			71 text field (settable) Description: smart search field, Value: localhost:3000, ID: WEB_BROWSER_ADDRESS_AND_SEARCH_FIELD
+			72 button Reload this page, ID: ReloadButton
+		73 button Description: Share, ID: ShareButton, Secondary Actions: Move previous, Move next, Remove from toolbar
+		74 button Description: New Tab, ID: NewTabButton, Secondary Actions: Move previous, Move next, Remove from toolbar
+		75 button Description: Tab Overview, ID: TabOverviewButton, Secondary Actions: Move previous, Remove from toolbar
+	76 close button
+	77 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	78 minimize button
+79 menu bar
+	80 Safari
+	81 File
+	82 Edit
+	83 View, ID: SafariViewMenu
+	84 History
+	85 Bookmarks, ID: SafariBookmarksMenu
+	86 Develop
+	87 Window, ID: SafariWindowMenu
+	88 Help, ID: SafariHelpMenu
+
+The focused UI element is 23 button Close Earth controls panel

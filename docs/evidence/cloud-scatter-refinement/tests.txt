@@ -1,0 +1,28 @@
+✔ Small cloud fields are deterministic, nonempty and encode wrapped slopes (5.310625ms)
+✔ Cloud texture preserves bytes, mip/seam settings and bounded volume material (0.445709ms)
+✔ Cloud environment wide: ready, placement, pause, memory and cleanup (15.899583ms)
+✔ Cloud environment compact: ready, placement, pause, memory and cleanup (6.7065ms)
+✔ Malformed injection rejects and disposal prevents a queued installation (7.820416ms)
+✔ HTTP already decompressed CFD1 becomes the exact cloud texture (43.661208ms)
+✔ HTTP gzip archive CFD1 becomes the exact cloud texture (56.240875ms)
+✔ Pending fetch aborts and late rejection does not generate or invalidate (2.532458ms)
+✔ CFD1 defines channel order, little-endian dimensions, row resets and wraparound (1.212583ms)
+✔ Random and extreme bytes round-trip across rows, channels, and non-power-of-two sizes (4.402417ms)
+✔ Codec respects typed-array offsets and does not mutate packet bytes (0.39ms)
+✔ Malformed headers, lengths and dimensions fail before decoding (0.352084ms)
+✔ Satellite conversion rejects malformed dimensions and mask payloads (0.789208ms)
+✔ Original mask is preserved, including typed-array offsets, and conversion is deterministic (3.912208ms)
+✔ Ocean gaps stay empty beside bright clouds; north/south orientation is unchanged (0.814417ms)
+✔ Uniform thin, medium, and bright layers have increasing opacity and independently varied height (3.303292ms)
+✔ An isolated bright speck remains lower than a coherent bright core, without enlarging either (3.151667ms)
+✔ Smoothing and all four output channels wrap across longitude without a seam (4.176042ms)
+✔ Shipped satellite atlas matches its source record and preserves ocean gaps, thin clouds, and varied heights (60.044125ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 582.242708
+Cloud correctness audit: passed (/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/cloud-scatter-refinement/correctness-audit.json)

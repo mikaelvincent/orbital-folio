@@ -5,6 +5,25 @@ import { createSpacecraft } from '../components/spacecraft-model.ts';
 import { createSpacecraftPerformance } from '../lib/spacecraft-performance.ts';
 
 const info = () => ({ calls: 0, triangles: 0, points: 0, lines: 0 });
+
+test('Sustained recordings extend both timing and per-part count retention', () => {
+  const { chair, renderer, profiler, render } = fixture();
+  profiler.setWindowSize(14400);
+  for (let i = 0; i < 2000; i++) {
+    profiler.beginPass('spacecraft', renderer.info.render);
+    render(chair, i < 1000 ? 1 : 3);
+    profiler.endPass(renderer.info.render);
+  }
+  const full = profiler.snapshot().passes.spacecraft;
+  assert.equal(full.samples, 2000);
+  assert.equal(full.total.drawsPerPass, 2);
+  profiler.setWindowSize(1000);
+  const recent = profiler.snapshot().passes.spacecraft;
+  assert.equal(recent.samples, 1000);
+  assert.equal(recent.total.drawsPerPass, 3);
+  assert.equal(full.samples, 2000);
+  profiler.dispose();
+});
 function fixture(options = {}) {
   const root = new THREE.Group();
   const cabin = new THREE.Group();

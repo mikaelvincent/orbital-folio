@@ -1,0 +1,12 @@
+{
+  "version": "orbital-cloud-banks-v1",
+  "width": 2048,
+  "height": 1024,
+  "channels": 4,
+  "seed": 803719,
+  "rawBytes": 8388608,
+  "gzipBytes": 3165073,
+  "sha256": "a3b45edb88bb9e44beb8bb979eabbbd474365d84cbc1f117f364f83b0657b966",
+  "generator": "lib/cloud-field.ts",
+  "source": "Original procedural weather; NASA photographs used only as visual references."
+}

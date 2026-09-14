@@ -1,0 +1,131 @@
+{
+  "method": "Read development DOM camera traces from real Chromium browser interactions; direct route reloads compared with actual overview selection. Durations include variable recorded frame cadence and are not performance comparisons. Portrait uses normal pullback/roll/approach itinerary.",
+  "checks": [
+    {
+      "view": "direct-about-desktop",
+      "frames": 84,
+      "durationSeconds": 2.583268,
+      "initialPosition": [
+        -5.834517568869571,
+        3.559224884315756,
+        23.278548782655445
+      ],
+      "initialRoll": 0,
+      "finalPosition": [
+        -2.0870005213701264,
+        -1.4049981155024578,
+        5.260964056545966
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "direct-projects-desktop",
+      "frames": 47,
+      "durationSeconds": 4.733334,
+      "initialPosition": [
+        -5.834517568869571,
+        3.559224884315756,
+        23.278548782655445
+      ],
+      "initialRoll": 0,
+      "finalPosition": [
+        -2.0870006009835755,
+        1.5399996133133949,
+        5.261331487788045
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "direct-cases-desktop",
+      "frames": 44,
+      "durationSeconds": 5.3834,
+      "initialPosition": [
+        -5.834517568869571,
+        3.559224884315756,
+        23.278548782655445
+      ],
+      "initialRoll": 0,
+      "finalPosition": [
+        2.0869917036859498,
+        1.539999603537555,
+        5.261287166926233
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "direct-contact-desktop",
+      "frames": 45,
+      "durationSeconds": 3.7833740000000002,
+      "initialPosition": [
+        -5.834517568869571,
+        3.559224884315756,
+        23.278548782655445
+      ],
+      "initialRoll": 0,
+      "finalPosition": [
+        2.086990439277351,
+        -1.4049974230284976,
+        5.2610385304330585
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "direct-about-portrait",
+      "frames": 401,
+      "durationSeconds": 9.1334,
+      "initialPosition": [
+        -6.246951184332759,
+        4.262111367834547,
+        34.364395806431695
+      ],
+      "initialRoll": 1.5707963267948966,
+      "finalPosition": [
+        -2.0870000000005167,
+        -1.404999999998721,
+        14.519512438796452
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "direct-about-tablet",
+      "frames": 136,
+      "durationSeconds": 8.4002,
+      "initialPosition": [
+        -5.673392896681333,
+        3.442659682321673,
+        30.80661609203474
+      ],
+      "initialRoll": 1.5707963267948966,
+      "finalPosition": [
+        -2.08700000547966,
+        -1.4049999837029905,
+        9.055301430914891
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    },
+    {
+      "view": "clicked-about-desktop",
+      "frames": 82,
+      "durationSeconds": 1.933300000000003,
+      "initialPosition": [
+        -5.822057700145934,
+        3.5318921890940103,
+        23.278891542905626
+      ],
+      "initialRoll": 0,
+      "finalPosition": [
+        -2.087000551530907,
+        -1.4049982257792828,
+        5.260981644232836
+      ],
+      "waitedForDoors": false,
+      "settled": true
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "baseline": "Source and production build preserved before iteration 02; includes iteration 01 uncommitted changes. Both room hardware baseline files match git commit 6689a72.",
+  "files": {
+    "components/projects-payload-module.ts": {
+      "beforeSha256": "08bd03f26a304e8a914ce8deb195ab22ef053d0f94e45abaf81a4f0173ca4d5e",
+      "afterSha256": "2a2cfeaac5d836d0e5dc17e1a4cb081f0f5f788c8e347c84c8209aef7559180c"
+    },
+    "components/about-personal-study.ts": {
+      "beforeSha256": "152808cd2a84441e7eb00a20048b55b64e2e8dc6add5b9c77b73b7b583fc66ff",
+      "afterSha256": "6cd44889ed24708371b1cc5fefd32d21d40d4c63b28ae7c1153e02837f14ad91"
+    },
+    "components/spacecraft-model.ts": {
+      "beforeSha256": "6ad076a6f309b3c7871f7ab021ab1548f82b4cd7419800abd0050f9dca6eefae",
+      "afterSha256": "6ad076a6f309b3c7871f7ab021ab1548f82b4cd7419800abd0050f9dca6eefae"
+    },
+    "components/spacecraft.tsx": {
+      "beforeSha256": "72f47b5774ad54fc4b2da41f96083b970052f66042937b3acfe81469f7d34f61",
+      "afterSha256": "72f47b5774ad54fc4b2da41f96083b970052f66042937b3acfe81469f7d34f61"
+    },
+    "lib/coalesce-static-instances.ts": {
+      "beforeSha256": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+      "afterSha256": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5"
+    },
+    "lib/scene-matrices.ts": {
+      "beforeSha256": "ce3752962a7111f9c0412b9eea97e48ade74c36923789246e24c2e5eb1fae5e8",
+      "afterSha256": "ce3752962a7111f9c0412b9eea97e48ade74c36923789246e24c2e5eb1fae5e8"
+    }
+  }
+}

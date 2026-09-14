@@ -1,0 +1,157 @@
+{
+  "recordedAt": "2026-09-14T03:55:52.799Z",
+  "status": "complete",
+  "config": {
+    "selected": [
+      "iris-settled"
+    ],
+    "blocks": 2,
+    "burstMs": 120,
+    "initialRestMs": 0,
+    "sampleRestMs": 1000,
+    "blockRestMs": 20000,
+    "controlRestMs": 10000,
+    "recoveryRestMs": 60000,
+    "thermalPollMs": 0,
+    "maxCoolPolls": 2,
+    "maxAttempts": 2,
+    "driftLimit": 0.05,
+    "seed": 20260914,
+    "thermalGate": "nominal-required",
+    "telemetryArgv": [
+      "node",
+      "-e",
+      "process.stdout.write(JSON.stringify({thermalState: \"fair\"}))"
+    ],
+    "contextTelemetryArgv": null,
+    "notes": "",
+    "gc": "unavailable"
+  },
+  "schedule": [
+    {
+      "name": "iris-settled",
+      "orders": [
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "node": "v26.0.0",
+    "threeRevision": "185",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "osRelease": "25.6.0",
+    "cpuModel": "Apple M4",
+    "logicalCpus": 10,
+    "totalMemoryBytes": 17179869184,
+    "execArgv": [],
+    "sourceHashes": {
+      "components/spacecraft-model.ts": "28af5dfd48587e36bfd228ae74076929ad7ff6664a6428caba2f71c9c02c37b7",
+      "components/iris-hatch.ts": "06d61199491b4856b90dd70208e537d7009833bfaa33dbab67ea0bf9206783c2",
+      "scripts/benchmark-controlled-performance.mjs": "cfc455a68ca61a3aae3388626544f39b805f46f8505cf6d1eeba9c7be92d9fd9",
+      "scripts/benchmarks/controlled-cases.mjs": "9fb23d0d625d77bc889621cedd1e916bdde490a1a62cab77fe6501beea4ea3e2",
+      "scripts/benchmarks/controlled-protocol.mjs": "751a57e2bee73280865f4a0eb14ccf824826e0e6f83726f1779322405c3988b7",
+      "scripts/benchmarks/local-transform-cache-candidate.ts": "876c16a7b24082fbd5c158aeff605c115a342c4ebfb8c335e032cb9dbce0bcaa",
+      "scripts/benchmarks/material-lighting-candidate.ts": "53796d3f85e18c4b9827800cd2d179ce3ddfee14446ca1cb05123a7992207225",
+      "scripts/benchmarks/exact-matrix-inverse-candidate.ts": "6b1c57b01fe2168c06c4d7918ff49ce03b0c0bc6ed114ff9d41e20f49308dcfb",
+      "scripts/probe-targeted-exact-indexing.mjs": "ea2a9d0a594895910ed83f7edcfd21b5ef7001c0db7f3c7049ba4f7d6ae79dc2"
+    },
+    "initialSystemContext": {
+      "timestamp": "2026-09-14T03:55:52.951Z",
+      "telemetry": {
+        "thermalState": "fair"
+      },
+      "systemLoadAverage": [
+        3.896484375,
+        3.11376953125,
+        2.68115234375
+      ],
+      "freeMemoryBytes": 465190912,
+      "processMemory": {
+        "rss": 104972288,
+        "heapTotal": 16351232,
+        "heapUsed": 14270296,
+        "external": 7805542,
+        "arrayBuffers": 719325
+      }
+    }
+  },
+  "methodology": "Balanced seeded ABBA/BAAB blocks with identical work counts, short calibrated bursts, real idle rests, nominal-OS-pressure gate when telemetry is available, and repeated reference controls. Every attempt and rejection is retained; timings are never thermally corrected.",
+  "limitations": [
+    "Nominal OS thermal pressure plus stable controls does not prove cold hardware, peak clocks, or absence of throttling.",
+    "Rests are configurable minimum idle periods, not guaranteed cooldown times. Drift and telemetry can invalidate a block.",
+    "CPU-only Node kernels. No browser CanvasTextures, GPU uploads/draws, FPS, energy or device-temperature conclusions.",
+    "Steady frame kernels reuse fixtures. Indexing intentionally creates one fresh model per sample and reports construction and compaction separately.",
+    "All candidates remain benchmark-only; paired timings never automatically activate production changes."
+  ],
+  "checkpoints": [],
+  "cases": {
+    "iris-settled": {
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": [],
+      "preparationThermal": {
+        "qualified": false,
+        "snapshots": [
+          {
+            "timestamp": "2026-09-14T03:55:59.218Z",
+            "telemetry": {
+              "thermalState": "fair"
+            },
+            "systemLoadAverage": [
+              3.984375,
+              3.14501953125,
+              2.6943359375
+            ],
+            "freeMemoryBytes": 82231296,
+            "processMemory": {
+              "rss": 415186944,
+              "heapTotal": 142671872,
+              "heapUsed": 81730664,
+              "external": 133602230,
+              "arrayBuffers": 126486416
+            }
+          },
+          {
+            "timestamp": "2026-09-14T03:55:59.357Z",
+            "telemetry": {
+              "thermalState": "fair"
+            },
+            "systemLoadAverage": [
+              3.984375,
+              3.14501953125,
+              2.6943359375
+            ],
+            "freeMemoryBytes": 84688896,
+            "processMemory": {
+              "rss": 415186944,
+              "heapTotal": 142671872,
+              "heapUsed": 81887528,
+              "external": 133602260,
+              "arrayBuffers": 126486446
+            }
+          }
+        ],
+        "qualifier": "thermal gate did not recover within poll budget"
+      },
+      "status": "inconclusive-thermal-readiness"
+    }
+  },
+  "completedAt": "2026-09-14T03:55:59.358Z"
+}

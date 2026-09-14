@@ -900,7 +900,7 @@ export function buildCaseStudyArchive(
       'terminal-rear-saddle',
     );
   }
-  // Segmented service cover and vent slots are visible under the tilted enclosure.
+  // A continuous recessed intake keeps the underside quiet at room distance.
   box(
     2.25,
     0.054,
@@ -912,16 +912,6 @@ export function buildCaseStudyArchive(
     terminal,
     0.015,
     'terminal-lower-intake',
-  );
-  h.instances(
-    unitBox,
-    m.edge,
-    Array.from({ length: 22 }, (_, i) => ({
-      p: [-1.02 + i * 0.097, -0.364, 0.044],
-      s: [0.046, 0.014, 0.008],
-    })),
-    terminal,
-    prefix + 'terminal-vent-blades',
   );
   const cable = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0.96 * 0.85, 0.38 * 0.85, -0.035 * 0.85),

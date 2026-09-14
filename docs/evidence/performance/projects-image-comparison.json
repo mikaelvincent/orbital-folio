@@ -1,0 +1,19 @@
+{
+  "reference": "before-projects-dpr1.png",
+  "optimized": "after-projects.png",
+  "dimensions": {
+    "format": "raw",
+    "width": 1200,
+    "height": 800,
+    "channels": 3,
+    "depth": "uchar",
+    "premultiplied": false,
+    "hasAlpha": false,
+    "size": 2880000
+  },
+  "meanAbsoluteChannelDifference": 1.6173211805555556,
+  "maxChannelDifference": 74,
+  "changedChannels": 1340576,
+  "totalChannels": 2880000,
+  "note": "Unedited browser screenshots at matching 1200×800 drawing buffers. Static selected Projects room."
+}

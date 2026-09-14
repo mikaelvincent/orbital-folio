@@ -13,6 +13,7 @@ type PanelOptions = {
   collector: {
     snapshot: (includeFrames?: boolean) => any;
     reset: (reason?: string) => void;
+    setWindowSize?: (frames: number) => void;
   };
   getSettings: () => Record<string, unknown>;
   setExperiment: (experiment: Experiment) => void;
@@ -32,7 +33,7 @@ const experiments: Array<[Experiment, string]> = [
 ];
 
 const styles = `
-.scene-perf{position:fixed;top:12px;left:12px;z-index:20000;width:min(365px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #475569;border-radius:12px;background:#0b1420f5;color:#e5edf7;box-shadow:0 12px 38px #0007;font:12px/1.45 ui-sans-serif,system-ui,sans-serif;letter-spacing:normal;text-align:left;color-scheme:dark}
+.scene-perf{position:fixed;top:12px;left:12px;z-index:20000;width:min(390px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #475569;border-radius:12px;background:#0b1420f5;color:#e5edf7;box-shadow:0 12px 38px #0007;font:12px/1.5 ui-sans-serif,system-ui,sans-serif;letter-spacing:normal;text-align:left;color-scheme:dark}
 .scene-perf *{box-sizing:border-box}
 .scene-perf header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;position:sticky;top:0;background:#0b1420;z-index:1;border-radius:12px 12px 0 0}
 .scene-perf h2{font:600 13px/1.4 ui-sans-serif,system-ui,sans-serif;margin:0;color:#f3f7ff}
@@ -41,7 +42,7 @@ const styles = `
 .scene-perf p{margin:0 0 9px}
 .scene-perf-body{padding:0 14px 14px}
 .scene-perf [hidden]{display:none!important}
-.scene-perf button,.scene-perf select,.scene-perf input{font:inherit;letter-spacing:normal;border:1px solid #475569;border-radius:6px;background:#182536;color:#e5edf7;padding:7px 9px;min-height:32px;max-width:100%;box-shadow:none}
+.scene-perf button,.scene-perf select,.scene-perf input{font:inherit;letter-spacing:normal;border:1px solid #475569;border-radius:6px;background:#182536;color:#e5edf7;padding:8px 10px;min-height:40px;max-width:100%;box-shadow:none}
 .scene-perf button{cursor:pointer;text-transform:none;font-weight:500}
 .scene-perf button:hover:not(:disabled){background:#263a50;border-color:#7da8c9}
 .scene-perf button:disabled{opacity:.5;cursor:default}
@@ -69,6 +70,16 @@ const styles = `
 .scene-perf ol{margin:6px 0 0;padding-left:18px;color:#a9bacd}
 .scene-perf li{margin:3px 0;overflow-wrap:anywhere}
 .scene-perf small{font-size:10px;line-height:1.5;display:block;color:#a9bacd}
+.scene-perf-step{padding:12px 0;border-top:1px solid #293c50}
+.scene-perf-step h3{margin:0 0 6px;font-size:13px}
+.scene-perf-step button.scene-perf-primary{width:100%;margin-top:10px}
+.scene-perf-help{padding:10px;border-radius:7px;background:#152337;color:#c5d6e8}
+.scene-perf-table-scroll{overflow-x:auto}
+.scene-perf-table-scroll table{min-width:420px}
+.scene-perf-progress{padding:9px 14px;background:#12455b;border-top:1px solid #287a9e;color:#e1f5ff;display:flex;align-items:center;gap:8px}
+.scene-perf-progress span{flex:1}
+.scene-perf-progress button{padding:4px 8px;min-height:32px}
+.scene-perf-metric em{display:block;color:#a9bacd;font-style:normal;font-size:10px}
 `;
 
 function textElement<K extends keyof HTMLElementTagNameMap>(
@@ -139,7 +150,7 @@ export function mountPerformancePanel({
   panel.dataset.scenePerf = '';
   panel.setAttribute('aria-label', 'Scene performance diagnostics');
   const heading = document.createElement('header');
-  const panelTitle = textElement('h2', 'Scene diagnostics');
+  const panelTitle = textElement('h2', 'Performance check');
   panelTitle.tabIndex = -1;
   heading.appendChild(panelTitle);
   const collapse = textElement('button', '−');
@@ -157,6 +168,15 @@ export function mountPerformancePanel({
   collapse.setAttribute('aria-controls', body.id);
   panel.appendChild(heading);
   panel.appendChild(body);
+  const progressBar = textElement('div', '', 'scene-perf-progress');
+  progressBar.hidden = true;
+  const progressLabel = textElement('span', '');
+  const stopRecording = textElement('button', 'Stop');
+  stopRecording.type = 'button';
+  stopRecording.setAttribute('aria-label', 'Stop recording');
+  progressBar.appendChild(progressLabel);
+  progressBar.appendChild(stopRecording);
+  panel.appendChild(progressBar);
 
   body.appendChild(
     textElement(
@@ -231,6 +251,7 @@ export function mountPerformancePanel({
   );
   status.setAttribute('role', 'status');
   status.setAttribute('aria-live', 'polite');
+  status.tabIndex = -1;
   body.appendChild(status);
 
   const metrics = textElement('div', '', 'scene-perf-metrics');
@@ -242,9 +263,9 @@ export function mountPerformancePanel({
     metrics.appendChild(card);
     return value;
   };
-  const fps = metricValue('Rendered FPS');
-  const cpu = metricValue('Mean CPU · ms');
-  const interval = metricValue('p95 frame · ms');
+  const fps = metricValue('Smoothness · FPS');
+  const cpu = metricValue('CPU preparing · ms');
+  const shipGpu = metricValue('GPU drawing ship · ms');
   body.appendChild(metrics);
   const windowLabel = textElement('p', '', 'scene-perf-muted');
   body.appendChild(windowLabel);
@@ -365,17 +386,18 @@ export function mountPerformancePanel({
   const savedSummary = textElement('summary', 'Saved captures (0 of 6)');
   const savedList = document.createElement('ol');
   const captureTable = table([
-    'Capture / filter',
+    'Capture / change',
     'FPS',
+    'Frame p95 ms',
     'CPU ms',
-    'Ship GPU ms',
+    'Ship GPU mean / p95 ms',
   ]);
   saved.appendChild(savedSummary);
   saved.appendChild(captureTable.element);
   saved.appendChild(
     textElement(
       'small',
-      'Means for each capture. Ship GPU is the whole spacecraft pass, not time attributed to an individual group. Compare matching views and render settings.',
+      'CPU is mean preparation time per frame. GPU shows mean / p95 for the whole spacecraft draw; p95 exposes slower samples, not confidence or measurement error. Missing GPU timing stays unavailable.',
     ),
   );
   saved.appendChild(savedList);
@@ -386,6 +408,157 @@ export function mountPerformancePanel({
       'CPU measures JavaScript and render submission, not GPU time. Browser metrics do not measure temperature or power. Diagnostics add overhead. Compare normal → one change → normal at the same viewport and browser profile. Captures stay in this session until downloaded; closing diagnostics or reloading clears them.',
     ),
   );
+  const footer = body.lastElementChild!;
+  const baselineSection = textElement('section', '', 'scene-perf-step');
+  baselineSection.appendChild(textElement('h3', '1. Record the normal scene'));
+  baselineSection.appendChild(
+    textElement(
+      'p',
+      'Keep the view still. This gives us a reference for the work your browser is doing.',
+      'scene-perf-muted',
+    ),
+  );
+  const duration = labelledSelect(
+    baselineSection,
+    'Capture length',
+    'duration',
+    [
+      ['10', '10 seconds · quick check'],
+      ['30', '30 seconds · longer run'],
+      ['60', '60 seconds · sustained run'],
+    ],
+  );
+  baselineSection.appendChild(
+    textElement(
+      'small',
+      'Longer runs can reveal changes over time; they cannot identify temperature or power use. Each capture starts after a 3 second warmup.',
+    ),
+  );
+  record.textContent = 'Record baseline';
+  baselineSection.appendChild(record);
+  const compareSection = textElement('section', '', 'scene-perf-step');
+  compareSection.appendChild(textElement('h3', '2. Compare one change'));
+  compareSection.appendChild(
+    textElement(
+      'p',
+      'Temporarily remove one source of work, then repeat the same view.',
+      'scene-perf-muted',
+    ),
+  );
+  const compareChoice = labelledSelect(
+    compareSection,
+    'Change to compare',
+    'compare-choice',
+    [
+      ['no-background', 'Hide the animated background'],
+      ['group', 'Hide one room or part'],
+      ['half-resolution', 'Draw fewer pixels'],
+      ['no-ao', 'Turn off contact shading'],
+      ['no-spacecraft', 'Hide the whole spacecraft'],
+      ['current', 'Use my Advanced settings'],
+    ],
+  );
+  const compareGroup = labelledSelect(
+    compareSection,
+    'Group to compare',
+    'compare-group',
+    [],
+  );
+  compareGroup.parentElement!.hidden = true;
+  const recordComparison = textElement(
+    'button',
+    'Record this change',
+    'scene-perf-primary',
+  );
+  recordComparison.type = 'button';
+  compareSection.appendChild(recordComparison);
+  const comparisonHint = textElement('small', 'Record a baseline first.');
+  compareSection.appendChild(comparisonHint);
+  const confirmBaseline = textElement('button', 'Record baseline again');
+  confirmBaseline.type = 'button';
+  confirmBaseline.hidden = true;
+  restoreRow.insertBefore(confirmBaseline, restore);
+  compareSection.appendChild(restoreRow);
+  const reviewSection = textElement('section', '', 'scene-perf-step');
+  reviewSection.appendChild(textElement('h3', '3. Review the result'));
+  const reviewPair = textElement('p', '', 'scene-perf-muted');
+  reviewPair.hidden = true;
+  reviewPair.style.whiteSpace = 'pre-line';
+  reviewSection.appendChild(reviewPair);
+  const reviewMessage = textElement(
+    'p',
+    'Your captures will appear here. Repeat the normal scene after a change to check whether the reference has drifted.',
+    'scene-perf-help',
+  );
+  reviewSection.appendChild(reviewMessage);
+  const captureScroll = textElement('div', '', 'scene-perf-table-scroll');
+  saved.insertBefore(captureScroll, captureTable.element);
+  captureScroll.appendChild(captureTable.element);
+  reviewSection.appendChild(saved);
+  download.textContent = 'Download report';
+  download.setAttribute('aria-label', 'Download report JSON');
+  reviewSection.appendChild(download);
+  const advanced = document.createElement('details');
+  advanced.appendChild(
+    textElement('summary', 'Advanced: parts, render settings and data'),
+  );
+  const workloadDetails = document.createElement('details');
+  workloadDetails.appendChild(
+    textElement('summary', 'Which spacecraft parts create the most work?'),
+  );
+  workloadDetails.appendChild(spacecraftSection);
+  advanced.appendChild(workloadDetails);
+  advanced.appendChild(experimentLabel);
+  advanced.appendChild(experiment);
+  advanced.appendChild(settingsDetails);
+  const timingDetails = document.createElement('details');
+  timingDetails.appendChild(
+    textElement('summary', 'CPU and GPU timing breakdown'),
+  );
+  timingDetails.appendChild(
+    textElement(
+      'small',
+      'CPU averages include frames where a phase did not run. GPU values are per sampled execution. CPU and GPU overlap; do not add them.',
+    ),
+  );
+  timingDetails.appendChild(cpuTable.element);
+  timingDetails.appendChild(gpuStatus);
+  timingDetails.appendChild(gpuTable.element);
+  advanced.appendChild(timingDetails);
+  advanced.appendChild(passDetails);
+  nameLabel.textContent = 'Optional capture name';
+  advanced.appendChild(nameLabel);
+  advanced.appendChild(name);
+  const recordCustom = textElement('button', 'Record current settings');
+  recordCustom.type = 'button';
+  const advancedActions = textElement('div', '', 'scene-perf-actions');
+  advancedActions.appendChild(recordCustom);
+  advancedActions.appendChild(viewReport);
+  advanced.appendChild(advancedActions);
+  advanced.appendChild(reportText);
+  body.replaceChildren();
+  body.appendChild(
+    textElement(
+      'p',
+      'Find what keeps the page busy, then compare one change at a time.',
+      'scene-perf-muted',
+    ),
+  );
+  body.appendChild(metrics);
+  body.appendChild(windowLabel);
+  body.appendChild(
+    textElement(
+      'small',
+      'FPS is how often the page draws. CPU prepares each frame; GPU draws the spacecraft. These are work timings, not a device rating.',
+    ),
+  );
+  body.appendChild(mode);
+  body.appendChild(status);
+  body.appendChild(baselineSection);
+  body.appendChild(compareSection);
+  body.appendChild(reviewSection);
+  body.appendChild(advanced);
+  body.appendChild(footer);
   document.body.appendChild(panel);
   panelTitle.focus({ preventScroll: true });
 
@@ -401,6 +574,8 @@ export function mountPerformancePanel({
         startedAt: string;
         settings: Record<string, unknown>;
         spacecraftFilter: SpacecraftFilter;
+        kind: 'baseline' | 'comparison' | 'confirmation' | 'custom';
+        durationMs: number;
       }
     | undefined;
   let captureTimer: ReturnType<typeof setTimeout> | undefined;
@@ -443,14 +618,35 @@ export function mountPerformancePanel({
 
   function updateCaptureControls() {
     record.disabled = !!capture || document.hidden;
+    recordCustom.disabled = !!capture || document.hidden;
+    const hasBaseline = captures.some(
+      (item) => item.kind === 'baseline' || item.kind === 'confirmation',
+    );
+    recordComparison.disabled =
+      !!capture ||
+      document.hidden ||
+      !hasBaseline ||
+      (compareChoice.value === 'group' && !compareGroup.value);
+    confirmBaseline.hidden = !captures.some(
+      (item) => item.kind === 'comparison',
+    );
+    confirmBaseline.disabled = !!capture || document.hidden;
+    comparisonHint.textContent = hasBaseline
+      ? 'Use the same capture length, view and browser settings.'
+      : 'Record a baseline first.';
+    duration.disabled = !!capture;
+    compareChoice.disabled = !!capture;
+    compareGroup.disabled = !!capture || !groupChoices.length;
     cancel.hidden = !capture;
     name.disabled = !!capture;
+    progressBar.hidden = !capture;
   }
 
   function cancelCapture(message: string) {
     if (captureTimer !== undefined) clearTimeout(captureTimer);
     captureTimer = undefined;
     capture = undefined;
+    collector.setWindowSize?.(1800);
     status.textContent = message;
     updateCaptureControls();
   }
@@ -470,7 +666,7 @@ export function mountPerformancePanel({
     update();
   }
 
-  function updateSpacecraft(report: any) {
+  function updateSpacecraft(report: any, showRankings = true) {
     if (!getSpacecraftReport) return;
     const groups = getSpacecraftGroups?.() || report?.groups || [];
     const signature = groups
@@ -493,6 +689,14 @@ export function mountPerformancePanel({
         if (category.children.length) options.appendChild(category);
       }
       filterGroup.replaceChildren(options);
+      const previousComparison = compareGroup.value;
+      compareGroup.replaceChildren(
+        ...Array.from(filterGroup.children).map((option) =>
+          option.cloneNode(true),
+        ),
+      );
+      if (groupChoices.some((group) => group.id === previousComparison))
+        compareGroup.value = previousComparison;
       if (groupChoices.some((group) => group.id === previous))
         filterGroup.value = previous;
       groupSignature = signature;
@@ -501,6 +705,7 @@ export function mountPerformancePanel({
     if (selectedFilter.mode !== 'all') filterGroup.value = selectedFilter.id;
     filterMode.disabled = !groupChoices.length;
     filterGroup.disabled = !groupChoices.length;
+    if (!showRankings) return;
     const passes = Object.keys(report?.passes || {});
     const nextPassSignature = passes.join('|');
     if (passes.length && nextPassSignature !== passSignature) {
@@ -607,6 +812,10 @@ export function mountPerformancePanel({
         capture.phase === 'warmup'
           ? `Warming up · recording starts in ${remaining}s.`
           : `Recording “${capture.label}” · ${remaining}s remaining.`;
+      progressLabel.textContent =
+        capture.phase === 'warmup'
+          ? `Starting in ${remaining}s…`
+          : `Recording · ${remaining}s left`;
     }
     updateCaptureControls();
     // Capture deadlines and visibility cancellation remain active while closed.
@@ -623,11 +832,18 @@ export function mountPerformancePanel({
     mode.dataset.active = String(
       activeExperiment !== 'normal' || selectedFilter.mode !== 'all',
     );
+    mode.hidden =
+      activeExperiment === 'normal' && selectedFilter.mode === 'all';
     restore.disabled =
       activeExperiment === 'normal' && selectedFilter.mode === 'all';
     const report = collector.snapshot();
     cancelInvalidCapture(report);
-    updateSpacecraft(getSpacecraftReport?.());
+    updateSpacecraft(
+      advanced.open && workloadDetails.open
+        ? getSpacecraftReport?.()
+        : undefined,
+      advanced.open && workloadDetails.open,
+    );
     const settings = getSettings();
     const dimensions = (value: unknown) =>
       Array.isArray(value) ? value.join(' × ') : '—';
@@ -635,57 +851,65 @@ export function mountPerformancePanel({
       typeof value === 'string' || typeof value === 'number'
         ? String(value)
         : '—';
-    fillRows(settingsTable.body, [
-      [
-        'Build / Three.js',
-        `${settingLabel(settings.build)} / r${settingLabel(settings.threeRevision)}`,
-      ],
-      ['Viewport', dimensions(settings.viewport)],
-      ['Drawing buffer', dimensions(settings.drawingBuffer)],
-      [
-        'DPR / device DPR',
-        `${number(settings.pixelRatio, 2)} / ${number(settings.nativePixelRatio, 2)}`,
-      ],
-      [
-        'Contact shading',
-        settings.aoEnabled === undefined
-          ? '—'
-          : `${settings.aoEnabled ? 'On' : 'Off'} · ${dimensions(settings.aoBuffer)}`,
-      ],
-      ['Room', settingLabel(settings.room)],
-    ]);
+    if (advanced.open && settingsDetails.open)
+      fillRows(settingsTable.body, [
+        [
+          'Build / Three.js',
+          `${settingLabel(settings.build)} / r${settingLabel(settings.threeRevision)}`,
+        ],
+        ['Viewport', dimensions(settings.viewport)],
+        ['Drawing buffer', dimensions(settings.drawingBuffer)],
+        [
+          'DPR / device DPR',
+          `${number(settings.pixelRatio, 2)} / ${number(settings.nativePixelRatio, 2)}`,
+        ],
+        [
+          'Contact shading',
+          settings.aoEnabled === undefined
+            ? '—'
+            : `${settings.aoEnabled ? 'On' : 'Off'} · ${dimensions(settings.aoBuffer)}`,
+        ],
+        ['Room', settingLabel(settings.room)],
+      ]);
     browserLabel.textContent =
       typeof settings.userAgent === 'string' ? settings.userAgent : '';
     const frames = report.window?.frames || 0;
     fps.textContent = frames ? number(report.window?.renderedFps) : '—';
     cpu.textContent = frames ? stat(report.cpuTotal, 'mean') : '—';
-    interval.textContent = frames ? stat(report.frameInterval, 'p95') : '—';
+    shipGpu.textContent = frames
+      ? stat(report.gpu?.phases?.spacecraft, 'mean')
+      : '—';
     windowLabel.textContent = frames
-      ? `${number(frames, 0)} frames across ${number((report.window?.durationMs || 0) / 1000)} seconds.${activeExperiment === 'render-once' ? ' Rendering is paused; these are retained samples.' : ''}`
-      : 'No frames in this measurement window.';
-    fillRows(cpuTable.body, frames ? phaseRows(report.cpuPhases, frames) : []);
+      ? `${number((report.window?.durationMs || 0) / 1000)}s live window · slower frames (p95): ${stat(report.frameInterval, 'p95')}ms.${report.gpu?.phases?.spacecraft ? '' : ' GPU timing is unavailable or still waiting for samples.'}${activeExperiment === 'render-once' ? ' Rendering is paused; these are retained samples.' : ''}`
+      : 'Waiting for rendered frames. GPU timing may not be available in this browser.';
+    if (advanced.open && timingDetails.open)
+      fillRows(
+        cpuTable.body,
+        frames ? phaseRows(report.cpuPhases, frames) : [],
+      );
     const gpuRows = frames ? phaseRows(report.gpu?.phases) : [];
-    fillRows(gpuTable.body, gpuRows);
+    if (advanced.open && timingDetails.open) fillRows(gpuTable.body, gpuRows);
     gpuTable.element.hidden = gpuRows.length === 0;
     const gpuState = String(report.gpu?.status || 'unavailable');
     gpuStatus.textContent = gpuRows.length
       ? `Time per sampled execution · ${gpuState} · ${number(report.gpu?.pending, 0)} pending. GPU means are not amortized across all frames.`
       : `GPU timing: ${gpuState}. No valid GPU samples; CPU time is not a substitute.`;
-    fillRows(
-      passTable.body,
-      frames
-        ? Object.entries(report.passes || {})
-            .sort(
-              ([, a]: any, [, b]: any) =>
-                (b.calls?.mean || 0) - (a.calls?.mean || 0),
-            )
-            .map(([key, value]: any) => [
-              phaseName(key),
-              stat(value.calls, 'mean', 1),
-              stat(value.triangles, 'mean', 0),
-            ])
-        : [],
-    );
+    if (advanced.open && passDetails.open)
+      fillRows(
+        passTable.body,
+        frames
+          ? Object.entries(report.passes || {})
+              .sort(
+                ([, a]: any, [, b]: any) =>
+                  (b.calls?.mean || 0) - (a.calls?.mean || 0),
+              )
+              .map(([key, value]: any) => [
+                phaseName(key),
+                stat(value.calls, 'mean', 1),
+                stat(value.triangles, 'mean', 0),
+              ])
+          : [],
+      );
     counterSummary.textContent = Object.entries(report.counters || {})
       .filter(([, value]) => typeof value === 'number')
       .map(([key, value]) => `${phaseName(key)}: ${number(value, 0)}`)
@@ -708,11 +932,12 @@ export function mountPerformancePanel({
     const actualDurationMs = performance.now() - capture.started;
     const report = collector.snapshot(true);
     if (cancelInvalidCapture(report)) return;
-    captures.push({
+    const savedCapture = {
       name: capture.label,
+      kind: capture.kind,
       startedAt: capture.startedAt,
       completedAt: new Date().toISOString(),
-      requestedDurationMs: 10_000,
+      requestedDurationMs: capture.durationMs,
       actualDurationMs,
       warmupMs: 3_000,
       settings: capture.settings,
@@ -720,7 +945,10 @@ export function mountPerformancePanel({
       spacecraft: getSpacecraftReport?.(),
       context: report.context,
       report,
-    });
+      trend: undefined as ReturnType<typeof captureTrend> | undefined,
+    };
+    savedCapture.trend = captureTrend(savedCapture);
+    captures.push(savedCapture);
     if (captures.length > 6) captures.shift();
     const label = capture.label;
     cancelCapture(
@@ -734,33 +962,85 @@ export function mountPerformancePanel({
         item.report.window?.frames
           ? number(item.report.window.renderedFps)
           : '—',
+        stat(item.report.frameInterval, 'p95'),
         stat(item.report.cpuTotal, 'mean'),
-        stat(item.report.gpu?.phases?.spacecraft, 'mean'),
+        item.report.gpu?.phases?.spacecraft
+          ? `${stat(item.report.gpu.phases.spacecraft, 'mean')} / ${stat(item.report.gpu.phases.spacecraft, 'p95')}`
+          : 'Unavailable',
       ]),
     );
     savedList.replaceChildren(
       ...captures.map((item) =>
         textElement(
           'li',
-          `${item.name} · ${item.settings.experiment || 'normal'} · ${number(item.actualDurationMs / 1000)}s`,
+          `${item.name}: ${number(item.report.window.durationMs / 1000)}s of ${number(item.actualDurationMs / 1000)}s retained.${item.trend ? ` Early → late CPU: ${number(item.trend.earlyCpuMs, 2)} → ${number(item.trend.lateCpuMs, 2)}ms; frame interval: ${number(item.trend.earlyFrameMs, 2)} → ${number(item.trend.lateFrameMs, 2)}ms (first/last ${number(item.trend.windowMs / 1000)}s).` : ''}`,
         ),
       ),
     );
+    const comparisonIndex = captures
+      .map((item) => item.kind)
+      .lastIndexOf('comparison');
+    const comparison = captures[comparisonIndex];
+    const baseline = captures
+      .slice(0, comparisonIndex)
+      .reverse()
+      .find((item) => item.kind === 'baseline' || item.kind === 'confirmation');
+    const confirmation = captures
+      .slice(comparisonIndex + 1)
+      .find((item) => item.kind === 'confirmation');
+    reviewPair.hidden = false;
+    if (baseline && comparison) {
+      const latestIsIncluded =
+        savedCapture === baseline ||
+        savedCapture === comparison ||
+        savedCapture === confirmation;
+      reviewPair.textContent = `${latestIsIncluded ? 'Reviewing these captures:' : `Latest saved: “${savedCapture.name}” (not part of this comparison).\nReviewing an earlier comparison:`}\nBaseline: “${baseline.name}”\nChange: “${comparison.name}”\nBaseline again: ${confirmation ? `“${confirmation.name}”` : 'not recorded yet'}`;
+      const warnings = comparisonWarnings(baseline, comparison);
+      const confirmationWarnings = confirmation
+        ? comparisonWarnings(baseline, confirmation)
+        : [];
+      if (warnings.length || confirmationWarnings.length)
+        reviewMessage.textContent = `Treat this comparison as inconclusive. ${[...new Set([...warnings, ...confirmationWarnings])].join(' ')}`;
+      else if (confirmation && baselineDrift(baseline, confirmation))
+        reviewMessage.textContent =
+          'The repeated baseline drifted. Conditions changed during the test, so repeat before attributing a difference to the selected change. These timings do not identify the cause.';
+      else
+        reviewMessage.textContent = confirmation
+          ? 'The view and settings match, and the repeated baseline is reasonably close. Compare the timings below; repeat the test before choosing an optimization.'
+          : 'The view and settings match. Record the baseline again to check for drift before drawing a conclusion.';
+      if (
+        !baseline.report.gpu.phases.spacecraft ||
+        !comparison.report.gpu.phases.spacecraft
+      )
+        reviewMessage.textContent +=
+          ' GPU timing is unavailable for this pair; smoothness and CPU timing are still useful.';
+    } else {
+      reviewPair.textContent = `Latest saved: “${savedCapture.name}”\nNo complete comparison pair is available yet.`;
+      reviewMessage.textContent =
+        'Capture saved. Choose one change and record it at the same view and capture length. All timings and retained-window details are in Saved captures.';
+    }
+    setCollapsed(false);
     update();
   }
 
-  function startCapture() {
+  function startCapture(
+    kind: 'baseline' | 'comparison' | 'confirmation' | 'custom' = 'custom',
+  ) {
     if (capture || document.hidden) return;
     sequence += 1;
     capture = {
       phase: 'warmup',
-      label: name.value.trim() || `Capture ${sequence}`,
+      label:
+        name.value.trim() ||
+        `${kind === 'baseline' ? 'Baseline' : kind === 'confirmation' ? 'Baseline again' : kind === 'comparison' ? (filterLabel(currentFilter()) === 'Full spacecraft' ? experiments.find(([key]) => key === currentExperiment())![1] : filterLabel(currentFilter())) : 'Custom capture'} ${sequence}`,
       experiment: currentExperiment(),
       deadline: performance.now() + 3_000,
       started: 0,
       startedAt: '',
       settings: {},
       spacecraftFilter: currentFilter(),
+      kind,
+      durationMs: Number(duration.value) * 1000,
     };
     captureTimer = setTimeout(() => {
       if (!capture || destroyed) return;
@@ -774,16 +1054,19 @@ export function mountPerformancePanel({
         );
         return;
       }
+      collector.setWindowSize?.(Math.min(14_400, Number(duration.value) * 240));
       collector.reset('capture started');
       capture.phase = 'recording';
       capture.started = performance.now();
       capture.startedAt = new Date().toISOString();
       capture.settings = { ...getSettings() };
-      capture.deadline = capture.started + 10_000;
-      captureTimer = setTimeout(finishCapture, 10_000);
+      capture.deadline = capture.started + capture.durationMs;
+      captureTimer = setTimeout(finishCapture, capture.durationMs);
       update();
     }, 3_000);
+    setCollapsed(true);
     update();
+    stopRecording.focus({ preventScroll: true });
   }
 
   function serializeReports(includeFrames = true) {
@@ -856,27 +1139,33 @@ export function mountPerformancePanel({
     'keyup',
   ];
   for (const event of blockedEvents) panel.addEventListener(event, stopEvent);
-  collapse.addEventListener('click', () => {
-    body.hidden = !body.hidden;
+  function setCollapsed(value: boolean) {
+    const focusWasInside = body.contains(document.activeElement);
+    body.hidden = value;
     collapse.textContent = body.hidden ? '+' : '−';
     collapse.setAttribute('aria-expanded', String(!body.hidden));
     collapse.setAttribute(
       'aria-label',
       `${body.hidden ? 'Expand' : 'Collapse'} scene diagnostics`,
     );
+    if (value && focusWasInside) collapse.focus({ preventScroll: true });
+    if (!value && document.activeElement === stopRecording)
+      status.focus({ preventScroll: true });
     if (!body.hidden) update();
-  });
+  }
+  collapse.addEventListener('click', () => setCollapsed(!body.hidden));
   experiment.addEventListener('change', () =>
     changeExperiment(experiment.value as Experiment),
   );
-  restore.addEventListener('click', () => {
+  function restoreNormal() {
     if (capture) cancelCapture('Capture cancelled: normal rendering restored.');
     setExperiment('normal');
     setSpacecraftFilter?.({ mode: 'all', id: '' });
     selectedExperiment = 'normal';
     selectedFilter = { mode: 'all', id: '' };
     update();
-  });
+  }
+  restore.addEventListener('click', restoreNormal);
   close.addEventListener('click', () => {
     if (capture) cancelCapture('Capture cancelled: diagnostics closed.');
     onClose?.();
@@ -904,7 +1193,41 @@ export function mountPerformancePanel({
         id: filterGroup.value,
       });
   });
-  record.addEventListener('click', startCapture);
+  record.addEventListener('click', () => {
+    restoreNormal();
+    startCapture('baseline');
+  });
+  confirmBaseline.addEventListener('click', () => {
+    restoreNormal();
+    startCapture('confirmation');
+  });
+  recordComparison.addEventListener('click', () => {
+    if (compareChoice.value !== 'current') {
+      restoreNormal();
+      if (compareChoice.value === 'group')
+        changeFilter({ mode: 'hide', id: compareGroup.value });
+      else changeExperiment(compareChoice.value as Experiment);
+    }
+    startCapture('comparison');
+  });
+  recordCustom.addEventListener('click', () => startCapture('custom'));
+  compareChoice.addEventListener('change', () => {
+    compareGroup.parentElement!.hidden = compareChoice.value !== 'group';
+    updateCaptureControls();
+  });
+  compareGroup.addEventListener('change', updateCaptureControls);
+  stopRecording.addEventListener('click', () => {
+    cancelCapture('Recording stopped. No partial capture was saved.');
+    setCollapsed(false);
+  });
+  for (const details of [
+    advanced,
+    workloadDetails,
+    timingDetails,
+    passDetails,
+    settingsDetails,
+  ])
+    details.addEventListener('toggle', update);
   cancel.addEventListener('click', () => cancelCapture('Capture cancelled.'));
   download.addEventListener('click', exportReports);
   viewReport.addEventListener('click', () => {
@@ -938,6 +1261,7 @@ export function mountPerformancePanel({
   return () => {
     destroyed = true;
     captures.length = 0;
+    collector.setWindowSize?.(1800);
     clearInterval(refresh);
     if (captureTimer !== undefined) clearTimeout(captureTimer);
     for (const timer of revokeTimers) clearTimeout(timer);
@@ -949,3 +1273,8 @@ export function mountPerformancePanel({
     style.remove();
   };
 }
+import {
+  baselineDrift,
+  captureTrend,
+  comparisonWarnings,
+} from './performance-review';

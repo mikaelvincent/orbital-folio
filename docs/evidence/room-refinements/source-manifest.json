@@ -1,0 +1,38 @@
+{
+  "baseline": "Working source before this request; includes performance iterations01 and02. Hashes and patch preserve the design/camera change boundaries independently of earlier uncommitted work.",
+  "files": {
+    "components/about-personal-study.ts": {
+      "beforeSha256": "6cd44889ed24708371b1cc5fefd32d21d40d4c63b28ae7c1153e02837f14ad91",
+      "afterSha256": "e7e7e614f13048af6c5fd32d01f194fffcc454306800e68fae2c73c0844d9239"
+    },
+    "components/cabin-utility-fittings.ts": {
+      "beforeSha256": "89c84596b0d26d9650e18e7abde2eac109279b9010d0e6158c1cc6323ab5b312",
+      "afterSha256": "6a674e58c0c48f33f759d30a29fdfc065c977db2708db0302e87d5fd2eac5f8b"
+    },
+    "components/spacecraft-model.ts": {
+      "beforeSha256": "6ad076a6f309b3c7871f7ab021ab1548f82b4cd7419800abd0050f9dca6eefae",
+      "afterSha256": "2f4432a8db3184668cd387405d93dcc43e56f758902e4dbaced2573b7e0bc8c0"
+    },
+    "components/spacecraft.tsx": {
+      "beforeSha256": "72f47b5774ad54fc4b2da41f96083b970052f66042937b3acfe81469f7d34f61",
+      "afterSha256": "c99646e6589e0cf51be9a69b7027ce45aa2ce32d96b3089704a74da4d3bc4849"
+    },
+    "components/rounded-cabin-interior.ts": {
+      "beforeSha256": null,
+      "afterSha256": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70"
+    },
+    "tests/cabin-utilities.test.mjs": {
+      "beforeSha256": "eb7e03d3ab70d3ea369b465f74aa56edb04d521cf628188524424cd23002369f",
+      "afterSha256": "eb7e03d3ab70d3ea369b465f74aa56edb04d521cf628188524424cd23002369f"
+    },
+    "tests/rounded-cabin-interior.test.mjs": {
+      "beforeSha256": null,
+      "afterSha256": "3d33f419b19fc5d795dd6717dde470037450a30204e4d9f8483c94ec6528f49a"
+    },
+    "tests/tiny-hardware-detail.test.mjs": {
+      "beforeSha256": "b00c4557cf472448ae9aa18655b5ce885a99259d052bef2fba06b780aebfbfce",
+      "afterSha256": "a460ddc8e8802c42c194778c4322b7324212da818005d6cc60ae2c7492ea8cdf"
+    }
+  },
+  "performanceDecision": "No candidate was imported into the production renderer. Rejected prototypes remain under scripts/benchmarks or standalone probe scripts."
+}

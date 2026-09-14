@@ -1,0 +1,15 @@
+{
+  "title": "NASA Blue Marble: Clouds (2002)",
+  "url": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif",
+  "sourceBytes": 35870468,
+  "sourceSha256": "d137775d8966ab8d443fd5126dc6e7ad72072bc1ed50555c5818d221735daf0f",
+  "sourceWidth": 8192,
+  "sourceHeight": 4096,
+  "maskWidth": 2048,
+  "maskHeight": 1024,
+  "maskSha256": "1aa9edbd25f5cfb7630e282b729215134f9230bbb2f20f5b0a79599c64d43b0f",
+  "maskOrientation": "south-to-north rows, -180 to +180 longitude columns",
+  "processing": "sharp 0.35.4, Lanczos3 resize, greyscale, vertical flip; unsigned 8-bit raw data, gzip level 9",
+  "credit": "NASA Goddard Space Flight Center; Reto Stöckli; enhancements by Robert Simmon; MODIS science teams",
+  "note": "Historical satellite composite; derived relief is artistic, not measured altitude."
+}

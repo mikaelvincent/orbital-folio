@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "at": "2026-09-14T07:56:42.176Z",
+  "scope": "CPU correctness: production satellite image loading, color/orientation, cancellation, surface lifetime and transforms; retained reference cloud material/volume, injected atlas, resize/animation, memory accounting, resource disposal, asynchronous delivery/cancellation, small deterministic bakes, satellite-mask conversion, shipped atlas/source hashes and distribution guards, and lossless codec. No full-size field bake, GPU compilation, rendered appearance, thermal or performance claim.",
+  "passed": true,
+  "exitCode": 0,
+  "signal": null,
+  "sources": [
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/orbital-environment.ts",
+      "sha256": "40014c361876b4b914aebeb3f3d2a6cb1f921e7048cb3727dd4d00980fb4f2cd"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/earth-satellite.ts",
+      "sha256": "2066ff6420349f457ba31541a1f8a6530054fe540a0f8ce47cd0619952471f00"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/components/cloud-volume.ts",
+      "sha256": "03bdcb459577948ad7015fdb68e9b4fa3655b91156ab6c0db737bc4f0e4c2df2"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/scripts/benchmarks/satellite-volume-reference.ts",
+      "sha256": "a63bd77b1fc9f55ca8f815a1894893a8a170d28b8ffdfc01d3a4e34cd5401643"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/earth-environment.test.mjs",
+      "sha256": "43cf9087cbfed8c62b8a85bc1c3d9c5a7f68b80782e14120e5cb5e11c2e9bf5d"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/earth-satellite.test.mjs",
+      "sha256": "e65a68c2a0b6f108f3b61907e1aa68e3e4c5813bcb04f16132164e004fd5a703"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field.ts",
+      "sha256": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/satellite-cloud-field.ts",
+      "sha256": "5cfec41b62d6a5282ab81035217148e98ec11d9e536b2be41793c9ceb2ef825d"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/lib/cloud-field-codec.ts",
+      "sha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-environment.test.mjs",
+      "sha256": "163484d159e78ed300848c9f53bf61a4b455a240588a05a0c5863576920413ae"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/cloud-field-codec.test.mjs",
+      "sha256": "9d43b6477d7017931b726a037ba5d2b06b41bdb9949f1d578a00fccaf1ec2fea"
+    },
+    {
+      "path": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/tests/satellite-cloud-field.test.mjs",
+      "sha256": "fae4f3eb0b1ef464cb79ddf76c33b9ba6e520699bc97d2e4602be501238695c2"
+    }
+  ],
+  "stdout": "✔ Small cloud fields are deterministic, nonempty and encode wrapped slopes (4.827417ms)\n✔ Cloud texture preserves bytes, mip/seam settings and bounded volume material (0.446084ms)\n✔ Cloud environment wide: ready, placement, pause, memory and cleanup (14.625334ms)\n✔ Cloud environment compact: ready, placement, pause, memory and cleanup (5.634583ms)\n✔ Malformed injection rejects and disposal prevents a queued installation (5.743ms)\n✔ HTTP already decompressed CFD1 becomes the exact cloud texture (47.070542ms)\n✔ HTTP gzip archive CFD1 becomes the exact cloud texture (52.763625ms)\n✔ Pending fetch aborts and late rejection does not generate or invalidate (2.585209ms)\n✔ CFD1 defines channel order, little-endian dimensions, row resets and wraparound (1.178959ms)\n✔ Random and extreme bytes round-trip across rows, channels, and non-power-of-two sizes (4.738708ms)\n✔ Codec respects typed-array offsets and does not mutate packet bytes (0.082958ms)\n✔ Malformed headers, lengths and dimensions fail before decoding (0.310542ms)\n✔ Satellite environment wide preserves framing, active clock and owns resources (14.873833ms)\n✔ Satellite environment compact preserves framing, active clock and owns resources (5.191125ms)\n✔ Disposal before injected texture installation releases it without invalidating (6.743875ms)\n✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (19.684458ms)\n✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (21.719959ms)\n✔ Earth loader reports missing/invalid transfer size without inventing zero (0.735958ms)\n✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.325375ms)\n✔ Earth loader propagates fetch and decode failures (0.660084ms)\n✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.314334ms)\n✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.406542ms)\n✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.218917ms)\n✔ Texture construction/configuration failure releases owned resources (0.792875ms)\n✔ Texture configuration also supports a caller-owned injected texture (0.050583ms)\n✔ Satellite conversion rejects malformed dimensions and mask payloads (0.795708ms)\n✔ Original mask is preserved, including typed-array offsets, and conversion is deterministic (3.881667ms)\n✔ Ocean gaps stay empty beside bright clouds; north/south orientation is unchanged (0.829541ms)\n✔ Uniform thin, medium, and bright layers have increasing opacity and independently varied height (3.203792ms)\n✔ An isolated bright speck remains lower than a coherent bright core, without enlarging either (3.179042ms)\n✔ Smoothing and all four output channels wrap across longitude without a seam (4.258167ms)\n✔ Shipped satellite atlas matches its source record and preserves ocean gaps, thin clouds, and varied heights (61.011792ms)\nℹ tests 32\nℹ suites 0\nℹ pass 32\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 809.167458\n",
+  "stderr": "",
+  "error": null
+}

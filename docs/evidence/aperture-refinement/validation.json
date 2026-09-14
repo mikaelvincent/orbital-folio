@@ -1,0 +1,38 @@
+{
+  "applicationTests": {
+    "passed": 163,
+    "failed": 0
+  },
+  "focusedPostRefinementTests": {
+    "passed": 13,
+    "failed": 0
+  },
+  "revealGeometryPostRefinementTests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "visualChecks": [
+    "Projects, About, Contact and Case Studies at 1280x720 / DPR2",
+    "Tilted overview including ladder reveal",
+    "390x844 overview and selected Case Studies",
+    "Production 768x1024 overview",
+    "Production Case Studies at native DPR2"
+  ],
+  "portraitArrival": {
+    "duringTravel": {
+      "ariaHidden": true,
+      "opacity": 0
+    },
+    "settled": {
+      "ariaHidden": false
+    }
+  },
+  "productionConsoleErrors": [],
+  "server": "Development server remains available on localhost:3000",
+  "warmedProtocolChecks": {
+    "passed": 9,
+    "scope": "5 synchronous prelude/CPU-boundary tests plus 4 protocol gates; candidate correctness also run before every recorded experiment"
+  }
+}

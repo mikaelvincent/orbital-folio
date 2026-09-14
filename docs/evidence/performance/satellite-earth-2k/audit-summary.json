@@ -1,0 +1,2725 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-09-14T08:03:20.100Z",
+  "method": "Read and recompute every saved frame; no new rendering, timing, or sample exclusions.",
+  "proof": {
+    "allRunsComplete": true,
+    "validGpuQueries": 960,
+    "measuredFramesPerVersionPerViewport": 240,
+    "blocks": 16,
+    "disjointEvents": 0,
+    "missingGpuQueries": 0,
+    "summaryMatchesRawFrames": true,
+    "sameBuildManifestAcrossRuns": true,
+    "snapshotId": "9825b278-de13-4527-b864-1f12abce48b1",
+    "builtAt": "2026-09-14T07:34:32.771Z",
+    "allSourceHashesMatchCurrent": true,
+    "allUsedAssetHashesMatchCurrent": true,
+    "sourceChecks": [
+      {
+        "path": "node_modules/three/build/three.core.js",
+        "expectedBytes": 1443056,
+        "expectedSha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759",
+        "bytes": 1443056,
+        "sha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759",
+        "matches": true
+      },
+      {
+        "path": "node_modules/three/build/three.module.js",
+        "expectedBytes": 650153,
+        "expectedSha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7",
+        "bytes": 650153,
+        "sha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7",
+        "matches": true
+      },
+      {
+        "path": "lib/cloud-field-codec.ts",
+        "expectedBytes": 3371,
+        "expectedSha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347",
+        "bytes": 3371,
+        "sha256": "296cd0d19b64138a4e1cbd388b71e5562a49f164307ac4e2f3f77d310651e347",
+        "matches": true
+      },
+      {
+        "path": "components/cloud-volume.ts",
+        "expectedBytes": 4821,
+        "expectedSha256": "03bdcb459577948ad7015fdb68e9b4fa3655b91156ab6c0db737bc4f0e4c2df2",
+        "bytes": 4821,
+        "sha256": "03bdcb459577948ad7015fdb68e9b4fa3655b91156ab6c0db737bc4f0e4c2df2",
+        "matches": true
+      },
+      {
+        "path": "lib/cloud-field.ts",
+        "expectedBytes": 5911,
+        "expectedSha256": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957",
+        "bytes": 5911,
+        "sha256": "04d9fbc6ac528b5cc85477fa2f96b08003ee7692625e995dfbeb67a756879957",
+        "matches": true
+      },
+      {
+        "path": "scripts/benchmarks/satellite-volume-reference.ts",
+        "expectedBytes": 29739,
+        "expectedSha256": "a63bd77b1fc9f55ca8f815a1894893a8a170d28b8ffdfc01d3a4e34cd5401643",
+        "bytes": 29739,
+        "sha256": "a63bd77b1fc9f55ca8f815a1894893a8a170d28b8ffdfc01d3a4e34cd5401643",
+        "matches": true
+      },
+      {
+        "path": "components/earth-satellite.ts",
+        "expectedBytes": 4651,
+        "expectedSha256": "2066ff6420349f457ba31541a1f8a6530054fe540a0f8ce47cd0619952471f00",
+        "bytes": 4651,
+        "sha256": "2066ff6420349f457ba31541a1f8a6530054fe540a0f8ce47cd0619952471f00",
+        "matches": true
+      },
+      {
+        "path": "components/orbital-environment.ts",
+        "expectedBytes": 27002,
+        "expectedSha256": "40014c361876b4b914aebeb3f3d2a6cb1f921e7048cb3727dd4d00980fb4f2cd",
+        "bytes": 27002,
+        "sha256": "40014c361876b4b914aebeb3f3d2a6cb1f921e7048cb3727dd4d00980fb4f2cd",
+        "matches": true
+      },
+      {
+        "path": "scripts/benchmarks/cloud-browser-lab.ts",
+        "expectedBytes": 27162,
+        "expectedSha256": "c3f538fa27fb05c1a2ab11614ba98cd8e98a21ef606639a84e43acc6a7e37ed2",
+        "bytes": 27162,
+        "sha256": "c3f538fa27fb05c1a2ab11614ba98cd8e98a21ef606639a84e43acc6a7e37ed2",
+        "matches": true
+      }
+    ],
+    "assetChecks": [
+      {
+        "path": "textures/cloud-satellite-v2.cfd.gz",
+        "expectedBytes": 2781463,
+        "expectedSha256": "221a07423e3fe04f2b32f5cd18764db33b4a7dc6c205b7e8a0df1ef39c80738b",
+        "bytes": 2781463,
+        "sha256": "221a07423e3fe04f2b32f5cd18764db33b4a7dc6c205b7e8a0df1ef39c80738b",
+        "matches": true
+      },
+      {
+        "path": "textures/cloud-satellite-v2.json",
+        "expectedBytes": 1290,
+        "expectedSha256": "a00357c8417b81ab1b9887dc1c974f1714f432876e85cc7308c6fb3237a0cba6",
+        "bytes": 1290,
+        "sha256": "a00357c8417b81ab1b9887dc1c974f1714f432876e85cc7308c6fb3237a0cba6",
+        "matches": true
+      },
+      {
+        "path": "textures/earth-blue-marble-2k.jpg",
+        "expectedBytes": 526263,
+        "expectedSha256": "d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5",
+        "bytes": 526263,
+        "sha256": "d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5",
+        "matches": true
+      },
+      {
+        "path": "textures/earth-blue-marble-2k.json",
+        "expectedBytes": 1591,
+        "expectedSha256": "cd3e764c0bf9b027ebfcc17ac67d93f7cd9ae2fc70d0024604783947c609b562",
+        "bytes": 1591,
+        "sha256": "cd3e764c0bf9b027ebfcc17ac67d93f7cd9ae2fc70d0024604783947c609b562",
+        "matches": true
+      }
+    ],
+    "bundleNote": "All exports record identical bundle hashes; this audit does not independently reread frozen server bundle files."
+  },
+  "inputs": [
+    {
+      "file": "desktop-abba.json",
+      "sha256": "af27701d9dbc3ff00bae29abcf0bbd43e416e08ed08c6b978c14778bf717b641"
+    },
+    {
+      "file": "desktop-baab.json",
+      "sha256": "6e28c0bec7c533840975a1ad6d3ba285d9fe49f90d173a69b96e1801fa396974"
+    },
+    {
+      "file": "compact-abba.json",
+      "sha256": "399df7c8546d85cf9386df7e9e56b06c03c3e8dedd6f6cf16d946861525e4ee7"
+    },
+    {
+      "file": "compact-baab.json",
+      "sha256": "9274066b3c572fc31b9aabb32ace030068afd5d794f347b3c9e458f9cbac90c4"
+    },
+    {
+      "file": "thermal-context.jsonl",
+      "sha256": "bdb3179651a9d965ee8ce836ce84c17a5b4fc4c1feb7fa98f1b03672e9d6a924"
+    }
+  ],
+  "runs": [
+    {
+      "name": "desktop-abba",
+      "runId": "b5b15088-2d9f-4b5b-848e-3f09511cdc55",
+      "startedAt": "2026-09-14T07:41:05.555Z",
+      "finishedAt": "2026-09-14T07:42:30.539Z",
+      "configuration": {
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 180,
+        "comparison": {
+          "reference": {
+            "label": "Before — satellite cloud volume",
+            "source": "scripts/benchmarks/satellite-volume-reference.ts",
+            "expectedAsset": "/textures/cloud-satellite-v2.cfd.gz"
+          },
+          "current": {
+            "label": "After — 2K satellite Earth",
+            "source": "components/orbital-environment.ts",
+            "expectedTextureDimensions": [
+              2048,
+              1024
+            ]
+          }
+        },
+        "order": "ABBA",
+        "framesPerBlock": 60,
+        "measuredFramesPerVersion": 120,
+        "warmupFramesPerBlock": 10,
+        "idleRestMs": 20000,
+        "blocks": 4,
+        "frozenView": {
+          "x": 0,
+          "y": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render"
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2560,
+          "height": 1440
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "blocks": [
+        {
+          "index": 0,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:41:25.872Z",
+          "finishedAt": "2026-09-14T07:41:27.041Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 5.573614733333334,
+            "median": 5.450437000000001,
+            "p95": 8.423541,
+            "min": 3.617083,
+            "max": 9.90025
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              97284
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "version": "current",
+          "startedAt": "2026-09-14T07:41:47.044Z",
+          "finishedAt": "2026-09-14T07:41:48.206Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 3.1635570833333335,
+            "median": 2.7974785,
+            "p95": 4.496499,
+            "min": 1.246333,
+            "max": 4.573624
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              72964
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "version": "current",
+          "startedAt": "2026-09-14T07:42:08.210Z",
+          "finishedAt": "2026-09-14T07:42:09.373Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 3.42995365,
+            "median": 2.9556455,
+            "p95": 4.798374,
+            "min": 1.2215,
+            "max": 4.884875
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              72964
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:42:29.375Z",
+          "finishedAt": "2026-09-14T07:42:30.538Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 6.342229400000003,
+            "median": 5.7066455000000005,
+            "p95": 11.67675,
+            "min": 3.675499,
+            "max": 13.024541
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              97284
+            ],
+            "points": [
+              3100
+            ]
+          }
+        }
+      ],
+      "summary": {
+        "reference": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 5.9579220666666695,
+            "median": 5.542999,
+            "p95": 9.511,
+            "min": 3.617083,
+            "max": 13.024541
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.06583333325882752,
+            "median": 0.09999999403953552,
+            "p95": 0.19999999552965164,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.5575000000496705,
+            "median": 0.5,
+            "p95": 0.8999999985098839,
+            "min": 0.29999999701976776,
+            "max": 3.2999999970197678
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.65,
+            "median": 0.6000000014901161,
+            "p95": 1,
+            "min": 0.29999999701976776,
+            "max": 3.399999998509884
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.666949152542472,
+            "median": 16.699999999982538,
+            "p95": 18.60000000000582,
+            "min": 14.60000000000582,
+            "max": 18.70000000001164
+          }
+        },
+        "current": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 3.296755366666667,
+            "median": 2.8824575,
+            "p95": 4.649125,
+            "min": 1.2215,
+            "max": 4.884875
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.04416666670391957,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.5133333333457509,
+            "median": 0.5,
+            "p95": 0.6999999955296516,
+            "min": 0.19999999552965164,
+            "max": 2.8000000044703484
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.5808333333581686,
+            "median": 0.5499999970197678,
+            "p95": 0.7999999970197678,
+            "min": 0.19999999552965164,
+            "max": 2.899999998509884
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.68305084745743,
+            "median": 16.699999999982538,
+            "p95": 18.699999999982538,
+            "min": 14.699999999982538,
+            "max": 18.70000000001164
+          }
+        }
+      },
+      "adjacentPairs": [
+        {
+          "chronologicalBlocks": [
+            0,
+            1
+          ],
+          "beforeBlock": 0,
+          "afterBlock": 1,
+          "beforeGpuMeanMs": 5.573614733333334,
+          "afterGpuMeanMs": 3.1635570833333335,
+          "afterLower": true,
+          "reductionPercent": 43.24047795385834
+        },
+        {
+          "chronologicalBlocks": [
+            2,
+            3
+          ],
+          "beforeBlock": 3,
+          "afterBlock": 2,
+          "beforeGpuMeanMs": 6.342229400000003,
+          "afterGpuMeanMs": 3.42995365,
+          "afterLower": true,
+          "reductionPercent": 45.91880183331119
+        }
+      ],
+      "referenceChronologicalDriftPercent": 13.790236739362749,
+      "referenceSpreadOverMeanPercent": 12.900717029631986,
+      "currentChronologicalDriftPercent": 8.420792154190337,
+      "gpuMeanReductionPercent": 44.66602063979109,
+      "totalCpuMeanChangeMs": -0.06916666664183146,
+      "preparationReusedVersions": []
+    },
+    {
+      "name": "desktop-baab",
+      "runId": "f681daf8-1a60-45dd-8423-4837404804ec",
+      "startedAt": "2026-09-14T07:44:54.360Z",
+      "finishedAt": "2026-09-14T07:46:19.042Z",
+      "configuration": {
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 180,
+        "comparison": {
+          "reference": {
+            "label": "Before — satellite cloud volume",
+            "source": "scripts/benchmarks/satellite-volume-reference.ts",
+            "expectedAsset": "/textures/cloud-satellite-v2.cfd.gz"
+          },
+          "current": {
+            "label": "After — 2K satellite Earth",
+            "source": "components/orbital-environment.ts",
+            "expectedTextureDimensions": [
+              2048,
+              1024
+            ]
+          }
+        },
+        "order": "BAAB",
+        "framesPerBlock": 60,
+        "measuredFramesPerVersion": 120,
+        "warmupFramesPerBlock": 10,
+        "idleRestMs": 20000,
+        "blocks": 4,
+        "frozenView": {
+          "x": 0,
+          "y": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render"
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2560,
+          "height": 1440
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "blocks": [
+        {
+          "index": 0,
+          "version": "current",
+          "startedAt": "2026-09-14T07:45:14.364Z",
+          "finishedAt": "2026-09-14T07:45:15.540Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 3.6158391666666665,
+            "median": 4.004937,
+            "p95": 4.756125,
+            "min": 1.333291,
+            "max": 4.844791
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              72964
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:45:35.544Z",
+          "finishedAt": "2026-09-14T07:45:36.708Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 4.129823816666667,
+            "median": 3.6912494999999996,
+            "p95": 7.35125,
+            "min": 1.980624,
+            "max": 13.552625
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              97284
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:45:56.711Z",
+          "finishedAt": "2026-09-14T07:45:57.875Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 5.247684816666669,
+            "median": 5.2189785,
+            "p95": 6.254791,
+            "min": 3.663541,
+            "max": 9.382041
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              97284
+            ],
+            "points": [
+              3100
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "version": "current",
+          "startedAt": "2026-09-14T07:46:17.878Z",
+          "finishedAt": "2026-09-14T07:46:19.042Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 3.407261299999999,
+            "median": 3.687583,
+            "p95": 4.549833,
+            "min": 1.293,
+            "max": 4.764625
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              72964
+            ],
+            "points": [
+              3100
+            ]
+          }
+        }
+      ],
+      "summary": {
+        "reference": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 4.688754316666664,
+            "median": 4.9540615,
+            "p95": 7.282624,
+            "min": 1.980624,
+            "max": 13.552625
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.03999999991307656,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.10000000149011612
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.44166666648040215,
+            "median": 0.3999999985098839,
+            "p95": 0.6000000014901161,
+            "min": 0.10000000149011612,
+            "max": 0.7999999970197678
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.49749999977648257,
+            "median": 0.5,
+            "p95": 0.6999999955296516,
+            "min": 0.20000000298023224,
+            "max": 0.8999999985098839
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.68305084745743,
+            "median": 16.70000000001164,
+            "p95": 18.699999999953434,
+            "min": 14.599999999976717,
+            "max": 18.70000000001164
+          }
+        },
+        "current": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 3.511550233333334,
+            "median": 3.8503955,
+            "p95": 4.71475,
+            "min": 1.293,
+            "max": 4.844791
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.03333333351959785,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.10000000149011612
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.4083333333333333,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 1.6999999955296516
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.46250000037252903,
+            "median": 0.4000000059604645,
+            "p95": 0.6000000014901161,
+            "min": 0.19999999552965164,
+            "max": 1.8999999985098839
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.695762711864703,
+            "median": 16.699999999953434,
+            "p95": 18.699999999953434,
+            "min": 14.5,
+            "max": 18.70000000001164
+          }
+        }
+      },
+      "adjacentPairs": [
+        {
+          "chronologicalBlocks": [
+            0,
+            1
+          ],
+          "beforeBlock": 1,
+          "afterBlock": 0,
+          "beforeGpuMeanMs": 4.129823816666667,
+          "afterGpuMeanMs": 3.6158391666666665,
+          "afterLower": true,
+          "reductionPercent": 12.445679835680167
+        },
+        {
+          "chronologicalBlocks": [
+            2,
+            3
+          ],
+          "beforeBlock": 2,
+          "afterBlock": 3,
+          "beforeGpuMeanMs": 5.247684816666669,
+          "afterGpuMeanMs": 3.407261299999999,
+          "afterLower": true,
+          "reductionPercent": 35.071151964414426
+        }
+      ],
+      "referenceChronologicalDriftPercent": 27.068007005254515,
+      "referenceSpreadOverMeanPercent": 23.841321692340507,
+      "currentChronologicalDriftPercent": -5.768449785861163,
+      "gpuMeanReductionPercent": 25.106968798702788,
+      "totalCpuMeanChangeMs": -0.03499999940395354,
+      "preparationReusedVersions": [
+        "reference",
+        "current"
+      ]
+    },
+    {
+      "name": "compact-abba",
+      "runId": "5b7e6939-9002-4f2d-ab40-26f1188e436a",
+      "startedAt": "2026-09-14T07:47:30.922Z",
+      "finishedAt": "2026-09-14T07:48:55.775Z",
+      "configuration": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "mobile": true,
+        "frozenTime": 180,
+        "comparison": {
+          "reference": {
+            "label": "Before — satellite cloud volume",
+            "source": "scripts/benchmarks/satellite-volume-reference.ts",
+            "expectedAsset": "/textures/cloud-satellite-v2.cfd.gz"
+          },
+          "current": {
+            "label": "After — 2K satellite Earth",
+            "source": "components/orbital-environment.ts",
+            "expectedTextureDimensions": [
+              2048,
+              1024
+            ]
+          }
+        },
+        "order": "ABBA",
+        "framesPerBlock": 60,
+        "measuredFramesPerVersion": 120,
+        "warmupFramesPerBlock": 10,
+        "idleRestMs": 20000,
+        "blocks": 4,
+        "frozenView": {
+          "x": 0,
+          "y": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render"
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 390,
+          "height": 844
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "blocks": [
+        {
+          "index": 0,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:47:51.115Z",
+          "finishedAt": "2026-09-14T07:47:52.275Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.9532481833333333,
+            "median": 0.8018114999999999,
+            "p95": 1.678375,
+            "min": 0.360375,
+            "max": 3.167875
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              48388
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "version": "current",
+          "startedAt": "2026-09-14T07:48:12.277Z",
+          "finishedAt": "2026-09-14T07:48:13.442Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.47604806666666666,
+            "median": 0.427041,
+            "p95": 0.996499,
+            "min": 0.149499,
+            "max": 1.42875
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              36292
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "version": "current",
+          "startedAt": "2026-09-14T07:48:33.445Z",
+          "finishedAt": "2026-09-14T07:48:34.609Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.44463215000000006,
+            "median": 0.41072850000000005,
+            "p95": 0.7735,
+            "min": 0.153458,
+            "max": 1.145916
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              36292
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:48:54.612Z",
+          "finishedAt": "2026-09-14T07:48:55.775Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.7832272999999998,
+            "median": 0.7159165000000001,
+            "p95": 1.48975,
+            "min": 0.34725,
+            "max": 1.712625
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              48388
+            ],
+            "points": [
+              2300
+            ]
+          }
+        }
+      ],
+      "summary": {
+        "reference": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 0.8682377416666668,
+            "median": 0.7496245,
+            "p95": 1.631833,
+            "min": 0.34725,
+            "max": 3.167875
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.05583333348234495,
+            "median": 0,
+            "p95": 0.20000000298023224,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.4533333331346512,
+            "median": 0.4000000059604645,
+            "p95": 0.7999999970197678,
+            "min": 0,
+            "max": 0.8999999985098839
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.5291666666666667,
+            "median": 0.5,
+            "p95": 0.8000000044703484,
+            "min": 0.10000000149011612,
+            "max": 1.1999999955296516
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.665254237288107,
+            "median": 16.69999999999709,
+            "p95": 18.700000000000728,
+            "min": 14.599999999991269,
+            "max": 18.700000000000728
+          }
+        },
+        "current": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 0.46034010833333333,
+            "median": 0.42333299999999996,
+            "p95": 0.996499,
+            "min": 0.149499,
+            "max": 1.42875
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.05416666666666667,
+            "median": 0.04999999701976776,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.20000000298023224
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.4900000000372529,
+            "median": 0.5,
+            "p95": 0.6999999955296516,
+            "min": 0.29999999701976776,
+            "max": 0.7000000029802322
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.566666666418314,
+            "median": 0.5999999940395355,
+            "p95": 0.7000000029802322,
+            "min": 0.3999999985098839,
+            "max": 0.8999999985098839
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.66694915254241,
+            "median": 16.69999999999709,
+            "p95": 18.69999999999709,
+            "min": 14.599999999998545,
+            "max": 18.700000000004366
+          }
+        }
+      },
+      "adjacentPairs": [
+        {
+          "chronologicalBlocks": [
+            0,
+            1
+          ],
+          "beforeBlock": 0,
+          "afterBlock": 1,
+          "beforeGpuMeanMs": 0.9532481833333333,
+          "afterGpuMeanMs": 0.47604806666666666,
+          "afterLower": true,
+          "reductionPercent": 50.06042760008057
+        },
+        {
+          "chronologicalBlocks": [
+            2,
+            3
+          ],
+          "beforeBlock": 3,
+          "afterBlock": 2,
+          "beforeGpuMeanMs": 0.7832272999999998,
+          "afterGpuMeanMs": 0.44463215000000006,
+          "afterLower": true,
+          "reductionPercent": 43.23076455583199
+        }
+      ],
+      "referenceChronologicalDriftPercent": -17.835951466364374,
+      "referenceSpreadOverMeanPercent": 19.582295859076783,
+      "currentChronologicalDriftPercent": -6.599316091470298,
+      "gpuMeanReductionPercent": 46.97994728383199,
+      "totalCpuMeanChangeMs": 0.037499999751647306,
+      "preparationReusedVersions": []
+    },
+    {
+      "name": "compact-baab",
+      "runId": "941d73f6-f530-4b8e-bf83-4a490dfdfded",
+      "startedAt": "2026-09-14T07:50:10.328Z",
+      "finishedAt": "2026-09-14T07:51:34.994Z",
+      "configuration": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "mobile": true,
+        "frozenTime": 180,
+        "comparison": {
+          "reference": {
+            "label": "Before — satellite cloud volume",
+            "source": "scripts/benchmarks/satellite-volume-reference.ts",
+            "expectedAsset": "/textures/cloud-satellite-v2.cfd.gz"
+          },
+          "current": {
+            "label": "After — 2K satellite Earth",
+            "source": "components/orbital-environment.ts",
+            "expectedTextureDimensions": [
+              2048,
+              1024
+            ]
+          }
+        },
+        "order": "BAAB",
+        "framesPerBlock": 60,
+        "measuredFramesPerVersion": 120,
+        "warmupFramesPerBlock": 10,
+        "idleRestMs": 20000,
+        "blocks": 4,
+        "frozenView": {
+          "x": 0,
+          "y": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render"
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 390,
+          "height": 844
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "blocks": [
+        {
+          "index": 0,
+          "version": "current",
+          "startedAt": "2026-09-14T07:50:30.331Z",
+          "finishedAt": "2026-09-14T07:50:31.493Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.5001391166666667,
+            "median": 0.41674999999999995,
+            "p95": 1.131999,
+            "min": 0.196,
+            "max": 1.411374
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              36292
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:50:51.494Z",
+          "finishedAt": "2026-09-14T07:50:52.660Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.8196377166666667,
+            "median": 0.6892915,
+            "p95": 1.654125,
+            "min": 0.346375,
+            "max": 2.021916
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              48388
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "version": "reference",
+          "startedAt": "2026-09-14T07:51:12.663Z",
+          "finishedAt": "2026-09-14T07:51:13.826Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.7191571500000001,
+            "median": 0.6427075,
+            "p95": 1.298874,
+            "min": 0.339375,
+            "max": 1.791499
+          },
+          "counts": {
+            "calls": [
+              7
+            ],
+            "triangles": [
+              48388
+            ],
+            "points": [
+              2300
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "version": "current",
+          "startedAt": "2026-09-14T07:51:33.829Z",
+          "finishedAt": "2026-09-14T07:51:34.993Z",
+          "gpuMs": {
+            "count": 60,
+            "mean": 0.48226198333333337,
+            "median": 0.4187285,
+            "p95": 1.332958,
+            "min": 0.168416,
+            "max": 1.527249
+          },
+          "counts": {
+            "calls": [
+              6
+            ],
+            "triangles": [
+              36292
+            ],
+            "points": [
+              2300
+            ]
+          }
+        }
+      ],
+      "summary": {
+        "reference": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 0.7693974333333331,
+            "median": 0.6683950000000001,
+            "p95": 1.613666,
+            "min": 0.339375,
+            "max": 2.021916
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.03833333365619183,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.10000000149011612
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.42749999966472385,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.48833333334575096,
+            "median": 0.5,
+            "p95": 0.6000000014901161,
+            "min": 0.29999999701976776,
+            "max": 0.7000000029802322
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.666949152542227,
+            "median": 16.69999999999709,
+            "p95": 18.60000000000582,
+            "min": 14.599999999976717,
+            "max": 18.70000000001164
+          }
+        },
+        "current": {
+          "gpuMs": {
+            "count": 120,
+            "mean": 0.4912005499999998,
+            "median": 0.41674999999999995,
+            "p95": 1.185374,
+            "min": 0.168416,
+            "max": 1.527249
+          },
+          "updateCpuMs": {
+            "count": 120,
+            "mean": 0.029166666604578496,
+            "median": 0,
+            "p95": 0.10000000149011612,
+            "min": 0,
+            "max": 0.19999999552965164
+          },
+          "renderCpuMs": {
+            "count": 120,
+            "mean": 0.39500000004967056,
+            "median": 0.3999999985098839,
+            "p95": 0.5,
+            "min": 0.19999999552965164,
+            "max": 0.6000000014901161
+          },
+          "totalCpuMs": {
+            "count": 120,
+            "mean": 0.44750000002483525,
+            "median": 0.4000000059604645,
+            "p95": 0.6000000014901161,
+            "min": 0.19999999552965164,
+            "max": 0.7000000029802322
+          },
+          "frameIntervalMs": {
+            "count": 118,
+            "mean": 16.683050847457675,
+            "median": 16.699999999982538,
+            "p95": 18.60000000000582,
+            "min": 14.699999999982538,
+            "max": 18.70000000001164
+          }
+        }
+      },
+      "adjacentPairs": [
+        {
+          "chronologicalBlocks": [
+            0,
+            1
+          ],
+          "beforeBlock": 1,
+          "afterBlock": 0,
+          "beforeGpuMeanMs": 0.8196377166666667,
+          "afterGpuMeanMs": 0.5001391166666667,
+          "afterLower": true,
+          "reductionPercent": 38.980465820844465
+        },
+        {
+          "chronologicalBlocks": [
+            2,
+            3
+          ],
+          "beforeBlock": 2,
+          "afterBlock": 3,
+          "beforeGpuMeanMs": 0.7191571500000001,
+          "afterGpuMeanMs": 0.48226198333333337,
+          "afterLower": true,
+          "reductionPercent": 32.94066765054991
+        }
+      ],
+      "referenceChronologicalDriftPercent": -12.259143841660281,
+      "referenceSpreadOverMeanPercent": 13.059644120639332,
+      "currentChronologicalDriftPercent": -3.57443214049743,
+      "gpuMeanReductionPercent": 36.157760772358536,
+      "totalCpuMeanChangeMs": -0.04083333332091571,
+      "preparationReusedVersions": [
+        "reference",
+        "current"
+      ]
+    }
+  ],
+  "preparations": [
+    {
+      "firstSeenIn": "desktop-abba",
+      "record": {
+        "version": "reference",
+        "startedAt": "2026-09-14T07:41:05.557Z",
+        "trigger": "comparison",
+        "moduleImportWallMs": 4.199999995529652,
+        "factoryCpuMs": 15,
+        "readyWaitWallMs": 67,
+        "compileAsyncWallMs": 16.5,
+        "firstRenderCpuMs": 25.099999994039536,
+        "firstSubmittedFrameWallMs": 130.69999999552965,
+        "firstRenderGpuMs": 7.543791,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "procedural-water",
+          "earthRotation": 0.54,
+          "cloudRotation": 1.296,
+          "cloudMorphTime": 0,
+          "earthRotationRate": 0.003,
+          "cloudRotationRate": 0.0072,
+          "cloudFieldSamples": 12,
+          "cloudInterpolation": "rgba8-gradient-mips-anisotropy-4",
+          "cloudWeatherModel": "satellite-scattered-variable-depth",
+          "cloudLightingModel": "spherical-height-volume-optical-depth-baked-slopes",
+          "cloudSunProbes": 0,
+          "cloudMorph": [
+            0,
+            0,
+            0
+          ],
+          "cloudReady": true,
+          "cloudSource": "developer-baked-atlas",
+          "cloudLoadError": null,
+          "cloudFieldFetchMs": 13.800000004470348,
+          "cloudFieldDecodeMs": 65.30000000447035,
+          "cloudFieldGenerationMs": 0,
+          "cloudFieldReadyMs": 79.59999999403954,
+          "cloudEncodedBytes": 2781463,
+          "cloudResponseBytes": 2781463,
+          "starCount": 3100,
+          "starBufferBytes": 136400,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 2048,
+          "dayTextureSize": 0,
+          "cloudTextureSize": 2048,
+          "proceduralTextureBytes": 8519680,
+          "proceduralTextureGpuBytes": 11359576,
+          "proceduralGenerationMs": 8.1,
+          "proceduralNoiseDimensions": [
+            2048,
+            1024
+          ],
+          "proceduralNoiseFormat": "RGBA8",
+          "proceduralNoiseMipBytes": 11184812,
+          "proceduralNoiseMipLevels": 12,
+          "nebulaDimensions": [
+            256,
+            128
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 10.8333,
+          "earthRadius": 180,
+          "earthPosition": [
+            -35.47595482077385,
+            -195.71853949523836,
+            -77.72328445216223
+          ],
+          "drawCallBudget": 15
+        }
+      }
+    },
+    {
+      "firstSeenIn": "desktop-abba",
+      "record": {
+        "version": "current",
+        "startedAt": "2026-09-14T07:41:05.706Z",
+        "trigger": "comparison",
+        "moduleImportWallMs": 2.7000000029802322,
+        "factoryCpuMs": 36.5,
+        "readyWaitWallMs": 60.5,
+        "compileAsyncWallMs": 15.799999997019768,
+        "firstRenderCpuMs": 9.799999997019768,
+        "firstSubmittedFrameWallMs": 125.79999999701977,
+        "firstRenderGpuMs": 8.27225,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "satellite-land-ocean-clouds",
+          "earthSource": "local-satellite-image",
+          "earthLoadError": null,
+          "earthRotation": 0.54,
+          "earthRotationRate": 0.003,
+          "earthTextureFetchMs": 2.399999998509884,
+          "earthTextureDecodeMs": 58.19999999552965,
+          "earthTextureReadyMs": 96.70000000298023,
+          "earthEncodedBytes": 526263,
+          "earthResponseBytes": 526263,
+          "earthTextureDimensions": [
+            2048,
+            1024
+          ],
+          "earthTextureBytes": 8388608,
+          "earthTextureGpuBytes": 11184812,
+          "earthTextureSamples": 1,
+          "cloudRotation": 0.54,
+          "cloudRotationRate": 0.003,
+          "cloudFieldSamples": 0,
+          "cloudWeatherModel": "combined-satellite-image",
+          "cloudLightingModel": "photographic-clouds-diffuse-globe",
+          "cloudReady": true,
+          "cloudTextureSize": 0,
+          "starCount": 3100,
+          "starBufferBytes": 136400,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 2048,
+          "dayTextureSize": 2048,
+          "proceduralTextureBytes": 131072,
+          "proceduralTextureGpuBytes": 174764,
+          "proceduralGenerationMs": 19.4,
+          "nebulaDimensions": [
+            256,
+            128
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 10.8333,
+          "earthRadius": 180,
+          "earthPosition": [
+            -35.47595482077385,
+            -195.71853949523836,
+            -77.72328445216223
+          ],
+          "drawCallBudget": 14
+        }
+      }
+    },
+    {
+      "firstSeenIn": "compact-abba",
+      "record": {
+        "version": "reference",
+        "startedAt": "2026-09-14T07:47:30.922Z",
+        "trigger": "comparison",
+        "moduleImportWallMs": 5.700000002980232,
+        "factoryCpuMs": 11,
+        "readyWaitWallMs": 38.5,
+        "compileAsyncWallMs": 13.199999995529652,
+        "firstRenderCpuMs": 8.899999998509884,
+        "firstSubmittedFrameWallMs": 94.20000000298023,
+        "firstRenderGpuMs": 3.412999,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "procedural-water",
+          "earthRotation": 0.54,
+          "cloudRotation": 1.296,
+          "cloudMorphTime": 0,
+          "earthRotationRate": 0.003,
+          "cloudRotationRate": 0.0072,
+          "cloudFieldSamples": 12,
+          "cloudInterpolation": "rgba8-gradient-mips-anisotropy-4",
+          "cloudWeatherModel": "satellite-scattered-variable-depth",
+          "cloudLightingModel": "spherical-height-volume-optical-depth-baked-slopes",
+          "cloudSunProbes": 0,
+          "cloudMorph": [
+            0,
+            0,
+            0
+          ],
+          "cloudReady": true,
+          "cloudSource": "developer-baked-atlas",
+          "cloudLoadError": null,
+          "cloudFieldFetchMs": 21.5,
+          "cloudFieldDecodeMs": 27.099999994039536,
+          "cloudFieldGenerationMs": 0,
+          "cloudFieldReadyMs": 49,
+          "cloudEncodedBytes": 2781463,
+          "cloudResponseBytes": 2781463,
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 2048,
+          "dayTextureSize": 0,
+          "cloudTextureSize": 2048,
+          "proceduralTextureBytes": 8421376,
+          "proceduralTextureGpuBytes": 11228504,
+          "proceduralGenerationMs": 4.3,
+          "proceduralNoiseDimensions": [
+            2048,
+            1024
+          ],
+          "proceduralNoiseFormat": "RGBA8",
+          "proceduralNoiseMipBytes": 11184812,
+          "proceduralNoiseMipLevels": 12,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 10.7083,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 15
+        }
+      }
+    },
+    {
+      "firstSeenIn": "compact-abba",
+      "record": {
+        "version": "current",
+        "startedAt": "2026-09-14T07:47:31.035Z",
+        "trigger": "comparison",
+        "moduleImportWallMs": 1.8999999985098839,
+        "factoryCpuMs": 5.899999998509884,
+        "readyWaitWallMs": 19.30000000447035,
+        "compileAsyncWallMs": 11.599999994039536,
+        "firstRenderCpuMs": 3.100000001490116,
+        "firstSubmittedFrameWallMs": 58.5,
+        "firstRenderGpuMs": 1.902291,
+        "firstRenderGpuStatus": "valid",
+        "environmentDiagnostics": {
+          "activeTime": 180,
+          "ready": true,
+          "earthReady": true,
+          "earthMode": "satellite-land-ocean-clouds",
+          "earthSource": "local-satellite-image",
+          "earthLoadError": null,
+          "earthRotation": 0.54,
+          "earthRotationRate": 0.003,
+          "earthTextureFetchMs": 3.5,
+          "earthTextureDecodeMs": 16.200000002980232,
+          "earthTextureReadyMs": 24.900000005960464,
+          "earthEncodedBytes": 526263,
+          "earthResponseBytes": 526263,
+          "earthTextureDimensions": [
+            2048,
+            1024
+          ],
+          "earthTextureBytes": 8388608,
+          "earthTextureGpuBytes": 11184812,
+          "earthTextureSamples": 1,
+          "cloudRotation": 0.54,
+          "cloudRotationRate": 0.003,
+          "cloudFieldSamples": 0,
+          "cloudWeatherModel": "combined-satellite-image",
+          "cloudLightingModel": "photographic-clouds-diffuse-globe",
+          "cloudReady": true,
+          "cloudTextureSize": 0,
+          "starCount": 2300,
+          "starBufferBytes": 101200,
+          "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+          "starTwinklePrimaryFrequencyRange": [
+            0.45,
+            2.65
+          ],
+          "starTwinkleSecondaryFrequencyRange": [
+            0.2,
+            1.8
+          ],
+          "starTwinkleAmplitudeRange": [
+            0.1,
+            0.55
+          ],
+          "meteorCapacity": 9,
+          "meteorTimingBanks": 3,
+          "meteorCreationFrequencyMultiplier": 3,
+          "meteorBankPeriod": 4.5,
+          "meteorGroupInterval": [
+            0.14,
+            4.38
+          ],
+          "meteorPairEveryGroups": 2,
+          "meteorTripleEveryGroups": 7,
+          "meteorAlignedShowerEveryCycles": 14,
+          "meteorGroupSize": 2,
+          "meteorGroupHasPair": true,
+          "meteorCount": 1,
+          "meteorPhases": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.8561872118171588,
+            0
+          ],
+          "meteorStreams": [
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.19570472805208,
+              "duration": 1.4818623983881478,
+              "nextAt": 180.66254701847095,
+              "cycle": 39,
+              "bank": 0,
+              "member": 0,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.24545032571663797,
+                0.7766174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.37864943737048,
+              "duration": 1.4783212451649888,
+              "nextAt": 185.40662985548522,
+              "cycle": 39,
+              "bank": 0,
+              "member": 1,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.25945032571663795,
+                0.7626174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 176.5615941466889,
+              "duration": 1.154652343978705,
+              "nextAt": 203.6867256320917,
+              "cycle": 39,
+              "bank": 0,
+              "member": 2,
+              "groupId": 117,
+              "parallel": true,
+              "origin": [
+                0.27345032571663797,
+                0.7486174769739155
+              ],
+              "direction": [
+                0.4927823031254931,
+                -0.8701526312816245
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.50498644568174,
+              "duration": 1.4233460777250002,
+              "nextAt": 182.00112770814218,
+              "cycle": 39,
+              "bank": 1,
+              "member": 0,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.29799600238138735,
+                0.5555927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 177.75648606372653,
+              "duration": 1.4567612887392896,
+              "nextAt": 186.6232624146373,
+              "cycle": 39,
+              "bank": 1,
+              "member": 1,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.31199600238138736,
+                0.5415927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.00798568177134,
+              "duration": 1.174533675260318,
+              "nextAt": 203.8313916151147,
+              "cycle": 39,
+              "bank": 1,
+              "member": 2,
+              "groupId": 118,
+              "parallel": true,
+              "origin": [
+                0.3259960023813874,
+                0.5275927968368632
+              ],
+              "direction": [
+                0.9281766541321625,
+                0.3721398913366099
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 178.75201990878966,
+              "duration": 1.182495441152423,
+              "nextAt": 183.198783696614,
+              "cycle": 39,
+              "bank": 2,
+              "member": 0,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.21293985878819513,
+                0.8004886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": true,
+              "phase": 0.8561872118171588,
+              "startAt": 178.98784519116612,
+              "duration": 1.1821652961689324,
+              "nextAt": 188.00255832774872,
+              "cycle": 39,
+              "bank": 2,
+              "member": 1,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.22693985878819514,
+                0.7864886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            },
+            {
+              "visible": false,
+              "phase": 0,
+              "startAt": 179.2236704735426,
+              "duration": 1.3704092465006397,
+              "nextAt": 203.93023318192456,
+              "cycle": 39,
+              "bank": 2,
+              "member": 2,
+              "groupId": 119,
+              "parallel": true,
+              "origin": [
+                0.24093985878819513,
+                0.7724886915092357
+              ],
+              "direction": [
+                0.9576126219965609,
+                -0.28805913662453325
+              ]
+            }
+          ],
+          "meteorPhase": 0.8561872118171588,
+          "meteorCycle": 39,
+          "meteorVisible": true,
+          "textureSize": 2048,
+          "dayTextureSize": 2048,
+          "proceduralTextureBytes": 32768,
+          "proceduralTextureGpuBytes": 43692,
+          "proceduralGenerationMs": 2.3,
+          "nebulaDimensions": [
+            128,
+            64
+          ],
+          "externalTextureRequests": 1,
+          "estimatedTextureMiB": 10.7083,
+          "earthRadius": 180,
+          "earthPosition": [
+            -94.35802770540113,
+            -247.33992051593836,
+            -331.53813527139283
+          ],
+          "drawCallBudget": 14
+        }
+      }
+    }
+  ],
+  "storage": {
+    "beforeAssetBytes": 2781463,
+    "afterAssetBytes": 526263,
+    "transferBytesSaved": 2255200,
+    "transferReductionPercent": 81.07963327213052,
+    "beforeEstimatedRgba8Bytes": 8388608,
+    "afterEstimatedRgba8Bytes": 8388608,
+    "beforeEstimatedRgba8MipBytes": 11184812,
+    "afterEstimatedRgba8MipBytes": 11184812,
+    "totalBackgroundTextureMipBytes": {
+      "desktop": 11359576,
+      "compact": 11228504
+    },
+    "note": "Both designs use one 2048×1024 RGBA8-sized Earth/cloud texture payload. Storage estimates include mip levels, not driver padding or decoded CPU image allocation. Asset bytes are file/HTTP payload, not a bandwidth timing."
+  },
+  "thermal": {
+    "records": 10,
+    "states": {
+      "fair": 1,
+      "nominal": 9
+    },
+    "allLowPowerModeOff": true,
+    "allACCharging": true,
+    "setupReading": {
+      "at": "2026-09-14T07:38:24.632Z",
+      "phase": "setup-complete",
+      "native": {
+        "lowPowerMode": false,
+        "osVersion": "Version 26.6.2 (Build 25G83)",
+        "sampleDurationMs": 4.659208338125609,
+        "schemaVersion": 1,
+        "thermalSource": "ProcessInfo.thermalState",
+        "thermalState": "fair",
+        "thermalStateDoesNotMeasureTemperature": true,
+        "thermalStateRaw": 1,
+        "timestamp": "2026-09-14T07:38:24Z",
+        "uptimeSeconds": 36385.237915708334
+      },
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t59%; charging; 1:02 remaining present: true\n"
+    },
+    "firstNominalReading": {
+      "at": "2026-09-14T07:40:17.647Z",
+      "phase": "idle-check-1",
+      "native": {
+        "lowPowerMode": false,
+        "osVersion": "Version 26.6.2 (Build 25G83)",
+        "sampleDurationMs": 3.0771250021643937,
+        "schemaVersion": 1,
+        "thermalSource": "ProcessInfo.thermalState",
+        "thermalState": "nominal",
+        "thermalStateDoesNotMeasureTemperature": true,
+        "thermalStateRaw": 0,
+        "timestamp": "2026-09-14T07:40:17Z",
+        "uptimeSeconds": 36498.24965483334
+      },
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t61%; charging; 1:05 remaining present: true\n"
+    },
+    "runBrackets": [
+      {
+        "name": "desktop-abba",
+        "beforeFirstMeasuredBlock": {
+          "at": "2026-09-14T07:40:58.326Z",
+          "phase": "desktop-abba-before",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.243541665142402,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:40:58Z",
+            "uptimeSeconds": 36538.927532875
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t62%; charging; 1:07 remaining present: true\n"
+        },
+        "afterRun": {
+          "at": "2026-09-14T07:44:22.821Z",
+          "phase": "desktop-abba-after",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.1394166726386175,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:44:22Z",
+            "uptimeSeconds": 36743.421517166666
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t66%; charging; 1:08 remaining present: true\n"
+        }
+      },
+      {
+        "name": "desktop-baab",
+        "beforeFirstMeasuredBlock": {
+          "at": "2026-09-14T07:45:12.390Z",
+          "phase": "desktop-baab-initial-rest",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.217916666471865,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:45:12Z",
+            "uptimeSeconds": 36792.98999516667
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t67%; charging; 1:06 remaining present: true\n"
+        },
+        "afterRun": {
+          "at": "2026-09-14T07:47:15.289Z",
+          "phase": "desktop-baab-after",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.0864166692481376,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:47:15Z",
+            "uptimeSeconds": 36915.88783425
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t69%; charging; 1:02 remaining present: true\n"
+        }
+      },
+      {
+        "name": "compact-abba",
+        "beforeFirstMeasuredBlock": {
+          "at": "2026-09-14T07:47:39.402Z",
+          "phase": "compact-abba-initial-rest",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.36099999549333,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:47:39Z",
+            "uptimeSeconds": 36939.99997541667
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t70%; charging; 1:00 remaining present: true\n"
+        },
+        "afterRun": {
+          "at": "2026-09-14T07:50:01.130Z",
+          "phase": "compact-abba-after",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.2558750026510097,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:50:01Z",
+            "uptimeSeconds": 37081.72642566667
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t73%; charging; 0:57 remaining present: true\n"
+        }
+      },
+      {
+        "name": "compact-baab",
+        "beforeFirstMeasuredBlock": {
+          "at": "2026-09-14T07:50:16.377Z",
+          "phase": "compact-baab-initial-rest",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.0475000021397136,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:50:16Z",
+            "uptimeSeconds": 37096.973255958335
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t73%; charging; 0:57 remaining present: true\n"
+        },
+        "afterRun": {
+          "at": "2026-09-14T07:52:38.245Z",
+          "phase": "compact-baab-after",
+          "native": {
+            "lowPowerMode": false,
+            "osVersion": "Version 26.6.2 (Build 25G83)",
+            "sampleDurationMs": 3.2368333340855315,
+            "schemaVersion": 1,
+            "thermalSource": "ProcessInfo.thermalState",
+            "thermalState": "nominal",
+            "thermalStateDoesNotMeasureTemperature": true,
+            "thermalStateRaw": 0,
+            "timestamp": "2026-09-14T07:52:38Z",
+            "uptimeSeconds": 37238.839974208335
+          },
+          "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t75%; charging; 1:02 remaining present: true\n"
+        }
+      }
+    ],
+    "note": "Ten intermittent snapshots: one fair during setup, nine nominal afterward. No continuous temperature or GPU-clock observation; several before readings occur during initial blank rest rather than before preparation."
+  },
+  "interpretation": {
+    "allFourRunGpuMeansLower": true,
+    "allEightAdjacentPairGpuMeansLower": true,
+    "stableUniversalPercentEstablished": false,
+    "siteFpsOrEnergyImprovementMeasured": false,
+    "notes": [
+      "This is the final visible redesign cost comparison: new combined image, Lambert surface and geographic tilt (-1.2,-1.05,.18), replacing separate ocean and volume with prior tilt (-.6,1.3,.18). Same globe position/radius, camera and surface rotation rate; clouds now share surface rotation. It is not an identical-pixel shader-only test.",
+      "Reference chronological drift spans about 12–27% in magnitude. Counterbalanced orders and all eight local pairs favor the candidate, but frames are correlated and two orders per viewport do not establish a precise universal saving.",
+      "CPU submission has coarse browser timer granularity. Compact ABBA has a higher current mean; no consistent CPU or full-site FPS conclusion is claimed.",
+      "Background-only measurements exclude spacecraft, UI, camera travel, sustained heat, power and battery. Compact is the same Mac with a small viewport, not a physical phone. The browser is Chromium, not Safari.",
+      "Startup records are four unique first constructions reused in BAAB exports. Fixed reference-then-current order and local caches prevent cold-load claims. factoryCpuMs is synchronous wall time, and first submitted frame is not a presentation timestamp.",
+      "Nominal pressure plus fixed idle periods does not prove a fully cooled device or fixed clock speed; all raw observations are retained."
+    ]
+  }
+}

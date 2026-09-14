@@ -1,0 +1,2043 @@
+{
+  "recordedAt": "2026-09-14T04:07:10.277Z",
+  "status": "interrupted",
+  "config": {
+    "selected": [
+      "local-matrix",
+      "lighting-settled",
+      "lighting-changing",
+      "iris-settled",
+      "iris-moving",
+      "indexing-startup"
+    ],
+    "blocks": 4,
+    "burstMs": 120,
+    "initialRestMs": 60000,
+    "sampleRestMs": 1000,
+    "blockRestMs": 20000,
+    "controlRestMs": 10000,
+    "recoveryRestMs": 60000,
+    "thermalPollMs": 5000,
+    "maxCoolPolls": 12,
+    "maxAttempts": 2,
+    "driftLimit": 0.05,
+    "seed": 20260914,
+    "thermalGate": "nominal-required",
+    "telemetryArgv": [
+      "/tmp/orbital-folio-mac-thermal-snapshot"
+    ],
+    "contextTelemetryArgv": [
+      "/tmp/orbital-folio-mac-thermal-snapshot",
+      "--pmset",
+      "--settings"
+    ],
+    "notes": "Agent rendering tabs closed, production preview stopped, builds/tests finished before setup. Dev server3000 retained idle for user. Nominal OS thermal pressure observed before run; machine on battery, Low Power Mode disabled. Ambient temperature and other user workloads are not instrumented.",
+    "gc": "before-block; before-every-startup-sample; outside-timer"
+  },
+  "schedule": [
+    {
+      "name": "iris-moving",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "iris-settled",
+      "orders": [
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "name": "local-matrix",
+      "orders": [
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "lighting-settled",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "name": "indexing-startup",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ]
+      ]
+    },
+    {
+      "name": "lighting-changing",
+      "orders": [
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "A",
+          "B",
+          "B",
+          "A"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "A",
+          "A",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "node": "v26.0.0",
+    "threeRevision": "185",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "osRelease": "25.6.0",
+    "cpuModel": "Apple M4",
+    "logicalCpus": 10,
+    "totalMemoryBytes": 17179869184,
+    "execArgv": [
+      "--expose-gc"
+    ],
+    "sourceHashes": {
+      "components/spacecraft-model.ts": "b57df753f61fd0725dee16af0ce57d98478e5fb2b9d84faad27c9b7ae391a429",
+      "components/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+      "components/case-study-archive.ts": "6cd461e7eb3096a6f499d37295dba74ada59cee267f975f42dcd4b0ac92127a1",
+      "components/rounded-cabin-interior.ts": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70",
+      "lib/spacecraft-wall-layout.ts": "a5e2ce6ebc87adf87927b2d2cc66b272ac06e0bcbd0d8f377f772e8add313813",
+      "components/iris-hatch.ts": "06d61199491b4856b90dd70208e537d7009833bfaa33dbab67ea0bf9206783c2",
+      "scripts/benchmark-controlled-performance.mjs": "f09c32fc6e00e53be125525909959216de2bd23ef0d6f4368cb60bf74613cb50",
+      "scripts/benchmarks/controlled-cases.mjs": "9fb23d0d625d77bc889621cedd1e916bdde490a1a62cab77fe6501beea4ea3e2",
+      "scripts/benchmarks/controlled-protocol.mjs": "751a57e2bee73280865f4a0eb14ccf824826e0e6f83726f1779322405c3988b7",
+      "scripts/benchmarks/local-transform-cache-candidate.ts": "876c16a7b24082fbd5c158aeff605c115a342c4ebfb8c335e032cb9dbce0bcaa",
+      "scripts/benchmarks/material-lighting-candidate.ts": "53796d3f85e18c4b9827800cd2d179ce3ddfee14446ca1cb05123a7992207225",
+      "scripts/benchmarks/exact-matrix-inverse-candidate.ts": "6b1c57b01fe2168c06c4d7918ff49ce03b0c0bc6ed114ff9d41e20f49308dcfb",
+      "scripts/probe-targeted-exact-indexing.mjs": "ea2a9d0a594895910ed83f7edcfd21b5ef7001c0db7f3c7049ba4f7d6ae79dc2"
+    },
+    "initialSystemContext": {
+      "timestamp": "2026-09-14T04:07:10.525Z",
+      "telemetry": {
+        "lowPowerMode": false,
+        "osVersion": "Version 26.6.2 (Build 25G83)",
+        "pmset": {
+          "battery": {
+            "arguments": [
+              "-g",
+              "batt"
+            ],
+            "durationMs": 80.5865416659799,
+            "exitCode": 0,
+            "stderr": "",
+            "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=22675555)\t62%; discharging; 2:11 remaining present: true\n",
+            "timedOut": false
+          },
+          "settings": {
+            "arguments": [
+              "-g",
+              "custom"
+            ],
+            "durationMs": 76.572624999244,
+            "exitCode": 0,
+            "stderr": "",
+            "stdout": "Battery Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 0\n networkoversleep     0\n sleep                1\n lessbright           0\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+            "timedOut": false
+          },
+          "therm": {
+            "arguments": [
+              "-g",
+              "therm"
+            ],
+            "durationMs": 76.86829166777898,
+            "exitCode": 0,
+            "stderr": "",
+            "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+            "timedOut": false
+          }
+        },
+        "sampleDurationMs": 238.00695833415375,
+        "schemaVersion": 1,
+        "thermalSource": "ProcessInfo.thermalState",
+        "thermalState": "nominal",
+        "thermalStateDoesNotMeasureTemperature": true,
+        "thermalStateRaw": 0,
+        "timestamp": "2026-09-14T04:07:10Z",
+        "uptimeSeconds": 23710.995496666666
+      },
+      "systemLoadAverage": [
+        1.8505859375,
+        2.478515625,
+        2.68701171875
+      ],
+      "freeMemoryBytes": 1729511424,
+      "processMemory": {
+        "rss": 105889792,
+        "heapTotal": 16089088,
+        "heapUsed": 14360504,
+        "external": 7704353,
+        "arrayBuffers": 617014
+      }
+    }
+  },
+  "methodology": "Balanced seeded ABBA/BAAB blocks with identical work counts, short calibrated bursts, real idle rests, nominal-OS-pressure gate when telemetry is available, and repeated reference controls. Every attempt and rejection is retained; timings are never thermally corrected.",
+  "limitations": [
+    "Nominal OS thermal pressure plus stable controls does not prove cold hardware, peak clocks, or absence of throttling.",
+    "Rests are configurable minimum idle periods, not guaranteed cooldown times. Drift and telemetry can invalidate a block.",
+    "CPU-only Node kernels. No browser CanvasTextures, GPU uploads/draws, FPS, energy or device-temperature conclusions.",
+    "Steady frame kernels reuse fixtures. Indexing intentionally creates one fresh model per sample and reports construction and compaction separately.",
+    "All candidates remain benchmark-only; paired timings never automatically activate production changes."
+  ],
+  "checkpoints": [],
+  "cases": {
+    "local-matrix": {
+      "verification": {
+        "worldMatricesCompared": 718
+      },
+      "calibration": {
+        "iterations": 1031,
+        "probes": [
+          {
+            "iterations": 1,
+            "referenceMs": 0.803042,
+            "candidateMs": 1.855208
+          },
+          {
+            "iterations": 6,
+            "referenceMs": 1.787958,
+            "candidateMs": 3.291083
+          },
+          {
+            "iterations": 24,
+            "referenceMs": 4.220458,
+            "candidateMs": 6.642167
+          },
+          {
+            "iterations": 48,
+            "referenceMs": 6.436167,
+            "candidateMs": 6.743334
+          },
+          {
+            "iterations": 96,
+            "referenceMs": 10.288458,
+            "candidateMs": 11.167041
+          }
+        ],
+        "warmups": [
+          {
+            "elapsedMs": 85.988459,
+            "meanMs": 0.08340296702230844
+          },
+          {
+            "elapsedMs": 102.447709,
+            "meanMs": 0.09936732201745878
+          }
+        ],
+        "targetMs": 120,
+        "reason": "shared iteration count sized to slower calibrated variant; one full warmup burst per version"
+      },
+      "gates": [
+        {
+          "thermal": {
+            "qualified": true,
+            "snapshots": [
+              {
+                "timestamp": "2026-09-14T04:14:09.214Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.0485833340208046,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:09Z",
+                  "uptimeSeconds": 24129.9364085
+                },
+                "systemLoadAverage": [
+                  1.89697265625,
+                  2.03369140625,
+                  2.35400390625
+                ],
+                "freeMemoryBytes": 986873856,
+                "processMemory": {
+                  "rss": 426229760,
+                  "heapTotal": 50905088,
+                  "heapUsed": 42020512,
+                  "external": 129205880,
+                  "arrayBuffers": 122057319
+                }
+              },
+              {
+                "timestamp": "2026-09-14T04:14:14.237Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.68412500130944,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:14Z",
+                  "uptimeSeconds": 24134.951932
+                },
+                "systemLoadAverage": [
+                  1.82470703125,
+                  2.01611328125,
+                  2.345703125
+                ],
+                "freeMemoryBytes": 953925632,
+                "processMemory": {
+                  "rss": 426229760,
+                  "heapTotal": 50905088,
+                  "heapUsed": 42098880,
+                  "external": 129206606,
+                  "arrayBuffers": 122058045
+                }
+              }
+            ],
+            "qualifier": "nominal OS thermal pressure observed"
+          },
+          "samples": [
+            {
+              "variant": "A",
+              "iterations": 1031,
+              "role": "stability-control",
+              "elapsedMs": 97.443375,
+              "meanMs": 0.09451345780795345,
+              "before": {
+                "timestamp": "2026-09-14T04:14:14.251Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 6.096208329836372,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:14Z",
+                  "uptimeSeconds": 24134.969401625003
+                },
+                "systemLoadAverage": [
+                  1.82470703125,
+                  2.01611328125,
+                  2.345703125
+                ],
+                "freeMemoryBytes": 954286080,
+                "processMemory": {
+                  "rss": 426229760,
+                  "heapTotal": 50905088,
+                  "heapUsed": 42158504,
+                  "external": 129206938,
+                  "arrayBuffers": 122058377
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:14:14.357Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.9492083342338447,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:14Z",
+                  "uptimeSeconds": 24135.077831291666
+                },
+                "systemLoadAverage": [
+                  1.82470703125,
+                  2.01611328125,
+                  2.345703125
+                ],
+                "freeMemoryBytes": 959660032,
+                "processMemory": {
+                  "rss": 426262528,
+                  "heapTotal": 46710784,
+                  "heapUsed": 41608032,
+                  "external": 129143687,
+                  "arrayBuffers": 121995126
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 1031,
+              "role": "stability-control",
+              "elapsedMs": 102.374709,
+              "meanMs": 0.09929651697381182,
+              "before": {
+                "timestamp": "2026-09-14T04:14:24.381Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.311750000051688,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:24Z",
+                  "uptimeSeconds": 24145.09519625
+                },
+                "systemLoadAverage": [
+                  1.7646484375,
+                  1.998046875,
+                  2.3349609375
+                ],
+                "freeMemoryBytes": 943407104,
+                "processMemory": {
+                  "rss": 426262528,
+                  "heapTotal": 46710784,
+                  "heapUsed": 41700552,
+                  "external": 129144815,
+                  "arrayBuffers": 121996254
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:14:24.491Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.4682083314692136,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:24Z",
+                  "uptimeSeconds": 24145.21251991667
+                },
+                "systemLoadAverage": [
+                  1.7646484375,
+                  1.998046875,
+                  2.3349609375
+                ],
+                "freeMemoryBytes": 940933120,
+                "processMemory": {
+                  "rss": 422084608,
+                  "heapTotal": 46710784,
+                  "heapUsed": 41318768,
+                  "external": 129143701,
+                  "arrayBuffers": 121995140
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 1031,
+              "role": "stability-control",
+              "elapsedMs": 105.773041,
+              "meanMs": 0.10259266828322018,
+              "before": {
+                "timestamp": "2026-09-14T04:14:34.514Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.522833333699964,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:34Z",
+                  "uptimeSeconds": 24155.228799541666
+                },
+                "systemLoadAverage": [
+                  1.72021484375,
+                  1.9814453125,
+                  2.32470703125
+                ],
+                "freeMemoryBytes": 948322304,
+                "processMemory": {
+                  "rss": 422084608,
+                  "heapTotal": 46710784,
+                  "heapUsed": 41410824,
+                  "external": 129144832,
+                  "arrayBuffers": 121996271
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:14:34.628Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.402750000532251,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:14:34Z",
+                  "uptimeSeconds": 24155.348977083333
+                },
+                "systemLoadAverage": [
+                  1.72021484375,
+                  1.9814453125,
+                  2.32470703125
+                ],
+                "freeMemoryBytes": 950501376,
+                "processMemory": {
+                  "rss": 422084608,
+                  "heapTotal": 46710784,
+                  "heapUsed": 40933064,
+                  "external": 129143715,
+                  "arrayBuffers": 121995154
+                }
+              }
+            }
+          ],
+          "stability": {
+            "stable": false,
+            "medianMs": 0.09929651697381182,
+            "spreadFraction": 0.08136449013007696,
+            "endToEndFraction": 0.08136449013007696,
+            "monotonic": true,
+            "reason": "control-spread-exceeds-limit"
+          },
+          "qualified": false,
+          "pressure": []
+        }
+      ],
+      "blocks": [],
+      "preparationThermal": {
+        "qualified": true,
+        "snapshots": [
+          {
+            "timestamp": "2026-09-14T04:14:03.943Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 9.560208334733034,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:14:03Z",
+              "uptimeSeconds": 24124.656775458334
+            },
+            "systemLoadAverage": [
+              1.97509765625,
+              2.05126953125,
+              2.3623046875
+            ],
+            "freeMemoryBytes": 1018953728,
+            "processMemory": {
+              "rss": 419463168,
+              "heapTotal": 42778624,
+              "heapUsed": 40190920,
+              "external": 129262656,
+              "arrayBuffers": 121994766
+            }
+          },
+          {
+            "timestamp": "2026-09-14T04:14:08.965Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 9.221124997566221,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:14:08Z",
+              "uptimeSeconds": 24129.680131250003
+            },
+            "systemLoadAverage": [
+              1.89697265625,
+              2.03369140625,
+              2.35400390625
+            ],
+            "freeMemoryBytes": 996982784,
+            "processMemory": {
+              "rss": 419463168,
+              "heapTotal": 42778624,
+              "heapUsed": 40269296,
+              "external": 129144059,
+              "arrayBuffers": 121995498
+            }
+          }
+        ],
+        "qualifier": "nominal OS thermal pressure observed"
+      }
+    },
+    "lighting-settled": {
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "lighting-changing": {
+      "verification": {
+        "materials": 235,
+        "frames": 90
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    },
+    "iris-settled": {
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      },
+      "calibration": {
+        "iterations": 47073,
+        "probes": [
+          {
+            "iterations": 1,
+            "referenceMs": 0.029417,
+            "candidateMs": 0.014125
+          },
+          {
+            "iterations": 8,
+            "referenceMs": 0.050583,
+            "candidateMs": 0.040334
+          },
+          {
+            "iterations": 64,
+            "referenceMs": 0.157875,
+            "candidateMs": 0.343
+          },
+          {
+            "iterations": 512,
+            "referenceMs": 1.469583,
+            "candidateMs": 2.440708
+          },
+          {
+            "iterations": 2560,
+            "referenceMs": 5.165875,
+            "candidateMs": 8.953958
+          },
+          {
+            "iterations": 5120,
+            "referenceMs": 7.451417,
+            "candidateMs": 13.052
+          }
+        ],
+        "warmups": [
+          {
+            "elapsedMs": 48.784,
+            "meanMs": 0.001036347800225182
+          },
+          {
+            "elapsedMs": 87.614542,
+            "meanMs": 0.001861248316444671
+          }
+        ],
+        "targetMs": 120,
+        "reason": "shared iteration count sized to slower calibrated variant; one full warmup burst per version"
+      },
+      "gates": [
+        {
+          "thermal": {
+            "qualified": true,
+            "snapshots": [
+              {
+                "timestamp": "2026-09-14T04:11:13.331Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.1359999993583187,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:13Z",
+                  "uptimeSeconds": 23954.036906708334
+                },
+                "systemLoadAverage": [
+                  2.150390625,
+                  2.11328125,
+                  2.455078125
+                ],
+                "freeMemoryBytes": 1133117440,
+                "processMemory": {
+                  "rss": 418906112,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40314144,
+                  "external": 129182077,
+                  "arrayBuffers": 122033516
+                }
+              },
+              {
+                "timestamp": "2026-09-14T04:11:18.353Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.124416664941236,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:18Z",
+                  "uptimeSeconds": 23959.051573583336
+                },
+                "systemLoadAverage": [
+                  1.97802734375,
+                  2.078125,
+                  2.4404296875
+                ],
+                "freeMemoryBytes": 1147011072,
+                "processMemory": {
+                  "rss": 418922496,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40406544,
+                  "external": 129182809,
+                  "arrayBuffers": 122034248
+                }
+              }
+            ],
+            "qualifier": "nominal OS thermal pressure observed"
+          },
+          "samples": [
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 58.328125,
+              "meanMs": 0.0012390993775625093,
+              "before": {
+                "timestamp": "2026-09-14T04:11:18.368Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 6.168916665046709,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:18Z",
+                  "uptimeSeconds": 23959.068921333335
+                },
+                "systemLoadAverage": [
+                  1.97802734375,
+                  2.078125,
+                  2.4404296875
+                ],
+                "freeMemoryBytes": 1144029184,
+                "processMemory": {
+                  "rss": 418922496,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40473760,
+                  "external": 129183141,
+                  "arrayBuffers": 122034580
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:11:18.435Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 4.091041668289108,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:18Z",
+                  "uptimeSeconds": 23959.13937575
+                },
+                "systemLoadAverage": [
+                  1.97802734375,
+                  2.078125,
+                  2.4404296875
+                ],
+                "freeMemoryBytes": 1144717312,
+                "processMemory": {
+                  "rss": 418938880,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40473232,
+                  "external": 129143645,
+                  "arrayBuffers": 121995084
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 62.372333,
+              "meanMs": 0.0013250129161090222,
+              "before": {
+                "timestamp": "2026-09-14T04:11:28.456Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.464750000712229,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:28Z",
+                  "uptimeSeconds": 23969.15449504167
+                },
+                "systemLoadAverage": [
+                  1.82080078125,
+                  2.0419921875,
+                  2.4228515625
+                ],
+                "freeMemoryBytes": 1209958400,
+                "processMemory": {
+                  "rss": 418938880,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40570544,
+                  "external": 129152969,
+                  "arrayBuffers": 122004408
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:11:28.526Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.660916667286074,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:28Z",
+                  "uptimeSeconds": 23969.23086954167
+                },
+                "systemLoadAverage": [
+                  1.82080078125,
+                  2.0419921875,
+                  2.4228515625
+                ],
+                "freeMemoryBytes": 1197195264,
+                "processMemory": {
+                  "rss": 418938880,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40559416,
+                  "external": 129151851,
+                  "arrayBuffers": 122003290
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 63.908209,
+              "meanMs": 0.0013576404520638159,
+              "before": {
+                "timestamp": "2026-09-14T04:11:38.548Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.258416666853009,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:38Z",
+                  "uptimeSeconds": 23979.24611229167
+                },
+                "systemLoadAverage": [
+                  1.7744140625,
+                  2.02392578125,
+                  2.41162109375
+                ],
+                "freeMemoryBytes": 1202225152,
+                "processMemory": {
+                  "rss": 418938880,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40655968,
+                  "external": 129152983,
+                  "arrayBuffers": 122004422
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:11:38.621Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.985250001278473,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:11:38Z",
+                  "uptimeSeconds": 23979.324984416668
+                },
+                "systemLoadAverage": [
+                  1.7744140625,
+                  2.02392578125,
+                  2.41162109375
+                ],
+                "freeMemoryBytes": 1205911552,
+                "processMemory": {
+                  "rss": 418971648,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40697424,
+                  "external": 129151865,
+                  "arrayBuffers": 122003304
+                }
+              }
+            }
+          ],
+          "stability": {
+            "stable": false,
+            "medianMs": 0.0013250129161090222,
+            "spreadFraction": 0.0894640897912221,
+            "endToEndFraction": 0.0894640897912221,
+            "monotonic": true,
+            "reason": "control-spread-exceeds-limit"
+          },
+          "qualified": false,
+          "pressure": []
+        },
+        {
+          "thermal": {
+            "qualified": true,
+            "snapshots": [
+              {
+                "timestamp": "2026-09-14T04:12:38.627Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.463291669613682,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:38Z",
+                  "uptimeSeconds": 24039.34012375
+                },
+                "systemLoadAverage": [
+                  2.04736328125,
+                  2.048828125,
+                  2.39404296875
+                ],
+                "freeMemoryBytes": 1076985856,
+                "processMemory": {
+                  "rss": 417857536,
+                  "heapTotal": 42254336,
+                  "heapUsed": 40265472,
+                  "external": 129143592,
+                  "arrayBuffers": 121995031
+                }
+              },
+              {
+                "timestamp": "2026-09-14T04:12:43.649Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.547583332983777,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:43Z",
+                  "uptimeSeconds": 24044.362903208334
+                },
+                "systemLoadAverage": [
+                  2.36376953125,
+                  2.1142578125,
+                  2.4150390625
+                ],
+                "freeMemoryBytes": 1049575424,
+                "processMemory": {
+                  "rss": 417857536,
+                  "heapTotal": 42254336,
+                  "heapUsed": 40346808,
+                  "external": 129144324,
+                  "arrayBuffers": 121995763
+                }
+              }
+            ],
+            "qualifier": "nominal OS thermal pressure observed"
+          },
+          "samples": [
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 56.49425,
+              "meanMs": 0.0012001412699424298,
+              "before": {
+                "timestamp": "2026-09-14T04:12:43.662Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 5.679208334186114,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:43Z",
+                  "uptimeSeconds": 24044.3799045
+                },
+                "systemLoadAverage": [
+                  2.36376953125,
+                  2.1142578125,
+                  2.4150390625
+                ],
+                "freeMemoryBytes": 1049935872,
+                "processMemory": {
+                  "rss": 417857536,
+                  "heapTotal": 42254336,
+                  "heapUsed": 40413360,
+                  "external": 129144656,
+                  "arrayBuffers": 121996095
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:12:43.726Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.646041666797828,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:43Z",
+                  "uptimeSeconds": 24044.446675333336
+                },
+                "systemLoadAverage": [
+                  2.36376953125,
+                  2.1142578125,
+                  2.4150390625
+                ],
+                "freeMemoryBytes": 1053081600,
+                "processMemory": {
+                  "rss": 418922496,
+                  "heapTotal": 43302912,
+                  "heapUsed": 40429856,
+                  "external": 129143617,
+                  "arrayBuffers": 121995056
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 64.519166,
+              "meanMs": 0.0013706193784122534,
+              "before": {
+                "timestamp": "2026-09-14T04:12:53.750Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.11166666992358,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:53Z",
+                  "uptimeSeconds": 24054.463913166666
+                },
+                "systemLoadAverage": [
+                  2.45458984375,
+                  2.14306640625,
+                  2.42138671875
+                ],
+                "freeMemoryBytes": 1041989632,
+                "processMemory": {
+                  "rss": 418922496,
+                  "heapTotal": 43302912,
+                  "heapUsed": 40526416,
+                  "external": 129144749,
+                  "arrayBuffers": 121996188
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:12:53.823Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.642416664661141,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:12:53Z",
+                  "uptimeSeconds": 24054.54387791667
+                },
+                "systemLoadAverage": [
+                  2.45458984375,
+                  2.14306640625,
+                  2.42138671875
+                ],
+                "freeMemoryBytes": 1045463040,
+                "processMemory": {
+                  "rss": 419201024,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40512152,
+                  "external": 129143631,
+                  "arrayBuffers": 121995070
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 47073,
+              "role": "stability-control",
+              "elapsedMs": 64.191958,
+              "meanMs": 0.0013636683024238947,
+              "before": {
+                "timestamp": "2026-09-14T04:13:03.845Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.808208334812662,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:13:03Z",
+                  "uptimeSeconds": 24064.559714791667
+                },
+                "systemLoadAverage": [
+                  2.38427734375,
+                  2.13818359375,
+                  2.41552734375
+                ],
+                "freeMemoryBytes": 1056243712,
+                "processMemory": {
+                  "rss": 419201024,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40604480,
+                  "external": 129144763,
+                  "arrayBuffers": 121996202
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:13:03.918Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.693166665470926,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:13:03Z",
+                  "uptimeSeconds": 24064.638923208335
+                },
+                "systemLoadAverage": [
+                  2.38427734375,
+                  2.13818359375,
+                  2.41552734375
+                ],
+                "freeMemoryBytes": 1051328512,
+                "processMemory": {
+                  "rss": 419463168,
+                  "heapTotal": 43827200,
+                  "heapUsed": 40590344,
+                  "external": 129143645,
+                  "arrayBuffers": 121995084
+                }
+              }
+            }
+          ],
+          "stability": {
+            "stable": false,
+            "medianMs": 0.0013636683024238947,
+            "spreadFraction": 0.12501435148620962,
+            "endToEndFraction": 0.11991701515009089,
+            "monotonic": false,
+            "reason": "control-spread-exceeds-limit"
+          },
+          "qualified": false,
+          "pressure": []
+        }
+      ],
+      "blocks": [],
+      "preparationThermal": {
+        "qualified": true,
+        "snapshots": [
+          {
+            "timestamp": "2026-09-14T04:11:08.125Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 9.309249999205349,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:11:08Z",
+              "uptimeSeconds": 23948.822886
+            },
+            "systemLoadAverage": [
+              1.830078125,
+              2.0498046875,
+              2.4375
+            ],
+            "freeMemoryBytes": 1157955584,
+            "processMemory": {
+              "rss": 418889728,
+              "heapTotal": 43565056,
+              "heapUsed": 40367168,
+              "external": 129214875,
+              "arrayBuffers": 122066314
+            }
+          },
+          {
+            "timestamp": "2026-09-14T04:11:13.148Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 8.642416665679775,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:11:13Z",
+              "uptimeSeconds": 23953.846842208335
+            },
+            "systemLoadAverage": [
+              2.16357421875,
+              2.115234375,
+              2.4580078125
+            ],
+            "freeMemoryBytes": 1135427584,
+            "processMemory": {
+              "rss": 418889728,
+              "heapTotal": 43565056,
+              "heapUsed": 40449856,
+              "external": 129215607,
+              "arrayBuffers": 122067046
+            }
+          }
+        ],
+        "qualifier": "nominal OS thermal pressure observed"
+      },
+      "status": "inconclusive-initial-controls"
+    },
+    "iris-moving": {
+      "verification": {
+        "hatches": 4,
+        "leavesPerHatch": 6,
+        "frames": 120
+      },
+      "calibration": {
+        "iterations": 51845,
+        "probes": [
+          {
+            "iterations": 1,
+            "referenceMs": 0.048083,
+            "candidateMs": 0.049791
+          },
+          {
+            "iterations": 8,
+            "referenceMs": 0.0985,
+            "candidateMs": 0.331459
+          },
+          {
+            "iterations": 64,
+            "referenceMs": 0.53625,
+            "candidateMs": 0.525375
+          },
+          {
+            "iterations": 512,
+            "referenceMs": 1.607291,
+            "candidateMs": 4.161709
+          },
+          {
+            "iterations": 1536,
+            "referenceMs": 3.576167,
+            "candidateMs": 5.4965
+          },
+          {
+            "iterations": 3072,
+            "referenceMs": 6.20725,
+            "candidateMs": 8.793959
+          },
+          {
+            "iterations": 6144,
+            "referenceMs": 9.034541,
+            "candidateMs": 14.220625
+          }
+        ],
+        "warmups": [
+          {
+            "elapsedMs": 55.698917,
+            "meanMs": 0.001074335365030379
+          },
+          {
+            "elapsedMs": 102.643791,
+            "meanMs": 0.0019798204455588773
+          }
+        ],
+        "targetMs": 120,
+        "reason": "shared iteration count sized to slower calibrated variant; one full warmup burst per version"
+      },
+      "gates": [
+        {
+          "thermal": {
+            "qualified": true,
+            "snapshots": [
+              {
+                "timestamp": "2026-09-14T04:08:17.447Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 4.404416667966871,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:17Z",
+                  "uptimeSeconds": 23778.15270875
+                },
+                "systemLoadAverage": [
+                  1.732421875,
+                  2.34521484375,
+                  2.62109375
+                ],
+                "freeMemoryBytes": 1222197248,
+                "processMemory": {
+                  "rss": 511459328,
+                  "heapTotal": 121421824,
+                  "heapUsed": 40121800,
+                  "external": 129158209,
+                  "arrayBuffers": 122009648
+                }
+              },
+              {
+                "timestamp": "2026-09-14T04:08:22.467Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.843208332109498,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:22Z",
+                  "uptimeSeconds": 23783.166143500002
+                },
+                "systemLoadAverage": [
+                  1.75341796875,
+                  2.33935546875,
+                  2.6171875
+                ],
+                "freeMemoryBytes": 1247920128,
+                "processMemory": {
+                  "rss": 511459328,
+                  "heapTotal": 121421824,
+                  "heapUsed": 40516920,
+                  "external": 129158941,
+                  "arrayBuffers": 122010380
+                }
+              }
+            ],
+            "qualifier": "nominal OS thermal pressure observed"
+          },
+          "samples": [
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 66.054583,
+              "meanMs": 0.0012740781753303114,
+              "before": {
+                "timestamp": "2026-09-14T04:08:22.481Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 6.357791666232515,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:22Z",
+                  "uptimeSeconds": 23783.183969541667
+                },
+                "systemLoadAverage": [
+                  1.75341796875,
+                  2.33935546875,
+                  2.6171875
+                ],
+                "freeMemoryBytes": 1252573184,
+                "processMemory": {
+                  "rss": 511459328,
+                  "heapTotal": 121421824,
+                  "heapUsed": 40592232,
+                  "external": 129159273,
+                  "arrayBuffers": 122010712
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:08:22.555Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.4425833327986766,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:22Z",
+                  "uptimeSeconds": 23783.261316375003
+                },
+                "systemLoadAverage": [
+                  1.75341796875,
+                  2.33935546875,
+                  2.6171875
+                ],
+                "freeMemoryBytes": 1251950592,
+                "processMemory": {
+                  "rss": 511459328,
+                  "heapTotal": 121421824,
+                  "heapUsed": 52773776,
+                  "external": 129158234,
+                  "arrayBuffers": 122009673
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 73.435959,
+              "meanMs": 0.0014164520975986112,
+              "before": {
+                "timestamp": "2026-09-14T04:08:32.577Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.067083334026393,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:32Z",
+                  "uptimeSeconds": 23793.276883000002
+                },
+                "systemLoadAverage": [
+                  1.79736328125,
+                  2.328125,
+                  2.609375
+                ],
+                "freeMemoryBytes": 1257209856,
+                "processMemory": {
+                  "rss": 511459328,
+                  "heapTotal": 121421824,
+                  "heapUsed": 52886856,
+                  "external": 129159366,
+                  "arrayBuffers": 122010805
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:08:32.659Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.627958332799608,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:32Z",
+                  "uptimeSeconds": 23793.364910458335
+                },
+                "systemLoadAverage": [
+                  1.79736328125,
+                  2.328125,
+                  2.609375
+                ],
+                "freeMemoryBytes": 1269366784,
+                "processMemory": {
+                  "rss": 496254976,
+                  "heapTotal": 121421824,
+                  "heapUsed": 65330256,
+                  "external": 129158248,
+                  "arrayBuffers": 122009687
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 73.449625,
+              "meanMs": 0.0014167156910020252,
+              "before": {
+                "timestamp": "2026-09-14T04:08:42.681Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.16687499920954,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:42Z",
+                  "uptimeSeconds": 23803.380035375
+                },
+                "systemLoadAverage": [
+                  1.66796875,
+                  2.28369140625,
+                  2.58984375
+                ],
+                "freeMemoryBytes": 1275887616,
+                "processMemory": {
+                  "rss": 496254976,
+                  "heapTotal": 121421824,
+                  "heapUsed": 65451632,
+                  "external": 129159378,
+                  "arrayBuffers": 122010817
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:08:42.763Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.8051249975978862,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:08:42Z",
+                  "uptimeSeconds": 23803.46875054167
+                },
+                "systemLoadAverage": [
+                  1.66796875,
+                  2.28369140625,
+                  2.58984375
+                ],
+                "freeMemoryBytes": 1280376832,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 44318208,
+                  "external": 129158261,
+                  "arrayBuffers": 122009700
+                }
+              }
+            }
+          ],
+          "stability": {
+            "stable": false,
+            "medianMs": 0.0014164520975986112,
+            "spreadFraction": 0.10070055733867386,
+            "endToEndFraction": 0.10070055733867386,
+            "monotonic": true,
+            "reason": "control-spread-exceeds-limit"
+          },
+          "qualified": false,
+          "pressure": []
+        },
+        {
+          "thermal": {
+            "qualified": true,
+            "snapshots": [
+              {
+                "timestamp": "2026-09-14T04:09:42.786Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.335875001648674,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:42Z",
+                  "uptimeSeconds": 23863.48592075
+                },
+                "systemLoadAverage": [
+                  1.63916015625,
+                  2.14306640625,
+                  2.51318359375
+                ],
+                "freeMemoryBytes": 1041956864,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 44523624,
+                  "external": 129184225,
+                  "arrayBuffers": 122035664
+                }
+              },
+              {
+                "timestamp": "2026-09-14T04:09:47.810Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.129583333560731,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:47Z",
+                  "uptimeSeconds": 23868.508872708335
+                },
+                "systemLoadAverage": [
+                  1.748046875,
+                  2.1572265625,
+                  2.515625
+                ],
+                "freeMemoryBytes": 1092943872,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 44606096,
+                  "external": 129184957,
+                  "arrayBuffers": 122036396
+                }
+              }
+            ],
+            "qualifier": "nominal OS thermal pressure observed"
+          },
+          "samples": [
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 65.900375,
+              "meanMs": 0.0012711037708554344,
+              "before": {
+                "timestamp": "2026-09-14T04:09:47.823Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 6.2030416665948,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:47Z",
+                  "uptimeSeconds": 23868.525889
+                },
+                "systemLoadAverage": [
+                  1.748046875,
+                  2.1572265625,
+                  2.515625
+                ],
+                "freeMemoryBytes": 1096941568,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 44670112,
+                  "external": 129185283,
+                  "arrayBuffers": 122036722
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:09:47.897Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.613666664023185,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:47Z",
+                  "uptimeSeconds": 23868.602787208336
+                },
+                "systemLoadAverage": [
+                  1.748046875,
+                  2.1572265625,
+                  2.515625
+                ],
+                "freeMemoryBytes": 1088700416,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 57084952,
+                  "external": 129158290,
+                  "arrayBuffers": 122009729
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 73.129583,
+              "meanMs": 0.0014105426367055647,
+              "before": {
+                "timestamp": "2026-09-14T04:09:57.918Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 8.74962499801768,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:57Z",
+                  "uptimeSeconds": 23878.61692241667
+                },
+                "systemLoadAverage": [
+                  1.86669921875,
+                  2.16796875,
+                  2.5146484375
+                ],
+                "freeMemoryBytes": 1103151104,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 57188784,
+                  "external": 129159421,
+                  "arrayBuffers": 122010860
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:09:57.999Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.6084583334741183,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:09:57Z",
+                  "uptimeSeconds": 23878.704819500002
+                },
+                "systemLoadAverage": [
+                  1.86669921875,
+                  2.16796875,
+                  2.5146484375
+                ],
+                "freeMemoryBytes": 1098924032,
+                "processMemory": {
+                  "rss": 496271360,
+                  "heapTotal": 121421824,
+                  "heapUsed": 40383664,
+                  "external": 129158304,
+                  "arrayBuffers": 122009743
+                }
+              }
+            },
+            {
+              "variant": "A",
+              "iterations": 51845,
+              "role": "stability-control",
+              "elapsedMs": 71.367167,
+              "meanMs": 0.0013765486932201755,
+              "before": {
+                "timestamp": "2026-09-14T04:10:08.021Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 9.461374997044913,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:10:08Z",
+                  "uptimeSeconds": 23888.720200708336
+                },
+                "systemLoadAverage": [
+                  1.65283203125,
+                  2.1123046875,
+                  2.490234375
+                ],
+                "freeMemoryBytes": 1179910144,
+                "processMemory": {
+                  "rss": 417841152,
+                  "heapTotal": 42516480,
+                  "heapUsed": 40065472,
+                  "external": 129143596,
+                  "arrayBuffers": 121995035
+                }
+              },
+              "after": {
+                "timestamp": "2026-09-14T04:10:08.102Z",
+                "telemetry": {
+                  "lowPowerMode": false,
+                  "osVersion": "Version 26.6.2 (Build 25G83)",
+                  "sampleDurationMs": 3.8037083322706167,
+                  "schemaVersion": 1,
+                  "thermalSource": "ProcessInfo.thermalState",
+                  "thermalState": "nominal",
+                  "thermalStateDoesNotMeasureTemperature": true,
+                  "thermalStateRaw": 0,
+                  "timestamp": "2026-09-14T04:10:08Z",
+                  "uptimeSeconds": 23888.806749583335
+                },
+                "systemLoadAverage": [
+                  1.65283203125,
+                  2.1123046875,
+                  2.490234375
+                ],
+                "freeMemoryBytes": 1184464896,
+                "processMemory": {
+                  "rss": 418889728,
+                  "heapTotal": 43565056,
+                  "heapUsed": 40084592,
+                  "external": 129143603,
+                  "arrayBuffers": 121995042
+                }
+              }
+            }
+          ],
+          "stability": {
+            "stable": false,
+            "medianMs": 0.0013765486932201755,
+            "spreadFraction": 0.10129599231534586,
+            "endToEndFraction": 0.07660093891635075,
+            "monotonic": false,
+            "reason": "control-spread-exceeds-limit"
+          },
+          "qualified": false,
+          "pressure": []
+        }
+      ],
+      "blocks": [],
+      "preparationThermal": {
+        "qualified": true,
+        "snapshots": [
+          {
+            "timestamp": "2026-09-14T04:08:12.202Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 8.433666665951023,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:08:12Z",
+              "uptimeSeconds": 23772.90197829167
+            },
+            "systemLoadAverage": [
+              1.79638671875,
+              2.3681640625,
+              2.630859375
+            ],
+            "freeMemoryBytes": 1169178624,
+            "processMemory": {
+              "rss": 555171840,
+              "heapTotal": 155172864,
+              "heapUsed": 85782440,
+              "external": 199339091,
+              "arrayBuffers": 192183238
+            }
+          },
+          {
+            "timestamp": "2026-09-14T04:08:17.224Z",
+            "telemetry": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "sampleDurationMs": 8.17704166911426,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-14T04:08:17Z",
+              "uptimeSeconds": 23777.923559125
+            },
+            "systemLoadAverage": [
+              1.732421875,
+              2.34521484375,
+              2.62109375
+            ],
+            "freeMemoryBytes": 1176977408,
+            "processMemory": {
+              "rss": 555171840,
+              "heapTotal": 155172864,
+              "heapUsed": 85935312,
+              "external": 199339818,
+              "arrayBuffers": 192183965
+            }
+          }
+        ],
+        "qualifier": "nominal OS thermal pressure observed"
+      },
+      "status": "inconclusive-initial-controls"
+    },
+    "indexing-startup": {
+      "verification": {
+        "exactExpandedDrawInputs": "passed",
+        "forcedHashCollisionFixture": "passed",
+        "groups": {
+          "ladder": {
+            "checked": 14,
+            "changed": 8,
+            "milliseconds": 16.380499999999984,
+            "bytesSaved": 733056,
+            "verticesBefore": 81774,
+            "verticesAfter": 58866
+          },
+          "projects": {
+            "checked": 15,
+            "changed": 5,
+            "milliseconds": 26.11133400000017,
+            "bytesSaved": 376576,
+            "verticesBefore": 86816,
+            "verticesAfter": 75048
+          }
+        }
+      },
+      "calibration": null,
+      "gates": [],
+      "blocks": []
+    }
+  },
+  "error": "The operation was aborted"
+}

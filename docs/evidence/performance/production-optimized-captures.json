@@ -1,0 +1,5897 @@
+{
+  "captures": [
+    {
+      "actualDurationMs": 10002.599999999627,
+      "completedAt": "2026-09-14T01:03:39.710Z",
+      "context": {
+        "activity": "idle",
+        "drawingHeight": 800,
+        "drawingWidth": 1200,
+        "experiment": "normal",
+        "height": 800,
+        "pixelRatio": 1,
+        "reading": false,
+        "reducedMotion": false,
+        "room": "home",
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "visible": true,
+        "width": 1200
+      },
+      "kind": "baseline",
+      "name": "Baseline 1",
+      "report": {
+        "activity": {
+          "idle": {
+            "cpuMeanMs": 3.410500000007451,
+            "frames": 600
+          }
+        },
+        "context": {
+          "activity": "idle",
+          "drawingHeight": 800,
+          "drawingWidth": 1200,
+          "experiment": "normal",
+          "height": 800,
+          "pixelRatio": 1,
+          "reading": false,
+          "reducedMotion": false,
+          "room": "home",
+          "spacecraftFilter": {
+            "id": "",
+            "mode": "all"
+          },
+          "visible": true,
+          "width": 1200
+        },
+        "counters": {
+          "ao-cached": 600
+        },
+        "cpuPhases": {
+          "annotations": {
+            "max": 0.30000000074505806,
+            "mean": 0.10149999998509884,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 600
+          },
+          "ao-composite": {
+            "max": 0.10000000149011612,
+            "mean": 0.01150000000372529,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          },
+          "audit-trace": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 600
+          },
+          "background": {
+            "max": 0.30000000074505806,
+            "mean": 0.09950000003290672,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 600
+          },
+          "background-update": {
+            "max": 0.10000000149011612,
+            "mean": 0.007333333337058623,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          },
+          "camera": {
+            "max": 0.2000000011175871,
+            "mean": 0.02066666666107873,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          },
+          "css-render": {
+            "max": 0.10000000149011612,
+            "mean": 0.015333333350718022,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          },
+          "diagnostics": {
+            "max": 0.2000000011175871,
+            "mean": 0.016666666675979894,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          },
+          "html-sync": {
+            "max": 0.30000000074505806,
+            "mean": 0.1098333333308498,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 600
+          },
+          "legacy-metrics": {
+            "max": 0.30000000074505806,
+            "mean": 0.016666666663562257,
+            "p50": 0,
+            "p95": 0.1999999992549419,
+            "samples": 600
+          },
+          "matrices": {
+            "max": 0.5,
+            "mean": 0.2143333333202948,
+            "p50": 0.1999999992549419,
+            "p95": 0.30000000074505806,
+            "samples": 600
+          },
+          "model-update": {
+            "max": 0.40000000037252903,
+            "mean": 0.1755000000074506,
+            "p50": 0.1999999992549419,
+            "p95": 0.30000000074505806,
+            "samples": 600
+          },
+          "navigation": {
+            "max": 0.10000000149011612,
+            "mean": 0.003333333330228925,
+            "p50": 0,
+            "p95": 0,
+            "samples": 600
+          },
+          "pointer-feedback": {
+            "max": 0.1999999992549419,
+            "mean": 0.017500000027939677,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 600
+          },
+          "spacecraft": {
+            "max": 3.199999999254942,
+            "mean": 2.5951666666194795,
+            "p50": 2.599999999627471,
+            "p95": 2.900000000372529,
+            "samples": 600
+          },
+          "unattributed": {
+            "max": 0.10000000149011612,
+            "mean": 0.005666666661078732,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 600
+          }
+        },
+        "cpuTotal": {
+          "max": 4.400000000372529,
+          "mean": 3.410500000007451,
+          "p50": 3.400000000372529,
+          "p95": 3.800000000745058,
+          "samples": 600
+        },
+        "frameInterval": {
+          "max": 18.700000000000728,
+          "mean": 16.669782971619362,
+          "p50": 16.69999999999709,
+          "p95": 18.599999999998545,
+          "samples": 599
+        },
+        "gpu": {
+          "discardedSamples": 0,
+          "pending": 0,
+          "phases": {
+            "ao-composite": {
+              "max": 5.090791,
+              "mean": 3.7883671,
+              "p50": 3.778166,
+              "p95": 4.312499,
+              "samples": 40
+            },
+            "background": {
+              "max": 1.643999,
+              "mean": 1.0961422499999995,
+              "p50": 1.009458,
+              "p95": 1.533916,
+              "samples": 40
+            },
+            "spacecraft": {
+              "max": 4.823375,
+              "mean": 4.064702574999999,
+              "p50": 4.014374,
+              "p95": 4.631374,
+              "samples": 40
+            }
+          },
+          "sampleEvery": 15,
+          "skippedSamples": 0,
+          "status": "available"
+        },
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ],
+        "passes": {
+          "ao-composite": {
+            "calls": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 600
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 600
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 600
+            },
+            "triangles": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 600
+            }
+          },
+          "background": {
+            "calls": {
+              "max": 9,
+              "mean": 7.306666666666667,
+              "p50": 7,
+              "p95": 8,
+              "samples": 600
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 600
+            },
+            "points": {
+              "max": 3100,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "samples": 600
+            },
+            "triangles": {
+              "max": 97288,
+              "mean": 97284.61333333331,
+              "p50": 97284,
+              "p95": 97286,
+              "samples": 600
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "max": 436,
+              "mean": 436,
+              "p50": 436,
+              "p95": 436,
+              "samples": 600
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 600
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 600
+            },
+            "triangles": {
+              "max": 886144,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "samples": 600
+            }
+          }
+        },
+        "resetReason": "capture started",
+        "schemaVersion": 1,
+        "window": {
+          "durationMs": 9985.199999999995,
+          "frames": 600,
+          "renderedFps": 59.98878339943118
+        }
+      },
+      "requestedDurationMs": 10000,
+      "settings": {
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "build": "production",
+        "cameraPosition": [
+          -5.460462533248986,
+          3.2839945907081103,
+          21.706267178260923
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.0060834697047354325,
+          0.9937046726144274
+        ],
+        "denoiseSamples": 32,
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "experiment": "normal",
+        "hardwareConcurrency": 10,
+        "inventory": {
+          "geometries": 448,
+          "geometryAttributeBytes": 44668616,
+          "largestMeshes": [
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876
+            },
+            {
+              "instances": 1,
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528
+            },
+            {
+              "instances": 1,
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348
+            },
+            {
+              "instances": 1,
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072
+            }
+          ],
+          "lights": 14,
+          "materials": 294,
+          "meshes": 520,
+          "nodes": 766,
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.",
+          "shadowCasters": 352
+        },
+        "nativePixelRatio": 1,
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ],
+        "pixelRatio": 1,
+        "reducedMotion": false,
+        "resources": {
+          "geometries": 384,
+          "programs": 31,
+          "textures": 52
+        },
+        "room": "home",
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "shadowsEnabled": true,
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "threeRevision": "185",
+        "travelling": false,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "viewport": [
+          1200,
+          800
+        ],
+        "visible": true
+      },
+      "spacecraft": {
+        "filter": {
+          "id": "",
+          "mode": "all"
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "kind": "part",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:projects",
+            "kind": "room",
+            "label": "Projects",
+            "meshes": 110
+          },
+          {
+            "id": "part:projects:furniture",
+            "kind": "part",
+            "label": "Projects · workshop furniture",
+            "meshes": 43
+          },
+          {
+            "id": "part:projects:labels",
+            "kind": "part",
+            "label": "Projects · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:projects:reader",
+            "kind": "part",
+            "label": "Projects · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:projects:doors",
+            "kind": "part",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 28
+          },
+          {
+            "id": "part:projects:other",
+            "kind": "part",
+            "label": "Projects · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:experience:structure",
+            "kind": "part",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:experience",
+            "kind": "room",
+            "label": "Case studies",
+            "meshes": 93
+          },
+          {
+            "id": "part:experience:furniture",
+            "kind": "part",
+            "label": "Case studies · archive furniture",
+            "meshes": 29
+          },
+          {
+            "id": "part:experience:labels",
+            "kind": "part",
+            "label": "Case studies · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:experience:reader",
+            "kind": "part",
+            "label": "Case studies · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:experience:doors",
+            "kind": "part",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 22
+          },
+          {
+            "id": "part:experience:other",
+            "kind": "part",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:about:structure",
+            "kind": "part",
+            "label": "About · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:about",
+            "kind": "room",
+            "label": "About",
+            "meshes": 141
+          },
+          {
+            "id": "part:about:furniture",
+            "kind": "part",
+            "label": "About · personal-study furniture",
+            "meshes": 54
+          },
+          {
+            "id": "part:about:labels",
+            "kind": "part",
+            "label": "About · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:about:reader",
+            "kind": "part",
+            "label": "About · deployable reader",
+            "meshes": 7
+          },
+          {
+            "id": "part:about:doors",
+            "kind": "part",
+            "label": "About · doors and passage assemblies",
+            "meshes": 44
+          },
+          {
+            "id": "part:about:other",
+            "kind": "part",
+            "label": "About · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:contact:structure",
+            "kind": "part",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:contact",
+            "kind": "room",
+            "label": "Contact",
+            "meshes": 93
+          },
+          {
+            "id": "part:contact:furniture",
+            "kind": "part",
+            "label": "Contact · flight-console furniture",
+            "meshes": 40
+          },
+          {
+            "id": "part:contact:labels",
+            "kind": "part",
+            "label": "Contact · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:contact:reader",
+            "kind": "part",
+            "label": "Contact · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:contact:doors",
+            "kind": "part",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 6
+          },
+          {
+            "id": "part:contact:other",
+            "kind": "part",
+            "label": "Contact · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:walkway:structure",
+            "kind": "part",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 8
+          },
+          {
+            "id": "room:walkway",
+            "kind": "room",
+            "label": "Ladder bay",
+            "meshes": 31
+          },
+          {
+            "id": "part:walkway:utilities",
+            "kind": "part",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22
+          },
+          {
+            "id": "part:walkway:fittings",
+            "kind": "part",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 1
+          },
+          {
+            "id": "part:shared:docking",
+            "kind": "part",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14
+          },
+          {
+            "id": "room:shared",
+            "kind": "room",
+            "label": "Shared assemblies",
+            "meshes": 37
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "kind": "part",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 12
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "kind": "part",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7
+          },
+          {
+            "id": "part:projects:utilities",
+            "kind": "part",
+            "label": "Projects · utility fittings",
+            "meshes": 14
+          },
+          {
+            "id": "part:experience:utilities",
+            "kind": "part",
+            "label": "Case studies · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:about:utilities",
+            "kind": "part",
+            "label": "About · utility fittings",
+            "meshes": 16
+          },
+          {
+            "id": "part:contact:utilities",
+            "kind": "part",
+            "label": "Contact · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:shared:solar",
+            "kind": "part",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10
+          },
+          {
+            "id": "part:shared:service",
+            "kind": "part",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6
+          },
+          {
+            "id": "part:shared:communications",
+            "kind": "part",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1
+          },
+          {
+            "id": "part:experience:chassis",
+            "kind": "part",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:contact:chassis",
+            "kind": "part",
+            "label": "Contact · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:shared:chassis",
+            "kind": "part",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 6
+          },
+          {
+            "id": "part:unknown:other",
+            "kind": "part",
+            "label": "Unclassified room · other or mixed batches",
+            "meshes": 1
+          },
+          {
+            "id": "room:unknown",
+            "kind": "room",
+            "label": "Unclassified room",
+            "meshes": 1
+          }
+        ],
+        "limitations": [
+          "Draw calls and triangles are actual renderer counter deltas around mesh draws, not CPU or GPU timings; compare whole-pass timing while hiding one group.",
+          "Part groups are disjoint existing draw batches. Room totals regroup the same draws and must not be added to part totals. Mixed material batches remain indivisible.",
+          "Room assignment follows model ownership; shared exterior assemblies are grouped separately. A shared doorway belongs to its model owner.",
+          "Shadow rendering, fullscreen AO/denoise draws, and meshes outside this root are unattributed. Reconciliation is null without complete pass counters or after counter resets.",
+          "Each pass has its own bounded sample window. Per-pass averages include zero for absent groups; AO averages describe refresh invocations, not every scene frame.",
+          "Filtering only changes mesh visibility during rendering. It retains existing hidden variants, scene updates, lights, cached shadows, and HTML; isolation savings include occlusion and shadow interactions.",
+          "Batch inventory is static geometry workload, including hidden variants, not measured draw cost. Source names are capped at 40 per batch."
+        ],
+        "passes": {
+          "spacecraft": {
+            "attributed": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "parts": [
+              {
+                "drawsPerPass": 54,
+                "id": "part:about:furniture",
+                "label": "About · personal-study furniture",
+                "totalDraws": 32400,
+                "totalTriangles": 54092400,
+                "trianglesPerPass": 90154
+              },
+              {
+                "drawsPerPass": 43,
+                "id": "part:projects:furniture",
+                "label": "Projects · workshop furniture",
+                "totalDraws": 25800,
+                "totalTriangles": 112951200,
+                "trianglesPerPass": 188252
+              },
+              {
+                "drawsPerPass": 42,
+                "id": "part:about:doors",
+                "label": "About · doors and passage assemblies",
+                "totalDraws": 25200,
+                "totalTriangles": 11260800,
+                "trianglesPerPass": 18768
+              },
+              {
+                "drawsPerPass": 39,
+                "id": "part:contact:furniture",
+                "label": "Contact · flight-console furniture",
+                "totalDraws": 23400,
+                "totalTriangles": 42564000,
+                "trianglesPerPass": 70940
+              },
+              {
+                "drawsPerPass": 29,
+                "id": "part:experience:furniture",
+                "label": "Case studies · archive furniture",
+                "totalDraws": 17400,
+                "totalTriangles": 45795600,
+                "trianglesPerPass": 76326
+              },
+              {
+                "drawsPerPass": 27,
+                "id": "part:projects:doors",
+                "label": "Projects · doors and passage assemblies",
+                "totalDraws": 16200,
+                "totalTriangles": 8006400,
+                "trianglesPerPass": 13344
+              },
+              {
+                "drawsPerPass": 22,
+                "id": "part:walkway:utilities",
+                "label": "Ladder bay · utility fittings",
+                "totalDraws": 13200,
+                "totalTriangles": 48480000,
+                "trianglesPerPass": 80800
+              },
+              {
+                "drawsPerPass": 21,
+                "id": "part:experience:doors",
+                "label": "Case studies · doors and passage assemblies",
+                "totalDraws": 12600,
+                "totalTriangles": 5623200,
+                "trianglesPerPass": 9372
+              },
+              {
+                "drawsPerPass": 14,
+                "id": "part:shared:docking",
+                "label": "Shared assemblies · docking sleeve and hatch",
+                "totalDraws": 8400,
+                "totalTriangles": 11265600,
+                "trianglesPerPass": 18776
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:projects:structure",
+                "label": "Projects · cabin pressure structure",
+                "totalDraws": 7800,
+                "totalTriangles": 8803200,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:about:structure",
+                "label": "About · cabin pressure structure",
+                "totalDraws": 7800,
+                "totalTriangles": 8803200,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 12,
+                "id": "part:contact:outboard-equipment",
+                "label": "Contact · outboard wall equipment",
+                "totalDraws": 7200,
+                "totalTriangles": 22492800,
+                "trianglesPerPass": 37488
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:shared:solar",
+                "label": "Shared assemblies · solar array batches",
+                "totalDraws": 6000,
+                "totalTriangles": 9792000,
+                "trianglesPerPass": 16320
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:experience:structure",
+                "label": "Case studies · cabin pressure structure",
+                "totalDraws": 6000,
+                "totalTriangles": 7149600,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:contact:structure",
+                "label": "Contact · cabin pressure structure",
+                "totalDraws": 6000,
+                "totalTriangles": 7149600,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:about:utilities",
+                "label": "About · utility fittings",
+                "totalDraws": 4800,
+                "totalTriangles": 8227200,
+                "trianglesPerPass": 13712
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:walkway:structure",
+                "label": "Ladder bay · pressure structure",
+                "totalDraws": 4800,
+                "totalTriangles": 3768000,
+                "trianglesPerPass": 6280
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:projects:utilities",
+                "label": "Projects · utility fittings",
+                "totalDraws": 4200,
+                "totalTriangles": 16003200,
+                "trianglesPerPass": 26672
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:experience:outboard-equipment",
+                "label": "Case studies · outboard wall equipment",
+                "totalDraws": 4200,
+                "totalTriangles": 10238400,
+                "trianglesPerPass": 17064
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:experience:utilities",
+                "label": "Case studies · utility fittings",
+                "totalDraws": 3600,
+                "totalTriangles": 10615200,
+                "trianglesPerPass": 17692
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:utilities",
+                "label": "Contact · utility fittings",
+                "totalDraws": 3600,
+                "totalTriangles": 9074400,
+                "trianglesPerPass": 15124
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:shared:service",
+                "label": "Shared assemblies · mixed service bus and appendages",
+                "totalDraws": 3600,
+                "totalTriangles": 8611200,
+                "trianglesPerPass": 14352
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:doors",
+                "label": "Contact · doors and passage assemblies",
+                "totalDraws": 3600,
+                "totalTriangles": 2368800,
+                "trianglesPerPass": 3948
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:projects:labels",
+                "label": "Projects · signage and label batches",
+                "totalDraws": 2400,
+                "totalTriangles": 1986000,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:experience:labels",
+                "label": "Case studies · signage and label batches",
+                "totalDraws": 2400,
+                "totalTriangles": 1986000,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:about:labels",
+                "label": "About · signage and label batches",
+                "totalDraws": 2400,
+                "totalTriangles": 1986000,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:contact:labels",
+                "label": "Contact · signage and label batches",
+                "totalDraws": 2400,
+                "totalTriangles": 1986000,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 3,
+                "id": "part:shared:chassis",
+                "label": "Shared assemblies · outer chassis",
+                "totalDraws": 1800,
+                "totalTriangles": 48451200,
+                "trianglesPerPass": 80752
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:walkway:fittings",
+                "label": "Ladder bay · interior fittings",
+                "totalDraws": 600,
+                "totalTriangles": 1251600,
+                "trianglesPerPass": 2086
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:shared:communications",
+                "label": "Shared assemblies · communications batches",
+                "totalDraws": 600,
+                "totalTriangles": 768000,
+                "trianglesPerPass": 1280
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:experience:chassis",
+                "label": "Case studies · chassis interior wall",
+                "totalDraws": 600,
+                "totalTriangles": 67800,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:contact:chassis",
+                "label": "Contact · chassis interior wall",
+                "totalDraws": 600,
+                "totalTriangles": 67800,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:reader",
+                "label": "Projects · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:other",
+                "label": "Projects · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:reader",
+                "label": "Case studies · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:other",
+                "label": "Case studies · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:reader",
+                "label": "About · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:other",
+                "label": "About · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:reader",
+                "label": "Contact · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:other",
+                "label": "Contact · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:unknown:other",
+                "label": "Unclassified room · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "rooms": [
+              {
+                "drawsPerPass": 121,
+                "id": "room:about",
+                "label": "About",
+                "totalDraws": 72600,
+                "totalTriangles": 84369600,
+                "trianglesPerPass": 140616
+              },
+              {
+                "drawsPerPass": 94,
+                "id": "room:projects",
+                "label": "Projects",
+                "totalDraws": 56400,
+                "totalTriangles": 147750000,
+                "trianglesPerPass": 246250
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:contact",
+                "label": "Contact",
+                "totalDraws": 46800,
+                "totalTriangles": 85703400,
+                "trianglesPerPass": 142839
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:experience",
+                "label": "Case studies",
+                "totalDraws": 46800,
+                "totalTriangles": 81475800,
+                "trianglesPerPass": 135793
+              },
+              {
+                "drawsPerPass": 34,
+                "id": "room:shared",
+                "label": "Shared assemblies",
+                "totalDraws": 20400,
+                "totalTriangles": 78888000,
+                "trianglesPerPass": 131480
+              },
+              {
+                "drawsPerPass": 31,
+                "id": "room:walkway",
+                "label": "Ladder bay",
+                "totalDraws": 18600,
+                "totalTriangles": 53499600,
+                "trianglesPerPass": 89166
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "room:unknown",
+                "label": "Unclassified room",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "samples": 600,
+            "total": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "unattributed": {
+              "drawsPerPass": 0,
+              "trianglesPerPass": 0
+            }
+          }
+        }
+      },
+      "spacecraftFilter": {
+        "id": "",
+        "mode": "all"
+      },
+      "startedAt": "2026-09-14T01:03:29.702Z",
+      "trend": {
+        "earlyCpuMs": 3.4836666666902603,
+        "earlyFrameMs": 16.673244147157188,
+        "lateCpuMs": 3.337333333324641,
+        "lateFrameMs": 16.666333333333327,
+        "windowMs": 4992.5999999999985
+      },
+      "warmupMs": 3000
+    },
+    {
+      "actualDurationMs": 10002.200000001118,
+      "completedAt": "2026-09-14T01:05:10.729Z",
+      "context": {
+        "activity": "idle",
+        "drawingHeight": 800,
+        "drawingWidth": 1200,
+        "experiment": "normal",
+        "height": 800,
+        "pixelRatio": 1,
+        "reading": false,
+        "reducedMotion": false,
+        "room": "home",
+        "spacecraftFilter": {
+          "id": "part:projects:furniture",
+          "mode": "hide"
+        },
+        "visible": true,
+        "width": 1200
+      },
+      "kind": "comparison",
+      "name": "Hidden: Projects · workshop furniture 2",
+      "report": {
+        "activity": {
+          "idle": {
+            "cpuMeanMs": 5.537755102068059,
+            "frames": 588
+          }
+        },
+        "context": {
+          "activity": "idle",
+          "drawingHeight": 800,
+          "drawingWidth": 1200,
+          "experiment": "normal",
+          "height": 800,
+          "pixelRatio": 1,
+          "reading": false,
+          "reducedMotion": false,
+          "room": "home",
+          "spacecraftFilter": {
+            "id": "part:projects:furniture",
+            "mode": "hide"
+          },
+          "visible": true,
+          "width": 1200
+        },
+        "counters": {
+          "ao-cached": 588
+        },
+        "cpuPhases": {
+          "annotations": {
+            "max": 0.599999999627471,
+            "mean": 0.20017006803861484,
+            "p50": 0.1999999992549419,
+            "p95": 0.30000000074505806,
+            "samples": 588
+          },
+          "ao-composite": {
+            "max": 0.2000000011175871,
+            "mean": 0.028571428563192384,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 588
+          },
+          "audit-trace": {
+            "max": 0.09999999962747096,
+            "mean": 0.0005102040797319948,
+            "p50": 0,
+            "p95": 0,
+            "samples": 588
+          },
+          "background": {
+            "max": 0.40000000037252903,
+            "mean": 0.13928571424833466,
+            "p50": 0.10000000149011612,
+            "p95": 0.30000000074505806,
+            "samples": 588
+          },
+          "background-update": {
+            "max": 0.1999999992549419,
+            "mean": 0.010374149662398156,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 588
+          },
+          "camera": {
+            "max": 0.2000000011175871,
+            "mean": 0.02312925172538883,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 588
+          },
+          "css-render": {
+            "max": 0.1999999992549419,
+            "mean": 0.023979591832933377,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 588
+          },
+          "diagnostics": {
+            "max": 0.2000000011175871,
+            "mean": 0.03197278912324889,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 588
+          },
+          "html-sync": {
+            "max": 0.5,
+            "mean": 0.1544217687182534,
+            "p50": 0.10000000149011612,
+            "p95": 0.30000000074505806,
+            "samples": 588
+          },
+          "legacy-metrics": {
+            "max": 0.5,
+            "mean": 0.03469387756749278,
+            "p50": 0,
+            "p95": 0.40000000037252903,
+            "samples": 588
+          },
+          "matrices": {
+            "max": 1,
+            "mean": 0.33503401356109347,
+            "p50": 0.30000000074505806,
+            "p95": 0.5,
+            "samples": 588
+          },
+          "model-update": {
+            "max": 0.7000000011175871,
+            "mean": 0.28520408167573463,
+            "p50": 0.2999999988824129,
+            "p95": 0.5,
+            "samples": 588
+          },
+          "navigation": {
+            "max": 0.10000000149011612,
+            "mean": 0.005612244889722997,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 588
+          },
+          "pointer-feedback": {
+            "max": 0.1999999992549419,
+            "mean": 0.01938775511217766,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 588
+          },
+          "spacecraft": {
+            "max": 8,
+            "mean": 4.2309523809536485,
+            "p50": 4,
+            "p95": 6.799999998882413,
+            "samples": 588
+          },
+          "unattributed": {
+            "max": 0.1999999992549419,
+            "mean": 0.014455782316092932,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 588
+          }
+        },
+        "cpuTotal": {
+          "max": 10.5,
+          "mean": 5.537755102068059,
+          "p50": 5.200000001117587,
+          "p95": 8.800000000745058,
+          "samples": 588
+        },
+        "frameInterval": {
+          "max": 49.29999999998836,
+          "mean": 17.01056218057921,
+          "p50": 16.69999999999709,
+          "p95": 18.59999999999127,
+          "samples": 587
+        },
+        "gpu": {
+          "discardedSamples": 0,
+          "pending": 3,
+          "phases": {
+            "ao-composite": {
+              "max": 14.04575,
+              "mean": 6.3004642820512835,
+              "p50": 5.210125,
+              "p95": 11.173124,
+              "samples": 39
+            },
+            "background": {
+              "max": 8.563666,
+              "mean": 2.267747384615384,
+              "p50": 1.952208,
+              "p95": 4.861916,
+              "samples": 39
+            },
+            "spacecraft": {
+              "max": 11.412083,
+              "mean": 6.321218512820512,
+              "p50": 5.889791,
+              "p95": 11.0095,
+              "samples": 39
+            }
+          },
+          "sampleEvery": 15,
+          "skippedSamples": 0,
+          "status": "available"
+        },
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ],
+        "passes": {
+          "ao-composite": {
+            "calls": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 588
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 588
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 588
+            },
+            "triangles": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 588
+            }
+          },
+          "background": {
+            "calls": {
+              "max": 9,
+              "mean": 7.365646258503402,
+              "p50": 7,
+              "p95": 8,
+              "samples": 588
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 588
+            },
+            "points": {
+              "max": 3100,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "samples": 588
+            },
+            "triangles": {
+              "max": 97288,
+              "mean": 97284.731292517,
+              "p50": 97284,
+              "p95": 97286,
+              "samples": 588
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "max": 393,
+              "mean": 393,
+              "p50": 393,
+              "p95": 393,
+              "samples": 588
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 588
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 588
+            },
+            "triangles": {
+              "max": 697892,
+              "mean": 697892,
+              "p50": 697892,
+              "p95": 697892,
+              "samples": 588
+            }
+          }
+        },
+        "resetReason": "capture started",
+        "schemaVersion": 1,
+        "window": {
+          "durationMs": 9985.199999999995,
+          "frames": 588,
+          "renderedFps": 58.78700476705526
+        }
+      },
+      "requestedDurationMs": 10000,
+      "settings": {
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "build": "production",
+        "cameraPosition": [
+          -5.460462533248986,
+          3.2839945907081103,
+          21.706267178260923
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.0060834697047354325,
+          0.9937046726144274
+        ],
+        "denoiseSamples": 32,
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "experiment": "normal",
+        "hardwareConcurrency": 10,
+        "inventory": {
+          "geometries": 448,
+          "geometryAttributeBytes": 44668616,
+          "largestMeshes": [
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876
+            },
+            {
+              "instances": 1,
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528
+            },
+            {
+              "instances": 1,
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348
+            },
+            {
+              "instances": 1,
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072
+            }
+          ],
+          "lights": 14,
+          "materials": 294,
+          "meshes": 520,
+          "nodes": 766,
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.",
+          "shadowCasters": 352
+        },
+        "nativePixelRatio": 1,
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ],
+        "pixelRatio": 1,
+        "reducedMotion": false,
+        "resources": {
+          "geometries": 384,
+          "programs": 31,
+          "textures": 52
+        },
+        "room": "home",
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "shadowsEnabled": true,
+        "spacecraftFilter": {
+          "id": "part:projects:furniture",
+          "mode": "hide"
+        },
+        "threeRevision": "185",
+        "travelling": false,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "viewport": [
+          1200,
+          800
+        ],
+        "visible": true
+      },
+      "spacecraft": {
+        "filter": {
+          "id": "part:projects:furniture",
+          "mode": "hide"
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "kind": "part",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:projects",
+            "kind": "room",
+            "label": "Projects",
+            "meshes": 110
+          },
+          {
+            "id": "part:projects:furniture",
+            "kind": "part",
+            "label": "Projects · workshop furniture",
+            "meshes": 43
+          },
+          {
+            "id": "part:projects:labels",
+            "kind": "part",
+            "label": "Projects · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:projects:reader",
+            "kind": "part",
+            "label": "Projects · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:projects:doors",
+            "kind": "part",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 28
+          },
+          {
+            "id": "part:projects:other",
+            "kind": "part",
+            "label": "Projects · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:experience:structure",
+            "kind": "part",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:experience",
+            "kind": "room",
+            "label": "Case studies",
+            "meshes": 93
+          },
+          {
+            "id": "part:experience:furniture",
+            "kind": "part",
+            "label": "Case studies · archive furniture",
+            "meshes": 29
+          },
+          {
+            "id": "part:experience:labels",
+            "kind": "part",
+            "label": "Case studies · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:experience:reader",
+            "kind": "part",
+            "label": "Case studies · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:experience:doors",
+            "kind": "part",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 22
+          },
+          {
+            "id": "part:experience:other",
+            "kind": "part",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:about:structure",
+            "kind": "part",
+            "label": "About · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:about",
+            "kind": "room",
+            "label": "About",
+            "meshes": 141
+          },
+          {
+            "id": "part:about:furniture",
+            "kind": "part",
+            "label": "About · personal-study furniture",
+            "meshes": 54
+          },
+          {
+            "id": "part:about:labels",
+            "kind": "part",
+            "label": "About · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:about:reader",
+            "kind": "part",
+            "label": "About · deployable reader",
+            "meshes": 7
+          },
+          {
+            "id": "part:about:doors",
+            "kind": "part",
+            "label": "About · doors and passage assemblies",
+            "meshes": 44
+          },
+          {
+            "id": "part:about:other",
+            "kind": "part",
+            "label": "About · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:contact:structure",
+            "kind": "part",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:contact",
+            "kind": "room",
+            "label": "Contact",
+            "meshes": 93
+          },
+          {
+            "id": "part:contact:furniture",
+            "kind": "part",
+            "label": "Contact · flight-console furniture",
+            "meshes": 40
+          },
+          {
+            "id": "part:contact:labels",
+            "kind": "part",
+            "label": "Contact · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:contact:reader",
+            "kind": "part",
+            "label": "Contact · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:contact:doors",
+            "kind": "part",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 6
+          },
+          {
+            "id": "part:contact:other",
+            "kind": "part",
+            "label": "Contact · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:walkway:structure",
+            "kind": "part",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 8
+          },
+          {
+            "id": "room:walkway",
+            "kind": "room",
+            "label": "Ladder bay",
+            "meshes": 31
+          },
+          {
+            "id": "part:walkway:utilities",
+            "kind": "part",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22
+          },
+          {
+            "id": "part:walkway:fittings",
+            "kind": "part",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 1
+          },
+          {
+            "id": "part:shared:docking",
+            "kind": "part",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14
+          },
+          {
+            "id": "room:shared",
+            "kind": "room",
+            "label": "Shared assemblies",
+            "meshes": 37
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "kind": "part",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 12
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "kind": "part",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7
+          },
+          {
+            "id": "part:projects:utilities",
+            "kind": "part",
+            "label": "Projects · utility fittings",
+            "meshes": 14
+          },
+          {
+            "id": "part:experience:utilities",
+            "kind": "part",
+            "label": "Case studies · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:about:utilities",
+            "kind": "part",
+            "label": "About · utility fittings",
+            "meshes": 16
+          },
+          {
+            "id": "part:contact:utilities",
+            "kind": "part",
+            "label": "Contact · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:shared:solar",
+            "kind": "part",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10
+          },
+          {
+            "id": "part:shared:service",
+            "kind": "part",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6
+          },
+          {
+            "id": "part:shared:communications",
+            "kind": "part",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1
+          },
+          {
+            "id": "part:experience:chassis",
+            "kind": "part",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:contact:chassis",
+            "kind": "part",
+            "label": "Contact · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:shared:chassis",
+            "kind": "part",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 6
+          },
+          {
+            "id": "part:unknown:other",
+            "kind": "part",
+            "label": "Unclassified room · other or mixed batches",
+            "meshes": 1
+          },
+          {
+            "id": "room:unknown",
+            "kind": "room",
+            "label": "Unclassified room",
+            "meshes": 1
+          }
+        ],
+        "limitations": [
+          "Draw calls and triangles are actual renderer counter deltas around mesh draws, not CPU or GPU timings; compare whole-pass timing while hiding one group.",
+          "Part groups are disjoint existing draw batches. Room totals regroup the same draws and must not be added to part totals. Mixed material batches remain indivisible.",
+          "Room assignment follows model ownership; shared exterior assemblies are grouped separately. A shared doorway belongs to its model owner.",
+          "Shadow rendering, fullscreen AO/denoise draws, and meshes outside this root are unattributed. Reconciliation is null without complete pass counters or after counter resets.",
+          "Each pass has its own bounded sample window. Per-pass averages include zero for absent groups; AO averages describe refresh invocations, not every scene frame.",
+          "Filtering only changes mesh visibility during rendering. It retains existing hidden variants, scene updates, lights, cached shadows, and HTML; isolation savings include occlusion and shadow interactions.",
+          "Batch inventory is static geometry workload, including hidden variants, not measured draw cost. Source names are capped at 40 per batch."
+        ],
+        "passes": {
+          "spacecraft": {
+            "attributed": {
+              "drawsPerPass": 393,
+              "trianglesPerPass": 697892
+            },
+            "parts": [
+              {
+                "drawsPerPass": 54,
+                "id": "part:about:furniture",
+                "label": "About · personal-study furniture",
+                "totalDraws": 31752,
+                "totalTriangles": 53010552,
+                "trianglesPerPass": 90154
+              },
+              {
+                "drawsPerPass": 42,
+                "id": "part:about:doors",
+                "label": "About · doors and passage assemblies",
+                "totalDraws": 24696,
+                "totalTriangles": 11035584,
+                "trianglesPerPass": 18768
+              },
+              {
+                "drawsPerPass": 39,
+                "id": "part:contact:furniture",
+                "label": "Contact · flight-console furniture",
+                "totalDraws": 22932,
+                "totalTriangles": 41712720,
+                "trianglesPerPass": 70940
+              },
+              {
+                "drawsPerPass": 29,
+                "id": "part:experience:furniture",
+                "label": "Case studies · archive furniture",
+                "totalDraws": 17052,
+                "totalTriangles": 44879688,
+                "trianglesPerPass": 76326
+              },
+              {
+                "drawsPerPass": 27,
+                "id": "part:projects:doors",
+                "label": "Projects · doors and passage assemblies",
+                "totalDraws": 15876,
+                "totalTriangles": 7846272,
+                "trianglesPerPass": 13344
+              },
+              {
+                "drawsPerPass": 22,
+                "id": "part:walkway:utilities",
+                "label": "Ladder bay · utility fittings",
+                "totalDraws": 12936,
+                "totalTriangles": 47510400,
+                "trianglesPerPass": 80800
+              },
+              {
+                "drawsPerPass": 21,
+                "id": "part:experience:doors",
+                "label": "Case studies · doors and passage assemblies",
+                "totalDraws": 12348,
+                "totalTriangles": 5510736,
+                "trianglesPerPass": 9372
+              },
+              {
+                "drawsPerPass": 14,
+                "id": "part:shared:docking",
+                "label": "Shared assemblies · docking sleeve and hatch",
+                "totalDraws": 8232,
+                "totalTriangles": 11040288,
+                "trianglesPerPass": 18776
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:projects:structure",
+                "label": "Projects · cabin pressure structure",
+                "totalDraws": 7644,
+                "totalTriangles": 8627136,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:about:structure",
+                "label": "About · cabin pressure structure",
+                "totalDraws": 7644,
+                "totalTriangles": 8627136,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 12,
+                "id": "part:contact:outboard-equipment",
+                "label": "Contact · outboard wall equipment",
+                "totalDraws": 7056,
+                "totalTriangles": 22042944,
+                "trianglesPerPass": 37488
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:shared:solar",
+                "label": "Shared assemblies · solar array batches",
+                "totalDraws": 5880,
+                "totalTriangles": 9596160,
+                "trianglesPerPass": 16320
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:experience:structure",
+                "label": "Case studies · cabin pressure structure",
+                "totalDraws": 5880,
+                "totalTriangles": 7006608,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:contact:structure",
+                "label": "Contact · cabin pressure structure",
+                "totalDraws": 5880,
+                "totalTriangles": 7006608,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:about:utilities",
+                "label": "About · utility fittings",
+                "totalDraws": 4704,
+                "totalTriangles": 8062656,
+                "trianglesPerPass": 13712
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:walkway:structure",
+                "label": "Ladder bay · pressure structure",
+                "totalDraws": 4704,
+                "totalTriangles": 3692640,
+                "trianglesPerPass": 6280
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:projects:utilities",
+                "label": "Projects · utility fittings",
+                "totalDraws": 4116,
+                "totalTriangles": 15683136,
+                "trianglesPerPass": 26672
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:experience:outboard-equipment",
+                "label": "Case studies · outboard wall equipment",
+                "totalDraws": 4116,
+                "totalTriangles": 10033632,
+                "trianglesPerPass": 17064
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:experience:utilities",
+                "label": "Case studies · utility fittings",
+                "totalDraws": 3528,
+                "totalTriangles": 10402896,
+                "trianglesPerPass": 17692
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:utilities",
+                "label": "Contact · utility fittings",
+                "totalDraws": 3528,
+                "totalTriangles": 8892912,
+                "trianglesPerPass": 15124
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:shared:service",
+                "label": "Shared assemblies · mixed service bus and appendages",
+                "totalDraws": 3528,
+                "totalTriangles": 8438976,
+                "trianglesPerPass": 14352
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:doors",
+                "label": "Contact · doors and passage assemblies",
+                "totalDraws": 3528,
+                "totalTriangles": 2321424,
+                "trianglesPerPass": 3948
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:projects:labels",
+                "label": "Projects · signage and label batches",
+                "totalDraws": 2352,
+                "totalTriangles": 1946280,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:experience:labels",
+                "label": "Case studies · signage and label batches",
+                "totalDraws": 2352,
+                "totalTriangles": 1946280,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:about:labels",
+                "label": "About · signage and label batches",
+                "totalDraws": 2352,
+                "totalTriangles": 1946280,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:contact:labels",
+                "label": "Contact · signage and label batches",
+                "totalDraws": 2352,
+                "totalTriangles": 1946280,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 3,
+                "id": "part:shared:chassis",
+                "label": "Shared assemblies · outer chassis",
+                "totalDraws": 1764,
+                "totalTriangles": 47482176,
+                "trianglesPerPass": 80752
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:walkway:fittings",
+                "label": "Ladder bay · interior fittings",
+                "totalDraws": 588,
+                "totalTriangles": 1226568,
+                "trianglesPerPass": 2086
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:shared:communications",
+                "label": "Shared assemblies · communications batches",
+                "totalDraws": 588,
+                "totalTriangles": 752640,
+                "trianglesPerPass": 1280
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:experience:chassis",
+                "label": "Case studies · chassis interior wall",
+                "totalDraws": 588,
+                "totalTriangles": 66444,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:contact:chassis",
+                "label": "Contact · chassis interior wall",
+                "totalDraws": 588,
+                "totalTriangles": 66444,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:furniture",
+                "label": "Projects · workshop furniture",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:reader",
+                "label": "Projects · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:other",
+                "label": "Projects · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:reader",
+                "label": "Case studies · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:other",
+                "label": "Case studies · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:reader",
+                "label": "About · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:other",
+                "label": "About · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:reader",
+                "label": "Contact · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:other",
+                "label": "Contact · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:unknown:other",
+                "label": "Unclassified room · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "rooms": [
+              {
+                "drawsPerPass": 121,
+                "id": "room:about",
+                "label": "About",
+                "totalDraws": 71148,
+                "totalTriangles": 82682208,
+                "trianglesPerPass": 140616
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:contact",
+                "label": "Contact",
+                "totalDraws": 45864,
+                "totalTriangles": 83989332,
+                "trianglesPerPass": 142839
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:experience",
+                "label": "Case studies",
+                "totalDraws": 45864,
+                "totalTriangles": 79846284,
+                "trianglesPerPass": 135793
+              },
+              {
+                "drawsPerPass": 51,
+                "id": "room:projects",
+                "label": "Projects",
+                "totalDraws": 29988,
+                "totalTriangles": 34102824,
+                "trianglesPerPass": 57998
+              },
+              {
+                "drawsPerPass": 34,
+                "id": "room:shared",
+                "label": "Shared assemblies",
+                "totalDraws": 19992,
+                "totalTriangles": 77310240,
+                "trianglesPerPass": 131480
+              },
+              {
+                "drawsPerPass": 31,
+                "id": "room:walkway",
+                "label": "Ladder bay",
+                "totalDraws": 18228,
+                "totalTriangles": 52429608,
+                "trianglesPerPass": 89166
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "room:unknown",
+                "label": "Unclassified room",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "samples": 588,
+            "total": {
+              "drawsPerPass": 393,
+              "trianglesPerPass": 697892
+            },
+            "unattributed": {
+              "drawsPerPass": 0,
+              "trianglesPerPass": 0
+            }
+          }
+        }
+      },
+      "spacecraftFilter": {
+        "id": "part:projects:furniture",
+        "mode": "hide"
+      },
+      "startedAt": "2026-09-14T01:05:00.716Z",
+      "trend": {
+        "earlyCpuMs": 5.027424749180076,
+        "earlyFrameMs": 16.728859060402677,
+        "lateCpuMs": 6.065743944675349,
+        "lateFrameMs": 17.301038062283737,
+        "windowMs": 4992.5999999999985
+      },
+      "warmupMs": 3000
+    },
+    {
+      "actualDurationMs": 10001.89999999851,
+      "completedAt": "2026-09-14T01:06:10.341Z",
+      "context": {
+        "activity": "idle",
+        "drawingHeight": 800,
+        "drawingWidth": 1200,
+        "experiment": "normal",
+        "height": 800,
+        "pixelRatio": 1,
+        "reading": false,
+        "reducedMotion": false,
+        "room": "home",
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "visible": true,
+        "width": 1200
+      },
+      "kind": "confirmation",
+      "name": "Baseline again 3",
+      "report": {
+        "activity": {
+          "idle": {
+            "cpuMeanMs": 5.773817567554353,
+            "frames": 592
+          }
+        },
+        "context": {
+          "activity": "idle",
+          "drawingHeight": 800,
+          "drawingWidth": 1200,
+          "experiment": "normal",
+          "height": 800,
+          "pixelRatio": 1,
+          "reading": false,
+          "reducedMotion": false,
+          "room": "home",
+          "spacecraftFilter": {
+            "id": "",
+            "mode": "all"
+          },
+          "visible": true,
+          "width": 1200
+        },
+        "counters": {
+          "ao-cached": 592
+        },
+        "cpuPhases": {
+          "annotations": {
+            "max": 0.40000000037252903,
+            "mean": 0.18918918919548192,
+            "p50": 0.1999999992549419,
+            "p95": 0.30000000074505806,
+            "samples": 592
+          },
+          "ao-composite": {
+            "max": 0.1999999992549419,
+            "mean": 0.024324324312368157,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "audit-trace": {
+            "max": 0.09999999962747096,
+            "mean": 0.0003378378365792938,
+            "p50": 0,
+            "p95": 0,
+            "samples": 592
+          },
+          "background": {
+            "max": 0.30000000074505806,
+            "mean": 0.11402027024195303,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 592
+          },
+          "background-update": {
+            "max": 0.10000000149011612,
+            "mean": 0.009459459461976547,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "camera": {
+            "max": 0.10000000149011612,
+            "mean": 0.016891891913916414,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "css-render": {
+            "max": 0.1999999992549419,
+            "mean": 0.023986486460057063,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "diagnostics": {
+            "max": 0.1999999992549419,
+            "mean": 0.03023648649655484,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 592
+          },
+          "html-sync": {
+            "max": 0.30000000074505806,
+            "mean": 0.13530405407230295,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 592
+          },
+          "legacy-metrics": {
+            "max": 0.599999999627471,
+            "mean": 0.03361486487178686,
+            "p50": 0,
+            "p95": 0.40000000037252903,
+            "samples": 592
+          },
+          "matrices": {
+            "max": 0.8000000007450581,
+            "mean": 0.3118243243048169,
+            "p50": 0.30000000074505806,
+            "p95": 0.40000000037252903,
+            "samples": 592
+          },
+          "model-update": {
+            "max": 0.5,
+            "mean": 0.264864864897587,
+            "p50": 0.2999999988824129,
+            "p95": 0.40000000037252903,
+            "samples": 592
+          },
+          "navigation": {
+            "max": 0.10000000149011612,
+            "mean": 0.005405405401000501,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "pointer-feedback": {
+            "max": 0.1999999992549419,
+            "mean": 0.01874999999937073,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          },
+          "spacecraft": {
+            "max": 6,
+            "mean": 4.583445945930843,
+            "p50": 4.599999999627471,
+            "p95": 5.100000001490116,
+            "samples": 592
+          },
+          "unattributed": {
+            "max": 0.2000000011175871,
+            "mean": 0.012162162157757258,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 592
+          }
+        },
+        "cpuTotal": {
+          "max": 7.599999999627471,
+          "mean": 5.773817567554353,
+          "p50": 5.799999998882413,
+          "p95": 6.599999999627471,
+          "samples": 592
+        },
+        "frameInterval": {
+          "max": 33.40000000002328,
+          "mean": 16.89221658206433,
+          "p50": 16.699999999982538,
+          "p95": 17.70000000001164,
+          "samples": 591
+        },
+        "gpu": {
+          "discardedSamples": 0,
+          "pending": 0,
+          "phases": {
+            "ao-composite": {
+              "max": 11.430624,
+              "mean": 7.942151475,
+              "p50": 7.591833,
+              "p95": 11.061999,
+              "samples": 40
+            },
+            "background": {
+              "max": 5.022125,
+              "mean": 1.864753675,
+              "p50": 1.651625,
+              "p95": 2.533499,
+              "samples": 40
+            },
+            "spacecraft": {
+              "max": 11.794624,
+              "mean": 7.062517224999999,
+              "p50": 6.330458,
+              "p95": 10.78125,
+              "samples": 40
+            }
+          },
+          "sampleEvery": 15,
+          "skippedSamples": 0,
+          "status": "available"
+        },
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ],
+        "passes": {
+          "ao-composite": {
+            "calls": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 592
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 592
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 592
+            },
+            "triangles": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 592
+            }
+          },
+          "background": {
+            "calls": {
+              "max": 9,
+              "mean": 7.778716216216216,
+              "p50": 8,
+              "p95": 9,
+              "samples": 592
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 592
+            },
+            "points": {
+              "max": 3100,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "samples": 592
+            },
+            "triangles": {
+              "max": 97288,
+              "mean": 97285.55743243244,
+              "p50": 97286,
+              "p95": 97288,
+              "samples": 592
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "max": 436,
+              "mean": 436,
+              "p50": 436,
+              "p95": 436,
+              "samples": 592
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 592
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 592
+            },
+            "triangles": {
+              "max": 886144,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "samples": 592
+            }
+          }
+        },
+        "resetReason": "capture started",
+        "schemaVersion": 1,
+        "window": {
+          "durationMs": 9983.300000000016,
+          "frames": 592,
+          "renderedFps": 59.1988620997064
+        }
+      },
+      "requestedDurationMs": 10000,
+      "settings": {
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "build": "production",
+        "cameraPosition": [
+          -5.460462533248986,
+          3.2839945907081103,
+          21.706267178260923
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.0060834697047354325,
+          0.9937046726144274
+        ],
+        "denoiseSamples": 32,
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "experiment": "normal",
+        "hardwareConcurrency": 10,
+        "inventory": {
+          "geometries": 448,
+          "geometryAttributeBytes": 44668616,
+          "largestMeshes": [
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876
+            },
+            {
+              "instances": 1,
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528
+            },
+            {
+              "instances": 1,
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348
+            },
+            {
+              "instances": 1,
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072
+            }
+          ],
+          "lights": 14,
+          "materials": 294,
+          "meshes": 520,
+          "nodes": 766,
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.",
+          "shadowCasters": 352
+        },
+        "nativePixelRatio": 1,
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ],
+        "pixelRatio": 1,
+        "reducedMotion": false,
+        "resources": {
+          "geometries": 384,
+          "programs": 31,
+          "textures": 52
+        },
+        "room": "home",
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "shadowsEnabled": true,
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "threeRevision": "185",
+        "travelling": false,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "viewport": [
+          1200,
+          800
+        ],
+        "visible": true
+      },
+      "spacecraft": {
+        "filter": {
+          "id": "",
+          "mode": "all"
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "kind": "part",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:projects",
+            "kind": "room",
+            "label": "Projects",
+            "meshes": 110
+          },
+          {
+            "id": "part:projects:furniture",
+            "kind": "part",
+            "label": "Projects · workshop furniture",
+            "meshes": 43
+          },
+          {
+            "id": "part:projects:labels",
+            "kind": "part",
+            "label": "Projects · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:projects:reader",
+            "kind": "part",
+            "label": "Projects · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:projects:doors",
+            "kind": "part",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 28
+          },
+          {
+            "id": "part:projects:other",
+            "kind": "part",
+            "label": "Projects · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:experience:structure",
+            "kind": "part",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:experience",
+            "kind": "room",
+            "label": "Case studies",
+            "meshes": 93
+          },
+          {
+            "id": "part:experience:furniture",
+            "kind": "part",
+            "label": "Case studies · archive furniture",
+            "meshes": 29
+          },
+          {
+            "id": "part:experience:labels",
+            "kind": "part",
+            "label": "Case studies · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:experience:reader",
+            "kind": "part",
+            "label": "Case studies · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:experience:doors",
+            "kind": "part",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 22
+          },
+          {
+            "id": "part:experience:other",
+            "kind": "part",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:about:structure",
+            "kind": "part",
+            "label": "About · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:about",
+            "kind": "room",
+            "label": "About",
+            "meshes": 141
+          },
+          {
+            "id": "part:about:furniture",
+            "kind": "part",
+            "label": "About · personal-study furniture",
+            "meshes": 54
+          },
+          {
+            "id": "part:about:labels",
+            "kind": "part",
+            "label": "About · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:about:reader",
+            "kind": "part",
+            "label": "About · deployable reader",
+            "meshes": 7
+          },
+          {
+            "id": "part:about:doors",
+            "kind": "part",
+            "label": "About · doors and passage assemblies",
+            "meshes": 44
+          },
+          {
+            "id": "part:about:other",
+            "kind": "part",
+            "label": "About · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:contact:structure",
+            "kind": "part",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:contact",
+            "kind": "room",
+            "label": "Contact",
+            "meshes": 93
+          },
+          {
+            "id": "part:contact:furniture",
+            "kind": "part",
+            "label": "Contact · flight-console furniture",
+            "meshes": 40
+          },
+          {
+            "id": "part:contact:labels",
+            "kind": "part",
+            "label": "Contact · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:contact:reader",
+            "kind": "part",
+            "label": "Contact · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:contact:doors",
+            "kind": "part",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 6
+          },
+          {
+            "id": "part:contact:other",
+            "kind": "part",
+            "label": "Contact · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:walkway:structure",
+            "kind": "part",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 8
+          },
+          {
+            "id": "room:walkway",
+            "kind": "room",
+            "label": "Ladder bay",
+            "meshes": 31
+          },
+          {
+            "id": "part:walkway:utilities",
+            "kind": "part",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22
+          },
+          {
+            "id": "part:walkway:fittings",
+            "kind": "part",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 1
+          },
+          {
+            "id": "part:shared:docking",
+            "kind": "part",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14
+          },
+          {
+            "id": "room:shared",
+            "kind": "room",
+            "label": "Shared assemblies",
+            "meshes": 37
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "kind": "part",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 12
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "kind": "part",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7
+          },
+          {
+            "id": "part:projects:utilities",
+            "kind": "part",
+            "label": "Projects · utility fittings",
+            "meshes": 14
+          },
+          {
+            "id": "part:experience:utilities",
+            "kind": "part",
+            "label": "Case studies · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:about:utilities",
+            "kind": "part",
+            "label": "About · utility fittings",
+            "meshes": 16
+          },
+          {
+            "id": "part:contact:utilities",
+            "kind": "part",
+            "label": "Contact · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:shared:solar",
+            "kind": "part",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10
+          },
+          {
+            "id": "part:shared:service",
+            "kind": "part",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6
+          },
+          {
+            "id": "part:shared:communications",
+            "kind": "part",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1
+          },
+          {
+            "id": "part:experience:chassis",
+            "kind": "part",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:contact:chassis",
+            "kind": "part",
+            "label": "Contact · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:shared:chassis",
+            "kind": "part",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 6
+          },
+          {
+            "id": "part:unknown:other",
+            "kind": "part",
+            "label": "Unclassified room · other or mixed batches",
+            "meshes": 1
+          },
+          {
+            "id": "room:unknown",
+            "kind": "room",
+            "label": "Unclassified room",
+            "meshes": 1
+          }
+        ],
+        "limitations": [
+          "Draw calls and triangles are actual renderer counter deltas around mesh draws, not CPU or GPU timings; compare whole-pass timing while hiding one group.",
+          "Part groups are disjoint existing draw batches. Room totals regroup the same draws and must not be added to part totals. Mixed material batches remain indivisible.",
+          "Room assignment follows model ownership; shared exterior assemblies are grouped separately. A shared doorway belongs to its model owner.",
+          "Shadow rendering, fullscreen AO/denoise draws, and meshes outside this root are unattributed. Reconciliation is null without complete pass counters or after counter resets.",
+          "Each pass has its own bounded sample window. Per-pass averages include zero for absent groups; AO averages describe refresh invocations, not every scene frame.",
+          "Filtering only changes mesh visibility during rendering. It retains existing hidden variants, scene updates, lights, cached shadows, and HTML; isolation savings include occlusion and shadow interactions.",
+          "Batch inventory is static geometry workload, including hidden variants, not measured draw cost. Source names are capped at 40 per batch."
+        ],
+        "passes": {
+          "spacecraft": {
+            "attributed": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "parts": [
+              {
+                "drawsPerPass": 54,
+                "id": "part:about:furniture",
+                "label": "About · personal-study furniture",
+                "totalDraws": 31968,
+                "totalTriangles": 53371168,
+                "trianglesPerPass": 90154
+              },
+              {
+                "drawsPerPass": 43,
+                "id": "part:projects:furniture",
+                "label": "Projects · workshop furniture",
+                "totalDraws": 25456,
+                "totalTriangles": 111445184,
+                "trianglesPerPass": 188252
+              },
+              {
+                "drawsPerPass": 42,
+                "id": "part:about:doors",
+                "label": "About · doors and passage assemblies",
+                "totalDraws": 24864,
+                "totalTriangles": 11110656,
+                "trianglesPerPass": 18768
+              },
+              {
+                "drawsPerPass": 39,
+                "id": "part:contact:furniture",
+                "label": "Contact · flight-console furniture",
+                "totalDraws": 23088,
+                "totalTriangles": 41996480,
+                "trianglesPerPass": 70940
+              },
+              {
+                "drawsPerPass": 29,
+                "id": "part:experience:furniture",
+                "label": "Case studies · archive furniture",
+                "totalDraws": 17168,
+                "totalTriangles": 45184992,
+                "trianglesPerPass": 76326
+              },
+              {
+                "drawsPerPass": 27,
+                "id": "part:projects:doors",
+                "label": "Projects · doors and passage assemblies",
+                "totalDraws": 15984,
+                "totalTriangles": 7899648,
+                "trianglesPerPass": 13344
+              },
+              {
+                "drawsPerPass": 22,
+                "id": "part:walkway:utilities",
+                "label": "Ladder bay · utility fittings",
+                "totalDraws": 13024,
+                "totalTriangles": 47833600,
+                "trianglesPerPass": 80800
+              },
+              {
+                "drawsPerPass": 21,
+                "id": "part:experience:doors",
+                "label": "Case studies · doors and passage assemblies",
+                "totalDraws": 12432,
+                "totalTriangles": 5548224,
+                "trianglesPerPass": 9372
+              },
+              {
+                "drawsPerPass": 14,
+                "id": "part:shared:docking",
+                "label": "Shared assemblies · docking sleeve and hatch",
+                "totalDraws": 8288,
+                "totalTriangles": 11115392,
+                "trianglesPerPass": 18776
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:projects:structure",
+                "label": "Projects · cabin pressure structure",
+                "totalDraws": 7696,
+                "totalTriangles": 8685824,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:about:structure",
+                "label": "About · cabin pressure structure",
+                "totalDraws": 7696,
+                "totalTriangles": 8685824,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 12,
+                "id": "part:contact:outboard-equipment",
+                "label": "Contact · outboard wall equipment",
+                "totalDraws": 7104,
+                "totalTriangles": 22192896,
+                "trianglesPerPass": 37488
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:shared:solar",
+                "label": "Shared assemblies · solar array batches",
+                "totalDraws": 5920,
+                "totalTriangles": 9661440,
+                "trianglesPerPass": 16320
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:experience:structure",
+                "label": "Case studies · cabin pressure structure",
+                "totalDraws": 5920,
+                "totalTriangles": 7054272,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:contact:structure",
+                "label": "Contact · cabin pressure structure",
+                "totalDraws": 5920,
+                "totalTriangles": 7054272,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:about:utilities",
+                "label": "About · utility fittings",
+                "totalDraws": 4736,
+                "totalTriangles": 8117504,
+                "trianglesPerPass": 13712
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:walkway:structure",
+                "label": "Ladder bay · pressure structure",
+                "totalDraws": 4736,
+                "totalTriangles": 3717760,
+                "trianglesPerPass": 6280
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:projects:utilities",
+                "label": "Projects · utility fittings",
+                "totalDraws": 4144,
+                "totalTriangles": 15789824,
+                "trianglesPerPass": 26672
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:experience:outboard-equipment",
+                "label": "Case studies · outboard wall equipment",
+                "totalDraws": 4144,
+                "totalTriangles": 10101888,
+                "trianglesPerPass": 17064
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:experience:utilities",
+                "label": "Case studies · utility fittings",
+                "totalDraws": 3552,
+                "totalTriangles": 10473664,
+                "trianglesPerPass": 17692
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:utilities",
+                "label": "Contact · utility fittings",
+                "totalDraws": 3552,
+                "totalTriangles": 8953408,
+                "trianglesPerPass": 15124
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:shared:service",
+                "label": "Shared assemblies · mixed service bus and appendages",
+                "totalDraws": 3552,
+                "totalTriangles": 8496384,
+                "trianglesPerPass": 14352
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:doors",
+                "label": "Contact · doors and passage assemblies",
+                "totalDraws": 3552,
+                "totalTriangles": 2337216,
+                "trianglesPerPass": 3948
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:projects:labels",
+                "label": "Projects · signage and label batches",
+                "totalDraws": 2368,
+                "totalTriangles": 1959520,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:experience:labels",
+                "label": "Case studies · signage and label batches",
+                "totalDraws": 2368,
+                "totalTriangles": 1959520,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:about:labels",
+                "label": "About · signage and label batches",
+                "totalDraws": 2368,
+                "totalTriangles": 1959520,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:contact:labels",
+                "label": "Contact · signage and label batches",
+                "totalDraws": 2368,
+                "totalTriangles": 1959520,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 3,
+                "id": "part:shared:chassis",
+                "label": "Shared assemblies · outer chassis",
+                "totalDraws": 1776,
+                "totalTriangles": 47805184,
+                "trianglesPerPass": 80752
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:walkway:fittings",
+                "label": "Ladder bay · interior fittings",
+                "totalDraws": 592,
+                "totalTriangles": 1234912,
+                "trianglesPerPass": 2086
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:shared:communications",
+                "label": "Shared assemblies · communications batches",
+                "totalDraws": 592,
+                "totalTriangles": 757760,
+                "trianglesPerPass": 1280
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:experience:chassis",
+                "label": "Case studies · chassis interior wall",
+                "totalDraws": 592,
+                "totalTriangles": 66896,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:contact:chassis",
+                "label": "Contact · chassis interior wall",
+                "totalDraws": 592,
+                "totalTriangles": 66896,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:reader",
+                "label": "Projects · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:other",
+                "label": "Projects · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:reader",
+                "label": "Case studies · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:other",
+                "label": "Case studies · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:reader",
+                "label": "About · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:other",
+                "label": "About · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:reader",
+                "label": "Contact · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:other",
+                "label": "Contact · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:unknown:other",
+                "label": "Unclassified room · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "rooms": [
+              {
+                "drawsPerPass": 121,
+                "id": "room:about",
+                "label": "About",
+                "totalDraws": 71632,
+                "totalTriangles": 83244672,
+                "trianglesPerPass": 140616
+              },
+              {
+                "drawsPerPass": 94,
+                "id": "room:projects",
+                "label": "Projects",
+                "totalDraws": 55648,
+                "totalTriangles": 145780000,
+                "trianglesPerPass": 246250
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:contact",
+                "label": "Contact",
+                "totalDraws": 46176,
+                "totalTriangles": 84560688,
+                "trianglesPerPass": 142839
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:experience",
+                "label": "Case studies",
+                "totalDraws": 46176,
+                "totalTriangles": 80389456,
+                "trianglesPerPass": 135793
+              },
+              {
+                "drawsPerPass": 34,
+                "id": "room:shared",
+                "label": "Shared assemblies",
+                "totalDraws": 20128,
+                "totalTriangles": 77836160,
+                "trianglesPerPass": 131480
+              },
+              {
+                "drawsPerPass": 31,
+                "id": "room:walkway",
+                "label": "Ladder bay",
+                "totalDraws": 18352,
+                "totalTriangles": 52786272,
+                "trianglesPerPass": 89166
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "room:unknown",
+                "label": "Unclassified room",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "samples": 592,
+            "total": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "unattributed": {
+              "drawsPerPass": 0,
+              "trianglesPerPass": 0
+            }
+          }
+        }
+      },
+      "spacecraftFilter": {
+        "id": "",
+        "mode": "all"
+      },
+      "startedAt": "2026-09-14T01:06:00.332Z",
+      "trend": {
+        "earlyCpuMs": 5.947315436237861,
+        "earlyFrameMs": 16.778787878787938,
+        "lateCpuMs": 5.597959183650661,
+        "lateFrameMs": 17.006802721088434,
+        "windowMs": 4991.650000000009
+      },
+      "warmupMs": 3000
+    },
+    {
+      "actualDurationMs": 60003.29999999888,
+      "completedAt": "2026-09-14T01:07:37.156Z",
+      "context": {
+        "activity": "idle",
+        "drawingHeight": 800,
+        "drawingWidth": 1200,
+        "experiment": "normal",
+        "height": 800,
+        "pixelRatio": 1,
+        "reading": false,
+        "reducedMotion": false,
+        "room": "home",
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "visible": true,
+        "width": 1200
+      },
+      "kind": "baseline",
+      "name": "Baseline 4",
+      "report": {
+        "activity": {
+          "idle": {
+            "cpuMeanMs": 5.39683916083791,
+            "frames": 3575
+          }
+        },
+        "context": {
+          "activity": "idle",
+          "drawingHeight": 800,
+          "drawingWidth": 1200,
+          "experiment": "normal",
+          "height": 800,
+          "pixelRatio": 1,
+          "reading": false,
+          "reducedMotion": false,
+          "room": "home",
+          "spacecraftFilter": {
+            "id": "",
+            "mode": "all"
+          },
+          "visible": true,
+          "width": 1200
+        },
+        "counters": {
+          "ao-cached": 3575
+        },
+        "cpuPhases": {
+          "annotations": {
+            "max": 0.5,
+            "mean": 0.1741258741305633,
+            "p50": 0.1999999992549419,
+            "p95": 0.30000000074505806,
+            "samples": 3575
+          },
+          "ao-composite": {
+            "max": 0.2000000011175871,
+            "mean": 0.02430769231456977,
+            "p50": 0,
+            "p95": 0.10000000149011612,
+            "samples": 3575
+          },
+          "audit-trace": {
+            "max": 0.10000000149011612,
+            "mean": 0.0010349650342356075,
+            "p50": 0,
+            "p95": 0,
+            "samples": 3575
+          },
+          "background": {
+            "max": 0.6999999992549419,
+            "mean": 0.10579020978218608,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 3575
+          },
+          "background-update": {
+            "max": 0.2000000011175871,
+            "mean": 0.007272727269601155,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 3575
+          },
+          "camera": {
+            "max": 0.1999999992549419,
+            "mean": 0.01423776223995052,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 3575
+          },
+          "css-render": {
+            "max": 0.2000000011175871,
+            "mean": 0.022377622379185436,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 3575
+          },
+          "diagnostics": {
+            "max": 0.2000000011175871,
+            "mean": 0.05387412587297963,
+            "p50": 0.09999999962747096,
+            "p95": 0.10000000149011612,
+            "samples": 3575
+          },
+          "html-sync": {
+            "max": 0.40000000037252903,
+            "mean": 0.12626573425541807,
+            "p50": 0.09999999962747096,
+            "p95": 0.2000000011175871,
+            "samples": 3575
+          },
+          "legacy-metrics": {
+            "max": 0.5,
+            "mean": 0.02920279720029631,
+            "p50": 0,
+            "p95": 0.30000000074505806,
+            "samples": 3575
+          },
+          "matrices": {
+            "max": 0.6000000014901161,
+            "mean": 0.28167832169291024,
+            "p50": 0.2999999988824129,
+            "p95": 0.40000000037252903,
+            "samples": 3575
+          },
+          "model-update": {
+            "max": 0.5,
+            "mean": 0.23186013984513448,
+            "p50": 0.2000000011175871,
+            "p95": 0.30000000074505806,
+            "samples": 3575
+          },
+          "navigation": {
+            "max": 0.10000000149011612,
+            "mean": 0.0035524475496340464,
+            "p50": 0,
+            "p95": 0,
+            "samples": 3575
+          },
+          "pointer-feedback": {
+            "max": 0.2000000011175871,
+            "mean": 0.015412587417172384,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 3575
+          },
+          "spacecraft": {
+            "max": 7.400000000372529,
+            "mean": 4.295076923089532,
+            "p50": 4.200000001117587,
+            "p95": 4.900000000372529,
+            "samples": 3575
+          },
+          "unattributed": {
+            "max": 0.2000000011175871,
+            "mean": 0.010769230764541593,
+            "p50": 0,
+            "p95": 0.09999999962747096,
+            "samples": 3575
+          }
+        },
+        "cpuTotal": {
+          "max": 9.5,
+          "mean": 5.39683916083791,
+          "p50": 5.300000000745058,
+          "p95": 6.200000001117587,
+          "samples": 3575
+        },
+        "frameInterval": {
+          "max": 33.39999999999418,
+          "mean": 16.783212087297148,
+          "p50": 16.699999999982538,
+          "p95": 17.89999999999418,
+          "samples": 3574
+        },
+        "gpu": {
+          "discardedSamples": 0,
+          "pending": 0,
+          "phases": {
+            "ao-composite": {
+              "max": 11.710083,
+              "mean": 8.163011853556487,
+              "p50": 9.147875,
+              "p95": 11.400583,
+              "samples": 239
+            },
+            "background": {
+              "max": 8.564125,
+              "mean": 1.9964723054393303,
+              "p50": 1.703458,
+              "p95": 3.71025,
+              "samples": 239
+            },
+            "spacecraft": {
+              "max": 12.487124,
+              "mean": 7.686688836820082,
+              "p50": 6.654708,
+              "p95": 11.956416,
+              "samples": 239
+            }
+          },
+          "sampleEvery": 15,
+          "skippedSamples": 0,
+          "status": "available"
+        },
+        "limitations": [
+          "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+          "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+          "This report cannot measure device temperature, power consumption, or thermal throttling.",
+          "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+          "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+        ],
+        "passes": {
+          "ao-composite": {
+            "calls": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 3575
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 3575
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 3575
+            },
+            "triangles": {
+              "max": 1,
+              "mean": 1,
+              "p50": 1,
+              "p95": 1,
+              "samples": 3575
+            }
+          },
+          "background": {
+            "calls": {
+              "max": 15,
+              "mean": 7.541258741258741,
+              "p50": 7,
+              "p95": 9,
+              "samples": 3575
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 3575
+            },
+            "points": {
+              "max": 3100,
+              "mean": 3100,
+              "p50": 3100,
+              "p95": 3100,
+              "samples": 3575
+            },
+            "triangles": {
+              "max": 97300,
+              "mean": 97285.08251748251,
+              "p50": 97284,
+              "p95": 97288,
+              "samples": 3575
+            }
+          },
+          "spacecraft": {
+            "calls": {
+              "max": 436,
+              "mean": 436,
+              "p50": 436,
+              "p95": 436,
+              "samples": 3575
+            },
+            "lines": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 3575
+            },
+            "points": {
+              "max": 0,
+              "mean": 0,
+              "p50": 0,
+              "p95": 0,
+              "samples": 3575
+            },
+            "triangles": {
+              "max": 886144,
+              "mean": 886144,
+              "p50": 886144,
+              "p95": 886144,
+              "samples": 3575
+            }
+          }
+        },
+        "resetReason": "capture started",
+        "schemaVersion": 1,
+        "window": {
+          "durationMs": 59983.20000000001,
+          "frames": 3575,
+          "renderedFps": 59.58335000466796
+        }
+      },
+      "requestedDurationMs": 60000,
+      "settings": {
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "build": "production",
+        "cameraPosition": [
+          -5.460462533248986,
+          3.2839945907081103,
+          21.706267178260923
+        ],
+        "cameraQuaternion": [
+          -0.06813725567632742,
+          -0.08872051290149265,
+          -0.0060834697047354325,
+          0.9937046726144274
+        ],
+        "denoiseSamples": 32,
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "experiment": "normal",
+        "hardwareConcurrency": 10,
+        "inventory": {
+          "geometries": 448,
+          "geometryAttributeBytes": 44668616,
+          "largestMeshes": [
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "contact-ceramic-hull",
+              "triangles": 77776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-recess",
+              "triangles": 52752
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "unnamed mesh",
+              "triangles": 24320
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-rack-graphite",
+              "triangles": 24280
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-structural-graphite",
+              "triangles": 22876
+            },
+            {
+              "instances": 1,
+              "name": "contact-contact-flight-graphite",
+              "triangles": 20528
+            },
+            {
+              "instances": 1,
+              "name": "walkway-service-spine-graphite-casings",
+              "triangles": 20348
+            },
+            {
+              "instances": 1,
+              "name": "about-personal-study-page-edge-shadow",
+              "triangles": 19440
+            },
+            {
+              "instances": 1,
+              "name": "experience-case-archive-satin-edge",
+              "triangles": 15776
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-enamel-edge",
+              "triangles": 15072
+            },
+            {
+              "instances": 1,
+              "name": "projects-projects-workshop-ivory-enamel",
+              "triangles": 15072
+            }
+          ],
+          "lights": 14,
+          "materials": 294,
+          "meshes": 520,
+          "nodes": 766,
+          "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.",
+          "shadowCasters": 352
+        },
+        "nativePixelRatio": 1,
+        "notes": [
+          "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+          "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+          "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+        ],
+        "pixelRatio": 1,
+        "reducedMotion": false,
+        "resources": {
+          "geometries": 384,
+          "programs": 31,
+          "textures": 52
+        },
+        "room": "home",
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "shadowsEnabled": true,
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "threeRevision": "185",
+        "travelling": false,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "viewport": [
+          1200,
+          800
+        ],
+        "visible": true
+      },
+      "spacecraft": {
+        "filter": {
+          "id": "",
+          "mode": "all"
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "kind": "part",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:projects",
+            "kind": "room",
+            "label": "Projects",
+            "meshes": 110
+          },
+          {
+            "id": "part:projects:furniture",
+            "kind": "part",
+            "label": "Projects · workshop furniture",
+            "meshes": 43
+          },
+          {
+            "id": "part:projects:labels",
+            "kind": "part",
+            "label": "Projects · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:projects:reader",
+            "kind": "part",
+            "label": "Projects · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:projects:doors",
+            "kind": "part",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 28
+          },
+          {
+            "id": "part:projects:other",
+            "kind": "part",
+            "label": "Projects · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:experience:structure",
+            "kind": "part",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:experience",
+            "kind": "room",
+            "label": "Case studies",
+            "meshes": 93
+          },
+          {
+            "id": "part:experience:furniture",
+            "kind": "part",
+            "label": "Case studies · archive furniture",
+            "meshes": 29
+          },
+          {
+            "id": "part:experience:labels",
+            "kind": "part",
+            "label": "Case studies · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:experience:reader",
+            "kind": "part",
+            "label": "Case studies · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:experience:doors",
+            "kind": "part",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 22
+          },
+          {
+            "id": "part:experience:other",
+            "kind": "part",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:about:structure",
+            "kind": "part",
+            "label": "About · cabin pressure structure",
+            "meshes": 13
+          },
+          {
+            "id": "room:about",
+            "kind": "room",
+            "label": "About",
+            "meshes": 141
+          },
+          {
+            "id": "part:about:furniture",
+            "kind": "part",
+            "label": "About · personal-study furniture",
+            "meshes": 54
+          },
+          {
+            "id": "part:about:labels",
+            "kind": "part",
+            "label": "About · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:about:reader",
+            "kind": "part",
+            "label": "About · deployable reader",
+            "meshes": 7
+          },
+          {
+            "id": "part:about:doors",
+            "kind": "part",
+            "label": "About · doors and passage assemblies",
+            "meshes": 44
+          },
+          {
+            "id": "part:about:other",
+            "kind": "part",
+            "label": "About · other or mixed batches",
+            "meshes": 3
+          },
+          {
+            "id": "part:contact:structure",
+            "kind": "part",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 10
+          },
+          {
+            "id": "room:contact",
+            "kind": "room",
+            "label": "Contact",
+            "meshes": 93
+          },
+          {
+            "id": "part:contact:furniture",
+            "kind": "part",
+            "label": "Contact · flight-console furniture",
+            "meshes": 40
+          },
+          {
+            "id": "part:contact:labels",
+            "kind": "part",
+            "label": "Contact · signage and label batches",
+            "meshes": 4
+          },
+          {
+            "id": "part:contact:reader",
+            "kind": "part",
+            "label": "Contact · deployable reader",
+            "meshes": 5
+          },
+          {
+            "id": "part:contact:doors",
+            "kind": "part",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 6
+          },
+          {
+            "id": "part:contact:other",
+            "kind": "part",
+            "label": "Contact · other or mixed batches",
+            "meshes": 2
+          },
+          {
+            "id": "part:walkway:structure",
+            "kind": "part",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 8
+          },
+          {
+            "id": "room:walkway",
+            "kind": "room",
+            "label": "Ladder bay",
+            "meshes": 31
+          },
+          {
+            "id": "part:walkway:utilities",
+            "kind": "part",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22
+          },
+          {
+            "id": "part:walkway:fittings",
+            "kind": "part",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 1
+          },
+          {
+            "id": "part:shared:docking",
+            "kind": "part",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14
+          },
+          {
+            "id": "room:shared",
+            "kind": "room",
+            "label": "Shared assemblies",
+            "meshes": 37
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "kind": "part",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 12
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "kind": "part",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7
+          },
+          {
+            "id": "part:projects:utilities",
+            "kind": "part",
+            "label": "Projects · utility fittings",
+            "meshes": 14
+          },
+          {
+            "id": "part:experience:utilities",
+            "kind": "part",
+            "label": "Case studies · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:about:utilities",
+            "kind": "part",
+            "label": "About · utility fittings",
+            "meshes": 16
+          },
+          {
+            "id": "part:contact:utilities",
+            "kind": "part",
+            "label": "Contact · utility fittings",
+            "meshes": 12
+          },
+          {
+            "id": "part:shared:solar",
+            "kind": "part",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10
+          },
+          {
+            "id": "part:shared:service",
+            "kind": "part",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6
+          },
+          {
+            "id": "part:shared:communications",
+            "kind": "part",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1
+          },
+          {
+            "id": "part:experience:chassis",
+            "kind": "part",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:contact:chassis",
+            "kind": "part",
+            "label": "Contact · chassis interior wall",
+            "meshes": 2
+          },
+          {
+            "id": "part:shared:chassis",
+            "kind": "part",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 6
+          },
+          {
+            "id": "part:unknown:other",
+            "kind": "part",
+            "label": "Unclassified room · other or mixed batches",
+            "meshes": 1
+          },
+          {
+            "id": "room:unknown",
+            "kind": "room",
+            "label": "Unclassified room",
+            "meshes": 1
+          }
+        ],
+        "limitations": [
+          "Draw calls and triangles are actual renderer counter deltas around mesh draws, not CPU or GPU timings; compare whole-pass timing while hiding one group.",
+          "Part groups are disjoint existing draw batches. Room totals regroup the same draws and must not be added to part totals. Mixed material batches remain indivisible.",
+          "Room assignment follows model ownership; shared exterior assemblies are grouped separately. A shared doorway belongs to its model owner.",
+          "Shadow rendering, fullscreen AO/denoise draws, and meshes outside this root are unattributed. Reconciliation is null without complete pass counters or after counter resets.",
+          "Each pass has its own bounded sample window. Per-pass averages include zero for absent groups; AO averages describe refresh invocations, not every scene frame.",
+          "Filtering only changes mesh visibility during rendering. It retains existing hidden variants, scene updates, lights, cached shadows, and HTML; isolation savings include occlusion and shadow interactions.",
+          "Batch inventory is static geometry workload, including hidden variants, not measured draw cost. Source names are capped at 40 per batch."
+        ],
+        "passes": {
+          "spacecraft": {
+            "attributed": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "parts": [
+              {
+                "drawsPerPass": 54,
+                "id": "part:about:furniture",
+                "label": "About · personal-study furniture",
+                "totalDraws": 193050,
+                "totalTriangles": 322300550,
+                "trianglesPerPass": 90154
+              },
+              {
+                "drawsPerPass": 43,
+                "id": "part:projects:furniture",
+                "label": "Projects · workshop furniture",
+                "totalDraws": 153725,
+                "totalTriangles": 673000900,
+                "trianglesPerPass": 188252
+              },
+              {
+                "drawsPerPass": 42,
+                "id": "part:about:doors",
+                "label": "About · doors and passage assemblies",
+                "totalDraws": 150150,
+                "totalTriangles": 67095600,
+                "trianglesPerPass": 18768
+              },
+              {
+                "drawsPerPass": 39,
+                "id": "part:contact:furniture",
+                "label": "Contact · flight-console furniture",
+                "totalDraws": 139425,
+                "totalTriangles": 253610500,
+                "trianglesPerPass": 70940
+              },
+              {
+                "drawsPerPass": 29,
+                "id": "part:experience:furniture",
+                "label": "Case studies · archive furniture",
+                "totalDraws": 103675,
+                "totalTriangles": 272865450,
+                "trianglesPerPass": 76326
+              },
+              {
+                "drawsPerPass": 27,
+                "id": "part:projects:doors",
+                "label": "Projects · doors and passage assemblies",
+                "totalDraws": 96525,
+                "totalTriangles": 47704800,
+                "trianglesPerPass": 13344
+              },
+              {
+                "drawsPerPass": 22,
+                "id": "part:walkway:utilities",
+                "label": "Ladder bay · utility fittings",
+                "totalDraws": 78650,
+                "totalTriangles": 288860000,
+                "trianglesPerPass": 80800
+              },
+              {
+                "drawsPerPass": 21,
+                "id": "part:experience:doors",
+                "label": "Case studies · doors and passage assemblies",
+                "totalDraws": 75075,
+                "totalTriangles": 33504900,
+                "trianglesPerPass": 9372
+              },
+              {
+                "drawsPerPass": 14,
+                "id": "part:shared:docking",
+                "label": "Shared assemblies · docking sleeve and hatch",
+                "totalDraws": 50050,
+                "totalTriangles": 67124200,
+                "trianglesPerPass": 18776
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:projects:structure",
+                "label": "Projects · cabin pressure structure",
+                "totalDraws": 46475,
+                "totalTriangles": 52452400,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 13,
+                "id": "part:about:structure",
+                "label": "About · cabin pressure structure",
+                "totalDraws": 46475,
+                "totalTriangles": 52452400,
+                "trianglesPerPass": 14672
+              },
+              {
+                "drawsPerPass": 12,
+                "id": "part:contact:outboard-equipment",
+                "label": "Contact · outboard wall equipment",
+                "totalDraws": 42900,
+                "totalTriangles": 134019600,
+                "trianglesPerPass": 37488
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:shared:solar",
+                "label": "Shared assemblies · solar array batches",
+                "totalDraws": 35750,
+                "totalTriangles": 58344000,
+                "trianglesPerPass": 16320
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:experience:structure",
+                "label": "Case studies · cabin pressure structure",
+                "totalDraws": 35750,
+                "totalTriangles": 42599700,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 10,
+                "id": "part:contact:structure",
+                "label": "Contact · cabin pressure structure",
+                "totalDraws": 35750,
+                "totalTriangles": 42599700,
+                "trianglesPerPass": 11916
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:about:utilities",
+                "label": "About · utility fittings",
+                "totalDraws": 28600,
+                "totalTriangles": 49020400,
+                "trianglesPerPass": 13712
+              },
+              {
+                "drawsPerPass": 8,
+                "id": "part:walkway:structure",
+                "label": "Ladder bay · pressure structure",
+                "totalDraws": 28600,
+                "totalTriangles": 22451000,
+                "trianglesPerPass": 6280
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:projects:utilities",
+                "label": "Projects · utility fittings",
+                "totalDraws": 25025,
+                "totalTriangles": 95352400,
+                "trianglesPerPass": 26672
+              },
+              {
+                "drawsPerPass": 7,
+                "id": "part:experience:outboard-equipment",
+                "label": "Case studies · outboard wall equipment",
+                "totalDraws": 25025,
+                "totalTriangles": 61003800,
+                "trianglesPerPass": 17064
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:experience:utilities",
+                "label": "Case studies · utility fittings",
+                "totalDraws": 21450,
+                "totalTriangles": 63248900,
+                "trianglesPerPass": 17692
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:utilities",
+                "label": "Contact · utility fittings",
+                "totalDraws": 21450,
+                "totalTriangles": 54068300,
+                "trianglesPerPass": 15124
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:shared:service",
+                "label": "Shared assemblies · mixed service bus and appendages",
+                "totalDraws": 21450,
+                "totalTriangles": 51308400,
+                "trianglesPerPass": 14352
+              },
+              {
+                "drawsPerPass": 6,
+                "id": "part:contact:doors",
+                "label": "Contact · doors and passage assemblies",
+                "totalDraws": 21450,
+                "totalTriangles": 14114100,
+                "trianglesPerPass": 3948
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:projects:labels",
+                "label": "Projects · signage and label batches",
+                "totalDraws": 14300,
+                "totalTriangles": 11833250,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:experience:labels",
+                "label": "Case studies · signage and label batches",
+                "totalDraws": 14300,
+                "totalTriangles": 11833250,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:about:labels",
+                "label": "About · signage and label batches",
+                "totalDraws": 14300,
+                "totalTriangles": 11833250,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 4,
+                "id": "part:contact:labels",
+                "label": "Contact · signage and label batches",
+                "totalDraws": 14300,
+                "totalTriangles": 11833250,
+                "trianglesPerPass": 3310
+              },
+              {
+                "drawsPerPass": 3,
+                "id": "part:shared:chassis",
+                "label": "Shared assemblies · outer chassis",
+                "totalDraws": 10725,
+                "totalTriangles": 288688400,
+                "trianglesPerPass": 80752
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:walkway:fittings",
+                "label": "Ladder bay · interior fittings",
+                "totalDraws": 3575,
+                "totalTriangles": 7457450,
+                "trianglesPerPass": 2086
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:shared:communications",
+                "label": "Shared assemblies · communications batches",
+                "totalDraws": 3575,
+                "totalTriangles": 4576000,
+                "trianglesPerPass": 1280
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:experience:chassis",
+                "label": "Case studies · chassis interior wall",
+                "totalDraws": 3575,
+                "totalTriangles": 403975,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 1,
+                "id": "part:contact:chassis",
+                "label": "Contact · chassis interior wall",
+                "totalDraws": 3575,
+                "totalTriangles": 403975,
+                "trianglesPerPass": 113
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:reader",
+                "label": "Projects · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:projects:other",
+                "label": "Projects · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:reader",
+                "label": "Case studies · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:experience:other",
+                "label": "Case studies · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:reader",
+                "label": "About · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:about:other",
+                "label": "About · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:reader",
+                "label": "Contact · deployable reader",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:contact:other",
+                "label": "Contact · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "part:unknown:other",
+                "label": "Unclassified room · other or mixed batches",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "rooms": [
+              {
+                "drawsPerPass": 121,
+                "id": "room:about",
+                "label": "About",
+                "totalDraws": 432575,
+                "totalTriangles": 502702200,
+                "trianglesPerPass": 140616
+              },
+              {
+                "drawsPerPass": 94,
+                "id": "room:projects",
+                "label": "Projects",
+                "totalDraws": 336050,
+                "totalTriangles": 880343750,
+                "trianglesPerPass": 246250
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:contact",
+                "label": "Contact",
+                "totalDraws": 278850,
+                "totalTriangles": 510649425,
+                "trianglesPerPass": 142839
+              },
+              {
+                "drawsPerPass": 78,
+                "id": "room:experience",
+                "label": "Case studies",
+                "totalDraws": 278850,
+                "totalTriangles": 485459975,
+                "trianglesPerPass": 135793
+              },
+              {
+                "drawsPerPass": 34,
+                "id": "room:shared",
+                "label": "Shared assemblies",
+                "totalDraws": 121550,
+                "totalTriangles": 470041000,
+                "trianglesPerPass": 131480
+              },
+              {
+                "drawsPerPass": 31,
+                "id": "room:walkway",
+                "label": "Ladder bay",
+                "totalDraws": 110825,
+                "totalTriangles": 318768450,
+                "trianglesPerPass": 89166
+              },
+              {
+                "drawsPerPass": 0,
+                "id": "room:unknown",
+                "label": "Unclassified room",
+                "totalDraws": 0,
+                "totalTriangles": 0,
+                "trianglesPerPass": 0
+              }
+            ],
+            "samples": 3575,
+            "total": {
+              "drawsPerPass": 436,
+              "trianglesPerPass": 886144
+            },
+            "unattributed": {
+              "drawsPerPass": 0,
+              "trianglesPerPass": 0
+            }
+          }
+        }
+      },
+      "spacecraftFilter": {
+        "id": "",
+        "mode": "all"
+      },
+      "startedAt": "2026-09-14T01:06:37.111Z",
+      "trend": {
+        "earlyCpuMs": 5.8134680133601435,
+        "earlyFrameMs": 16.83581081081079,
+        "lateCpuMs": 5.172093023258289,
+        "lateFrameMs": 16.673089700996794,
+        "windowMs": 5000
+      },
+      "warmupMs": 3000
+    }
+  ],
+  "current": {
+    "report": {
+      "activity": {
+        "idle": {
+          "cpuMeanMs": 7.998388888879369,
+          "frames": 1800
+        }
+      },
+      "context": {
+        "activity": "idle",
+        "drawingHeight": 800,
+        "drawingWidth": 1200,
+        "experiment": "normal",
+        "height": 800,
+        "pixelRatio": 1,
+        "reading": false,
+        "reducedMotion": false,
+        "room": "home",
+        "spacecraftFilter": {
+          "id": "",
+          "mode": "all"
+        },
+        "visible": true,
+        "width": 1200
+      },
+      "counters": {
+        "ao-cached": 1800
+      },
+      "cpuPhases": {
+        "annotations": {
+          "max": 5.599999999627471,
+          "mean": 0.22844444445334375,
+          "p50": 0.2000000011175871,
+          "p95": 0.3999999985098839,
+          "samples": 1800
+        },
+        "ao-composite": {
+          "max": 0.2000000011175871,
+          "mean": 0.04138888886819283,
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "samples": 1800
+        },
+        "audit-trace": {
+          "max": 0.09999999962747096,
+          "mean": 0.0006111111088345448,
+          "p50": 0,
+          "p95": 0,
+          "samples": 1800
+        },
+        "background": {
+          "max": 0.6000000014901161,
+          "mean": 0.15922222221891086,
+          "p50": 0.1999999992549419,
+          "p95": 0.30000000074505806,
+          "samples": 1800
+        },
+        "background-update": {
+          "max": 0.10000000149011612,
+          "mean": 0.010999999995239906,
+          "p50": 0,
+          "p95": 0.09999999962747096,
+          "samples": 1800
+        },
+        "camera": {
+          "max": 0.2000000011175871,
+          "mean": 0.022777777779847384,
+          "p50": 0,
+          "p95": 0.09999999962747096,
+          "samples": 1800
+        },
+        "css-render": {
+          "max": 0.2000000011175871,
+          "mean": 0.03638888886819283,
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "samples": 1800
+        },
+        "diagnostics": {
+          "max": 0.8000000007450581,
+          "mean": 0.07844444445230894,
+          "p50": 0.09999999962747096,
+          "p95": 0.1999999992549419,
+          "samples": 1800
+        },
+        "html-sync": {
+          "max": 4.900000000372529,
+          "mean": 0.18305555555348596,
+          "p50": 0.1999999992549419,
+          "p95": 0.30000000074505806,
+          "samples": 1800
+        },
+        "legacy-metrics": {
+          "max": 0.900000000372529,
+          "mean": 0.04544444444796277,
+          "p50": 0,
+          "p95": 0.40000000037252903,
+          "samples": 1800
+        },
+        "matrices": {
+          "max": 1.5,
+          "mean": 0.3769444444475489,
+          "p50": 0.3999999985098839,
+          "p95": 0.6000000014901161,
+          "samples": 1800
+        },
+        "model-update": {
+          "max": 2.5,
+          "mean": 0.34694444444030526,
+          "p50": 0.30000000074505806,
+          "p95": 0.599999999627471,
+          "samples": 1800
+        },
+        "navigation": {
+          "max": 0.10000000149011612,
+          "mean": 0.005333333338300387,
+          "p50": 0,
+          "p95": 0.09999999962747096,
+          "samples": 1800
+        },
+        "pointer-feedback": {
+          "max": 0.2000000011175871,
+          "mean": 0.023333333334368135,
+          "p50": 0,
+          "p95": 0.09999999962747096,
+          "samples": 1800
+        },
+        "spacecraft": {
+          "max": 19.09999999962747,
+          "mean": 6.4170555555675595,
+          "p50": 4.900000000372529,
+          "p95": 10.699999999254942,
+          "samples": 1800
+        },
+        "unattributed": {
+          "max": 0.2000000011175871,
+          "mean": 0.022000000004967053,
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "samples": 1800
+        }
+      },
+      "cpuTotal": {
+        "max": 23,
+        "mean": 7.998388888879369,
+        "p50": 6.400000000372529,
+        "p95": 12.699999999254942,
+        "samples": 1800
+      },
+      "frameInterval": {
+        "max": 66.59999999997672,
+        "mean": 17.101833333333328,
+        "p50": 16.70000000001164,
+        "p95": 18.70000000001164,
+        "samples": 1800
+      },
+      "gpu": {
+        "discardedSamples": 0,
+        "pending": 0,
+        "phases": {
+          "ao-composite": {
+            "max": 11.641249,
+            "mean": 5.980339158333332,
+            "p50": 4.958041,
+            "p95": 10.800958,
+            "samples": 120
+          },
+          "background": {
+            "max": 8.457083,
+            "mean": 2.218831800000001,
+            "p50": 1.904166,
+            "p95": 3.908874,
+            "samples": 120
+          },
+          "spacecraft": {
+            "max": 12.4255,
+            "mean": 6.086957816666668,
+            "p50": 5.53075,
+            "p95": 10.864666,
+            "samples": 120
+          }
+        },
+        "sampleEvery": 15,
+        "skippedSamples": 0,
+        "status": "available"
+      },
+      "limitations": [
+        "CPU timings measure elapsed frame-callback time, including WebGL submission; they are not CPU utilization or whole-page work.",
+        "GPU timings are asynchronous samples; unsupported or unsampled timings are null. CPU and GPU times overlap and must not be added.",
+        "This report cannot measure device temperature, power consumption, or thermal throttling.",
+        "Pass counters require cumulative renderer.info counters (autoReset disabled) across each measured pass.",
+        "Per-phase statistics describe frames where that phase ran; compare sample counts and AO invalidation counters before prioritizing."
+      ],
+      "passes": {
+        "ao-composite": {
+          "calls": {
+            "max": 1,
+            "mean": 1,
+            "p50": 1,
+            "p95": 1,
+            "samples": 1800
+          },
+          "lines": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 1800
+          },
+          "points": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 1800
+          },
+          "triangles": {
+            "max": 1,
+            "mean": 1,
+            "p50": 1,
+            "p95": 1,
+            "samples": 1800
+          }
+        },
+        "background": {
+          "calls": {
+            "max": 11,
+            "mean": 7.548888888888888,
+            "p50": 8,
+            "p95": 9,
+            "samples": 1800
+          },
+          "lines": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 1800
+          },
+          "points": {
+            "max": 3100,
+            "mean": 3100,
+            "p50": 3100,
+            "p95": 3100,
+            "samples": 1800
+          },
+          "triangles": {
+            "max": 97292,
+            "mean": 97285.09777777776,
+            "p50": 97286,
+            "p95": 97288,
+            "samples": 1800
+          }
+        },
+        "spacecraft": {
+          "calls": {
+            "max": 436,
+            "mean": 436,
+            "p50": 436,
+            "p95": 436,
+            "samples": 1800
+          },
+          "lines": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 1800
+          },
+          "points": {
+            "max": 0,
+            "mean": 0,
+            "p50": 0,
+            "p95": 0,
+            "samples": 1800
+          },
+          "triangles": {
+            "max": 886144,
+            "mean": 886144,
+            "p50": 886144,
+            "p95": 886144,
+            "samples": 1800
+          }
+        }
+      },
+      "resetReason": "capture started",
+      "schemaVersion": 1,
+      "window": {
+        "durationMs": 30766.599999999977,
+        "frames": 1800,
+        "renderedFps": 58.47249939869863
+      }
+    },
+    "settings": {
+      "aoBuffer": [
+        780,
+        520
+      ],
+      "aoEnabled": true,
+      "aoSamples": 32,
+      "build": "production",
+      "cameraPosition": [
+        -5.460462533248986,
+        3.2839945907081103,
+        21.706267178260923
+      ],
+      "cameraQuaternion": [
+        -0.06813725567632742,
+        -0.08872051290149265,
+        -0.0060834697047354325,
+        0.9937046726144274
+      ],
+      "denoiseSamples": 32,
+      "drawingBuffer": [
+        1200,
+        800
+      ],
+      "experiment": "normal",
+      "hardwareConcurrency": 10,
+      "inventory": {
+        "geometries": 448,
+        "geometryAttributeBytes": 44668616,
+        "largestMeshes": [
+          {
+            "instances": 1,
+            "name": "contact-ceramic-hull",
+            "triangles": 77776
+          },
+          {
+            "instances": 1,
+            "name": "contact-ceramic-hull",
+            "triangles": 77776
+          },
+          {
+            "instances": 1,
+            "name": "projects-projects-workshop-recess",
+            "triangles": 52752
+          },
+          {
+            "instances": 1,
+            "name": "unnamed mesh",
+            "triangles": 24320
+          },
+          {
+            "instances": 1,
+            "name": "unnamed mesh",
+            "triangles": 24320
+          },
+          {
+            "instances": 1,
+            "name": "unnamed mesh",
+            "triangles": 24320
+          },
+          {
+            "instances": 1,
+            "name": "unnamed mesh",
+            "triangles": 24320
+          },
+          {
+            "instances": 1,
+            "name": "experience-case-archive-rack-graphite",
+            "triangles": 24280
+          },
+          {
+            "instances": 1,
+            "name": "projects-projects-workshop-structural-graphite",
+            "triangles": 22876
+          },
+          {
+            "instances": 1,
+            "name": "contact-contact-flight-graphite",
+            "triangles": 20528
+          },
+          {
+            "instances": 1,
+            "name": "walkway-service-spine-graphite-casings",
+            "triangles": 20348
+          },
+          {
+            "instances": 1,
+            "name": "about-personal-study-page-edge-shadow",
+            "triangles": 19440
+          },
+          {
+            "instances": 1,
+            "name": "experience-case-archive-satin-edge",
+            "triangles": 15776
+          },
+          {
+            "instances": 1,
+            "name": "projects-projects-workshop-enamel-edge",
+            "triangles": 15072
+          },
+          {
+            "instances": 1,
+            "name": "projects-projects-workshop-ivory-enamel",
+            "triangles": 15072
+          }
+        ],
+        "lights": 14,
+        "materials": 294,
+        "meshes": 520,
+        "nodes": 766,
+        "note": "Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.",
+        "shadowCasters": 352
+      },
+      "nativePixelRatio": 1,
+      "notes": [
+        "CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.",
+        "Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.",
+        "Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload."
+      ],
+      "pixelRatio": 1,
+      "reducedMotion": false,
+      "resources": {
+        "geometries": 384,
+        "programs": 31,
+        "textures": 52
+      },
+      "room": "home",
+      "shadowMap": [
+        2048,
+        2048
+      ],
+      "shadowsEnabled": true,
+      "spacecraftFilter": {
+        "id": "",
+        "mode": "all"
+      },
+      "threeRevision": "185",
+      "travelling": false,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "viewport": [
+        1200,
+        800
+      ],
+      "visible": true
+    },
+    "spacecraft": {
+      "filter": {
+        "id": "",
+        "mode": "all"
+      },
+      "groups": [
+        {
+          "id": "part:projects:structure",
+          "kind": "part",
+          "label": "Projects · cabin pressure structure",
+          "meshes": 13
+        },
+        {
+          "id": "room:projects",
+          "kind": "room",
+          "label": "Projects",
+          "meshes": 110
+        },
+        {
+          "id": "part:projects:furniture",
+          "kind": "part",
+          "label": "Projects · workshop furniture",
+          "meshes": 43
+        },
+        {
+          "id": "part:projects:labels",
+          "kind": "part",
+          "label": "Projects · signage and label batches",
+          "meshes": 4
+        },
+        {
+          "id": "part:projects:reader",
+          "kind": "part",
+          "label": "Projects · deployable reader",
+          "meshes": 5
+        },
+        {
+          "id": "part:projects:doors",
+          "kind": "part",
+          "label": "Projects · doors and passage assemblies",
+          "meshes": 28
+        },
+        {
+          "id": "part:projects:other",
+          "kind": "part",
+          "label": "Projects · other or mixed batches",
+          "meshes": 3
+        },
+        {
+          "id": "part:experience:structure",
+          "kind": "part",
+          "label": "Case studies · cabin pressure structure",
+          "meshes": 10
+        },
+        {
+          "id": "room:experience",
+          "kind": "room",
+          "label": "Case studies",
+          "meshes": 93
+        },
+        {
+          "id": "part:experience:furniture",
+          "kind": "part",
+          "label": "Case studies · archive furniture",
+          "meshes": 29
+        },
+        {
+          "id": "part:experience:labels",
+          "kind": "part",
+          "label": "Case studies · signage and label batches",
+          "meshes": 4
+        },
+        {
+          "id": "part:experience:reader",
+          "kind": "part",
+          "label": "Case studies · deployable reader",
+          "meshes": 5
+        },
+        {
+          "id": "part:experience:doors",
+          "kind": "part",
+          "label": "Case studies · doors and passage assemblies",
+          "meshes": 22
+        },
+        {
+          "id": "part:experience:other",
+          "kind": "part",
+          "label": "Case studies · other or mixed batches",
+          "meshes": 2
+        },
+        {
+          "id": "part:about:structure",
+          "kind": "part",
+          "label": "About · cabin pressure structure",
+          "meshes": 13
+        },
+        {
+          "id": "room:about",
+          "kind": "room",
+          "label": "About",
+          "meshes": 141
+        },
+        {
+          "id": "part:about:furniture",
+          "kind": "part",
+          "label": "About · personal-study furniture",
+          "meshes": 54
+        },
+        {
+          "id": "part:about:labels",
+          "kind": "part",
+          "label": "About · signage and label batches",
+          "meshes": 4
+        },
+        {
+          "id": "part:about:reader",
+          "kind": "part",
+          "label": "About · deployable reader",
+          "meshes": 7
+        },
+        {
+          "id": "part:about:doors",
+          "kind": "part",
+          "label": "About · doors and passage assemblies",
+          "meshes": 44
+        },
+        {
+          "id": "part:about:other",
+          "kind": "part",
+          "label": "About · other or mixed batches",
+          "meshes": 3
+        },
+        {
+          "id": "part:contact:structure",
+          "kind": "part",
+          "label": "Contact · cabin pressure structure",
+          "meshes": 10
+        },
+        {
+          "id": "room:contact",
+          "kind": "room",
+          "label": "Contact",
+          "meshes": 93
+        },
+        {
+          "id": "part:contact:furniture",
+          "kind": "part",
+          "label": "Contact · flight-console furniture",
+          "meshes": 40
+        },
+        {
+          "id": "part:contact:labels",
+          "kind": "part",
+          "label": "Contact · signage and label batches",
+          "meshes": 4
+        },
+        {
+          "id": "part:contact:reader",
+          "kind": "part",
+          "label": "Contact · deployable reader",
+          "meshes": 5
+        },
+        {
+          "id": "part:contact:doors",
+          "kind": "part",
+          "label": "Contact · doors and passage assemblies",
+          "meshes": 6
+        },
+        {
+          "id": "part:contact:other",
+          "kind": "part",
+          "label": "Contact · other or mixed batches",
+          "meshes": 2
+        },
+        {
+          "id": "part:walkway:structure",
+          "kind": "part",
+          "label": "Ladder bay · pressure structure",
+          "meshes": 8
+        },
+        {
+          "id": "room:walkway",
+          "kind": "room",
+          "label": "Ladder bay",
+          "meshes": 31
+        },
+        {
+          "id": "part:walkway:utilities",
+          "kind": "part",
+          "label": "Ladder bay · utility fittings",
+          "meshes": 22
+        },
+        {
+          "id": "part:walkway:fittings",
+          "kind": "part",
+          "label": "Ladder bay · interior fittings",
+          "meshes": 1
+        },
+        {
+          "id": "part:shared:docking",
+          "kind": "part",
+          "label": "Shared assemblies · docking sleeve and hatch",
+          "meshes": 14
+        },
+        {
+          "id": "room:shared",
+          "kind": "room",
+          "label": "Shared assemblies",
+          "meshes": 37
+        },
+        {
+          "id": "part:contact:outboard-equipment",
+          "kind": "part",
+          "label": "Contact · outboard wall equipment",
+          "meshes": 12
+        },
+        {
+          "id": "part:experience:outboard-equipment",
+          "kind": "part",
+          "label": "Case studies · outboard wall equipment",
+          "meshes": 7
+        },
+        {
+          "id": "part:projects:utilities",
+          "kind": "part",
+          "label": "Projects · utility fittings",
+          "meshes": 14
+        },
+        {
+          "id": "part:experience:utilities",
+          "kind": "part",
+          "label": "Case studies · utility fittings",
+          "meshes": 12
+        },
+        {
+          "id": "part:about:utilities",
+          "kind": "part",
+          "label": "About · utility fittings",
+          "meshes": 16
+        },
+        {
+          "id": "part:contact:utilities",
+          "kind": "part",
+          "label": "Contact · utility fittings",
+          "meshes": 12
+        },
+        {
+          "id": "part:shared:solar",
+          "kind": "part",
+          "label": "Shared assemblies · solar array batches",
+          "meshes": 10
+        },
+        {
+          "id": "part:shared:service",
+          "kind": "part",
+          "label": "Shared assemblies · mixed service bus and appendages",
+          "meshes": 6
+        },
+        {
+          "id": "part:shared:communications",
+          "kind": "part",
+          "label": "Shared assemblies · communications batches",
+          "meshes": 1
+        },
+        {
+          "id": "part:experience:chassis",
+          "kind": "part",
+          "label": "Case studies · chassis interior wall",
+          "meshes": 2
+        },
+        {
+          "id": "part:contact:chassis",
+          "kind": "part",
+          "label": "Contact · chassis interior wall",
+          "meshes": 2
+        },
+        {
+          "id": "part:shared:chassis",
+          "kind": "part",
+          "label": "Shared assemblies · outer chassis",
+          "meshes": 6
+        },
+        {
+          "id": "part:unknown:other",
+          "kind": "part",
+          "label": "Unclassified room · other or mixed batches",
+          "meshes": 1
+        },
+        {
+          "id": "room:unknown",
+          "kind": "room",
+          "label": "Unclassified room",
+          "meshes": 1
+        }
+      ],
+      "limitations": [
+        "Draw calls and triangles are actual renderer counter deltas around mesh draws, not CPU or GPU timings; compare whole-pass timing while hiding one group.",
+        "Part groups are disjoint existing draw batches. Room totals regroup the same draws and must not be added to part totals. Mixed material batches remain indivisible.",
+        "Room assignment follows model ownership; shared exterior assemblies are grouped separately. A shared doorway belongs to its model owner.",
+        "Shadow rendering, fullscreen AO/denoise draws, and meshes outside this root are unattributed. Reconciliation is null without complete pass counters or after counter resets.",
+        "Each pass has its own bounded sample window. Per-pass averages include zero for absent groups; AO averages describe refresh invocations, not every scene frame.",
+        "Filtering only changes mesh visibility during rendering. It retains existing hidden variants, scene updates, lights, cached shadows, and HTML; isolation savings include occlusion and shadow interactions.",
+        "Batch inventory is static geometry workload, including hidden variants, not measured draw cost. Source names are capped at 40 per batch."
+      ],
+      "passes": {
+        "spacecraft": {
+          "attributed": {
+            "drawsPerPass": 436,
+            "trianglesPerPass": 886144
+          },
+          "parts": [
+            {
+              "drawsPerPass": 54,
+              "id": "part:about:furniture",
+              "label": "About · personal-study furniture",
+              "totalDraws": 97200,
+              "totalTriangles": 162277200,
+              "trianglesPerPass": 90154
+            },
+            {
+              "drawsPerPass": 43,
+              "id": "part:projects:furniture",
+              "label": "Projects · workshop furniture",
+              "totalDraws": 77400,
+              "totalTriangles": 338853600,
+              "trianglesPerPass": 188252
+            },
+            {
+              "drawsPerPass": 42,
+              "id": "part:about:doors",
+              "label": "About · doors and passage assemblies",
+              "totalDraws": 75600,
+              "totalTriangles": 33782400,
+              "trianglesPerPass": 18768
+            },
+            {
+              "drawsPerPass": 39,
+              "id": "part:contact:furniture",
+              "label": "Contact · flight-console furniture",
+              "totalDraws": 70200,
+              "totalTriangles": 127692000,
+              "trianglesPerPass": 70940
+            },
+            {
+              "drawsPerPass": 29,
+              "id": "part:experience:furniture",
+              "label": "Case studies · archive furniture",
+              "totalDraws": 52200,
+              "totalTriangles": 137386800,
+              "trianglesPerPass": 76326
+            },
+            {
+              "drawsPerPass": 27,
+              "id": "part:projects:doors",
+              "label": "Projects · doors and passage assemblies",
+              "totalDraws": 48600,
+              "totalTriangles": 24019200,
+              "trianglesPerPass": 13344
+            },
+            {
+              "drawsPerPass": 22,
+              "id": "part:walkway:utilities",
+              "label": "Ladder bay · utility fittings",
+              "totalDraws": 39600,
+              "totalTriangles": 145440000,
+              "trianglesPerPass": 80800
+            },
+            {
+              "drawsPerPass": 21,
+              "id": "part:experience:doors",
+              "label": "Case studies · doors and passage assemblies",
+              "totalDraws": 37800,
+              "totalTriangles": 16869600,
+              "trianglesPerPass": 9372
+            },
+            {
+              "drawsPerPass": 14,
+              "id": "part:shared:docking",
+              "label": "Shared assemblies · docking sleeve and hatch",
+              "totalDraws": 25200,
+              "totalTriangles": 33796800,
+              "trianglesPerPass": 18776
+            },
+            {
+              "drawsPerPass": 13,
+              "id": "part:projects:structure",
+              "label": "Projects · cabin pressure structure",
+              "totalDraws": 23400,
+              "totalTriangles": 26409600,
+              "trianglesPerPass": 14672
+            },
+            {
+              "drawsPerPass": 13,
+              "id": "part:about:structure",
+              "label": "About · cabin pressure structure",
+              "totalDraws": 23400,
+              "totalTriangles": 26409600,
+              "trianglesPerPass": 14672
+            },
+            {
+              "drawsPerPass": 12,
+              "id": "part:contact:outboard-equipment",
+              "label": "Contact · outboard wall equipment",
+              "totalDraws": 21600,
+              "totalTriangles": 67478400,
+              "trianglesPerPass": 37488
+            },
+            {
+              "drawsPerPass": 10,
+              "id": "part:shared:solar",
+              "label": "Shared assemblies · solar array batches",
+              "totalDraws": 18000,
+              "totalTriangles": 29376000,
+              "trianglesPerPass": 16320
+            },
+            {
+              "drawsPerPass": 10,
+              "id": "part:experience:structure",
+              "label": "Case studies · cabin pressure structure",
+              "totalDraws": 18000,
+              "totalTriangles": 21448800,
+              "trianglesPerPass": 11916
+            },
+            {
+              "drawsPerPass": 10,
+              "id": "part:contact:structure",
+              "label": "Contact · cabin pressure structure",
+              "totalDraws": 18000,
+              "totalTriangles": 21448800,
+              "trianglesPerPass": 11916
+            },
+            {
+              "drawsPerPass": 8,
+              "id": "part:about:utilities",
+              "label": "About · utility fittings",
+              "totalDraws": 14400,
+              "totalTriangles": 24681600,
+              "trianglesPerPass": 13712
+            },
+            {
+              "drawsPerPass": 8,
+              "id": "part:walkway:structure",
+              "label": "Ladder bay · pressure structure",
+              "totalDraws": 14400,
+              "totalTriangles": 11304000,
+              "trianglesPerPass": 6280
+            },
+            {
+              "drawsPerPass": 7,
+              "id": "part:projects:utilities",
+              "label": "Projects · utility fittings",
+              "totalDraws": 12600,
+              "totalTriangles": 48009600,
+              "trianglesPerPass": 26672
+            },
+            {
+              "drawsPerPass": 7,
+              "id": "part:experience:outboard-equipment",
+              "label": "Case studies · outboard wall equipment",
+              "totalDraws": 12600,
+              "totalTriangles": 30715200,
+              "trianglesPerPass": 17064
+            },
+            {
+              "drawsPerPass": 6,
+              "id": "part:experience:utilities",
+              "label": "Case studies · utility fittings",
+              "totalDraws": 10800,
+              "totalTriangles": 31845600,
+              "trianglesPerPass": 17692
+            },
+            {
+              "drawsPerPass": 6,
+              "id": "part:contact:utilities",
+              "label": "Contact · utility fittings",
+              "totalDraws": 10800,
+              "totalTriangles": 27223200,
+              "trianglesPerPass": 15124
+            },
+            {
+              "drawsPerPass": 6,
+              "id": "part:shared:service",
+              "label": "Shared assemblies · mixed service bus and appendages",
+              "totalDraws": 10800,
+              "totalTriangles": 25833600,
+              "trianglesPerPass": 14352
+            },
+            {
+              "drawsPerPass": 6,
+              "id": "part:contact:doors",
+              "label": "Contact · doors and passage assemblies",
+              "totalDraws": 10800,
+              "totalTriangles": 7106400,
+              "trianglesPerPass": 3948
+            },
+            {
+              "drawsPerPass": 4,
+              "id": "part:projects:labels",
+              "label": "Projects · signage and label batches",
+              "totalDraws": 7200,
+              "totalTriangles": 5958000,
+              "trianglesPerPass": 3310
+            },
+            {
+              "drawsPerPass": 4,
+              "id": "part:experience:labels",
+              "label": "Case studies · signage and label batches",
+              "totalDraws": 7200,
+              "totalTriangles": 5958000,
+              "trianglesPerPass": 3310
+            },
+            {
+              "drawsPerPass": 4,
+              "id": "part:about:labels",
+              "label": "About · signage and label batches",
+              "totalDraws": 7200,
+              "totalTriangles": 5958000,
+              "trianglesPerPass": 3310
+            },
+            {
+              "drawsPerPass": 4,
+              "id": "part:contact:labels",
+              "label": "Contact · signage and label batches",
+              "totalDraws": 7200,
+              "totalTriangles": 5958000,
+              "trianglesPerPass": 3310
+            },
+            {
+              "drawsPerPass": 3,
+              "id": "part:shared:chassis",
+              "label": "Shared assemblies · outer chassis",
+              "totalDraws": 5400,
+              "totalTriangles": 145353600,
+              "trianglesPerPass": 80752
+            },
+            {
+              "drawsPerPass": 1,
+              "id": "part:walkway:fittings",
+              "label": "Ladder bay · interior fittings",
+              "totalDraws": 1800,
+              "totalTriangles": 3754800,
+              "trianglesPerPass": 2086
+            },
+            {
+              "drawsPerPass": 1,
+              "id": "part:shared:communications",
+              "label": "Shared assemblies · communications batches",
+              "totalDraws": 1800,
+              "totalTriangles": 2304000,
+              "trianglesPerPass": 1280
+            },
+            {
+              "drawsPerPass": 1,
+              "id": "part:experience:chassis",
+              "label": "Case studies · chassis interior wall",
+              "totalDraws": 1800,
+              "totalTriangles": 203400,
+              "trianglesPerPass": 113
+            },
+            {
+              "drawsPerPass": 1,
+              "id": "part:contact:chassis",
+              "label": "Contact · chassis interior wall",
+              "totalDraws": 1800,
+              "totalTriangles": 203400,
+              "trianglesPerPass": 113
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:projects:reader",
+              "label": "Projects · deployable reader",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:projects:other",
+              "label": "Projects · other or mixed batches",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:experience:reader",
+              "label": "Case studies · deployable reader",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:experience:other",
+              "label": "Case studies · other or mixed batches",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:about:reader",
+              "label": "About · deployable reader",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:about:other",
+              "label": "About · other or mixed batches",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:contact:reader",
+              "label": "Contact · deployable reader",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:contact:other",
+              "label": "Contact · other or mixed batches",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "part:unknown:other",
+              "label": "Unclassified room · other or mixed batches",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            }
+          ],
+          "rooms": [
+            {
+              "drawsPerPass": 121,
+              "id": "room:about",
+              "label": "About",
+              "totalDraws": 217800,
+              "totalTriangles": 253108800,
+              "trianglesPerPass": 140616
+            },
+            {
+              "drawsPerPass": 94,
+              "id": "room:projects",
+              "label": "Projects",
+              "totalDraws": 169200,
+              "totalTriangles": 443250000,
+              "trianglesPerPass": 246250
+            },
+            {
+              "drawsPerPass": 78,
+              "id": "room:contact",
+              "label": "Contact",
+              "totalDraws": 140400,
+              "totalTriangles": 257110200,
+              "trianglesPerPass": 142839
+            },
+            {
+              "drawsPerPass": 78,
+              "id": "room:experience",
+              "label": "Case studies",
+              "totalDraws": 140400,
+              "totalTriangles": 244427400,
+              "trianglesPerPass": 135793
+            },
+            {
+              "drawsPerPass": 34,
+              "id": "room:shared",
+              "label": "Shared assemblies",
+              "totalDraws": 61200,
+              "totalTriangles": 236664000,
+              "trianglesPerPass": 131480
+            },
+            {
+              "drawsPerPass": 31,
+              "id": "room:walkway",
+              "label": "Ladder bay",
+              "totalDraws": 55800,
+              "totalTriangles": 160498800,
+              "trianglesPerPass": 89166
+            },
+            {
+              "drawsPerPass": 0,
+              "id": "room:unknown",
+              "label": "Unclassified room",
+              "totalDraws": 0,
+              "totalTriangles": 0,
+              "trianglesPerPass": 0
+            }
+          ],
+          "samples": 1800,
+          "total": {
+            "drawsPerPass": 436,
+            "trianglesPerPass": 886144
+          },
+          "unattributed": {
+            "drawsPerPass": 0,
+            "trianglesPerPass": 0
+          }
+        }
+      }
+    },
+    "spacecraftFilter": {
+      "id": "",
+      "mode": "all"
+    }
+  },
+  "exportedAt": "2026-09-14T01:08:10.046Z",
+  "notes": "Local diagnostics; no temperature or power readings. Compare the same viewport and browser profile. Captures include instrumentation overhead.",
+  "rawFramesIncluded": false,
+  "schemaVersion": 1
+}

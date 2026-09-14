@@ -26,7 +26,6 @@ export function buildAboutPersonalStudy(
     navy: material('navy-cloth', 0x26384c, 0.97),
     navySeam: material('navy-stitch', 0x3b4e61, 0.98),
     linen: material('oatmeal-weave', 0xbdb098, 0.99),
-    linenSeam: material('linen-seams', 0x94846b, 0.97),
     rust: material('stored-quilt', 0x9b6340, 0.99),
     graphite: material('graphite-frame', 0x202d37, 0.62, 0.12),
     rubber: material('webbing-and-seals', 0x14202a, 0.98),
@@ -306,9 +305,12 @@ export function buildAboutPersonalStudy(
   }
 
   // Berth: fixed backing, quilted sleep restraint, captive headpad and lower stowage.
-  const bx = -0.99;
+  // Opening the former divider gap lets the complete berth move inward as one
+  // assembly. The retained bedding roll uses this frame's left edge for spacing.
+  const bx = -0.9,
+    berthFrameWidth = 0.79;
   box(
-    0.79,
+    berthFrameWidth,
     1.89,
     0.09,
     m.graphite,
@@ -603,7 +605,7 @@ export function buildAboutPersonalStudy(
   }
   stowage(bx, 0.328, 0.72, 0.325, 0.19, 'blanket-stowage', 'quilt');
   // Keep the reading station rigid while giving its desk and library a clear
-  // gap beside the curtain. Mounts, retained props and fasteners move with it.
+  // gap beside the berth access rail. Mounts, retained props and fasteners move with it.
   const readingStation = group('reading-station', 0.085);
   readingStation.userData.batchRoot = true;
   const attachReadingStation = (
@@ -617,61 +619,168 @@ export function buildAboutPersonalStudy(
   };
   const beforeLibrary = new Set(root.children);
   const libraryScrewStart = screwPoints.length;
-  stowage(0.12, 1.98, 0.85, 0.38, 0.16, 'personal-library', 'books');
+  const libraryCenterX = 0.12,
+    libraryWidth = 0.85,
+    journalCenterX = 0.31,
+    journalCradleWidth = 1.09;
+  stowage(
+    libraryCenterX,
+    1.98,
+    libraryWidth,
+    0.38,
+    0.16,
+    'personal-library',
+    'books',
+  );
   attachReadingStation(beforeLibrary, libraryScrewStart, 'library-fasteners');
 
-  // One continuous cloth surface, shaped into pleats, held by matching tracks.
-  const cx = -0.472,
-    cWidth = 0.284,
-    cHeight = 1.89,
-    cy = 1.151;
-  const clothGeo = new THREE.PlaneGeometry(cWidth, cHeight, 40, 36);
-  const cp = clothGeo.attributes.position;
-  for (let i = 0; i < cp.count; i++) {
-    const x = cp.getX(i),
-      y = cp.getY(i);
-    cp.setZ(
-      i,
-      0.031 * Math.cos((x / cWidth + 0.5) * Math.PI * 8) +
-        0.002 * Math.cos(y * 9),
+  // A rigid berth service rail replaces the cloth divider. Rounded returns meet
+  // the bulkhead at both ends; the small amber grip remains within easy reach of
+  // the sleeping restraint. Its narrow profile leaves a clear gap to the desk.
+  const berthRightEdge = bx + berthFrameWidth / 2;
+  const journalLeftEdge =
+    journalCenterX + readingStation.position.x - journalCradleWidth / 2;
+  const libraryLeftEdge =
+    libraryCenterX + readingStation.position.x - libraryWidth / 2;
+  // The rail belongs in the visible gap beside the open notebook cradle.
+  // Its wider light cap separately balances the tighter upper library gap.
+  const berthRailX = (berthRightEdge + journalLeftEdge) / 2;
+  const berthLightX = (berthRightEdge + libraryLeftEdge) / 2;
+  for (const y of [0.58, 1.82]) {
+    wallAnchor(berthRailX, y, -0.921, 'berth-service');
+    box(
+      0.104,
+      0.104,
+      0.069,
+      m.graphite,
+      berthRailX,
+      y,
+      -0.889,
+      'berth-rail-mount',
+      root,
+      0.025,
     );
   }
-  clothGeo.computeVertexNormals();
-  const curtainMat = m.linen.clone();
-  curtainMat.name = prefix + 'privacy-fabric';
-  curtainMat.side = THREE.DoubleSide;
-  const curtain = mesh(clothGeo, curtainMat, 'continuous-pleated-curtain');
-  curtain.position.set(cx, cy, -0.598);
-  for (const y of [cy - cHeight / 2, cy + cHeight / 2]) {
-    rod(
-      [cx - cWidth / 2 - 0.035, y, -0.598],
-      [cx + cWidth / 2 + 0.035, y, -0.598],
-      0.013,
-      m.metal,
-      'curtain-captive-track',
+  box(
+    0.064,
+    1.415,
+    0.054,
+    m.graphite,
+    berthRailX,
+    1.25,
+    -0.937,
+    'berth-service-spine',
+    root,
+    0.017,
+  );
+  // Explicit straight and quarter-turn sections keep the grip coaxial with the
+  // rail; a spline through long unequal spans would bow away from the sleeve.
+  const railPoint = (y: number, z: number) =>
+    new THREE.Vector3(berthRailX, y, z);
+  const railPath = new THREE.CurvePath();
+  railPath.add(
+    new THREE.LineCurve3(railPoint(0.58, -0.864), railPoint(0.58, -0.752)),
+  );
+  railPath.add(
+    new THREE.QuadraticBezierCurve3(
+      railPoint(0.58, -0.752),
+      railPoint(0.58, -0.685),
+      railPoint(0.647, -0.685),
+    ),
+  );
+  railPath.add(
+    new THREE.LineCurve3(railPoint(0.647, -0.685), railPoint(1.753, -0.685)),
+  );
+  railPath.add(
+    new THREE.QuadraticBezierCurve3(
+      railPoint(1.753, -0.685),
+      railPoint(1.82, -0.685),
+      railPoint(1.82, -0.752),
+    ),
+  );
+  railPath.add(
+    new THREE.LineCurve3(railPoint(1.82, -0.752), railPoint(1.82, -0.864)),
+  );
+  mesh(
+    new THREE.TubeGeometry(railPath, 44, 0.017, 8, false),
+    m.graphite,
+    'rounded-berth-access-rail',
+  );
+  cylinder(
+    0.02,
+    0.32,
+    m.amber,
+    berthRailX,
+    1.2,
+    -0.685,
+    'berth-rail-grip',
+    root,
+    'y',
+  );
+  for (const y of [1.035, 1.365])
+    cylinder(
+      0.022,
+      0.016,
+      m.rubber,
+      berthRailX,
+      y,
+      -0.685,
+      'berth-grip-collar',
+      root,
+      'y',
     );
-    for (const x of [cx - cWidth / 2 - 0.03, cx + cWidth / 2 + 0.03])
-      wallAnchor(x, y, -0.601, 'curtain-track');
-    for (let i = 0; i < 5; i++) {
-      const x = cx - cWidth / 2 + (i * cWidth) / 4;
-      cylinder(0.021, 0.01, m.graphite, x, y, -0.597, 'curtain-captive-slider');
-      rod(
-        [x, y, -0.58],
-        [x, y + (y > cy ? -0.035 : 0.035), -0.568],
-        0.006,
-        m.metal,
-        'curtain-hem-attachment',
-      );
-    }
-  }
-  for (const x of [cx - cWidth / 2, cx + cWidth / 2])
-    rod(
-      [x, cy - cHeight / 2, -0.568],
-      [x, cy + cHeight / 2, -0.568],
-      0.005,
-      m.linenSeam,
-      'curtain-stitched-edge',
-    );
+
+  // A fixed, shielded reading lamp terminates the service spine at head height.
+  // The lens is emissive only: it adds no light/shadow work or new interaction.
+  wallAnchor(berthRailX, 1.967, -0.921, 'berth-light');
+  box(
+    0.057,
+    0.072,
+    0.199,
+    m.graphite,
+    berthRailX,
+    1.967,
+    -0.832,
+    'berth-light-retained-arm',
+    root,
+    0.015,
+  );
+  box(
+    0.182,
+    0.083,
+    0.111,
+    m.graphite,
+    berthLightX,
+    1.964,
+    -0.716,
+    'berth-reading-light-housing',
+    root,
+    0.025,
+  );
+  box(
+    0.143,
+    0.041,
+    0.014,
+    m.cream,
+    berthLightX,
+    1.955,
+    -0.656,
+    'berth-reading-light-recess',
+    root,
+    0.009,
+  );
+  box(
+    0.123,
+    0.022,
+    0.006,
+    m.diffuser,
+    berthLightX,
+    1.952,
+    -0.646,
+    'berth-reading-light-lens',
+    root,
+    0.005,
+  );
 
   // Narrow sealed personal locker, with seated latches and discreet ventilation.
   const beforeLocker = new Set(root.children);
@@ -809,7 +918,9 @@ export function buildAboutPersonalStudy(
   }
   // Compensate for the photo's deeper wall position so its visible height
   // matches the library. Crop the artwork rather than stretching the mountains.
-  note('landscape-postcard', 0.858, 2.01, 0.5, 0.405);
+  // Open a little more room beside the library without crowding the locker
+  // in the narrower layout; retain the photo's size and vertical alignment.
+  note('landscape-postcard', 0.918, 2.01, 0.5, 0.405);
   // One centered row of equal paper sizes, equal gaps, and identical retainers.
   for (const [index, kind] of [
     'mountain-note',
@@ -952,10 +1063,10 @@ export function buildAboutPersonalStudy(
   );
 
   // Journal is a shallow open V. Each page block and cover meet a bound spine.
-  const journal = group('retained-journal', 0.31, 1.1, -0.615);
+  const journal = group('retained-journal', journalCenterX, 1.1, -0.615);
   journal.rotation.x = -0.64;
   box(
-    1.09,
+    journalCradleWidth,
     0.65,
     0.041,
     m.graphite,
@@ -988,6 +1099,10 @@ export function buildAboutPersonalStudy(
   }
   gutter.computeVertexNormals();
   mesh(gutter, m.paper, 'continuous-paper-gutter', journal);
+  // These hairline page shadows are only .0012 units thick. A closed cuboid
+  // retains each paper layer without spending hundreds of triangles on its bevel.
+  const lowerPageEdgeGeometry = new THREE.BoxGeometry(0.449, 0.0012, 0.0013);
+  const outerPageEdgeGeometry = new THREE.BoxGeometry(0.0012, 0.56, 0.0013);
   for (const side of [-1, 1]) {
     const leaf = group(
       side < 0 ? 'left-paper-section' : 'right-paper-section',
@@ -1012,30 +1127,18 @@ export function buildAboutPersonalStudy(
     );
     for (let i = 0; i < 5; i++) {
       const z = -0.01 + i * 0.0056;
-      box(
-        0.449,
-        0.0012,
-        0.0013,
+      mesh(
+        lowerPageEdgeGeometry,
         m.paperLine,
-        centerX,
-        -0.28,
-        z,
         'lower-page-edge',
         leaf,
-        0.0003,
-      );
-      box(
-        0.0012,
-        0.56,
-        0.0013,
+      ).position.set(centerX, -0.28, z);
+      mesh(
+        outerPageEdgeGeometry,
         m.paperLine,
-        centerX + side * 0.226,
-        0,
-        z,
         'outer-page-edge',
         leaf,
-        0.0003,
-      );
+      ).position.set(centerX + side * 0.226, 0, z);
     }
     const upperLeaf = group('top-paper-leaf', centerX, 0, 0.024, leaf);
     // Slight crown at the binding makes the spread read as paper, not a tablet.
@@ -1177,7 +1280,7 @@ export function buildAboutPersonalStudy(
     );
   }
   // Cradle feet terminate at the desk surface, paired with a rear stand.
-  for (const x of [0.31 - 0.405, 0.31 + 0.405]) {
+  for (const x of [journalCenterX - 0.405, journalCenterX + 0.405]) {
     box(
       0.09,
       0.036,
@@ -1350,7 +1453,9 @@ export function buildAboutPersonalStudy(
     pageFlags: ['My story', 'How I work', 'Beyond work'],
     pageFlagsAttachedTo: 'paper-leaves',
     enclosedStowage: true,
-    retainedCurtain: ['top-track', 'bottom-track'],
+    berthCenter: bx,
+    berthLeftEdge: bx - 0.395,
+    berthFixture: 'rigid-access-rail-with-reading-light',
     readingStationOffset: 0.085,
     noNewInteractions: true,
   };

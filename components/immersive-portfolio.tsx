@@ -197,6 +197,7 @@ export function ImmersivePortfolio({
       go(next, false);
     };
     const escape = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       if (event.key === 'Escape' && navigationOpen) {
         event.preventDefault();
         setNavigationOpen(false);

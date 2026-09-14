@@ -1,0 +1,13 @@
+import * as THREE from 'three';
+import {createOrbitalEnvironment} from './components/orbital-environment.ts';
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.setClearColor('#050a11',1);document.body.appendChild(renderer.domElement);
+const env=createOrbitalEnvironment(THREE,()=>{}, {mobile:false});await env.ready;
+let cloud;env.scene.traverse(o=>{if(o.material?.uniforms?.cloudField)cloud=o});
+const volume=cloud.material;
+const flat=volume.clone();flat.uniforms=volume.uniforms;flat.fragmentShader=`
+in vec3 vLocal; uniform sampler2D cloudField; uniform vec3 cameraLocal; uniform vec3 sunLocal; uniform float readyOpacity;out vec4 outColor;
+void main(){const float PI=3.141592653589793;vec3 n=normalize(vLocal);vec2 uv=vec2(atan(n.z,n.x)/(2.*PI)+.5,asin(clamp(n.y,-1.,1.))/PI+.5);vec2 dx=dFdx(uv),dy=dFdy(uv);dx.x-=floor(dx.x+.5);dy.x-=floor(dy.x+.5);vec4 w=textureGrad(cloudField,uv,dx,dy);
+float top=w.g*(1.+.2*smoothstep(.22,.6,w.r));float ext=1.85+.8*smoothstep(.12,.6,w.r);float facing=max(.12,abs(dot(n,normalize(cameraLocal-vLocal))));float opacity=1.-exp(-w.r*max(0.,top-.025)*ext/facing);float day=smoothstep(-.13,.5,dot(n,sunLocal));vec3 color=mix(vec3(.24,.34,.49),vec3(.97,.985,1.),day)*(.88+.12*sqrt(max(0.,dot(n,sunLocal))));outColor=vec4(color,opacity*readyOpacity);}
+`;
+function draw(){const mode=document.querySelector('#mode').value;cloud.material=mode==='flat'?flat:volume;const t=Number(document.querySelector('#time').value);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);env.resize(innerWidth,innerHeight,Math.min(devicePixelRatio,2));env.update(t,true,0,0);renderer.render(env.scene,env.camera);document.querySelector('#status').textContent=(mode==='flat'?'Flat cloud shell':'Current cloud volume')+' • frozen '+t+'s • exploratory preview, live site unchanged';}
+document.querySelector('#draw').onclick=draw;document.querySelector('#hide').onclick=()=>document.querySelector('#controls').hidden=true;document.querySelector('#show').onclick=()=>document.querySelector('#controls').hidden=false;window.addEventListener('resize',draw);draw();

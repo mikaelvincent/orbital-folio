@@ -1,0 +1,143 @@
+{
+  "method": "Equal-weight mean of two 10-second production recordings per version, each with 3-second warmup. One rendering page, no builds/tests during captures. Within-room settings and idle activity asserted equal. This small ordered ABBA series limits but does not eliminate drift; not a general speedup, FPS or thermal claim.",
+  "rooms": {
+    "projects": {
+      "reference": {
+        "runs": 2,
+        "cpuMeanMs": 6.918999999981994,
+        "gpuMeanMs": 9.29972025,
+        "gpuSamples": 40,
+        "fps": 29.996288087771052,
+        "draws": 251,
+        "triangles": 697418
+      },
+      "reducedHardware": {
+        "runs": 2,
+        "cpuMeanMs": 6.3238333333314705,
+        "gpuMeanMs": 8.329726599999999,
+        "gpuSamples": 40,
+        "fps": 30.001254270037357,
+        "draws": 251,
+        "triangles": 653642
+      },
+      "observedGpuMeanReductionPercent": 10.430352999059311,
+      "settings": {
+        "room": "projects",
+        "viewport": [
+          1200,
+          800
+        ],
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "pixelRatio": 1,
+        "cameraPosition": [
+          -2.0869999999999997,
+          1.54,
+          5.234495780182135
+        ],
+        "cameraQuaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "denoiseSamples": 32,
+        "shadowsEnabled": true,
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "reducedMotion": false,
+        "experiment": "normal",
+        "spacecraftFilter": {
+          "mode": "all",
+          "id": ""
+        }
+      },
+      "sequence": [
+        "reference A1",
+        "reduced B1",
+        "reduced B2",
+        "reference A2"
+      ]
+    },
+    "about": {
+      "reference": {
+        "runs": 2,
+        "cpuMeanMs": 6.336000000011797,
+        "gpuMeanMs": 8.576223474999999,
+        "gpuSamples": 40,
+        "fps": 30.0002006702386,
+        "draws": 275,
+        "triangles": 724068
+      },
+      "reducedHardware": {
+        "runs": 2,
+        "cpuMeanMs": 4.609000000019247,
+        "gpuMeanMs": 7.307585025,
+        "gpuSamples": 40,
+        "fps": 29.997191143070594,
+        "draws": 275,
+        "triangles": 661092
+      },
+      "observedGpuMeanReductionPercent": 14.792506908176145,
+      "settings": {
+        "room": "about",
+        "viewport": [
+          1200,
+          800
+        ],
+        "drawingBuffer": [
+          1200,
+          800
+        ],
+        "pixelRatio": 1,
+        "cameraPosition": [
+          -2.0869999999999997,
+          -1.4050000000000002,
+          5.234495780182135
+        ],
+        "cameraQuaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "aoBuffer": [
+          780,
+          520
+        ],
+        "aoEnabled": true,
+        "aoSamples": 32,
+        "denoiseSamples": 32,
+        "shadowsEnabled": true,
+        "shadowMap": [
+          2048,
+          2048
+        ],
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "reducedMotion": false,
+        "experiment": "normal",
+        "spacecraftFilter": {
+          "mode": "all",
+          "id": ""
+        }
+      },
+      "sequence": [
+        "reference A1",
+        "reduced B1",
+        "reduced B2",
+        "reference A2"
+      ]
+    }
+  }
+}

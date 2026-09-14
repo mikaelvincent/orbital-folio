@@ -1,0 +1,277 @@
+{
+  "method": "Two ABBA sequences in one Node process after common module import and warmups. Explicit GC before each run outside the timer. A is model construction, B is the same model plus numeric-hash vertex compaction. No production files use this helper.",
+  "limits": [
+    "CPU model-construction and compaction only; no browser CanvasTextures, GPU buffer uploads or rendering.",
+    "Only immutable generic material batches >=512 vertices in Ladder utilities and Projects; apply only if geometry attribute+index bytes fall at least5%.",
+    "Collision chains verify every original Uint32 IEEE-754 word. Full index-expanded attribute stream, metadata, groups, draw ranges and bounds are checked before timing."
+  ],
+  "verification": {
+    "forcedHashCollisions": "passed, including signed zero and UV seams",
+    "productionExpandedInputs": "all passed",
+    "groups": {
+      "ladder": {
+        "checked": 14,
+        "changed": 8,
+        "milliseconds": 16.120457999999644,
+        "bytesSaved": 733056,
+        "verticesBefore": 81774,
+        "verticesAfter": 58866
+      },
+      "projects": {
+        "checked": 15,
+        "changed": 5,
+        "milliseconds": 26.001420000000053,
+        "bytesSaved": 376576,
+        "verticesBefore": 86816,
+        "verticesAfter": 75048
+      }
+    },
+    "records": [
+      {
+        "name": "projects-projects-workshop-recess",
+        "scope": "projects",
+        "verticesBefore": 32192,
+        "verticesAfter": 28480,
+        "bytesSaved": 118784,
+        "collisions": 1
+      },
+      {
+        "name": "projects-projects-workshop-enamel-edge",
+        "scope": "projects",
+        "verticesBefore": 16704,
+        "verticesAfter": 14280,
+        "bytesSaved": 77568,
+        "collisions": 0
+      },
+      {
+        "name": "projects-projects-workshop-ivory-enamel",
+        "scope": "projects",
+        "verticesBefore": 16704,
+        "verticesAfter": 14328,
+        "bytesSaved": 76032,
+        "collisions": 0
+      },
+      {
+        "name": "projects-projects-workshop-gasket",
+        "scope": "projects",
+        "verticesBefore": 14976,
+        "verticesAfter": 12616,
+        "bytesSaved": 75520,
+        "collisions": 0
+      },
+      {
+        "name": "projects-projects-workshop-satin-fasteners",
+        "scope": "projects",
+        "verticesBefore": 6240,
+        "verticesAfter": 5344,
+        "bytesSaved": 28672,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-ivory-enamel",
+        "scope": "ladder",
+        "verticesBefore": 16224,
+        "verticesAfter": 9038,
+        "bytesSaved": 229952,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-recess-interior",
+        "scope": "ladder",
+        "verticesBefore": 7836,
+        "verticesAfter": 4305,
+        "bytesSaved": 112992,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-graphite-casings",
+        "scope": "ladder",
+        "verticesBefore": 26248,
+        "verticesAfter": 20841,
+        "bytesSaved": 173024,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-satin-alloy",
+        "scope": "ladder",
+        "verticesBefore": 14088,
+        "verticesAfter": 10824,
+        "bytesSaved": 104448,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-insulated-harness",
+        "scope": "ladder",
+        "verticesBefore": 4404,
+        "verticesAfter": 3572,
+        "bytesSaved": 26624,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-anodized-grips",
+        "scope": "ladder",
+        "verticesBefore": 8872,
+        "verticesAfter": 7208,
+        "bytesSaved": 53248,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-service-spine-brushed-tread-alloy",
+        "scope": "ladder",
+        "verticesBefore": 3502,
+        "verticesAfter": 2670,
+        "bytesSaved": 26624,
+        "collisions": 0
+      },
+      {
+        "name": "walkway-ladder-web-satin-alloy",
+        "scope": "ladder",
+        "verticesBefore": 600,
+        "verticesAfter": 408,
+        "bytesSaved": 6144,
+        "collisions": 0
+      }
+    ]
+  },
+  "runs": [
+    {
+      "label": "A1",
+      "optimized": false,
+      "constructionMs": 432.0437499999998,
+      "compactionMs": 0,
+      "totalReadyMs": 432.0437499999998,
+      "groups": null
+    },
+    {
+      "label": "B2",
+      "optimized": true,
+      "constructionMs": 364.7338749999999,
+      "compactionMs": 44.90691599999991,
+      "totalReadyMs": 409.6407909999998,
+      "groups": {
+        "ladder": {
+          "checked": 14,
+          "changed": 8,
+          "milliseconds": 15.92579300000125,
+          "bytesSaved": 733056,
+          "verticesBefore": 81774,
+          "verticesAfter": 58866
+        },
+        "projects": {
+          "checked": 15,
+          "changed": 5,
+          "milliseconds": 28.62296000000015,
+          "bytesSaved": 376576,
+          "verticesBefore": 86816,
+          "verticesAfter": 75048
+        }
+      }
+    },
+    {
+      "label": "B3",
+      "optimized": true,
+      "constructionMs": 357.1253750000001,
+      "compactionMs": 32.733834000000115,
+      "totalReadyMs": 389.8592090000002,
+      "groups": {
+        "ladder": {
+          "checked": 14,
+          "changed": 8,
+          "milliseconds": 11.559498999999505,
+          "bytesSaved": 733056,
+          "verticesBefore": 81774,
+          "verticesAfter": 58866
+        },
+        "projects": {
+          "checked": 15,
+          "changed": 5,
+          "milliseconds": 20.80437400000028,
+          "bytesSaved": 376576,
+          "verticesBefore": 86816,
+          "verticesAfter": 75048
+        }
+      }
+    },
+    {
+      "label": "A4",
+      "optimized": false,
+      "constructionMs": 361.6383329999999,
+      "compactionMs": 0,
+      "totalReadyMs": 361.6383329999999,
+      "groups": null
+    },
+    {
+      "label": "A5",
+      "optimized": false,
+      "constructionMs": 362.24166700000023,
+      "compactionMs": 0,
+      "totalReadyMs": 362.24166700000023,
+      "groups": null
+    },
+    {
+      "label": "B6",
+      "optimized": true,
+      "constructionMs": 362.9856669999999,
+      "compactionMs": 72.52862500000037,
+      "totalReadyMs": 435.5142920000003,
+      "groups": {
+        "ladder": {
+          "checked": 14,
+          "changed": 8,
+          "milliseconds": 14.40516400000115,
+          "bytesSaved": 733056,
+          "verticesBefore": 81774,
+          "verticesAfter": 58866
+        },
+        "projects": {
+          "checked": 15,
+          "changed": 5,
+          "milliseconds": 57.74354100000028,
+          "bytesSaved": 376576,
+          "verticesBefore": 86816,
+          "verticesAfter": 75048
+        }
+      }
+    },
+    {
+      "label": "B7",
+      "optimized": true,
+      "constructionMs": 372.639584,
+      "compactionMs": 69.94595799999934,
+      "totalReadyMs": 442.58554199999935,
+      "groups": {
+        "ladder": {
+          "checked": 14,
+          "changed": 8,
+          "milliseconds": 10.728167999999641,
+          "bytesSaved": 733056,
+          "verticesBefore": 81774,
+          "verticesAfter": 58866
+        },
+        "projects": {
+          "checked": 15,
+          "changed": 5,
+          "milliseconds": 58.84808399999656,
+          "bytesSaved": 376576,
+          "verticesBefore": 86816,
+          "verticesAfter": 75048
+        }
+      }
+    },
+    {
+      "label": "A8",
+      "optimized": false,
+      "constructionMs": 357.25487499999963,
+      "compactionMs": 0,
+      "totalReadyMs": 357.25487499999963,
+      "groups": null
+    }
+  ],
+  "means": {
+    "baselineConstructionMs": 378.2946562499999,
+    "candidateConstructionMs": 364.37112525,
+    "candidateCompactionMs": 55.028833249999934,
+    "baselineReadyMs": 378.2946562499999,
+    "candidateReadyMs": 419.3999584999999
+  }
+}

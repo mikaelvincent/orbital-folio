@@ -1,0 +1,108 @@
+Window: "Mikael Vincent — Developer portfolio · Sample content", App: Safari.
+0 standard window Mikael Vincent — Developer portfolio · Sample content, ID: SafariWindow?IsSecure=false&UUID=8EAE841D-2197-4157-A3F5-01D5A0C1D065, Secondary Actions: Raise
+	1 split group
+		2 tab group
+			3 scroll area
+				4 HTML content Description: Mikael Vincent — Developer portfolio · Sample content, URL: localhost:3000/
+					5 link Skip to content, Value: localhost:3000/#main
+					6 container
+						7 heading mikaelvincent.dev — Mikael Vincent · Full-stack developer & systems thinker, Value: 1
+							8 link mikaelvincent.dev — Mikael Vincent · Full-stack developer & systems thinker, Value: localhost:3000/
+						9 container
+							10 button Projects
+							11 button Case studies
+							12 button About
+							13 button Contact
+						14 link Overview, Value: localhost:3000/
+						15 button (collapsed) ON BOARD · Overview, Secondary Actions: Expand
+						16 toggle button Reading view, Value: off
+						17 text SAMPLE / CONCEPT
+						18 pop up button Close Earth controls, Help: Earth controls
+						19 container Choose your opening
+							20 container
+								21 text EARTH AT NIGHT
+								22 heading Choose your opening, Value: 2
+									23 text Choose your opening
+								24 button Close Earth controls panel
+							25 container Earth opening views
+								26 toggle button 01 Mediterranean, Value: off
+								27 toggle button 02 East Asia, Value: off
+								28 toggle button 03 India, Value: off
+								29 toggle button 04 North America, Value: off
+							30 text Custom view. Fine-tune the globe to find your own opening.
+							31 container (expanded) Secondary Actions: Collapse
+								32 summary Fine-tune the globe, Value: on
+									33 text Fine-tune the globe
+								34 text Longitude
+								35 number field (settable) Longitude value in degrees, Value: 126
+									36 stepper 0
+										37 unknown
+										38 unknown
+								39 slider (settable, float) Longitude, Value: 126, Details: 126 degrees
+									40 value indicator 126
+								41 text Latitude
+								42 number field (settable) Latitude value in degrees, Value: 22
+									43 stepper 0
+										44 unknown
+										45 unknown
+								46 slider (settable, float) Latitude, Value: 22, Details: 22 degrees
+									47 value indicator 22
+								48 text Tilt
+								49 number field (settable) Tilt value in degrees, Value: -10
+									50 stepper 0
+										51 unknown
+										52 unknown
+								53 slider (settable, float) Tilt, Value: -10, Details: -10 degrees
+									54 value indicator -10
+								55 text Size
+								56 number field (settable) Size value in percent, Value: 112
+									57 stepper 0
+										58 unknown
+										59 unknown
+								60 slider (settable, float) Size, Value: 112, Details: 112 percent
+									61 value indicator 112
+								62 text Horizon position
+								63 number field (settable) Horizon position value in percent, Value: 72
+									64 stepper 0
+										65 unknown
+										66 unknown
+								67 slider (settable, float) Horizon position, Value: 72, Details: 72 percent
+									68 value indicator 72
+							69 toggle button Resume rotation, Value: on
+							70 button Replay opening
+							71 container
+								72 text Remembered in this browser.
+								73 button Reset
+						74 toggle button Open scene diagnostics, Help: Scene diagnostics, Value: off
+						75 link Content studio, Value: localhost:3000/admin
+	76 image WindowControlShadowView._shadowImageView
+	77 toolbar
+		78 container Secondary Actions: Move next, Remove from toolbar
+			79 button Description: show sidebar, Help: Show sidebar, ID: SidebarButton
+			80 menu button Description: Tab Group picker, ID: TabGroupPickerButton?TabGroup=
+		81 container BackForwardSegmentedControl
+			82 button Description: Go back, Help: Show the previous page, ID: BackButton
+			83 button (disabled) Description: Go forward, Help: Show the next page, ID: ForwardButton
+		84 container Secondary Actions: Move previous, Move next, Remove from toolbar
+			85 button Page Menu, ID: AssistantButton
+			86 button Add page to Reading List, ID: OneStepBookmarkingButton
+			87 text field (settable) Description: smart search field, Value: localhost:3000, ID: WEB_BROWSER_ADDRESS_AND_SEARCH_FIELD
+			88 button Reload this page, ID: ReloadButton
+		89 button Description: Share, ID: ShareButton, Secondary Actions: Move previous, Move next, Remove from toolbar
+		90 button Description: New Tab, ID: NewTabButton, Secondary Actions: Move previous, Move next, Remove from toolbar
+		91 button Description: Tab Overview, ID: TabOverviewButton, Secondary Actions: Move previous, Remove from toolbar
+	92 close button
+	93 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	94 minimize button
+95 menu bar
+	96 Safari
+	97 File
+	98 Edit
+	99 View, ID: SafariViewMenu
+	100 History
+	101 Bookmarks, ID: SafariBookmarksMenu
+	102 Develop
+	103 Window, ID: SafariWindowMenu
+	104 Help, ID: SafariHelpMenu
+
+The focused UI element is 6 container

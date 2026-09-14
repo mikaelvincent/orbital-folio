@@ -1,0 +1,11 @@
+{
+  "description": "Delivered visual refinements; performance prototypes remain separately isolated under scripts/benchmarks.",
+  "files": {
+    "components/spacecraft-model.ts": "b57df753f61fd0725dee16af0ce57d98478e5fb2b9d84faad27c9b7ae391a429",
+    "components/overview-annotations.ts": "e067a3c2483523ab7ec99a36f9495218151ef1e5b3f73e3dce2eb523a2239f5d",
+    "components/case-study-archive.ts": "6cd461e7eb3096a6f499d37295dba74ada59cee267f975f42dcd4b0ac92127a1",
+    "components/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+    "tests/room-framing.test.mjs": "8c3cad5e788f613af2ee1b3a1c3baa5a618b280326f72a860eb07a084d6a694b",
+    "tests/flush-window-reveals.test.mjs": "826fe933d976b5300bf501319ff45a8fac3ef21c74e711f95c22a58dacde3e05"
+  }
+}

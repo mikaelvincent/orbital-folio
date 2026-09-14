@@ -1,0 +1,54 @@
+{
+  "chromium-background-ACB.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "chromium-background-CAB.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "chromium-background-BCA.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "chromium-background-ABC.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "safari-CBA.json": {
+    "displayState": "unlocked",
+    "note": "Native Safari foreground, observed and saved before lock interruption."
+  },
+  "chromium-background-BAC.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "safari-ABC.json": {
+    "displayState": "unlocked",
+    "note": "Native Safari foreground, observed and saved before lock interruption."
+  },
+  "chromium-background-CBA.json": {
+    "displayState": "unobserved",
+    "note": "Mac lock observed before cohort, Safari accessible afterward; transition time unknown. In-app browser document remained visible; GPU queries measure submitted work, not foreground presentation."
+  },
+  "safari-BCA.json": {
+    "displayState": "unlocked",
+    "note": "Native Safari foreground, observed and saved before lock interruption."
+  },
+  "safari-CAB.json": {
+    "displayState": "unlocked",
+    "note": "Native Safari foreground, observed and saved before lock interruption."
+  },
+  "safari-ACB.json": {
+    "displayState": "unlocked",
+    "note": "Native Safari foreground, observed and saved before lock interruption."
+  },
+  "safari-BAC-interrupted.json": {
+    "displayState": "unobserved",
+    "note": "Screen lock interrupted native observation; excluded."
+  },
+  "safari-BAC.json": {
+    "displayState": "unlocked",
+    "note": "Replacement of lock-interrupted final round; native Safari accessible before and after."
+  }
+}

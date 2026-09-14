@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "rounds": 8,
+  "queries": 1920,
+  "nativeSnapshots": 72,
+  "missingFiles": [],
+  "extraRawReports": 0,
+  "errors": [],
+  "warnings": [],
+  "cohorts": {
+    "desktop": {
+      "procedural": {
+        "gpuMeanMs": 6.920774312499999,
+        "gpuBlockRangeMs": [
+          6.143411249999999,
+          7.809150233333332
+        ],
+        "cpuMeanMs": 0.5041666666666667
+      },
+      "2k": {
+        "gpuMeanMs": 3.5958373499999996,
+        "gpuBlockRangeMs": [
+          3.2002168499999994,
+          4.025152866666668
+        ],
+        "cpuMeanMs": 0.43958333355064194
+      },
+      "4k": {
+        "gpuMeanMs": 3.281320183333335,
+        "gpuBlockRangeMs": [
+          2.80326975,
+          3.6183327833333325
+        ],
+        "cpuMeanMs": 0.4295833332464099
+      },
+      "8k": {
+        "gpuMeanMs": 3.412955929166668,
+        "gpuBlockRangeMs": [
+          3.299700966666667,
+          3.5239106666666666
+        ],
+        "cpuMeanMs": 0.40874999991307653
+      }
+    },
+    "compact": {
+      "procedural": {
+        "gpuMeanMs": 0.9177989833333334,
+        "gpuBlockRangeMs": [
+          0.7964349,
+          0.9907154833333333
+        ],
+        "cpuMeanMs": 0.43666666684051353
+      },
+      "2k": {
+        "gpuMeanMs": 0.4612864833333335,
+        "gpuBlockRangeMs": [
+          0.44132029999999994,
+          0.47308009999999995
+        ],
+        "cpuMeanMs": 0.4179166669336458
+      },
+      "4k": {
+        "gpuMeanMs": 0.47421581666666657,
+        "gpuBlockRangeMs": [
+          0.4296848666666666,
+          0.5140543333333335
+        ],
+        "cpuMeanMs": 0.41041666669771076
+      },
+      "8k": {
+        "gpuMeanMs": 0.5137878583333333,
+        "gpuBlockRangeMs": [
+          0.4612258666666666,
+          0.6270620833333334
+        ],
+        "cpuMeanMs": 0.36791666656111677
+      }
+    }
+  }
+}
