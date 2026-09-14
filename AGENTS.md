@@ -1,6 +1,7 @@
 # Project working agreements
 
-- Split future commits into logical, reviewable groups. Preserve unrelated work;
+- Commit completed changes on every implementation task, in logical, reviewable
+  groups rather than very small fragments. Preserve unrelated work;
   do not squash accumulated changes into one commit unless the user asks.
 - Use an independent critic agent for completed implementation groups. Let the
   critic choose a task-appropriate rubric covering request fulfillment, visual

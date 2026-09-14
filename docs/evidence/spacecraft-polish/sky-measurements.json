@@ -1,0 +1,237 @@
+{
+  "protocol": {
+    "eventWindowSeconds": 180,
+    "observationStepSeconds": 0.03333333333333333,
+    "stars": 3100,
+    "twinkleSeconds": 8,
+    "twinkleStepSeconds": 0.03333333333333333,
+    "brightness": "Analytical central fragment, additive linear RGB before scene compositing / final output transform. No GPU timing or photographic brightness claim.",
+    "baseline": "b64852f",
+    "sourceSha256": {
+      "before": "2c30d752e2e2eb81a3cfd53b9654bdc1b3175de822c770d7ef9d03f9dd05720b",
+      "after": "070556470cf21b7a46ad4f41c1c256c1a20b0502b983d427772fd9508ab61ef2"
+    }
+  },
+  "before": {
+    "meteors": {
+      "individualStarts": 207,
+      "individualStartsPerMinute": 69,
+      "groups": 120,
+      "groupsPerMinute": 40,
+      "maxSimultaneouslyVisible": 9,
+      "anyVisibleTimeFraction": 0.8662962962962963,
+      "durationSeconds": {
+        "min": 1.1514598578156436,
+        "p05": 1.1615646573100094,
+        "median": 1.321048947578447,
+        "p95": 1.4818623983881478,
+        "max": 1.497157800930745,
+        "mean": 1.3231210995872928
+      },
+      "groupStartGapSeconds": {
+        "min": 0.13999999999998636,
+        "p05": 0.14000000000001478,
+        "median": 1.3520494776416854,
+        "p95": 1.9727165964376923,
+        "max": 4.309467734034982,
+        "mean": 1.4969905696104686
+      },
+      "memberCounts": {
+        "leadingMembers": 120,
+        "pairMembers": 69,
+        "tripleMembers": 18
+      },
+      "peakOpacity": {
+        "min": 0.3564,
+        "p05": 0.4487999999999999,
+        "median": 0.8199999999999998,
+        "p95": 0.8200000000000001,
+        "max": 0.8200000000000001,
+        "mean": 0.7188289855072455
+      },
+      "peakCentralLinearLuminance": {
+        "min": 0.6247274686799809,
+        "p05": 0.8018131890717758,
+        "median": 0.9068889730446175,
+        "p95": 0.9068889730446175,
+        "max": 0.9068889730446175,
+        "mean": 0.8836176128950808
+      },
+      "tailLength": {
+        "min": 0.12,
+        "p05": 0.12,
+        "median": 0.12,
+        "p95": 0.12,
+        "max": 0.12,
+        "mean": 0.12000000000000013
+      }
+    },
+    "twinkle": {
+      "amplitude": {
+        "min": 0.10000129044055939,
+        "p05": 0.10311680287122726,
+        "median": 0.2243739813566208,
+        "p95": 0.44865506887435913,
+        "max": 0.5475212335586548,
+        "mean": 0.24518978872847172
+      },
+      "primaryPeriodSeconds": {
+        "min": 2.3713104278228285,
+        "p05": 2.530765428426119,
+        "median": 5.4092159596822125,
+        "p95": 13.518591086136677,
+        "max": 13.962633461129432,
+        "mean": 6.516371682400559
+      },
+      "eightSecondRelativeBrightnessSwing": {
+        "min": 0.06536172790395234,
+        "p05": 0.14778315275071807,
+        "median": 0.34887843791866846,
+        "p95": 0.7743679424316223,
+        "max": 1.071652130154713,
+        "mean": 0.3952772633848624
+      },
+      "fractionWith40PercentOrGreaterSwing": 0.422258064516129,
+      "individualRms": {
+        "min": 0.026095039038270887,
+        "p05": 0.0510132147289305,
+        "median": 0.11484971414392656,
+        "p95": 0.24194093830121716,
+        "max": 0.3805532106167504,
+        "mean": 0.1272109636064917
+      },
+      "aggregateBrightnessSwing": 0.019562287028354823,
+      "centralLinearLuminance": {
+        "min": 0.14815626102323068,
+        "p05": 0.2513378078671591,
+        "median": 0.4281385430401635,
+        "p95": 1.0168542031269943,
+        "max": 1.5658795975635347,
+        "mean": 0.5182279185307411
+      }
+    },
+    "resources": {
+      "starCount": 3100,
+      "starBufferBytes": 136400,
+      "meteorCapacity": 9,
+      "earthTextureDimensions": [
+        8192,
+        4096
+      ]
+    }
+  },
+  "after": {
+    "meteors": {
+      "individualStarts": 103,
+      "individualStartsPerMinute": 34.333333333333336,
+      "groups": 60,
+      "groupsPerMinute": 20,
+      "maxSimultaneouslyVisible": 4,
+      "anyVisibleTimeFraction": 0.8403703703703703,
+      "durationSeconds": {
+        "min": 2.1575261426936776,
+        "p05": 2.1942467411658497,
+        "median": 2.3960132497626545,
+        "p95": 2.6277251949672062,
+        "max": 2.64593971561535,
+        "mean": 2.3990891974148845
+      },
+      "groupStartGapSeconds": {
+        "min": 2.171388238095034,
+        "p05": 2.211987489444084,
+        "median": 2.6309728047090175,
+        "p95": 4.182985922604075,
+        "max": 4.305635693369538,
+        "mean": 2.9835631528383635
+      },
+      "memberCounts": {
+        "leadingMembers": 60,
+        "pairMembers": 34,
+        "tripleMembers": 9
+      },
+      "peakOpacity": {
+        "min": 0.1711998266462997,
+        "p05": 0.18860953147453804,
+        "median": 0.25474798659485537,
+        "p95": 0.338103616610897,
+        "max": 0.3494868817222596,
+        "mean": 0.25807727737783054
+      },
+      "peakCentralLinearLuminance": {
+        "min": 0.2592829224043744,
+        "p05": 0.28565000018996833,
+        "median": 0.38396569195111435,
+        "p95": 0.5120594775570488,
+        "max": 0.5292994847603018,
+        "mean": 0.3877276996391882
+      },
+      "tailLength": {
+        "min": 0.055090999703206765,
+        "p05": 0.05604258157116419,
+        "median": 0.08069972048195267,
+        "p95": 0.10062004233503102,
+        "max": 0.10486115126921505,
+        "mean": 0.08001854176687948
+      }
+    },
+    "twinkle": {
+      "amplitude": {
+        "min": 0.3400234878063202,
+        "p05": 0.35032063722610474,
+        "median": 0.5238671898841858,
+        "p95": 0.7537924647331238,
+        "max": 0.85821533203125,
+        "mean": 0.535167938317022
+      },
+      "primaryPeriodSeconds": {
+        "min": 2.027049328633827,
+        "p05": 2.141863159570038,
+        "median": 4.027314657641907,
+        "p95": 8.661557295840494,
+        "max": 8.9759768702169,
+        "mean": 4.599790791271518
+      },
+      "eightSecondRelativeBrightnessSwing": {
+        "min": 0.25231338264933756,
+        "p05": 0.5040128549154383,
+        "median": 0.8903134681419925,
+        "p95": 1.379609752879018,
+        "max": 1.686833098806293,
+        "mean": 0.9158120277342063
+      },
+      "fractionWith40PercentOrGreaterSwing": 0.9764516129032258,
+      "individualRms": {
+        "min": 0.08591448118650437,
+        "p05": 0.16347503784963496,
+        "median": 0.27164013682353866,
+        "p95": 0.4160950534470011,
+        "max": 0.5983825388340013,
+        "mean": 0.28075052282113777
+      },
+      "aggregateBrightnessSwing": 0.04379319648656483,
+      "centralLinearLuminance": {
+        "min": 0.0667047172949232,
+        "p05": 0.19543730579868734,
+        "median": 0.42746047775015433,
+        "p95": 1.1287273370615674,
+        "max": 1.9068022490750631,
+        "mean": 0.5181112024029302
+      }
+    },
+    "resources": {
+      "starCount": 3100,
+      "starBufferBytes": 136400,
+      "meteorCapacity": 9,
+      "earthTextureDimensions": [
+        8192,
+        4096
+      ]
+    }
+  },
+  "comparison": {
+    "meteorStartRatio": 0.4975845410628019,
+    "medianDurationRatio": 1.8137202668793417,
+    "medianTwinkleSwingRatio": 2.5519303326780687,
+    "medianMeteorPeakLuminanceRatio": 0.4233877611964567
+  }
+}

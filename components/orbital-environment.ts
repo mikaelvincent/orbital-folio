@@ -226,11 +226,11 @@ export function createOrbitalEnvironment(
     twinkles.set(
       [
         random() * Math.PI * 2,
-        0.45 + Math.pow(random(), 1.65) * 2.2,
+        0.7 + Math.pow(random(), 1.5) * 2.4,
         brightStar
-          ? 0.3 + random() * 0.25
-          : 0.1 + Math.pow(random(), 1.6) * 0.38,
-        0.2 + random() * 1.6,
+          ? 0.68 + random() * 0.18
+          : 0.34 + Math.pow(random(), 1.25) * 0.44,
+        0.3 + random() * 1.7,
       ],
       i * 4,
     );
@@ -277,9 +277,9 @@ export function createOrbitalEnvironment(
   const stars = new THREE.Points(starsGeometry, starsMaterial);
   scene.add(stars);
 
-  // Three independent timing banks provide three times the original creation
-  // rate. Nine persistent slots allow brief overlapping showers without allocation.
-  // Singles remain common; grouped streaks share an axis and stagger their starts.
+  // Nine reusable slots form three staggered single/pair/triple events per nine
+  // seconds: half the previous creation rate, without the synchronized showers.
+  // Each small group shares a direction; its members drift past in loose succession.
   // Tight screen-space quads shade only each streak, not the whole viewport.
   const meteorVertex = `
     varying vec2 vStreak;
@@ -349,9 +349,9 @@ export function createOrbitalEnvironment(
           float halo = exp(-pow(vStreak.y / (width * 2.8), 2.0)) * tail;
           float tip = exp(-dot(vStreak, vStreak) / (width * width * 4.0));
           float glow = exp(-dot(vStreak, vStreak) / (width * width * 14.0));
-          float alpha = (line * 0.88 + halo * 0.10 + tip * 0.85 + glow * 0.14) * opacity;
+          float alpha = (line * 0.70 + halo * 0.07 + tip * 0.80 + glow * 0.10) * opacity;
           alpha *= 1.0 - smoothstep(0.85, 0.89, vScreenY);
-          vec3 color = mix(vec3(0.48, 0.80, 1.0), headColor, clamp(tip + line * 0.3, 0.0, 1.0));
+          vec3 color = mix(vec3(0.68, 0.78, 0.92), headColor, clamp(tip + line * 0.3, 0.0, 1.0));
           gl_FragColor = vec4(color, min(alpha, 1.0));
         }
       `,
@@ -375,6 +375,7 @@ export function createOrbitalEnvironment(
       originY: 0,
       travel: 0,
       strength: 0,
+      tailLength: 0.08,
       parallel: false,
       groupSize: 1,
       groupId: -1,
@@ -583,25 +584,29 @@ export function createOrbitalEnvironment(
     const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
     return n - Math.floor(n);
   };
-  const meteorBankPeriod = 4.5;
-  const meteorGroupSize = (cycle: number) =>
-    cycle % 7 === 3 ? 3 : cycle % 2 === 1 ? 2 : 1;
-  const alignedShower = (cycle: number) => cycle % 14 === 3;
+  const meteorBankPeriod = 9;
+  const meteorGroupSize = (cycle: number, bank = 0) => {
+    const group = cycle * 3 + bank;
+    return group % 7 === 3 ? 3 : group % 2 === 1 ? 2 : 1;
+  };
   const meteorGroupStart = (cycle: number, bank: number) =>
     cycle * meteorBankPeriod +
-    0.55 +
-    (alignedShower(cycle)
-      ? bank * 0.14 + phaseHash(cycle + 0.17) * 0.16
-      : bank * 1.32 + phaseHash(cycle + bank * 5.19 + 0.17) * 0.16);
+    0.8 +
+    bank * 2.55 +
+    phaseHash(cycle + bank * 5.19 + 0.17) * 0.45;
   const meteorStart = (cycle: number, index: number) =>
     meteorGroupStart(cycle, Math.floor(index / 3)) +
     (index % 3) *
-      (0.18 + phaseHash(cycle + Math.floor(index / 3) * 7.13 + 0.73) * 0.1);
+      (0.28 + phaseHash(cycle + Math.floor(index / 3) * 7.13 + 0.73) * 0.16);
   const nextMeteorStart = (time: number, index: number) => {
     let cycle = Math.max(0, Math.floor(time / meteorBankPeriod));
     for (let step = 0; step < 8; step++, cycle++) {
       const start = meteorStart(cycle, index);
-      if (meteorGroupSize(cycle) > index % 3 && start >= time) return start;
+      if (
+        meteorGroupSize(cycle, Math.floor(index / 3)) > index % 3 &&
+        start >= time
+      )
+        return start;
     }
     return meteorStart(cycle, index);
   };
@@ -609,12 +614,7 @@ export function createOrbitalEnvironment(
   // along a cached axis, preserving deterministic seeks, resets and paused time.
   const configureMeteor = (meteor: (typeof meteors)[number], cycle: number) => {
     const { bank, member } = meteor;
-    const shower = alignedShower(cycle);
-    const parallel = shower || phaseHash(cycle * 3 + bank + 0.27) > 0.32;
-    const key =
-      cycle * 37.31 +
-      (shower ? 0 : bank * 11.17) +
-      (parallel ? 0 : member * 23.79);
+    const key = cycle * 37.31 + bank * 11.17;
     const direction = phaseHash(key + 0.59);
     const rising = direction > 0.82;
     const fromLeft = phaseHash(key + 1.47) > 0.5;
@@ -629,11 +629,11 @@ export function createOrbitalEnvironment(
             : -0.2 - phaseHash(key + 4.2) * 0.65,
       )
       .normalize();
-    const spread = parallel ? (shower ? bank * 3 + member : member) * 0.014 : 0;
+    const spread = member * (0.009 + phaseHash(key + 8.4) * 0.01);
     meteor.cycle = cycle;
     meteor.startAt = meteorStart(cycle, bank * 3 + member);
     meteor.duration =
-      1.15 + phaseHash(cycle * 3 + bank * 7.7 + member + 0.31) * 0.35;
+      2.15 + phaseHash(cycle * 3 + bank * 7.7 + member + 0.31) * 0.5;
     meteor.originX = Math.max(
       0.06,
       Math.min(
@@ -654,10 +654,17 @@ export function createOrbitalEnvironment(
       ),
     );
     meteor.travel = 0.26 + phaseHash(key + 6) * 0.17;
-    meteor.strength = (0.82 - member * 0.14) * (shower ? 0.66 : 1);
-    meteor.parallel = parallel;
-    meteor.groupSize = meteorGroupSize(cycle);
-    meteor.groupId = shower ? cycle * 3 : cycle * 3 + bank;
+    meteor.strength =
+      (0.2 + phaseHash(key + member * 19.1 + 12.7) * 0.15) *
+      (1 - member * 0.08);
+    meteor.tailLength = 0.055 + phaseHash(key + member * 7.3 + 14.6) * 0.05;
+    meteor.material.uniforms.tailLength.value = Math.min(
+      meteor.tailLength,
+      meteor.material.uniforms.aspect.value * 0.26,
+    );
+    meteor.parallel = true;
+    meteor.groupSize = meteorGroupSize(cycle, bank);
+    meteor.groupId = cycle * 3 + bank;
     meteor.material.uniforms.headColor.value.setHex(
       phaseHash(key + member * 0.8 + 9) > 0.5 ? 0xfff3df : 0xe0f6ff,
     );
@@ -678,7 +685,7 @@ export function createOrbitalEnvironment(
       camera.updateMatrixWorld(true);
       placeEarth(Math.max(1, width), safeHeight);
       starsMaterial.uniforms.pixelRatio.value = Math.max(1, pixelRatio);
-      for (const { material } of meteors) {
+      for (const { material, tailLength } of meteors) {
         material.uniforms.aspect.value = camera.aspect;
         material.uniforms.pixelHeight.value = 1 / safeHeight;
         const halfHeight =
@@ -688,7 +695,7 @@ export function createOrbitalEnvironment(
           halfHeight,
         );
         material.uniforms.tailLength.value = Math.min(
-          0.12,
+          tailLength,
           camera.aspect * 0.26,
         );
       }
@@ -754,7 +761,7 @@ export function createOrbitalEnvironment(
             meteor.originY + axis.y * phase * travel,
           );
           uniforms.opacity.value =
-            Math.pow(Math.sin(Math.PI * phase), 0.65) * meteor.strength;
+            Math.pow(Math.sin(Math.PI * phase), 1.5) * meteor.strength;
         } else uniforms.opacity.value = 0;
       }
     },
@@ -812,17 +819,23 @@ export function createOrbitalEnvironment(
           sizes.byteLength +
           twinkles.byteLength,
         starTwinkleMode: 'seeded-independent-amplitude-and-two-frequencies',
-        starTwinklePrimaryFrequencyRange: [0.45, 2.65],
-        starTwinkleSecondaryFrequencyRange: [0.2, 1.8],
-        starTwinkleAmplitudeRange: [0.1, 0.55],
+        starTwinklePrimaryFrequencyRange: [0.7, 3.1],
+        starTwinkleSecondaryFrequencyRange: [0.3, 2],
+        starTwinkleAmplitudeRange: [0.34, 0.86],
         meteorCapacity: 9,
         meteorTimingBanks: 3,
-        meteorCreationFrequencyMultiplier: 3,
+        meteorCreationFrequencyMultiplier: 1.5,
+        meteorCreationRateComparedWithPrevious: 0.5,
         meteorBankPeriod,
-        meteorGroupInterval: [0.14, 4.38],
+        meteorGroupInterval: [2.1, 4.35],
+        meteorDurationRange: [2.15, 2.65],
+        meteorPeakOpacityRange: [0.168, 0.35],
+        meteorTailLengthRange: [0.055, 0.105],
+        meteorMemberStaggerRange: [0.28, 0.44],
+        meteorFadeExponent: 1.5,
         meteorPairEveryGroups: 2,
         meteorTripleEveryGroups: 7,
-        meteorAlignedShowerEveryCycles: 14,
+        meteorAlignedShowerEveryCycles: null,
         meteorGroupSize: meteorGroupSize(Math.max(0, meteors[0].cycle)),
         meteorGroupHasPair: meteorGroupSize(Math.max(0, meteors[0].cycle)) > 1,
         meteorCount,
@@ -832,6 +845,11 @@ export function createOrbitalEnvironment(
           phase: m.phase,
           startAt: m.startAt,
           duration: m.duration,
+          peakOpacity: m.strength,
+          opacity: m.material.uniforms.opacity.value,
+          tailLength: m.material.uniforms.tailLength.value,
+          travel: m.travel,
+          groupSize: m.groupSize,
           nextAt: m.nextAt,
           cycle: m.cycle,
           bank: m.bank,

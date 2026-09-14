@@ -1,0 +1,299 @@
+{
+  "calls": "438",
+  "environment": {
+    "activeTime": 56.28320000000138,
+    "cameraMode": "shared-world-camera",
+    "cameraPosition": [
+      2.7755575615628914e-17,
+      1.7347234759768068e-17,
+      -1.1102230246251563e-16
+    ],
+    "cameraQuaternion": [
+      -1.3877787807814455e-17,
+      -6.938893903907228e-18,
+      8.673617379884035e-19,
+      1
+    ],
+    "cloudFieldSamples": 0,
+    "cloudLightingModel": "photographic-night-lights",
+    "cloudReady": true,
+    "cloudRotation": 0.16804980000000416,
+    "cloudRotationRate": 0.003,
+    "cloudTextureSize": 0,
+    "cloudWeatherModel": "cloud-free-night-composite",
+    "dayTextureSize": 8192,
+    "drawCallBudget": 13,
+    "earthAppearance": "night",
+    "earthAtmosphereLayers": 1,
+    "earthEncodedBytes": 2329878,
+    "earthLoadError": null,
+    "earthMode": "satellite-night-lights",
+    "earthOpening": {
+      "latitude": 38,
+      "longitude": 18,
+      "roll": -12
+    },
+    "earthOpeningElapsed": 56.01660000000138,
+    "earthPosition": [
+      -35.655041896773454,
+      -196.16869629386193,
+      -93.70656094965948
+    ],
+    "earthRadius": 180,
+    "earthReady": true,
+    "earthResponseBytes": 2329878,
+    "earthRotation": 0.16804980000000416,
+    "earthRotationRate": 0.003,
+    "earthSource": "local-satellite-image",
+    "earthTextureBytes": 134217728,
+    "earthTextureDecodeMs": 281.70000000298023,
+    "earthTextureDimensions": [
+      8192,
+      4096
+    ],
+    "earthTextureFetchMs": 203.69999999552965,
+    "earthTextureGpuBytes": 178956972,
+    "earthTextureReadyMs": 492,
+    "earthTextureSamples": 1,
+    "estimatedTextureMiB": 170.8333,
+    "externalTextureRequests": 1,
+    "meteorAlignedShowerEveryCycles": 14,
+    "meteorBankPeriod": 4.5,
+    "meteorCapacity": 9,
+    "meteorCount": 1,
+    "meteorCreationFrequencyMultiplier": 3,
+    "meteorCycle": 12,
+    "meteorGroupHasPair": false,
+    "meteorGroupInterval": [
+      0.14,
+      4.38
+    ],
+    "meteorGroupSize": 1,
+    "meteorPairEveryGroups": 2,
+    "meteorPhase": 0.2872440665807949,
+    "meteorPhases": [
+      0,
+      0,
+      0,
+      0.2872440665807949,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "meteorStreams": [
+      {
+        "bank": 0,
+        "cycle": 12,
+        "direction": [
+          -0.5090091216369402,
+          -0.8607611248716979
+        ],
+        "duration": 1.2983701073719205,
+        "groupId": 36,
+        "member": 0,
+        "nextAt": 59.15786801722017,
+        "origin": [
+          0.8609637622415903,
+          0.7059855658153538
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 54.68748043828295,
+        "visible": false
+      },
+      {
+        "bank": 0,
+        "cycle": 12,
+        "direction": [
+          -0.5090091216369402,
+          -0.8607611248716979
+        ],
+        "duration": 1.197990672890228,
+        "groupId": 36,
+        "member": 1,
+        "nextAt": 59.37300627452205,
+        "origin": [
+          0.8469637622415903,
+          0.6919855658153538
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 54.929548758020175,
+        "visible": false
+      },
+      {
+        "bank": 0,
+        "cycle": 12,
+        "direction": [
+          -0.5090091216369402,
+          -0.8607611248716979
+        ],
+        "duration": 1.3037511567057662,
+        "groupId": 36,
+        "member": 2,
+        "nextAt": 77.50808744884154,
+        "origin": [
+          0.8329637622415903,
+          0.6779855658153537
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 55.1716170777574,
+        "visible": false
+      },
+      {
+        "bank": 1,
+        "cycle": 12,
+        "direction": [
+          0.8695126954384653,
+          -0.4939105915763852
+        ],
+        "duration": 1.1819082564170458,
+        "groupId": 37,
+        "member": 0,
+        "nextAt": 60.467609707884584,
+        "origin": [
+          0.1692294739819772,
+          0.7289752491202671
+        ],
+        "parallel": false,
+        "phase": 0.2872440665807949,
+        "startAt": 55.94370386610273,
+        "visible": true
+      },
+      {
+        "bank": 1,
+        "cycle": 12,
+        "direction": [
+          0.9464099528606243,
+          -0.32296780199634567
+        ],
+        "duration": 1.1833704068061706,
+        "groupId": 37,
+        "member": 1,
+        "nextAt": 60.66541555440973,
+        "origin": [
+          0.19277664547764176,
+          0.7399228300066898
+        ],
+        "parallel": false,
+        "phase": 0,
+        "startAt": 56.217008621686546,
+        "visible": false
+      },
+      {
+        "bank": 1,
+        "cycle": 11,
+        "direction": [
+          -0.9199017053943868,
+          -0.39214901812002384
+        ],
+        "duration": 1.4415938034289866,
+        "groupId": 34,
+        "member": 2,
+        "nextAt": 77.72526369604662,
+        "origin": [
+          0.8544070241811569,
+          0.7085657692298191
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 51.983691615731075,
+        "visible": false
+      },
+      {
+        "bank": 2,
+        "cycle": 11,
+        "direction": [
+          0.9716136543090484,
+          0.23657325875976992
+        ],
+        "duration": 1.297718038044786,
+        "groupId": 35,
+        "member": 0,
+        "nextAt": 57.32720612794393,
+        "origin": [
+          0.1723569417783665,
+          0.538797597240773
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 52.72686322135705,
+        "visible": false
+      },
+      {
+        "bank": 2,
+        "cycle": 11,
+        "direction": [
+          0.9716136543090484,
+          0.23657325875976992
+        ],
+        "duration": 1.331024703337243,
+        "groupId": 35,
+        "member": 1,
+        "nextAt": 61.965959659705035,
+        "origin": [
+          0.1863569417783665,
+          0.524797597240773
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 52.928931127825926,
+        "visible": false
+      },
+      {
+        "bank": 2,
+        "cycle": 11,
+        "direction": [
+          0.9716136543090484,
+          0.23657325875976992
+        ],
+        "duration": 1.4412555200393398,
+        "groupId": 35,
+        "member": 2,
+        "nextAt": 77.78713825213198,
+        "origin": [
+          0.2003569417783665,
+          0.510797597240773
+        ],
+        "parallel": true,
+        "phase": 0,
+        "startAt": 53.1309990342948,
+        "visible": false
+      }
+    ],
+    "meteorTimingBanks": 3,
+    "meteorTripleEveryGroups": 7,
+    "meteorVisible": true,
+    "nebulaDimensions": [
+      256,
+      128
+    ],
+    "proceduralGenerationMs": 3.6,
+    "proceduralTextureBytes": 131072,
+    "proceduralTextureGpuBytes": 174764,
+    "ready": true,
+    "starBufferBytes": 136400,
+    "starCount": 3100,
+    "starTwinkleAmplitudeRange": [
+      0.1,
+      0.55
+    ],
+    "starTwinkleMode": "seeded-independent-amplitude-and-two-frequencies",
+    "starTwinklePrimaryFrequencyRange": [
+      0.45,
+      2.65
+    ],
+    "starTwinkleSecondaryFrequencyRange": [
+      0.2,
+      1.8
+    ],
+    "textureSize": 8192,
+    "worldScale": 32
+  },
+  "frame": "2560,1440",
+  "traceLast": 57792,
+  "triangles": "869893"
+}

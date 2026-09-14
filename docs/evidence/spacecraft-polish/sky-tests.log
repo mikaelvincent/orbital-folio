@@ -1,0 +1,16 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (20.851833ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (11.025042ms)
+✔ Disposal before injected texture installation releases it without invalidating (9.595416ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (34.360875ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (56.029334ms)
+✔ Seeded stars have visible independent modulation without a synchronized field pulse (38.579042ms)
+✔ Shooting stars have quiet event spacing, small coherent groups and varied restrained peaks (42.37875ms)
+✔ Sky animation stays deterministic across seeks and pauses, with no resource replacement (49.894125ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 267.448958

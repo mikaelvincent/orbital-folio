@@ -552,6 +552,42 @@ These are local first-environment submission observations, including readiness a
 
 The reusable [audit script](../scripts/audit-night-earth-results.mjs) passes all declared structural/source/asset/order/counter/telemetry checks, with the environmental and timer limitations explicitly reported. It preserves raw interruption exclusions and groups display conditions separately. [Full audit and tables](evidence/performance/night-earth-resolution/audit-summary.md), [machine-readable audit](evidence/performance/night-earth-resolution/audit-summary.json). Focused tests, type checking, targeted lint and the production build are recorded in the [implementation evidence](evidence/performance/night-earth-resolution/README.md).
 
+## 14 — Hull, ladder fit and quieter sky
+
+**Approved visual work, 14–15 September 2026.** The rear hull now uses one
+continuous depth profile with rounded rear edges; door guides and signs follow
+the visible wall bounds; overlapping front ladder surfaces are removed. A pair
+of contoured service covers fills the docking-side wall. Drag release springs
+back into the ordinary hover view. These are quality and correctness changes,
+not the next optimization experiments.
+
+The service covers add **four static material batches and 8,688 triangles**.
+Rear rounding adds geometry but uses the existing materials/render passes.
+The complete source-hashed model inventory against `b64852f` changes from
+**408 → 412 visible meshes, 820,490 → 887,896 triangles (+8.22%), and
+28.32 → 31.22 MiB of geometry attribute/index arrays (+2.90 MiB)**. This includes
+the new covers, denser contours, rounded rear construction and revised apertures.
+It is a whole visible-scene inventory without camera frustum culling; it excludes
+textures, instance buffers, JavaScript objects, render targets and other layers.
+[Reproducible inventory](evidence/spacecraft-polish/geometry-inventory.json).
+The revised physical shape requires a fresh browser baseline before future
+performance comparisons. No GPU,
+heat or battery improvement is claimed; unchanged pass counts alone cannot
+establish unchanged rendering cost.
+
+The deterministic sky audit records **69.0 → 34.3 meteor arrivals/minute** and
+**1.32 → 2.40 seconds median travel duration**, with dimmer varied peaks and
+stronger independent star twinkle. Longer trails in time mean any-streak
+occupancy only changes from 86.6% to 84.0%; do not interpret half the arrivals as
+half the rendering activity. Desktop star count (3,100), star buffers (136,400 B),
+reused meteor slots (nine) and the approved 8K Earth remain unchanged. These are
+schedule/analytical shader measurements, not GPU timings.
+
+[Implementation, visual evidence and checks](evidence/spacecraft-polish/README.md),
+[sky audit and limitations](evidence/spacecraft-polish/sky-review.md).
+All optimization candidates below remain on hold. The next approved baseline
+must include both the delivered world-camera system and this hull/sky revision.
+
 ## Next candidates
 
 **Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
