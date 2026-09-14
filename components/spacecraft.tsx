@@ -8,6 +8,7 @@ import {
 import { SceneLoader } from './scene-loader';
 import { createScenePerformance } from '@/lib/scene-performance';
 import { updateRenderSceneMatrices } from '@/lib/scene-matrices';
+import { createVesselCameraFrame } from '@/lib/vessel-camera';
 import {
   createSpacecraftPerformance,
   type SpacecraftPerformanceFilter,
@@ -205,6 +206,9 @@ export function Spacecraft(props: Props) {
           cssScene.add(surface);
           latest.current.onSurfaceReady(surfaceElement);
           const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 80);
+          const cameraFrame = createVesselCameraFrame(THREE);
+          const overviewCameraFrame = createVesselCameraFrame(THREE);
+          const backgroundReference = camera.clone();
           const pmrem = new THREE.PMREMGenerator(renderer),
             roomEnvironment = new RoomEnvironment();
           const environment = pmrem.fromScene(roomEnvironment, 0.035);
@@ -247,6 +251,7 @@ export function Spacecraft(props: Props) {
             },
           });
           scene.add(model.group);
+          cameraFrame.projectionModel.userData = model.group.userData;
           // This loop synchronizes the scene after animation/reader transforms.
           // Reuse those exact matrices for shadows, color, and AO instead of
           // traversing every spacecraft object again for each render pass.
@@ -254,7 +259,10 @@ export function Spacecraft(props: Props) {
           const annotations = createOverviewAnnotations(THREE, el, s, {
             navigate: (section) => latest.current.onNavigate(section),
           });
-          scene.add(new THREE.HemisphereLight(0xe0eaff, 0x394553, 0.28));
+          const lightRig = new THREE.Group();
+          lightRig.name = 'vessel-lighting-frame';
+          scene.add(lightRig);
+          lightRig.add(new THREE.HemisphereLight(0xe0eaff, 0x394553, 0.28));
           const key = new THREE.DirectionalLight(0xffe3c1, 2.2);
           key.position.set(-7, 10, 12);
           key.castShadow = true;
@@ -272,13 +280,13 @@ export function Spacecraft(props: Props) {
           });
           key.shadow.normalBias = 0.035;
           key.shadow.bias = -0.00008;
-          scene.add(key);
+          lightRig.add(key);
           const rim = new THREE.DirectionalLight(0x91b8ff, 1.2);
           rim.position.set(4, 3, -7);
-          scene.add(rim);
+          lightRig.add(rim);
           const bounce = new THREE.DirectionalLight(0xffd7a4, 0.45);
           bounce.position.set(-2, -1, 6);
-          scene.add(bounce);
+          lightRig.add(bounce);
           // Half-resolution, denoised contact shading gives the toy-like fittings weight.
           // It multiplies only the WebGL scene; HTML stays sharp and native.
           const ao = new GTAOPass(scene, camera, 512, 512);
@@ -522,6 +530,9 @@ export function Spacecraft(props: Props) {
             delta: number;
             position: number[];
             quaternion: number[];
+            vesselMatrix: number[];
+            backgroundPosition: number[];
+            backgroundQuaternion: number[];
             hover: string;
             active: string;
             travelling: boolean;
@@ -543,6 +554,7 @@ export function Spacecraft(props: Props) {
             {
               mobile: mobile(),
               earthAppearance: 'night',
+              cameraFov: camera.fov,
             },
           );
           let backgroundSettled = false;
@@ -1014,7 +1026,7 @@ export function Spacecraft(props: Props) {
               // Independent target/roll springs can therefore never steal clearance.
               const clearance =
                 Math.max(startOverview.distance, endOverview.distance) * 1.02;
-              // Pull back before rolling the hull. Keep the full diagonal envelope
+              // Pull back before orbiting around the hull. Keep the diagonal envelope
               // clear throughout the rotation, then enter the upright cabin.
               itinerary = [
                 { ...startOverview, distance: clearance },
@@ -1366,15 +1378,20 @@ export function Spacecraft(props: Props) {
             const cameraTarget = currentTarget.clone();
             cameraTarget.x += hoverMotion[0].value;
             cameraTarget.y += hoverMotion[1].value;
-            camera.position
-              .copy(cameraTarget)
-              .addScaledVector(
-                direction,
-                distance * (1 - 0.025 * dollyMotion.value),
-              );
-            camera.lookAt(cameraTarget);
-            model.group.rotation.z = roll;
-            cssGroup.rotation.z = roll;
+            cameraFrame.apply(
+              camera,
+              cameraTarget,
+              direction,
+              distance * (1 - 0.025 * dollyMotion.value),
+              roll,
+            );
+            // Preserve the authored illumination while transferring the former
+            // hull rotation to the viewpoint. The hull and CSS anchors stay fixed.
+            lightRig.quaternion.copy(cameraFrame.inverseRoll);
+            key.shadow.camera.up
+              .set(0, 1, 0)
+              .applyQuaternion(cameraFrame.inverseRoll);
+            scene.environmentRotation.z = -roll;
             // The camera's current focus selects the cabin being crossed, rather
             // than lighting the eventual destination for the whole journey.
             const localFocus = currentTarget
@@ -1437,13 +1454,17 @@ export function Spacecraft(props: Props) {
             updateRenderSceneMatrices(scene);
             camera.updateMatrixWorld(true);
             diagnostics?.mark('matrices');
-            annotations.update(camera, model.group, {
-              home: active === 'home',
-              travelling,
-              reduced: stop,
-              delta,
-              hover: effectiveHover,
-            });
+            annotations.update(
+              cameraFrame.virtualCamera,
+              cameraFrame.projectionModel,
+              {
+                home: active === 'home',
+                travelling,
+                reduced: stop,
+                delta,
+                hover: effectiveHover,
+              },
+            );
             diagnostics?.mark('annotations');
             const logicalWidth = paperPixels();
             surfaceElement.style.width = `${logicalWidth}px`;
@@ -1500,12 +1521,8 @@ export function Spacecraft(props: Props) {
             }
             diagnostics?.mark('html-sync');
             if (experiment !== 'no-background') {
-              background.update(
-                elapsed,
-                !stop,
-                pointerCurrent.x * 0.12,
-                pointerCurrent.y * 0.08,
-              );
+              background.update(elapsed, !stop, 0, 0);
+              background.followCamera(camera, backgroundReference);
             }
             diagnostics?.mark('background-update');
             renderer.info.reset();
@@ -1605,6 +1622,9 @@ export function Spacecraft(props: Props) {
                 delta,
                 position: camera.position.toArray(),
                 quaternion: camera.quaternion.toArray(),
+                vesselMatrix: model.group.matrixWorld.toArray(),
+                backgroundPosition: background.camera.position.toArray(),
+                backgroundQuaternion: background.camera.quaternion.toArray(),
                 hover: hovered,
                 hoverPortal: effectivePortal,
                 queuedRoom: doorQueue.destination,
@@ -1850,6 +1870,17 @@ export function Spacecraft(props: Props) {
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
             syncSceneTargets();
+            // Register the orbital world once per viewport, never on room
+            // changes. All subsequent camera motion is shared by both scenes.
+            const reference = pose('home', false);
+            backgroundReference.copy(camera);
+            overviewCameraFrame.apply(
+              backgroundReference,
+              reference.target,
+              reference.direction,
+              reference.distance,
+              reference.roll,
+            );
             renderer.shadowMap.needsUpdate = true;
             resetDiagnostics('viewport changed');
             if (!initializedCamera) {
@@ -2320,6 +2351,10 @@ export function Spacecraft(props: Props) {
                 travelling,
                 cameraPosition: camera.position.toArray(),
                 cameraQuaternion: camera.quaternion.toArray(),
+                cameraMode: 'stationary-vessel',
+                vesselMatrix: model.group.matrixWorld.toArray(),
+                orbitalCamera: background.getDiagnostics(),
+                cameraTrace: auditMotion ? cameraTrace : undefined,
                 aoEnabled:
                   contactShading &&
                   !mobile() &&

@@ -37,3 +37,29 @@ Reading views, overview framing, and the recent door/ladder timing are preserved
   entrance/exit opening.
 - Independent scoped review: 98/100, with no blocking findings.
 - Runtime measurements and room screenshots are in `docs/evidence/room-camera/`.
+
+## Stationary spacecraft, shared camera motion — 14 September 2026
+
+The rendered spacecraft and its CSS labels now remain fixed in world space.
+Portrait overview orientation uses an inverse camera transform instead of rotating
+the vessel. If the old camera transform is C and the former vessel roll is R, the
+new camera is R⁻¹C. Its view matrix is C⁻¹R, exactly the previous model-view matrix.
+The existing room fit, springs, door timing, ladder pauses, pointer response and
+annotation projection are preserved. The annotation layout keeps a non-rendered
+virtual frame so its portrait ordering and fade timing remain unchanged.
+
+Earth, stars, the nebula and meteors now use that same physical viewpoint. A fixed
+registration places the authored orbital scene at the overview and scales it by
+32 relative to vessel units. This keeps Earth beyond every supported camera path,
+including very tall layouts. Registration changes only when the viewport changes;
+it does not follow room selection. Camera travel and dragging therefore move the
+background naturally rather than resetting it around each selected room.
+
+The external light rig, shadow-map orientation and reflection environment compensate
+for the former vessel roll to retain the approved room appearance. This preserves
+lighting rather than optimizing it: shadows still refresh on roll, and one fixed
+shadow bake is not automatically valid. Background ray projection adds shader
+arithmetic; no GPU timing improvement is claimed.
+
+See [implementation and validation evidence](evidence/world-camera/README.md) and
+[the held performance plan](performance-ledger.md#next-candidates).

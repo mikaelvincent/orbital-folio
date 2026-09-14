@@ -21,7 +21,13 @@ type EnvironmentOptions = {
   earthTextureWidth?: EarthTextureWidth;
   /** Portfolio uses night; the day default retains reproducible historical audits. */
   earthAppearance?: EarthAppearance;
+  /** Match the vessel lens when this environment shares its world camera. */
+  cameraFov?: number;
 };
+
+// Orbital artwork uses planet-sized units; the vessel uses cabin-sized units.
+// This fixed scale places the orbital world far beyond every navigation path.
+export const ORBITAL_WORLD_SCALE = 32;
 
 /** Satellite Earth, atmosphere and stars, driven by the caller's active clock. */
 export function createOrbitalEnvironment(
@@ -35,7 +41,16 @@ export function createOrbitalEnvironment(
   let openingElapsed = 0,
     previousEarthTime = 0;
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
+  const camera = new THREE.PerspectiveCamera(
+    options.cameraFov ?? 42,
+    1,
+    0.1,
+    1200,
+  );
+  const relativeCamera = new THREE.Matrix4();
+  const relativeScale = new THREE.Vector3();
+  let followsWorldCamera = false;
+  const skyCameraRotation = new THREE.Matrix3();
   const screenGeometry = new THREE.PlaneGeometry(2, 2);
   const screenVertex = `
     varying vec2 vUv;
@@ -150,10 +165,32 @@ export function createOrbitalEnvironment(
       depthWrite: false,
       depthTest: false,
       toneMapped: false,
-      uniforms: { skyTexture: { value: skyTexture } },
+      uniforms: {
+        skyTexture: { value: skyTexture },
+        inverseProjection: { value: camera.projectionMatrixInverse },
+        cameraRotation: { value: skyCameraRotation },
+        worldView: { value: false },
+      },
       vertexShader: screenVertex,
-      fragmentShader: `varying vec2 vUv; uniform sampler2D skyTexture;
-      void main() { gl_FragColor = vec4(texture2D(skyTexture, vUv).rgb, 1.0); }`,
+      fragmentShader: `
+        varying vec2 vUv;
+        uniform sampler2D skyTexture;
+        uniform mat4 inverseProjection;
+        uniform mat3 cameraRotation;
+        uniform bool worldView;
+        void main() {
+          vec2 sampleUv = vUv;
+          if (worldView) {
+            vec3 ray = normalize(cameraRotation *
+              (inverseProjection * vec4(vUv * 2.0 - 1.0, 1.0, 1.0)).xyz);
+            // Infinite sky responds to viewing direction, not camera position.
+            // Mirroring this subdued atlas avoids a discontinuous wrap seam.
+            vec2 sphereUv = vec2(atan(ray.x, -ray.z) / 6.2831853 + 0.5,
+              asin(clamp(ray.y, -1.0, 1.0)) / 3.1415927 + 0.5);
+            sampleUv = 1.0 - abs(mod(sphereUv * 2.0, 2.0) - 1.0);
+          }
+          gl_FragColor = vec4(texture2D(skyTexture, sampleUv).rgb, 1.0);
+        }`,
     }),
   );
   sky.frustumCulled = false;
@@ -252,6 +289,8 @@ export function createOrbitalEnvironment(
     uniform float aspect;
     uniform float pixelHeight;
     uniform float tailLength;
+    uniform bool worldView;
+    uniform vec2 referenceHalfSpan;
     void main() {
       float padding = pixelHeight * 7.0;
       float along = mix(-tailLength, padding, position.x * 0.5 + 0.5);
@@ -260,7 +299,13 @@ export function createOrbitalEnvironment(
       vec2 offset = axis * along + vec2(-axis.y, axis.x) * across;
       vec2 screen = head + offset / vec2(aspect, 1.0);
       vScreenY = screen.y;
-      gl_Position = vec4(screen * 2.0 - 1.0, 0.9998, 1.0);
+      if (worldView) {
+        vec3 world = vec3((screen * 2.0 - 1.0) * referenceHalfSpan, -240.0);
+        gl_Position = projectionMatrix * viewMatrix * vec4(world, 1.0);
+        vScreenY = gl_Position.y / max(0.0001, gl_Position.w) * 0.5 + 0.5;
+      } else {
+        gl_Position = vec4(screen * 2.0 - 1.0, 0.9998, 1.0);
+      }
     }
   `;
   const meteors = Array.from({ length: 9 }, (_, index) => {
@@ -272,6 +317,8 @@ export function createOrbitalEnvironment(
       toneMapped: false,
       uniforms: {
         head: { value: new THREE.Vector2() },
+        worldView: { value: false },
+        referenceHalfSpan: { value: new THREE.Vector2() },
         axis: {
           value: new THREE.Vector2(
             index === 0 ? 1 : -1,
@@ -626,20 +673,54 @@ export function createOrbitalEnvironment(
       const safeHeight = Math.max(1, height);
       camera.aspect = Math.max(1, width) / safeHeight;
       camera.updateProjectionMatrix();
+      camera.position.set(0, 0, 0);
+      camera.quaternion.identity();
+      camera.updateMatrixWorld(true);
       placeEarth(Math.max(1, width), safeHeight);
       starsMaterial.uniforms.pixelRatio.value = Math.max(1, pixelRatio);
       for (const { material } of meteors) {
         material.uniforms.aspect.value = camera.aspect;
         material.uniforms.pixelHeight.value = 1 / safeHeight;
+        const halfHeight =
+          Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * 240;
+        material.uniforms.referenceHalfSpan.value.set(
+          halfHeight * camera.aspect,
+          halfHeight,
+        );
         material.uniforms.tailLength.value = Math.min(
           0.12,
           camera.aspect * 0.26,
         );
       }
     },
+    followCamera(
+      worldCamera: Three.PerspectiveCamera,
+      reference: Three.PerspectiveCamera,
+    ) {
+      // Equivalent to placing this entire orbital scene under the fixed world
+      // transform reference.matrixWorld * scale(ORBITAL_WORLD_SCALE).
+      relativeCamera
+        .copy(reference.matrixWorld)
+        .invert()
+        .multiply(worldCamera.matrixWorld);
+      relativeCamera.decompose(
+        camera.position,
+        camera.quaternion,
+        relativeScale,
+      );
+      camera.position.multiplyScalar(1 / ORBITAL_WORLD_SCALE);
+      camera.updateMatrixWorld(true);
+      skyCameraRotation.setFromMatrix4(camera.matrixWorld);
+      if (!followsWorldCamera) {
+        followsWorldCamera = true;
+        sky.material.uniforms.worldView.value = true;
+        for (const meteor of meteors)
+          meteor.material.uniforms.worldView.value = true;
+      }
+    },
     update(time: number, moving: boolean, x: number, y: number) {
       if (disposed) return;
-      camera.position.set(x * 0.4, y * 0.4, 0);
+      if (!followsWorldCamera) camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
       if (appearance === 'night') {
         if (moving && earthStatus.ready)
@@ -681,6 +762,12 @@ export function createOrbitalEnvironment(
       const meteorCount = meteors.filter((m) => m.mesh.visible).length;
       return {
         activeTime,
+        cameraMode: followsWorldCamera
+          ? 'shared-world-camera'
+          : 'authored-preview',
+        cameraPosition: camera.position.toArray(),
+        cameraQuaternion: camera.quaternion.toArray(),
+        worldScale: ORBITAL_WORLD_SCALE,
         ready: !disposed,
         earthReady: earthStatus.ready && !disposed,
         earthMode:

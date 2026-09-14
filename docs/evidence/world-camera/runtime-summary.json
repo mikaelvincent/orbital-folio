@@ -1,0 +1,163 @@
+[
+  {
+    "file": "iab-projects-cases-flight.json",
+    "samples": 69,
+    "durationSeconds": 1.216,
+    "rollRadians": [
+      0,
+      0
+    ],
+    "maximumVesselMatrixIdentityError": 0,
+    "ladderSamples": 0,
+    "doorWaitSamples": 0,
+    "startCamera": [
+      -2.0898660448673794,
+      1.5399907915694355,
+      5.263660022159357
+    ],
+    "endCamera": [
+      2.084579566709423,
+      1.5399999993817943,
+      5.263660150527121
+    ],
+    "startBackground": [
+      0.015438484470005053,
+      0.01594631187619612,
+      -0.5780249056048005
+    ],
+    "endBackground": [
+      0.14382660261031124,
+      0.01910100174572696,
+      -0.6009184293881645
+    ]
+  },
+  {
+    "file": "iab-portrait-home.json",
+    "samples": 452,
+    "durationSeconds": 7.517,
+    "rollRadians": [
+      0,
+      1.5707963267878249
+    ],
+    "maximumVesselMatrixIdentityError": 0,
+    "ladderSamples": 0,
+    "doorWaitSamples": 0,
+    "startCamera": [
+      2.06684661537374,
+      1.5436197846261903,
+      14.532394997893372
+    ],
+    "endCamera": [
+      4.261729152262323,
+      6.246459243764937,
+      34.36166279622981
+    ],
+    "startBackground": [
+      0.034863810152804264,
+      0.018849552318920087,
+      -0.6393967773950531
+    ],
+    "endBackground": [
+      -3.9014196387410216e-11,
+      5.521809051667326e-11,
+      -8.747306265322052e-05
+    ]
+  },
+  {
+    "file": "iab-portrait-about-flight.json",
+    "samples": 452,
+    "durationSeconds": 7.517,
+    "rollRadians": [
+      7.661934163802002e-16,
+      1.5707963267897032
+    ],
+    "maximumVesselMatrixIdentityError": 0,
+    "ladderSamples": 0,
+    "doorWaitSamples": 0,
+    "startCamera": [
+      4.2695425932027815,
+      6.25452471951292,
+      34.36388307118413
+    ],
+    "endCamera": [
+      -2.0870000000004407,
+      -1.40499999999891,
+      14.519676897665963
+    ],
+    "startBackground": [
+      -0.0002357681129466372,
+      0.00022646935881307992,
+      5.773506775441639e-05
+    ],
+    "endBackground": [
+      0.1254803530021409,
+      -0.10746172829659552,
+      -0.6736733851730575
+    ]
+  },
+  {
+    "file": "iab-portrait-ladder-flight.json",
+    "samples": 151,
+    "durationSeconds": 2.5,
+    "rollRadians": [
+      1.6243615622199898e-24,
+      6.704783016017624e-16
+    ],
+    "maximumVesselMatrixIdentityError": 0,
+    "ladderSamples": 77,
+    "doorWaitSamples": 0,
+    "startCamera": [
+      -2.091216678030335,
+      -1.4049999999990463,
+      14.519963709962184
+    ],
+    "endCamera": [
+      -2.0892373587761903,
+      1.5399879666221958,
+      14.522401954695969
+    ],
+    "startBackground": [
+      0.12548194080396471,
+      -0.10759347023572392,
+      -0.6736826328622618
+    ],
+    "endBackground": [
+      0.03492018756375812,
+      -0.10976780121137812,
+      -0.6574489478916317
+    ],
+    "bothLadderDoorsAboveOnePercentSamples": 0
+  },
+  {
+    "file": "iab-direct-contact.json",
+    "samples": 113,
+    "durationSeconds": 2.817,
+    "rollRadians": [
+      0,
+      0
+    ],
+    "maximumVesselMatrixIdentityError": 0,
+    "ladderSamples": 0,
+    "doorWaitSamples": 0,
+    "startCamera": [
+      -5.834517127582132,
+      3.559224941235258,
+      23.278549281827853
+    ],
+    "endCamera": [
+      2.0869937704303627,
+      -1.4049983503696366,
+      5.260795428549182
+    ],
+    "startBackground": [
+      2.7755575615628914e-17,
+      1.7347234759768068e-17,
+      -1.1102230246251563e-16
+    ],
+    "endBackground": [
+      0.14388499401515786,
+      -0.07205499045874379,
+      -0.6135808488307943
+    ]
+  }
+]
