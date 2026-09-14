@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
 import {
   CABIN_CEILING,
+  CABIN_RETURN_RADIUS,
   CABIN_FLOOR,
   CABIN_HALF_WIDTH,
   PASSAGE_CENTER_Y,
@@ -14,7 +15,7 @@ import {
 } from '../lib/spacecraft-wall-layout.ts';
 
 const model = createSpacecraft(THREE);
-const radius = 0.08;
+const radius = CABIN_RETURN_RADIUS;
 const wallParts =
   /continuous-pressure-skin-interior|open-side-pressure-bulkhead|sealed-outboard-wall-interior|walkway-(projects|about)-cabin-facing-wall/;
 

@@ -1,6 +1,7 @@
 import { buildContinuousExteriorSkin } from './continuous-exterior-skin.ts';
 import { finishWindowReveals } from './flush-window-reveals.ts';
 import { buildSmoothDockingRing } from './smooth-docking-ring.ts';
+import { buildDockingShoulderEquipment } from './docking-shoulder-equipment.ts';
 import {
   buildRoundedCabinInterior,
   trimCabinSideWall,
@@ -22,10 +23,11 @@ import {
   CABIN_CEILING,
   CABIN_HALF_WIDTH,
   PASSAGE_RADIUS,
+  PASSAGE_WALL_RADIUS,
+  CABIN_RETURN_RADIUS,
   PASSAGE_CENTER_Y,
   PORTAL_SIGN_CENTER_Y,
   PORTAL_SIGN_STANDOFF,
-  PORTAL_SIGN_CABIN_Z,
   PASSAGE_CABIN_Z,
   PASSAGE_LADDER_Z,
   DECK_HALF_PITCH,
@@ -596,6 +598,15 @@ export function createSpacecraft(
         const outside = side
           ? normal.x * side > 0.1
           : normal.dot(center.sub(new THREE.Vector3(0, 0.05, 0))) >= -0.015;
+        if (
+          name === 'walkway-open-docking-wall' &&
+          Math.abs(normal.x) < 0.001 &&
+          (Math.abs(
+            Math.abs(center.y - LADDER_CENTER_Y) - LADDER_HALF_STRAIGHT,
+          ) < 1e-4 ||
+            (normal.z < -0.999 && center.z < -1.1))
+        )
+          continue;
         // The continuous chassis owns the exterior. Do not leave old pod
         // roofs, square end caps, or differently lit divider rims under it.
         if (name.endsWith('-continuous-pressure-skin') && outside) continue;
@@ -614,8 +625,10 @@ export function createSpacecraft(
           const centerZ = ladderWall ? PASSAGE_LADDER_Z : PASSAGE_CABIN_Z;
           const passage = centers.some(
             (y) =>
-              Math.abs(Math.hypot(center.y - y, center.z - centerZ) - 0.97) <
-              0.025,
+              Math.abs(
+                Math.hypot(center.y - y, center.z - centerZ) -
+                  PASSAGE_WALL_RADIUS,
+              ) < 0.025,
           );
           if (Math.abs(normal.x) < 0.999 && !passage) continue;
         }
@@ -630,7 +643,7 @@ export function createSpacecraft(
           bucket.uv.push(uv ? uv.getX(i + j) : 0, uv ? uv.getY(i + j) : 0);
         }
       }
-      return buckets.map((bucket) => {
+      return buckets.map((bucket, index) => {
         const g = new THREE.BufferGeometry();
         g.setAttribute(
           'position',
@@ -639,6 +652,11 @@ export function createSpacecraft(
         g.setAttribute('normal', new THREE.Float32BufferAttribute(bucket.n, 3));
         g.setAttribute('uv', new THREE.Float32BufferAttribute(bucket.uv, 2));
         g.computeBoundingSphere();
+        if (name === 'walkway-open-docking-wall' && index === 0) {
+          const face = clipGeometryPlane(THREE, g, 2, -1.1);
+          g.dispose();
+          return face;
+        }
         return g;
       });
     });
@@ -1043,8 +1061,8 @@ export function createSpacecraft(
     THREE,
     interiorPoints,
     CABIN_HALF_WIDTH,
-    0.08,
-    8,
+    CABIN_RETURN_RADIUS,
+    12,
   );
   const unitBox = new THREE.BoxGeometry(1, 1, 1);
   const boltGeometry = new THREE.CylinderGeometry(0.021, 0.021, 0.013, 6);
@@ -1306,9 +1324,14 @@ export function createSpacecraft(
     // Preserve the dark deck finish as paint on the existing floor. The old
     // thick backing block protruded through the rounded outer keel corners.
     const floorFinish = mesh(
-      new THREE.PlaneGeometry(
-        2 * (CABIN_HALF_WIDTH - cabinLining.radius),
-        1.61,
+      new THREE.ShapeGeometry(
+        roundedPath(
+          new THREE.Shape(),
+          2 * (CABIN_HALF_WIDTH - cabinLining.radius),
+          1.61,
+          0.12,
+        ),
+        32,
       ),
       m.navy,
       room,
@@ -1322,7 +1345,7 @@ export function createSpacecraft(
   const passageClear = 2 * PASSAGE_RADIUS;
   // A circular aperture is cut directly into each continuous side wall.
   // There is no rectangular insert or second doorway surround.
-  const passageWallClear = 1.94;
+  const passageWallClear = 2 * PASSAGE_WALL_RADIUS;
   function passageCircle(x = 0, y = 0, radius = passageWallClear / 2) {
     const path = new THREE.Path();
     path.absarc(x, y, radius, 0, Math.PI * 2, true);
@@ -1390,17 +1413,23 @@ export function createSpacecraft(
     for (const sign of [-1, 1]) {
       if ((section === 'experience' || section === 'contact') && sign > 0)
         continue;
-      box(
+      const liner = box(
         0.3,
         2.06,
-        0.045,
+        0.0375,
         thresholdLiner,
         origin + sign * 1.365,
         0.04,
-        -1.25,
+        -1.24625,
         structures[section],
         0.019,
         'visible-neighbor-rear-corner-liner',
+      );
+      // Preserve the front bevel exactly. The concealed backing previously
+      // crossed the curved rear crown at its top/bottom corners even though
+      // its center was inside the flat rear face. Trim only the hidden stock.
+      liner.geometry = cached('rear-corner-backing-trim', () =>
+        clipGeometryPlane(THREE, liner.geometry, 2, -1.24 - liner.position.z),
       );
     }
   }
@@ -1485,7 +1514,7 @@ export function createSpacecraft(
       LADDER_RIGHT_RADIUS - 0.08,
       0.61,
     )
-      .getPoints(16)
+      .getPoints(64)
       .map((p: any) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
     // Seat the existing cove on the fixed ladder-side wall datum.
     const rim = walkwayOutline(
@@ -1497,7 +1526,7 @@ export function createSpacecraft(
       LADDER_RIGHT_RADIUS,
       0.69,
     )
-      .getPoints(16)
+      .getPoints(64)
       .map((p: any) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
     if (rim[0].distanceToSquared(rim[rim.length - 1]) < 1e-12) rim.pop();
     if (inner[0].distanceToSquared(inner[inner.length - 1]) < 1e-12)
@@ -1759,11 +1788,15 @@ export function createSpacecraft(
   for (const side of [-1, 1]) {
     const outline = roundedPath(
       new THREE.Shape(),
-      side > 0 ? 2.5 : 2.42,
+      side > 0 ? 2.5 : PRESSURE_THROAT_START + 1.1 + PRESSURE_WALL,
       side > 0 ? LADDER_HEIGHT + 0.12 : 2.1,
       side > 0 ? 0.38 : 0,
     );
-    offsetPath(outline, 0, LADDER_CENTER_Y);
+    offsetPath(
+      outline,
+      side > 0 ? 0 : (1.1 + PRESSURE_WALL - PRESSURE_THROAT_START) / 2,
+      LADDER_CENTER_Y,
+    );
     if (side > 0) {
       for (const yy of [-DECK_HALF_PITCH, DECK_HALF_PITCH]) {
         const opening = passageCircle(-PASSAGE_LADDER_Z, yy + PASSAGE_CENTER_Y);
@@ -1787,11 +1820,27 @@ export function createSpacecraft(
     });
     skin.translate(0, 0, -PRESSURE_WALL / 2);
     skin.rotateY(Math.PI / 2);
-    const fittedSkin =
-      side > 0
-        ? clipGeometryPlane(THREE, skin, 2, -0.985 - PRESSURE_WALL)
-        : skin;
-    if (fittedSkin !== skin) skin.dispose();
+    // The pressure face owns the reveal forward of this shared throat.
+    // The former wall reached Z=1.25, overlapping its dark reveal at grazing
+    // angles. Trim the actual side-wall triangles so the two owners only meet.
+    let fittedSkin = clipGeometryPlane(
+      THREE,
+      skin,
+      2,
+      PRESSURE_THROAT_START,
+      -1,
+    );
+    skin.dispose();
+    if (side > 0) {
+      const rearTrim = clipGeometryPlane(
+        THREE,
+        fittedSkin,
+        2,
+        -0.985 - PRESSURE_WALL,
+      );
+      fittedSkin.dispose();
+      fittedSkin = rearTrim;
+    }
     const wall = pressureMesh(
       fittedSkin,
       m.shell,
@@ -1828,6 +1877,23 @@ export function createSpacecraft(
   );
   serviceSpine.scale.y = LADDER_CONTENT_SCALE;
   serviceSpine.position.y = LADDER_CONTENT_OFFSET;
+  buildDockingShoulderEquipment(
+    THREE,
+    { box },
+    walkwayFurniture,
+    walkwayOutline(
+      new THREE.Shape(),
+      1.33,
+      LADDER_HEIGHT,
+      LADDER_SHOULDER_RUN,
+      LADDER_SHOULDER_RISE,
+      LADDER_RIGHT_RADIUS,
+      0.69,
+    )
+      .getPoints(64)
+      .map((point: any) => point.add(new THREE.Vector2(0, LADDER_CENTER_Y))),
+    LADDER_CENTER_Y,
+  );
   roomLights.walkway = [];
   const dockingInterior = new THREE.Group();
   dockingInterior.name = 'walkway-finished-inner-docking-hatch';
@@ -1960,7 +2026,9 @@ export function createSpacecraft(
     THREE,
     { box, mesh, cylinder, torus, rod, instances },
     personalStudy,
-    { accent: m.amber },
+    {
+      accent: m.amber,
+    },
   );
 
   // CONTACT — static, floor-referenced flight operations console.
@@ -3268,19 +3336,19 @@ export function createSpacecraft(
     }
     const bowVertices: number[] = [],
       bowIndices: number[] = [];
-    for (const p of outerBow)
-      bowVertices.push(
-        p.x,
-        p.y,
-        -0.985 - PRESSURE_WALL,
-        p.x,
-        p.y,
-        PRESSURE_THROAT_START,
-      );
+    const bowDepths = closures.profiles.depthFractions.map(
+      (fraction: number) =>
+        PRESSURE_THROAT_START +
+        (closures.metadata.ladderRearZ - PRESSURE_THROAT_START) * fraction,
+    );
+    for (const z of bowDepths)
+      for (const point of outerBow) {
+        const p = closures.profiles.bowPointAtZ(point, z);
+        bowVertices.push(p.x, p.y, z);
+      }
     for (let i = 0; i < outerBow.length; i++) {
       const j = (i + 1) % outerBow.length;
-      // The flat docking and shared cabin walls are already real thin panels.
-      // Keep the outer shell only along the two curved shoulder portions.
+      // Keep the flat docking wall open and stop exactly at the common crown.
       if (
         Math.max(outerBow[i].y, outerBow[j].y) <
           LADDER_CENTER_Y + LADDER_HALF_STRAIGHT &&
@@ -3290,9 +3358,13 @@ export function createSpacecraft(
         continue;
       if (Math.min(outerBow[i].x, outerBow[j].x) >= closures.replaceBowAfterX)
         continue;
-      // The outline runs counterclockwise; back-to-front quads must face
-      // outward so the pressure skin stays visible from exterior tilt angles.
-      bowIndices.push(2 * i, 2 * j, 2 * j + 1, 2 * i, 2 * j + 1, 2 * i + 1);
+      for (let depth = 0; depth + 1 < bowDepths.length; depth++) {
+        const a = depth * outerBow.length + i,
+          b = depth * outerBow.length + j;
+        const c = a + outerBow.length,
+          d = b + outerBow.length;
+        bowIndices.push(c, d, b, c, b, a);
+      }
     }
     const bowGeometry = new THREE.BufferGeometry();
     bowGeometry.setAttribute(
@@ -3302,12 +3374,51 @@ export function createSpacecraft(
     bowGeometry.setIndex(bowIndices);
     bowGeometry.computeVertexNormals();
     mesh(bowGeometry, m.shell, frame, 'thin-continuous-bow-outer-skin');
-    const rearShape = new THREE.Shape();
-    rearShape.moveTo(outerBow[0].x, outerBow[0].y);
-    for (const p of outerBow.slice(1)) rearShape.lineTo(p.x, p.y);
-    rearShape.closePath();
-    for (const recess of serviceSpineRecesses)
-      rearShape.holes.push(offsetPath(recess.shape.clone(), ladderX, 0, s));
+    // Finish the docking-side rear corner with the same quarter-round as
+    // the outboard wall. Its old exterior rectangle is cut at this tangent,
+    // so this strip replaces the sharp edge instead of covering another sheet.
+    const dockReturnPositions: number[] = [],
+      dockReturnNormals: number[] = [],
+      dockReturnIndices: number[] = [];
+    const dockReturnDepths = bowDepths.filter((z: number) => z <= -1.1 + 1e-9);
+    for (let i = 0; i < dockReturnDepths.length; i++) {
+      const z = dockReturnDepths[i];
+      const u = Math.max(0, Math.min(1, (-1.1 - z) / PRESSURE_WALL));
+      const cosine = Math.sqrt(1 - u * u);
+      const x = layout.dockingOuterWall + PRESSURE_WALL * (1 - cosine);
+      for (const side of [-1, 1]) {
+        dockReturnPositions.push(
+          x,
+          LADDER_CENTER_Y + side * LADDER_HALF_STRAIGHT,
+          z,
+        );
+        dockReturnNormals.push(-cosine, 0, -u);
+      }
+      if (i + 1 < dockReturnDepths.length) {
+        const a = 2 * i;
+        dockReturnIndices.push(a, a + 1, a + 3, a, a + 3, a + 2);
+      }
+    }
+    const dockReturnGeometry = new THREE.BufferGeometry();
+    dockReturnGeometry.setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(dockReturnPositions, 3),
+    );
+    dockReturnGeometry.setAttribute(
+      'normal',
+      new THREE.Float32BufferAttribute(dockReturnNormals, 3),
+    );
+    dockReturnGeometry.setIndex(dockReturnIndices);
+    mesh(
+      dockReturnGeometry,
+      m.shell,
+      frame,
+      'docking-wall-rounded-rear-return',
+    );
+    const rearShape = new THREE.Shape(closures.profiles.rearBow);
+    // The blind service pockets terminate ahead of this continuous rear
+    // pressure skin; their existing inset backs remain unchanged.
+
     const rearGeometry = new THREE.ShapeGeometry(rearShape, 48);
     const rearNormal = rearGeometry.getAttribute('normal');
     for (let i = 0; i < rearNormal.count; i++) rearNormal.setXYZ(i, 0, 0, -1);
@@ -3317,7 +3428,7 @@ export function createSpacecraft(
       rearIndex.setX(i + 1, rearIndex.getX(i + 2));
       rearIndex.setX(i + 2, temp);
     }
-    rearGeometry.translate(0, 0, -0.985 - PRESSURE_WALL);
+    rearGeometry.translate(0, 0, closures.metadata.ladderRearZ);
     mesh(rearGeometry, m.shell, frame, 'thin-ladder-rear-pressure-wall');
     // A broad gasketed mounting foot transfers service-bus loads into both
     // decks. Its tapered throat blends into the existing circular bus hull.
@@ -3817,8 +3928,8 @@ export function createSpacecraft(
     }
     ladderWebFittings.position.set(
       layoutWalls.ladderRightWall,
-      LADDER_CENTER_Y,
-      0.12,
+      (layoutWalls.upperPassageY + layoutWalls.lowerPassageY) / 2,
+      PASSAGE_LADDER_Z,
     );
     // Preserve the study's rear mounting plane when its furniture scales down.
     personalStudy.position.z = -1.1 * (1 / propScale - 1);
@@ -4025,7 +4136,7 @@ export function createSpacecraft(
       portal.caption.position.set(
         sign * (CABIN_HALF_WIDTH * layoutScale - PORTAL_SIGN_STANDOFF),
         PORTAL_SIGN_CENTER_Y,
-        portal.metadata.via ? PASSAGE_LADDER_Z : PORTAL_SIGN_CABIN_Z,
+        passageZ,
       );
       portal.pick.position.set(
         origin + sign * (1.5 * layoutScale - 0.04),

@@ -1,0 +1,48 @@
+✔ Travel hover opens the exact ordinary door and leaving releases only that request (2060.451792ms)
+✔ Inside the ladder bay, travel hover cannot request an exit or infer a ladder route (775.256333ms)
+✔ Both ladder entries open and queue during approach, but reject clicks from inside the bay (1551.616375ms)
+✔ A pre-opened ladder preview yields to the other route hatch without pinning its interlock (1741.819458ms)
+✔ Future ladder legs reserve their hatches before an opposite preview can delay entry (731.818791ms)
+✔ Door clicks defer until the named arrival, consume once, and discard cancelled navigation (0.165709ms)
+✔ Home, menu destinations and door clicks replace the same single pending hop (0.107583ms)
+✔ A live door hover follows the moving pointer target without restoring stale focus (0.179583ms)
+✔ Integrated hatches open on hover, close on departure, and preserve room lighting (1149.663958ms)
+✔ Actual C-route interlocks ladder entrances, reverses smoothly, and settles closed (905.039875ms)
+✔ Door opening takes about half the original duration across refresh rates, with unchanged closing (814.537541ms)
+✔ Travel seals ladder hatches at the opening rate while ordinary and hover closure stay unchanged (835.05725ms)
+✔ Hover opens both faces of the first route door and transfers smoothly into travel (1135.647417ms)
+✔ Rapid ladder hover changes keep the two entrances interlocked in both layouts (934.724583ms)
+✔ Every physical passage has one centered blade stack and one continuous dark guide (935.761333ms)
+✔ Both wall faces use cabin paint and both blade faces share white non-emissive paint (685.547709ms)
+✔ Hover lights both mouths while preserving the dark guide and single-step opening speed (743.294042ms)
+✔ Resizing with a door open cannot change overview or room framing (604.165625ms)
+✔ An adjacent cabin route opens both door faces and no other connection (1.750625ms)
+✔ Ladder route identifies both entrances without coupling their individual legs (0.12875ms)
+✔ A full nonadjacent itinerary identifies every C-route connection (0.090209ms)
+✔ Retargeting inside a threshold keeps both faces clear without stale route doors (0.069042ms)
+✔ Retargeting from within the ladder retains only the approached entrance (0.076375ms)
+✔ Live travel releases crossed doorways before arrival while retaining threshold clearance (0.305458ms)
+✔ Ladder interlock closes the entrance before opening the exit (0.136583ms)
+✔ A retarget through the current physical hatch does not close it (0.060708ms)
+✔ Ordinary cabin doors open immediately without waiting for any other door (0.122375ms)
+✔ Both ladder requests select only one physical hatch, preferring the hatch already open (0.144209ms)
+✔ An adjacent request remains open while the ladder exit waits (0.082166ms)
+✔ Only ladder exit legs hold the camera; entry and vertical travel proceed immediately (0.153958ms)
+✔ Near-threshold reversals preserve the requested ladder hatch without a closure pulse (0.101041ms)
+✔ Ladder exits pre-open on center departure in either direction, without opening distant cabin doors (0.154791ms)
+✔ Anticipation still waits for the entry seal, and a mid-bay reversal discards the old exit (0.118542ms)
+✔ A pending ladder exit permits approach up to the threshold margin without backing up a reversal (0.114375ms)
+✔ Mid-bay retargeting gates only the final exit in either direction (0.300833ms)
+✔ Empty immediate or overview door intent has no wait, even with a ladder hatch open (0.674792ms)
+✔ Plane crossing outside the circular aperture does not open a door (0.14475ms)
+✔ Coplanar movement through the opening and exact endpoints are recognized (0.096ms)
+✔ No itinerary, invalid points, and stationary distant paths require no doors (0.074459ms)
+✔ Clear opening size overrides larger pick-box bounds (0.071375ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8988.57925

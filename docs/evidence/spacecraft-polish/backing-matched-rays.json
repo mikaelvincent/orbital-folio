@@ -1,0 +1,205 @@
+{
+  "camera": {
+    "position": [
+      -7.638918678814685,
+      6.314846590735663,
+      -12.930930397365966
+    ],
+    "target": [
+      -2,
+      0.3,
+      -0.4
+    ],
+    "fov": 38,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "samples": [
+    {
+      "version": "before",
+      "pixel": [
+        479,
+        209
+      ],
+      "name": "projects-passage-borrowed-light-liner",
+      "material": "passage-borrowed-light-liner",
+      "parts": [
+        "visible-neighbor-rear-corner-liner",
+        "visible-neighbor-rear-corner-liner"
+      ],
+      "point": [
+        -0.0014658129595752634,
+        2.5155948730130286,
+        -1.2649999856948853
+      ]
+    },
+    {
+      "version": "before",
+      "pixel": [
+        762,
+        246
+      ],
+      "name": "projects-passage-borrowed-light-liner",
+      "material": "passage-borrowed-light-liner",
+      "parts": [
+        "visible-neighbor-rear-corner-liner",
+        "visible-neighbor-rear-corner-liner"
+      ],
+      "point": [
+        -4.006279228969934,
+        2.509791430590243,
+        -1.2649999856948853
+      ]
+    },
+    {
+      "version": "before",
+      "pixel": [
+        499,
+        519
+      ],
+      "name": "about-passage-borrowed-light-liner",
+      "material": "passage-borrowed-light-liner",
+      "parts": [
+        "visible-neighbor-rear-corner-liner",
+        "visible-neighbor-rear-corner-liner"
+      ],
+      "point": [
+        -0.007772076726950239,
+        -2.3858731617349624,
+        -1.2649999856948853
+      ]
+    },
+    {
+      "version": "before",
+      "pixel": [
+        746,
+        586
+      ],
+      "name": "about-passage-borrowed-light-liner",
+      "material": "passage-borrowed-light-liner",
+      "parts": [
+        "visible-neighbor-rear-corner-liner",
+        "visible-neighbor-rear-corner-liner"
+      ],
+      "point": [
+        -4.014641484181196,
+        -2.4425543409399006,
+        -1.2649999856948853
+      ]
+    },
+    {
+      "version": "after",
+      "pixel": [
+        479,
+        209
+      ],
+      "name": "contact-ceramic-hull",
+      "material": "ceramic-hull",
+      "parts": [
+        "one-piece-five-aperture-pressure-face",
+        "continuous-exterior-roof",
+        "continuous-exterior-keel",
+        "continuous-rounded-outboard-wall",
+        "continuous-cabin-rear-exterior",
+        "continuous-bow-upper-rear-closure",
+        "continuous-bow-lower-rear-closure",
+        "thin-continuous-bow-outer-skin",
+        "docking-wall-rounded-rear-return",
+        "thin-ladder-rear-pressure-wall",
+        "service-root-pressure-flange",
+        "service-root-tapered-load-fairing"
+      ],
+      "point": [
+        0.0004118938247099635,
+        2.5146608075790575,
+        -1.2621318571363531
+      ]
+    },
+    {
+      "version": "after",
+      "pixel": [
+        762,
+        246
+      ],
+      "name": "contact-ceramic-hull",
+      "material": "ceramic-hull",
+      "parts": [
+        "one-piece-five-aperture-pressure-face",
+        "continuous-exterior-roof",
+        "continuous-exterior-keel",
+        "continuous-rounded-outboard-wall",
+        "continuous-cabin-rear-exterior",
+        "continuous-bow-upper-rear-closure",
+        "continuous-bow-lower-rear-closure",
+        "thin-continuous-bow-outer-skin",
+        "docking-wall-rounded-rear-return",
+        "thin-ladder-rear-pressure-wall",
+        "service-root-pressure-flange",
+        "service-root-tapered-load-fairing"
+      ],
+      "point": [
+        -4.005566997312753,
+        2.509045394332091,
+        -1.2627127108182048
+      ]
+    },
+    {
+      "version": "after",
+      "pixel": [
+        499,
+        519
+      ],
+      "name": "contact-ceramic-hull",
+      "material": "ceramic-hull",
+      "parts": [
+        "one-piece-five-aperture-pressure-face",
+        "continuous-exterior-roof",
+        "continuous-exterior-keel",
+        "continuous-rounded-outboard-wall",
+        "continuous-cabin-rear-exterior",
+        "continuous-bow-upper-rear-closure",
+        "continuous-bow-lower-rear-closure",
+        "thin-continuous-bow-outer-skin",
+        "docking-wall-rounded-rear-return",
+        "thin-ladder-rear-pressure-wall",
+        "service-root-pressure-flange",
+        "service-root-tapered-load-fairing"
+      ],
+      "point": [
+        -0.005181153200076949,
+        -2.3888272262658736,
+        -1.2610391741494507
+      ]
+    },
+    {
+      "version": "after",
+      "pixel": [
+        746,
+        586
+      ],
+      "name": "contact-ceramic-hull",
+      "material": "ceramic-hull",
+      "parts": [
+        "one-piece-five-aperture-pressure-face",
+        "continuous-exterior-roof",
+        "continuous-exterior-keel",
+        "continuous-rounded-outboard-wall",
+        "continuous-cabin-rear-exterior",
+        "continuous-bow-upper-rear-closure",
+        "continuous-bow-lower-rear-closure",
+        "thin-continuous-bow-outer-skin",
+        "docking-wall-rounded-rear-return",
+        "thin-ladder-rear-pressure-wall",
+        "service-root-pressure-flange",
+        "service-root-tapered-load-fairing"
+      ],
+      "point": [
+        -4.010492280980463,
+        -2.452580129262496,
+        -1.2516444079605726
+      ]
+    }
+  ]
+}

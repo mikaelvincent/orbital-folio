@@ -62,11 +62,12 @@ for (const [layout, scale] of [
           .add(b)
           .add(c)
           .multiplyScalar(1 / 3);
-        // Curved pressure-skin triangles span the full wall depth. The other
-        // batched surfaces are short front extrusions or tessellated closures.
+        // Inspect the broad straight-depth portion of the actual bow skin.
+        // The rounded rear now has separate depth strips, while the front
+        // reveal and rear cap remain outside this interval.
         if (
-          Math.min(a.z, b.z, c.z) > -0.99 ||
-          Math.max(a.z, b.z, c.z) < 1 ||
+          center.z < -0.6 ||
+          center.z > 0.9 ||
           center.x >= tangentX - 1e-5 ||
           Math.abs(center.y - LADDER_CENTER_Y) <= LADDER_HALF_STRAIGHT
         )
@@ -95,7 +96,7 @@ for (const [layout, scale] of [
           );
         }
         count[side]++;
-        if (count[side] % 8 !== 0) continue;
+        if (count[side] % 64 !== 0) continue;
         // Raycast rendered faces at normal incidence and steep tilts in both
         // depth directions. This catches disappearing faces after batching.
         for (const degrees of [-75, -40, 0, 40, 75]) {

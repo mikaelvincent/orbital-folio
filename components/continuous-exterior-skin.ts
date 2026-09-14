@@ -12,8 +12,8 @@ export function buildContinuousExteriorSkin(
     cabinExteriorProfile,
     outerBow,
     frontZ,
-    ladderRearZ = -0.985 - d.thickness,
     cabinRearZ = -1.1 - d.thickness,
+    ladderRearZ = cabinRearZ,
   }: any,
 ) {
   const t = d.thickness;
@@ -44,49 +44,61 @@ export function buildContinuousExteriorSkin(
       }
     }
     if (!values.length) throw new Error(`No cabin exterior envelope at Z=${z}`);
-    return upper ? Math.max(...values) + q : Math.min(...values) - q;
+    const crown = Math.max(...values) + q;
+    // Reflect the exterior crown around the deck center so both ends of the
+    // ladder have one silhouette. The lower interior cove remains untouched.
+    return upper ? crown : 2 * d.ladderCenterY - crown;
   }
 
-  // Invert the old shoulder's gently distributed X samples. Its blend and
-  // rear-depth functions therefore stay continuous at the unchanged bow.
-  function shoulderParameter(x: number) {
-    if (x <= startX) return 0;
-    if (x >= endX) return 1;
-    const desired = (x - startX) / (endX - startX);
-    let lo = 0;
-    let hi = 1;
-    for (let i = 0; i < 36; i++) {
-      const u = (lo + hi) / 2;
-      const at = 1.2 * u - 0.6 * u * u + 0.4 * u * u * u;
-      if (at < desired) lo = u;
-      else hi = u;
-    }
-    return (lo + hi) / 2;
-  }
-  function blendAtX(x: number) {
-    const u = shoulderParameter(x);
-    return u * u * (3 - 2 * u);
-  }
-  function rearAtX(x: number) {
-    return ladderRearZ + (cabinRearZ - ladderRearZ) * blendAtX(x);
+  function rearAtX(_x: number) {
+    return cabinRearZ;
   }
   function cornerDropAtX(x: number) {
     if (x <= cornerStartX) return 0;
     const u = 1 - Math.sqrt(clamp((rightX - x) / radiusX));
     return radiusY * u * u;
   }
+  const rearEdgeRadius = t;
+  function rearReturn(z: number) {
+    const u = clamp((cabinRearZ + rearEdgeRadius - z) / rearEdgeRadius);
+    return { u, inset: rearEdgeRadius * (1 - Math.sqrt(1 - u * u)) };
+  }
+  function exteriorX(x: number, z: number) {
+    const weight = clamp((x - cornerStartX) / radiusX);
+    return x - rearReturn(z).inset * weight * weight;
+  }
   function boundaryAt(x: number, z: number, upper: boolean) {
-    const blend = blendAtX(x);
-    const nose = upper ? d.noseTop : d.noseBottom;
-    const level = nose + (envelopeAtZ(z, upper) - nose) * blend;
-    return level + (upper ? -1 : 1) * cornerDropAtX(x);
+    // One depth profile reaches from the bow tangent to the service end.
+    // Blending a flat ladder crown into the cabin's curved rear created a
+    // visible hump at every oblique view of the back edge.
+    return envelopeAtZ(z, upper) + (upper ? -1 : 1) * cornerDropAtX(x);
   }
   const roofAt = (x: number, z: number) => boundaryAt(x, z, true);
   const keelAt = (x: number, z: number) => boundaryAt(x, z, false);
+  function bowPointAtZ(point: any, z: number) {
+    const upper = point.y >= d.ladderCenterY;
+    const tangentY = upper ? d.upperTangentY : d.lowerTangentY;
+    const crownY = upper ? d.noseTop : d.noseBottom;
+    const fraction = clamp((point.y - tangentY) / (crownY - tangentY));
+    const leftWeight = clamp((tangentX - point.x) / (tangentX - d.left));
+    return new THREE.Vector2(
+      point.x + rearReturn(z).inset * leftWeight * leftWeight,
+      point.y + (envelopeAtZ(z, upper) - crownY) * fraction,
+    );
+  }
 
   // Include every original profile breakpoint. The new skin follows the
   // canonical cove exactly rather than bridging across its curved sections.
   const depthFractions = [0, 1];
+  // One shared sampling of the rear quarter-round joins the bow, docking
+  // strip, roof and outboard return without independent chord approximations.
+  for (let i = 0; i <= 32; i++) {
+    const z =
+      cabinRearZ +
+      rearEdgeRadius -
+      rearEdgeRadius * Math.sin((i * Math.PI) / 64);
+    depthFractions.push((frontZ - z) / (frontZ - cabinRearZ));
+  }
   for (const point of cabinExteriorProfile) {
     const z = -point.x;
     if (z > cabinRearZ && z < frontZ)
@@ -145,7 +157,7 @@ export function buildContinuousExteriorSkin(
       const rear = rearAtX(x);
       for (const f of depth) {
         const z = frontZ + (rear - frontZ) * f;
-        positions.push(x, boundaryAt(x, z, upper), z);
+        positions.push(exteriorX(x, z), boundaryAt(x, z, upper), z);
       }
     }
     for (let i = 0; i + 1 < columns.length; i++)
@@ -160,8 +172,11 @@ export function buildContinuousExteriorSkin(
     // Separate meshes share that exact normal so their seam stays invisible.
     const normals = geometry.getAttribute('normal');
     const lastColumn = (columns.length - 1) * depth.length;
-    for (let j = 0; j < depth.length; j++)
-      normals.setXYZ(lastColumn + j, 1, 0, 0);
+    for (let j = 0; j < depth.length; j++) {
+      const z = frontZ + (cabinRearZ - frontZ) * depth[j];
+      const { u } = rearReturn(z);
+      normals.setXYZ(lastColumn + j, Math.sqrt(1 - u * u), 0, -u);
+    }
     surfaces.push({
       name: upper ? 'continuous-exterior-roof' : 'continuous-exterior-keel',
       geometry,
@@ -172,17 +187,25 @@ export function buildContinuousExteriorSkin(
   const sideIndices: number[] = [];
   for (const f of depth) {
     const z = frontZ + (cabinRearZ - frontZ) * f;
-    sidePositions.push(rightX, keelAt(rightX, z), z);
-    sidePositions.push(rightX, roofAt(rightX, z), z);
+    sidePositions.push(exteriorX(rightX, z), keelAt(rightX, z), z);
+    sidePositions.push(exteriorX(rightX, z), roofAt(rightX, z), z);
   }
   for (let i = 0; i + 1 < depth.length; i++) {
     const a = 2 * i;
     const b = a + 2;
     sideIndices.push(a, b, b + 1, a, b + 1, a + 1);
   }
+  const sideGeometry = makeGeometry(sidePositions, sideIndices);
+  const sideNormals = sideGeometry.getAttribute('normal');
+  for (let i = 0; i < depth.length; i++) {
+    const z = frontZ + (cabinRearZ - frontZ) * depth[i];
+    const { u } = rearReturn(z);
+    for (const j of [0, 1])
+      sideNormals.setXYZ(2 * i + j, Math.sqrt(1 - u * u), 0, -u);
+  }
   surfaces.push({
     name: 'continuous-rounded-outboard-wall',
-    geometry: makeGeometry(sidePositions, sideIndices),
+    geometry: sideGeometry,
   });
 
   // Replace all former exterior cabin back faces and the middeck bridge.
@@ -192,7 +215,14 @@ export function buildContinuousExteriorSkin(
   const rearIndices: number[] = [];
   for (const x of rearColumns) {
     const z = rearAtX(x);
-    rearPositions.push(x, keelAt(x, z), z, x, roofAt(x, z), z);
+    rearPositions.push(
+      exteriorX(x, z),
+      keelAt(x, z),
+      z,
+      exteriorX(x, z),
+      roofAt(x, z),
+      z,
+    );
   }
   for (let i = 0; i + 1 < rearColumns.length; i++) {
     const a = 2 * i;
@@ -204,11 +234,12 @@ export function buildContinuousExteriorSkin(
     geometry: makeGeometry(rearPositions, rearIndices),
   });
 
+  const rearBow = outerBow.map((point: any) => bowPointAtZ(point, ladderRearZ));
   function bowBoundaryAtX(x: number, upper: boolean) {
     const values: number[] = [];
-    for (let i = 0; i < outerBow.length; i++) {
-      const a = outerBow[i];
-      const b = outerBow[(i + 1) % outerBow.length];
+    for (let i = 0; i < rearBow.length; i++) {
+      const a = rearBow[i];
+      const b = rearBow[(i + 1) % rearBow.length];
       if (x < Math.min(a.x, b.x) - 1e-6 || x > Math.max(a.x, b.x) + 1e-6)
         continue;
       if (Math.abs(b.x - a.x) < 1e-8) values.push(a.y, b.y);
@@ -281,6 +312,8 @@ export function buildContinuousExteriorSkin(
       envelopeAtZ,
       cornerDropAtX,
       sideOutlineAtX,
+      bowPointAtZ,
+      rearBow,
       depthFractions: depth,
     },
     replaceBowAfterX: tangentX,
@@ -294,6 +327,16 @@ export function buildContinuousExteriorSkin(
       shoulderBoundsX: [tangentX, endX],
       singleExteriorOwner: true,
       removesOldCabinExteriors: true,
+      sharedRearDepth: true,
+      rearEdgeRadius,
+      formerLadderRearZ: -0.985 - t,
+      ladderRearExtension: -0.985 - t - ladderRearZ,
+      sharedCrownDepthProfile: true,
+      rearBowContour: rearBow.map((point: any) => point.toArray()),
+      rearCrownY: [
+        envelopeAtZ(cabinRearZ, false),
+        envelopeAtZ(cabinRearZ, true),
+      ],
     },
   };
 }

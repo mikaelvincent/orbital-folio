@@ -1,0 +1,20 @@
+[
+  {
+    "layout": "wide",
+    "samples": 1008,
+    "min": 0.10125185441140572,
+    "max": 0.4145418546277735,
+    "failures": 0,
+    "examples": [],
+    "counts": {}
+  },
+  {
+    "layout": "compact",
+    "samples": 1008,
+    "min": 0.10781436631478525,
+    "max": 0.4114928351643115,
+    "failures": 0,
+    "examples": [],
+    "counts": {}
+  }
+]

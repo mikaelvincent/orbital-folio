@@ -1,0 +1,69 @@
+{
+  "materialRegistration": {
+    "walkway": true,
+    "overviewDimming": 0.5,
+    "transitDimming": 1,
+    "emissive": false,
+    "excludePick": true
+  },
+  "status": "passed",
+  "drawCalls": 4,
+  "triangles": 8688,
+  "materials": [
+    "docking-shoulder-protective-graphite",
+    "docking-shoulder-enamel-cover",
+    "docking-shoulder-brushed-alloy",
+    "docking-shoulder-captive-retainers"
+  ],
+  "layouts": [
+    {
+      "layout": "wide",
+      "bounds": [
+        -6.135719108581543,
+        -1.9225000143051147,
+        -0.35499998927116394,
+        -5.8317390203475945,
+        2.057500123977661,
+        0.35499998927116394
+      ],
+      "symmetryError": 1.2874603272372553e-7,
+      "visibleMeshIncrease": 4,
+      "preservedRoomBounds": true,
+      "surfaceFit": {
+        "minProjection": -0.002000028697471956,
+        "maxProjection": 0.11800001707607521,
+        "permittedEmbed": 0.002,
+        "maximumProjection": 0.118
+      },
+      "dockingOpeningClearanceY": 0.33999999999999986,
+      "rearServiceSpineClearanceZ": 0.545
+    },
+    {
+      "layout": "compact",
+      "bounds": [
+        -4.455513648986816,
+        -1.9225000143051147,
+        -0.35499998927116394,
+        -4.238385014533996,
+        2.057500123977661,
+        0.35499998927116394
+      ],
+      "symmetryError": 1.2874603272372553e-7,
+      "visibleMeshIncrease": 4,
+      "preservedRoomBounds": true,
+      "surfaceFit": {
+        "minProjection": -0.002000028697471956,
+        "maxProjection": 0.11800001707607521,
+        "permittedEmbed": 0.002,
+        "maximumProjection": 0.118
+      },
+      "dockingOpeningClearanceY": 0.33999999999999986,
+      "rearServiceSpineClearanceZ": 0.545
+    }
+  ],
+  "disposal": {
+    "materialDisposals": 4,
+    "geometryDisposals": 4,
+    "usesExistingSceneTraversal": true
+  }
+}

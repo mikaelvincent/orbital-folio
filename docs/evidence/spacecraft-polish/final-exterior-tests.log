@@ -1,0 +1,36 @@
+✔ wide exterior service housing stays behind the cabin sidewall (1287.625208ms)
+✔ wide exterior roof and keel keep one continuous hull finish across the cabin divider (833.219042ms)
+✔ wide right exterior corners follow the rounded room envelope without rectangular overhangs (1180.076167ms)
+✔ wide bow joins have one flat skin with no overlapping shoulder sheets (926.464416ms)
+✔ wide retained ladder dividers stop at the rear pressure wall (18.842292ms)
+✔ wide rear bow patches meet the curved rear wall without overlapping it (10131.249667ms)
+✔ compact exterior service housing stays behind the cabin sidewall (1387.8895ms)
+✔ compact exterior roof and keel keep one continuous hull finish across the cabin divider (684.047916ms)
+✔ compact right exterior corners follow the rounded room envelope without rectangular overhangs (1426.714625ms)
+✔ compact bow joins have one flat skin with no overlapping shoulder sheets (627.938542ms)
+✔ compact retained ladder dividers stop at the rear pressure wall (27.157875ms)
+✔ compact rear bow patches meet the curved rear wall without overlapping it (5854.65025ms)
+✔ wide curved hull remains solid from exterior and grazing angles (8872.451708ms)
+✔ compact curved hull remains solid from exterior and grazing angles (7807.906708ms)
+✔ wide: ladder partitions terminate at the reveal and both hatches clear its rounded corners (385.955166ms)
+✔ compact: ladder partitions terminate at the reveal and both hatches clear its rounded corners (349.873291ms)
+{"layout":"wide","footprintSamples":210,"minimumRearClearance":0.00999806575298745}
+{"layout":"compact","footprintSamples":210,"minimumRearClearance":0.009998065752987229}
+✔ wide: complete corner backing footprints stay inside the curved exterior (8303.086875ms)
+✔ compact: complete corner backing footprints stay inside the curved exterior (8159.956667ms)
+✔ wide: both rear side edges are quarter-round and interior returns remain enclosed (19800.885792ms)
+✔ compact: both rear side edges are quarter-round and interior returns remain enclosed (9742.342709ms)
+✔ wide: rear crowns have no ladder bulge and form one closed symmetric rear envelope (2333.801583ms)
+✔ compact: rear crowns have no ladder bulge and form one closed symmetric rear envelope (2866.99225ms)
+✔ Thicker walls retain the established cabin dimensions and C-shaped room arrangement (8117.737125ms)
+✔ Rendered cabin, ladder and docking partitions measure 0.17 in both layouts (7103.967792ms)
+✔ Rendered roofs, floors and the shared deck retain 0.17 walls around unchanged interiors (6668.979958ms)
+✔ One continuous hatch guide spans each shared wall with only a flush lip (4582.711917ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37863.593958

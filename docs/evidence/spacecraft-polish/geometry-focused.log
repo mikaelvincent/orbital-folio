@@ -1,0 +1,18 @@
+✔ Docking service cassettes stay mirrored, seated on the curved wall and clear of the hatch in both layouts (2432.056041ms)
+✔ Docking fittings follow the walkway dimmer and remain passive, disposable scene geometry (894.572542ms)
+✔ wide: ladder partitions terminate at the reveal and both hatches clear its rounded corners (75.391542ms)
+✔ compact: ladder partitions terminate at the reveal and both hatches clear its rounded corners (57.595875ms)
+✔ wide: all eight cabin side junctions have closed rounded rear, floor and ceiling returns (110.69275ms)
+✔ wide: the rounded chassis preserves the real cabin and ladder door apertures (10.934333ms)
+✔ compact: all eight cabin side junctions have closed rounded rear, floor and ceiling returns (106.501166ms)
+✔ compact: the rounded chassis preserves the real cabin and ladder door apertures (8.616125ms)
+✔ Doors center on the visible wall with balanced margins; captions align directly above (2500.913291ms)
+✔ Each wall aperture remains concentric with its iris through the full wall thickness (1035.412167ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3975.247625

@@ -1,9 +1,12 @@
-/** Trim real triangles to a structural datum, retaining their surface attributes. */
+/** Trim real triangles to a structural datum, retaining their surface attributes.
+ * sign=1 keeps coordinates above the plane; sign=-1 keeps those below it.
+ */
 export function clipGeometryPlane(
   THREE: any,
   source: any,
   axis: number,
   limit: number,
+  sign = 1,
 ) {
   const attributes = Object.entries(source.attributes) as Array<[string, any]>;
   const values = Object.fromEntries(
@@ -27,8 +30,8 @@ export function clipGeometryPlane(
     for (let j = 0; j < 3; j++) {
       const a = triangle[j],
         b = triangle[(j + 1) % 3];
-      const da = a.position[axis] - limit,
-        db = b.position[axis] - limit;
+      const da = sign * (a.position[axis] - limit),
+        db = sign * (b.position[axis] - limit);
       if (da >= 0) clipped.push(a);
       if (da >= 0 !== db >= 0) {
         const t = da / (da - db);

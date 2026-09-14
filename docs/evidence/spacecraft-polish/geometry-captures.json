@@ -1,0 +1,206 @@
+[
+  {
+    "version": "before",
+    "view": "Ladder front",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\" [selected]\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: before · Ladder front · static, no GTAO",
+    "pose": {
+      "position": [
+        -2.607585267560741,
+        0.4862863571902814,
+        10.469658929757037
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        0
+      ]
+    }
+  },
+  {
+    "version": "before",
+    "view": "Ladder reverse",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\" [selected]\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: before · Ladder reverse · static, no GTAO",
+    "pose": {
+      "position": [
+        -7.538456701834464,
+        0.90875698248526,
+        10.265712281065747
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        -0.25
+      ]
+    }
+  },
+  {
+    "version": "before",
+    "view": "Lower ladder door",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\" [selected]\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: before · Lower ladder door · static, no GTAO",
+    "pose": {
+      "position": [
+        -5.566120073637655,
+        -0.5989817512384948,
+        4.5050912438075255
+      ],
+      "target": [
+        -4.574999999999999,
+        -1.5,
+        0
+      ]
+    }
+  },
+  {
+    "version": "before",
+    "view": "Docking shoulder",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\" [selected]\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: before · Docking shoulder · static, no GTAO",
+    "pose": {
+      "position": [
+        1.2814963376448594,
+        0.70963812347491,
+        5.351151028957584
+      ],
+      "target": [
+        -5.675,
+        0.0675,
+        0
+      ]
+    }
+  },
+  {
+    "version": "before",
+    "view": "Upper rear seam",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\" [selected]\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: before · Upper rear seam · static, no GTAO",
+    "pose": {
+      "position": [
+        -5.156925805526739,
+        5.528209675877898,
+        3.8331566798255694
+      ],
+      "target": [
+        -3.4,
+        2.6,
+        -0.35
+      ]
+    }
+  },
+  {
+    "version": "before",
+    "view": "Rear quarter",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\" [selected]\n  - button \"Hide controls\"\n  - paragraph: before · Rear quarter · static, no GTAO",
+    "pose": {
+      "position": [
+        -7.638918678814685,
+        6.314846590735663,
+        -12.930930397365966
+      ],
+      "target": [
+        -2,
+        0.3,
+        -0.4
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Ladder front",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\" [selected]\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: after · Ladder front · static, no GTAO",
+    "pose": {
+      "position": [
+        -2.607585267560741,
+        0.4862863571902814,
+        10.469658929757037
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        0
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Ladder reverse",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\" [selected]\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: after · Ladder reverse · static, no GTAO",
+    "pose": {
+      "position": [
+        -7.538456701834464,
+        0.90875698248526,
+        10.265712281065747
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        -0.25
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Lower ladder door",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\" [selected]\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: after · Lower ladder door · static, no GTAO",
+    "pose": {
+      "position": [
+        -5.566120073637655,
+        -0.5989817512384948,
+        4.5050912438075255
+      ],
+      "target": [
+        -4.574999999999999,
+        -1.5,
+        0
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Docking shoulder",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\" [selected]\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: after · Docking shoulder · static, no GTAO",
+    "pose": {
+      "position": [
+        1.2814963376448594,
+        0.70963812347491,
+        5.351151028957584
+      ],
+      "target": [
+        -5.675,
+        0.0675,
+        0
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Upper rear seam",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\" [selected]\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\"\n  - button \"Hide controls\"\n  - paragraph: after · Upper rear seam · static, no GTAO",
+    "pose": {
+      "position": [
+        -5.156925805526739,
+        5.528209675877898,
+        3.8331566798255694
+      ],
+      "target": [
+        -3.4,
+        2.6,
+        -0.35
+      ]
+    }
+  },
+  {
+    "version": "after",
+    "view": "Rear quarter",
+    "state": "- complementary:\n  - link \"Before\":\n    - /url: /before\n  - link \"After\":\n    - /url: /after\n  - text: View\n  - combobox \"View\":\n    - option \"Ladder front\"\n    - option \"Ladder reverse\"\n    - option \"Upper rear seam\"\n    - option \"Lower ladder door\"\n    - option \"Docking shoulder\"\n    - option \"About corner\"\n    - option \"Contact corner\"\n    - option \"Rear quarter\" [selected]\n  - button \"Hide controls\"\n  - paragraph: after · Rear quarter · static, no GTAO",
+    "pose": {
+      "position": [
+        -7.638918678814685,
+        6.314846590735663,
+        -12.930930397365966
+      ],
+      "target": [
+        -2,
+        0.3,
+        -0.4
+      ]
+    }
+  }
+]

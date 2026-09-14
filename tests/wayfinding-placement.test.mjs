@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
+import {
+  PASSAGE_RADIUS,
+  PASSAGE_WALL_RADIUS,
+  CABIN_VISIBLE_REAR_Z,
+} from '../lib/spacecraft-wall-layout.ts';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
 
 const close = (actual, expected, message, tolerance = 2e-6) =>
@@ -64,19 +69,25 @@ function exposedWallDepth(model, portal, sampleY = portal.position[1]) {
   const origin = new THREE.Vector3(
     ladder
       ? bounds.max.x - 1e-8
-      : model.group.userData.innerApertureBounds[portal.from].center[0],
+      : portal.edge === 'right'
+        ? bounds.max.x - 1e-8
+        : bounds.min.x + 1e-8,
     sampleY,
     0,
   );
   const rear = hits(meshes, origin, new THREE.Vector3(0, 0, -1), 1.5)[0];
   assert.ok(rear, `${portal.id}: exposed rear boundary exists`);
   if (sampleY === portal.position[1])
-    close(rear.point.z, ladder ? -0.975 : -1.1, `${portal.id}: rear boundary`);
+    close(
+      rear.point.z,
+      ladder ? -0.975 : CABIN_VISIBLE_REAR_Z,
+      `${portal.id}: rear boundary`,
+    );
   close(bounds.max.z, 1.121, `${portal.id}: front throat boundary`);
   return { rear: rear.point.z, front: bounds.max.z };
 }
 
-test('Door and caption bounds have equal vertical gaps and center on the exposed wall span', () => {
+test('Doors center on the visible wall with balanced margins; captions align directly above', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   for (const layout of ['wide', 'compact', 'wide']) {
     model.setLayout(layout);
@@ -100,17 +111,10 @@ test('Door and caption bounds have equal vertical gaps and center on the exposed
       const exposed = exposedWallDepth(model, portal);
       const wallCenterZ = (exposed.rear + exposed.front) / 2;
       close(guideCenter.z, wallCenterZ, `${context}: centered iris`);
-      const captionExposed =
-        portal.via === 'walkway'
-          ? exposed
-          : exposedWallDepth(model, portal, captionCenter.y);
-      // The ordinary caption meets the curved rear profile at its own height.
-      // Allow the analytic layout datum to differ from the sampled mesh curve.
       close(
         captionCenter.z,
-        (captionExposed.rear + captionExposed.front) / 2,
-        `${context}: caption centered in its exposed wall span`,
-        portal.via === 'walkway' ? 2e-6 : 1e-4,
+        guideCenter.z,
+        `${context}: caption shares door horizontal center`,
       );
       const rearGap = guideBounds.min.z - exposed.rear;
       const frontGap = exposed.front - guideBounds.max.z;
@@ -122,17 +126,27 @@ test('Door and caption bounds have equal vertical gaps and center on the exposed
       close(portal.labelPosition[2], captionCenter.z, `${context}: label Z`);
 
       const room = data.innerApertureBounds[portal.from];
-      const gaps = [
+      close(
         guideBounds.min.y - room.min[1],
-        captionBounds.min.y - guideBounds.max.y,
-        room.max[1] - captionBounds.max.y,
-      ];
-      assert.ok(
-        gaps.every((gap) => gap > 0.1),
-        `${context}: visible margins`,
+        room.max[1] - guideBounds.max.y,
+        `${context}: equal vertical door margins`,
       );
-      close(gaps[0], gaps[1], `${context}: floor and inter-item gaps`);
-      close(gaps[1], gaps[2], `${context}: inter-item and ceiling gaps`);
+      close(
+        guideCenter.y,
+        (room.min[1] + room.max[1]) / 2,
+        `${context}: visible wall vertical center`,
+      );
+      const captionGap = captionBounds.min.y - guideBounds.max.y;
+      const ceilingGap = room.max[1] - captionBounds.max.y;
+      assert.ok(
+        captionGap > 0.09 && ceilingGap > 0.09,
+        `${context}: sign has breathing room`,
+      );
+      close(
+        captionGap,
+        ceilingGap,
+        `${context}: caption balances available upper space`,
+      );
 
       // Sample the whole plate footprint, including its corners. Bounding-box
       // containment alone would miss the sidewall's curved rear shoulder.
@@ -222,7 +236,7 @@ test('Each wall aperture remains concentric with its iris through the full wall 
           assert.ok(openingHit, `${context}: wall reveal exists at ${angle}`);
           close(
             openingHit.distance,
-            0.97,
+            PASSAGE_WALL_RADIUS,
             `${context}: concentric wall hole`,
             0.001,
           );
@@ -230,7 +244,7 @@ test('Each wall aperture remains concentric with its iris through the full wall 
           assert.ok(guideHit, `${context}: iris guide exists at ${angle}`);
           close(
             guideHit.distance,
-            0.92,
+            PASSAGE_RADIUS,
             `${context}: concentric iris guide`,
             0.001,
           );
@@ -238,7 +252,10 @@ test('Each wall aperture remains concentric with its iris through the full wall 
         // Both wall faces must retain a real opening, with pressure material
         // immediately outside it. These rays ignore the movable shutter stock.
         for (const side of [-1, 1])
-          for (const radius of [0.955, 0.985]) {
+          for (const radius of [
+            PASSAGE_WALL_RADIUS - 0.015,
+            PASSAGE_WALL_RADIUS + 0.015,
+          ]) {
             const origin = center.clone().addScaledVector(radial, radius);
             origin.x =
               (side > 0 ? wall.bounds.min.x : wall.bounds.max.x) - side * 0.1;
@@ -250,8 +267,8 @@ test('Each wall aperture remains concentric with its iris through the full wall 
             );
             assert.equal(
               crossed.length > 0,
-              radius > 0.97,
-              `${context}: ${radius < 0.97 ? 'clear hole' : 'solid wall'} from face ${side}, angle ${angle}`,
+              radius > PASSAGE_WALL_RADIUS,
+              `${context}: ${radius < PASSAGE_WALL_RADIUS ? 'clear hole' : 'solid wall'} from face ${side}, angle ${angle}`,
             );
           }
       }

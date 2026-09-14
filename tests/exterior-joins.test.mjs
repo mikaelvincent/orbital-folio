@@ -207,18 +207,18 @@ for (const [layout, scale] of [
 
   test(`${layout} rear bow patches meet the curved rear wall without overlapping it`, () => {
     const { meshes, datums: d } = selectHull(layout, scale);
-    const contour = thinChassisOutline(THREE, {
-      scale,
-      bevel: 0,
-    }).bowEnvelope.getPoints(64);
-    const rearZ = -0.985 - d.thickness;
+    const closure = model.group.userData.chassis.exteriorClosures;
+    const contour = closure.rearBowContour.map(
+      (point) => new THREE.Vector2(...point),
+    );
+    const rearZ = closure.ladderRearZ;
     let samples = 0;
     for (let i = 0; i + 1 < contour.length; i++) {
       const a = contour[i];
       const b = contour[i + 1];
       const midpoint = a.clone().lerp(b, 0.373);
       const side = midpoint.y > d.ladderCenterY ? 1 : -1;
-      const endY = side > 0 ? d.noseTop : d.noseBottom;
+      const endY = closure.rearCrownY[side > 0 ? 1 : 0];
       const gap = side * (endY - midpoint.y);
       // Sample both sides of the curved join, above the equipment recesses.
       // The old coarse wedge chords intruded below this exact bow boundary.

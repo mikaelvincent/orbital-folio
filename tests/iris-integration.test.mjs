@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
+import { PASSAGE_RADIUS } from '../lib/spacecraft-wall-layout.ts';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
 import {
   requiredPortalIds,
@@ -412,7 +413,7 @@ test('Every physical passage has one centered blade stack and one continuous dar
           );
           const hit = ray.intersectObject(liner, true)[0];
           assert.ok(hit, `${id} liner must cover every angle and depth`);
-          assert.ok(Math.abs(hit.distance - 0.92) < 0.001);
+          assert.ok(Math.abs(hit.distance - PASSAGE_RADIUS) < 0.001);
           materials.add(hit.object.material);
         }
       }
