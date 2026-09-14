@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-09-14T14:44:36.863Z",
+  "browser": "Native Safari",
+  "screenCaptureDimensions": [
+    1184,
+    768
+  ],
+  "frozenTime": 0,
+  "earthTexture": "8192x4096 NASA Black Marble Mediterranean",
+  "dpr": 2,
+  "variants": {
+    "baseline": {
+      "file": "baseline.png",
+      "sha256": "0b832237c58702f0a56858e67c7157e7c8f1a7edc336f9faa3605ed6c602592a"
+    },
+    "cooler-crest": {
+      "file": "cooler-crest.png",
+      "sha256": "fdf1d7d7b3990ec6e3f4f0a6da5b4eb56dc973c2a529b4d811ca63323187e8a0"
+    },
+    "gentler-crest": {
+      "file": "gentler-crest.png",
+      "sha256": "79fd5ea6e98f1f4728fee830f1b787dc3755d038a989e842e7478ceda052f444"
+    }
+  }
+}
