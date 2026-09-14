@@ -2116,7 +2116,8 @@ export function Spacecraft(props: Props) {
                 pointerId: event.pointerId,
                 x: event.clientX,
                 y: event.clientY,
-                response: [dragGoal.x, dragGoal.y],
+                // Re-grabbing during the return spring starts at the visible pose.
+                response: [dragMotion[0].value, dragMotion[1].value],
                 sensitivity: 4,
                 width: el.clientWidth,
                 height: el.clientHeight,
@@ -2151,8 +2152,23 @@ export function Spacecraft(props: Props) {
             )
               suppressClickUntil = performance.now() + 450;
             cancelInput();
-            if (completed.state.dragging) feedback.reset();
+            if (completed.state.dragging) {
+              feedback.reset();
+              const rect = el.getBoundingClientRect();
+              const inside =
+                event.clientX >= rect.left &&
+                event.clientX <= rect.right &&
+                event.clientY >= rect.top &&
+                event.clientY <= rect.bottom;
+              if (event.pointerType !== 'touch' && inside) {
+                pointerGoal.set(
+                  ...pointerResponse(event.clientX, event.clientY, rect),
+                );
+                feedback.move(event.clientX, event.clientY, event.pointerType);
+              } else pointerGoal.set(0, 0);
+            }
             if (event.pointerType === 'touch') pointerGoal.set(0, 0);
+            kick();
             if (completed.activate && !action.control && action.section) {
               if (action.portalId) navigateDoor(action.portalId);
               else if (!travelling) latest.current.onNavigate(action.section);
@@ -2167,6 +2183,9 @@ export function Spacecraft(props: Props) {
             if (down?.gesture.dragging)
               suppressClickUntil = performance.now() + 450;
             down = null;
+            // Change only the goal: retaining spring position and velocity makes
+            // release/cancellation blend smoothly back into ordinary hover.
+            dragGoal.set(0, 0);
             el.dataset.dragging = 'false';
             if (pointerId !== undefined && el.hasPointerCapture(pointerId))
               el.releasePointerCapture(pointerId);
@@ -2185,6 +2204,9 @@ export function Spacecraft(props: Props) {
             kick();
           };
           const cancelPointer = (event: Event) => {
+            // Normal pointer-up deliberately releases capture after ending the
+            // gesture. Its follow-up event must not erase restored hover input.
+            if (event.type === 'lostpointercapture' && !down) return;
             if (
               down &&
               'pointerId' in event &&

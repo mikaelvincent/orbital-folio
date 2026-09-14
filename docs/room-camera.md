@@ -63,3 +63,19 @@ arithmetic; no GPU timing improvement is claimed.
 
 See [implementation and validation evidence](evidence/world-camera/README.md) and
 [the held performance plan](performance-ledger.md#next-candidates).
+
+## Drag release returns to hover — 15 September 2026
+
+Releasing a drag now sends its offset back to zero through the existing spring,
+preserving its position and velocity. Mouse/pen release inside the canvas restores
+the ordinary hover target at that pointer position; touch and outside releases
+return to neutral. Re-grabbing during this return starts from the visible offset,
+so a second drag does not jump to the previous goal. A normal capture-release event
+cannot erase the newly restored hover target. Cancellation and blur use the same
+return path, and a completed drag still suppresses accidental activation.
+
+An actual browser gesture settled in 1.883 seconds across 114 recorded frames,
+with a maximum adjacent rotation change of 0.393 degrees and no accidental click.
+A second capture covers re-grabbing during the return. These describe the observed
+gesture, not a fixed animation duration or a performance benchmark. See the
+[release and re-grab evidence](evidence/spacecraft-polish/README.md).
