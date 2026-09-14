@@ -7,6 +7,10 @@ import {
 } from '@/lib/door-navigation';
 import { SceneLoader } from './scene-loader';
 import { createScenePerformance } from '@/lib/scene-performance';
+import {
+  createSpacecraftPerformance,
+  type SpacecraftPerformanceFilter,
+} from '@/lib/spacecraft-performance';
 import { mountPerformancePanel } from './performance-panel';
 import {
   createSceneFeedback,
@@ -53,6 +57,8 @@ type Props = {
   projectPage: number;
   paused: boolean;
   enabled: boolean;
+  diagnosticsEnabled?: boolean;
+  onDiagnosticsClose?: () => void;
   onNavigate: (section: string) => void;
   onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
@@ -62,6 +68,7 @@ type Props = {
 type SceneAPI = {
   go: () => void;
   pause: (paused: boolean) => void;
+  diagnostics: (enabled: boolean) => void;
 };
 export function Spacecraft(props: Props) {
   const host = useRef<HTMLDivElement>(null),
@@ -76,6 +83,9 @@ export function Spacecraft(props: Props) {
   useEffect(() => {
     api.current?.pause(props.paused);
   }, [props.paused]);
+  useEffect(() => {
+    api.current?.diagnostics(!!props.diagnosticsEnabled);
+  }, [props.diagnosticsEnabled]);
   useEffect(() => {
     if (!props.enabled) return;
     let destroyed = false,
@@ -135,14 +145,21 @@ export function Spacecraft(props: Props) {
             return;
           }
           const el = host.current;
-          // Explicit local diagnostics only; regular visitors collect nothing.
+          // Instantiated on request without rebuilding the ship or its camera.
           const gl = renderer.getContext();
-          const diagnostics =
-            new URLSearchParams(location.search).get('perf') === '1'
-              ? createScenePerformance('beginQuery' in gl ? gl : null, {
-                  maxFrames: 1800,
-                })
-              : null;
+          let diagnostics: ReturnType<typeof createScenePerformance> | null =
+            null;
+          let spacecraftPerformance: ReturnType<
+            typeof createSpacecraftPerformance
+          > | null = null;
+          let spacecraftFilter: SpacecraftPerformanceFilter = {
+            mode: 'all',
+            id: '',
+          };
+          function resetDiagnostics(reason: string) {
+            diagnostics?.reset(reason);
+            spacecraftPerformance?.reset();
+          }
           type Experiment =
             | 'normal'
             | 'no-background'
@@ -522,68 +539,64 @@ export function Spacecraft(props: Props) {
               mobile: mobile(),
             },
           );
-          const sceneInventory = diagnostics
-            ? (() => {
-                const parts: {
-                  name: string;
-                  triangles: number;
-                  instances: number;
-                }[] = [];
-                const geometries = new Set<Three.BufferGeometry>();
-                const materials = new Set<Three.Material>();
-                let nodes = 0,
-                  lights = 0,
-                  shadowCasters = 0,
-                  geometryBytes = 0;
-                for (const root of [scene, background.scene])
-                  root.traverse((object) => {
-                    nodes++;
-                    if (object instanceof THREE.Light) lights++;
-                    if (!(object instanceof THREE.Mesh)) return;
-                    if (object.castShadow) shadowCasters++;
-                    const geometry = object.geometry;
-                    const instances =
-                      object instanceof THREE.InstancedMesh ? object.count : 1;
-                    parts.push({
-                      name:
-                        object.name ||
-                        object.userData.parts?.[0] ||
-                        'unnamed mesh',
-                      triangles:
-                        ((geometry.index?.count ??
-                          geometry.attributes.position?.count ??
-                          0) /
-                          3) *
-                        instances,
-                      instances,
-                    });
-                    for (const material of Array.isArray(object.material)
-                      ? object.material
-                      : [object.material])
-                      materials.add(material);
-                    if (geometries.has(geometry)) return;
-                    geometries.add(geometry);
-                    for (const attribute of Object.values(
-                      geometry.attributes,
-                    ) as Three.BufferAttribute[])
-                      geometryBytes += attribute.array.byteLength;
-                    geometryBytes += geometry.index?.array.byteLength ?? 0;
-                  });
-                return {
-                  nodes,
-                  meshes: parts.length,
-                  lights,
-                  shadowCasters,
-                  geometries: geometries.size,
-                  materials: materials.size,
-                  geometryAttributeBytes: geometryBytes,
-                  largestMeshes: parts
-                    .sort((a, b) => b.triangles - a.triangles)
-                    .slice(0, 15),
-                  note: 'Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.',
-                };
-              })()
-            : null;
+          const collectSceneInventory = () => {
+            const parts: {
+              name: string;
+              triangles: number;
+              instances: number;
+            }[] = [];
+            const geometries = new Set<Three.BufferGeometry>();
+            const materials = new Set<Three.Material>();
+            let nodes = 0,
+              lights = 0,
+              shadowCasters = 0,
+              geometryBytes = 0;
+            for (const root of [scene, background.scene])
+              root.traverse((object) => {
+                nodes++;
+                if (object instanceof THREE.Light) lights++;
+                if (!(object instanceof THREE.Mesh)) return;
+                if (object.castShadow) shadowCasters++;
+                const geometry = object.geometry;
+                const instances =
+                  object instanceof THREE.InstancedMesh ? object.count : 1;
+                parts.push({
+                  name:
+                    object.name || object.userData.parts?.[0] || 'unnamed mesh',
+                  triangles:
+                    ((geometry.index?.count ??
+                      geometry.attributes.position?.count ??
+                      0) /
+                      3) *
+                    instances,
+                  instances,
+                });
+                for (const material of Array.isArray(object.material)
+                  ? object.material
+                  : [object.material])
+                  materials.add(material);
+                if (geometries.has(geometry)) return;
+                geometries.add(geometry);
+                for (const attribute of Object.values(
+                  geometry.attributes,
+                ) as Three.BufferAttribute[])
+                  geometryBytes += attribute.array.byteLength;
+                geometryBytes += geometry.index?.array.byteLength ?? 0;
+              });
+            return {
+              nodes,
+              meshes: parts.length,
+              lights,
+              shadowCasters,
+              geometries: geometries.size,
+              materials: materials.size,
+              geometryAttributeBytes: geometryBytes,
+              largestMeshes: parts
+                .sort((a, b) => b.triangles - a.triangles)
+                .slice(0, 15),
+              note: 'Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.',
+            };
+          };
           let bottomReservation = mobile() ? 132 : 80;
           const readerInsets = () => ({ top: 20, bottom: bottomReservation });
           const readerHeight = () =>
@@ -1054,6 +1067,7 @@ export function Spacecraft(props: Props) {
                         ? 'camera-settling'
                         : 'idle',
               experiment,
+              spacecraftFilter,
               reading,
               visible,
               reducedMotion: stop,
@@ -1487,7 +1501,17 @@ export function Spacecraft(props: Props) {
               if (renderer.shadowMap.needsUpdate)
                 diagnostics?.count('shadow-refresh');
               diagnostics?.beginPass('spacecraft', renderer.info.render);
-              renderer.render(scene, camera);
+              spacecraftPerformance?.beginPass(
+                'spacecraft',
+                renderer.info.render,
+              );
+              const restoreMain = spacecraftPerformance?.applyFilter();
+              try {
+                renderer.render(scene, camera);
+              } finally {
+                restoreMain?.();
+              }
+              spacecraftPerformance?.endPass(renderer.info.render);
               diagnostics?.endPass('spacecraft', renderer.info.render);
             }
             if (
@@ -1519,20 +1543,30 @@ export function Spacecraft(props: Props) {
                     diagnostics.count('ao-camera-angle');
                   if (aoRoll !== roll) diagnostics.count('ao-roll');
                   diagnostics.beginPass('ao-refresh', renderer.info.render);
+                  spacecraftPerformance?.beginPass(
+                    'ao-refresh',
+                    renderer.info.render,
+                  );
                 }
                 // Render the bounded shutter silhouette in the AO pass.
                 // Its opening matches the visible leaves; concealed wings stay out.
                 for (const hatch of model.group.userData.irisHatches)
                   hatch.userData.setOcclusionPass(true);
-                ao.render(
-                  renderer,
-                  ao.pdRenderTarget,
-                  ao.pdRenderTarget,
-                  delta,
-                  false,
-                );
+                const restoreAo = spacecraftPerformance?.applyFilter();
+                try {
+                  ao.render(
+                    renderer,
+                    ao.pdRenderTarget,
+                    ao.pdRenderTarget,
+                    delta,
+                    false,
+                  );
+                } finally {
+                  restoreAo?.();
+                }
                 for (const hatch of model.group.userData.irisHatches)
                   hatch.userData.setOcclusionPass(false);
+                spacecraftPerformance?.endPass(renderer.info.render);
                 diagnostics?.endPass('ao-refresh', renderer.info.render);
                 aoCameraPosition.copy(camera.position);
                 aoCameraQuaternion.copy(camera.quaternion);
@@ -1784,7 +1818,7 @@ export function Spacecraft(props: Props) {
             camera.updateProjectionMatrix();
             syncSceneTargets();
             renderer.shadowMap.needsUpdate = true;
-            diagnostics?.reset('viewport changed');
+            resetDiagnostics('viewport changed');
             go(true, travelling);
           };
           const observer = new ResizeObserver(resize);
@@ -2088,7 +2122,7 @@ export function Spacecraft(props: Props) {
           const syncVisibility = () => {
             const nextVisible = inViewport && !document.hidden;
             if (nextVisible !== visible)
-              diagnostics?.reset('scene visibility changed');
+              resetDiagnostics('scene visibility changed');
             visible = nextVisible;
             if (!visible) cancelPointer(new Event('visibilitychange'));
             lastFrame = 0;
@@ -2136,6 +2170,7 @@ export function Spacecraft(props: Props) {
               el.dataset.queuedRoom = '';
               go();
             },
+            diagnostics: setDiagnosticsEnabled,
             pause(value) {
               stop = value;
               lastFrame = 0;
@@ -2155,66 +2190,112 @@ export function Spacecraft(props: Props) {
             el.dataset.queuedRoom = doorQueue.destination;
             return true;
           });
-          const unmountPerformancePanel = diagnostics
-            ? mountPerformancePanel({
-                collector: diagnostics,
-                getSettings: () => ({
-                  experiment,
-                  build: process.env.NODE_ENV,
-                  threeRevision: THREE.REVISION,
-                  userAgent: navigator.userAgent,
-                  hardwareConcurrency: navigator.hardwareConcurrency,
-                  viewport: [el.clientWidth, el.clientHeight],
-                  drawingBuffer: [
-                    renderer.domElement.width,
-                    renderer.domElement.height,
-                  ],
-                  pixelRatio: renderer.getPixelRatio(),
-                  nativePixelRatio: devicePixelRatio,
-                  room: active,
-                  visible,
-                  reducedMotion: stop,
-                  travelling,
-                  cameraPosition: camera.position.toArray(),
-                  cameraQuaternion: camera.quaternion.toArray(),
-                  aoEnabled:
-                    contactShading &&
-                    !mobile() &&
-                    experiment !== 'no-ao' &&
-                    experiment !== 'no-spacecraft',
-                  aoBuffer: [ao.width, ao.height],
-                  aoSamples: 32,
-                  denoiseSamples: 32,
-                  shadowsEnabled: renderer.shadowMap.enabled,
-                  shadowMap: key.shadow.mapSize.toArray(),
-                  resources: {
-                    ...renderer.info.memory,
-                    programs: renderer.info.programs?.length ?? null,
-                  },
-                  inventory: sceneInventory,
-                  notes: [
-                    'CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.',
-                    'Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.',
-                    'Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload.',
-                  ],
-                }),
-                setExperiment: (value: Experiment) => {
-                  const resizeBuffer =
-                    experiment === 'half-resolution' ||
-                    value === 'half-resolution';
-                  experiment = value;
-                  if (resizeBuffer) setDrawingSize();
-                  aoDirty = true;
-                  diagnostics.reset('experiment changed');
-                  lastFrame = 0;
-                  kick();
+          let unmountPerformancePanel = () => {};
+          function setDiagnosticsEnabled(enabled: boolean) {
+            if (enabled === !!diagnostics) return;
+            if (!enabled) {
+              unmountPerformancePanel();
+              unmountPerformancePanel = () => {};
+              diagnostics?.dispose();
+              diagnostics = null;
+              spacecraftPerformance?.dispose();
+              spacecraftPerformance = null;
+              spacecraftFilter = { mode: 'all', id: '' };
+              const resized = experiment === 'half-resolution';
+              experiment = 'normal';
+              if (resized) setDrawingSize();
+              aoDirty = true;
+              renderer.shadowMap.needsUpdate = true;
+              lastFrame = 0;
+              kick();
+              return;
+            }
+            diagnostics = createScenePerformance(
+              'beginQuery' in gl ? gl : null,
+              { maxFrames: 1800 },
+            );
+            spacecraftPerformance = createSpacecraftPerformance(model.group);
+            const sceneInventory = collectSceneInventory();
+            unmountPerformancePanel = mountPerformancePanel({
+              collector: {
+                snapshot: (includeFrames) =>
+                  diagnostics!.snapshot(includeFrames),
+                reset: (reason) => resetDiagnostics(reason || 'reset'),
+              },
+              getSpacecraftReport: () => spacecraftPerformance!.snapshot(),
+              getSpacecraftGroups: () => spacecraftPerformance!.getGroups(),
+              setSpacecraftFilter: (value) => {
+                spacecraftPerformance!.setFilter(value);
+                spacecraftFilter = value;
+                resetDiagnostics('spacecraft filter changed');
+                aoDirty = true;
+                renderer.shadowMap.needsUpdate = true;
+                lastFrame = 0;
+                kick();
+              },
+              onClose: () => latest.current.onDiagnosticsClose?.(),
+              getSettings: () => ({
+                experiment,
+                spacecraftFilter,
+                build: process.env.NODE_ENV,
+                threeRevision: THREE.REVISION,
+                userAgent: navigator.userAgent,
+                hardwareConcurrency: navigator.hardwareConcurrency,
+                viewport: [el.clientWidth, el.clientHeight],
+                drawingBuffer: [
+                  renderer.domElement.width,
+                  renderer.domElement.height,
+                ],
+                pixelRatio: renderer.getPixelRatio(),
+                nativePixelRatio: devicePixelRatio,
+                room: active,
+                visible,
+                reducedMotion: stop,
+                travelling,
+                cameraPosition: camera.position.toArray(),
+                cameraQuaternion: camera.quaternion.toArray(),
+                aoEnabled:
+                  contactShading &&
+                  !mobile() &&
+                  experiment !== 'no-ao' &&
+                  experiment !== 'no-spacecraft',
+                aoBuffer: [ao.width, ao.height],
+                aoSamples: 32,
+                denoiseSamples: 32,
+                shadowsEnabled: renderer.shadowMap.enabled,
+                shadowMap: key.shadow.mapSize.toArray(),
+                resources: {
+                  ...renderer.info.memory,
+                  programs: renderer.info.programs?.length ?? null,
                 },
-              })
-            : () => {};
+                inventory: sceneInventory,
+                notes: [
+                  'CPU timings measure this render callback, not browser layout, compositing, total CPU utilization, temperature or power.',
+                  'Half resolution changes each main drawing-buffer dimension; AO keeps its CSS-based resolution. No spacecraft skips its draw and AO but retains scene updates and HTML.',
+                  'Render once stops automatic drawing; navigation and pointer input can still request frames. These controls are temporary and reset on reload.',
+                ],
+              }),
+              setExperiment: (value: Experiment) => {
+                const resizeBuffer =
+                  experiment === 'half-resolution' ||
+                  value === 'half-resolution';
+                experiment = value;
+                if (resizeBuffer) setDrawingSize();
+                aoDirty = true;
+                resetDiagnostics('experiment changed');
+                lastFrame = 0;
+                kick();
+              },
+            });
+            lastFrame = 0;
+            kick();
+          }
+          setDiagnosticsEnabled(!!latest.current.diagnosticsEnabled);
           go(latest.current.section === 'home');
           cleanup = () => {
             unmountPerformancePanel();
             diagnostics?.dispose();
+            spacecraftPerformance?.dispose();
             latest.current.onNavigationReady(null);
             cancelAnimationFrame(frame);
             annotations.dispose();

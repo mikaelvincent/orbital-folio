@@ -4,7 +4,14 @@ import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from './scene-loader';
 import { WorldReader } from './world-reader';
-import { ArrowLeft, BookOpen, ChevronUp, Home, Orbit } from 'lucide-react';
+import {
+  Activity,
+  ArrowLeft,
+  BookOpen,
+  ChevronUp,
+  Home,
+  Orbit,
+} from 'lucide-react';
 import type { Portfolio } from '@/lib/content-types';
 import {
   PROJECTS_PER_PAGE,
@@ -51,6 +58,8 @@ export function ImmersivePortfolio({
     slug: initialSlug,
   });
   const [enhanced, setEnhanced] = useState(false);
+  const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
+  const diagnosticsToggle = useRef<HTMLButtonElement>(null);
   const [reading, setReading] = useState(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
@@ -147,6 +156,9 @@ export function ImmersivePortfolio({
 
   useEffect(() => {
     setEnhanced(true);
+    setDiagnosticsEnabled(
+      new URLSearchParams(location.search).get('perf') === '1',
+    );
     const url = new URL(location.href);
     const parsed = parseURL(url);
     setDestination(parsed || { section: initialSection, slug: initialSlug });
@@ -452,6 +464,11 @@ export function ImmersivePortfolio({
             projectPage={projectPage}
             paused={reduced}
             enabled={immersive}
+            diagnosticsEnabled={diagnosticsEnabled}
+            onDiagnosticsClose={() => {
+              setDiagnosticsEnabled(false);
+              diagnosticsToggle.current?.focus({ preventScroll: true });
+            }}
             onNavigate={(id) => go({ section: id })}
             onNavigationReady={(request) => {
               requestSceneNavigation.current = request;
@@ -628,6 +645,22 @@ export function ImmersivePortfolio({
           <div className="flight-status">
             <span className="status-dot" />
             {s.sampleMode ? s.sampleLabel : s.availability}
+            <button
+              ref={diagnosticsToggle}
+              type="button"
+              className="flight-diagnostics-toggle"
+              data-scene-perf="toggle"
+              aria-label={
+                diagnosticsEnabled
+                  ? 'Close scene diagnostics'
+                  : 'Open scene diagnostics'
+              }
+              aria-pressed={diagnosticsEnabled}
+              title="Scene diagnostics"
+              onClick={() => setDiagnosticsEnabled((value) => !value)}
+            >
+              <Activity size={15} aria-hidden="true" />
+            </button>
             <a href="/admin" aria-label={s.studioLabel}>
               <Orbit size={15} />
             </a>

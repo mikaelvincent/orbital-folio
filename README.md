@@ -63,7 +63,7 @@ For a browser accessibility audit during development, append `?audit=1` to a rou
 
 See [the current validation evidence](docs/PROJECTS-WORKSHOP-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
 
-For repeatable rendering measurements, append `?perf=1` to any spacecraft route. The opt-in **Scene diagnostics** panel records CPU/GPU phases, draw workload and AO refreshes, offers temporary isolation controls, and exports named captures. It works in development and production builds. See the [performance testing guide and initial M4 measurements](docs/performance-diagnostics.md) before comparing results; normal visits do not start this instrumentation.
+For repeatable rendering measurements, click the pulse icon beside **SAMPLE / CONCEPT** in the top-right corner (`?perf=1` remains an optional shortcut). The opt-in **Scene diagnostics** panel records CPU/GPU phases, per-room/component draw workload and AO refreshes, offers temporary isolation controls, and exports named comparisons. Closing it restores normal rendering and removes instrumentation. It works in development and production builds. See the [performance testing guide and initial M4 measurements](docs/performance-diagnostics.md) before comparing results; normal visits do not start this instrumentation.
 
 ## Source map
 

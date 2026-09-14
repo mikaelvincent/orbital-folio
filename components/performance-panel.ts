@@ -6,6 +6,9 @@ type Experiment =
   | 'no-spacecraft'
   | 'render-once';
 
+type SpacecraftFilter = { mode: 'all' | 'hide' | 'only'; id: string };
+type SpacecraftGroup = { id: string; label: string; kind: 'room' | 'part' };
+
 type PanelOptions = {
   collector: {
     snapshot: (includeFrames?: boolean) => any;
@@ -13,6 +16,10 @@ type PanelOptions = {
   };
   getSettings: () => Record<string, unknown>;
   setExperiment: (experiment: Experiment) => void;
+  getSpacecraftReport?: () => any;
+  getSpacecraftGroups?: () => SpacecraftGroup[];
+  setSpacecraftFilter?: (filter: SpacecraftFilter) => void;
+  onClose?: () => void;
 };
 
 const experiments: Array<[Experiment, string]> = [
@@ -29,6 +36,7 @@ const styles = `
 .scene-perf *{box-sizing:border-box}
 .scene-perf header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;position:sticky;top:0;background:#0b1420;z-index:1;border-radius:12px 12px 0 0}
 .scene-perf h2{font:600 13px/1.4 ui-sans-serif,system-ui,sans-serif;margin:0;color:#f3f7ff}
+.scene-perf header h2{flex:1}
 .scene-perf h3{font:600 12px/1.4 ui-sans-serif,system-ui,sans-serif;margin:16px 0 5px;color:#e5edf7}
 .scene-perf p{margin:0 0 9px}
 .scene-perf-body{padding:0 14px 14px}
@@ -43,6 +51,7 @@ const styles = `
 .scene-perf select,.scene-perf input{width:100%}
 .scene-perf select{appearance:auto}
 .scene-perf-actions{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+.scene-perf-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .scene-perf-primary{background:#12455b!important;border-color:#287a9e!important}
 .scene-perf-muted{color:#a9bacd}
 .scene-perf-status{font-variant-numeric:tabular-nums;min-height:18px;color:#c9e6f4}
@@ -114,11 +123,15 @@ function fillRows(body: HTMLTableSectionElement, rows: string[][]) {
   body.replaceChildren(fragment);
 }
 
-/** Local, opt-in diagnostics. Mount only when the URL explicitly enables it. */
+/** Local diagnostics; the host controls when profiling is enabled and mounted. */
 export function mountPerformancePanel({
   collector,
   getSettings,
   setExperiment,
+  getSpacecraftReport,
+  getSpacecraftGroups,
+  setSpacecraftFilter,
+  onClose,
 }: PanelOptions): () => void {
   const style = textElement('style', styles);
   document.head.appendChild(style);
@@ -126,12 +139,19 @@ export function mountPerformancePanel({
   panel.dataset.scenePerf = '';
   panel.setAttribute('aria-label', 'Scene performance diagnostics');
   const heading = document.createElement('header');
-  heading.appendChild(textElement('h2', 'Scene diagnostics'));
+  const panelTitle = textElement('h2', 'Scene diagnostics');
+  panelTitle.tabIndex = -1;
+  heading.appendChild(panelTitle);
   const collapse = textElement('button', '−');
   collapse.type = 'button';
   collapse.setAttribute('aria-label', 'Collapse scene diagnostics');
   collapse.setAttribute('aria-expanded', 'true');
   heading.appendChild(collapse);
+  const close = textElement('button', '×');
+  close.type = 'button';
+  close.setAttribute('aria-label', 'Close diagnostics');
+  close.hidden = !onClose;
+  heading.appendChild(close);
   const body = textElement('div', '', 'scene-perf-body');
   body.id = `scene-perf-${crypto.randomUUID()}`;
   collapse.setAttribute('aria-controls', body.id);
@@ -228,6 +248,95 @@ export function mountPerformancePanel({
   body.appendChild(metrics);
   const windowLabel = textElement('p', '', 'scene-perf-muted');
   body.appendChild(windowLabel);
+  // Put the overview and actionable spacecraft attribution ahead of the tools.
+  body.insertBefore(metrics, body.firstChild);
+  body.insertBefore(windowLabel, metrics.nextSibling);
+  const spacecraftSection = document.createElement('section');
+  spacecraftSection.setAttribute('aria-label', 'Spacecraft workload');
+  spacecraftSection.hidden = !getSpacecraftReport;
+  spacecraftSection.appendChild(textElement('h3', 'Spacecraft workload'));
+  spacecraftSection.appendChild(
+    textElement(
+      'small',
+      'Actual draw calls and triangles per pass. Choose the workload to rank; counts are not GPU time.',
+    ),
+  );
+  const labelledSelect = (
+    parent: HTMLElement,
+    label: string,
+    suffix: string,
+    options: Array<[string, string]>,
+  ) => {
+    const wrapper = document.createElement('div');
+    const caption = textElement('label', label);
+    const select = document.createElement('select');
+    select.id = `${body.id}-${suffix}`;
+    caption.htmlFor = select.id;
+    for (const [value, text] of options) {
+      const option = textElement('option', text);
+      option.value = value;
+      select.appendChild(option);
+    }
+    wrapper.appendChild(caption);
+    wrapper.appendChild(select);
+    parent.appendChild(wrapper);
+    return select;
+  };
+  const breakdownControls = textElement('div', '', 'scene-perf-pair');
+  spacecraftSection.appendChild(breakdownControls);
+  const breakdown = labelledSelect(
+    breakdownControls,
+    'Breakdown',
+    'breakdown',
+    [
+      ['parts', 'Parts'],
+      ['rooms', 'Rooms'],
+    ],
+  );
+  const renderPass = labelledSelect(
+    breakdownControls,
+    'Render pass',
+    'render-pass',
+    [['spacecraft', 'Main spacecraft']],
+  );
+  const rankBy = labelledSelect(breakdownControls, 'Rank by', 'rank-by', [
+    ['drawsPerPass', 'Draw calls'],
+    ['trianglesPerPass', 'Triangles'],
+  ]);
+  const spacecraftTable = table(['Group', 'Draw calls', 'Triangles']);
+  spacecraftSection.appendChild(spacecraftTable.element);
+  const workloadSummary = textElement('p', '', 'scene-perf-muted');
+  spacecraftSection.appendChild(workloadSummary);
+  const showGroups = textElement('button', 'Show all groups');
+  showGroups.type = 'button';
+  showGroups.setAttribute('aria-expanded', 'false');
+  spacecraftSection.appendChild(showGroups);
+  const filterControls = document.createElement('div');
+  filterControls.hidden = !setSpacecraftFilter;
+  const filterMode = labelledSelect(
+    filterControls,
+    'Spacecraft visibility',
+    'spacecraft-visibility',
+    [
+      ['all', 'Show all groups'],
+      ['hide', 'Hide selected group'],
+      ['only', 'Show only selected group'],
+    ],
+  );
+  const filterGroup = labelledSelect(
+    filterControls,
+    'Spacecraft group',
+    'spacecraft-group',
+    [],
+  );
+  spacecraftSection.appendChild(filterControls);
+  spacecraftSection.appendChild(
+    textElement(
+      'small',
+      'Record the full scene, hide one group, then record again at the same view and settings. Compare elapsed CPU and spacecraft GPU time in Saved captures; repeat the full scene to check the result.',
+    ),
+  );
+  body.insertBefore(spacecraftSection, windowLabel.nextSibling);
   body.appendChild(textElement('h3', 'Largest CPU phases'));
   body.appendChild(
     textElement(
@@ -255,16 +364,30 @@ export function mountPerformancePanel({
   const saved = document.createElement('details');
   const savedSummary = textElement('summary', 'Saved captures (0 of 6)');
   const savedList = document.createElement('ol');
+  const captureTable = table([
+    'Capture / filter',
+    'FPS',
+    'CPU ms',
+    'Ship GPU ms',
+  ]);
   saved.appendChild(savedSummary);
+  saved.appendChild(captureTable.element);
+  saved.appendChild(
+    textElement(
+      'small',
+      'Means for each capture. Ship GPU is the whole spacecraft pass, not time attributed to an individual group. Compare matching views and render settings.',
+    ),
+  );
   saved.appendChild(savedList);
   body.appendChild(saved);
   body.appendChild(
     textElement(
       'small',
-      'CPU measures JavaScript and render submission, not GPU time. Browser metrics do not measure temperature or power. Diagnostics add overhead. Compare normal → one change → normal at the same viewport and browser profile. Captures stay in this page until downloaded; reloading clears them.',
+      'CPU measures JavaScript and render submission, not GPU time. Browser metrics do not measure temperature or power. Diagnostics add overhead. Compare normal → one change → normal at the same viewport and browser profile. Captures stay in this session until downloaded; closing diagnostics or reloading clears them.',
     ),
   );
   document.body.appendChild(panel);
+  panelTitle.focus({ preventScroll: true });
 
   let destroyed = false;
   let sequence = 0;
@@ -277,6 +400,7 @@ export function mountPerformancePanel({
         started: number;
         startedAt: string;
         settings: Record<string, unknown>;
+        spacecraftFilter: SpacecraftFilter;
       }
     | undefined;
   let captureTimer: ReturnType<typeof setTimeout> | undefined;
@@ -289,6 +413,33 @@ export function mountPerformancePanel({
     return experiments.find(([key]) => key === value)?.[0] || 'normal';
   };
   let selectedExperiment = currentExperiment();
+  let selectedFilter: SpacecraftFilter = { mode: 'all', id: '' };
+  let groupChoices: SpacecraftGroup[] = [];
+  let groupSignature = '';
+  let passSignature = '';
+  let showAllGroups = false;
+  const filterKey = (value: SpacecraftFilter) => `${value.mode}:${value.id}`;
+  const currentFilter = (): SpacecraftFilter => {
+    const candidate = getSettings().spacecraftFilter;
+    if (candidate && typeof candidate === 'object') {
+      const value = candidate as Record<string, unknown>;
+      if (value.mode === 'all') return { mode: 'all', id: '' };
+      if (
+        (value.mode === 'hide' || value.mode === 'only') &&
+        typeof value.id === 'string'
+      )
+        return { mode: value.mode, id: value.id };
+    }
+    return { ...selectedFilter };
+  };
+  selectedFilter = currentFilter();
+
+  function filterLabel(value: SpacecraftFilter, groups = groupChoices) {
+    if (value.mode === 'all') return 'Full spacecraft';
+    const label =
+      groups.find((group) => group.id === value.id)?.label || value.id;
+    return `${value.mode === 'hide' ? 'Hidden' : 'Only'}: ${label}`;
+  }
 
   function updateCaptureControls() {
     record.disabled = !!capture || document.hidden;
@@ -309,6 +460,94 @@ export function mountPerformancePanel({
     setExperiment(value);
     selectedExperiment = currentExperiment();
     update();
+  }
+
+  function changeFilter(value: SpacecraftFilter) {
+    if (!setSpacecraftFilter) return;
+    if (capture) cancelCapture('Capture cancelled: spacecraft filter changed.');
+    setSpacecraftFilter(value);
+    selectedFilter = { ...value };
+    update();
+  }
+
+  function updateSpacecraft(report: any) {
+    if (!getSpacecraftReport) return;
+    const groups = getSpacecraftGroups?.() || report?.groups || [];
+    const signature = groups
+      .map(
+        (group: SpacecraftGroup) => `${group.kind}:${group.id}:${group.label}`,
+      )
+      .join('|');
+    groupChoices = groups;
+    if (signature !== groupSignature) {
+      const previous = filterGroup.value;
+      const options = document.createDocumentFragment();
+      for (const kind of ['room', 'part'] as const) {
+        const category = document.createElement('optgroup');
+        category.label = kind === 'room' ? 'Rooms' : 'Parts';
+        for (const group of groupChoices.filter((item) => item.kind === kind)) {
+          const option = textElement('option', group.label);
+          option.value = group.id;
+          category.appendChild(option);
+        }
+        if (category.children.length) options.appendChild(category);
+      }
+      filterGroup.replaceChildren(options);
+      if (groupChoices.some((group) => group.id === previous))
+        filterGroup.value = previous;
+      groupSignature = signature;
+    }
+    filterMode.value = selectedFilter.mode;
+    if (selectedFilter.mode !== 'all') filterGroup.value = selectedFilter.id;
+    filterMode.disabled = !groupChoices.length;
+    filterGroup.disabled = !groupChoices.length;
+    const passes = Object.keys(report?.passes || {});
+    const nextPassSignature = passes.join('|');
+    if (passes.length && nextPassSignature !== passSignature) {
+      const previous = renderPass.value;
+      renderPass.replaceChildren(
+        ...passes.map((pass) => {
+          const option = textElement(
+            'option',
+            pass === 'spacecraft'
+              ? 'Main spacecraft'
+              : pass === 'ao-refresh'
+                ? 'Contact shading'
+                : phaseName(pass),
+          );
+          option.value = pass;
+          return option;
+        }),
+      );
+      renderPass.value = passes.includes(previous)
+        ? previous
+        : passes.includes('spacecraft')
+          ? 'spacecraft'
+          : passes[0];
+      passSignature = nextPassSignature;
+    }
+    const pass = report?.passes?.[renderPass.value];
+    const rows = [...(pass?.[breakdown.value] || [])]
+      .filter((row) => row.drawsPerPass > 0)
+      .sort(
+        (a, b) =>
+          b[rankBy.value] - a[rankBy.value] ||
+          b.drawsPerPass - a.drawsPerPass ||
+          b.trianglesPerPass - a.trianglesPerPass,
+      );
+    fillRows(
+      spacecraftTable.body,
+      (showAllGroups ? rows : rows.slice(0, 8)).map((row) => [
+        row.label,
+        number(row.drawsPerPass, 1),
+        number(row.trianglesPerPass, 0),
+      ]),
+    );
+    showGroups.hidden = rows.length <= 8;
+    const missing = pass?.unattributed;
+    workloadSummary.textContent = pass?.samples
+      ? `${number(pass.samples, 0)} pass samples · ${number(pass.total?.drawsPerPass, 1)} total calls / ${number(pass.total?.trianglesPerPass, 0)} triangles per pass.${missing === null ? ' Unattributed counts are unavailable for this pass.' : missing?.drawsPerPass > 0 ? ` Unattributed: ${number(missing.drawsPerPass, 1)} calls.` : ''}${!showAllGroups && rows.length > 8 ? ` Top 8 of ${rows.length} groups shown.` : ''}`
+      : 'No draws recorded for this pass in the current window.';
   }
 
   function phaseRows(phases: Record<string, any> = {}, totalFrames?: number) {
@@ -353,6 +592,12 @@ export function mountPerformancePanel({
       if (capture) cancelCapture('Capture cancelled: diagnostic changed.');
       selectedExperiment = activeExperiment;
     }
+    const activeFilter = currentFilter();
+    if (filterKey(selectedFilter) !== filterKey(activeFilter)) {
+      if (capture)
+        cancelCapture('Capture cancelled: spacecraft filter changed.');
+      selectedFilter = activeFilter;
+    }
     if (capture) {
       const remaining = Math.max(
         0,
@@ -372,13 +617,17 @@ export function mountPerformancePanel({
       ([key]) => key === activeExperiment,
     )![1];
     mode.textContent =
-      activeExperiment === 'normal'
+      activeExperiment === 'normal' && selectedFilter.mode === 'all'
         ? 'Normal rendering · baseline'
-        : `Diagnostic active: ${activeLabel.toLowerCase()}. Restore normal when finished.`;
-    mode.dataset.active = String(activeExperiment !== 'normal');
-    restore.disabled = activeExperiment === 'normal';
+        : `Diagnostic active: ${activeLabel.toLowerCase()} · ${filterLabel(selectedFilter)}. Restore normal when finished.`;
+    mode.dataset.active = String(
+      activeExperiment !== 'normal' || selectedFilter.mode !== 'all',
+    );
+    restore.disabled =
+      activeExperiment === 'normal' && selectedFilter.mode === 'all';
     const report = collector.snapshot();
     cancelInvalidCapture(report);
+    updateSpacecraft(getSpacecraftReport?.());
     const settings = getSettings();
     const dimensions = (value: unknown) =>
       Array.isArray(value) ? value.join(' × ') : '—';
@@ -446,8 +695,14 @@ export function mountPerformancePanel({
 
   function finishCapture() {
     if (!capture || destroyed) return;
-    if (document.hidden || currentExperiment() !== capture.experiment) {
-      cancelCapture('Capture cancelled: visibility or diagnostic changed.');
+    if (
+      document.hidden ||
+      currentExperiment() !== capture.experiment ||
+      filterKey(currentFilter()) !== filterKey(capture.spacecraftFilter)
+    ) {
+      cancelCapture(
+        'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+      );
       return;
     }
     const actualDurationMs = performance.now() - capture.started;
@@ -461,6 +716,8 @@ export function mountPerformancePanel({
       actualDurationMs,
       warmupMs: 3_000,
       settings: capture.settings,
+      spacecraftFilter: capture.spacecraftFilter,
+      spacecraft: getSpacecraftReport?.(),
       context: report.context,
       report,
     });
@@ -470,6 +727,17 @@ export function mountPerformancePanel({
       `Saved “${label}” · ${number(actualDurationMs / 1000)}s, ${number(report.window?.frames || 0, 0)} frames.`,
     );
     savedSummary.textContent = `Saved captures (${captures.length} of 6)`;
+    fillRows(
+      captureTable.body,
+      captures.map((item) => [
+        `${item.name} · ${filterLabel(item.spacecraftFilter, item.spacecraft?.groups || groupChoices)} · ${item.settings.experiment || 'normal'}`,
+        item.report.window?.frames
+          ? number(item.report.window.renderedFps)
+          : '—',
+        stat(item.report.cpuTotal, 'mean'),
+        stat(item.report.gpu?.phases?.spacecraft, 'mean'),
+      ]),
+    );
     savedList.replaceChildren(
       ...captures.map((item) =>
         textElement(
@@ -492,11 +760,18 @@ export function mountPerformancePanel({
       started: 0,
       startedAt: '',
       settings: {},
+      spacecraftFilter: currentFilter(),
     };
     captureTimer = setTimeout(() => {
       if (!capture || destroyed) return;
-      if (document.hidden || currentExperiment() !== capture.experiment) {
-        cancelCapture('Capture cancelled: visibility or diagnostic changed.');
+      if (
+        document.hidden ||
+        currentExperiment() !== capture.experiment ||
+        filterKey(currentFilter()) !== filterKey(capture.spacecraftFilter)
+      ) {
+        cancelCapture(
+          'Capture cancelled: visibility, diagnostic or spacecraft filter changed.',
+        );
         return;
       }
       collector.reset('capture started');
@@ -512,6 +787,8 @@ export function mountPerformancePanel({
   }
 
   function serializeReports(includeFrames = true) {
+    const spacecraftReport = (report: any) =>
+      includeFrames || !report ? report : { ...report, batches: undefined };
     return JSON.stringify(
       {
         schemaVersion: 1,
@@ -521,10 +798,13 @@ export function mountPerformancePanel({
           ? captures
           : captures.map((capture) => ({
               ...capture,
+              spacecraft: spacecraftReport(capture.spacecraft),
               report: { ...capture.report, frames: undefined },
             })),
         current: {
           settings: getSettings(),
+          spacecraftFilter: currentFilter(),
+          spacecraft: spacecraftReport(getSpacecraftReport?.()),
           report: collector.snapshot(includeFrames),
         },
         notes:
@@ -589,19 +869,60 @@ export function mountPerformancePanel({
   experiment.addEventListener('change', () =>
     changeExperiment(experiment.value as Experiment),
   );
-  restore.addEventListener('click', () => changeExperiment('normal'));
+  restore.addEventListener('click', () => {
+    if (capture) cancelCapture('Capture cancelled: normal rendering restored.');
+    setExperiment('normal');
+    setSpacecraftFilter?.({ mode: 'all', id: '' });
+    selectedExperiment = 'normal';
+    selectedFilter = { mode: 'all', id: '' };
+    update();
+  });
+  close.addEventListener('click', () => {
+    if (capture) cancelCapture('Capture cancelled: diagnostics closed.');
+    onClose?.();
+  });
+  breakdown.addEventListener('change', update);
+  renderPass.addEventListener('change', update);
+  rankBy.addEventListener('change', update);
+  showGroups.addEventListener('click', () => {
+    showAllGroups = !showAllGroups;
+    showGroups.textContent = showAllGroups
+      ? 'Show top 8 groups'
+      : 'Show all groups';
+    showGroups.setAttribute('aria-expanded', String(showAllGroups));
+    update();
+  });
+  filterMode.addEventListener('change', () => {
+    const mode = filterMode.value as SpacecraftFilter['mode'];
+    if (mode === 'all' || filterGroup.value)
+      changeFilter({ mode, id: mode === 'all' ? '' : filterGroup.value });
+  });
+  filterGroup.addEventListener('change', () => {
+    if (filterMode.value !== 'all')
+      changeFilter({
+        mode: filterMode.value as 'hide' | 'only',
+        id: filterGroup.value,
+      });
+  });
   record.addEventListener('click', startCapture);
   cancel.addEventListener('click', () => cancelCapture('Capture cancelled.'));
   download.addEventListener('click', exportReports);
   viewReport.addEventListener('click', () => {
+    if (!reportText.hidden) {
+      reportText.hidden = true;
+      reportText.value = '';
+      viewReport.textContent = 'View JSON';
+      return;
+    }
     // Keep the on-screen copy small; the download retains full raw samples.
     reportText.value = serializeReports(false);
     reportText.hidden = false;
+    viewReport.textContent = 'Hide JSON';
     reportText.focus();
     reportText.select();
     if (!capture)
       status.textContent =
-        'Summary ready. Copy the selected JSON; Download JSON includes raw frames.';
+        'Summary ready. Copy the selected JSON; Download JSON includes raw frames and batch inventory.';
   });
   const visibilityChanged = () => {
     if (document.hidden && capture)
@@ -616,6 +937,7 @@ export function mountPerformancePanel({
 
   return () => {
     destroyed = true;
+    captures.length = 0;
     clearInterval(refresh);
     if (captureTimer !== undefined) clearTimeout(captureTimer);
     for (const timer of revokeTimers) clearTimeout(timer);
