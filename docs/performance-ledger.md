@@ -920,9 +920,90 @@ acceptance and critic outcome are maintained in the
 Use the [updated diagnostics guide](performance-diagnostics.md#delivered-camera-and-invalidation-replay)
 to repeat it. No other held optimization was enabled.
 
+## 20 — Offline lossless geometry compaction (15 September 2026)
+
+The owner authorized candidate 2, preserving all visible appearance and motion.
+Baseline `437824a` includes the delivered camera/AO rules and subsequent solid-wall
+hover fix. This is a new geometry baseline, with the approved 8K night Earth.
+
+### Implemented: direct indexed cylinder generation
+
+An offline source-specialization script generates an equivalent Three.js cylinder
+constructor that shares each cap's identical center vertex. It retains every
+triangle, exact expanded attributes, seams, groups and bounds. Existing builders
+produce compact geometry directly; there is no visitor-side vertex hashing,
+quantization, runtime welding pass or downloaded baked model. All object identities,
+materials, animations, picking and disposal remain intact. Invalid/unusual inputs
+retain the installed upstream constructor behavior. Builds verify the generated
+artifact against the installed Three source; the upstream license is preserved.
+
+| Geometry attribute/index arrays | Before | After | Saved |
+| --- | ---: | ---: | ---: |
+| Default fixture, all retained layout variants | 50,739,600 B | 49,331,536 B | 1,408,064 B (2.78%) |
+| Default fixture, wide visible geometry | 37,370,212 B | 36,290,596 B | 1,079,616 B (2.89%) |
+| Default fixture, compact visible geometry | 36,661,796 B | 35,669,732 B | 992,064 B (2.71%) |
+
+The configured public-seed browser model has additional screen/reader geometry:
+50,769,620 → 49,361,556 B, the same 1,408,064 B reduction. These are geometry-array
+counts, not measured process/GPU memory. Visible storage does not imply that every
+buffer is resident. Mesh counts, triangle counts and draw submissions are unchanged.
+Largest wide savings: outer chassis/access hardware 371,072 B, ladder utilities
+354,752 B, Projects furniture 86,464 B. This is storage attribution, not GPU cost.
+
+The matching minified standalone renderer gains 4,290 B raw / 2,088 B gzip /
+1,649 B Brotli. These are renderer-build projections, not Vinext's exact public
+network waterfall. No new geometry or texture asset loads. The broader offline
+buffer-bake prototype saves 5,146,816 B but needs at least 4,356,463 B Brotli
+(9,101,496 B gzip) of arrays before loader/hierarchy/material integration. Its
+existing builders would still run without a much larger rewrite. That broader
+bake is not adopted; source, payload hashes and the reproduction script remain.
+
+### Verification and measurement
+
+Exactness tests cover parameter variants, UV/normal seams, signed zero, index-width
+boundaries, bounds, clone/JSON behavior and complete models through responsive
+layout changes with editable configurations. The full suite passes **282 tests**;
+typecheck, affected-file lint and production build pass. The independent critic
+scores the final work **94/100**, with no blockers and explicit storage-only
+adoption. The build preserves the new static license notice. No dependency version or application quality changes.
+
+Same-state original/indexed image comparisons produce **zero differing pixels in
+332 checkpoints**: 162 wide (1280×720 CSS, 2560×1440 buffer, DPR 2), 170 portrait
+(900×1200 CSS/buffer, DPR 1, AO enabled). All twelve saved image pairs are
+byte-identical. Coverage includes all cabins, overview entry/return and portrait
+roll, door/ladder travel, hover/drag and readers. Independent visual review covers
+actual overview, doors and ladder close-ups. This is hidden built-in Chromium,
+not native Safari. No visible-change approval is required for the inspected result.
+
+Both 16-scenario pass surveys preserve identical draw/triangle statistics and
+AO refresh/cached counts. They record per-pass CPU/GPU mean/p95 but are ungated
+sequential surveys, not a causal speedup comparison. Balanced rendering and fresh-
+startup results, including excluded controls/blocks, are detailed in the evidence.
+No heat or battery-life improvement is inferred from lower storage or timings.
+
+**Timing outcome: inconclusive; adopted for storage only.** The balanced rendering
+trial excluded its first ABBA block (7.97% repeated baseline CPU spread), then
+failed recovery (24.05%). The moving paired workload was not reached. Excluded
+idle means were 3.489→3.386 ms CPU and 9.952→9.107 ms sampled whole-frame GPU; these
+are retained observations, not a gain. Fresh startup passed readiness, but its
+first ABBA construction block drifted 7.68% and stopped before BAAB replication:
+730.25→723.90 ms construction, 962.95→955.10 ms first submission, and
+1,381.75→1,363.70 ms first 8K-ready submission. The latter two metrics separately
+passed their gates, but their differences remain below reference variation.
+Startup equivalence/improvement and steady rendering gains are unproven. The
+small new constructor-selection/validation overhead is not separately resolved.
+Native observations were nominal with Low Power Mode off; this does not prove
+stable clocks or absence of throttling. All raw excluded/inconclusive runs remain.
+
+The [geometry-compaction evidence](evidence/performance/offline-geometry-compaction/README.md)
+contains the alternatives, source and bundle hashes, raw results, exact comparison
+method, image pairs, timing limits and critic outcome. The
+[diagnostics guide](performance-diagnostics.md#offline-geometry-comparison) documents
+regeneration and repeatable startup/pass/paired checks. Candidates 3–5 remain held.
+
 ## Next candidates
 
-**Status update, 15 September 2026 — candidate 1 was authorized and audited in entry 19; candidates 2–5 remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
+**Status update, 15 September 2026 — candidates 1 and 2 were authorized and audited in entries 19–20; candidates 3–5 remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
@@ -939,7 +1020,7 @@ The reflection environment is also prepared once at scene setup and reused. Room
 | Priority | Experiment | Expected opportunity and tradeoff | Evidence required before adoption |
 | --- | --- | --- | --- |
 | 1 · completed | Re-measure the delivered camera system and audit invalidation | Entry19 records the audit and targeted material-only AO reuse. Idle AO/shadows were already cached; this does not claim an idle gain. | Preserve the source-identified lab, accepted/excluded runs, transform/reason traces and image checks. Re-measure when art, camera or rendering changes. |
-| 2 | Prototype offline lossless geometry compaction | Retain exact geometry while moving compaction out of runtime startup. The earlier deterministic storage opportunity survives as a candidate, but the current model needs a new inventory and no browser speedup is established. | Exact attribute/seam/bounds checks, model construction and first-frame time, per-pass GPU/CPU and total delivery/storage. Do not repeat the rejected runtime cache approaches without new evidence. |
+| 2 · completed | Prototype offline lossless geometry compaction | Entry 20 adopts exact direct indexed cylinder generation: 1.41 MB fewer retained arrays with no new model asset. The broader array bake is not adopted because of delivery and integration cost. | Preserve source generation/checks, exact expanded attributes and images, startup/rendering observations and inconclusive runs. Revisit broader direct-generation opportunities only with new measured evidence; do not restore runtime welding/cache approaches. |
 | 3 | Compare the existing cached shadow map with a developer-baked static representation | A saved depth map might avoid initial shadow generation, but still needs download/upload and ordinary shadow sampling. A baked per-surface shadow mask might replace filtered shadow lookups, but adds atlas memory, UV work and possible seams. Neither is automatically faster. | First identify which light-to-caster transforms remain fixed after camera migration. Compare startup, refresh and steady sampling separately. If the appearance-preserving light rig moves relative to the ship, a single fixed mask cannot reproduce every roll; reject it or limit it to a proven invariant component. |
 | 4 | Prototype baked static contact shading in one costly room | Store stable creases and furniture contact shading on surfaces. This is the stronger precomputation hypothesis when movement-time GTAO dominates. Start with the room identified by the new ranking, keeping doors, screens and interaction feedback outside the static bake. | Compare baked-only and a static/dynamic hybrid against current GTAO. Document flattened contacts, texture seams and moving-object integration. A hybrid that still renders the full GTAO pass may add memory without saving meaningful work. |
 | 5 | Consider baked diffuse illumination only after the narrower experiments | Static indirect or diffuse light could be stored separately while retaining view-dependent reflections, emissive screens and room dimming. This is an art/asset-pipeline change, with extra textures, preparation and rebuild requirements whenever furniture or lights move. | A visible prototype approved before application integration. Verify dim/hover/selected/transit states, material colors and reflections; prevent baked and live terms from counting the same illumination twice. |

@@ -1,0 +1,2544 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "437824a",
+  "sourceFiles": [
+    {
+      "path": "features/spacecraft/equipment/cabin-utility-fittings.ts",
+      "sha256": "3d3d50a0ab0c26f6d084d52048a49b633dd74aafcebda599ef6b0510779526c9"
+    },
+    {
+      "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+      "sha256": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49"
+    },
+    {
+      "path": "features/spacecraft/equipment/docking-shoulder-equipment.ts",
+      "sha256": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf"
+    },
+    {
+      "path": "features/spacecraft/equipment/exterior-service-equipment.ts",
+      "sha256": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4"
+    },
+    {
+      "path": "features/spacecraft/equipment/ladder-endcap-equipment.ts",
+      "sha256": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db"
+    },
+    {
+      "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+      "sha256": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41"
+    },
+    {
+      "path": "features/spacecraft/equipment/outboard-wall-equipment.ts",
+      "sha256": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1"
+    },
+    {
+      "path": "features/spacecraft/geometry/clip-geometry-plane.ts",
+      "sha256": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be"
+    },
+    {
+      "path": "features/spacecraft/geometry/coalesce-static-instances.ts",
+      "sha256": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5"
+    },
+    {
+      "path": "features/spacecraft/geometry/continuous-exterior-skin.ts",
+      "sha256": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2"
+    },
+    {
+      "path": "features/spacecraft/geometry/flush-window-reveals.ts",
+      "sha256": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489"
+    },
+    {
+      "path": "features/spacecraft/geometry/indexed-cylinder.generated.js",
+      "sha256": "83c5a8d610e3888ec3666ed1ec66a0046fd6e624aae2ee120828e940f8abb6b9"
+    },
+    {
+      "path": "features/spacecraft/geometry/ladder-opening-outline.ts",
+      "sha256": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d"
+    },
+    {
+      "path": "features/spacecraft/geometry/model-primitives.ts",
+      "sha256": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+    },
+    {
+      "path": "features/spacecraft/geometry/rounded-cabin-interior.ts",
+      "sha256": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70"
+    },
+    {
+      "path": "features/spacecraft/geometry/smooth-docking-ring.ts",
+      "sha256": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2"
+    },
+    {
+      "path": "features/spacecraft/geometry/spacecraft-wall-layout.ts",
+      "sha256": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772"
+    },
+    {
+      "path": "features/spacecraft/geometry/thin-chassis-outline.ts",
+      "sha256": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc"
+    },
+    {
+      "path": "features/spacecraft/navigation/cabin-itinerary.ts",
+      "sha256": "9c6e67b841df79ecc1738ec1d6fe8ccdc185a5c5f9263adb83f34dfc2ec31bf8"
+    },
+    {
+      "path": "features/spacecraft/navigation/door-navigation.ts",
+      "sha256": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82"
+    },
+    {
+      "path": "features/spacecraft/navigation/flight.ts",
+      "sha256": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95"
+    },
+    {
+      "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+      "sha256": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd"
+    },
+    {
+      "path": "features/spacecraft/navigation/iris-hatch.ts",
+      "sha256": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd"
+    },
+    {
+      "path": "features/spacecraft/navigation/iris-navigation.ts",
+      "sha256": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614"
+    },
+    {
+      "path": "features/spacecraft/navigation/room-navigation-targets.ts",
+      "sha256": "270977da1e7c6e68e64f4e099fad15c9022ad44adf46ee617e5b007bb5d7d84a"
+    },
+    {
+      "path": "features/spacecraft/navigation/room-navigation.ts",
+      "sha256": "84f1a2e089557e63433e7e1d37850a2fe69e86ff7ca2aab4a8f1b1ee2fab9796"
+    },
+    {
+      "path": "features/spacecraft/navigation/scene-controls.ts",
+      "sha256": "85431eb7d51b90f73ab89ff58266049c6c3ca621e6a84ebddcb92531137ddc6f"
+    },
+    {
+      "path": "features/spacecraft/navigation/scene-feedback.ts",
+      "sha256": "ac1a13cf538e1c9f3e0f9a872689f9409cfb78b68f77529a1a952f0df50680ef"
+    },
+    {
+      "path": "features/spacecraft/navigation/vessel-camera.ts",
+      "sha256": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871"
+    },
+    {
+      "path": "features/spacecraft/overview-annotations.ts",
+      "sha256": "3b84cae776e12671d136c771a2fc4cfb4d367a8a5808bb750885f45fa860922b"
+    },
+    {
+      "path": "features/spacecraft/rooms/about-personal-study.ts",
+      "sha256": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c"
+    },
+    {
+      "path": "features/spacecraft/rooms/about-study-artwork.ts",
+      "sha256": "0faae6387f6a67df1fa4d7951f3eb831d885d8b373d4daca5771ed4d3b600722"
+    },
+    {
+      "path": "features/spacecraft/rooms/cabin-composition.ts",
+      "sha256": "6f22fc26ec11d92d36013f6399f1d09925d8365533e2dd3cab2f6017e0bbecfc"
+    },
+    {
+      "path": "features/spacecraft/rooms/case-study-archive.ts",
+      "sha256": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630"
+    },
+    {
+      "path": "features/spacecraft/rooms/contact-flight-audio.ts",
+      "sha256": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5"
+    },
+    {
+      "path": "features/spacecraft/rooms/contact-flight-console.ts",
+      "sha256": "df4fa829065b88202aca931eebc8ac2942f9bc3efe3a0d6b5735fc7fca9d886c"
+    },
+    {
+      "path": "features/spacecraft/rooms/contact-social-display.ts",
+      "sha256": "77e2cc85e96a5929ccf6798318b9f8f4e727b49f845828ad8ddfbffe0161fd32"
+    },
+    {
+      "path": "features/spacecraft/rooms/projects-payload-module.ts",
+      "sha256": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796"
+    },
+    {
+      "path": "features/spacecraft/rooms/projects-workshop.ts",
+      "sha256": "f1852fec6f78dd7ad5d68e9aa97ad6b2043f10f0ab297439624c6a780f161043"
+    },
+    {
+      "path": "features/spacecraft/scene-loader.tsx",
+      "sha256": "1056c90afc48c38e6e00daa24227250d67eacce9631b790a65726555a78eda79"
+    },
+    {
+      "path": "features/spacecraft/scene-matrices.ts",
+      "sha256": "ce3752962a7111f9c0412b9eea97e48ade74c36923789246e24c2e5eb1fae5e8"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "5d15e91bf80f760e484b7f95f9b7da7cc97c1123013157aaf43037f9aeb5a166"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-runtime.ts",
+      "sha256": "97eb14b15733ae0ac213c10d78c0d66fbc6812635ba2d34c9bd13e569ee6494d"
+    },
+    {
+      "path": "features/spacecraft/spacecraft.tsx",
+      "sha256": "f4e81a8295a9bc23ae6b3d0231a8571098f6c3aca64f0969f6c2fa84abaab764"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "d243a6b551c861eba56a2887afa250a27b5e47963f1a7a56c7f40fc5008e5f83"
+    },
+    {
+      "path": "scripts/benchmarks/geometry-compaction-inventory.mjs",
+      "sha256": "333d3e16423be21cf8c6a44e1dc07cfcc79dbbcdafb2756a7b2d05bdfed0c709"
+    },
+    {
+      "path": "scripts/benchmarks/geometry-compaction-utils.mjs",
+      "sha256": "b990c54b39e6ff5aeb44f39bfaba1e90bfad3fdf090efbeb040bbd051a4bb52c"
+    },
+    {
+      "path": "scripts/generate-indexed-cylinder.mjs",
+      "sha256": "e1606966a9f337dd83f4a03e060958bb46814de2e0e64be6c8e20024c4d9dfbf"
+    }
+  ],
+  "recordedAt": "2026-09-15T08:20:52.969Z",
+  "layouts": {
+    "wide": {
+      "baseline": {
+        "all": {
+          "meshes": 488,
+          "geometries": 430,
+          "vertices": 1297785,
+          "geometryBytes": 50739600,
+          "triangles": 1337396
+        },
+        "visible": {
+          "meshes": 414,
+          "geometries": 356,
+          "vertices": 965135,
+          "geometryBytes": 37370212,
+          "triangles": 1012382
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 509048
+          },
+          {
+            "id": "part:projects:furniture",
+            "label": "Projects · workshop furniture",
+            "meshes": 43,
+            "bytes": 5478632
+          },
+          {
+            "id": "part:projects:labels",
+            "label": "Projects · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:projects:reader",
+            "label": "Projects · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:projects:doors",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 25,
+            "bytes": 456200
+          },
+          {
+            "id": "part:projects:other",
+            "label": "Projects · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:structure",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 302484
+          },
+          {
+            "id": "part:experience:furniture",
+            "label": "Case studies · archive furniture",
+            "meshes": 21,
+            "bytes": 2179992
+          },
+          {
+            "id": "part:experience:labels",
+            "label": "Case studies · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:experience:reader",
+            "label": "Case studies · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:doors",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 20,
+            "bytes": 340796
+          },
+          {
+            "id": "part:experience:other",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:structure",
+            "label": "About · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 509048
+          },
+          {
+            "id": "part:about:furniture",
+            "label": "About · personal-study furniture",
+            "meshes": 53,
+            "bytes": 1911588
+          },
+          {
+            "id": "part:about:labels",
+            "label": "About · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:about:reader",
+            "label": "About · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:doors",
+            "label": "About · doors and passage assemblies",
+            "meshes": 40,
+            "bytes": 683272
+          },
+          {
+            "id": "part:about:other",
+            "label": "About · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:structure",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 302484
+          },
+          {
+            "id": "part:contact:furniture",
+            "label": "Contact · flight-console furniture",
+            "meshes": 32,
+            "bytes": 1984916
+          },
+          {
+            "id": "part:contact:labels",
+            "label": "Contact · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:contact:reader",
+            "label": "Contact · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:doors",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 5,
+            "bytes": 113724
+          },
+          {
+            "id": "part:contact:other",
+            "label": "Contact · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:walkway:structure",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 7,
+            "bytes": 536316
+          },
+          {
+            "id": "part:walkway:utilities",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22,
+            "bytes": 3539560
+          },
+          {
+            "id": "part:walkway:fittings",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 7,
+            "bytes": 1760548
+          },
+          {
+            "id": "part:shared:docking",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14,
+            "bytes": 1252352
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 10,
+            "bytes": 989968
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7,
+            "bytes": 463096
+          },
+          {
+            "id": "part:projects:utilities",
+            "label": "Projects · utility fittings",
+            "meshes": 7,
+            "bytes": 735200
+          },
+          {
+            "id": "part:experience:utilities",
+            "label": "Case studies · utility fittings",
+            "meshes": 6,
+            "bytes": 499016
+          },
+          {
+            "id": "part:about:utilities",
+            "label": "About · utility fittings",
+            "meshes": 8,
+            "bytes": 384448
+          },
+          {
+            "id": "part:contact:utilities",
+            "label": "Contact · utility fittings",
+            "meshes": 6,
+            "bytes": 428696
+          },
+          {
+            "id": "part:shared:solar",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10,
+            "bytes": 50904
+          },
+          {
+            "id": "part:shared:service",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6,
+            "bytes": 460384
+          },
+          {
+            "id": "part:shared:communications",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1,
+            "bytes": 30560
+          },
+          {
+            "id": "part:shared:chassis",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 12,
+            "bytes": 11054368
+          },
+          {
+            "id": "part:experience:chassis",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11832
+          },
+          {
+            "id": "part:contact:chassis",
+            "label": "Contact · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11628
+          }
+        ]
+      },
+      "indexed": {
+        "all": {
+          "meshes": 488,
+          "geometries": 430,
+          "vertices": 1253783,
+          "geometryBytes": 49331536,
+          "triangles": 1337396
+        },
+        "visible": {
+          "meshes": 414,
+          "geometries": 356,
+          "vertices": 931397,
+          "geometryBytes": 36290596,
+          "triangles": 1012382
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 505848
+          },
+          {
+            "id": "part:projects:furniture",
+            "label": "Projects · workshop furniture",
+            "meshes": 43,
+            "bytes": 5392168
+          },
+          {
+            "id": "part:projects:labels",
+            "label": "Projects · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:projects:reader",
+            "label": "Projects · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:projects:doors",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 25,
+            "bytes": 450568
+          },
+          {
+            "id": "part:projects:other",
+            "label": "Projects · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:structure",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 300884
+          },
+          {
+            "id": "part:experience:furniture",
+            "label": "Case studies · archive furniture",
+            "meshes": 21,
+            "bytes": 2145688
+          },
+          {
+            "id": "part:experience:labels",
+            "label": "Case studies · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:experience:reader",
+            "label": "Case studies · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:doors",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 20,
+            "bytes": 337980
+          },
+          {
+            "id": "part:experience:other",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:structure",
+            "label": "About · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 505848
+          },
+          {
+            "id": "part:about:furniture",
+            "label": "About · personal-study furniture",
+            "meshes": 53,
+            "bytes": 1865316
+          },
+          {
+            "id": "part:about:labels",
+            "label": "About · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:about:reader",
+            "label": "About · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:doors",
+            "label": "About · doors and passage assemblies",
+            "meshes": 40,
+            "bytes": 677640
+          },
+          {
+            "id": "part:about:other",
+            "label": "About · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:structure",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 300884
+          },
+          {
+            "id": "part:contact:furniture",
+            "label": "Contact · flight-console furniture",
+            "meshes": 32,
+            "bytes": 1943636
+          },
+          {
+            "id": "part:contact:labels",
+            "label": "Contact · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:contact:reader",
+            "label": "Contact · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:doors",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 5,
+            "bytes": 110908
+          },
+          {
+            "id": "part:contact:other",
+            "label": "Contact · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:walkway:structure",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 7,
+            "bytes": 536316
+          },
+          {
+            "id": "part:walkway:utilities",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22,
+            "bytes": 3184808
+          },
+          {
+            "id": "part:walkway:fittings",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 7,
+            "bytes": 1749796
+          },
+          {
+            "id": "part:shared:docking",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14,
+            "bytes": 1223616
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 10,
+            "bytes": 977104
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7,
+            "bytes": 449144
+          },
+          {
+            "id": "part:projects:utilities",
+            "label": "Projects · utility fittings",
+            "meshes": 7,
+            "bytes": 729760
+          },
+          {
+            "id": "part:experience:utilities",
+            "label": "Case studies · utility fittings",
+            "meshes": 6,
+            "bytes": 489672
+          },
+          {
+            "id": "part:about:utilities",
+            "label": "About · utility fittings",
+            "meshes": 8,
+            "bytes": 377408
+          },
+          {
+            "id": "part:contact:utilities",
+            "label": "Contact · utility fittings",
+            "meshes": 6,
+            "bytes": 427992
+          },
+          {
+            "id": "part:shared:solar",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10,
+            "bytes": 50904
+          },
+          {
+            "id": "part:shared:service",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6,
+            "bytes": 435872
+          },
+          {
+            "id": "part:shared:communications",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1,
+            "bytes": 30560
+          },
+          {
+            "id": "part:shared:chassis",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 12,
+            "bytes": 10683296
+          },
+          {
+            "id": "part:experience:chassis",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11832
+          },
+          {
+            "id": "part:contact:chassis",
+            "label": "Contact · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11628
+          }
+        ]
+      },
+      "exactMeshChecks": 488
+    },
+    "compact": {
+      "baseline": {
+        "all": {
+          "meshes": 488,
+          "geometries": 430,
+          "vertices": 1297785,
+          "geometryBytes": 50739600,
+          "triangles": 1337396
+        },
+        "visible": {
+          "meshes": 414,
+          "geometries": 356,
+          "vertices": 947059,
+          "geometryBytes": 36661796,
+          "triangles": 990718
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 509048
+          },
+          {
+            "id": "part:projects:furniture",
+            "label": "Projects · workshop furniture",
+            "meshes": 43,
+            "bytes": 5478632
+          },
+          {
+            "id": "part:projects:labels",
+            "label": "Projects · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:projects:reader",
+            "label": "Projects · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:projects:doors",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 25,
+            "bytes": 456200
+          },
+          {
+            "id": "part:projects:other",
+            "label": "Projects · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:structure",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 302484
+          },
+          {
+            "id": "part:experience:furniture",
+            "label": "Case studies · archive furniture",
+            "meshes": 21,
+            "bytes": 2179992
+          },
+          {
+            "id": "part:experience:labels",
+            "label": "Case studies · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:experience:reader",
+            "label": "Case studies · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:doors",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 20,
+            "bytes": 340796
+          },
+          {
+            "id": "part:experience:other",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:structure",
+            "label": "About · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 509048
+          },
+          {
+            "id": "part:about:furniture",
+            "label": "About · personal-study furniture",
+            "meshes": 53,
+            "bytes": 1911588
+          },
+          {
+            "id": "part:about:labels",
+            "label": "About · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:about:reader",
+            "label": "About · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:doors",
+            "label": "About · doors and passage assemblies",
+            "meshes": 40,
+            "bytes": 683272
+          },
+          {
+            "id": "part:about:other",
+            "label": "About · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:structure",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 302484
+          },
+          {
+            "id": "part:contact:furniture",
+            "label": "Contact · flight-console furniture",
+            "meshes": 32,
+            "bytes": 1984916
+          },
+          {
+            "id": "part:contact:labels",
+            "label": "Contact · signage and label batches",
+            "meshes": 3,
+            "bytes": 97288
+          },
+          {
+            "id": "part:contact:reader",
+            "label": "Contact · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:doors",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 5,
+            "bytes": 113724
+          },
+          {
+            "id": "part:contact:other",
+            "label": "Contact · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:walkway:structure",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 7,
+            "bytes": 536316
+          },
+          {
+            "id": "part:walkway:utilities",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22,
+            "bytes": 3539560
+          },
+          {
+            "id": "part:walkway:fittings",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 7,
+            "bytes": 1760548
+          },
+          {
+            "id": "part:shared:docking",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14,
+            "bytes": 1252352
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 10,
+            "bytes": 989968
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7,
+            "bytes": 463096
+          },
+          {
+            "id": "part:projects:utilities",
+            "label": "Projects · utility fittings",
+            "meshes": 7,
+            "bytes": 730304
+          },
+          {
+            "id": "part:experience:utilities",
+            "label": "Case studies · utility fittings",
+            "meshes": 6,
+            "bytes": 479432
+          },
+          {
+            "id": "part:about:utilities",
+            "label": "About · utility fittings",
+            "meshes": 8,
+            "bytes": 367312
+          },
+          {
+            "id": "part:contact:utilities",
+            "label": "Contact · utility fittings",
+            "meshes": 6,
+            "bytes": 426248
+          },
+          {
+            "id": "part:shared:solar",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10,
+            "bytes": 50904
+          },
+          {
+            "id": "part:shared:service",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6,
+            "bytes": 460384
+          },
+          {
+            "id": "part:shared:communications",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1,
+            "bytes": 30560
+          },
+          {
+            "id": "part:shared:chassis",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 12,
+            "bytes": 10390016
+          },
+          {
+            "id": "part:experience:chassis",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11832
+          },
+          {
+            "id": "part:contact:chassis",
+            "label": "Contact · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11628
+          }
+        ]
+      },
+      "indexed": {
+        "all": {
+          "meshes": 488,
+          "geometries": 430,
+          "vertices": 1253783,
+          "geometryBytes": 49331536,
+          "triangles": 1337396
+        },
+        "visible": {
+          "meshes": 414,
+          "geometries": 356,
+          "vertices": 916057,
+          "geometryBytes": 35669732,
+          "triangles": 990718
+        },
+        "groups": [
+          {
+            "id": "part:projects:structure",
+            "label": "Projects · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 505848
+          },
+          {
+            "id": "part:projects:furniture",
+            "label": "Projects · workshop furniture",
+            "meshes": 43,
+            "bytes": 5392168
+          },
+          {
+            "id": "part:projects:labels",
+            "label": "Projects · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:projects:reader",
+            "label": "Projects · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:projects:doors",
+            "label": "Projects · doors and passage assemblies",
+            "meshes": 25,
+            "bytes": 450568
+          },
+          {
+            "id": "part:projects:other",
+            "label": "Projects · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:structure",
+            "label": "Case studies · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 300884
+          },
+          {
+            "id": "part:experience:furniture",
+            "label": "Case studies · archive furniture",
+            "meshes": 21,
+            "bytes": 2145688
+          },
+          {
+            "id": "part:experience:labels",
+            "label": "Case studies · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:experience:reader",
+            "label": "Case studies · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:experience:doors",
+            "label": "Case studies · doors and passage assemblies",
+            "meshes": 20,
+            "bytes": 337980
+          },
+          {
+            "id": "part:experience:other",
+            "label": "Case studies · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:structure",
+            "label": "About · cabin pressure structure",
+            "meshes": 11,
+            "bytes": 505848
+          },
+          {
+            "id": "part:about:furniture",
+            "label": "About · personal-study furniture",
+            "meshes": 53,
+            "bytes": 1865316
+          },
+          {
+            "id": "part:about:labels",
+            "label": "About · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:about:reader",
+            "label": "About · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:about:doors",
+            "label": "About · doors and passage assemblies",
+            "meshes": 40,
+            "bytes": 677640
+          },
+          {
+            "id": "part:about:other",
+            "label": "About · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:structure",
+            "label": "Contact · cabin pressure structure",
+            "meshes": 8,
+            "bytes": 300884
+          },
+          {
+            "id": "part:contact:furniture",
+            "label": "Contact · flight-console furniture",
+            "meshes": 32,
+            "bytes": 1943636
+          },
+          {
+            "id": "part:contact:labels",
+            "label": "Contact · signage and label batches",
+            "meshes": 3,
+            "bytes": 95880
+          },
+          {
+            "id": "part:contact:reader",
+            "label": "Contact · deployable reader",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:contact:doors",
+            "label": "Contact · doors and passage assemblies",
+            "meshes": 5,
+            "bytes": 110908
+          },
+          {
+            "id": "part:contact:other",
+            "label": "Contact · other or mixed batches",
+            "meshes": 0,
+            "bytes": 0
+          },
+          {
+            "id": "part:walkway:structure",
+            "label": "Ladder bay · pressure structure",
+            "meshes": 7,
+            "bytes": 536316
+          },
+          {
+            "id": "part:walkway:utilities",
+            "label": "Ladder bay · utility fittings",
+            "meshes": 22,
+            "bytes": 3184808
+          },
+          {
+            "id": "part:walkway:fittings",
+            "label": "Ladder bay · interior fittings",
+            "meshes": 7,
+            "bytes": 1749796
+          },
+          {
+            "id": "part:shared:docking",
+            "label": "Shared assemblies · docking sleeve and hatch",
+            "meshes": 14,
+            "bytes": 1223616
+          },
+          {
+            "id": "part:contact:outboard-equipment",
+            "label": "Contact · outboard wall equipment",
+            "meshes": 10,
+            "bytes": 977104
+          },
+          {
+            "id": "part:experience:outboard-equipment",
+            "label": "Case studies · outboard wall equipment",
+            "meshes": 7,
+            "bytes": 449144
+          },
+          {
+            "id": "part:projects:utilities",
+            "label": "Projects · utility fittings",
+            "meshes": 7,
+            "bytes": 724864
+          },
+          {
+            "id": "part:experience:utilities",
+            "label": "Case studies · utility fittings",
+            "meshes": 6,
+            "bytes": 470088
+          },
+          {
+            "id": "part:about:utilities",
+            "label": "About · utility fittings",
+            "meshes": 8,
+            "bytes": 360272
+          },
+          {
+            "id": "part:contact:utilities",
+            "label": "Contact · utility fittings",
+            "meshes": 6,
+            "bytes": 425544
+          },
+          {
+            "id": "part:shared:solar",
+            "label": "Shared assemblies · solar array batches",
+            "meshes": 10,
+            "bytes": 50904
+          },
+          {
+            "id": "part:shared:service",
+            "label": "Shared assemblies · mixed service bus and appendages",
+            "meshes": 6,
+            "bytes": 435872
+          },
+          {
+            "id": "part:shared:communications",
+            "label": "Shared assemblies · communications batches",
+            "meshes": 1,
+            "bytes": 30560
+          },
+          {
+            "id": "part:shared:chassis",
+            "label": "Shared assemblies · outer chassis",
+            "meshes": 12,
+            "bytes": 10106496
+          },
+          {
+            "id": "part:experience:chassis",
+            "label": "Case studies · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11832
+          },
+          {
+            "id": "part:contact:chassis",
+            "label": "Contact · chassis interior wall",
+            "meshes": 1,
+            "bytes": 11628
+          }
+        ]
+      },
+      "exactMeshChecks": 488
+    }
+  },
+  "offlineBake": {
+    "eligibleBeneficialBuffers": 183,
+    "geometryBytesSaved": 5146816,
+    "minimumPayloadBytes": 35751750,
+    "gzipBytes": 9101496,
+    "brotliBytes": 4356463,
+    "sha256": "a1dd39792121c60af7d57845a87b76338d3e9fe71a7b5c0ca690dd45bbface9b",
+    "gzipSha256": "7a1be93dfb34c82e47103808cf149961bf33c8cacf9506f0b6a89df9fced035a",
+    "offlineAnalysisMs": 2596.1672919999996,
+    "records": [
+      {
+        "name": "projects-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "projects-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "projects-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "projects-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "projects-workshop-bezel-counterbores",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-captive-fastener-rims",
+        "beforeBytes": 36864,
+        "afterBytes": 23776,
+        "verticesBefore": 1152,
+        "verticesAfter": 671
+      },
+      {
+        "name": "projects-workshop-satin-captive-heads",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-corner-fasteners",
+        "beforeBytes": 3584,
+        "afterBytes": 2624,
+        "verticesBefore": 100,
+        "verticesAfter": 70
+      },
+      {
+        "name": "projects-workshop-bezel-counterbores",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-captive-fastener-rims",
+        "beforeBytes": 36864,
+        "afterBytes": 23776,
+        "verticesBefore": 1152,
+        "verticesAfter": 671
+      },
+      {
+        "name": "projects-workshop-satin-captive-heads",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-corner-fasteners",
+        "beforeBytes": 3584,
+        "afterBytes": 2624,
+        "verticesBefore": 100,
+        "verticesAfter": 70
+      },
+      {
+        "name": "projects-workshop-bezel-counterbores",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-captive-fastener-rims",
+        "beforeBytes": 36864,
+        "afterBytes": 23776,
+        "verticesBefore": 1152,
+        "verticesAfter": 671
+      },
+      {
+        "name": "projects-workshop-satin-captive-heads",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-corner-fasteners",
+        "beforeBytes": 3584,
+        "afterBytes": 2624,
+        "verticesBefore": 100,
+        "verticesAfter": 70
+      },
+      {
+        "name": "projects-workshop-bezel-counterbores",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-captive-fastener-rims",
+        "beforeBytes": 36864,
+        "afterBytes": 23776,
+        "verticesBefore": 1152,
+        "verticesAfter": 671
+      },
+      {
+        "name": "projects-workshop-satin-captive-heads",
+        "beforeBytes": 5312,
+        "afterBytes": 3840,
+        "verticesBefore": 148,
+        "verticesAfter": 102
+      },
+      {
+        "name": "projects-workshop-corner-fasteners",
+        "beforeBytes": 3584,
+        "afterBytes": 2624,
+        "verticesBefore": 100,
+        "verticesAfter": 70
+      },
+      {
+        "name": "projects-workshop-structural-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "projects-projects-workshop-structural-graphite",
+        "beforeBytes": 639272,
+        "afterBytes": 635176,
+        "verticesBefore": 15688,
+        "verticesAfter": 15560
+      },
+      {
+        "name": "projects-projects-workshop-satin-fasteners",
+        "beforeBytes": 118216,
+        "afterBytes": 116168,
+        "verticesBefore": 2912,
+        "verticesAfter": 2848
+      },
+      {
+        "name": "projects-projects-workshop-isolator",
+        "beforeBytes": 82264,
+        "afterBytes": 80216,
+        "verticesBefore": 2000,
+        "verticesAfter": 1936
+      },
+      {
+        "name": "projects-projects-workshop-graphite-enclosure",
+        "beforeBytes": 491104,
+        "afterBytes": 478816,
+        "verticesBefore": 12224,
+        "verticesAfter": 11840
+      },
+      {
+        "name": "projects-projects-workshop-recess",
+        "beforeBytes": 1222240,
+        "afterBytes": 1103456,
+        "verticesBefore": 32192,
+        "verticesAfter": 28480
+      },
+      {
+        "name": "projects-projects-workshop-enamel-edge",
+        "beforeBytes": 578880,
+        "afterBytes": 501312,
+        "verticesBefore": 16704,
+        "verticesAfter": 14280
+      },
+      {
+        "name": "projects-projects-workshop-ivory-enamel",
+        "beforeBytes": 578880,
+        "afterBytes": 502848,
+        "verticesBefore": 16704,
+        "verticesAfter": 14328
+      },
+      {
+        "name": "projects-projects-workshop-gasket",
+        "beforeBytes": 509184,
+        "afterBytes": 433664,
+        "verticesBefore": 14976,
+        "verticesAfter": 12616
+      },
+      {
+        "name": "projects-projects-workshop-satin-fasteners",
+        "beforeBytes": 239232,
+        "afterBytes": 210560,
+        "verticesBefore": 6240,
+        "verticesAfter": 5344
+      },
+      {
+        "name": "projects-projects-workshop-amber-latches",
+        "beforeBytes": 312448,
+        "afterBytes": 300160,
+        "verticesBefore": 7712,
+        "verticesAfter": 7328
+      },
+      {
+        "name": "projects-graphite-gasket",
+        "beforeBytes": 49392,
+        "afterBytes": 46320,
+        "verticesBefore": 1236,
+        "verticesAfter": 1140
+      },
+      {
+        "name": "projects-interior-enamel",
+        "beforeBytes": 30472,
+        "afterBytes": 28936,
+        "verticesBefore": 752,
+        "verticesAfter": 704
+      },
+      {
+        "name": "projects-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "projects-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "projects-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "projects-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "experience-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "experience-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "case-archive-jacket-0--1-screws",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "experience-case-archive-satin-edge",
+        "beforeBytes": 615304,
+        "afterBytes": 573832,
+        "verticesBefore": 16088,
+        "verticesAfter": 14792
+      },
+      {
+        "name": "experience-case-archive-rack-graphite",
+        "beforeBytes": 657680,
+        "afterBytes": 653584,
+        "verticesBefore": 16000,
+        "verticesAfter": 15872
+      },
+      {
+        "name": "experience-case-archive-fasteners",
+        "beforeBytes": 193256,
+        "afterBytes": 173800,
+        "verticesBefore": 4900,
+        "verticesAfter": 4292
+      },
+      {
+        "name": "experience-case-archive-amber-retainers",
+        "beforeBytes": 188576,
+        "afterBytes": 184480,
+        "verticesBefore": 4720,
+        "verticesAfter": 4592
+      },
+      {
+        "name": "experience-graphite-gasket",
+        "beforeBytes": 49392,
+        "afterBytes": 46320,
+        "verticesBefore": 1236,
+        "verticesAfter": 1140
+      },
+      {
+        "name": "experience-interior-enamel",
+        "beforeBytes": 30472,
+        "afterBytes": 28936,
+        "verticesBefore": 752,
+        "verticesAfter": 704
+      },
+      {
+        "name": "experience-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "experience-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "about-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "about-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "about-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "about-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "personal-study-library-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "personal-study-journal-clips",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "about-personal-study-graphite-frame",
+        "beforeBytes": 368544,
+        "afterBytes": 331616,
+        "verticesBefore": 9516,
+        "verticesAfter": 8362
+      },
+      {
+        "name": "about-personal-study-amber-hardware",
+        "beforeBytes": 195672,
+        "afterBytes": 186968,
+        "verticesBefore": 4944,
+        "verticesAfter": 4672
+      },
+      {
+        "name": "about-personal-study-cream-enamel",
+        "beforeBytes": 30344,
+        "afterBytes": 28808,
+        "verticesBefore": 748,
+        "verticesAfter": 700
+      },
+      {
+        "name": "about-personal-study-satin-fixings",
+        "beforeBytes": 26560,
+        "afterBytes": 18880,
+        "verticesBefore": 740,
+        "verticesAfter": 500
+      },
+      {
+        "name": "about-personal-study-navy-stitch",
+        "beforeBytes": 5312,
+        "afterBytes": 3776,
+        "verticesBefore": 148,
+        "verticesAfter": 100
+      },
+      {
+        "name": "about-personal-study-reading-lamp-lens",
+        "beforeBytes": 5312,
+        "afterBytes": 3776,
+        "verticesBefore": 148,
+        "verticesAfter": 100
+      },
+      {
+        "name": "personal-study-locker-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "about-personal-study-amber-hardware",
+        "beforeBytes": 21008,
+        "afterBytes": 19984,
+        "verticesBefore": 532,
+        "verticesAfter": 500
+      },
+      {
+        "name": "personal-study-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "about-personal-study-graphite-frame",
+        "beforeBytes": 275208,
+        "afterBytes": 257224,
+        "verticesBefore": 6957,
+        "verticesAfter": 6395
+      },
+      {
+        "name": "about-personal-study-webbing-and-seals",
+        "beforeBytes": 112960,
+        "afterBytes": 109888,
+        "verticesBefore": 2792,
+        "verticesAfter": 2696
+      },
+      {
+        "name": "about-personal-study-navy-stitch",
+        "beforeBytes": 42432,
+        "afterBytes": 24448,
+        "verticesBefore": 1248,
+        "verticesAfter": 686
+      },
+      {
+        "name": "about-personal-study-satin-fixings",
+        "beforeBytes": 59856,
+        "afterBytes": 41872,
+        "verticesBefore": 1680,
+        "verticesAfter": 1118
+      },
+      {
+        "name": "about-personal-study-amber-hardware",
+        "beforeBytes": 22736,
+        "afterBytes": 21200,
+        "verticesBefore": 580,
+        "verticesAfter": 532
+      },
+      {
+        "name": "about-graphite-gasket",
+        "beforeBytes": 49392,
+        "afterBytes": 46320,
+        "verticesBefore": 1236,
+        "verticesAfter": 1140
+      },
+      {
+        "name": "about-interior-enamel",
+        "beforeBytes": 30472,
+        "afterBytes": 28936,
+        "verticesBefore": 752,
+        "verticesAfter": 704
+      },
+      {
+        "name": "about-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "about-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "about-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "about-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "contact-signal-amber",
+        "beforeBytes": 21952,
+        "afterBytes": 20992,
+        "verticesBefore": 542,
+        "verticesAfter": 512
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 2848,
+        "afterBytes": 2208,
+        "verticesBefore": 80,
+        "verticesAfter": 60
+      },
+      {
+        "name": "contact-flight-structural-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "contact-flight-audio-microphone-base-captive-screws",
+        "beforeBytes": 1856,
+        "afterBytes": 1408,
+        "verticesBefore": 52,
+        "verticesAfter": 38
+      },
+      {
+        "name": "contact-contact-flight-graphite",
+        "beforeBytes": 20400,
+        "afterBytes": 12720,
+        "verticesBefore": 600,
+        "verticesAfter": 360
+      },
+      {
+        "name": "contact-contact-flight-graphite",
+        "beforeBytes": 20400,
+        "afterBytes": 12720,
+        "verticesBefore": 600,
+        "verticesAfter": 360
+      },
+      {
+        "name": "contact-flight-audio-headset-dock-captive-screws",
+        "beforeBytes": 1856,
+        "afterBytes": 1408,
+        "verticesBefore": 52,
+        "verticesAfter": 38
+      },
+      {
+        "name": "contact-contact-flight-satin-alloy",
+        "beforeBytes": 195816,
+        "afterBytes": 176872,
+        "verticesBefore": 5040,
+        "verticesAfter": 4448
+      },
+      {
+        "name": "contact-contact-flight-graphite",
+        "beforeBytes": 573984,
+        "afterBytes": 567328,
+        "verticesBefore": 14058,
+        "verticesAfter": 13850
+      },
+      {
+        "name": "contact-contact-flight-enamel",
+        "beforeBytes": 169944,
+        "afterBytes": 169560,
+        "verticesBefore": 4116,
+        "verticesAfter": 4104
+      },
+      {
+        "name": "contact-contact-flight-recess",
+        "beforeBytes": 367680,
+        "afterBytes": 348736,
+        "verticesBefore": 9252,
+        "verticesAfter": 8660
+      },
+      {
+        "name": "contact-contact-flight-amber",
+        "beforeBytes": 82360,
+        "afterBytes": 76216,
+        "verticesBefore": 2108,
+        "verticesAfter": 1916
+      },
+      {
+        "name": "contact-contact-flight-elastomer",
+        "beforeBytes": 282768,
+        "afterBytes": 266384,
+        "verticesBefore": 7185,
+        "verticesAfter": 6673
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 49392,
+        "afterBytes": 46320,
+        "verticesBefore": 1236,
+        "verticesAfter": 1140
+      },
+      {
+        "name": "contact-interior-enamel",
+        "beforeBytes": 30472,
+        "afterBytes": 28936,
+        "verticesBefore": 752,
+        "verticesAfter": 704
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 59880,
+        "afterBytes": 34792,
+        "verticesBefore": 1464,
+        "verticesAfter": 680
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 10880,
+        "afterBytes": 7808,
+        "verticesBefore": 304,
+        "verticesAfter": 208
+      },
+      {
+        "name": "walkway-ceramic-hull",
+        "beforeBytes": 80070,
+        "afterBytes": 23718,
+        "verticesBefore": 2355,
+        "verticesAfter": 594
+      },
+      {
+        "name": "service-spine-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "walkway-service-spine-ivory-enamel",
+        "beforeBytes": 554352,
+        "afterBytes": 324400,
+        "verticesBefore": 16224,
+        "verticesAfter": 9038
+      },
+      {
+        "name": "walkway-service-spine-recess-interior",
+        "beforeBytes": 266424,
+        "afterBytes": 153432,
+        "verticesBefore": 7836,
+        "verticesAfter": 4305
+      },
+      {
+        "name": "walkway-service-spine-graphite-casings",
+        "beforeBytes": 994152,
+        "afterBytes": 811912,
+        "verticesBefore": 27144,
+        "verticesAfter": 21449
+      },
+      {
+        "name": "walkway-service-spine-satin-alloy",
+        "beforeBytes": 464288,
+        "afterBytes": 357024,
+        "verticesBefore": 12658,
+        "verticesAfter": 9306
+      },
+      {
+        "name": "walkway-service-spine-insulated-harness",
+        "beforeBytes": 214272,
+        "afterBytes": 187648,
+        "verticesBefore": 5448,
+        "verticesAfter": 4616
+      },
+      {
+        "name": "walkway-service-spine-anodized-grips",
+        "beforeBytes": 369320,
+        "afterBytes": 316072,
+        "verticesBefore": 9736,
+        "verticesAfter": 8072
+      },
+      {
+        "name": "walkway-service-spine-brushed-tread-alloy",
+        "beforeBytes": 131648,
+        "afterBytes": 105024,
+        "verticesBefore": 3502,
+        "verticesAfter": 2670
+      },
+      {
+        "name": "walkway-docking-shoulder-tool-satin-alloy",
+        "beforeBytes": 459456,
+        "afterBytes": 405952,
+        "verticesBefore": 13212,
+        "verticesAfter": 11540
+      },
+      {
+        "name": "walkway-docking-shoulder-tool-graphite",
+        "beforeBytes": 304400,
+        "afterBytes": 273424,
+        "verticesBefore": 8434,
+        "verticesAfter": 7466
+      },
+      {
+        "name": "walkway-docking-shoulder-tool-retention-markers",
+        "beforeBytes": 477360,
+        "afterBytes": 413872,
+        "verticesBefore": 14040,
+        "verticesAfter": 12056
+      },
+      {
+        "name": "walkway-graphite-gasket",
+        "beforeBytes": 277440,
+        "afterBytes": 251584,
+        "verticesBefore": 8160,
+        "verticesAfter": 7352
+      },
+      {
+        "name": "walkway-warm-insulation",
+        "beforeBytes": 138312,
+        "afterBytes": 125736,
+        "verticesBefore": 4068,
+        "verticesAfter": 3675
+      },
+      {
+        "name": "walkway-graphite-enamel",
+        "beforeBytes": 22736,
+        "afterBytes": 21264,
+        "verticesBefore": 580,
+        "verticesAfter": 534
+      },
+      {
+        "name": "walkway-signal-amber",
+        "beforeBytes": 28176,
+        "afterBytes": 25168,
+        "verticesBefore": 732,
+        "verticesAfter": 638
+      },
+      {
+        "name": "outboard-communications-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "contact-outboard-communications-elastomer",
+        "beforeBytes": 173488,
+        "afterBytes": 170928,
+        "verticesBefore": 4235,
+        "verticesAfter": 4155
+      },
+      {
+        "name": "contact-outboard-communications-brushed-alloy",
+        "beforeBytes": 134392,
+        "afterBytes": 128056,
+        "verticesBefore": 3380,
+        "verticesAfter": 3182
+      },
+      {
+        "name": "contact-outboard-communications-graphite",
+        "beforeBytes": 300720,
+        "afterBytes": 296944,
+        "verticesBefore": 7332,
+        "verticesAfter": 7214
+      },
+      {
+        "name": "outboard-recorder-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "experience-outboard-recorder-elastomer",
+        "beforeBytes": 133680,
+        "afterBytes": 131120,
+        "verticesBefore": 3234,
+        "verticesAfter": 3154
+      },
+      {
+        "name": "experience-outboard-recorder-brushed-alloy",
+        "beforeBytes": 152336,
+        "afterBytes": 147344,
+        "verticesBefore": 3778,
+        "verticesAfter": 3622
+      },
+      {
+        "name": "experience-outboard-recorder-graphite",
+        "beforeBytes": 149056,
+        "afterBytes": 145088,
+        "verticesBefore": 3656,
+        "verticesAfter": 3532
+      },
+      {
+        "name": "experience-outboard-recorder-coolant-blue-enamel",
+        "beforeBytes": 7040,
+        "afterBytes": 5056,
+        "verticesBefore": 196,
+        "verticesAfter": 134
+      },
+      {
+        "name": "projects-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "projects-projects-utility-frame",
+        "beforeBytes": 196224,
+        "afterBytes": 180096,
+        "verticesBefore": 5016,
+        "verticesAfter": 4512
+      },
+      {
+        "name": "projects-projects-utility-alloy",
+        "beforeBytes": 105168,
+        "afterBytes": 100048,
+        "verticesBefore": 2664,
+        "verticesAfter": 2504
+      },
+      {
+        "name": "projects-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "projects-projects-utility-frame",
+        "beforeBytes": 191328,
+        "afterBytes": 177504,
+        "verticesBefore": 4872,
+        "verticesAfter": 4440
+      },
+      {
+        "name": "projects-projects-utility-alloy",
+        "beforeBytes": 105168,
+        "afterBytes": 100048,
+        "verticesBefore": 2664,
+        "verticesAfter": 2504
+      },
+      {
+        "name": "experience-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "experience-experience-utility-frame",
+        "beforeBytes": 103656,
+        "afterBytes": 92904,
+        "verticesBefore": 2640,
+        "verticesAfter": 2304
+      },
+      {
+        "name": "experience-experience-utility-enamel",
+        "beforeBytes": 63024,
+        "afterBytes": 59952,
+        "verticesBefore": 1596,
+        "verticesAfter": 1500
+      },
+      {
+        "name": "experience-experience-utility-alloy",
+        "beforeBytes": 132552,
+        "afterBytes": 126408,
+        "verticesBefore": 3312,
+        "verticesAfter": 3120
+      },
+      {
+        "name": "experience-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "experience-experience-utility-frame",
+        "beforeBytes": 84072,
+        "afterBytes": 74856,
+        "verticesBefore": 2160,
+        "verticesAfter": 1872
+      },
+      {
+        "name": "experience-experience-utility-enamel",
+        "beforeBytes": 63024,
+        "afterBytes": 59952,
+        "verticesBefore": 1596,
+        "verticesAfter": 1500
+      },
+      {
+        "name": "experience-experience-utility-alloy",
+        "beforeBytes": 132552,
+        "afterBytes": 126408,
+        "verticesBefore": 3312,
+        "verticesAfter": 3120
+      },
+      {
+        "name": "about-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "about-about-utility-frame",
+        "beforeBytes": 49512,
+        "afterBytes": 39912,
+        "verticesBefore": 1320,
+        "verticesAfter": 1020
+      },
+      {
+        "name": "about-about-utility-alloy",
+        "beforeBytes": 85576,
+        "afterBytes": 83528,
+        "verticesBefore": 2144,
+        "verticesAfter": 2080
+      },
+      {
+        "name": "about-about-utility-textile-binding",
+        "beforeBytes": 70504,
+        "afterBytes": 67432,
+        "verticesBefore": 1760,
+        "verticesAfter": 1664
+      },
+      {
+        "name": "about-about-utility-rolled-linen",
+        "beforeBytes": 32448,
+        "afterBytes": 30912,
+        "verticesBefore": 798,
+        "verticesAfter": 750
+      },
+      {
+        "name": "about-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "about-about-utility-frame",
+        "beforeBytes": 48696,
+        "afterBytes": 39480,
+        "verticesBefore": 1296,
+        "verticesAfter": 1008
+      },
+      {
+        "name": "about-about-utility-alloy",
+        "beforeBytes": 85576,
+        "afterBytes": 83528,
+        "verticesBefore": 2144,
+        "verticesAfter": 2080
+      },
+      {
+        "name": "about-about-utility-textile-binding",
+        "beforeBytes": 70504,
+        "afterBytes": 67432,
+        "verticesBefore": 1760,
+        "verticesAfter": 1664
+      },
+      {
+        "name": "about-about-utility-rolled-linen",
+        "beforeBytes": 32448,
+        "afterBytes": 30912,
+        "verticesBefore": 798,
+        "verticesAfter": 750
+      },
+      {
+        "name": "contact-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "contact-contact-utility-frame",
+        "beforeBytes": 158112,
+        "afterBytes": 142752,
+        "verticesBefore": 4056,
+        "verticesAfter": 3576
+      },
+      {
+        "name": "contact-utility-captive-fasteners",
+        "beforeBytes": 2720,
+        "afterBytes": 2016,
+        "verticesBefore": 76,
+        "verticesAfter": 54
+      },
+      {
+        "name": "contact-contact-utility-frame",
+        "beforeBytes": 155664,
+        "afterBytes": 141456,
+        "verticesBefore": 3984,
+        "verticesAfter": 3540
+      },
+      {
+        "name": "walkway-ladder-web-graphite",
+        "beforeBytes": 105352,
+        "afterBytes": 102280,
+        "verticesBefore": 2624,
+        "verticesAfter": 2528
+      },
+      {
+        "name": "walkway-ladder-web-satin-alloy",
+        "beforeBytes": 21504,
+        "afterBytes": 15360,
+        "verticesBefore": 600,
+        "verticesAfter": 408
+      },
+      {
+        "name": "docking-collar-fasteners",
+        "beforeBytes": 1424,
+        "afterBytes": 1104,
+        "verticesBefore": 40,
+        "verticesAfter": 30
+      },
+      {
+        "name": "contact-ceramic-hull",
+        "beforeBytes": 283808,
+        "afterBytes": 231296,
+        "verticesBefore": 8059,
+        "verticesAfter": 6418
+      },
+      {
+        "name": "contact-graphite-enamel",
+        "beforeBytes": 297224,
+        "afterBytes": 231976,
+        "verticesBefore": 8548,
+        "verticesAfter": 6509
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 35840,
+        "afterBytes": 30208,
+        "verticesBefore": 934,
+        "verticesAfter": 758
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 50120,
+        "afterBytes": 47560,
+        "verticesBefore": 1234,
+        "verticesAfter": 1154
+      },
+      {
+        "name": "contact-signal-amber",
+        "beforeBytes": 47976,
+        "afterBytes": 44392,
+        "verticesBefore": 1191,
+        "verticesAfter": 1079
+      },
+      {
+        "name": "contact-interior-enamel",
+        "beforeBytes": 8768,
+        "afterBytes": 6208,
+        "verticesBefore": 244,
+        "verticesAfter": 164
+      },
+      {
+        "name": "cream-solar-panel-frame",
+        "beforeBytes": 25032,
+        "afterBytes": 24904,
+        "verticesBefore": 600,
+        "verticesAfter": 596
+      },
+      {
+        "name": "solar-panel-amber-corner-caps",
+        "beforeBytes": 25032,
+        "afterBytes": 24904,
+        "verticesBefore": 600,
+        "verticesAfter": 596
+      },
+      {
+        "name": "contact-graphite-enamel",
+        "beforeBytes": 177312,
+        "afterBytes": 168096,
+        "verticesBefore": 4395,
+        "verticesAfter": 4107
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 106976,
+        "afterBytes": 98784,
+        "verticesBefore": 2635,
+        "verticesAfter": 2379
+      },
+      {
+        "name": "contact-signal-amber",
+        "beforeBytes": 99808,
+        "afterBytes": 96736,
+        "verticesBefore": 2450,
+        "verticesAfter": 2354
+      },
+      {
+        "name": "contact-ceramic-hull",
+        "beforeBytes": 58752,
+        "afterBytes": 15904,
+        "verticesBefore": 1728,
+        "verticesAfter": 389
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 8768,
+        "afterBytes": 6208,
+        "verticesBefore": 244,
+        "verticesAfter": 164
+      },
+      {
+        "name": "contact-recess",
+        "beforeBytes": 8768,
+        "afterBytes": 6208,
+        "verticesBefore": 244,
+        "verticesAfter": 164
+      },
+      {
+        "name": "about-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "projects-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "contact-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "experience-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "walkway-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "contact-graphite-enamel",
+        "beforeBytes": 1887200,
+        "afterBytes": 1667040,
+        "verticesBefore": 47584,
+        "verticesAfter": 40704
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 1202368,
+        "afterBytes": 1035968,
+        "verticesBefore": 30794,
+        "verticesAfter": 25594
+      },
+      {
+        "name": "contact-ceramic-hull",
+        "beforeBytes": 4534016,
+        "afterBytes": 4204800,
+        "verticesBefore": 100540,
+        "verticesAfter": 90252
+      },
+      {
+        "name": "contact-window-reveal-graphite",
+        "beforeBytes": 2527200,
+        "afterBytes": 2067824,
+        "verticesBefore": 70200,
+        "verticesAfter": 60232
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 277440,
+        "afterBytes": 249024,
+        "verticesBefore": 8160,
+        "verticesAfter": 7272
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 14336,
+        "afterBytes": 10240,
+        "verticesBefore": 400,
+        "verticesAfter": 272
+      },
+      {
+        "name": "about-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "projects-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "contact-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "experience-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "walkway-window-perimeter-signal",
+        "beforeBytes": 106080,
+        "afterBytes": 56160,
+        "verticesBefore": 3120,
+        "verticesAfter": 1560
+      },
+      {
+        "name": "contact-graphite-enamel",
+        "beforeBytes": 1455936,
+        "afterBytes": 1292096,
+        "verticesBefore": 36636,
+        "verticesAfter": 31516
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 969280,
+        "afterBytes": 838720,
+        "verticesBefore": 24770,
+        "verticesAfter": 20690
+      },
+      {
+        "name": "contact-ceramic-hull",
+        "beforeBytes": 4534016,
+        "afterBytes": 4200064,
+        "verticesBefore": 100540,
+        "verticesAfter": 90104
+      },
+      {
+        "name": "contact-window-reveal-graphite",
+        "beforeBytes": 2527200,
+        "afterBytes": 2068400,
+        "verticesBefore": 70200,
+        "verticesAfter": 60250
+      },
+      {
+        "name": "contact-graphite-gasket",
+        "beforeBytes": 277440,
+        "afterBytes": 249024,
+        "verticesBefore": 8160,
+        "verticesAfter": 7272
+      },
+      {
+        "name": "contact-brushed-titanium",
+        "beforeBytes": 14336,
+        "afterBytes": 10240,
+        "verticesBefore": 400,
+        "verticesAfter": 272
+      }
+    ]
+  },
+  "limits": [
+    "Inventory is geometry-array storage, not measured GPU/process memory or rendered draws. Visible inventory does not perform frustum/occlusion culling.",
+    "Whole-buffer bake is an optimistic transfer lower bound: excludes object transforms/materials and loader/metadata. Existing procedural builders still run in a replacement-only architecture. Not adopted.",
+    "Offline packing CPU is a developer-build observation, not visitor startup. No quantization, attribute rounding, seam changes or triangle simplification."
+  ],
+  "generator": {
+    "sourceBytes": 8051,
+    "gzipBytes": 2680,
+    "brotliBytes": 2227,
+    "newAssetDownloadBytes": 0,
+    "note": "Source-file compression only; production bundle delta measured separately."
+  }
+}

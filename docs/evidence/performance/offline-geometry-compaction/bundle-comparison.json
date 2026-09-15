@@ -1,0 +1,605 @@
+{
+  "baseline": "437824a",
+  "recordedAt": "2026-09-15T08:20:52.778Z",
+  "method": "Same minified esbuild settings and installed dependencies, renderer runtime entry including its dynamic chunks. Baseline project sources read from Git; candidate from working tree. Actual Vinext delivery may package these modules differently.",
+  "reports": [
+    {
+      "variant": "baseline",
+      "sources": [
+        {
+          "path": "features/spacecraft/spacecraft-runtime.ts",
+          "sha256": "22f79f61ae491dc02182371a0aa44b2c06ae04fc9b855d0eaac5b82a197ce70b"
+        },
+        {
+          "path": "features/spacecraft/navigation/room-navigation-targets.ts",
+          "sha256": "270977da1e7c6e68e64f4e099fad15c9022ad44adf46ee617e5b007bb5d7d84a"
+        },
+        {
+          "path": "features/spacecraft/navigation/vessel-camera.ts",
+          "sha256": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871"
+        },
+        {
+          "path": "features/spacecraft/navigation/scene-controls.ts",
+          "sha256": "85431eb7d51b90f73ab89ff58266049c6c3ca621e6a84ebddcb92531137ddc6f"
+        },
+        {
+          "path": "features/spacecraft/navigation/room-navigation.ts",
+          "sha256": "84f1a2e089557e63433e7e1d37850a2fe69e86ff7ca2aab4a8f1b1ee2fab9796"
+        },
+        {
+          "path": "features/spacecraft/spacecraft-model.ts",
+          "sha256": "7bb2981a352f8f5575cfd85e0a175f2598ab56b006384aba44143d6844f7ff3e"
+        },
+        {
+          "path": "lib/content/social-links.ts",
+          "sha256": "5871fcceb9584b59c657e6329892ed604bffec394b0b217d0b312c6809682d2d"
+        },
+        {
+          "path": "features/spacecraft/scene-matrices.ts",
+          "sha256": "ce3752962a7111f9c0412b9eea97e48ade74c36923789246e24c2e5eb1fae5e8"
+        },
+        {
+          "path": "features/spacecraft/navigation/door-navigation.ts",
+          "sha256": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82"
+        },
+        {
+          "path": "features/orbit/orbital-environment.ts",
+          "sha256": "070556470cf21b7a46ad4f41c1c256c1a20b0502b983d427772fd9508ab61ef2"
+        },
+        {
+          "path": "features/spacecraft/overview-annotations.ts",
+          "sha256": "3b84cae776e12671d136c771a2fc4cfb4d367a8a5808bb750885f45fa860922b"
+        },
+        {
+          "path": "features/spacecraft/navigation/flight.ts",
+          "sha256": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95"
+        },
+        {
+          "path": "features/diagnostics/performance-panel.ts",
+          "sha256": "1e5bee5333338832149c3306e689e5b1465e4997fb873119dcbcc866f4666afc"
+        },
+        {
+          "path": "features/spacecraft/navigation/iris-navigation.ts",
+          "sha256": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614"
+        },
+        {
+          "path": "features/spacecraft/navigation/scene-feedback.ts",
+          "sha256": "ac1a13cf538e1c9f3e0f9a872689f9409cfb78b68f77529a1a952f0df50680ef"
+        },
+        {
+          "path": "features/diagnostics/scene-performance.ts",
+          "sha256": "984c268c8cc17edfa7f75822f4988ef27c8340a515fe2a1a3168121c08352a64"
+        },
+        {
+          "path": "features/spacecraft/navigation/cabin-itinerary.ts",
+          "sha256": "9c6e67b841df79ecc1738ec1d6fe8ccdc185a5c5f9263adb83f34dfc2ec31bf8"
+        },
+        {
+          "path": "features/diagnostics/shadow-diagnostics.ts",
+          "sha256": "462ee2659ec646fc43f7f9fb7f319ecc8046ae36ecb740817198b4115fa50834"
+        },
+        {
+          "path": "features/diagnostics/spacecraft-performance.ts",
+          "sha256": "6c3649f7fc836a5f3eca0915d259cc70af2b4764f6ace5c7caa1f5247bbf70ac"
+        },
+        {
+          "path": "features/spacecraft/geometry/spacecraft-wall-layout.ts",
+          "sha256": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772"
+        },
+        {
+          "path": "features/spacecraft/geometry/thin-chassis-outline.ts",
+          "sha256": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc"
+        },
+        {
+          "path": "lib/content/social-platforms.ts",
+          "sha256": "be26353420d67575d7bac7a3006fab56d4cb39e57cdc41688a27c55bede0bf79"
+        },
+        {
+          "path": "features/orbit/night-atmosphere.ts",
+          "sha256": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df"
+        },
+        {
+          "path": "features/orbit/earth-satellite.ts",
+          "sha256": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878"
+        },
+        {
+          "path": "features/orbit/earth-view-transform.ts",
+          "sha256": "2fa389ce0c9881a370c0ff4d5f1109df7b5f01a28018d7d31235e22bdd364347"
+        },
+        {
+          "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+          "sha256": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49"
+        },
+        {
+          "path": "features/spacecraft/geometry/model-primitives.ts",
+          "sha256": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+        },
+        {
+          "path": "features/spacecraft/equipment/docking-shoulder-equipment.ts",
+          "sha256": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf"
+        },
+        {
+          "path": "features/spacecraft/geometry/flush-window-reveals.ts",
+          "sha256": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489"
+        },
+        {
+          "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+          "sha256": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41"
+        },
+        {
+          "path": "features/spacecraft/geometry/ladder-opening-outline.ts",
+          "sha256": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d"
+        },
+        {
+          "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+          "sha256": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd"
+        },
+        {
+          "path": "features/spacecraft/equipment/exterior-service-equipment.ts",
+          "sha256": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-flight-console.ts",
+          "sha256": "df4fa829065b88202aca931eebc8ac2942f9bc3efe3a0d6b5735fc7fca9d886c"
+        },
+        {
+          "path": "features/spacecraft/geometry/continuous-exterior-skin.ts",
+          "sha256": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2"
+        },
+        {
+          "path": "features/spacecraft/rooms/cabin-composition.ts",
+          "sha256": "6f22fc26ec11d92d36013f6399f1d09925d8365533e2dd3cab2f6017e0bbecfc"
+        },
+        {
+          "path": "features/spacecraft/geometry/clip-geometry-plane.ts",
+          "sha256": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be"
+        },
+        {
+          "path": "features/spacecraft/geometry/coalesce-static-instances.ts",
+          "sha256": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5"
+        },
+        {
+          "path": "features/spacecraft/equipment/ladder-endcap-equipment.ts",
+          "sha256": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db"
+        },
+        {
+          "path": "features/spacecraft/rooms/case-study-archive.ts",
+          "sha256": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630"
+        },
+        {
+          "path": "features/spacecraft/equipment/cabin-utility-fittings.ts",
+          "sha256": "3d3d50a0ab0c26f6d084d52048a49b633dd74aafcebda599ef6b0510779526c9"
+        },
+        {
+          "path": "features/spacecraft/rooms/projects-workshop.ts",
+          "sha256": "f1852fec6f78dd7ad5d68e9aa97ad6b2043f10f0ab297439624c6a780f161043"
+        },
+        {
+          "path": "features/spacecraft/navigation/iris-hatch.ts",
+          "sha256": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd"
+        },
+        {
+          "path": "features/spacecraft/rooms/about-personal-study.ts",
+          "sha256": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c"
+        },
+        {
+          "path": "features/spacecraft/geometry/rounded-cabin-interior.ts",
+          "sha256": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70"
+        },
+        {
+          "path": "features/spacecraft/equipment/outboard-wall-equipment.ts",
+          "sha256": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1"
+        },
+        {
+          "path": "features/spacecraft/geometry/smooth-docking-ring.ts",
+          "sha256": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-flight-audio.ts",
+          "sha256": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-social-display.ts",
+          "sha256": "77e2cc85e96a5929ccf6798318b9f8f4e727b49f845828ad8ddfbffe0161fd32"
+        },
+        {
+          "path": "features/diagnostics/performance-review.ts",
+          "sha256": "b694534c836658a3d15369880b57ee4a8a1bf2004cfc294d84eedd2c433737fb"
+        },
+        {
+          "path": "features/spacecraft/rooms/projects-payload-module.ts",
+          "sha256": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796"
+        },
+        {
+          "path": "features/spacecraft/rooms/about-study-artwork.ts",
+          "sha256": "0faae6387f6a67df1fa4d7951f3eb831d885d8b373d4daca5771ed4d3b600722"
+        }
+      ],
+      "files": [
+        {
+          "name": "spacecraft-runtime.js",
+          "bytes": 100307,
+          "gzipBytes": 36687,
+          "brotliBytes": 32615,
+          "sha256": "92da093e1ac372013b4ce157231131fcfb0488aebdfd4e4ff0e6ffe8c36ffda9"
+        },
+        {
+          "name": "three.module-4V73JL5T.js",
+          "bytes": 11575,
+          "gzipBytes": 4360,
+          "brotliBytes": 3429,
+          "sha256": "1cd8933f08921d9495ab6ec5ba45dc9baa237936f0f26928fcddc9df71c78b44"
+        },
+        {
+          "name": "spacecraft-model-HNLSODGK.js",
+          "bytes": 192744,
+          "gzipBytes": 71104,
+          "brotliBytes": 61185,
+          "sha256": "5ed1b08b427f02420d1556ba4644520a9f382219cea32ab9551f3603c088a56d"
+        },
+        {
+          "name": "chunk-WUQAUOKO.js",
+          "bytes": 12712,
+          "gzipBytes": 5895,
+          "brotliBytes": 5194,
+          "sha256": "1e3af70d9ca1be3be5ef7d61ba81f06805aaa16958f8d9788b81abb0a05f4997"
+        },
+        {
+          "name": "orbital-environment-NFKPSTHS.js",
+          "bytes": 22541,
+          "gzipBytes": 8534,
+          "brotliBytes": 7639,
+          "sha256": "0720082e963ad14e1c096ea82618eb87f896beccb612c49d15207137779ce032"
+        },
+        {
+          "name": "RoomEnvironment-ULCV2K2U.js",
+          "bytes": 2059,
+          "gzipBytes": 900,
+          "brotliBytes": 786,
+          "sha256": "bf0e6837bd3a58f4e683444f51b4cf53127b37795b2f79351df62978032bc1b1"
+        },
+        {
+          "name": "CSS3DRenderer-KUEHUCAH.js",
+          "bytes": 3775,
+          "gzipBytes": 1517,
+          "brotliBytes": 1311,
+          "sha256": "d08f0bff43c341cd76f0894ce8930c0cae401171c71712aac138852edf03244c"
+        },
+        {
+          "name": "Pass-CEY3D5US.js",
+          "bytes": 104,
+          "gzipBytes": 105,
+          "brotliBytes": 97,
+          "sha256": "024a597e1d221fe7643f31ab14fa16b43c9f6f099851fb87d03aa7b501b83787"
+        },
+        {
+          "name": "GTAOPass-UZ7CBUIP.js",
+          "bytes": 30668,
+          "gzipBytes": 7799,
+          "brotliBytes": 6966,
+          "sha256": "b165f049fc170ade505793cf21b36138a4699e41b252ac1fd8673a047dbb86b1"
+        },
+        {
+          "name": "chunk-OELMWRX4.js",
+          "bytes": 692,
+          "gzipBytes": 397,
+          "brotliBytes": 330,
+          "sha256": "7152e06f3f651e77e90eac53171e5a5ac6eb41ccbe4dd71ae4a7893e324f3513"
+        },
+        {
+          "name": "chunk-CAZVRSZC.js",
+          "bytes": 724122,
+          "gzipBytes": 186166,
+          "brotliBytes": 151540,
+          "sha256": "973372e0762aee14df7f8a0669002b25f919c3448ae76b58f1cf4d1693d8d78d"
+        }
+      ],
+      "totals": {
+        "bytes": 1101299,
+        "gzipBytes": 323464,
+        "brotliBytes": 271092
+      }
+    },
+    {
+      "variant": "indexed",
+      "sources": [
+        {
+          "path": "features/spacecraft/spacecraft-runtime.ts",
+          "sha256": "97eb14b15733ae0ac213c10d78c0d66fbc6812635ba2d34c9bd13e569ee6494d"
+        },
+        {
+          "path": "lib/content/social-links.ts",
+          "sha256": "5871fcceb9584b59c657e6329892ed604bffec394b0b217d0b312c6809682d2d"
+        },
+        {
+          "path": "features/diagnostics/scene-performance.ts",
+          "sha256": "984c268c8cc17edfa7f75822f4988ef27c8340a515fe2a1a3168121c08352a64"
+        },
+        {
+          "path": "features/diagnostics/performance-panel.ts",
+          "sha256": "1e5bee5333338832149c3306e689e5b1465e4997fb873119dcbcc866f4666afc"
+        },
+        {
+          "path": "features/spacecraft/navigation/vessel-camera.ts",
+          "sha256": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871"
+        },
+        {
+          "path": "features/spacecraft/navigation/iris-navigation.ts",
+          "sha256": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614"
+        },
+        {
+          "path": "features/spacecraft/navigation/door-navigation.ts",
+          "sha256": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82"
+        },
+        {
+          "path": "features/spacecraft/navigation/scene-feedback.ts",
+          "sha256": "ac1a13cf538e1c9f3e0f9a872689f9409cfb78b68f77529a1a952f0df50680ef"
+        },
+        {
+          "path": "features/spacecraft/navigation/room-navigation.ts",
+          "sha256": "84f1a2e089557e63433e7e1d37850a2fe69e86ff7ca2aab4a8f1b1ee2fab9796"
+        },
+        {
+          "path": "features/spacecraft/navigation/room-navigation-targets.ts",
+          "sha256": "270977da1e7c6e68e64f4e099fad15c9022ad44adf46ee617e5b007bb5d7d84a"
+        },
+        {
+          "path": "features/spacecraft/overview-annotations.ts",
+          "sha256": "3b84cae776e12671d136c771a2fc4cfb4d367a8a5808bb750885f45fa860922b"
+        },
+        {
+          "path": "features/spacecraft/scene-matrices.ts",
+          "sha256": "ce3752962a7111f9c0412b9eea97e48ade74c36923789246e24c2e5eb1fae5e8"
+        },
+        {
+          "path": "features/spacecraft/navigation/flight.ts",
+          "sha256": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95"
+        },
+        {
+          "path": "features/diagnostics/spacecraft-performance.ts",
+          "sha256": "6c3649f7fc836a5f3eca0915d259cc70af2b4764f6ace5c7caa1f5247bbf70ac"
+        },
+        {
+          "path": "features/orbit/orbital-environment.ts",
+          "sha256": "070556470cf21b7a46ad4f41c1c256c1a20b0502b983d427772fd9508ab61ef2"
+        },
+        {
+          "path": "features/diagnostics/shadow-diagnostics.ts",
+          "sha256": "462ee2659ec646fc43f7f9fb7f319ecc8046ae36ecb740817198b4115fa50834"
+        },
+        {
+          "path": "features/spacecraft/navigation/cabin-itinerary.ts",
+          "sha256": "9c6e67b841df79ecc1738ec1d6fe8ccdc185a5c5f9263adb83f34dfc2ec31bf8"
+        },
+        {
+          "path": "features/spacecraft/navigation/scene-controls.ts",
+          "sha256": "85431eb7d51b90f73ab89ff58266049c6c3ca621e6a84ebddcb92531137ddc6f"
+        },
+        {
+          "path": "features/spacecraft/spacecraft-model.ts",
+          "sha256": "5d15e91bf80f760e484b7f95f9b7da7cc97c1123013157aaf43037f9aeb5a166"
+        },
+        {
+          "path": "lib/content/social-platforms.ts",
+          "sha256": "be26353420d67575d7bac7a3006fab56d4cb39e57cdc41688a27c55bede0bf79"
+        },
+        {
+          "path": "features/spacecraft/geometry/thin-chassis-outline.ts",
+          "sha256": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc"
+        },
+        {
+          "path": "features/spacecraft/geometry/spacecraft-wall-layout.ts",
+          "sha256": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772"
+        },
+        {
+          "path": "features/orbit/night-atmosphere.ts",
+          "sha256": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df"
+        },
+        {
+          "path": "features/orbit/earth-view-transform.ts",
+          "sha256": "2fa389ce0c9881a370c0ff4d5f1109df7b5f01a28018d7d31235e22bdd364347"
+        },
+        {
+          "path": "features/orbit/earth-satellite.ts",
+          "sha256": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878"
+        },
+        {
+          "path": "features/diagnostics/performance-review.ts",
+          "sha256": "b694534c836658a3d15369880b57ee4a8a1bf2004cfc294d84eedd2c433737fb"
+        },
+        {
+          "path": "features/spacecraft/geometry/ladder-opening-outline.ts",
+          "sha256": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d"
+        },
+        {
+          "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+          "sha256": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41"
+        },
+        {
+          "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+          "sha256": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49"
+        },
+        {
+          "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+          "sha256": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd"
+        },
+        {
+          "path": "features/spacecraft/equipment/exterior-service-equipment.ts",
+          "sha256": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4"
+        },
+        {
+          "path": "features/spacecraft/geometry/indexed-cylinder.generated.js",
+          "sha256": "83c5a8d610e3888ec3666ed1ec66a0046fd6e624aae2ee120828e940f8abb6b9"
+        },
+        {
+          "path": "features/spacecraft/geometry/model-primitives.ts",
+          "sha256": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+        },
+        {
+          "path": "features/spacecraft/rooms/projects-workshop.ts",
+          "sha256": "f1852fec6f78dd7ad5d68e9aa97ad6b2043f10f0ab297439624c6a780f161043"
+        },
+        {
+          "path": "features/spacecraft/rooms/cabin-composition.ts",
+          "sha256": "6f22fc26ec11d92d36013f6399f1d09925d8365533e2dd3cab2f6017e0bbecfc"
+        },
+        {
+          "path": "features/spacecraft/geometry/flush-window-reveals.ts",
+          "sha256": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489"
+        },
+        {
+          "path": "features/spacecraft/geometry/rounded-cabin-interior.ts",
+          "sha256": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70"
+        },
+        {
+          "path": "features/spacecraft/equipment/cabin-utility-fittings.ts",
+          "sha256": "3d3d50a0ab0c26f6d084d52048a49b633dd74aafcebda599ef6b0510779526c9"
+        },
+        {
+          "path": "features/spacecraft/geometry/continuous-exterior-skin.ts",
+          "sha256": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2"
+        },
+        {
+          "path": "features/spacecraft/equipment/outboard-wall-equipment.ts",
+          "sha256": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1"
+        },
+        {
+          "path": "features/spacecraft/equipment/docking-shoulder-equipment.ts",
+          "sha256": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf"
+        },
+        {
+          "path": "features/spacecraft/equipment/ladder-endcap-equipment.ts",
+          "sha256": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db"
+        },
+        {
+          "path": "features/spacecraft/navigation/iris-hatch.ts",
+          "sha256": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd"
+        },
+        {
+          "path": "features/spacecraft/rooms/case-study-archive.ts",
+          "sha256": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630"
+        },
+        {
+          "path": "features/spacecraft/rooms/about-personal-study.ts",
+          "sha256": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c"
+        },
+        {
+          "path": "features/spacecraft/geometry/coalesce-static-instances.ts",
+          "sha256": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5"
+        },
+        {
+          "path": "features/spacecraft/geometry/clip-geometry-plane.ts",
+          "sha256": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-flight-console.ts",
+          "sha256": "df4fa829065b88202aca931eebc8ac2942f9bc3efe3a0d6b5735fc7fca9d886c"
+        },
+        {
+          "path": "features/spacecraft/geometry/smooth-docking-ring.ts",
+          "sha256": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2"
+        },
+        {
+          "path": "features/spacecraft/rooms/projects-payload-module.ts",
+          "sha256": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-flight-audio.ts",
+          "sha256": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5"
+        },
+        {
+          "path": "features/spacecraft/rooms/contact-social-display.ts",
+          "sha256": "77e2cc85e96a5929ccf6798318b9f8f4e727b49f845828ad8ddfbffe0161fd32"
+        },
+        {
+          "path": "features/spacecraft/rooms/about-study-artwork.ts",
+          "sha256": "0faae6387f6a67df1fa4d7951f3eb831d885d8b373d4daca5771ed4d3b600722"
+        }
+      ],
+      "files": [
+        {
+          "name": "spacecraft-runtime.js",
+          "bytes": 101161,
+          "gzipBytes": 36918,
+          "brotliBytes": 32749,
+          "sha256": "36e438a7fbf87e54afd98827f85213173cc890154fd5d2f8dbfb3b8bdcc87fa6"
+        },
+        {
+          "name": "three.module-4V73JL5T.js",
+          "bytes": 11575,
+          "gzipBytes": 4360,
+          "brotliBytes": 3429,
+          "sha256": "1cd8933f08921d9495ab6ec5ba45dc9baa237936f0f26928fcddc9df71c78b44"
+        },
+        {
+          "name": "spacecraft-model-6C5APPK3.js",
+          "bytes": 196180,
+          "gzipBytes": 72961,
+          "brotliBytes": 62700,
+          "sha256": "e9fe93395fdae770438343bd8e912de181f8e31cedcb90195536094bbe9b0f0d"
+        },
+        {
+          "name": "chunk-WUQAUOKO.js",
+          "bytes": 12712,
+          "gzipBytes": 5895,
+          "brotliBytes": 5194,
+          "sha256": "1e3af70d9ca1be3be5ef7d61ba81f06805aaa16958f8d9788b81abb0a05f4997"
+        },
+        {
+          "name": "orbital-environment-NFKPSTHS.js",
+          "bytes": 22541,
+          "gzipBytes": 8534,
+          "brotliBytes": 7639,
+          "sha256": "0720082e963ad14e1c096ea82618eb87f896beccb612c49d15207137779ce032"
+        },
+        {
+          "name": "RoomEnvironment-ULCV2K2U.js",
+          "bytes": 2059,
+          "gzipBytes": 900,
+          "brotliBytes": 786,
+          "sha256": "bf0e6837bd3a58f4e683444f51b4cf53127b37795b2f79351df62978032bc1b1"
+        },
+        {
+          "name": "CSS3DRenderer-KUEHUCAH.js",
+          "bytes": 3775,
+          "gzipBytes": 1517,
+          "brotliBytes": 1311,
+          "sha256": "d08f0bff43c341cd76f0894ce8930c0cae401171c71712aac138852edf03244c"
+        },
+        {
+          "name": "Pass-CEY3D5US.js",
+          "bytes": 104,
+          "gzipBytes": 105,
+          "brotliBytes": 97,
+          "sha256": "024a597e1d221fe7643f31ab14fa16b43c9f6f099851fb87d03aa7b501b83787"
+        },
+        {
+          "name": "GTAOPass-UZ7CBUIP.js",
+          "bytes": 30668,
+          "gzipBytes": 7799,
+          "brotliBytes": 6966,
+          "sha256": "b165f049fc170ade505793cf21b36138a4699e41b252ac1fd8673a047dbb86b1"
+        },
+        {
+          "name": "chunk-OELMWRX4.js",
+          "bytes": 692,
+          "gzipBytes": 397,
+          "brotliBytes": 330,
+          "sha256": "7152e06f3f651e77e90eac53171e5a5ac6eb41ccbe4dd71ae4a7893e324f3513"
+        },
+        {
+          "name": "chunk-CAZVRSZC.js",
+          "bytes": 724122,
+          "gzipBytes": 186166,
+          "brotliBytes": 151540,
+          "sha256": "973372e0762aee14df7f8a0669002b25f919c3448ae76b58f1cf4d1693d8d78d"
+        }
+      ],
+      "totals": {
+        "bytes": 1105589,
+        "gzipBytes": 325552,
+        "brotliBytes": 272741
+      }
+    }
+  ]
+}

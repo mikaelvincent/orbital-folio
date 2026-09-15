@@ -129,7 +129,8 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 - The owner uses a passively cooled **MacBook Air M4**. Account for thermal drift,
   but do not infer throttling from timing alone or hardcode M4-only quality rules.
   Safari is an important target; report the engine actually tested.
-- **All ledger candidates currently remain held until explicitly authorized.**
+- **Ledger candidates require explicit authorization before implementation.**
+  The ledger records completed investigations and which proposals remain held.
   Design work does not authorize them. When optimization is requested, prioritize
   measured expensive passes/assemblies. Appearance/feel changes need a concrete
   proposal with benefit, tradeoffs, resulting experience and recommendation first.

@@ -14,9 +14,18 @@ export type SceneAuditController = {
     before?: string;
     after?: string;
   };
+  /** Untimed same-state geometry comparison; callback returns exact restoration. */
+  compareGeometry: (change: () => () => void, includeImages?: boolean) => {
+    changedPixels: number;
+    maxChannelDifference: number;
+    before?: string;
+    after?: string;
+  };
 };
 
 export type SceneAudit = {
   manual: true;
   ready: (controller: SceneAuditController) => void;
+  geometryCompaction?: boolean;
+  modelReady?: (model: any, options: any, three: any, constructionMs: number) => void;
 };

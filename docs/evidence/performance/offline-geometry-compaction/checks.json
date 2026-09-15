@@ -1,0 +1,48 @@
+{
+  "baseline": "437824a",
+  "fullSuite": {
+    "passed": 282,
+    "failed": 0,
+    "durationMs": 178363.2385
+  },
+  "typecheck": "passed",
+  "affectedLint": "passed",
+  "build": "passed",
+  "geometryCheck": "passed",
+  "licenseCopiedIntoBuild": true,
+  "browserInputsMatchFrozenManifest": true,
+  "normalAppSmoke": {
+    "url": "http://localhost:3000/about",
+    "engine": "hidden built-in Chromium",
+    "roomReached": true,
+    "diagnosticsOpenedAndClosed": true,
+    "consoleErrors": []
+  },
+  "scope": "No native Safari test; no claimed heat, energy, physical-memory or startup/render speed benefit.",
+  "critic": {
+    "score": 94,
+    "blockers": [],
+    "rubric": {
+      "requestAndScope": [
+        25,
+        25
+      ],
+      "exactnessAndVisuals": [
+        25,
+        25
+      ],
+      "correctnessAndMaintainability": [
+        18,
+        20
+      ],
+      "performanceEvidence": [
+        17,
+        20
+      ],
+      "documentation": [
+        9,
+        10
+      ]
+    }
+  }
+}

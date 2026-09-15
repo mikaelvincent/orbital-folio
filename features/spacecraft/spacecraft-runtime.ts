@@ -238,7 +238,7 @@ export function mountSpacecraftScene({
         } catch {
           // The editable owner name also works before a domain is configured.
         }
-        const model = createSpacecraft(THREE, {
+        const modelOptions = {
           vesselName,
           socials: resolveSocialScreens(latest.current.links),
           accent: s.accent,
@@ -246,7 +246,8 @@ export function mountSpacecraftScene({
           screenLabels: false,
           // Viewport changes frame the same vessel; they must not squeeze
           // cabin walls or rescale their contents before portrait rotation.
-          layout: 'wide',
+          layout: 'wide' as const,
+          geometryCompaction: audit?.geometryCompaction,
           sampleLabel: s.sampleLabel,
           projects: latest.current.projects.map((p) => ({
             title: String(p.title),
@@ -265,7 +266,10 @@ export function mountSpacecraftScene({
             about: s.aboutLabel,
             contact: s.contactLabel,
           },
-        });
+        };
+        const modelStart = audit ? performance.now() : 0;
+        const model = createSpacecraft(THREE, modelOptions);
+        audit?.modelReady?.(model, modelOptions, THREE, performance.now() - modelStart);
         scene.add(model.group);
         cameraFrame.projectionModel.userData = model.group.userData;
         // This loop synchronizes the scene after animation/reader transforms.
@@ -2531,6 +2535,40 @@ export function mountSpacecraftScene({
                 },
               },
             }),
+            compareGeometry(change, includeImages = false) {
+              // Only the explicit lab calls this. Reuse the same camera, lights,
+              // materials and GTAO noise, and regenerate shading on both sides.
+              const width = renderer.domElement.width, height = renderer.domElement.height;
+              const render = () => {
+                if (!mobile() && contactShading) refreshOcclusion(0, false);
+                renderer.shadowMap.needsUpdate = true;
+                renderer.setRenderTarget(null);
+                renderer.clear();
+                renderer.render(background.scene, background.camera);
+                renderer.clearDepth();
+                renderer.render(scene, camera);
+                if (!mobile() && contactShading) aoQuad.render(renderer);
+                const pixels = new Uint8Array(width * height * 4);
+                gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+                return { pixels, image: includeImages ? renderer.domElement.toDataURL('image/png') : undefined };
+              };
+              const before = render();
+              const restore = change();
+              let after: ReturnType<typeof render>;
+              try { after = render(); }
+              finally { restore(); render(); invalidateAo('audit-geometry-restore'); }
+              let changedPixels = 0, maxChannelDifference = 0;
+              for (let i = 0; i < before.pixels.length; i += 4) {
+                let changed = false;
+                for (let c = 0; c < 4; c++) {
+                  const difference = Math.abs(before.pixels[i + c] - after.pixels[i + c]);
+                  changed ||= difference !== 0;
+                  maxChannelDifference = Math.max(maxChannelDifference, difference);
+                }
+                if (changed) changedPixels++;
+              }
+              return { changedPixels, maxChannelDifference, before: before.image, after: after.image };
+            },
             verifyFrame(includeImages = false) {
               const width = renderer.domElement.width,
                 height = renderer.domElement.height;

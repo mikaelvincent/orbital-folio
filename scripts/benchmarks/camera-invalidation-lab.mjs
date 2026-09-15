@@ -24,19 +24,21 @@ const port = Number(argument('--port', '3019'));
 if (!Number.isInteger(port) || port < 1024 || port > 65535)
   throw new Error('Choose an unprivileged local port.');
 const sampler = argument('--thermal-sampler', null);
+const experiment = argument('--experiment', 'camera');
+if (!['camera', 'geometry'].includes(experiment)) throw new Error('Unknown experiment.');
 if (sampler && !sampler.startsWith('/'))
   throw new Error('The optional compiled sampler requires an absolute path.');
 if (sampler) await fs.access(sampler, 1);
 const execute = promisify(execFile);
 const snapshot = await fs.mkdtemp(join(tmpdir(), 'orbital-camera-lab-'));
 const bundle = join(snapshot, 'bundle');
-const evidence = join(root, 'docs/evidence/performance/camera-invalidation');
+const evidence = join(root, 'docs/evidence/performance', experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
 const hash = (data) => createHash('sha256').update(data).digest('hex');
 const result = await build({
   absWorkingDir: root,
-  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx'],
+  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx'],
   outdir: bundle,
-  entryNames: 'camera-invalidation-lab',
+  entryNames: '[name]',
   chunkNames: 'chunks/[name]-[hash]',
   bundle: true,
   splitting: true,
@@ -78,6 +80,7 @@ async function inventory(directory, prefix = '') {
 }
 const manifest = {
   schemaVersion: 1,
+  experiment,
   snapshotId: randomUUID(),
   builtAt: new Date().toISOString(),
   node: process.version,
@@ -94,7 +97,7 @@ const manifest = {
   } : { enabled: false, availability: 'unknown' },
 };
 await fs.writeFile(join(snapshot, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
-const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Delivered camera measurement lab</title><link rel="stylesheet" href="/lab/portfolio.css"><link rel="stylesheet" href="/lab/camera-invalidation-lab.css"></head><body><div id="portfolio-root"></div><div id="camera-lab-controls"></div><script type="module" src="/lab/camera-invalidation-lab.js"></script></body></html>`;
+const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft ${experiment} measurement lab</title><link rel="stylesheet" href="/lab/portfolio.css"><link rel="stylesheet" href="/lab/camera-invalidation-lab.css"></head><body data-experiment="${experiment}"><div id="portfolio-root"></div><div id="camera-lab-controls"></div><script type="module" src="/lab/camera-invalidation-lab.js"></script></body></html>`;
 const status = { builtAt: manifest.builtAt, snapshotId: manifest.snapshotId, phase: 'ready', progress: null, saved: [] };
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.gz': 'application/gzip', '.woff2': 'font/woff2' };
 function json(response, code, value) {
@@ -164,7 +167,7 @@ const server = createServer(async (request, response) => {
       await fs.writeFile(join(evidence, filename), JSON.stringify(report, null, 2) + '\n', { flag: 'wx' });
       status.saved.push({ runId: value.runId, filename, status: report.status, at: new Date().toISOString() });
       status.phase = report.status ?? 'saved';
-      json(response, 201, { filename, path: `docs/evidence/performance/camera-invalidation/${filename}` }); return;
+      json(response, 201, { filename, path: `${evidence.slice(root.length + 1)}/${filename}` }); return;
     }
     if (!['GET', 'HEAD'].includes(request.method)) { json(response, 405, { error: 'Method not supported.' }); return; }
     if (pathname === '/status') { json(response, 200, status); return; }
@@ -173,9 +176,9 @@ const server = createServer(async (request, response) => {
       json(response, 200, await nativeContext()); return;
     }
     if (pathname === '/manifest') { json(response, 200, manifest); return; }
-    if (['/', '/projects', '/about', '/contact', '/case-studies', '/experience'].includes(pathname)) {
+    if (['/', '/projects', '/about', '/contact', '/case-studies', '/experience', '/startup'].includes(pathname)) {
       response.writeHead(200, { 'Content-Type': mime['.html'], 'Cache-Control': 'no-store' });
-      response.end(request.method === 'HEAD' ? undefined : html); return;
+      response.end(request.method === 'HEAD' ? undefined : pathname === '/startup' ? html.replace('src="/lab/camera-invalidation-lab.js"','src="/lab/geometry-startup-lab.js"') : html); return;
     }
     const base = pathname.startsWith('/lab/') ? bundle : join(snapshot, 'public');
     const file = resolve(base, '.' + (pathname.startsWith('/lab/') ? pathname.slice(4) : pathname));

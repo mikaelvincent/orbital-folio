@@ -8,6 +8,10 @@ import type { SceneAudit, SceneAuditController } from '../../features/diagnostic
 import { seeds } from '../../lib/content/seed';
 import { toPortfolio, type Content, type Kind } from '../../lib/content/types';
 import './camera-invalidation-lab.css';
+import { createGeometryCompactionSession } from './geometry-compaction-session';
+
+const geometryExperiment = document.body.dataset.experiment === 'geometry';
+const geometrySession = createGeometryCompactionSession();
 
 type Policy = 'legacy' | 'geometry';
 type Mode = 'survey' | 'paired' | 'verify';
@@ -80,6 +84,11 @@ panel.innerHTML = `<section class="camera-lab-panel" data-running="false">
   <details><summary>Result and limitations</summary><textarea id="camera-lab-result" readonly aria-label="Last lab summary"></textarea></details>
 </section>`;
 const shell = panel.querySelector<HTMLElement>('.camera-lab-panel')!;
+if (geometryExperiment) {
+  shell.querySelector('h2')!.textContent = 'Lossless geometry · comparison lab';
+  shell.querySelector('#camera-lab-policy')!.innerHTML = '<option value="legacy">Original cylinders</option><option value="geometry">Direct indexed cylinders</option>';
+  shell.querySelector('#camera-lab-workload')!.innerHTML = '<option value="both">Idle + camera motion</option><option value="idle-home">Idle overview</option><option value="pointer-hover-sweep">Projects camera motion</option>';
+}
 const statusElement = document.getElementById('camera-lab-status')!;
 const output = document.getElementById('camera-lab-result') as HTMLTextAreaElement;
 const button = (action: string) => panel.querySelector<HTMLButtonElement>(`[data-action="${action}"]`)!;
@@ -105,6 +114,8 @@ const data = toPortfolio(seeds.map((item) => ({
 const initialSection = ({ '/about': 'about', '/projects': 'projects', '/case-studies': 'experience', '/experience': 'experience', '/contact': 'contact' } as Record<string, string>)[location.pathname] ?? 'home';
 const audit: SceneAudit = {
   manual: true,
+  geometryCompaction: geometryExperiment ? false : undefined,
+  modelReady: geometryExperiment ? (...args) => geometrySession.modelReady(...args) : undefined,
   ready(value) {
     controller = value;
     controller.freezeBackground(0);
@@ -260,7 +271,8 @@ function scenarios(): Scenario[] {
 function stateCheckpoint() { return controller.state(); }
 async function runScenario(scenario: Scenario, policy: Policy, verify = false): Promise<Row> {
   await prepare(scenario.room);
-  controller.setPolicy(policy);
+  if (geometryExperiment) geometrySession.set(policy === 'geometry');
+  controller.setPolicy(geometryExperiment ? 'geometry' : policy);
   await steps(30);
   await scenario.prepare?.();
   controller.reset();
@@ -286,7 +298,9 @@ async function runScenario(scenario: Scenario, policy: Policy, verify = false): 
           const includeImages = scenario.name === 'door-focus-open-close'
             ? index === 14
             : index === 29 && ['idle-home', 'contact-object-focus', 'ladder-travel', 'overview-entry', 'return-overview'].includes(scenario.name);
-          const comparison = controller.verifyFrame(includeImages);
+          const comparison = geometryExperiment
+            ? controller.compareGeometry(() => geometrySession.swap(), includeImages)
+            : controller.verifyFrame(includeImages);
           running!.verifications.push({ scenario: scenario.name, policy, frame: index, state, ...comparison });
         }
       }
@@ -354,7 +368,7 @@ async function paired() {
     ['legacy', 'geometry', 'geometry', 'legacy'],
     ['geometry', 'legacy', 'legacy', 'geometry'],
   ] as Policy[][]).slice(0, blockCount);
-  const selected = scenarios().filter((scenario) => ['contact-object-focus', 'overview-room-focus'].includes(scenario.name) && (workload === 'both' || workload === scenario.name));
+  const selected = scenarios().filter((scenario) => (geometryExperiment ? ['idle-home', 'pointer-hover-sweep'] : ['contact-object-focus', 'overview-room-focus']).includes(scenario.name) && (workload === 'both' || workload === scenario.name));
   for (const scenario of selected) {
     for (const [blockIndex, order] of orders.entries()) {
       const before = await context(`${scenario.name}-block-${blockIndex}-before`);
@@ -437,14 +451,14 @@ async function start(mode: Mode) {
     mode,
     status: 'running',
     startedAt: now(),
-    settings: { viewport: [innerWidth, innerHeight], devicePixelRatio, userAgent: navigator.userAgent, hardwareConcurrency: navigator.hardwareConcurrency, simulationStep: 1 / 60, backgroundTime: 0, policy, gpuScope: mode === 'paired' ? 'frame' : 'passes', framesPerSample: frameCount(), pairedWorkload: controlValue('camera-lab-workload'), requestedPairedBlocks: Number(controlValue('camera-lab-blocks')), verifyScope: controlValue('camera-lab-verify-scope'), controlSpreadLimit: .05, directionalDriftLimit: .025, initialRecoveryMs: 60000, blockRecoveryMs: 20000, fixture: 'published seed content', initialSection },
+    settings: { experiment: geometryExperiment ? 'geometry' : 'camera', actualAoPolicy: geometryExperiment ? 'geometry' : policy, variantLabels: geometryExperiment ? { legacy: 'baseline cylinders', geometry: 'direct indexed cylinders' } : undefined, viewport: [innerWidth, innerHeight], devicePixelRatio, userAgent: navigator.userAgent, hardwareConcurrency: navigator.hardwareConcurrency, simulationStep: 1 / 60, backgroundTime: 0, policy, gpuScope: mode === 'paired' ? 'frame' : 'passes', framesPerSample: frameCount(), pairedWorkload: controlValue('camera-lab-workload'), requestedPairedBlocks: Number(controlValue('camera-lab-blocks')), verifyScope: controlValue('camera-lab-verify-scope'), controlSpreadLimit: .05, directionalDriftLimit: .025, initialRecoveryMs: 60000, blockRecoveryMs: 20000, fixture: 'published seed content', initialSection },
     notes: (document.getElementById('camera-lab-notes') as HTMLInputElement).value || 'No additional operator context supplied; inspect native observations and treat other workload as unknown.',
     contexts: [], rows: [], blocks: [], controls: [], verifications: [], errors: [],
     limitations: [
       'Same delivered scene/UI modules with published fixture content, compiled as production React; this is not a deployed Vinext browser session.',
       'Fixed 1/60 simulation delta on RAF preserves the requested input workload. Frame intervals measure host rendering cadence, not elapsed-time driven interaction duration.',
       'Synthetic focus/pointer events exercise actual mounted handlers; they do not verify native touch capture, Safari gestures or operating-system input delivery.',
-      'Verification compares the cached AO rendering against freshly recomputed AO in the same instance at the exact same state; pixel reads occur outside timed comparisons.',
+      geometryExperiment ? 'Verification swaps original/indexed geometry at the same frozen state in one scene/GTAO instance, refreshing AO and shadows for both. Pixel reads occur outside timing.' : 'Verification compares cached versus freshly recomputed AO in one instance; pixel reads occur outside timing.',
       'Verify-motion runs perform synchronous readbacks between steps; their timing fields are audit context only and must not be used for performance rankings.',
       'CPU, GPU and frame pacing are distinct; do not add CPU and GPU time. Missing or disjoint GPU timing is unavailable, not zero.',
       'Survey pass queries locate likely work; paired trials use one whole-frame GPU scope so query boundaries do not assign tiled framebuffer resolve work to the last sampled pass.',
@@ -459,6 +473,11 @@ async function start(mode: Mode) {
   button('stop').disabled = false;
   output.value = '';
   try {
+    if (geometryExperiment) {
+      geometrySession.initialize();
+      report.settings.geometry = geometrySession.snapshot();
+      controller.setPolicy('geometry');
+    }
     clearInput();
     controller.setGpuScope(mode === 'paired' ? 'frame' : 'passes');
     controller.reset();

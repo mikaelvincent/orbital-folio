@@ -23,6 +23,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Concern | Starting points |
 | --- | --- |
 | Scene assembly, room metadata and animation | `features/spacecraft/spacecraft-model.ts` |
+| Offline cylinder specialization and source check | `scripts/generate-indexed-cylinder.mjs`, `features/spacecraft/geometry/indexed-cylinder.generated.js`; exact triangle inputs with shared cap centers, checked before builds |
 | Shared model materials, geometry cache and builders | `features/spacecraft/geometry/model-primitives.ts` |
 | React host and renderer lifecycle | `features/spacecraft/spacecraft.tsx` delegates to `features/spacecraft/spacecraft-runtime.ts` for input, camera, lights, render loop, shadow/AO caching and cleanup |
 | Camera, routes, queue and iris sequencing | `features/spacecraft/navigation/vessel-camera.ts`, `features/spacecraft/navigation/scene-controls.ts`, `features/spacecraft/navigation/flight.ts`, `features/spacecraft/navigation/door-navigation.ts`, `features/spacecraft/navigation/iris-navigation.ts`, `features/portfolio/immersive-portfolio.tsx` |
@@ -202,8 +203,10 @@ can reuse GTAO. Camera/door/reader motion, projection and explicit invalidation
 remain covered. Shadow diagnostics count actual generation, and the full-scene
 lab supports balanced comparisons with mutually exclusive frame/pass GPU timers.
 Entry 19 records the narrow measured benefit, exclusions and image checks.
-Offline exact geometry compaction, bounded baked-shadow experiments, baked contact
-shading and later diffuse-light experiments remain held. The ledger owns order
+Candidate 2 was subsequently authorized: entry 20 records offline-specialized
+indexed cylinder generation and its exactness/storage/timing evidence. No runtime
+vertex-welding pass or downloaded baked model is introduced. Bounded baked-shadow
+experiments, baked contact shading and later diffuse-light experiments remain held. The ledger owns order
 and status. Key-light shadows, settled GTAO and the reflection environment already
 have reuse paths. "Precompute everything"
 is a hypothesis to investigate in parts, not permission to replace the renderer.

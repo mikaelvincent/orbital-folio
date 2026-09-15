@@ -141,6 +141,54 @@ comparisons, retained source snapshots and limitations. Its measured Contact
 benefit is specific to material-only feedback; ordinary camera motion still
 requires AO and no idle speedup is claimed. Other ledger candidates remain held.
 
+## Offline geometry comparison
+
+Ledger entry 20 uses direct indexed cylinder generation; normal visitors do not
+run a compaction pass. The generated module lives in
+`features/spacecraft/geometry/indexed-cylinder.generated.js`. After changing the
+installed Three source, run `npm run geometry:generate`, then the exactness tests
+and visual comparisons. `npm run geometry:check` runs automatically before builds;
+the generator also preserves the shipped Three license notice.
+
+Repeat the source-hashed inventory and delivery projection:
+
+```sh
+node scripts/benchmarks/geometry-compaction-inventory.mjs
+node scripts/benchmarks/geometry-bundle-comparison.mjs
+```
+
+The first script also probes a broader offline array bake and writes its temporary
+binary under `/tmp`. It does not activate that bake. The bundle comparison is a
+matched standalone renderer build, not the deployed app's network waterfall.
+
+Use the same frozen scene lab with the geometry experiment selected:
+
+```sh
+node scripts/benchmarks/camera-invalidation-lab.mjs --experiment geometry \
+  --port 3020 --thermal-sampler /tmp/orbital-camera-thermal-snapshot
+```
+
+Omit the sampler on platforms without one; missing telemetry is reported, not
+inferred. At the lab URL, **Verify motion** swaps original/indexed geometry in one
+scene at identical checkpoints, refreshing AO and shadows on both sides. **Start
+survey** records pass attribution. **Start paired runs** uses whole-frame GPU
+queries and balanced original/indexed orders for idle overview and Projects camera
+motion. Both variants use the current geometry-based AO invalidation rule.
+
+Navigate the same tab to `/startup` for fresh iframe/model/WebGL-context samples.
+It measures construction, first submitted frame and first 8K-ready frame separately,
+releasing each scene before the next sample. Close other rendering tabs first.
+Fresh mounts still share driver caches and do not measure physical presentation
+latency. The paired scene retains extra CPU arrays for switching and releases
+inactive GPU buffers; never report its total memory as normal visitor memory.
+
+Both paths retain source/asset/bundle hashes and raw outcomes under
+`docs/evidence/performance/offline-geometry-compaction/`. Read the
+[method and results](evidence/performance/offline-geometry-compaction/README.md)
+before comparing timings. Resizing, hidden pages, context loss, mismatched quality,
+changed power conditions or unstable controls invalidate affected comparisons.
+Do not turn missing GPU values or inconclusive timing into a speedup claim.
+
 ## Rested CPU candidate comparisons
 
 Use `scripts/benchmark-controlled-performance.mjs` for repeatable **CPU-only** comparisons of four unactivated candidates: local-transform caching, room-material lighting updates (settled and changing), iris inverse caching (settled and moving), and exact vertex indexing. `--cases=all` runs these six scenarios. Steady cases reuse fixtures; indexing measures fresh model construction and reports compaction separately. This does not measure browser textures, GPU uploads, rendering, FPS, energy, or device temperature, and it never enables a candidate in the application.
