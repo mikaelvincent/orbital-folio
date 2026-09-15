@@ -1,0 +1,16 @@
+{
+  "algorithm": "sha256",
+  "baseline": "2d52c7e",
+  "inventorySourcesVerified": 32,
+  "files": {
+    "components/docking-shoulder-equipment.ts": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf",
+    "components/exterior-service-equipment.ts": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+    "components/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+    "scripts/benchmarks/ladder-transfer-clearance-audit.mjs": "deleted",
+    "scripts/benchmarks/spacecraft-polish-preview.mjs": "5367f52eefce21cd28b891c705acedd6d30550b5c3c7b8f342e3f48ddd5a0dd6",
+    "tests/docking-shoulder-equipment.test.mjs": "db2518d4fbd0118949702ed29d502ddf645c3a8761a151c834d68a84032cd1d8",
+    "tests/exterior-service-equipment.test.mjs": "141fb6440c18210e92a6d12567a299e2ee647d74a8b8bfdb0190f60dbd79acfa",
+    "tests/ladder-endcap-equipment.test.mjs": "bd3376bbfacb0bd5cfc2c789a54d5bbe89186ff2881f1e6f7abce9ef96acd3e0",
+    "tests/solid-ladder-service.test.mjs": "a896b7d8a652776651995be9e962f3791abed11184c2e526361cc64d32de3259"
+  }
+}

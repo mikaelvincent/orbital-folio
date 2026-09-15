@@ -1,0 +1,14 @@
+✔ Both maintenance spanners have recognizable open jaws, substantial grasps and open retention clips (1647.009583ms)
+✔ Spanners and open clips follow the curved wall and retain hatch, ladder and end-equipment clearance (2852.685ms)
+✔ Only bonded feet and post ends intersect the liner; tool bodies and open clips stand clear (69.859ms)
+✔ The complete stowed tools and clips are true reflected copies with substantial forged head depth (170.196958ms)
+✔ Open jaw throats remain empty while both thick forged cheeks are visible from the room (986.567583ms)
+✔ Stowed tools remain passive, nonemissive and follow the walkway dimmer (863.303291ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6775.803

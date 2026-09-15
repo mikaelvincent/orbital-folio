@@ -766,6 +766,41 @@ not be treated as measurements of this revision. Preserve the existing priority
 order and use matching camera, route, light and background states for any future
 comparison. No new optimization recommendation follows from this design task.
 
+## 18 — Symmetric access routes and simpler ladder ends
+
+**User-directed design refinement, 15 September 2026.** Following approval of the
+access-equipment direction, the user requested a full lower exterior ladder to
+match the roof, a non-light replacement for both angled torches, and clear space
+between both grab-bar pairs. The lower route now mirrors the entire upper route:
+rails, rungs, mounting feet and tether eyes. Two stowed open-jaw spanners replace
+the torches. Both interior reels and every associated lead, hook, axle and mount
+are removed; the approved grab bars stay in place.
+
+This remains design work. No held optimization was enabled. The former reel
+clearance script was retired with its objects; commit `ef91e1a` preserves the
+historical script and the prior evidence keeps its original measurements.
+
+The source-hashed wide-model inventory against `2d52c7e` is:
+
+| Inventory | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| Visible meshes | 415 | 414 | −1 |
+| Triangles, including instances | 993,310 | 1,012,382 | +19,072 (+1.92%) |
+| Unique geometry attribute/index arrays | 35,847,012 B | 37,370,212 B | +1,523,200 B (+1.4526 MiB) |
+
+These counts include all active visible model geometry without frustum culling.
+They are not frame timing, total memory, GPU allocation, thermal or battery
+measurements. The full lower route deliberately adds geometry; removing the
+interior reels and replacing the lights offset part of that addition. No new
+texture, scene light or ongoing animation is introduced. The 8K Earth and the
+existing camera/navigation systems remain unchanged. Future approved profiling
+should use this new design baseline rather than attributing its work to entry 17.
+
+[Design and validation record](evidence/spacecraft-access-symmetry/README.md),
+[raw inventory](evidence/spacecraft-access-symmetry/geometry-inventory.json) and
+[critic review](evidence/spacecraft-access-symmetry/critic-review.md) record the
+artistic acceptance and verification separately from structural accounting.
+
 ## Next candidates
 
 **Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
