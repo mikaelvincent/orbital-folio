@@ -21,10 +21,31 @@ export type RoomCameraFrame = {
 };
 /** Shared by actual input and the camera-fit envelope (radians). */
 export const CAMERA_RANGES = {
-  hover: { pitch: 0.025, yaw: 0.045 },
+  hover: { pitch: 0.021, yaw: 0.036 },
   overview: { pitch: 0.18, yaw: 0.32 },
   room: { pitch: 0.12, yaw: 0.22 },
 } as const;
+/** More depth on broad canvases, a quieter silhouette beside portrait callouts.
+ * Keep this continuous at square/tablet sizes; the fit still owns distance and
+ * screen-space centering, and room cameras retain their common frontal view. */
+export function overviewCameraDirection(aspect: number): Vec3 {
+  const t = Math.max(0, Math.min(1, (aspect - 0.9) / 0.9));
+  const landscape = t * t * (3 - 2 * t);
+  return [-0.1 - 0.18 * landscape, 0.18 + 0.02 * landscape, 1];
+}
+/** Reserve room for the existing callout pills without wasting most of a
+ * short landscape viewport on the desktop leader-line spacing. */
+export function overviewCalloutGutter(
+  height: number,
+  topInset: number,
+  bottomInset: number,
+  portrait: boolean,
+) {
+  return Math.min(
+    portrait ? 48 : 72,
+    Math.max(42, (height - topInset - bottomInset) * 0.18),
+  );
+}
 export function boundedCameraAngles(
   pointer: readonly [number, number],
   drag: readonly [number, number],

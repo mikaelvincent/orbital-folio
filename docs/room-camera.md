@@ -79,3 +79,47 @@ with a maximum adjacent rotation change of 0.393 degrees and no accidental click
 A second capture covers re-grabbing during the return. These describe the observed
 gesture, not a fixed animation duration or a performance benchmark. See the
 [release and re-grab evidence](evidence/spacecraft-polish/README.md).
+
+## Responsive overview composition and calmer hover — 15 September 2026
+
+The overview now reveals a little more of the roof and outer shoulders on broad
+screens, with a gentler sideways lean on portrait screens. Before normalization
+and the existing portrait camera roll, its direction changes smoothly from
+`[-0.10, 0.18, 1]` at aspect ratios up to 0.9 to `[-0.28, 0.20, 1]` at 1.8 and
+above. A smoothstep interpolation joins these poses, avoiding an additional
+angle jump at square or tablet sizes. The prior direction was
+`[-0.18, 0.14, 1]` at every aspect ratio. Room cameras retain their shared frontal
+view and architectural fit; the spacecraft remains fixed in world space.
+
+The safe-area fit still measures the actual header, identity and navigation.
+Overview callout spacing now uses 18% of the remaining height, bounded to
+42–72 pixels in landscape and 42–48 in portrait. Normal desktop and portrait
+screens retain the prior 72/48-pixel spacing. Short landscape screens give more
+space to the vessel while retaining a minimum gutter for the callout pills.
+Below 480 pixels in height, the application still starts in Reading view; this
+framing change applies only after the visitor explicitly chooses Interactive
+view. The renderer now sizes and initializes that explicit opt-in at its actual
+width and height. A previous 480-pixel guard stretched short canvases and could
+leave landscape callout coordinates cached on the first portrait resize.
+Transient panels below 240 pixels are still ignored. The reading fallback and
+its content are unchanged.
+
+Pointer hover pitch changes from ±0.025 to ±0.021 radians, and yaw from ±0.045
+to ±0.036 radians: approximately ±1.20° and ±2.06°. The smaller excursion makes
+ordinary movement calmer while retaining door peeking and the selected room's
+small translation/dolly. Pointer springs, drag ranges, smooth drag release,
+navigation timing and the camera-to-background registration are unchanged.
+
+The overview regression projects real spacecraft support points through 169
+camera angles and four extreme room-hover offsets at nine viewport sizes, after
+fitting with the production 25-angle sample. It checks containment including the
+2.5% hover dolly; the existing room-framing and world-camera tests remain separate.
+These are projection checks, not GPU measurements or proof of readable callout
+placement. Browser captures and the task's final validation record are in the
+[composition and equipment evidence](evidence/composition-equipment/README.md).
+
+The deeper desktop angle trades roughly 5% of the projected vessel width for
+more visible hull depth in the conservative geometry comparison; portrait scale
+stays close to the previous composition. That comparison uses representative UI
+reservations. Actual screen dimensions, measured controls and the integrated
+exterior geometry determine the production camera distance.

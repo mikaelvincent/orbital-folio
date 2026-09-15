@@ -43,6 +43,8 @@ import {
   fitRoomCameraFrame,
   cursorViewSamples,
   boundedCameraAngles,
+  overviewCameraDirection,
+  overviewCalloutGutter,
   CAMERA_RANGES,
   type BoundedDrag,
   type Vec3,
@@ -656,9 +658,9 @@ export function Spacecraft(props: Props) {
               ...(anchors[section] || anchors.home),
             );
             const direction = new THREE.Vector3(
-              home ? -0.18 : 0,
-              home ? 0.14 : 0,
-              1,
+              ...(home
+                ? overviewCameraDirection(camera.aspect)
+                : ([0, 0, 1] as const)),
             ).normalize();
             const headers = (
               home
@@ -683,6 +685,14 @@ export function Spacecraft(props: Props) {
               24,
               ...headers.map((box) => (box?.bottom || 0) - rect.top + 16),
             );
+            const calloutGutter = home
+              ? overviewCalloutGutter(
+                  el.clientHeight,
+                  topInset,
+                  bottomReservation,
+                  portraitOverview(),
+                )
+              : 0;
             const safe = {
               left:
                 -1 +
@@ -692,16 +702,10 @@ export function Spacecraft(props: Props) {
                 1 -
                 (2 * (home && portraitOverview() ? 36 : mobile() ? 12 : 18)) /
                   el.clientWidth,
-              top:
-                1 -
-                (2 * (topInset + (home ? (portraitOverview() ? 48 : 72) : 0))) /
-                  el.clientHeight,
+              top: 1 - (2 * (topInset + calloutGutter)) / el.clientHeight,
               bottom:
                 -1 +
-                (2 *
-                  (bottomReservation +
-                    (home ? (portraitOverview() ? 48 : 72) : 0))) /
-                  el.clientHeight,
+                (2 * (bottomReservation + calloutGutter)) / el.clientHeight,
             };
             let desiredDistance: number;
             if (isReading) {
@@ -1678,6 +1682,7 @@ export function Spacecraft(props: Props) {
             if (now - lastMetrics > 200 || stop) {
               Object.assign(el.dataset, {
                 cameraFar: String(camera.far),
+                cameraAspect: String(camera.aspect),
                 cameraPosition: camera.position
                   .toArray()
                   .map((n) => n.toFixed(4))
@@ -1827,9 +1832,10 @@ export function Spacecraft(props: Props) {
               frame = requestAnimationFrame(loop);
           }
           const setDrawingSize = () => {
-            // Skip hidden/transient panel sizes while the native short-screen
-            // fallback or a browser resize settles; these cannot frame a cabin.
-            if (el.clientWidth < 240 || el.clientHeight < 480) return;
+            // Ignore hidden/transient panels, but honor short-screen Interactive
+            // view opt-in. The React shell owns the automatic reading fallback;
+            // a visible canvas must use its actual aspect and drawing size.
+            if (el.clientWidth < 240 || el.clientHeight < 240) return;
             const w = Math.max(1, el.clientWidth),
               h = Math.max(1, el.clientHeight);
             // Bound retina fill cost without changing cloud detail or HTML sharpness.
@@ -1851,7 +1857,7 @@ export function Spacecraft(props: Props) {
           let initializedCamera = false;
           let previousViewport = '';
           const resize = () => {
-            if (el.clientWidth < 240 || el.clientHeight < 480) return;
+            if (el.clientWidth < 240 || el.clientHeight < 240) return;
             const w = Math.max(1, el.clientWidth),
               h = Math.max(1, el.clientHeight);
             const identityBounds = identity?.getBoundingClientRect();
