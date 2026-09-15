@@ -1,0 +1,21 @@
+✔ Rapid hover reversals preserve velocity and respect speed/acceleration at30/60/120Hz (2.889417ms)
+✔ Camera springs converge and frozen/invalid deltas cannot advance motion (1.631958ms)
+✔ Interactive-view migration updates default labels without overwriting custom or unpublished content (2.306875ms)
+✔ Roof thermal trays remain seated, symmetric and clear of the cutaway and end modules in both layouts (1268.790916ms)
+✔ Thermal decoration adds four passive material batches without textures or moving objects (601.642083ms)
+✔ Both roof trays are exposed from supported landscape and portrait camera positions (591.642834ms)
+✔ Ladder end returns occupy both previously empty curved ends and remain clear of the terminal lamps and doors (42.109208ms)
+✔ Air returns are passive, share existing materials and follow the ladder brightness state (0.844584ms)
+✔ Responsive overview keeps the whole spacecraft inside the safe area across the drag and room-hover envelope (53.48125ms)
+✔ Short landscape overviews recover useful vessel size without reducing callout space below42px (9.413875ms)
+✔ Shared room framing preserves the same projected architecture and visible navigation across viewports (21.393583ms)
+✔ Adding or rearranging furniture cannot change the shared room framing (9.566875ms)
+✔ Overview pointers use the true front-opening edge midpoints in both layouts (6.956459ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2697.659083

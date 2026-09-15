@@ -1,0 +1,12 @@
+✔ Docking service cassettes stay mirrored, seated on the curved wall and clear of the hatch in both layouts (898.247084ms)
+✔ Docking fittings follow the walkway dimmer and remain passive, disposable scene geometry (799.216125ms)
+✔ Ladder end returns occupy both previously empty curved ends and remain clear of the terminal lamps and doors (49.990041ms)
+✔ Air returns are passive, share existing materials and follow the ladder brightness state (1.19275ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1892.760666

@@ -1,0 +1,14 @@
+{
+  "method": "SHA-256 of final production changes, added tests and responsive fixture. Final focused tests, typecheck and production build ran against this source; full suite ran before the narrow resize correction and ray-assertion clarification.",
+  "files": {
+    "components/spacecraft.tsx": "54a36f27470f98121e32816940d10b6fcc5a211d71b064b6796b073f0612f342",
+    "components/spacecraft-model.ts": "9e3151cc137911e74cf58ddb00c9b47efbfcea502f955d76ac50669de211c671",
+    "components/ladder-endcap-equipment.ts": "aeebdcbcfc4917306cc4bc5403253505148ace7f6b2ad9beea95b341939d0c87",
+    "components/exterior-thermal-equipment.ts": "67886d2212688106a740daf65fb8ceee8a20f5a16c22863379ea978d418e6c5e",
+    "lib/scene-controls.ts": "db66dacf3d9ca6cedf43e063277202111af3c9054582fcbc09ca6215ddcbe9ce",
+    "tests/overview-composition.test.mjs": "4c39a02093a3bcfd74f76df20a08b655e043a9e44cf2a8205c26d28714395b1c",
+    "tests/ladder-endcap-equipment.test.mjs": "930f676696089bff3836542024a0d2aea57176ba41366b967913c2eb764df86c",
+    "tests/exterior-thermal-equipment.test.mjs": "fcb35f978a38a287ffab8afdab00788a6b3558e8f4641da7bd21f1391c4af5b2",
+    "scripts/benchmarks/responsive-portfolio-preview.mjs": "c184802a063e036c841bcdb0b30ed7554a5fee90052d4e2b98fb625a2ecf98ea"
+  }
+}

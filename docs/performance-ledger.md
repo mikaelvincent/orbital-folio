@@ -588,6 +588,63 @@ schedule/analytical shader measurements, not GPU timings.
 All optimization candidates below remain on hold. The next approved baseline
 must include both the delivered world-camera system and this hull/sky revision.
 
+## 15 — Ladder end fittings, visible exterior detail and overview composition
+
+**Approved quality work, 15 September 2026.** Paired circulation-return fittings
+fill the upper and lower curved walls of the ladder bay. Shallow thermal-louver
+trays decorate the visible roof, aligned with the room bays and seated on the
+existing curved pressure skin. Exterior scope is limited to surfaces visible
+from the default, hover or supported drag views; no hidden rear decoration was
+added. The fixtures follow the existing material batching and disposal paths,
+with no new textures, lights or ongoing object animation.
+
+The overview has a little more roof/side depth on broad screens and a gentler
+portrait lean. Its direction interpolates with aspect ratio; the safe fit still
+accounts for the entire drag and room-hover envelope. Hover excursion is smaller
+while existing springs and navigation remain. Short landscape screens recover
+some vessel space through reduced callout gutters. Screens below 480 pixels in
+height still default to Reading view; this last improvement applies only after
+an explicit Interactive view selection. The critic caught an existing resize guard
+that stretched that opt-in canvas and left annotation coordinates stale on its
+first portrait rotation. Matching renderer initialization to the visible viewport
+fixed both issues; rejected and corrected captures are retained in the evidence.
+These changes are documented in the [camera record](room-camera.md).
+
+### Structural cost and comparison limits
+
+The source-hashed wide-layout inventory against `a907e22` records:
+
+| Inventory | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| Visible meshes | 412 | 419 | +7 |
+| Triangles, including instances | 887,896 | 895,624 | +7,728 (+0.87%) |
+| Unique geometry attribute/index arrays | 31.2235 MiB | 31.9752 MiB | +0.7517 MiB |
+
+The additions comprise **three ladder batches / 3,984 triangles** and **four
+roof batches / 3,744 triangles**. The inventory traverses the active visible
+scene without camera frustum culling. It excludes JavaScript object overhead,
+instance buffers, textures, render targets and other scene layers. Geometry
+array bytes are an exact structural accounting under that method, not measured
+GPU allocation or process memory. A visible mesh count is not a measured draw
+count across the final frame's rendering passes.
+
+[Source hashes, method and raw inventory](evidence/composition-equipment/geometry-inventory.json)
+and [visual checks and validation](evidence/composition-equipment/README.md)
+preserve this quality change as a new baseline. The approved 8K Mediterranean
+night Earth is unchanged. No timed GPU/CPU, thermal or battery comparison was
+performed for this entry, so neither a speedup nor unchanged frame cost is
+claimed. Smaller pointer excursions also do not establish fewer AO refreshes.
+
+### Held optimization work
+
+No candidate in the next-steps plan was enabled. Keep the current priority order
+and the historical comparisons intact. Future approved profiling should use
+this final camera and equipment state, with matched viewport, input and
+background time; changed framing can change visibility, shading and pass work
+independently of triangle count. The new ladder and roof groups provide clear
+attribution boundaries for that baseline, but their small structural cost alone
+does not justify prioritizing them ahead of the previously measured sinks.
+
 ## Next candidates
 
 **Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.

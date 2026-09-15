@@ -1,0 +1,21 @@
+✔ Roof thermal trays remain seated, symmetric and clear of the cutaway and end modules in both layouts (4644.545625ms)
+✔ Thermal decoration adds four passive material batches without textures or moving objects (1955.560375ms)
+✔ Both roof trays are exposed from supported landscape and portrait camera positions (1624.378292ms)
+✔ Ladder end returns occupy both previously empty curved ends and remain clear of the terminal lamps and doors (240.395167ms)
+✔ Air returns are passive, share existing materials and follow the ladder brightness state (8.276459ms)
+✔ Responsive overview keeps the whole spacecraft inside the safe area across the drag and room-hover envelope (257.139875ms)
+✔ Short landscape overviews recover useful vessel size without reducing callout space below42px (53.820916ms)
+✔ Shared room framing preserves the same projected architecture and visible navigation across viewports (62.512958ms)
+✔ Adding or rearranging furniture cannot change the shared room framing (39.369458ms)
+✔ Overview pointers use the true front-opening edge midpoints in both layouts (107.853542ms)
+✔ Stationary hull camera preserves the prior model-view matrix through travel, tilt, dolly and every roll (113.121542ms)
+✔ Transferred lighting preserves the rectangular shadow projection and light direction relative to the hull (1.312458ms)
+✔ Orbital camera shares the physical pose under a fixed world registration, without resetting on updates (118.738292ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8694.388042

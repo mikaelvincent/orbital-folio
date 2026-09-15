@@ -1,0 +1,11 @@
+✔ Roof thermal trays remain seated, symmetric and clear of the cutaway and end modules in both layouts (1926.963292ms)
+✔ Thermal decoration adds four passive material batches without textures or moving objects (1911.30925ms)
+✔ Both roof trays are exposed from supported landscape and portrait camera positions (2029.885958ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6146.1265

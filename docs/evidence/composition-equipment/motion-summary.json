@@ -1,0 +1,54 @@
+{
+  "method": "DOM-backed motion audit from real hidden built-in browser gestures at 1280x720. Motion validation only; not frame-performance timings.",
+  "checks": {
+    "overview-drag-trace": {
+      "capturedSamples": 1118,
+      "capturedSeconds": 26.1,
+      "constantVesselMatrix": true,
+      "cameraPositionSpan": [
+        4.61388655131902,
+        2.576051661024821,
+        0.2704837706672869
+      ],
+      "settledState": {
+        "angles": "-0.00846,0.02700",
+        "drag": "0.00000,-0.00000",
+        "pointer": "0.75000,-0.40278",
+        "ship": "0,0,0"
+      }
+    },
+    "overview-regrab-trace": {
+      "capturedSamples": 84,
+      "capturedSeconds": 2.4,
+      "constantVesselMatrix": true,
+      "cameraPositionSpan": [
+        5.672553586512155,
+        3.2435271236145136,
+        0.7081107312558679
+      ],
+      "settledState": {
+        "angles": "0.00817,-0.00619",
+        "drag": "0.00000,-0.00000",
+        "pointer": "-0.17187,0.38887",
+        "ship": "0,0,0"
+      }
+    },
+    "projectsArrival": {
+      "samples": 56,
+      "constantVesselMatrix": true,
+      "firstPosition": [
+        -8.479904089466212,
+        4.662106789345206,
+        23.256164644371594
+      ],
+      "lastPosition": [
+        -2.087001590844518,
+        1.5399996833862946,
+        5.510282855517659
+      ],
+      "lastActive": "projects",
+      "lastTravelling": false,
+      "note": "A wait for travelling=true began after the short transition had completed. The retained flight trace and final rendered room verify the transition."
+    }
+  }
+}
