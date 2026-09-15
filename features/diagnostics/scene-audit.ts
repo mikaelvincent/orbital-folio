@@ -36,6 +36,18 @@ export type SceneAudit = {
     camera: Three.PerspectiveCamera;
     light: Three.DirectionalLight;
   }) => (() => void);
+  /** Offline contact-shading lab only. The shipped site supplies no adapter. */
+  contactReady?: (context: {
+    three: typeof Three;
+    renderer: Three.WebGLRenderer;
+    scene: Three.Scene;
+    camera: Three.PerspectiveCamera;
+    model: any;
+    ao: any;
+    invalidate: () => void;
+    enabled: () => boolean;
+  }) => (() => void);
+  contactFrame?: () => void;
   geometryCompaction?: boolean;
   modelReady?: (model: any, options: any, three: any, constructionMs: number) => void;
 };

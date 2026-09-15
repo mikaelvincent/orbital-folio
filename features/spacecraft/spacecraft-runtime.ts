@@ -1488,6 +1488,7 @@ export function mountSpacecraftScene({
             anchor.parent.scale.y *= readerStretch();
           updateRenderSceneMatrices(scene);
           camera.updateMatrixWorld(true);
+          audit?.contactFrame?.();
           diagnostics?.mark('matrices');
           annotations.update(
             cameraFrame.virtualCamera,
@@ -2426,6 +2427,11 @@ export function mountSpacecraftScene({
         const disposeShadowAudit = audit?.shadowReady?.({
           three: THREE, renderer, scene, camera, light: key,
         });
+        const disposeContactAudit = audit?.contactReady?.({
+          three: THREE, renderer, scene, camera, model, ao,
+          invalidate: () => invalidateAo('contact-lab-variant'),
+          enabled: () => !mobile() && contactShading && experiment !== 'no-ao' && experiment !== 'no-spacecraft',
+        });
         let auditBackup: Three.WebGLRenderTarget | undefined;
         if (audit) {
           let manualPrevious = 0;
@@ -2593,6 +2599,10 @@ export function mountSpacecraftScene({
               const usesAo = !mobile() && contactShading;
               if (usesAo) {
                 auditBackup ??= ao.pdRenderTarget.clone();
+                // The developer comparison may resize without remounting.
+                // Keep its saved AO target matched before texture copies.
+                if (auditBackup.width !== ao.width || auditBackup.height !== ao.height)
+                  auditBackup.setSize(ao.width, ao.height);
                 renderer.initRenderTarget(auditBackup);
                 renderer.copyTextureToTexture(
                   ao.pdRenderTarget.texture,
@@ -2677,6 +2687,7 @@ export function mountSpacecraftScene({
             motionDiagnostic,
           );
           latest.current.onSurfaceReady(null);
+          disposeContactAudit?.();
           const materials = new Set<Three.Material>(),
             geometries = new Set<Three.BufferGeometry>(),
             textures = new Set<Three.Texture>();
