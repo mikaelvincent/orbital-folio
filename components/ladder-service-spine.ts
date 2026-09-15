@@ -482,41 +482,118 @@ export function buildLadderServiceSpine(
       'channel-light-diffuser',
       0.005,
     );
-    // Sealed electrical junction lids reuse the existing backed recesses.
-    // One captive latch replaces the former bank of five vent louvers.
+    // The existing backed pockets expose a hose coupling and its tethered dust
+    // cap. The connected line and retained cap explain the fitting at a glance.
     const junctionY = side > 0 ? 0.83 : -0.81;
-    box(
-      0.266,
-      0.195,
-      0.038,
-      m.ivory,
-      -0.37,
+    const couplingX = -0.414;
+    cylinder(
+      0.061,
+      0.058,
+      m.graphite,
+      couplingX,
       junctionY,
-      -1.006,
-      'sealed-junction-lid',
-      0.018,
+      -1.045,
+      'z',
+      'recessed-service-coupling-body',
     );
-    box(
-      0.066,
-      0.048,
+    const collar = new THREE.CylinderGeometry(0.067, 0.067, 0.026, 6);
+    collar.rotateX(Math.PI / 2);
+    collar.translate(couplingX, junctionY, -1.009);
+    h.mesh(collar, m.alloy, root, prefix + 'service-coupling-hex-collar');
+    cylinder(
+      0.046,
+      0.032,
+      m.graphite,
+      couplingX,
+      junctionY,
+      -0.988,
+      'z',
+      'service-coupling-socket',
+    );
+    const socketRim = new THREE.TorusGeometry(0.038, 0.0065, 8, 24);
+    socketRim.translate(couplingX, junctionY, -0.969);
+    h.mesh(socketRim, m.alloy, root, prefix + 'service-coupling-socket-rim');
+    for (const dx of [-0.052, 0.052])
+      box(
+        0.014,
+        0.036,
+        0.018,
+        m.amber,
+        couplingX + dx,
+        junctionY,
+        -0.987,
+        'coupling-bayonet-lock',
+        0.005,
+      );
+    const capX = -0.289,
+      capY = junctionY - side * 0.024;
+    cylinder(
+      0.032,
+      0.084,
+      m.graphite,
+      capX,
+      capY,
+      -1.067,
+      'z',
+      'dust-cap-retaining-peg',
+    );
+    cylinder(
+      0.038,
+      0.024,
+      m.alloy,
+      capX,
+      capY,
+      -1.014,
+      'z',
+      'tethered-coupling-dust-cap',
+    );
+    cylinder(
+      0.028,
       0.01,
       m.graphite,
-      -0.37,
-      junctionY,
-      -0.982,
-      'junction-captive-latch-pocket',
-      0.009,
+      capX,
+      capY,
+      -0.997,
+      'z',
+      'dust-cap-inset-grip',
     );
-    box(
-      0.036,
-      0.027,
-      0.008,
-      m.alloy,
-      -0.37,
-      junctionY,
-      -0.976,
-      'junction-captive-latch',
-      0.007,
+    const couplingTube = (
+      points: number[][],
+      radius: number,
+      material: any,
+      name: string,
+    ) => {
+      const curve = new THREE.CatmullRomCurve3(
+        points.map((p) => new THREE.Vector3(...p)),
+      );
+      h.mesh(
+        new THREE.TubeGeometry(curve, 28, radius, 8, false),
+        material,
+        root,
+        prefix + name,
+      );
+    };
+    couplingTube(
+      [
+        [-0.465, junctionY + side * 0.07, -1.174],
+        [-0.475, junctionY + side * 0.06, -1.102],
+        [-0.473, junctionY + side * 0.012, -1.078],
+        [couplingX, junctionY, -1.067],
+      ],
+      0.012,
+      m.hose,
+      'connected-service-coupling-hose',
+    );
+    couplingTube(
+      [
+        [couplingX + 0.035, junctionY + side * 0.027, -0.984],
+        [-0.35, junctionY + side * 0.072, -0.986],
+        [capX - 0.006, capY + side * 0.056, -0.983],
+        [capX, capY + side * 0.026, -0.996],
+      ],
+      0.0045,
+      m.hose,
+      'retained-coupling-cap-tether',
     );
   }
   // Mirrored protected service feeds occupy the narrow outer strip. They stay

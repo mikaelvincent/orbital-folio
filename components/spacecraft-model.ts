@@ -1892,7 +1892,7 @@ export function createSpacecraft(
     .map((point: any) => point.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
   buildDockingShoulderEquipment(
     THREE,
-    { box },
+    { box, mesh },
     walkwayFurniture,
     ladderEquipmentContour,
     LADDER_CENTER_Y,

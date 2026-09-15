@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
+import { buildDockingShoulderEquipment } from '../components/docking-shoulder-equipment.ts';
 import { ladderOpeningOutline } from '../components/ladder-opening-outline.ts';
 import {
   LADDER_CENTER_Y,
@@ -10,7 +11,6 @@ import {
   LADDER_SHOULDER_RISE,
   LADDER_RIGHT_RADIUS,
 } from '../lib/spacecraft-wall-layout.ts';
-
 const contour = ladderOpeningOutline(new THREE.Shape(), {
   width: 1.33,
   height: LADDER_HEIGHT,
@@ -22,7 +22,7 @@ const contour = ladderOpeningOutline(new THREE.Shape(), {
   .getPoints(64)
   .map((p) => p.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
 const wallX = (y) => {
-  let left = Infinity;
+  let x = Infinity;
   for (let i = 0; i < contour.length; i++) {
     const a = contour[i],
       b = contour[(i + 1) % contour.length];
@@ -32,98 +32,169 @@ const wallX = (y) => {
       y > Math.max(a.y, b.y)
     )
       continue;
-    left = Math.min(left, a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
+    x = Math.min(x, a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
   }
-  return left;
+  return x;
 };
-const cassetteMeshes = (model) => {
-  const root = model.group.getObjectByName(
-    'docking-shoulder-service-cassettes',
-  );
-  assert(root, 'Docking bay has the matching pressure-service cassettes');
+const equipment = (model) => {
+  const root = model.group.getObjectByName('docking-shoulder-rescue-torches');
+  assert(root);
   const meshes = [];
-  root.traverse((object) => {
-    if (object.isMesh) meshes.push(object);
+  root.traverse((o) => {
+    if (o.isMesh) meshes.push(o);
   });
   return { root, meshes };
 };
 
-test('Docking service cassettes stay mirrored, seated on the curved wall and clear of the hatch in both layouts', () => {
-  const model = createSpacecraft(THREE, { layout: 'wide' });
-  const { root, meshes } = cassetteMeshes(model);
-  assert(
-    meshes.length <= 4,
-    'Static fittings stay within four material batches',
-  );
+test('Both holstered torches have open optics, graspable barrels and restrained hardware instead of generic covers', () => {
+  const model = createSpacecraft(THREE),
+    { root, meshes } = equipment(model),
+    names = root.userData.layout.parts;
+  assert.equal(root.userData.layout.torches.length, 2);
+  for (const name of [
+    'torch-graspable-barrel',
+    'torch-flared-optical-head',
+    'torch-open-optical-bezel',
+    'torch-recessed-reflector',
+    'torch-pale-optic',
+    'holster-quick-release-lever',
+  ])
+    assert.equal(names.filter((n) => n === name).length, 2);
+  assert.equal(names.filter((n) => n === 'holster-open-saddle').length, 4);
+  assert(!names.some((n) => /cover|cassette|grille|vent|airfoil/.test(n)));
+  assert.equal(meshes.length, 4);
+});
+
+test('Torches and open brackets follow the curved wall and retain hatch, ladder and end-equipment clearance', () => {
+  const model = createSpacecraft(THREE),
+    { root, meshes } = equipment(model);
   for (const layout of ['wide', 'compact']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
-    const bounds = new THREE.Box3().setFromObject(root);
-    assert(Math.abs(bounds.min.y + bounds.max.y - 2 * LADDER_CENTER_Y) < 1e-5);
+    const b = new THREE.Box3().setFromObject(root);
     assert(
-      Math.abs(bounds.min.z + bounds.max.z) < 1e-5,
-      'Both share the docking hatch depth axis',
+      Math.abs(b.min.y + b.max.y - 2 * LADDER_CENTER_Y) < 1e-5,
+      'One mirrored torch is mounted per deck',
     );
     for (const mesh of meshes) {
-      const positions = mesh.geometry.attributes.position;
-      for (let i = 0; i < positions.count; i++) {
-        const x = positions.getX(i),
-          y = positions.getY(i),
-          z = positions.getZ(i);
-        const projection = x - wallX(y);
+      const p = mesh.geometry.attributes.position;
+      for (let i = 0; i < p.count; i++) {
+        const x = p.getX(i),
+          y = p.getY(i),
+          z = p.getZ(i),
+          projection = x - wallX(y),
+          dy = Math.abs(y - LADDER_CENTER_Y);
+        assert(Number.isFinite(x + y + z));
         assert(
-          projection >= -0.00201 && projection <= 0.11801,
-          'Each fitting remains flush with the actual curved liner',
+          projection >= -0.006 && projection < 0.36,
+          'Only the fitted anchors enter the wall; objects stay within the shoulder equipment envelope',
         );
         assert(
-          Math.abs(y - LADDER_CENTER_Y) >= 1.32999,
-          'Keep at least .34 clearance outside the docking hatch',
+          dy > 1.11 && dy < 2.01,
+          'The docking hatch and end fixtures remain clear',
         );
         assert(
-          Math.abs(z) <= 0.35501,
-          'Keep the existing rear service spine and front rim unobstructed',
+          z > -0.26 && z < 0.3,
+          'Keep clear of the rear ladder spine and front reveal',
         );
       }
+    }
+    for (const mount of root.userData.layout.mounts)
+      assert(Math.abs(mount.skin[0] - wallX(mount.skin[1])) < 1e-8);
+  }
+});
+
+test('Only bonded feet and post ends intersect the liner; torch bodies and open saddles stand clear', () => {
+  const parent = new THREE.Group();
+  const h = {
+    mesh(geometry, material, parent, name) {
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.name = name;
+      parent.add(mesh);
+      return mesh;
+    },
+    box(w, h, d, material, x, y, z, parent, _radius, name) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+      mesh.name = name;
+      mesh.position.set(x, y, z);
+      parent.add(mesh);
+      return mesh;
+    },
+  };
+  const root = buildDockingShoulderEquipment(
+    THREE,
+    h,
+    parent,
+    contour,
+    LADDER_CENTER_Y,
+  );
+  for (const mesh of root.children) {
+    const anchor = /holster-(bonded-mount-foot|rigid-post)$/.test(mesh.name),
+      p = mesh.geometry.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const offset = p.getX(i) - wallX(p.getY(i));
+      assert(
+        offset >= (anchor ? -0.006 : 0.1),
+        `${mesh.name} keeps its designed stand-off; only anchor ends embed in the wall`,
+      );
     }
   }
 });
 
-test('Docking fittings follow the walkway dimmer and remain passive, disposable scene geometry', () => {
+test('The recessed pale lenses face into the cabin and are not hidden behind a solid head cap', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
-  const { meshes } = cassetteMeshes(model);
+  model.group.updateMatrixWorld(true);
+  const { root, meshes } = equipment(model),
+    ray = new THREE.Raycaster();
+  const normalMatrix = new THREE.Matrix3().getNormalMatrix(root.matrixWorld);
+  for (const torch of root.userData.layout.torches) {
+    assert(
+      torch.axis[2] > 0.5,
+      'Both heads tilt forward, including the lower torch',
+    );
+    const p = new THREE.Vector3(...torch.lens).applyMatrix4(root.matrixWorld),
+      n = new THREE.Vector3(...torch.axis)
+        .applyMatrix3(normalMatrix)
+        .normalize();
+    ray.set(p.clone().addScaledVector(n, 0.4), n.clone().negate());
+    ray.far = 0.55;
+    const hit = ray.intersectObjects(meshes, false)[0];
+    assert(hit);
+    assert.equal(
+      hit.object.material.name,
+      'docking-shoulder-torch-pale-optics',
+      'Hollow bezel exposes the optic instead of a cylinder cap',
+    );
+  }
+});
+
+test('The inactive rescue torches remain passive, nonemissive and follow the walkway dimmer', () => {
+  const model = createSpacecraft(THREE),
+    { root, meshes } = equipment(model);
   model.update(1, '', true, { activeRoom: 'home', transitWalkway: false });
-  const dim = meshes.map((mesh) => mesh.material.color.toArray());
+  const dim = meshes.map((m) => m.material.color.toArray());
   model.update(2, '', true, {
     activeRoom: 'about',
     travelling: true,
     transitWalkway: true,
   });
-  for (const [i, mesh] of meshes.entries()) {
-    mesh.material.color
+  for (const [i, m] of meshes.entries()) {
+    assert(m.userData.excludePick);
+    assert(!m.material.userData.exterior);
+    assert.equal(m.material.emissive.getHex(), 0);
+    assert.equal(m.material.map, null);
+    m.material.color
       .toArray()
-      .forEach((value, axis) =>
-        assert(Math.abs(value - 2 * dim[i][axis]) < 1e-8),
-      );
-    assert.equal(mesh.userData.section, 'walkway');
-    assert(mesh.userData.excludePick);
-    assert(!mesh.material.userData.exterior);
-    assert.equal(mesh.material.emissive.getHex(), 0);
+      .forEach((v, j) => assert(Math.abs(v - 2 * dim[i][j]) < 1e-8));
   }
+  assert(!root.children.some((o) => o.isLight));
   const disposed = { materials: 0, geometries: 0 };
-  for (const mesh of meshes) {
-    mesh.material.addEventListener('dispose', () => disposed.materials++);
-    mesh.geometry.addEventListener('dispose', () => disposed.geometries++);
+  for (const m of meshes) {
+    m.material.addEventListener('dispose', () => disposed.materials++);
+    m.geometry.addEventListener('dispose', () => disposed.geometries++);
+    m.material.dispose();
+    m.geometry.dispose();
   }
-  const materials = new Set(),
-    geometries = new Set();
-  model.group.traverse((object) => {
-    if (object.isMesh) {
-      materials.add(object.material);
-      geometries.add(object.geometry);
-    }
-  });
-  for (const material of materials) material.dispose();
-  for (const geometry of geometries) geometry.dispose();
-  assert.equal(disposed.materials, meshes.length);
-  assert.equal(disposed.geometries, meshes.length);
+  assert.equal(disposed.materials, 4);
+  assert.equal(disposed.geometries, 4);
 });

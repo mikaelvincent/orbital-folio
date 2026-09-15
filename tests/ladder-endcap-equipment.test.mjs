@@ -12,7 +12,7 @@ import {
 } from '../lib/spacecraft-wall-layout.ts';
 
 const model = createSpacecraft(THREE);
-const root = model.group.getObjectByName('ladder-end-sealed-equipment');
+const root = model.group.getObjectByName('ladder-end-transfer-equipment');
 const contour = ladderOpeningOutline(new THREE.Shape(), {
   width: 1.33,
   height: LADDER_HEIGHT,
@@ -43,48 +43,50 @@ root.traverse((o) => {
   if (o.isMesh) meshes.push(o);
 });
 
-test('Solid ladder end fittings occupy both previously empty curved ends and remain clear of the terminal lamps and doors', () => {
-  assert.equal(meshes.length, 3, 'Three material batches serve both ends');
+test('Open ladder transfer equipment occupies both end gaps without covering the rear lamps or side doors', () => {
+  assert.equal(
+    meshes.length,
+    3,
+    'Three shared material batches serve both ends',
+  );
   const triangles = meshes.reduce(
     (sum, m) =>
       sum +
       (m.geometry.index?.count ?? m.geometry.attributes.position.count) / 3,
     0,
   );
-  assert(triangles < 8000, 'Keep the two broad fixtures inexpensive');
+  assert(
+    triangles < 37000,
+    'Explicit allowance for curved rails, wound tether and open carabiner detail',
+  );
   for (const layout of ['wide', 'compact']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
     const bounds = new THREE.Box3().setFromObject(root);
     assert(Math.abs(bounds.min.y + bounds.max.y - 2 * LADDER_CENTER_Y) < 1e-5);
-    assert(bounds.max.z < 0.77 && bounds.min.z > -0.54);
+    assert(bounds.max.z < 0.58 && bounds.min.z > -0.35);
     const sides = new Set();
     for (const mesh of meshes) {
       const p = mesh.geometry.attributes.position;
       for (let i = 0; i < p.count; i++) {
         const x = p.getX(i),
           y = p.getY(i),
-          z = p.getZ(i),
-          offset = Math.abs(y - LADDER_CENTER_Y);
+          z = p.getZ(i);
+        const offset = Math.abs(y - LADDER_CENTER_Y);
         sides.add(Math.sign(y - LADDER_CENTER_Y));
         assert(
-          offset > 2.29 && offset < 2.87,
-          'Both fixtures sit in the axial end gaps',
+          offset > 2.24 && offset < 2.87,
+          'Equipment remains in the axial end gaps',
         );
-        assert(x < 0.538, 'The right-hand door wall remains unobstructed');
+        assert(x < 0.47, 'The side-door wall and its exit path remain clear');
         assert(
-          z < 0.77 && z > -0.537,
-          'Stay ahead of the rear terminal lights and behind the front reveal',
+          z < 0.58 && z > -0.35,
+          'End gear stays ahead of rear lamps and behind the front reveal',
         );
-        if (offset < 2.64)
+        if (offset < 2.855)
           assert(
-            x - wallX(y) >= -0.00201 && x - wallX(y) <= 0.07401,
-            'Side covers follow the actual curve',
-          );
-        else
-          assert(
-            x > -0.1 && z > -0.327 && z < 0.767,
-            'New crown panels stay in front of terminal lights and inside the rounded end',
+            x - wallX(y) >= -0.005,
+            'Only the narrow attachment shoes may seat slightly into the liner',
           );
       }
     }
@@ -92,7 +94,7 @@ test('Solid ladder end fittings occupy both previously empty curved ends and rem
   }
 });
 
-test('Solid end fittings are passive, share existing materials and follow the ladder brightness state', () => {
+test('Transfer equipment is passive, shares existing materials and follows the ladder brightness state', () => {
   model.update(1, '', true, { activeRoom: 'home', transitWalkway: false });
   const dim = meshes.map((m) => m.material.color.toArray());
   model.update(2, '', true, {
