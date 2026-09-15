@@ -1,6 +1,6 @@
-/** Sealed roof and docking-shoulder access/shield panels in the visible camera envelope.
- * The fittings follow the pressure skin's own surface function and stay clear
- * of the front cutaway, docking approach and service module.
+/** A continuous, open EVA access route climbs the docking shoulder and crosses
+ * the visible roof. Tubular rails, glove-clear rungs and real restrained mounts
+ * explain the structure without filling the hull with anonymous closed panels.
  */
 export function buildExteriorServiceEquipment(
   THREE: any,
@@ -14,258 +14,30 @@ export function buildExteriorServiceEquipment(
   root.userData = {
     section: 'contact',
     exterior: true,
-    equipmentKind: 'sealed-exterior-access-panels',
+    equipmentKind: 'exterior-eva-access',
     excludePick: true,
     batchRoot: true,
     static: true,
   };
   parent.add(root);
-  const s = d.scale;
-  const parts: any[] = [];
-  const shape = (width: number, height: number, radius: number) => {
-    const x = width / 2,
-      y = height / 2;
-    const r = Math.min(radius, x * 0.8, y * 0.8);
-    const result = new THREE.Shape();
-    result.moveTo(-x + r, -y);
-    result.lineTo(x - r, -y);
-    result.quadraticCurveTo(x, -y, x, -y + r);
-    result.lineTo(x, y - r);
-    result.quadraticCurveTo(x, y, x - r, y);
-    result.lineTo(-x + r, y);
-    result.quadraticCurveTo(-x, y, -x, y - r);
-    result.lineTo(-x, -y + r);
-    result.quadraticCurveTo(-x, -y, -x + r, -y);
-    return result;
-  };
-  const panel = (
-    name: string,
-    width: number,
-    height: number,
-    depth: number,
-    radius: number,
-    material: any,
-    centerX: number,
-    centerV: number,
-    offset: number,
-  ) => {
-    // Small dedicated extrusions avoid applying the model's fully tessellated
-    // furniture boxes to broad, nearly flat exterior sheets.
-    const bevel = Math.min(0.004, depth / 4);
-    const geometry = new THREE.ExtrudeGeometry(
-      shape(width - 2 * bevel, height - 2 * bevel, radius - bevel),
-      {
-        depth: depth - 2 * bevel,
-        bevelEnabled: true,
-        bevelSize: bevel,
-        bevelThickness: bevel,
-        bevelSegments: 1,
-        curveSegments: 4,
-        steps: 1,
-      },
-    );
-    geometry.translate(0, 0, bevel);
-    const p = geometry.getAttribute('position');
-    for (let i = 0; i < p.count; i++) {
-      const u = p.getX(i),
-        v = p.getY(i),
-        w = p.getZ(i);
-      const x = centerX + u;
-      const depthOffset = offset + w;
-      const z = centerV - v;
-      p.setXYZ(i, x, profiles.roofAt(x, z) + depthOffset, z);
-    }
-    geometry.computeVertexNormals();
+  const parts: any[] = [],
+    routes: any[] = [],
+    mounts: any[] = [];
+  const zCenter = 0.35,
+    halfWidth = 0.425,
+    clearance = 0.205;
+  const railRadius = 0.037,
+    rungRadius = 0.029;
+  const zAxis = new THREE.Vector3(0, 0, 1),
+    yAxis = new THREE.Vector3(0, 1, 0);
+  const mesh = (geometry: any, material: any, name: string) => {
     geometry.computeBoundingBox();
     geometry.computeBoundingSphere();
-    const mesh = h.mesh(geometry, material, root, 'exterior-service-' + name);
+    const object = h.mesh(geometry, material, root, 'exterior-eva-' + name);
     parts.push({
       name,
-      surface: 'roof',
-      center: [centerX, centerV],
-      size: [width, height, depth],
-      offset,
-      bounds: [
-        geometry.boundingBox.min.toArray(),
-        geometry.boundingBox.max.toArray(),
-      ],
-    });
-    return mesh;
-  };
-  // Broad solid shields fill the visible roof depth, including the former bare
-  // front strip. Protected captive latches and one hinge make their purpose clear.
-  for (const x of [-d.halfPitch, d.halfPitch]) {
-    panel(
-      'roof-seated-gasket',
-      1.98 * s,
-      1.46,
-      0.03,
-      0.12,
-      materials.navy,
-      x,
-      0.2,
-      -0.002,
-    );
-    panel(
-      'roof-protective-perimeter',
-      1.84 * s,
-      1.34,
-      0.024,
-      0.1,
-      materials.metal,
-      x,
-      0.2,
-      0.026,
-    );
-    panel(
-      'roof-sealed-shield-cover',
-      1.68 * s,
-      1.18,
-      0.025,
-      0.085,
-      materials.chalk,
-      x,
-      0.2,
-      0.048,
-    );
-    for (const side of [-1, 1]) {
-      panel(
-        'roof-captive-latch-pocket',
-        0.095 * s,
-        0.21,
-        0.014,
-        0.026,
-        materials.navy,
-        x + side * 0.889 * s,
-        0.2,
-        0.05,
-      );
-      panel(
-        'roof-captive-latch',
-        0.037 * s,
-        0.113,
-        0.012,
-        0.014,
-        materials.amber,
-        x + side * 0.889 * s,
-        0.2,
-        0.063,
-      );
-    }
-    panel(
-      'roof-captured-hinge',
-      0.61 * s,
-      0.04,
-      0.014,
-      0.014,
-      materials.metal,
-      x,
-      -0.403,
-      0.048,
-    );
-  }
-
-  const bowAt = (y: number, z: number) => {
-    let left = Infinity;
-    for (let i = 0; i < bowContour.length; i++) {
-      const a = bowContour[i],
-        b = bowContour[(i + 1) % bowContour.length];
-      if (
-        Math.abs(b.y - a.y) < 1e-9 ||
-        y < Math.min(a.y, b.y) ||
-        y > Math.max(a.y, b.y)
-      )
-        continue;
-      left = Math.min(left, a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
-    }
-    if (!Number.isFinite(left))
-      throw new RangeError('Shoulder shield lies outside the exterior contour');
-    return profiles.bowPointAtZ(new THREE.Vector2(left, y), z);
-  };
-  // A fitted, sealed cover pair protects the docking services. The wider roof
-  // panels and these curved shoulder covers occupy only front-visible surfaces.
-  const shoulder = (
-    name: string,
-    width: number,
-    height: number,
-    depth: number,
-    radius: number,
-    material: any,
-    side: number,
-    offset: number,
-  ) => {
-    const centerY = d.ladderCenterY + side * 1.7,
-      centerZ = 0.42;
-    // Dense only along the one curved axis. The cross-section is a rounded
-    // rectangle and the face strips follow the real bow instead of bridging it.
-    const positions: number[] = [],
-      indices: number[] = [],
-      uv: number[] = [];
-    const rows = 20,
-      cols = 4;
-    const halfWidth = (y: number) =>
-      width / 2 -
-      radius +
-      Math.sqrt(
-        Math.max(
-          0,
-          radius * radius - Math.max(0, Math.abs(y) - height / 2 + radius) ** 2,
-        ),
-      );
-    for (const w of [0, depth])
-      for (let j = 0; j <= rows; j++) {
-        const v = -height / 2 + (height * j) / rows;
-        for (let i = 0; i <= cols; i++) {
-          const u = halfWidth(v) * ((2 * i) / cols - 1),
-            z = centerZ + u;
-          const q = bowAt(centerY + v, z);
-          positions.push(q.x - offset - w, q.y, z);
-          uv.push(i / cols, j / rows);
-        }
-      }
-    const layer = (rows + 1) * (cols + 1);
-    for (let j = 0; j < rows; j++)
-      for (let i = 0; i < cols; i++) {
-        const a = j * (cols + 1) + i,
-          b = a + cols + 1;
-        indices.push(a, b, a + 1, b, b + 1, a + 1);
-        indices.push(
-          layer + a,
-          layer + a + 1,
-          layer + b,
-          layer + b,
-          layer + a + 1,
-          layer + b + 1,
-        );
-      }
-    const boundary: number[] = [];
-    for (let i = 0; i <= cols; i++) boundary.push(i);
-    for (let j = 1; j <= rows; j++) boundary.push(j * (cols + 1) + cols);
-    for (let i = cols - 1; i >= 0; i--) boundary.push(rows * (cols + 1) + i);
-    for (let j = rows - 1; j > 0; j--) boundary.push(j * (cols + 1));
-    for (let k = 0; k < boundary.length; k++) {
-      const a = boundary[k],
-        b = boundary[(k + 1) % boundary.length];
-      indices.push(a, b, a + layer, b, b + layer, a + layer);
-    }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute(
-      'position',
-      new THREE.Float32BufferAttribute(positions, 3),
-    );
-    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    geometry.computeBoundingBox();
-    geometry.computeBoundingSphere();
-    const object = h.mesh(geometry, material, root, 'exterior-service-' + name);
-    parts.push({
-      name,
-      surface: 'shoulder',
-      side,
-      center: [centerY, centerZ],
-      size: [width, height, depth],
-      offset,
+      triangles:
+        (geometry.index?.count ?? geometry.attributes.position.count) / 3,
       bounds: [
         geometry.boundingBox.min.toArray(),
         geometry.boundingBox.max.toArray(),
@@ -273,50 +45,319 @@ export function buildExteriorServiceEquipment(
     });
     return object;
   };
-  for (const side of [-1, 1]) {
-    shoulder(
-      'shoulder-seated-gasket',
-      0.82,
-      0.55,
-      0.024,
-      0.075,
-      materials.navy,
-      side,
-      -0.002,
+  const cylinder = (
+    a: any,
+    b: any,
+    radius: number,
+    material: any,
+    name: string,
+  ) => {
+    const delta = b.clone().sub(a),
+      geometry = new THREE.CylinderGeometry(
+        radius,
+        radius,
+        delta.length(),
+        20,
+        1,
+        false,
+      );
+    geometry.applyQuaternion(
+      new THREE.Quaternion().setFromUnitVectors(
+        yAxis,
+        delta.clone().normalize(),
+      ),
     );
-    shoulder(
-      'shoulder-protective-perimeter',
-      0.73,
-      0.465,
-      0.022,
-      0.063,
-      materials.metal,
-      side,
-      0.019,
+    geometry.translate(...a.clone().add(b).multiplyScalar(0.5).toArray());
+    return mesh(geometry, material, name);
+  };
+  const ring = (
+    center: any,
+    normal: any,
+    radius: number,
+    tube: number,
+    material: any,
+    name: string,
+  ) => {
+    const geometry = new THREE.TorusGeometry(radius, tube, 10, 28);
+    geometry.applyQuaternion(
+      new THREE.Quaternion().setFromUnitVectors(zAxis, normal),
     );
-    shoulder(
-      'shoulder-sealed-service-cover',
-      0.65,
-      0.39,
-      0.023,
-      0.052,
-      materials.chalk,
-      side,
-      0.038,
+    geometry.translate(...center.toArray());
+    return mesh(geometry, material, name);
+  };
+  const bowX = (y: number) => {
+    let x = Infinity;
+    for (let i = 0; i < bowContour.length; i++) {
+      const a = bowContour[i],
+        b = bowContour[(i + 1) % bowContour.length];
+      if (
+        Math.abs(b.y - a.y) < 1e-10 ||
+        y < Math.min(a.y, b.y) - 1e-8 ||
+        y > Math.max(a.y, b.y) + 1e-8
+      )
+        continue;
+      x = Math.min(x, a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
+    }
+    if (!Number.isFinite(x))
+      throw new RangeError('EVA mount must lie on the pressure bow');
+    return x;
+  };
+  const sourceArc = bowContour
+    .filter(
+      (p: any) => p.x <= d.bowTangentX + 1e-6 && p.y >= d.ladderCenterY + 1.28,
+    )
+    .sort((a: any, b: any) => a.y - b.y);
+  const uniqueArc = sourceArc.filter(
+    (p: any, i: number) => !i || p.distanceTo(sourceArc[i - 1]) > 1e-6,
+  );
+  const startY = d.ladderCenterY + 1.28;
+  const arc = [
+    new THREE.Vector3(bowX(startY), startY, zCenter),
+    ...uniqueArc.map((p: any) => new THREE.Vector3(p.x, p.y, zCenter)),
+  ];
+  const tangent = new THREE.Vector3(
+    d.bowTangentX,
+    profiles.roofAt(d.bowTangentX, zCenter),
+    zCenter,
+  );
+  if (arc[arc.length - 1].distanceTo(tangent) > 1e-6) arc.push(tangent);
+  // Frequent roof support points preserve a straight tangent after the curved
+  // shoulder. The tube follows one continuous path, not disconnected ladders.
+  const endX = d.right - 0.64;
+  const roofSpan = endX - tangent.x;
+  for (let i = 1; i <= Math.ceil(roofSpan / 0.5); i++)
+    arc.push(
+      new THREE.Vector3(
+        tangent.x + (roofSpan * i) / Math.ceil(roofSpan / 0.5),
+        tangent.y,
+        zCenter,
+      ),
     );
+  const mainPath = new THREE.CatmullRomCurve3(arc, false, 'centripetal');
+  mainPath.arcLengthDivisions = 800;
+  mainPath.updateArcLengths();
+  const centerline = (path: any, t: number) => {
+    const p = path.getPointAt(t),
+      tangent = path.getTangentAt(t).normalize();
+    const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
+    return { p, tangent, normal };
+  };
+  const surface = (p: any, z: number, side: number) => {
+    if (side > 0 && p.x >= d.bowTangentX - 1e-5)
+      return new THREE.Vector3(p.x, profiles.roofAt(p.x, z), z);
+    const y = p.y,
+      q = profiles.bowPointAtZ(new THREE.Vector2(bowX(y), y), z);
+    return new THREE.Vector3(q.x, q.y, z);
+  };
+  const station = (path: any, t: number, side: number) => {
+    const sample = centerline(path, t);
+    if (side < 0) sample.normal.negate();
+    return sample;
+  };
+  const buildRoute = (
+    name: string,
+    path: any,
+    side: number,
+    spacing: number,
+  ) => {
+    const length = path.getLength();
+    const count = Math.max(3, Math.round((length - 0.38) / spacing) + 1);
+    const rungPositions = Array.from(
+      { length: count },
+      (_, i) => (0.19 + ((length - 0.38) * i) / (count - 1)) / length,
+    );
+    const anchorCount = Math.max(2, Math.ceil(length / 1.22) + 1);
+    const anchorPositions = Array.from(
+      { length: anchorCount },
+      (_, i) => i / (anchorCount - 1),
+    );
+    const actualRungs: any[] = [];
+    for (const railSide of [-1, 1]) {
+      const points = [];
+      for (let i = 0; i <= Math.ceil(length / 0.085); i++) {
+        const t = i / Math.ceil(length / 0.085),
+          q = station(path, t, side);
+        const p = q.p.clone().addScaledVector(q.normal, clearance);
+        p.z = zCenter + railSide * halfWidth;
+        points.push(p);
+      }
+      const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal');
+      mesh(
+        new THREE.TubeGeometry(
+          curve,
+          Math.max(24, Math.ceil(length / 0.055)),
+          railRadius,
+          14,
+          false,
+        ),
+        materials.navy,
+        name + '-continuous-rail',
+      );
+      for (const t of [0, 1]) {
+        const q = station(path, t, side),
+          p = q.p.clone().addScaledVector(q.normal, clearance);
+        p.z = zCenter + railSide * halfWidth;
+        const cap = new THREE.SphereGeometry(railRadius, 16, 10);
+        cap.translate(...p.toArray());
+        mesh(cap, materials.navy, name + '-rounded-rail-end');
+      }
+      for (const t of anchorPositions) {
+        const q = station(path, t, side),
+          z = zCenter + railSide * halfWidth;
+        const foot = surface(q.p, z, side),
+          rail = q.p.clone().addScaledVector(q.normal, clearance);
+        rail.z = z;
+        // Circular bonded feet and a short rigid strut meet the actual hull.
+        // These small mounts support the rails rather than decorating empty space.
+        cylinder(
+          foot.clone().addScaledVector(q.normal, -0.005),
+          foot.clone().addScaledVector(q.normal, 0.023),
+          0.074,
+          materials.navy,
+          name + '-bonded-mount-foot',
+        );
+        cylinder(
+          foot.clone().addScaledVector(q.normal, 0.016),
+          rail.clone().addScaledVector(q.normal, -0.006),
+          0.024,
+          materials.metal,
+          name + '-rigid-standoff',
+        );
+        ring(
+          foot.clone().addScaledVector(q.normal, 0.024),
+          q.normal,
+          0.051,
+          0.006,
+          materials.metal,
+          name + '-mount-edge',
+        );
+        cylinder(
+          rail.clone().addScaledVector(q.tangent, -0.045),
+          rail.clone().addScaledVector(q.tangent, 0.045),
+          0.047,
+          materials.metal,
+          name + '-split-rail-clamp',
+        );
+        // One seam in each split clamp is a mechanical joint, never a grille.
+        ring(
+          rail,
+          q.tangent,
+          0.047,
+          0.005,
+          materials.navy,
+          name + '-clamp-separation',
+        );
+        mounts.push({
+          route: name,
+          t,
+          railSide,
+          skin: foot.toArray(),
+          normal: q.normal.toArray(),
+          rail: rail.toArray(),
+        });
+      }
+    }
+    for (const t of rungPositions) {
+      const q = station(path, t, side),
+        p = q.p.clone().addScaledVector(q.normal, clearance);
+      const a = p.clone(),
+        b = p.clone();
+      a.z = zCenter - halfWidth;
+      b.z = zCenter + halfWidth;
+      cylinder(a, b, rungRadius, materials.metal, name + '-open-rung');
+      const gripA = p.clone(),
+        gripB = p.clone();
+      gripA.z = zCenter - 0.175;
+      gripB.z = zCenter + 0.175;
+      cylinder(gripA, gripB, 0.033, materials.navy, name + '-rung-grip-sleeve');
+      for (const z of [zCenter - halfWidth, zCenter + halfWidth]) {
+        const socket = p.clone();
+        socket.z = z;
+        cylinder(
+          socket.clone().addScaledVector(zAxis, -0.049),
+          socket.clone().addScaledVector(zAxis, 0.049),
+          0.042,
+          materials.navy,
+          name + '-rung-socket',
+        );
+      }
+      actualRungs.push({ center: p.toArray(), t });
+    }
+    const tetherPositions = name === 'main' ? [0.06, 0.53, 0.95] : [0.5];
+    for (const t of tetherPositions) {
+      const q = station(path, t, side),
+        rail = q.p.clone().addScaledVector(q.normal, clearance);
+      rail.z = zCenter + halfWidth;
+      const eye = rail
+        .clone()
+        .addScaledVector(zAxis, 0.086)
+        .addScaledVector(q.normal, 0.016);
+      cylinder(rail, eye, 0.027, materials.metal, name + '-tether-eye-neck');
+      ring(
+        eye,
+        q.tangent,
+        0.069,
+        0.014,
+        materials.metal,
+        name + '-open-tether-eye',
+      );
+      ring(
+        rail,
+        q.tangent,
+        0.041,
+        0.008,
+        materials.amber,
+        name + '-tether-anchor-marker',
+      );
+    }
+    routes.push({
+      name,
+      length,
+      rungCount: count,
+      rungSpacing: (length - 0.38) / (count - 1),
+      rungs: actualRungs,
+      anchorCount,
+      centerline: Array.from({ length: 65 }, (_, i) => {
+        const q = station(path, i / 64, side);
+        return { p: q.p.toArray(), normal: q.normal.toArray() };
+      }),
+    });
+  };
+  buildRoute('main', mainPath, 1, 0.51);
+  // A compact docking transfer station mirrors the first part of the climb.
+  // It offers hand/foot purchase and a tether eye below the sleeve, without a
+  // decorative route vanishing around the concealed keel.
+  const transferLength = 1.12,
+    lowerPoints = [];
+  for (let i = 0; i <= 24; i++) {
+    const p = mainPath.getPointAt(
+      ((transferLength / mainPath.getLength()) * i) / 24,
+    );
+    p.y = 2 * d.ladderCenterY - p.y;
+    lowerPoints.push(p);
   }
+  const lowerPath = new THREE.CatmullRomCurve3(
+    lowerPoints,
+    false,
+    'centripetal',
+  );
+  lowerPath.arcLengthDivisions = 160;
+  lowerPath.updateArcLengths();
+  buildRoute('docking-transfer', lowerPath, -1, 0.37);
   root.userData.layout = {
     variant,
-    sealedServiceHardware: true,
+    evaAccessRoute: true,
     exposedSurfacesOnly: true,
     hiddenRearGeometry: false,
-    surfaceMounted: true,
-    symmetryAxisX: 0,
-    cabinColumnAxes: [-d.halfPitch, d.halfPitch],
-    cutawayFrontLimitZ: 0.94,
-    roofDepthRange: [-0.53, 0.93],
-    maximumProjection: 0.1,
+    zCenter,
+    railSeparation: 2 * halfWidth,
+    railRadius,
+    rungRadius,
+    nominalRailClearance: clearance,
+    cutawayFrontLimitZ: 1.02,
     sourceParts: parts.length,
+    routes,
+    mounts,
     parts,
   };
   return root;

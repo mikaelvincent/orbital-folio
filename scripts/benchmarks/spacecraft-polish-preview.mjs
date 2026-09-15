@@ -54,6 +54,8 @@ for (const version of ['before', 'after']) {
           'Contact corner':{target:[2.09,-1.405,-.15],direction:[.32,.06,1],distance:5.4},
           'Upper ladder return':{target:[ladderX,2.44,.05],direction:[.65,-.15,1],distance:4.5},
           'Lower ladder return':{target:[ladderX,-2.31,.05],direction:[.65,.15,1],distance:4.5},
+          'Exterior access route':{target:[-.5,.2,0],direction:[-.38,.25,1],distance:17.5},
+          'Roof access detail':{target:[-1,3.1,.35],direction:[-.35,.75,1],distance:9.5},
           'Rear quarter':{target:[-2,.3,-.4],direction:[-.45,.48,-1],distance:15},
         };
         let selected='Ladder front';

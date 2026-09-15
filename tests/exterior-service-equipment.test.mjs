@@ -5,7 +5,6 @@ import { createSpacecraft } from '../components/spacecraft-model.ts';
 import {
   wallLayout,
   PRESSURE_THROAT_START,
-  LADDER_CENTER_Y,
 } from '../lib/spacecraft-wall-layout.ts';
 const equipment = (model, layout) => {
   const root = model.group.getObjectByName(
@@ -19,46 +18,54 @@ const equipment = (model, layout) => {
   return { root, meshes };
 };
 
-test('Solid exterior panels fit the exposed roof and docking shoulder without touching either passage', () => {
+test('The open EVA route is continuous from docking shoulder across the roof, with wide-spaced rungs and capped rails', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   for (const layout of ['wide', 'compact']) {
     model.setLayout(layout);
-    model.group.updateMatrixWorld(true);
-    const d = wallLayout(layout === 'wide' ? 1.4 : 1),
-      { root, meshes } = equipment(model, layout);
-    const bounds = new THREE.Box3().setFromObject(root);
+    const { root, meshes } = equipment(model, layout),
+      data = root.userData.layout;
+    assert(data.evaAccessRoute);
+    assert.equal(data.routes.length, 2);
+    const [main, transfer] = data.routes;
     assert(
-      bounds.max.z < PRESSURE_THROAT_START - 0.18,
-      'All exterior pieces stop before the front cutaway',
+      main.rungCount >= 16 &&
+        main.rungSpacing > 0.46 &&
+        main.rungSpacing < 0.55,
+      'Rungs have open ladder spacing, not dense vent slots',
     );
-    assert(bounds.min.z > -0.6, 'No hidden rear panels');
-    assert(bounds.max.x < d.rightX - 0.5, 'Service module remains clear');
-    const roof = root.userData.layout.parts.filter((p) => p.surface === 'roof');
-    const topBounds = roof.map((p) => p.bounds);
+    assert.equal(transfer.rungCount, 3);
+    assert.equal(
+      data.parts.filter((p) => p.name === 'main-continuous-rail').length,
+      2,
+    );
+    assert.equal(
+      data.parts.filter((p) => p.name.endsWith('rounded-rail-end')).length,
+      8,
+    );
     assert(
-      Math.abs(
-        Math.min(...topBounds.map((b) => b[0][0])) +
-          Math.max(...topBounds.map((b) => b[1][0])),
-      ) < 1e-5,
+      data.parts.every(
+        (p) => !/cover|shield|panel|louvre|louver|grille|airfoil/.test(p.name),
+      ),
     );
-    for (const part of root.userData.layout.parts) {
-      assert(!/louver|louvre|grille|vent|airfoil|intake/.test(part.name));
-      if (part.surface === 'roof') {
-        assert(part.bounds[0][1] >= d.roof - 0.00201);
-        assert(part.bounds[1][1] <= d.roof + 0.1);
-      } else {
-        assert(
-          Math.min(
-            Math.abs(part.bounds[0][1] - LADDER_CENTER_Y),
-            Math.abs(part.bounds[1][1] - LADDER_CENTER_Y),
-          ) > 1.4,
-          'Docking sleeve is clear of the shoulder covers',
-        );
-      }
-    }
-    for (const mesh of meshes) {
-      const p = mesh.geometry.attributes.position,
-        n = mesh.geometry.attributes.normal;
+    assert(
+      data.railSeparation >= 0.8 && data.nominalRailClearance >= 0.2,
+      'Tubular route remains open and large enough to read with glove clearance',
+    );
+    assert(main.centerline[0].p[0] < main.centerline.at(-1).p[0] - 7);
+    const b = new THREE.Box3().setFromObject(root),
+      d = wallLayout(layout === 'wide' ? 1.4 : 1);
+    assert(
+      b.max.z < PRESSURE_THROAT_START - 0.16,
+      'Tether eyes and rails remain behind the front cutaway',
+    );
+    assert(b.min.z > -0.2, 'No route is fabricated around the concealed rear');
+    assert(
+      b.max.x < d.rightX - 0.5,
+      'The service end and solar hinges remain clear',
+    );
+    for (const m of meshes) {
+      const p = m.geometry.attributes.position,
+        n = m.geometry.attributes.normal;
       for (let i = 0; i < p.count; i++) {
         assert(Number.isFinite(p.getX(i) + p.getY(i) + p.getZ(i)));
         assert(
@@ -69,13 +76,51 @@ test('Solid exterior panels fit the exposed roof and docking shoulder without to
   }
 });
 
-test('Exterior access shields share four existing materials and stay passive within a modest triangle budget', () => {
+test('Every EVA stand-off terminates on the actual pressure skin in both layouts', () => {
+  const model = createSpacecraft(THREE, { layout: 'wide' }),
+    ray = new THREE.Raycaster();
+  for (const layout of ['wide', 'compact']) {
+    model.setLayout(layout);
+    model.group.updateMatrixWorld(true);
+    const { root } = equipment(model, layout),
+      skin = [];
+    model.group.traverseVisible((o) => {
+      if (!o.isMesh || o.userData.isInteractionProxy) return;
+      for (let p = o; p; p = p.parent) if (p === root) return;
+      skin.push(o);
+    });
+    for (const mount of root.userData.layout.mounts) {
+      const p = new THREE.Vector3(...mount.skin),
+        n = new THREE.Vector3(...mount.normal),
+        rail = new THREE.Vector3(...mount.rail);
+      ray.set(p.clone().addScaledVector(n, 0.13), n.clone().negate());
+      ray.near = 0;
+      ray.far = 0.18;
+      const hit = ray.intersectObjects(skin, false)[0];
+      assert(hit, 'Each mount has a wall behind it');
+      assert.equal(hit.object.material.name, 'ceramic-hull');
+      assert(
+        hit.point.distanceTo(p) < 0.003,
+        'Mount datums follow the rendered skin, not an approximate ellipse',
+      );
+      assert(
+        rail.clone().sub(p).dot(n) > 0.195 &&
+          rail.clone().sub(p).dot(n) < 0.215,
+        'Posts span the deliberate stand-off gap',
+      );
+    }
+  }
+});
+
+test('The route uses existing passive exterior materials and renders physical structure without lights, textures or actions', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' }),
     { root, meshes } = equipment(model, 'wide');
-  assert.equal(meshes.length, 4);
+  assert.equal(meshes.length, 3);
   const triangles = meshes.reduce((v, m) => v + m.geometry.index.count / 3, 0);
-  assert(triangles < 5500);
-  assert.equal(root.userData.layout.sourceParts, 22);
+  assert(
+    triangles < 90000,
+    'Guard against runaway tessellation while allowing articulated rails and mounts',
+  );
   for (const m of meshes) {
     assert(m.userData.excludePick);
     assert(m.material.userData.exterior);
@@ -88,9 +133,10 @@ test('Exterior access shields share four existing materials and stay passive wit
   meshes.forEach((m, i) =>
     assert.deepEqual(m.material.color.toArray(), before[i]),
   );
+  assert(!root.children.some((o) => o.isLight));
 });
 
-test('Roof shield faces are directly exposed in supported landscape and portrait views', () => {
+test('Roof rungs and the curved climb are exposed from supported default and hover camera views', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   model.group.updateMatrixWorld(true);
   const { root, meshes } = equipment(model, 'wide'),
@@ -99,28 +145,24 @@ test('Roof shield faces are directly exposed in supported landscape and portrait
   model.group.traverseVisible((o) => {
     if (o.isMesh && !o.userData.isInteractionProxy) scene.push(o);
   });
-  const covers = root.userData.layout.parts.filter(
-    (p) => p.name === 'roof-sealed-shield-cover',
-  );
-  const ray = new THREE.Raycaster();
-  for (const position of [
+  const route = root.userData.layout.routes[0],
+    ray = new THREE.Raycaster();
+  for (const eyeValues of [
     [-8.416, 4.901, 23.239],
     [-7.009, 4.186, 20.364],
     [5.795, 3.509, 34.77],
-  ])
-    for (const part of covers) {
-      const point = new THREE.Vector3(
-          (part.bounds[0][0] + part.bounds[1][0]) / 2,
-          part.bounds[1][1] - 0.003,
-          (part.bounds[0][2] + part.bounds[1][2]) / 2,
-        ),
-        eye = new THREE.Vector3(...position);
-      ray.set(eye, point.clone().sub(eye).normalize());
+  ]) {
+    const eye = new THREE.Vector3(...eyeValues);
+    let visible = 0;
+    for (const rung of route.rungs) {
+      const p = new THREE.Vector3(...rung.center);
+      ray.set(eye, p.clone().sub(eye).normalize());
       const hit = ray.intersectObjects(scene, false)[0];
-      assert(
-        hit &&
-          owns.has(hit.object) &&
-          Math.sign(hit.point.x) === Math.sign(point.x),
-      );
+      if (hit && owns.has(hit.object)) visible++;
     }
+    assert(
+      visible >= 12,
+      'The route reads as multiple open rungs in ordinary supported views',
+    );
+  }
 });
