@@ -6,6 +6,11 @@ import {
   createDoorNavigationQueue,
 } from '@/lib/door-navigation';
 import { SceneLoader } from './scene-loader';
+import { createRoomNavigationTargets } from './room-navigation-targets';
+import {
+  roomNavigationIntent,
+  sceneNavigationKey,
+} from '@/lib/room-navigation';
 import { createScenePerformance } from '@/lib/scene-performance';
 import { updateRenderSceneMatrices } from '@/lib/scene-matrices';
 import { createVesselCameraFrame } from '@/lib/vessel-camera';
@@ -331,27 +336,12 @@ export function Spacecraft(props: Props) {
           >;
           const ray = new THREE.Raycaster(),
             pointer = new THREE.Vector2();
-          // Simple invisible picking volumes avoid intersecting the entire detailed pressure hull on every pointer move.
-          const proxies: Three.Mesh[] = [];
+          const roomNavigation = createRoomNavigationTargets(
+            THREE,
+            model.group,
+          );
+          roomNavigation.sync(model.group.userData.layoutScale);
           const proxyMaterial = new THREE.MeshBasicMaterial({ visible: false });
-          for (const section of [
-            'projects',
-            'experience',
-            'about',
-            'contact',
-          ]) {
-            const bounds = model.group.userData.roomBounds[section];
-            const mesh = new THREE.Mesh(
-              new THREE.BoxGeometry(1, 1, 1),
-              proxyMaterial,
-            );
-            mesh.position.set(...(bounds.center as [number, number, number]));
-            mesh.scale.set(...(bounds.size as [number, number, number]));
-            mesh.visible = false;
-            mesh.userData.section = section;
-            model.group.add(mesh);
-            proxies.push(mesh);
-          }
           const walkwayProxy = new THREE.Mesh(
             new THREE.BoxGeometry(1, 1, 1),
             proxyMaterial,
@@ -364,7 +354,7 @@ export function Spacecraft(props: Props) {
             section: string;
             portalId: string;
           }[] = [];
-          // Object actions are deliberately absent here: only doors navigate.
+          // Native doorway controls complement the visible room-opening targets.
           for (const portal of model.group.userData.portals) {
             const button = document.createElement('button');
             button.type = 'button';
@@ -418,14 +408,7 @@ export function Spacecraft(props: Props) {
           const syncSceneTargets = () => {
             Object.assign(anchors, model.group.userData.roomAnchors);
             readerAnchors = model.group.userData.readerAnchors;
-            for (const proxy of proxies) {
-              const bounds =
-                model.group.userData.roomBounds[proxy.userData.section];
-              proxy.position.set(
-                ...(bounds.center as [number, number, number]),
-              );
-              proxy.scale.set(...(bounds.size as [number, number, number]));
-            }
+            roomNavigation.sync(model.group.userData.layoutScale);
             const walkwayBounds = model.group.userData.walkwayBounds;
             walkwayProxy.position.set(
               ...(walkwayBounds.center as [number, number, number]),
@@ -499,6 +482,7 @@ export function Spacecraft(props: Props) {
             pointerType: string;
             section: string;
             portalId?: string;
+            roomTarget?: boolean;
             navigationOnly: boolean;
           } | null = null;
           const doorQueue = createDoorNavigationQueue();
@@ -517,6 +501,35 @@ export function Spacecraft(props: Props) {
             );
             el.dataset.queuedRoom = doorQueue.destination;
             if (destination) latest.current.onNavigate(destination);
+          }
+          function roomIntent(destination: string) {
+            const intent = roomNavigationIntent(
+              model.group.userData.portals,
+              active,
+              destination,
+            );
+            if (!intent) return null;
+            if (
+              travelling &&
+              !canPreviewDoor(
+                model.group.userData.portals.find(
+                  (p: any) => p.id === intent.portalId,
+                ),
+              )
+            )
+              return null;
+            return intent;
+          }
+          function navigateRoom(destination: string) {
+            if (reading || !latest.current.enabled || !roomIntent(destination))
+              return;
+            const next = doorQueue.requestDestination(
+              destination,
+              active,
+              travelling,
+            );
+            el.dataset.queuedRoom = doorQueue.destination;
+            if (next) latest.current.onNavigate(next);
           }
           const feedback = createSceneFeedback();
           const interactionScope = el.closest<HTMLElement>(
@@ -1274,8 +1287,8 @@ export function Spacecraft(props: Props) {
               pointerFeedback,
               () => targetFeedback(document.activeElement),
             );
-            // Door feedback can operate during a flight without steering the
-            // camera or enabling objects and general room hover along the way.
+            // Doors and visible destination rooms preview the same first hatch
+            // during travel, without steering the camera or enabling objects.
             const effectiveHover = travelling ? '' : feedbackTarget.room;
             const effectiveObject = travelling ? '' : feedbackTarget.object;
             const effectivePortal = feedbackTarget.portalId || effectiveHover;
@@ -1301,7 +1314,8 @@ export function Spacecraft(props: Props) {
             const passage = model.group.userData.portals.find(
               (p: any) =>
                 p.from === active &&
-                (p.to === effectiveHover ||
+                (p.id === feedbackTarget.portalId ||
+                  p.to === effectiveHover ||
                   (highlightedRoute.at(-1) === effectiveHover &&
                     p.to === highlightedRoute[1])),
             );
@@ -1968,6 +1982,22 @@ export function Spacecraft(props: Props) {
               !travelling &&
               !reading &&
               ray.intersectObject(walkwayProxy, false).length > 0;
+            // The nearest front opening owns the visible region. Do not let a
+            // current-room door volume behind it steal a neighboring room click.
+            // Rounded masks leave the solid frame, dividers and sky unselectable.
+            const { section, blockedByFace } = roomNavigation.pick(ray);
+            if (blockedByFace) return { section: '', walkway: false };
+            if (
+              section &&
+              section !== 'walkway' &&
+              section !== active &&
+              !reading
+            ) {
+              const intent = roomIntent(section);
+              return intent
+                ? { ...intent, walkway }
+                : { section: '', walkway: false };
+            }
             if (active !== 'home' && !reading) {
               const portal = ray.intersectObjects(
                 model.portalTargets
@@ -1977,7 +2007,7 @@ export function Spacecraft(props: Props) {
                       (!travelling ||
                         canPreviewDoor(
                           model.group.userData.portals.find(
-                            (portal: any) => portal.id === p.id,
+                            (source: any) => source.id === p.id,
                           ),
                         )),
                   )
@@ -1991,10 +2021,7 @@ export function Spacecraft(props: Props) {
                   walkway,
                 };
             }
-            if (travelling) return { section: '', walkway: false };
-            const hit = ray.intersectObjects(proxies, false)[0];
-            const section = hit?.object.userData.section || '';
-            return { section: section === active ? '' : section, walkway };
+            return { section: '', walkway };
           }
           function pick(event: PointerEvent) {
             const target = targetFeedback(event.target as Element);
@@ -2176,14 +2203,11 @@ export function Spacecraft(props: Props) {
             if (event.pointerType === 'touch') pointerGoal.set(0, 0);
             kick();
             if (completed.activate && !action.control && action.section) {
-              if (action.portalId) navigateDoor(action.portalId);
-              else if (!travelling) latest.current.onNavigate(action.section);
+              if (action.roomTarget) navigateRoom(action.section);
+              else if (action.portalId) navigateDoor(action.portalId);
             }
           };
-          function pickKey(value: { section: string; portalId?: string }) {
-            if (value.portalId) return `portal:${value.portalId}`;
-            return value.section ? `${value.section}:room` : '';
-          }
+          const pickKey = sceneNavigationKey;
           function cancelInput() {
             const pointerId = down?.gesture.pointerId;
             if (down?.gesture.dragging)
