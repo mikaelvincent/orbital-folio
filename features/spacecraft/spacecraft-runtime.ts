@@ -28,6 +28,8 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
+import type { SceneAudit } from '../diagnostics/scene-audit';
+import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
 import {
   planCabinItinerary,
   type CabinRouteNode,
@@ -56,6 +58,8 @@ import {
 } from '@/features/spacecraft/navigation/scene-controls';
 
 export type SpacecraftProps = {
+  /** Only the explicit local performance lab supplies this adapter. */
+  audit?: SceneAudit;
   site: Record<string, any>;
   projects: Record<string, any>[];
   caseStudies: Record<string, any>[];
@@ -86,12 +90,14 @@ export function mountSpacecraftScene({
   api,
   setState,
   site: s,
+  audit,
 }: {
   host: { current: HTMLDivElement | null };
   latest: { current: SpacecraftProps };
   api: { current: SpacecraftSceneAPI | null };
   setState: (value: string) => void;
   site: SpacecraftProps['site'];
+  audit?: SceneAudit;
 }) {
   let destroyed = false,
     cleanup = () => {};
@@ -152,6 +158,15 @@ export function mountSpacecraftScene({
         const el = host.current;
         // Instantiated on request without rebuilding the ship or its camera.
         const gl = renderer.getContext();
+        const shadowReasons = new Set<string>(['initial']);
+        const invalidateShadow = (reason: string) => {
+          shadowReasons.add(reason);
+          renderer.shadowMap.needsUpdate = true;
+        };
+        let restoreShadowDiagnostics = () => {};
+        let frozenBackgroundTime: number | undefined;
+        // The historical policy remains selectable only by the explicit local lab.
+        let aoPolicy: 'legacy' | 'geometry' = 'geometry';
         let diagnostics: ReturnType<typeof createScenePerformance> | null =
           null;
         let spacecraftPerformance: ReturnType<
@@ -317,6 +332,43 @@ export function mountSpacecraftScene({
         const aoCameraPosition = new THREE.Vector3(),
           aoCameraQuaternion = new THREE.Quaternion();
         let aoRoll = 0;
+        let aoGeometryRevision = -1,
+          aoReaderStretch = NaN;
+        const aoProjection = new THREE.Matrix4();
+        const aoDirtyReasons = new Set<string>(['initial']);
+        const invalidateAo = (reason: string) => {
+          aoDirtyReasons.add(reason);
+          aoDirty = true;
+        };
+        function refreshOcclusion(delta: number, profile = true) {
+          if (profile) {
+            diagnostics?.beginPass('ao-refresh', renderer.info.render);
+            spacecraftPerformance?.beginPass(
+              'ao-refresh',
+              renderer.info.render,
+            );
+          }
+          for (const hatch of model.group.userData.irisHatches)
+            hatch.userData.setOcclusionPass(true);
+          const restore = spacecraftPerformance?.applyFilter();
+          try {
+            ao.render(
+              renderer,
+              ao.pdRenderTarget,
+              ao.pdRenderTarget,
+              delta,
+              false,
+            );
+          } finally {
+            restore?.();
+            for (const hatch of model.group.userData.irisHatches)
+              hatch.userData.setOcclusionPass(false);
+          }
+          if (profile) {
+            spacecraftPerformance?.endPass(renderer.info.render);
+            diagnostics?.endPass('ao-refresh', renderer.info.render);
+          }
+        }
         const anchors: Record<string, [number, number, number]> = {
           home: [0, 0, 0],
           ...model.group.userData.roomAnchors,
@@ -910,7 +962,7 @@ export function mountSpacecraftScene({
           // A pointer position from the previous room must not tilt the arrival.
           // Preserve spring velocity so the view returns to center smoothly.
           pointerGoal.set(0, 0);
-          aoDirty = true;
+          invalidateAo('navigation');
           const previousRoom = active;
           const wasReading = reading;
           active = latest.current.section;
@@ -1217,8 +1269,7 @@ export function mountSpacecraftScene({
               .normalize();
             distance = distanceMotion.value;
             roll = rollMotion.value;
-            if (Math.abs(beforeRoll - roll) > 0.00001)
-              renderer.shadowMap.needsUpdate = true;
+            if (Math.abs(beforeRoll - roll) > 0.00001) invalidateShadow('roll');
             const settled =
               currentTarget.distanceTo(nextTarget) < 0.003 &&
               Math.abs(distance - nextDistance) < 0.003 &&
@@ -1270,10 +1321,11 @@ export function mountSpacecraftScene({
           const effectivePortal = feedbackTarget.portalId || effectiveHover;
           el.dataset.hoverPortal = effectivePortal;
           if (
-            hovered !== effectiveHover ||
-            highlightedObject !== effectiveObject
+            aoPolicy === 'legacy' &&
+            (hovered !== effectiveHover ||
+              highlightedObject !== effectiveObject)
           )
-            aoDirty = true;
+            invalidateAo('feedback-identity');
           hovered = effectiveHover;
           highlightedObject = effectiveObject;
           interactionScope.dataset.sceneInput = feedback.input;
@@ -1512,7 +1564,7 @@ export function mountSpacecraftScene({
           }
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
-            background.update(elapsed, !stop, 0, 0);
+            background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
             background.followCamera(camera, backgroundReference);
           }
           diagnostics?.mark('background-update');
@@ -1524,8 +1576,6 @@ export function mountSpacecraftScene({
           diagnostics?.endPass('background', renderer.info.render);
           renderer.clearDepth();
           if (experiment !== 'no-spacecraft') {
-            if (renderer.shadowMap.needsUpdate)
-              diagnostics?.count('shadow-refresh');
             diagnostics?.beginPass('spacecraft', renderer.info.render);
             spacecraftPerformance?.beginPass(
               'spacecraft',
@@ -1547,55 +1597,57 @@ export function mountSpacecraftScene({
             experiment !== 'no-spacecraft'
           ) {
             const geometryMotion = !!model.group.userData.motionActive;
-            if (
+            const geometryRevision = model.group.userData.geometryRevision;
+            const changedGeometry = geometryRevision !== aoGeometryRevision;
+            const changedPosition =
+              aoCameraPosition.distanceToSquared(camera.position) > 1e-8;
+            const changedAngle =
+              aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5;
+            const changedProjection = !aoProjection.equals(
+              camera.projectionMatrix,
+            );
+            const changedReaderStretch = aoReaderStretch !== readerStretch();
+            const refresh =
               aoDirty ||
-              geometryMotion ||
-              previousGeometryMotion ||
-              aoCameraPosition.distanceToSquared(camera.position) > 1e-8 ||
-              aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5 ||
-              aoRoll !== roll
-            ) {
-              if (diagnostics) {
-                diagnostics.count('ao-refresh');
-                if (aoDirty) diagnostics.count('ao-dirty');
-                if (geometryMotion) diagnostics.count('ao-geometry-motion');
-                if (previousGeometryMotion)
-                  diagnostics.count('ao-geometry-settling');
-                if (aoCameraPosition.distanceToSquared(camera.position) > 1e-8)
-                  diagnostics.count('ao-camera-position');
-                if (aoCameraQuaternion.angleTo(camera.quaternion) > 1e-5)
-                  diagnostics.count('ao-camera-angle');
-                if (aoRoll !== roll) diagnostics.count('ao-roll');
-                diagnostics.beginPass('ao-refresh', renderer.info.render);
-                spacecraftPerformance?.beginPass(
-                  'ao-refresh',
-                  renderer.info.render,
-                );
-              }
-              // Render the bounded shutter silhouette in the AO pass.
-              // Its opening matches the visible leaves; concealed wings stay out.
-              for (const hatch of model.group.userData.irisHatches)
-                hatch.userData.setOcclusionPass(true);
-              const restoreAo = spacecraftPerformance?.applyFilter();
-              try {
-                ao.render(
-                  renderer,
-                  ao.pdRenderTarget,
-                  ao.pdRenderTarget,
-                  delta,
-                  false,
-                );
-              } finally {
-                restoreAo?.();
-              }
-              for (const hatch of model.group.userData.irisHatches)
-                hatch.userData.setOcclusionPass(false);
-              spacecraftPerformance?.endPass(renderer.info.render);
-              diagnostics?.endPass('ao-refresh', renderer.info.render);
+              changedPosition ||
+              changedAngle ||
+              aoRoll !== roll ||
+              (aoPolicy === 'legacy'
+                ? geometryMotion || previousGeometryMotion
+                : changedGeometry || changedProjection || changedReaderStretch);
+            diagnostics?.annotate({
+              aoPolicy,
+              geometryRevision,
+              geometryChanged: changedGeometry,
+              legacyModelMotion: geometryMotion,
+              aoDirtyReasons: [...aoDirtyReasons],
+              aoCameraChanged: changedPosition || changedAngle,
+              aoProjectionChanged: changedProjection,
+              aoReaderStretchChanged: changedReaderStretch,
+            });
+            if (geometryMotion && !changedGeometry)
+              diagnostics?.count('material-only-model-motion');
+            if (refresh) {
+              diagnostics?.count('ao-refresh');
+              if (aoDirty) diagnostics?.count('ao-dirty');
+              if (geometryMotion) diagnostics?.count('ao-legacy-model-motion');
+              if (changedGeometry) diagnostics?.count('ao-geometry-change');
+              if (previousGeometryMotion && !geometryMotion)
+                diagnostics?.count('ao-legacy-settling');
+              if (changedPosition) diagnostics?.count('ao-camera-position');
+              if (changedAngle) diagnostics?.count('ao-camera-angle');
+              if (aoRoll !== roll) diagnostics?.count('ao-roll');
+              if (changedProjection) diagnostics?.count('ao-projection');
+              if (changedReaderStretch) diagnostics?.count('ao-reader-stretch');
+              refreshOcclusion(delta);
               aoCameraPosition.copy(camera.position);
               aoCameraQuaternion.copy(camera.quaternion);
+              aoProjection.copy(camera.projectionMatrix);
+              aoGeometryRevision = geometryRevision;
+              aoReaderStretch = readerStretch();
               aoRoll = roll;
               aoDirty = false;
+              aoDirtyReasons.clear();
             } else diagnostics?.count('ao-cached');
             previousGeometryMotion = geometryMotion;
             diagnostics?.beginPass('ao-composite', renderer.info.render);
@@ -1603,6 +1655,7 @@ export function mountSpacecraftScene({
             aoQuad.render(renderer);
             diagnostics?.endPass('ao-composite', renderer.info.render);
           }
+          diagnostics?.endGpuFrame();
           cssRenderer.render(cssScene, camera);
           diagnostics?.mark('css-render');
           if (auditMotion) {
@@ -1797,7 +1850,7 @@ export function mountSpacecraftScene({
         };
         const loop = (now: number) => {
           frame = 0;
-          if (!visible || destroyed) return;
+          if (!visible || destroyed || audit?.manual) return;
           const rawDelta = lastFrame ? (now - lastFrame) / 1000 : 0;
           lastFrame = now;
           draw(now, Math.min(0.05, rawDelta), rawDelta);
@@ -1805,7 +1858,7 @@ export function mountSpacecraftScene({
             frame = requestAnimationFrame(loop);
         };
         function kick() {
-          if (!destroyed && visible && !frame)
+          if (!destroyed && visible && !frame && !audit?.manual)
             frame = requestAnimationFrame(loop);
         }
         const setDrawingSize = () => {
@@ -1827,7 +1880,7 @@ export function mountSpacecraftScene({
           renderer.setSize(w, h);
           cssRenderer.setSize(w, h);
           ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
-          aoDirty = true;
+          invalidateAo('drawing-size');
           background.resize(w, h, renderer.getPixelRatio());
         };
         const identity = document.querySelector('.orbital-identity');
@@ -1864,7 +1917,7 @@ export function mountSpacecraftScene({
             reference.distance,
             reference.roll,
           );
-          renderer.shadowMap.needsUpdate = true;
+          invalidateShadow('viewport');
           resetDiagnostics('viewport changed');
           if (!initializedCamera) {
             // Deep links start at precisely the responsive overview pose,
@@ -2251,7 +2304,7 @@ export function mountSpacecraftScene({
         renderer.domElement.addEventListener('webglcontextlost', lost);
         const shadowDiagnostic = () => {
           renderer.shadowMap.enabled = !renderer.shadowMap.enabled;
-          renderer.shadowMap.needsUpdate = true;
+          invalidateShadow('shadow-toggle');
           kick();
         };
         const motionDiagnostic = () => api.current?.pause(!stop);
@@ -2295,10 +2348,12 @@ export function mountSpacecraftScene({
         });
         let unmountPerformancePanel = () => {};
         function setDiagnosticsEnabled(enabled: boolean) {
+          if (audit && !enabled && !destroyed) return;
           if (enabled === !!diagnostics) return;
           if (!enabled) {
             unmountPerformancePanel();
             unmountPerformancePanel = () => {};
+            restoreShadowDiagnostics();
             diagnostics?.dispose();
             diagnostics = null;
             spacecraftPerformance?.dispose();
@@ -2307,8 +2362,8 @@ export function mountSpacecraftScene({
             const resized = experiment === 'half-resolution';
             experiment = 'normal';
             if (resized) setDrawingSize();
-            aoDirty = true;
-            renderer.shadowMap.needsUpdate = true;
+            invalidateAo('diagnostics-disabled');
+            invalidateShadow('diagnostics-disabled');
             lastFrame = 0;
             kick();
             return;
@@ -2317,6 +2372,16 @@ export function mountSpacecraftScene({
             maxFrames: 1800,
           });
           spacecraftPerformance = createSpacecraftPerformance(model.group);
+          restoreShadowDiagnostics = instrumentShadowUpdates(
+            renderer,
+            () => diagnostics,
+            () => {
+              const reasons = [...shadowReasons];
+              shadowReasons.clear();
+              return reasons;
+            },
+          );
+          if (audit) return;
           const sceneInventory = collectSceneInventory();
           unmountPerformancePanel = mountPerformancePanel({
             collector: {
@@ -2333,8 +2398,8 @@ export function mountSpacecraftScene({
               spacecraftPerformance!.setFilter(value);
               spacecraftFilter = value;
               resetDiagnostics('spacecraft filter changed');
-              aoDirty = true;
-              renderer.shadowMap.needsUpdate = true;
+              invalidateAo('spacecraft-filter');
+              invalidateShadow('spacecraft-filter');
               lastFrame = 0;
               kick();
             },
@@ -2389,7 +2454,7 @@ export function mountSpacecraftScene({
                 experiment === 'half-resolution' || value === 'half-resolution';
               experiment = value;
               if (resizeBuffer) setDrawingSize();
-              aoDirty = true;
+              invalidateAo('experiment');
               resetDiagnostics('experiment changed');
               lastFrame = 0;
               kick();
@@ -2398,10 +2463,189 @@ export function mountSpacecraftScene({
           lastFrame = 0;
           kick();
         }
-        setDiagnosticsEnabled(!!latest.current.diagnosticsEnabled);
+        setDiagnosticsEnabled(!!audit || !!latest.current.diagnosticsEnabled);
         go(latest.current.section === 'home');
+        let auditBackup: Three.WebGLRenderTarget | undefined;
+        if (audit) {
+          let manualPrevious = 0;
+          const state = () => ({
+            room: active,
+            travelling,
+            reading,
+            elapsed,
+            reducedMotion: stop,
+            backgroundReady: background.getDiagnostics().earthReady,
+            motionActive: !!model.group.userData.motionActive,
+            geometryRevision: model.group.userData.geometryRevision,
+            waitingForDoors: el.dataset.waitingForDoors === 'true',
+            queuedRoom: doorQueue.destination,
+            cameraPosition: camera.position.toArray(),
+            cameraQuaternion: camera.quaternion.toArray(),
+            cameraMatrix: camera.matrixWorld.toArray(),
+            projectionMatrix: camera.projectionMatrix.toArray(),
+            lightRigQuaternion: lightRig.quaternion.toArray(),
+            keyPosition: key.getWorldPosition(new THREE.Vector3()).toArray(),
+            shadowMatrix: key.shadow.matrix.toArray(),
+            shadowCameraUp: key.shadow.camera.up.toArray(),
+            vesselMatrix: model.group.matrixWorld.toArray(),
+            doors: model.group.userData.portals.map((p: any) => ({
+              id: p.id,
+              physicalHatch: p.physicalHatch,
+              openProgress: p.openProgress,
+              sealed: p.sealed,
+            })),
+            readers: Object.entries(model.readerSurfaces).map(
+              ([id, anchor]: [string, any]) => ({
+                id,
+                matrix: anchor.matrixWorld.toArray(),
+              }),
+            ),
+            pointer: pointerCurrent.toArray(),
+            drag: dragMotion.map((axis) => axis.value),
+            feedback: {
+              room: hovered,
+              object: highlightedObject,
+              portal: el.dataset.hoverPortal,
+            },
+          });
+          audit.ready({
+            step(delta = 1 / 60) {
+              const now = performance.now();
+              draw(
+                now,
+                delta,
+                manualPrevious ? (now - manualPrevious) / 1000 : 0,
+              );
+              manualPrevious = now;
+            },
+            navigate: (room) => latest.current.onNavigate(room),
+            setPolicy(value) {
+              aoPolicy = value;
+              invalidateAo('audit-policy');
+              resetDiagnostics('audit-policy');
+            },
+            setGpuScope(scope) {
+              diagnostics?.setGpuScope(scope);
+            },
+            reset() {
+              resetDiagnostics('audit-window');
+              manualPrevious = 0;
+            },
+            state,
+            freezeBackground(seconds) {
+              frozenBackgroundTime = seconds;
+            },
+            snapshot: () => ({
+              scene: diagnostics?.snapshot(true),
+              spacecraft: spacecraftPerformance?.snapshot(),
+              settings: {
+                ...state(),
+                experiment,
+                filter: { ...spacecraftFilter },
+                visible,
+                contactShading,
+                policy: aoPolicy,
+                build: process.env.NODE_ENV,
+                threeRevision: THREE.REVISION,
+                userAgent: navigator.userAgent,
+                hardwareConcurrency: navigator.hardwareConcurrency,
+                renderer: gl.getParameter(gl.RENDERER),
+                vendor: gl.getParameter(gl.VENDOR),
+                unmaskedRenderer: (() => {
+                  const ext = gl.getExtension('WEBGL_debug_renderer_info');
+                  return ext
+                    ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)
+                    : null;
+                })(),
+                viewport: [el.clientWidth, el.clientHeight],
+                drawingBuffer: [
+                  renderer.domElement.width,
+                  renderer.domElement.height,
+                ],
+                pixelRatio: renderer.getPixelRatio(),
+                nativePixelRatio: devicePixelRatio,
+                aoEnabled: !mobile() && contactShading,
+                aoBuffer: [ao.width, ao.height],
+                aoSamples: 32,
+                denoiseSamples: 32,
+                shadowMap: key.shadow.mapSize.toArray(),
+                shadowsEnabled: renderer.shadowMap.enabled,
+                orbitalCamera: background.getDiagnostics(),
+                resources: {
+                  ...renderer.info.memory,
+                  programs: renderer.info.programs?.length,
+                },
+              },
+            }),
+            verifyFrame(includeImages = false) {
+              const width = renderer.domElement.width,
+                height = renderer.domElement.height;
+              const cached = new Uint8Array(width * height * 4),
+                fresh = new Uint8Array(cached.length);
+              renderer.setRenderTarget(null);
+              gl.readPixels(
+                0,
+                0,
+                width,
+                height,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
+                cached,
+              );
+              const before = includeImages
+                ? renderer.domElement.toDataURL('image/png')
+                : undefined;
+              const usesAo = !mobile() && contactShading;
+              if (usesAo) {
+                auditBackup ??= ao.pdRenderTarget.clone();
+                renderer.initRenderTarget(auditBackup);
+                renderer.copyTextureToTexture(
+                  ao.pdRenderTarget.texture,
+                  auditBackup.texture,
+                );
+                refreshOcclusion(0, false);
+              }
+              renderer.setRenderTarget(null);
+              renderer.clear();
+              renderer.render(background.scene, background.camera);
+              renderer.clearDepth();
+              renderer.render(scene, camera);
+              if (usesAo) aoQuad.render(renderer);
+              gl.readPixels(
+                0,
+                0,
+                width,
+                height,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
+                fresh,
+              );
+              const after = includeImages
+                ? renderer.domElement.toDataURL('image/png')
+                : undefined;
+              if (usesAo)
+                renderer.copyTextureToTexture(
+                  auditBackup!.texture,
+                  ao.pdRenderTarget.texture,
+                );
+              let changedPixels = 0,
+                maxChannelDifference = 0;
+              for (let i = 0; i < cached.length; i += 4) {
+                let changed = false;
+                for (let c = 0; c < 4; c++) {
+                  const d = Math.abs(cached[i + c] - fresh[i + c]);
+                  changed ||= d !== 0;
+                  maxChannelDifference = Math.max(maxChannelDifference, d);
+                }
+                if (changed) changedPixels++;
+              }
+              return { changedPixels, maxChannelDifference, before, after };
+            },
+          });
+        }
         cleanup = () => {
           unmountPerformancePanel();
+          restoreShadowDiagnostics();
           diagnostics?.dispose();
           spacecraftPerformance?.dispose();
           latest.current.onNavigationReady(null);
@@ -2465,6 +2709,7 @@ export function mountSpacecraftScene({
           aoMaterial.dispose();
           background.dispose();
           environment.dispose();
+          auditBackup?.dispose();
           key.shadow.dispose();
           renderer.dispose();
           renderer.domElement.remove();

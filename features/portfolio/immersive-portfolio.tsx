@@ -13,6 +13,7 @@ import {
   Orbit,
 } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
+import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
   PROJECTS_PER_PAGE,
   destinationFromURL,
@@ -39,12 +40,15 @@ export function ImmersivePortfolio({
   initialSlug,
   preview,
   children,
+  sceneAudit,
 }: {
   data: Portfolio;
   initialSection: string;
   initialSlug?: string;
   preview: boolean;
   children: React.ReactNode;
+  /** Explicit local performance fixtures only; absent in normal routes. */
+  sceneAudit?: SceneAudit;
 }) {
   const s = data.site;
   let portfolioName = s.name;
@@ -455,6 +459,7 @@ export function ImmersivePortfolio({
         )}
         <div className="orbital-render" hidden={!immersive}>
           <Spacecraft
+            audit={sceneAudit}
             site={s}
             projects={data.projects}
             caseStudies={data.experience}

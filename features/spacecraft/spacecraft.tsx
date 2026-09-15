@@ -25,8 +25,15 @@ export function Spacecraft(props: SpacecraftProps) {
   }, [props.diagnosticsEnabled]);
   useEffect(() => {
     if (!props.enabled) return;
-    return mountSpacecraftScene({ host, latest, api, setState, site: s });
-  }, [props.enabled, s, props.links]);
+    return mountSpacecraftScene({
+      host,
+      latest,
+      api,
+      setState,
+      site: s,
+      audit: props.audit,
+    });
+  }, [props.enabled, s, props.links, props.audit]);
   return (
     <div id="ship" className="ship-stage immersive-ship" ref={host}>
       {state !== 'ready' && (

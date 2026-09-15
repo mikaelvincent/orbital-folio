@@ -25,6 +25,8 @@ export type ScenePerformanceFrame = {
   context: Record<string, unknown>;
 };
 
+export type SceneGpuSample = { frameId: number; name: string; ms: number };
+
 export type ScenePerformanceReport = {
   schemaVersion: 1;
   window: { frames: number; durationMs: number; renderedFps: number | null };
@@ -33,11 +35,14 @@ export type ScenePerformanceReport = {
   cpuPhases: Record<string, ScenePerformanceStats>;
   gpu: {
     status: string;
+    scope: 'passes' | 'frame';
     phases: Record<string, ScenePerformanceStats>;
     pending: number;
     sampleEvery: number;
     discardedSamples: number;
     skippedSamples: number;
+    /** Raw results are opt-in and join to retained frames by frameId. */
+    samples?: SceneGpuSample[];
   };
   passes: Record<
     string,
@@ -87,6 +92,26 @@ function dictionary<T>(): Record<string, T> {
   return Object.create(null) as Record<string, T>;
 }
 
+// Frame annotations contain plain diagnostic data (scalars, arrays and records),
+// never live Three.js objects. Copy nested values on input and export so later
+// camera updates or consumers cannot rewrite an earlier recorded frame.
+function copyContext(values: Record<string, unknown>): Record<string, unknown> {
+  const copyValue = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(copyValue);
+    if (
+      value !== null &&
+      typeof value === 'object' &&
+      (Object.getPrototypeOf(value) === Object.prototype ||
+        Object.getPrototypeOf(value) === null)
+    )
+      return Object.fromEntries(
+        Object.entries(value).map(([key, entry]) => [key, copyValue(entry)]),
+      );
+    return value;
+  };
+  return copyValue(values) as Record<string, unknown>;
+}
+
 function boundedInteger(
   value: number | undefined,
   fallback: number,
@@ -129,9 +154,11 @@ export function createScenePerformance(
   let lastMark = 0;
   let current: ScenePerformanceFrame | null = null;
   let activePass: ActivePass | null = null;
+  let frameQuery: GpuQuery | null = null;
+  let gpuScope: 'passes' | 'frame' = 'passes';
   let frames: ScenePerformanceFrame[] = [];
   let pending: GpuQuery[] = [];
-  let gpuSamples: { frameId: number; name: string; ms: number }[] = [];
+  let gpuSamples: SceneGpuSample[] = [];
   let context: Record<string, unknown> = {};
   let resetReason: string | null = null;
   let discardedSamples = 0;
@@ -161,6 +188,51 @@ export function createScenePerformance(
       deleteQuery(activePass.query.query);
     }
     activePass = null;
+  }
+
+  function beginGpu(name: string): GpuQuery | null {
+    if (
+      !current ||
+      !gl ||
+      !extension ||
+      gpuStatus !== 'available' ||
+      (current.id - 1) % sampleEvery !== 0
+    )
+      return null;
+    if (pending.length >= maxPending) {
+      skippedSamples++;
+      return null;
+    }
+    let handle: WebGLQuery | null = null;
+    try {
+      handle = gl.createQuery();
+      if (handle) {
+        gl.beginQuery(extension.TIME_ELAPSED_EXT, handle);
+        return { query: handle, frameId: current.id, name };
+      }
+      skippedSamples++;
+    } catch {
+      if (handle) deleteQuery(handle);
+      gpuStatus = 'unavailable';
+    }
+    return null;
+  }
+
+  function endGpu(query: GpuQuery | null, retain = true) {
+    if (!query || !gl || !extension) return;
+    try {
+      gl.endQuery(extension.TIME_ELAPSED_EXT);
+      if (retain) pending.push(query);
+      else deleteQuery(query.query);
+    } catch {
+      deleteQuery(query.query);
+      gpuStatus = 'unavailable';
+    }
+  }
+
+  function cancelFrameQuery() {
+    endGpu(frameQuery, false);
+    frameQuery = null;
   }
 
   function pollQueries() {
@@ -227,15 +299,7 @@ export function createScenePerformance(
     if (!current || !activePass || activePass.name !== name) return;
     const pass = activePass;
     activePass = null;
-    if (pass.query && gl && extension) {
-      try {
-        gl.endQuery(extension.TIME_ELAPSED_EXT);
-        pending.push(pass.query);
-      } catch {
-        deleteQuery(pass.query.query);
-        gpuStatus = 'unavailable';
-      }
-    }
+    endGpu(pass.query);
     const end = now();
     // beginPass already accounted for preceding work; render submission is
     // therefore part of this same partition and cannot be double-counted.
@@ -255,10 +319,11 @@ export function createScenePerformance(
     beginFrame(rafNow: number, frameContext: Record<string, unknown>) {
       if (disposed) return;
       cancelActivePass();
+      cancelFrameQuery();
       frameStart = now();
       lastMark = frameStart;
       frameId += 1;
-      context = { ...frameContext };
+      context = copyContext(frameContext);
       current = {
         id: frameId,
         rafNow,
@@ -286,43 +351,30 @@ export function createScenePerformance(
       if (!current || activePass) return;
       const start = now();
       addPhase('unattributed', start);
-      let query: GpuQuery | null = null;
-      if (
-        gl &&
-        extension &&
-        gpuStatus === 'available' &&
-        (current.id - 1) % sampleEvery === 0
-      ) {
-        if (pending.length >= maxPending) {
-          skippedSamples += 1;
-        } else {
-          let handle: WebGLQuery | null = null;
-          try {
-            handle = gl.createQuery();
-            if (handle) {
-              gl.beginQuery(extension.TIME_ELAPSED_EXT, handle);
-              query = { query: handle, frameId: current.id, name };
-            } else {
-              skippedSamples += 1;
-            }
-          } catch {
-            if (handle) deleteQuery(handle);
-            gpuStatus = 'unavailable';
-          }
-        }
-      }
+      if (gpuScope === 'frame' && !frameQuery) frameQuery = beginGpu('frame');
+      const query = gpuScope === 'passes' ? beginGpu(name) : null;
       activePass = { name, counts: { ...info }, query };
     },
     endPass,
+    endGpuFrame() {
+      endGpu(frameQuery);
+      frameQuery = null;
+    },
     count(name: string) {
       if (current) current.counters[name] = (current.counters[name] ?? 0) + 1;
+    },
+    annotate(values: Record<string, unknown>) {
+      if (current) Object.assign(current.context, copyContext(values));
     },
     endFrame() {
       if (!current) return;
       // An incomplete pass has no trustworthy counter delta or GPU sample.
+      if (activePass) cancelFrameQuery();
       cancelActivePass();
       const end = now();
       addPhase('unattributed', end);
+      endGpu(frameQuery);
+      frameQuery = null;
       current.cpuTotalMs = Math.max(0, end - frameStart);
       frames.push(current);
       if (frames.length > maxFrames) frames.shift();
@@ -330,6 +382,7 @@ export function createScenePerformance(
     },
     reset(reason?: string) {
       cancelActivePass();
+      cancelFrameQuery();
       discardPending();
       current = null;
       frames = [];
@@ -340,6 +393,13 @@ export function createScenePerformance(
       resetReason = reason ?? null;
       discardedSamples = 0;
       skippedSamples = 0;
+    },
+    /** Whole-frame timing avoids inter-pass query boundaries on tiled GPUs.
+     * It is mutually exclusive with pass queries; CPU/pass counters stay intact. */
+    setGpuScope(scope: 'passes' | 'frame') {
+      if (scope === gpuScope) return;
+      this.reset('GPU timing scope changed');
+      gpuScope = scope;
     },
     setWindowSize(limit: number) {
       // Longer recordings opt into a larger bounded window, then return to
@@ -398,7 +458,8 @@ export function createScenePerformance(
       // Every observed pass gets an explicit null until a valid GPU timing is
       // available. Unsupported timing must never look like zero GPU work.
       const gpuPhases = dictionary<ScenePerformanceStats>();
-      for (const name of Object.keys(passes)) gpuPhases[name] = null;
+      if (gpuScope === 'frame') gpuPhases.frame = null;
+      else for (const name of Object.keys(passes)) gpuPhases[name] = null;
       const oldestId = frames[0]?.id ?? Infinity;
       const newestId = frames[frames.length - 1]?.id ?? -Infinity;
       for (const sample of gpuSamples) {
@@ -429,6 +490,7 @@ export function createScenePerformance(
         cpuPhases,
         gpu: {
           status: gpuStatus,
+          scope: gpuScope,
           phases: gpuPhases,
           pending: pending.length,
           sampleEvery,
@@ -437,7 +499,7 @@ export function createScenePerformance(
         },
         passes,
         counters,
-        context: { ...context },
+        context: copyContext(context),
         activity,
         resetReason,
         limitations: [
@@ -449,6 +511,12 @@ export function createScenePerformance(
         ],
       };
       if (includeFrames) {
+        report.gpu.samples = gpuSamples
+          .filter(
+            (sample) =>
+              sample.frameId >= oldestId && sample.frameId <= newestId,
+          )
+          .map((sample) => ({ ...sample }));
         report.frames = frames.map((frame) => ({
           ...frame,
           cpuPhases: { ...frame.cpuPhases },
@@ -459,13 +527,14 @@ export function createScenePerformance(
             ]),
           ),
           counters: { ...frame.counters },
-          context: { ...frame.context },
+          context: copyContext(frame.context),
         }));
       }
       return report;
     },
     dispose() {
       cancelActivePass();
+      cancelFrameQuery();
       discardPending();
       current = null;
       disposed = true;

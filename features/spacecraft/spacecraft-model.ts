@@ -164,6 +164,15 @@ export function createSpacecraft(
 } {
   const group = new THREE.Group();
   group.name = 'orbital-pressure-vessel';
+  // AO consumes geometry/visibility, not the material feedback included in
+  // motionActive. A revision survives standalone setters and catches immediate
+  // changes and final animation snaps even when no motion remains afterward.
+  group.userData.geometryRevision = 0;
+  group.userData.geometryChanged = false;
+  const geometryChanged = () => {
+    group.userData.geometryRevision++;
+    group.userData.geometryChanged = true;
+  };
   const targets: Array<{ object: any; section: string }> = [];
   const interactionTargets: Array<{ object: any; section: string }> = [];
   const roomMaterials: Record<string, any[]> = {};
@@ -2926,6 +2935,7 @@ export function createSpacecraft(
     };
   }
   function setLayout(layout: 'wide' | 'compact') {
+    const previousLayout = group.userData.layout;
     currentLayout = layout === 'compact' ? 'compact' : 'wide';
     for (const [name, variant] of Object.entries(chassisVariants))
       variant.visible = name === currentLayout;
@@ -3361,6 +3371,7 @@ export function createSpacecraft(
     group.userData.layoutVersion = (group.userData.layoutVersion || 0) + 1;
     group.userData.portalLabelsCoplanarWithDoors = true;
     captureOverviewBounds();
+    if (previousLayout !== currentLayout) geometryChanged();
     return {
       layout: currentLayout,
       layoutScale,
@@ -3409,6 +3420,14 @@ export function createSpacecraft(
     for (const [i, slot] of slots.entries()) {
       const index = page * projectPageSize + i;
       slot.project = i < projectPageSize ? data[index] || null : null;
+      if (
+        slot.group.visible !== !!slot.project ||
+        slot.cartridge.visible !== !!slot.project ||
+        slot.spare.visible !== !slot.project ||
+        slot.group.position.z !== slot.baseZ ||
+        slot.group.rotation.y !== 0
+      )
+        geometryChanged();
       slot.draw(slot.project, index);
       slot.group.visible = slot.cartridge.visible = !!slot.project;
       slot.spare.visible = !slot.project;
@@ -3473,6 +3492,7 @@ export function createSpacecraft(
     state?: SpacecraftState,
     deferWorldMatrices = false,
   ) {
+    group.userData.geometryChanged = false;
     const seconds = Number.isFinite(time) ? time : 0;
     if (state) {
       if (state.layout && state.layout !== currentLayout)
@@ -3511,6 +3531,8 @@ export function createSpacecraft(
     let motionActive = false;
     for (const [section, slots] of Object.entries(rackSlots))
       for (const slot of slots) {
+        const previousProgress = slot.progress;
+        const previousHover = slot.hover;
         const goal =
           currentState.activeRoom === section &&
           !!slot.project &&
@@ -3535,10 +3557,13 @@ export function createSpacecraft(
         slot.group.position.z = slot.baseZ + slot.hover * 0.075;
         slot.group.userData.openProgress = slot.progress;
         slot.group.userData.hoverProgress = slot.hover;
+        if (previousProgress !== slot.progress || previousHover !== slot.hover)
+          geometryChanged();
         if (slot.progress !== goal || slot.hover !== hoverGoal)
           motionActive = true;
       }
     for (const [section, tray] of Object.entries(readerTrays)) {
+      const previousProgress = tray.progress;
       const goal =
         currentState.reading && currentState.activeRoom === section ? 1 : 0;
       tray.progress += (goal - tray.progress) * blend;
@@ -3549,6 +3574,7 @@ export function createSpacecraft(
       tray.group.position.y = -0.1 * (1 - p);
       tray.group.position.z = -0.63 + 2.24 * p;
       tray.group.rotation.x = -0.1 * (1 - p);
+      if (previousProgress !== p) geometryChanged();
       if (p !== goal) motionActive = true;
     }
     group.userData.motionActive = motionActive;
@@ -3744,6 +3770,8 @@ export function createSpacecraft(
         }
       }
       const openingProgress = Math.max(0, Math.min(1, doorMotion.value));
+      if (iris.group.userData.openProgress !== openingProgress)
+        geometryChanged();
       iris.setOpen(openingProgress);
       for (const portal of hatch.portals) {
         portal.metadata.openProgress = openingProgress;

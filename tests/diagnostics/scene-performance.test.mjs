@@ -9,7 +9,7 @@ function fixture(options = {}, gl = null) {
   const collector = createScenePerformance(gl, { now: () => time, ...options });
   return {
     collector,
-    advance(ms) {
+    advance: (ms) => {
       time += ms;
     },
   };
@@ -73,7 +73,7 @@ function renderPass(collector, name = 'spacecraft') {
   collector.endPass(name, { calls: 4, triangles: 200, points: 0, lines: 8 });
 }
 
-test('Long recordings retain their complete window, then shrink without resetting capture identity', () => {
+void test('Long recordings retain their complete window, then shrink without resetting capture identity', () => {
   const { collector, advance } = fixture();
   collector.reset('sustained capture');
   collector.setWindowSize(14400);
@@ -97,7 +97,7 @@ test('Long recordings retain their complete window, then shrink without resettin
   );
 });
 
-test('CPU phases partition callback time and counters report cumulative pass deltas', () => {
+void test('CPU phases partition callback time and counters report cumulative pass deltas', () => {
   const { collector, advance } = fixture();
   collector.beginFrame(0, { activity: 'idle', pixelRatio: 2 });
   advance(2);
@@ -145,7 +145,7 @@ test('CPU phases partition callback time and counters report cumulative pass del
   assert.equal(report.window.renderedFps, null);
 });
 
-test('Nearest-rank percentiles, observed frame rate and activity are derived from samples', () => {
+void test('Nearest-rank percentiles, observed frame rate and activity are derived from samples', () => {
   const { collector, advance } = fixture();
   for (let index = 0; index < 20; index += 1) {
     collector.beginFrame(index * 20, {
@@ -175,7 +175,7 @@ test('Nearest-rank percentiles, observed frame rate and activity are derived fro
   assert.equal(report.frames, undefined, 'raw frames are opt-in');
 });
 
-test('Rolling frame bounds also bound counters and exported frames cannot alter measurements', () => {
+void test('Rolling frame bounds also bound counters and exported frames cannot alter measurements', () => {
   const { collector, advance } = fixture({ maxFrames: 3 });
   for (let index = 0; index < 10; index += 1) {
     collector.beginFrame(index * 16, { activity: 'idle' });
@@ -198,7 +198,84 @@ test('Rolling frame bounds also bound counters and exported frames cannot alter 
   assert.equal(fresh.frames[0].counters.recent, 1);
 });
 
-test('GPU queries are sampled every 15 frames and only read asynchronously when available', () => {
+void test('Late annotations belong only to the current frame and copy nested diagnostic data', () => {
+  const { collector, advance } = fixture();
+  collector.annotate({ ignored: 'before frame' });
+  const initial = { camera: { position: [1, 2, 3] } };
+  collector.beginFrame(0, initial);
+  initial.camera.position[0] = 100;
+  const additions = {
+    shadowReasons: ['roll'],
+    shadowGenerationCpuMs: 2,
+    shadowGenerationCounts: { calls: 4, triangles: 12 },
+  };
+  advance(2);
+  collector.annotate(additions);
+  additions.shadowReasons.push('later');
+  additions.shadowGenerationCounts.calls = 400;
+  collector.endFrame();
+  collector.annotate({ ignored: 'after frame' });
+  let report = collector.snapshot(true);
+  assert.equal(report.frames[0].context.ignored, undefined);
+  assert.deepEqual(report.frames[0].context.camera.position, [1, 2, 3]);
+  assert.deepEqual(report.frames[0].context.shadowReasons, ['roll']);
+  assert.equal(report.frames[0].context.shadowGenerationCounts.calls, 4);
+  assert.equal(report.cpuTotal.mean, 2, 'Annotations do not add a CPU phase');
+  report.context.shadowReasons[0] = 'changed export';
+  report.frames[0].context.camera.position[0] = -1;
+  report.frames[0].context.shadowGenerationCounts.calls = -1;
+  report = collector.snapshot(true);
+  assert.deepEqual(report.context.shadowReasons, ['roll']);
+  assert.deepEqual(report.frames[0].context.camera.position, [1, 2, 3]);
+  assert.equal(report.frames[0].context.shadowGenerationCounts.calls, 4);
+  collector.beginFrame(16, { room: 'contact' });
+  collector.endFrame();
+  report = collector.snapshot(true);
+  assert.equal(report.frames[1].context.shadowReasons, undefined);
+  assert.equal(report.context.shadowReasons, undefined);
+});
+
+void test('Raw GPU results join to retained frames, remain opt-in and cannot mutate the collector', () => {
+  const gpu = gpuFixture();
+  const { collector } = fixture({ maxFrames: 3, gpuSampleEvery: 1 }, gpu.gl);
+  for (let index = 0; index < 6; index++) {
+    for (const query of gpu.queries) query.ready = true;
+    collector.beginFrame(index * 16, { routeFrame: index });
+    renderPass(collector, 'spacecraft');
+    collector.endFrame();
+  }
+  assert.equal(collector.snapshot().gpu.samples, undefined);
+  const report = collector.snapshot(true);
+  assert.deepEqual(
+    report.frames.map((frame) => frame.id),
+    [4, 5, 6],
+  );
+  assert.deepEqual(report.gpu.samples, [
+    { frameId: 4, name: 'spacecraft', ms: 2 },
+    { frameId: 5, name: 'spacecraft', ms: 2 },
+  ]);
+  report.gpu.samples[0].ms = 999;
+  report.gpu.samples.push({ frameId: -1, name: 'fake', ms: 999 });
+  assert.equal(collector.snapshot(true).gpu.samples[0].ms, 2);
+  assert.equal(collector.snapshot(true).gpu.samples.length, 2);
+  collector.setWindowSize(1);
+  assert.deepEqual(
+    collector.snapshot(true).gpu.samples,
+    [],
+    'Older resolved samples expire when their source frames leave retention',
+  );
+  gpu.queries.at(-1).ready = true;
+  collector.reset('new recording');
+  collector.beginFrame(100, {});
+  collector.endFrame();
+  assert.deepEqual(
+    collector.snapshot(true).gpu.samples,
+    [],
+    'Late results from a previous recording cannot reuse its frame IDs',
+  );
+});
+
+void test('GPU queries are sampled every 15 frames and only read asynchronously when available', () => {
   const gpu = gpuFixture();
   const { collector } = fixture({}, gpu.gl);
   collector.beginFrame(0, { activity: 'idle' });
@@ -230,7 +307,7 @@ test('GPU queries are sampled every 15 frames and only read asynchronously when 
   assert.equal(gpu.queries[1].deleted, true);
 });
 
-test('Long captures accept 1800 frames, remain bounded, and preserve changing room context', () => {
+void test('Long captures accept 1800 frames, remain bounded, and preserve changing room context', () => {
   const { collector } = fixture({ maxFrames: 1800 });
   for (let index = 0; index < 1805; index += 1) {
     collector.beginFrame(index * 8.33, {
@@ -248,7 +325,7 @@ test('Long captures accept 1800 frames, remain bounded, and preserve changing ro
   assert.equal(collector.snapshot(true).frames[0].context.room, 'room-5');
 });
 
-test('A disjoint interval discards pending samples and resumes with valid measurements', () => {
+void test('A disjoint interval discards pending samples and resumes with valid measurements', () => {
   const gpu = gpuFixture();
   const { collector } = fixture({ gpuSampleEvery: 1 }, gpu.gl);
   collector.beginFrame(0, {});
@@ -277,7 +354,7 @@ test('A disjoint interval discards pending samples and resumes with valid measur
   assert.equal(report.gpu.phases.spacecraft.samples, 1);
 });
 
-test('Pending queries are bounded, reset drops late results, and disposal releases active queries', () => {
+void test('Pending queries are bounded, reset drops late results, and disposal releases active queries', () => {
   const gpu = gpuFixture();
   const { collector } = fixture(
     { gpuSampleEvery: 1, maxPendingQueries: 2 },
@@ -320,7 +397,7 @@ test('Pending queries are bounded, reset drops late results, and disposal releas
   assert.equal(collector.snapshot().gpu.status, 'disposed');
 });
 
-test('GPU samples expire with their source frames and context loss keeps CPU timing usable', () => {
+void test('GPU samples expire with their source frames and context loss keeps CPU timing usable', () => {
   const gpu = gpuFixture();
   const { collector, advance } = fixture({ maxFrames: 2 }, gpu.gl);
   collector.beginFrame(0, {});
@@ -341,4 +418,68 @@ test('GPU samples expire with their source frames and context loss keeps CPU tim
   collector.endFrame();
   assert.equal(collector.snapshot().gpu.status, 'context-lost');
   assert.equal(collector.snapshot().cpuPhases.camera.mean, 3);
+});
+
+void test('Whole-frame GPU timing spans render passes without nested queries and keeps CPU phases', () => {
+  const gpu = gpuFixture();
+  const { collector, advance } = fixture({ gpuSampleEvery: 1 }, gpu.gl);
+  collector.setGpuScope('frame');
+  collector.beginFrame(0, {});
+  advance(2);
+  collector.mark('camera');
+  assert.equal(
+    gpu.queries.length,
+    0,
+    'scene preparation is outside the GPU scope',
+  );
+  renderPass(collector, 'background');
+  advance(3);
+  renderPass(collector, 'spacecraft');
+  assert.equal(
+    gpu.queries.length,
+    1,
+    'only one elapsed query covers all passes',
+  );
+  collector.endGpuFrame();
+  advance(1);
+  collector.mark('css-render');
+  collector.endFrame();
+  gpu.queries[0].ready = true;
+  collector.beginFrame(16, {});
+  collector.endFrame();
+  const report = collector.snapshot(true);
+  assert.equal(report.gpu.scope, 'frame');
+  assert.deepEqual(report.gpu.samples, [{ frameId: 1, name: 'frame', ms: 2 }]);
+  assert.equal(report.cpuPhases.camera.mean, 2);
+  assert.equal(report.frames[0].cpuTotalMs, 6);
+  assert.equal(report.passes.background.calls.mean, 4);
+  assert.equal(report.passes.spacecraft.calls.mean, 4);
+  assert.equal(report.gpu.phases.spacecraft, undefined);
+  collector.setGpuScope('passes');
+  assert.equal(
+    collector.snapshot().window.frames,
+    0,
+    'scope change resets incompatible measurements',
+  );
+  collector.beginFrame(32, {});
+  renderPass(collector);
+  collector.endFrame();
+  assert.equal(gpu.queries.length, 2);
+  collector.dispose();
+  assert(gpu.queries.every((query) => query.deleted));
+});
+
+void test('Interrupted whole-frame GPU queries are discarded during reset, incomplete passes and disposal', () => {
+  for (const action of ['reset', 'incomplete', 'dispose']) {
+    const gpu = gpuFixture();
+    const { collector } = fixture({ gpuSampleEvery: 1 }, gpu.gl);
+    collector.setGpuScope('frame');
+    collector.beginFrame(0, {});
+    collector.beginPass('background', zeroCounts());
+    if (action === 'incomplete') collector.endFrame();
+    else collector[action]();
+    assert.equal(gpu.queries[0].deleted, true);
+    assert.equal(collector.snapshot(true).gpu.samples.length, 0);
+    collector.dispose();
+  }
 });
