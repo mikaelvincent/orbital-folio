@@ -1,5 +1,5 @@
 /** A continuous, open EVA access route climbs the docking shoulder and crosses
- * the visible roof. Tubular rails, glove-clear rungs and real restrained mounts
+ * the visible roof and keel in matching routes. Tubular rails, glove-clear rungs and real restrained mounts
  * explain the structure without filling the hull with anonymous closed panels.
  */
 export function buildExteriorServiceEquipment(
@@ -143,8 +143,12 @@ export function buildExteriorServiceEquipment(
     return { p, tangent, normal };
   };
   const surface = (p: any, z: number, side: number) => {
-    if (side > 0 && p.x >= d.bowTangentX - 1e-5)
-      return new THREE.Vector3(p.x, profiles.roofAt(p.x, z), z);
+    if (p.x >= d.bowTangentX - 1e-5)
+      return new THREE.Vector3(
+        p.x,
+        side > 0 ? profiles.roofAt(p.x, z) : profiles.keelAt(p.x, z),
+        z,
+      );
     const y = p.y,
       q = profiles.bowPointAtZ(new THREE.Vector2(bowX(y), y), z);
     return new THREE.Vector3(q.x, q.y, z);
@@ -283,7 +287,8 @@ export function buildExteriorServiceEquipment(
       }
       actualRungs.push({ center: p.toArray(), t });
     }
-    const tetherPositions = name === 'main' ? [0.06, 0.53, 0.95] : [0.5];
+    const tetherPositions = [0.06, 0.53, 0.95],
+      tetherEyes: any[] = [];
     for (const t of tetherPositions) {
       const q = station(path, t, side),
         rail = q.p.clone().addScaledVector(q.normal, clearance);
@@ -309,10 +314,17 @@ export function buildExteriorServiceEquipment(
         materials.amber,
         name + '-tether-anchor-marker',
       );
+      tetherEyes.push({
+        t,
+        center: eye.toArray(),
+        normal: q.tangent.toArray(),
+      });
     }
     routes.push({
       name,
+      side,
       length,
+      tetherEyes,
       rungCount: count,
       rungSpacing: (length - 0.38) / (count - 1),
       rungs: actualRungs,
@@ -324,29 +336,22 @@ export function buildExteriorServiceEquipment(
     });
   };
   buildRoute('main', mainPath, 1, 0.51);
-  // A compact docking transfer station mirrors the first part of the climb.
-  // It offers hand/foot purchase and a tether eye below the sleeve, without a
-  // decorative route vanishing around the concealed keel.
-  const transferLength = 1.12,
-    lowerPoints = [];
-  for (let i = 0; i <= 24; i++) {
-    const p = mainPath.getPointAt(
-      ((transferLength / mainPath.getLength()) * i) / 24,
-    );
-    p.y = 2 * d.ladderCenterY - p.y;
-    lowerPoints.push(p);
-  }
+  // Reflect the same control points, sampling precision and hardware layout.
+  // Construct each tube normally on this path (rather than negative-scaling a
+  // finished mesh) so underside faces retain outward winding and normals.
   const lowerPath = new THREE.CatmullRomCurve3(
-    lowerPoints,
+    arc.map((p: any) => new THREE.Vector3(p.x, 2 * d.ladderCenterY - p.y, p.z)),
     false,
     'centripetal',
   );
-  lowerPath.arcLengthDivisions = 160;
+  lowerPath.arcLengthDivisions = mainPath.arcLengthDivisions;
   lowerPath.updateArcLengths();
-  buildRoute('docking-transfer', lowerPath, -1, 0.37);
+  buildRoute('lower', lowerPath, -1, 0.51);
   root.userData.layout = {
     variant,
     evaAccessRoute: true,
+    symmetryCenterY: d.ladderCenterY,
+    mirroredUpperLower: true,
     exposedSurfacesOnly: true,
     hiddenRearGeometry: false,
     zCenter,

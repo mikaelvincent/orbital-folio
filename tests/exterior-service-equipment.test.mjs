@@ -3,6 +3,11 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../components/spacecraft-model.ts';
 import {
+  CAMERA_RANGES,
+  cursorViewSamples,
+  overviewCameraDirection,
+} from '../lib/scene-controls.ts';
+import {
   wallLayout,
   PRESSURE_THROAT_START,
 } from '../lib/spacecraft-wall-layout.ts';
@@ -18,7 +23,7 @@ const equipment = (model, layout) => {
   return { root, meshes };
 };
 
-test('The open EVA route is continuous from docking shoulder across the roof, with wide-spaced rungs and capped rails', () => {
+test('Matching open EVA routes continue from both docking shoulders across the roof and keel, with wide-spaced rungs and capped rails', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   for (const layout of ['wide', 'compact']) {
     model.setLayout(layout);
@@ -26,18 +31,24 @@ test('The open EVA route is continuous from docking shoulder across the roof, wi
       data = root.userData.layout;
     assert(data.evaAccessRoute);
     assert.equal(data.routes.length, 2);
-    const [main, transfer] = data.routes;
+    const [main, lower] = data.routes;
     assert(
       main.rungCount >= 16 &&
         main.rungSpacing > 0.46 &&
         main.rungSpacing < 0.55,
       'Rungs have open ladder spacing, not dense vent slots',
     );
-    assert.equal(transfer.rungCount, 3);
-    assert.equal(
-      data.parts.filter((p) => p.name === 'main-continuous-rail').length,
-      2,
-    );
+    assert.equal(lower.rungCount, main.rungCount);
+    assert.equal(lower.rungSpacing, main.rungSpacing);
+    assert.equal(lower.anchorCount, main.anchorCount);
+    assert.equal(lower.length, main.length);
+    assert.equal(lower.tetherEyes.length, 3);
+    assert(data.mirroredUpperLower);
+    for (const name of ['main', 'lower'])
+      assert.equal(
+        data.parts.filter((p) => p.name === name + '-continuous-rail').length,
+        2,
+      );
     assert.equal(
       data.parts.filter((p) => p.name.endsWith('rounded-rail-end')).length,
       8,
@@ -73,6 +84,60 @@ test('The open EVA route is continuous from docking shoulder across the roof, wi
         );
       }
     }
+  }
+});
+
+test('Lower route stations, rungs, mounts and tether eyes reflect the upper route around the ladder center', () => {
+  const model = createSpacecraft(THREE);
+  for (const layout of ['wide', 'compact']) {
+    const { root } = equipment(model, layout),
+      data = root.userData.layout;
+    const [upper, lower] = data.routes,
+      cy = data.symmetryCenterY;
+    const reflected = (a, b, direction = false) => {
+      assert(Math.abs(a[0] - b[0]) < 1e-7);
+      assert(Math.abs((direction ? 0 : 2 * cy) - a[1] - b[1]) < 1e-7);
+      assert(Math.abs(a[2] - b[2]) < 1e-7);
+    };
+    upper.centerline.forEach((point, i) => {
+      reflected(point.p, lower.centerline[i].p);
+      reflected(point.normal, lower.centerline[i].normal, true);
+    });
+    upper.rungs.forEach((rung, i) =>
+      reflected(rung.center, lower.rungs[i].center),
+    );
+    upper.tetherEyes.forEach((eye, i) => {
+      reflected(eye.center, lower.tetherEyes[i].center);
+      reflected(eye.normal, lower.tetherEyes[i].normal, true);
+    });
+    const upperMounts = data.mounts.filter((m) => m.route === 'main'),
+      lowerMounts = data.mounts.filter((m) => m.route === 'lower');
+    assert.equal(upperMounts.length, lowerMounts.length);
+    upperMounts.forEach((mount, i) => {
+      reflected(mount.skin, lowerMounts[i].skin);
+      reflected(mount.rail, lowerMounts[i].rail);
+      reflected(mount.normal, lowerMounts[i].normal, true);
+      assert.equal(mount.railSide, lowerMounts[i].railSide);
+    });
+    const upperParts = data.parts.filter((p) => p.name.startsWith('main-')),
+      lowerParts = data.parts.filter((p) => p.name.startsWith('lower-'));
+    assert.equal(upperParts.length, lowerParts.length);
+    upperParts.forEach((part, i) => {
+      assert.equal(part.name.slice(5), lowerParts[i].name.slice(6));
+      assert.equal(part.triangles, lowerParts[i].triangles);
+      // Rotating circular polygons into each independently built frame can
+      // shift a tessellated bound slightly; physical centerlines are exact.
+      for (let edge = 0; edge < 2; edge++)
+        for (let axis = 0; axis < 3; axis++) {
+          const expected =
+            axis === 1
+              ? 2 * cy - part.bounds[1 - edge][axis]
+              : part.bounds[edge][axis];
+          assert(
+            Math.abs(expected - lowerParts[i].bounds[edge][axis]) < 0.0001,
+          );
+        }
+    });
   }
 });
 
@@ -118,8 +183,8 @@ test('The route uses existing passive exterior materials and renders physical st
   assert.equal(meshes.length, 3);
   const triangles = meshes.reduce((v, m) => v + m.geometry.index.count / 3, 0);
   assert(
-    triangles < 90000,
-    'Guard against runaway tessellation while allowing articulated rails and mounts',
+    triangles < 110000,
+    'Guard against runaway tessellation while allowing two complete articulated routes',
   );
   for (const m of meshes) {
     assert(m.userData.excludePick);
@@ -134,6 +199,45 @@ test('The route uses existing passive exterior materials and renders physical st
     assert.deepEqual(m.material.color.toArray(), before[i]),
   );
   assert(!root.children.some((o) => o.isLight));
+});
+
+test('Underside construction preserves outward triangle winding and unit surface normals', () => {
+  const model = createSpacecraft(THREE),
+    a = new THREE.Vector3(),
+    b = new THREE.Vector3(),
+    c = new THREE.Vector3(),
+    normal = new THREE.Vector3(),
+    face = new THREE.Vector3();
+  for (const layout of ['wide', 'compact']) {
+    const { meshes } = equipment(model, layout);
+    for (const mesh of meshes) {
+      assert(
+        mesh.matrixWorld.determinant() > 0,
+        'No negative-scale reflection flips underside faces',
+      );
+      const g = mesh.geometry,
+        p = g.attributes.position,
+        n = g.attributes.normal;
+      for (let i = 0; i < g.index.count; i += 3) {
+        const ia = g.index.getX(i),
+          ib = g.index.getX(i + 1),
+          ic = g.index.getX(i + 2);
+        a.fromBufferAttribute(p, ia);
+        b.fromBufferAttribute(p, ib);
+        c.fromBufferAttribute(p, ic);
+        face.crossVectors(b.sub(a), c.sub(a));
+        if (face.lengthSq() < 1e-18) continue;
+        normal
+          .fromBufferAttribute(n, ia)
+          .add(new THREE.Vector3().fromBufferAttribute(n, ib))
+          .add(new THREE.Vector3().fromBufferAttribute(n, ic));
+        assert(
+          face.dot(normal) > 0,
+          'Geometric face winding agrees with its outward shading normals',
+        );
+      }
+    }
+  }
 });
 
 test('Roof rungs and the curved climb are exposed from supported default and hover camera views', () => {
@@ -164,5 +268,40 @@ test('Roof rungs and the curved climb are exposed from supported default and hov
       visible >= 12,
       'The route reads as multiple open rungs in ordinary supported views',
     );
+  }
+});
+
+test('The complete lower route is exposed by the existing near-level overview drag range', () => {
+  const model = createSpacecraft(THREE),
+    ray = new THREE.Raycaster();
+  // Recorded 1280x720 overview framing, with the real permitted downward
+  // viewing tilt. No new production camera position or range is introduced.
+  const target = [-1.89425, 0.237405, -0.082297],
+    distance = 24.66086;
+  const base = { target, direction: overviewCameraDirection(1280 / 720) };
+  const tilted = cursorViewSamples(base, 2, CAMERA_RANGES.overview)[7];
+  const eye = new THREE.Vector3(...tilted.direction)
+    .normalize()
+    .multiplyScalar(distance)
+    .add(new THREE.Vector3(...target));
+  for (const layout of ['wide', 'compact']) {
+    model.setLayout(layout);
+    model.group.updateMatrixWorld(true);
+    const { root, meshes } = equipment(model, layout),
+      owns = new Set(meshes),
+      scene = [];
+    model.group.traverseVisible((o) => {
+      if (o.isMesh && !o.userData.isInteractionProxy) scene.push(o);
+    });
+    const lower = root.userData.layout.routes[1];
+    for (const rung of lower.rungs) {
+      const p = new THREE.Vector3(...rung.center);
+      ray.set(eye, p.sub(eye).normalize());
+      const hit = ray.intersectObjects(scene, false)[0];
+      assert(
+        hit && owns.has(hit.object),
+        'Each lower rung is exposed within the supported drag envelope',
+      );
+    }
   }
 });
