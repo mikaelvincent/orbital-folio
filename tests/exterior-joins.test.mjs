@@ -27,7 +27,16 @@ function probeExterior(meshes, point, outward, label, tolerance = 1e-5) {
     0,
     0.7,
   );
-  const hits = ray.intersectObjects(meshes, false);
+  // The newly fitted roof/shoulder covers are intentionally outside the skin.
+  // Inspect the underlying pressure structure while retaining every structural
+  // and interior mesh, so an unintended sheet or divider still fails below.
+  const pressureMeshes = meshes.filter((object) => {
+    for (let owner = object; owner; owner = owner.parent)
+      if (owner.userData.equipmentKind === 'sealed-exterior-access-panels')
+        return false;
+    return true;
+  });
+  const hits = ray.intersectObjects(pressureMeshes, false);
   const first = hits[0];
   assert.ok(first, `${label}: the outside must be closed`);
   assert.ok(

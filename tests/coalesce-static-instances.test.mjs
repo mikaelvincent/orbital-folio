@@ -264,5 +264,12 @@ test('Real spacecraft batches preserve exact instances through layouts, room upd
     );
   }
   const optimized = createSpacecraft(THREE);
-  assert.equal(optimized.group.userData.detailStats.coalescedInstanceDraws, 30);
+  // The sealed-equipment redesign removes four Projects slot batches and one
+  // Contact slit batch. Integration must match the exact manual path above,
+  // rather than a count tied to the old furnishings (30 versus the current 25).
+  assert.equal(
+    optimized.group.userData.detailStats.coalescedInstanceDraws,
+    result.drawsRemoved,
+    'Automatic construction must apply the same proven coalescing as the manual path',
+  );
 });

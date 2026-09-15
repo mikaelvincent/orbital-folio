@@ -900,18 +900,18 @@ export function buildCaseStudyArchive(
       'terminal-rear-saddle',
     );
   }
-  // A continuous recessed intake keeps the underside quiet at room distance.
+  // A solid satin edge guard protects the tilted terminal's lower casing.
   box(
     2.25,
     0.054,
     0.115,
-    m.recess,
+    m.edge,
     0,
     -0.363,
     -0.018,
     terminal,
     0.015,
-    'terminal-lower-intake',
+    'terminal-lower-edge-guard',
   );
   const cable = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0.96 * 0.85, 0.38 * 0.85, -0.035 * 0.85),

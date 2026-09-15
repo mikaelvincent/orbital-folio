@@ -216,7 +216,9 @@ test('About retains all fine paper layers at their original positions using shar
 test('Geometry savings survive production material batching in both spacecraft layouts', async () => {
   const report = await measureHardwareGeometry();
   for (const layout of Object.values(report.layouts)) {
-    assert.equal(layout.furniture.projects.triangles, 144476);
+    // The approved sealed docking pads replace the old display vent slots,
+    // adding 1,920 triangles without restoring the removed tiny bezel detail.
+    assert.equal(layout.furniture.projects.triangles, 146396);
     // About's approved berth redesign also removes the pleated divider. Keep
     // the hardware budget without tying later art changes to the old room total.
     assert.ok(layout.furniture.about.triangles <= 70954);

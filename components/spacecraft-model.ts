@@ -1,5 +1,5 @@
 import { buildContinuousExteriorSkin } from './continuous-exterior-skin.ts';
-import { buildExteriorThermalEquipment } from './exterior-thermal-equipment.ts';
+import { buildExteriorServiceEquipment } from './exterior-service-equipment.ts';
 import { finishWindowReveals } from './flush-window-reveals.ts';
 import { buildSmoothDockingRing } from './smooth-docking-ring.ts';
 import { buildDockingShoulderEquipment } from './docking-shoulder-equipment.ts';
@@ -3295,9 +3295,10 @@ export function createSpacecraft(
     });
     for (const part of closures.surfaces)
       mesh(part.geometry, m.shell, frame, part.name);
-    buildExteriorThermalEquipment(THREE, { mesh }, frame, m, {
+    buildExteriorServiceEquipment(THREE, { mesh }, frame, m, {
       datums: bowOutline.datums,
       profiles: closures.profiles,
+      bowContour: outerBow,
       variant,
     });
     // The inward side faces terminate on the same rounded outer envelope,

@@ -42,14 +42,14 @@ export function getServiceSpineRecesses(THREE: any) {
       side: 0,
     },
     {
-      id: 'upper-vent',
-      kind: 'vent',
+      id: 'upper-junction',
+      kind: 'junction',
       shape: rounded(-0.37, 0.83, 0.31, 0.24, 0.03),
       side: 1,
     },
     {
-      id: 'lower-vent',
-      kind: 'vent',
+      id: 'lower-junction',
+      kind: 'junction',
       shape: rounded(-0.37, -0.81, 0.31, 0.24, 0.03),
       side: -1,
     },
@@ -482,22 +482,42 @@ export function buildLadderServiceSpine(
       'channel-light-diffuser',
       0.005,
     );
-    // Fitted louvres sit inside a closed recess, never over a false hole.
-    const ventY = side > 0 ? 0.83 : -0.81;
-    for (let i = 0; i < 5; i++) {
-      const blade = box(
-        0.271,
-        0.016,
-        0.06,
-        m.alloy,
-        -0.37,
-        ventY + (i - 2) * 0.036,
-        -1.01,
-        'vent-louvre',
-        0.002,
-      );
-      blade.rotation.x = -0.34 * side;
-    }
+    // Sealed electrical junction lids reuse the existing backed recesses.
+    // One captive latch replaces the former bank of five vent louvers.
+    const junctionY = side > 0 ? 0.83 : -0.81;
+    box(
+      0.266,
+      0.195,
+      0.038,
+      m.ivory,
+      -0.37,
+      junctionY,
+      -1.006,
+      'sealed-junction-lid',
+      0.018,
+    );
+    box(
+      0.066,
+      0.048,
+      0.01,
+      m.graphite,
+      -0.37,
+      junctionY,
+      -0.982,
+      'junction-captive-latch-pocket',
+      0.009,
+    );
+    box(
+      0.036,
+      0.027,
+      0.008,
+      m.alloy,
+      -0.37,
+      junctionY,
+      -0.976,
+      'junction-captive-latch',
+      0.007,
+    );
   }
   // Mirrored protected service feeds occupy the narrow outer strip. They stay
   // behind the handhold plane and terminate in captive junctions at both ends.

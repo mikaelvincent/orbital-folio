@@ -466,8 +466,8 @@ export function buildAboutPersonalStudy(
     0.004,
   );
 
-  // Mesh doors are actual fine lattices over retained books/textiles. They have
-  // no transparent coplanar overlays that could shimmer as the camera moves.
+  // The library retains its books behind a physical lattice; folded bedding
+  // uses broad captive webbing. Neither needs transparent coplanar overlays.
   function stowage(
     x: number,
     y: number,
@@ -543,26 +543,57 @@ export function buildAboutPersonalStudy(
         root,
         0.025,
       );
-    const lattice = [];
     const innerW = w - 0.072,
       innerH = height - 0.072;
-    for (let xx = -innerW / 2; xx <= innerW / 2 + 0.001; xx += 0.023)
-      lattice.push({
-        p: [x + xx, y, front + 0.079],
-        s: [0.0024, innerH, 0.0026],
-      });
-    for (let yy = -innerH / 2; yy <= innerH / 2 + 0.001; yy += 0.023)
-      lattice.push({
-        p: [x, y + yy, front + 0.08],
-        s: [innerW, 0.0024, 0.0026],
-      });
-    h.instances(
-      unitBox,
-      m.graphite,
-      lattice,
-      root,
-      prefix + name + '-captive-mesh',
-    );
+    if (fill === 'books') {
+      const lattice = [];
+      for (let xx = -innerW / 2; xx <= innerW / 2 + 0.001; xx += 0.023)
+        lattice.push({
+          p: [x + xx, y, front + 0.079],
+          s: [0.0024, innerH, 0.0026],
+        });
+      for (let yy = -innerH / 2; yy <= innerH / 2 + 0.001; yy += 0.023)
+        lattice.push({
+          p: [x, y + yy, front + 0.08],
+          s: [innerW, 0.0024, 0.0026],
+        });
+      h.instances(
+        unitBox,
+        m.graphite,
+        lattice,
+        root,
+        prefix + name + '-captive-mesh',
+      );
+    } else {
+      // Broad retained webbing makes the folded textile read as secured luggage,
+      // rather than the fine lattice resembling a heater below the berth.
+      for (const side of [-1, 1]) {
+        box(
+          0.044,
+          innerH,
+          0.014,
+          m.rubber,
+          x + side * innerW * 0.27,
+          y,
+          front + 0.079,
+          name + '-textile-restraint',
+          root,
+          0.006,
+        );
+        box(
+          0.065,
+          0.043,
+          0.008,
+          m.metal,
+          x + side * innerW * 0.27,
+          y,
+          front + 0.09,
+          name + '-captured-webbing-buckle',
+          root,
+          0.007,
+        );
+      }
+    }
     ring(
       w - 0.023,
       height - 0.023,
@@ -572,7 +603,7 @@ export function buildAboutPersonalStudy(
       x,
       y,
       front + 0.08,
-      name + '-mesh-binding',
+      name + '-retaining-border',
     );
     const teeth = [];
     for (let xx = x - w / 2 + 0.055; xx < x + w / 2 - 0.045; xx += 0.013)
@@ -613,6 +644,8 @@ export function buildAboutPersonalStudy(
     firstScrew: number,
     name: string,
   ) => {
+    // Reparenting removes children from root; iterate a stable snapshot.
+    // oxlint-disable-next-line unicorn/no-useless-spread
     for (const part of [...root.children])
       if (!previousParts.has(part)) readingStation.add(part);
     screwSet(screwPoints.splice(firstScrew), readingStation, name);
@@ -782,7 +815,7 @@ export function buildAboutPersonalStudy(
     0.005,
   );
 
-  // Narrow sealed personal locker, with seated latches and discreet ventilation.
+  // Narrow sealed personal locker, with seated latches and captured seal keepers.
   const beforeLocker = new Set(root.children);
   const lockerScrewStart = screwPoints.length;
   const lx = 1.337;
@@ -823,20 +856,32 @@ export function buildAboutPersonalStudy(
     root,
     0.035,
   );
-  for (const y of [0.305, 1.966])
-    for (let i = 0; i < 3; i++)
-      box(
-        0.119,
-        0.009,
-        0.005,
-        m.graphite,
-        lx,
-        y + (i - 1) * 0.025,
-        -0.77,
-        'locker-vent-slot',
-        root,
-        0.004,
-      );
+  for (const y of [0.305, 1.966]) {
+    box(
+      0.147,
+      0.048,
+      0.008,
+      m.metal,
+      lx,
+      y,
+      -0.769,
+      'locker-captive-seal-keeper',
+      root,
+      0.009,
+    );
+    box(
+      0.012,
+      0.026,
+      0.003,
+      m.amber,
+      lx + 0.048,
+      y,
+      -0.7635,
+      'locker-seal-witness',
+      root,
+      0.003,
+    );
+  }
   for (const y of [0.54, 1.72])
     box(
       0.022,
@@ -875,6 +920,8 @@ export function buildAboutPersonalStudy(
   // can center it in the wall gap without stretching or displacing its parts.
   const locker = group('personal-locker');
   locker.userData.batchRoot = true;
+  // Reparenting removes children from root; iterate a stable snapshot.
+  // oxlint-disable-next-line unicorn/no-useless-spread
   for (const part of [...root.children])
     if (part !== locker && !beforeLocker.has(part)) locker.add(part);
   screwSet(screwPoints.splice(lockerScrewStart), locker, 'locker-fasteners');

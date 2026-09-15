@@ -228,19 +228,18 @@ export function buildOutboardWallEquipment(
         box(0.052, 0.017, 0.014, m.amber, x, y, 0.099, 'clamp-index', 0.002);
       }
     }
-    // Ventilation belongs to the enclosure, with a narrow service-light canopy.
-    for (let i = 0; i < 9; i++)
-      box(
-        0.064,
-        0.014,
-        0.009,
-        m.rubber,
-        -0.344 + i * 0.086,
-        -0.636,
-        0.121,
-        'return-vent',
-        0.002,
-      );
+    // Continuous metal edge protection below the sealed connector bank.
+    box(
+      0.79,
+      0.032,
+      0.014,
+      m.alloy,
+      0,
+      -0.636,
+      0.124,
+      'connector-bank-edge-guard',
+      0.008,
+    );
   } else {
     // Closed thermal-service loop: a retained accumulator and two insulated
     // fluid lines. No displays, labels, numbered slots, trays or loose handles.

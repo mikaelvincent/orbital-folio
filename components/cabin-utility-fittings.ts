@@ -354,7 +354,19 @@ export function buildCabinUtilityFittings(
                 0.008 * s,
               );
           } else if (side < 0) {
-            slots(x - 0.035 * s, y + 0.02 * s, face + 0.006 * s, 0.2 * s, 3);
+            // Sealed power-service access, with one recessed captive pull.
+            box(
+              0.215 * s,
+              0.125 * s,
+              0.012 * s,
+              m.frame,
+              x - 0.035 * s,
+              y + 0.02 * s,
+              face + 0.006 * s,
+              'sealed-power-service-lid',
+              0.015 * s,
+            );
+            latch(x - 0.035 * s, y + 0.02 * s, face + 0.019 * s, 0.095 * s);
             box(
               0.035 * s,
               0.089 * s,

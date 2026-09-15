@@ -211,45 +211,15 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     'microphone-capsule-rear-housing',
   );
   capsuleBack.scale.set(0.04, 0.054, 0.033);
-  // A separate front grille with a regular physical perforation pattern.
-  const grille = solid(
+  // A smooth acoustic windscreen covers the capsule. The dark porous foam
+  // is implied by the existing rough elastomer material, without a vent grille.
+  const windscreen = solid(
     new THREE.SphereGeometry(1, 24, 16, 0, Math.PI),
-    m.metal,
+    m.rubber,
     capsule,
-    'microphone-capsule-grille',
+    'microphone-acoustic-windscreen',
   );
-  grille.scale.set(0.0405, 0.0545, 0.0335);
-  const holes: { p: number[]; r: number[] }[] = [];
-  const normal = new THREE.Vector3(),
-    quaternion = new THREE.Quaternion(),
-    euler = new THREE.Euler();
-  for (let row = -5; row <= 5; row++) {
-    for (let column = -4; column <= 4; column++) {
-      const x = column * 0.0075 + (Math.abs(row) % 2) * 0.00375;
-      const y = row * 0.0082;
-      const normalized = (x / 0.0405) ** 2 + (y / 0.0545) ** 2;
-      if (normalized > 0.77) continue;
-      const z = 0.0335 * Math.sqrt(1 - normalized);
-      normal.set(x / 0.0405 ** 2, y / 0.0545 ** 2, z / 0.0335 ** 2).normalize();
-      quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
-      euler.setFromQuaternion(quaternion);
-      holes.push({
-        p: [
-          x + normal.x * 0.0008,
-          y + normal.y * 0.0008,
-          z + normal.z * 0.0008,
-        ],
-        r: [euler.x, euler.y, euler.z],
-      });
-    }
-  }
-  h.instances(
-    new THREE.CircleGeometry(0.0018, 6),
-    m.dark,
-    holes,
-    capsule,
-    prefix + 'microphone-grille-perforations',
-  );
+  windscreen.scale.set(0.0405, 0.0545, 0.0335);
   // The short fixed lead has two real endpoints and stays against the deck.
   cylinder(
     0.0075,

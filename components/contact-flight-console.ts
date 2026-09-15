@@ -272,11 +272,8 @@ export function buildContactFlightConsole(
     parent,
     'service-cover',
   );
-  const vents = Array.from({ length: 9 }, (_, i) => ({
-    p: [-0.28 + i * 0.07, 0.697, -0.588],
-    s: [0.035, 0.005, 0.003],
-  }));
-  h.instances(unitBox, m.dark, vents, parent, 'contact-flight-service-vents');
+  // The captive cover is sealed; its existing two fixings provide access
+  // without another ventilation pattern competing with the room's air returns.
 
   const screen = (
     kind: 'contact' | 'link' | 'signal',
@@ -780,23 +777,36 @@ export function buildContactFlightConsole(
     deckFixings,
     'deck',
   );
-  const deckVentHoles = [];
-  for (const side of [-1, 1])
-    for (let row = -2; row <= 2; row++)
-      for (let col = -2; col <= 2; col++) {
-        if (row * row + col * col > 6) continue;
-        deckVentHoles.push({
-          p: [side * 1.235 + col * 0.023, 0.974, -0.395 + row * 0.023],
-          r: [-Math.PI / 2, 0, 0],
-        });
-      }
-  h.instances(
-    new THREE.CircleGeometry(0.005, 8),
-    m.dark,
-    deckVentHoles,
-    parent,
-    'contact-flight-deck-vent-perforations',
-  );
+  // Flush capped attachment points let service tools be restrained to the deck.
+  // Smooth concentric caps read as hardware, without a perforated face.
+  for (const side of [-1, 1]) {
+    const mount = h.cylinder(
+      0.048,
+      0.006,
+      m.metal,
+      side * 1.235,
+      0.976,
+      -0.395,
+      parent,
+      'y',
+      0.048,
+      20,
+    );
+    mount.name = 'contact-flight-deck-restraint-socket-ring';
+    const cap = h.cylinder(
+      0.033,
+      0.006,
+      m.face,
+      side * 1.235,
+      0.981,
+      -0.395,
+      parent,
+      'y',
+      0.033,
+      20,
+    );
+    cap.name = 'contact-flight-deck-captive-socket-cap';
+  }
   const audio = buildContactAudio(THREE, h, parent, m);
   // Seat the complete microphone base and cable on the working deck. Its
   // bent neck keeps the capsule clear of the left screen without overhanging

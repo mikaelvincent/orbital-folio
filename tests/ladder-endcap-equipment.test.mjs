@@ -12,7 +12,7 @@ import {
 } from '../lib/spacecraft-wall-layout.ts';
 
 const model = createSpacecraft(THREE);
-const root = model.group.getObjectByName('ladder-end-circulation-returns');
+const root = model.group.getObjectByName('ladder-end-sealed-equipment');
 const contour = ladderOpeningOutline(new THREE.Shape(), {
   width: 1.33,
   height: LADDER_HEIGHT,
@@ -43,7 +43,7 @@ root.traverse((o) => {
   if (o.isMesh) meshes.push(o);
 });
 
-test('Ladder end returns occupy both previously empty curved ends and remain clear of the terminal lamps and doors', () => {
+test('Solid ladder end fittings occupy both previously empty curved ends and remain clear of the terminal lamps and doors', () => {
   assert.equal(meshes.length, 3, 'Three material batches serve both ends');
   const triangles = meshes.reduce(
     (sum, m) =>
@@ -57,7 +57,7 @@ test('Ladder end returns occupy both previously empty curved ends and remain cle
     model.group.updateMatrixWorld(true);
     const bounds = new THREE.Box3().setFromObject(root);
     assert(Math.abs(bounds.min.y + bounds.max.y - 2 * LADDER_CENTER_Y) < 1e-5);
-    assert(Math.abs(bounds.min.z + bounds.max.z) < 1e-5);
+    assert(bounds.max.z < 0.77 && bounds.min.z > -0.54);
     const sides = new Set();
     for (const mesh of meshes) {
       const p = mesh.geometry.attributes.position;
@@ -68,25 +68,31 @@ test('Ladder end returns occupy both previously empty curved ends and remain cle
           offset = Math.abs(y - LADDER_CENTER_Y);
         sides.add(Math.sign(y - LADDER_CENTER_Y));
         assert(
-          offset > 2.29 && offset < 2.63,
+          offset > 2.29 && offset < 2.87,
           'Both fixtures sit in the axial end gaps',
         );
-        assert(x < 0.42, 'The right-hand door wall remains unobstructed');
+        assert(x < 0.538, 'The right-hand door wall remains unobstructed');
         assert(
-          Math.abs(z) < 0.537,
+          z < 0.77 && z > -0.537,
           'Stay ahead of the rear terminal lights and behind the front reveal',
         );
-        assert(
-          x - wallX(y) >= -0.00201 && x - wallX(y) <= 0.07401,
-          'The mounting profile follows the actual curved liner',
-        );
+        if (offset < 2.64)
+          assert(
+            x - wallX(y) >= -0.00201 && x - wallX(y) <= 0.07401,
+            'Side covers follow the actual curve',
+          );
+        else
+          assert(
+            x > -0.1 && z > -0.327 && z < 0.767,
+            'New crown panels stay in front of terminal lights and inside the rounded end',
+          );
       }
     }
     assert.deepEqual(sides, new Set([-1, 1]));
   }
 });
 
-test('Air returns are passive, share existing materials and follow the ladder brightness state', () => {
+test('Solid end fittings are passive, share existing materials and follow the ladder brightness state', () => {
   model.update(1, '', true, { activeRoom: 'home', transitWalkway: false });
   const dim = meshes.map((m) => m.material.color.toArray());
   model.update(2, '', true, {

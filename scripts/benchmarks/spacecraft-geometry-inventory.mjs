@@ -38,6 +38,12 @@ for (const version of ['before', 'after']) {
       {
         name: 'record-model-source',
         setup(builder) {
+          if (version === 'before')
+            builder.onResolve({ filter: /\.tsx?$/ }, (args) => {
+              const path = resolve(args.resolveDir, args.path);
+              if (/^(components|lib)\//.test(relative(root, path)))
+                return { path };
+            });
           builder.onLoad({ filter: /\.(ts|tsx)$/ }, async ({ path }) => {
             const name = relative(root, path);
             if (!/^(components|lib)\//.test(name)) return;

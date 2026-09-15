@@ -497,13 +497,19 @@ export function buildProjectPayloadModule(
         'task-strip-end-cap',
       );
   }
-  const vents = [-1, 1].flatMap((side) =>
-    Array.from({ length: 5 }, (_, index) => ({
-      p: [side * (0.296 + index * 0.045), -0.357, 0.075],
-      s: [0.025, 0.008, 0.003],
-    })),
-  );
-  instances(unitBox, m.dark, vents, 'lower-vent-slots');
+  // Smooth wear pads protect the removable display's lower docking edge.
+  for (const side of [-1, 1])
+    box(
+      0.205,
+      0.02,
+      0.012,
+      m.graphite,
+      side * 0.386,
+      -0.354,
+      0.077,
+      0.006,
+      'lower-docking-wear-pad',
+    );
 
   const sw = 1.01,
     sh = 0.57;

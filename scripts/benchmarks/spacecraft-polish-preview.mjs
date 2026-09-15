@@ -102,6 +102,13 @@ for (const version of ['before', 'after']) {
             {
               name: 'approved-baseline',
               setup(builder) {
+                // A baseline may import a file renamed or removed in the checkout.
+                // Resolve repository sources before the filesystem fallback.
+                builder.onResolve({ filter: /\.tsx?$/ }, (args) => {
+                  const path = resolve(args.resolveDir, args.path);
+                  if (/^(components|lib)\//.test(relative(root, path)))
+                    return { path };
+                });
                 builder.onLoad({ filter: /\.(ts|tsx)$/ }, ({ path }) => {
                   const name = relative(root, path);
                   if (!/^(components|lib)\//.test(name)) return;
