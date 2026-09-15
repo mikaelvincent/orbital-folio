@@ -10,6 +10,7 @@ import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const baseline = process.argv[2] ?? 'b64852f';
 const bundles = {};
 for (const version of ['before', 'after']) {
   const result = await build({
@@ -51,6 +52,8 @@ for (const version of ['before', 'after']) {
           'Docking shoulder':{target:[ladderX-.45,.0675,0],direction:[1.3,.12,1],distance:8.8},
           'About corner':{target:[-2.09,-1.405,-.15],direction:[-.32,.06,1],distance:5.4},
           'Contact corner':{target:[2.09,-1.405,-.15],direction:[.32,.06,1],distance:5.4},
+          'Upper ladder return':{target:[ladderX,2.44,.05],direction:[.65,-.15,1],distance:4.5},
+          'Lower ladder return':{target:[ladderX,-2.31,.05],direction:[.65,.15,1],distance:4.5},
           'Rear quarter':{target:[-2,.3,-.4],direction:[-.45,.48,-1],distance:15},
         };
         let selected='Ladder front';
@@ -103,10 +106,14 @@ for (const version of ['before', 'after']) {
                   const name = relative(root, path);
                   if (!/^(components|lib)\//.test(name)) return;
                   return {
-                    contents: execFileSync('git', ['show', 'b64852f:' + name], {
-                      cwd: root,
-                      encoding: 'utf8',
-                    }),
+                    contents: execFileSync(
+                      'git',
+                      ['show', baseline + ':' + name],
+                      {
+                        cwd: root,
+                        encoding: 'utf8',
+                      },
+                    ),
                     loader: 'ts',
                     resolveDir: dirname(path),
                   };

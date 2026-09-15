@@ -1,7 +1,9 @@
 import { buildContinuousExteriorSkin } from './continuous-exterior-skin.ts';
+import { buildExteriorThermalEquipment } from './exterior-thermal-equipment.ts';
 import { finishWindowReveals } from './flush-window-reveals.ts';
 import { buildSmoothDockingRing } from './smooth-docking-ring.ts';
 import { buildDockingShoulderEquipment } from './docking-shoulder-equipment.ts';
+import { buildLadderEndcapEquipment } from './ladder-endcap-equipment.ts';
 import {
   buildRoundedCabinInterior,
   trimCabinSideWall,
@@ -1877,22 +1879,31 @@ export function createSpacecraft(
   );
   serviceSpine.scale.y = LADDER_CONTENT_SCALE;
   serviceSpine.position.y = LADDER_CONTENT_OFFSET;
+  const ladderEquipmentContour = walkwayOutline(
+    new THREE.Shape(),
+    1.33,
+    LADDER_HEIGHT,
+    LADDER_SHOULDER_RUN,
+    LADDER_SHOULDER_RISE,
+    LADDER_RIGHT_RADIUS,
+    0.69,
+  )
+    .getPoints(64)
+    .map((point: any) => point.add(new THREE.Vector2(0, LADDER_CENTER_Y)));
   buildDockingShoulderEquipment(
     THREE,
     { box },
     walkwayFurniture,
-    walkwayOutline(
-      new THREE.Shape(),
-      1.33,
-      LADDER_HEIGHT,
-      LADDER_SHOULDER_RUN,
-      LADDER_SHOULDER_RISE,
-      LADDER_RIGHT_RADIUS,
-      0.69,
-    )
-      .getPoints(64)
-      .map((point: any) => point.add(new THREE.Vector2(0, LADDER_CENTER_Y))),
+    ladderEquipmentContour,
     LADDER_CENTER_Y,
+  );
+  buildLadderEndcapEquipment(
+    THREE,
+    { mesh },
+    walkwayFurniture,
+    ladderEquipmentContour,
+    LADDER_CENTER_Y,
+    m,
   );
   roomLights.walkway = [];
   const dockingInterior = new THREE.Group();
@@ -3284,6 +3295,11 @@ export function createSpacecraft(
     });
     for (const part of closures.surfaces)
       mesh(part.geometry, m.shell, frame, part.name);
+    buildExteriorThermalEquipment(THREE, { mesh }, frame, m, {
+      datums: bowOutline.datums,
+      profiles: closures.profiles,
+      variant,
+    });
     // The inward side faces terminate on the same rounded outer envelope,
     // removing the old square cap protrusions without moving a cabin datum.
     const innerSide = closures.profiles

@@ -8,7 +8,7 @@ import { readFile } from 'node:fs/promises';
 import * as THREE from 'three';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const baseline = 'b64852f';
+const baseline = process.argv[2] ?? 'b64852f';
 const result = {
   baseline,
   measurement:
