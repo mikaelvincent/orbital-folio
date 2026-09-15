@@ -1,0 +1,38 @@
+[
+  {
+    "target": "opaque vertical front divider",
+    "point": [
+      1101,
+      263
+    ],
+    "state": {
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":false,\"startedOnControl\":false,\"response\":[-1.6927101360804033e-56,-1.9227796858510357e-56]}",
+      "hover": "",
+      "travel": "false"
+    }
+  },
+  {
+    "target": "cream rounded upper front corner",
+    "point": [
+      1090,
+      90
+    ],
+    "state": {
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":false,\"startedOnControl\":false,\"response\":[-1.6927101360804033e-56,-1.9227796858510357e-56]}",
+      "hover": "",
+      "travel": "false"
+    }
+  },
+  {
+    "target": "current room workbench",
+    "point": [
+      640,
+      532
+    ],
+    "state": {
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":false,\"startedOnControl\":false,\"response\":[-7.898930162633001e-144,-8.972535895505224e-144]}",
+      "hover": "",
+      "travel": "false"
+    }
+  }
+]

@@ -1,0 +1,13 @@
+✔ Coalescing retains every exact geometry input, world instance matrix, color and render flag (128.317167ms)
+✔ Different geometry bytes, sibling transforms, state, materials and parents remain separate (50.160209ms)
+✔ Dynamic, transparent, custom shader/callback and interactive instances are rejected (29.479042ms)
+✔ Transmissive physical siblings retain separate draw ordering even with transparent=false (2.230916ms)
+✔ Real spacecraft batches preserve exact instances through layouts, room updates and reading transitions (16749.631292ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19755.149042

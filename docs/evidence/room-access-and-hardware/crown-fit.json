@@ -1,0 +1,17 @@
+{
+  "method": "Barycentric center of each backing-facing triangle on both crown mounting flanges, compared to the actual sampled pressure-liner contour. Negative gap is embedded stock.",
+  "results": [
+    {
+      "name": "ladder-end-crown-seated-gasket",
+      "min": -0.0020001125335689096,
+      "max": -0.001489945384654412,
+      "count": 160
+    },
+    {
+      "name": "ladder-end-crown-seated-gasket",
+      "min": -0.0020001029968259587,
+      "max": -0.0014899358479119051,
+      "count": 160
+    }
+  ]
+}

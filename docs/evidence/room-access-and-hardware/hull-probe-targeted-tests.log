@@ -1,0 +1,27 @@
+✔ wide exterior service housing stays behind the cabin sidewall (2925.22175ms)
+✔ wide exterior roof and keel keep one continuous hull finish across the cabin divider (1289.497875ms)
+✔ wide right exterior corners follow the rounded room envelope without rectangular overhangs (2602.552167ms)
+✔ wide bow joins have one flat skin with no overlapping shoulder sheets (1471.983167ms)
+✔ wide retained ladder dividers stop at the rear pressure wall (48.087625ms)
+✔ wide rear bow patches meet the curved rear wall without overlapping it (12184.886125ms)
+✔ compact exterior service housing stays behind the cabin sidewall (772.04425ms)
+✔ compact exterior roof and keel keep one continuous hull finish across the cabin divider (456.117291ms)
+✔ compact right exterior corners follow the rounded room envelope without rectangular overhangs (1094.408875ms)
+✔ compact bow joins have one flat skin with no overlapping shoulder sheets (321.955541ms)
+✔ compact retained ladder dividers stop at the rear pressure wall (8.335083ms)
+✔ compact rear bow patches meet the curved rear wall without overlapping it (3082.329333ms)
+✔ Solid exterior panels fit the exposed roof and docking shoulder without touching either passage (10937.218833ms)
+✔ Exterior access shields share four existing materials and stay passive within a modest triangle budget (8212.126167ms)
+✔ Roof shield faces are directly exposed in supported landscape and portrait views (7315.334667ms)
+✔ wide: both rear side edges are quarter-round and interior returns remain enclosed (22404.471791ms)
+✔ compact: both rear side edges are quarter-round and interior returns remain enclosed (5681.688917ms)
+✔ wide: rear crowns have no ladder bulge and form one closed symmetric rear envelope (5282.023291ms)
+✔ compact: rear crowns have no ladder bulge and form one closed symmetric rear envelope (4591.682042ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39868.576125

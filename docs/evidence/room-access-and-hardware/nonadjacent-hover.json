@@ -1,0 +1,31 @@
+{
+  "hover": "experience",
+  "portal": "contact:about",
+  "portals": [
+    {
+      "id": "experience:projects",
+      "open": 0
+    },
+    {
+      "id": "projects:experience",
+      "open": 0
+    },
+    {
+      "id": "projects:about",
+      "open": 0
+    },
+    {
+      "id": "about:projects",
+      "open": 0
+    },
+    {
+      "id": "about:contact",
+      "open": 1
+    },
+    {
+      "id": "contact:about",
+      "open": 1
+    }
+  ],
+  "route": "[\"contact\",\"about\"]"
+}

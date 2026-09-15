@@ -1,0 +1,30 @@
+{
+  "scope": "Actual integrated model, compact upper bow join fraction=.85,Z=0",
+  "expectedPressurePoint": [
+    -2.503,
+    3.0975,
+    0
+  ],
+  "firstFullSceneHit": {
+    "point": [
+      -2.503,
+      3.1235000104891673,
+      0
+    ],
+    "material": "graphite-enamel",
+    "parent": "compact-exterior-service-equipment",
+    "part": "exterior-service-roof-seated-gasket"
+  },
+  "nextHit": {
+    "point": [
+      -2.503,
+      3.0975000858306885,
+      0
+    ],
+    "material": "ceramic-hull",
+    "parent": "compact-common-pressure-frame"
+  },
+  "pressureContourError": 8.58306885e-08,
+  "unchangedTestTolerance": 1e-05,
+  "diagnosis": "Expected attached equipment occludes the pressure-skin ray; underlying skin remains within original tolerance. Exclude only explicitly classified sealed exterior fixtures from the pressure-only probe, leaving all other geometry and original assertions in scope."
+}

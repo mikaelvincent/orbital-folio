@@ -1,0 +1,410 @@
+{
+  "before": {
+    "stats": {
+      "meshesBefore": 122,
+      "meshesAfter": 92,
+      "mergedGroups": 22,
+      "drawsRemoved": 30
+    },
+    "removed": [
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-lower-vent-slots",
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-lower-vent-slots",
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-lower-vent-slots",
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-lower-vent-slots",
+      "case-archive-rack-index-perforations",
+      "case-archive-jacket-0-1-screws",
+      "case-archive-jacket-0-1-screw-slots",
+      "case-archive-jacket-1-1-screws",
+      "case-archive-jacket-1-1-screw-slots",
+      "case-archive-jacket-2-1-screws",
+      "case-archive-jacket-2-1-screw-slots",
+      "case-archive-jacket-3-1-screws",
+      "case-archive-jacket-3-1-screw-slots",
+      "case-archive-jacket-4-1-screws",
+      "case-archive-jacket-4-1-screw-slots",
+      "case-archive-structural-screw-slots",
+      "personal-study-journal-clips",
+      "personal-study-journal-clips-slots",
+      "personal-study-writing-station-fasteners",
+      "personal-study-writing-station-fasteners-slots",
+      "contact-flight-structural-fasteners",
+      "contact-flight-structural-screw-slots",
+      "contact-flight-service-cover-fasteners",
+      "contact-flight-service-cover-screw-slots",
+      "contact-flight-service-vents",
+      "contact-flight-encoder-flutes"
+    ],
+    "merges": [
+      {
+        "parent": "projects-workshop-all-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots",
+          "projects-workshop-lower-vent-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-systems-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots",
+          "projects-workshop-lower-vent-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-interfaces-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots",
+          "projects-workshop-lower-vent-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-experiments-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots",
+          "projects-workshop-lower-vent-slots"
+        ]
+      },
+      {
+        "parent": "case-study-flight-recorder-archive",
+        "names": [
+          "case-archive-rack-index-perforations",
+          "case-archive-rack-index-perforations",
+          "case-archive-structural-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-0",
+        "names": [
+          "case-archive-jacket-0--1-screws",
+          "case-archive-jacket-0-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-0",
+        "names": [
+          "case-archive-jacket-0--1-screw-slots",
+          "case-archive-jacket-0-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-1",
+        "names": [
+          "case-archive-jacket-1--1-screws",
+          "case-archive-jacket-1-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-1",
+        "names": [
+          "case-archive-jacket-1--1-screw-slots",
+          "case-archive-jacket-1-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-2",
+        "names": [
+          "case-archive-jacket-2--1-screws",
+          "case-archive-jacket-2-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-2",
+        "names": [
+          "case-archive-jacket-2--1-screw-slots",
+          "case-archive-jacket-2-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-3",
+        "names": [
+          "case-archive-jacket-3--1-screws",
+          "case-archive-jacket-3-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-3",
+        "names": [
+          "case-archive-jacket-3--1-screw-slots",
+          "case-archive-jacket-3-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-4",
+        "names": [
+          "case-archive-jacket-4--1-screws",
+          "case-archive-jacket-4-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-4",
+        "names": [
+          "case-archive-jacket-4--1-screw-slots",
+          "case-archive-jacket-4-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "personal-study-reading-station",
+        "names": [
+          "personal-study-library-fasteners",
+          "personal-study-writing-station-fasteners"
+        ]
+      },
+      {
+        "parent": "personal-study-reading-station",
+        "names": [
+          "personal-study-library-fasteners-slots",
+          "personal-study-writing-station-fasteners-slots"
+        ]
+      },
+      {
+        "parent": "personal-study-retained-journal",
+        "names": [
+          "personal-study-journal-clips",
+          "personal-study-journal-clips"
+        ]
+      },
+      {
+        "parent": "personal-study-retained-journal",
+        "names": [
+          "personal-study-journal-clips-slots",
+          "personal-study-journal-clips-slots"
+        ]
+      },
+      {
+        "parent": "contact-flight-equipment-mount",
+        "names": [
+          "contact-flight-structural-fasteners",
+          "contact-flight-structural-fasteners",
+          "contact-flight-service-cover-fasteners"
+        ]
+      },
+      {
+        "parent": "contact-flight-equipment-mount",
+        "names": [
+          "contact-flight-structural-screw-slots",
+          "contact-flight-structural-screw-slots",
+          "contact-flight-service-cover-screw-slots",
+          "contact-flight-service-vents"
+        ]
+      },
+      {
+        "parent": "contact-flight-inclined-control-deck",
+        "names": [
+          "contact-flight-encoder-flutes",
+          "contact-flight-encoder-flutes"
+        ]
+      }
+    ]
+  },
+  "after": {
+    "stats": {
+      "meshesBefore": 114,
+      "meshesAfter": 89,
+      "mergedGroups": 22,
+      "drawsRemoved": 25
+    },
+    "removed": [
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-corner-fastener-slots",
+      "projects-workshop-corner-fastener-slots",
+      "case-archive-rack-index-perforations",
+      "case-archive-jacket-0-1-screws",
+      "case-archive-jacket-0-1-screw-slots",
+      "case-archive-jacket-1-1-screws",
+      "case-archive-jacket-1-1-screw-slots",
+      "case-archive-jacket-2-1-screws",
+      "case-archive-jacket-2-1-screw-slots",
+      "case-archive-jacket-3-1-screws",
+      "case-archive-jacket-3-1-screw-slots",
+      "case-archive-jacket-4-1-screws",
+      "case-archive-jacket-4-1-screw-slots",
+      "case-archive-structural-screw-slots",
+      "personal-study-journal-clips",
+      "personal-study-journal-clips-slots",
+      "personal-study-writing-station-fasteners",
+      "personal-study-writing-station-fasteners-slots",
+      "contact-flight-structural-fasteners",
+      "contact-flight-structural-screw-slots",
+      "contact-flight-service-cover-fasteners",
+      "contact-flight-service-cover-screw-slots",
+      "contact-flight-encoder-flutes"
+    ],
+    "merges": [
+      {
+        "parent": "projects-workshop-all-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-systems-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-interfaces-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots"
+        ]
+      },
+      {
+        "parent": "projects-workshop-experiments-payload-module",
+        "names": [
+          "projects-workshop-captive-screw-slots",
+          "projects-workshop-corner-fastener-slots"
+        ]
+      },
+      {
+        "parent": "case-study-flight-recorder-archive",
+        "names": [
+          "case-archive-rack-index-perforations",
+          "case-archive-rack-index-perforations",
+          "case-archive-structural-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-0",
+        "names": [
+          "case-archive-jacket-0--1-screws",
+          "case-archive-jacket-0-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-0",
+        "names": [
+          "case-archive-jacket-0--1-screw-slots",
+          "case-archive-jacket-0-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-1",
+        "names": [
+          "case-archive-jacket-1--1-screws",
+          "case-archive-jacket-1-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-1",
+        "names": [
+          "case-archive-jacket-1--1-screw-slots",
+          "case-archive-jacket-1-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-2",
+        "names": [
+          "case-archive-jacket-2--1-screws",
+          "case-archive-jacket-2-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-2",
+        "names": [
+          "case-archive-jacket-2--1-screw-slots",
+          "case-archive-jacket-2-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-3",
+        "names": [
+          "case-archive-jacket-3--1-screws",
+          "case-archive-jacket-3-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-3",
+        "names": [
+          "case-archive-jacket-3--1-screw-slots",
+          "case-archive-jacket-3-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-4",
+        "names": [
+          "case-archive-jacket-4--1-screws",
+          "case-archive-jacket-4-1-screws"
+        ]
+      },
+      {
+        "parent": "case-archive-cartridge-4",
+        "names": [
+          "case-archive-jacket-4--1-screw-slots",
+          "case-archive-jacket-4-1-screw-slots"
+        ]
+      },
+      {
+        "parent": "personal-study-reading-station",
+        "names": [
+          "personal-study-library-fasteners",
+          "personal-study-writing-station-fasteners"
+        ]
+      },
+      {
+        "parent": "personal-study-reading-station",
+        "names": [
+          "personal-study-library-fasteners-slots",
+          "personal-study-writing-station-fasteners-slots"
+        ]
+      },
+      {
+        "parent": "personal-study-retained-journal",
+        "names": [
+          "personal-study-journal-clips",
+          "personal-study-journal-clips"
+        ]
+      },
+      {
+        "parent": "personal-study-retained-journal",
+        "names": [
+          "personal-study-journal-clips-slots",
+          "personal-study-journal-clips-slots"
+        ]
+      },
+      {
+        "parent": "contact-flight-equipment-mount",
+        "names": [
+          "contact-flight-structural-fasteners",
+          "contact-flight-structural-fasteners",
+          "contact-flight-service-cover-fasteners"
+        ]
+      },
+      {
+        "parent": "contact-flight-equipment-mount",
+        "names": [
+          "contact-flight-structural-screw-slots",
+          "contact-flight-structural-screw-slots",
+          "contact-flight-service-cover-screw-slots"
+        ]
+      },
+      {
+        "parent": "contact-flight-inclined-control-deck",
+        "names": [
+          "contact-flight-encoder-flutes",
+          "contact-flight-encoder-flutes"
+        ]
+      }
+    ]
+  },
+  "changedRemovals": {
+    "projects-workshop-lower-vent-slots": {
+      "before": 4,
+      "after": 0
+    },
+    "contact-flight-service-vents": {
+      "before": 1,
+      "after": 0
+    }
+  }
+}

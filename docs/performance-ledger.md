@@ -645,6 +645,70 @@ independently of triangle count. The new ladder and roof groups provide clear
 attribution boundaries for that baseline, but their small structural cost alone
 does not justify prioritizing them ahead of the previously measured sinks.
 
+## 16 — Sealed equipment and visible-room navigation
+
+**Approved quality and interaction work, 15 September 2026.** The user requested
+replacement of vent-looking equipment throughout the vessel, retaining only the
+two air returns beside each of the four cabin headings. Those eight returns stay
+in their existing positions. Other slits, perforated covers and louvres become
+solid access covers, captive restraint fittings, docking wear pads or protected
+edges. The previous roof trays become sealed cover assemblies, and additional
+solid panels fill the visible docking shoulder and the ladder bay's curved
+ceiling/floor. The cover shapes and captured hardware are artistic functional
+cues, not a verified pressure, thermal or shielding design.
+
+Visible room openings now provide navigation targets as well as their doors.
+Hover previews the first connecting hatch on the route; activation retains the
+selected final room, including when the route crosses intervening rooms. During
+travel that destination uses the existing single pending slot, so a newer choice
+overrides the earlier one and starts after the current arrival. Rounded opening
+masks exclude the solid front frame and dividers. Door and ladder interlocks,
+room arrangement, screen content and the approved 8K Mediterranean night Earth
+remain unchanged. This is interaction work, not a performance optimization.
+
+### Structural inventory
+
+The integrated source-hashed wide model is compared with `453bf12`:
+
+| Inventory | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| Visible meshes | 419 | 416 | −3 |
+| Triangles, including instances | 895,624 | 896,518 | +894 (+0.0998%) |
+| Unique geometry attribute/index arrays | 33,528,472 B | 33,591,636 B | +63,164 B (+0.06024 MiB) |
+
+Replacing the old grille details offsets most of the additional solid-cover
+geometry. The count traverses the active visible model without camera frustum
+culling. It excludes JavaScript overhead, instance buffers, textures, render
+targets and other scene layers. These typed-array bytes are not measured GPU or
+process memory; visible mesh counts are not the draw counts of a complete frame
+across all passes. Navigation hit-testing cost is outside this geometry inventory.
+The revised fittings introduce no new texture, light or ongoing object animation.
+
+[Raw inventory, source hashes and exclusions](evidence/room-access-and-hardware/geometry-inventory.json)
+record the combined change, rather than adding separate agent estimates. The
+[inventory tool](../scripts/benchmarks/spacecraft-geometry-inventory.mjs) now resolves
+historical source imports directly from the selected Git revision, including
+paths renamed or removed from the checkout. This preserves reproduction of the
+older baselines after `exterior-thermal-equipment.ts` became
+`exterior-service-equipment.ts`; previous measurements are retained unchanged.
+
+No controlled runtime CPU/GPU, frame-time, thermal or battery comparison was
+performed for this entry. The small structural difference does not establish a
+speedup or unchanged rendering cost. The [replacement audit](evidence/room-access-and-hardware/vent-audit.md)
+and [implementation checks](evidence/room-access-and-hardware/README.md) preserve
+the visual intent, exceptions and validation separately from the inventory.
+
+### Held candidates
+
+No performance-ledger candidate was enabled. Keep the existing priority order
+and establish the next approved measurement baseline with these delivered
+fittings, the current camera and the completed navigation behavior. Match hover,
+room traversal and ladder routes when comparing frames; a different target or
+route can change geometry visibility and AO refresh activity independently of
+any optimization. No new optimization recommendation is established by this
+quality task.
+
+
 ## Next candidates
 
 **Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.

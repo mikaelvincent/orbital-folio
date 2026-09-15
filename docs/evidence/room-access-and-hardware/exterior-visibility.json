@@ -1,0 +1,1168 @@
+{
+  "method": "Actual static triangle raycasts from candidate overview cameras and bounded 3x3 drag envelope. Both tray groups included, excluding interaction proxies. No rendering or GPU timings.",
+  "baseline": "453bf12",
+  "candidateCameraRecords": "/tmp/orbital-camera-composition/comparison.json",
+  "records": [
+    {
+      "width": 2560,
+      "height": 1080,
+      "default": {
+        "eye": [
+          -7.376215221659686,
+          3.764908217254912,
+          18.24786041349298
+        ],
+        "visibleVanes": 4,
+        "ceramicFaceHits": 3,
+        "roof": 2,
+        "shoulder": 2
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            -7.376215221659686,
+            3.764908217254912,
+            18.24786041349298
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -12.900642058810979,
+            6.541192960390912,
+            14.779607558254174
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.376215221659686,
+            6.998392156363803,
+            17.2921117032305
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -1.328904991976062,
+            7.121264242634864,
+            17.96734610604043
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.90064205881098,
+            3.764908217254913,
+            15.694096880328358
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.376215221659686,
+            3.764908217254912,
+            18.24786041349298
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -1.328904991976062,
+            3.764908217254912,
+            18.934183259042133
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.900642058810979,
+            0.869757350103256,
+            16.09677435870086
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.376215221659686,
+            0.4125581541303672,
+            18.609278503677185
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -1.328904991976062,
+            0.2896860678593046,
+            19.284512906487116
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "default": {
+        "eye": [
+          -7.121802986247215,
+          3.812316923957124,
+          18.575100462103013
+        ],
+        "visibleVanes": 4,
+        "ceramicFaceHits": 3,
+        "roof": 2,
+        "shoulder": 2
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            -7.121802986247215,
+            3.812316923957124,
+            18.575100462103013
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -12.718247049890431,
+            6.624990393215096,
+            15.063814358623935
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.121802986247214,
+            7.087784599717996,
+            17.607065467443732
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.996300658439023,
+            7.2119118943736185,
+            18.289197774486198
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.718247049890431,
+            3.812316923957124,
+            15.990085050140097
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.121802986247215,
+            3.812316923957124,
+            18.575100462103013
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.996300658439023,
+            3.812316923957124,
+            19.268434486646445
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.718247049890431,
+            0.8792560245762017,
+            16.397838896415376
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.121802986247215,
+            0.41646181807329963,
+            18.94109000523518
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.9963006584390233,
+            0.2923345234176783,
+            19.62322231227764
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "default": {
+        "eye": [
+          -7.008407754446546,
+          4.186315910994487,
+          20.36357244189878
+        ],
+        "visibleVanes": 4,
+        "ceramicFaceHits": 3,
+        "roof": 2,
+        "shoulder": 2
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            -7.008407754446546,
+            4.186315910994487,
+            20.36357244189878
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -13.152536549917194,
+            7.289121111023221,
+            16.67349383196534
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.008407754446545,
+            7.769592129871892,
+            19.31388654706949
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            -0.3319643765954754,
+            7.879655074749122,
+            19.9187292669345
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -13.152536549917196,
+            4.186315910994487,
+            17.67982020111191
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.008407754446546,
+            4.186315910994487,
+            20.36357244189878
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.3319643765954754,
+            4.186315910994487,
+            20.978347659038135
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -13.152536549917194,
+            0.9534784044005625,
+            18.11439416089855
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -7.008407754446545,
+            0.47300738555188965,
+            20.754786876002697
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.3319643765954754,
+            0.36294444067466214,
+            21.35962959586771
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "default": {
+        "eye": [
+          -8.416583880034235,
+          4.900771681064811,
+          23.238729411237994
+        ],
+        "visibleVanes": 4,
+        "ceramicFaceHits": 4,
+        "roof": 2,
+        "shoulder": 2
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            -8.416583880034235,
+            4.900771681064811,
+            23.238729411237994
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -15.4214953311651,
+            8.421315863949227,
+            18.843751465466223
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -8.416583880034235,
+            9.0005823409805,
+            22.027067266120465
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.7494650967439385,
+            9.155948980554314,
+            22.880873067527418
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -15.4214953311651,
+            4.900771681064811,
+            20.003138408328752
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -8.416583880034235,
+            4.900771681064811,
+            23.238729411237994
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.7494650967439385,
+            4.900771681064811,
+            24.10655608702563
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -15.4214953311651,
+            1.2295419417359172,
+            20.513512416276395
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -8.416583880034235,
+            0.6502754647046418,
+            23.69682821693064
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.7494650967439387,
+            0.4949088251308294,
+            24.55063401833759
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "default": {
+        "eye": [
+          -5.689653883003152,
+          4.556665440439846,
+          22.614816652709056
+        ],
+        "visibleVanes": 3,
+        "ceramicFaceHits": 3,
+        "roof": 2,
+        "shoulder": 1
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            -5.689653883003152,
+            4.556665440439846,
+            22.614816652709056
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            -12.572239677617066,
+            8.08533431531124,
+            19.06786934651422
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -5.689653883003151,
+            8.52527589914391,
+            21.48553556872817
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            1.616546189763587,
+            8.555279394872665,
+            21.650417545875722
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.572239677617066,
+            4.556665440439846,
+            20.157448434631124
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -5.689653883003152,
+            4.556665440439846,
+            22.614816652709056
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 3,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            1.6165461897635875,
+            4.556665440439846,
+            22.782406259021712
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -12.572239677617066,
+            0.8899399446006011,
+            20.59768786483957
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 0,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -5.689653883003152,
+            0.44999836076793165,
+            23.015354087053524
+          ],
+          "visibleVanes": 1,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            1.6165461897635875,
+            0.41999486503917516,
+            23.180236064201075
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "default": {
+        "eye": [
+          -13.751511798854805,
+          9.071775228244787,
+          41.55889273305219
+        ],
+        "visibleVanes": 4,
+        "ceramicFaceHits": 4,
+        "roof": 2,
+        "shoulder": 2
+      },
+      "maximumVisibleVanes": 4,
+      "minimumVisibleVanes": 2,
+      "samples": [
+        {
+          "eye": [
+            -13.751511798854805,
+            9.071775228244787,
+            41.55889273305219
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -26.30067626113538,
+            15.37832156558384,
+            33.680487106522214
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -13.751511798854805,
+            16.416885034956316,
+            39.387835335922986
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.014577115172028421,
+            16.695998518380453,
+            40.92168270529481
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            -26.300676261135386,
+            9.071775228244789,
+            35.7578206001134
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -13.751511798854805,
+            9.071775228244787,
+            41.55889273305219
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.014577115172028421,
+            9.071775228244787,
+            43.117928360983136
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -26.30067626113538,
+            2.495215261756925,
+            36.67253375503658
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 4,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -13.751511798854805,
+            1.4566517923844544,
+            42.379881984437354
+          ],
+          "visibleVanes": 4,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 2
+        },
+        {
+          "eye": [
+            -0.014577115172028421,
+            1.1775383089603162,
+            43.91372935380918
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 0,
+          "roof": 2,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "default": {
+        "eye": [
+          5.192535732000164,
+          3.270246600110105,
+          31.995837574157203
+        ],
+        "visibleVanes": 2,
+        "ceramicFaceHits": 2,
+        "roof": 2,
+        "shoulder": 0
+      },
+      "maximumVisibleVanes": 2,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            5.192535732000164,
+            3.270246600110105,
+            31.995837574157203
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            10.339434539922141,
+            13.139517809798772,
+            27.873428287696527
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            10.808838887114284,
+            3.270246600110106,
+            30.4530049325778
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            10.698609163568392,
+            -6.9227890355593855,
+            29.84724569295508
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.192535732000163,
+            13.139517809798772,
+            29.373900101985182
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.192535732000164,
+            3.270246600110105,
+            31.995837574157203
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.192535732000167,
+            -6.922789035559386,
+            31.380130786520994
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.13983702644214802,
+            13.13951780979877,
+            29.92868273463127
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.6092413736342879,
+            3.2702466001101036,
+            32.508259379512545
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.49901165008839143,
+            -6.922789035559387,
+            31.902500139889824
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "default": {
+        "eye": [
+          5.795626255168744,
+          3.5087725405456363,
+          34.771107637374456
+        ],
+        "visibleVanes": 2,
+        "ceramicFaceHits": 2,
+        "roof": 2,
+        "shoulder": 0
+      },
+      "maximumVisibleVanes": 2,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            5.795626255168744,
+            3.5087725405456363,
+            34.771107637374456
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            11.392739441400654,
+            14.24133793336514,
+            30.28809908457764
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            11.903203967592589,
+            3.508772540545637,
+            33.09331888640043
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            11.783332125887876,
+            -7.575877904946922,
+            32.43457210424968
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.795626255168742,
+            14.241337933365141,
+            31.9198215820936
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.795626255168744,
+            3.5087725405456363,
+            34.771107637374456
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            5.795626255168747,
+            -7.575877904946922,
+            34.1015431659248
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.003184833606351134,
+            14.24133793336514,
+            32.523132683508
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.5136493597982819,
+            3.508772540545635,
+            35.32835248533079
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.393777518093561,
+            -7.575877904946924,
+            34.66960570318004
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "default": {
+        "eye": [
+          6.008357014014029,
+          3.603940206931777,
+          35.744385771684875
+        ],
+        "visibleVanes": 2,
+        "ceramicFaceHits": 2,
+        "roof": 2,
+        "shoulder": 0
+      },
+      "maximumVisibleVanes": 3,
+      "minimumVisibleVanes": 0,
+      "samples": [
+        {
+          "eye": [
+            6.008357014014029,
+            3.603940206931777,
+            35.744385771684875
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            11.763571491123338,
+            14.639667673944249,
+            31.134745968879564
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            12.288455075471289,
+            3.6039402069317763,
+            34.01920463136253
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            12.165197221677342,
+            -7.793817636257868,
+            33.34185027184929
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            6.008357014014026,
+            14.639667673944249,
+            32.81255962528892
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            6.008357014014029,
+            3.603940206931777,
+            35.744385771684875
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            6.00835701401403,
+            -7.793817636257868,
+            35.05590815630913
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            0.0457472868721549,
+            14.639667673944246,
+            33.43291241601003
+          ],
+          "visibleVanes": 3,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 1
+        },
+        {
+          "eye": [
+            -0.479136297475788,
+            3.6039402069317745,
+            36.317371078493
+          ],
+          "visibleVanes": 2,
+          "ceramicFaceHits": 2,
+          "roof": 2,
+          "shoulder": 0
+        },
+        {
+          "eye": [
+            -0.3558784436818385,
+            -7.793817636257871,
+            35.640016718979766
+          ],
+          "visibleVanes": 0,
+          "ceramicFaceHits": 0,
+          "roof": 0,
+          "shoulder": 0
+        }
+      ]
+    }
+  ]
+}

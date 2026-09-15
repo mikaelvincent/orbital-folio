@@ -1,0 +1,31 @@
+{
+  "baseline": "453bf12",
+  "method": "SHA-256 of final source files changed or added by this task; deleted predecessor paths remain available in the baseline revision.",
+  "files": {
+    "components/about-personal-study.ts": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c",
+    "components/cabin-utility-fittings.ts": "3ce00c0622cd79ed5871039951f7c7f15a9e4000a58232258705da8af8ce5ec5",
+    "components/case-study-archive.ts": "2612b9445cd3020169c5b984d9754eb65438b02db5b68085dd7203842f41290d",
+    "components/contact-flight-audio.ts": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5",
+    "components/contact-flight-console.ts": "2968ecb27b045fe0c1788a131213f83202dc7d39b66ba6d1a4a0ea35adb6d95e",
+    "components/exterior-service-equipment.ts": "b2da22a1ffedc750adbfbdd32f53866f218924c867a4c6400cb7bb9966f269b0",
+    "components/ladder-endcap-equipment.ts": "31cea8e1fcb8e3dab4c32543b9725762f75c75f95f44f69607f3a845f65bf7be",
+    "components/ladder-service-spine.ts": "8f03fa533b31951ebe9a3ae4e467103de31578dbbb2219ed26405291ab85cc46",
+    "components/outboard-wall-equipment.ts": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1",
+    "components/projects-payload-module.ts": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796",
+    "components/room-navigation-targets.ts": "7d96ca24c42bcfd25acb4d9e652f8d8bba0262ee58569b5dbf2cb53454479c84",
+    "components/spacecraft-model.ts": "5647d7790485097e8ccd74e88fc9541a8e26ef1568acd6bb455940fa544788fe",
+    "components/spacecraft.tsx": "388ab2d733898e0b65c8231b3bab7affdbace9dbeadd21cf134a554208a84f40",
+    "lib/room-navigation.ts": "79079fe871a3331b010d2d317674d7d5eacfafdf671d2189c2fbdef52f056dc9",
+    "scripts/benchmarks/responsive-portfolio-preview.mjs": "6afcf27a1aaada60a04c645d31c402aea0ab0790bd404492c32024ebda01f981",
+    "scripts/benchmarks/spacecraft-geometry-inventory.mjs": "d73a61e748fc5df583cf02cc7007ad6c4a0505d94a540bdc67980cea774b1d25",
+    "scripts/benchmarks/spacecraft-polish-preview.mjs": "ce61b1ad69f409dc124b3ba1a2c73450ead8a4d214d6815f6ebb15585f79b6be",
+    "tests/cabin-vent-policy.test.mjs": "01626545e28e7477d61d4dda7bd38dc7c9713d5d98b0a7b88560275c22d95e91",
+    "tests/coalesce-static-instances.test.mjs": "979045f26ba64b0d0ce4e28c78695f58b3bc53afee683bab617940575ab826f0",
+    "tests/exterior-joins.test.mjs": "28903af96b62de6c1ce929ea90d74fec655a193618095e5e2b71a4b33ba6a077",
+    "tests/exterior-service-equipment.test.mjs": "a5be0fe646433bbedf3ead497362cb04d65f312352d8673f64d42bfe961cc973",
+    "tests/ladder-endcap-equipment.test.mjs": "cb90db3a63e700fd1bb8a4a28bc71332d9bb959c4481a3e842c34f314a98ae27",
+    "tests/solid-ladder-service.test.mjs": "3631b2e6ad24b06c0b5ad52eab399b5da3f1ae4f3c00f4a1baf1b4585a6a0f50",
+    "tests/tiny-hardware-detail.test.mjs": "b89e229ca430a51d81bc289d7b8307332789d77be806601f9e5dc96bcea6c014",
+    "tests/visible-room-navigation.test.mjs": "1c477d89951119f2642be9a276b33484ca781a04a4377870c603b4c85c165cec"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "target": "sky between hull and solar panel in Case studies view",
+  "point": [
+    1135,
+    285
+  ],
+  "state": {
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":0,\"dragged\":false,\"activated\":false,\"startedOnControl\":false,\"response\":[-3e-323,-3e-323]}",
+    "hover": "",
+    "travel": "false"
+  }
+}

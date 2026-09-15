@@ -1,0 +1,16 @@
+✔ Visible-room intent uses the same first door but preserves a nonadjacent final destination (1.296958ms)
+✔ Room, doorway and Home requests share one overriding queue without losing the final room (0.17025ms)
+✔ Room previews inherit the ladder entry/interlock and inside-bay exit restrictions (0.060625ms)
+✔ Pressing one visible room and releasing over another cannot activate their shared first door (0.064ms)
+✔ Real rounded opening masks select visible rooms at front and oblique angles in both layouts (4.640667ms)
+✔ Solid dividers, roof, rounded corners and sky cannot select a room or a doorway through the front face (1.234458ms)
+✔ Inside-cabin and ladder views keep doorway picking available without selecting the back of an opening (0.376708ms)
+✔ Opening masks stay invisible and replace geometry only when layout changes (0.512792ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143.588417
