@@ -1,0 +1,23 @@
+✔ A visible ladder bay selects its exit cabin and previews the current cabin first door (2.567666ms)
+✔ Ladder bay selection stays inert in overview, inside the bay and without a reachable crossing (0.195375ms)
+✔ Ladder opening selections inherit travel preview and physical hatch restrictions (0.281584ms)
+✔ Visible-room intent uses the same first door but preserves a nonadjacent final destination (0.138792ms)
+✔ Room, doorway and Home requests share one overriding queue without losing the final room (0.163ms)
+✔ Room previews inherit the ladder entry/interlock and inside-bay exit restrictions (0.109667ms)
+✔ Pressing one visible room and releasing over another cannot activate their shared first door (0.092625ms)
+✔ Real rounded opening masks select visible rooms at front and oblique angles in both layouts (6.873541ms)
+✔ Solid dividers, roof, rounded corners and sky cannot select a room or a doorway through the front face (1.358916ms)
+✔ Inside-cabin and ladder views keep doorway picking available without selecting the back of an opening (0.585833ms)
+✔ Opening masks stay invisible and replace geometry only when layout changes (0.506625ms)
+✔ Actual solid cabin walls stay neutral even when the old ladder box lies behind them (9.387875ms)
+✔ Actual door and guide faces remain selectable at oblique angles on all six directed portals (4.196167ms)
+✔ Caption picking follows its face without extending sideways onto the wall (2.714ms)
+✔ Visible ladder opening keeps its route while overview and inside-bay restrictions remain (1.457ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 851.152208

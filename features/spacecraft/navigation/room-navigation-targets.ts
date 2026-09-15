@@ -1,6 +1,21 @@
 import type * as Three from 'three';
+import type { roomNavigationIntent } from './room-navigation.ts';
 import { thinChassisOutline } from '../geometry/thin-chassis-outline.ts';
 import { PRESSURE_FACE_FRONT } from '../geometry/spacecraft-wall-layout.ts';
+
+type NavigationPick = {
+  section: string;
+  portalId?: string;
+  roomTarget?: boolean;
+  walkway: boolean;
+};
+type NavigationOptions = {
+  active: string;
+  reading: boolean;
+  portalTargets: readonly { from: string; id: string; object: Three.Object3D }[];
+  roomIntent: (destination: string) => ReturnType<typeof roomNavigationIntent>;
+  canUsePortal: (id: string) => boolean;
+};
 
 /** Pick only through the visible rounded cutaway openings, rather than boxes
  * that include the opaque dividers, curved corners and space behind a cabin.
@@ -35,19 +50,46 @@ export function createRoomNavigationTargets(
   parent.add(walkway);
   const openings = [...targets, walkway];
   let currentScale = 0;
+  function pick(ray: Three.Raycaster) {
+    const opening = ray.intersectObjects(openings, false)[0];
+    return {
+      section: (opening?.object.userData.section || '') as string,
+      // A frontward eye must look through a real cutaway before a doorway
+      // behind the pressure face is eligible.
+      blockedByFace:
+        !opening &&
+        ray.ray.origin.z > PRESSURE_FACE_FRONT &&
+        ray.ray.direction.z < 0,
+    };
+  }
   return {
     targets,
-    pick(ray: Three.Raycaster) {
-      const opening = ray.intersectObjects(openings, false)[0];
-      return {
-        section: opening?.object.userData.section || '',
-        // The vessel is fixed in world space. A frontward eye must look through
-        // a real cutaway before a doorway behind the pressure face is eligible.
-        blockedByFace:
-          !opening &&
-          ray.ray.origin.z > PRESSURE_FACE_FRONT &&
-          ray.ray.direction.z < 0,
-      };
+    pick,
+    select(ray: Three.Raycaster, options: NavigationOptions): NavigationPick {
+      const { section, blockedByFace } = pick(ray);
+      const neutral = { section: '', walkway: false };
+      if (blockedByFace || options.reading) return neutral;
+      // The nearest opening owns the visible region. A bay volume behind a
+      // cabin wall must never contribute hover feedback or steal a click.
+      if (section && section !== options.active) {
+        const intent = options.roomIntent(section);
+        return intent ? { ...intent, walkway: section === 'walkway' } : neutral;
+      }
+      if (options.active !== 'home') {
+        const portal = ray.intersectObjects(
+          options.portalTargets
+            .filter((p) => p.from === options.active && options.canUsePortal(p.id))
+            .map((p) => p.object),
+          false,
+        )[0];
+        if (portal)
+          return {
+            section: portal.object.userData.portalDestination as string,
+            portalId: portal.object.userData.portalId as string,
+            walkway: false,
+          };
+      }
+      return neutral;
     },
     sync(scale: number) {
       if (scale === currentScale) return;

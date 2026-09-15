@@ -381,13 +381,6 @@ export function mountSpacecraftScene({
           pointer = new THREE.Vector2();
         const roomNavigation = createRoomNavigationTargets(THREE, model.group);
         roomNavigation.sync(model.group.userData.layoutScale);
-        const proxyMaterial = new THREE.MeshBasicMaterial({ visible: false });
-        const walkwayProxy = new THREE.Mesh(
-          new THREE.BoxGeometry(1, 1, 1),
-          proxyMaterial,
-        );
-        walkwayProxy.visible = false;
-        model.group.add(walkwayProxy);
         const hotspotObjects: {
           object: InstanceType<typeof CSS3DObject>;
           button: HTMLButtonElement;
@@ -449,13 +442,6 @@ export function mountSpacecraftScene({
           Object.assign(anchors, model.group.userData.roomAnchors);
           readerAnchors = model.group.userData.readerAnchors;
           roomNavigation.sync(model.group.userData.layoutScale);
-          const walkwayBounds = model.group.userData.walkwayBounds;
-          walkwayProxy.position.set(
-            ...(walkwayBounds.center as [number, number, number]),
-          );
-          walkwayProxy.scale.set(
-            ...(walkwayBounds.size as [number, number, number]),
-          );
           for (const hotspot of hotspotObjects) {
             const source = model.group.userData.portals.find(
               (p: any) => p.id === hotspot.portalId,
@@ -1991,52 +1977,17 @@ export function mountSpacecraftScene({
             (-(y - rect.top) / rect.height) * 2 + 1,
           );
           ray.setFromCamera(pointer, camera);
-          const walkway =
-            active !== 'home' &&
-            !travelling &&
-            !reading &&
-            ray.intersectObject(walkwayProxy, false).length > 0;
-          // The nearest front opening owns the visible region. Do not let a
-          // current-room door volume behind it steal a neighboring room click.
-          // Rounded masks leave the solid frame, dividers and sky unselectable.
-          const { section, blockedByFace } = roomNavigation.pick(ray);
-          if (blockedByFace) return { section: '', walkway: false };
-          if (section && section !== active && !reading) {
-            const intent = roomIntent(section);
-            return intent
-              ? { ...intent, walkway: walkway || section === 'walkway' }
-              : { section: '', walkway: false };
-          }
-          if (active !== 'home' && !reading) {
-            const portal = ray.intersectObjects(
-              model.portalTargets
-                .filter(
-                  (p) =>
-                    p.from === active &&
-                    (!travelling ||
-                      canPreviewDoor(
-                        model.group.userData.portals.find(
-                          (source: any) => source.id === p.id,
-                        ),
-                      )),
-                )
-                .map((p) => p.object),
-              false,
-            )[0];
-            if (portal)
-              return {
-                section: portal.object.userData.portalDestination as string,
-                portalId: portal.object.userData.portalId as string,
-                walkway,
-              };
-          }
-          // From behind the cutaway face, retain direct-door priority and use
-          // the existing bay volume only when no front opening owns the ray.
-          if (!section && walkway) {
-            const intent = roomIntent('walkway');
-            if (intent) return { ...intent, walkway: true };
-          }
-          return { section: '', walkway };
+          return roomNavigation.select(ray, {
+            active,
+            reading,
+            portalTargets: model.portalTargets,
+            roomIntent,
+            canUsePortal: (id) =>
+              !travelling ||
+              canPreviewDoor(
+                model.group.userData.portals.find((p: any) => p.id === id),
+              ),
+          });
         }
         function pick(event: PointerEvent) {
           const target = targetFeedback(event.target as Element);

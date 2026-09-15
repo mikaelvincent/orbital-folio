@@ -112,17 +112,15 @@ test('One scene synchronization preserves every animated transform, reader surfa
   for (let i = 0; i < baseline.model.portalTargets.length; i++) {
     const before = baseline.model.portalTargets[i].object;
     const after = optimized.model.portalTargets[i].object;
-    before.geometry.computeBoundingBox();
-    const center = before.geometry.boundingBox
-      .getCenter(new THREE.Vector3())
-      .applyMatrix4(before.matrixWorld);
-    const direction = new THREE.Vector3(-1, 0, 0).transformDirection(
-      before.matrixWorld,
+    const portal = baseline.model.group.userData.portals.find(
+      (p) => p.id === baseline.model.portalTargets[i].id,
     );
-    const ray = new THREE.Raycaster(
-      center.clone().addScaledVector(direction, -3),
-      direction,
-    );
+    // Cast from the owning cabin toward its hatch, including the transformed
+    // scene root. A fixed -X ray hits the back of a right-wall face target.
+    const [x, y] = baseline.model.group.userData.roomAnchors[portal.from];
+    const eye = new THREE.Vector3(x, y, 6).applyMatrix4(baseline.model.group.matrixWorld);
+    const center = new THREE.Vector3(...portal.position).applyMatrix4(baseline.model.group.matrixWorld);
+    const ray = new THREE.Raycaster(eye, center.sub(eye).normalize());
     const oldHits = ray.intersectObject(before, false);
     const newHits = ray.intersectObject(after, false);
     assert.ok(oldHits.length > 0, 'Door picking fixture must hit its target');

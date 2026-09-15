@@ -89,6 +89,9 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 - Visible neighboring rooms are navigation targets as well as doors. Hover
   previews the first connecting door while preserving the final chosen room,
   including nonadjacent routes. Solid chassis and sky remain inert.
+- Solid walls around a current-room door retain ordinary current-room hover;
+  they must not preview a room or ladder behind them. Keep invisible door/sign
+  targets on their visible faces so oblique views cannot extend them onto walls.
 - Hover/focus can open doors while travelling. A click queues **one** destination,
   including Home; a later choice replaces it. Start it immediately after the
   current flight completes. Preserve queue behavior through intermediate waypoints.

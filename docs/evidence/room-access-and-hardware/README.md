@@ -173,3 +173,62 @@ or requested revisions. Rubric: requested behavior 30/30; navigation safeguards
 independently inspected final source and check logs. Its browser inventory was
 empty, so visual conclusions rely on the root agent's live observations rather
 than an independently viewed screenshot. This limitation is included in the score.
+
+## Follow-up — solid door-wall hover, 15 September 2026
+
+Starting source: `a6f4c5a`. Solid current-room wall around a door could brighten
+the ladder bay through the wall. Two invisible volumes contributed: the runtime's
+broad ladder box supplied hover feedback independently of the visible opening,
+and the thick door cylinder could project beyond its visible guide at oblique
+angles. The box is removed. Selection now uses one shared opening/door pipeline,
+with a flat cabin-facing disk covering the hatch and graphite guide, plus a flat
+caption target at its authored face. Physical geometry, route metadata, camera
+motion, door sequencing, native label controls and the approved 8K Earth are
+unchanged. This is an interaction correction, not a performance candidate.
+
+The [15 targeted checks](wall-hover-targeted-tests.log) pass. New tests use the
+actual spacecraft model and complete selection pipeline for all six directed
+portals, wide/compact layouts and three oblique viewpoints. They reproduce rays
+where the old ladder box intersected behind the wall, then verify neutral wall
+feedback, selectable door/guide/caption faces, outside-caption rejection and
+reading/travel/inside-ladder restrictions.
+
+The [first full run](wall-hover-initial-full-tests.log) had 276 passes and one
+failure in the scene-matrix synchronization fixture. Its fixed negative-X ray
+approached every door from the same side, including the back of right-wall
+targets. The fixture now casts from the owning cabin to the hatch, transformed
+through the scene root, while retaining the original hit-distance comparison
+between default and manual matrix synchronization. That fixture and the four
+new wall tests passed together (7/7) after the correction. No production change
+was made to accommodate the stale test.
+
+Root-agent live checks used hidden built-in Chromium, an actual 1280×720 CSS
+canvas, normal scene effects and development `audit=1` diagnostics. About wall
+samples beside/below the hatch returned no hover portal, current-room intensity
+1 and ladder intensity 0.5, with the hatch closing. Projects wall hover and click
+stayed in Projects without travel; its ordinary right-wall sample also stayed
+neutral. Actual About/Projects ladder doors and the Projects → Case studies door
+still previewed correctly. Visible ladder-bay hover and click worked in both
+directions. The About → Projects audit recorded 97 frames, 52 inside the bay;
+Projects → About recorded 71 frames, 33 inside. Both had at most one physical
+ladder hatch above 0.001 open progress. These are navigation observations, not
+timing benchmarks; rendering/check workloads were not isolated for performance.
+
+No browser warning/error was observed; the development accessibility audit
+reported zero violations. Safari, additional live viewport sizes and a full
+interactive queue-override sweep were not exercised. Both layout scales and
+queue/interlock behavior retain automated coverage. The temporary review tab
+was closed and the user's development server remains on localhost:3000.
+
+The [final full suite](wall-hover-final-full-tests.log) passed **277/277**. Type
+checking, affected-file lint, production build, documentation link checks and
+`git diff --check` passed. The build retained existing Node deprecation, large
+chunk and framework route-classification notices. No deployment occurred.
+
+Independent critic `wall_hover_critic`: **94/100**, no blocking findings.
+Rubric: fulfillment 35/35; correctness/regressions 29/30; verification 16/20;
+organization/scope 14/15. The critic independently reviewed final source, tests,
+logs and documentation, including the completed 277-test run. Live Chromium
+observations and rendered views were checked by the root agent; the critic did
+not independently operate the browser or view a persisted screenshot. Those
+limits and the omitted Safari/additional live viewport checks informed the score.

@@ -107,6 +107,10 @@ ladder: Projects → About, About → Projects, Case studies → Projects → Ab
 and Contact → About → Projects. The ladder is not a fifth destination; queue the
 exit cabin. Its opening stays inert from overview and while physically inside
 the bay, preserving automatic exit sequencing. Rounded masks still gate picking.
+Solid current-room walls around a door do not preview the ladder or neighboring
+cabin behind them. Picking uses the visible opening and flat door/guide/sign
+faces; the old broad ladder volume and thick doorway targets are retired because
+they could select through the wall at oblique viewing angles.
 
 Hover/focus opens selectable doors during travel. Exactly one pending destination,
 including Home, is retained; later choices replace it. Consume it at final

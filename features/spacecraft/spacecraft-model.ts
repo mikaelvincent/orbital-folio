@@ -26,6 +26,7 @@ import {
   CABIN_CEILING,
   CABIN_HALF_WIDTH,
   PASSAGE_RADIUS,
+  PASSAGE_GUIDE_WIDTH,
   PASSAGE_WALL_RADIUS,
   CABIN_RETURN_RADIUS,
   PASSAGE_CENTER_Y,
@@ -3204,22 +3205,22 @@ export function createSpacecraft(
         .applyQuaternion(labelQuaternion)
         .toArray();
       portal.pick.userData.portalPosition = portal.metadata.position;
-      // Keep one stable pick object per directed portal. Its compound shape
-      // covers both the pressure hatch and the physically attached caption.
+      // Keep the directed pick object and navigation metadata stable. Targets
+      // lie on the visible wall/sign faces: thick volumes project beyond the
+      // circular guide onto solid wall when viewed at an oblique angle.
       const captionLocal = vesselPosition(portal.caption).applyMatrix4(
         vesselMatrix(portal.pick.parent).invert(),
       );
       captionLocal.sub(portal.pick.position);
-      const main = new THREE.CylinderGeometry(
-        passageClear / 2,
-        passageClear / 2,
-        portal.metadata.size[0],
-        48,
+      const sign = portal.edge === 'right' ? 1 : -1;
+      const main = new THREE.CircleGeometry(
+        PASSAGE_RADIUS + PASSAGE_GUIDE_WIDTH,
+        64,
       ).toNonIndexed();
-      main.rotateZ(Math.PI / 2);
-      const plate = new THREE.BoxGeometry(
+      main.rotateY(-sign * Math.PI / 2);
+      main.translate(captionLocal.x + sign * PORTAL_SIGN_STANDOFF, 0, 0);
+      const plate = new THREE.PlaneGeometry(
         ...portal.metadata.plateSize,
-        0.16,
       ).toNonIndexed();
       plate.rotateY(portal.caption.rotation.y);
       plate.translate(captionLocal.x, captionLocal.y, captionLocal.z);
