@@ -1,0 +1,12 @@
+{
+  "filename": "contact-90260d9e7526b9cb.json.gz",
+  "sourceHash": "3fa77f873c75245b4b93694bb96508a71084f73f4aabd3c8c0283ba659d88299",
+  "bakerSha256": "66268b3cb87ff34880654391fc82c1ade35d00057267f9b568709660fa51138e",
+  "sha256": "90260d9e7526b9cbd8f3f998cbc446dcdbfe0d7e4e7c4370ba81d288582d61fa",
+  "gzipSha256": "71157c23f8f8674bd7ca3f9b2d428674086c3851cc4b70ef5be5afd498c9ae4d",
+  "jsonBytes": 55024311,
+  "gzipBytes": 6171242,
+  "brotliBytes": 3294186,
+  "sourceBytes": 92030466,
+  "url": "/bakes/contact-90260d9e7526b9cb.json.gz"
+}

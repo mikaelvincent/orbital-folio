@@ -303,4 +303,53 @@ frame rows must also be treated as descriptive without their own acceptance gate
 See [entry 21](performance-ledger.md#21--cached-shadows-versus-developer-baked-depth-15-september-2026)
 and the [evidence/method](evidence/performance/static-shadow-bake/README.md). Preserve
 failed, excluded and inconclusive reports. The adopted decision is the existing
-cached shadow map; baked contact shading and diffuse lighting remain held.
+cached shadow map. Contact shading was subsequently authorized in entry 22;
+diffuse lighting remains held.
+
+## Offline contact-shading comparison
+
+Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment contact --port 3021`
+with the optional compiled `--thermal-sampler` described above. This frozen,
+loopback-only lab uses public seed content and the actual application renderer.
+It creates no visitor-facing controls, assets or quality changes.
+
+1. **Survey current rooms** records idle and deterministic hover in forward and
+   reverse room order. It is a descriptive target-selection survey, not a rested
+   cross-room speed ranking.
+2. **Bake and inspect** exports static Projects surfaces and surrounding opaque
+   occluders, performs the geometric bake on the developer machine, installs its
+   result and compares the same camera/geometry state against the original.
+   Original images, exact restoration checks and a subdivision-only control are
+   recorded. Repeating verification after resize tests the same bake with a new
+   viewpoint; narrow or unsupported-AO contexts retain the original renderer.
+3. **Rested comparisons** uses 60 seconds of rest, three controls ten seconds
+   apart, then ABBA/BAAB blocks with separate frame/pass GPU-query captures.
+   Settings, transforms, power context, interruptions, WebGL errors and drift can
+   reject a run. The pauses are controls, not guaranteed Mac cooldown times.
+4. **Unranked cost survey** preserves descriptive CPU/GPU/pacing and deterministic
+   work counts. It does not convert failed rested comparisons into a speed claim.
+
+Variant A is delivered GTAO. B replaces contact shading on eligible static
+Projects surfaces with baked vertex visibility, keeping live GTAO on displays,
+moving meshes, instances and neighboring surfaces. C also retains live GTAO in
+expanded world-space zones around the hatches and deployed reader. Both retain
+the full normal/depth pass; only eligible pixel sampling in GTAO and denoising
+returns early. The hybrid is approximate: denoising can cross a mask boundary,
+and a fixed world-space margin is not an exact screen-space filter footprint.
+
+The implementation lives in `contact-geometry-bake.mjs` (offline sampling),
+`contact-surface-bake.ts` (reversible materials and pass masks), and
+`contact-shading-lab.tsx` (application replay and measurements). The bake uses
+deterministic hemisphere rays and bounded triangle subdivision rather than a
+camera screenshot or overlapping material UVs. It excludes moving occluders and
+printed/emissive receivers. Byte storage, finite rays and vertex interpolation
+are approximations; they must not be called visually lossless.
+
+Inputs, assets, source manifests, failed runs and comparisons are saved under
+`docs/evidence/performance/static-contact-bake/`. The input hash identifies exact
+geometry, normals, indices, transforms and settings for this fixture; it is not
+a production cache-invalidation system. To reproduce an offline bake, decompress
+an input JSON and run `node scripts/benchmarks/contact-geometry-bake.mjs input.json output.json`.
+Stop interrupts browser replay; an already-started synchronous offline bake
+finishes on the developer server. Close the temporary lab when finished and
+preserve the main development server on port 3000.

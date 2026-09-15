@@ -15,6 +15,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 13 · 14 September 2026 | Restore 8K Mediterranean night Earth; compare current 2K, 4K and 8K rendering | 8K costs 2.33 MB transfer / 179.0 MB nominal map storage. Background GPU ranking remains inconclusive; local preparation is costlier. Qualified native Safari and Chromium evidence below. |
 | 19 · 15 September 2026 | Delivered camera/invalidation audit; reuse AO through material-only feedback | Three accepted Contact blocks: CPU 4.559→4.082ms; 75→0 AO refreshes per 180 frames. Whole-frame GPU comparison and exclusions recorded; other candidates held. |
 | 21 · 15 September 2026 | Compare cached shadows with an offline native-depth bake | Developer prototype retained; no production replacement. Exact landscape transport, visibly incorrect stale portrait shadows, unchanged steady work and inconclusive timing. |
+| 22 · 15 September 2026 | Audit baked static contact shading and a live-zone hybrid in Projects | Existing GTAO retained. Both developer candidates change appearance; subdivision adds geometry and shading artifacts. Verification/cost status is recorded below; candidate 5 remains held. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1010,7 +1011,8 @@ production replacement: ordinary steady rendering already reuses the depth map,
 a saved native-depth map preserves the same filtered lookups, and portrait roll
 changes lighting relative to the stationary ship. The prototype and its assets
 are confined to the local lab; normal visitors download no new shadow asset.
-Candidates 4–5 remain held.
+Candidates 4–5 remained held at that point; entry 22 records the subsequent
+candidate 4 authorization.
 
 The baseline is `25b23ca`, after entry 20's approved geometry change. The prototype
 exports exact normalized depth bits from Three r185's native D24 target, compresses
@@ -1060,9 +1062,100 @@ source/asset hashes, raw failed/excluded/unranked runs, costs and review. The
 the retained lab. All 282 tests, type checking, affected lint and the production
 build passed. Browser evidence uses hidden built-in Chromium, not native Safari.
 
+## 22 — Baked surface contact shading and live-zone hybrid (15 September 2026)
+
+**Decision: retain the existing production GTAO.** The owner authorized candidate
+4 as a developer experiment against baseline `174ea8c`. The static bake and its
+hybrid are visually different approximations, not approved replacements. Their
+code, compressed assets and controls stay in the lab: production imports no bake
+and visitors download no new contact-shading asset. **Candidate 5 remains held.**
+
+The forward/reverse baseline survey covers four rooms at idle and during hover
+(16 × 90 measured frames). Projects was chosen for its high selected-view workload:
+301 draws / 881,084 triangles, including the largest cabin-furniture triangle group
+at 146,396 triangles / 43 draws. This does not prove it is the largest isolated GPU
+sink: shared chassis has more triangles and About furniture has more draws.
+Every idle window reused AO throughout; every hover window refreshed it for camera
+movement. The opportunity concerns moving views, not nonexistent idle refreshes.
+Per-pass GPU queries gave suspiciously similar main/AO/composite times on the
+Apple M4 tiled renderer; do not sum them or infer a saving by subtraction.
+
+The experiment compares **A**, the existing GTAO; **B**, an offline geometric
+hemisphere-visibility bake on static Projects surfaces; and **C**, the same bake
+with bounded live-contact zones around neighboring hatches and the deployable
+reader. Screens, dynamic objects and other receivers retain live shading. Both
+candidates still render the full normal/depth scene and retain the fullscreen AO
+and denoise passes, with early-outs only for eligible baked pixels. C disables
+baked multiplication inside its live zones rather than applying both terms.
+
+| Developer-bake cost | Measured value |
+| --- | ---: |
+| Static Projects receiver meshes | 31 |
+| Contact radius / rays per unique sample / maximum subdivided edge | 0.32 units / 32 rays / 0.16 units |
+| Receiver triangles, original → subdivided | 169,220 → 483,032 (**+313,812**) |
+| Candidate-minus-original receiver geometry attribute/index arrays | **8,115,970 bytes** |
+| Compressed asset | **6,171,242 bytes gzip / 3,294,186 bytes Brotli** |
+| Offline rays | 9,249,536 |
+| Offline bake duration | 133,970 ms (about 134 seconds) |
+
+The lab retains both geometries for restoration; its extra residency is larger
+than the candidate-minus-original difference. The arrays and transport payload
+are not measured process/GPU memory. This bake
+adds geometry rather than simplifying it. Asset transfer, offline work, decode/
+installation, frame preparation and steady rendering must remain separate costs.
+The compressed asset is reusable only with matching input and baker-source
+hashes; it is not a production cache-invalidation or fallback system.
+
+**Visual finding:** the result has visible coarse, patchy triangular shading.
+The original-material/full-GTAO subdivision control also changes appearance, so
+those artifacts cannot all be attributed to the baked occlusion values. B loses
+moving-object contact shadows on baked static surfaces. C preserves more of those
+contacts within its hatch/reader zones, but is still visibly different; boundaries
+and denoising can introduce seams, and contacts outside the zones remain absent.
+The visible degradation and added costs do not justify production adoption.
+Keep the developer comparison for further art review rather than enable it.
+
+Final freeze `38a41135` has 138 candidate comparisons with zero WebGL errors
+across wide, portrait and compact layouts, plus three subdivision-only controls.
+All 141 restoration checks return exactly to baseline. Compact B/C fall back to
+A under the existing AO policy. The wide hybrid idle image changes 948,786 pixels
+(maximum channel difference 86/255); subdivision alone changes 28,611. Reader,
+door and ladder states are covered, with original before/after PNGs retained.
+Captures cover the WebGL canvas, not the overlaid HTML reader text.
+
+A saved AO target in the shared developer verifier had retained stale dimensions
+after resize. It now resizes before copying, with per-pair GL checks in this lab.
+That audit-only fix changes no visitor rendering. The first rested attempt was
+excluded for WebGL error1281. The corrected attempt still failed readiness:
+CPU controls spread 6.20%, GPU controls 23.74%. Neither produced ranked blocks.
+Nominal OS pressure and recovery breaks do not establish equal clocks or prove
+absence of thermal throttling.
+
+A separate unranked 2,880-frame survey preserved actual CPU/GPU/pacing costs and
+432 valid GPU queries, with zero GL errors. A hover CPU means moved 5.92→9.80ms
+and whole-frame GPU 22.49→39.82ms, so candidate timings cannot establish a causal
+speedup/slowdown. B hover GPU observations were 33.89–48.56ms, C 40.75–47.69ms.
+The deterministic counts are clear: the static geometry pass remains, selected
+idle triangles rise 881,084→1,194,896 at the same 301 draws, and moving-view AO
+still refreshes on every sampled frame. Idle AO was already cached on every
+frame. No demonstrated runtime, startup, heat or battery benefit justifies the
+visible tradeoff. Candidate retention is for reproducibility and review only.
+
+All 294 tests passed. Final type checking, affected lint, production build and
+source-matched responsive replay passed; the complete test suite preceded the
+small audit-target resize correction. Testing used hidden built-in Chromium,
+not native Safari. Raw failed, invalid-reader pilot, superseded-verifier and
+excluded timing runs remain explicitly qualified in the evidence index.
+Independent critic review scored **94/100**, with no unresolved blockers.
+
+The [contact-bake evidence](evidence/performance/static-contact-bake/README.md)
+records the baseline, rejected attempts, compressed bake, source/asset identities,
+visual controls and limitations. The retained lab and protocol are documented in
+the [diagnostics guide](performance-diagnostics.md#offline-contact-shading-comparison).
+
 ## Next candidates
 
-**Status update, 15 September 2026 — candidates 1–3 were authorized and audited in entries 19–21; candidates 4–5 remain on hold. Candidate 3 retains the existing cached shadows; its bake remains developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
+**Status update, 15 September 2026 — candidates 1–4 were authorized and audited in entries 19–22; candidate 5 remains held. Candidates 3 and 4 retain the existing cached shadows and GTAO. Their bakes remain developer-only; entry 22 records the verification/cost status and required visual review.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
@@ -1081,8 +1174,8 @@ The reflection environment is also prepared once at scene setup and reused. Room
 | 1 · completed | Re-measure the delivered camera system and audit invalidation | Entry19 records the audit and targeted material-only AO reuse. Idle AO/shadows were already cached; this does not claim an idle gain. | Preserve the source-identified lab, accepted/excluded runs, transform/reason traces and image checks. Re-measure when art, camera or rendering changes. |
 | 2 · completed | Prototype offline lossless geometry compaction | Entry 20 adopts exact direct indexed cylinder generation: 1.41 MB fewer retained arrays with no new model asset. The broader array bake is not adopted because of delivery and integration cost. | Preserve source generation/checks, exact expanded attributes and images, startup/rendering observations and inconclusive runs. Revisit broader direct-generation opportunities only with new measured evidence; do not restore runtime welding/cache approaches. |
 | 3 · audited, baseline retained | Compare the existing cached shadow map with a developer-baked static representation | Entry 21 proves native-depth transport on the tested engine but finds no steady sampling reduction, added delivery/upload cost and incorrect shadows through portrait roll. Timing rankings were rejected for drift. | Keep the source-identified lab, exact/stale-map image pairs and excluded runs. Revisit only with evidence for net startup benefit, exact validity/fallback and cross-engine rendering fidelity; no production bake is enabled. |
-| 4 | Prototype baked static contact shading in one costly room | Store stable creases and furniture contact shading on surfaces. This is the stronger precomputation hypothesis when movement-time GTAO dominates. Start with the room identified by the new ranking, keeping doors, screens and interaction feedback outside the static bake. | Compare baked-only and a static/dynamic hybrid against current GTAO. Document flattened contacts, texture seams and moving-object integration. A hybrid that still renders the full GTAO pass may add memory without saving meaningful work. |
-| 5 | Consider baked diffuse illumination only after the narrower experiments | Static indirect or diffuse light could be stored separately while retaining view-dependent reflections, emissive screens and room dimming. This is an art/asset-pipeline change, with extra textures, preparation and rebuild requirements whenever furniture or lights move. | A visible prototype approved before application integration. Verify dim/hover/selected/transit states, material colors and reflections; prevent baked and live terms from counting the same illumination twice. |
+| 4 · audited, baseline retained; visual review required | Baked static contact shading and bounded live-zone hybrid in Projects | Entry 22 retains GTAO: the bake and subdivision visibly alter shading, add 313,812 receiver triangles and require an additional asset. The hybrid improves moving contacts locally without matching the baseline. | Preserve source-matched subdivision controls, B/C image pairs, restored-A checks, rejected runs and qualified timing. No production adoption without acceptable art and a repeatable net benefit; keep qualified findings and evidence status in entry 22. |
+| 5 · held | Consider baked diffuse illumination only after the narrower experiments | Static indirect or diffuse light could be stored separately while retaining view-dependent reflections, emissive screens and room dimming. This is an art/asset-pipeline change, with extra textures, preparation and rebuild requirements whenever furniture or lights move. | A visible prototype approved before application integration. Verify dim/hover/selected/transit states, material colors and reflections; prevent baked and live terms from counting the same illumination twice. |
 
 Three.js exposes separate light-map and AO-map inputs; preparing suitable UV coordinates and texture/color-space handling is part of the asset work. A baked AO map is **not an exact substitute** for this application's existing screen-space multiply/composite, so passing a static screenshot check is insufficient. Keep any proposed dynamic shadow layer separate in the comparison: doors currently rely on the AO silhouette rather than casting into the key map, and adding their live cast shadows would introduce new appearance and cost. [Three.js material inputs](https://github.com/mrdoob/three.js/blob/r185/src/materials/MeshStandardMaterial.js), [GTAO implementation](https://github.com/mrdoob/three.js/blob/r185/examples/jsm/postprocessing/GTAOPass.js).
 

@@ -209,9 +209,15 @@ vertex-welding pass or downloaded baked model is introduced. Candidate 3 was the
 authorized: entry 21 retains the existing cached shadows after testing an offline
 native-depth bake. The bake adds delivery/restore work, does not reduce steady
 sampling and cannot preserve portrait-roll shadows as one fixed map. The reusable
-experiment remains developer-only. Baked contact shading and later diffuse-light
-experiments (4–5) remain held. The ledger owns order
-and status. Key-light shadows, settled GTAO and the reflection environment already
+experiment remains developer-only. Candidate 4 was then authorized: entry 22
+audits baked contact shading on 31 static Projects receivers and a hybrid with
+live hatch/reader contact zones. Production retains the existing GTAO: the bake
+and its subdivision visibly introduce coarse/patchy shading, add geometry and
+asset costs, and do not preserve all moving-object contacts. The hybrid improves
+local contacts but remains an approximation requiring art review. No contact bake
+or asset is imported by production. Entry 22 owns source-matched verification and timing
+status; stale-error runs are rejected, not evidence of thermal throttling. **Candidate 5, baked diffuse illumination, remains held.**
+The ledger owns order and status. Key-light shadows, settled GTAO and the reflection environment already
 have reuse paths. "Precompute everything"
 is a hypothesis to investigate in parts, not permission to replace the renderer.
 LOD, optional lower-power idle, adaptive resolution, aggressive room hiding and
