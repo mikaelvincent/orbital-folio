@@ -1,0 +1,51 @@
+{
+  "method": "Actual pressure-liner triangle rays at all four bonded mount centers and eight perimeter points per foot, in both layouts. Negative foot-back offset means physically seated material. Full scene first-hit optical samples are geometric visibility checks, not pixel coverage or visual quality scores.",
+  "layouts": {
+    "wide": {
+      "mountCount": 4,
+      "raySamples": 36,
+      "misses": 0,
+      "maxCenterError": 4.12678861915445e-8,
+      "footBackOffsetRange": [
+        -0.0038113076274535465,
+        -0.002742280664922602
+      ],
+      "worldBounds": {
+        "min": [
+          -6.131634736061096,
+          -1.882324457168579,
+          -0.2432021051645279
+        ],
+        "max": [
+          -5.515340861678123,
+          2.017324447631836,
+          0.2790488004684448
+        ]
+      },
+      "errors": []
+    },
+    "compact": {
+      "mountCount": 4,
+      "raySamples": 36,
+      "misses": 0,
+      "maxCenterError": 2.968985634432753e-8,
+      "footBackOffsetRange": [
+        -0.0027752904892505525,
+        -0.0019999703101434034
+      ],
+      "worldBounds": {
+        "min": [
+          -4.45259624004364,
+          -1.882324457168579,
+          -0.2432021051645279
+        ],
+        "max": [
+          -4.012386329770088,
+          2.017324447631836,
+          0.2790488004684448
+        ]
+      },
+      "errors": []
+    }
+  }
+}

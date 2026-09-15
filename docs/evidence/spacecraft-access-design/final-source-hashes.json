@@ -1,0 +1,19 @@
+{
+  "algorithm": "sha256",
+  "baseline": "234de17",
+  "inventorySourceHashesVerified": 32,
+  "files": {
+    "components/docking-shoulder-equipment.ts": "c1b903cf69958841a68c179014db19aadd3336368be327b4654dda2ed2f2151b",
+    "components/exterior-service-equipment.ts": "c0976d0c39b7d211f0558ee8f9fbb2e8bb4d4db4d076ae2d88784c999557b589",
+    "components/ladder-endcap-equipment.ts": "4fc59b3937a30d382785f0506cbed6e19e5a23ca95abb1cf1cec469ebd2dbf38",
+    "components/ladder-service-spine.ts": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41",
+    "components/spacecraft-model.ts": "e16fc6d1baceeb82588c3d7e8d379fdea9bd7ff76988ac787f477ae69bcdc8ba",
+    "scripts/benchmarks/ladder-transfer-clearance-audit.mjs": "4b2e6bf3c95590642dbda18dc1e1779d934835c91761347a968870a4b7df2fe1",
+    "scripts/benchmarks/spacecraft-polish-preview.mjs": "41bd3222def427618f153b526f3d1028d29374100925d981dae054e86f22099c",
+    "tests/docking-shoulder-equipment.test.mjs": "3487f113c75e45ff839158054d4b88eae459cc6e7a125cf3f5e20f643551134a",
+    "tests/exterior-joins.test.mjs": "b1f8f67dbc07c3ab68a9df7ea9d7c6c8672b128a1bfc44badad7b84740f28ead",
+    "tests/exterior-service-equipment.test.mjs": "4bb549c98ca3f0b3c6dd880af79d6d70d3e03367d06c7b29e35d3fce02a1e870",
+    "tests/ladder-endcap-equipment.test.mjs": "28aedd9a4275cba40c5b8e4ba2dd31a356c2bf0e8f3b0ff4d4f4ab75f01d6bca",
+    "tests/solid-ladder-service.test.mjs": "f80ae989417dac4bb23b77fde20c3ff247fff18afc335832c754ae1bb415daad"
+  }
+}

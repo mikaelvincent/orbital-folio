@@ -1,0 +1,19 @@
+✔ Open ladder transfer equipment occupies both end gaps without covering the rear lamps or side doors (93.426583ms)
+✔ Transfer equipment is passive, shares existing materials and follows the ladder brightness state (2.792667ms)
+✔ wide: ladder partitions terminate at the reveal and both hatches clear its rounded corners (115.929667ms)
+✔ compact: ladder partitions terminate at the reveal and both hatches clear its rounded corners (95.516583ms)
+✔ Rounded ladder openings retain their extents, symmetry and convex contour at both layout scales (8.932292ms)
+✔ All ladder aperture joins are tangent, including the enlarged right corners (0.619167ms)
+✔ The actual bow outline meets the cabin roof and keel without either raised shoulder (18.151ms)
+✔ Ladder lights, end anchors, rail grips and rungs are mirrored after fitting into the bow (65.044666ms)
+✔ The fitted ladder preserves the existing cabin anchors and usable room bounds in both layouts (1692.376083ms)
+✔ Ladder grilles and generic covers give way to open transfer equipment and connected service fittings (2571.803416ms)
+✔ Circular handhold mounting shoes seat on the actual pressure curve through their whole backing faces (54.507334ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10100.332625

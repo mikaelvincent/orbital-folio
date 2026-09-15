@@ -1,0 +1,24 @@
+✔ wide exterior service housing stays behind the cabin sidewall (239.5315ms)
+✔ wide exterior roof and keel keep one continuous hull finish across the cabin divider (143.810417ms)
+✔ wide right exterior corners follow the rounded room envelope without rectangular overhangs (267.999208ms)
+✔ wide bow joins have one flat skin with no overlapping shoulder sheets (174.911625ms)
+✔ wide retained ladder dividers stop at the rear pressure wall (6.699667ms)
+✔ wide rear bow patches meet the curved rear wall without overlapping it (2602.095042ms)
+✔ compact exterior service housing stays behind the cabin sidewall (239.40025ms)
+✔ compact exterior roof and keel keep one continuous hull finish across the cabin divider (142.284084ms)
+✔ compact right exterior corners follow the rounded room envelope without rectangular overhangs (238.582709ms)
+✔ compact bow joins have one flat skin with no overlapping shoulder sheets (121.133959ms)
+✔ compact retained ladder dividers stop at the rear pressure wall (3.350959ms)
+✔ compact rear bow patches meet the curved rear wall without overlapping it (1922.999625ms)
+✔ The open EVA route is continuous from docking shoulder across the roof, with wide-spaced rungs and capped rails (1245.613708ms)
+✔ Every EVA stand-off terminates on the actual pressure skin in both layouts (1461.235583ms)
+✔ The route uses existing passive exterior materials and renders physical structure without lights, textures or actions (1147.128375ms)
+✔ Roof rungs and the curved climb are exposed from supported default and hover camera views (1253.891417ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7607.869208

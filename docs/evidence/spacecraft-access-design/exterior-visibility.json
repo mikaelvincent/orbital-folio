@@ -1,0 +1,435 @@
+{
+  "method": "Real triangle first-hit rays at rung centers from existing nine-screen default camera records, including inverse portrait roll. Tests exposure, not unobscured whole rung area or aesthetic quality.",
+  "source": "/tmp/orbital-camera-composition/comparison.json",
+  "records": [
+    {
+      "width": 2560,
+      "height": 1080,
+      "eye": [
+        -7.376215221659686,
+        3.764908217254912,
+        18.24786041349298
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "eye": [
+        -7.121802986247215,
+        3.812316923957124,
+        18.575100462103013
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "eye": [
+        -7.008407754446546,
+        4.186315910994487,
+        20.36357244189878
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "eye": [
+        -8.416583880034235,
+        4.900771681064811,
+        23.238729411237994
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "eye": [
+        -5.689653883003152,
+        4.556665440439846,
+        22.614816652709056
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "eye": [
+        -13.751511798854805,
+        9.071775228244787,
+        41.55889273305219
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 22,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 3,
+          "indices": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "eye": [
+        5.192535732000164,
+        3.270246600110105,
+        31.995837574157203
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 19,
+          "indices": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 0,
+          "indices": []
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "eye": [
+        5.795626255168744,
+        3.5087725405456363,
+        34.771107637374456
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 19,
+          "indices": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 0,
+          "indices": []
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "eye": [
+        6.008357014014029,
+        3.603940206931777,
+        35.744385771684875
+      ],
+      "routes": [
+        {
+          "name": "main",
+          "total": 22,
+          "visibleRungRays": 19,
+          "indices": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "name": "docking-transfer",
+          "total": 3,
+          "visibleRungRays": 0,
+          "indices": []
+        }
+      ]
+    }
+  ]
+}

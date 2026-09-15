@@ -1,0 +1,13 @@
+✔ Both holstered torches have open optics, graspable barrels and restrained hardware instead of generic covers (1793.848291ms)
+✔ Torches and open brackets follow the curved wall and retain hatch, ladder and end-equipment clearance (1910.714167ms)
+✔ Only bonded feet and post ends intersect the liner; torch bodies and open saddles stand clear (31.249667ms)
+✔ The recessed pale lenses face into the cabin and are not hidden behind a solid head cap (1749.631625ms)
+✔ The inactive rescue torches remain passive, nonemissive and follow the walkway dimmer (1918.221166ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7733.877916

@@ -1,0 +1,284 @@
+{
+  "method": "Full-scene triangle first-hit rays at 36 concave-reflector points per torch. Uses nine existing default camera records (including inverse portrait roll) and two named developer fixture poses. A visible sample is not a claim that an entire optic is unobscured. Current wide model is used for every view; compact mounting fit is tested separately.",
+  "cameraSource": "/tmp/orbital-camera-composition/comparison.json",
+  "records": [
+    {
+      "name": "Default overview 2560x1080",
+      "eye": [
+        -7.376215221659686,
+        3.764908217254912,
+        18.24786041349298
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 11,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 28,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 1920x1080",
+      "eye": [
+        -7.121802986247215,
+        3.812316923957124,
+        18.575100462103013
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 11,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 28,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 1440x900",
+      "eye": [
+        -7.008407754446546,
+        4.186315910994487,
+        20.36357244189878
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 13,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 28,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 1280x720",
+      "eye": [
+        -8.416583880034235,
+        4.900771681064811,
+        23.238729411237994
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 13,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 28,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 1024x768",
+      "eye": [
+        -5.689653883003152,
+        4.556665440439846,
+        22.614816652709056
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 13,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 28,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 844x390",
+      "eye": [
+        -13.751511798854805,
+        9.071775228244787,
+        41.55889273305219
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 13,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 16,
+          "firstHitAnyTorchHardware": 20,
+          "obstructions": {
+            "contact-ceramic-hull": 16
+          }
+        }
+      ]
+    },
+    {
+      "name": "Default overview 768x1024",
+      "eye": [
+        5.192535732000164,
+        3.270246600110105,
+        31.995837574157203
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 19,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 26,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 390x844",
+      "eye": [
+        5.795626255168744,
+        3.5087725405456363,
+        34.771107637374456
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 19,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 26,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Default overview 360x800",
+      "eye": [
+        6.008357014014029,
+        3.603940206931777,
+        35.744385771684875
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 19,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 26,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Developer fixture ladder front",
+      "eye": [
+        -2.607585267560741,
+        0.4862863571902814,
+        10.469658929757035
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 18,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 22,
+          "firstHitAnyTorchHardware": 36,
+          "obstructions": {}
+        }
+      ]
+    },
+    {
+      "name": "Developer fixture docking shoulder",
+      "eye": [
+        1.2814963376448594,
+        0.70963812347491,
+        5.351151028957584
+      ],
+      "torches": [
+        {
+          "deck": "lower",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 0,
+          "firstHitAnyTorchHardware": 0,
+          "obstructions": {
+            "contact-ceramic-hull": 9,
+            "about-signal-amber": 12,
+            "iris-rigid-leaf": 10,
+            "contact-window-reveal-graphite": 3,
+            "about-window-perimeter-signal": 2
+          }
+        },
+        {
+          "deck": "upper",
+          "reflectorSampleRays": 36,
+          "firstHitPaleLens": 0,
+          "firstHitAnyTorchHardware": 0,
+          "obstructions": {
+            "contact-ceramic-hull": 9,
+            "projects-signal-amber": 12,
+            "iris-rigid-leaf": 10,
+            "contact-window-reveal-graphite": 3,
+            "projects-window-perimeter-signal": 2
+          }
+        }
+      ]
+    }
+  ]
+}

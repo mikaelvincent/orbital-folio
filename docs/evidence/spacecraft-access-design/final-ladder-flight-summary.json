@@ -1,0 +1,9 @@
+{
+  "route": "[\"projects\",\"about\"]",
+  "frames": 57,
+  "walkwayFrames": 30,
+  "maximumSimultaneousLadderDoors": 1,
+  "durationSeconds": 4.3167000000000115,
+  "stationaryVessel": true,
+  "openThreshold": 0.001
+}

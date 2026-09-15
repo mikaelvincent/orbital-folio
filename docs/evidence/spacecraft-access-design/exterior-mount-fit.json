@@ -1,0 +1,83 @@
+{
+  "method": "Actual scene-triangle rays at all rail mounting centers and eight points around each bonded foot. Equipment is excluded from wall targets. Negative back penetration means seated material; no frame timing measured.",
+  "layouts": {
+    "wide": {
+      "mountCount": 24,
+      "raySamples": 216,
+      "misses": 0,
+      "maxCenterError": 0.0000028911210838700185,
+      "footBackOffsetRange": [
+        -0.005121305125064364,
+        -0.002549076457733719
+      ],
+      "bounds": {
+        "min": [
+          -6.570790767669678,
+          -2.435227394104004,
+          -0.14900000393390656
+        ],
+        "max": [
+          3.693000078201294,
+          3.4014999866485596,
+          0.9440000057220459
+        ]
+      },
+      "routes": [
+        {
+          "name": "main",
+          "length": 10.93163066545296,
+          "rungCount": 22,
+          "rungSpacing": 0.5024586031168076,
+          "anchorPairs": 10
+        },
+        {
+          "name": "docking-transfer",
+          "length": 1.1199977849721001,
+          "rungCount": 3,
+          "rungSpacing": 0.36999889248605006,
+          "anchorPairs": 2
+        }
+      ],
+      "failures": []
+    },
+    "compact": {
+      "mountCount": 20,
+      "raySamples": 180,
+      "misses": 0,
+      "maxCenterError": 8.583068833588482e-8,
+      "footBackOffsetRange": [
+        -0.005029389290184521,
+        -0.003091772896024993
+      ],
+      "bounds": {
+        "min": [
+          -4.888167858123779,
+          -2.442003011703491,
+          -0.14900000393390656
+        ],
+        "max": [
+          2.5490000247955322,
+          3.4014999866485596,
+          0.9440000057220459
+        ]
+      },
+      "routes": [
+        {
+          "name": "main",
+          "length": 8.220585965096374,
+          "rungCount": 16,
+          "rungSpacing": 0.5227057310064249,
+          "anchorPairs": 8
+        },
+        {
+          "name": "docking-transfer",
+          "length": 1.1199985274307482,
+          "rungCount": 3,
+          "rungSpacing": 0.3699992637153741,
+          "anchorPairs": 2
+        }
+      ],
+      "failures": []
+    }
+  }
+}

@@ -709,6 +709,63 @@ any optimization. No new optimization recommendation is established by this
 quality task.
 
 
+## 17 — Readable access equipment replaces generic filler
+
+**Approved design work, 15 September 2026.** The user rejected entry 16's sealed
+ladder/exterior covers as generic filler and explicitly prioritized design over
+optimization. This revision replaces those panels with visibly functional access
+hardware. A continuous exterior ladder climbs the docking shoulder and crosses
+the roof, with raised rails, open rungs, seated posts and tether eyes. Inside, rigid
+transfer grab bars and open rope reels occupy the curved ends. Two older framed
+docking-side cassettes also become holstered rescue lights. Recessed hose couplings
+replace the small anonymous junction lids.
+
+The first interior attempt still resembled hoses and metal disks. Independent
+visual review rejected it before acceptance; straight grasp sections, rigid alloy
+elbows, a deeper wound drum and open flanges corrected that ambiguity. The new
+review rubric gives 75% of its score to recognizable function, composition/color
+and physical fit. Low geometry cost is not a substitute for those design goals.
+The [design brief and iteration images](evidence/spacecraft-access-design/design-brief.md)
+preserve the feedback and direction for a later case study.
+
+### Structural accounting after visual review
+
+The integrated source-hashed wide model is compared with `234de17`:
+
+| Inventory | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| Visible meshes | 416 | 415 | −1 |
+| Triangles, including instances | 896,518 | 993,310 | +96,792 (+10.80%) |
+| Unique geometry attribute/index arrays | 33,591,636 B | 35,847,012 B | +2,255,376 B (+2.1509 MiB) |
+
+The added geometry supplies real rail sections, open mounting assemblies, grasp
+clearance, rope windings and torch optics. It was not reduced to match the old
+panel budgets. Reusing the existing material batching happens to leave one fewer
+visible mesh; that does not establish a frame-time improvement. The count includes
+all active visible model geometry without frustum culling. Geometry-array bytes
+exclude textures, instance buffers, targets, JavaScript and other scene layers;
+they are not process or measured GPU memory. No controlled GPU/CPU frame-time,
+thermal or battery comparison was performed. The fixtures add no texture, scene
+light or ongoing animation.
+
+[Raw inventory and source hashes](evidence/spacecraft-access-design/geometry-inventory.json),
+[physical clearance audit](evidence/spacecraft-access-design/ladder-surface-clearance.json)
+and [visual/validation record](evidence/spacecraft-access-design/README.md) separate
+structural accounting, geometric fit and artistic judgment. The minimum measured
+hook-to-grip surface gap is 0.1191 scene units in compact layout and 0.1379 in wide;
+these are geometry checks, not certified engineering margins. The 8K Earth,
+camera-motion system, room contents and eight retained header vents are unchanged.
+Overview fitting automatically includes the new exterior silhouette.
+
+### Held candidates
+
+No performance candidate was enabled. Keep entry 17 as the next measurement
+baseline once optimization work is approved. Its deliberately richer silhouette
+changes the geometry presented to the renderer, so historical frame timings must
+not be treated as measurements of this revision. Preserve the existing priority
+order and use matching camera, route, light and background states for any future
+comparison. No new optimization recommendation follows from this design task.
+
 ## Next candidates
 
 **Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.

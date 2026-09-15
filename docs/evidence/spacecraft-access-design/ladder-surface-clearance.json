@@ -1,0 +1,319 @@
+{
+  "method": "Minimum distance between rendered triangle surfaces; triangle AABB trees prune only pairs farther than the current known minimum. Every remaining pair evaluates all vertex/face and edge/edge features. Every equipment triangle has positive Z separation from every grab-bar triangle, ruling out intersections. Includes handhold shoes, alloy rail, thick grasp sleeve and amber collars. Coordinates use each layout X scale; common group translation/rotation cannot change distance.",
+  "sourceSha256": "4fc59b3937a30d382785f0506cbed6e19e5a23ca95abb1cf1cec469ebd2dbf38",
+  "units": "scene units; visual clearance, not a certified engineering safety margin",
+  "results": [
+    {
+      "layout": "compact",
+      "side": -1,
+      "category": "reel",
+      "triangles": [
+        8192,
+        7584
+      ],
+      "separatedZ": 0.20411816239356995,
+      "distance": 0.20711171247058804,
+      "a": "ladder-end-open-tether-reel-flange",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.30561187863349915,
+          -2.315105438232422,
+          -0.014628412202000618
+        ],
+        [
+          -0.3326454959339051,
+          -2.315105438232422,
+          -0.21996824023873277
+        ]
+      ],
+      "trianglePairs": 221
+    },
+    {
+      "layout": "compact",
+      "side": -1,
+      "category": "hook",
+      "triangles": [
+        1888,
+        7584
+      ],
+      "separatedZ": 0.07902610301971436,
+      "distance": 0.11912704478352848,
+      "a": "ladder-end-clipped-tether-carabiner",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.23469695448875427,
+          -2.317054033279419,
+          0.36600950360298157
+        ],
+        [
+          -0.3095000088214874,
+          -2.3339381217956543,
+          0.4571724534034729
+        ]
+      ],
+      "trianglePairs": 4711
+    },
+    {
+      "layout": "compact",
+      "side": -1,
+      "category": "lead",
+      "triangles": [
+        448,
+        7584
+      ],
+      "separatedZ": 0.13314956426620483,
+      "distance": 0.20042995587308796,
+      "a": "ladder-end-spool-to-carabiner-safety-lead",
+      "b": "ladder-end-rigid-handhold-grasp",
+      "points": [
+        [
+          -0.13336539268493652,
+          -2.4427525997161865,
+          0.3158504366874695
+        ],
+        [
+          -0.0673896181606998,
+          -2.3472667544943517,
+          0.47925734519958496
+        ]
+      ],
+      "trianglePairs": 435
+    },
+    {
+      "layout": "compact",
+      "side": 1,
+      "category": "reel",
+      "triangles": [
+        8192,
+        7584
+      ],
+      "separatedZ": 0.20411816239356995,
+      "distance": 0.20711171247058804,
+      "a": "ladder-end-open-tether-reel-flange",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.30561187863349915,
+          2.4501054286956787,
+          -0.014628412202000618
+        ],
+        [
+          -0.3326454959339051,
+          2.4501054286956787,
+          -0.21996824023873277
+        ]
+      ],
+      "trianglePairs": 199
+    },
+    {
+      "layout": "compact",
+      "side": 1,
+      "category": "hook",
+      "triangles": [
+        1888,
+        7584
+      ],
+      "separatedZ": 0.07902610301971436,
+      "distance": 0.11912704478352848,
+      "a": "ladder-end-clipped-tether-carabiner",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.23469695448875427,
+          2.452054023742676,
+          0.36600950360298157
+        ],
+        [
+          -0.3095000088214874,
+          2.468938112258911,
+          0.4571724534034729
+        ]
+      ],
+      "trianglePairs": 4574
+    },
+    {
+      "layout": "compact",
+      "side": 1,
+      "category": "lead",
+      "triangles": [
+        448,
+        7584
+      ],
+      "separatedZ": 0.13314956426620483,
+      "distance": 0.20042995587308796,
+      "a": "ladder-end-spool-to-carabiner-safety-lead",
+      "b": "ladder-end-rigid-handhold-grasp",
+      "points": [
+        [
+          -0.13336539268493652,
+          2.5777525901794434,
+          0.3158504366874695
+        ],
+        [
+          -0.0673896181606998,
+          2.4822667449576086,
+          0.47925734519958496
+        ]
+      ],
+      "trianglePairs": 463
+    },
+    {
+      "layout": "wide",
+      "side": -1,
+      "category": "reel",
+      "triangles": [
+        8192,
+        7584
+      ],
+      "separatedZ": 0.20411816239356995,
+      "distance": 0.2080859072879888,
+      "a": "ladder-end-open-tether-reel-flange",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.4278566300868988,
+          -2.315105438232422,
+          -0.014628412202000618
+        ],
+        [
+          -0.45389686226844783,
+          -2.315105438232422,
+          -0.2210785299539566
+        ]
+      ],
+      "trianglePairs": 354
+    },
+    {
+      "layout": "wide",
+      "side": -1,
+      "category": "hook",
+      "triangles": [
+        1888,
+        7584
+      ],
+      "separatedZ": 0.07902610301971436,
+      "distance": 0.13786059336404902,
+      "a": "ladder-end-clipped-tether-carabiner",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.32857573628425596,
+          -2.317054033279419,
+          0.36600950360298157
+        ],
+        [
+          -0.41815703360301143,
+          -2.3500375487815948,
+          0.46547217036038424
+        ]
+      ],
+      "trianglePairs": 7651
+    },
+    {
+      "layout": "wide",
+      "side": -1,
+      "category": "lead",
+      "triangles": [
+        448,
+        7584
+      ],
+      "separatedZ": 0.13314956426620483,
+      "distance": 0.2066519655991105,
+      "a": "ladder-end-spool-to-carabiner-safety-lead",
+      "b": "ladder-end-rigid-handhold-grasp",
+      "points": [
+        [
+          -0.18671154975891113,
+          -2.4427525997161865,
+          0.3158504366874695
+        ],
+        [
+          -0.1307248538689569,
+          -2.329312276110271,
+          0.47925734519958496
+        ]
+      ],
+      "trianglePairs": 603
+    },
+    {
+      "layout": "wide",
+      "side": 1,
+      "category": "reel",
+      "triangles": [
+        8192,
+        7584
+      ],
+      "separatedZ": 0.20411816239356995,
+      "distance": 0.2080859072879888,
+      "a": "ladder-end-open-tether-reel-flange",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.4278566300868988,
+          2.4501054286956787,
+          -0.014628412202000618
+        ],
+        [
+          -0.45389686226844783,
+          2.4501054286956787,
+          -0.2210785299539566
+        ]
+      ],
+      "trianglePairs": 325
+    },
+    {
+      "layout": "wide",
+      "side": 1,
+      "category": "hook",
+      "triangles": [
+        1888,
+        7584
+      ],
+      "separatedZ": 0.07902610301971436,
+      "distance": 0.13786064220125788,
+      "a": "ladder-end-clipped-tether-carabiner",
+      "b": "ladder-end-liner-seated-handhold-shoe",
+      "points": [
+        [
+          -0.32857573628425596,
+          2.452054023742676,
+          0.36600950360298157
+        ],
+        [
+          -0.4181573057982969,
+          2.485037453979843,
+          0.46547202117283903
+        ]
+      ],
+      "trianglePairs": 7708
+    },
+    {
+      "layout": "wide",
+      "side": 1,
+      "category": "lead",
+      "triangles": [
+        448,
+        7584
+      ],
+      "separatedZ": 0.13314956426620483,
+      "distance": 0.2066519655991105,
+      "a": "ladder-end-spool-to-carabiner-safety-lead",
+      "b": "ladder-end-rigid-handhold-grasp",
+      "points": [
+        [
+          -0.18671154975891113,
+          2.5777525901794434,
+          0.3158504366874695
+        ],
+        [
+          -0.1307248538689569,
+          2.4643122665735278,
+          0.47925734519958496
+        ]
+      ],
+      "trianglePairs": 724
+    }
+  ]
+}
