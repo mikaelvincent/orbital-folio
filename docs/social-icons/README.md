@@ -2,7 +2,7 @@
 
 Source: Simple Icons, https://github.com/simple-icons/simple-icons. SVG path data is supplied under the upstream CC0-1.0 license; the full license and upstream disclaimer are included alongside these files. Brand marks remain their respective owners' marks.
 
-All icons use `viewBox: "0 0 24 24"`; draw as filled paths, not stroked paths. `icons.json` contains only id, label, path, and viewBox. The original source SVGs are included for inspection. No package dependency is required.
+All icons use `viewBox: "0 0 24 24"`; draw as filled paths, not stroked paths. The bundled paths live in `lib/content/social-platforms.ts`; `sources.json` records their upstream revisions. No package dependency is required.
 
 LinkedIn comes from the official Simple Icons 13.21.0 tag because it is absent from the current develop branch. Other icons are pinned to the exact fetched commit below.
 

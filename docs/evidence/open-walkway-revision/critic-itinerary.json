@@ -1,7 +1,0 @@
-{
-  "scope": "Independent pure planner sweep; does not claim actual browser flight or speed/acceleration validation",
-  "checked": 1512,
-  "failures": [],
-  "invalidRejected": true,
-  "unknownRejected": true
-}

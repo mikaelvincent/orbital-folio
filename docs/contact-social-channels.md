@@ -28,17 +28,4 @@ Brand paths are bundled, with no runtime network requests or added packages. See
 
 Only configured social monitors register for object interaction. Furnishing pick proxies and scene-to-reader activation paths are removed. The portal-only navigation controls remain independent of object actions.
 
-Hover and focus now use the shared [scene feedback controller](scene-feedback.md). Pointer input takes over from retained keyboard focus without blurring the control; leaving a monitor cannot revive its old focus highlight.
-
-## Verification
-
-- Preset/custom selection and saved custom draft inspected in the studio and private room preview.
-- Public preset and private custom records render independently.
-- GitHub keyboard activation and LinkedIn activation open separate tabs; the portfolio remains in the room.
-- Dragging from a screen cancels activation. Returning to overview removes screen links from the accessibility tree.
-- Desktop and portrait room screenshots inspected, including keyboard focus alignment.
-- Automated tests cover placement, legacy records, custom content, URL rejection, gesture cancellation, and draft/publish/unpublish persistence.
-
-Initial social-channel visual review: **96/100** for this iteration's scope. No blocking overlap, clipping, or integration defects. Secondary captions are small at mobile room scale; existing camera framing was outside this change. Main console unchanged. Production build, typecheck and lint pass. The full test run passed all runnable cases; an existing extensionless metadata import prevented the flight test file from loading under Node 26. Adding the explicit `.ts` extension resolved that, and all four flight tests passed on rerun.
-
-Object-feedback follow-up review: **96/100**, with no blocking issues. Both monitors were inspected under pointer hover and keyboard focus; their physical rims correctly disappear behind foreground controls. Hover remains local to the monitor. Clicking the central screen does not open a reader, and Contact → About → Contact door navigation and bounded dragging still work. Three object-interaction tests and twelve camera, flight, and social-link regression tests pass, along with typecheck, lint, and the production build.
+Hover and focus use the shared scene feedback controller described in [the asset guide](ASSETS.md#interaction-and-accessibility). Pointer input takes over from retained keyboard focus without blurring the control; leaving a monitor cannot revive its old focus highlight.

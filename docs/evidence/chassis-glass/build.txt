@@ -1,3 +1,0 @@
-PASS: final Sites production build, exit 0.
-All five vinext stages completed. Existing warnings: client chunk >500 kB; /case-studies not statically classifiable; Node module.register deprecation.
-Development browser captures are not a production-runtime test.

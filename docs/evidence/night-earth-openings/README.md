@@ -1,5 +1,9 @@
 # Night Earth and opening-view evidence
 
+Historical asset/comparison evidence. The public controls described here were
+removed after the fixed Mediterranean pose was approved; see
+[current project context](../../PROJECT-CONTEXT.md#earth-and-atmospheric-art).
+
 14 September 2026. The requested night globe uses NASA Black Marble 2016 at 8192×4096. Four opening views—Mediterranean, East Asia, India and North America—put recognizable city-light patterns in the visible foreground. The Earth controls also offer longitude, latitude, roll, apparent size and horizon adjustments, Earth-only pause/resume, replay and reset. Preferences remain in this browser's local storage.
 
 The opening timer begins after the Earth asset is ready, so image loading does not consume its first seconds. The initial scene placeholder remains until loading settles; an asset failure can still reveal the inexpensive fallback and diagnostic error. Selecting a view changes the existing globe's transforms without another image download, texture upload or geometry replacement. Earth pause/replay leaves the spacecraft camera, star clock and meteor clock independent.
@@ -37,7 +41,7 @@ The [custom-control capture](compact-custom-controls.png), [pause observation](c
 
 ## Correctness checks
 
-[tests.log](tests.log) records **22 passing focused tests** across the existing Earth loader/environment tests and the new [opening-view tests](../../../tests/earth-views.test.mjs). [Type checking](typecheck.log), [targeted lint](lint.log) and the [production build](build.log) also passed; a successful lint log can be empty.
+[tests.log](tests.log) records **22 passing focused tests** across the existing Earth loader/environment tests and the new opening-view tests (available at `8f99ba7:tests/earth-views.test.mjs` in Git history). [Type checking](typecheck.log), [targeted lint](lint.log) and the [production build](build.log) also passed; a successful lint log can be empty.
 
 Final UI captures: [desktop selector](desktop-selector.png), [compact selector](compact-selector.png), and [night portfolio](portfolio-night.png). Browser checks also verified keyboard adjustment, reset, and Escape closing the panel with focus restored while the Contact route remained selected. The temporary test tab was closed and the viewport override reset; the development server remains available on port 3000.
 
@@ -45,7 +49,7 @@ The new checks cover corrupt preference values and numeric limits; preset identi
 
 The first validation found that the Mediterranean and India targets could drift below an ultrawide viewport during their first seconds. The renderer now gives those short foregrounds additional bottom-edge margin. Portrait composition received its own anchor, with a lower foreground fallback when a tall custom framing would otherwise aim above the globe's limb. The visibility assertions remain intact and pass with these corrections.
 
-Re-run the focused checks from the repository root:
+Historical validation command, for the recorded revision only. The public controls and their opening-view tests were subsequently removed after the fixed Mediterranean pose was approved:
 
 ```sh
 node --test tests/earth-satellite.test.mjs tests/earth-environment.test.mjs tests/earth-views.test.mjs

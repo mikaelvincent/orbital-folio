@@ -24,7 +24,9 @@ Thermal louvers are a real spacecraft equipment class; [NASA describes their
 use for passive thermal control](https://www.nasa.gov/missions/small-satellite-missions/nasa-repurposes-passive-thermal-control-technology-for-cubesats/).
 These panels are an artistic interpretation, not an engineered thermal system.
 They have a static pose and introduce no temperature simulation or animation.
-The [camera record](../../room-camera.md) preserves the numerical choices.
+The original numerical camera record is available at
+`8f99ba7:docs/room-camera.md` in Git history. The current camera contract is in
+[project context](../../PROJECT-CONTEXT.md#interaction-contract).
 
 ## Responsive review and a defect caught by the critic
 
