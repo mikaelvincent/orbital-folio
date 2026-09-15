@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 1,
+  "baseline": "25b23ca",
+  "finalSourceSnapshot": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+  "decision": "Retain delivered cached shadows. Native-depth bake stays developer-only; no timing gain demonstrated.",
+  "runs": [
+    {
+      "file": "shadow-survey-1280x720-1789466922063.json.gz",
+      "runId": "shadow-survey-1280x720-1789466922063",
+      "mode": "survey",
+      "status": "descriptive-only-no-timing-ranking",
+      "manifest": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "controls": [],
+      "errors": [],
+      "uncompressedSha256": "49c1fe17e9b03b13f515037c19112fb5ea3177918f97fae05564fc7f82b46b1f"
+    },
+    {
+      "file": "shadow-timing-1280x720-1789465971537.json.gz",
+      "runId": "shadow-timing-1280x720-1789465971537",
+      "mode": "timing",
+      "status": "failed",
+      "manifest": "14ecc43a-676d-4b38-9804-bc93037abb99",
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "controls": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'state')"
+      ],
+      "uncompressedSha256": "fd4be99e3d4a1b1e1a3170593b25b3e5592587de6853be04374ddd9305e94a36"
+    },
+    {
+      "file": "shadow-timing-1280x720-1789466387249.json.gz",
+      "runId": "shadow-timing-1280x720-1789466387249",
+      "mode": "timing",
+      "status": "inconclusive-readiness-drift",
+      "manifest": "9aaeecd6-f2e3-4f19-bd0f-93e91d44ef46",
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "controls": [
+        {
+          "iterations": 8,
+          "cpuMs": 5.300000000745058,
+          "gpuMs": 16.685677,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        },
+        {
+          "iterations": 8,
+          "cpuMs": 5.275000000372529,
+          "gpuMs": 15.94643225,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        },
+        {
+          "iterations": 8,
+          "cpuMs": 5.075000001117587,
+          "gpuMs": 16.213156125,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        }
+      ],
+      "readiness": {
+        "cpu": {
+          "stable": false,
+          "medianMs": 5.275000000372529,
+          "spreadFraction": 0.04265402836238504,
+          "endToEndFraction": -0.04265402836238504,
+          "monotonic": true,
+          "reason": "monotonic-control-drift"
+        },
+        "gpu": {
+          "stable": true,
+          "medianMs": 16.213156125,
+          "spreadFraction": 0.04559536368493444,
+          "endToEndFraction": -0.02914428698255671,
+          "monotonic": false,
+          "reason": null
+        }
+      },
+      "errors": [],
+      "uncompressedSha256": "dd0c969351031a9409f158986205de3f7a42cd780956035a8ad8f4af16dd12d4"
+    },
+    {
+      "file": "shadow-timing-1280x720-1789466575173.json.gz",
+      "runId": "shadow-timing-1280x720-1789466575173",
+      "mode": "timing",
+      "status": "inconclusive-readiness-drift",
+      "manifest": "9aaeecd6-f2e3-4f19-bd0f-93e91d44ef46",
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "controls": [
+        {
+          "iterations": 8,
+          "cpuMs": 5.474999999627471,
+          "gpuMs": 18.013651,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        },
+        {
+          "iterations": 8,
+          "cpuMs": 5.349999999627471,
+          "gpuMs": 15.684203,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        },
+        {
+          "iterations": 8,
+          "cpuMs": 5.287499999627471,
+          "gpuMs": 16.8884635,
+          "priorGlError": 0,
+          "counts": {
+            "calls": 759,
+            "triangles": 1992212,
+            "points": 0,
+            "lines": 0
+          },
+          "glError": 0
+        }
+      ],
+      "readiness": {
+        "cpu": {
+          "stable": false,
+          "medianMs": 5.349999999627471,
+          "spreadFraction": 0.035046728974402974,
+          "endToEndFraction": -0.035046728974402974,
+          "monotonic": true,
+          "reason": "monotonic-control-drift"
+        },
+        "gpu": {
+          "stable": false,
+          "medianMs": 16.8884635,
+          "spreadFraction": 0.13793131625029117,
+          "endToEndFraction": -0.06662462218661865,
+          "monotonic": false,
+          "reason": "control-spread-exceeds-limit"
+        }
+      },
+      "errors": [],
+      "uncompressedSha256": "44fc54e74e5e3af74fbde362f63896cb08096581711c7e1db2503659faad69f5"
+    },
+    {
+      "file": "shadow-verify-1280x720-1789465583457.json.gz",
+      "runId": "shadow-verify-1280x720-1789465583457",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "f5f803a1-3880-4c9f-be87-8bc699e7bed2",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 1.5999999940395355,
+        "decompressMs": 15.900000005960464,
+        "downloadedBytes": 2603223
+      },
+      "restoreSubmissionMs": 55.29999999701977,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "comparisons": 22,
+      "changedComparisons": 0,
+      "failedLiveFallbacks": null,
+      "errors": [],
+      "uncompressedSha256": "4d9fdb95b19481085126c1f1373ad44aa6dcfaadbd28f42450257d2a79a815cb",
+      "liveFallbackChecks": 0
+    },
+    {
+      "file": "shadow-verify-1280x720-1789465833489.json.gz",
+      "runId": "shadow-verify-1280x720-1789465833489",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "14ecc43a-676d-4b38-9804-bc93037abb99",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 2.5,
+        "decompressMs": 15.400000005960464,
+        "downloadedBytes": 2603223
+      },
+      "restoreSubmissionMs": 3.9000000059604645,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "comparisons": 31,
+      "changedComparisons": 0,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "383cf9c6e576f389e0f8a810f0b2536191d7dea62af852711d7bdc04b59a56a6",
+      "liveFallbackChecks": 31
+    },
+    {
+      "file": "shadow-verify-1280x720-1789466272995.json.gz",
+      "runId": "shadow-verify-1280x720-1789466272995",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "9aaeecd6-f2e3-4f19-bd0f-93e91d44ef46",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 1.7000000029802322,
+        "decompressMs": 14.599999994039536,
+        "downloadedBytes": 2603223
+      },
+      "restoreSubmissionMs": 3.2000000029802322,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "comparisons": 31,
+      "changedComparisons": 0,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "27abeba3de9266b5282f47441ddd71eff25ba4431298aa682f504f2d6a52be94",
+      "liveFallbackChecks": 31
+    },
+    {
+      "file": "shadow-verify-1280x720-1789466802414.json.gz",
+      "runId": "shadow-verify-1280x720-1789466802414",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 1.7999999970197678,
+        "decompressMs": 14.700000002980232,
+        "downloadedBytes": 2603223
+      },
+      "restoreSubmissionMs": 3.7000000029802322,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "buffer": [
+        2560,
+        1440
+      ],
+      "ao": true,
+      "comparisons": 31,
+      "changedComparisons": 0,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "0567cc5a938f8ec28f4c942feba3a12ce1a0822598c405996a5f0c0b651af784",
+      "liveFallbackChecks": 31
+    },
+    {
+      "file": "shadow-verify-390x844-1789467255168.json.gz",
+      "runId": "shadow-verify-390x844-1789467255168",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 4194304,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 1.2000000029802322,
+        "decompressMs": 3.7999999970197678,
+        "downloadedBytes": 757235
+      },
+      "restoreSubmissionMs": 1.7000000029802322,
+      "asset": {
+        "size": 1024,
+        "rawBytes": 4194304,
+        "gzipBytes": 757235,
+        "brotliBytes": 526224,
+        "sha256": "12328feb2d11bc360bd4056bb0df519f79b910c34c72f9eb5ee21a2ec1356d66",
+        "gzipSha256": "c265045630467b667c861e02c6013520ba26f74188e7cb8510736f5f66cd8dc5",
+        "filename": "depth-12328feb2d11bc36.bin.gz",
+        "url": "/bakes/depth-12328feb2d11bc36.bin.gz"
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "buffer": [
+        390,
+        844
+      ],
+      "ao": false,
+      "comparisons": 31,
+      "changedComparisons": 26,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "7ba957e078ec99c43e2c6de6f921a9b38e7f4629943ebd33e117f545202c9f70",
+      "liveFallbackChecks": 31
+    },
+    {
+      "file": "shadow-verify-900x1200-1789466995507.json.gz",
+      "runId": "shadow-verify-900x1200-1789466995507",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 3.7000000029802322,
+        "decompressMs": 18.599999994039536,
+        "downloadedBytes": 2603223
+      },
+      "restoreSubmissionMs": 3.1000000089406967,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2603223,
+        "brotliBytes": 1746731,
+        "sha256": "0fcbda8dd7532b7cf651627650d20ec4d958c43334ade0a404c2459b333dfb19",
+        "gzipSha256": "9168a59b86a4a7a686d85f646cde592694c2c8a34d65c12b0eb9ae4090731ae8",
+        "filename": "depth-0fcbda8dd7532b7c.bin.gz",
+        "url": "/bakes/depth-0fcbda8dd7532b7c.bin.gz"
+      },
+      "viewport": [
+        900,
+        1200
+      ],
+      "buffer": [
+        900,
+        1200
+      ],
+      "ao": true,
+      "comparisons": 31,
+      "changedComparisons": 6,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "da276d1b691489db138eaf38c6dcf5ffcc8c0d49409bfb2f3f5a23c618d472c4",
+      "liveFallbackChecks": 31
+    },
+    {
+      "file": "shadow-verify-900x1200-1789467086895.json.gz",
+      "runId": "shadow-verify-900x1200-1789467086895",
+      "mode": "verify",
+      "status": "complete",
+      "manifest": "56654f28-c66b-4f08-a4d9-ae5180c0eba3",
+      "depth": {
+        "changedBytes": 0,
+        "bytes": 16777216,
+        "glError": 0
+      },
+      "load": {
+        "loopbackFetchMs": 1.7000000029802322,
+        "decompressMs": 14.700000002980232,
+        "downloadedBytes": 2899403
+      },
+      "restoreSubmissionMs": 3.3999999910593033,
+      "asset": {
+        "size": 2048,
+        "rawBytes": 16777216,
+        "gzipBytes": 2899403,
+        "brotliBytes": 1908089,
+        "sha256": "51eba9ed13ab46f6224d2c5bcdd33d2bf933ea2193a45e3b7937e2703b56ae40",
+        "gzipSha256": "c2cc103d320875246d0e668a3d284eea4d30e9d51a6015c8476e51df97324b03",
+        "filename": "depth-51eba9ed13ab46f6.bin.gz",
+        "url": "/bakes/depth-51eba9ed13ab46f6.bin.gz"
+      },
+      "viewport": [
+        900,
+        1200
+      ],
+      "buffer": [
+        900,
+        1200
+      ],
+      "ao": true,
+      "comparisons": 31,
+      "changedComparisons": 28,
+      "failedLiveFallbacks": 0,
+      "errors": [],
+      "uncompressedSha256": "cddd2e05eccfde39abcf90286222155fb7fdda79c69b73ef727d8b1ba325c450",
+      "liveFallbackChecks": 31
+    }
+  ],
+  "implementationCommit": "2c4bcf1"
+}

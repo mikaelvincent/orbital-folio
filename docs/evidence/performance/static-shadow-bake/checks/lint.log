@@ -1,0 +1,4 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint features/diagnostics/scene-audit.ts features/spacecraft/spacecraft-runtime.ts scripts/benchmarks/shadow-depth-bake.ts scripts/benchmarks/shadow-bake-lab.tsx scripts/benchmarks/camera-invalidation-lab.mjs
+

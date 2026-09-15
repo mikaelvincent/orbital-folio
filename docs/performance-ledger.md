@@ -14,6 +14,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 06 · 14 September 2026 | Restore scattered clouds using satellite coverage and restrained varied relief | Implemented; 12.1% smaller cloud payload, same texture storage/sample bound. Prior timings kept historical; all other candidates held. |
 | 13 · 14 September 2026 | Restore 8K Mediterranean night Earth; compare current 2K, 4K and 8K rendering | 8K costs 2.33 MB transfer / 179.0 MB nominal map storage. Background GPU ranking remains inconclusive; local preparation is costlier. Qualified native Safari and Chromium evidence below. |
 | 19 · 15 September 2026 | Delivered camera/invalidation audit; reuse AO through material-only feedback | Three accepted Contact blocks: CPU 4.559→4.082ms; 75→0 AO refreshes per 180 frames. Whole-frame GPU comparison and exclusions recorded; other candidates held. |
+| 21 · 15 September 2026 | Compare cached shadows with an offline native-depth bake | Developer prototype retained; no production replacement. Exact landscape transport, visibly incorrect stale portrait shadows, unchanged steady work and inconclusive timing. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -999,11 +1000,69 @@ The [geometry-compaction evidence](evidence/performance/offline-geometry-compact
 contains the alternatives, source and bundle hashes, raw results, exact comparison
 method, image pairs, timing limits and critic outcome. The
 [diagnostics guide](performance-diagnostics.md#offline-geometry-comparison) documents
-regeneration and repeatable startup/pass/paired checks. Candidates 3–5 remain held.
+regeneration and repeatable startup/pass/paired checks. Candidates 3–5 remained held at that point; entry 21 records the subsequent candidate 3 authorization.
+
+## 21 — Cached shadows versus developer-baked depth (15 September 2026)
+
+**Decision: retain the existing cached shadow system.** Candidate 3 was authorized
+and implemented as a reproducible developer experiment. It does not justify a
+production replacement: ordinary steady rendering already reuses the depth map,
+a saved native-depth map preserves the same filtered lookups, and portrait roll
+changes lighting relative to the stationary ship. The prototype and its assets
+are confined to the local lab; normal visitors download no new shadow asset.
+Candidates 4–5 remain held.
+
+The baseline is `25b23ca`, after entry 20's approved geometry change. The prototype
+exports exact normalized depth bits from Three r185's native D24 target, compresses
+them offline, then uploads and restores them with a fullscreen depth-write pass.
+It keeps the original PCF shader, comparison filter, shadow matrix, bias and normal
+bias. A surface mask was rejected as an exact replacement: the current PCF sample
+pattern also depends on screen coordinates, so fixed lighting alone cannot make
+such a mask identical throughout hover, drag and resize.
+
+| Measured work / storage | Existing cached map | Saved native-depth prototype |
+| --- | ---: | ---: |
+| Extra shadow asset, 2048² landscape | 0 | 2,603,223 bytes gzip / 1,746,731 bytes Brotli |
+| Decoded transport buffer | 0 | 16,777,216 bytes; transient RGBA8 upload also needed |
+| Map preparation plus main spacecraft draws | 759 | 439 |
+| Map preparation plus main spacecraft triangles | 1,992,212 | 1,013,141 |
+| Steady spacecraft draws / triangles | 438 / 1,013,140 | 438 / 1,013,140 |
+| Shadow generations in each 120-frame steady sample | 0 | 0 |
+
+Preparation counts include the same main spacecraft pass on both sides; the
+candidate adds one full-screen triangle to restore depth. They are **not per-frame
+savings**. Both versions retain the same shadow texture format and sampling shader.
+The lab holds both maps for reversible comparisons; transport/attachment sizes
+are not measured process or GPU memory.
+
+The final landscape replay has 31 zero-pixel comparisons covering all cabins,
+overview, travel, hover, drag/release and reader states. Reusing that map in a
+900×1200 portrait view changes 70,192 overview pixels (maximum channel difference
+82/255); all 31 subsequent live-fallback checks match exactly. Portrait lighting
+cannot be replaced by this fixed bake. Same-GPU roundtrip equality also does not
+prove that a developer-generated map matches another GPU's or Safari's native
+rasterization. No visually different candidate was enabled.
+
+Two rested readiness attempts were excluded. CPU controls drifted monotonically
+by 4.27% and 3.50%; the second GPU control spread was 13.79%. Both attempts stopped
+before ranked ABBA/BAAB blocks. A separate **unranked** survey retained preparation
+and steady CPU/GPU/pacing samples and deterministic counts. Its own baseline moved
+substantially (preparation CPU 1.94→5.18ms; GPU 9.71→15.41ms), so its numbers do not
+establish a speedup or slowdown. Upload/restoration was 8.34–8.80ms CPU submission
+and 24.58–26.85ms GPU including the same main render in that survey; this is not a
+cold-page comparison. Real-network, cold first-frame and first-fallback latency
+remain unmeasured. There is no demonstrated net startup, heat or battery gain.
+
+The [complete shadow-bake evidence](evidence/performance/static-shadow-bake/README.md)
+contains additional responsive/map-size checks, original before/after images,
+source/asset hashes, raw failed/excluded/unranked runs, costs and review. The
+[diagnostics guide](performance-diagnostics.md#offline-shadow-comparison) documents
+the retained lab. All 282 tests, type checking, affected lint and the production
+build passed. Browser evidence uses hidden built-in Chromium, not native Safari.
 
 ## Next candidates
 
-**Status update, 15 September 2026 — candidates 1 and 2 were authorized and audited in entries 19–20; candidates 3–5 remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
+**Status update, 15 September 2026 — candidates 1–3 were authorized and audited in entries 19–21; candidates 4–5 remain on hold. Candidate 3 retains the existing cached shadows; its bake remains developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
@@ -1021,7 +1080,7 @@ The reflection environment is also prepared once at scene setup and reused. Room
 | --- | --- | --- | --- |
 | 1 · completed | Re-measure the delivered camera system and audit invalidation | Entry19 records the audit and targeted material-only AO reuse. Idle AO/shadows were already cached; this does not claim an idle gain. | Preserve the source-identified lab, accepted/excluded runs, transform/reason traces and image checks. Re-measure when art, camera or rendering changes. |
 | 2 · completed | Prototype offline lossless geometry compaction | Entry 20 adopts exact direct indexed cylinder generation: 1.41 MB fewer retained arrays with no new model asset. The broader array bake is not adopted because of delivery and integration cost. | Preserve source generation/checks, exact expanded attributes and images, startup/rendering observations and inconclusive runs. Revisit broader direct-generation opportunities only with new measured evidence; do not restore runtime welding/cache approaches. |
-| 3 | Compare the existing cached shadow map with a developer-baked static representation | A saved depth map might avoid initial shadow generation, but still needs download/upload and ordinary shadow sampling. A baked per-surface shadow mask might replace filtered shadow lookups, but adds atlas memory, UV work and possible seams. Neither is automatically faster. | First identify which light-to-caster transforms remain fixed after camera migration. Compare startup, refresh and steady sampling separately. If the appearance-preserving light rig moves relative to the ship, a single fixed mask cannot reproduce every roll; reject it or limit it to a proven invariant component. |
+| 3 · audited, baseline retained | Compare the existing cached shadow map with a developer-baked static representation | Entry 21 proves native-depth transport on the tested engine but finds no steady sampling reduction, added delivery/upload cost and incorrect shadows through portrait roll. Timing rankings were rejected for drift. | Keep the source-identified lab, exact/stale-map image pairs and excluded runs. Revisit only with evidence for net startup benefit, exact validity/fallback and cross-engine rendering fidelity; no production bake is enabled. |
 | 4 | Prototype baked static contact shading in one costly room | Store stable creases and furniture contact shading on surfaces. This is the stronger precomputation hypothesis when movement-time GTAO dominates. Start with the room identified by the new ranking, keeping doors, screens and interaction feedback outside the static bake. | Compare baked-only and a static/dynamic hybrid against current GTAO. Document flattened contacts, texture seams and moving-object integration. A hybrid that still renders the full GTAO pass may add memory without saving meaningful work. |
 | 5 | Consider baked diffuse illumination only after the narrower experiments | Static indirect or diffuse light could be stored separately while retaining view-dependent reflections, emissive screens and room dimming. This is an art/asset-pipeline change, with extra textures, preparation and rebuild requirements whenever furniture or lights move. | A visible prototype approved before application integration. Verify dim/hover/selected/transit states, material colors and reflections; prevent baked and live terms from counting the same illumination twice. |
 

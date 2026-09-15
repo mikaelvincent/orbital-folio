@@ -273,3 +273,34 @@ Projects furniture had the most triangles; About furniture the most draws (58). 
 Six additional tests cover actual draw deltas, room/component reconciliation, invisible variants, restoration/disposal, bounded samples and taxonomy against the real batched spacecraft. Normal model geometry and batching are unchanged.
 
 At that stage, the extension passed those six tests plus the previous 45 diagnostics/navigation/feedback tests, type checking, type-aware lint, formatting and the production build. Browser verification covered button activation without a query string, component and room filtering, capture cancellation when the filter changes, closing/reopening with resolution restoration, room/ladder navigation, and the control/panel at 390-pixel width. The [component-panel screenshot](evidence/performance/spacecraft-parts-panel.png) records that historical interface in a room view.
+
+
+## Offline shadow comparison
+
+Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment shadow --port 3020`
+with the optional compiled `--thermal-sampler` from the rested protocol. This
+frozen, loopback-only public fixture exposes three developer actions: **Bake and
+verify**, **Rested comparison**, and **Cost survey (unranked)**. They never change
+the delivered portfolio or add visitor downloads. The source is split between
+`shadow-depth-bake.ts` (native-depth capture/restore) and `shadow-bake-lab.tsx`
+(application replay and measurement).
+
+The first verification captures the current initial shadow. Repeating after
+resizing retains that bake and deliberately tests stale-lighting failure; reload
+at the new viewport to author a bake for that initial pose instead. Each report
+saves real buffer/DPR/map size, shader settings, transforms, PNG pairs and live-map
+restoration checks. Supported captures include the initial 1024 and 2048 map sizes.
+The descriptor is diagnostic, not a production cache-validity key.
+
+The rested comparison separates CPU and asynchronous GPU time for map preparation
+plus the same main spacecraft pass. It uses rests, repeated controls and balanced
+orders with rejection gates; target allocation is included on the restore side.
+It is warmed preparation, not matched cold page startup. The unranked survey is
+only for work/count attribution and raw descriptive costs; it never establishes
+an optimization benefit, particularly when the controls already drifted. Steady
+frame rows must also be treated as descriptive without their own acceptance gates.
+
+See [entry 21](performance-ledger.md#21--cached-shadows-versus-developer-baked-depth-15-september-2026)
+and the [evidence/method](evidence/performance/static-shadow-bake/README.md). Preserve
+failed, excluded and inconclusive reports. The adopted decision is the existing
+cached shadow map; baked contact shading and diffuse lighting remain held.

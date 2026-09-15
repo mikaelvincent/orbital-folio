@@ -205,8 +205,12 @@ lab supports balanced comparisons with mutually exclusive frame/pass GPU timers.
 Entry 19 records the narrow measured benefit, exclusions and image checks.
 Candidate 2 was subsequently authorized: entry 20 records offline-specialized
 indexed cylinder generation and its exactness/storage/timing evidence. No runtime
-vertex-welding pass or downloaded baked model is introduced. Bounded baked-shadow
-experiments, baked contact shading and later diffuse-light experiments remain held. The ledger owns order
+vertex-welding pass or downloaded baked model is introduced. Candidate 3 was then
+authorized: entry 21 retains the existing cached shadows after testing an offline
+native-depth bake. The bake adds delivery/restore work, does not reduce steady
+sampling and cannot preserve portrait-roll shadows as one fixed map. The reusable
+experiment remains developer-only. Baked contact shading and later diffuse-light
+experiments (4–5) remain held. The ledger owns order
 and status. Key-light shadows, settled GTAO and the reflection environment already
 have reuse paths. "Precompute everything"
 is a hypothesis to investigate in parts, not permission to replace the renderer.
