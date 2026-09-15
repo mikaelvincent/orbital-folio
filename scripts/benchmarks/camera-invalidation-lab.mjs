@@ -6,6 +6,7 @@
 import { build } from 'esbuild';
 import postcss from 'postcss';
 import tailwind from '@tailwindcss/postcss';
+import { gzipSync, brotliCompressSync } from 'node:zlib';
 import { createServer } from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -25,18 +26,18 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535)
   throw new Error('Choose an unprivileged local port.');
 const sampler = argument('--thermal-sampler', null);
 const experiment = argument('--experiment', 'camera');
-if (!['camera', 'geometry'].includes(experiment)) throw new Error('Unknown experiment.');
+if (!['camera', 'geometry', 'shadow'].includes(experiment)) throw new Error('Unknown experiment.');
 if (sampler && !sampler.startsWith('/'))
   throw new Error('The optional compiled sampler requires an absolute path.');
 if (sampler) await fs.access(sampler, 1);
 const execute = promisify(execFile);
 const snapshot = await fs.mkdtemp(join(tmpdir(), 'orbital-camera-lab-'));
 const bundle = join(snapshot, 'bundle');
-const evidence = join(root, 'docs/evidence/performance', experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
+const evidence = join(root, 'docs/evidence/performance', experiment === 'shadow' ? 'static-shadow-bake' : experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
 const hash = (data) => createHash('sha256').update(data).digest('hex');
 const result = await build({
   absWorkingDir: root,
-  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx'],
+  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx', 'scripts/benchmarks/shadow-bake-lab.tsx'],
   outdir: bundle,
   entryNames: '[name]',
   chunkNames: 'chunks/[name]-[hash]',
@@ -98,6 +99,8 @@ const manifest = {
 };
 await fs.writeFile(join(snapshot, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft ${experiment} measurement lab</title><link rel="stylesheet" href="/lab/portfolio.css"><link rel="stylesheet" href="/lab/camera-invalidation-lab.css"></head><body data-experiment="${experiment}"><div id="portfolio-root"></div><div id="camera-lab-controls"></div><script type="module" src="/lab/camera-invalidation-lab.js"></script></body></html>`;
+const page = experiment === 'shadow' ? html.replace('src="/lab/camera-invalidation-lab.js"', 'src="/lab/shadow-bake-lab.js"') : html;
+const bakedAssets = new Map();
 const status = { builtAt: manifest.builtAt, snapshotId: manifest.snapshotId, phase: 'ready', progress: null, saved: [] };
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.gz': 'application/gzip', '.woff2': 'font/woff2' };
 function json(response, code, value) {
@@ -138,10 +141,26 @@ const server = createServer(async (request, response) => {
       if (!sameOrigin(request) || !request.headers['content-type']?.startsWith('application/json')) {
         json(response, 403, { error: 'Local same-origin JSON requests only.' }); return;
       }
-      if (pathname !== '/results' && pathname !== '/progress') {
+      if (pathname !== '/results' && pathname !== '/progress' && !(experiment === 'shadow' && pathname === '/bake')) {
         json(response, 405, { error: 'This fixture has no application write APIs.' }); return;
       }
       const value = await body(request);
+      if (pathname === '/bake') {
+        const size = value.size;
+        if (![1024, 2048].includes(size) || typeof value.base64 !== 'string') {
+          json(response, 400, { error: 'Expected a 1024 or 2048 square Float32 shadow depth.' }); return;
+        }
+        const raw = Buffer.from(value.base64, 'base64');
+        if (raw.length !== size * size * 4) { json(response, 400, { error: 'Depth byte count mismatch.' }); return; }
+        const gzip = gzipSync(raw, { level: 9 });
+        const brotli = brotliCompressSync(raw);
+        const filename = `depth-${hash(raw).slice(0, 16)}.bin.gz`;
+        await fs.mkdir(evidence, { recursive: true });
+        await fs.writeFile(join(evidence, filename), gzip, { flag: 'wx' }).catch((error) => { if (error.code !== 'EEXIST') throw error; });
+        const bakedAsset = { gzip, metadata: { size, rawBytes: raw.length, gzipBytes: gzip.length, brotliBytes: brotli.length, sha256: hash(raw), gzipSha256: hash(gzip), filename, url: `/bakes/${filename}`, signature: value.signature } };
+        bakedAssets.set(`/bakes/${filename}`, bakedAsset);
+        json(response, 201, bakedAsset.metadata); return;
+      }
       if (pathname === '/progress') {
         status.phase = typeof value.phase === 'string' ? value.phase.slice(0, 120) : 'running';
         status.progress = value;
@@ -170,6 +189,11 @@ const server = createServer(async (request, response) => {
       json(response, 201, { filename, path: `${evidence.slice(root.length + 1)}/${filename}` }); return;
     }
     if (!['GET', 'HEAD'].includes(request.method)) { json(response, 405, { error: 'Method not supported.' }); return; }
+    if (bakedAssets.has(pathname)) {
+      const bakedAsset = bakedAssets.get(pathname);
+      response.writeHead(200, { 'Content-Type': 'application/gzip', 'Content-Length': bakedAsset.gzip.length, 'Cache-Control': 'no-store' });
+      response.end(request.method === 'HEAD' ? undefined : bakedAsset.gzip); return;
+    }
     if (pathname === '/status') { json(response, 200, status); return; }
     if (pathname === '/context') {
       if (request.headers.origin && !sameOrigin(request)) { json(response, 403, { error: 'Local requests only.' }); return; }
@@ -178,7 +202,7 @@ const server = createServer(async (request, response) => {
     if (pathname === '/manifest') { json(response, 200, manifest); return; }
     if (['/', '/projects', '/about', '/contact', '/case-studies', '/experience', '/startup'].includes(pathname)) {
       response.writeHead(200, { 'Content-Type': mime['.html'], 'Cache-Control': 'no-store' });
-      response.end(request.method === 'HEAD' ? undefined : pathname === '/startup' ? html.replace('src="/lab/camera-invalidation-lab.js"','src="/lab/geometry-startup-lab.js"') : html); return;
+      response.end(request.method === 'HEAD' ? undefined : pathname === '/startup' ? html.replace('src="/lab/camera-invalidation-lab.js"','src="/lab/geometry-startup-lab.js"') : page); return;
     }
     const base = pathname.startsWith('/lab/') ? bundle : join(snapshot, 'public');
     const file = resolve(base, '.' + (pathname.startsWith('/lab/') ? pathname.slice(4) : pathname));

@@ -2423,6 +2423,9 @@ export function mountSpacecraftScene({
         }
         setDiagnosticsEnabled(!!audit || !!latest.current.diagnosticsEnabled);
         go(latest.current.section === 'home');
+        const disposeShadowAudit = audit?.shadowReady?.({
+          three: THREE, renderer, scene, camera, light: key,
+        });
         let auditBackup: Three.WebGLRenderTarget | undefined;
         if (audit) {
           let manualPrevious = 0;
@@ -2701,6 +2704,7 @@ export function mountSpacecraftScene({
           aoMaterial.dispose();
           background.dispose();
           environment.dispose();
+          disposeShadowAudit?.();
           auditBackup?.dispose();
           key.shadow.dispose();
           renderer.dispose();

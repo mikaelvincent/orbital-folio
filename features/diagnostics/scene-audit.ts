@@ -1,3 +1,5 @@
+import type * as Three from 'three';
+
 /** Explicit developer-lab adapter. Normal portfolio visits never supply one. */
 export type SceneAuditController = {
   step: (delta?: number) => void;
@@ -26,6 +28,14 @@ export type SceneAuditController = {
 export type SceneAudit = {
   manual: true;
   ready: (controller: SceneAuditController) => void;
+  /** Developer-only access for offline shadow experiments; never supplied by visitors. */
+  shadowReady?: (context: {
+    three: typeof Three;
+    renderer: Three.WebGLRenderer;
+    scene: Three.Scene;
+    camera: Three.PerspectiveCamera;
+    light: Three.DirectionalLight;
+  }) => (() => void);
   geometryCompaction?: boolean;
   modelReady?: (model: any, options: any, three: any, constructionMs: number) => void;
 };
