@@ -303,15 +303,19 @@ frame rows must also be treated as descriptive without their own acceptance gate
 See [entry 21](performance-ledger.md#21--cached-shadows-versus-developer-baked-depth-15-september-2026)
 and the [evidence/method](evidence/performance/static-shadow-bake/README.md). Preserve
 failed, excluded and inconclusive reports. The adopted decision is the existing
-cached shadow map. Contact shading was subsequently authorized in entry 22;
-diffuse lighting remains held.
+cached shadow map. The owner subsequently approved entry 22's recommendation to
+retain GTAO after the contact-shading experiment and authorized the separate
+diffuse-lighting experiment in entry 23.
 
 ## Offline contact-shading comparison
 
 Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment contact --port 3021`
 with the optional compiled `--thermal-sampler` described above. This frozen,
 loopback-only lab uses public seed content and the actual application renderer.
-It creates no visitor-facing controls, assets or quality changes.
+It creates no visitor-facing controls, assets or quality changes. The owner
+accepted the recommendation to retain production GTAO; these candidates remain
+available for reproducing the findings in
+[entry 22](performance-ledger.md#22--baked-surface-contact-shading-and-live-zone-hybrid-15-september-2026).
 
 1. **Survey current rooms** records idle and deterministic hover in forward and
    reverse room order. It is a descriptive target-selection survey, not a rested
@@ -337,9 +341,11 @@ the full normal/depth pass; only eligible pixel sampling in GTAO and denoising
 returns early. The hybrid is approximate: denoising can cross a mask boundary,
 and a fixed world-space margin is not an exact screen-space filter footprint.
 
-The implementation lives in `contact-geometry-bake.mjs` (offline sampling),
-`contact-surface-bake.ts` (reversible materials and pass masks), and
-`contact-shading-lab.tsx` (application replay and measurements). The bake uses
+The implementation lives under `scripts/benchmarks/` in
+`contact-geometry-bake.mjs` (offline sampling) and `contact-surface-bake.ts`
+(reversible materials and pass masks). The thin `contact-shading-lab.tsx` entry
+configures `shading-comparison-lab.tsx`, which owns the shared application replay
+and measurements for contact and diffuse experiments. The bake uses
 deterministic hemisphere rays and bounded triangle subdivision rather than a
 camera screenshot or overlapping material UVs. It excludes moving occluders and
 printed/emissive receivers. Byte storage, finite rays and vertex interpolation
@@ -353,3 +359,64 @@ an input JSON and run `node scripts/benchmarks/contact-geometry-bake.mjs input.j
 Stop interrupts browser replay; an already-started synchronous offline bake
 finishes on the developer server. Close the temporary lab when finished and
 preserve the main development server on port 3000.
+
+## Offline diffuse-lighting comparison
+
+Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment diffuse --port 3022`
+with the optional compiled `--thermal-sampler` described in the rested protocol.
+This authorized developer experiment uses the actual renderer and public seed
+content in a frozen loopback-only lab. It does not change visitor lighting,
+geometry, downloads or controls. Final findings and adoption status belong in
+[entry 23](performance-ledger.md#23--baked-environment-illumination-probe-15-september-2026)
+and the [diffuse-probe evidence](evidence/performance/baked-diffuse-probe/).
+
+The experiment fits one static probe to the existing `RoomEnvironment` PMREM at
+roughness 1 and unit intensity, in environment-direction space. Nine RGB
+coefficients span a second-degree spherical-harmonic polynomial. This is an
+approximation of already-prefiltered illumination, not a surface atlas, new
+global-illumination solution or local-contact bake. It adds no candidate geometry
+or texture. The original PMREM and precomputed DFG lookup remain available.
+
+- **A — Delivered lighting:** retain the existing shading.
+- **B — Baked shared irradiance:** replace one `getIBLIrradiance` PMREM lookup
+  with probe arithmetic. Its shared value changes both indirect diffuse and
+  specular multiscattering energy. Removing a texture lookup is not proof of a
+  net runtime benefit.
+- **C — Baked diffuse only; live specular energy:** replace only the irradiance
+  used for indirect diffuse inside `RE_IndirectSpecular_Physical`. Keep the
+  original irradiance and view-dependent radiance lookups for specular energy,
+  adding probe arithmetic rather than eliminating that irradiance fetch.
+
+Both candidates preserve direct lights, key shadows, GTAO, view-dependent
+specular radiance, dynamic readers, emission, room feedback and cabin-paint
+neutralization. Evaluation uses the current fragment normal and environment
+rotation; verification must cover portrait roll, not assume fixed world lighting.
+
+The shared four-action workflow remains:
+
+1. **Survey current rooms** records idle and deterministic hover in forward and
+   reverse order. This experiment configures the survey to Projects only; it is
+   a descriptive fresh baseline, not another four-room ranking.
+2. **Bake and inspect** captures 4,096 actual GPU PMREM training samples, fits the
+   coefficients, and validates against 4,096 independently rotated held-out
+   directions. Validation compares the actual clamped Float32 probe shader with
+   GPU PMREM samples. Same-state image comparisons cover dim/hover/selected/
+   transit, readers, doors and responsive views, with exact original-material
+   restoration and WebGL checks. Retain fit errors separately from image changes.
+3. **Rested comparisons** reuses the contact lab's warmup, 120-frame idle/hover
+   samples, 60-second rest, three controls ten seconds apart and ABBA/BAAB orders.
+   Frame and pass GPU queries run separately. State, buffer, power, WebGL and
+   drift gates can reject a comparison; failed gates do not establish throttling.
+4. **Unranked cost survey** is optional descriptive evidence. It cannot rescue
+   rejected timing or establish an optimization benefit from work counts alone.
+
+The thin `scripts/benchmarks/diffuse-lighting-lab.tsx` entry configures the same
+`shading-comparison-lab.tsx` replay. `diffuse-probe-session.ts` owns GPU sampling,
+material replacement, validation and restoration; `diffuse-probe-fit.mjs` owns
+the offline fit. To reproduce the fit from a decompressed input, run
+`node scripts/benchmarks/diffuse-probe-fit.mjs input.json output.json` with a new
+output path. Preserve input, probe and source identities together with raw,
+excluded and inconclusive runs. Report coefficient bytes separately from asset
+transport, temporary capture targets, material/program allocations and measured
+preparation or rendering costs. Stop or close the temporary lab after use while
+preserving the main development server on port 3000.

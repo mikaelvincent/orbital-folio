@@ -15,7 +15,8 @@ This is the running record of implemented optimizations, measured results, visua
 | 13 · 14 September 2026 | Restore 8K Mediterranean night Earth; compare current 2K, 4K and 8K rendering | 8K costs 2.33 MB transfer / 179.0 MB nominal map storage. Background GPU ranking remains inconclusive; local preparation is costlier. Qualified native Safari and Chromium evidence below. |
 | 19 · 15 September 2026 | Delivered camera/invalidation audit; reuse AO through material-only feedback | Three accepted Contact blocks: CPU 4.559→4.082ms; 75→0 AO refreshes per 180 frames. Whole-frame GPU comparison and exclusions recorded; other candidates held. |
 | 21 · 15 September 2026 | Compare cached shadows with an offline native-depth bake | Developer prototype retained; no production replacement. Exact landscape transport, visibly incorrect stale portrait shadows, unchanged steady work and inconclusive timing. |
-| 22 · 15 September 2026 | Audit baked static contact shading and a live-zone hybrid in Projects | Existing GTAO retained. Both developer candidates change appearance; subdivision adds geometry and shading artifacts. Verification/cost status is recorded below; candidate 5 remains held. |
+| 22 · 15 September 2026 | Audit baked static contact shading and a live-zone hybrid in Projects | Owner approved retaining existing GTAO. Both developer candidates change appearance; subdivision adds geometry and shading artifacts. |
+| 23 · 15 September 2026 | Approximate prefiltered environment illumination with a fitted probe | Audited; delivered illumination retained. Both probes visibly alter shading, and the rested GPU controls fail the stability gate. No production bake is enabled. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1064,11 +1065,12 @@ build passed. Browser evidence uses hidden built-in Chromium, not native Safari.
 
 ## 22 — Baked surface contact shading and live-zone hybrid (15 September 2026)
 
-**Decision: retain the existing production GTAO.** The owner authorized candidate
+**Decision: retain the existing production GTAO; subsequently approved by the owner.** The owner authorized candidate
 4 as a developer experiment against baseline `174ea8c`. The static bake and its
 hybrid are visually different approximations, not approved replacements. Their
 code, compressed assets and controls stay in the lab: production imports no bake
-and visitors download no new contact-shading asset. **Candidate 5 remains held.**
+and visitors download no new contact-shading asset. The owner subsequently
+authorized candidate 5 as the separate developer experiment in entry 23.
 
 The forward/reverse baseline survey covers four rooms at idle and during hover
 (16 × 90 measured frames). Projects was chosen for its high selected-view workload:
@@ -1153,9 +1155,103 @@ records the baseline, rejected attempts, compressed bake, source/asset identitie
 visual controls and limitations. The retained lab and protocol are documented in
 the [diagnostics guide](performance-diagnostics.md#offline-contact-shading-comparison).
 
+## 23 — Baked environment-illumination probe (15 September 2026)
+
+**Audited; delivered lighting retained. Both visible candidates remain developer-only
+and require approval before production adoption.** After approving
+entry 22's recommendation to retain GTAO, the owner authorized candidate 5,
+baked diffuse illumination. This bounded prototype approximates the existing
+prefiltered reflection environment on eligible static Projects materials.
+Production retains its original illumination and GTAO. The recommendation is to
+keep that appearance: the fit changes shading and no reliable net speedup was
+established.
+
+The renderer already prepares its `RoomEnvironment` PMREM once, and Three.js
+uses a precomputed DFG reflectance approximation. The experiment fits **nine RGB
+coefficients** to 4,096 actual GPU samples of the PMREM at roughness 1 and unit
+intensity. A least-squares polynomial spans the spherical-harmonic basis through
+degree 2. It approximates that already-prefiltered directional field without a
+second convolution; it does not bake new room-to-room light bounces, furniture
+occlusion or local contacts. An independent set of 4,096 rotated directions
+compares actual clamped Float32 shader output with GPU PMREM references.
+
+| Variant | Illumination change and expected tradeoff |
+| --- | --- |
+| A | Existing production PMREM sampling and material shading. |
+| B | Replaces the single `getIBLIrradiance` lookup with the fitted probe. Its shared irradiance affects both indirect diffuse and specular multiscattering energy; fewer texture samples do not establish a net speedup. |
+| C | Replaces only the irradiance used by `RE_IndirectSpecular_Physical` to accumulate indirect diffuse. Original specular energy and the PMREM lookup remain; the probe adds arithmetic and is a fidelity control rather than an assumed optimization. |
+
+Both candidates retain three directional lights, eight room point lights, the
+hemisphere light, key shadows, GTAO, dynamic readers, emission, view-dependent
+specular radiance, cabin-paint neutralization and room feedback. The shader
+evaluates the current fragment normal in the current environment rotation,
+rather than storing a world-fixed lighting field. Portrait roll is included in the final
+comparison replay; this design does not inherit the fixed shadow-map assumption rejected
+in entry 21. Original and candidate materials preserve sharing, and restoration
+returns to the original material references.
+
+No geometry or texture is added by the candidate. Its 27 Float32 coefficient
+values occupy **108 bytes**; this is only coefficient storage, not total process
+or GPU memory. Cloned materials, compiled shaders, temporary capture targets,
+asset parsing and driver allocations are separate costs. The production site
+imports no probe asset or experimental shader.
+
+**Initial pilot, not final evidence:** the wide B image changes approximately
+1.596 million pixels, with maximum channel difference 37/255, including visible
+brightness differences. That pilot predates the final independent shader
+validation. Preserve it with its own source identity; it establishes neither
+visual equivalence nor a performance benefit. The
+[developer evidence](evidence/performance/baked-diffuse-probe/) retains the pilot,
+probe inputs, fit output and subsequent comparisons.
+
+**Final source-matched evidence:** baseline `6e689c2`, freeze
+`b005614a-4515-47c9-8493-107d2721cf37`, probe SHA-256
+`5ca4d8ec037a663b193283d5e8d474884a5021711b802b851bf5d13ac4115d98`.
+The source archive retains all 85 non-dependency inputs. Final eligibility covers
+64 static meshes sharing 31 original materials and 210,296 unchanged triangles.
+The asset is 2,026 bytes JSON / 952 gzip / 776 offline Brotli. A single offline
+fit took 4.535 ms; this is not visitor startup time. Developer loopback capture,
+fit and compression took 150.6 ms; download 1.2 ms, decode 0.3 ms, and installation
+85.6 ms including 84.7 ms of developer-only GPU validation. Full memory and cold
+network/upload/startup costs are unmeasured; PMREM still exists for reflections.
+
+Independent held-out clamped Float32 GPU output has **5.2901% relative RMS error**
+against actual PMREM references (maximum linear radiance error 0.22588). This
+is directional illumination error, not a final-image error percentage. All
+**150 final comparisons** across actual 1280×720 CSS/DPR 2, 900×1200/DPR 1 and
+390×844/DPR 1 pass WebGL checks and restore A pixel-exactly. Both candidates
+remain active on compact screens. The replay includes hover, drag/spring return,
+focused doors, reader transitions, neighboring rooms, ladder travel and overview
+roll. Wide idle B changes 1,588,362 pixels and C 1,581,655, maximum 37/255: subtle
+surface brightness differences are visible. Composition and contacts remain
+intact, but neither candidate is invisible or approved. Canvas captures exclude
+HTML reader text; this is a controlled Chromium fixture, not native Safari.
+
+A fresh Projects baseline and a rested attempt are retained. After a 60-second
+pause, three unchanged A controls ten seconds apart have CPU means
+4.129 / 4.322 / 4.129 ms and GPU frame means 15.662 / 16.657 / 16.327 ms.
+The **6.09% GPU spread fails the 5% gate**, so the attempt stops before candidate
+blocks. CPU spread is 4.68%; settings and view match, GL errors are zero, AC power
+and nominal OS pressure are stable. Those facts do not prove equal clocks or
+absence of throttling. No reliable improvement is claimed. The subsequent
+balanced unranked A/B/C survey is descriptive evidence only; detailed raw costs,
+checks and final critic review are retained in the linked evidence folder.
+The 301-test suite, build, final typecheck and affected lint passed, with the
+check chronology qualified in the evidence. Independent review scored **95/100**
+with no unresolved blockers for the developer-only outcome.
+
+**Decision:** retain the current lighting and reusable developer probe. B removes
+only one irradiance fetch while adding arithmetic and changing shared specular
+energy. C preserves that specular energy but retains the fetch, so it is a
+fidelity control, not an established optimization. Neither removes expensive
+scene/AO passes or direct light loops. User approval of the before/after art and
+a repeatable net benefit would be needed before adoption; no further candidate
+or broader lightmap implementation is implicitly authorized.
+
+
 ## Next candidates
 
-**Status update, 15 September 2026 — candidates 1–4 were authorized and audited in entries 19–22; candidate 5 remains held. Candidates 3 and 4 retain the existing cached shadows and GTAO. Their bakes remain developer-only; entry 22 records the verification/cost status and required visual review.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
+**Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
@@ -1174,8 +1270,8 @@ The reflection environment is also prepared once at scene setup and reused. Room
 | 1 · completed | Re-measure the delivered camera system and audit invalidation | Entry19 records the audit and targeted material-only AO reuse. Idle AO/shadows were already cached; this does not claim an idle gain. | Preserve the source-identified lab, accepted/excluded runs, transform/reason traces and image checks. Re-measure when art, camera or rendering changes. |
 | 2 · completed | Prototype offline lossless geometry compaction | Entry 20 adopts exact direct indexed cylinder generation: 1.41 MB fewer retained arrays with no new model asset. The broader array bake is not adopted because of delivery and integration cost. | Preserve source generation/checks, exact expanded attributes and images, startup/rendering observations and inconclusive runs. Revisit broader direct-generation opportunities only with new measured evidence; do not restore runtime welding/cache approaches. |
 | 3 · audited, baseline retained | Compare the existing cached shadow map with a developer-baked static representation | Entry 21 proves native-depth transport on the tested engine but finds no steady sampling reduction, added delivery/upload cost and incorrect shadows through portrait roll. Timing rankings were rejected for drift. | Keep the source-identified lab, exact/stale-map image pairs and excluded runs. Revisit only with evidence for net startup benefit, exact validity/fallback and cross-engine rendering fidelity; no production bake is enabled. |
-| 4 · audited, baseline retained; visual review required | Baked static contact shading and bounded live-zone hybrid in Projects | Entry 22 retains GTAO: the bake and subdivision visibly alter shading, add 313,812 receiver triangles and require an additional asset. The hybrid improves moving contacts locally without matching the baseline. | Preserve source-matched subdivision controls, B/C image pairs, restored-A checks, rejected runs and qualified timing. No production adoption without acceptable art and a repeatable net benefit; keep qualified findings and evidence status in entry 22. |
-| 5 · held | Consider baked diffuse illumination only after the narrower experiments | Static indirect or diffuse light could be stored separately while retaining view-dependent reflections, emissive screens and room dimming. This is an art/asset-pipeline change, with extra textures, preparation and rebuild requirements whenever furniture or lights move. | A visible prototype approved before application integration. Verify dim/hover/selected/transit states, material colors and reflections; prevent baked and live terms from counting the same illumination twice. |
+| 4 · audited, baseline retention approved | Baked static contact shading and bounded live-zone hybrid in Projects | The owner approved retaining GTAO after entry 22: the bake and subdivision visibly alter shading, add 313,812 receiver triangles and require an additional asset. The hybrid improves moving contacts locally without matching the baseline. | Preserve source-matched subdivision controls, B/C image pairs, restored-A checks, rejected runs and qualified timing. Any future adoption requires acceptable art, a repeatable net benefit and renewed approval. |
+| 5 · audited, baseline retained | Fitted environment-illumination probe on static Projects materials | Entry 23 compares replacing the shared irradiance lookup against changing only its diffuse contribution. Neither adds geometry or a texture; both visibly approximate existing lighting. Held-out error is about 5.3%; rested GPU controls fail the stability gate. Retain current illumination. | Source-matched GPU fit validation, dim/hover/selected/transit and portrait-roll checks, preserved material/reflection behavior, exact restoration, preparation costs and rested timing. A visible prototype must be accepted before production integration. |
 
 Three.js exposes separate light-map and AO-map inputs; preparing suitable UV coordinates and texture/color-space handling is part of the asset work. A baked AO map is **not an exact substitute** for this application's existing screen-space multiply/composite, so passing a static screenshot check is insufficient. Keep any proposed dynamic shadow layer separate in the comparison: doors currently rely on the AO silhouette rather than casting into the key map, and adding their live cast shadows would introduce new appearance and cost. [Three.js material inputs](https://github.com/mrdoob/three.js/blob/r185/src/materials/MeshStandardMaterial.js), [GTAO implementation](https://github.com/mrdoob/three.js/blob/r185/examples/jsm/postprocessing/GTAOPass.js).
 

@@ -211,15 +211,34 @@ native-depth bake. The bake adds delivery/restore work, does not reduce steady
 sampling and cannot preserve portrait-roll shadows as one fixed map. The reusable
 experiment remains developer-only. Candidate 4 was then authorized: entry 22
 audits baked contact shading on 31 static Projects receivers and a hybrid with
-live hatch/reader contact zones. Production retains the existing GTAO: the bake
+live hatch/reader contact zones. The owner approved retaining production GTAO: the bake
 and its subdivision visibly introduce coarse/patchy shading, add geometry and
 asset costs, and do not preserve all moving-object contacts. The hybrid improves
 local contacts but remains an approximation requiring art review. No contact bake
-or asset is imported by production. Entry 22 owns source-matched verification and timing
-status; stale-error runs are rejected, not evidence of thermal throttling. **Candidate 5, baked diffuse illumination, remains held.**
-The ledger owns order and status. Key-light shadows, settled GTAO and the reflection environment already
-have reuse paths. "Precompute everything"
-is a hypothesis to investigate in parts, not permission to replace the renderer.
+or asset is imported by production. Entry 22 owns source-matched verification and
+timing status; stale-error runs are rejected, not evidence of thermal throttling.
+
+**Candidate 5, baked diffuse illumination, was audited in entry 23. The
+recommendation is to retain the delivered lighting; both visible alternatives
+remain developer-only and unapproved for production.** It fits
+nine RGB coefficients to the existing `RoomEnvironment` PMREM's roughness-1
+directional field, rather than calculating new scene bounces or local contacts.
+One variant replaces the shared irradiance lookup, affecting diffuse and
+specular multiscattering energy; the other changes only its diffuse contribution
+while retaining the original lookup and specular energy. Current fragment normals
+and environment rotation drive evaluation, including portrait roll. Direct
+lights, shadows, GTAO, dynamic readers, emission, room dimming and paint treatment
+remain live. No candidate geometry or texture is added; 108 bytes describes only
+the Float32 coefficients, not total memory. Final held-out GPU error is about
+5.3%, and wide, portrait and compact comparisons show brightness changes. The
+rested timing attempt fails its unchanged-baseline GPU stability gate, so it
+establishes no speedup. Production illumination remains unchanged. Entry 23
+preserves before/after images, qualified measurements and the reusable lab.
+
+The ledger owns order and status. Key-light shadows, settled GTAO, the reflection
+environment and the DFG reflectance approximation already have reuse or
+precomputation paths. "Precompute everything" is a hypothesis to investigate in
+parts, not permission to replace the renderer.
 LOD, optional lower-power idle, adaptive resolution, aggressive room hiding and
 broad hull simplification also remain deferred. The previously approved tiny
 hardware reduction is not blanket approval for further visual simplification.

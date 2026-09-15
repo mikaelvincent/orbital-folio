@@ -1,0 +1,12 @@
+{
+  "filename": "probe-5ca4d8ec037a663b.json.gz",
+  "sourceHash": "b2b8ba919c5c818aea8baa4ec6e007a5f3b1bd393aa66d92d00feaa811baaee5",
+  "bakerSha256": "c37b9c1b7a9b9a056da4e1376f673ff12977966c2dee64c14e945811b9f97f14",
+  "sha256": "5ca4d8ec037a663b193283d5e8d474884a5021711b802b851bf5d13ac4115d98",
+  "gzipSha256": "4ea7bd36c1738762a6d1e31785e1112294c8da68b0cf217bd7308a0d35a9dafe",
+  "jsonBytes": 2026,
+  "gzipBytes": 952,
+  "brotliBytes": 776,
+  "sourceBytes": 767468,
+  "url": "/bakes/probe-5ca4d8ec037a663b.json.gz"
+}

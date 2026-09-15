@@ -1,0 +1,6211 @@
+{
+  "baselineCommit": "6e689c2",
+  "finalSnapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+  "decision": "Keep delivered lighting. Neither visible approximation adopted; no accepted causal timing ranking.",
+  "runs": [
+    {
+      "report": "diffuse-baseline-1280x720-1789483864542.json.gz",
+      "status": "descriptive-baseline-not-a-cross-device-ranking",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 0,
+      "measuredWindows": 4,
+      "readiness": null,
+      "acceptedBlocks": 0
+    },
+    {
+      "report": "diffuse-survey-1280x720-1789484080423.json.gz",
+      "status": "descriptive-only-no-timing-ranking",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 0,
+      "measuredWindows": 24,
+      "readiness": null,
+      "acceptedBlocks": 0
+    },
+    {
+      "report": "diffuse-timing-1280x720-1789483937873.json.gz",
+      "status": "inconclusive-readiness-drift",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 0,
+      "measuredWindows": 0,
+      "readiness": {
+        "cpu": {
+          "stable": true,
+          "medianMs": 4.12916666691502,
+          "spreadFraction": 0.04682139259613953,
+          "endToEndFraction": 1.503649676930249e-10,
+          "monotonic": false,
+          "reason": null
+        },
+        "gpu": {
+          "stable": false,
+          "medianMs": 16.32714,
+          "spreadFraction": 0.060935105597183514,
+          "endToEndFraction": 0.040757482633210766,
+          "monotonic": false,
+          "reason": "control-spread-exceeds-limit"
+        },
+        "phases": {
+          "frame": {
+            "availability": "available",
+            "check": {
+              "stable": false,
+              "medianMs": 16.32714,
+              "spreadFraction": 0.060935105597183514,
+              "endToEndFraction": 0.040757482633210766,
+              "monotonic": false,
+              "reason": "control-spread-exceeds-limit"
+            }
+          }
+        },
+        "gpuAvailability": "available",
+        "allMeasuredGpuStable": false,
+        "matchingState": true
+      },
+      "acceptedBlocks": 0
+    },
+    {
+      "report": "diffuse-verify-1280x720-1789482694458.json.gz",
+      "status": "complete-visual-differences-require-review",
+      "snapshotId": "b8632d61-8628-4457-b06b-fceec4fc835e",
+      "verifications": 50,
+      "measuredWindows": 0,
+      "readiness": null,
+      "acceptedBlocks": 0,
+      "glErrors": [
+        0
+      ],
+      "maxRestorationChangedPixels": 0,
+      "idle": [
+        {
+          "variant": "B",
+          "changedPixels": 1596178,
+          "maxChannelDifference": 37
+        },
+        {
+          "variant": "C",
+          "changedPixels": 1589511,
+          "maxChannelDifference": 37
+        }
+      ]
+    },
+    {
+      "report": "diffuse-verify-1280x720-1789483248049.json.gz",
+      "status": "complete-visual-differences-require-review",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 50,
+      "measuredWindows": 0,
+      "readiness": null,
+      "acceptedBlocks": 0,
+      "glErrors": [
+        0
+      ],
+      "maxRestorationChangedPixels": 0,
+      "idle": [
+        {
+          "variant": "B",
+          "changedPixels": 1588362,
+          "maxChannelDifference": 37
+        },
+        {
+          "variant": "C",
+          "changedPixels": 1581655,
+          "maxChannelDifference": 37
+        }
+      ]
+    },
+    {
+      "report": "diffuse-verify-390x844-1789483528227.json.gz",
+      "status": "complete-visual-differences-require-review",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 50,
+      "measuredWindows": 0,
+      "readiness": null,
+      "acceptedBlocks": 0,
+      "glErrors": [
+        0
+      ],
+      "maxRestorationChangedPixels": 0,
+      "idle": [
+        {
+          "variant": "B",
+          "changedPixels": 67830,
+          "maxChannelDifference": 12
+        },
+        {
+          "variant": "C",
+          "changedPixels": 67556,
+          "maxChannelDifference": 12
+        }
+      ]
+    },
+    {
+      "report": "diffuse-verify-900x1200-1789483361913.json.gz",
+      "status": "complete-visual-differences-require-review",
+      "snapshotId": "b005614a-4515-47c9-8493-107d2721cf37",
+      "verifications": 50,
+      "measuredWindows": 0,
+      "readiness": null,
+      "acceptedBlocks": 0,
+      "glErrors": [
+        0
+      ],
+      "maxRestorationChangedPixels": 0,
+      "idle": [
+        {
+          "variant": "B",
+          "changedPixels": 371069,
+          "maxChannelDifference": 36
+        },
+        {
+          "variant": "C",
+          "changedPixels": 369405,
+          "maxChannelDifference": 36
+        }
+      ]
+    }
+  ],
+  "descriptiveSurvey": [
+    {
+      "scope": "frame",
+      "workload": "idle",
+      "variant": "A",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.339166665698091,
+            "p50": 4.300000011920929,
+            "p95": 5,
+            "max": 5.5999999940395355
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 15.491749375000001,
+                "p50": 14.967416,
+                "p95": 17.520958,
+                "max": 17.520958
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 17.378125
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 14.967416
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 13.153249
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 17.520958
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 17.213208
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 17.332999
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 13.188041
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 13.179999
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 20.71680672278925,
+            "p50": 21.400000005960464,
+            "p95": 24.5,
+            "max": 25.400000005960464
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.109166665996114,
+            "p50": 4.299999997019768,
+            "p95": 4.899999991059303,
+            "max": 5.399999991059303
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 15.908910875,
+                "p50": 16.658499,
+                "p95": 17.468041,
+                "max": 17.468041
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 14.791541
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 17.304375
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 17.231791
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 16.658499
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 17.192875
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 17.468041
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 13.183499
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 13.440666
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 20.757983193302355,
+            "p50": 21.5,
+            "p95": 24.5,
+            "max": 26.099999994039536
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        }
+      ]
+    },
+    {
+      "scope": "frame",
+      "workload": "idle",
+      "variant": "B",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 3.9208333323399227,
+            "p50": 4,
+            "p95": 5.299999997019768,
+            "max": 6.100000008940697
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 17.679874375,
+                "p50": 17.800999,
+                "p95": 17.936375,
+                "max": 17.936375
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 17.800999
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 17.688874
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 17.936375
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 17.818749
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 17.872125
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 17.870458
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 17.791291
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 16.660124
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 21.405882352916134,
+            "p50": 21.799999997019768,
+            "p95": 25.599999994039536,
+            "max": 25.899999991059303
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.436666667833924,
+            "p50": 4.4000000059604645,
+            "p95": 5.5,
+            "max": 5.799999997019768
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 17.31141125,
+                "p50": 17.764875,
+                "p95": 21.576958,
+                "max": 21.576958
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 17.664666
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 18.009791
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 13.955
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 13.922875
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 17.80225
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 17.764875
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 17.794875
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 21.576958
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 21.56554621858757,
+            "p50": 22,
+            "p95": 25.700000002980232,
+            "max": 28
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        }
+      ]
+    },
+    {
+      "scope": "frame",
+      "workload": "idle",
+      "variant": "C",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.772500000397364,
+            "p50": 4.799999997019768,
+            "p95": 5.899999991059303,
+            "max": 6.199999988079071
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 17.954952499999997,
+                "p50": 18.029791,
+                "p95": 18.255999,
+                "max": 18.255999
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 17.993416
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 16.945875
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 18.076958
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 18.255999
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 18.203041
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 17.988874
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 18.029791
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 18.145666
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 21.839495798244197,
+            "p50": 22.599999994039536,
+            "p95": 25.900000005960464,
+            "max": 26.099999994039536
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.004166666666666,
+            "p50": 4.100000008940697,
+            "p95": 5.100000008940697,
+            "max": 5.9000000059604645
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 15.535384874999998,
+                "p50": 13.996875,
+                "p95": 18.288749,
+                "max": 18.288749
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 13.941333
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 17.973458
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 13.910041
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 18.288749
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 13.988124
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 14.160374
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 13.996875
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 18.024125
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 21.562184873874447,
+            "p50": 21.900000005960464,
+            "p95": 25.900000005960464,
+            "max": 26.700000002980232
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        }
+      ]
+    },
+    {
+      "scope": "frame",
+      "workload": "hover",
+      "variant": "A",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.341666666542491,
+            "p50": 5.399999991059303,
+            "p95": 5.9000000059604645,
+            "max": 6.100000008940697
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 20.08755675,
+                "p50": 20.116208,
+                "p95": 20.376666,
+                "max": 20.376666
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 20.166791
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 19.911458
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 20.154124
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 20.116208
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 20.280999
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 19.860458
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 20.376666
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 19.83375
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 24.600000000050088,
+            "p50": 25.299999997019768,
+            "p95": 26.100000008940697,
+            "max": 26.30000001192093
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.285833333556851,
+            "p50": 5.4000000059604645,
+            "p95": 6,
+            "max": 6.700000002980232
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 20.742056625,
+                "p50": 21.659,
+                "p95": 22.675249,
+                "max": 22.675249
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 21.717833
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 21.659
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 18.041624
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 22.675249
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 21.806374
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 21.324125
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 21.673249
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 17.038999
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 26.700840336059322,
+            "p50": 27,
+            "p95": 28.599999994039536,
+            "max": 30.200000002980232
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        }
+      ]
+    },
+    {
+      "scope": "frame",
+      "workload": "hover",
+      "variant": "B",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.34916666696469,
+            "p50": 5.4000000059604645,
+            "p95": 6.0999999940395355,
+            "max": 6.299999997019768
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 20.188098625000002,
+                "p50": 20.670708,
+                "p95": 20.924291,
+                "max": 20.924291
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 20.77025
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 20.694625
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 20.924291
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 20.486124
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 20.670708
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 16.619833
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 20.6435
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 20.695458
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 25.31512605042017,
+            "p50": 26,
+            "p95": 26.900000005960464,
+            "max": 27.900000005960464
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.280833333233992,
+            "p50": 5.4000000059604645,
+            "p95": 6,
+            "max": 6.200000002980232
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 21.06810875,
+                "p50": 20.824166,
+                "p95": 21.8595,
+                "max": 21.8595
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 20.824166
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 20.644749
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 21.8595
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 21.247875
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 21.224166
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 20.721124
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 20.670749
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 21.352541
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 25.71260504199176,
+            "p50": 26.299999997019768,
+            "p95": 27.700000002980232,
+            "max": 28.200000002980232
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        }
+      ]
+    },
+    {
+      "scope": "frame",
+      "workload": "hover",
+      "variant": "C",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.520833333457509,
+            "p50": 5.5999999940395355,
+            "p95": 6.0999999940395355,
+            "max": 6.299999997019768
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 20.422786125,
+                "p50": 20.804416,
+                "p95": 21.2095,
+                "max": 21.2095
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 21.15875
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 20.664625
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 20.883999
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 20.804416
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 21.2095
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 20.671625
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 17.059999
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 20.929375
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 25.89075630252101,
+            "p50": 26.299999997019768,
+            "p95": 26.80000001192093,
+            "max": 27.399999991059303
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.426666666691502,
+            "p50": 5.4000000059604645,
+            "p95": 6,
+            "max": 6.5
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "frame",
+            "phases": {
+              "frame": {
+                "samples": 8,
+                "mean": 20.82301,
+                "p50": 20.663875,
+                "p95": 21.237249,
+                "max": 21.237249
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "frame",
+                "ms": 20.53075
+              },
+              {
+                "frameId": 16,
+                "name": "frame",
+                "ms": 20.518791
+              },
+              {
+                "frameId": 31,
+                "name": "frame",
+                "ms": 21.237249
+              },
+              {
+                "frameId": 46,
+                "name": "frame",
+                "ms": 20.663875
+              },
+              {
+                "frameId": 61,
+                "name": "frame",
+                "ms": 21.0115
+              },
+              {
+                "frameId": 76,
+                "name": "frame",
+                "ms": 20.616249
+              },
+              {
+                "frameId": 91,
+                "name": "frame",
+                "ms": 21.022416
+              },
+              {
+                "frameId": 106,
+                "name": "frame",
+                "ms": 20.98325
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 25.735294117647058,
+            "p50": 26.200000002980232,
+            "p95": 27.299999997019768,
+            "max": 28.100000008940697
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "idle",
+      "variant": "A",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.644166666145126,
+            "p50": 4.799999997019768,
+            "p95": 6.200000002980232,
+            "max": 7
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.3276663750000002,
+                "p50": 1.302999,
+                "p95": 1.528458,
+                "max": 1.528458
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 16.509692375,
+                "p50": 17.515375,
+                "p95": 21.024666,
+                "max": 21.024666
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 17.478327750000002,
+                "p50": 17.847875,
+                "p95": 22.203375,
+                "max": 22.203375
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.142875
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 13.087125
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 17.492291
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.394958
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 13.147
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 13.522375
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.302999
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 12.99825
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 13.384874
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.202375
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 17.515375
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 17.847875
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.469875
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 17.753583
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 18.125291
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.180625
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 18.547916
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 18.868375
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.399166
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 18.003624
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 18.382166
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.528458
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 21.024666
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 22.203375
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 23.03025210079025,
+            "p50": 23.899999991059303,
+            "p95": 26.900000005960464,
+            "max": 27.700000002980232
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.162500000124177,
+            "p50": 6.9000000059604645,
+            "p95": 8.099999994039536,
+            "max": 8.5
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 3.87919725,
+                "p50": 1.237749,
+                "p95": 22.2035,
+                "max": 22.2035
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 20.571932,
+                "p50": 21.523666,
+                "p95": 23.791874,
+                "max": 23.791874
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 21.402910875,
+                "p50": 21.893874,
+                "p95": 24.005583,
+                "max": 24.005583
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 22.2035
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 14.845583
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 15.318333
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.237749
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 22.12475
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 21.42025
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.403999
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 23.791874
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 24.005583
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.000624
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 22.412625
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 23.123166
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.553499
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 17.154
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 21.893874
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.705083
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 22.119375
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 22.502499
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.047291
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 21.523666
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 22.012541
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 0.881833
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 20.603583
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 20.947041
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 28.692436974840003,
+            "p50": 29.099999994039536,
+            "p95": 33.5,
+            "max": 34.80000001192093
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "idle",
+      "variant": "B",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 5.769999999925494,
+            "p50": 6.4000000059604645,
+            "p95": 7.600000008940697,
+            "max": 8.299999997019768
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.255057125,
+                "p50": 1.144875,
+                "p95": 1.569625,
+                "max": 1.569625
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 17.952707750000002,
+                "p50": 18.437208,
+                "p95": 20.269583,
+                "max": 20.269583
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 18.843322375,
+                "p50": 19.140291,
+                "p95": 20.692999,
+                "max": 20.692999
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.51175
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 18.433416
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 18.763583
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.138124
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 19.485124
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 19.885041
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 0.923375
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 18.833916
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 19.140291
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.023708
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 18.437208
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 18.655375
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.233
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 13.930208
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 14.322666
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.569625
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 18.828874
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 19.144041
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.496
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 15.403333
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 20.142583
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.144875
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 20.269583
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 20.692999
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 25.25546218492404,
+            "p50": 25.700000002980232,
+            "p95": 27.700000002980232,
+            "max": 28
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 7.1241666669646895,
+            "p50": 7.299999997019768,
+            "p95": 8.600000008940697,
+            "max": 9
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.214285875,
+                "p50": 1.057416,
+                "p95": 1.545374,
+                "max": 1.545374
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 21.816291,
+                "p50": 18.990458,
+                "p95": 29.555624,
+                "max": 29.555624
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 22.149390375,
+                "p50": 19.387374,
+                "p95": 30.2035,
+                "max": 30.2035
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.545374
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 25.488999
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 25.878375
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.5085
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 29.555624
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 30.2035
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.280374
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 23.566374
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 23.9215
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.057416
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 22.039666
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 22.267749
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.427541
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 18.990458
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 19.387374
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.036791
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 18.252666
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 18.52125
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.979583
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 18.216166
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 18.3805
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 0.878708
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 18.420375
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 18.634875
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 29.72521008400857,
+            "p50": 28.299999997019768,
+            "p95": 39.70000000298023,
+            "max": 42.099999994039536
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "idle",
+      "variant": "C",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 4.925000000869234,
+            "p50": 4.399999991059303,
+            "p95": 7.4000000059604645,
+            "max": 8
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.311160875,
+                "p50": 1.309875,
+                "p95": 1.552583,
+                "max": 1.552583
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 21.132843125,
+                "p50": 21.300874,
+                "p95": 22.326083,
+                "max": 22.326083
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 21.43254625,
+                "p50": 21.444499,
+                "p95": 22.622916,
+                "max": 22.622916
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.484458
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 20.706999
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 21.045666
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.552583
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 21.502458
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 21.825708
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.419124
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 22.168125
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 22.438375
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.141624
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 22.077624
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 22.466249
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.544124
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 22.326083
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 22.622916
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.309875
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 21.300874
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 21.444499
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.188124
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 19.971083
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 20.363333
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 0.849375
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 19.009499
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 19.253624
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 27.156302520958317,
+            "p50": 27.600000008940697,
+            "p95": 29.200000002980232,
+            "max": 29.599999994039536
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.112499998758237,
+            "p50": 6.899999991059303,
+            "p95": 8,
+            "max": 8.599999994039536
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.247952625,
+                "p50": 1.173124,
+                "p95": 1.597124,
+                "max": 1.597124
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 19.232489125,
+                "p50": 19.897708,
+                "p95": 20.73175,
+                "max": 20.73175
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 19.573816875000002,
+                "p50": 20.287249,
+                "p95": 21.172249,
+                "max": 21.172249
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.151958
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 20.052458
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 20.474083
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.135875
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 20.3435
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 20.528749
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.145458
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 19.224874
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 19.350166
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.274208
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 14.124333
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 14.542374
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.173124
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 18.772249
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 19.147874
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.253624
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 20.713041
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 21.172249
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.25225
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 20.73175
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 21.087791
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.597124
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 19.897708
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 20.287249
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 26.843697478916464,
+            "p50": 27.400000005960464,
+            "p95": 30.099999994039536,
+            "max": 31
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301,
+                "p50": 301,
+                "p95": 301,
+                "max": 301
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881084,
+                "p50": 881084,
+                "p95": 881084,
+                "max": 881084
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-cached": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "hover",
+      "variant": "A",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.832499999552965,
+            "p50": 7,
+            "p95": 8.300000011920929,
+            "max": 9.900000005960464
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.04076,
+                "p50": 0.977,
+                "p95": 1.277541,
+                "max": 1.277541
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 21.8562445,
+                "p50": 21.77125,
+                "p95": 24.9555,
+                "max": 24.9555
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 23.254869250000002,
+                "p50": 23.166291,
+                "p95": 25.101666,
+                "max": 25.101666
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 23.106275625000002,
+                "p50": 22.977458,
+                "p95": 24.717833,
+                "max": 24.717833
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.219333
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 24.9555
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 24.951791
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 24.717833
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 0.977
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 21.84025
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 23.521625
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 22.943624
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 0.864375
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 16.39075
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 20.067666
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 23.350125
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 0.876541
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 23.253499
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 23.166291
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 22.226333
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.262958
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 20.938458
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 22.578541
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 21.846208
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 0.862583
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 21.545249
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 23.100999
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 23.069583
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.985749
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 24.155
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 25.101666
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 23.719041
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.277541
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 21.77125
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 23.550375
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 22.977458
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 33.33697478986588,
+            "p50": 33.80000001192093,
+            "p95": 37.20000000298023,
+            "max": 39.900000005960464
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.620000000422199,
+            "p50": 6.799999997019768,
+            "p95": 8.400000005960464,
+            "max": 9.5
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.1234213750000002,
+                "p50": 1.025166,
+                "p95": 1.369083,
+                "max": 1.369083
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 21.729004624999998,
+                "p50": 21.781416,
+                "p95": 25.686624,
+                "max": 25.686624
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 23.337009624999997,
+                "p50": 23.503999,
+                "p95": 25.642624,
+                "max": 25.642624
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 20.71600975,
+                "p50": 21.823291,
+                "p95": 25.002374,
+                "max": 25.002374
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.369083
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 25.686624
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 25.642624
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 25.002374
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.025166
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 23.466458
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 25.172791
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 12.275374
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 0.966833
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 21.781416
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 23.685499
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 22.263541
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.243375
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 20.897249
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 22.527416
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 20.726208
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 0.870999
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 15.379375
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 18.759583
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 19.660458
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.212291
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 22.983
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 22.943541
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 22.115249
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.988625
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 24.827291
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 24.460624
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 21.823291
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.310999
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 18.810624
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 23.503999
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 21.861583
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 33.16722689080639,
+            "p50": 33.79999999701977,
+            "p95": 37.20000000298023,
+            "max": 39.3999999910593
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "A"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "hover",
+      "variant": "B",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.8975000007698934,
+            "p50": 6.9000000059604645,
+            "p95": 8.5,
+            "max": 9.599999994039536
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.10871825,
+                "p50": 0.983999,
+                "p95": 1.55025,
+                "max": 1.55025
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 22.674197375000002,
+                "p50": 22.133666,
+                "p95": 24.855874,
+                "max": 24.855874
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 22.786681875,
+                "p50": 23.5305,
+                "p95": 26.777624,
+                "max": 26.777624
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 23.579515125,
+                "p50": 23.047083,
+                "p95": 26.380416,
+                "max": 26.380416
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.302416
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 22.133666
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 23.916958
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 22.856166
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 0.878166
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 24.412166
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 13.114291
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 22.36925
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 0.983999
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 21.931625
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 23.4625
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 23.047083
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.55025
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 24.336
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 24.2695
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 23.924416
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 0.965041
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 24.855874
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 26.777624
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 26.380416
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 0.8755
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 17.764374
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 23.5305
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 24.065874
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 1.021583
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 23.976249
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 23.868958
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 23.337
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.292791
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 21.983625
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 23.353124
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 22.655916
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 33.905042016831764,
+            "p50": 34.400000005960464,
+            "p95": 36.900000005960464,
+            "max": 38.400000005960464
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.701666666318973,
+            "p50": 6.799999997019768,
+            "p95": 9.600000008940697,
+            "max": 10.799999997019768
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 4.51604125,
+                "p50": 1.149583,
+                "p95": 27.997166,
+                "max": 27.997166
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 25.016593124999996,
+                "p50": 24.325666,
+                "p95": 27.680041,
+                "max": 27.680041
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 25.378931625,
+                "p50": 25.371124,
+                "p95": 27.5925,
+                "max": 27.5925
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 23.31868175,
+                "p50": 23.50125,
+                "p95": 26.876333,
+                "max": 26.876333
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 27.997166
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 27.306416
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 27.124208
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 26.876333
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.226125
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 24.094791
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 26.183499
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 26.196874
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.655874
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 25.662
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 25.371124
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 23.50125
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.002333
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 26.733291
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 26.423666
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 26.165749
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.149583
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 22.194541
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 24.105916
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 23.193
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 0.902374
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 22.135999
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 21.959374
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 12.436499
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.98425
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 27.680041
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 27.5925
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 25.855333
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.210625
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 24.325666
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 24.271166
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 22.324416
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 35.20252100847849,
+            "p50": 35.5,
+            "p95": 39.69999998807907,
+            "max": 42.29999999701977
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "B"
+        }
+      ]
+    },
+    {
+      "scope": "passes",
+      "workload": "hover",
+      "variant": "C",
+      "framesPerWindow": 120,
+      "windows": [
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.785000000397364,
+            "p50": 6.799999997019768,
+            "p95": 8.599999994039536,
+            "max": 9.099999994039536
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 1.172171375,
+                "p50": 1.167624,
+                "p95": 1.444499,
+                "max": 1.444499
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 23.008822375,
+                "p50": 22.198499,
+                "p95": 26.701999,
+                "max": 26.701999
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 23.93347875,
+                "p50": 24.072833,
+                "p95": 26.516874,
+                "max": 26.516874
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 22.86669225,
+                "p50": 23.321916,
+                "p95": 25.664375,
+                "max": 25.664375
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 1.362499
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 18.060874
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 23.580875
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 23.663083
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 0.879958
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 24.234708
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 24.359958
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 23.321916
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 1.251875
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 22.198499
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 24.072833
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 23.658
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.167624
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 21.220041
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 19.321625
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 18.044291
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 1.444499
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 21.340583
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 23.416625
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 21.597625
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 0.992833
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 24.062875
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 24.282916
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 22.842999
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.97425
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 26.701999
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 26.516874
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 24.141249
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.303833
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 26.251
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 25.916124
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 25.664375
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 34.163025210008904,
+            "p50": 34.599999994039536,
+            "p95": 38.099999994039536,
+            "max": 40.5
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        },
+        {
+          "cpuMs": {
+            "samples": 120,
+            "mean": 6.789166666691502,
+            "p50": 7,
+            "p95": 9.200000002980232,
+            "max": 9.900000005960464
+          },
+          "gpu": {
+            "status": "available",
+            "scope": "passes",
+            "phases": {
+              "background": {
+                "samples": 8,
+                "mean": 4.125181749999999,
+                "p50": 1.013208,
+                "p95": 24.211249,
+                "max": 24.211249
+              },
+              "spacecraft": {
+                "samples": 8,
+                "mean": 24.10518175,
+                "p50": 23.730999,
+                "p95": 26.037249,
+                "max": 26.037249
+              },
+              "ao-refresh": {
+                "samples": 8,
+                "mean": 24.597379625,
+                "p50": 24.554125,
+                "p95": 27.456833,
+                "max": 27.456833
+              },
+              "ao-composite": {
+                "samples": 8,
+                "mean": 23.129775625,
+                "p50": 22.770875,
+                "p95": 25.599916,
+                "max": 25.599916
+              }
+            },
+            "pending": 0,
+            "sampleEvery": 15,
+            "discardedSamples": 0,
+            "skippedSamples": 0,
+            "samples": [
+              {
+                "frameId": 1,
+                "name": "background",
+                "ms": 24.211249
+              },
+              {
+                "frameId": 1,
+                "name": "spacecraft",
+                "ms": 23.321625
+              },
+              {
+                "frameId": 1,
+                "name": "ao-refresh",
+                "ms": 22.834333
+              },
+              {
+                "frameId": 1,
+                "name": "ao-composite",
+                "ms": 22.730374
+              },
+              {
+                "frameId": 16,
+                "name": "background",
+                "ms": 1.711874
+              },
+              {
+                "frameId": 16,
+                "name": "spacecraft",
+                "ms": 23.730999
+              },
+              {
+                "frameId": 16,
+                "name": "ao-refresh",
+                "ms": 27.456833
+              },
+              {
+                "frameId": 16,
+                "name": "ao-composite",
+                "ms": 22.770875
+              },
+              {
+                "frameId": 31,
+                "name": "background",
+                "ms": 0.991833
+              },
+              {
+                "frameId": 31,
+                "name": "spacecraft",
+                "ms": 24.782166
+              },
+              {
+                "frameId": 31,
+                "name": "ao-refresh",
+                "ms": 24.411499
+              },
+              {
+                "frameId": 31,
+                "name": "ao-composite",
+                "ms": 24.088833
+              },
+              {
+                "frameId": 46,
+                "name": "background",
+                "ms": 1.5195
+              },
+              {
+                "frameId": 46,
+                "name": "spacecraft",
+                "ms": 22.860625
+              },
+              {
+                "frameId": 46,
+                "name": "ao-refresh",
+                "ms": 24.554125
+              },
+              {
+                "frameId": 46,
+                "name": "ao-composite",
+                "ms": 24.175916
+              },
+              {
+                "frameId": 61,
+                "name": "background",
+                "ms": 0.996291
+              },
+              {
+                "frameId": 61,
+                "name": "spacecraft",
+                "ms": 24.374708
+              },
+              {
+                "frameId": 61,
+                "name": "ao-refresh",
+                "ms": 26.064083
+              },
+              {
+                "frameId": 61,
+                "name": "ao-composite",
+                "ms": 25.599916
+              },
+              {
+                "frameId": 76,
+                "name": "background",
+                "ms": 1.013208
+              },
+              {
+                "frameId": 76,
+                "name": "spacecraft",
+                "ms": 26.037249
+              },
+              {
+                "frameId": 76,
+                "name": "ao-refresh",
+                "ms": 26.062749
+              },
+              {
+                "frameId": 76,
+                "name": "ao-composite",
+                "ms": 24.239
+              },
+              {
+                "frameId": 91,
+                "name": "background",
+                "ms": 0.975916
+              },
+              {
+                "frameId": 91,
+                "name": "spacecraft",
+                "ms": 25.147041
+              },
+              {
+                "frameId": 91,
+                "name": "ao-refresh",
+                "ms": 24.819166
+              },
+              {
+                "frameId": 91,
+                "name": "ao-composite",
+                "ms": 22.262708
+              },
+              {
+                "frameId": 106,
+                "name": "background",
+                "ms": 1.581583
+              },
+              {
+                "frameId": 106,
+                "name": "spacecraft",
+                "ms": 22.587041
+              },
+              {
+                "frameId": 106,
+                "name": "ao-refresh",
+                "ms": 20.576249
+              },
+              {
+                "frameId": 106,
+                "name": "ao-composite",
+                "ms": 19.170583
+              }
+            ]
+          },
+          "frameIntervalMs": {
+            "samples": 119,
+            "mean": 34.49579831932773,
+            "p50": 35.29999999701977,
+            "p95": 38.400000005960464,
+            "max": 39.29999999701977
+          },
+          "passes": {
+            "background": {
+              "calls": {
+                "samples": 120,
+                "mean": 4,
+                "p50": 4,
+                "p95": 4,
+                "max": 4
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 48642,
+                "p50": 48642,
+                "p95": 48642,
+                "max": 48642
+              },
+              "points": {
+                "samples": 120,
+                "mean": 3100,
+                "p50": 3100,
+                "p95": 3100,
+                "max": 3100
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "spacecraft": {
+              "calls": {
+                "samples": 120,
+                "mean": 301.09166666666664,
+                "p50": 301,
+                "p95": 302,
+                "max": 302
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 881087.85,
+                "p50": 881084,
+                "p95": 881126,
+                "max": 881126
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-refresh": {
+              "calls": {
+                "samples": 120,
+                "mean": 261.09166666666664,
+                "p50": 261,
+                "p95": 262,
+                "max": 262
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 868225.85,
+                "p50": 868222,
+                "p95": 868264,
+                "max": 868264
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            },
+            "ao-composite": {
+              "calls": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "triangles": {
+                "samples": 120,
+                "mean": 1,
+                "p50": 1,
+                "p95": 1,
+                "max": 1
+              },
+              "points": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              },
+              "lines": {
+                "samples": 120,
+                "mean": 0,
+                "p50": 0,
+                "p95": 0,
+                "max": 0
+              }
+            }
+          },
+          "counters": {
+            "ao-refresh": 120,
+            "ao-camera-position": 120,
+            "ao-camera-angle": 120
+          },
+          "priorGlError": 0,
+          "glError": 0,
+          "effective": "C"
+        }
+      ]
+    }
+  ]
+}
