@@ -33,8 +33,9 @@ test('Ladder grilles and generic covers give way to open transfer equipment and 
     2,
   );
   assert.equal(
-    names.filter((n) => n === 'ladder-end-clipped-tether-carabiner').length,
-    2,
+    names.filter((n) => /^ladder-end-.*(tether|spool|carabiner)/.test(n))
+      .length,
+    0,
   );
   assert.equal(
     names.filter((n) => n === 'ladder-end-curved-transfer-handhold').length,
@@ -107,10 +108,6 @@ test('Circular handhold mounting shoes seat on the actual pressure curve through
     cy,
     { navy: mat, liner: mat, metal: mat, amber: mat },
   );
-  const tetherParts = new Map([
-    [-1, {}],
-    [1, {}],
-  ]);
   let samples = 0,
     grips = 0,
     straightGrasps = 0;
@@ -139,18 +136,6 @@ test('Circular handhold mounting shoes seat on the actual pressure curve through
   };
   root.traverse((o) => {
     if (!o.isMesh) return;
-    const partSide = Math.sign(
-      new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).y - cy,
-    );
-    if (o.name === 'ladder-end-retained-tether-windings')
-      tetherParts.get(partSide).winding = o;
-    if (o.name === 'ladder-end-spool-to-carabiner-safety-lead')
-      tetherParts.get(partSide).lead = o;
-    if (o.name === 'ladder-end-clipped-tether-carabiner')
-      tetherParts.get(partSide).hook = o;
-    if (o.name === 'ladder-end-carabiner-peg-end-stop')
-      tetherParts.get(partSide).peg = o;
-
     if (o.name === 'ladder-end-curved-transfer-handhold') {
       const path = o.geometry.parameters.path;
       const radius = o.geometry.parameters.radius;
@@ -219,32 +204,6 @@ test('Circular handhold mounting shoes seat on the actual pressure curve through
     }
     geometry.dispose();
   });
-  for (const parts of tetherParts.values()) {
-    assert(parts.winding && parts.lead && parts.hook && parts.peg);
-    const winding = parts.winding.geometry.parameters.path;
-    const lead = parts.lead.geometry.parameters.path;
-    const hook = parts.hook.geometry.parameters.path;
-    assert(
-      lead.getPoint(0).distanceTo(winding.getPoint(1)) < 1e-8,
-      'The slack safety lead actually starts on the final winding',
-    );
-    assert(
-      lead.getPoint(1).distanceTo(hook.getPointAt(0.16)) < 1e-8,
-      'The lead terminates on the carabiner frame',
-    );
-    const pegCenter = new THREE.Box3()
-      .setFromObject(parts.peg)
-      .getCenter(new THREE.Vector3());
-    const hookDistance = Math.min(
-      ...Array.from({ length: 161 }, (_, i) =>
-        hook.getPointAt(i / 160).distanceTo(pegCenter),
-      ),
-    );
-    assert(
-      hookDistance < 0.035,
-      'The carabiner is physically captured on its mounting peg',
-    );
-  }
   assert.equal(grips, 4, 'Two open transfer grips at each end');
   assert.equal(straightGrasps, 4);
   assert(

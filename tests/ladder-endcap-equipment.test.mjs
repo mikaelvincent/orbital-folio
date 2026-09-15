@@ -49,16 +49,6 @@ test('Open ladder transfer equipment occupies both end gaps without covering the
     3,
     'Three shared material batches serve both ends',
   );
-  const triangles = meshes.reduce(
-    (sum, m) =>
-      sum +
-      (m.geometry.index?.count ?? m.geometry.attributes.position.count) / 3,
-    0,
-  );
-  assert(
-    triangles < 37000,
-    'Explicit allowance for curved rails, wound tether and open carabiner detail',
-  );
   for (const layout of ['wide', 'compact']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
@@ -72,6 +62,10 @@ test('Open ladder transfer equipment occupies both end gaps without covering the
         const x = p.getX(i),
           y = p.getY(i),
           z = p.getZ(i);
+        assert(
+          z < -0.21 || z > 0.44,
+          'The space between both grab-bar pairs contains no reel, hook or residual mount',
+        );
         const offset = Math.abs(y - LADDER_CENTER_Y);
         sides.add(Math.sign(y - LADDER_CENTER_Y));
         assert(

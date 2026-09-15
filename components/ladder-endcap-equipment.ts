@@ -1,4 +1,4 @@
-/** Open transfer grips and retained safety tethers follow the ladder's rounded
+/** Open transfer grips follow the ladder's rounded
  * ends. The liner remains visible through every handhold and attachment point.
  */
 export function buildLadderEndcapEquipment(
@@ -16,26 +16,9 @@ export function buildLadderEndcapEquipment(
     batchRoot: true,
     excludePick: true,
     static: true,
-    equipmentKind: 'curved-transfer-grips-and-retained-safety-tethers',
+    equipmentKind: 'open-transfer-grips',
   };
   parent.add(root);
-  const wallX = (y: number) => {
-    let left = Infinity;
-    for (let i = 0; i < contour.length; i++) {
-      const a = contour[i],
-        b = contour[(i + 1) % contour.length];
-      if (
-        Math.abs(a.y - b.y) < 1e-10 ||
-        y < Math.min(a.y, b.y) ||
-        y > Math.max(a.y, b.y)
-      )
-        continue;
-      left = Math.min(left, a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y));
-    }
-    if (!Number.isFinite(left))
-      throw new RangeError('Ladder attachment must lie on the pressure liner');
-    return left;
-  };
   const crownY = (x: number, side: number) => {
     let edge = side > 0 ? -Infinity : Infinity;
     for (let i = 0; i < contour.length; i++) {
@@ -103,7 +86,6 @@ export function buildLadderEndcapEquipment(
     radius: number,
     depth: number,
     inset: number,
-    surface: 'bow' | 'crown',
     cross: number,
     z: number,
     side: number,
@@ -115,10 +97,11 @@ export function buildLadderEndcapEquipment(
       uv: number[] = [];
     const segments = 24,
       rings = 4;
-    const point = (u: number, v: number, w: number) =>
-      surface === 'bow'
-        ? [wallX(cross + v) + w, cross + v, z - u]
-        : [cross + u, crownY(cross + u, side) - side * w, z + v];
+    const point = (u: number, v: number, w: number) => [
+      cross + u,
+      crownY(cross + u, side) - side * w,
+      z + v,
+    ];
     for (const w of [inset, inset + depth]) {
       positions.push(...point(0, 0, w));
       uv.push(0.5, 0.5);
@@ -162,7 +145,7 @@ export function buildLadderEndcapEquipment(
       indices.push(a, a + layer, b, b, a + layer, b + layer);
     }
     // The lower crown mirrors the upper crown, reversing its basis.
-    if (surface === 'crown' && side < 0)
+    if (side < 0)
       for (let i = 0; i < indices.length; i += 3)
         [indices[i + 1], indices[i + 2]] = [indices[i + 2], indices[i + 1]];
     const geometry = new THREE.BufferGeometry();
@@ -259,7 +242,6 @@ export function buildLadderEndcapEquipment(
           0.061,
           0.018,
           -0.0015,
-          'crown',
           x,
           z,
           side,
@@ -270,7 +252,6 @@ export function buildLadderEndcapEquipment(
           0.032,
           0.016,
           0.014,
-          'crown',
           x,
           z,
           side,
@@ -280,160 +261,6 @@ export function buildLadderEndcapEquipment(
         mounts.push({ side, surface: 'crown', cross: x, z, radius: 0.061 });
       }
     }
-    // An exposed winding spool and its clipped carabiner make the secondary
-    // fixture recognizable as a retained safety tether, rather than a control.
-    const y = centerY + side * 2.39,
-      z = 0.075;
-    shoe(
-      0.05,
-      0.019,
-      -0.0015,
-      'bow',
-      y,
-      z,
-      side,
-      materials.metal,
-      'liner-seated-tether-shoe',
-    );
-    shoe(
-      0.026,
-      0.147,
-      0.012,
-      'bow',
-      y,
-      z,
-      side,
-      materials.navy,
-      'tether-spool-axle',
-    );
-    mounts.push({ side, surface: 'bow', cross: y, z, radius: 0.05 });
-    // Narrow open flanges expose the drum and its deep dark rope winding.
-    // There is no solid silver face that could read as a washer or a disc.
-    for (const inset of [0.025, 0.153]) {
-      const ring = Array.from({ length: 65 }, (_, i) => {
-        const angle = (i * Math.PI * 2) / 64,
-          py = y + side * Math.cos(angle) * 0.084;
-        return [wallX(py) + inset, py, z + Math.sin(angle) * 0.084];
-      });
-      tube(ring, 0.006, materials.metal, 'open-tether-reel-flange', 64, 8);
-      for (let arm = 0; arm < 3; arm++) {
-        const angle = (arm * Math.PI * 2) / 3;
-        const point = (r: number) => {
-          const py = y + side * Math.cos(angle) * r;
-          return [wallX(py) + inset, py, z + Math.sin(angle) * r];
-        };
-        tube(
-          [point(0.021), point(0.083)],
-          0.0055,
-          materials.metal,
-          'tether-reel-spoke',
-          8,
-          8,
-        );
-      }
-    }
-    shoe(
-      0.056,
-      0.114,
-      0.031,
-      'bow',
-      y,
-      z,
-      side,
-      materials.navy,
-      'tether-winding-drum-core',
-    );
-    const windings = Array.from({ length: 241 }, (_, i) => {
-      const t = i / 240,
-        angle = t * Math.PI * 20,
-        py = y + side * Math.cos(angle) * 0.064;
-      return [wallX(py) + 0.031 + t * 0.115, py, z + Math.sin(angle) * 0.064];
-    });
-    tube(windings, 0.0085, materials.navy, 'retained-tether-windings', 240, 8);
-    shoe(
-      0.017,
-      0.01,
-      0.159,
-      'bow',
-      y,
-      z,
-      side,
-      materials.amber,
-      'tether-spool-lock-pin',
-    );
-    const hookY = centerY + side * 2.435,
-      hookZ = 0.322;
-    const hookPoint = (u: number, v: number, inset = 0.105) => {
-      const py = hookY + side * v;
-      return [wallX(py) + inset, py, hookZ + u];
-    };
-    const hook = [
-      [0.031, 0.06],
-      [0, 0.084],
-      [-0.04, 0.057],
-      [-0.046, 0.003],
-      [-0.037, -0.054],
-      [0.004, -0.079],
-      [0.039, -0.05],
-    ];
-    const hookCurve = tube(
-      hook.map(([u, v]) => hookPoint(u, v)),
-      0.0105,
-      materials.metal,
-      'clipped-tether-carabiner',
-      40,
-    );
-    tube(
-      [hookPoint(0.039, -0.05), hookPoint(0.031, 0.06)],
-      0.008,
-      materials.navy,
-      'carabiner-spring-gate',
-      8,
-    );
-    tube(
-      [hookPoint(0.036, -0.006), hookPoint(0.034, 0.019)],
-      0.012,
-      materials.amber,
-      'carabiner-gate-lock',
-      8,
-    );
-    // The hook is captured on a real peg; the short slack lead terminates on
-    // its frame, and every winding stays on the drum between its flanges.
-    shoe(
-      0.024,
-      0.105,
-      -0.0015,
-      'bow',
-      hookY + side * 0.041,
-      hookZ - 0.029,
-      side,
-      materials.navy,
-      'carabiner-retaining-peg',
-    );
-    shoe(
-      0.03,
-      0.012,
-      0.101,
-      'bow',
-      hookY + side * 0.041,
-      hookZ - 0.029,
-      side,
-      materials.metal,
-      'carabiner-peg-end-stop',
-    );
-    tube(
-      [
-        windings[windings.length - 1],
-        [wallX(y + side * 0.07) + 0.18, y + side * 0.07, 0.16],
-        [wallX(hookY + side * 0.052) + 0.12, hookY + side * 0.052, 0.245],
-        hookCurve.getPointAt(0.16).toArray(),
-      ],
-      0.0075,
-      materials.navy,
-      'spool-to-carabiner-safety-lead',
-      28,
-      8,
-    );
   }
   root.userData.layout = {
     symmetryCenterY: centerY,
