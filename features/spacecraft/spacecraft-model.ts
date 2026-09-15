@@ -1,4 +1,5 @@
 import { createModelPrimitives } from './geometry/model-primitives.ts';
+import { indexedCylinderType } from './geometry/indexed-cylinder.generated.js';
 import { buildDockingAndServiceAssemblies } from './equipment/docking-service-assemblies.ts';
 import { buildContinuousExteriorSkin } from './geometry/continuous-exterior-skin.ts';
 import { buildExteriorServiceEquipment } from './equipment/exterior-service-equipment.ts';
@@ -118,6 +119,8 @@ export function createSpacecraft(
     vesselName?: string;
     /** Keep an exact uncoalesced reference available for equivalence tests. */
     coalesceInstances?: boolean;
+    /** Exact direct-indexed prototype; reference remains available to the lab. */
+    geometryCompaction?: boolean;
   } = {},
 ): {
   group: any;
@@ -163,6 +166,8 @@ export function createSpacecraft(
   readerSurfaces: Record<string, any>;
   interactionTargets: Array<{ object: any; section: string }>;
 } {
+  if (options.geometryCompaction !== false)
+    THREE = { ...THREE, CylinderGeometry: indexedCylinderType(THREE) };
   const group = new THREE.Group();
   group.name = 'orbital-pressure-vessel';
   // AO consumes geometry/visibility, not the material feedback included in

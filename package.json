@@ -8,9 +8,12 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "prebuild": "npm run geometry:check",
     "start": "wrangler dev --config dist/server/wrangler.json --persist-to .wrangler/state",
     "lint": "oxlint",
     "format": "oxfmt",
+    "geometry:generate": "node scripts/generate-indexed-cylinder.mjs",
+    "geometry:check": "node scripts/generate-indexed-cylinder.mjs --check",
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
     "test": "node --test --test-concurrency=1 tests/*/*.test.mjs",
