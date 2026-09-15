@@ -1488,7 +1488,7 @@ export function mountSpacecraftScene({
             anchor.parent.scale.y *= readerStretch();
           updateRenderSceneMatrices(scene);
           camera.updateMatrixWorld(true);
-          audit?.contactFrame?.();
+          (audit?.shadingFrame ?? audit?.contactFrame)?.();
           diagnostics?.mark('matrices');
           annotations.update(
             cameraFrame.virtualCamera,
@@ -2427,9 +2427,9 @@ export function mountSpacecraftScene({
         const disposeShadowAudit = audit?.shadowReady?.({
           three: THREE, renderer, scene, camera, light: key,
         });
-        const disposeContactAudit = audit?.contactReady?.({
+        const disposeShadingAudit = (audit?.shadingReady ?? audit?.contactReady)?.({
           three: THREE, renderer, scene, camera, model, ao,
-          invalidate: () => invalidateAo('contact-lab-variant'),
+          invalidate: () => invalidateAo('shading-lab-variant'),
           enabled: () => !mobile() && contactShading && experiment !== 'no-ao' && experiment !== 'no-spacecraft',
         });
         let auditBackup: Three.WebGLRenderTarget | undefined;
@@ -2687,7 +2687,7 @@ export function mountSpacecraftScene({
             motionDiagnostic,
           );
           latest.current.onSurfaceReady(null);
-          disposeContactAudit?.();
+          disposeShadingAudit?.();
           const materials = new Set<Three.Material>(),
             geometries = new Set<Three.BufferGeometry>(),
             textures = new Set<Three.Texture>();

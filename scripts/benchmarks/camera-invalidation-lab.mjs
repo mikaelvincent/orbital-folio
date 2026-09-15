@@ -16,6 +16,7 @@ import { tmpdir } from 'node:os';
 import { dirname, extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bakeContactGeometry } from './contact-geometry-bake.mjs';
+import { fitDiffuseProbe } from './diffuse-probe-fit.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 function argument(name, fallback) {
@@ -27,19 +28,20 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535)
   throw new Error('Choose an unprivileged local port.');
 const sampler = argument('--thermal-sampler', null);
 const experiment = argument('--experiment', 'camera');
-if (!['camera', 'geometry', 'shadow', 'contact'].includes(experiment)) throw new Error('Unknown experiment.');
+if (!['camera', 'geometry', 'shadow', 'contact', 'diffuse'].includes(experiment)) throw new Error('Unknown experiment.');
 if (sampler && !sampler.startsWith('/'))
   throw new Error('The optional compiled sampler requires an absolute path.');
 if (sampler) await fs.access(sampler, 1);
 const execute = promisify(execFile);
 const snapshot = await fs.mkdtemp(join(tmpdir(), 'orbital-camera-lab-'));
 const bundle = join(snapshot, 'bundle');
-const evidence = join(root, 'docs/evidence/performance', experiment === 'contact' ? 'static-contact-bake' : experiment === 'shadow' ? 'static-shadow-bake' : experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
+const evidence = join(root, 'docs/evidence/performance', experiment === 'diffuse' ? 'baked-diffuse-probe' : experiment === 'contact' ? 'static-contact-bake' : experiment === 'shadow' ? 'static-shadow-bake' : experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
 const hash = (data) => createHash('sha256').update(data).digest('hex');
 const contactBakerHash = hash(await fs.readFile(join(root, 'scripts/benchmarks/contact-geometry-bake.mjs')));
+const diffuseBakerHash = hash(await fs.readFile(join(root, 'scripts/benchmarks/diffuse-probe-fit.mjs')));
 const result = await build({
   absWorkingDir: root,
-  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx', 'scripts/benchmarks/shadow-bake-lab.tsx', 'scripts/benchmarks/contact-shading-lab.tsx'],
+  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx', 'scripts/benchmarks/shadow-bake-lab.tsx', 'scripts/benchmarks/contact-shading-lab.tsx', 'scripts/benchmarks/diffuse-lighting-lab.tsx'],
   outdir: bundle,
   entryNames: '[name]',
   chunkNames: 'chunks/[name]-[hash]',
@@ -64,6 +66,7 @@ const sourcePaths = new Set([
   'app/globals.css',
   'scripts/benchmarks/camera-invalidation-lab.mjs',
   'scripts/benchmarks/contact-geometry-bake.mjs',
+  'scripts/benchmarks/diffuse-probe-fit.mjs',
   'package-lock.json',
 ]);
 const sourceFiles = await Promise.all([...sourcePaths].sort().map(async (path) => {
@@ -102,7 +105,7 @@ const manifest = {
 };
 await fs.writeFile(join(snapshot, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft ${experiment} measurement lab</title><link rel="stylesheet" href="/lab/portfolio.css"><link rel="stylesheet" href="/lab/camera-invalidation-lab.css"></head><body data-experiment="${experiment}"><div id="portfolio-root"></div><div id="camera-lab-controls"></div><script type="module" src="/lab/camera-invalidation-lab.js"></script></body></html>`;
-const page = ['shadow', 'contact'].includes(experiment) ? html.replace('src="/lab/camera-invalidation-lab.js"', `src="/lab/${experiment === 'contact' ? 'contact-shading' : 'shadow-bake'}-lab.js"`) : html;
+const page = ['shadow', 'contact', 'diffuse'].includes(experiment) ? html.replace('src="/lab/camera-invalidation-lab.js"', `src="/lab/${experiment === 'diffuse' ? 'diffuse-lighting' : experiment === 'contact' ? 'contact-shading' : 'shadow-bake'}-lab.js"`) : html;
 const bakedAssets = new Map();
 const status = { builtAt: manifest.builtAt, snapshotId: manifest.snapshotId, phase: 'ready', progress: null, saved: [] };
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.gz': 'application/gzip', '.woff2': 'font/woff2' };
@@ -144,31 +147,33 @@ const server = createServer(async (request, response) => {
       if (!sameOrigin(request) || !request.headers['content-type']?.startsWith('application/json')) {
         json(response, 403, { error: 'Local same-origin JSON requests only.' }); return;
       }
-      if (pathname !== '/results' && pathname !== '/progress' && !(experiment === 'shadow' && pathname === '/bake') && !(experiment === 'contact' && pathname === '/contact-bake')) {
+      if (pathname !== '/results' && pathname !== '/progress' && !(experiment === 'shadow' && pathname === '/bake') && !(experiment === 'contact' && pathname === '/contact-bake') && !(experiment === 'diffuse' && pathname === '/diffuse-bake')) {
         json(response, 405, { error: 'This fixture has no application write APIs.' }); return;
       }
       const value = await body(request);
-      if (pathname === '/contact-bake') {
+      if (pathname === '/contact-bake' || pathname === '/diffuse-bake') {
+        const diffuse = pathname === '/diffuse-bake';
+        const bakerHash = diffuse ? diffuseBakerHash : contactBakerHash;
         const inputBytes = Buffer.from(JSON.stringify(value));
         const sourceHash = hash(inputBytes);
         await fs.mkdir(evidence, { recursive: true });
         await fs.writeFile(join(evidence, `input-${sourceHash.slice(0, 16)}.json.gz`), gzipSync(inputBytes), { flag: 'wx' }).catch((e) => { if (e.code !== 'EEXIST') throw e; });
-        const descriptor = join(evidence, `bake-${hash(sourceHash + contactBakerHash).slice(0, 16)}.json`);
+        const descriptor = join(evidence, `bake-${hash(sourceHash + bakerHash).slice(0, 16)}.json`);
         try {
           const asset = JSON.parse(await fs.readFile(descriptor, 'utf8'));
           const gzip = await fs.readFile(join(evidence, asset.filename));
-          if (hash(gzip) !== asset.gzipSha256 || asset.sourceHash !== sourceHash || asset.bakerSha256 !== contactBakerHash) throw new Error('Cached developer bake failed its hash check.');
+          if (hash(gzip) !== asset.gzipSha256 || asset.sourceHash !== sourceHash || asset.bakerSha256 !== bakerHash) throw new Error('Cached developer bake failed its hash check.');
           bakedAssets.set(asset.url, { gzip, metadata: asset });
           json(response, 200, { asset, reusedDeveloperBake: true }); return;
         } catch (error) { if (error.code !== 'ENOENT') throw error; }
-        const payload = bakeContactGeometry(value);
+        const payload = diffuse ? fitDiffuseProbe(value) : bakeContactGeometry(value);
         const raw = Buffer.from(JSON.stringify(payload));
         const gzip = gzipSync(raw, { level: 9 });
         const brotli = brotliCompressSync(raw);
-        const filename = `contact-${hash(raw).slice(0, 16)}.json.gz`;
+        const filename = `${diffuse ? 'probe' : 'contact'}-${hash(raw).slice(0, 16)}.json.gz`;
         await fs.mkdir(evidence, { recursive: true });
         await fs.writeFile(join(evidence, filename), gzip, { flag: 'wx' }).catch((e) => { if (e.code !== 'EEXIST') throw e; });
-        const asset = { filename, sourceHash, bakerSha256: contactBakerHash, sha256: hash(raw), gzipSha256: hash(gzip),
+        const asset = { filename, sourceHash, bakerSha256: bakerHash, sha256: hash(raw), gzipSha256: hash(gzip),
           jsonBytes: raw.length, gzipBytes: gzip.length, brotliBytes: brotli.length,
           sourceBytes: inputBytes.length, url: `/bakes/${filename}` };
         bakedAssets.set(asset.url, { gzip, metadata: asset });
