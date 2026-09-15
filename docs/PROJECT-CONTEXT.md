@@ -188,11 +188,16 @@ or rejected runs. Compare mean/p95 and block variation, refresh frequency,
 startup/preparation and disposal where relevant. Neither geometry counts nor
 CPU submission establishes GPU time; group hiding also changes occlusion/shading.
 
-**All next candidates remain held.** The ledger currently proposes fresh camera
-and shadow/AO invalidation measurements, offline exact geometry compaction,
-bounded baked-shadow experiments, baked contact shading and later diffuse-light
-experiments. The ledger owns order/status. Key-light shadows, settled GTAO and
-the reflection environment already have reuse paths. "Precompute everything"
+**Candidate 1 was authorized on 15 September 2026.** The delivered-camera audit
+separates actual geometry revisions from material feedback so color-only changes
+can reuse GTAO. Camera/door/reader motion, projection and explicit invalidation
+remain covered. Shadow diagnostics count actual generation, and the full-scene
+lab supports balanced comparisons with mutually exclusive frame/pass GPU timers.
+Entry 19 records the narrow measured benefit, exclusions and image checks.
+Offline exact geometry compaction, bounded baked-shadow experiments, baked contact
+shading and later diffuse-light experiments remain held. The ledger owns order
+and status. Key-light shadows, settled GTAO and the reflection environment already
+have reuse paths. "Precompute everything"
 is a hypothesis to investigate in parts, not permission to replace the renderer.
 LOD, optional lower-power idle, adaptive resolution, aggressive room hiding and
 broad hull simplification also remain deferred. The previously approved tiny

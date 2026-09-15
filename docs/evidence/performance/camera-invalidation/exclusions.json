@@ -1,0 +1,11 @@
+{
+  "survey-1789449261591-2f0558ce.json.gz": {
+    "status": "exploratory; superseded by corrected replay",
+    "excludedScenarios": [
+      "contact-object-focus",
+      "overview-room-focus",
+      "door-focus-open-close"
+    ],
+    "reason": "Synthetic keydown targeted Document, which has no Element.closest; focus modality did not engage. Raw checkpoints confirm empty feedback. Corrected to bubbling body-targeted events with acquisition assertions. Pass GPU timings retain potential inter-pass instrumentation/resolve effects; do not sum into frame GPU time."
+  }
+}

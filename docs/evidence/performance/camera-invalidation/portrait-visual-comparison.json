@@ -1,0 +1,170 @@
+{
+  "legacy": "verify-1789451794524-e757afc4",
+  "candidate": "verify-1789452088115-4fd0730b",
+  "checkpointCount": 170,
+  "mismatchedReadbackMetrics": [],
+  "mismatchedState": [],
+  "refreshMaskDifferences": {
+    "contact-object-focus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144
+    ]
+  },
+  "shadowMaskDifferences": {},
+  "pairedImages": [
+    {
+      "scenario": "idle-home",
+      "frame": 29,
+      "legacy": "verify-1789451794524-e757afc4-verify-4-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-4-before.png",
+      "identicalBytes": true
+    },
+    {
+      "scenario": "overview-entry",
+      "frame": 29,
+      "legacy": "verify-1789451794524-e757afc4-verify-54-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-54-before.png",
+      "identicalBytes": true
+    },
+    {
+      "scenario": "return-overview",
+      "frame": 29,
+      "legacy": "verify-1789451794524-e757afc4-verify-68-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-68-before.png",
+      "identicalBytes": true
+    },
+    {
+      "scenario": "contact-object-focus",
+      "frame": 29,
+      "legacy": "verify-1789451794524-e757afc4-verify-82-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-82-before.png",
+      "identicalBytes": true
+    },
+    {
+      "scenario": "door-focus-open-close",
+      "frame": 14,
+      "legacy": "verify-1789451794524-e757afc4-verify-110-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-110-before.png",
+      "identicalBytes": true
+    },
+    {
+      "scenario": "ladder-travel",
+      "frame": 29,
+      "legacy": "verify-1789451794524-e757afc4-verify-132-before.png",
+      "candidate": "verify-1789452088115-4fd0730b-verify-132-before.png",
+      "identicalBytes": true
+    }
+  ],
+  "nonzeroCachedVersusFresh": [
+    [
+      "pointer-hover-sweep",
+      179,
+      5947,
+      14
+    ],
+    [
+      "door-focus-open-close",
+      89,
+      1890,
+      3
+    ],
+    [
+      "door-focus-open-close",
+      179,
+      1884,
+      12
+    ],
+    [
+      "drag-release",
+      119,
+      3767,
+      33
+    ],
+    [
+      "drag-release",
+      149,
+      2603,
+      47
+    ],
+    [
+      "drag-release",
+      179,
+      2589,
+      47
+    ]
+  ],
+  "conclusion": "Same mounted GTAO instance and noise. Every captured transform, feedback, readback metric and all six paired PNG byte sequences match. Only Contact material-only AO refreshes are removed; shadow masks are unchanged. Six existing cached-versus-fresh settling differences are reproduced by both policies."
+}

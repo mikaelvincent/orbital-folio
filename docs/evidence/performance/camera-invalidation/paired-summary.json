@@ -1,0 +1,1526 @@
+{
+  "schemaVersion": 1,
+  "summarizedAt": "2026-09-15T06:15:21.012Z",
+  "reports": [
+    {
+      "input": "docs/evidence/performance/camera-invalidation/paired-1789450018903-bd25f214.json.gz",
+      "inputBytes": 952058,
+      "inputSha256": "3d0210564705bbf282a5fb745ac41e068fcb614c6ebccce034ca2ed75cd0fc9d",
+      "schemaVersion": 1,
+      "runId": "paired-1789450018903-bd25f214",
+      "mode": "paired",
+      "overallStatus": "inconclusive-recovery",
+      "startedAt": "2026-09-15T05:26:58.903Z",
+      "endedAt": "2026-09-15T05:35:44.942Z",
+      "settings": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "devicePixelRatio": 2,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 10,
+        "simulationStep": 0.016666666666666666,
+        "backgroundTime": 0,
+        "policy": "legacy",
+        "gpuScope": "frame",
+        "framesPerSample": 180,
+        "controlSpreadLimit": 0.05,
+        "directionalDriftLimit": 0.025,
+        "initialRecoveryMs": 60000,
+        "blockRecoveryMs": 20000,
+        "fixture": "published seed content",
+        "initialSection": "contact"
+      },
+      "notes": "Hidden built-in Chromium. AC/Low Power Mode sampled at boundaries; no agent builds/tests/other rendering. Other user workload unobserved. Corrected Element-targeted keyboard replay.",
+      "sourceSnapshotId": "3d65a054-e31e-4c59-83e5-bdc0e3cd157a",
+      "errors": [],
+      "acceptedBlockCount": 3,
+      "rejectedOrUnacceptedBlockCount": 1,
+      "acceptedOrderCounts": {
+        "contact-object-focus: legacy/geometry/geometry/legacy": 2,
+        "contact-object-focus: geometry/legacy/legacy/geometry": 1
+      },
+      "blocks": [
+        {
+          "scenario": "contact-object-focus",
+          "index": 0,
+          "order": [
+            "legacy",
+            "geometry",
+            "geometry",
+            "legacy"
+          ],
+          "accepted": true,
+          "reasons": [],
+          "referenceSpread": 0.03327706794703965,
+          "recordedRows": 4,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:30:18.980Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 82.88212498882785,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t63%; discharging; 3:40 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 83.09450000524521,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 77.91595833259635,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 251.0304166789865,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:30:18Z",
+              "uptimeSeconds": 92327.04991791667
+            },
+            "stderr": "",
+            "sampleWallMs": 261.4444169999915,
+            "label": "contact-object-focus-block-0-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:30:56.100Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 85.0523749977583,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t63%; discharging; 3:30 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 84.13270833261777,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 86.58791666675825,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 266.05283333628904,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:30:56Z",
+              "uptimeSeconds": 92364.17161079167
+            },
+            "stderr": "",
+            "sampleWallMs": 278.22574999998324,
+            "label": "contact-object-focus-block-0-after"
+          }
+        },
+        {
+          "scenario": "contact-object-focus",
+          "index": 1,
+          "order": [
+            "geometry",
+            "legacy",
+            "legacy",
+            "geometry"
+          ],
+          "accepted": true,
+          "reasons": [],
+          "referenceSpread": 0.042333688823984764,
+          "recordedRows": 4,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:31:16.390Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 85.07062500575557,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t62%; discharging; 3:20 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 87.46716666792054,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 83.14391666499432,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 266.4902500109747,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:31:16Z",
+              "uptimeSeconds": 92384.459773625
+            },
+            "stderr": "",
+            "sampleWallMs": 277.4664590000175,
+            "label": "contact-object-focus-block-1-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:31:51.322Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 85.54470833041705,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t62%; discharging; 3:20 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 88.48216666956432,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 79.67541666585021,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 265.3686249977909,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:31:51Z",
+              "uptimeSeconds": 92419.39412129167
+            },
+            "stderr": "",
+            "sampleWallMs": 278.0537919999333,
+            "label": "contact-object-focus-block-1-after"
+          }
+        },
+        {
+          "scenario": "contact-object-focus",
+          "index": 2,
+          "order": [
+            "legacy",
+            "geometry",
+            "geometry",
+            "legacy"
+          ],
+          "accepted": true,
+          "reasons": [],
+          "referenceSpread": 0.0009741842803172922,
+          "recordedRows": 4,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:32:11.612Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 82.72229167050682,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t62%; discharging; 3:10 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 82.98070833552629,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 85.21762500458863,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 261.0525416530436,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:32:11Z",
+              "uptimeSeconds": 92439.68171875001
+            },
+            "stderr": "",
+            "sampleWallMs": 271.6177080000052,
+            "label": "contact-object-focus-block-2-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:32:46.360Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 82.68387499265373,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t62%; discharging; 3:10 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 84.97929165605456,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 84.1436666669324,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 271.1996666621417,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:32:46Z",
+              "uptimeSeconds": 92474.43358308334
+            },
+            "stderr": "",
+            "sampleWallMs": 284.77645799994934,
+            "label": "contact-object-focus-block-2-after"
+          }
+        },
+        {
+          "scenario": "contact-object-focus",
+          "index": 3,
+          "order": [
+            "geometry",
+            "legacy",
+            "legacy",
+            "geometry"
+          ],
+          "accepted": false,
+          "reasons": [
+            "Repeated baseline CPU spread exceeds 5%."
+          ],
+          "referenceSpread": 0.061589253100814485,
+          "recordedRows": 4,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:33:06.653Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 96.59445832949132,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t61%; discharging; 3:00 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 84.435291661066,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 87.79037499334663,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 279.1493750119116,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:33:06Z",
+              "uptimeSeconds": 92494.72296320833
+            },
+            "stderr": "",
+            "sampleWallMs": 290.1619590000482,
+            "label": "contact-object-focus-block-3-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:33:43.279Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 99.42374999809545,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t61%; discharging; 3:00 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 95.00795832718723,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 81.10545833187643,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 286.09233333554585,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:33:43Z",
+              "uptimeSeconds": 92531.351874125
+            },
+            "stderr": "",
+            "sampleWallMs": 299.6549159999704,
+            "label": "contact-object-focus-block-3-after"
+          }
+        }
+      ],
+      "acceptedGroups": [
+        {
+          "scenario": "contact-object-focus",
+          "policy": "legacy",
+          "sourceRows": [
+            "block-0/row-0",
+            "block-0/row-3",
+            "block-1/row-1",
+            "block-1/row-2",
+            "block-2/row-0",
+            "block-2/row-3"
+          ],
+          "rows": 6,
+          "requestedFrames": 1080,
+          "recordedFrames": 1080,
+          "rawFrames": 1080,
+          "missingRawRows": [],
+          "cpuMs": {
+            "samples": 1080,
+            "mean": 4.5589814815670255,
+            "p50": 4.399999991059303,
+            "p95": 5.699999988079071,
+            "min": 2.4000000059604645,
+            "max": 9.200000002980232
+          },
+          "intervalMs": {
+            "samples": 1074,
+            "mean": 20.74869646183328,
+            "p50": 19.799999997019768,
+            "p95": 26.799999997019768,
+            "min": 14.599999994039536,
+            "max": 28.200000002980232
+          },
+          "counters": {
+            "material-only-model-motion": 432,
+            "ao-refresh": 450,
+            "ao-dirty": 18,
+            "ao-legacy-model-motion": 432,
+            "ao-legacy-settling": 18,
+            "ao-cached": 630
+          },
+          "ao": {
+            "refreshFrames": 450,
+            "cachedFrames": 630,
+            "unclassifiedFrames": 0,
+            "refreshFraction": 0.4166666666666667
+          },
+          "frameGpuSampledMs": {
+            "samples": 72,
+            "mean": 16.267110041666665,
+            "p50": 15.409958,
+            "p95": 22.606333,
+            "min": 11.287999,
+            "max": 23.110041
+          },
+          "gpu": {
+            "scopes": [
+              "frame"
+            ],
+            "sampleEvery": [
+              15
+            ],
+            "rawPhaseSamplesMs": {
+              "frame": {
+                "samples": 72,
+                "mean": 16.267110041666665,
+                "p50": 15.409958,
+                "p95": 22.606333,
+                "min": 11.287999,
+                "max": 23.110041
+              }
+            },
+            "cohorts": {
+              "refresh": {
+                "renderedFrames": 450,
+                "sampledGpuMs": {
+                  "samples": 36,
+                  "mean": 18.315359527777783,
+                  "p50": 18.816249,
+                  "p95": 22.998958,
+                  "min": 14.789916,
+                  "max": 23.110041
+                }
+              },
+              "cached": {
+                "renderedFrames": 630,
+                "sampledGpuMs": {
+                  "samples": 36,
+                  "mean": 14.218860555555557,
+                  "p50": 15.189041,
+                  "p95": 15.943375,
+                  "min": 11.287999,
+                  "max": 17.110666
+                }
+              },
+              "unclassified": {
+                "renderedFrames": 0,
+                "sampledGpuMs": {
+                  "samples": 0,
+                  "mean": null,
+                  "p50": null,
+                  "p95": null,
+                  "min": null,
+                  "max": null
+                }
+              }
+            },
+            "sampledRefreshFraction": 0.5,
+            "unmatchedFrameSamples": 0,
+            "omissions": []
+          },
+          "estimatedCohortWeightedFrameGpuMs": {
+            "kind": "estimate-not-measured",
+            "mean": 15.925735127314818,
+            "p95": null,
+            "method": "Sum of each AO refresh/cached/unclassified cohort sampled mean × its actual raw-rendered-frame fraction. This reweights fixed-cadence samples; it is not an independently measured frame-GPU mean or percentile.",
+            "unavailableReasons": [],
+            "warning": "Assumes sampled frames represent unsampled frames within each cohort. Time/scene correlations inside a cohort remain; no bias correction or uncertainty guarantee is established."
+          }
+        },
+        {
+          "scenario": "contact-object-focus",
+          "policy": "geometry",
+          "sourceRows": [
+            "block-0/row-1",
+            "block-0/row-2",
+            "block-1/row-0",
+            "block-1/row-3",
+            "block-2/row-1",
+            "block-2/row-2"
+          ],
+          "rows": 6,
+          "requestedFrames": 1080,
+          "recordedFrames": 1080,
+          "rawFrames": 1080,
+          "missingRawRows": [],
+          "cpuMs": {
+            "samples": 1080,
+            "mean": 4.081574074496274,
+            "p50": 4.0999999940395355,
+            "p95": 4.700000002980232,
+            "min": 2.5999999940395355,
+            "max": 5.700000002980232
+          },
+          "intervalMs": {
+            "samples": 1074,
+            "mean": 18.800465549351006,
+            "p50": 19.30000001192093,
+            "p95": 22.5,
+            "min": 14.799999997019768,
+            "max": 24.100000008940697
+          },
+          "counters": {
+            "material-only-model-motion": 432,
+            "ao-cached": 1080
+          },
+          "ao": {
+            "refreshFrames": 0,
+            "cachedFrames": 1080,
+            "unclassifiedFrames": 0,
+            "refreshFraction": 0
+          },
+          "frameGpuSampledMs": {
+            "samples": 72,
+            "mean": 13.936963125000004,
+            "p50": 15.1755,
+            "p95": 15.659791,
+            "min": 11.188375,
+            "max": 16.731875
+          },
+          "gpu": {
+            "scopes": [
+              "frame"
+            ],
+            "sampleEvery": [
+              15
+            ],
+            "rawPhaseSamplesMs": {
+              "frame": {
+                "samples": 72,
+                "mean": 13.936963125000004,
+                "p50": 15.1755,
+                "p95": 15.659791,
+                "min": 11.188375,
+                "max": 16.731875
+              }
+            },
+            "cohorts": {
+              "refresh": {
+                "renderedFrames": 0,
+                "sampledGpuMs": {
+                  "samples": 0,
+                  "mean": null,
+                  "p50": null,
+                  "p95": null,
+                  "min": null,
+                  "max": null
+                }
+              },
+              "cached": {
+                "renderedFrames": 1080,
+                "sampledGpuMs": {
+                  "samples": 72,
+                  "mean": 13.936963125000004,
+                  "p50": 15.1755,
+                  "p95": 15.659791,
+                  "min": 11.188375,
+                  "max": 16.731875
+                }
+              },
+              "unclassified": {
+                "renderedFrames": 0,
+                "sampledGpuMs": {
+                  "samples": 0,
+                  "mean": null,
+                  "p50": null,
+                  "p95": null,
+                  "min": null,
+                  "max": null
+                }
+              }
+            },
+            "sampledRefreshFraction": 0,
+            "unmatchedFrameSamples": 0,
+            "omissions": []
+          },
+          "estimatedCohortWeightedFrameGpuMs": {
+            "kind": "estimate-not-measured",
+            "mean": 13.936963125000004,
+            "p95": null,
+            "method": "Sum of each AO refresh/cached/unclassified cohort sampled mean × its actual raw-rendered-frame fraction. This reweights fixed-cadence samples; it is not an independently measured frame-GPU mean or percentile.",
+            "unavailableReasons": [],
+            "warning": "Assumes sampled frames represent unsampled frames within each cohort. Time/scene correlations inside a cohort remain; no bias correction or uncertainty guarantee is established."
+          }
+        }
+      ],
+      "acceptedScenarioSettingsParity": {
+        "contact-object-focus": {
+          "checkedFields": [
+            "build",
+            "threeRevision",
+            "userAgent",
+            "hardwareConcurrency",
+            "renderer",
+            "vendor",
+            "unmaskedRenderer",
+            "viewport",
+            "drawingBuffer",
+            "pixelRatio",
+            "nativePixelRatio",
+            "aoEnabled",
+            "aoBuffer",
+            "aoSamples",
+            "denoiseSamples",
+            "shadowMap",
+            "shadowsEnabled",
+            "experiment",
+            "filter",
+            "visible",
+            "contactShading",
+            "reducedMotion",
+            "orbitalCamera.activeTime",
+            "orbitalCamera.earthMode",
+            "orbitalCamera.earthAppearance",
+            "orbitalCamera.earthOpening",
+            "orbitalCamera.earthTextureDimensions"
+          ],
+          "availableFieldsMatch": true,
+          "complete": true,
+          "unavailableFields": [],
+          "differences": [],
+          "startTransforms": {
+            "cameraPosition": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "cameraQuaternion": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "cameraMatrix": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "projectionMatrix": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "lightRigQuaternion": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "keyPosition": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "shadowMatrix": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "shadowCameraUp": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "vesselMatrix": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 0,
+              "exactlyEqual": true
+            },
+            "pointer": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 2.3031820942195234e-167,
+              "exactlyEqual": false
+            },
+            "drag": {
+              "availableRows": 12,
+              "totalRows": 12,
+              "sameShape": true,
+              "maxAbsoluteDifference": 7.397551431405112e-212,
+              "exactlyEqual": false
+            }
+          },
+          "note": "Policy and monotonic geometry revision are intentionally not equality settings. Start-pose differences are reported exactly without an inferred visual tolerance."
+        }
+      },
+      "standaloneGroups": [],
+      "standaloneInterpretation": "Standalone survey/partial rows have no accepted paired-block status; do not combine them with accepted comparison rows.",
+      "readiness": [
+        {
+          "attempt": 0,
+          "accepted": false,
+          "controlSpread": 0.03585049579456387,
+          "directionalDrift": 0.03702244977555497,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:27:59.175Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 87.23795833066106,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t64%; discharging; 3:32 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 87.68279166542925,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 88.6141666705953,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 281.46254167950246,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:27:59Z",
+              "uptimeSeconds": 92187.24539291667
+            },
+            "stderr": "",
+            "sampleWallMs": 293.0307080000057,
+            "label": "readiness-0-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:28:40.166Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 87.10720832459629,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t64%; discharging; 3:22 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 87.95991668011993,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 79.05179167573806,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 260.5596666689962,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:28:40Z",
+              "uptimeSeconds": 92228.2329015
+            },
+            "stderr": "",
+            "sampleWallMs": 268.74816600000486,
+            "label": "readiness-0-after"
+          }
+        },
+        {
+          "attempt": 1,
+          "accepted": true,
+          "controlSpread": 0.01840956541823679,
+          "directionalDrift": 0,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:29:40.446Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 82.76179166568909,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t63%; discharging; 3:40 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 82.95175000966992,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 83.68520833028015,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 259.44429167429917,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:29:40Z",
+              "uptimeSeconds": 92288.517099
+            },
+            "stderr": "",
+            "sampleWallMs": 271.27579200000037,
+            "label": "readiness-1-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:30:18.700Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 83.0466249899473,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t63%; discharging; 3:40 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 85.21579166699667,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 85.93737499904819,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 269.5450000028359,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:30:18Z",
+              "uptimeSeconds": 92326.76692187501
+            },
+            "stderr": "",
+            "sampleWallMs": 276.7871670000022,
+            "label": "readiness-1-after"
+          }
+        },
+        {
+          "attempt": 5,
+          "accepted": false,
+          "controlSpread": 0.06646177492360412,
+          "directionalDrift": 0,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:35:03.599Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 93.23975000006612,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t61%; discharging; 3:00 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 99.53258333553094,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 79.30479166680016,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 283.7394166708691,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:35:03Z",
+              "uptimeSeconds": 92611.66902879167
+            },
+            "stderr": "",
+            "sampleWallMs": 294.80045799992513,
+            "label": "readiness-5-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T05:35:44.642Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 87.79879167559557,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t60%; discharging; 2:50 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 94.79041666781995,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 92.23224999732338,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 289.7709166718414,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T05:35:44Z",
+              "uptimeSeconds": 92652.71017725
+            },
+            "stderr": "",
+            "sampleWallMs": 298.9427920000162,
+            "label": "readiness-5-after"
+          }
+        }
+      ],
+      "limitations": [
+        "Original overall status, exclusions and acceptance decisions are preserved; accepted subsets do not make an incomplete run complete.",
+        "CPU/interval pooled percentiles use retained raw frames; GPU pooled percentiles use valid raw samples. Means and percentiles are not averages of per-row percentiles.",
+        "Fixed GPU sampling cadence can overrepresent AO-refresh frames. The optional cohort-weighted mean is explicitly an estimate, not a measured or bias-corrected result.",
+        "No cross-input pooling occurs. Review matching sources, quality, power cohorts, baseline variation and recorded conditions before interpreting differences.",
+        "Missing GPU samples and percentiles stay unavailable; CPU and GPU overlap and are not additive. Timing does not establish heat, battery or energy gains."
+      ]
+    },
+    {
+      "input": "docs/evidence/performance/camera-invalidation/paired-1789452644248-366f5ed7.json.gz",
+      "inputBytes": 285140,
+      "inputSha256": "65566fbeb47bf022d1fa53cc2ecbc638efe04e75d5415877b332025db1950fea",
+      "schemaVersion": 1,
+      "runId": "paired-1789452644248-366f5ed7",
+      "mode": "paired",
+      "overallStatus": "inconclusive-readiness",
+      "startedAt": "2026-09-15T06:10:44.248Z",
+      "endedAt": "2026-09-15T06:14:03.069Z",
+      "settings": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "devicePixelRatio": 2,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 10,
+        "simulationStep": 0.016666666666666666,
+        "backgroundTime": 0,
+        "policy": "legacy",
+        "gpuScope": "frame",
+        "framesPerSample": 180,
+        "pairedWorkload": "overview-room-focus",
+        "requestedPairedBlocks": 2,
+        "verifyScope": "full",
+        "controlSpreadLimit": 0.05,
+        "directionalDriftLimit": 0.025,
+        "initialRecoveryMs": 60000,
+        "blockRecoveryMs": 20000,
+        "fixture": "published seed content",
+        "initialSection": "home"
+      },
+      "notes": "Targeted overview control continuation after Contact session recovery failure. Fresh mounted scene, no verifier backup target, viewport1440x900; inspect actual DPR/buffer in results. Build/typecheck/lint/tests finished before this run; no other agent rendering. Other user workload unknown. Same fixed gates; two balanced ABBA/BAAB blocks. Frozen renderer identical to accepted Contact run, lab adds roll coverage/workload selectors.",
+      "sourceSnapshotId": "14b399ee-bd95-4be8-b1d9-195cadb69f33",
+      "errors": [],
+      "acceptedBlockCount": 0,
+      "rejectedOrUnacceptedBlockCount": 0,
+      "acceptedOrderCounts": {},
+      "blocks": [],
+      "acceptedGroups": [],
+      "acceptedScenarioSettingsParity": {},
+      "standaloneGroups": [],
+      "standaloneInterpretation": "Standalone survey/partial rows have no accepted paired-block status; do not combine them with accepted comparison rows.",
+      "readiness": [
+        {
+          "attempt": 0,
+          "accepted": false,
+          "controlSpread": 0.053696819557295085,
+          "directionalDrift": 0.055734190855208636,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T06:11:44.510Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 91.6188749979483,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t44%; discharging; 1:57 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 76.7409583349945,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 80.74837501044385,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 259.4402083341265,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T06:11:44Z",
+              "uptimeSeconds": 94812.56999666667
+            },
+            "stderr": "",
+            "sampleWallMs": 269.12129199993797,
+            "label": "readiness-0-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T06:12:23.605Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 76.95358332421165,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t43%; discharging; 1:37 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 79.26866666821297,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 80.62920834345277,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 242.92816667002626,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T06:12:23Z",
+              "uptimeSeconds": 94851.66348225
+            },
+            "stderr": "",
+            "sampleWallMs": 251.45891700009815,
+            "label": "readiness-0-after"
+          }
+        },
+        {
+          "attempt": 1,
+          "accepted": false,
+          "controlSpread": 0.23729162396430312,
+          "directionalDrift": 0,
+          "before": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T06:13:23.850Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 80.57391666807234,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t43%; discharging; 1:46 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 80.98374999826774,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 78.22850000229664,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 249.74495833157562,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T06:13:23Z",
+              "uptimeSeconds": 94911.92486866667
+            },
+            "stderr": "",
+            "sampleWallMs": 259.8442090000026,
+            "label": "readiness-1-before"
+          },
+          "after": {
+            "availability": "available",
+            "capturedAt": "2026-09-15T06:14:02.807Z",
+            "native": {
+              "lowPowerMode": false,
+              "osVersion": "Version 26.6.2 (Build 25G83)",
+              "pmset": {
+                "battery": {
+                  "arguments": [
+                    "-g",
+                    "batt"
+                  ],
+                  "durationMs": 76.32808333437424,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22675555)\t43%; discharging; 1:46 remaining present: true\n",
+                  "timedOut": false
+                },
+                "settings": {
+                  "arguments": [
+                    "-g",
+                    "custom"
+                  ],
+                  "durationMs": 80.20287500403356,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         0\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+                  "timedOut": false
+                },
+                "therm": {
+                  "arguments": [
+                    "-g",
+                    "therm"
+                  ],
+                  "durationMs": 85.74270832468756,
+                  "exitCode": 0,
+                  "stderr": "",
+                  "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+                  "timedOut": false
+                }
+              },
+              "sampleDurationMs": 253.7388750060927,
+              "schemaVersion": 1,
+              "thermalSource": "ProcessInfo.thermalState",
+              "thermalState": "nominal",
+              "thermalStateDoesNotMeasureTemperature": true,
+              "thermalStateRaw": 0,
+              "timestamp": "2026-09-15T06:14:02Z",
+              "uptimeSeconds": 94950.88157466667
+            },
+            "stderr": "",
+            "sampleWallMs": 261.2781670000404,
+            "label": "readiness-1-after"
+          }
+        }
+      ],
+      "limitations": [
+        "Original overall status, exclusions and acceptance decisions are preserved; accepted subsets do not make an incomplete run complete.",
+        "CPU/interval pooled percentiles use retained raw frames; GPU pooled percentiles use valid raw samples. Means and percentiles are not averages of per-row percentiles.",
+        "Fixed GPU sampling cadence can overrepresent AO-refresh frames. The optional cohort-weighted mean is explicitly an estimate, not a measured or bias-corrected result.",
+        "No cross-input pooling occurs. Review matching sources, quality, power cohorts, baseline variation and recorded conditions before interpreting differences.",
+        "Missing GPU samples and percentiles stay unavailable; CPU and GPU overlap and are not additive. Timing does not establish heat, battery or energy gains."
+      ]
+    }
+  ]
+}

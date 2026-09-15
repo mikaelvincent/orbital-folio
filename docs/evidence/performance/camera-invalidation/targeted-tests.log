@@ -1,0 +1,34 @@
+✔ preserves incomplete status and rejected blocks; pools raw frames rather than row means or p95 values (1.825459ms)
+✔ joins repeating frame IDs within each row and labels cohort weighting as an estimate (0.201ms)
+✔ does not fabricate weighted results when a rendered cohort has no GPU samples; reports settings differences (0.244542ms)
+✔ Long recordings retain their complete window, then shrink without resetting capture identity (12.845625ms)
+✔ CPU phases partition callback time and counters report cumulative pass deltas (0.885417ms)
+✔ Nearest-rank percentiles, observed frame rate and activity are derived from samples (1.294ms)
+✔ Rolling frame bounds also bound counters and exported frames cannot alter measurements (0.221417ms)
+✔ Late annotations belong only to the current frame and copy nested diagnostic data (0.178167ms)
+✔ Raw GPU results join to retained frames, remain opt-in and cannot mutate the collector (0.615708ms)
+✔ GPU queries are sampled every 15 frames and only read asynchronously when available (0.238208ms)
+✔ Long captures accept 1800 frames, remain bounded, and preserve changing room context (7.488291ms)
+✔ A disjoint interval discards pending samples and resumes with valid measurements (0.201084ms)
+✔ Pending queries are bounded, reset drops late results, and disposal releases active queries (0.216792ms)
+✔ GPU samples expire with their source frames and context loss keeps CPU timing usable (0.106708ms)
+✔ Whole-frame GPU timing spans render passes without nested queries and keeps CPU phases (0.146625ms)
+✔ Interrupted whole-frame GPU queries are discarded during reset, incomplete passes and disposal (0.07325ms)
+✔ Actual shadow generation records a nested CPU scope without changing render delegation (2.330375ms)
+✔ Disabled, unrequested and lightless draws neither count nor consume invalidation reasons (0.241292ms)
+✔ Automatic or per-light requests record generated maps; unavailable counters stay null (0.093333ms)
+✔ Missing collectors and interrupted draws preserve the original behavior and pending reasons (1.015125ms)
+✔ Cleanup preserves a wrapper installed by a later owner (0.058708ms)
+✔ Room dimming and object feedback retain identical AO inputs and revision (19.878916ms)
+✔ Every iris geometry change, including its final snap, invalidates AO (5.050709ms)
+✔ Reader deployment, final snap and immediate hiding remain AO-invalidating (3.647042ms)
+✔ Layout changes survive until the renderer observes their revision (4.242333ms)
+✔ Metadata orientation and static catalog repainting do not invalidate AO (1.374375ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1267.560334

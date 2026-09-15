@@ -13,6 +13,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 05 · 14 September 2026 | Redesign clouds as connected volume; compare startup generation and developer baking; room/hull refinements | Baked atlas selected; lower background GPU means in four short comparisons, with substantial variation. Additional transfer/storage tradeoffs recorded. Other candidates remain held. |
 | 06 · 14 September 2026 | Restore scattered clouds using satellite coverage and restrained varied relief | Implemented; 12.1% smaller cloud payload, same texture storage/sample bound. Prior timings kept historical; all other candidates held. |
 | 13 · 14 September 2026 | Restore 8K Mediterranean night Earth; compare current 2K, 4K and 8K rendering | 8K costs 2.33 MB transfer / 179.0 MB nominal map storage. Background GPU ranking remains inconclusive; local preparation is costlier. Qualified native Safari and Chromium evidence below. |
+| 19 · 15 September 2026 | Delivered camera/invalidation audit; reuse AO through material-only feedback | Three accepted Contact blocks: CPU 4.559→4.082ms; 75→0 AO refreshes per 180 frames. Whole-frame GPU comparison and exclusions recorded; other candidates held. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -282,7 +283,7 @@ One initial ABBA export was lost due to clipboard collection; ABBA was repeated 
 
 Room adjustments add no furniture geometry or new interactions. Focused actual-model checks cover both layouts, enclosure clearance, smooth normals and manifold rings. **23 focused tests passed**, along with type checking, type-aware lint of the new cloud/hull code and the production build. The obsolete 3D-cloud audit was replaced with tests for current atlas loading, transforms, mip storage, pauses and disposal. Production browser checks reported no console errors; successful loading used the baked asset, not the generator recovery path.
 
-Visual review covered About and Case Studies at their regular view, the tilted docking mount, 390×844 room/overview layouts, and frozen cloud views at 0/60/180 seconds on desktop and phone-sized canvases. The desktop build uses native DPR 2. [Visual and validation evidence](evidence/cloud-room-refinement/README.md).
+Visual review covered About and Case Studies at their regular view, the tilted docking mount, 390×844 room/overview layouts, and frozen cloud views at 0/60/ 180 seconds on desktop and phone-sized canvases. The desktop build uses native DPR 2. [Visual and validation evidence](evidence/cloud-room-refinement/README.md).
 
 
 ## 06 — Scattered satellite cloud coverage
@@ -801,25 +802,143 @@ should use this new design baseline rather than attributing its work to entry 17
 [critic review](evidence/spacecraft-access-symmetry/critic-review.md) record the
 artistic acceptance and verification separately from structural accounting.
 
+## 19 — Delivered camera and invalidation audit
+
+The owner authorized candidate 1 on 15 September 2026, with implementation limited
+to changes that preserve appearance and motion. The delivered source baseline is
+`3e9bd67`, after repository organization. The approved 8K Mediterranean night Earth,
+all geometry/materials, camera/door behavior, resolution, lights and AO quality
+remain unchanged. This entry does not authorize the other candidates.
+
+The audit found one safe, targeted opportunity. `motionActive` mixed actual
+geometry movement with room brightness, highlight color/emission and opacity.
+GTAO overrides materials to obtain normal/depth inputs, so color-only feedback
+was needlessly recomputing identical contact shading. A monotonic geometry
+revision now tracks real doors/readers/layout changes, including immediate and
+final-snap changes. AO still follows camera position/orientation/roll, projection,
+reader stretch, resize and explicit scene/filter invalidation. Existing camera
+cache tolerances are retained. Color/feedback alone can reuse the AO texture.
+The geometry-based rule is now the normal application default. The developer lab
+retains the legacy rule and archived measured sources for future comparisons.
+
+Diagnostics now distinguish an actual shadow-map generation from a pending
+request. The nested generation CPU/count scope is part of the main ship pass;
+it must not be added to that pass again. Raw frame annotations expose refresh
+reasons and geometry revisions; GPU samples retain frame IDs. A reusable frozen
+full-scene lab provides surveys, balanced comparisons and image checks without
+changing the normal visitor loop. Paired GPU timing uses one whole-frame query;
+pass timing remains available separately to avoid nested/overlapping queries.
+
+### Measured result and limits
+
+Hidden built-in Chromium / ANGLE Metal / Apple M4, 1440×900 CSS, 2529×1581 drawing
+buffer, normal full scene and 8K Earth. Three pre-gated Contact blocks supply six
+runs per policy (1,080 frames each). In the highlight-only replay:
+
+| Metric | Before | After |
+| --- | ---: | ---: |
+| Mean callback CPU | 4.559 ms | 4.082 ms (10.47% lower) |
+| Pooled callback CPU p95 | 5.700 ms | 4.700 ms |
+| Mean actual frame interval | 20.749 ms | 18.800 ms |
+| Pooled actual frame interval p95 | 26.800 ms | 22.500 ms |
+| Raw sampled whole-frame GPU | 16.267 ms | 13.937 ms |
+| Pooled sampled whole-frame GPU p95 | 22.606 ms | 15.660 ms |
+| AO refreshes / 180 frames | 75 | 0 |
+
+Each removed refresh submits 238 draws / 823,712 triangles. This is work eliminated
+in this interaction, not a geometry simplification or idle improvement. The
+camera/light/geometry checkpoints, settings and resource counts match in accepted
+comparisons. No new textures, geometry, baked assets or quality reduction are
+introduced by the reuse rule. The developer verifier alone allocates a temporary
+AO backup target/readback arrays; normal visitors do not allocate them.
+
+The fourth Contact block exceeded the 5% baseline spread gate, and subsequent
+recovery failed. Its raw file retains `inconclusive-recovery`; it is not counted
+as a successful whole session. Earlier accepted blocks show CPU reductions of
+9.39–11.42%. GPU's fixed 15-frame sampling overrepresents AO-refresh frames: 6/12
+sampled versus 75/180 actual. A separately labeled cohort-weighted GPU estimate is
+15.926→13.937 ms, with 6.62–15.51% block variation. It is not every-frame GPU time.
+CPU/frame evidence is stronger than a precise GPU percentage.
+
+Native context reports nominal thermal pressure, Low Power Mode off and an
+`AC Power` label while the battery reports discharging. These observations and
+rest periods do not prove equal clocks, stable mains power or no throttling.
+Other user workload was unobserved. No heat, energy or battery-life improvement
+is claimed. Built-in Chromium results are not native Safari measurements.
+
+### Visual acceptance and validation
+
+The [wide comparison](evidence/performance/camera-invalidation/wide-visual-comparison.json)
+contains 142 checkpoints per policy. Cached-versus-fresh difference metrics
+match, and matched Contact, opening-door and ladder PNGs are byte-identical.
+The first three idle scenarios began at different existing arrival-tolerance
+poses; their cross-policy images are excluded from matched-image claims.
+
+The final [portrait comparison](evidence/performance/camera-invalidation/portrait-visual-comparison.json)
+uses one mounted scene/GTAO instance at an actual 900×1200 viewport and drawing
+buffer, DPR 1, with AO enabled. All captured state and difference metrics match
+across 170 checkpoints per policy; all six selected PNG pairs are byte-identical.
+Six nonzero cached-versus-fresh settling checks reproduce the legacy cache
+tolerances in both policies. The optimization introduces no additional image
+difference and does not alter those tolerances.
+
+Both portrait overview transitions are explicitly captured. Each 300-frame route
+performs 140 shadow refreshes with either policy; refresh masks, light transforms
+and the corresponding images match. Earlier sweeps performed these transitions
+only during preparation, so they were insufficient evidence for roll. The final
+[roll source archive](evidence/performance/camera-invalidation/roll-coverage-source.tar.gz)
+and manifest preserve the corrected coverage.
+
+The full application suite passed 267 tests; final targeted checks passed 26
+(including three new summary tests and overlapping regression checks). Typecheck,
+production build and changed-file lint passed. Full-repository lint retains 199
+existing diagnostics against an independently checked baseline of 213. A normal
+application/direct-entry/diagnostics smoke check passed in hidden Chromium.
+The separate overview timing continuation failed both readiness groups (5.37%
+and 23.73% spread) and stopped before comparison blocks. Its raw results remain
+inconclusive; no overview timing benefit or equivalence is claimed. The evidence
+folder's completion section records the independent critic review.
+
+### Priorities informed by the audit
+
+- Settled overview and all cabins reused AO on all 180 surveyed frames. Wide
+  hover/drag/cabin travel preserved light/shadow transforms and generated no new
+  shadow maps. Portrait roll does refresh the light-relative map, as verified
+  above. Do not target repeated idle shadow generation: it was absent.
+- Main spacecraft submission remains the larger steady CPU cost. Overview has
+  438 main draws / 1,013,140 triangles. Shared chassis and Projects furniture lead
+  triangle submissions; About furniture leads draw count. These are submission
+  rankings, not isolated GPU costs; occluded geometry can still be submitted.
+- Camera-driven AO remains necessary in the current design. Overview focus kept
+  180/180 refreshes. The arrival-tail hypothesis found no redundant refreshes.
+  Static contact-shading experiments remain a possible future motion-cost study,
+  requiring appearance approval and a properly measured comparison.
+
+Full method, raw/excluded runs, source/asset hashes, pass/group ranking, image
+acceptance and critic outcome are maintained in the
+[delivered-camera evidence](evidence/performance/camera-invalidation/README.md).
+Use the [updated diagnostics guide](performance-diagnostics.md#delivered-camera-and-invalidation-replay)
+to repeat it. No other held optimization was enabled.
+
 ## Next candidates
 
-**Planning update, 14 September 2026 — all candidates remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
+**Status update, 15 September 2026 — candidate 1 was authorized and audited in entry 19; candidates 2–5 remain on hold.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. No automatic resolution reduction, new shadow system, baked lighting or other optimization is authorized by this planning update.
 
-The requested camera and atmosphere changes are separate visual work. Establish a new baseline after they are complete, rather than attributing their effects to an optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
+The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
 ### What is already precomputed or reused
 
 The application does **not** rebuild every shadow on every frame. The renderer disables automatic shadow-map updates and reuses the key light's map. At this review, that is one shadow-casting directional light with a 2048×2048 desktop or 1024×1024 compact map. Roll still explicitly invalidates it because the light rig changes relative to the fixed spacecraft; resize and diagnostic scene changes also request updates. Moving doors and reader assemblies do not cast into that cached map. Ordinary frame rendering still samples the map to shade receiving surfaces. These are two different costs: generating shadow depth and using that depth during visible rendering. The underlying Three.js API explicitly supports manual updates. [Application renderer](../features/spacecraft/spacecraft-runtime.ts), [Three.js shadow implementation](https://github.com/mrdoob/three.js/blob/r185/src/lights/LightShadow.js).
 
-Contact shading is a separate system: GTAO derives occlusion from the current camera view. Its result is already cached while the view settles, but refreshes for camera movement, geometry motion and dirty state. The current desktop configuration uses 32 AO samples, 32 denoising samples and render targets at 0.65 of each CSS viewport dimension. Animated door silhouettes participate in this pass. The model's motion flag also includes room brightness and highlight transitions, so an apparent geometry refresh is not necessarily caused by moving geometry. Existing diagnostics distinguish AO refresh, reuse and several invalidation reasons. [Renderer and invalidation policy](../features/spacecraft/spacecraft-runtime.ts), [Model animation and lighting](../features/spacecraft/spacecraft-model.ts).
+Contact shading is a separate system: GTAO derives occlusion from the current camera view. Its result is already cached while the view settles, but refreshes for camera movement, geometry motion and dirty state. The current desktop configuration uses 32 AO samples, 32 denoising samples and render targets at 0.65 of each CSS viewport dimension. Animated door silhouettes participate in this pass. The model's broad motion flag also includes room brightness and highlight transitions. Entry 19 separates actual geometry revisions so those material-only changes no longer cause refreshes. This is now the normal application rule; the legacy rule remains in the developer comparison lab. Diagnostics retain the distinction, along with camera, projection, stretch and explicit invalidation reasons. [Renderer and invalidation policy](../features/spacecraft/spacecraft-runtime.ts), [Model animation and lighting](../features/spacecraft/spacecraft-model.ts).
 
 The reflection environment is also prepared once at scene setup and reused. Room selection and hover change material color/emission, while metal reflections and highlights remain view dependent. Consequently, “precompute everything” should be investigated as several bounded experiments rather than a replacement of the whole room render with a fixed image.
 
-### Proposed order after approval
+### Order and authorization status
 
 | Priority | Experiment | Expected opportunity and tradeoff | Evidence required before adoption |
 | --- | --- | --- | --- |
-| 1 | Re-measure the delivered camera system and audit invalidation | Establish how often shadow generation and AO actually run during idle, drag, hover, ordinary travel and ladder travel. Review whether color-only changes unnecessarily refresh geometry-based AO. This is a hypothesis, not an assumed saving. | A fresh pass/group ranking, exact camera/light transforms, refresh reasons and repeatable route captures. Preserve current appearance and door behavior. |
+| 1 · completed | Re-measure the delivered camera system and audit invalidation | Entry19 records the audit and targeted material-only AO reuse. Idle AO/shadows were already cached; this does not claim an idle gain. | Preserve the source-identified lab, accepted/excluded runs, transform/reason traces and image checks. Re-measure when art, camera or rendering changes. |
 | 2 | Prototype offline lossless geometry compaction | Retain exact geometry while moving compaction out of runtime startup. The earlier deterministic storage opportunity survives as a candidate, but the current model needs a new inventory and no browser speedup is established. | Exact attribute/seam/bounds checks, model construction and first-frame time, per-pass GPU/CPU and total delivery/storage. Do not repeat the rejected runtime cache approaches without new evidence. |
 | 3 | Compare the existing cached shadow map with a developer-baked static representation | A saved depth map might avoid initial shadow generation, but still needs download/upload and ordinary shadow sampling. A baked per-surface shadow mask might replace filtered shadow lookups, but adds atlas memory, UV work and possible seams. Neither is automatically faster. | First identify which light-to-caster transforms remain fixed after camera migration. Compare startup, refresh and steady sampling separately. If the appearance-preserving light rig moves relative to the ship, a single fixed mask cannot reproduce every roll; reject it or limit it to a proven invariant component. |
 | 4 | Prototype baked static contact shading in one costly room | Store stable creases and furniture contact shading on surfaces. This is the stronger precomputation hypothesis when movement-time GTAO dominates. Start with the room identified by the new ranking, keeping doors, screens and interaction feedback outside the static bake. | Compare baked-only and a static/dynamic hybrid against current GTAO. Document flattened contacts, texture seams and moving-object integration. A hybrid that still renders the full GTAO pass may add memory without saving meaningful work. |

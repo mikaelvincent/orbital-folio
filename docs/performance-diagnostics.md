@@ -54,11 +54,92 @@ The main spacecraft pass and AO refresh are separate. Shadow draws or fullscreen
 - **Smoothness · FPS / frame interval:** actual application render cadence, with median, p95 and maximum in the export. A steady 60 FPS can still represent sustained GPU load. A paused or empty window has no fabricated FPS value.
 - **CPU:** elapsed time inside the render callback, including scene preparation and WebGL command submission. The phases cover navigation, pointer feedback, camera positioning, model update, matrices, callouts, HTML synchronization, background update, individual render passes, CSS3D and the existing metadata publication. Phase totals partition the callback. The panel ranks *amortized milliseconds per rendered frame*, so an infrequent AO refresh does not outrank continuous work merely because one refresh is expensive. Per-execution p95 and sample counts remain visible.
 - **GPU:** asynchronous elapsed queries for background, spacecraft, AO refresh and AO composite. They sample once every 15 frames. Unsupported, unavailable and disjoint results are explicitly identified; CPU submission time is never substituted for GPU time. Timings are per sampled execution, not averaged over frames where a pass did not run. CPU and GPU overlap: **do not add their times**. Driver scheduling and query boundaries can perturb a tiled GPU, so corroborate rankings using the isolation modes.
-- **Draw workload:** actual `renderer.info` deltas per pass: draw calls, triangles, points and lines. The spacecraft pass includes any requested shadow-map refresh. A separate counter identifies those frames. Geometry inventory includes hidden layout variants and is not a substitute for these rendered counts.
-- **AO refresh counters:** dirty state, camera position/angle, geometry motion/settling and roll. Reasons can overlap, so their sum is not the number of refreshes. `ao-refresh / (ao-refresh + ao-cached)` is the observed refresh fraction for frames where AO is enabled.
+- **Draw workload:** actual `renderer.info` deltas per pass: draw calls, triangles, points and lines. The spacecraft pass includes any requested shadow-map refresh. The `shadow-refresh` counter now identifies actual eligible generation, rather than a pending request. Raw frame context includes generation reasons, map count, draw deltas and nested `shadowGenerationCpuMs`; this is a subset of spacecraft CPU time, not another additive phase. Geometry inventory includes hidden layout variants and is not a substitute for these rendered counts.
+- **AO refresh counters:** dirty state, camera position/angle, geometry revision, projection, reader stretch and roll. The legacy broad model-motion flag remains separately visible because it also includes color/emission transitions. Raw context retains dirty reasons and revisions; `material-only-model-motion` identifies the distinction. Reasons overlap, so their sum is not the number of refreshes. `ao-refresh / (ao-refresh + ao-cached)` is the observed refresh fraction where AO is enabled. The old ambiguous geometry-motion/settling names are replaced by explicit geometry-change and legacy-motion counters in new captures; historical exports retain their original names.
 - **Resources/settings:** browser/build/Three version, viewport, drawing buffer, pixel ratio, camera pose, AO settings, shadow size, geometry/texture/program counts and largest mesh inventories. Geometry attribute bytes describe CPU-side arrays, not total GPU memory.
 
 Browser layout, compositing, other pages, operating-system work and most input-event work outside the render callback are outside CPU phase totals. Small timings are limited by browser timer resolution. Instrumentation adds overhead: GPU queries are sampled and bounded, the panel refreshes once per second, and collapsing it stops live aggregation/table updates while recording continues.
+
+## Delivered camera and invalidation replay
+
+Normal application visits now use geometry-based AO invalidation: material-only
+brightness/highlight changes can reuse contact shading, while camera, projection,
+real geometry, reader stretch and explicit dirty state continue to refresh it.
+The lab keeps **Delivered baseline** as its explicit legacy policy for comparison.
+Its dropdown does not change the normal application's default or quality.
+
+For repeatable full-scene camera/AO/shadow measurements, use the dedicated local
+lab. It compiles the real portfolio modules and application CSS with public seed
+content, freezes source/assets and serves only on loopback. It does not touch the
+studio database or send contact messages. Normal visitors do not receive its
+manual-step controls or rendering pauses.
+
+```sh
+swiftc -O scripts/benchmarks/mac-thermal-snapshot.swift \
+  -o /tmp/orbital-camera-thermal-snapshot
+node scripts/benchmarks/camera-invalidation-lab.mjs \
+  --thermal-sampler /tmp/orbital-camera-thermal-snapshot
+```
+
+Open `http://127.0.0.1:3019/` in the hidden built-in browser. On other operating
+systems, omit the optional native sampler; thermal context then stays unknown.
+Compile before recovery periods. Keep the main application server at port 3000.
+
+- **Check setup** checks mounting, the 8K texture and same-frame image comparison.
+- **Start survey** records all rooms, hover/focus, doors, ordinary/ladder travel,
+  drag release, readers and both Home↔Projects transitions. Those overview
+  transitions occur inside recorded windows, not only during room preparation.
+  Pass GPU timings are observations; tiled-driver query
+  boundaries can alter their attribution. Never sum them into whole-frame cost.
+- **Start paired runs** compares the original and geometry-based AO rules in
+  balanced order, with no scene rendering during rests and unchanged acceptance
+  gates. Select a workload and two/four blocks to continue a targeted control
+  without repeating completed work. It uses a single whole-frame GPU query,
+  mutually exclusive with pass queries. The saved row includes scope at
+  `row.report.scene.gpu.scope`.
+- **Verify motion** checks cached shading against a forced-fresh reference in the
+  same scene/noise instance. Choose either policy, including the legacy reference
+  when existing camera tolerances produce small differences. **Verify scope** can
+  select the full sweep or only overview transitions for a bounded roll recheck.
+  Early-motion checkpoints at frames 7, 14 and 21 complement the regular/settled
+  checkpoints. Selected PNGs show WebGL output; CSS overlays are not captured,
+  and these runs are excluded from timing comparisons.
+- **Stop** preserves partial data. Results, exclusions and source/asset hashes go
+  to `docs/evidence/performance/camera-invalidation/`. The server refuses overwrites.
+  `/status` exposes progress and the last completed block outside timed windows.
+
+Use an AO-enabled portrait viewport (at least 700 CSS pixels wide and taller than
+wide) to exercise roll and shadow generation. A narrow phone view disables AO
+under the existing quality rules. Record the actual viewport, drawing buffer,
+DPR, engine and omitted effects; built-in Chromium is not a Safari test.
+
+Keep cross-policy verification in the same mounted scene so GTAO noise and
+resources remain identical. Also compare the recorded transforms: a pristine
+overview pose and a returned-to-overview pose can differ within existing arrival
+tolerances. Do not label their screenshots matched. Nonzero cached-versus-fresh
+pixels can reproduce an existing camera-cache tolerance; compare both policies
+at the same state instead of attributing every nonzero result to the candidate.
+
+Raw GPU samples in each saved row's `report.scene.gpu.samples` carry
+`{frameId,name,ms}` for
+joining refresh/cached cohorts. Fixed sampling can overrepresent one part of a
+repeated animation. The summarizer preserves individual-session status and pools
+raw samples, with an optional explicitly estimated reweighting by actual AO/cached
+fractions:
+
+```sh
+node scripts/benchmarks/summarize-camera-invalidation.mjs \
+  path/to/paired-report.json.gz --weighted-gpu --out /tmp/camera-summary.json
+```
+
+Do not pool unmatched sessions or relabel an incomplete run successful because
+some earlier blocks passed. Read the retained native context: nominal pressure,
+pauses and an AC label do not establish fixed clocks or battery behavior. See the
+[delivered-camera audit](evidence/performance/camera-invalidation/README.md) for
+accepted and excluded evidence, the final 142-check wide and 170-check portrait
+comparisons, retained source snapshots and limitations. Its measured Contact
+benefit is specific to material-only feedback; ordinary camera motion still
+requires AO and no idle speedup is claimed. Other ledger candidates remain held.
 
 ## Rested CPU candidate comparisons
 

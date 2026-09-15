@@ -1,0 +1,4 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint features/diagnostics/scene-performance.ts features/diagnostics/scene-audit.ts features/diagnostics/shadow-diagnostics.ts features/portfolio/immersive-portfolio.tsx features/spacecraft/spacecraft-model.ts features/spacecraft/spacecraft-runtime.ts features/spacecraft/spacecraft.tsx scripts/benchmarks/camera-invalidation-lab.mjs scripts/benchmarks/camera-invalidation-lab.tsx scripts/benchmarks/summarize-camera-invalidation.mjs tests/diagnostics/scene-performance.test.mjs tests/diagnostics/shadow-diagnostics.test.mjs tests/diagnostics/camera-invalidation-summary.test.mjs tests/spacecraft/ao-geometry-change.test.mjs
+
