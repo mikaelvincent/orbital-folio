@@ -4,7 +4,7 @@ import { PRESSURE_FACE_FRONT } from '../geometry/spacecraft-wall-layout.ts';
 
 /** Pick only through the visible rounded cutaway openings, rather than boxes
  * that include the opaque dividers, curved corners and space behind a cabin.
- * Four small front-facing polygons replace the old volumes; no detailed scene
+ * Cabin and ladder aperture polygons replace the old volumes; no detailed scene
  * raycast or rendered geometry is added. Behind-the-face views use door targets.
  */
 export function createRoomNavigationTargets(

@@ -1,15 +1,21 @@
 type Portal = { id: string; from: string; to: string; via?: string | null };
 
 /** A visible room may not have a direct door (the two right-hand cabins, for
- * example). Preview the first doorway but retain the selected final room. */
+ * example). Preview the first doorway but retain the selected final room.
+ * The ladder opening selects the cabin beyond the first reachable ladder
+ * crossing; the connector itself is never a destination. */
 export function roomNavigationIntent(
   portals: readonly Portal[],
   from: string,
   destination: string,
+  insideLadderRoom = false,
 ): { section: string; portalId?: string; roomTarget: true } | null {
+  const throughLadder = destination === 'walkway';
+  if (throughLadder && (from === 'home' || insideLadderRoom)) return null;
   if (
     from === destination ||
-    !portals.some((p) => p.from === destination || p.to === destination)
+    (!throughLadder &&
+      !portals.some((p) => p.from === destination || p.to === destination))
   )
     return null;
   if (from === 'home') return { section: destination, roomTarget: true };
@@ -20,8 +26,8 @@ export function roomNavigationIntent(
     for (const portal of portals) {
       if (portal.from !== current.room || seen.has(portal.to)) continue;
       const first = current.first || portal.id;
-      if (portal.to === destination)
-        return { section: destination, portalId: first, roomTarget: true };
+      if (throughLadder ? portal.via === 'walkway' : portal.to === destination)
+        return { section: portal.to, portalId: first, roomTarget: true };
       seen.add(portal.to);
       queue.push({ room: portal.to, first });
     }

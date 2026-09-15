@@ -19,7 +19,8 @@ the four room boxes and gate the existing doorway targets. They exclude the
 opaque front frame, dividers and rounded corners without raycasting every piece
 of furniture. A room's press/release identity includes its final destination, so
 two different rooms sharing a first door cannot accidentally form one click.
-The ladder opening gates doorway picking; it is not a new destination.
+The ladder opening gates doorway picking; it is not a new destination. Its later
+hover/click behavior is recorded in the follow-up below.
 
 The equipment pass retains exactly the two label-side air returns in each of the
 four cabins. Other vent-like finishes become sealed access covers, solid edge
@@ -138,3 +139,37 @@ The user's original localhost:3000 development server remains the access point.
 - `d9e1d70` — sealed equipment, fit checks and historical benchmark compatibility.
 
 This evidence and ledger entry are committed separately from implementation.
+
+## Follow-up — ladder bay selection, 15 September 2026
+
+Starting source: `d3df1aa`. The owner requested that hovering the ladder bay
+preview the current cabin's door and clicking navigate through the ladder.
+The existing rounded opening now resolves to the exit cabin after the first
+reachable ladder crossing. Projects reaches About; About reaches Projects.
+Case studies first passes through Projects to reach About, and Contact first
+passes through About to reach Projects. The queue stores the exit cabin, never
+`walkway`. Overview and physically inside-bay selection remain inert. No geometry,
+materials, camera settings, animation or performance candidates were changed.
+
+Verification: 273 full-suite tests passed, including 11 focused visible-room
+checks. Typecheck, production build and changed-file lint passed. Tests cover
+all four origins, both layout scales and oblique opening picks, queue replacement,
+unreachable crossings and inside-bay/interlock restrictions.
+
+The root agent checked the live application in hidden built-in Chromium with an
+actual 1280×720 CSS canvas, normal scene effects and the 8K Earth. Hovering the
+bay opened `about:projects` and `projects:about`, confirmed by rendered views and
+DOM hover diagnostics. Actual bay clicks arrived in the correct cabin in both
+directions. The existing development audit recorded Projects → About across 78
+frames (35 inside the ladder) and About → Projects across 77 frames (39 inside).
+Both traces had at most one ladder hatch above 0.001 open progress. No browser
+warnings/errors were observed; the development accessibility audit reported zero
+violations. These traces verify navigation, not performance savings. Safari and
+additional responsive viewports were not exercised in this live follow-up.
+
+Independent critic `ladder_navigation_review`: **94/100**, no blocking findings
+or requested revisions. Rubric: requested behavior 30/30; navigation safeguards
+28/30; organization/scope 15/15; verification 16/20; documentation 5/5. The critic
+independently inspected final source and check logs. Its browser inventory was
+empty, so visual conclusions rely on the root agent's live observations rather
+than an independently viewed screenshot. This limitation is included in the score.

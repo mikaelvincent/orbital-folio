@@ -547,6 +547,7 @@ export function mountSpacecraftScene({
             model.group.userData.portals,
             active,
             destination,
+            insideLadderRoom(),
           );
           if (!intent) return null;
           if (
@@ -561,10 +562,11 @@ export function mountSpacecraftScene({
           return intent;
         }
         function navigateRoom(destination: string) {
-          if (reading || !latest.current.enabled || !roomIntent(destination))
-            return;
+          if (reading || !latest.current.enabled) return;
+          const intent = roomIntent(destination);
+          if (!intent) return;
           const next = doorQueue.requestDestination(
-            destination,
+            intent.section,
             active,
             travelling,
           );
@@ -1999,15 +2001,10 @@ export function mountSpacecraftScene({
           // Rounded masks leave the solid frame, dividers and sky unselectable.
           const { section, blockedByFace } = roomNavigation.pick(ray);
           if (blockedByFace) return { section: '', walkway: false };
-          if (
-            section &&
-            section !== 'walkway' &&
-            section !== active &&
-            !reading
-          ) {
+          if (section && section !== active && !reading) {
             const intent = roomIntent(section);
             return intent
-              ? { ...intent, walkway }
+              ? { ...intent, walkway: walkway || section === 'walkway' }
               : { section: '', walkway: false };
           }
           if (active !== 'home' && !reading) {
@@ -2032,6 +2029,12 @@ export function mountSpacecraftScene({
                 portalId: portal.object.userData.portalId as string,
                 walkway,
               };
+          }
+          // From behind the cutaway face, retain direct-door priority and use
+          // the existing bay volume only when no front opening owns the ray.
+          if (!section && walkway) {
+            const intent = roomIntent('walkway');
+            if (intent) return { ...intent, walkway: true };
           }
           return { section: '', walkway };
         }

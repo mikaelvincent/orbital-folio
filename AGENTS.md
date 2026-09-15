@@ -94,7 +94,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   current flight completes. Preserve queue behavior through intermediate waypoints.
 - Ladder entries participate. **Exits viewed from inside the ladder room are the
   exception**: preserve their preview restriction and automatic sequencing. The
-  ladder is a connector, not a separately queued destination.
+  ladder is a connector, not a separately queued destination. Hovering its visible
+  bay from a cabin previews the first door toward it; clicking crosses the ladder
+  to the next cabin on the other deck. Bay selection stays inert from overview
+  and while physically inside the ladder.
 - Only **one physical ladder door** opens at a time. Seal the entrance before
   opening the exit. Request the exit when departing the center waypoint, approach
   its safe boundary while opening, and prevent crossing until clear. Ordinary

@@ -101,8 +101,12 @@ Selecting a visible room previews its first connecting door and retains the
 final destination. A nonadjacent room must be reached through all required
 connections, not replaced by its first neighbor. Rounded opening masks exclude
 solid frame/corner/divider surfaces and sky. Two rooms sharing a first door retain
-distinct press/release identities. The ladder mask gates doorway picking; it is
-not a fifth room destination.
+distinct press/release identities. Selecting the visible ladder bay from a cabin
+previews the current cabin's first connecting door and navigates through the
+ladder: Projects → About, About → Projects, Case studies → Projects → About,
+and Contact → About → Projects. The ladder is not a fifth destination; queue the
+exit cabin. Its opening stays inert from overview and while physically inside
+the bay, preserving automatic exit sequencing. Rounded masks still gate picking.
 
 Hover/focus opens selectable doors during travel. Exactly one pending destination,
 including Home, is retained; later choices replace it. Consume it at final

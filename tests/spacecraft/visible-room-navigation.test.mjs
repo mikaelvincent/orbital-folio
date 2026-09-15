@@ -27,7 +27,58 @@ const portals = [
   { id: 'a-p', from: 'about', to: 'projects', via: 'walkway' },
 ];
 
-test('Visible-room intent uses the same first door but preserves a nonadjacent final destination', () => {
+void test('A visible ladder bay selects its exit cabin and previews the current cabin first door', () => {
+  for (const [from, section, portalId] of [
+    ['projects', 'about', 'p-a'],
+    ['about', 'projects', 'a-p'],
+    ['experience', 'about', 'e-p'],
+    ['contact', 'projects', 'c-a'],
+  ]) {
+    const intent = roomNavigationIntent(portals, from, 'walkway');
+    assert.deepEqual(intent, { section, portalId, roomTarget: true });
+    assert.equal(portals.find((p) => p.id === portalId).from, from);
+    // The same exit cabin selected directly takes exactly this route.
+    assert.deepEqual(intent, roomNavigationIntent(portals, from, section));
+    const queue = createDoorNavigationQueue();
+    queue.requestDestination(intent.section, from, true);
+    assert.equal(queue.destination, section);
+    queue.requestDestination('home', from, true);
+    assert.equal(queue.arrive(from), 'home');
+    queue.requestDestination(intent.section, from, true);
+    assert.equal(queue.arrive(from), section);
+  }
+});
+
+void test('Ladder bay selection stays inert in overview, inside the bay and without a reachable crossing', () => {
+  assert.equal(roomNavigationIntent(portals, 'home', 'walkway'), null);
+  assert.equal(roomNavigationIntent(portals, 'unknown', 'walkway'), null);
+  assert.equal(roomNavigationIntent(portals, 'walkway', 'walkway'), null);
+  for (const from of ['projects', 'about', 'experience', 'contact']) {
+    assert.equal(roomNavigationIntent(portals, from, 'walkway', true), null);
+    assert.equal(
+      roomNavigationIntent(portals.filter((p) => !p.via), from, 'walkway'),
+      null,
+    );
+  }
+  // The restriction is specific to the bay, not a blanket ban on cabin targets.
+  assert.equal(roomNavigationIntent(portals, 'contact', 'about', true).section, 'about');
+});
+
+void test('Ladder opening selections inherit travel preview and physical hatch restrictions', () => {
+  for (const from of ['projects', 'about']) {
+    const intent = roomNavigationIntent(portals, from, 'walkway');
+    const portal = portals.find((p) => p.id === intent.portalId);
+    const opposite = portals.find((p) => p.via && p.id !== portal.id);
+    assert(canUseDoorDuringTravel(portal, from, false, []));
+    assert(!canUseDoorDuringTravel(portal, from, false, [opposite.id]));
+    assert(!canUseDoorDuringTravel(portal, from, true, []));
+    assert.notEqual(sceneNavigationKey(intent), sceneNavigationKey({
+      section: intent.section, portalId: intent.portalId,
+    }));
+  }
+});
+
+void test('Visible-room intent uses the same first door but preserves a nonadjacent final destination', () => {
   assert.deepEqual(roomNavigationIntent(portals, 'contact', 'experience'), {
     section: 'experience',
     portalId: 'c-a',
@@ -47,7 +98,7 @@ test('Visible-room intent uses the same first door but preserves a nonadjacent f
   );
 });
 
-test('Room, doorway and Home requests share one overriding queue without losing the final room', () => {
+void test('Room, doorway and Home requests share one overriding queue without losing the final room', () => {
   const queue = createDoorNavigationQueue();
   const room = roomNavigationIntent(portals, 'contact', 'experience');
   const first = portals.find((p) => p.id === room.portalId);
@@ -70,7 +121,7 @@ test('Room, doorway and Home requests share one overriding queue without losing 
   assert.equal(queue.arrive('contact'), null);
 });
 
-test('Room previews inherit the ladder entry/interlock and inside-bay exit restrictions', () => {
+void test('Room previews inherit the ladder entry/interlock and inside-bay exit restrictions', () => {
   const room = roomNavigationIntent(portals, 'about', 'experience');
   const first = portals.find((p) => p.id === room.portalId);
   assert.equal(first.id, 'a-p');
@@ -80,7 +131,7 @@ test('Room previews inherit the ladder entry/interlock and inside-bay exit restr
   assert(!canUseDoorDuringTravel(first, 'contact', false, []));
 });
 
-test('Pressing one visible room and releasing over another cannot activate their shared first door', () => {
+void test('Pressing one visible room and releasing over another cannot activate their shared first door', () => {
   const about = roomNavigationIntent(portals, 'contact', 'about');
   const experience = roomNavigationIntent(portals, 'contact', 'experience');
   assert.equal(about.portalId, experience.portalId);
@@ -91,19 +142,21 @@ test('Pressing one visible room and releasing over another cannot activate their
   );
 });
 
-test('Real rounded opening masks select visible rooms at front and oblique angles in both layouts', () => {
+void test('Real rounded opening masks select visible rooms at front and oblique angles in both layouts', () => {
   const group = new THREE.Group();
   const picking = createRoomNavigationTargets(THREE, group);
   const ray = new THREE.Raycaster();
   for (const scale of [1.4, 1]) {
     picking.sync(scale);
     group.updateMatrixWorld(true);
-    const { halfPitch } = wallLayout(scale);
+    const { halfPitch, ladderX } = wallLayout(scale);
     for (const [section, x, y] of [
       ['projects', -halfPitch, DECK_HALF_PITCH],
       ['about', -halfPitch, -DECK_HALF_PITCH],
       ['experience', halfPitch, DECK_HALF_PITCH],
       ['contact', halfPitch, -DECK_HALF_PITCH],
+      ['walkway', ladderX, DECK_HALF_PITCH],
+      ['walkway', ladderX, -DECK_HALF_PITCH],
     ]) {
       const target = new THREE.Vector3(x, y, PRESSURE_FACE_FRONT);
       for (const eye of [
@@ -120,7 +173,7 @@ test('Real rounded opening masks select visible rooms at front and oblique angle
   }
 });
 
-test('Solid dividers, roof, rounded corners and sky cannot select a room or a doorway through the front face', () => {
+void test('Solid dividers, roof, rounded corners and sky cannot select a room or a doorway through the front face', () => {
   const group = new THREE.Group(),
     picking = createRoomNavigationTargets(THREE, group);
   const ray = new THREE.Raycaster();
@@ -145,7 +198,7 @@ test('Solid dividers, roof, rounded corners and sky cannot select a room or a do
   }
 });
 
-test('Inside-cabin and ladder views keep doorway picking available without selecting the back of an opening', () => {
+void test('Inside-cabin and ladder views keep doorway picking available without selecting the back of an opening', () => {
   const group = new THREE.Group(),
     picking = createRoomNavigationTargets(THREE, group);
   picking.sync(1.4);
@@ -169,7 +222,7 @@ test('Inside-cabin and ladder views keep doorway picking available without selec
   });
 });
 
-test('Opening masks stay invisible and replace geometry only when layout changes', () => {
+void test('Opening masks stay invisible and replace geometry only when layout changes', () => {
   const group = new THREE.Group(),
     picking = createRoomNavigationTargets(THREE, group);
   picking.sync(1.4);
