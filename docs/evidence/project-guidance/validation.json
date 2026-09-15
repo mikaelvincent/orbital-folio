@@ -1,0 +1,619 @@
+{
+  "date": "2026-09-15",
+  "scope": "Documentation only; no application tests, browser capture or benchmarks rerun. Existing runtime untouched.",
+  "baseline": "ba2fbc7",
+  "rootInstructionsBytes": 13059,
+  "documentedDefaultCombinedLimitBytes": 32768,
+  "rootOverridePresent": false,
+  "files": {
+    "AGENTS.md": "9419198575c13bd4dc3eae6089a2d82c29c87ed937d1824ad1d01e30d741c019",
+    "docs/PROJECT-CONTEXT.md": "49c6adf338d308c8e20928cc3f89e89e744f2f2ae5aae9fa6646fef620f0f9d3",
+    "README.md": "a9d19de2e433cd30d5863384d3c578bfe12f80ccdbbf9bb60d1bd958bd771c38",
+    "docs/EARTH-ASSETS.md": "2b1c1e611f6512a931bc448a51812c1517d3628d6e885904729f698c0500b513"
+  },
+  "relativeLinks": [
+    {
+      "file": "AGENTS.md",
+      "target": "docs/PROJECT-CONTEXT.md",
+      "exists": true
+    },
+    {
+      "file": "AGENTS.md",
+      "target": "docs/performance-ledger.md",
+      "exists": true
+    },
+    {
+      "file": "AGENTS.md",
+      "target": "docs/performance-diagnostics.md",
+      "exists": true
+    },
+    {
+      "file": "AGENTS.md",
+      "target": "docs/PROJECT-CONTEXT.md",
+      "exists": true
+    },
+    {
+      "file": "AGENTS.md",
+      "target": "docs/performance-ledger.md",
+      "exists": true
+    },
+    {
+      "file": "AGENTS.md",
+      "target": "docs/OPERATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "../AGENTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "../README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "OPERATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/spacecraft-access-symmetry/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/spacecraft-access-design/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/world-camera/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "room-camera.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "door-timing.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "centered-iris.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/room-access-and-hardware/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/performance/night-earth-resolution/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/performance/earth-fourway/audit-summary.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/horizon-softening/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "../public/textures/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "performance-ledger.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "performance-diagnostics.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/performance/rested-retests/research.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "evidence/performance/rested-retests/final-audit.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "../scripts/benchmarks/earth-resolution-lab.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "target": "performance-optimization-review.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "AGENTS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROJECT-CONTEXT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/performance-ledger.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "AGENTS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROJECTS-WORKSHOP-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROJECT-CONTEXT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROJECTS-WORKSHOP-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CRITIC-REPORT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/performance-diagnostics.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/OPERATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/ASSETS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/OPERATIONS.md#current-hosting-incident",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CRITIC-REPORT-INITIAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROJECTS-WORKSHOP-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CRITIC-REPORT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CONTACT-FLIGHT-CONSOLE-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CRITIC-REPORT-PORTRAIT-CALLOUT-ARRIVAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/STABLE-ROOM-PROPORTIONS-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HULL-BARS-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PANEL-REMOVAL-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/LADDER-LIP-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PLAIN-INTERIORS-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "target": "PROJECT-CONTEXT.md#earth-and-atmospheric-art",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "target": "../public/textures/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "target": "performance-ledger.md",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "target": "EARTH-ASSETS-PREVIOUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "target": "NATURAL-ORBIT-VALIDATION.md",
+      "exists": true
+    }
+  ],
+  "sourcePaths": [
+    {
+      "file": "AGENTS.md",
+      "path": "docs/evidence/",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/spacecraft-model.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/spacecraft.tsx",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/vessel-camera.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/scene-controls.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/flight.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/door-navigation.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/iris-navigation.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/immersive-portfolio.tsx",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/room-navigation.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/room-navigation-targets.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/iris-hatch.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/spacecraft-wall-layout.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/continuous-exterior-skin.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/rounded-cabin-interior.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/flush-window-reveals.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/ladder-opening-outline.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/overview-annotations.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/about-personal-study.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/projects-workshop.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/case-study-archive.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/contact-flight-console.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/exterior-service-equipment.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/docking-shoulder-equipment.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/ladder-endcap-equipment.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/ladder-service-spine.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/orbital-environment.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/earth-satellite.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/earth-view-transform.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/performance-panel.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/performance-review.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/scene-performance.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/spacecraft-performance.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/world-reader.tsx",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "components/admin-studio.tsx",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/content.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "lib/content-types.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "db/schema.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "scripts/benchmarks/spacecraft-geometry-inventory.mjs",
+      "exists": true
+    },
+    {
+      "file": "docs/PROJECT-CONTEXT.md",
+      "path": "scripts/benchmark-controlled-performance.mjs",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/spacecraft-model.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/projects-workshop.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/projects-payload-module.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/contact-flight-console.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/contact-flight-audio.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/spacecraft.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/overview-annotations.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/orbital-environment.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/earth-satellite.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/earth-view-transform.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "docs/PROJECT-CONTEXT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/immersive-portfolio.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/flight.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/world-reader.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/home-view.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/views.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/portfolio.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "components/admin-studio.tsx",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/content.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/content-types.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/seed.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "db/schema.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/security.ts",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "path": "lib/validation.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "path": "components/orbital-environment.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/EARTH-ASSETS.md",
+      "path": "docs/evidence/natural-orbit-revision/",
+      "exists": true
+    }
+  ],
+  "issues": []
+}

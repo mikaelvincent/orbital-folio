@@ -1,4 +1,6 @@
-# Procedural ocean environment
+# Historical procedural ocean environment
+
+**Historical record:** this page describes the earlier procedural implementation. Production now uses the approved 8K Mediterranean night satellite Earth. See [current project context](PROJECT-CONTEXT.md#earth-and-atmospheric-art), [texture provenance](../public/textures/README.md), and [the performance ledger](performance-ledger.md) before changing the environment. The original measurements and description below are retained for comparison.
 
 All ocean, cloud and sky visuals are generated in `components/orbital-environment.ts`. No Earth image, external noise asset or runtime asset service is used. Historical image credits remain in [EARTH-ASSETS-PREVIOUS.md](EARTH-ASSETS-PREVIOUS.md).
 

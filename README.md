@@ -1,10 +1,12 @@
 # Orbital Folio
 
+For ongoing work, follow [AGENTS.md](AGENTS.md) and the [current project context](docs/PROJECT-CONTEXT.md). The [performance ledger](docs/performance-ledger.md) records current decisions; older validation reports describe their dated revisions.
+
 A reusable developer portfolio with a real, editable Three.js spacecraft, server-rendered case studies, and an authenticated content studio. The initial identity is Mikael Vincent; all career/project/personal copy is clearly marked sample content. Identity and domain references are database records, not rendering constants.
 
-Interactive view makes the ship the main interface. Four cabins retain Projects/Case studies above About/Contact in the vessel. Every viewport uses the same cabin dimensions and content placement. Camera framing handles resizing; portrait overviews rotate the entire ship 90° with its satellite end upward, and selected rooms return upright. Open side doorways and a tall left walkway connect Case studies → Projects → stairs → About → Contact; the original docking assembly remains. Projects now contains four static category displays above a supported payload workbench. Case Studies retains its nine-bay archive rack; category browsing is deferred. Click a room or use the bottom-left navigation and persistent Home control to approach it with a fixed camera. Physical signs sit above the side doors; floating callouts identify the cabins, and the published domain/name rests above the ship in overview, then recedes during travel. Interiors use two brightness levels: medium by default and full brightness when hovered, selected or traversed.
+The interactive view makes the ship the main interface. Projects and Case studies sit above About and Contact, linked by side doors and a tall left ladder bay. Cabin dimensions and object placement remain consistent across viewports. The camera moves around the stationary spacecraft; portrait overview uses a camera roll to present its satellite end upward. Choose a visible room, a doorway, or the persistent navigation to approach it. Direct room URLs animate in from overview. The existing semantic readers, editable content and reduced-motion/reading fallbacks remain available.
 
-Small cursor movements add depth. Mouse/touch dragging gives a larger, bounded view without free orbiting; camera springs preserve velocity across changing targets. Medium-bright interiors rise to full brightness on hover or selection while the hull and antennas remain lit. The tapered ladder bay uses the same medium baseline, brightens fully when previewed from inside a cabin, and stays at full brightness during passage. A procedural ocean planet has moving cloud fronts, sheets, cumulus and cirrus. Meteors arrive frequently, sometimes in small groups. Reading view remains available; reduced-motion preferences are respected. Physical lockers, mission console, journal and communications instrument retain their attached semantic HTML readers. Those separate reading interfaces were intentionally outside the latest render-only revision.
+Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses the approved 8K Mediterranean night Earth, a softened cinematic blue horizon, varied star twinkle and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
 ## Run locally
 
@@ -36,32 +38,27 @@ Public content is plain text, not arbitrary HTML. Paragraphs and line breaks are
 
 ## Validate
 
-For the current render-only Projects revision, run `npm run typecheck`, `npm run lint`, `npm run build`, and `node docs/evidence/projects-workshop/geometry-audit.mjs . /tmp/projects-geometry.json 3a19df9`. This audit loads the modular model and compares protected geometry against the pre-rebuild revision. Older standalone geometry scripts target historical shapes and may need their assertions/import loaders updated before use against the current room design.
-
-With the local development server running:
+Choose checks appropriate to the change, as described in [AGENTS.md](AGENTS.md). The maintained application commands are:
 
 ```sh
 npm run typecheck
 npm run lint
 npm test
-node scripts/database-roundtrip.mjs
-node scripts/chassis-preservation-audit.mjs . /tmp/preservation.json docs/evidence/orientation-labels/label-exclusions.json ebff2d0
-node scripts/liner-sheet-audit.mjs
-node scripts/spacecraft-label-audit.mjs
-node scripts/spacecraft-metadata-audit.mjs
-node scripts/orientation-labels-critic-state.mjs
-node scripts/orbital-environment-audit.mjs
-node scripts/render-input-audit.mjs
-node scripts/case-studies-routing-migration-audit.mjs
 npm run build
-npm audit
 ```
+
+Individual historical geometry audits use specific designs and baseline commits;
+read their dated validation reports before replaying them. For example, the
+[Projects workshop record](docs/PROJECTS-WORKSHOP-VALIDATION.md) documents its
+preservation audit. Do not run every old standalone script as a universal current
+check. Documentation-only changes need source/link and consistency checks rather
+than rebuilding or benchmarking the application.
 
 The HTTP integration suite creates temporary records and restores existing content. It is restricted to localhost. It verifies authentication boundaries, snapshot isolation, publication, personalization, concurrency, media, contact storage and abuse controls, exports, and server-rendered routes. On a fresh database, the suite claims the local test identity using `.dev.vars`.
 
 For a browser accessibility audit during development, append `?audit=1` to a route. The development-only harness uses axe-core and exposes a report near the top-right of the page. Expand it and use **Run accessibility audit** after navigating to another room. It also has a button to simulate a real WebGL context loss. **Toggle reduced-motion diagnostic** exercises the renderer pause path without opening a reader; **Run renderer frame control** then samples host display callbacks. This development-only override does not claim to emulate an operating-system preference. Use `?audit=loading` to hold development scene initialization for four seconds and inspect the real loader/reading escape. This delay is only a test gate; normal startup has no artificial delay. Camera traces are also development-only on `?audit=1`. The harness, delay and axe import are excluded from production. Automated audits supplement keyboard and visual inspection; they do not certify complete accessibility.
 
-See [the current validation evidence](docs/PROJECTS-WORKSHOP-VALIDATION.md) and [the independent critic report](docs/CRITIC-REPORT.md).
+See [the current context and evidence map](docs/PROJECT-CONTEXT.md). The [Projects validation](docs/PROJECTS-WORKSHOP-VALIDATION.md) and [its critic report](docs/CRITIC-REPORT.md) describe that earlier revision.
 
 For repeatable rendering measurements, click the pulse icon beside **SAMPLE / CONCEPT** in the top-right corner (`?perf=1` remains an optional shortcut). The opt-in **Scene diagnostics** panel records CPU/GPU phases, per-room/component draw workload and AO refreshes, offers temporary isolation controls, and exports named comparisons. Closing it restores normal rendering and removes instrumentation. It works in development and production builds. See the [performance testing guide and initial M4 measurements](docs/performance-diagnostics.md) before comparing results; normal visits do not start this instrumentation.
 
@@ -70,9 +67,9 @@ For repeatable rendering measurements, click the pulse icon beside **SAMPLE / CO
 - `components/spacecraft-model.ts`: editable procedural geometry, materials, cabin props, clickable object targets, interior signs and framing/callout anchors.
 - `components/projects-workshop.ts`, `components/projects-payload-module.ts`: static four-module category bank, workbench, mounting rails and backlit category artwork.
 - `components/contact-flight-console.ts`, `components/contact-flight-audio.ts`: static Contact console, displays, physical controls and docked audio hardware.
-- `components/spacecraft.tsx`: lazy renderer, fixed camera flights, pointer picking, cached shadows, reduced motion, offscreen handling and WebGL fallback.
+- `components/spacecraft.tsx`: lazy renderer, world-camera flights, pointer picking, cached shadows, reduced motion, offscreen handling and WebGL fallback.
 - `components/overview-annotations.ts`: projected native callouts and the travelling portfolio identity.
-- `components/orbital-environment.ts`: procedural ocean, moving clouds, atmosphere, twinkling stars and staggered meteors; memory and algorithm notes are in `docs/EARTH-ASSETS.md`.
+- `components/orbital-environment.ts`, `components/earth-satellite.ts`, `components/earth-view-transform.ts`: the selected satellite Earth, atmosphere, stars and meteors; current choices and comparison records are linked from `docs/PROJECT-CONTEXT.md`.
 - `components/immersive-portfolio.tsx`, `lib/flight.ts`: persistent scene navigation, browser history, keyboard focus and readable-view fallback.
 - `components/world-reader.tsx`: native HTML pages attached to physical reader surfaces, including accessible paging and shared contact state.
 - `components/home-view.tsx`, `components/views.tsx`, `components/portfolio.tsx`: shared public and private preview layouts.
@@ -89,10 +86,14 @@ Only the five shared interface components used by the studio are retained; unuse
 
 Read [OPERATIONS.md](docs/OPERATIONS.md) for hosting, authentication boundaries, secrets, backups, restoration, custom domains, independent demo subdomains, and maintenance tradeoffs. Read [ASSETS.md](docs/ASSETS.md) to edit the spacecraft.
 
-Current delivery: the revised local experience and seeded studio are runnable. The latest critic report evaluates this requested local revision. Public hosting remains a separate unresolved provider sign-in callback incident, documented in [OPERATIONS.md](docs/OPERATIONS.md#current-hosting-incident); no live domain deployment is claimed. The original launch review is retained in [CRITIC-REPORT-INITIAL.md](docs/CRITIC-REPORT-INITIAL.md).
+Current delivery: the revised local experience and seeded studio are runnable. Each critic report evaluates its dated revision; the current context guide links the relevant recent evidence. Public hosting remains a separate unresolved provider sign-in callback incident, documented in [OPERATIONS.md](docs/OPERATIONS.md#current-hosting-incident); no live domain deployment is claimed. The original launch review is retained in [CRITIC-REPORT-INITIAL.md](docs/CRITIC-REPORT-INITIAL.md).
 
-The Case studies room uses `/case-studies` and the existing editable experience records for this design iteration. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels. The separate reading interfaces are deferred during this render pass.
+The Case studies room uses `/case-studies` and the existing editable experience records. `/experience` remains compatible; the persisted key is unchanged. Migration `0004_case_studies_room.sql` updates only untouched default room labels.
 
-The latest change rebuilds Projects as the approved payload workshop: four category modules with fitted hardware, a supported cream workbench and static backlit artwork. The replaced locker pick targets are removed; category browsing remains deferred. Camera, doors, other rooms and reader implementations are preserved. See [PROJECTS-WORKSHOP-VALIDATION.md](docs/PROJECTS-WORKSHOP-VALIDATION.md) and the [critic report](docs/CRITIC-REPORT.md). The earlier [Contact console validation](docs/CONTACT-FLIGHT-CONSOLE-VALIDATION.md) remains available.
+## Historical room-render revisions
+
+The records below describe earlier render passes, not pending work. The separate reading interfaces were outside those passes; consult the current context guide and source before changing them.
+
+An earlier change rebuilt Projects as the approved payload workshop: four category modules with fitted hardware, a supported cream workbench and static backlit artwork. The replaced locker pick targets are removed; category browsing remains deferred. Camera, doors, other rooms and reader implementations are preserved. See [PROJECTS-WORKSHOP-VALIDATION.md](docs/PROJECTS-WORKSHOP-VALIDATION.md) and the [critic report](docs/CRITIC-REPORT.md). The earlier [Contact console validation](docs/CONTACT-FLIGHT-CONSOLE-VALIDATION.md) remains available.
 
 The preceding correction keeps portrait overview callouts hidden during the return flight, then fades labels and leaders in together after arrival. Horizontal timing and the travelling portfolio identity stay unchanged. Evidence is in [PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md](docs/PORTRAIT-CALLOUT-ARRIVAL-VALIDATION.md) and its [archived critic report](docs/CRITIC-REPORT-PORTRAIT-CALLOUT-ARRIVAL.md). The preceding fixed-dimension correction is retained in [STABLE-ROOM-PROPORTIONS-VALIDATION.md](docs/STABLE-ROOM-PROPORTIONS-VALIDATION.md). The earlier hull-bar correction is retained in [HULL-BARS-VALIDATION.md](docs/HULL-BARS-VALIDATION.md). The preceding ladder-panel removal is retained in [PANEL-REMOVAL-VALIDATION.md](docs/PANEL-REMOVAL-VALIDATION.md). The earlier shoulder-strip removal is retained in [LADDER-LIP-VALIDATION.md](docs/LADDER-LIP-VALIDATION.md). Earlier interior standardization is retained in [PLAIN-INTERIORS-VALIDATION.md](docs/PLAIN-INTERIORS-VALIDATION.md).
