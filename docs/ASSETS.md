@@ -1,37 +1,147 @@
-# Editable scene assets
+# Editing the spacecraft and orbital environment
 
-The Projects furnishings are isolated in `components/projects-workshop.ts` and `components/projects-payload-module.ts`. Four category display modules replace the old individual lockers. Each has an actual bezel opening, screen gasket, rear enclosure, captive fasteners, latches, grip loops, capped connectors and retained diffusers. Narrow wall rails and standoffs support the bank; a grounded cream workbench has structural legs, service pulls, an amber handhold and a terminated cable trunk. Four mipmapped canvas textures carry the category labels/icons. All projects uses the actual collection count; the other counts await a defined taxonomy. Materials are shared across the four modules, and screen shadows are disabled after batching so their backlit navy faces remain clear. The Projects-only upper plaque and obsolete locker pick targets are removed. There are no new lights, animations, event handlers or catalog interactions. See [Projects validation](PROJECTS-WORKSHOP-VALIDATION.md).
+Read [project context](PROJECT-CONTEXT.md) for approved art and navigation decisions.
+This guide describes the asset contracts and how to work on them. The procedural
+spacecraft remains editable TypeScript; no purchased model or Blender setup is
+required. Content editing belongs in the studio, not in geometry source.
 
-The Contact furnishings are isolated in `components/contact-flight-console.ts` and `components/contact-flight-audio.ts`. A floor-referenced, static Flight Operations Console replaces the old radio: three fitted displays, a supported cream desk, inclined grouped controls, front handhold, gooseneck microphone and docked headset. The Contact-only physical upper plaque is omitted because the central display carries its editable name. The same room materials, batching, picking proxies and disposal lifecycle remain in use. The display artwork is three small canvas textures; all furniture and audio shapes are actual procedural geometry. No camera, animation or interaction work is included. See [the visual and geometry evidence](CONTACT-FLIGHT-CONSOLE-VALIDATION.md).
+## Start with the owning responsibility
 
-The spacecraft is built from editable TypeScript geometry in `components/spacecraft-model.ts`; no purchased model, Blender installation, or mockup bitmap is required. Cream pressure frames, raised graphite seals, amber handles, interior lighting, paired solar wings and furnishings follow the supplied toybox references. Cabin and ladder pressure interiors share a plain matte enamel with no texture maps. Raised rear panels and lower cove trim are removed; the original pressure skin supplies the wall. Repeated parts are instanced or batched by material. About retains its closed aft bulkhead. A shared five-aperture pressure face and continuous roof/side/keel envelope unify the four cabins and ladder; cabin interior geometry and content anchors remain independent of the outer shell. The central structural beam has two blind inspection recesses, and the service module seats in a gasketed tapered mounting flange. Wide and compact chassis variants are generated once, excluded from picking, included in overview bounds and disposed with the scene. See [the original chassis validation](UNIFIED-CHASSIS-VALIDATION.md) and [the closure refinement](CHASSIS-GLASS-VALIDATION.md). The cabin deck is a thin 0.105-unit slab at local Y=-1.32, aligned with the lower aperture. Its rear remains at Z=-1.12; its front ends at Z=1.27 inside the chassis face, preventing the floor from projecting as an exterior bar. The decorative straight hull-edge channels are removed. See [the hull-bar correction](HULL-BARS-VALIDATION.md). Furnishings follow that floor datum in both layouts. The original pressure skin extends to the forward frame and supplies the ceiling; the added ceiling-return slabs are removed. Its visible flat underside is at Y=1.430 after the profile bevel. See [the cabin alignment correction](ALIGNED-CABINS-VALIDATION.md).
+| Change | Starting point |
+| --- | --- |
+| Scene assembly, metadata and animation | `features/spacecraft/spacecraft-model.ts` |
+| Shared materials, geometry cache and object builders | `features/spacecraft/geometry/model-primitives.ts` |
+| React host and loading/fallback view | `features/spacecraft/spacecraft.tsx` |
+| Renderer lifecycle, lighting, picking and disposal | `features/spacecraft/spacecraft-runtime.ts` |
+| About berth, notebook and personal objects | `features/spacecraft/rooms/about-personal-study.ts` |
+| Projects category bank and workshop | `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/projects-payload-module.ts` |
+| Case studies archive | `features/spacecraft/rooms/case-study-archive.ts` |
+| Contact console, audio hardware and social monitors | `features/spacecraft/rooms/contact-flight-console.ts`, `features/spacecraft/rooms/contact-flight-audio.ts` |
+| Cabin utility and outboard equipment | `features/spacecraft/equipment/cabin-utility-fittings.ts`, `features/spacecraft/equipment/outboard-wall-equipment.ts` |
+| Docking collar, service bus, solar wings and communications | `features/spacecraft/equipment/docking-service-assemblies.ts` |
+| Exterior access routes and ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
+| Pressure surfaces and window reveals | `features/spacecraft/geometry/continuous-exterior-skin.ts`, `features/spacecraft/geometry/rounded-cabin-interior.ts`, `features/spacecraft/geometry/flush-window-reveals.ts` |
+| Shared architectural dimensions | `features/spacecraft/geometry/spacecraft-wall-layout.ts`, `features/spacecraft/rooms/cabin-composition.ts` |
+| Door mechanisms and navigation | `features/spacecraft/navigation/iris-hatch.ts`, `features/spacecraft/navigation/iris-navigation.ts`, `features/spacecraft/navigation/door-navigation.ts` |
+| Camera and responsive fit | `features/spacecraft/navigation/vessel-camera.ts`, `features/spacecraft/navigation/scene-controls.ts`, `features/spacecraft/navigation/cabin-itinerary.ts` |
+| Callouts and scene feedback | `features/spacecraft/overview-annotations.ts`, `features/spacecraft/navigation/scene-feedback.ts` |
+| Earth, atmosphere, stars and meteors | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
 
-In model coordinates the cabins retain Projects/Case studies above About/Contact. Portrait overviews rotate the entire craft +90° around Z, putting the service/satellite end upward; selected cabins return to zero roll. The website always uses the wide physical layout: centers X±2.25, Y±1.70 and a 3.416×2.775-unit clear aperture. Viewport changes adjust the camera and root roll without changing cabin dimensions, prop scale or placement. The explicit compact model API remains for compatibility with historical asset tools; the website no longer selects it on resize or initialization. See [stable-room validation](STABLE-ROOM-PROPORTIONS-VALIDATION.md). A tall left passage joins the rows, creating the route Case studies ↔ Projects ↔ left walkway ↔ About ↔ Contact. All room doorways are on the sides. The docking assembly attaches to the passage's outer wall; the service module, solar wings and braced communications dish remain on the right.
+## Model coordinates and contracts
 
-`createSpacecraft(THREE, {accent, labels, projects, caseStudies, sampleLabel, projectPageSize, screenLabels, vesselName})` returns the scene group, picking targets, live `readerSurfaces`, project setters and `update`. The update accepts active room, actual transit room, `hoveredWalkway`, `transitWalkway`, `labelPortrait`, travelling state, selected/hovered project or case study, page, reading state and elapsed delta. `group.userData` provides room bounds, room/reader/label anchors, hotspots and measured overview bounds. The renderer consumes this contract instead of duplicating cabin coordinates. `PROJECTS_PER_PAGE` in `lib/flight.ts` remains nine for the existing reading APIs. The Projects room now has four static category modules, not individual project slots; its legacy locker hotspots are absent. Owner content and the All projects total come from the database, while the three provisional category titles are authored display labels.
+Model coordinates use +Y up and +Z toward the cutaway. The spacecraft remains
+stationary; camera position and roll handle portrait overview, room entry, hover
+and drag. Camera and annotations consume model-provided anchors instead of
+copying room coordinates. The website uses the wide physical layout at every
+viewport; the compact model API remains available to asset tools and tests.
 
-Exterior overview labels are native dark glass callouts in `components/overview-annotations.ts`, connected by fine SVG leaders to model-provided front-aperture edges. There are no exterior plaque meshes or ink textures. Landscape leaders share a longer outward diagonal, followed by a horizontal run to the projected vessel’s outer corners. The diagonal clears the full top/bottom silhouette; shared left/right endpoints keep the pills within the viewport. Narrow views steepen the common diagonal while preserving room for the horizontal run. Portrait leaders leave the outboard aperture corners near the central beam, then follow two symmetric rails outside the spacecraft and solar-panel envelope. The labels extend inward from those rails in upper/lower pairs. Framing reserves 36-pixel portrait side insets and a 72-pixel landscape label band. Labels and their two-segment paths keep cached world positions while the camera travels. On a return to portrait overview, a separate arrival multiplier keeps the complete callout layer hidden and inert until camera travel finishes; its labels and leaders then ease in together after the settled routing update. This multiplier leaves horizontal timing and the independently travelling identity unchanged. Initial overview and reduced-motion arrivals display immediately. Cancelling a return freezes the multiplier so hidden callouts cannot flash back into view. Overview callouts and controls use shared cool translucent glass, fine borders and lightweight typography. Label text scales from 14px on phones to 24px on large screens, capped at 78% of the identity font size; interactive controls keep a 44px minimum height. Their text comes from published navigation labels. Four physical interior headers remain unchanged. Side-route captions sit directly above the center of open rounded apertures, at the middle of their wall depth, in the same side-wall plane as the door (Y±90°, Z0). Their physical perspective foreshortens them in a centered close view, especially on phones. Bottom navigation gives readable equivalent destinations; the whole doorway remains clickable. Extreme drag can hide a far-side sign. The camera does not billboard the physical ink toward the viewer. Matte diffuse ink and non-emissive pathway surfaces avoid specular glare and independent doorway lighting. The formerly coplanar backing/enamel faces now have .01-unit depth separation; ink has a .003 gap, explicit trilinear mip filtering, anisotropy 8 and a small depth bias. Paired painted symbols flank every destination at equal offsets. Ordinary upward arrows mean continue through; ladder/up and ladder/down symbols identify deck changes. Extra signs remain at each ladder entrance. Their same metadata drives the visible ink, simple raycast targets, accessible CSS3D buttons and camera framing.
+`createSpacecraft(THREE, options)` returns the group, update function, room and
+portal targets, social interaction targets, reader surfaces and content/page/
+layout setters. Options include editable labels, projects, case studies, social
+links, sample copy and the baseline instance-coalescing switch. Consult its types
+for the complete contract before changing an entry point.
 
-The mounting arrangement takes functional inspiration from ESA’s [ATV service module](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module), which carries its independent solar arrays and communications equipment, and the [ATV proximity boom](https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking). This is a stylized toybox design, not a replica or a claim of flight qualification. Its central docking approach is clear, and its dish and bracing clear the solar panel and hinge envelopes.
+The model's `group.userData` publishes architectural bounds, framing points, room
+and doorway metadata, adjacency and current motion state. Per-object names,
+section ownership and semantic equipment metadata support picking, diagnostics
+and geometry regression checks. Preserve these even when extracting builders.
+`motionActive` also reflects lighting/highlight changes, not just moving meshes.
 
-Projects now uses the category workshop described above. The unchanged nine-bay Case studies rack reads the persisted experience records and has independent hover/slot state. Deferred reader attachments remain compatible; About opens a bound journal; contact uses a communications instrument. `components/world-reader.tsx` renders actual semantic HTML onto the corresponding Three.js attachment with `CSS3DRenderer`. Each frame copies the physical surface's world transform, including partial deployment. Portrait screens stretch the physical housing while retaining normal-sized HTML text. The document itself scrolls by touch, wheel and keyboard. Its return and page controls remain fixed within the instrument.
+The internal `experience` identity and its persisted records are intentional;
+the public room is Case studies at `/case-studies`, with `/experience` remaining
+compatible. Project/category artwork and archive furniture do not automatically
+create new content navigation. The existing page setters and reader attachment
+contracts remain available independently of which physical actions are enabled.
 
-`components/spacecraft.tsx` owns fixed camera flights, input, lighting, picking and disposal. Mouse/touch dragging reaches ±0.32-radian yaw / ±0.18-radian pitch in overview, and ±0.22 / ±0.12 in rooms. Cursor movement adds at most ±0.045 / ±0.025, clamped to the live drag envelope. The angle limits themselves ease between overview and room, preventing a jump after a held drag. The view remains bounded rather than accumulating an orbit. An eight-pixel maximum excursion threshold prevents a drag—including one that returns to its starting point—from activating a locker or hatch. Readers and forms retain native scrolling. Position, distance, direction and hover responses preserve velocity through bounded, substepped springs. Cross-row flights follow the left passage waypoints. Portrait entry/return first pulls back, rotates within a conservatively fitted sweep, then approaches the destination. Both endpoint targets reserve 17 intermediate hull orientations; the far clipping plane expands from the itinerary’s maximum distance and hull diameter. This adds a visible clearance sequence on narrow phones. Reduced motion skips the itinerary.
+## Geometry, materials and ownership
 
-Room brightness has two material-multiplier targets: 0.50 default and 1.00 hover, actual transit or settled selection. These are not measured display luminance. A room becomes fully selected only after the camera arrives. The ladder uses .50 by default and 1.00 for hover from inside a room or actual passage. Its local interior materials dim independently; the exposed outer shell stays lit. Shared threshold liners use the brighter adjacent space. Exterior materials remain at 1. Point-light intensity is constant: only local interior materials and fixture emission follow the two levels, avoiding spill onto the satellite and hull. The two ceiling fixtures each have a matching light, with no added central hotspot. Split material faces keep exposed collar and hull surfaces lit. Unused Case Studies bays retain their secured equipment designs, with no invented content links.
+Use the existing cream, graphite, alloy and amber materials and the owning room's
+builder. Shared pressure-wall datums keep shell openings, doors, signs, fixtures
+and camera framing aligned. Put dimensions with their owning construction or
+shared architectural module; do not let furniture bounds redefine room fit.
 
-The ladder shell, inset liner and rims share a long elliptical taper: 1.36 units across ×2.14 units high per shoulder (horizontal dimensions follow layout scale). The shoulders occupy about 67% of the 6.4-unit height, leaving a 2.12-unit straight center for docking. The narrower ladder shifts inward and uses eight rigid stand-offs. Both transfer platforms and their guides and cleats are removed, leaving an uninterrupted ladder shaft. Genuine side-door thresholds remain. A closed contoured rear liner follows the actual shell shoulders. The rear liner rolls through a quarter-round cove into the shared front-aperture contour. The flat rear surface stays inside the ladder bay at X≤0.585 and Z=-0.985. Its cabin-side cove meets the existing rear jamb at X=0.672, Z=-0.975, behind the opening’s Z=-0.970 edge. This replaces the oversized rear extension that previously folded across the cabin doorway; there is no extra bridging sheet. Separate fan-shaped end patches are removed; the lower lining cutoff matches its actual Y=-1.04 tangent, closing the missing strip beside docking. The redundant inner shell skin and raised hatch backing plate are removed. The outer roof and keel meet the ladder shoulders at single tangent levels, removing the short stepped transition. The longitudinal depth caps retain smoothed normals. Their redundant forward faces and end bevels are removed: the old, smaller aperture made those edges protrude into the ladder opening as thin cream strips. The existing continuous liner overlaps the common front chassis without a replacement patch. See [the close-up correction](LADDER-LIP-VALIDATION.md). The central docking wall now shares the curved shoulder datums (outer X=-0.75, inner X=-0.665 before layout scale), with no projecting rectangular edge bevel. Its depth matches the 2.42-unit shoulder. A recessed gasket ring and restrained pressure leaf close the actual docking opening; the wheel and locks remain attached to that leaf. Open side passages connect the ladder and neighboring cabins. The outer sleeve now seats in a compact circular load-bearing mount whose axis derives from the ladder wall; a sealed diaphragm closes the connection. Geometry checks cover coaxial alignment, mounting overlap, pressure sealing and side-passage clearance. The unused Contact door prop is removed. Portfolio identity now sits above the craft as a lightweight HTML heading derived from the database domain hostname, falling back to the owner name. The physical vessel nameplate and its fittings are removed. The heading is an ordinary home link, world-projected from its overview position and spring-faded during room travel. It is invisible and inert in settled rooms. Its untransformed wrapper supplies stable framing measurements. Rebranding requires no scene edits.
+Static parts use material batching and repeated fittings use instancing. Builders
+must retain their names, diagnostic source metadata, room dimming, shadow flags,
+passive/interactive distinction and attachment anchors through batching. Moving
+iris leaves and reader assemblies remain separate from static batches. Geometry
+and materials shared across objects must not be disposed while still in use.
 
-Lighting uses ACES tone mapping, image-based fill, warm key/rim lighting and cached PCF shadows. Capable desktop renderers add denoised GTAO contact shading, recalculated when the camera or physical objects move. Moving doors and readers do not invalidate the static shadow map. A single requestAnimationFrame loop avoids the irregular cadence of the previous frame limiter. Pixel ratio is refreshed on viewport resizing and capped at 2 desktop, 1.75 mobile, and four million color-buffer pixels. Cloud field detail and native HTML resolution remain independent of this fill-cost bound. Reduced motion, hidden/offscreen states and Reading view stop unnecessary animation; simulation advances only with active time. Picking uses simple room/instrument volumes and six directed side-portal targets instead of tracing detailed geometry.
+Room highlighting changes local material multipliers and fixture emission;
+exposed exterior surfaces retain their own materials. The lighting rig, cached
+shadow map and cached GTAO are renderer responsibilities. Moving the camera can
+invalidate lighting or contact shading even when the spacecraft is stationary.
+Changes to these systems are performance work and require the ledger protocol.
 
-`components/orbital-environment.ts` renders a procedural ocean, rotating cloud fronts, blue atmospheric limb, navy star field, independent seeded twinkling and up to nine meteors. A periodic RG8 gradient/cellular volume feeds separate weather organization, stratiform sheet, local cumulus and directional cirrus layers. Local billows use separate, mildly warped coordinates to avoid inheriting the weather front’s stretching. Desktop detail uses a bounded two-tap major-axis filter. Two sunward density probes and a bounded gradient normal add relief. It is an inexpensive thin-shell approximation, not a volumetric weather simulation. Environment texture mip chains total 773,950 logical bytes desktop / 118,590 mobile. The 17/11 cloud samples per fragment cost more than the previous field; memory savings do not establish GPU speed. See [EARTH-ASSETS.md](EARTH-ASSETS.md). Three staggered meteor timing banks produce exactly three times the prior starts over the audited 630-second interval, with single, parallel and independently directed events. Nine persistent slots reuse their geometry; fixed stars add 12.4 KB of desktop attributes and their mean stored brightness increases 38%. All motion shares one active clock, and the themed loader covers initialization until the first frame.
+## Interaction and accessibility
 
-`components/immersive-portfolio.tsx` maintains meaningful URLs and server-consistent metadata. Full content is server-rendered before enhancement. Reading view removes GPU work; Save-Data and WebGL loss fall back to HTML. Very short viewports and browser magnification use reading view, while a focused contact field suppresses disruptive keyboard-resize switching. Drafts and submission state live above both readers and survive switching. They are held in memory, not local storage.
+Only configured Contact social monitors currently register furnishing actions.
+Their native links overlay physical anchors; the central display and other
+passive furnishings do not become buttons by acquiring decorative text. See
+[Contact social channels](contact-social-channels.md) for authoring and placement.
+Room navigation, door navigation and explicit reading-view controls are separate.
 
-Geometry, materials, textures, framebuffers, shadows, observers and listeners are disposed on exit. The scene and native instrument integration add initial engineering and GPU cost compared with a static page. Procedural source and database-driven labels keep ongoing content work independent of 3D tooling. Small generated fields replace image resolution tiers; desktop contact shading is still limited to capable renderers. Physical-device and assistive-technology testing remain useful before a public launch.
+Room callouts, physical doors, navigation controls and social monitors share one
+feedback controller. Pointer input uses the topmost visible target; keyboard
+input uses the focused control. Switching to the pointer retains DOM focus but
+must clear its old visual highlight. Native controls block picking behind them.
+Dragging, travel, cancellation, blur and hidden-page transitions clear stale
+feedback; touch does not create hover.
 
-All public scene anchors, doorway axes and framing bounds are calculated in vessel coordinates. Resizing a rolled or tilted craft cannot apply its root transform twice. No scene transforms are temporarily reset during measurement. Overview framing uses 112 support points from 14 separate subassemblies, analytic view-plane centering, and the full drag/hover/dolly envelope. This avoids fitting empty corners of one global box. The current [connector validation](CHASSIS-GLASS-VALIDATION.md) records geometry, timing, framing and built GPU evidence.
+`features/portfolio/world-reader.tsx` owns the semantic instrument content. Keep keyboard
+focus, native scroll, reading fallback and contact form state functional when
+changing model attachments or renderer lifecycle. Validate behavior through both
+interactive and readable views rather than relying only on geometry tests.
 
-The six side doorways use a square 1.84-unit finished opening inside a complete 2.03-unit frame. The rear jamb sits forward of the cabin wall. Sleeve, seal and structural openings have distinct clearances to avoid coincident faces during camera motion. The sign enamel is 1.48 units wide; icon centers derive from a 0.095-unit outer inset while reserving the central text region. See [interior standardization evidence](PLAIN-INTERIORS-VALIDATION.md).
+## Earth and asset provenance
 
-The ladder doorway reveals use shared light from their adjoining cabin and the ladder. The broad ladder wall keeps its own dimmer. The redundant rear-return meshes and their clipping helper are removed. Selected Projects/About doorway surfaces stay bright while the actual ladder wall changes on hover. See [panel removal validation](PANEL-REMOVAL-VALIDATION.md); [stairs lighting validation](STAIRS-LIGHTING-VALIDATION.md) records the preceding lighting-only revision.
+Production uses the local 8192×4096 Mediterranean night Earth image with the
+cinematic atmosphere, stars and occasional meteor groups. It requests the chosen
+map only. Public globe controls and old procedural-cloud trials are not part of
+the current interface. Historical implementations and lower resolution assets
+remain in developer comparison tooling where they are used.
+
+[Texture records](../public/textures/README.md) carry NASA credits and manifests.
+[Asset preparation](../scripts/assets/README.md) documents source verification
+and repeatable encoding. Keep source identity and notices with derived assets.
+The functional inspiration for the service module includes ESA's
+[ATV service module](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module)
+and [proximity equipment](https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking);
+this remains an artistic interpretation, not an engineering qualification.
+
+## Verify an asset change
+
+Use the related tests and inspect the actual rendered result at useful room,
+overview, hover/drag and responsive states in the hidden built-in browser.
+Geometry checks cover fit and continuity; they cannot judge aesthetics. Full
+model/renderer/navigation changes also need type checking, the test suite,
+affected lint and a production build.
+
+`node scripts/benchmarks/spacecraft-geometry-inventory.mjs <baseline-commit>`
+compares source-identified static geometry counts. The reusable finite preview
+and Earth resolution lab live in `scripts/benchmarks/`; their documented omissions
+matter when interpreting captures. A finite asset preview is not the full app,
+and counts alone are not a rendering-performance result.
+
+The standalone `scripts/chassis-geometry-audit.mjs`,
+`scripts/case-studies-routing-migration-audit.mjs`, `scripts/scene-controls-audit.mjs`
+and `scripts/render-input-audit.mjs` passed after the reorganization. They check
+specific geometry, migration/routing or numerical input behavior, not browser
+appearance. `scripts/orbital-environment-audit.mjs` runs the maintained Earth/cloud
+correctness suites and accepts a comparison artifact.
+
+Three older utilities retain potentially useful specialist checks and are not
+part of `npm test`: `scripts/spacecraft-metadata-audit.mjs` and
+`scripts/spacecraft-model-cost-audit.mjs` have preexisting Canvas fixtures without
+`Path2D`, so direct execution fails; their numerical checks pass when an external
+no-op `Path2D` fixture is supplied. That fixture cannot establish canvas appearance.
+The cost audit requires explicit before/after models and includes checks specific
+to the earlier rounded-box tessellation change. `scripts/leader-routing-audit.mjs`
+reads saved browser records; it accepts the current portrait `mirrored-rails`
+layout but skips the current landscape `corner-leaders` layout. Retain these until
+their remaining comparison uses are resolved; do not treat them as complete
+current scene validation.
+
+For measured performance comparisons, follow [the diagnostics guide](performance-diagnostics.md)
+and update [the running ledger](performance-ledger.md). Its candidates remain
+held until authorized. Keep necessary comparison evidence; use Git history for
+superseded one-off implementation reports rather than duplicating them here.

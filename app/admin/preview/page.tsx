@@ -1,16 +1,16 @@
-import { PrivacyView } from '@/components/privacy-view';
-import { HomeView } from '@/components/home-view';
+import { PrivacyView } from '@/features/portfolio/privacy-view';
+import { HomeView } from '@/features/portfolio/home-view';
 import { redirect } from 'next/navigation';
 import { adminIdentity } from '@/lib/security';
-import { getPortfolio } from '@/lib/content';
-import { PublicShell } from '@/components/portfolio';
+import { getPortfolio } from '@/lib/content/repository';
+import { PublicShell } from '@/features/portfolio/public-shell';
 import {
   ProjectsView,
   DossierView,
   ExperienceView,
   AboutView,
   ContactView,
-} from '@/components/views';
+} from '@/features/portfolio/room-views';
 export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Private draft preview',

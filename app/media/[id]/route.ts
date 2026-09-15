@@ -1,4 +1,4 @@
-import { bindings, database } from '@/lib/content';
+import { bindings, database } from '@/lib/content/repository';
 import { adminIdentity } from '@/lib/security';
 export async function GET(
   _req: Request,

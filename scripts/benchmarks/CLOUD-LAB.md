@@ -9,8 +9,8 @@ loaded by this comparison.
 - **A / reference / before:** `satellite-volume-reference.ts`, captured from
   production on 2026-09-14, with only relative imports and a provenance comment
   changed. It loads `cloud-satellite-v2.cfd.gz` and the unchanged
-  `components/cloud-volume.ts` shader.
-- **B / current / after:** `components/orbital-environment.ts`, using the configured production resolution (currently 8192×4096)
+  `scripts/benchmarks/clouds/cloud-volume.ts` shader.
+- **B / current / after:** `features/orbit/orbital-environment.ts`, using the configured production resolution (currently 8192×4096)
   combined satellite image of land, ocean and clouds.
 
 The active 8K JPEG is encoded directly from the original NASA 8192×4096 TIFF,

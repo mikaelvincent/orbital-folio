@@ -2,8 +2,8 @@
 import fs from 'node:fs/promises';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
-import { createSatelliteCloudField } from '../lib/satellite-cloud-field.ts';
-import { encodeCloudField } from '../lib/cloud-field-codec.ts';
+import { createSatelliteCloudField } from './benchmarks/clouds/satellite-cloud-field.ts';
+import { encodeCloudField } from './benchmarks/clouds/cloud-field-codec.ts';
 
 const source = JSON.parse(await fs.readFile('scripts/assets/nasa-cloud-source.json', 'utf8'));
 const mask = new Uint8Array(gunzipSync(await fs.readFile('scripts/assets/nasa-cloud-mask-2048.gray.gz')));
@@ -16,7 +16,7 @@ await fs.writeFile('public/textures/cloud-satellite-v2.cfd.gz', asset);
 const manifest = {
   version: field.version, width: field.width, height: field.height, channels: field.channels,
   rawBytes: field.data.length, gzipBytes: asset.length, sha256: hash(field.data),
-  generator: 'lib/satellite-cloud-field.ts', source,
+  generator: 'scripts/benchmarks/clouds/satellite-cloud-field.ts', source,
   note: 'Coverage derives from a historical NASA satellite composite. Height and lighting are an artistic shallow-volume approximation.',
 };
 await fs.writeFile('public/textures/cloud-satellite-v2.json', JSON.stringify(manifest, null, 2) + '\n');

@@ -13,7 +13,7 @@
     "format": "oxfmt",
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
-    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "test": "node --test --test-concurrency=1 tests/*/*.test.mjs",
     "db:migrate": "wrangler d1 migrations apply DB --local --config wrangler.local.json",
     "setup": "node scripts/setup.mjs",
     "check": "npm run typecheck && npm test"

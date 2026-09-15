@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { createSpacecraft } from '../../components/spacecraft-model.ts';
+import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import { updateRoomMaterialLighting } from './material-lighting-candidate.ts';
-import { resolveSocialScreens } from '../../lib/social-links.ts';
+import { resolveSocialScreens } from '../../lib/content/social-links.ts';
 
 function reference(materials, level, dimmers) {
   for (const material of materials) {

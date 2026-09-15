@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { createSpacecraft } from '../../components/spacecraft-model.ts';
+import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import { installLocalTransformCache } from './local-transform-cache-candidate.ts';
 import { updateRoomMaterialLighting } from './material-lighting-candidate.ts';
 import { createExactMatrixInverse } from './exact-matrix-inverse-candidate.ts';

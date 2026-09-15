@@ -6,7 +6,7 @@ import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 const repo = resolve(process.argv[2] || process.cwd());
 const modelPath = resolve(
-  process.argv[3] || join(repo, 'components/spacecraft-model.ts'),
+  process.argv[3] || join(repo, 'features/spacecraft/spacecraft-model.ts'),
 );
 const output = resolve(
   process.argv[4] || '/tmp/spacecraft-metadata-audit.json',

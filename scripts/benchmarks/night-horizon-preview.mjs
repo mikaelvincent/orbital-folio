@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const baseline = await fs.readFile(join(root, 'docs/evidence/horizon-softening/baseline-atmosphere.ts'), 'utf8');
-const environmentSource = await fs.readFile(join(root, 'components/orbital-environment.ts'), 'utf8');
+const environmentSource = await fs.readFile(join(root, 'features/orbit/orbital-environment.ts'), 'utf8');
 const variants = {
   baseline,
   'cooler-crest': baseline.replace('vec3(0.006, 0.28, 0.85)', 'vec3(0.005, 0.13, 0.46)'),
@@ -25,7 +25,7 @@ for (const [name, contents] of Object.entries(variants)) {
     absWorkingDir: root,
     stdin: {
       contents: `import * as THREE from 'three';
-        import {createOrbitalEnvironment} from './components/orbital-environment';
+        import {createOrbitalEnvironment} from './features/orbit/orbital-environment';
         const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false});
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -51,7 +51,7 @@ for (const [name, contents] of Object.entries(variants)) {
     write: false, bundle: true, format: 'esm', platform: 'browser', target: 'es2022',
     plugins: [{ name: 'frozen-horizon-variants', setup(builder) {
       builder.onLoad({filter:/\/night-atmosphere\.ts$/},()=>({contents,loader:'ts'}));
-      builder.onLoad({filter:/\/orbital-environment\.ts$/},()=>({contents:environmentSource,loader:'ts',resolveDir:join(root,'components')}));
+      builder.onLoad({filter:/\/orbital-environment\.ts$/},()=>({contents:environmentSource,loader:'ts',resolveDir:join(root,'features/orbit')}));
     }}],
   });
   bundles[name] = result.outputFiles[0].contents;

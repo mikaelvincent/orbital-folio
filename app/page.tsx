@@ -1,7 +1,7 @@
 import { pageMetadata } from '@/lib/metadata';
-import { getPortfolio } from '@/lib/content';
-import { PublicShell } from '@/components/portfolio';
-import { HomeView } from '@/components/home-view';
+import { getPortfolio } from '@/lib/content/repository';
+import { PublicShell } from '@/features/portfolio/public-shell';
+import { HomeView } from '@/features/portfolio/home-view';
 export const dynamic = 'force-dynamic';
 export async function generateMetadata() {
   const data = await getPortfolio();

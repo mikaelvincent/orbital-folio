@@ -1,4 +1,4 @@
-import { database } from '@/lib/content';
+import { database } from '@/lib/content/repository';
 import { requireAdmin, json, apiError, HttpError } from '@/lib/security';
 export async function GET(req: Request) {
   try {

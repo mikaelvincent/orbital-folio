@@ -13,7 +13,7 @@ const require = createRequire(path.join(root, 'package.json')),
 const files = [
   'drizzle/0000_graceful_korath.sql',
   'drizzle/0004_case_studies_room.sql',
-  'lib/flight.ts',
+  'features/spacecraft/navigation/flight.ts',
   'lib/paths.ts',
   'app/case-studies/page.tsx',
   'app/experience/page.tsx',
@@ -34,7 +34,7 @@ const load = async (filename) =>
         }).outputText,
       ).toString('base64')
   );
-const { destinationFromURL, rooms } = await load('lib/flight.ts'),
+const { destinationFromURL, rooms } = await load('features/spacecraft/navigation/flight.ts'),
   { pathFor } = await load('lib/paths.ts');
 const report = {
   at: new Date().toISOString(),

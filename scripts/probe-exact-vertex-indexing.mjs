@@ -3,8 +3,8 @@
  * Full byte-identical attribute tuples only, including normals, UVs and signed zero.
  */
 import * as THREE from 'three';
-import { createSpacecraft } from '../components/spacecraft-model.ts';
-import { createSpacecraftPerformance } from '../lib/spacecraft-performance.ts';
+import { createSpacecraft } from '../features/spacecraft/spacecraft-model.ts';
+import { createSpacecraftPerformance } from '../features/diagnostics/spacecraft-performance.ts';
 
 const started = performance.now();
 const model = createSpacecraft(THREE);

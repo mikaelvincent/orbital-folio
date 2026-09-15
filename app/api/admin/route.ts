@@ -1,4 +1,4 @@
-import { database, getRecords, logAction, bindings } from '@/lib/content';
+import { database, getRecords, logAction, bindings } from '@/lib/content/repository';
 import {
   requireAdmin,
   sameOrigin,
@@ -7,7 +7,7 @@ import {
   apiError,
   json,
 } from '@/lib/security';
-import { validateContent } from '@/lib/validation';
+import { validateContent } from '@/lib/content/validation';
 export async function GET() {
   try {
     await requireAdmin();

@@ -11,12 +11,12 @@ import {
   beginBoundedDrag,
   updateBoundedDrag,
   endBoundedDrag,
-} from '../lib/scene-controls.ts';
+} from '../features/spacecraft/navigation/scene-controls.ts';
 const project = path.resolve(process.argv[2] ?? process.cwd()),
   require = createRequire(path.join(project, 'package.json'));
 const THREE = await import(pathToFileURL(require.resolve('three')).href);
 const { cursorRotation } = await import(
-  pathToFileURL(path.join(project, 'lib/flight.ts')).href
+  pathToFileURL(path.join(project, 'features/spacecraft/navigation/flight.ts')).href
 );
 const vec = (a) => new THREE.Vector3(...a);
 const view = { target: [0, 0.1, 0.15], direction: [-0.025, 0.018, 1] };

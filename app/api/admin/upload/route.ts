@@ -1,4 +1,4 @@
-import { bindings, database, logAction } from '@/lib/content';
+import { bindings, database, logAction } from '@/lib/content/repository';
 import {
   requireAdmin,
   sameOrigin,

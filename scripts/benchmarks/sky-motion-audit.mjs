@@ -21,7 +21,7 @@ const sources = {
     { cwd: repo, encoding: 'utf8' },
   ),
   after: await fs.readFile(
-    path.join(repo, 'components/orbital-environment.ts'),
+    path.join(repo, 'features/orbit/orbital-environment.ts'),
     'utf8',
   ),
 };
@@ -30,7 +30,7 @@ async function load(source) {
     stdin: {
       contents: source,
       loader: 'ts',
-      resolveDir: path.join(repo, 'components'),
+      resolveDir: path.join(repo, 'features/orbit'),
     },
     bundle: true,
     write: false,

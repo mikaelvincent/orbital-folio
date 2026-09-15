@@ -1,4 +1,4 @@
-import { getPortfolio } from '@/lib/content';
+import { getPortfolio } from '@/lib/content/repository';
 export async function GET() {
   const { site } = await getPortfolio();
   return new Response(

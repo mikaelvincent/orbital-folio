@@ -15,7 +15,7 @@ import {
 import {
   encodeCloudField,
   decodeCloudField,
-} from '../lib/cloud-field-codec.ts';
+} from './benchmarks/clouds/cloud-field-codec.ts';
 const args = new Map(
   process.argv.slice(2).map((arg) => {
     const at = arg.indexOf('=');
@@ -100,7 +100,7 @@ const report = {
   payloadSha256: sha256(raw),
   decodedSha256: sha256(restored.data),
   codecSourceSha256: sha256(
-    await fs.readFile(new URL('../lib/cloud-field-codec.ts', import.meta.url)),
+    await fs.readFile(new URL('./benchmarks/clouds/cloud-field-codec.ts', import.meta.url)),
   ),
   exactActualFieldRoundtrip: true,
   compressedRoundtrips: true,

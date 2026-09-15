@@ -1,4 +1,4 @@
-import { getPortfolio } from '@/lib/content';
+import { getPortfolio } from '@/lib/content/repository';
 export default async function NotFound() {
   const { site: s } = await getPortfolio();
   return (

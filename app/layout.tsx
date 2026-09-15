@@ -1,5 +1,5 @@
-import { DevAudit } from '@/components/dev-audit';
-import { getPortfolio } from '@/lib/content';
+import { DevAudit } from '@/features/diagnostics/dev-audit';
+import { getPortfolio } from '@/lib/content/repository';
 import './globals.css';
 export async function generateMetadata() {
   const { site } = await getPortfolio();

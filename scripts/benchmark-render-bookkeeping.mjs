@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import * as THREE from 'three';
-import { createSpacecraft } from '../components/spacecraft-model.ts';
+import { createSpacecraft } from '../features/spacecraft/spacecraft-model.ts';
 import { updateRoomMaterialLighting } from './benchmarks/material-lighting-candidate.ts';
 import { installLocalTransformCache } from './benchmarks/local-transform-cache-candidate.ts';
 
@@ -10,10 +10,24 @@ const selected =
   process.argv.find((arg) => arg.startsWith('--case='))?.slice(7) || 'all';
 const output = process.argv.find((arg) => arg.startsWith('--out='))?.slice(6);
 const sourceFile = new URL(
-  '../components/spacecraft-model.ts',
+  '../features/spacecraft/spacecraft-model.ts',
   import.meta.url,
 );
 const source = await readFile(sourceFile);
+const sourceHashes = Object.fromEntries(
+  await Promise.all(
+    [
+      '../features/spacecraft/spacecraft-model.ts',
+      '../features/spacecraft/geometry/model-primitives.ts',
+      '../features/spacecraft/equipment/docking-service-assemblies.ts',
+    ].map(async (path) => [
+      path.slice(3),
+      createHash('sha256')
+        .update(await readFile(new URL(path, import.meta.url)))
+        .digest('hex'),
+    ]),
+  ),
+);
 const model = createSpacecraft(THREE);
 
 function timing(action, iterations) {
@@ -60,6 +74,7 @@ const result = {
   threeRevision: THREE.REVISION,
   source: sourceFile.pathname,
   sourceSha256: createHash('sha256').update(source).digest('hex'),
+  sourceHashes,
   methodology:
     'Node CPU microbenchmark, no browser/GPU rendering. Four samples per version in ABBA/ABBA order after 1000 warmup iterations each. Results measure only the isolated operation and do not establish FPS, GPU, temperature, or power improvement.',
   measurements: {},

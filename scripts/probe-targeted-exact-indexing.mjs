@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import * as THREE from 'three';
-import { createSpacecraft } from '../components/spacecraft-model.ts';
+import { createSpacecraft } from '../features/spacecraft/spacecraft-model.ts';
 
 function scopeOf(object) {
   for (let owner = object; owner; owner = owner.parent) {

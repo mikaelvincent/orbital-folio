@@ -22,17 +22,21 @@ inspect source and `package.json` for exact current constants and versions.
 
 | Concern | Starting points |
 | --- | --- |
-| Scene assembly, rooms, materials, picking metadata | `components/spacecraft-model.ts` |
-| Render loop, input, lights, shadow/AO caching | `components/spacecraft.tsx` |
-| Camera, routes, queue and iris sequencing | `lib/vessel-camera.ts`, `lib/scene-controls.ts`, `lib/flight.ts`, `lib/door-navigation.ts`, `lib/iris-navigation.ts`, `components/immersive-portfolio.tsx` |
-| Visible-room selection and door geometry | `lib/room-navigation.ts`, `components/room-navigation-targets.ts`, `components/iris-hatch.ts`, `lib/spacecraft-wall-layout.ts` |
-| Hull/window returns | `components/continuous-exterior-skin.ts`, `components/rounded-cabin-interior.ts`, `components/flush-window-reveals.ts`, `components/ladder-opening-outline.ts` |
-| Overview identity/callouts | `components/overview-annotations.ts` and model framing/label data |
-| Room furniture | `components/about-personal-study.ts`, `components/projects-workshop.ts`, `components/case-study-archive.ts`, `components/contact-flight-console.ts` |
-| Exterior/ladder fittings | `components/exterior-service-equipment.ts`, `components/docking-shoulder-equipment.ts`, `components/ladder-endcap-equipment.ts`, `components/ladder-service-spine.ts` |
-| Earth/atmosphere/sky | `components/orbital-environment.ts`, `components/earth-satellite.ts`, `components/earth-view-transform.ts` |
-| Diagnostics/capture/attribution | `components/performance-panel.ts`, `components/performance-review.ts`, `lib/scene-performance.ts`, `lib/spacecraft-performance.ts` |
-| Semantic readers/content | `components/world-reader.tsx`, `components/admin-studio.tsx`, `lib/content.ts`, `lib/content-types.ts`, `db/schema.ts`, `drizzle/` |
+| Scene assembly, room metadata and animation | `features/spacecraft/spacecraft-model.ts` |
+| Shared model materials, geometry cache and builders | `features/spacecraft/geometry/model-primitives.ts` |
+| React host and renderer lifecycle | `features/spacecraft/spacecraft.tsx` delegates to `features/spacecraft/spacecraft-runtime.ts` for input, camera, lights, render loop, shadow/AO caching and cleanup |
+| Camera, routes, queue and iris sequencing | `features/spacecraft/navigation/vessel-camera.ts`, `features/spacecraft/navigation/scene-controls.ts`, `features/spacecraft/navigation/flight.ts`, `features/spacecraft/navigation/door-navigation.ts`, `features/spacecraft/navigation/iris-navigation.ts`, `features/portfolio/immersive-portfolio.tsx` |
+| Visible-room selection and door geometry | `features/spacecraft/navigation/room-navigation.ts`, `features/spacecraft/navigation/room-navigation-targets.ts`, `features/spacecraft/navigation/iris-hatch.ts`, `features/spacecraft/geometry/spacecraft-wall-layout.ts` |
+| Hull/window returns | `features/spacecraft/geometry/continuous-exterior-skin.ts`, `features/spacecraft/geometry/rounded-cabin-interior.ts`, `features/spacecraft/geometry/flush-window-reveals.ts`, `features/spacecraft/geometry/ladder-opening-outline.ts` |
+| Overview identity/callouts | `features/spacecraft/overview-annotations.ts` and model framing/label data |
+| Room furniture | `features/spacecraft/rooms/about-personal-study.ts`, `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/case-study-archive.ts`, `features/spacecraft/rooms/contact-flight-console.ts` |
+| Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
+| Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
+| Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
+| Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
+| Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
+| Studio coordination and workflows | `features/studio/admin-studio.tsx`, with setup, content-fields, inbox, access and model-tools modules beside it |
+| Content and persistence | `lib/content/repository.ts`, `lib/content/types.ts`, `lib/content/validation.ts`, `db/schema.ts`, `drizzle/` |
 
 ## Room composition and macro design
 
@@ -116,11 +120,10 @@ graphite reveals and recessed amber feedback replace border recoloring. Opening
 is roughly twice the original speed; preserve the refresh-rate-aware motion
 implementation instead of introducing an arbitrary new duration.
 
-Evidence: [world camera](evidence/world-camera/README.md), [room framing](room-camera.md),
-[door timing](door-timing.md), [single iris](centered-iris.md),
-[visible-room navigation](evidence/room-access-and-hardware/README.md).
-Older door reports describing paired blade faces or mandatory ladder waits are
-historical; the latest source and linked superseding sections govern.
+The current implementation is mapped above. [World-camera evidence](evidence/world-camera/README.md)
+and [visible-room navigation evidence](evidence/room-access-and-hardware/README.md)
+remain with the measured design baselines. Superseded door reports are available
+in Git history; the interaction contract here and current source govern.
 
 ## Earth and atmospheric art
 
@@ -211,8 +214,11 @@ Practical entry points:
 ## Maintaining the record
 
 Durable workflow rules belong in `AGENTS.md`, current decisions here, changing
-cost/candidate status in the ledger and detailed task evidence in a new named
-folder. Preserve history while clearly marking superseded guidance. Today's work
+cost/candidate status in the ledger. Keep reproducible performance evidence with
+its comparison; retain necessary current maintenance documentation. Remove stale
+one-off reports, plans and screenshots once their useful decisions are captured.
+Git history preserves removed revisions. Do not create a report for routine
+organizational cleanup. Today's work
 does not include restoring 2K/4K defaults, public Earth manipulators, old procedural
 clouds, ordinary-door waits, duplicate iris blades, generic exterior filler,
 angled rescue lights, end-gap reels or the short lower ladder stub.

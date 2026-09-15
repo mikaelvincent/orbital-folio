@@ -1,4 +1,4 @@
-import type { Portfolio } from './content-types';
+import type { Portfolio } from './content/types';
 import { pathFor } from './paths.ts';
 export function socialImage(data: Portfolio, id?: string) {
   const media = data.media.find((m) => m.id === id);

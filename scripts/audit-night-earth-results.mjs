@@ -79,7 +79,7 @@ if (!reports.length) throw new Error('No complete raw reports available. No summ
 const manifest = reports[0].data.buildManifest;
 const manifestHash = hash(JSON.stringify(manifest));
 check(manifest.mode === 'night', 'Frozen build is not the night-Earth lab.');
-check(manifest.sourceFiles?.some(file => file.path === 'components/orbital-environment.ts'), 'Frozen manifest lacks the production environment source.');
+check(manifest.sourceFiles?.some(file => ['components/orbital-environment.ts', 'features/orbit/orbital-environment.ts'].includes(file.path)), 'Frozen manifest lacks the production environment source.');
 check(manifest.sourceFiles?.some(file => file.path === 'scripts/benchmarks/earth-resolution-lab.ts'), 'Frozen manifest lacks the measurement implementation.');
 for (const asset of Object.values(assets)) {
   const recorded = manifest.publicFiles?.find(file => file.path === asset.path);

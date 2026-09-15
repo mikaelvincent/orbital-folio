@@ -1,11 +1,10 @@
 /** Static inventory only: no renderer, GPU allocation or frame timing. */
 import { build } from 'esbuild';
-import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readFile } from 'node:fs/promises';
 import * as THREE from 'three';
+import { modelSourceSnapshot } from './model-source-snapshot.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const baseline = process.argv[2] ?? 'b64852f';
@@ -26,42 +25,24 @@ const result = {
 };
 for (const version of ['before', 'after']) {
   result.sources[version] = {};
+  const snapshot = modelSourceSnapshot({
+    root,
+    revision: version === 'before' ? baseline : undefined,
+    onSource(name, contents) {
+      result.sources[version][name] = createHash('sha256')
+        .update(contents)
+        .digest('hex');
+    },
+  });
   const bundled = await build({
     absWorkingDir: root,
-    entryPoints: ['components/spacecraft-model.ts'],
+    entryPoints: [snapshot.entry],
     bundle: true,
     write: false,
     platform: 'node',
     format: 'esm',
     logLevel: 'silent',
-    plugins: [
-      {
-        name: 'record-model-source',
-        setup(builder) {
-          if (version === 'before')
-            builder.onResolve({ filter: /\.tsx?$/ }, (args) => {
-              const path = resolve(args.resolveDir, args.path);
-              if (/^(components|lib)\//.test(relative(root, path)))
-                return { path };
-            });
-          builder.onLoad({ filter: /\.(ts|tsx)$/ }, async ({ path }) => {
-            const name = relative(root, path);
-            if (!/^(components|lib)\//.test(name)) return;
-            const contents =
-              version === 'before'
-                ? execFileSync('git', ['show', `${baseline}:${name}`], {
-                    cwd: root,
-                    encoding: 'utf8',
-                  })
-                : await readFile(path, 'utf8');
-            result.sources[version][name] = createHash('sha256')
-              .update(contents)
-              .digest('hex');
-            return { contents, loader: 'ts', resolveDir: dirname(path) };
-          });
-        },
-      },
-    ],
+    plugins: [snapshot.plugin],
   });
   const { createSpacecraft } = await import(
     `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`

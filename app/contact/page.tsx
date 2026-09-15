@@ -1,6 +1,6 @@
-import { getPortfolio } from '@/lib/content';
-import { PublicShell } from '@/components/portfolio';
-import { ContactView } from '@/components/views';
+import { getPortfolio } from '@/lib/content/repository';
+import { PublicShell } from '@/features/portfolio/public-shell';
+import { ContactView } from '@/features/portfolio/room-views';
 import { pageMetadata } from '@/lib/metadata';
 export const dynamic = 'force-dynamic';
 export async function generateMetadata() {

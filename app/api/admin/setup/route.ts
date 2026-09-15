@@ -1,5 +1,5 @@
 import { getChatGPTUser } from '@/app/chatgpt-auth';
-import { database, bindings, logAction } from '@/lib/content';
+import { database, bindings, logAction } from '@/lib/content/repository';
 import {
   sameOrigin,
   readJson,

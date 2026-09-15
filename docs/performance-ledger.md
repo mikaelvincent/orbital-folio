@@ -44,7 +44,7 @@ Reproduce the inventory from the repository root:
 ```sh
 node scripts/measure-hardware-geometry.mjs
 node scripts/measure-hardware-geometry.mjs /path/to/preserved/baseline
-node --test tests/tiny-hardware-detail.test.mjs
+node --test tests/spacecraft/tiny-hardware-detail.test.mjs
 ```
 
 ### Browser measurements and visual validation
@@ -608,7 +608,7 @@ an explicit Interactive view selection. The critic caught an existing resize gua
 that stretched that opt-in canvas and left annotation coordinates stale on its
 first portrait rotation. Matching renderer initialization to the visible viewport
 fixed both issues; rejected and corrected captures are retained in the evidence.
-These changes are documented in the [camera record](room-camera.md).
+The current camera contract is documented in [project context](PROJECT-CONTEXT.md#interaction-contract). The original numerical camera record is available at `8f99ba7:docs/room-camera.md` in Git history.
 
 ### Structural cost and comparison limits
 
@@ -809,9 +809,9 @@ The requested camera and atmosphere changes are separate visual work. Establish 
 
 ### What is already precomputed or reused
 
-The application does **not** rebuild every shadow on every frame. The renderer disables automatic shadow-map updates and reuses the key light's map. At this review, that is one shadow-casting directional light with a 2048×2048 desktop or 1024×1024 compact map. Roll still explicitly invalidates it because the light rig changes relative to the fixed spacecraft; resize and diagnostic scene changes also request updates. Moving doors and reader assemblies do not cast into that cached map. Ordinary frame rendering still samples the map to shade receiving surfaces. These are two different costs: generating shadow depth and using that depth during visible rendering. The underlying Three.js API explicitly supports manual updates. [Application renderer](../components/spacecraft.tsx), [Three.js shadow implementation](https://github.com/mrdoob/three.js/blob/r185/src/lights/LightShadow.js).
+The application does **not** rebuild every shadow on every frame. The renderer disables automatic shadow-map updates and reuses the key light's map. At this review, that is one shadow-casting directional light with a 2048×2048 desktop or 1024×1024 compact map. Roll still explicitly invalidates it because the light rig changes relative to the fixed spacecraft; resize and diagnostic scene changes also request updates. Moving doors and reader assemblies do not cast into that cached map. Ordinary frame rendering still samples the map to shade receiving surfaces. These are two different costs: generating shadow depth and using that depth during visible rendering. The underlying Three.js API explicitly supports manual updates. [Application renderer](../features/spacecraft/spacecraft-runtime.ts), [Three.js shadow implementation](https://github.com/mrdoob/three.js/blob/r185/src/lights/LightShadow.js).
 
-Contact shading is a separate system: GTAO derives occlusion from the current camera view. Its result is already cached while the view settles, but refreshes for camera movement, geometry motion and dirty state. The current desktop configuration uses 32 AO samples, 32 denoising samples and render targets at 0.65 of each CSS viewport dimension. Animated door silhouettes participate in this pass. The model's motion flag also includes room brightness and highlight transitions, so an apparent geometry refresh is not necessarily caused by moving geometry. Existing diagnostics distinguish AO refresh, reuse and several invalidation reasons. [Renderer and invalidation policy](../components/spacecraft.tsx), [Model animation and lighting](../components/spacecraft-model.ts).
+Contact shading is a separate system: GTAO derives occlusion from the current camera view. Its result is already cached while the view settles, but refreshes for camera movement, geometry motion and dirty state. The current desktop configuration uses 32 AO samples, 32 denoising samples and render targets at 0.65 of each CSS viewport dimension. Animated door silhouettes participate in this pass. The model's motion flag also includes room brightness and highlight transitions, so an apparent geometry refresh is not necessarily caused by moving geometry. Existing diagnostics distinguish AO refresh, reuse and several invalidation reasons. [Renderer and invalidation policy](../features/spacecraft/spacecraft-runtime.ts), [Model animation and lighting](../features/spacecraft/spacecraft-model.ts).
 
 The reflection environment is also prepared once at scene setup and reused. Room selection and hover change material color/emission, while metal reflections and highlights remain view dependent. Consequently, “precompute everything” should be investigated as several bounded experiments rather than a replacement of the whole room render with a fixed image.
 

@@ -177,11 +177,16 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   Stage explicit paths, preserve unrelated work, verify final Git status and
   report any remaining uncommitted work. Use `codex/` if creating a new branch
   unless directed otherwise. Local implementation does not imply push or deployment.
-- Remove genuinely unused code from replaced designs, while retaining useful
-  diagnostics and historical evidence. Keep durable rules here, current decisions
-  in [project context](docs/PROJECT-CONTEXT.md), changing performance status in
-  [the ledger](docs/performance-ledger.md), and detailed logs in `docs/evidence/`.
-  Update these when decisions change rather than making the user repeat them.
+- Remove established dead code and obsolete one-off reports, plans, screenshots
+  and audit scripts after checking runtime, test, build and tooling references.
+  Preserve reusable diagnostics, source-identified performance comparisons,
+  licenses and current operating instructions; retain uncertain items and explain
+  why. Git history holds superseded revisions. Do not create new reports for
+  routine organizational cleanup. Keep durable rules here, current decisions in
+  [project context](docs/PROJECT-CONTEXT.md), changing performance status in
+  [the ledger](docs/performance-ledger.md), and necessary comparison evidence in
+  `docs/evidence/`. Update these when decisions change rather than making the
+  user repeat them.
 - Use installed dependencies and `package.json`: `npm run dev`, `npm test`,
   `npm run typecheck`, `npm run lint -- <changed files>`, `npm run build`. On a
   genuinely fresh checkout use `npm ci` and `npm run setup`; do not reset an

@@ -12,14 +12,14 @@ import {
   updateBoundedDrag,
   endBoundedDrag,
   fitPerspectiveDistance,
-} from '../lib/scene-controls.ts';
-import { moveCameraAxis } from '../lib/flight.ts';
+} from '../features/spacecraft/navigation/scene-controls.ts';
+import { moveCameraAxis } from '../features/spacecraft/navigation/flight.ts';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = {
   scope:
     'Pure render/input helpers only; no UI, browser, reader, model, DB or network tests',
   sourceHashes: Object.fromEntries(
-    ['lib/scene-controls.ts', 'components/spacecraft.tsx'].map((p) => [
+    ['features/spacecraft/navigation/scene-controls.ts', 'features/spacecraft/spacecraft-runtime.ts'].map((p) => [
       p,
       createHash('sha256')
         .update(readFileSync(root + '/' + p))

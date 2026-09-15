@@ -1,5 +1,5 @@
 import { getChatGPTUser } from '@/app/chatgpt-auth';
-import { database, bindings } from './content';
+import { database, bindings } from './content/repository';
 import { HttpError } from './http-error';
 export { HttpError };
 export async function adminIdentity() {

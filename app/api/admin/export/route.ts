@@ -1,4 +1,4 @@
-import { getRecords } from '@/lib/content';
+import { getRecords } from '@/lib/content/repository';
 import { requireAdmin, apiError } from '@/lib/security';
 export async function GET() {
   try {

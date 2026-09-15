@@ -1,7 +1,7 @@
 import { getChatGPTUser, chatGPTSignInPath } from '@/app/chatgpt-auth';
 import { adminIdentity } from '@/lib/security';
-import { getRecords, database } from '@/lib/content';
-import { AdminStudio, SetupForm } from '@/components/admin-studio';
+import { getRecords, database } from '@/lib/content/repository';
+import { AdminStudio, SetupForm } from '@/features/studio/admin-studio';
 import { Orbit, ArrowUpRight } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 export const metadata = {

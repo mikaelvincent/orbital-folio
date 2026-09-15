@@ -2,7 +2,7 @@
  * A: frozen satellite cloud volume. B: current production satellite Earth texture.
  */
 import * as THREE from 'three';
-import { EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT } from '../../components/earth-satellite';
+import { EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT } from '../../features/orbit/earth-satellite';
 
 type Version = 'reference' | 'current';
 type Environment = {
@@ -24,7 +24,7 @@ const comparison = {
   },
   current: {
     label: `After — ${EARTH_TEXTURE_WIDTH / 1024}K satellite Earth`,
-    source: 'components/orbital-environment.ts',
+    source: 'features/orbit/orbital-environment.ts',
     expectedTextureDimensions: [EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT],
   },
 };
@@ -209,7 +209,7 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
     const preparationStartedAt = now();
     const source = await abortable<EnvironmentModule>(version === 'reference'
       ? import('./satellite-volume-reference.ts')
-      : import('../../components/orbital-environment.ts'), signal);
+      : import('../../features/orbit/orbital-environment.ts'), signal);
     check(signal);
     const imported = performance.now();
     environment = source.createOrbitalEnvironment(THREE, () => {}, { mobile: config.mobile });

@@ -1,4 +1,4 @@
-import { database } from '@/lib/content';
+import { database } from '@/lib/content/repository';
 import {
   sameOrigin,
   rateLimit,

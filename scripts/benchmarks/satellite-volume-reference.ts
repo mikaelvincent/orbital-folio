@@ -3,7 +3,7 @@
  * Historical procedural-cloud comparison remains in cloud-reference.ts.
  */
 import type * as Three from 'three';
-import { decodeCloudField } from '../../lib/cloud-field-codec';
+import { decodeCloudField } from './clouds/cloud-field-codec';
 import {
   createCloudVolume,
   createCloudTexture,
@@ -12,7 +12,7 @@ import {
   CLOUD_ASSET,
   CLOUD_TOP_RADIUS,
   CLOUD_STEPS,
-} from '../../components/cloud-volume';
+} from './clouds/cloud-volume';
 
 type EnvironmentOptions = {
   mobile?: boolean;
@@ -124,7 +124,7 @@ export function createOrbitalEnvironment(
             error instanceof Error ? error.message : String(error);
           // A failed asset must not leave a permanently empty sky. Only this exceptional
           // path loads the generator; normal visitors never perform the bake.
-          const { createCloudFieldData } = await import('../../lib/cloud-field');
+          const { createCloudFieldData } = await import('./clouds/cloud-field');
           if (cloudDisposed) return;
           const start = performance.now();
           const field = createCloudFieldData({

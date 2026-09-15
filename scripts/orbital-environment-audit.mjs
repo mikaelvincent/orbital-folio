@@ -9,24 +9,24 @@ import { resolve, join } from 'node:path';
 
 const root = resolve(process.argv[2] ?? process.cwd());
 const artifact = resolve(
-  process.argv[3] ?? join(root, 'components/orbital-environment.ts'),
+  process.argv[3] ?? join(root, 'features/orbit/orbital-environment.ts'),
 );
 const output = resolve(
   process.argv[4] ?? '/tmp/orbital-environment-audit.json',
 );
 const sourcePaths = [
   artifact,
-  join(root, 'components/earth-satellite.ts'),
-  join(root, 'components/cloud-volume.ts'),
+  join(root, 'features/orbit/earth-satellite.ts'),
+  join(root, 'scripts/benchmarks/clouds/cloud-volume.ts'),
   join(root, 'scripts/benchmarks/satellite-volume-reference.ts'),
-  join(root, 'tests/earth-environment.test.mjs'),
-  join(root, 'tests/earth-satellite.test.mjs'),
-  join(root, 'lib/cloud-field.ts'),
-  join(root, 'lib/satellite-cloud-field.ts'),
-  join(root, 'lib/cloud-field-codec.ts'),
-  join(root, 'tests/cloud-environment.test.mjs'),
-  join(root, 'tests/cloud-field-codec.test.mjs'),
-  join(root, 'tests/satellite-cloud-field.test.mjs'),
+  join(root, 'tests/orbit/earth-environment.test.mjs'),
+  join(root, 'tests/orbit/earth-satellite.test.mjs'),
+  join(root, 'scripts/benchmarks/clouds/cloud-field.ts'),
+  join(root, 'scripts/benchmarks/clouds/satellite-cloud-field.ts'),
+  join(root, 'scripts/benchmarks/clouds/cloud-field-codec.ts'),
+  join(root, 'tests/benchmarks/cloud-environment.test.mjs'),
+  join(root, 'tests/benchmarks/cloud-field-codec.test.mjs'),
+  join(root, 'tests/benchmarks/satellite-cloud-field.test.mjs'),
 ];
 const sources = sourcePaths.map((path) => ({
   path,
@@ -37,11 +37,11 @@ const result = spawnSync(
   [
     '--test',
     '--test-concurrency=1',
-    'tests/earth-environment.test.mjs',
-    'tests/earth-satellite.test.mjs',
-    'tests/cloud-environment.test.mjs',
-    'tests/cloud-field-codec.test.mjs',
-    'tests/satellite-cloud-field.test.mjs',
+    'tests/orbit/earth-environment.test.mjs',
+    'tests/orbit/earth-satellite.test.mjs',
+    'tests/benchmarks/cloud-environment.test.mjs',
+    'tests/benchmarks/cloud-field-codec.test.mjs',
+    'tests/benchmarks/satellite-cloud-field.test.mjs',
   ],
   {
     cwd: root,

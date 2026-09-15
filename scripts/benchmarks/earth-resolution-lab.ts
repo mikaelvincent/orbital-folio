@@ -24,7 +24,7 @@ type EnvironmentModule = { createOrbitalEnvironment(three: typeof THREE, invalid
 const REST_MS = 20000;
 const comparison = Object.fromEntries(VERSIONS.map(version => [version, {
   label: version === 'procedural' ? 'Previous procedural clouds' : `${version.toUpperCase()} ${NIGHT ? 'Mediterranean night' : 'satellite'} Earth`,
-  source: version === 'procedural' ? 'scripts/benchmarks/cloud-reference.ts' : 'components/orbital-environment.ts',
+  source: version === 'procedural' ? 'scripts/benchmarks/cloud-reference.ts' : 'features/orbit/orbital-environment.ts',
   expectedAsset: version === 'procedural' ? null : `/textures/earth-${NIGHT ? 'black' : 'blue'}-marble-${version}.jpg`,
   expectedTextureDimensions: version === 'procedural' ? null : [WIDTHS[version], WIDTHS[version]! / 2],
 }])) as Record<Version, { label: string; source: string; expectedAsset: string | null; expectedTextureDimensions: number[] | null }>;
@@ -281,7 +281,7 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
     const preparationStartedAt = now();
     const source = await abortable<EnvironmentModule>(version === 'procedural'
       ? import('./cloud-reference.ts')
-      : import('../../components/orbital-environment.ts'), signal);
+      : import('../../features/orbit/orbital-environment.ts'), signal);
     check(signal);
     const imported = performance.now();
     environment = source.createOrbitalEnvironment(THREE, () => {}, { mobile: config.mobile, earthTextureWidth: WIDTHS[version], earthAppearance: MODE });

@@ -1,4 +1,4 @@
-import { seeds } from '../lib/seed.ts';
+import { seeds } from '../lib/content/seed.ts';
 const quote = (v) => "'" + String(v).replaceAll("'", "''") + "'";
 for (const r of seeds)
   console.log(

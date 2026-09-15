@@ -264,14 +264,14 @@ function contextIssues(before, after) {
 }
 
 try {
-  const { createCloudFieldData } = await import('../lib/cloud-field.ts');
-  const { decodeCloudField } = await import('../lib/cloud-field-codec.ts');
+  const { createCloudFieldData } = await import('./benchmarks/clouds/cloud-field.ts');
+  const { decodeCloudField } = await import('./benchmarks/clouds/cloud-field-codec.ts');
   const { createOrbitalEnvironment } =
     await import('./benchmarks/cloud-reference.ts');
   const THREE = await import('three');
   for (const path of [
-    'lib/cloud-field.ts',
-    'lib/cloud-field-codec.ts',
+    'scripts/benchmarks/clouds/cloud-field.ts',
+    'scripts/benchmarks/clouds/cloud-field-codec.ts',
     'scripts/benchmarks/cloud-reference.ts',
     'scripts/benchmark-cloud-delivery.mjs',
   ]) {

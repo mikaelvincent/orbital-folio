@@ -4,21 +4,25 @@
  * Static renders deliberately omit GTAO to expose geometry/seam errors.
  */
 import { build } from 'esbuild';
-import { execFileSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { modelSourceSnapshot } from './model-source-snapshot.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const baseline = process.argv[2] ?? 'b64852f';
 const bundles = {};
 for (const version of ['before', 'after']) {
+  const snapshot = modelSourceSnapshot({
+    root,
+    revision: version === 'before' ? baseline : undefined,
+  });
   const result = await build({
     absWorkingDir: root,
     stdin: {
       contents: `import * as THREE from 'three';
         import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
-        import {createSpacecraft} from './components/spacecraft-model.ts';
+        import {createSpacecraft} from './${snapshot.entry}';
         const renderer=new THREE.WebGLRenderer({antialias:true});
         renderer.setPixelRatio(Math.min(devicePixelRatio,2));
         renderer.outputColorSpace=THREE.SRGBColorSpace;
@@ -100,39 +104,7 @@ for (const version of ['before', 'after']) {
     format: 'esm',
     platform: 'browser',
     target: 'es2022',
-    plugins:
-      version === 'before'
-        ? [
-            {
-              name: 'approved-baseline',
-              setup(builder) {
-                // A baseline may import a file renamed or removed in the checkout.
-                // Resolve repository sources before the filesystem fallback.
-                builder.onResolve({ filter: /\.tsx?$/ }, (args) => {
-                  const path = resolve(args.resolveDir, args.path);
-                  if (/^(components|lib)\//.test(relative(root, path)))
-                    return { path };
-                });
-                builder.onLoad({ filter: /\.(ts|tsx)$/ }, ({ path }) => {
-                  const name = relative(root, path);
-                  if (!/^(components|lib)\//.test(name)) return;
-                  return {
-                    contents: execFileSync(
-                      'git',
-                      ['show', baseline + ':' + name],
-                      {
-                        cwd: root,
-                        encoding: 'utf8',
-                      },
-                    ),
-                    loader: 'ts',
-                    resolveDir: dirname(path),
-                  };
-                });
-              },
-            },
-          ]
-        : [],
+    plugins: [snapshot.plugin],
   });
   bundles[version] = result.outputFiles[0].contents;
 }

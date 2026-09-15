@@ -4,6 +4,7 @@
  * Optional baseline must have its own source tree and installed dependencies.
  */
 import * as THREE from 'three';
+import { existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -45,10 +46,16 @@ function inventory(root) {
 }
 
 export async function measureHardwareGeometry(repositoryRoot = currentRoot) {
-  const { createSpacecraft } = await import(
-    pathToFileURL(resolve(repositoryRoot, 'components/spacecraft-model.ts'))
-      .href
-  );
+  // Preserved comparison checkouts may predate the feature directories.
+  const modelPath = [
+    'features/spacecraft/spacecraft-model.ts',
+    'components/spacecraft-model.ts',
+  ]
+    .map((path) => resolve(repositoryRoot, path))
+    .find(existsSync);
+  if (!modelPath)
+    throw new Error('No spacecraft model found in the repository.');
+  const { createSpacecraft } = await import(pathToFileURL(modelPath).href);
   const model = createSpacecraft(THREE);
   const layouts = {};
   for (const layout of ['wide', 'compact']) {

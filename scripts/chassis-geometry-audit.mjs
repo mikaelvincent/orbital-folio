@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 const root = resolve(process.argv[2] || process.cwd());
 const modelPath = resolve(
   root,
-  process.argv[3] || 'components/spacecraft-model.ts',
+  process.argv[3] || 'features/spacecraft/spacecraft-model.ts',
 );
 const output = resolve(process.argv[4] || '/tmp/chassis-critic-geometry.json');
 const sourceHash = () =>

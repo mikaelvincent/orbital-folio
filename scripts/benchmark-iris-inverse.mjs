@@ -2,7 +2,7 @@ import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import * as THREE from 'three';
-import { createSpacecraft } from '../components/spacecraft-model.ts';
+import { createSpacecraft } from '../features/spacecraft/spacecraft-model.ts';
 import { createExactMatrixInverse } from './benchmarks/exact-matrix-inverse-candidate.ts';
 
 const model = createSpacecraft(THREE);
@@ -88,7 +88,7 @@ function sequence(moving) {
   };
 }
 const irisSource = await readFile(
-  new URL('../components/iris-hatch.ts', import.meta.url),
+  new URL('../features/spacecraft/navigation/iris-hatch.ts', import.meta.url),
 );
 const report = {
   recordedAt: new Date().toISOString(),

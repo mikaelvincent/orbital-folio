@@ -123,7 +123,7 @@ for (const { name, data: report, view } of reports) {
   check(report.blocks.length === 4 && same(report.blocks.map(block => block.version), order.split('').map(letter => LETTERS[letter])), `${name}: actual block sequence mismatch.`);
   for (const version of VERSIONS) {
     const metadata = config.comparison?.[version];
-    check(metadata?.source === (version === 'procedural' ? 'scripts/benchmarks/cloud-reference.ts' : 'components/orbital-environment.ts'), `${name}/${version}: source metadata mismatch.`);
+    check((version === 'procedural' ? ['scripts/benchmarks/cloud-reference.ts'] : ['components/orbital-environment.ts', 'features/orbit/orbital-environment.ts']).includes(metadata?.source), `${name}/${version}: source metadata mismatch.`);
     check(same(metadata?.expectedTextureDimensions, version === 'procedural' ? null : [WIDTHS[version], WIDTHS[version] / 2]), `${name}/${version}: requested dimensions mismatch.`);
     check(metadata?.expectedAsset === (version === 'procedural' ? null : `/textures/earth-blue-marble-${version}.jpg`), `${name}/${version}: expected asset mismatch.`);
   }
