@@ -123,11 +123,14 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
   await t.test(
     'CSRF, malformed bodies, and immutable site protection reject safely',
     async () => {
+      // The dev adapter may leave deliberately rejected bodies unread. Close
+      // these adversarial connections so the next valid request cannot reuse them.
       const r = await authorized('/api/admin', {
         method: 'POST',
         headers: {
           Origin: 'https://attacker.example',
           'Content-Type': 'application/json',
+          Connection: 'close',
         },
         body: '{}',
       });
@@ -136,7 +139,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         (
           await authorized('/api/admin', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', Connection: 'close' },
             body: '{}',
           })
         ).status,
