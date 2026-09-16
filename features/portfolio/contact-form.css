@@ -1,0 +1,386 @@
+.contact-app {
+  --contact-ink: #f2eee4;
+  --contact-muted: #b3c0c7;
+  --contact-edge: #40515b;
+  container-type: inline-size;
+  min-width: 0;
+  color: var(--contact-ink);
+  background: #101d27;
+  border: 1px solid #40505a;
+  border-radius: 12px;
+  padding: 22px;
+  font-family: var(--font-sans, Arial, sans-serif);
+  text-align: left;
+  line-height: 1.45;
+  color-scheme: dark;
+}
+.contact-app * {
+  box-sizing: border-box;
+}
+.contact-app button,
+.contact-app input,
+.contact-app textarea {
+  font: inherit;
+}
+.contact-app button,
+.contact-app a {
+  touch-action: manipulation;
+}
+.contact-app button {
+  cursor: pointer;
+}
+.contact-app button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.contact-app :is(button, a, input, textarea):focus-visible {
+  outline: 2px solid #ffc36a;
+  outline-offset: 3px;
+}
+.contact-app-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.contact-app-eyebrow {
+  margin: 0 0 5px;
+  color: #bca883;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+}
+.contact-app-toolbar h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.contact-email-callout {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 56%;
+  border: 1px solid #52616a;
+  border-radius: 8px;
+  background: #1b2a34;
+  padding: 7px 9px;
+  box-shadow: 0 4px 15px #0002;
+}
+.contact-email-callout-top,
+.contact-email-callout-top > span,
+.contact-email-callout-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.contact-email-callout-top {
+  justify-content: space-between;
+  font-size: 11px;
+  color: #d6cbb6;
+}
+.contact-email-callout button,
+.contact-email-reopen {
+  background: none;
+  border: 0;
+  color: #d3dcd9;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-email-callout button {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 4px;
+}
+.contact-email-callout button:hover {
+  background: #ffffff15;
+}
+.contact-email-callout-actions {
+  margin-top: 1px;
+  justify-content: space-between;
+}
+.contact-email-callout-actions a {
+  min-width: 0;
+  color: #eef0e8;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+.contact-email-callout-actions a svg {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.contact-email-callout-actions a:hover {
+  text-decoration: underline;
+}
+.contact-email-callout p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #d5ddc9;
+}
+.contact-email-reopen {
+  gap: 7px;
+  min-height: 36px;
+  font-size: 12px !important;
+}
+.contact-app-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.contact-app-options label {
+  position: relative;
+  min-width: 0;
+  cursor: pointer;
+}
+.contact-app-options input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.contact-app-options label > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #485b67;
+  border-radius: 7px;
+  min-height: 46px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #182833;
+  color: #c5d0d6;
+}
+.contact-app-options input:checked + span {
+  border-color: #d5b575;
+  color: #fff1d7;
+  background: #383529;
+  box-shadow: inset 0 -2px 0 #d8a34e;
+}
+.contact-app-options input:focus-visible + span {
+  outline: 2px solid #ffc36a;
+  outline-offset: 3px;
+}
+.contact-app-context {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 14px 0 18px;
+}
+.contact-app-badge {
+  color: #b9dacd;
+  background: #254438;
+  border: 1px solid #476557;
+  border-radius: 4px;
+  font-size: 8px;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1.4;
+  padding: 3px 5px;
+  margin-top: 1px;
+}
+.contact-app-badge.demo {
+  color: #e8c797;
+  background: #403625;
+  border-color: #736043;
+}
+.contact-app-context p {
+  font-size: 11px;
+  color: var(--contact-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+.contact-app-fields {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.contact-app-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px 15px;
+}
+.contact-app-wide {
+  grid-column: 1 / -1;
+}
+.contact-app-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.contact-app-field > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 12px;
+  color: #eee9df;
+}
+.contact-app-field > span small {
+  font-size: 10px;
+  color: #a2b2bd;
+  font-weight: 400;
+}
+.contact-app-field :is(input, textarea) {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  color: #f2eee4;
+  background: #0b151e;
+  border: 1px solid var(--contact-edge);
+  border-radius: 5px;
+  padding: 9px 10px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.contact-app-field :is(input, textarea):hover {
+  border-color: #81929c;
+}
+.contact-app-field textarea {
+  resize: vertical;
+  min-height: 78px;
+}
+.contact-app-field input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+.contact-app-limit {
+  font-size: 10px;
+  color: #a9b8c1;
+}
+.contact-app-limit.exceeded {
+  color: #ffc0ae;
+}
+.contact-app-timezone {
+  margin: -5px 0 0;
+  font-size: 10px;
+  color: #a9b8c1;
+}
+.contact-app-timezone strong {
+  color: #dbdfda;
+  font-weight: 500;
+}
+.contact-app-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 19px;
+}
+.contact-app-submit-row > p {
+  margin: 0;
+  max-width: 62%;
+  color: #aab9c4;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.contact-app-submit-row a {
+  color: #d8cfb5;
+  text-decoration: underline;
+}
+.contact-app-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid #edbf7a;
+  border-radius: 6px;
+  background: #e6b267;
+  color: #17212a;
+  min-height: 42px;
+  padding: 10px 15px;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 #876437;
+}
+.contact-app-submit:hover {
+  background: #f2c380;
+}
+.contact-app-error {
+  font-size: 12px;
+  color: #ffd1bf;
+  border-left: 2px solid #d2957f;
+  padding: 8px 11px;
+  margin: 16px 0 0;
+  background: #502c254f;
+}
+.contact-app-result {
+  padding: 25px 12px 32px;
+  text-align: center;
+}
+.contact-app-result > svg {
+  color: #dcbd87;
+  border: 1px solid #77674d;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+}
+.contact-app-result h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 15px 0 8px;
+}
+.contact-app-result p {
+  font-size: 13px;
+  color: #bcc8d0;
+  margin: 0 auto 20px;
+  max-width: 360px;
+  line-height: 1.65;
+}
+.contact-app-result button {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: #233440;
+  border: 1px solid #6d7b80;
+  border-radius: 5px;
+  padding: 9px 13px;
+  color: #eee9df;
+  font-size: 13px;
+}
+@container (max-width: 400px) {
+  .contact-app-toolbar {
+    flex-wrap: wrap;
+    gap: 13px;
+  }
+  .contact-email-callout {
+    max-width: 100%;
+    flex-grow: 1;
+  }
+  .contact-app-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .contact-app-options {
+    gap: 6px;
+  }
+  .contact-app-options label > span {
+    font-size: 12px;
+    gap: 6px;
+    padding: 8px 5px;
+  }
+  .contact-app-submit-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .contact-app-submit-row > p {
+    max-width: 100%;
+  }
+  .contact-app-submit {
+    width: 100%;
+  }
+}

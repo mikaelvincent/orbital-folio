@@ -342,7 +342,7 @@ export function ContactView({
         />
         <div className="comms-bottom">
           <span />
-          {s.connectionLabel}
+          MESSAGE INBOX · CALL PREVIEW
           <span />
         </div>
       </div>
