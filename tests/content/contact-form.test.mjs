@@ -35,12 +35,11 @@ test('call requests validate and complete as a demo without invoking any transpo
     before,
     'Temporary input remains available for editing',
   );
-  assert.equal(
-    await submitContactDraft({ ...call, mode: undefined }, async () => {
+  await assert.rejects(
+    submitContactDraft({ ...call, mode: undefined }, async () => {
       calls++;
     }),
-    'demo',
-    'The default mode is also protected from live submissions',
+    /Choose Schedule a call or Send a message first/,
   );
   assert.equal(calls, 0);
 });
@@ -184,6 +183,18 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
     exports: serverModule.exports,
   });
   const { ContactForm } = serverModule.exports;
+  const chooser = renderToStaticMarkup(
+    createElement(ContactForm, {
+      site: { email: 'owner@example.com' },
+      draft: { timeZone: 'UTC' },
+    }),
+  );
+  assert.doesNotMatch(
+    chooser,
+    /<form\b|name="(?:date|time|email|message)"|checked=""/,
+  );
+  assert.match(chooser, /Schedule a call/);
+  assert.match(chooser, /Send a message/);
   for (const draft of [call, message]) {
     // Include a valid prefilled draft: native validation alone must not be the
     // protection against leaking fields through the browser's default GET.
@@ -193,6 +204,10 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
         draft,
       }),
     );
+    if (draft.mode === 'call') {
+      assert.ok(markup.indexOf('name="date"') < markup.indexOf('name="time"'));
+      assert.ok(markup.indexOf('name="time"') < markup.indexOf('name="name"'));
+    }
     const fieldsets = [...markup.matchAll(/<fieldset\b[^>]*>/g)].map(
       ([tag]) => tag,
     );

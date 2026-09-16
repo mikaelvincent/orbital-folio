@@ -160,6 +160,10 @@
   background: #182833;
   color: #c5d0d6;
 }
+.contact-app-options label:hover > span {
+  border-color: #bca883;
+  background: #243440;
+}
 .contact-app-options input:checked + span {
   border-color: #d5b575;
   color: #fff1d7;
@@ -175,24 +179,6 @@
   align-items: flex-start;
   gap: 9px;
   margin: 14px 0 18px;
-}
-.contact-app-badge {
-  color: #b9dacd;
-  background: #254438;
-  border: 1px solid #476557;
-  border-radius: 4px;
-  font-size: 8px;
-  letter-spacing: 0.07em;
-  font-weight: 700;
-  white-space: nowrap;
-  line-height: 1.4;
-  padding: 3px 5px;
-  margin-top: 1px;
-}
-.contact-app-badge.demo {
-  color: #e8c797;
-  background: #403625;
-  border-color: #736043;
 }
 .contact-app-context p {
   font-size: 11px;

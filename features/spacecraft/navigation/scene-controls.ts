@@ -24,6 +24,8 @@ export const CAMERA_RANGES = {
   hover: { pitch: 0.021, yaw: 0.036 },
   overview: { pitch: 0.18, yaw: 0.32 },
   room: { pitch: 0.12, yaw: 0.22 },
+  // A close workstation needs a smaller orbit to keep its glass above the keys.
+  computer: { pitch: 0.04, yaw: 0.12 },
 } as const;
 /** More depth on broad canvases, a quieter silhouette beside portrait callouts.
  * Keep this continuous at square/tablet sizes; the fit still owns distance and

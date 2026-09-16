@@ -215,10 +215,20 @@ test('Contact wall feedback changes only its paint and resets when the applicati
   assert.ok(walls.size >= 2, 'Rear and side pressure walls provide feedback');
   model.update(0, 'contact', true, {
     activeRoom: 'contact',
+    reading: false,
+    hoveredObject: null,
+  });
+  const roomColors = new Map([...walls].map((m) => [m, m.color.clone()]));
+  model.update(0, 'contact', true, {
+    activeRoom: 'contact',
     reading: true,
     hoveredObject: null,
   });
   const colors = new Map([...walls].map((m) => [m, m.color.clone()]));
+  assert.ok(
+    [...walls].every((m) => m.color.r < roomColors.get(m).r),
+    'Opening the application dims the surrounding pressure walls',
+  );
   const otherColors = new Map(
     [...otherMaterials].map((m) => [m, m.color.clone()]),
   );
@@ -241,7 +251,7 @@ test('Contact wall feedback changes only its paint and resets when the applicati
     // A stale hover value must not keep the wall highlighted after close.
     hoveredObject: 'contact-room-dismiss',
   });
-  assert.ok([...walls].every((m) => m.color.equals(colors.get(m))));
+  assert.ok([...walls].every((m) => m.color.equals(roomColors.get(m))));
   assert.ok(
     model.group.userData.geometryRevision > revision,
     'Closing restores actual idle-screen geometry and still invalidates AO',

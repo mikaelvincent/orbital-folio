@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import { pathFor } from '@/lib/paths';
+import { copyContactEmail } from './contact-clipboard';
 import {
   CONTACT_MESSAGE_LIMIT,
   contactInboxMessage,
@@ -57,7 +58,7 @@ export function ContactForm({
   const values = draft ?? localDraft;
   const latestDraft = useRef(values);
   latestDraft.current = values;
-  const mode = values.mode ?? (initialSent ? 'message' : 'call');
+  const mode = values.mode ?? (initialSent ? 'message' : undefined);
   const current = submission ?? localSubmission;
   const status =
     initialSent && !initialNoticeDismissed && mode === 'message'
@@ -141,7 +142,7 @@ export function ContactForm({
     </label>
   );
   return (
-    <div className="contact-app">
+    <div className="contact-app" data-contact-mode={mode ?? 'choose'}>
       <div className="contact-app-toolbar">
         <div>
           <p className="contact-app-eyebrow">OPEN A CONVERSATION</p>
@@ -183,22 +184,18 @@ export function ContactForm({
               </button>
             </div>
             <div className="contact-email-callout-actions">
-              <a href={`mailto:${email}`}>
-                {email}
-              </a>
+              <a href={`mailto:${email}`}>{email}</a>
               <button
                 type="button"
                 disabled={!ready}
                 aria-label="Copy email address"
                 onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(email);
-                    setCopyNotice('Email address copied.');
-                  } catch {
-                    setCopyNotice(
-                      'Copy unavailable. Select the address to copy it.',
-                    );
-                  }
+                  const copied = await copyContactEmail(email);
+                  setCopyNotice(
+                    copied
+                      ? 'Email address copied.'
+                      : 'Copy unavailable. Select the address to copy it.',
+                  );
                 }}
               >
                 <Copy size={14} />
@@ -234,20 +231,15 @@ export function ContactForm({
           </label>
         ))}
       </fieldset>
-      <div className="contact-app-context" id={`${id}-context`}>
-        <span
-          className={
-            mode === 'call' ? 'contact-app-badge demo' : 'contact-app-badge'
-          }
-        >
-          {mode === 'call' ? 'DEMO' : 'PRIVATE INBOX'}
-        </span>
-        <p>
-          {mode === 'call'
-            ? 'Try a preferred time. This preview won’t send or save a request, or book a call.'
-            : 'Your message goes to my private inbox. Company and subject are included with your message.'}
-        </p>
-      </div>
+      {mode && (
+        <div className="contact-app-context" id={`${id}-context`}>
+          <p>
+            {mode === 'call'
+              ? 'Choose your preferred time to talk.'
+              : 'Your message goes to my private inbox.'}
+          </p>
+        </div>
+      )}
       <noscript>
         <p className="contact-app-context">
           These forms need JavaScript and cannot submit without it.
@@ -259,7 +251,7 @@ export function ContactForm({
           )}
         </p>
       </noscript>
-      {status === 'sent' || status === 'demo' ? (
+      {!mode ? null : status === 'sent' || status === 'demo' ? (
         <div className="contact-app-result" role="status">
           <Check size={28} />
           <h3>
@@ -281,7 +273,7 @@ export function ContactForm({
           aria-describedby={`${id}-context`}
           onSubmit={async (event) => {
             event.preventDefault();
-            if (!ready || status === 'sending') return;
+            if (!ready || !mode || status === 'sending') return;
             const formData = new FormData(event.currentTarget);
             const submitted = { ...latestDraft.current, mode };
             // Some browsers autofill without an input event. The mounted form
@@ -355,6 +347,25 @@ export function ContactForm({
               {mode === 'call' ? 'Call request details' : 'Message details'}
             </legend>
             <div className="contact-app-grid">
+              {mode === 'call' && (
+                <>
+                  {field('date', 'Preferred date', {
+                    type: 'date',
+                    required: true,
+                  })}
+                  {field('time', 'Preferred time', {
+                    type: 'time',
+                    required: true,
+                  })}
+                  <p className="contact-app-timezone contact-app-wide">
+                    Time zone:{' '}
+                    <strong>
+                      {values.timeZone || 'Detecting your time zone…'}
+                    </strong>
+                    {values.timeZone && ' · your device’s time zone'}
+                  </p>
+                </>
+              )}
               {field('name', 'Name', { autoComplete: 'name', maxLength: 120 })}
               {field('company', 'Company', {
                 autoComplete: 'organization',
@@ -397,25 +408,6 @@ export function ContactForm({
                   / 5,000 including company and subject
                 </small>
               </label>
-              {mode === 'call' && (
-                <>
-                  {field('date', 'Preferred date', {
-                    type: 'date',
-                    required: true,
-                  })}
-                  {field('time', 'Preferred time', {
-                    type: 'time',
-                    required: true,
-                  })}
-                  <p className="contact-app-timezone contact-app-wide">
-                    Time zone:{' '}
-                    <strong>
-                      {values.timeZone || 'Detecting your time zone…'}
-                    </strong>
-                    {values.timeZone && ' · your device’s time zone'}
-                  </p>
-                </>
-              )}
             </div>
           </fieldset>
           <div className="honeypot" aria-hidden="true">
@@ -438,7 +430,7 @@ export function ContactForm({
           <div className="contact-app-submit-row">
             <p>
               {mode === 'call' ? (
-                'A preferred time, not a confirmed appointment.'
+                'Call requests aren’t sent yet. Use email to arrange a time.'
               ) : (
                 <>
                   Only used to respond to your inquiry.{' '}

@@ -2869,6 +2869,7 @@ export function createSpacecraft(
   group.updateMatrixWorld(true);
   const paintedHover = new THREE.Color(palette.chalk);
   let contactWallHover = 0;
+  let contactWallFocus = 0;
   // Public anchors and framing geometry use vessel coordinates, even while
   // the renderer rolls, translates or scales the root for a camera flight.
   // Compose descendant local matrices rather than undoing a world-space AABB.
@@ -3617,6 +3618,11 @@ export function createSpacecraft(
       motionActive = true;
     }
     group.userData.motionActive = motionActive;
+    const wallFocusGoal = computerActive ? 1 : 0;
+    contactWallFocus += (wallFocusGoal - contactWallFocus) * blend;
+    if (Math.abs(contactWallFocus - wallFocusGoal) < 0.002)
+      contactWallFocus = wallFocusGoal;
+    if (contactWallFocus !== wallFocusGoal) group.userData.motionActive = true;
     const wallHoverGoal =
       computerActive &&
       !currentState.travelling &&
@@ -3670,8 +3676,9 @@ export function createSpacecraft(
         material.color
           .copy(material.userData.baseColor)
           .multiplyScalar(materialLevel);
-        if (material.userData.contactRoomWall && contactWallHover)
+        if (material.userData.contactRoomWall)
           material.color
+            .multiplyScalar(1 - 0.24 * contactWallFocus * (1 - contactWallHover))
             .lerp(paintedHover, contactWallHover * 0.6)
             .multiplyScalar(1 + contactWallHover * 0.07);
         material.emissive

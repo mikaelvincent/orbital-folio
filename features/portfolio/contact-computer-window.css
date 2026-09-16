@@ -6,9 +6,31 @@
   width: 100%;
   overflow: clip;
 }
-.contact-computer-window {
+.contact-computer-desktop {
+  box-sizing: border-box;
   height: 100%;
   max-height: var(--contact-visible-height, 100%);
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  overflow: clip;
+  border-radius: 7px;
+  /* A static, abstract desktop: quiet alloy-blue light across deep navy. */
+  background:
+    radial-gradient(ellipse at 90% 110%, #53747880, transparent 62%),
+    linear-gradient(
+      145deg,
+      transparent 34%,
+      #869d9b24 35%,
+      #213d4d88 48%,
+      transparent 69%
+    ),
+    linear-gradient(155deg, #182b3b, #080f1b 68%, #223944);
+}
+.contact-computer-window {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   overflow: clip;
@@ -30,7 +52,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 6px 0 14px;
+  padding: 0 0 0 14px;
   background: #21313b;
   border-bottom: 1px solid #58666b;
 }
@@ -51,7 +73,8 @@
   height: 44px;
   padding: 0;
   border: 0;
-  border-radius: 5px;
+  align-self: stretch;
+  border-radius: 0;
   background: transparent;
   color: #f1e8d7;
   cursor: pointer;
@@ -62,7 +85,7 @@
 }
 .contact-window-close:focus-visible {
   outline: 2px solid #ffc36a;
-  outline-offset: 2px;
+  outline-offset: -3px;
 }
 .contact-window-body {
   overflow: auto;
@@ -77,16 +100,9 @@
   border-radius: 0;
   padding: 18px;
 }
-.contact-window-sample {
-  padding: 0 18px 14px;
-  font-size: 11px;
-  color: #b3c0c7;
-}
-.contact-window-sample summary {
-  cursor: pointer;
-}
-.contact-window-sample p {
-  margin: 8px 0 0;
+.contact-computer-desktop:has([data-contact-mode='choose'])
+  .contact-computer-window {
+  height: auto;
 }
 .world-computer-screen {
   border: 0;
@@ -94,4 +110,28 @@
 }
 .world-surface[data-computer-portrait='true'] .contact-app-grid {
   grid-template-columns: minmax(0, 1fr);
+}
+
+.contact-room-return-hint {
+  position: absolute;
+  left: 24px;
+  bottom: calc(var(--scene-bottom-inset, 80px) + 18px);
+  z-index: 2;
+  pointer-events: none;
+  padding: 9px 13px;
+  border: 1px solid #c1ab8170;
+  border-radius: 6px;
+  background: #101d27e8;
+  color: #f0dfbb;
+  font: 13px/1.4 var(--font-sans, Arial, sans-serif);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+#ship[data-hover-object='contact-room-dismiss'] .contact-room-return-hint {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-room-return-hint {
+    transition: none;
+  }
 }

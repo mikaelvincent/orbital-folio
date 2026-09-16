@@ -34,6 +34,7 @@ export function bindContactKeyboard({
   active,
   contains,
   wake,
+  platform = typeof navigator === 'undefined' ? '' : navigator.platform,
 }: {
   document: Pick<
     Document,
@@ -48,8 +49,29 @@ export function bindContactKeyboard({
   active: () => boolean;
   contains: (target: EventTarget | null) => boolean;
   wake: () => void;
+  platform?: string;
 }) {
+  let capsRelease: ReturnType<typeof setTimeout> | undefined;
+  const cancelCapsPulse = () => {
+    clearTimeout(capsRelease);
+    capsRelease = undefined;
+  };
+  // macOS emits CapsLock flagsChanged: down means enabled, up means disabled,
+  // not physical release (WebKit PlatformEventFactoryMac::isKeyUpEvent).
+  // Approximate each toggle with a momentary press; never latch to lock state.
+  const pulseCaps = () => {
+    cancelCapsPulse();
+    keyboard.press('CapsLock');
+    capsRelease = setTimeout(() => {
+      capsRelease = undefined;
+      keyboard.release('CapsLock');
+      if (active()) wake();
+    }, 140);
+    wake();
+  };
+  const macCaps = /Mac/.test(platform);
   const reset = () => {
+    cancelCapsPulse();
     keyboard.clear();
     wake();
   };
@@ -57,11 +79,19 @@ export function bindContactKeyboard({
     const key = event as KeyboardEvent;
     if (!active() || !contains(key.target) || key.isComposing || !key.code)
       return;
+    if (key.code === 'CapsLock' && macCaps) {
+      pulseCaps();
+      return;
+    }
     keyboard.press(key.code);
     wake();
   };
   const up = (event: Event) => {
     const key = event as KeyboardEvent;
+    if (key.code === 'CapsLock' && macCaps) {
+      if (active() && contains(key.target) && !key.isComposing) pulseCaps();
+      return;
+    }
     // macOS can omit a letter's keyup while Command is held.
     if (key.key === 'Meta') keyboard.clear();
     else keyboard.release(key.code);
@@ -85,6 +115,7 @@ export function bindContactKeyboard({
     doc.removeEventListener('focusin', focus);
     doc.removeEventListener('visibilitychange', visibility);
     win.removeEventListener('blur', reset);
+    cancelCapsPulse();
     keyboard.clear(true);
   };
 }

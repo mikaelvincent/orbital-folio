@@ -16,7 +16,7 @@ function corners(bounds) {
   );
 }
 
-test('The Contact application clears every keyboard key throughout landscape hover and entry views', () => {
+test('The Contact application clears every keyboard key throughout landscape drag, hover and entry views', () => {
   const model = createSpacecraft(THREE);
   const computer = model.group.userData.contactComputer;
   for (const layout of ['wide', 'compact']) {
@@ -53,21 +53,22 @@ test('The Contact application clears every keyboard key throughout landscape hov
           bottom: -1 + 160 / height,
         },
       );
-      // The neutral close view and every hover extreme are checked at the
+      // The settled close view includes the full drag range. During entry,
+      // dragging is disabled; hover remains active. Both are checked at the
       // delivered fit. More distant frontal views cover the approach from the
       // room: the HTML screen is visible before its camera flight finishes.
       for (const distanceScale of [1.06, 1.5, 2.5]) {
         for (const basePitch of [0, 0.06, 0.12]) {
+          const limits =
+            distanceScale === 1.06 && basePitch === 0.12
+              ? CAMERA_RANGES.computer
+              : CAMERA_RANGES.hover;
           for (const pitch of [-1, 0, 1]) {
             for (const yaw of [-1, 0, 1]) {
               const view = new THREE.Vector3(0, basePitch, 1)
                 .normalize()
                 .applyEuler(
-                  new THREE.Euler(
-                    pitch * CAMERA_RANGES.hover.pitch,
-                    yaw * CAMERA_RANGES.hover.yaw,
-                    0,
-                  ),
+                  new THREE.Euler(pitch * limits.pitch, yaw * limits.yaw, 0),
                 );
               camera.position
                 .fromArray(frame.target)

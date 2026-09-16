@@ -10,36 +10,32 @@ export function ContactComputerWindow({
   ...form
 }: ComponentProps<typeof ContactForm> & { onClose: () => void }) {
   return (
-    <article
-      className="contact-computer-window"
-      id="world-reader"
-      tabIndex={-1}
-      aria-label="Contact computer"
-      data-contact-interface
-    >
-      <header className="contact-window-bar">
-        <span>
-          <Radio size={13} aria-hidden="true" /> CONTACT
-        </span>
-        <button
-          className="contact-window-close"
-          type="button"
-          aria-label="Close Contact application"
-          title="Close Contact application"
-          onClick={onClose}
-        >
-          <X size={20} aria-hidden="true" />
-        </button>
-      </header>
-      <div className="contact-window-body">
-        <ContactForm {...form} />
-        {form.site.sampleMode && (
-          <details className="contact-window-sample">
-            <summary>Sample contact details</summary>
-            <p>{form.site.sampleContact}</p>
-          </details>
-        )}
-      </div>
-    </article>
+    <div className="contact-computer-desktop">
+      <article
+        className="contact-computer-window"
+        id="world-reader"
+        tabIndex={-1}
+        aria-label="Contact computer"
+        data-contact-interface
+      >
+        <header className="contact-window-bar">
+          <span>
+            <Radio size={13} aria-hidden="true" /> CONTACT
+          </span>
+          <button
+            className="contact-window-close"
+            type="button"
+            aria-label="Close Contact application"
+            title="Close Contact application"
+            onClick={onClose}
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </header>
+        <div className="contact-window-body">
+          <ContactForm {...form} />
+        </div>
+      </article>
+    </div>
   );
 }

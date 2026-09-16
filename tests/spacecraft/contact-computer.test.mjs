@@ -79,3 +79,79 @@ test('Keyboard observation preserves default events, handles held combinations a
   assert.equal(pressed.size, 0);
   assert.ok(wakes > 0);
 });
+
+test('Mac CapsLock toggle events are momentary and never release other held keys', (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const doc = new EventTarget(),
+    win = new EventTarget(),
+    pressed = new Set();
+  let wakes = 0;
+  const detach = bindContactKeyboard({
+    document: doc,
+    window: win,
+    platform: 'MacIntel',
+    active: () => true,
+    contains: () => true,
+    wake: () => wakes++,
+    keyboard: {
+      press: (code) => pressed.add(code),
+      release: (code) => pressed.delete(code),
+      clear: () => pressed.clear(),
+    },
+  });
+  const key = (type, code) => {
+    const event = new Event(type, { cancelable: true });
+    Object.assign(event, { code });
+    doc.dispatchEvent(event);
+    assert.equal(event.defaultPrevented, false);
+  };
+  key('keydown', 'ShiftLeft');
+  key('keydown', 'KeyA');
+  key('keydown', 'CapsLock');
+  assert.ok(pressed.has('CapsLock'));
+  t.mock.timers.tick(141); // macOS supplies no physical keyup here.
+  assert.deepEqual([...pressed], ['ShiftLeft', 'KeyA']);
+  key('keyup', 'CapsLock'); // Toggle OFF is an isolated keyup on macOS.
+  assert.ok(pressed.has('CapsLock'));
+  t.mock.timers.tick(141);
+  assert.deepEqual([...pressed], ['ShiftLeft', 'KeyA']);
+  key('keydown', 'CapsLock');
+  win.dispatchEvent(new Event('blur'));
+  assert.equal(pressed.size, 0);
+  const afterBlur = wakes;
+  t.mock.timers.tick(200);
+  assert.equal(wakes, afterBlur);
+  key('keydown', 'CapsLock');
+  detach();
+  const afterDetach = wakes;
+  t.mock.timers.tick(200);
+  assert.equal(pressed.size, 0);
+  assert.equal(wakes, afterDetach);
+});
+
+test('Platforms with physical CapsLock release events preserve held presses', (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const doc = new EventTarget(),
+    pressed = new Set();
+  const detach = bindContactKeyboard({
+    document: doc,
+    window: new EventTarget(),
+    platform: 'Win32',
+    active: () => true,
+    contains: () => true,
+    wake() {},
+    keyboard: {
+      press: (code) => pressed.add(code),
+      release: (code) => pressed.delete(code),
+      clear: () => pressed.clear(),
+    },
+  });
+  const key = (type) =>
+    doc.dispatchEvent(Object.assign(new Event(type), { code: 'CapsLock' }));
+  key('keydown');
+  t.mock.timers.tick(500);
+  assert.ok(pressed.has('CapsLock'));
+  key('keyup');
+  assert.equal(pressed.size, 0);
+  detach();
+});

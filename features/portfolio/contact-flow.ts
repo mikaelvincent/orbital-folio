@@ -34,6 +34,8 @@ export function contactInboxMessage(draft: ContactDraft) {
 }
 
 export function validateContactDraft(draft: ContactDraft): string | null {
+  if (draft.mode !== 'call' && draft.mode !== 'message')
+    return 'Choose Schedule a call or Send a message first.';
   if (text(draft.name).length > 120)
     return 'Keep your name under 121 characters.';
   if (text(draft.company).length > 160)

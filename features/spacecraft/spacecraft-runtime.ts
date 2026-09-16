@@ -223,6 +223,11 @@ export function mountSpacecraftScene({
         const cssRenderer = new CSS3DRenderer();
         cssRenderer.domElement.className = 'world-css-renderer';
         el.appendChild(cssRenderer.domElement);
+        const contactReturnHint = document.createElement('span');
+        contactReturnHint.className = 'contact-room-return-hint';
+        contactReturnHint.textContent = 'Click wall to return';
+        contactReturnHint.setAttribute('aria-hidden', 'true');
+        el.appendChild(contactReturnHint);
         const surfaceElement = document.createElement('div');
         surfaceElement.className = 'world-surface';
         const surface = new CSS3DObject(surfaceElement);
@@ -1456,7 +1461,7 @@ export function mountSpacecraftScene({
             el.style.cursor =
               effectivePortal || effectiveObject
                 ? 'pointer'
-                : reading
+                : reading && active !== 'contact'
                   ? 'auto'
                   : 'grab';
           const inspectingPassage =
@@ -1527,16 +1532,29 @@ export function mountSpacecraftScene({
             acceleration: 6,
           });
           for (const [index, goal] of dragGoal.toArray().entries()) {
-            if (stop) resetAxis(dragMotion[index], reading ? 0 : goal);
+            if (stop)
+              resetAxis(
+                dragMotion[index],
+                reading && active !== 'contact' ? 0 : goal,
+              );
             else
-              moveCameraAxis(dragMotion[index], reading ? 0 : goal, delta, {
-                frequency: 10,
-                speed: 4,
-                acceleration: 18,
-              });
+              moveCameraAxis(
+                dragMotion[index],
+                reading && active !== 'contact' ? 0 : goal,
+                delta,
+                {
+                  frequency: 10,
+                  speed: 4,
+                  acceleration: 18,
+                },
+              );
           }
           const range =
-            active === 'home' ? CAMERA_RANGES.overview : CAMERA_RANGES.room;
+            active === 'home'
+              ? CAMERA_RANGES.overview
+              : reading && active === 'contact'
+                ? CAMERA_RANGES.computer
+                : CAMERA_RANGES.room;
           [range.pitch, range.yaw].forEach((value, index) => {
             if (stop || flightImmediate) resetAxis(rangeMotion[index], value);
             else
@@ -2261,6 +2279,7 @@ export function mountSpacecraftScene({
         };
         const move = (event: PointerEvent) => {
           if (
+            !down &&
             (event.target as Element).closest('.world-surface') &&
             (!(reading && active === 'contact') || event.buttons !== 0)
           )
@@ -2334,7 +2353,7 @@ export function mountSpacecraftScene({
             ...selection,
             control,
             pointerType: event.pointerType,
-            navigationOnly: travelling || reading,
+            navigationOnly: travelling || (reading && active !== 'contact'),
             gesture: beginBoundedDrag({
               pointerId: event.pointerId,
               x: event.clientX,
@@ -3061,6 +3080,7 @@ export function mountSpacecraftScene({
           renderer.dispose();
           renderer.domElement.remove();
           cssRenderer.domElement.remove();
+          contactReturnHint.remove();
           api.current = null;
         };
       },
