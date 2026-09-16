@@ -1,0 +1,109 @@
+{
+  "date": "2026-09-16",
+  "baselineCommit": "f2a2085",
+  "request": "Track physical holds where supported; when unavailable, use Caps Lock enabled/disabled status as the fallback.",
+  "behavior": {
+    "macOS": "Caps Lock follows getModifierState on scoped keyboard events, including ordinary typing. No hold-duration timer.",
+    "otherPlatforms": "Physical keydown/keyup tracking, including Caps Lock; no lock-state latch.",
+    "cleanup": "Blur, focus outside the application, hidden document and disposal clear caps. The next in-scope keyboard event resynchronizes Mac lock status.",
+    "scope": "Keyboard/form behavior only; no submission, scene geometry, assets, camera or held optimization candidate changes."
+  },
+  "sourceSha256": {
+    "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+    "tests/spacecraft/contact-computer.test.mjs": "cf363b5ed7bcf62722ab30c5d00cf86b9f897d91181ef9056dcaeeed17ffc917",
+    "tests/spacecraft/contact-keyboard.test.mjs": "6980ed29da61226134e7b2c547a358fa97dcf62ba56f05876bbff6f892d7a45f"
+  },
+  "primarySource": "https://github.com/WebKit/WebKit/blob/c559ef21e24775338a1eb865f46d10d60f0bb953/Source/WebCore/platform/mac/PlatformEventFactoryMac.mm#L583-L595",
+  "verification": {
+    "unitAndModel": "Event-sequence tests simulate 30 seconds, Mac down/on-up/off and down-only toggles, preexisting status, independent keys, Meta cleanup, scope and disposal. Integration with the actual Three.js keyboard checks cap height, stable held geometry and release.",
+    "fullSuite": {
+      "status": "passed",
+      "passed": 330,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "typecheck": {
+      "status": "passed",
+      "log": "typecheck.log"
+    },
+    "affectedLint": {
+      "status": "passed",
+      "log": "lint.log"
+    },
+    "productionBuild": {
+      "status": "passed",
+      "log": "build.log",
+      "warnings": [
+        "Existing large client chunk advisory",
+        "Vinext cannot statically classify the case-studies route"
+      ]
+    },
+    "browserSmoke": {
+      "engine": "Hidden Codex built-in Chromium",
+      "screenshot": "contact-typing.png",
+      "screenshotSha256": "be9d15e398ee3422faa33e5a28c9b15050a2bbab83305f0256ed93eb58624cd4",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "viewport": "Default browser viewport; no override or image scaling; drawing-buffer/DPR not recorded for this input smoke check.",
+      "observed": [
+        "Contact computer opens",
+        "Message option reveals fields",
+        "Name field accepts ordinary typing after a virtual Caps Lock keypress",
+        "Keyboard and form remain visually unobstructed",
+        "Escape closes to Contact room",
+        "Temporary tab closed"
+      ],
+      "limitation": "Virtual keypresses do not reproduce physical macOS Caps Lock flagsChanged events. Screenshot is a layout/typing smoke check, not proof of physical hold or status tracking."
+    },
+    "testAuthoring": "A generic synthetic test event initially lacked getModifierState; the fixture now supplies modifier state explicitly and pins its platform. This was test-fixture setup, not an observed browser defect.",
+    "focusedSuite": {
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "log": "keyboard-tests.log"
+    }
+  },
+  "performance": "Removed the Mac pulse timer. Existing event-driven animation settles while held; no new polling, geometry, textures or assets. No frame-time, memory, heat or battery improvement measured or claimed.",
+  "limitations": [
+    "Native Safari and physical Mac keyboard input were not automated or captured.",
+    "No browser capability API exposes whether physical Caps Lock release is available; the fallback targets the known macOS event limitation.",
+    "Caps Lock status becomes available from a keyboard event; focus alone cannot reveal the current OS lock state."
+  ],
+  "independentCritic": {
+    "reviewer": "/root/capslock_status_critic",
+    "status": "approved",
+    "score": 95,
+    "blockers": [],
+    "rubric": {
+      "fulfillment": [
+        29,
+        30
+      ],
+      "correctness": [
+        25,
+        25
+      ],
+      "organization": [
+        15,
+        15
+      ],
+      "verification": [
+        17,
+        20
+      ],
+      "performanceImplications": [
+        9,
+        10
+      ]
+    },
+    "summary": "Physical holds preserved; approved Mac Caps Lock status fallback replaces the premature pulse. Independent releases, simultaneous holds, preexisting lock status, Command cleanup, scope and disposal are covered. Current documentation supersedes the old workaround.",
+    "evidence": "Reviewed actual source, regression tests, documentation, manifest, logs and screenshot; source hashes match. Screenshot supports ordinary typing/layout only.",
+    "limitations": [
+      "No native Safari or physical Mac keyboard verification.",
+      "Platform matching selects the fallback rather than detecting physical-event capability.",
+      "Cleared lock status returns on the next in-app keyboard event."
+    ]
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from '../../features/spacecraft/rooms/contact-keyboard.ts';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import { coalesceStaticInstances } from '../../features/spacecraft/geometry/coalesce-static-instances.ts';
+import { bindContactKeyboard } from '../../features/spacecraft/navigation/contact-computer.ts';
 
 function fixture(materials = {}) {
   const deck = new THREE.Group();
@@ -46,6 +47,49 @@ function height(keyboard, code) {
   );
   return matrix.elements[14];
 }
+
+test('Mac Caps Lock status drives the real cap through a long hold and an independent letter release', (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const keyboard = fixture();
+  const rest = height(keyboard, 'CapsLock');
+  const doc = new EventTarget(),
+    win = new EventTarget();
+  const detach = bindContactKeyboard({
+    document: doc,
+    window: win,
+    keyboard,
+    platform: 'MacIntel',
+    active: () => true,
+    contains: (target) => target === doc,
+    wake() {},
+  });
+  t.after(detach);
+  const send = (type, code, locked) => {
+    const event = new Event(type);
+    Object.assign(event, { code, getModifierState: () => locked });
+    doc.dispatchEvent(event);
+  };
+  send('keydown', 'CapsLock', true);
+  send('keydown', 'KeyA', true);
+  keyboard.update(1, true);
+  const held = height(keyboard, 'CapsLock');
+  assert.ok(Math.abs(rest - held - CONTACT_KEY_TRAVEL) < 1e-7);
+  t.mock.timers.tick(30_000);
+  assert.equal(keyboard.update(1 / 60), false);
+  assert.equal(height(keyboard, 'CapsLock'), held);
+  send('keyup', 'KeyA', true);
+  keyboard.update(1, true);
+  assert.equal(height(keyboard, 'KeyA'), rest);
+  assert.equal(height(keyboard, 'CapsLock'), held);
+  send('keyup', 'CapsLock', false);
+  keyboard.update(1, true);
+  assert.equal(height(keyboard, 'CapsLock'), rest);
+  send('keydown', 'CapsLock', true);
+  keyboard.update(1, true);
+  win.dispatchEvent(new Event('blur'));
+  keyboard.update(1, true);
+  assert.equal(height(keyboard, 'CapsLock'), rest);
+});
 
 test('Contact keyboard has a complete staggered typing layout and separated physical keys', () => {
   const keys = new Map(CONTACT_KEY_LAYOUT.map((key) => [key.code, key]));

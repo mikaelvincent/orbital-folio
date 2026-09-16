@@ -1382,6 +1382,16 @@ independent review are recorded with the linked evidence. The final **327-test
 suite**, typecheck, affected lint and production build pass. Independent final
 review scored **95/100** with no blockers; rubric and limitations are retained.
 
+**Caps Lock follow-up, 16 September 2026:** the owner subsequently authorized
+physical hold/release where available, with lock status as the fallback when the
+browser cannot expose it. The Mac-only 140 ms pulse is replaced by event-driven
+`getModifierState('CapsLock')` synchronization; no timer, polling loop, geometry,
+material or asset is added. Other keys/platforms retain physical down/up behavior.
+The existing key animation settles while held; this is an input correction, not
+a measured frame-time, heat or battery improvement. Focus/visibility/close cleanup
+is preserved. The [focused verification and independent review](evidence/contact-capslock-status/review.json)
+record event-sequence and real-model tests, with native Safari input still untested.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

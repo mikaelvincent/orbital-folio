@@ -1,0 +1,20 @@
+✔ Portrait fits a readable application inside the fixed glass without stretching the monitor (0.71825ms)
+✔ Keyboard observation preserves default events, handles held combinations and clears lost focus (0.978041ms)
+✔ Mac CapsLock stays down while enabled without timing out or disturbing held keys (0.6945ms)
+✔ Mac CapsLock syncs preexisting status from ordinary keys and survives Command cleanup (0.169416ms)
+✔ Mac lock fallback clears on lost focus or close and ignores out-of-scope input (0.117208ms)
+✔ Physical key presses remain held until release regardless of logical lock status (0.148542ms)
+✔ Mac Caps Lock status drives the real cap through a long hold and an independent letter release (4.916208ms)
+✔ Contact keyboard has a complete staggered typing layout and separated physical keys (0.471125ms)
+✔ Shift+A depresses two independent keys, holds through repeats, and releases individually (0.754417ms)
+✔ Focus-loss clearing restores every key and reduced-motion changes can settle immediately (0.769333ms)
+✔ Printed legends share one atlas and follow the cap motion without moving other labels (1.586375ms)
+✔ Keyboard instances and the computer application anchor survive model batching and layout changes (655.866166ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 835.209292

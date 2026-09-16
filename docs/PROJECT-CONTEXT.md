@@ -186,9 +186,14 @@ draft. Plain-text copying tries the synchronous compatibility path, then starts
 the modern API within the same click if needed, restoring focus and selection.
 Keyboard key caps and legends follow physical `code` presses/releases,
 including held combinations; blur, visibility loss and closing clear their state.
-On macOS, Caps Lock reports toggle events rather than physical release; its
-modeled cap gives a 140 ms momentary pulse, never remaining down while enabled.
-Other platforms retain physical down/up tracking. Native editing shortcuts remain
+On macOS, Caps Lock reports toggle events rather than physical release. The owner
+approved a status fallback: its modeled cap stays down while Caps Lock is enabled
+and rises when disabled. Read the modifier state from in-app keyboard events,
+including ordinary typing, so returning to the form restores the current status
+on the next key event. Blur, visibility loss and closing still clear all caps.
+Other platforms retain physical down/up tracking, including Caps Lock. The former
+140 ms Mac pulse is superseded; do not approximate hold duration with a timer.
+Native editing shortcuts remain
 intact. Mobile visual-viewport changes resize the inner scroll area without
 changing the camera; device Safari keyboard behavior
 still needs a native-device check. Design costs and checked states are in
@@ -196,7 +201,9 @@ still needs a native-device check. Design costs and checked states are in
 [interaction refinements](evidence/contact-computer-refinement/README.md) and
 entry 25 record the subsequent clearance, social-screen and wall-close work.
 [Desktop and input polish](evidence/contact-desktop-polish/README.md) and entry 26
-record the current chooser, wallpaper, drag, copy and Caps Lock behavior.
+record the chooser, wallpaper, drag, copy and earlier Caps Lock pulse. The
+[Caps Lock fallback review](evidence/contact-capslock-status/review.json) records
+the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 

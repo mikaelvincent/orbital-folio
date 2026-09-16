@@ -26,7 +26,7 @@ export function contactApplicationLayout(
   };
 }
 
-/** Observe physical keys without preventing any native form/shortcut behavior. */
+/** Observe key holds (or macOS Caps Lock status) without changing native input. */
 export function bindContactKeyboard({
   document: doc,
   window: win,
@@ -51,27 +51,18 @@ export function bindContactKeyboard({
   wake: () => void;
   platform?: string;
 }) {
-  let capsRelease: ReturnType<typeof setTimeout> | undefined;
-  const cancelCapsPulse = () => {
-    clearTimeout(capsRelease);
-    capsRelease = undefined;
-  };
   // macOS emits CapsLock flagsChanged: down means enabled, up means disabled,
   // not physical release (WebKit PlatformEventFactoryMac::isKeyUpEvent).
-  // Approximate each toggle with a momentary press; never latch to lock state.
-  const pulseCaps = () => {
-    cancelCapsPulse();
-    keyboard.press('CapsLock');
-    capsRelease = setTimeout(() => {
-      capsRelease = undefined;
-      keyboard.release('CapsLock');
-      if (active()) wake();
-    }, 140);
-    wake();
-  };
+  // Use the approved lock-status fallback there. Reading every in-app key event
+  // also restores the actual status after focus loss or opening with it enabled,
+  // and supports Mac browsers that emit only keydown for both lock toggles.
   const macCaps = /Mac/.test(platform);
+  const syncCapsStatus = (key: KeyboardEvent) => {
+    if (!macCaps) return;
+    if (key.getModifierState('CapsLock')) keyboard.press('CapsLock');
+    else keyboard.release('CapsLock');
+  };
   const reset = () => {
-    cancelCapsPulse();
     keyboard.clear();
     wake();
   };
@@ -79,22 +70,24 @@ export function bindContactKeyboard({
     const key = event as KeyboardEvent;
     if (!active() || !contains(key.target) || key.isComposing || !key.code)
       return;
-    if (key.code === 'CapsLock' && macCaps) {
-      pulseCaps();
-      return;
-    }
-    keyboard.press(key.code);
+    if (key.code !== 'CapsLock' || !macCaps) keyboard.press(key.code);
+    syncCapsStatus(key);
     wake();
   };
   const up = (event: Event) => {
     const key = event as KeyboardEvent;
     if (key.code === 'CapsLock' && macCaps) {
-      if (active() && contains(key.target) && !key.isComposing) pulseCaps();
+      if (active() && contains(key.target) && !key.isComposing) {
+        syncCapsStatus(key);
+        wake();
+      }
       return;
     }
     // macOS can omit a letter's keyup while Command is held.
     if (key.key === 'Meta') keyboard.clear();
     else keyboard.release(key.code);
+    if (active() && contains(key.target) && !key.isComposing)
+      syncCapsStatus(key);
     if (active()) wake();
   };
   const focus = (event: Event) => {
@@ -115,7 +108,6 @@ export function bindContactKeyboard({
     doc.removeEventListener('focusin', focus);
     doc.removeEventListener('visibilitychange', visibility);
     win.removeEventListener('blur', reset);
-    cancelCapsPulse();
     keyboard.clear(true);
   };
 }

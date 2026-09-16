@@ -37,6 +37,7 @@ test('Keyboard observation preserves default events, handles held combinations a
   const detach = bindContactKeyboard({
     document: doc,
     window: win,
+    platform: 'Win32',
     active: () => enabled,
     contains: (t) => t === doc,
     keyboard: {
@@ -48,7 +49,7 @@ test('Keyboard observation preserves default events, handles held combinations a
   });
   const key = (type, code, extra = {}) => {
     const event = new Event(type, { cancelable: true });
-    Object.assign(event, { code, ...extra });
+    Object.assign(event, { code, getModifierState: () => false, ...extra });
     doc.dispatchEvent(event);
     assert.equal(event.defaultPrevented, false);
   };
@@ -80,78 +81,160 @@ test('Keyboard observation preserves default events, handles held combinations a
   assert.ok(wakes > 0);
 });
 
-test('Mac CapsLock toggle events are momentary and never release other held keys', (t) => {
-  t.mock.timers.enable({ apis: ['setTimeout'] });
+/** Synthetic platform event sequences; these do not exercise a native keyboard. */
+function observeKeyboard(platform = 'MacIntel') {
   const doc = new EventTarget(),
     win = new EventTarget(),
     pressed = new Set();
-  let wakes = 0;
+  doc.hidden = false;
+  const state = { enabled: true, inside: true, wakes: 0 };
   const detach = bindContactKeyboard({
     document: doc,
     window: win,
-    platform: 'MacIntel',
-    active: () => true,
-    contains: () => true,
-    wake: () => wakes++,
+    platform,
+    active: () => state.enabled,
+    contains: (target) => state.inside && target === doc,
+    wake: () => state.wakes++,
     keyboard: {
       press: (code) => pressed.add(code),
       release: (code) => pressed.delete(code),
       clear: () => pressed.clear(),
     },
   });
-  const key = (type, code) => {
+  const key = (type, code, caps = false, extra = {}) => {
     const event = new Event(type, { cancelable: true });
-    Object.assign(event, { code });
+    Object.assign(event, {
+      code,
+      getModifierState: (modifier) => modifier === 'CapsLock' && caps,
+      ...extra,
+    });
     doc.dispatchEvent(event);
     assert.equal(event.defaultPrevented, false);
   };
+  return { doc, win, pressed, state, key, detach };
+}
+
+test('Mac CapsLock stays down while enabled without timing out or disturbing held keys', (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const { key, pressed, state, detach } = observeKeyboard();
+  t.after(detach);
   key('keydown', 'ShiftLeft');
   key('keydown', 'KeyA');
-  key('keydown', 'CapsLock');
+  key('keydown', 'CapsLock', true); // WebKit: toggle on.
+  assert.deepEqual(pressed, new Set(['ShiftLeft', 'KeyA', 'CapsLock']));
+  const wakes = state.wakes;
+  t.mock.timers.tick(30_000);
+  assert.deepEqual(pressed, new Set(['ShiftLeft', 'KeyA', 'CapsLock']));
+  assert.equal(
+    state.wakes,
+    wakes,
+    'Holding a key must not schedule timer work',
+  );
+  key('keyup', 'KeyA', true);
+  assert.deepEqual(pressed, new Set(['ShiftLeft', 'CapsLock']));
+  key('keyup', 'CapsLock', false); // WebKit: toggle off, not physical release.
+  assert.deepEqual(pressed, new Set(['ShiftLeft']));
+
+  // Other Mac engines can report both lock toggles as keydown events.
+  key('keydown', 'CapsLock', true);
   assert.ok(pressed.has('CapsLock'));
-  t.mock.timers.tick(141); // macOS supplies no physical keyup here.
-  assert.deepEqual([...pressed], ['ShiftLeft', 'KeyA']);
-  key('keyup', 'CapsLock'); // Toggle OFF is an isolated keyup on macOS.
-  assert.ok(pressed.has('CapsLock'));
-  t.mock.timers.tick(141);
-  assert.deepEqual([...pressed], ['ShiftLeft', 'KeyA']);
-  key('keydown', 'CapsLock');
-  win.dispatchEvent(new Event('blur'));
+  key('keyup', 'CapsLock', true);
+  assert.ok(pressed.has('CapsLock'), 'Fallback follows status, not event type');
+  key('keydown', 'CapsLock', false);
+  assert.deepEqual(pressed, new Set(['ShiftLeft']));
+  key('keyup', 'ShiftLeft');
   assert.equal(pressed.size, 0);
-  const afterBlur = wakes;
-  t.mock.timers.tick(200);
-  assert.equal(wakes, afterBlur);
-  key('keydown', 'CapsLock');
-  detach();
-  const afterDetach = wakes;
-  t.mock.timers.tick(200);
-  assert.equal(pressed.size, 0);
-  assert.equal(wakes, afterDetach);
 });
 
-test('Platforms with physical CapsLock release events preserve held presses', (t) => {
-  t.mock.timers.enable({ apis: ['setTimeout'] });
-  const doc = new EventTarget(),
-    pressed = new Set();
-  const detach = bindContactKeyboard({
-    document: doc,
-    window: new EventTarget(),
-    platform: 'Win32',
-    active: () => true,
-    contains: () => true,
-    wake() {},
-    keyboard: {
-      press: (code) => pressed.add(code),
-      release: (code) => pressed.delete(code),
-      clear: () => pressed.clear(),
-    },
-  });
-  const key = (type) =>
-    doc.dispatchEvent(Object.assign(new Event(type), { code: 'CapsLock' }));
-  key('keydown');
-  t.mock.timers.tick(500);
-  assert.ok(pressed.has('CapsLock'));
-  key('keyup');
+test('Mac CapsLock syncs preexisting status from ordinary keys and survives Command cleanup', (t) => {
+  const { key, pressed, win, detach } = observeKeyboard();
+  t.after(detach);
+  key('keydown', 'KeyA', true); // Caps Lock was already enabled before entering.
+  assert.deepEqual(pressed, new Set(['CapsLock', 'KeyA']));
+  key('keydown', 'MetaLeft', true, { key: 'Meta' });
+  key('keyup', 'MetaLeft', true, { key: 'Meta' });
+  assert.deepEqual(pressed, new Set(['CapsLock']));
+  win.dispatchEvent(new Event('blur'));
   assert.equal(pressed.size, 0);
+  key('keyup', 'KeyA', true); // Next in-scope event restores known lock status.
+  assert.deepEqual(pressed, new Set(['CapsLock']));
+  key('keydown', 'KeyB', false); // Status changed while focus was elsewhere.
+  assert.deepEqual(pressed, new Set(['KeyB']));
+  key('keyup', 'KeyB', false);
+  assert.equal(pressed.size, 0);
+});
+
+test('Mac lock fallback clears on lost focus or close and ignores out-of-scope input', () => {
+  const { key, pressed, doc, win, state, detach } = observeKeyboard();
+  key('keydown', 'KeyA', true);
+  win.dispatchEvent(new Event('blur'));
+  assert.equal(pressed.size, 0);
+  key('keydown', 'KeyA', true);
+  doc.hidden = true;
+  doc.dispatchEvent(new Event('visibilitychange'));
+  assert.equal(pressed.size, 0);
+  doc.hidden = false;
+  key('keydown', 'KeyA', true);
+  state.inside = false;
+  doc.dispatchEvent(new Event('focusin'));
+  assert.equal(pressed.size, 0);
+  for (const type of ['keydown', 'keyup']) {
+    key(type, 'CapsLock', true);
+    key(type, 'KeyA', true);
+    key(type, 'MetaLeft', true, { key: 'Meta' });
+    assert.equal(pressed.size, 0);
+  }
+  state.inside = true;
+  state.enabled = false;
+  for (const type of ['keydown', 'keyup']) {
+    key(type, 'CapsLock', true);
+    key(type, 'KeyA', true);
+    key(type, 'MetaLeft', true, { key: 'Meta' });
+    assert.equal(pressed.size, 0);
+  }
+  state.enabled = true;
+  key('keydown', 'KeyA', true, { isComposing: true });
+  key('keyup', 'KeyA', true, { isComposing: true });
+  assert.equal(pressed.size, 0);
+  key('keydown', 'CapsLock', true);
+  assert.ok(pressed.has('CapsLock'));
   detach();
+  assert.equal(pressed.size, 0);
+  const wakes = state.wakes;
+  key('keydown', 'CapsLock', true);
+  key('keyup', 'CapsLock', true);
+  assert.equal(pressed.size, 0);
+  assert.equal(state.wakes, wakes);
+});
+
+test('Physical key presses remain held until release regardless of logical lock status', (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  for (const platform of ['Win32', 'Linux x86_64']) {
+    const { key, pressed, state, detach } = observeKeyboard(platform);
+    const codes = [
+      'CapsLock',
+      'NumLock',
+      'ScrollLock',
+      'ShiftLeft',
+      'ControlLeft',
+      'AltLeft',
+      'KeyA',
+      'Digit1',
+      'ArrowLeft',
+      'Space',
+    ];
+    for (const code of codes) key('keydown', code, true);
+    const wakes = state.wakes;
+    t.mock.timers.tick(30_000);
+    assert.deepEqual(pressed, new Set(codes));
+    assert.equal(state.wakes, wakes);
+    key('keydown', 'KeyA', true, { repeat: true });
+    assert.deepEqual(pressed, new Set(codes));
+    for (const code of codes) {
+      key('keyup', code, true); // Lock status can remain enabled after release.
+      assert.equal(pressed.has(code), false);
+    }
+    assert.equal(pressed.size, 0);
+    detach();
+  }
 });

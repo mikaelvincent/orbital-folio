@@ -1,0 +1,4 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/navigation/contact-computer.ts tests/spacecraft/contact-computer.test.mjs tests/spacecraft/contact-keyboard.test.mjs
+
