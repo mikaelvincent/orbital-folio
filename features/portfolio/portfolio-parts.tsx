@@ -84,7 +84,6 @@ export function Footer({ site: s }: { site: Record<string, any> }) {
           <ArrowUpRight size={14} />
         </a>
       </div>
-      {s.sampleMode && <p className="sample-notice">{s.sampleNotice}</p>}
       <div className="footer-meta">
         <span>
           © {new Date().getFullYear()} {s.name}
@@ -94,17 +93,6 @@ export function Footer({ site: s }: { site: Record<string, any> }) {
       </div>
     </footer>
   );
-}
-export function Sample({
-  site: s,
-  sample,
-}: {
-  site: Record<string, any>;
-  sample?: boolean;
-}) {
-  return sample && (s.sampleMode || s._preview) ? (
-    <span className="sample-badge">{s.sampleLabel}</span>
-  ) : null;
 }
 export function ProjectCards({
   projects,
@@ -118,7 +106,7 @@ export function ProjectCards({
       {projects.map((p, i) => (
         <a
           className="project-locker"
-          aria-label={`${s.projectCta}: ${p.title}${p.sample && (s.sampleMode || s._preview) ? ' · ' + s.sampleLabel : ''}`}
+          aria-label={`${s.projectCta}: ${p.title}`}
           href={pathFor(`/projects/${p.slug}`, s)}
           key={p.id}
         >
@@ -158,7 +146,6 @@ export function ProjectCards({
             <h3>{p.title}</h3>
             <p>{p.summary}</p>
             <div className="locker-foot">
-              <Sample site={s} sample={p.sample} />
               <span className="locker-handle" aria-hidden="true" />
             </div>
           </div>

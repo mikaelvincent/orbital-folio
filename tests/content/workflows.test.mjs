@@ -139,7 +139,10 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
         (
           await authorized('/api/admin', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', Connection: 'close' },
+            headers: {
+              'Content-Type': 'application/json',
+              Connection: 'close',
+            },
             body: '{}',
           })
         ).status,
@@ -355,7 +358,7 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
       },
     );
     await t.test(
-      'sample badges are confined to demo mode and private preview',
+      'public and preview presentation omit sample badges while preserving sample records',
       async () => {
         const original = await record('site');
         const sampleProject = (await records()).find(
@@ -381,7 +384,8 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
                 sampleProject.draft.slug,
             )
           ).text();
-          assert.match(preview, /class="sample-badge"/);
+          assert.doesNotMatch(preview, /class="sample-badge"/);
+          assert.equal((await record(sampleProject.id)).draft.sample, true);
         } finally {
           await restore(original);
         }

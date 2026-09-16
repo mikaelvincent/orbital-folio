@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
-import { Sample, TextBlocks } from './portfolio-parts';
+import { TextBlocks } from './portfolio-parts';
 import { type ContactDraft, type ContactSubmission } from './contact-form';
 import { pathFor } from '@/lib/paths';
 import { ContactComputerWindow } from './contact-computer-window';
@@ -104,7 +104,6 @@ export function WorldReader({
           <>
             <div className="world-kicker">
               <span>{project.category}</span>
-              <Sample site={s} sample={project.sample} />
             </div>
             <h1>{project.title}</h1>
             <p className="world-subtitle">{project.subtitle}</p>
@@ -152,7 +151,6 @@ export function WorldReader({
               <>
                 <div className="world-kicker">
                   <span>{entry.period}</span>
-                  <Sample site={s} sample={entry.sample} />
                 </div>
                 <h2 className="world-entry-title">{entry.title}</h2>
                 <p className="world-subtitle">
@@ -181,7 +179,6 @@ export function WorldReader({
               <>
                 <div className="world-kicker">
                   <span>{String(chapter + 1).padStart(2, '0')}</span>
-                  <Sample site={s} sample={entry.sample} />
                 </div>
                 <h2 className="world-entry-title">{entry.title}</h2>
                 <p className="world-subtitle">{entry.subtitle}</p>

@@ -8,7 +8,7 @@ import {
   BookOpen,
   Layers,
 } from 'lucide-react';
-import { ProjectCards, RoomIntro, Sample, TextBlocks } from './portfolio-parts';
+import { ProjectCards, RoomIntro, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content/types';
 import {
   ContactForm,
@@ -50,7 +50,6 @@ export function DossierView({
           <div className="clipboard-clip" aria-hidden="true" />
           <div className="paper-top">
             <p className="eyebrow">{p.category}</p>
-            <Sample site={s} sample={p.sample} />
           </div>
           <h1>{p.title}</h1>
           <p className="dossier-subtitle">{p.subtitle}</p>
@@ -183,7 +182,6 @@ export function ExperienceView({ data }: { data: Portfolio }) {
               <div className="entry-content">
                 <div className="entry-head">
                   <p className="eyebrow">{e.period}</p>
-                  <Sample site={s} sample={e.sample} />
                 </div>
                 <h2>{e.title}</h2>
                 <p className="entry-org">
@@ -257,7 +255,6 @@ export function AboutView({ data }: { data: Portfolio }) {
                 <p className="eyebrow">
                   {s.journalLabel} / 0{i + 1}
                 </p>
-                <Sample site={s} sample={j.sample} />
               </div>
               <h2>{j.title}</h2>
               <p className="journal-subtitle">{j.subtitle}</p>
@@ -321,7 +318,6 @@ export function ContactView({
               </a>
             ))}
           </div>
-          {s.sampleMode && <p className="contact-sample">{s.sampleContact}</p>}
         </div>
       </div>
       <div className="comms-housing">
@@ -342,7 +338,7 @@ export function ContactView({
         />
         <div className="comms-bottom">
           <span />
-          MESSAGE INBOX · CALL PREVIEW
+          COMMUNICATIONS
           <span />
         </div>
       </div>

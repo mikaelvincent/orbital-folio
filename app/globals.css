@@ -520,6 +520,7 @@ svg {
   margin-top: 25px;
   min-height: 35px;
 }
+/* Also used for the private inbox read/unread status; public sample markup is gone. */
 .sample-badge {
   display: inline-block;
   border: 1px solid currentColor;
@@ -690,12 +691,6 @@ svg {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-.sample-notice {
-  padding: 20px 0;
-  font-size: 12px;
-  max-width: 800px;
-  color: #b1bdcb;
 }
 .footer-meta {
   display: flex;
@@ -999,9 +994,6 @@ svg {
     flex-wrap: wrap;
     font-size: 10px;
     gap: 14px;
-  }
-  .sample-notice {
-    font-size: 11px;
   }
   .room-main {
     padding: 25px 6% 50px;
@@ -1381,9 +1373,6 @@ svg {
   color: #a2bfd5;
   font-size: 10px;
 }
-.entry-head .sample-badge {
-  color: #a8c7dc;
-}
 .entry-content h2 {
   font-size: 32px;
   font-weight: 500;
@@ -1575,13 +1564,6 @@ svg {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.contact-details .contact-sample {
-  border-top: 1px solid #ffffff20;
-  padding-top: 20px;
-  font-size: 12px;
-  color: #9daec1;
-  line-height: 1.8;
 }
 .comms-housing {
   background: linear-gradient(115deg, #eeeadf, #b7bfc0);
@@ -1871,9 +1853,6 @@ svg {
   }
   .paper-top {
     gap: 8px;
-  }
-  .paper-top .sample-badge {
-    font-size: 8px;
   }
   .mission-console {
     border-width: 8px;
@@ -3263,9 +3242,6 @@ svg {
 .room-reader .comms-housing {
   padding: 14px;
 }
-.room-reader .contact-sample {
-  font-size: 0.875rem;
-}
 .room-reader .contact-form {
   padding: 20px;
 }
@@ -3720,11 +3696,6 @@ body:has(#room-reader:target) .boot-loader {
   font-size: 12px;
   letter-spacing: 0.12em;
 }
-.world-document .sample-badge {
-  font-size: 10px;
-  color: #335683;
-  border-color: #335683;
-}
 .world-subtitle {
   font-size: 24px;
   line-height: 1.25;
@@ -3898,10 +3869,6 @@ body:has(#room-reader:target) .boot-loader {
 }
 .document-experience .world-document-footer {
   border-color: #6babba3b;
-}
-.document-experience .sample-badge {
-  color: #acd7ef;
-  border-color: #acd7ef;
 }
 .document-experience a:focus-visible,
 .document-experience button:focus-visible,

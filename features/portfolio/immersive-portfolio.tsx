@@ -648,8 +648,12 @@ export function ImmersivePortfolio({
         </div>
         {immersive && (
           <div className="flight-status">
-            <span className="status-dot" />
-            {s.sampleMode ? s.sampleLabel : s.availability}
+            {!s.sampleMode && (
+              <>
+                <span className="status-dot" />
+                {s.availability}
+              </>
+            )}
             <button
               ref={diagnosticsToggle}
               type="button"
