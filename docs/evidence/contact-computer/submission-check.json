@@ -1,0 +1,10 @@
+{
+  "test": "Real UI -> existing local private inbox",
+  "count": 1,
+  "optionalNameFallback": true,
+  "companyPreserved": true,
+  "subjectPreserved": true,
+  "legacyIntent": "project",
+  "callDemoSaved": false,
+  "cleanedUp": true
+}

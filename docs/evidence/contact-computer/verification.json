@@ -1,0 +1,115 @@
+{
+  "date": "2026-09-16",
+  "baseline": "d0fb59905e37dc1ec51c62de7a065c67ae54c3bf",
+  "sourceSha256": {
+    "features/portfolio/contact-computer-window.css": "7a1bb67b033c24cc8e12a6331705e4ef601f70da976d321eef01a79da43faf9a",
+    "features/portfolio/contact-computer-window.tsx": "061bf846afceb9b1858b8470559f1874596b767c69e3c3eca108f205f4647bf4",
+    "features/portfolio/contact-flow.ts": "e58fedc3eab74d9fc281963b77e923de63e90d25dfbeaae69432a5cddbdcfc7d",
+    "features/portfolio/contact-form.css": "6b855ee9b31959228ab0e29f197a6ae21786658a6ab760cc613b190b7a5ebfb7",
+    "features/portfolio/contact-form.tsx": "3449d456d059ade5737b419eaa8172d09ee20ba717102233c08091de8ef214a4",
+    "features/portfolio/immersive-portfolio.tsx": "647747353fa824873886df333b7b5033286b096f7bfffe06513522a79c7948b5",
+    "features/portfolio/room-views.tsx": "55236d563c7ef17390e94f50b11e4133b6c6482832ca819655bc49eb8ab05f1c",
+    "features/portfolio/world-reader.tsx": "5fe7c681683408a2c6e5537694cbd676eb9a7fb553e35ea1e09536ddaf2dc98a",
+    "features/spacecraft/navigation/contact-computer.ts": "115dcccd6036bbd478988964635dfaa93e1d48ac3146144accd79821041023ff",
+    "features/spacecraft/rooms/contact-flight-console.ts": "7020e28a196776e378829444ddb6de670b1cd1a40e0cea31244a730d82c83d26",
+    "features/spacecraft/rooms/contact-keyboard.ts": "5e14151b98226cc5d4f561ac3e64e54440113861ce3095015570276061a4e43c",
+    "features/spacecraft/spacecraft-model.ts": "46a6dec42beb334d55514e896b702f802a505de8d548e42d5f5cd36fabd070fe",
+    "features/spacecraft/spacecraft-runtime.ts": "4f292b87fc55a2bad81f3b018f166a973e542410a32ae86e602d791b446587eb",
+    "tests/content/contact-form.test.mjs": "a792e4494d88b0b42a58f094b4b3953f46ec4b19f901f7c9966c33c328aaebba",
+    "tests/spacecraft/contact-computer.test.mjs": "8f862ee71913a384b765976d371c2df59ddfc9b9fbb38d107cc638d661997a2a",
+    "tests/spacecraft/contact-keyboard.test.mjs": "de67f44a11a930af1d9ee4a1ab9a44c493af21bc8283fb6a80ae4855cb825426",
+    "tests/spacecraft/object-interaction.test.mjs": "f41d816b8feddc6e9e0a11967015cb7b13d1a7108c694913716de2fb74d0defa"
+  },
+  "checks": {
+    "fullSuite": {
+      "passed": 314,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "Before final CSS scroll containment and compact inset correction"
+    },
+    "finalTargetedSuite": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "After compact-inset correction; final CSS overflow-only correction then verified by live lower-field focus/Tab/demo repeat and production rebuild"
+    },
+    "typecheck": "passed",
+    "affectedLint": "passed",
+    "productionBuild": "passed on final source including overflow: clip",
+    "gitDiffCheck": "passed"
+  },
+  "browser": {
+    "engine": "Built-in Chromium",
+    "hidden": true,
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        900,
+        1200
+      ]
+    ],
+    "liveRendering": true,
+    "nativeSafariTested": false,
+    "nativeTouchKeyboardTested": false,
+    "renderingDimensions": [
+      {
+        "css": [
+          1280,
+          720
+        ],
+        "buffer": [
+          2560,
+          1440
+        ],
+        "pixelRatio": 2
+      },
+      {
+        "css": [
+          390,
+          844
+        ],
+        "buffer": [
+          390,
+          844
+        ],
+        "pixelRatio": 1
+      },
+      {
+        "css": [
+          900,
+          1200
+        ],
+        "buffer": [
+          1732,
+          2309
+        ],
+        "pixelRatio": 1.9245008972987525
+      }
+    ],
+    "screenshotExport": "CSS pixels; desktop WebGL buffers are larger",
+    "dimensionCheck": "Renderer data attributes; larger portrait freshly reconfirmed on final source. Corrects an initial blanket DPR-1 assumption."
+  },
+  "limitations": [
+    "No steady-state CPU/GPU timing comparison",
+    "Model inventory is not rendered pass draws or measured GPU/process memory",
+    "Native phone keyboard, device rotation and Safari remain unverified"
+  ],
+  "sourceAfterFullSuite": [
+    "Scoped Contact CSS keeps native focus scrolling within the fixed scene",
+    "Stable compact Contact window inset independent of overview pose calls",
+    "Test fixture contextual typing lint correction",
+    "Email callout decorative arrow removed",
+    "Final scoped overflow: clip prevents native focus scrolling either outer Contact ancestor"
+  ],
+  "commits": {
+    "forms": "508f9ea",
+    "computer": "a63a35c"
+  }
+}

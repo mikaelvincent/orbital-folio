@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 15 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 16 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -36,6 +36,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
+| Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
 | Studio coordination and workflows | `features/studio/admin-studio.tsx`, with setup, content-fields, inbox, access and model-tools modules beside it |
 | Content and persistence | `lib/content/repository.ts`, `lib/content/types.ts`, `lib/content/validation.ts`, `db/schema.ts`, `drizzle/` |
 
@@ -133,6 +134,39 @@ The current implementation is mapped above. [World-camera evidence](evidence/wor
 and [visible-room navigation evidence](evidence/room-access-and-hardware/README.md)
 remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
+
+## Contact computer and submission boundary
+
+The main Contact monitor is selectable with the shared screen hover/focus feedback.
+Its application replaces the idle display on the existing glass. Landscape frames
+the monitor and conventional 82-key keyboard; portrait frames a tall application
+window inside that glass, with single-column fields and internal scrolling. The
+monitor itself is not stretched. Close/Back to room returns to normal navigation.
+The old deployable Contact tablet is removed; other room readers remain unchanged.
+
+Both views share `ContactForm` and the in-memory draft/submission state. **Schedule
+a call** comes first and is a clearly labeled demo. Name, company, email, subject
+and message appear in that order; only email/message are required. Call requests
+add required date/time with the device time zone explicitly displayed. No call
+backend, availability calendar, reservation or automatic confirmation exists.
+The call branch validates but returns before any transport or persistence.
+
+**Send a message is working**: it reuses `/api/contact` and the private D1 inbox.
+The unchanged backend requires a name and legacy intent: the frontend supplies
+`Name not provided` when omitted and `project` as an internal storage category.
+Company/subject are preserved in the message body and count toward its existing
+5,000-character limit. The old interview/project categories are not visitor choices.
+No new schema, mail delivery or backend integration is introduced. Failed sends
+retain the draft. Controls fail closed before hydration; without JavaScript the
+configured email alternative remains available. Sample identity stays labeled.
+
+The secondary email callout can be dismissed/reopened, copied or opened as a mail
+draft. Keyboard key caps and legends follow physical `code` presses/releases,
+including held combinations; blur, visibility loss and closing clear their state.
+Native editing shortcuts remain intact. Mobile visual-viewport changes resize the
+inner scroll area without changing the camera; device Safari keyboard behavior
+still needs a native-device check. Design costs and checked states are in
+[Contact evidence](evidence/contact-computer/README.md) and ledger entry 24.
 
 ## Earth and atmospheric art
 

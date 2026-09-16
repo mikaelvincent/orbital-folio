@@ -17,6 +17,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 21 · 15 September 2026 | Compare cached shadows with an offline native-depth bake | Developer prototype retained; no production replacement. Exact landscape transport, visibly incorrect stale portrait shadows, unchanged steady work and inconclusive timing. |
 | 22 · 15 September 2026 | Audit baked static contact shading and a live-zone hybrid in Projects | Owner approved retaining existing GTAO. Both developer candidates change appearance; subdivision adds geometry and shading artifacts. |
 | 23 · 15 September 2026 | Approximate prefiltered environment illumination with a fitted probe | Audited; delivered illumination retained. Both probes visibly alter shading, and the rested GPU controls fail the stability gate. No production bake is enabled. |
+| 24 · 16 September 2026 | Contact computer application and animated keyboard | New authored baseline, not an optimization. Structural visible triangle inputs +664; retained geometry arrays −388,324 bytes after removing the old Contact tablet. One new keyboard atlas costs 2.667 MiB nominal texture storage. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1248,6 +1249,45 @@ scene/AO passes or direct light loops. User approval of the before/after art and
 a repeatable net benefit would be needed before adoption; no further candidate
 or broader lightmap implementation is implicitly authorized.
 
+
+## 24 — Contact computer design baseline (16 September 2026)
+
+The owner authorized a new computer-centered Contact flow. The existing monitor
+now hosts a native HTML application, and the decorative keypad becomes an 82-key
+keyboard with press/hold/release animation. The old deployable Contact tablet is
+removed. This is authored interaction/design work, **not an optimization gain**;
+none of the held lighting/shadow candidates is enabled.
+
+Against `d0fb599`, the source-identified inventory uses both wide and compact
+layouts with identical deterministic inputs. Visible mesh structural submissions
+change **433 → 438**, triangle inputs **1,012,868 → 1,013,532** (+664 / 0.066%),
+and unique visible geometry/index arrays **36,310,280 → 36,083,204 bytes**.
+Including hidden variants, retained geometry/index arrays fall by **388,324
+bytes** as the old tablet is removed; instance arrays increase by 3,864 bytes.
+These are model inventories without frustum culling, not actual rendered draw
+counts or measurements of CPU/GPU speed. Geometry source archives and raw output
+are preserved in the [Contact evidence](evidence/contact-computer/README.md).
+
+The shared 1024×512 keyboard legend atlas adds 2,097,152 base RGBA8 bytes, or
+**2,796,204 nominal bytes with mipmaps (2.667 MiB)**. It is generated once, with
+no separate image-file download. Added JavaScript delivery, generation/upload,
+steady CPU/GPU time and process/GPU memory were not measured. No heat, battery or
+frame-rate benefit is claimed. This entry establishes a baseline for later work.
+
+Keys use two dynamic instance batches (caps and legends). Only moving keys update
+their matrices; held keys settle without ongoing geometry changes. Key travel and
+the idle-screen visibility switch increment geometry revision for GTAO. Animated
+keys do not enter the cached static shadow map. HTML forms, validation and the
+secondary email callout require no extra WebGL render targets. Room navigation,
+8K Earth, production illumination and existing diagnostics remain in place.
+
+The full 314-test suite, typecheck, affected lint and production build passed.
+The evidence records live built-in Chromium checks at 1280×720, 390×844 and
+900×1200, local inbox verification/cleanup, demo isolation and limitations.
+Native Safari/on-screen keyboard testing was not performed. These checks do not
+establish a cross-device performance comparison.
+Independent final review scored **94/100**, with no unresolved blockers; its
+rubric, revisions and limitations are recorded with the evidence.
 
 ## Next candidates
 
