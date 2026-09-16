@@ -1479,7 +1479,7 @@ export function createSpacecraft(
     },
   );
 
-  // CONTACT — static, floor-referenced flight operations console.
+  // CONTACT — fixed flight console, with a live monitor and physical keyboard.
   // The existing content transform lowers legacy props to the cabin floor.
   // Cancel its horizontal inset so this wide console stays centered on the wall.
   const contact = rooms.contact;
@@ -1504,6 +1504,15 @@ export function createSpacecraft(
   );
 
   group.userData.socialScreens = contactConsole.userData.socialScreens;
+  const contactComputer = contactConsole.userData.contactComputer;
+  group.userData.contactComputer = contactComputer;
+  contactComputer.anchor.userData = {
+    width: contactComputer.width,
+    height: contactComputer.height,
+    section: 'contact',
+    kind: 'computer',
+  };
+  readerSurfaces.contact = contactComputer.anchor;
   // Outboard fixtures follow the actual wall, independently of furniture scale.
   const outboardEquipment = ['contact', 'experience'].map((section) => {
     const root = new THREE.Group();
@@ -1559,6 +1568,14 @@ export function createSpacecraft(
         z: 0.096,
       });
     });
+  objectHighlights.push(
+    createObjectHighlight(THREE, contactComputer.root, 'contact-computer', {
+      width: contactComputer.width + 0.035,
+      height: contactComputer.height + 0.035,
+      radius: 0.04,
+      z: 0.134,
+    }),
+  );
 
   const { docking, service, solarWings, dishAssembly } =
     buildDockingAndServiceAssemblies(
@@ -1576,7 +1593,6 @@ export function createSpacecraft(
     projects: -3,
     experience: 0,
     about: 3,
-    contact: 0,
   })) {
     const tray = new THREE.Group();
     tray.name = section + '-deployable-reader';
@@ -1772,8 +1788,8 @@ export function createSpacecraft(
     readerSurfaces[section] = surface;
     readerTrays[section] = { group: tray, progress: 0 };
   }
-  // Furnishings are currently display-only. Room and portal navigation remain
-  // active; the two configured social monitors use their native scene anchors.
+  // Computer and social controls use native screen-face anchors. Room and
+  // portal navigation retain their separate geometry-based pick targets.
 
   const proxyMaterial = new THREE.MeshBasicMaterial({ visible: false });
   function portalPickBox(
@@ -2157,7 +2173,7 @@ export function createSpacecraft(
       if (
         child === structures[section] ||
         child === contents[section] ||
-        child === readerTrays[section].group ||
+        child === readerTrays[section]?.group ||
         child.userData.physicalLabel ||
         child.userData.portal ||
         (child.userData.isInteractionProxy && child.userData.isPortal)
@@ -3222,7 +3238,7 @@ export function createSpacecraft(
         PASSAGE_RADIUS + PASSAGE_GUIDE_WIDTH,
         64,
       ).toNonIndexed();
-      main.rotateY(-sign * Math.PI / 2);
+      main.rotateY((-sign * Math.PI) / 2);
       main.translate(captionLocal.x + sign * PORTAL_SIGN_STANDOFF, 0, 0);
       const plate = new THREE.PlaneGeometry(
         ...portal.metadata.plateSize,
@@ -3582,6 +3598,16 @@ export function createSpacecraft(
       tray.group.rotation.x = -0.1 * (1 - p);
       if (previousProgress !== p) geometryChanged();
       if (p !== goal) motionActive = true;
+    }
+    const computerActive =
+      currentState.reading && currentState.activeRoom === 'contact';
+    if (contactComputer.idleDisplay.visible === !!computerActive)
+      geometryChanged();
+    contactComputer.setActive(!!computerActive);
+    if (!computerActive) contactComputer.keyboard.clear();
+    if (contactComputer.keyboard.update(dt, instantHighlight)) {
+      geometryChanged();
+      motionActive = true;
     }
     group.userData.motionActive = motionActive;
     const targetLevels: Record<string, number> = {};

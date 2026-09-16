@@ -68,7 +68,7 @@ test('The shared brightness transition is smooth and independent of refresh rate
   assert.ok(Math.abs(simulate(60) - simulate(120)) < 1e-12);
 });
 
-test('Only social assemblies advertise object interaction; portals and reader UI surfaces remain', () => {
+test('Computer and social screens retain native anchors, independent feedback and portal navigation', () => {
   const model = createSpacecraft(THREE, {
     socials: resolveSocialScreens([
       {
@@ -104,14 +104,29 @@ test('Only social assemblies advertise object interaction; portals and reader UI
   assert.equal(
     openTargets,
     0,
-    'Main console and other furnishings do not advertise a reader action',
+    'Native screen controls do not add invisible furnishing pick volumes',
   );
   assert.ok(
     model.readerSurfaces.contact,
-    'The explicit reading-view control still has a surface',
+    'The Contact application retains a physical screen surface',
+  );
+  const computer = model.group.userData.contactComputer;
+  assert.equal(model.readerSurfaces.contact, computer.anchor);
+  model.update(0.5, 'contact', true, {
+    activeRoom: 'contact',
+    hoveredObject: 'contact-computer',
+  });
+  assert.equal(computer.root.userData.highlightLevel, 1.15);
+  const revision = model.group.userData.geometryRevision;
+  model.update(0.6, 'contact', true, { activeRoom: 'contact', reading: true });
+  assert.equal(computer.idleDisplay.visible, false);
+  assert.ok(
+    model.group.userData.geometryRevision > revision,
+    'Screen replacement invalidates contact shading',
   );
   model.update(1, 'contact', true, {
     activeRoom: 'contact',
+    reading: false,
     hoveredObject: 'contact-social-left',
   });
   const [left, right] = model.group.userData.socialScreens;

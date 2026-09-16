@@ -13,12 +13,9 @@ import {
 } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { Sample, TextBlocks } from './portfolio-parts';
-import {
-  ContactForm,
-  type ContactDraft,
-  type ContactSubmission,
-} from './contact-form';
+import { type ContactDraft, type ContactSubmission } from './contact-form';
 import { pathFor } from '@/lib/paths';
+import { ContactComputerWindow } from './contact-computer-window';
 
 /** A DOM page mounted on the clipboard / console / journal's actual world-space plane. */
 export function WorldReader({
@@ -49,6 +46,20 @@ export function WorldReader({
   const s = data.site;
   const [page, setPage] = useState(0);
   const [chapter, setChapter] = useState(0);
+  if (section === 'contact')
+    return (
+      <ContactComputerWindow
+        site={s}
+        initialSent={sent}
+        initialError={error}
+        draft={draft}
+        onDraftChange={onDraftChange}
+        onSent={onSent}
+        submission={submission}
+        onSubmissionChange={onSubmissionChange}
+        onClose={onClose}
+      />
+    );
   const parts = [
     ['problem', 'approach'],
     ['system'],
@@ -184,44 +195,7 @@ export function WorldReader({
               <ArrowUpRight size={18} />
             </a>
           </>
-        ) : (
-          <>
-            <h1>{s.contactLabel}</h1>
-            <p className="world-subtitle">{s.contactHeading}</p>
-            {s.sampleMode && (
-              <details className="world-sample-note">
-                <summary>{s.sampleLabel}</summary>
-                <p>{s.sampleContact}</p>
-              </details>
-            )}
-            <ContactForm
-              site={s}
-              initialSent={sent}
-              initialError={error}
-              draft={draft}
-              onDraftChange={onDraftChange}
-              onSent={onSent}
-              submission={submission}
-              onSubmissionChange={onSubmissionChange}
-            />
-            <a className="world-link" href={'mailto:' + s.email}>
-              {s.emailLabelCta}
-              <ArrowUpRight size={18} />
-            </a>
-            <div className="world-social">
-              {data.links.map((l) => (
-                <a
-                  key={l.id}
-                  href={l.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {l.title}
-                </a>
-              ))}
-            </div>
-          </>
-        )}
+        ) : null}
       </div>
       {section !== 'contact' && (
         <footer className="world-document-footer">

@@ -1,0 +1,91 @@
+.orbital-experience.is-immersive:has(.contact-computer-window) {
+  /* Native field focus may scroll a transformed CSS3D descendant. Keep the
+     scene viewport fixed; only the application's inner pane should scroll. */
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  overflow: clip;
+}
+.contact-computer-window {
+  height: 100%;
+  max-height: var(--contact-visible-height, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  color: #f0e9db;
+  background: #101d27;
+  border: 1px solid #819092;
+  border-radius: 8px;
+  box-shadow:
+    0 12px 35px #0005,
+    inset 0 1px #ffffff18;
+  font-family: var(--font-sans, Arial, sans-serif);
+  font-size: 16px;
+  line-height: 1.4;
+  outline: none;
+}
+.contact-window-bar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 14px;
+  background: #21313b;
+  border-bottom: 1px solid #58666b;
+}
+.contact-window-bar > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #c6c5b7;
+}
+.contact-window-bar button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #f1e8d7;
+  font-size: 12px;
+  cursor: pointer;
+}
+.contact-window-bar button:focus-visible {
+  outline: 2px solid #ffc36a;
+  outline-offset: 2px;
+}
+.contact-window-body {
+  overflow: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: #586d77 #101d27;
+}
+.contact-computer-window .contact-app {
+  border: 0;
+  border-radius: 0;
+  padding: 18px;
+}
+.contact-window-sample {
+  padding: 0 18px 14px;
+  font-size: 11px;
+  color: #b3c0c7;
+}
+.contact-window-sample summary {
+  cursor: pointer;
+}
+.contact-window-sample p {
+  margin: 8px 0 0;
+}
+.world-computer-screen {
+  border: 0;
+  cursor: pointer;
+}
+.world-surface[data-computer-portrait='true'] .contact-app-grid {
+  grid-template-columns: minmax(0, 1fr);
+}

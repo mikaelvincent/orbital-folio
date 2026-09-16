@@ -78,7 +78,6 @@ export function ImmersivePortfolio({
   const [contactSubmission, setContactSubmission] = useState<ContactSubmission>(
     { status: 'idle', error: '' },
   );
-  const [contactSent, setContactSent] = useState(false);
   const [surface, setSurface] = useState<HTMLDivElement | null>(null);
   const [projectPage, setProjectPage] = useState(
     Math.max(
@@ -355,13 +354,12 @@ export function ImmersivePortfolio({
     ) : destination.section === 'contact' ? (
       <ContactView
         data={data}
-        sent={destination.sent || contactSent}
+        sent={destination.sent}
         error={destination.error}
         submission={contactSubmission}
         onSubmissionChange={setContactSubmission}
         draft={contactDraft}
         onDraftChange={setContactDraft}
-        onSent={() => setContactSent(true)}
       />
     ) : destination.section === 'privacy' ? (
       <PrivacyView data={data} />
@@ -476,6 +474,7 @@ export function ImmersivePortfolio({
               diagnosticsToggle.current?.focus({ preventScroll: true });
             }}
             onNavigate={(id) => go({ section: id })}
+            onOpenContact={() => go({ section: 'contact', open: true })}
             onNavigationReady={(request) => {
               requestSceneNavigation.current = request;
             }}
@@ -504,13 +503,12 @@ export function ImmersivePortfolio({
               data={data}
               section={destination.section}
               project={project}
-              sent={destination.sent || contactSent}
+              sent={destination.sent}
               error={destination.error}
               submission={contactSubmission}
               onSubmissionChange={setContactSubmission}
               draft={contactDraft}
               onDraftChange={setContactDraft}
-              onSent={() => setContactSent(true)}
               onClose={() => go({ section: destination.section })}
             />,
             surface,

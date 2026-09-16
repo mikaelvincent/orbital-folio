@@ -23,6 +23,10 @@ import {
 } from '@/features/spacecraft/navigation/scene-feedback';
 import { createOverviewAnnotations } from './overview-annotations';
 import {
+  contactApplicationLayout,
+  bindContactKeyboard,
+} from './navigation/contact-computer';
+import {
   moveCameraAxis,
   PROJECTS_PER_PAGE,
   type MotionAxis,
@@ -73,6 +77,7 @@ export type SpacecraftProps = {
   diagnosticsEnabled?: boolean;
   onDiagnosticsClose?: () => void;
   onNavigate: (section: string) => void;
+  onOpenContact?: () => void;
   onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onSettled: () => void;
@@ -269,7 +274,12 @@ export function mountSpacecraftScene({
         };
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
-        audit?.modelReady?.(model, modelOptions, THREE, performance.now() - modelStart);
+        audit?.modelReady?.(
+          model,
+          modelOptions,
+          THREE,
+          performance.now() - modelStart,
+        );
         scene.add(model.group);
         cameraFrame.projectionModel.userData = model.group.userData;
         // This loop synchronizes the scene after animation/reader transforms.
@@ -442,6 +452,21 @@ export function mountSpacecraftScene({
             cssScene.add(object);
             return { screen, link, object };
           });
+        const computer = model.group.userData.contactComputer;
+        const computerButton = document.createElement('button');
+        computerButton.type = 'button';
+        computerButton.className = 'world-object-target world-computer-screen';
+        computerButton.setAttribute('aria-label', 'Open Contact computer');
+        computerButton.dataset.targetKey = 'contact-computer';
+        computerButton.dataset.sceneObject = 'contact-computer';
+        computerButton.style.width = '500px';
+        computerButton.style.height = `${(500 * computer.height) / computer.width}px`;
+        computerButton.onclick = () => {
+          if (active === 'contact' && !reading && !travelling)
+            latest.current.onOpenContact?.();
+        };
+        const computerTarget = new CSS3DObject(computerButton);
+        cssScene.add(computerTarget);
         const syncSceneTargets = () => {
           Object.assign(anchors, model.group.userData.roomAnchors);
           readerAnchors = model.group.userData.readerAnchors;
@@ -687,6 +712,16 @@ export function mountSpacecraftScene({
               readerHeight() / (1.125 * readerStretch()),
             ),
           );
+        const computerLayout = () =>
+          contactApplicationLayout(
+            el.clientWidth,
+            el.clientHeight,
+            computer.width,
+            computer.height,
+            // Overview poses also refresh the shared dock inset during resize.
+            // Keep the Contact window's own compact reservation stable.
+            Math.max(bottomReservation, mobile() ? 132 : 80),
+          );
         const portraitOverview = () => el.clientHeight > el.clientWidth;
         const zAxis = new THREE.Vector3(0, 0, 1);
         const pose = (
@@ -750,7 +785,57 @@ export function mountSpacecraftScene({
               -1 + (2 * (bottomReservation + calloutGutter)) / el.clientHeight,
           };
           let desiredDistance: number;
-          if (isReading) {
+          if (isReading && section === 'contact') {
+            model.group.updateMatrixWorld(true);
+            const layout = computerLayout();
+            const origin = computer.anchor.getWorldPosition(
+              new THREE.Vector3(),
+            );
+            const points: Vec3[] = [];
+            if (layout.portrait) {
+              for (const x of [-layout.width / 2, layout.width / 2])
+                for (const y of [-layout.height / 2, layout.height / 2])
+                  points.push(
+                    computer.anchor
+                      .localToWorld(new THREE.Vector3(x, y, 0))
+                      .toArray(),
+                  );
+            } else {
+              // Frame the fixed monitor and keyboard together, including key travel.
+              for (const root of [computer.root, computer.keyboard.root]) {
+                const bounds = new THREE.Box3().setFromObject(root);
+                for (const x of [bounds.min.x, bounds.max.x])
+                  for (const y of [bounds.min.y, bounds.max.y])
+                    for (const z of [bounds.min.z, bounds.max.z])
+                      points.push([x, y, z]);
+              }
+              direction.set(0, 0.12, 1).normalize();
+            }
+            const framed = fitPerspectiveFrame(
+              points,
+              {
+                target: origin.toArray(),
+                direction: direction.toArray(),
+              },
+              camera.fov,
+              camera.aspect,
+              {
+                left: -1 + 32 / el.clientWidth,
+                right: 1 - 32 / el.clientWidth,
+                top: 1 - (2 * (layout.portrait ? 64 : 20)) / el.clientHeight,
+                bottom:
+                  1 -
+                  (2 * (el.clientHeight - bottomReservation)) / el.clientHeight,
+              },
+            );
+            target.set(...framed.target);
+            desiredDistance = framed.distance * (layout.portrait ? 1 : 1.06);
+            el.dataset.framing = JSON.stringify({
+              mode: 'contact-computer',
+              ...layout,
+              distance: desiredDistance,
+            });
+          } else if (isReading) {
             if (readerAnchors[section]) target.set(...readerAnchors[section]);
             desiredDistance =
               (2.4 * el.clientHeight) /
@@ -959,6 +1044,7 @@ export function mountSpacecraftScene({
           const wasReading = reading;
           active = latest.current.section;
           reading = latest.current.readingSurface;
+          computer.keyboard.clear();
           notifyArrival = notify;
           if (model.group.userData.projectPage !== latest.current.projectPage)
             model.setProjectPage(latest.current.projectPage);
@@ -1485,7 +1571,8 @@ export function mountSpacecraftScene({
           diagnostics?.mark('model-update');
           // Moving doors/readers do not cast into the cached static shadow map.
           for (const anchor of Object.values(model.readerSurfaces))
-            anchor.parent.scale.y *= readerStretch();
+            if (anchor.userData.kind !== 'computer')
+              anchor.parent.scale.y *= readerStretch();
           updateRenderSceneMatrices(scene);
           camera.updateMatrixWorld(true);
           (audit?.shadingFrame ?? audit?.contactFrame)?.();
@@ -1502,10 +1589,18 @@ export function mountSpacecraftScene({
             },
           );
           diagnostics?.mark('annotations');
-          const logicalWidth = paperPixels();
+          const application = computerLayout();
+          const isComputer = active === 'contact';
+          const logicalWidth = isComputer
+            ? application.pixelsWidth
+            : paperPixels();
           surfaceElement.style.width = `${logicalWidth}px`;
-          surfaceElement.style.height = `${logicalWidth * 1.125 * readerStretch()}px`;
+          surfaceElement.style.height = `${isComputer ? application.pixelsHeight : logicalWidth * 1.125 * readerStretch()}px`;
           surfaceElement.dataset.compact = String(mobile());
+          surfaceElement.dataset.computer = String(isComputer);
+          surfaceElement.dataset.computerPortrait = String(
+            isComputer && computerLayout().portrait,
+          );
           const physicalSurface = model.readerSurfaces[active];
           if (physicalSurface) {
             physicalSurface.matrixWorld.decompose(
@@ -1514,12 +1609,14 @@ export function mountSpacecraftScene({
               surface.scale,
             );
             surface.scale.multiplyScalar(
-              physicalSurface.userData.width / logicalWidth,
+              (isComputer
+                ? application.width
+                : physicalSurface.userData.width) / logicalWidth,
             );
-            surface.scale.y /= readerStretch();
+            if (!isComputer) surface.scale.y /= readerStretch();
           }
-          surface.visible = reading && !travelling;
-          surfaceElement.inert = !surface.visible;
+          surface.visible = reading && (isComputer || !travelling);
+          surfaceElement.inert = !surface.visible || travelling;
           for (const h of hotspotObjects) {
             const portal = model.group.userData.portals.find(
               (p: any) => p.id === h.portalId,
@@ -1555,6 +1652,19 @@ export function mountSpacecraftScene({
                 effectiveObject === screen.interactableId,
             );
           }
+          computer.anchor.matrixWorld.decompose(
+            computerTarget.position,
+            computerTarget.quaternion,
+            computerTarget.scale,
+          );
+          computerTarget.scale.multiplyScalar(computer.width / 500);
+          computerTarget.visible =
+            active === 'contact' && !reading && !travelling;
+          computerButton.inert = !computerTarget.visible;
+          computerButton.classList.toggle(
+            'is-object-active',
+            computerTarget.visible && effectiveObject === 'contact-computer',
+          );
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
             background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
@@ -1820,11 +1930,15 @@ export function mountSpacecraftScene({
               background.getDiagnostics(),
             );
             if (reading && model.readerSurfaces[active]) {
+              const layout =
+                active === 'contact'
+                  ? computerLayout()
+                  : { width: 2.4, height: 2.7 };
               const points = [
-                [-1.2, 1.35],
-                [1.2, 1.35],
-                [1.2, -1.35],
-                [-1.2, -1.35],
+                [-layout.width / 2, layout.height / 2],
+                [layout.width / 2, layout.height / 2],
+                [layout.width / 2, -layout.height / 2],
+                [-layout.width / 2, -layout.height / 2],
               ].map(([x, y]) => {
                 const p = model.readerSurfaces[active]
                   .localToWorld(new THREE.Vector3(x, y, 0))
@@ -2093,7 +2207,7 @@ export function mountSpacecraftScene({
           )
             return;
           const control = (event.target as Element).closest<HTMLElement>(
-            '.world-hotspot, .overview-callout, .world-social-screen',
+            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen',
           );
           if ((event.target as Element).closest('button') && !control) return;
           suppressClickUntil = 0;
@@ -2131,7 +2245,7 @@ export function mountSpacecraftScene({
         const pointerUp = (event: PointerEvent) => {
           if (!down || event.pointerId !== down.gesture.pointerId) return;
           const control = (event.target as Element).closest<HTMLElement>(
-            '.world-hotspot, .overview-callout, .world-social-screen',
+            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen',
           );
           const completed = endBoundedDrag(
             down.gesture,
@@ -2228,6 +2342,60 @@ export function mountSpacecraftScene({
         document.addEventListener('pointermove', trackPointer, true);
         document.addEventListener('pointerdown', trackPress, true);
         document.addEventListener('keydown', trackKeyboard, true);
+        const unbindContactKeyboard = bindContactKeyboard({
+          document,
+          window,
+          keyboard: computer.keyboard,
+          active: () =>
+            active === 'contact' &&
+            reading &&
+            !travelling &&
+            latest.current.enabled,
+          contains: (target) =>
+            target instanceof Node && surfaceElement.contains(target),
+          wake: kick,
+        });
+        // A phone keyboard may resize only visualViewport. Reduce the app's
+        // scroll area, retaining the physical camera and outer screen plane.
+        let contactViewportFrame = 0;
+        const resizeContactViewport = () => {
+          cancelAnimationFrame(contactViewportFrame);
+          contactViewportFrame = requestAnimationFrame(() => {
+            if (active !== 'contact' || !reading || !window.visualViewport) {
+              surfaceElement.style.removeProperty('--contact-visible-height');
+              return;
+            }
+            const viewport = window.visualViewport;
+            const bounds = surfaceElement.getBoundingClientRect();
+            const scale = bounds.width / computerLayout().pixelsWidth;
+            const obscured = viewport.height < el.clientHeight - 120;
+            if (obscured && scale > 0) {
+              surfaceElement.style.setProperty(
+                '--contact-visible-height',
+                `${Math.max(100, (viewport.offsetTop + viewport.height - bounds.top - 12) / scale)}px`,
+              );
+              if (
+                document.activeElement instanceof HTMLElement &&
+                surfaceElement.contains(document.activeElement)
+              )
+                document.activeElement.scrollIntoView({
+                  block: 'nearest',
+                  inline: 'nearest',
+                  behavior: 'instant',
+                });
+            } else
+              surfaceElement.style.removeProperty('--contact-visible-height');
+          });
+        };
+        window.visualViewport?.addEventListener(
+          'resize',
+          resizeContactViewport,
+        );
+        window.visualViewport?.addEventListener(
+          'scroll',
+          resizeContactViewport,
+        );
+        surfaceElement.addEventListener('focusin', resizeContactViewport);
         document.addEventListener('focusin', feedbackChanged);
         document.addEventListener('focusout', feedbackChanged);
         document.documentElement.addEventListener(
@@ -2425,12 +2593,27 @@ export function mountSpacecraftScene({
         setDiagnosticsEnabled(!!audit || !!latest.current.diagnosticsEnabled);
         go(latest.current.section === 'home');
         const disposeShadowAudit = audit?.shadowReady?.({
-          three: THREE, renderer, scene, camera, light: key,
+          three: THREE,
+          renderer,
+          scene,
+          camera,
+          light: key,
         });
-        const disposeShadingAudit = (audit?.shadingReady ?? audit?.contactReady)?.({
-          three: THREE, renderer, scene, camera, model, ao,
+        const disposeShadingAudit = (
+          audit?.shadingReady ?? audit?.contactReady
+        )?.({
+          three: THREE,
+          renderer,
+          scene,
+          camera,
+          model,
+          ao,
           invalidate: () => invalidateAo('shading-lab-variant'),
-          enabled: () => !mobile() && contactShading && experiment !== 'no-ao' && experiment !== 'no-spacecraft',
+          enabled: () =>
+            !mobile() &&
+            contactShading &&
+            experiment !== 'no-ao' &&
+            experiment !== 'no-spacecraft',
         });
         let auditBackup: Three.WebGLRenderTarget | undefined;
         if (audit) {
@@ -2547,7 +2730,8 @@ export function mountSpacecraftScene({
             compareGeometry(change, includeImages = false) {
               // Only the explicit lab calls this. Reuse the same camera, lights,
               // materials and GTAO noise, and regenerate shading on both sides.
-              const width = renderer.domElement.width, height = renderer.domElement.height;
+              const width = renderer.domElement.width,
+                height = renderer.domElement.height;
               const render = () => {
                 if (!mobile() && contactShading) refreshOcclusion(0, false);
                 renderer.shadowMap.needsUpdate = true;
@@ -2558,25 +2742,54 @@ export function mountSpacecraftScene({
                 renderer.render(scene, camera);
                 if (!mobile() && contactShading) aoQuad.render(renderer);
                 const pixels = new Uint8Array(width * height * 4);
-                gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-                return { pixels, image: includeImages ? renderer.domElement.toDataURL('image/png') : undefined };
+                gl.readPixels(
+                  0,
+                  0,
+                  width,
+                  height,
+                  gl.RGBA,
+                  gl.UNSIGNED_BYTE,
+                  pixels,
+                );
+                return {
+                  pixels,
+                  image: includeImages
+                    ? renderer.domElement.toDataURL('image/png')
+                    : undefined,
+                };
               };
               const before = render();
               const restore = change();
               let after: ReturnType<typeof render>;
-              try { after = render(); }
-              finally { restore(); render(); invalidateAo('audit-geometry-restore'); }
-              let changedPixels = 0, maxChannelDifference = 0;
+              try {
+                after = render();
+              } finally {
+                restore();
+                render();
+                invalidateAo('audit-geometry-restore');
+              }
+              let changedPixels = 0,
+                maxChannelDifference = 0;
               for (let i = 0; i < before.pixels.length; i += 4) {
                 let changed = false;
                 for (let c = 0; c < 4; c++) {
-                  const difference = Math.abs(before.pixels[i + c] - after.pixels[i + c]);
+                  const difference = Math.abs(
+                    before.pixels[i + c] - after.pixels[i + c],
+                  );
                   changed ||= difference !== 0;
-                  maxChannelDifference = Math.max(maxChannelDifference, difference);
+                  maxChannelDifference = Math.max(
+                    maxChannelDifference,
+                    difference,
+                  );
                 }
                 if (changed) changedPixels++;
               }
-              return { changedPixels, maxChannelDifference, before: before.image, after: after.image };
+              return {
+                changedPixels,
+                maxChannelDifference,
+                before: before.image,
+                after: after.image,
+              };
             },
             verifyFrame(includeImages = false) {
               const width = renderer.domElement.width,
@@ -2601,7 +2814,10 @@ export function mountSpacecraftScene({
                 auditBackup ??= ao.pdRenderTarget.clone();
                 // The developer comparison may resize without remounting.
                 // Keep its saved AO target matched before texture copies.
-                if (auditBackup.width !== ao.width || auditBackup.height !== ao.height)
+                if (
+                  auditBackup.width !== ao.width ||
+                  auditBackup.height !== ao.height
+                )
                   auditBackup.setSize(ao.width, ao.height);
                 renderer.initRenderTarget(auditBackup);
                 renderer.copyTextureToTexture(
@@ -2670,6 +2886,17 @@ export function mountSpacecraftScene({
           document.removeEventListener('pointermove', trackPointer, true);
           document.removeEventListener('pointerdown', trackPress, true);
           document.removeEventListener('keydown', trackKeyboard, true);
+          unbindContactKeyboard();
+          cancelAnimationFrame(contactViewportFrame);
+          window.visualViewport?.removeEventListener(
+            'resize',
+            resizeContactViewport,
+          );
+          window.visualViewport?.removeEventListener(
+            'scroll',
+            resizeContactViewport,
+          );
+          surfaceElement.removeEventListener('focusin', resizeContactViewport);
           document.removeEventListener('focusin', feedbackChanged);
           document.removeEventListener('focusout', feedbackChanged);
           document.documentElement.removeEventListener(

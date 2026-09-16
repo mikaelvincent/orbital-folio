@@ -1,10 +1,12 @@
 import type { SocialScreenLinks } from '../../../lib/content/social-links.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
 import { buildContactAudio } from './contact-flight-audio.ts';
+import { buildContactKeyboard } from './contact-keyboard.ts';
 import { CABIN_FLOOR } from '../geometry/spacecraft-wall-layout.ts';
 import { CONTACT_GRID } from './cabin-composition.ts';
 
-/** Static, floor-referenced Contact furnishings. No camera, input or animation state. */
+/** Floor-referenced Contact furnishings and physical computer controls. Browser
+ * input and camera state remain owned by the spacecraft runtime. */
 export function buildContactFlightConsole(
   THREE: any,
   h: any,
@@ -424,15 +426,42 @@ export function buildContactFlightConsole(
       guv = glassGeometry.attributes.uv;
     for (let i = 0; i < gp.count; i++)
       guv.setXY(i, gp.getX(i) / sw + 0.5, gp.getY(i) / sh + 0.5);
+    // Preserve this group through static batching so the idle graphics can be
+    // hidden behind the active HTML application without swapping cloned materials.
+    const idleDisplay = new THREE.Group();
+    idleDisplay.name = `contact-flight-${kind}-idle-display`;
+    if (kind === 'contact') idleDisplay.userData.animated = true;
+    mount.add(idleDisplay);
     const face = h.mesh(
       glassGeometry,
       screen(kind, sw, sh),
-      mount,
+      idleDisplay,
       `contact-flight-${kind}-screen-glass`,
     );
     face.position.z = 0.132;
     face.castShadow = false;
-    if (kind !== 'contact') {
+    if (kind === 'contact') {
+      const anchor = new THREE.Object3D();
+      anchor.name = 'contact-computer-application-anchor';
+      anchor.position.z = 0.135;
+      anchor.userData = {
+        width: sw,
+        height: sh,
+        section: 'contact',
+        kind: 'computer',
+      };
+      mount.add(anchor);
+      floorRoot.userData.contactComputer = {
+        root: mount,
+        anchor,
+        width: sw,
+        height: sh,
+        idleDisplay,
+        setActive(active: boolean) {
+          idleDisplay.visible = !active;
+        },
+      };
+    } else {
       const side = kind === 'link' ? 'left' : 'right';
       // A geometry-free anchor survives static mesh batching and remains fitted
       // to the actual glass at every room layout and camera angle.
@@ -571,12 +600,16 @@ export function buildContactFlightConsole(
   display('link', -1.215, CONTACT_GRID.sideY, 0.72, 0.92, 0.16);
   display('signal', 1.215, CONTACT_GRID.sideY, 0.72, 0.92, -0.16);
 
-  // Center controls share a shallow inclined, solid-backed equipment cassette.
+  // A full compact keyboard replaces the old decorative keypad and toggles.
+  // Its shallower slope and deeper cassette fit square keys on the original desk.
+  const halfDepth = 0.375;
+  const inclination = 0.22;
+  const slopeHeight = 2 * halfDepth * Math.tan(inclination);
   const wedge = new THREE.Shape();
-  wedge.moveTo(-0.275, -0.007);
-  wedge.lineTo(0.275, -0.007);
-  wedge.lineTo(0.275, 0.193);
-  wedge.lineTo(-0.275, -0.005);
+  wedge.moveTo(-halfDepth, -0.007);
+  wedge.lineTo(halfDepth, -0.007);
+  wedge.lineTo(halfDepth, slopeHeight);
+  wedge.lineTo(-halfDepth, 0);
   wedge.closePath();
   const wedgeGeo = new THREE.ExtrudeGeometry(wedge, {
     depth: 2.05,
@@ -584,182 +617,28 @@ export function buildContactFlightConsole(
     curveSegments: 1,
   });
   wedgeGeo.rotateY(Math.PI / 2);
-  wedgeGeo.translate(-1.025, 0.944, 0.03);
+  wedgeGeo.translate(-1.025, 0.97, -0.08);
   h.mesh(wedgeGeo, m.shell, parent, 'contact-flight-solid-control-wedge');
   const deck = new THREE.Group();
   deck.name = 'contact-flight-inclined-control-deck';
-  deck.position.set(0, 1.047, 0.03);
-  deck.rotation.x = -Math.PI / 2 + 0.36;
+  deck.position.set(0, 0.978 + slopeHeight / 2, -0.08);
+  deck.rotation.x = -Math.PI / 2 + inclination;
   parent.add(deck);
-  box(2.0, 0.525, 0.025, m.dark, 0, 0, 0, deck, 0.012, 'control-panel-gasket');
-  box(1.966, 0.493, 0.025, m.face, 0, 0, 0.018, deck, 0.011, 'control-panel');
+  box(2.0, 0.75, 0.025, m.dark, 0, 0, 0, deck, 0.012, 'control-panel-gasket');
+  box(1.966, 0.718, 0.025, m.face, 0, 0, 0.018, deck, 0.011, 'control-panel');
   fasteners(
     [
-      [-0.94, -0.206, 0.034],
-      [0.94, -0.206, 0.034],
-      [-0.94, 0.206, 0.034],
-      [0.94, 0.206, 0.034],
+      [-0.94, -0.323, 0.034],
+      [0.94, -0.323, 0.034],
+      [-0.94, 0.323, 0.034],
+      [0.94, 0.323, 0.034],
     ],
     deck,
     'control-panel',
   );
-  // Three aligned control groups: equal gaps and equal outer margins.
-  const switchX = -0.65,
-    encoderX = 0.65;
-  box(0.72, 0.345, 0.02, m.dark, 0, 0, 0.037, deck, 0.01, 'keypad-recess');
-  const keys: { p: number[]; s: number[] }[] = [];
-  const keyMarks: { p: number[]; s: number[] }[] = [];
-  for (let row = 0; row < 4; row++)
-    for (let col = 0; col < 10; col++) {
-      const x = (col - 4.5) * 0.069,
-        y = (1.5 - row) * 0.081;
-      if (!(row === 3 && col === 0))
-        keys.push({ p: [x, y, 0.061], s: [0.057, 0.062, 0.026] });
-      keyMarks.push({ p: [x, y + 0.009, 0.075], s: [0.012, 0.004, 0.0015] });
-    }
-  h.instances(unitBox, m.face, keys, deck, 'contact-flight-keycaps');
-  h.instances(unitBox, m.ink, keyMarks, deck, 'contact-flight-key-legends');
-  box(
-    0.057,
-    0.062,
-    0.03,
-    m.accent,
-    -4.5 * 0.069,
-    -1.5 * 0.081,
-    0.061,
-    deck,
-    0.007,
-    'keypad-confirm-key',
-  );
-  box(
-    0.46,
-    0.345,
-    0.018,
-    m.dark,
-    switchX,
-    0,
-    0.036,
-    deck,
-    0.009,
-    'switch-recess',
-  );
-  // Guarded power rocker and four toggle switches. Each terminates in a threaded collar.
-  box(
-    0.08,
-    0.16,
-    0.027,
-    m.face,
-    switchX - 0.133,
-    0,
-    0.057,
-    deck,
-    0.009,
-    'power-switch-base',
-  );
-  box(
-    0.045,
-    0.085,
-    0.04,
-    m.accent,
-    switchX - 0.133,
-    0,
-    0.086,
-    deck,
-    0.008,
-    'power-rocker',
-  );
-  for (const x of [switchX - 0.188, switchX - 0.078])
-    box(
-      0.017,
-      0.198,
-      0.086,
-      m.accent,
-      x,
-      0,
-      0.082,
-      deck,
-      0.008,
-      'switch-guard',
-    );
-  for (const x of [switchX + 0.051, switchX + 0.161])
-    for (const y of [-0.083, 0.083]) {
-      h.cylinder(0.022, 0.012, m.metal, x, y, 0.057, deck, 'z');
-      h.rod([x, y, 0.065], [x, y + 0.017, 0.126], 0.006, m.metal, deck).name =
-        'contact-flight-toggle';
-      box(
-        0.016,
-        0.02,
-        0.023,
-        m.rubber,
-        x,
-        y + 0.017,
-        0.127,
-        deck,
-        0.008,
-        'toggle-cap',
-      );
-    }
-  box(
-    0.46,
-    0.345,
-    0.018,
-    m.dark,
-    encoderX,
-    0,
-    0.036,
-    deck,
-    0.009,
-    'encoder-recess',
-  );
-  for (const x of [encoderX - 0.115, encoderX + 0.115]) {
-    h.cylinder(0.071, 0.014, m.accent, x, 0.055, 0.056, deck, 'z');
-    h.cylinder(0.06, 0.07, m.face, x, 0.055, 0.096, deck, 'z');
-    h.cylinder(0.048, 0.006, m.metal, x, 0.055, 0.134, deck, 'z');
-    const ribs = Array.from({ length: 20 }, (_, i) => {
-      const a = (i * Math.PI) / 10;
-      return {
-        p: [x + Math.cos(a) * 0.059, 0.055 + Math.sin(a) * 0.059, 0.096],
-        s: [0.004, 0.004, 0.054],
-      };
-    });
-    h.instances(unitBox, m.metal, ribs, deck, 'contact-flight-encoder-flutes');
-    box(
-      0.023,
-      0.004,
-      0.003,
-      m.dark,
-      x,
-      0.077,
-      0.139,
-      deck,
-      0.001,
-      'encoder-index',
-    );
-    box(
-      0.086,
-      0.05,
-      0.025,
-      m.face,
-      x,
-      -0.103,
-      0.056,
-      deck,
-      0.008,
-      'encoder-function-key',
-    );
-    box(
-      0.018,
-      0.003,
-      0.002,
-      m.ink,
-      x,
-      -0.099,
-      0.07,
-      deck,
-      0.001,
-      'encoder-key-mark',
-    );
-  }
+  const keyboard = buildContactKeyboard(THREE, h, deck, m);
+  floorRoot.userData.contactComputer.keyboard = keyboard;
+  floorRoot.userData.contactComputer.keyboardDeck = deck;
   // Broad deck hardware reads in the overview; small fittings reward a close view.
   const deckFixings = new THREE.Group();
   deckFixings.rotation.x = -Math.PI / 2;
