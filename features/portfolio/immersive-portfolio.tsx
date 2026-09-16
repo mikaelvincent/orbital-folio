@@ -475,6 +475,7 @@ export function ImmersivePortfolio({
             }}
             onNavigate={(id) => go({ section: id })}
             onOpenContact={() => go({ section: 'contact', open: true })}
+            onCloseContact={() => go({ section: 'contact' })}
             onNavigationReady={(request) => {
               requestSceneNavigation.current = request;
             }}

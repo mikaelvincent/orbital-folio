@@ -112,6 +112,37 @@ test('Computer and social screens retain native anchors, independent feedback an
   );
   const computer = model.group.userData.contactComputer;
   assert.equal(model.readerSurfaces.contact, computer.anchor);
+  const [left, right] = model.group.userData.socialScreens;
+  model.group.updateMatrixWorld(true);
+  for (const screen of [left, right]) {
+    let rim;
+    screen.root.traverse((object) => {
+      if (object.material?.name === `${screen.interactableId}-hover-rim`)
+        rim = object;
+    });
+    assert.ok(rim?.isMesh, `${screen.side} monitor retains its physical rim`);
+    const transform = screen.root.matrixWorld
+      .clone()
+      .invert()
+      .multiply(rim.matrixWorld);
+    const positions = rim.geometry.attributes.position;
+    const bounds = new THREE.Box3();
+    for (let i = 0; i < positions.count; i++)
+      bounds.expandByPoint(
+        new THREE.Vector3()
+          .fromBufferAttribute(positions, i)
+          .applyMatrix4(transform),
+      );
+    assert.ok(bounds.min.x > -screen.glassWidth / 2);
+    assert.ok(bounds.max.x < screen.glassWidth / 2);
+    assert.ok(bounds.min.y > -screen.glassHeight / 2);
+    assert.ok(bounds.max.y < screen.glassHeight / 2);
+    assert.ok(bounds.getSize(new THREE.Vector3()).x > screen.glassWidth * 0.9);
+    assert.ok(Math.abs(bounds.min.z - screen.anchor.position.z) < 1e-6);
+    assert.ok(Math.abs(bounds.max.z - screen.anchor.position.z) < 1e-6);
+    assert.equal(rim.castShadow, false);
+    assert.equal(rim.material.depthWrite, false);
+  }
   model.update(0.5, 'contact', true, {
     activeRoom: 'contact',
     hoveredObject: 'contact-computer',
@@ -124,12 +155,32 @@ test('Computer and social screens retain native anchors, independent feedback an
     model.group.userData.geometryRevision > revision,
     'Screen replacement invalidates contact shading',
   );
+  assert.equal(
+    computer.root.userData.hoverProgress,
+    0,
+    'The open application cannot advertise selecting its main monitor again',
+  );
+  assert.equal(computer.root.userData.highlightLevel, 1);
+  const activeRevision = model.group.userData.geometryRevision;
+  for (const [selected, other] of [
+    [left, right],
+    [right, left],
+  ]) {
+    model.update(0.7, 'contact', true, {
+      activeRoom: 'contact',
+      reading: true,
+      hoveredObject: selected.interactableId,
+    });
+    assert.equal(selected.root.userData.highlightLevel, 1.15);
+    assert.equal(other.root.userData.highlightLevel, 0.65);
+    assert.equal(computer.root.userData.hoverProgress, 0);
+    assert.equal(model.group.userData.geometryRevision, activeRevision);
+  }
   model.update(1, 'contact', true, {
     activeRoom: 'contact',
     reading: false,
     hoveredObject: 'contact-social-left',
   });
-  const [left, right] = model.group.userData.socialScreens;
   assert.equal(left.root.userData.highlightLevel, 1.15);
   assert.equal(right.root.userData.highlightLevel, 0.65);
   model.update(2, '', true, {
@@ -150,4 +201,49 @@ test('Computer and social screens retain native anchors, independent feedback an
   });
   geometries.forEach((g) => g.dispose());
   materials.forEach((m) => m.dispose());
+});
+
+test('Contact wall feedback changes only its paint and resets when the application closes', () => {
+  const model = createSpacecraft(THREE);
+  const walls = new Set(),
+    otherMaterials = new Set();
+  model.group.traverse((object) => {
+    for (const material of [object.material].flat())
+      if (material?.userData.contactRoomWall) walls.add(material);
+      else if (material?.color) otherMaterials.add(material);
+  });
+  assert.ok(walls.size >= 2, 'Rear and side pressure walls provide feedback');
+  model.update(0, 'contact', true, {
+    activeRoom: 'contact',
+    reading: true,
+    hoveredObject: null,
+  });
+  const colors = new Map([...walls].map((m) => [m, m.color.clone()]));
+  const otherColors = new Map(
+    [...otherMaterials].map((m) => [m, m.color.clone()]),
+  );
+  const revision = model.group.userData.geometryRevision;
+  model.update(0.1, 'contact', true, {
+    hoveredObject: 'contact-room-dismiss',
+  });
+  assert.ok([...walls].every((m) => !m.color.equals(colors.get(m))));
+  assert.ok(
+    [...otherMaterials].every((m) => m.color.equals(otherColors.get(m))),
+    'Wall hover must not recolor furnishings or unrelated room surfaces',
+  );
+  assert.equal(
+    model.group.userData.geometryRevision,
+    revision,
+    'A paint-only preview must reuse contact shading rather than refresh AO',
+  );
+  model.update(0.2, 'contact', true, {
+    reading: false,
+    // A stale hover value must not keep the wall highlighted after close.
+    hoveredObject: 'contact-room-dismiss',
+  });
+  assert.ok([...walls].every((m) => m.color.equals(colors.get(m))));
+  assert.ok(
+    model.group.userData.geometryRevision > revision,
+    'Closing restores actual idle-screen geometry and still invalidates AO',
+  );
 });

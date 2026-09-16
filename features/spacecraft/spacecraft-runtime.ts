@@ -4,6 +4,7 @@ import {
   createDoorNavigationQueue,
 } from '@/features/spacecraft/navigation/door-navigation';
 import { createRoomNavigationTargets } from './navigation/room-navigation-targets';
+import { createContactRoomDismissPicker } from './navigation/contact-room-dismiss';
 import {
   roomNavigationIntent,
   sceneNavigationKey,
@@ -78,6 +79,7 @@ export type SpacecraftProps = {
   onDiagnosticsClose?: () => void;
   onNavigate: (section: string) => void;
   onOpenContact?: () => void;
+  onCloseContact?: () => void;
   onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onSettled: () => void;
@@ -467,10 +469,50 @@ export function mountSpacecraftScene({
         };
         const computerTarget = new CSS3DObject(computerButton);
         cssScene.add(computerTarget);
+        const screenProjection = new THREE.Vector3();
+        function screenInViewport(screen: any) {
+          let left = Infinity,
+            right = -Infinity,
+            bottom = Infinity,
+            top = -Infinity;
+          for (const x of [-0.5, 0.5])
+            for (const y of [-0.5, 0.5]) {
+              screenProjection
+                .set(x * screen.width, y * screen.height, 0)
+                .applyMatrix4(screen.anchor.matrixWorld)
+                .project(camera);
+              if (screenProjection.z < -1 || screenProjection.z > 1)
+                return false;
+              left = Math.min(left, screenProjection.x);
+              right = Math.max(right, screenProjection.x);
+              bottom = Math.min(bottom, screenProjection.y);
+              top = Math.max(top, screenProjection.y);
+            }
+          return left < 1 && right > -1 && bottom < 1 && top > -1;
+        }
+        let contactRoomPicker: ReturnType<
+          typeof createContactRoomDismissPicker
+        >;
+        const lastContactPickRay = new THREE.Ray();
+        let contactWallPicks = 0;
+        let contactPickRevision = -1,
+          contactPickWall = false;
         const syncSceneTargets = () => {
           Object.assign(anchors, model.group.userData.roomAnchors);
           readerAnchors = model.group.userData.readerAnchors;
           roomNavigation.sync(model.group.userData.layoutScale);
+          const walls: Three.Mesh[] = [],
+            blockers: Three.Mesh[] = [];
+          model.group.traverse((object: any) => {
+            if (object.isMesh && object.material?.userData.contactRoomWall)
+              walls.push(object);
+          });
+          computer.consoleRoot.traverse((object: any) => {
+            if (object.isMesh && !object.userData.isInteractionProxy)
+              blockers.push(object);
+          });
+          contactRoomPicker = createContactRoomDismissPicker(walls, blockers);
+          contactPickRevision = -1;
           for (const hotspot of hotspotObjects) {
             const source = model.group.userData.portals.find(
               (p: any) => p.id === hotspot.portalId,
@@ -538,6 +580,7 @@ export function mountSpacecraftScene({
           section: string;
           portalId?: string;
           roomTarget?: boolean;
+          closeContact?: boolean;
           navigationOnly: boolean;
         } | null = null;
         const doorQueue = createDoorNavigationQueue();
@@ -1042,6 +1085,7 @@ export function mountSpacecraftScene({
           invalidateAo('navigation');
           const previousRoom = active;
           const wasReading = reading;
+          contactPickRevision = -1;
           active = latest.current.section;
           reading = latest.current.readingSurface;
           computer.keyboard.clear();
@@ -1385,7 +1429,7 @@ export function mountSpacecraftScene({
           const motionDelta = stop ? 0 : delta;
           const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
           const feedbackTarget = feedback.resolve(
-            reading ||
+            (reading && active !== 'contact') ||
               !latest.current.enabled ||
               !!down?.gesture.dragging ||
               document.hidden,
@@ -1396,6 +1440,7 @@ export function mountSpacecraftScene({
           // during travel, without steering the camera or enabling objects.
           const effectiveHover = travelling ? '' : feedbackTarget.room;
           const effectiveObject = travelling ? '' : feedbackTarget.object;
+          el.dataset.hoverObject = effectiveObject;
           const effectivePortal = feedbackTarget.portalId || effectiveHover;
           el.dataset.hoverPortal = effectivePortal;
           if (
@@ -1409,7 +1454,11 @@ export function mountSpacecraftScene({
           interactionScope.dataset.sceneInput = feedback.input;
           if (!down?.gesture.dragging)
             el.style.cursor =
-              effectivePortal || effectiveObject ? 'pointer' : 'grab';
+              effectivePortal || effectiveObject
+                ? 'pointer'
+                : reading
+                  ? 'auto'
+                  : 'grab';
           const inspectingPassage =
             active !== 'home' &&
             !travelling &&
@@ -1431,13 +1480,19 @@ export function mountSpacecraftScene({
           pointerCurrent.set(
             moveCameraAxis(
               pointerMotion[0],
-              reading ? 0 : inspectingPassage ? passagePeek : pointerGoal.x,
+              reading && active !== 'contact'
+                ? 0
+                : inspectingPassage
+                  ? passagePeek
+                  : pointerGoal.x,
               motionDelta,
               pointerLimits,
             ),
             moveCameraAxis(
               pointerMotion[1],
-              reading || inspectingPassage ? 0 : pointerGoal.y,
+              (reading && active !== 'contact') || inspectingPassage
+                ? 0
+                : pointerGoal.y,
               motionDelta,
               pointerLimits,
             ),
@@ -1643,7 +1698,12 @@ export function mountSpacecraftScene({
               object.scale,
             );
             object.scale.multiplyScalar(screen.width / 500);
-            object.visible = active === 'contact' && !reading && !travelling;
+            // Portrait frames just the application; do not tab into a social
+            // screen completely outside the actual camera viewport.
+            object.visible =
+              active === 'contact' &&
+              !travelling &&
+              (!reading || screenInViewport(screen));
             link.inert = !object.visible;
             link.classList.toggle(
               'is-object-active',
@@ -2075,6 +2135,14 @@ export function mountSpacecraftScene({
             return EMPTY_SCENE_FEEDBACK;
           const room = target.dataset.sceneRoom || '';
           const portalId = target.dataset.scenePortal;
+          // The open computer retains its social links, while ordinary room
+          // and doorway navigation stays behind the application boundary.
+          if (
+            reading &&
+            (active !== 'contact' ||
+              !target.dataset.sceneObject?.startsWith('contact-social-'))
+          )
+            return EMPTY_SCENE_FEEDBACK;
           if (
             travelling &&
             !canPreviewDoor(
@@ -2089,13 +2157,41 @@ export function mountSpacecraftScene({
             ...(portalId ? { portalId } : {}),
           };
         }
-        function pickAt(x: number, y: number) {
+        function pickAt(
+          x: number,
+          y: number,
+        ): {
+          section: string;
+          walkway: boolean;
+          portalId?: string;
+          roomTarget?: boolean;
+          closeContact?: boolean;
+        } {
           const rect = el.getBoundingClientRect();
           pointer.set(
             ((x - rect.left) / rect.width) * 2 - 1,
             (-(y - rect.top) / rect.height) * 2 + 1,
           );
           ray.setFromCamera(pointer, camera);
+          if (reading && active === 'contact' && !travelling) {
+            // Detailed occlusion is needed only for a new ray or changed
+            // geometry. DOM hit testing still runs first on every frame.
+            const revision = model.group.userData.geometryRevision;
+            if (
+              contactPickRevision !== revision ||
+              !lastContactPickRay.equals(ray.ray)
+            ) {
+              contactPickWall = !!contactRoomPicker?.pick(ray);
+              el.dataset.contactWallPicks = String(++contactWallPicks);
+              contactPickRevision = revision;
+              lastContactPickRay.copy(ray.ray);
+            }
+            return {
+              section: contactPickWall ? 'contact' : '',
+              walkway: false,
+              closeContact: contactPickWall,
+            };
+          }
           return roomNavigation.select(ray, {
             active,
             reading,
@@ -2129,6 +2225,8 @@ export function mountSpacecraftScene({
           )
             return EMPTY_SCENE_FEEDBACK;
           const hit = pickAt(x, y);
+          if ('closeContact' in hit && hit.closeContact)
+            return { room: '', object: 'contact-room-dismiss', walkway: false };
           return {
             room: hit.section,
             object: '',
@@ -2162,7 +2260,11 @@ export function mountSpacecraftScene({
           feedbackChanged();
         };
         const move = (event: PointerEvent) => {
-          if ((event.target as Element).closest('.world-surface')) return;
+          if (
+            (event.target as Element).closest('.world-surface') &&
+            (!(reading && active === 'contact') || event.buttons !== 0)
+          )
+            return;
           if (down) {
             if (event.pointerId !== down.gesture.pointerId) return;
             down.gesture = updateBoundedDrag(
@@ -2189,7 +2291,11 @@ export function mountSpacecraftScene({
             }
             return;
           }
-          if ((event.target as Element).closest('button')) return;
+          if (
+            (event.target as Element).closest('button') &&
+            !(reading && active === 'contact')
+          )
+            return;
           const rect = el.getBoundingClientRect();
           if (event.pointerType !== 'touch')
             pointerGoal.set(
@@ -2202,7 +2308,7 @@ export function mountSpacecraftScene({
             down ||
             !event.isPrimary ||
             event.button !== 0 ||
-            reading ||
+            (reading && (active !== 'contact' || travelling)) ||
             (event.target as Element).closest('.world-surface')
           )
             return;
@@ -2228,7 +2334,7 @@ export function mountSpacecraftScene({
             ...selection,
             control,
             pointerType: event.pointerType,
-            navigationOnly: travelling,
+            navigationOnly: travelling || reading,
             gesture: beginBoundedDrag({
               pointerId: event.pointerId,
               x: event.clientX,
@@ -2287,7 +2393,14 @@ export function mountSpacecraftScene({
           if (event.pointerType === 'touch') pointerGoal.set(0, 0);
           kick();
           if (completed.activate && !action.control && action.section) {
-            if (action.roomTarget) navigateRoom(action.section);
+            if (
+              action.closeContact &&
+              active === 'contact' &&
+              reading &&
+              !travelling
+            )
+              latest.current.onCloseContact?.();
+            else if (action.roomTarget) navigateRoom(action.section);
             else if (action.portalId) navigateDoor(action.portalId);
           }
         };

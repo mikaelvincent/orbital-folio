@@ -2776,6 +2776,12 @@ svg {
   line-height: 1.35;
   letter-spacing: 0.11em;
   text-shadow: 0 0 24px #6dbff043;
+  /* The empty fixed wrapper must not intercept the application's close button
+     after its identity link has flown away (especially in portrait). */
+  pointer-events: none;
+}
+.orbital-identity-flight:not([inert]) a {
+  pointer-events: auto;
 }
 .orbital-identity h1 {
   margin: 0;

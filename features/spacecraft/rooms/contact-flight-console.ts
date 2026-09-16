@@ -453,6 +453,7 @@ export function buildContactFlightConsole(
       mount.add(anchor);
       floorRoot.userData.contactComputer = {
         root: mount,
+        consoleRoot: floorRoot,
         anchor,
         width: sw,
         height: sh,
@@ -475,6 +476,8 @@ export function buildContactFlightConsole(
         anchor,
         width: w,
         height,
+        glassWidth: sw,
+        glassHeight: sh,
         link: options.socials?.[side] || null,
       });
       fasteners(
@@ -594,9 +597,11 @@ export function buildContactFlightConsole(
       );
     }
   };
-  // Keep the monitor's lower edge and deck height; a shorter enclosure leaves
-  // a deliberate wall band below the rear-mounted room sign.
-  display('contact', 0, CONTACT_GRID.mainY, 1.63, 1.16, 0);
+  // Lift the complete monitor and its wall supports clear of the keyboard's
+  // raised function row. The CSS application sits on this glass and cannot use
+  // WebGL depth occlusion; genuine clearance keeps every key visible as the
+  // camera hovers without shrinking the application or covering the key caps.
+  display('contact', 0, CONTACT_GRID.mainY + 0.1, 1.63, 1.16, 0);
   display('link', -1.215, CONTACT_GRID.sideY, 0.72, 0.92, 0.16);
   display('signal', 1.215, CONTACT_GRID.sideY, 0.72, 0.92, -0.16);
 

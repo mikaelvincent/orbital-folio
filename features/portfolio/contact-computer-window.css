@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 4px 14px;
+  padding: 0 6px 0 14px;
   background: #21313b;
   border-bottom: 1px solid #58666b;
 }
@@ -42,19 +42,25 @@
   letter-spacing: 0.12em;
   color: #c6c5b7;
 }
-.contact-window-bar button {
+.contact-window-close {
   display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 36px;
-  padding: 4px 0;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: 0;
+  border-radius: 5px;
   background: transparent;
   color: #f1e8d7;
-  font-size: 12px;
   cursor: pointer;
 }
-.contact-window-bar button:focus-visible {
+.contact-window-close:hover {
+  background: #e9b96020;
+  color: #ffd188;
+}
+.contact-window-close:focus-visible {
   outline: 2px solid #ffc36a;
   outline-offset: 2px;
 }

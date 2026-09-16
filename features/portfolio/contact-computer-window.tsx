@@ -1,6 +1,6 @@
 'use client';
 import type { ComponentProps } from 'react';
-import { ArrowLeft, Radio } from 'lucide-react';
+import { Radio, X } from 'lucide-react';
 import { ContactForm } from './contact-form';
 import './contact-computer-window.css';
 
@@ -21,8 +21,14 @@ export function ContactComputerWindow({
         <span>
           <Radio size={13} aria-hidden="true" /> CONTACT
         </span>
-        <button type="button" onClick={onClose}>
-          <ArrowLeft size={16} aria-hidden="true" /> Back to room
+        <button
+          className="contact-window-close"
+          type="button"
+          aria-label="Close Contact application"
+          title="Close Contact application"
+          onClick={onClose}
+        >
+          <X size={20} aria-hidden="true" />
         </button>
       </header>
       <div className="contact-window-body">

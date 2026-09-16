@@ -528,6 +528,7 @@ export function createSpacecraft(
       section + '-continuous-pressure-skin-interior',
     );
     skin.position.set(x, 0, 0);
+    if (section === 'contact') skin.material.userData.contactRoomWall = true;
     // The single pressure skin now supplies the floor at its unchanged datum;
     // the former thick deck slab is no longer stacked on top of it.
 
@@ -831,6 +832,10 @@ export function createSpacecraft(
       1,
     );
     wall.userData.batchRoot = true;
+    if (section === 'about')
+      wall.traverse((part: any) => {
+        if (part.isMesh) part.material.userData.contactRoomWall = true;
+      });
     roomWallMounts.push({ group: wall, origin, sign: 1 });
   }
 
@@ -1562,10 +1567,10 @@ export function createSpacecraft(
     .map((screen: any) => {
       screen.interactableId = `contact-social-${screen.side}`;
       return createObjectHighlight(THREE, screen.root, screen.interactableId, {
-        width: screen.width,
-        height: screen.height,
-        radius: 0.055,
-        z: 0.096,
+        width: screen.glassWidth,
+        height: screen.glassHeight,
+        radius: 0.035,
+        z: 0.134,
       });
     });
   objectHighlights.push(
@@ -2375,12 +2380,13 @@ export function createSpacecraft(
         batchRoot: true,
       };
       frame.add(roomFace);
-      mesh(
+      const face = mesh(
         roundedFace,
         m.wall,
         roomFace,
         section + '-sealed-outboard-wall-interior',
       );
+      if (section === 'contact') face.material.userData.contactRoomWall = true;
     }
     const bowVertices: number[] = [],
       bowIndices: number[] = [];
@@ -2862,6 +2868,7 @@ export function createSpacecraft(
   };
   group.updateMatrixWorld(true);
   const paintedHover = new THREE.Color(palette.chalk);
+  let contactWallHover = 0;
   // Public anchors and framing geometry use vessel coordinates, even while
   // the renderer rolls, translates or scales the root for a camera flight.
   // Compose descendant local matrices rather than undoing a world-space AABB.
@@ -3610,6 +3617,16 @@ export function createSpacecraft(
       motionActive = true;
     }
     group.userData.motionActive = motionActive;
+    const wallHoverGoal =
+      computerActive &&
+      !currentState.travelling &&
+      currentState.hoveredObject === 'contact-room-dismiss'
+        ? 1
+        : 0;
+    contactWallHover += (wallHoverGoal - contactWallHover) * blend;
+    if (Math.abs(contactWallHover - wallHoverGoal) < 0.002)
+      contactWallHover = wallHoverGoal;
+    if (contactWallHover !== wallHoverGoal) group.userData.motionActive = true;
     const targetLevels: Record<string, number> = {};
     for (const section of Object.keys(roomMaterials)) {
       const selected =
@@ -3653,6 +3670,10 @@ export function createSpacecraft(
         material.color
           .copy(material.userData.baseColor)
           .multiplyScalar(materialLevel);
+        if (material.userData.contactRoomWall && contactWallHover)
+          material.color
+            .lerp(paintedHover, contactWallHover * 0.6)
+            .multiplyScalar(1 + contactWallHover * 0.07);
         material.emissive
           .copy(material.userData.baseEmissive)
           .multiplyScalar(
@@ -3698,7 +3719,8 @@ export function createSpacecraft(
           currentState.hoveredObject === highlight.id,
           currentState.activeRoom === 'contact' &&
             !currentState.travelling &&
-            !currentState.reading,
+            (!currentState.reading ||
+              highlight.id.startsWith('contact-social-')),
           dt,
           instantHighlight,
         )
