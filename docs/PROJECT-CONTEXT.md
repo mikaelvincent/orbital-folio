@@ -143,11 +143,15 @@ the monitor and conventional 82-key keyboard; portrait frames a tall application
 window inside that glass, with single-column fields and internal scrolling. The
 monitor itself is not stretched. A conventional, accessibly named X closes the
 application. Clicking exposed Contact-room pressure walls also returns to the
-room; those walls give restrained paint feedback. Main/social screens, keyboard
-and desk block that wall action using their actual rendered silhouettes.
+room; those walls dim during screen use, brighten on hover and show a secondary
+return cue. Main/social screens, keyboard and desk block that wall action using
+their actual rendered silhouettes.
 The old deployable Contact tablet is removed; other room readers remain unchanged.
 
-Keep the normal bounded hover camera active while this application is open.
+Keep bounded hover and drag camera control active while this application is open.
+The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag
+release springs back to hover, and native form interaction never starts a drag.
+A static abstract navy/alloy-blue desktop surrounds the application window.
 The neighboring social displays remain independently hoverable and selectable,
 with their amber rims inset on the glass. The already-open main display does not
 advertise another selection. Its complete monitor/support assembly is raised
@@ -155,10 +159,13 @@ slightly to leave real clearance above the keyboard's function row, since an
 HTML application plane cannot use WebGL depth to hide behind individual keys.
 
 Both views share `ContactForm` and the in-memory draft/submission state. **Schedule
-a call** comes first and is a clearly labeled demo. Name, company, email, subject
-and message appear in that order; only email/message are required. Call requests
-add required date/time with the device time zone explicitly displayed. No call
-backend, availability calendar, reservation or automatic confirmation exists.
+a call** comes first. Initially neither option is selected and no fields appear;
+the choice and entered draft persist across view changes within that visit.
+Call requests show required date/time and the device time zone first, then name,
+company, email, subject and message. Message mode uses those five shared fields
+in the same order; only email/message are required. Duration is omitted because
+this is a preferred-time inquiry, not a booking. No call backend, availability
+calendar, reservation or automatic confirmation exists.
 The call branch validates but returns before any transport or persistence.
 
 **Send a message is working**: it reuses `/api/contact` and the private D1 inbox.
@@ -168,17 +175,28 @@ Company/subject are preserved in the message body and count toward its existing
 5,000-character limit. The old interview/project categories are not visitor choices.
 No new schema, mail delivery or backend integration is introduced. Failed sends
 retain the draft. Controls fail closed before hydration; without JavaScript the
-configured email alternative remains available. Sample identity stays labeled.
+configured email alternative remains available. The owner requested removal of
+visitor-facing sample/demo badges and sample notices, including private preview
+presentation; sample metadata and studio controls remain intact. Call requests
+still do not send or save anything: the action-adjacent notice and acknowledgment
+state this plainly without sample badges or a booking/delivery claim.
 
 The secondary email callout can be dismissed/reopened, copied or opened as a mail
-draft. Keyboard key caps and legends follow physical `code` presses/releases,
+draft. Plain-text copying tries the synchronous compatibility path, then starts
+the modern API within the same click if needed, restoring focus and selection.
+Keyboard key caps and legends follow physical `code` presses/releases,
 including held combinations; blur, visibility loss and closing clear their state.
-Native editing shortcuts remain intact. Mobile visual-viewport changes resize the
-inner scroll area without changing the camera; device Safari keyboard behavior
+On macOS, Caps Lock reports toggle events rather than physical release; its
+modeled cap gives a 140 ms momentary pulse, never remaining down while enabled.
+Other platforms retain physical down/up tracking. Native editing shortcuts remain
+intact. Mobile visual-viewport changes resize the inner scroll area without
+changing the camera; device Safari keyboard behavior
 still needs a native-device check. Design costs and checked states are in
 [Contact evidence](evidence/contact-computer/README.md) and ledger entry 24. The
 [interaction refinements](evidence/contact-computer-refinement/README.md) and
 entry 25 record the subsequent clearance, social-screen and wall-close work.
+[Desktop and input polish](evidence/contact-desktop-polish/README.md) and entry 26
+record the current chooser, wallpaper, drag, copy and Caps Lock behavior.
 
 ## Earth and atmospheric art
 
@@ -214,7 +232,7 @@ Retain hypotheses, baselines, source/asset hashes, setup, raw runs, exclusions,
 visual changes, decisions and limitations. New art costs must remain distinct
 from optimization savings. No benchmark is needed just to edit these instructions.
 
-The pulse icon beside SAMPLE / CONCEPT opens guided diagnostics with advanced
+The pulse icon beside the Content studio icon opens guided diagnostics with advanced
 room/assembly/pass inspection and named exports. Instrumentation is opt-in and
 normal rendering is restored on close. The owner has an Air M4 with passive
 cooling; diagnostics must remain useful across devices/browsers. Unsupported GPU

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "wall-return-hover",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.01517,0.02644",
+    "drag": "0.00000,0.00000",
+    "hover": "contact-room-dismiss",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":995.0502499874062,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[1,0.05555555555555555]}"
+  },
+  {
+    "name": "landscape-call-date-first",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.00303,-0.01209",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": null
+  },
+  {
+    "name": "drag-release",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.00923,0.03344",
+    "drag": "0.16408,0.00426",
+    "hover": "contact-room-dismiss",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":995.0502499874062,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[1,0.05555555555555555]}"
+  },
+  {
+    "name": "close-hover",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.01984,0.03393",
+    "drag": "0.16603,0.24211",
+    "hover": "",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+  },
+  {
+    "name": "landscape-call-fields",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.01458,0.01215",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+  },
+  {
+    "name": "portrait-retained-fields",
+    "drawingBuffer": "390,844",
+    "dpr": "1",
+    "angles": "0.01420,0.01150",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+  },
+  {
+    "name": "portrait-call-acknowledgment",
+    "drawingBuffer": "390,844",
+    "dpr": "1",
+    "angles": "-0.00781,0.00000",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+  },
+  {
+    "name": "portrait-chooser",
+    "drawingBuffer": "390,844",
+    "dpr": "1",
+    "angles": "0.00000,0.00000",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": null
+  },
+  {
+    "name": "landscape-chooser",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.00000,0.00000",
+    "drag": "0.00000,0.00000",
+    "hover": "",
+    "gesture": null
+  },
+  {
+    "name": "social-hover",
+    "drawingBuffer": "1280,720",
+    "dpr": "1",
+    "angles": "0.00591,-0.02896",
+    "drag": "-0.08879,0.08943",
+    "hover": "contact-social-left",
+    "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":499.2494366546646,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[-1,1]}"
+  }
+]

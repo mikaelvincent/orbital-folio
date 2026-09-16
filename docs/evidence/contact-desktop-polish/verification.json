@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "date": "2026-09-16",
+  "baselineCommit": "b17d1534301ad42917eb354a49ff60cd23983769",
+  "engine": "Hidden Codex built-in Chromium",
+  "quality": "Live normal renderer; 8K Mediterranean night Earth retained; no effects deliberately omitted",
+  "viewportNotes": "Retained immersive photos: 1280\u00d7720 or 390\u00d7844 CSS px, matching drawing buffers at DPR1; not scaled from larger captures.",
+  "sourceSha256": {
+    "app/globals.css": "c3ec34ef00f78f3e7f9f570b5b67c06b302e8c61dbf5705926038e1e829923a5",
+    "features/portfolio/contact-computer-window.css": "85141120f1e573f98178c164f79e318b6575cec136155086fd619da89ee57b8e",
+    "features/portfolio/contact-computer-window.tsx": "2dfbe00a91874749a61814c40b5d0acdf872b7674d97c7ae5c1cbd8c05452cca",
+    "features/portfolio/contact-flow.ts": "df8b942d86190eeaacf911f3bf1e5f8bbb699d2582b68ead0916dbd461ad6e79",
+    "features/portfolio/contact-form.css": "fe5d64eb6e7fe8aa552300bd83a265cd37eec6a5fcc0876577f934cbb7134d5d",
+    "features/portfolio/contact-form.tsx": "e3a7cb78a6fe803732c95aab1d7fffcef55902054ef637ba6a3fbfcb8b732cbe",
+    "features/portfolio/immersive-portfolio.tsx": "51d1d62d96629c3c81e434634f1d74328011670c013236a3e8911809f6e2e463",
+    "features/portfolio/portfolio-parts.tsx": "acd6cce4a8d0f84c305a456051d358e01da8e1b582bcf00fd78e8c0724e0362c",
+    "features/portfolio/room-views.tsx": "3c34bd6fe1a8cace052d771aa8a706b2c558bcf126dda841b95147de4e34217d",
+    "features/portfolio/world-reader.tsx": "1caa0a7328f229272e73cb8807c2c7133298266665b933456222c87c63c265b8",
+    "features/spacecraft/navigation/contact-computer.ts": "00b1face300296a08aaa10892073d02b0ff58b5730cc1c37046b1ff89f351e87",
+    "features/spacecraft/navigation/scene-controls.ts": "87484887704675686f5ec018c873460e419d8ed27e2b0954650ee8e1191212e5",
+    "features/spacecraft/spacecraft-model.ts": "fc2c4b754e6d32a0d03fb820b3d6679a7d1e680aa6bae27c94e0aedfd5dc73f8",
+    "features/spacecraft/spacecraft-runtime.ts": "ba5525265a1eb278bd65e1ed43db0171d5a2d685e667d38b34bf5c8413b65f02",
+    "tests/content/contact-form.test.mjs": "3edf4958144c318c2e23b4bbe6421de1754e9e59a13edf2e42c527e11dd7ccfc",
+    "tests/content/workflows.test.mjs": "3baeb8b8288f121588941ee319a91f3dafc9227b7f5fe31a448f4f5ce86fd334",
+    "tests/spacecraft/contact-computer.test.mjs": "ded6a740324f10b742cff6f4729a551773032c1a9de3afa3b45f4e4832904fd1",
+    "tests/spacecraft/contact-console-clearance.test.mjs": "32ac508b6bb338ceb0fd7d04cac0c30f9b03336d53e2efe1a9452c9d19f5d6ea",
+    "tests/spacecraft/object-interaction.test.mjs": "7fc3ee79c16af04d9bbfc6de4f05a0d24957526cde9e70a60824c9787c345f68",
+    "features/portfolio/contact-clipboard.ts": "ddf9886518a90dca5fd5a38cfff891865836a6932758c5e0f67481f37d983f90",
+    "tests/content/contact-clipboard.test.mjs": "407aa5ba9dcfde42d23fc75f168c4832b25a791370bd148d2349e76b3967cbef"
+  },
+  "images": {
+    "close-hover.jpg": {
+      "sha256": "5cd9ff3952079eb7036c73a86188e2cc34937dae8bddde18b1a2cf8011539655",
+      "bytes": 90286,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "close-hover",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.01984,0.03393",
+      "drag": "0.16603,0.24211",
+      "hover": "",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+    },
+    "drag-release.jpg": {
+      "sha256": "a73982a8e87a680ce94e2584cdc8a4c10451620b4004d91705a3d9b3d48f25b5",
+      "bytes": 91955,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "drag-release",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.00923,0.03344",
+      "drag": "0.16408,0.00426",
+      "hover": "contact-room-dismiss",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":995.0502499874062,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[1,0.05555555555555555]}"
+    },
+    "landscape-call-date-first.jpg": {
+      "sha256": "85e75629ebc55abe478ceeafc6ab7db021f51b728b836df0f74736cd0bdea8fe",
+      "bytes": 90981,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "landscape-call-date-first",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.00303,-0.01209",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": null
+    },
+    "landscape-call-fields.jpg": {
+      "sha256": "05d8ee886a3287d22f9a7ac87cde2d16f1a7ba8790981a0a33d2207794cec630",
+      "bytes": 91759,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "landscape-call-fields",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.01458,0.01215",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+    },
+    "landscape-chooser.jpg": {
+      "sha256": "7a955a83311d5b3f741e4869269accc7ef445927cde8954745ecad01124d35ed",
+      "bytes": 83954,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "landscape-chooser",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.00000,0.00000",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": null
+    },
+    "portrait-call-acknowledgment.jpg": {
+      "sha256": "084c3e4bcce9ad3665e9b220a31b8d831a3ab5ae3ae7c3ec4d379152e4bd94d3",
+      "bytes": 34821,
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "name": "portrait-call-acknowledgment",
+      "drawingBuffer": "390,844",
+      "dpr": "1",
+      "angles": "-0.00781,0.00000",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+    },
+    "portrait-chooser.jpg": {
+      "sha256": "38179cf482e59b0cad559f7c315865063e1f26ab6cf0cf3dff6663b99f997251",
+      "bytes": 24550,
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "name": "portrait-chooser",
+      "drawingBuffer": "390,844",
+      "dpr": "1",
+      "angles": "0.00000,0.00000",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": null
+    },
+    "portrait-retained-fields.jpg": {
+      "sha256": "f184e86a30d50b955a8d09fb88875849af950e19d7c9755178ff9699f6efa81a",
+      "bytes": 36611,
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "name": "portrait-retained-fields",
+      "drawingBuffer": "390,844",
+      "dpr": "1",
+      "angles": "0.01420,0.01150",
+      "drag": "0.00000,0.00000",
+      "hover": "",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":496.8561159933528,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[0.690625,1]}"
+    },
+    "reading-call-fields.jpg": {
+      "sha256": "34529cd346042e61f3e3c60076902500712921d5963b46d3298ebc564f9cf182",
+      "bytes": 37159,
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "rendering": "Reading DOM; scene paused, no drawing buffer attributed"
+    },
+    "social-hover.jpg": {
+      "sha256": "24bdc43194760a4fcb96749385a3f6793b9c9cdec456a5305cbf115af8e617bf",
+      "bytes": 88541,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "social-hover",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.00591,-0.02896",
+      "drag": "-0.08879,0.08943",
+      "hover": "contact-social-left",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":499.2494366546646,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[-1,1]}"
+    },
+    "wall-return-hover.jpg": {
+      "sha256": "18161899d6cfce2423d209a71cb65ae98e12467d7eda20ad3dc315165c062511",
+      "bytes": 91609,
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "name": "wall-return-hover",
+      "drawingBuffer": "1280,720",
+      "dpr": "1",
+      "angles": "0.01517,0.02644",
+      "drag": "0.00000,0.00000",
+      "hover": "contact-room-dismiss",
+      "gesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":995.0502499874062,\"dragged\":true,\"activated\":false,\"startedOnControl\":false,\"response\":[1,0.05555555555555555]}"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "status": "passed",
+      "log": "tests.log",
+      "initial": {
+        "passed": 326,
+        "failed": 1,
+        "log": "tests-initial.log",
+        "reason": "Previous wall-color expectation did not account for the requested dim-on-open design; revised to require exact pre-open restoration."
+      },
+      "passed": 327,
+      "failed": 0
+    },
+    "wallFeedback": {
+      "status": "passed",
+      "log": "wall-feedback-tests.log"
+    },
+    "typecheck": {
+      "status": "passed",
+      "log": "typecheck.log"
+    },
+    "lint": {
+      "status": "passed",
+      "logs": [
+        "lint.log",
+        "wall-feedback-lint.log"
+      ]
+    },
+    "build": {
+      "status": "passed",
+      "log": "build.log",
+      "warnings": [
+        "Existing large client chunk advisory",
+        "Vinext cannot statically classify case-studies route"
+      ]
+    }
+  },
+  "browserChecks": {
+    "initialNoFields": true,
+    "callDateTimeFirst": true,
+    "nativeCallPreviewAcknowledgment": true,
+    "readingDraftRetained": true,
+    "portraitDraftRetained": true,
+    "wallClickCloses": true,
+    "portraitPointerXCloses": true,
+    "dragAcrossApplicationDoesNotActivate": true,
+    "socialHoverAndNewTab": true,
+    "copyFirstClickAcknowledgment": true,
+    "clipboardPayloadVerified": false,
+    "browserConsoleErrorsObserved": [],
+    "temporaryTabsClosed": true,
+    "viewportOverrideReset": true
+  },
+  "limitations": [
+    "Native Safari not controlled or captured.",
+    "Physical Mac CapsLock and mobile on-screen keyboard untested; behavior reasoned from WebKit and covered by event-sequence unit tests.",
+    "Built-in virtual clipboard was empty after page copy; paste tool therefore unavailable. No native clipboard payload success claimed.",
+    "Generic date/time fill did not set values; supported native setValue did. Required-field validation blocked the incomplete attempt.",
+    "Drag evidence consists of gestures, screenshots, residual/settled state samples and existing spring tests, not a continuous video.",
+    "No CPU/GPU timing, actual memory, heat or battery claim."
+  ],
+  "critic": {
+    "score": 95,
+    "blockers": 0,
+    "record": "critic-review.json"
+  }
+}

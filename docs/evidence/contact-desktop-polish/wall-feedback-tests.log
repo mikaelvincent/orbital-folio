@@ -1,0 +1,12 @@
+✔ Object highlights isolate shared materials and do not accumulate brightness (1.442666ms)
+✔ The shared brightness transition is smooth and independent of refresh rate (0.125125ms)
+✔ Computer and social screens retain native anchors, independent feedback and portal navigation (759.339541ms)
+✔ Contact wall feedback changes only its paint and resets when the application closes (574.131292ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1505.29625

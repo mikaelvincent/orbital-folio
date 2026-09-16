@@ -1347,6 +1347,41 @@ and device keyboard checks remain unperformed. Independent final review scored
 **95/100** with no unresolved blockers; the rubric and revisions are retained
 with the linked evidence.
 
+## 26. Contact desktop, input and wall-return polish — 16 September 2026
+
+The owner requested a subdued desktop wallpaper, choice-first Contact forms,
+date/time-first call requests, in-app drag control, flush close feedback, clearer
+wall return, first-click email copy and a momentary Caps Lock animation. Public
+sample labels are removed while sample metadata and the existing working inbox
+remain; call requests still return before transport/persistence. Duration is
+omitted because this is a preferred-time inquiry, not an appointment booking.
+
+The [source-identified inventory and visual evidence](evidence/contact-desktop-polish/README.md)
+compare `b17d153` with the delivered revision. Wide/compact visible inventories
+remain **438 potential submissions**, **1,013,532 / 991,868 triangle inputs** and
+**36,083,204 / 35,462,340 geometry-array bytes**. Contact's console remains
+**37 submissions, 70,710 triangles and 1,716,560 array bytes**. All inventory
+material/texture counts and nominal texture bytes are unchanged. These offline
+counts exclude browser compositing and do not establish equal frame timings.
+
+The wallpaper is three static CSS gradients, with no new image download/WebGL
+texture. The wall cue adds one DOM element and material interpolation. Drag uses
+the existing spring with a closer 0.04 / 0.12 rad pitch/yaw envelope; real camera
+motion invokes the existing AO/camera work. The Mac Caps Lock workaround uses a
+140 ms pulse because native lock events cannot expose physical hold duration.
+There is no optimization gain, heat/battery claim or broad timing comparison.
+Held candidates below remain untouched.
+
+Hidden built-in Chromium captures cover landscape and portrait. The expanded
+648-projection clearance test includes the settled drag envelope plus existing
+entry/hover states. Evidence records native date/time entry, preserved drafts,
+wall/X/social actions, sampled spring return, and copy acknowledgment; the tool's
+virtual clipboard cannot confirm the copied payload. Native Safari, physical Mac
+Caps Lock and device on-screen keyboard remain untested. Final verification and
+independent review are recorded with the linked evidence. The final **327-test
+suite**, typecheck, affected lint and production build pass. Independent final
+review scored **95/100** with no blockers; rubric and limitations are retained.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

@@ -123,8 +123,9 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 ## Performance and comparisons
 
 - Diagnostics must stay device-agnostic, approachable for nontechnical users and
-  useful for technical users. Preserve the pulse launcher beside SAMPLE / CONCEPT,
-  opt-in instrumentation, semantic room/part breakdowns, advanced controls and
+  useful for technical users. Preserve the pulse launcher beside the Content
+  studio icon, opt-in instrumentation, semantic room/part breakdowns, advanced
+  controls and
   named exports. A URL parameter is optional, not the only way to open it.
 - The owner uses a passively cooled **MacBook Air M4**. Account for thermal drift,
   but do not infer throttling from timing alone or hardcode M4-only quality rules.
@@ -199,7 +200,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   genuinely fresh checkout use `npm ci` and `npm run setup`; do not reset an
   existing studio/database as routine setup.
 - Preserve persisted identity, draft/published content, authentication, privacy,
-  semantic readers and contact behavior. Demo content stays marked. Never print
-  or commit `.dev.vars`, `.env*`, credentials, private inquiries or emulator state.
+  semantic readers and contact behavior. Preserve demo/sample metadata and studio
+  controls, but omit visitor-facing
+  sample badges and notices as requested. A nonfunctional action must still
+  state that nothing was sent or booked; never claim delivery or booking. Never
+  print or commit `.dev.vars`, `.env*`, credentials, private inquiries or emulator state.
   Keep development authentication/emulators on loopback. See
   [operations](docs/OPERATIONS.md) for deployment-specific work.
