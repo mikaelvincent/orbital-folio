@@ -1,0 +1,138 @@
+{
+  "capturedAt": "2026-09-16T10:22:09.407Z",
+  "node": "v26.0.0",
+  "arch": "arm64",
+  "platform": "darwin",
+  "method": "Node-only functional workload sizing. Inert canvas preserves legend geometry; visible browser may render concurrently. No controlled thermal or browser CPU/GPU comparison, and no user-facing speedup is inferred. Current app formerly skipped feedback before picking, so this legacy room-picker comparison measures distinct functions rather than before/after app frame work.",
+  "counts": {
+    "walls": 4,
+    "blockers": 38,
+    "wallTriangles": 6546,
+    "blockerTriangles": 70910
+  },
+  "results": {
+    "new_rearWall": {
+      "result": "contact-plain-cabin-enamel",
+      "perCallMs": [
+        1.1956101400000003,
+        1.17235639,
+        1.1873349999999998,
+        1.1825930533333333,
+        1.19833653,
+        1.1902679166666652
+      ],
+      "medianMs": 1.1888014583333324,
+      "minMs": 1.17235639,
+      "maxMs": 1.19833653
+    },
+    "existing_room_rearWall": {
+      "result": "",
+      "perCallMs": [
+        0.005246666666666897,
+        0.005454166666666727,
+        0.005155693333332844,
+        0.005097916666663878,
+        0.005981666666666569,
+        0.004754583333333357
+      ],
+      "medianMs": 0.0052011799999998705,
+      "minMs": 0.004754583333333357,
+      "maxMs": 0.005981666666666569
+    },
+    "new_desk": {
+      "result": null,
+      "perCallMs": [
+        1.4746852766666665,
+        1.4704777766666666,
+        1.4547969433333325,
+        1.480925833333334,
+        1.4772312499999982,
+        1.5325909733333325
+      ],
+      "medianMs": 1.4759582633333324,
+      "minMs": 1.4547969433333325,
+      "maxMs": 1.5325909733333325
+    },
+    "existing_room_desk": {
+      "result": "",
+      "perCallMs": [
+        0.0027918033333344285,
+        0.002435139999999289,
+        0.0043584733333318585,
+        0.0026830533333334944,
+        0.003627083333334061,
+        0.0027659700000003794
+      ],
+      "medianMs": 0.002778886666667404,
+      "minMs": 0.002435139999999289,
+      "maxMs": 0.0043584733333318585
+    },
+    "new_keyboard": {
+      "result": null,
+      "perCallMs": [
+        0.23379347333333347,
+        0.24525666666666743,
+        0.23510041666666742,
+        0.239754306666667,
+        0.2287163899999996,
+        0.23520889000000048
+      ],
+      "medianMs": 0.23515465333333396,
+      "minMs": 0.2287163899999996,
+      "maxMs": 0.24525666666666743
+    },
+    "existing_room_keyboard": {
+      "result": "",
+      "perCallMs": [
+        0.002419723333332513,
+        0.002757916666666157,
+        0.0031345833333337697,
+        0.003182083333334352,
+        0.0025402766666654014,
+        0.002315280000002531
+      ],
+      "medianMs": 0.002649096666665779,
+      "minMs": 0.002315280000002531,
+      "maxMs": 0.003182083333334352
+    },
+    "new_sky": {
+      "result": null,
+      "perCallMs": [
+        0.0002483333333339033,
+        0.0002481966666664448,
+        0.0002258333333338669,
+        0.00030346999999892433,
+        0.0002351366666668279,
+        0.000216250000000097
+      ],
+      "medianMs": 0.00024166666666663636,
+      "minMs": 0.000216250000000097,
+      "maxMs": 0.00030346999999892433
+    },
+    "existing_room_sky": {
+      "result": "",
+      "perCallMs": [
+        0.004429166666667091,
+        0.004224029999998796,
+        0.0046193033333323304,
+        0.00589694333333379,
+        0.00457069666666636,
+        0.004264303333332767
+      ],
+      "medianMs": 0.004499931666666726,
+      "minMs": 0.004224029999998796,
+      "maxMs": 0.00589694333333379
+    }
+  },
+  "functionHashes": {
+    "features/spacecraft/navigation/contact-room-dismiss.ts": "2ffeb93d351d08e9f066ef03e73f453b52e00d5ba439c8b009406eaa681f8894",
+    "features/spacecraft/navigation/room-navigation-targets.ts": "270977da1e7c6e68e64f4e099fad15c9022ad44adf46ee617e5b007bb5d7d84a",
+    "features/spacecraft/spacecraft-model.ts": "f252955f2da67b5aa69383942be39981eae2d0385f5f004ab8f628bda204cd3f"
+  },
+  "reproductionScript": "measure-picker-workload.mjs",
+  "reproductionScriptSha256": "497993a692ffee319541d0a825e8bcbe74665e9239e72b8cc1b00184e0a528c0",
+  "sourceSnapshots": {
+    "features/spacecraft/navigation/contact-room-dismiss.ts": "import type * as Three from 'three';\n\n/** Pick the rendered wall around the Contact application without selecting\n * through its desk, keyboard or screens. Recreate after replacing model meshes;\n * transforms, instance matrices and visibility are read at each pick.\n */\nexport function createContactRoomDismissPicker(\n  walls: readonly Three.Mesh[],\n  blockers: readonly Three.Mesh[],\n) {\n  const hits: Three.Intersection<Three.Object3D>[] = [];\n\n  function nearest(\n    mesh: Three.Mesh,\n    raycaster: Three.Raycaster,\n    limit: number,\n  ): Three.Intersection<Three.Mesh> | null {\n    if (!mesh.layers.test(raycaster.layers) || mesh.userData.isInteractionProxy)\n      return null;\n    for (\n      let ancestor: Three.Object3D | null = mesh;\n      ancestor;\n      ancestor = ancestor.parent\n    )\n      if (!ancestor.visible) return null;\n\n    // Native Mesh/InstancedMesh raycasts already reject bounding-volume misses.\n    // Calling them directly avoids sorting the same temporary array repeatedly.\n    hits.length = 0;\n    mesh.raycast(raycaster, hits);\n    let closest: Three.Intersection<Three.Mesh> | null = null;\n    for (const hit of hits) {\n      if (hit.distance > limit || (closest && hit.distance >= closest.distance))\n        continue;\n      const material = Array.isArray(mesh.material)\n        ? mesh.material[hit.face?.materialIndex ?? 0]\n        : mesh.material;\n      if (!material?.visible || (material.transparent && material.opacity <= 0))\n        continue;\n      closest = hit as Three.Intersection<Three.Mesh>;\n    }\n    return closest;\n  }\n\n  return {\n    pick(raycaster: Three.Raycaster): Three.Intersection<Three.Mesh> | null {\n      let wall: Three.Intersection<Three.Mesh> | null = null;\n      for (const mesh of walls) {\n        const hit = nearest(mesh, raycaster, wall?.distance ?? raycaster.far);\n        if (hit) wall = hit;\n      }\n      // Empty sky and other misses do not inspect the detailed console at all.\n      if (!wall) return null;\n      for (const mesh of blockers) {\n        if (nearest(mesh, raycaster, wall.distance + 1e-6)) return null;\n      }\n      return wall;\n    },\n  };\n}\n",
+    "features/spacecraft/navigation/room-navigation-targets.ts": "import type * as Three from 'three';\nimport type { roomNavigationIntent } from './room-navigation.ts';\nimport { thinChassisOutline } from '../geometry/thin-chassis-outline.ts';\nimport { PRESSURE_FACE_FRONT } from '../geometry/spacecraft-wall-layout.ts';\n\ntype NavigationPick = {\n  section: string;\n  portalId?: string;\n  roomTarget?: boolean;\n  walkway: boolean;\n};\ntype NavigationOptions = {\n  active: string;\n  reading: boolean;\n  portalTargets: readonly { from: string; id: string; object: Three.Object3D }[];\n  roomIntent: (destination: string) => ReturnType<typeof roomNavigationIntent>;\n  canUsePortal: (id: string) => boolean;\n};\n\n/** Pick only through the visible rounded cutaway openings, rather than boxes\n * that include the opaque dividers, curved corners and space behind a cabin.\n * Cabin and ladder aperture polygons replace the old volumes; no detailed scene\n * raycast or rendered geometry is added. Behind-the-face views use door targets.\n */\nexport function createRoomNavigationTargets(\n  THREE: typeof Three,\n  parent: Three.Group,\n) {\n  const material = new THREE.MeshBasicMaterial({ visible: false });\n  const targets = ['about', 'projects', 'contact', 'experience'].map(\n    (section) => {\n      const mesh = new THREE.Mesh(new THREE.BufferGeometry(), material);\n      mesh.name = `${section}-visible-opening-pick`;\n      mesh.position.z = PRESSURE_FACE_FRONT;\n      mesh.visible = false;\n      mesh.userData = { section, isInteractionProxy: true, excludePick: true };\n      parent.add(mesh);\n      return mesh;\n    },\n  );\n  const walkway = new THREE.Mesh(new THREE.BufferGeometry(), material);\n  walkway.name = 'walkway-visible-opening-pick';\n  walkway.position.z = PRESSURE_FACE_FRONT;\n  walkway.visible = false;\n  walkway.userData = {\n    section: 'walkway',\n    isInteractionProxy: true,\n    excludePick: true,\n  };\n  parent.add(walkway);\n  const openings = [...targets, walkway];\n  let currentScale = 0;\n  function pick(ray: Three.Raycaster) {\n    const opening = ray.intersectObjects(openings, false)[0];\n    return {\n      section: (opening?.object.userData.section || '') as string,\n      // A frontward eye must look through a real cutaway before a doorway\n      // behind the pressure face is eligible.\n      blockedByFace:\n        !opening &&\n        ray.ray.origin.z > PRESSURE_FACE_FRONT &&\n        ray.ray.direction.z < 0,\n    };\n  }\n  return {\n    targets,\n    pick,\n    select(ray: Three.Raycaster, options: NavigationOptions): NavigationPick {\n      const { section, blockedByFace } = pick(ray);\n      const neutral = { section: '', walkway: false };\n      if (blockedByFace || options.reading) return neutral;\n      // The nearest opening owns the visible region. A bay volume behind a\n      // cabin wall must never contribute hover feedback or steal a click.\n      if (section && section !== options.active) {\n        const intent = options.roomIntent(section);\n        return intent ? { ...intent, walkway: section === 'walkway' } : neutral;\n      }\n      if (options.active !== 'home') {\n        const portal = ray.intersectObjects(\n          options.portalTargets\n            .filter((p) => p.from === options.active && options.canUsePortal(p.id))\n            .map((p) => p.object),\n          false,\n        )[0];\n        if (portal)\n          return {\n            section: portal.object.userData.portalDestination as string,\n            portalId: portal.object.userData.portalId as string,\n            walkway: false,\n          };\n      }\n      return neutral;\n    },\n    sync(scale: number) {\n      if (scale === currentScale) return;\n      currentScale = scale;\n      // Zero bevel gives the finished opening rather than the slightly wider\n      // machining outline. Chords conservatively stay inside rounded corners.\n      const { roomHoles, ladderHole } = thinChassisOutline(THREE, {\n        scale,\n        bevel: 0,\n      });\n      const holes = [...roomHoles, ladderHole];\n      openings.forEach((mesh, i) => {\n        mesh.geometry.dispose();\n        mesh.geometry = new THREE.ShapeGeometry(\n          new THREE.Shape(holes[i].getPoints(12)),\n        );\n      });\n    },\n  };\n}\n"
+  }
+}

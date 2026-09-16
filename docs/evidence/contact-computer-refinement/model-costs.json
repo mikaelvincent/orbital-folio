@@ -1,0 +1,3923 @@
+{
+  "schema": 1,
+  "capturedAt": "2026-09-16T10:18:02.489Z",
+  "baselineCommit": "917e7e08fc938302c8cf485cabd32a31dafba87e",
+  "candidateParentCommit": "917e7e08fc938302c8cf485cabd32a31dafba87e",
+  "threeRevision": "185",
+  "measurementScriptSha256": "7c470d0e311215a0cca74a42d9bc1a584c2e7ed07a2834d1884b19b92caf6959",
+  "threeCoreSha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759",
+  "threeModuleSha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7",
+  "scope": "Deterministic model construction inventory; authored Contact redesign, not an optimization comparison.",
+  "method": [
+    "Both source trees bundle through the existing snapshot loader. All model-owned TS/JS source bytes and SHA-256 values are archived; installed dependencies remain shared.",
+    "Construct createSpacecraft(THREE) with default content. Canvas drawing is inert but preserves canvas creation, width/height, material branches and keyboard legend geometry. No images are rasterized.",
+    "Wide and compact layouts: visible = traverseVisible and material-visible triangle submissions without camera/frustum/occlusion/shader discard. Retained = every attached object, including hidden variants. No runtime camera or lighting renderer is created.",
+    "Geometry bytes deduplicate typed attribute/index array objects; instance matrices and colors are separate. Geometry instanced attributes such as atlas cells remain included in geometry bytes.",
+    "Potential mesh submissions are a structural count, not measured draw calls. Actual passes, frustum culling, shadows, AO, materials, HTML and background alter rendered work.",
+    "Texture bytes are nominal RGBA8 texel storage including exact full mip chains where generateMipmaps is true. Not measured process/GPU memory, allocation residency, startup, decode, frame timing, heat, or battery."
+  ],
+  "excluded": [
+    "GPU/CPU/frame pacing timing",
+    "HTML/CSS form layout and browser compositing",
+    "font rasterization",
+    "Earth/sky/textures outside the spacecraft model",
+    "PMREM and lighting",
+    "render targets and AO buffers",
+    "driver allocations",
+    "JavaScript object overhead",
+    "actual network or compiled application download size"
+  ],
+  "sources": {
+    "baseline": {
+      "sourceSha256": "8025423223e0af3fa3b63baee18f64c8b1c342f9936f91cf7b7213305f9a7841",
+      "sourceFileCount": 36,
+      "archive": "model-source-baseline-8025423223e0af3f.json.gz",
+      "archiveSha256": "1ebd85d415b720ab68682ac569af2bbc933500f85c688c7b4f6133744f48e607",
+      "files": {
+        "features/spacecraft/equipment/cabin-utility-fittings.ts": "3d3d50a0ab0c26f6d084d52048a49b633dd74aafcebda599ef6b0510779526c9",
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49",
+        "features/spacecraft/equipment/docking-shoulder-equipment.ts": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf",
+        "features/spacecraft/equipment/exterior-service-equipment.ts": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+        "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+        "features/spacecraft/equipment/ladder-service-spine.ts": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41",
+        "features/spacecraft/equipment/outboard-wall-equipment.ts": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1",
+        "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+        "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+        "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+        "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+        "features/spacecraft/geometry/indexed-cylinder.generated.js": "83c5a8d610e3888ec3666ed1ec66a0046fd6e624aae2ee120828e940f8abb6b9",
+        "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+        "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2",
+        "features/spacecraft/geometry/rounded-cabin-interior.ts": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70",
+        "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+        "features/spacecraft/geometry/spacecraft-wall-layout.ts": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772",
+        "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+        "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/interactable-object-highlight.ts": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd",
+        "features/spacecraft/navigation/iris-hatch.ts": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd",
+        "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+        "features/spacecraft/rooms/about-personal-study.ts": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c",
+        "features/spacecraft/rooms/about-study-artwork.ts": "0faae6387f6a67df1fa4d7951f3eb831d885d8b373d4daca5771ed4d3b600722",
+        "features/spacecraft/rooms/cabin-composition.ts": "6f22fc26ec11d92d36013f6399f1d09925d8365533e2dd3cab2f6017e0bbecfc",
+        "features/spacecraft/rooms/case-study-archive.ts": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630",
+        "features/spacecraft/rooms/contact-flight-audio.ts": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5",
+        "features/spacecraft/rooms/contact-flight-console.ts": "7020e28a196776e378829444ddb6de670b1cd1a40e0cea31244a730d82c83d26",
+        "features/spacecraft/rooms/contact-keyboard.ts": "5e14151b98226cc5d4f561ac3e64e54440113861ce3095015570276061a4e43c",
+        "features/spacecraft/rooms/contact-social-display.ts": "77e2cc85e96a5929ccf6798318b9f8f4e727b49f845828ad8ddfbffe0161fd32",
+        "features/spacecraft/rooms/projects-payload-module.ts": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796",
+        "features/spacecraft/rooms/projects-workshop.ts": "f1852fec6f78dd7ad5d68e9aa97ad6b2043f10f0ab297439624c6a780f161043",
+        "features/spacecraft/spacecraft-model.ts": "46a6dec42beb334d55514e896b702f802a505de8d548e42d5f5cd36fabd070fe",
+        "lib/content/social-links.ts": "5871fcceb9584b59c657e6329892ed604bffec394b0b217d0b312c6809682d2d",
+        "lib/content/social-platforms.ts": "be26353420d67575d7bac7a3006fab56d4cb39e57cdc41688a27c55bede0bf79"
+      }
+    },
+    "candidate": {
+      "sourceSha256": "1d3a94e137fee1ba303fdb625d46974768bde9a15a02031879764b7c4cdd7fd4",
+      "sourceFileCount": 36,
+      "archive": "model-source-candidate-1d3a94e137fee1ba.json.gz",
+      "archiveSha256": "7f3567a0e8b69b1a394765e10f91292f6d238a273f40e0b66a4e055fde6b7cb4",
+      "files": {
+        "features/spacecraft/equipment/cabin-utility-fittings.ts": "3d3d50a0ab0c26f6d084d52048a49b633dd74aafcebda599ef6b0510779526c9",
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49",
+        "features/spacecraft/equipment/docking-shoulder-equipment.ts": "78c59f94c35c6b4a2f629a68f272a889ba1030a280e3c3f935fff971de0c0bdf",
+        "features/spacecraft/equipment/exterior-service-equipment.ts": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+        "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+        "features/spacecraft/equipment/ladder-service-spine.ts": "ffda3895292610579722b24260c7a99125aedd5287f340b8f238e7468d7afb41",
+        "features/spacecraft/equipment/outboard-wall-equipment.ts": "cb273797b36795cd53d11f42ecdd3aa54fb6a42d649ec1bc8a99cbb9ad1885a1",
+        "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+        "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+        "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+        "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+        "features/spacecraft/geometry/indexed-cylinder.generated.js": "83c5a8d610e3888ec3666ed1ec66a0046fd6e624aae2ee120828e940f8abb6b9",
+        "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+        "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2",
+        "features/spacecraft/geometry/rounded-cabin-interior.ts": "90103e4fa4572ebe9f607d21ede027d3f2951c1c40a52c0177980424cf78ca70",
+        "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+        "features/spacecraft/geometry/spacecraft-wall-layout.ts": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772",
+        "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+        "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/interactable-object-highlight.ts": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd",
+        "features/spacecraft/navigation/iris-hatch.ts": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd",
+        "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+        "features/spacecraft/rooms/about-personal-study.ts": "3b2604e6f692e41ca56e8ae84068e13387422094785bce18f5012f77fd0e8a1c",
+        "features/spacecraft/rooms/about-study-artwork.ts": "0faae6387f6a67df1fa4d7951f3eb831d885d8b373d4daca5771ed4d3b600722",
+        "features/spacecraft/rooms/cabin-composition.ts": "6f22fc26ec11d92d36013f6399f1d09925d8365533e2dd3cab2f6017e0bbecfc",
+        "features/spacecraft/rooms/case-study-archive.ts": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630",
+        "features/spacecraft/rooms/contact-flight-audio.ts": "4a0e39fc8ee6333e8693d69760128c6fc3899463699c395e4c9d5a9a845cf1d5",
+        "features/spacecraft/rooms/contact-flight-console.ts": "31ec66feed00045fe226d0bd132e06e50319516361ba9ff01c33680000902c1b",
+        "features/spacecraft/rooms/contact-keyboard.ts": "5e14151b98226cc5d4f561ac3e64e54440113861ce3095015570276061a4e43c",
+        "features/spacecraft/rooms/contact-social-display.ts": "77e2cc85e96a5929ccf6798318b9f8f4e727b49f845828ad8ddfbffe0161fd32",
+        "features/spacecraft/rooms/projects-payload-module.ts": "4c9cc85709f3e78795702b90a8d89bab8f379d0789813e52dea02e8732d92796",
+        "features/spacecraft/rooms/projects-workshop.ts": "f1852fec6f78dd7ad5d68e9aa97ad6b2043f10f0ab297439624c6a780f161043",
+        "features/spacecraft/spacecraft-model.ts": "f252955f2da67b5aa69383942be39981eae2d0385f5f004ab8f628bda204cd3f",
+        "lib/content/social-links.ts": "5871fcceb9584b59c657e6329892ed604bffec394b0b217d0b312c6809682d2d",
+        "lib/content/social-platforms.ts": "be26353420d67575d7bac7a3006fab56d4cb39e57cdc41688a27c55bede0bf79"
+      }
+    }
+  },
+  "versions": {
+    "baseline": {
+      "wide": {
+        "visible": {
+          "meshObjects": 438,
+          "instanceObjects": 84,
+          "logicalInstances": 1118,
+          "potentialMeshSubmissions": 438,
+          "triangleInputs": 1013532,
+          "uniqueGeometries": 383,
+          "uniqueGeometryAttributeAndIndexArrays": 1520,
+          "geometryAttributeAndIndexBytes": 36083204,
+          "instanceMatrixAndColorBytes": 72536,
+          "uniqueMaterials": 264,
+          "textureObjects": 41,
+          "nominalRgba8TextureBytes": 97592652,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "retained": {
+          "meshObjects": 507,
+          "instanceObjects": 88,
+          "logicalInstances": 1198,
+          "potentialMeshSubmissions": 501,
+          "triangleInputs": 1332262,
+          "uniqueGeometries": 452,
+          "uniqueGeometryAttributeAndIndexArrays": 1790,
+          "geometryAttributeAndIndexBytes": 48962896,
+          "instanceMatrixAndColorBytes": 77656,
+          "uniqueMaterials": 275,
+          "textureObjects": 42,
+          "nominalRgba8TextureBytes": 97614496,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 64,
+              "height": 64,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 21844
+            },
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "contactConsole": {
+          "meshObjects": 37,
+          "instanceObjects": 16,
+          "logicalInstances": 228,
+          "potentialMeshSubmissions": 37,
+          "triangleInputs": 70710,
+          "uniqueGeometries": 27,
+          "uniqueGeometryAttributeAndIndexArrays": 108,
+          "geometryAttributeAndIndexBytes": 1716560,
+          "instanceMatrixAndColorBytes": 15576,
+          "uniqueMaterials": 21,
+          "textureObjects": 4,
+          "nominalRgba8TextureBytes": 14857928,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            }
+          ]
+        }
+      },
+      "compact": {
+        "visible": {
+          "meshObjects": 438,
+          "instanceObjects": 84,
+          "logicalInstances": 1118,
+          "potentialMeshSubmissions": 438,
+          "triangleInputs": 991868,
+          "uniqueGeometries": 383,
+          "uniqueGeometryAttributeAndIndexArrays": 1520,
+          "geometryAttributeAndIndexBytes": 35462340,
+          "instanceMatrixAndColorBytes": 72536,
+          "uniqueMaterials": 264,
+          "textureObjects": 41,
+          "nominalRgba8TextureBytes": 97592652,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "retained": {
+          "meshObjects": 507,
+          "instanceObjects": 88,
+          "logicalInstances": 1198,
+          "potentialMeshSubmissions": 501,
+          "triangleInputs": 1332262,
+          "uniqueGeometries": 452,
+          "uniqueGeometryAttributeAndIndexArrays": 1790,
+          "geometryAttributeAndIndexBytes": 48962896,
+          "instanceMatrixAndColorBytes": 77656,
+          "uniqueMaterials": 275,
+          "textureObjects": 42,
+          "nominalRgba8TextureBytes": 97614496,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 64,
+              "height": 64,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 21844
+            },
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "contactConsole": {
+          "meshObjects": 37,
+          "instanceObjects": 16,
+          "logicalInstances": 228,
+          "potentialMeshSubmissions": 37,
+          "triangleInputs": 70710,
+          "uniqueGeometries": 27,
+          "uniqueGeometryAttributeAndIndexArrays": 108,
+          "geometryAttributeAndIndexBytes": 1716560,
+          "instanceMatrixAndColorBytes": 15576,
+          "uniqueMaterials": 21,
+          "textureObjects": 4,
+          "nominalRgba8TextureBytes": 14857928,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            }
+          ]
+        }
+      }
+    },
+    "candidate": {
+      "wide": {
+        "visible": {
+          "meshObjects": 438,
+          "instanceObjects": 84,
+          "logicalInstances": 1118,
+          "potentialMeshSubmissions": 438,
+          "triangleInputs": 1013532,
+          "uniqueGeometries": 383,
+          "uniqueGeometryAttributeAndIndexArrays": 1520,
+          "geometryAttributeAndIndexBytes": 36083204,
+          "instanceMatrixAndColorBytes": 72536,
+          "uniqueMaterials": 264,
+          "textureObjects": 41,
+          "nominalRgba8TextureBytes": 97592652,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "retained": {
+          "meshObjects": 507,
+          "instanceObjects": 88,
+          "logicalInstances": 1198,
+          "potentialMeshSubmissions": 501,
+          "triangleInputs": 1332262,
+          "uniqueGeometries": 452,
+          "uniqueGeometryAttributeAndIndexArrays": 1790,
+          "geometryAttributeAndIndexBytes": 48962896,
+          "instanceMatrixAndColorBytes": 77656,
+          "uniqueMaterials": 275,
+          "textureObjects": 42,
+          "nominalRgba8TextureBytes": 97614496,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 64,
+              "height": 64,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 21844
+            },
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "contactConsole": {
+          "meshObjects": 37,
+          "instanceObjects": 16,
+          "logicalInstances": 228,
+          "potentialMeshSubmissions": 37,
+          "triangleInputs": 70710,
+          "uniqueGeometries": 27,
+          "uniqueGeometryAttributeAndIndexArrays": 108,
+          "geometryAttributeAndIndexBytes": 1716560,
+          "instanceMatrixAndColorBytes": 15576,
+          "uniqueMaterials": 21,
+          "textureObjects": 4,
+          "nominalRgba8TextureBytes": 14857928,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            }
+          ]
+        }
+      },
+      "compact": {
+        "visible": {
+          "meshObjects": 438,
+          "instanceObjects": 84,
+          "logicalInstances": 1118,
+          "potentialMeshSubmissions": 438,
+          "triangleInputs": 991868,
+          "uniqueGeometries": 383,
+          "uniqueGeometryAttributeAndIndexArrays": 1520,
+          "geometryAttributeAndIndexBytes": 35462340,
+          "instanceMatrixAndColorBytes": 72536,
+          "uniqueMaterials": 264,
+          "textureObjects": 41,
+          "nominalRgba8TextureBytes": 97592652,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "retained": {
+          "meshObjects": 507,
+          "instanceObjects": 88,
+          "logicalInstances": 1198,
+          "potentialMeshSubmissions": 501,
+          "triangleInputs": 1332262,
+          "uniqueGeometries": 452,
+          "uniqueGeometryAttributeAndIndexArrays": 1790,
+          "geometryAttributeAndIndexBytes": 48962896,
+          "instanceMatrixAndColorBytes": 77656,
+          "uniqueMaterials": 275,
+          "textureObjects": 42,
+          "nominalRgba8TextureBytes": 97614496,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "",
+              "width": 64,
+              "height": 64,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 21844
+            },
+            {
+              "name": "",
+              "width": 128,
+              "height": 128,
+              "format": 1023,
+              "type": 1009,
+              "canvas": false,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 87380
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 192,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048572
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1024,
+              "height": 131,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 713404
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "",
+              "width": 1536,
+              "height": 195,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1594360
+            },
+            {
+              "name": "case-archive-cartridge-print-0-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-1-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-2-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-3-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-cartridge-print-4-texture",
+              "width": 1536,
+              "height": 115,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 938872
+            },
+            {
+              "name": "case-archive-rack-mark-texture",
+              "width": 1536,
+              "height": 96,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 786424
+            },
+            {
+              "name": "case-archive-terminal-screen-texture",
+              "width": 1536,
+              "height": 318,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2603080
+            },
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            },
+            {
+              "name": "personal-study-book-one-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-three-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-book-two-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-curiosity-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-landscape-postcard-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "personal-study-left-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-mountain-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-paper-flag-title-0",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-1",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-paper-flag-title-2",
+              "width": 768,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 1048576
+            },
+            {
+              "name": "personal-study-personal-note-texture",
+              "width": 768,
+              "height": 1024,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4194300
+            },
+            {
+              "name": "personal-study-right-page-print",
+              "width": 1024,
+              "height": 1280,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 6990500
+            },
+            {
+              "name": "personal-study-writing-composite-grain",
+              "width": 512,
+              "height": 256,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 699052
+            },
+            {
+              "name": "projects-workshop-all-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-experiments-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-interfaces-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            },
+            {
+              "name": "projects-workshop-systems-display-texture",
+              "width": 1024,
+              "height": 640,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3495244
+            }
+          ]
+        },
+        "contactConsole": {
+          "meshObjects": 37,
+          "instanceObjects": 16,
+          "logicalInstances": 228,
+          "potentialMeshSubmissions": 37,
+          "triangleInputs": 70710,
+          "uniqueGeometries": 27,
+          "uniqueGeometryAttributeAndIndexArrays": 108,
+          "geometryAttributeAndIndexBytes": 1716560,
+          "instanceMatrixAndColorBytes": 15576,
+          "uniqueMaterials": 21,
+          "textureObjects": 4,
+          "nominalRgba8TextureBytes": 14857928,
+          "unestimatedTextures": 0,
+          "textures": [
+            {
+              "name": "contact-flight-contact-display",
+              "width": 1024,
+              "height": 778,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 4248060
+            },
+            {
+              "name": "contact-flight-link-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-flight-signal-display",
+              "width": 768,
+              "height": 954,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 3906832
+            },
+            {
+              "name": "contact-keyboard-legend-atlas",
+              "width": 1024,
+              "height": 512,
+              "format": 1023,
+              "type": 1009,
+              "canvas": true,
+              "generateMipmaps": true,
+              "nominalRgba8Bytes": 2796204
+            }
+          ]
+        }
+      }
+    }
+  },
+  "delta": {
+    "wide": {
+      "visible": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      },
+      "retained": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      },
+      "contactConsole": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      }
+    },
+    "compact": {
+      "visible": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      },
+      "retained": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      },
+      "contactConsole": {
+        "meshObjects": 0,
+        "instanceObjects": 0,
+        "logicalInstances": 0,
+        "potentialMeshSubmissions": 0,
+        "triangleInputs": 0,
+        "uniqueGeometries": 0,
+        "uniqueGeometryAttributeAndIndexArrays": 0,
+        "geometryAttributeAndIndexBytes": 0,
+        "instanceMatrixAndColorBytes": 0,
+        "uniqueMaterials": 0,
+        "textureObjects": 0,
+        "nominalRgba8TextureBytes": 0,
+        "unestimatedTextures": 0
+      }
+    }
+  },
+  "keyboardAtlas": {
+    "width": 1024,
+    "height": 512,
+    "format": "RGBA8",
+    "baseLevelBytes": 2097152,
+    "fullMipChainBytes": 2796204,
+    "networkImageBytes": 0,
+    "note": "Runtime-generated canvas; extra JavaScript download size is not measured. Temporary canvas/browser backing allocation is separate from this nominal texture estimate."
+  }
+}

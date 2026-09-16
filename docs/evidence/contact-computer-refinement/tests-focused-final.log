@@ -1,0 +1,21 @@
+✔ Portrait fits a readable application inside the fixed glass without stretching the monitor (0.653291ms)
+✔ Keyboard observation preserves default events, handles held combinations and clears lost focus (2.280916ms)
+✔ The Contact application clears every keyboard key throughout landscape hover and entry views (796.770083ms)
+✔ actual exposed wall geometry returns the nearest wall and sky does no console raycasting (2.258291ms)
+✔ main monitor, both socials, keyboard and desk block only their actual silhouettes (0.605625ms)
+✔ blockers behind the wall do not consume it, while a flush rendered face does (0.171166ms)
+✔ hidden parents, invisible materials and interaction proxies never act as rendered surfaces (0.370584ms)
+✔ batched keyboard instances use their current matrices and leave the gaps selectable (0.696416ms)
+✔ material groups and ray layers match the visible faces instead of hiding a whole mesh (0.185625ms)
+✔ Object highlights isolate shared materials and do not accumulate brightness (1.520167ms)
+✔ The shared brightness transition is smooth and independent of refresh rate (0.129167ms)
+✔ Computer and social screens retain native anchors, independent feedback and portal navigation (810.612458ms)
+✔ Contact wall feedback changes only its paint and resets when the application closes (528.474708ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1527.643417

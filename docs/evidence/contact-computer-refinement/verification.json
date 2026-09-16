@@ -1,0 +1,199 @@
+{
+  "baselineCommit": "917e7e08fc938302c8cf485cabd32a31dafba87e",
+  "sourceFiles": {
+    "app/globals.css": "11262c8f9fec6e52eef6ae58f8709ffba65c0ce7d6858139b4fbc70c3f3ec2b3",
+    "features/portfolio/contact-computer-window.css": "0bd1404bd3555a88ab0d2e4fca16c88443783844f3d478aadd9ac9b86ffe13d1",
+    "features/portfolio/contact-computer-window.tsx": "ddb6411ae06e524c06d74652e01fec830c43c8c807bb0b2f65662482b4aa15e0",
+    "features/portfolio/immersive-portfolio.tsx": "f18347053c8d088b168212f640d5b88650e6b5af6f07185156db28359fb73674",
+    "features/spacecraft/rooms/contact-flight-console.ts": "31ec66feed00045fe226d0bd132e06e50319516361ba9ff01c33680000902c1b",
+    "features/spacecraft/spacecraft-model.ts": "f252955f2da67b5aa69383942be39981eae2d0385f5f004ab8f628bda204cd3f",
+    "features/spacecraft/spacecraft-runtime.ts": "23c556a163c1ec0bf61c071148cdbc52e15edceb60937e5b412c73ac3fbe1ac7",
+    "tests/content/workflows.test.mjs": "81836cb709e502cf3e9b915a2186c3c6055888cbffa19792685aa66c8b216b28",
+    "tests/spacecraft/object-interaction.test.mjs": "e06725b2bfa4ae495cc1b841d3e49ee2a5225bb7dca119b9ffabcdc346057507",
+    "features/spacecraft/navigation/contact-room-dismiss.ts": "2ffeb93d351d08e9f066ef03e73f453b52e00d5ba439c8b009406eaa681f8894",
+    "tests/spacecraft/contact-room-dismiss.test.mjs": "d4d37a9a48d4e54461874860f05826954a5fb9b8d7d50f47dbbdf3d6ea7df35e",
+    "tests/spacecraft/contact-console-clearance.test.mjs": "5f969e8246aec25345ad54d5fe85d5ee2ae27f651c6122debd3414c0d2639eab"
+  },
+  "engine": "Hidden built-in Chromium; native Safari not controlled or tested",
+  "screenshots": {
+    "app-social-left-hover.jpg": {
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "a0c4e60cab58d1c293c4071f2ea0076addc812a2a29daea8c92eef65eaefbd93",
+      "rendering": "Live default production effects in development build"
+    },
+    "app-neutral.jpg": {
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "bc4481507a38bb2cf603af357b3cb724be448760d90c1017f1d4003d6aa2a7f3",
+      "rendering": "Live default production effects in development build"
+    },
+    "portrait-scrolled.jpg": {
+      "cssViewport": [
+        390,
+        844
+      ],
+      "imagePixels": [
+        390,
+        844
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "2bdc8013d4a3da87ec4537fee4d47ab536515c6314920f67b5a17ec57ee8a3b1",
+      "rendering": "Live default production effects in development build"
+    },
+    "app-social-right-hover.jpg": {
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "23eb2206d6756d43eb90b74f3957d67b644aabfa708ff182efc94d845edd510d",
+      "rendering": "Live default production effects in development build"
+    },
+    "portrait-app.jpg": {
+      "cssViewport": [
+        390,
+        844
+      ],
+      "imagePixels": [
+        390,
+        844
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "d08b2a29baa84ddb44609b618c5914c9ac93ae8db3c47b9b45d24f2a270ac9be",
+      "rendering": "Live default production effects in development build"
+    },
+    "room-return.jpg": {
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": null,
+      "devicePixelRatio": null,
+      "sizeEvidence": "1280x720 screenshot and viewport; buffer/DPR not separately recorded for this earlier composition capture",
+      "sha256": "7df0ca282586fb0f4d39fef27a2f7d4f9bba1d51e1c261d81616e4b08565b553",
+      "rendering": "Live default production effects in development build"
+    },
+    "app-wall-hover.jpg": {
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "imageEncoding": "JPEG (confirmed with file metadata)",
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "sizeEvidence": "Explicit browser viewport and observed #ship data-drawing-buffer / data-pixel-ratio for final app checks; file metadata separately confirms image pixels",
+      "sha256": "e498021ceda9cfcacbccaa1ba133757956a53dc5df1bf50d71ab4423e0e390d9",
+      "rendering": "Live default production effects in development build"
+    }
+  },
+  "interactions": {
+    "leftAndRightSocialHover": "Inset amber rim visible with app open; data-hover-object matched each social screen",
+    "camera": "Viewpoint changed from left to right hover with the application attached to its physical monitor",
+    "socialLinks": "GitHub and LinkedIn each opened their configured URL in a separate tab; app and temporary name draft retained; created link tabs closed",
+    "exclusions": "Pointer clicks on keyboard (615,552), desk (1180,590) and main bezel (377,280) kept /contact?open=1 at 1280x720",
+    "wallClose": "Exposed left (200,100) and right (1150,100) walls returned to /contact; drag from keyboard to wall did not close",
+    "draft": "Temporary name retained through wall close/reopen and viewport rotation before development hot reload",
+    "portraitClose": "Real pointer center initially intercepted by invisible orbital-identity wrapper. After CSS fix elementFromPoint returned Close Contact application and pointer click returned /contact, also after scrolling",
+    "textSelection": "Portrait native pointer drag selected textarea characters 0..21, Selecting these words. Held pointer over application does not update camera hover goal",
+    "overviewIdentity": "Visible overview identity was non-inert; topmost pointer element linked to / and ordinary pointer click worked",
+    "offscreenSocials": "No offscreen social controls in portrait accessibility snapshot; returned to interactive links in landscape",
+    "consoleErrors": []
+  },
+  "limitations": [
+    "No native Safari/on-screen keyboard/device touch check",
+    "No new live submission was performed in this refinement",
+    "No rested browser CPU/GPU, delivery, memory, thermal or battery comparison",
+    "Counter trace demonstrates avoided repeat evaluations, not frame-time improvement"
+  ],
+  "checks": {
+    "fullSuite": {
+      "passed": 322,
+      "failed": 0,
+      "durationMs": 334351.028666,
+      "log": "tests-final.log"
+    },
+    "typecheck": "passed after final runtime guard",
+    "affectedLint": "passed",
+    "build": {
+      "status": "passed",
+      "log": "build-final.log",
+      "warnings": "Existing Vinext route-classification and large chunk notices; no build errors"
+    },
+    "chronology": "Initial full suite failed the unrelated local-transport security child and parent. Scoped test connection isolation restored all 322 passes. Final runtime selection-drag guard was also manually verified, typechecked and built; focused Contact suite repeated after source edits.",
+    "focusedContact": {
+      "passed": 13,
+      "failed": 0,
+      "log": "tests-focused-final.log"
+    }
+  },
+  "implementationCommits": [
+    "d65f1ed81aebeff6a72640af8cc7357cbebd6365",
+    "2c7a61ff3fee1dd3e4129ec2bfccc2e1a0fdc949"
+  ],
+  "critic": {
+    "score": 95,
+    "record": "critic-review.json",
+    "unresolvedBlockers": 0
+  }
+}

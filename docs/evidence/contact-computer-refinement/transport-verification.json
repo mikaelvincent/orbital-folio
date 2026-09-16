@@ -1,0 +1,189 @@
+{
+  "recordedAt": "2026-09-16T10:29:33.054Z",
+  "scope": "Focused investigation of an unchanged workflow security-test failure on the existing local development server. No application or backend changes.",
+  "environment": {
+    "node": "v26.0.0",
+    "vite": "8.2.2",
+    "vinext": "1.0.0-beta.9",
+    "baseUrl": "http://localhost:3000",
+    "browser": "Node fetch and undici; no browser involved"
+  },
+  "sources": {
+    "baselineCommit": "917e7e0",
+    "files": {
+      "app/api/admin/route.ts": {
+        "baselineSha256": "074c3704f510bf2937ce88583f0cf2f830aeb646c156b3f459efb884c14f83c8",
+        "currentSha256": "074c3704f510bf2937ce88583f0cf2f830aeb646c156b3f459efb884c14f83c8",
+        "unchanged": true
+      },
+      "lib/security.ts": {
+        "baselineSha256": "0367d65ee0b34cb3b75538cacd580d80b1d0b56155026af1cd714f5530d0065f",
+        "currentSha256": "0367d65ee0b34cb3b75538cacd580d80b1d0b56155026af1cd714f5530d0065f",
+        "unchanged": true
+      },
+      "tests/content/workflows.test.mjs": {
+        "baselineSha256": "56ba27bcb212eb35f09b3944287e6ec48c5f4e2683b6dc6766ea0e2a25f29c08",
+        "currentSha256": "81836cb709e502cf3e9b915a2186c3c6055888cbffa19792685aa66c8b216b28",
+        "unchanged": false
+      },
+      "package.json": {
+        "baselineSha256": "9e8b04225e410000654b356d181a2ae7e626d9b61844c85bbcb0ff2986a5f993",
+        "currentSha256": "9e8b04225e410000654b356d181a2ae7e626d9b61844c85bbcb0ff2986a5f993",
+        "unchanged": true
+      },
+      "package-lock.json": {
+        "baselineSha256": "d243a6b551c861eba56a2887afa250a27b5e47963f1a7a56c7f40fc5008e5f83",
+        "currentSha256": "d243a6b551c861eba56a2887afa250a27b5e47963f1a7a56c7f40fc5008e5f83",
+        "unchanged": true
+      }
+    },
+    "historicalRuntimeExecuted": false,
+    "qualification": "Relevant backend/test/manifests were unchanged when the failure was reproduced. A historical checkout/runtime was not separately executed; this is not proof that an earlier environment had the same failure."
+  },
+  "originalFailure": {
+    "file": "tests/content/workflows.test.mjs",
+    "test": "CSRF, malformed bodies, and immutable site protection reject safely",
+    "recordCallLine": 149,
+    "assertionLine": 26,
+    "expected": 200,
+    "actual": 400,
+    "sequence": "Authenticated GET 200, adversarial-origin POST 403, missing-origin POST 403, next authenticated GET 400",
+    "response": {
+      "bodyBytes": 0,
+      "contentType": null,
+      "connection": "close"
+    }
+  },
+  "defaultFetchComparison": [
+    {
+      "connection": "default",
+      "statuses": [
+        200,
+        403,
+        403,
+        400
+      ]
+    },
+    {
+      "connection": "close",
+      "statuses": [
+        200,
+        403,
+        403,
+        200
+      ]
+    },
+    {
+      "connection": "default",
+      "statuses": [
+        200,
+        403,
+        403,
+        200
+      ]
+    },
+    {
+      "connection": "close",
+      "statuses": [
+        200,
+        403,
+        403,
+        200
+      ]
+    }
+  ],
+  "freshSingleConnectionComparison": {
+    "client": "New undici Agent({ connections: 1, pipelining: 1 }) per case",
+    "statusOrder": [
+      "initial authenticated GET",
+      "adversarial-origin POST",
+      "missing-origin POST",
+      "following authenticated GET"
+    ],
+    "cases": [
+      {
+        "connection": "keep-alive",
+        "postBody": "{}",
+        "statuses": [
+          200,
+          403,
+          400,
+          200
+        ]
+      },
+      {
+        "connection": "close",
+        "postBody": "{}",
+        "statuses": [
+          200,
+          403,
+          403,
+          200
+        ]
+      },
+      {
+        "connection": "keep-alive",
+        "postBody": null,
+        "statuses": [
+          200,
+          403,
+          403,
+          200
+        ]
+      },
+      {
+        "connection": "keep-alive",
+        "postBody": "{}",
+        "statuses": [
+          200,
+          403,
+          400,
+          200
+        ]
+      },
+      {
+        "connection": "close",
+        "postBody": "{}",
+        "statuses": [
+          200,
+          403,
+          403,
+          200
+        ]
+      }
+    ]
+  },
+  "focusedOriginalTest": {
+    "fixture": "Temporary copy of the original first three workflow subtests, ending before content-mutation fixtures",
+    "normal": {
+      "command": "node --test /tmp/orbital-workflow-security.test.mjs",
+      "result": "Same original line 149 failure; 2 passing child tests, 1 failing child test; parent also failed"
+    },
+    "closedTransport": {
+      "command": "node --import /tmp/orbital-workflow-close-fetch.mjs --test /tmp/orbital-workflow-security.test.mjs",
+      "result": "All 3 child tests and parent passed"
+    },
+    "temporaryWrapper": "Original fetch preserved; a wrapper merges existing headers and adds Connection: close to each request. This comparison wrapper is not used by the delivered test harness."
+  },
+  "interpretation": {
+    "confidence": "High confidence in a rejected-body/persistent-connection development transport problem; precise parser mechanism not instrumented.",
+    "evidence": "The API GET implementation does not return an empty 400. The installed Vite clientError handler emits this exact bare HTTP 400 with Connection: close. Fresh-connection reproduction depends on the rejected request having a body.",
+    "adapterEvidence": "node_modules/vite/dist/node/chunks/node.js:11693 setClientErrorHandler",
+    "limitations": "No production deployment was tested. Ordinary pooled fetch is sensitive to which connection is reused, explaining the inconsistent location of the follow-up 400."
+  },
+  "deliveredHarnessAdjustment": {
+    "file": "tests/content/workflows.test.mjs",
+    "change": "Only the two deliberately CSRF-rejected POST requests explicitly close their connections. All strict 403 assertions and the normal shared request helper remain unchanged.",
+    "reason": "Avoid poisoning the connection used by the following valid GET, while continuing to exercise the actual CSRF rejection.",
+    "verification": "Investigator did not rerun after edit; root subsequently ran the ordinary complete suite: 322 passed, 0 failed (see finalVerification)."
+  },
+  "dataHandling": "No credentials, cookies, inquiry contents or content records retained in evidence. Focused requests only read existing content and exercise rejected operations; no content fixture was modified.",
+  "finalVerification": {
+    "command": "npm test",
+    "passed": 322,
+    "failed": 0,
+    "log": "tests-final.log",
+    "transportWrapperUsed": false,
+    "harnessChange": "Only the two intentional CSRF-rejection requests use Connection: close. All original status assertions remain strict."
+  }
+}

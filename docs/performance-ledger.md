@@ -18,6 +18,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 22 · 15 September 2026 | Audit baked static contact shading and a live-zone hybrid in Projects | Owner approved retaining existing GTAO. Both developer candidates change appearance; subdivision adds geometry and shading artifacts. |
 | 23 · 15 September 2026 | Approximate prefiltered environment illumination with a fitted probe | Audited; delivered illumination retained. Both probes visibly alter shading, and the rested GPU controls fail the stability gate. No production bake is enabled. |
 | 24 · 16 September 2026 | Contact computer application and animated keyboard | New authored baseline, not an optimization. Structural visible triangle inputs +664; retained geometry arrays −388,324 bytes after removing the old Contact tablet. One new keyboard atlas costs 2.667 MiB nominal texture storage. |
+| 25 · 16 September 2026 | Contact screen clearance, active social controls and wall dismissal | Structural model counts/storage unchanged against `917e7e0`. New exposed-wall picking reuses exact-ray results after geometry/camera settling; descriptive Node workload sizing does not establish browser speed, heat or battery gains. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1288,6 +1289,63 @@ Native Safari/on-screen keyboard testing was not performed. These checks do not
 establish a cross-device performance comparison.
 Independent final review scored **94/100**, with no unresolved blockers; its
 rubric, revisions and limitations are recorded with the evidence.
+
+## 25 — Contact computer interaction refinements (16 September 2026)
+
+The owner requested inset social-monitor feedback, an unobstructed keyboard,
+hover camera and social access while the application is open, a conventional X,
+and clicking the surrounding room to close. The main monitor and its supports
+move up by 0.10 console-local units, preserving the glass dimensions and every
+key. Exposed pressure walls provide material-only hover feedback; real console
+surfaces block dismissal. The social screens retain independent native links.
+This is a requested interaction/design refinement, not adoption of a held
+performance candidate. Production lighting, GTAO and 8K Earth remain unchanged.
+
+The deterministic inventory compares Git **`917e7e0`** with archived candidate
+model source `1d3a94e137fee1ba…`. Every structural delta is **zero** in wide and
+compact layouts, for visible geometry, retained variants and the Contact console.
+Wide visible inputs remain **438 potential mesh submissions / 1,013,532
+triangles / 36,083,204 geometry/index bytes**. Compact remains 438 / 991,868 /
+35,462,340 bytes. The console remains 37 / 70,710 / 1,716,560 bytes. Instance
+arrays, material counts and nominal texture storage also remain unchanged.
+These are construction inventories without camera culling, not measured draws,
+delivery size, process memory or runtime costs.
+
+The new wall picker checks four wall meshes and up to 38 console blocker meshes;
+sky misses skip the console. A small, unconditioned Node workload survey found
+median per-call times of **1.189ms** for an exposed wall, **1.476ms** for a
+desk-blocked ray, **0.235ms** for a keyboard-blocked ray and **0.000242ms** for
+sky. Six alternating-order batches of 300 calls retain raw results and source
+snapshots. The browser was allowed to continue rendering during this survey;
+these numbers describe function workload, not a controlled browser CPU/GPU
+comparison. The old ordinary room picker answers a different question, and the
+open application previously skipped pointer feedback entirely: no speedup ratio
+is valid.
+
+To avoid charging that new detailed check again for a settled pointer/view, the
+runtime reuses its result only while the exact ray and geometry revision match.
+Scene-target synchronization rebuilds the picker; actual key/door geometry
+changes invalidate the result. DOM hit testing remains first on every frame so
+forms, social links and overlays remain authoritative. Wall paint changes reuse
+GTAO. Camera movement still refreshes view-dependent AO as expected. No browser
+frame-time, heat or battery benefit is claimed.
+
+The [refinement evidence](evidence/contact-computer-refinement/README.md) records
+the source-identified inventory, geometry-clearance regression, raw picker
+workload, responsive captures and verification chronology. The 648 clearance
+states are offline projection fixtures, not 648 recorded camera flights. Initial
+full verification had one unrelated workflow child failure and its parent
+failure (320 passing, 2 failing): a deliberately rejected request could leave the
+local development connection unusable. The evidence retains that failure and
+the focused transport investigation; only the two adversarial test requests now
+close their connections. Application security/submission behavior is unchanged.
+The final **322-test suite**, typecheck, affected lint and production build pass.
+Live built-in Chromium checks cover 1280×720 and 390×844 at DPR 1. A settled
+wall-pick counter remains unchanged for 23 seconds, then advances after camera
+movement; this confirms reuse without claiming a frame-time gain. Native Safari
+and device keyboard checks remain unperformed. Independent final review scored
+**95/100** with no unresolved blockers; the rubric and revisions are retained
+with the linked evidence.
 
 ## Next candidates
 

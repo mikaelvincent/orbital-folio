@@ -141,8 +141,18 @@ The main Contact monitor is selectable with the shared screen hover/focus feedba
 Its application replaces the idle display on the existing glass. Landscape frames
 the monitor and conventional 82-key keyboard; portrait frames a tall application
 window inside that glass, with single-column fields and internal scrolling. The
-monitor itself is not stretched. Close/Back to room returns to normal navigation.
+monitor itself is not stretched. A conventional, accessibly named X closes the
+application. Clicking exposed Contact-room pressure walls also returns to the
+room; those walls give restrained paint feedback. Main/social screens, keyboard
+and desk block that wall action using their actual rendered silhouettes.
 The old deployable Contact tablet is removed; other room readers remain unchanged.
+
+Keep the normal bounded hover camera active while this application is open.
+The neighboring social displays remain independently hoverable and selectable,
+with their amber rims inset on the glass. The already-open main display does not
+advertise another selection. Its complete monitor/support assembly is raised
+slightly to leave real clearance above the keyboard's function row, since an
+HTML application plane cannot use WebGL depth to hide behind individual keys.
 
 Both views share `ContactForm` and the in-memory draft/submission state. **Schedule
 a call** comes first and is a clearly labeled demo. Name, company, email, subject
@@ -166,7 +176,9 @@ including held combinations; blur, visibility loss and closing clear their state
 Native editing shortcuts remain intact. Mobile visual-viewport changes resize the
 inner scroll area without changing the camera; device Safari keyboard behavior
 still needs a native-device check. Design costs and checked states are in
-[Contact evidence](evidence/contact-computer/README.md) and ledger entry 24.
+[Contact evidence](evidence/contact-computer/README.md) and ledger entry 24. The
+[interaction refinements](evidence/contact-computer-refinement/README.md) and
+entry 25 record the subsequent clearance, social-screen and wall-close work.
 
 ## Earth and atmospheric art
 
