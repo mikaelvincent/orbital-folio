@@ -14,7 +14,7 @@ export function drawSocialChannel(
   ctx.textAlign = 'left';
   ctx.fillStyle = '#91b3c9';
   ctx.font = `500 ${width * 0.037}px monospace`;
-  ctx.fillText(`COM / ${side === 'left' ? '01' : '02'}`, pad, height * 0.082);
+  ctx.fillText(`COM / ${side === 'left' ? '02' : '03'}`, pad, height * 0.082);
   ctx.fillStyle = link ? '#ffd18a' : '#7290a0';
   ctx.beginPath();
   ctx.arc(width - pad, height * 0.082, width * 0.009, 0, Math.PI * 2);

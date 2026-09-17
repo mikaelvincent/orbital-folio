@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-18",
+  "baselineCommit": "4634e06",
+  "scope": "Idle-screen text only: main COM / 01 and OPEN TO CONNECT, left COM / 02, right COM / 03. Keep COMMUNICATIONS and existing CONTACT headings; title alternatives remain undecided.",
+  "inventory": "Independent runtime-source search found exactly three displays and no preexisting COM / 03.",
+  "sourceSha256": {
+    "features/spacecraft/rooms/contact-flight-console.ts": "37129c7895b041d6f11d94d1ccc260a3cd54db7052642ccfeb0575da786c42e8",
+    "features/spacecraft/rooms/contact-social-display.ts": "2ba6ef3fd0bbc9d1501654ed2e3bd09472a7746cb97c51f4b634e554bf3b1424",
+    "docs/PROJECT-CONTEXT.md": "37fb94ad30ff5186c571c038689d75650a61932a0d016711fc1d43949aa081ec"
+  },
+  "screenshot": {
+    "file": "contact-room.png",
+    "sha256": "38d5056a48b9d52770816ae5e7c008f641f473beda5dee11113f6f70ca65c741",
+    "engine": "Hidden Codex built-in Chromium",
+    "pixels": [
+      1280,
+      720
+    ],
+    "state": "Live Contact room idle screen, default browser viewport, no image scaling or deliberately omitted effects. Drawing buffer and DPR not recorded."
+  },
+  "checks": {
+    "targetedTests": {
+      "command": "node --test tests/spacecraft/contact-keyboard.test.mjs tests/spacecraft/contact-fittings.test.mjs",
+      "passed": 10,
+      "failed": 0
+    },
+    "typecheck": "passed",
+    "affectedLint": "passed",
+    "diffCheck": "passed"
+  },
+  "performance": "Only strings in existing canvas textures changed. No dimensions, geometry, rendering behavior, assets or optimization candidates changed; no performance measurement or gain claimed.",
+  "independentCritic": {
+    "reviewer": "/root/contact_screen_labels_critic",
+    "score": 96,
+    "blockers": [],
+    "rubric": {
+      "fulfillment": [
+        40,
+        40
+      ],
+      "visualFit": [
+        24,
+        25
+      ],
+      "scopeCorrectness": [
+        20,
+        20
+      ],
+      "verification": [
+        8,
+        10
+      ],
+      "maintainabilityContext": [
+        4,
+        5
+      ]
+    },
+    "finding": "Identifiers are correct and collision-free. OPEN TO CONNECT fits the existing right-aligned footer. COMMUNICATIONS and CONTACT are preserved. Current documentation distinguishes unchanged title from pending alternatives."
+  },
+  "limitations": [
+    "One landscape viewport; native Safari and portrait not tested for this literal text change.",
+    "Full suite and production build not rerun; targeted tests, typecheck, lint and live preview used for proportional verification."
+  ]
+}

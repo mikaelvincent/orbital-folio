@@ -137,6 +137,11 @@ in Git history; the interaction contract here and current source govern.
 
 ## Contact computer and submission boundary
 
+The idle center monitor keeps its small `COMMUNICATIONS` label and current
+`CONTACT` heading; the owner is still deciding whether to rename that heading.
+Its footer reads `COM / 01` and `OPEN TO CONNECT`; the left and right social
+screens are `COM / 02` and `COM / 03`, respectively. There is no fourth channel.
+
 The main Contact monitor is selectable with the shared screen hover/focus feedback.
 Its application replaces the idle display on the existing glass. Landscape frames
 the monitor and conventional 82-key keyboard; portrait frames a tall application

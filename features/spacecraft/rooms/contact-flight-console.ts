@@ -346,9 +346,9 @@ export function buildContactFlightConsole(
       ctx.fillStyle = '#94b1c1';
       ctx.font = '500 21px monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('COM / 04', 69, ch - 89);
+      ctx.fillText('COM / 01', 69, ch - 89);
       ctx.textAlign = 'right';
-      ctx.fillText('STANDBY', 952, ch - 89);
+      ctx.fillText('OPEN TO CONNECT', 952, ch - 89);
     } else {
       const side = kind === 'link' ? 'left' : 'right';
       drawSocialChannel(ctx, cw, ch, options.socials?.[side] || null, side);
