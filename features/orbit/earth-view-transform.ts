@@ -1,12 +1,12 @@
 import type * as Three from 'three';
 
-/** Inland East Asia opens onto the long Eurasian land pass as the globe rotates.
+/** A lower-latitude, tilted pass keeps urban light networks in the foreground.
  * Geography stays consistent across viewports; the orbit and spin rate stay fixed.
  */
 export const NIGHT_EARTH_OPENING = {
-  longitude: 110,
-  latitude: 30,
-  roll: -12,
+  longitude: 120,
+  latitude: 25,
+  roll: 22.5,
 } as const;
 
 /** Place the opening region in the visible foreground, with north upright.

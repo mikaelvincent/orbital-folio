@@ -1,7 +1,8 @@
 /** Developer-only orbital art fixture; no spacecraft/AO/vessel lighting.
- * node scripts/benchmarks/sky-composition-preview.mjs
+ * node scripts/benchmarks/sky-composition-preview.mjs [baseline-revision]
  * Snapshots both revisions at server startup. Restart after source edits.
  * Frozen frames by default; Play is explicitly opt-in. This is not a benchmark.
+ * Developer-only geography trials: ?opening=longitude,latitude,roll&rate=0.003
  */
 import { build } from 'esbuild';
 import { createServer } from 'node:http';
@@ -14,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const publicRoot = await fs.realpath(join(root, 'public'));
-const baselineRevision = '29ffee1';
+const baselineRevision = process.argv[2] ?? '29ffee1';
 const run = promisify(execFile);
 const sourcePaths = [
   'orbital-environment.ts',
@@ -46,6 +47,13 @@ const client = `
 import * as THREE from 'three';
 import { createOrbitalEnvironment } from './features/orbit/orbital-environment';
 const params = new URLSearchParams(location.search);
+const openingValues = params.get('opening')?.split(',').map(Number);
+const openingOverride = openingValues?.length === 3 && openingValues.every(Number.isFinite)
+  && Math.abs(openingValues[0]) <= 180 && Math.abs(openingValues[1]) <= 85
+  && Math.abs(openingValues[2]) <= 180 ? openingValues : null;
+const rateValue = Number(params.get('rate'));
+const rateOverride = params.has('rate') && Number.isFinite(rateValue) && rateValue > 0 && rateValue < .02
+  ? rateValue : null;
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -80,6 +88,24 @@ if (![...timeSelect.options].some(option => Number(option.value) === time)) time
 timeSelect.value = String(time);
 let environment;
 const meteorMeshes = [];
+// Geographic trials are confined to this developer fixture. Transform from
+// the delivered opening's basis instead of changing the public environment API.
+function applyOpeningOverride() {
+  if (!openingOverride) return;
+  const current = environment.getDiagnostics().earthOpening;
+  if (!current) return;
+  const basis = (longitude, latitude) => {
+    const lon = THREE.MathUtils.degToRad(longitude), lat = THREE.MathUtils.degToRad(latitude);
+    const normal = new THREE.Vector3(Math.cos(lat) * Math.cos(lon), Math.sin(lat), -Math.cos(lat) * Math.sin(lon));
+    const east = new THREE.Vector3(-Math.sin(lon), 0, -Math.cos(lon));
+    return { normal, matrix: new THREE.Matrix4().makeBasis(east, new THREE.Vector3().crossVectors(normal, east), normal) };
+  };
+  const earth = environment.scene.getObjectByName('satellite-earth-surface').parent;
+  const from = basis(current.longitude, current.latitude), to = basis(openingOverride[0], openingOverride[1]);
+  const normal = from.normal.clone().applyQuaternion(earth.quaternion);
+  earth.quaternion.multiply(new THREE.Quaternion().setFromRotationMatrix(from.matrix.multiply(to.matrix.transpose())));
+  earth.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(normal, THREE.MathUtils.degToRad(openingOverride[2] - current.roll)));
+}
 function draw() {
   if (!ready) return;
   const [yaw, pitch, roll] = poses[poseSelect.value];
@@ -87,6 +113,7 @@ function draw() {
   worldCamera.updateMatrixWorld(true);
   environment.followCamera(worldCamera, reference);
   environment.update(time, true, 0, 0);
+  if (rateOverride) environment.scene.getObjectByName('satellite-earth-surface').rotation.y = (time * rateOverride) % (Math.PI * 2);
   environment.scene.getObjectByName('satellite-earth-surface').parent.visible = !starsOnly.checked;
   // Production update restores each meteor's natural visibility on the next
   // draw; suppress only the comparison frame, without disposing resources.
@@ -96,7 +123,7 @@ function draw() {
   const diagnostics = environment.getDiagnostics();
   const snapshot = {
     variant: document.body.dataset.variant, time, pose: poseSelect.value,
-    yaw, pitch, roll, playing, starsOnly: starsOnly.checked,
+    yaw, pitch, roll, playing, starsOnly: starsOnly.checked, openingOverride, rateOverride,
     viewport: [innerWidth, innerHeight], dpr: renderer.getPixelRatio(),
     drawingBuffer: buffer.toArray(), cameraFov: 38,
     render: { ...renderer.info.render }, memory: { ...renderer.info.memory }, diagnostics,
@@ -106,7 +133,8 @@ function draw() {
   document.body.dataset.time = time.toFixed(3);
   status.textContent = snapshot.variant + ' · ' + time.toFixed(2) + ' s · ' + poseSelect.value +
     ' · ' + innerWidth + '×' + innerHeight + ' @ ' + snapshot.dpr + ' DPR · ' +
-    snapshot.render.calls + ' draws / ' + snapshot.render.points + ' points / ' + snapshot.render.triangles + ' triangles';
+    snapshot.render.calls + ' draws / ' + snapshot.render.points + ' points / ' + snapshot.render.triangles + ' triangles' +
+    (openingOverride ? ' · trial opening ' + openingOverride.join(', ') : '') + (rateOverride ? ' · trial rate ' + rateOverride : '');
 }
 function resize() {
   renderer.setPixelRatio(devicePixelRatio || 1);
@@ -114,6 +142,7 @@ function resize() {
   worldCamera.aspect = innerWidth / Math.max(1, innerHeight);
   worldCamera.updateProjectionMatrix();
   environment.resize(innerWidth, innerHeight, renderer.getPixelRatio());
+  applyOpeningOverride();
   draw();
 }
 function tick(now) {

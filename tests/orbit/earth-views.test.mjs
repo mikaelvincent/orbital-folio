@@ -102,7 +102,7 @@ function mockBitmap(t, decode) {
 
 // Project the approved geography through the real scene, independently of the
 // placement function. This catches points placed behind Earth or below the crop.
-function projectGeography(env, longitude = 110, latitude = 30) {
+function projectGeography(env, longitude = 120, latitude = 25) {
   const phi = THREE.MathUtils.degToRad(latitude);
   const theta = THREE.MathUtils.degToRad(longitude);
   const normal = new THREE.Vector3(
@@ -134,7 +134,7 @@ for (const [width, height, mobile] of [
   [390, 844, true],
   [768, 4096, true],
 ]) {
-  void test(`Inland East Asia stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
+  void test(`The coastal East Asia opening stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
     const env = createOrbitalEnvironment(THREE, () => {}, {
       mobile,
       cameraFov: 38,
@@ -144,9 +144,9 @@ for (const [width, height, mobile] of [
     t.after(() => env.dispose());
     await env.ready;
     assert.deepEqual(NIGHT_EARTH_OPENING, {
-      longitude: 110,
-      latitude: 30,
-      roll: -12,
+      longitude: 120,
+      latitude: 25,
+      roll: 22.5,
     });
     assert.deepEqual(env.getDiagnostics().earthOpening, NIGHT_EARTH_OPENING);
     env.resize(width, height, mobile ? 1 : 2);
@@ -184,15 +184,15 @@ for (const [width, height, mobile] of [
   });
 }
 
-// These visual proxies intentionally use the unchanged photograph, not an
-// authoritative land mask. Coarse decoding once keeps this regression lightweight.
-// The separate audit retains full-resolution comparisons and rejected openings.
-void test('The early rotation retains terrain and city detail instead of reaching the Atlantic', async (t) => {
+// Inspect city-light color and its distribution, not terrain coverage: the old
+// route crossed almost entirely unlit land at 120s despite passing a land test.
+// Decode the real unchanged source once; this does not allocate a browser asset.
+void test('The early pass retains distributed city-light detail across screen shapes', async (t) => {
   const { data, info } = await sharp(
     new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url)
       .pathname,
   )
-    .resize(1024)
+    .resize(2048, 1024)
     .raw()
     .toBuffer({ resolveWithObject: true });
   for (const [width, height] of [
@@ -209,20 +209,22 @@ void test('The early rotation retains terrain and city detail instead of reachin
     await env.ready;
     env.resize(width, height, 1);
     const surface = surfaceOf(env);
-    const center = surface.parent.position;
-    const sphere = new THREE.Sphere(center, 180);
-    for (const elapsed of [0, 60, 180, 300, 600]) {
+    const sphere = new THREE.Sphere(surface.parent.position, 180);
+    for (const elapsed of [0, 60, 120, 180, 300]) {
       env.update(elapsed, true, 0, 0);
       env.scene.updateMatrixWorld(true);
       const inverse = surface.matrixWorld.clone().invert();
       let samples = 0,
-        terrain = 0,
         warmDetail = 0;
-      for (let row = 0; row < 20; row++) {
-        for (let column = 0; column < 64; column++) {
+      const tiles = Array.from({ length: 15 }, () => ({
+        samples: 0,
+        lights: 0,
+      }));
+      for (let row = 0; row < 40; row++) {
+        for (let column = 0; column < 128; column++) {
           const direction = new THREE.Vector3(
-            -1 + (column + 0.5) / 32,
-            -1 + ((row + 0.5) * 0.65) / 20,
+            -1 + (column + 0.5) / 64,
+            -1 + ((row + 0.5) * 0.65) / 40,
             0.5,
           )
             .unproject(env.camera)
@@ -245,42 +247,42 @@ void test('The early rotation retains terrain and city detail instead of reachin
           );
           const index = (y * info.width + x) * info.channels;
           const red = data[index],
+            green = data[index + 1],
             blue = data[index + 2];
+          const tile =
+            tiles[
+              Math.floor((column * 5) / 128) + Math.floor((row * 3) / 40) * 5
+            ];
           samples++;
-          if (blue > 22 || red > 28) terrain++;
-          if (red > 50 && red > 1.08 * blue) warmDetail++;
+          tile.samples++;
+          // Independent simple predicate, intentionally not the audit's fitted
+          // continuous score. Blue terrain alone cannot satisfy this assertion.
+          if (red > 50 && green > 35 && red > blue * 1.15) {
+            warmDetail++;
+            tile.lights++;
+          }
         }
       }
-      const context = `${width}×${height}, ${elapsed}s: ${terrain / samples} terrain, ${warmDetail / samples} warm detail`;
-      assert.ok(samples > 300, `Enough visible Earth samples: ${context}`);
+      const coverage = warmDetail / samples;
+      const distributedArea =
+        tiles.reduce(
+          (sum, tile) =>
+            sum +
+            (tile.samples && tile.lights / tile.samples > 0.01
+              ? tile.samples
+              : 0),
+          0,
+        ) / samples;
+      const context = `${width}×${height}, ${elapsed}s: ${coverage} warm coverage, ${distributedArea} populated foreground`;
+      assert.ok(samples > 1500, `Enough visible Earth samples: ${context}`);
       assert.ok(
-        terrain / samples > 0.6,
-        `Terrain stays dominant through ten minutes: ${context}`,
+        coverage > 0.015,
+        `City-light coverage remains visible: ${context}`,
       );
-      if (elapsed <= 300)
-        assert.ok(
-          warmDetail / samples > 0.003,
-          `Early terrain has city detail: ${context}`,
-        );
-      // Independently selected city locations follow the westward pass through
-      // the actual scene and active clock, without using the placement helper.
-      const landmark = [
-        ['Wuhan', 0, 114.3, 30.6],
-        ['Lahore', 180, 74.34, 31.55],
-        ['Shiraz', 300, 52.6, 29.6],
-      ].find(([, time]) => time === elapsed);
-      if (landmark) {
-        const [name, , longitude, latitude] = landmark;
-        const { screen, front } = projectGeography(env, longitude, latitude);
-        assert.ok(front > 0, `${name} faces the viewer at ${width}×${height}`);
-        assert.ok(
-          screen.x >= -1 &&
-            screen.x <= 1 &&
-            screen.y >= -1 &&
-            screen.y <= -0.35,
-          `${name} remains in the visible Earth foreground: ${JSON.stringify(screen.toArray())}`,
-        );
-      }
+      assert.ok(
+        distributedArea > 0.2,
+        `Lights span the foreground instead of a tiny isolated sliver: ${context}`,
+      );
     }
     env.dispose();
   }
