@@ -1498,7 +1498,6 @@ export function createSpacecraft(
     { box, mesh, cylinder, torus, rod, instances },
     contactConsole,
     {
-      title: options.labels?.contact,
       accent: m.amber,
       socials: options.socials,
       rearWallProfile: interiorPoints.map((point: any) => ({

@@ -137,8 +137,9 @@ in Git history; the interaction contract here and current source govern.
 
 ## Contact computer and submission boundary
 
-The idle center monitor keeps its small `COMMUNICATIONS` label and current
-`CONTACT` heading; the owner is still deciding whether to rename that heading.
+The idle center monitor keeps its small `COMMUNICATIONS` label and uses
+`LET’S CONNECT` as its main heading, with `Start a conversation` underneath.
+The room sign still uses the configured Contact room name.
 Its footer reads `COM / 01` and `OPEN TO CONNECT`; the left and right social
 screens are `COM / 02` and `COM / 03`, respectively. There is no fourth channel.
 
@@ -166,6 +167,14 @@ HTML application plane cannot use WebGL depth to hide behind individual keys.
 Both views share `ContactForm` and the in-memory draft/submission state. **Schedule
 a call** comes first. Initially neither option is selected and no fields appear;
 the choice and entered draft persist across view changes within that visit.
+Clicking the selected option again returns to the chooser without discarding
+entered fields. The two choices use accessible toggle buttons; Enter and Space
+also select/deselect them. An explicit cleared choice survives view remounts,
+including visits carrying an earlier submission-success flag.
+The computer window shows a persistent themed scrollbar whenever its content
+overflows, independent of native scrollbar auto-hide settings. The thumb supports
+dragging and keyboard scrolling; wheel/touch still scroll the native content pane.
+Reading view uses its ordinary page flow rather than a nested Contact scroller.
 Call requests show required date/time and the device time zone first, then name,
 company, email, subject and message. Message mode uses those five shared fields
 in the same order; only email/message are required. Duration is omitted because

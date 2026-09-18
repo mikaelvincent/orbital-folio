@@ -1,0 +1,232 @@
+{
+  "date": "2026-09-18",
+  "baselineCommit": "b114239",
+  "behavior": {
+    "heading": "LET’S CONNECT on the idle monitor; COMMUNICATIONS, Start a conversation, OPEN TO CONNECT and configured room label preserved.",
+    "choices": "Native toggle buttons permit no active mode; selecting the current mode again hides fields while retaining draft. Explicit null choice survives remounts/initialSent. Existing sending guard and submission transport unchanged.",
+    "scrolling": "Persistent DOM track/thumb only on overflow of the computer application. Native viewport wheel/touch remains; thumb drag corrects CSS3D projection; keyboard controls and ResizeObserver update it without polling. Reading view retains ordinary page flow."
+  },
+  "sourceSha256": {
+    "features/portfolio/contact-flow.ts": "4a7a649a54ab95c48f04d742baf349ef75c9c1c5ee9e5b23513de54f087b4678",
+    "features/portfolio/contact-form.tsx": "35e18f3e78c99aa7036182de84bfcc402d085423eed6d7b39dee7d59c586cfd5",
+    "features/portfolio/contact-form.css": "0e76efaf6ab074f6d63b827f48d0db74d6c8c19b736487bab05863a13ac17b0c",
+    "features/portfolio/contact-computer-window.tsx": "2faa09b06ed15642c856cd8664d8c9acc11f9570c0825a45dc6c96980c525081",
+    "features/portfolio/contact-computer-window.css": "e2cbebf7d0ab0a07f61dbe74a44d5021e57e99c5bbb292e0ec8492f05ee0ac5b",
+    "features/portfolio/contact-scroll-area.tsx": "fe96ffee62416471f716543847560cd09b96ea3fbea50612433eff29ec20c62b",
+    "features/spacecraft/rooms/contact-flight-console.ts": "c1eedb0e26943c8415d372efa57260087f6f8cf57f3a9795e13549d233355470",
+    "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+    "tests/content/contact-form.test.mjs": "74ee9e6a65a78a019f0403581e41d0685b2c9d3034354d0385cbf18663a5792c",
+    "tests/content/contact-scroll-area.test.mjs": "60545349c9d3cc4720b928f98c6fc68feda5a667101441d6764fe9f5829fc4bf"
+  },
+  "engine": "Hidden Codex built-in Chromium",
+  "render": "Live normal renderer; no effects deliberately omitted. Images are browser screenshot exports at CSS viewport resolution (initial idle framebuffer is2x). No manual image resizing.",
+  "images": {
+    "idle-heading.jpg": {
+      "sha256": "fc3d127d1302da20acb0efb65d23860ae655db74012c0c7077a757b464ba445e",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "format": "jpeg"
+    },
+    "landscape-call.jpg": {
+      "sha256": "dc191b3ff04ff6580fe3a13fa1d370716dcb0731efbf5f818649595d655a4a6b",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "format": "jpeg"
+    },
+    "landscape-chooser.jpg": {
+      "sha256": "1fee1d5a887ecfee25817bf26642c8ab42c1653327e934f9968defb058abb5dd",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "cssViewport": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "format": "jpeg"
+    },
+    "portrait-call.jpg": {
+      "sha256": "0f3f3ff8f650a613bb275624b9be8436af72cbce4c49b7fb44a90652e3167632",
+      "imagePixels": [
+        390,
+        844
+      ],
+      "cssViewport": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "format": "jpeg"
+    },
+    "portrait-chooser.jpg": {
+      "sha256": "40e27c28430f2a869245e074f518cc7f4fe4d21657ee7d97a829f44919d469e2",
+      "imagePixels": [
+        390,
+        844
+      ],
+      "cssViewport": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "format": "jpeg"
+    },
+    "portrait-message-resized.jpg": {
+      "sha256": "a9a50ab77aaa3f5e0dda377f6b281000b7886c05ea7175d14146597e324e9f15",
+      "imagePixels": [
+        390,
+        844
+      ],
+      "cssViewport": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "format": "jpeg"
+    }
+  },
+  "browserChecks": {
+    "callClickAndSpaceToggle": true,
+    "messageClickAndEnterToggle": true,
+    "draftRetained": "Name Draft retained survived chooser→call, chooser→message and Reading↔Interactive remounts.",
+    "chooser": {
+      "fields": 0,
+      "scrollbars": 0
+    },
+    "wideDrag": {
+      "viewportHeight": 346,
+      "totalContentHeight": 675,
+      "maximum": 329,
+      "after": 329,
+      "cameraDragResponse": "0.00000,0.00000"
+    },
+    "keyboard": {
+      "Home": 0,
+      "PageDown": 329,
+      "portraitEndAfterTextareaResize": 318
+    },
+    "portraitTrackClick": {
+      "maximum": 260,
+      "after": 260
+    },
+    "textareaResize": {
+      "maximumBefore": 260,
+      "maximumAfter": 318,
+      "thumbHeightBefore": 368.834,
+      "thumbHeightAfter": 344.385,
+      "textareaHeightAfter": 141
+    },
+    "wheel": {
+      "reportedMaximum": 283,
+      "actualScrollTop": 283.5,
+      "note": "Native fractional scroll offset; indicator clamps to integral CSS client/scroll size range."
+    },
+    "railVisibleAfterIdle": true,
+    "overflowUpdatesAfterResize": true,
+    "consoleErrors": [],
+    "temporaryTabClosed": true,
+    "viewportOverrideReset": true,
+    "liveSubmissionsTriggered": false
+  },
+  "checks": {
+    "fullSuite": {
+      "status": "passed",
+      "passed": 332,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "typecheck": {
+      "status": "passed",
+      "log": "typecheck.log"
+    },
+    "affectedLint": {
+      "status": "passed",
+      "log": "lint.log"
+    },
+    "productionBuild": {
+      "status": "passed",
+      "log": "build.log",
+      "warnings": [
+        "Existing large client chunk advisory",
+        "Vinext static route-classification limitation"
+      ]
+    },
+    "diffCheck": "passed"
+  },
+  "performance": "Event-driven DOM work added; no new WebGL geometry/textures or asset downloads. No performance timing, memory, thermal or battery comparison performed or claimed; held ledger candidates unchanged.",
+  "limitations": [
+    "Native Safari and physical touchscreen gestures untested.",
+    "No live inbox submission was triggered; existing transport/demo boundary tests cover submission behavior.",
+    "Idle scrollbar visibility was checked between interactions, not with a timed disappearance benchmark.",
+    "An attempted read of performance.now in the restricted browser evaluation scope was unavailable; supported DOM visibility checks were used instead."
+  ],
+  "independentCritic": {
+    "reviewer": "/root/contact_flow_critic",
+    "status": "approved",
+    "score": 95,
+    "blockers": [],
+    "rubric": {
+      "fulfillment": [
+        25,
+        25
+      ],
+      "correctnessState": [
+        24,
+        25
+      ],
+      "visualAccessibility": [
+        23,
+        25
+      ],
+      "organizationPerformanceEvidence": [
+        23,
+        25
+      ]
+    },
+    "finding": "Final source, all six screenshots, docs and verification logs reviewed. Heading legible; deselection preserves drafts; persistent scrollbar fits both layouts without covering controls. All332tests and typecheck/lint/build/diff pass. Source and image hashes match.",
+    "limitations": [
+      "Native Safari and physical touch input untested.",
+      "Root performed live interactions; critic independently reviewed recorded evidence rather than replaying.",
+      "No measured performance improvement claimed."
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 export type ContactMode = 'call' | 'message';
 export type ContactDraft = {
-  mode?: ContactMode;
+  // null records an explicit return to the chooser across view remounts.
+  mode?: ContactMode | null;
   name?: string;
   company?: string;
   email?: string;

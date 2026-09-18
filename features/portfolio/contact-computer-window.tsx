@@ -2,6 +2,7 @@
 import type { ComponentProps } from 'react';
 import { Radio, X } from 'lucide-react';
 import { ContactForm } from './contact-form';
+import { ContactScrollArea } from './contact-scroll-area';
 import './contact-computer-window.css';
 
 /** Native form controls on the monitor's world-space application plane. */
@@ -32,9 +33,9 @@ export function ContactComputerWindow({
             <X size={20} aria-hidden="true" />
           </button>
         </header>
-        <div className="contact-window-body">
+        <ContactScrollArea>
           <ContactForm {...form} />
-        </div>
+        </ContactScrollArea>
       </article>
     </div>
   );

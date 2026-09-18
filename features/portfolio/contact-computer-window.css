@@ -87,13 +87,70 @@
   outline: 2px solid #ffc36a;
   outline-offset: -3px;
 }
+.contact-window-scroll {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
 .contact-window-body {
   overflow: auto;
   overscroll-behavior: contain;
   min-height: 0;
   flex: 1;
-  scrollbar-width: thin;
-  scrollbar-color: #586d77 #101d27;
+  scrollbar-width: none;
+}
+.contact-window-body::-webkit-scrollbar {
+  display: none;
+}
+.contact-window-body:focus-visible {
+  outline: 1px solid #c4a46f;
+  outline-offset: -2px;
+}
+.contact-window-scrollbar {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  right: 0;
+  width: 18px;
+  touch-action: none;
+  user-select: none;
+  cursor: default;
+}
+.contact-window-scrollbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6px;
+  width: 6px;
+  border-radius: 4px;
+  background: #2b3e49;
+}
+.contact-window-scroll-thumb {
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: 6px;
+  border-radius: 4px;
+  background: #b5aa8c;
+}
+.contact-window-scrollbar:hover .contact-window-scroll-thumb,
+.contact-window-scrollbar:focus-visible .contact-window-scroll-thumb {
+  background: #e3bc79;
+}
+.contact-window-scrollbar:focus-visible {
+  outline: 1px solid #e3bc79;
+  outline-offset: -2px;
+  border-radius: 5px;
+}
+.contact-scroll-anchor {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 .contact-computer-window .contact-app {
   border: 0;

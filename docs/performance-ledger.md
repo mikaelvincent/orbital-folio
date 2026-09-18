@@ -1392,6 +1392,21 @@ a measured frame-time, heat or battery improvement. Focus/visibility/close clean
 is preserved. The [focused verification and independent review](evidence/contact-capslock-status/review.json)
 record event-sequence and real-model tests, with native Safari input still untested.
 
+**Contact chooser follow-up, 18 September 2026:** the owner selected `LET’S CONNECT`
+for the idle monitor and requested deselectable modes plus an always-visible
+scrollbar when the computer application overflows. The existing canvas texture
+is repainted with the new heading; its dimensions and scene geometry stay the
+same. Two native toggle buttons replace the hidden-radio label assemblies.
+Returning to the chooser preserves the temporary draft and cannot submit it.
+The scrollbar adds DOM elements, one ResizeObserver for viewport/content sizes,
+and event-driven scroll/drag updates, with no polling or animation loop. Its
+three projected reference points correct pointer dragging on the CSS3D screen.
+The existing native content pane still owns wheel, touch and field scrolling.
+This is requested interface work, not a measured optimization; no timing, memory,
+heat or battery improvement is claimed. The [source-matched review and checks](evidence/contact-chooser-scroll/review.json)
+record landscape/portrait behavior and verification limitations. Deferred
+optimization candidates remain untouched.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

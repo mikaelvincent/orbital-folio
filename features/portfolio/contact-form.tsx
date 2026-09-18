@@ -58,7 +58,12 @@ export function ContactForm({
   const values = draft ?? localDraft;
   const latestDraft = useRef(values);
   latestDraft.current = values;
-  const mode = values.mode ?? (initialSent ? 'message' : undefined);
+  const mode =
+    values.mode === undefined
+      ? initialSent && !initialNoticeDismissed
+        ? 'message'
+        : undefined
+      : (values.mode ?? undefined);
   const current = submission ?? localSubmission;
   const status =
     initialSent && !initialNoticeDismissed && mode === 'message'
@@ -76,7 +81,10 @@ export function ContactForm({
     // its controlled draft. Compose against pending edits, not stale props.
     const next = {
       ...latestDraft.current,
-      mode: latestDraft.current.mode ?? mode,
+      mode:
+        latestDraft.current.mode === undefined
+          ? mode
+          : latestDraft.current.mode,
       ...patch,
     };
     latestDraft.current = next;
@@ -105,10 +113,11 @@ export function ContactForm({
     }
     updateDraft({ timeZone });
   }, [values.timeZone]); // eslint-disable-line react-hooks/exhaustive-deps
-  const chooseMode = (next: ContactMode) => {
+  const chooseMode = (choice: ContactMode) => {
     if (!ready || status === 'sending') return;
+    const next = mode === choice ? undefined : choice;
     setInitialNoticeDismissed(true);
-    updateDraft({ mode: next });
+    updateDraft({ mode: next ?? null });
     updateSubmission({ status: 'idle', error: '', mode: next });
   };
   const beginAgain = () => {
@@ -216,19 +225,16 @@ export function ContactForm({
             ['message', 'Send a message', Mail],
           ] as const
         ).map(([value, label, Icon]) => (
-          <label key={value}>
-            <input
-              type="radio"
-              name={`${id}-mode`}
-              value={value}
-              checked={mode === value}
-              onChange={() => chooseMode(value)}
-            />
-            <span>
-              <Icon size={18} />
-              {label}
-            </span>
-          </label>
+          <button
+            key={value}
+            type="button"
+            aria-pressed={mode === value}
+            disabled={!ready || status === 'sending'}
+            onClick={() => chooseMode(value)}
+          >
+            <Icon size={18} aria-hidden="true" />
+            {label}
+          </button>
         ))}
       </fieldset>
       {mode && (

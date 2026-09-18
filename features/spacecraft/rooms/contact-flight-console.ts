@@ -12,7 +12,6 @@ export function buildContactFlightConsole(
   h: any,
   floorRoot: any,
   options: {
-    title?: string;
     accent?: any;
     socials?: SocialScreenLinks;
     rearWallProfile?: Array<{ y: number; z: number }>;
@@ -313,7 +312,7 @@ export function buildContactFlightConsole(
       ctx.fillStyle = '#e4eceb';
       ctx.font = '600 92px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText((options.title || 'Contact').toUpperCase(), 512, 180, 870);
+      ctx.fillText('LET’S CONNECT', 512, 180, 870);
       ctx.font = '400 34px sans-serif';
       ctx.fillStyle = '#bacdda';
       ctx.fillText('Start a conversation', 512, 257);

@@ -42,6 +42,17 @@ test('call requests validate and complete as a demo without invoking any transpo
     /Choose Schedule a call or Send a message first/,
   );
   assert.equal(calls, 0);
+  await assert.rejects(
+    submitContactDraft({ ...call, mode: null }, async () => {
+      calls++;
+    }),
+    /Choose Schedule a call or Send a message first/,
+  );
+  assert.equal(
+    calls,
+    0,
+    'Returning to the chooser cannot submit retained fields',
+  );
 });
 
 test('messages reuse the existing inbox contract while preserving optional subject/company', async () => {
@@ -195,6 +206,18 @@ test('unhydrated contact forms fail closed while preserving a no-JavaScript emai
   );
   assert.match(chooser, /Schedule a call/);
   assert.match(chooser, /Send a message/);
+  assert.equal((chooser.match(/aria-pressed="false"/g) || []).length, 2);
+  const deselectedAfterSent = renderToStaticMarkup(
+    createElement(ContactForm, {
+      site: { email: 'owner@example.com' },
+      initialSent: true,
+      draft: { ...message, mode: null },
+    }),
+  );
+  assert.doesNotMatch(
+    deselectedAfterSent,
+    /<form\b|Message received|aria-pressed="true"/,
+  );
   for (const draft of [call, message]) {
     // Include a valid prefilled draft: native validation alone must not be the
     // protection against leaking fields through the browser's default GET.

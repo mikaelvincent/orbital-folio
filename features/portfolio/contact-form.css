@@ -135,18 +135,10 @@
   padding: 0;
   min-width: 0;
 }
-.contact-app-options label {
+.contact-app-options button {
   position: relative;
   min-width: 0;
   cursor: pointer;
-}
-.contact-app-options input {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-}
-.contact-app-options label > span {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -160,17 +152,17 @@
   background: #182833;
   color: #c5d0d6;
 }
-.contact-app-options label:hover > span {
+.contact-app-options button:hover {
   border-color: #bca883;
   background: #243440;
 }
-.contact-app-options input:checked + span {
+.contact-app-options button[aria-pressed='true'] {
   border-color: #d5b575;
   color: #fff1d7;
   background: #383529;
   box-shadow: inset 0 -2px 0 #d8a34e;
 }
-.contact-app-options input:focus-visible + span {
+.contact-app-options button:focus-visible {
   outline: 2px solid #ffc36a;
   outline-offset: 3px;
 }
@@ -353,7 +345,7 @@
   .contact-app-options {
     gap: 6px;
   }
-  .contact-app-options label > span {
+  .contact-app-options button {
     font-size: 12px;
     gap: 6px;
     padding: 8px 5px;
