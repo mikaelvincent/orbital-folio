@@ -1,0 +1,13 @@
+✔ Settings are versioned, exact round trips and strictly reject invalid imports (1.6015ms)
+✔ Preview speed changes preserve phase, pause and seek without accelerating sky or camera (31.093833ms)
+✔ Explicit preview Play can run under reduced motion, waits for readiness, and never double counts time (10.978875ms)
+✔ Using the visible frame as the opening survives export/import, resize and full revolutions exactly (11.554625ms)
+✔ Preview reuses the loaded scene resources through edits, navigation, resizing and disposal (6.93975ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 175.364208

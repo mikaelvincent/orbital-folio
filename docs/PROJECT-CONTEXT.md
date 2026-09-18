@@ -34,6 +34,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
+| Temporary Earth composition helper | `features/orbit/earth-composer.tsx` and `earth-composer.css` for the interface; `earth-composition.ts` for presets, validation and portable settings; `features/spacecraft/spacecraft-runtime.ts` connects preview playback to the existing environment |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
@@ -221,19 +222,37 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-Production uses the **8192×4096 NASA Black Marble night map**, a coastal East Asian
-opening (120°E, 25°N, +22.5° roll) and cinematic blue atmosphere. The current opening
-supersedes both Mediterranean and the inland East Asian trial. The owner clarified
-that a lack of visible light, including over land, was the problem: terrain area
-alone is not a useful acceptance criterion. The lower-latitude tilted pass retains
-China's and India's city-light networks through the first five minutes. Continuous
-0.003 rad/s rotation is unchanged; later dark intervals remain, including a dimmer
-ten-minute view. No reversal, pause, hidden reset or texture modification is used.
-It loads the selected map,
-not every resolution candidate. The owner sees worthwhile improvement over 4K
-and accepts the added cost; that overrides the earlier general 4K recommendation.
-Public globe controls/presets were temporary exploration UI, removed after the
-pose was selected. Keep useful developer comparisons and historical assets.
+Production uses the **8192×4096 NASA Black Marble night map** and cinematic blue
+atmosphere. The default remains the coastal East Asian opening (120°E, 25°N,
++22.5° roll), superseding Mediterranean and the inland East Asian trial. The owner
+has not accepted that opening as final: its initial ocean and sparse lights still
+disappoint despite improved later city-light coverage. Terrain area and automated
+light scores are useful comparison evidence, not substitutes for the owner's
+visual choice. Normal continuous rotation remains 0.003 rad/s; later dark regions
+are an inherent tradeoff of the current full rotation. No texture modification or
+resolution change is introduced. Only the selected 8K map loads, not all comparison
+assets. The owner sees worthwhile improvement over 4K and accepts the added cost.
+
+The owner has now authorized a **temporary Earth view helper** to select the final
+composition directly. This expressly supersedes the earlier removal of public
+globe controls for this selection process. Its launcher opens longitude, latitude
+and tilt sliders with numeric inputs, plus five presets: Europe, northern India,
+eastern China, eastern United States and the current opening. Europe is the initial
+recommendation to inspect, not an automatically applied new production default.
+Preview offers pause/play, 1×/10×/30×/60× speeds, a roughly full-revolution timeline,
+return to 0:00 and reset angle. Only Earth fast-forwards; the spacecraft, stars
+and meteors retain their normal clocks. Explicit Play can run Earth under reduced
+motion without restarting those other animations. Closing the helper pauses it
+and retains the selected frame; a page reload returns to the production default.
+
+"Use this frame as the start" folds the preview's rotation into its opening before
+copying. Strict version-1 JSON contains longitude/latitude/roll and the normal
+0.003 rad/s rate, excluding preview time and speed. Copy and pasted-settings import
+let the owner send an exact choice in chat; malformed settings are rejected with
+feedback. Choices remain in temporary interface state without database or browser
+storage writes. After the owner selects and shares settings, apply that opening
+and remove the helper. Preserve useful developer comparisons and historical
+assets; do not preempt that choice by promoting a preset.
 
 Atmosphere art takes priority over strict realism: preserve the gradual blue
 horizon with a restrained peak, without gray pollution-like haze or glaring
@@ -257,6 +276,8 @@ and resource costs. Its land-based Earth acceptance was superseded by the
 which records early light coverage, distribution and the remaining dark intervals.
 Both CPU audits use image-color proxies requiring rendered review, not authoritative
 land or settlement masks.
+The [temporary helper review](evidence/earth-composer/review.json) records its
+final source, checked interaction states and verification limitations.
 Earlier day-map/procedural comparison: [four-way audit](evidence/performance/earth-fourway/audit-summary.md).
 Atmosphere: [horizon softening](evidence/horizon-softening/README.md).
 Asset provenance: [texture records](../public/textures/README.md).
@@ -366,7 +387,7 @@ its comparison; retain necessary current maintenance documentation. Remove stale
 one-off reports, plans and screenshots once their useful decisions are captured.
 Git history preserves removed revisions. Do not create a report for routine
 organizational cleanup. Today's work
-does not include restoring 2K/4K defaults, public Earth manipulators, old procedural
+does not include restoring 2K/4K defaults, permanent public Earth manipulators, old procedural
 clouds, ordinary-door waits, duplicate iris blades, generic exterior filler,
 angled rescue lights, end-gap reels or the short lower ladder stub.
 

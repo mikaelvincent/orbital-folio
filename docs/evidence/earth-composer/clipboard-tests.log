@@ -1,0 +1,11 @@
+✔ The first click copies synchronously and restores field focus and selection (1.178167ms)
+✔ Modern copying starts in the same gesture if the compatibility path is unsupported (0.102291ms)
+✔ Denied or absent clipboard access is reported honestly and still cleans up (0.418791ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 100.389834

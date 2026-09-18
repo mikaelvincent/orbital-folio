@@ -111,15 +111,21 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- Keep the approved **8K night Earth**, with a coastal East Asian opening and
-  tilted pass through China's and India's city-light networks. Prioritize visible
-  lights over land area: unlit terrain was the problem with the inland route.
-  Keep continuous rotation at the current speed unless the owner changes that
-  preference; later dark regions remain a known tradeoff. This supersedes the
-  earlier Mediterranean and inland East Asian starts. The owner sees worthwhile
-  extra detail over 4K and accepts its added delivery/memory cost. Do not silently
-  lower resolution or restore removed public globe controls. Retain useful
-  developer comparison tools and their historical assets.
+- Keep the approved **8K night Earth** and normal 0.003 rad/s rotation. The owner
+  sees worthwhile detail over 4K and accepts its added delivery/memory cost.
+  Prioritize visible city lights over land area; unlit terrain was the inland
+  route's problem, and the coastal East Asian opening is also not yet accepted
+  as the final composition. Preserve that default while the owner chooses.
+- The owner authorized a **temporary Earth view helper** with angle controls,
+  presets, Earth-only fast-forward and copy/paste settings. This supersedes the
+  earlier prohibition on restoring public globe controls for this selection
+  process only. Keep previews in temporary interface state, without database or
+  browser-storage writes. Export the selected opening at normal rotation speed;
+  a later preview frame must be explicitly adopted as the opening. Once the owner
+  shares their choice, apply it and remove the helper as requested. Retain useful
+  developer comparisons and historical assets. Do not treat a preset or an
+  automated light score as final approval; continuous rotation still reaches
+  darker regions.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied

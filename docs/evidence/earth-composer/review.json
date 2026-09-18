@@ -1,0 +1,771 @@
+{
+  "date": "2026-09-18",
+  "purpose": "Temporary owner-directed Earth composition helper; no new production opening selected.",
+  "baselineCommit": "41cda28d8ec0a075a5090ac90f7d89c1bedecead",
+  "source": [
+    {
+      "path": "features/orbit/earth-composer.tsx",
+      "sha256": "1b72a598362b40381867ff1d69c3c0ccef2c52229a99d481fd4513fcc2dd669d"
+    },
+    {
+      "path": "features/orbit/earth-composer.css",
+      "sha256": "c6cf1273436febddd8dec1527f9f51fab21a125502658a18c4c33f79ba2d70d4"
+    },
+    {
+      "path": "features/orbit/earth-composition.ts",
+      "sha256": "a0dc7e36835a988e842fd8292e79eb874fe75cf276d41a8be86f486205d4da6f"
+    },
+    {
+      "path": "features/orbit/earth-view-transform.ts",
+      "sha256": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d"
+    },
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "sha256": "28396b0325820b4c5cf8f72bf09d30941770c00f41a94a6ad2197d435130e9de"
+    },
+    {
+      "path": "features/portfolio/immersive-portfolio.tsx",
+      "sha256": "b801d14ccedef0ab2ba9b255096aec9e3518c01905450ff21b39b05f3e8cc00d"
+    },
+    {
+      "path": "features/portfolio/contact-clipboard.ts",
+      "sha256": "183f6e1c05bb6184f1c1541085b9f520f6dc40a72561021ca51eb0a6b394dd91"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-runtime.ts",
+      "sha256": "bf1baf30a40aa0ac70395a4b37957646592322c1127fc1b01568ae990bc73d71"
+    },
+    {
+      "path": "lib/clipboard.ts",
+      "sha256": "7f6521dc4ce96979a624e5d71f4d1460486da107827a3d068dca4de1b6969c78"
+    },
+    {
+      "path": "tests/orbit/earth-composition.test.mjs",
+      "sha256": "5d329b987dba68644104a9f9c162e8be4469b792e0dced8bf2f5752f812202a7"
+    }
+  ],
+  "production": {
+    "texture": "Existing 8192×4096 night Earth, unchanged",
+    "opening": {
+      "longitude": 120,
+      "latitude": 25,
+      "roll": 22.5
+    },
+    "rotationRadiansPerSecond": 0.003,
+    "untilOwnerSelection": "No preset promoted to the production default. Preview edits are in memory only; refresh restores production."
+  },
+  "design": {
+    "recommendation": "Inspect Europe at night first, then Eastern United States. Northern India and Eastern China provide alternatives; current opening remains available for comparison.",
+    "controls": "Longitude, latitude and tilt sliders plus numeric inputs; isolated Earth preview clock; 1×/10×/30×/60×; approximately one revolution timeline; pause, return to start, reset angle; explicit current-frame adoption; versioned settings copy/import.",
+    "portableSettings": "Version 1 exports only opening longitude/latitude/roll and normal 0.003 rad/s rate. Fast-forward and preview elapsed time are deliberately excluded.",
+    "temporaryRemoval": "After the owner shares settings, promote the selected opening and remove the composer component/CSS, runtime bridge and preview-only engine/state code. Retain useful developer comparisons and historical evidence."
+  },
+  "browser": {
+    "engine": "Codex hidden built-in Chromium; native Safari untested",
+    "liveScene": true,
+    "texture": "Production 8K",
+    "viewports": [
+      {
+        "css": [
+          1280,
+          720
+        ],
+        "dpr": 2,
+        "drawingBuffer": [
+          2560,
+          1440
+        ]
+      },
+      {
+        "css": [
+          390,
+          844
+        ],
+        "dpr": 1,
+        "drawingBuffer": [
+          390,
+          844
+        ]
+      }
+    ],
+    "captureFormat": "JPEG CSS viewport screenshots, with drawing-buffer dimensions recorded separately",
+    "checks": [
+      "All five preset choices selectable; full-scene opening captures for Europe, Northern India, Eastern China and Eastern United States.",
+      "Native slider keyboard change, negative numeric longitude typed incrementally, and manual latitude/tilt changes work.",
+      "60× Play advances the preview clock; Pause stops it; timeline keyboard seek to 210 seconds works.",
+      "Use this frame as the start reads the live controller and folds210 seconds into eastern-US longitude −119.0963410932419, retaining 39° latitude and 7.5° tilt; elapsed resets to 0.",
+      "First copy click reports success and exposes the full generated JSON in the Settings textarea.",
+      "Invalid {} import reports an error without changing the view; pasted valid exported settings restore the intended angle and elapsed 0.",
+      "Return to start and Reset angle restore elapsed 0 and the current 120/25/22.5 default respectively.",
+      "Portrait modes retain readable controls, body scrolling and pinned play/speed/copy actions; Earth remains visible below the helper.",
+      "Mode changes reset body scroll to top (observed 207 px to 0 px); manual form edits do not reset scroll.",
+      "Closing pauses preview. Escape from the helper while on /contact keeps the room route; reading-view round trip retains Europe 12/48/−10 and paused preview.",
+      "Viewport changes retain chosen settings; temporary review tab closed and viewport override reset. Main localhost server retained."
+    ],
+    "clipboardQualification": "The app compatibility copy path returned success and showed Copied. The built-in tool virtual clipboard did not receive these bytes and refused an empty virtual paste. Native clipboard was not inspected. Import round-trip used the exact generated textarea JSON explicitly placed into the tool virtual clipboard, then pasted and applied. This verifies serialization/import and application copy success reporting, not native OS clipboard contents.",
+    "limits": [
+      "Native Safari, physical touch and mobile software keyboard were not tested; Chromium results are not Safari results.",
+      "Reduced-motion explicit Play was verified in the engine tests, not emulated in the browser.",
+      "Earlier audit-mode inspection returned 0 accessibility violations before final small layout refinements; it is supplementary only, not a final complete accessibility audit.",
+      "Opening captures judge art at selected instants; the full rotation still reaches darker regions. No preset guarantees continuous city lights.",
+      "An initial hidden-browser tab stalled under concurrent checking; it was closed and a fresh hidden tab was used for the successful live checks."
+    ],
+    "captures": [
+      {
+        "file": "wide-europe-panel.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "12"
+            ],
+            [
+              "Latitude degrees",
+              "48"
+            ],
+            [
+              "Tilt degrees",
+              "-10"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "01322876fd91b91404e9d09c49023f7fb2a585d9d5970151daf0e70c1429a6e1"
+      },
+      {
+        "file": "wide-europe-opening.jpg",
+        "dom": {
+          "angles": [],
+          "panelOpen": false
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "cc4cebab3768896a1653bf1b72982263fa5789b7804964aeda412e028f9b331e"
+      },
+      {
+        "file": "wide-india-opening.jpg",
+        "dom": {
+          "angles": [],
+          "panelOpen": false
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "61ca31ca1e572c32e7d2c991be0de5192647cf9dc6c6e5ac8e28ce201b417070"
+      },
+      {
+        "file": "wide-china-opening.jpg",
+        "dom": {
+          "angles": [],
+          "panelOpen": false
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "4e18ce3e445bc3b013bee57956132e040a8792d192e3aae20720b4875d903890"
+      },
+      {
+        "file": "wide-us-opening.jpg",
+        "dom": {
+          "angles": [],
+          "panelOpen": false
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "3d3e5987e43fd8d2344d93eae70a82bf9a66473f1893d93becd366706f07b09e"
+      },
+      {
+        "file": "wide-angles-playing.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-83"
+            ],
+            [
+              "Latitude degrees",
+              "39"
+            ],
+            [
+              "Tilt degrees",
+              "7.5"
+            ]
+          ],
+          "elapsed": "0:13",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "dd60dbd552ba5037cc642301a3e95ea637600da93d051b5e256cae7cf6bae302"
+      },
+      {
+        "file": "wide-preview-seek.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-83"
+            ],
+            [
+              "Latitude degrees",
+              "39"
+            ],
+            [
+              "Tilt degrees",
+              "7.5"
+            ]
+          ],
+          "elapsed": "3:30",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "d7a5ba0806bd6c7f34d80f1034b4f00976df00cf18b5d7def25871a58f539ca1"
+      },
+      {
+        "file": "wide-frame-copied.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-119.1"
+            ],
+            [
+              "Latitude degrees",
+              "39"
+            ],
+            [
+              "Tilt degrees",
+              "7.5"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "890ee0c1f5c43ec1262edbe261ade655bb6a3249a90acb0852a0fe338593e391"
+      },
+      {
+        "file": "wide-invalid-import.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-119.1"
+            ],
+            [
+              "Latitude degrees",
+              "39"
+            ],
+            [
+              "Tilt degrees",
+              "7.5"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "d9a843bc056c587cda34c12feccdd511398e3b4608a3346778dc7ee901eb9193"
+      },
+      {
+        "file": "wide-settings-imported.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-119.1"
+            ],
+            [
+              "Latitude degrees",
+              "39"
+            ],
+            [
+              "Tilt degrees",
+              "7.5"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "097d8d83ab55c62232dfea1d60c10b821e55f95e75817826112211b388677aaf"
+      },
+      {
+        "file": "wide-manual-angles.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "-119.1"
+            ],
+            [
+              "Latitude degrees",
+              "39.5"
+            ],
+            [
+              "Tilt degrees",
+              "15"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "60"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "1559762e4972ee2d30cbc51e83f4a8cc051a690e07ae5621ef94bfa2ff008850"
+      },
+      {
+        "file": "portrait-presets.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "12"
+            ],
+            [
+              "Latitude degrees",
+              "48"
+            ],
+            [
+              "Tilt degrees",
+              "-10"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        },
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "4381c2456764a7095ccade79a11766fa65c745f6aee8e34a46ce14362fb36f38"
+      },
+      {
+        "file": "portrait-angles.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "12"
+            ],
+            [
+              "Latitude degrees",
+              "48"
+            ],
+            [
+              "Tilt degrees",
+              "-10"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        },
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "fbb1fc4480c2ffa74556d478e8aff21b23a4f4d0c3ab90aeeb4185ffc98b3f3c"
+      },
+      {
+        "file": "portrait-settings.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "12"
+            ],
+            [
+              "Latitude degrees",
+              "48"
+            ],
+            [
+              "Tilt degrees",
+              "-10"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        },
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "5e7d777fc19e59928b7450b9ce71e5a35b30f8ddb7751fc8d613349b1cd1a5c4"
+      },
+      {
+        "file": "portrait-europe-opening.jpg",
+        "dom": {
+          "angles": [],
+          "panelOpen": false
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        },
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "8cd76c65be823088183d3bd6683f653291c0a4ce1071a81f43daee28d83fbfd7"
+      },
+      {
+        "file": "portrait-after-reading.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "12"
+            ],
+            [
+              "Latitude degrees",
+              "48"
+            ],
+            [
+              "Tilt degrees",
+              "-10"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        },
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "d2c52c17ff5eec2dd8625aa30e68c724b0499ca22197eed991d7c40fbdbf0b05"
+      },
+      {
+        "file": "wide-reset.jpg",
+        "dom": {
+          "angles": [
+            [
+              "Longitude degrees",
+              "120"
+            ],
+            [
+              "Latitude degrees",
+              "25"
+            ],
+            [
+              "Tilt degrees",
+              "22.5"
+            ]
+          ],
+          "elapsed": "0:00",
+          "panelOpen": true,
+          "speed": "1"
+        },
+        "canvas": {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        },
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "37ea96359a1478d4f59fa5f6759b7fe720b0b5761723ca0c147614e6d29c1a10"
+      }
+    ]
+  },
+  "verification": {
+    "fullSuite": {
+      "command": "npm test",
+      "pass": 340,
+      "fail": 0,
+      "log": "tests.log",
+      "qualification": "Full suite passed before the final diagnostics-only earthPreview metadata addition. The five preview tests were rerun after that addition, including new metadata assertions."
+    },
+    "finalPreviewTests": {
+      "command": "node --test tests/orbit/earth-composition.test.mjs",
+      "pass": 5,
+      "fail": 0,
+      "log": "preview-tests-final.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "log": "typecheck.log"
+    },
+    "lint": {
+      "command": "npm run lint -- [changed TypeScript and test paths]",
+      "result": "pass",
+      "log": "lint.log"
+    },
+    "build": {
+      "command": "npm run build",
+      "result": "pass",
+      "log": "build.log",
+      "warnings": "Existing large-chunk advisory, module.register deprecation, and Vinext route-classification notice remain."
+    },
+    "initialFailure": {
+      "log": "tests-initial-import-failure.log",
+      "cause": "Moving the shared clipboard helper initially omitted the .ts extension from the compatibility re-export; direct Node contact-clipboard tests could not resolve it.",
+      "fix": "Explicit .ts compatibility re-export; all three clipboard tests and subsequent full suite pass.",
+      "targetedLog": "clipboard-tests.log"
+    },
+    "logs": [
+      {
+        "file": "build.log",
+        "sha256": "46888aeb8882e9421b028f2862056f5b51102ec9bcdec9784fb9ad79292423ae"
+      },
+      {
+        "file": "clipboard-tests.log",
+        "sha256": "c37e0a401aa4ec5223f3955e34baf4f6cf3af37fc77bbc8548d1b20543407fa4"
+      },
+      {
+        "file": "lint.log",
+        "sha256": "3feb881c59d82aa9d17ef8e6fe0dc2ebef770c6f42d580868f35a192693bdc67"
+      },
+      {
+        "file": "preview-tests-final.log",
+        "sha256": "b84dab35157749a4a6729ee57d0072af0bce492cbd9a9281ff2cf0b9e9d91f60"
+      },
+      {
+        "file": "tests-initial-import-failure.log",
+        "sha256": "1bf3019018aa7f49b9f0610660715aac29d42af20597e399e4bee3073550b33d"
+      },
+      {
+        "file": "tests.log",
+        "sha256": "22a6931ff6859bba85a0008895c98a44ec1660631a3b195610a0b7cbc19a2f73"
+      },
+      {
+        "file": "typecheck.log",
+        "sha256": "4ce4efc47acf07fca71727abc270eb4ec5dbd3eb860fb759ba84f18d4f129281"
+      }
+    ],
+    "logNormalization": "Only trailing line whitespace and excess blank lines at EOF were removed from captured logs for repository hygiene; results and warning text retained."
+  },
+  "performance": {
+    "scope": "Requested selection tooling, not an optimization experiment. Held ledger candidates remain unchanged.",
+    "observations": "Uses existing sphere, materials and 8K texture; resource-identity tests confirm edits do not recreate them. Adds React/interface state, 5 Hz synchronization only while open, and separate preview bookkeeping. Preview state is exported in diagnostics as earthPreview: null or {paused, speed}, with actual opening and elapsed time.",
+    "claims": "No CPU/GPU timing, process/GPU memory, thermal or battery improvement claimed. Build/tests ran concurrently; their times are verification output and not performance comparisons."
+  },
+  "finalEvidenceMatch": "Final rendered UI captures reflect the delivered UI. The later change adds diagnostics-only preview active/paused/speed metadata and its assertions; it does not change rendering or interaction.",
+  "critic": {
+    "status": "Complete; no unresolved blockers",
+    "agent": "/root/earth_helper_critic",
+    "rubric": {
+      "fulfillment": 25,
+      "usabilityAndVisualDesign": 25,
+      "correctnessAndAccessibility": 30,
+      "organizationRemovabilityAndCostHonesty": 20
+    },
+    "revisions": [
+      "Use explicit X/Escape dismissal to avoid Safari outside-focus behavior.",
+      "Pin playback, speed, copy and copy feedback in the footer.",
+      "Read the exact live preview clock when adopting the current frame.",
+      "Reset panel body scroll when switching modes.",
+      "Identify preview pause/speed in exported diagnostics."
+    ],
+    "limitations": "See browser limits and clipboard qualification above.",
+    "score": 95,
+    "awarded": {
+      "fulfillment": 25,
+      "usabilityAndVisualDesign": 23,
+      "correctnessAndAccessibility": 28,
+      "organizationRemovabilityAndCostHonesty": 19
+    },
+    "assessment": "Fulfills controls, presets, accelerated preview and portable settings. All 17 screenshots reviewed. Portrait scrolling is a reasonable temporary-helper tradeoff. Native Safari and actual OS clipboard bytes are unverified; no browser-general performance claims. Final metadata-only addition reviewed.",
+    "hashVerification": "Independent critic verified all 10 source hashes, 17 capture hashes/dimensions and 7 log hashes. Later log-only EOF normalization refreshed log hashes; source and images are unchanged."
+  }
+}

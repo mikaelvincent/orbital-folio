@@ -21,6 +21,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 25 · 16 September 2026 | Contact screen clearance, active social controls and wall dismissal | Structural model counts/storage unchanged against `917e7e0`. New exposed-wall picking reuses exact-ray results after geometry/camera settling; descriptive Node workload sizing does not establish browser speed, heat or battery gains. |
 | 27 · 18 September 2026 | Surrounding stars, clearer twinkle and a longer land-facing Earth opening | New art baseline: desktop star arrays +0.37 MiB, same one star draw and 8K asset. Sampled terrain-color dominance lasts roughly 12 minutes before dropping below 40%; this is a visual proxy, not a timing gain. |
 | 28 · 18 September 2026 | Retarget the early Earth pass toward visible city lights | Land coverage proved misleading. At unchanged rotation speed, weighted warm-light coverage over the first five minutes improves across all three tested layouts; texture, geometry and shaders are unchanged. |
+| 29 · 18 September 2026 | Temporary Earth composition helper for the owner's final selection | The coastal opening remains unsatisfactory to the owner. Presets, direct angle controls, Earth-only preview and portable settings enable an explicit choice; no new opening or performance optimization is adopted. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1519,6 +1520,59 @@ blockers. Hidden built-in Chromium was visually tested; native Safari was not.
 This task adds no production texture, geometry, pass or per-frame operation.
 That structural fact is not a measured CPU/GPU, heat or battery improvement.
 Deferred performance candidates remain unchanged.
+
+## 29 — Temporary Earth composition helper (18 September 2026)
+
+**Requested design-selection tooling, not an optimization.** The owner still
+finds the initial coastal view too ocean-heavy and sparsely lit. Entry 28's
+improved early aggregate scores did not establish acceptance of the opening.
+Instead of choosing another default without that feedback, a temporary public
+**Earth view** helper now supports direct comparison and an exact owner-selected
+result. This authorization supersedes the earlier removal of public controls for
+the duration of the selection process; the helper is to be removed after the
+owner shares their final settings.
+
+The interface provides longitude, latitude and tilt sliders with numeric inputs.
+Five starting points cover Europe, northern India, eastern China, eastern United
+States and the existing coastal opening. Europe is recommended as the first
+city-light composition to inspect, not a production change. Pause/play, 1×/10×/
+30×/60× playback and a roughly 35-minute scrubber let the owner inspect later
+geography, return to 0:00 or reset the angle. Fast-forward affects only Earth's
+rotation. A deliberate Play action can animate Earth under reduced motion while
+the ordinary spacecraft, star and meteor behavior remains unchanged. Closing the
+helper pauses preview and leaves that frame available for inspection.
+
+The portable version-1 JSON contains the three opening angles and the unchanged
+0.003 rad/s production rotation rate. Preview speed and elapsed time are excluded.
+An explicit **Use this frame as the start** action folds the later rotation into
+the opening before copying; import validates complete, finite, bounded settings
+instead of silently accepting malformed values. Copy has a selectable-text
+alternative. The chosen settings remain in temporary interface state; no database,
+browser-storage, backend or public content mutation is involved. Reloading starts
+from the unchanged production opening until a separate final choice is applied.
+
+The same 8K texture, sphere geometry, atmosphere and sky shaders are reused. The
+helper adds interface/state work and Earth-specific preview bookkeeping; editing
+an angle recalculates orientation without rebuilding scene resources. These are
+implementation observations, not measured CPU/GPU, process-memory, heat or battery
+claims. No new resolution benchmark or optimization candidate is part of this
+task. Keep the helper's state identifiable in future performance comparisons,
+and distinguish normal visits from deliberately accelerated preview runs.
+
+The [source-matched implementation and review record](evidence/earth-composer/review.json)
+owns final checks, actual browser coverage, screenshots, critic findings and
+remaining limitations. Earlier city-light comparisons remain preserved as
+historical evidence, including their unsuccessful acceptance assumptions.
+Deferred optimization candidates remain unchanged.
+
+Verification: 340 tests passed, with the five preview tests repeated after the
+final diagnostics-only metadata addition; typecheck, affected lint and production
+build passed. Seventeen live hidden-Chromium captures cover desktop and portrait
+controls, recommended openings, playback, seeking and settings import. The
+independent critic rated the final implementation **95/100**, with no blockers.
+Native Safari and the native clipboard payload remain unverified; the evidence
+records the built-in browser's separate virtual-clipboard limitation. No timing
+or thermal improvement is claimed.
 
 ## Next candidates
 

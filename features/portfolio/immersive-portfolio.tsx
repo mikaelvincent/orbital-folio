@@ -33,6 +33,8 @@ import {
   ContactView,
 } from './room-views';
 import { PrivacyView } from './privacy-view';
+import { EarthComposer } from '../orbit/earth-composer';
+import type { EarthCompositionControls } from '../orbit/earth-composition';
 
 export function ImmersivePortfolio({
   data,
@@ -64,6 +66,8 @@ export function ImmersivePortfolio({
   const [enhanced, setEnhanced] = useState(false);
   const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
   const diagnosticsToggle = useRef<HTMLButtonElement>(null);
+  const [earthControls, setEarthControls] =
+    useState<EarthCompositionControls | null>(null);
   const [reading, setReading] = useState(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
@@ -469,6 +473,7 @@ export function ImmersivePortfolio({
             paused={reduced}
             enabled={immersive}
             diagnosticsEnabled={diagnosticsEnabled}
+            onEarthCompositionReady={setEarthControls}
             onDiagnosticsClose={() => {
               setDiagnosticsEnabled(false);
               diagnosticsToggle.current?.focus({ preventScroll: true });
@@ -675,6 +680,7 @@ export function ImmersivePortfolio({
             </a>
           </div>
         )}
+        <EarthComposer controller={earthControls} enabled={immersive} />
         <span className="sr-only" aria-live="polite">
           {arrived && destination.section !== 'home'
             ? s[destination.section + 'Label']

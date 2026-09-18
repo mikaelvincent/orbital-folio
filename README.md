@@ -8,6 +8,15 @@ The interactive view makes the ship the main interface. Projects and Case studie
 
 Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses an 8K night Earth opening over coastal East Asia for an early pass through prominent city-light networks, a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
+The temporary **Earth view** helper lets the owner choose a better opening: try
+the five presets, adjust longitude/latitude/tilt, then play or scrub its rotation
+at up to 60× speed. Start with **Europe at night** for dense city-light patterns.
+Use **Use this frame as the start** to adopt a later preview frame, then **Copy
+starting view** to share the exact settings. Preview speed is not part of the
+chosen normal-speed rotation. Settings can also be pasted back into the helper.
+Changes last only for the current visit; after a final choice, the helper is to
+be removed. See the [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art).
+
 ## Run locally
 
 Requires Node 22.18+ (Node 24 LTS recommended) and npm. The first setup downloads dependencies; the local Cloudflare emulator persists data under `.wrangler/state`.

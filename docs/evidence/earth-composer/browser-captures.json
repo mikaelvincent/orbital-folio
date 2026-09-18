@@ -1,0 +1,475 @@
+{
+  "engine": "Codex hidden built-in Chromium; native Safari untested",
+  "captureFormat": "JPEG CSS viewport screenshots, with drawing-buffer dimensions recorded separately",
+  "captures": [
+    {
+      "file": "wide-europe-panel.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "12"
+          ],
+          [
+            "Latitude degrees",
+            "48"
+          ],
+          [
+            "Tilt degrees",
+            "-10"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-europe-opening.jpg",
+      "dom": {
+        "angles": [],
+        "panelOpen": false
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-india-opening.jpg",
+      "dom": {
+        "angles": [],
+        "panelOpen": false
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-china-opening.jpg",
+      "dom": {
+        "angles": [],
+        "panelOpen": false
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-us-opening.jpg",
+      "dom": {
+        "angles": [],
+        "panelOpen": false
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-angles-playing.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-83"
+          ],
+          [
+            "Latitude degrees",
+            "39"
+          ],
+          [
+            "Tilt degrees",
+            "7.5"
+          ]
+        ],
+        "elapsed": "0:13",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-preview-seek.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-83"
+          ],
+          [
+            "Latitude degrees",
+            "39"
+          ],
+          [
+            "Tilt degrees",
+            "7.5"
+          ]
+        ],
+        "elapsed": "3:30",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-frame-copied.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-119.1"
+          ],
+          [
+            "Latitude degrees",
+            "39"
+          ],
+          [
+            "Tilt degrees",
+            "7.5"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-invalid-import.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-119.1"
+          ],
+          [
+            "Latitude degrees",
+            "39"
+          ],
+          [
+            "Tilt degrees",
+            "7.5"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-settings-imported.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-119.1"
+          ],
+          [
+            "Latitude degrees",
+            "39"
+          ],
+          [
+            "Tilt degrees",
+            "7.5"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "wide-manual-angles.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "-119.1"
+          ],
+          [
+            "Latitude degrees",
+            "39.5"
+          ],
+          [
+            "Tilt degrees",
+            "15"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "60"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    },
+    {
+      "file": "portrait-presets.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "12"
+          ],
+          [
+            "Latitude degrees",
+            "48"
+          ],
+          [
+            "Tilt degrees",
+            "-10"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          390,
+          844
+        ],
+        "css": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "file": "portrait-angles.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "12"
+          ],
+          [
+            "Latitude degrees",
+            "48"
+          ],
+          [
+            "Tilt degrees",
+            "-10"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          390,
+          844
+        ],
+        "css": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "file": "portrait-settings.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "12"
+          ],
+          [
+            "Latitude degrees",
+            "48"
+          ],
+          [
+            "Tilt degrees",
+            "-10"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          390,
+          844
+        ],
+        "css": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "file": "portrait-europe-opening.jpg",
+      "dom": {
+        "angles": [],
+        "panelOpen": false
+      },
+      "canvas": {
+        "buffer": [
+          390,
+          844
+        ],
+        "css": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "file": "portrait-after-reading.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "12"
+          ],
+          [
+            "Latitude degrees",
+            "48"
+          ],
+          [
+            "Tilt degrees",
+            "-10"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          390,
+          844
+        ],
+        "css": [
+          390,
+          844
+        ]
+      }
+    },
+    {
+      "file": "wide-reset.jpg",
+      "dom": {
+        "angles": [
+          [
+            "Longitude degrees",
+            "120"
+          ],
+          [
+            "Latitude degrees",
+            "25"
+          ],
+          [
+            "Tilt degrees",
+            "22.5"
+          ]
+        ],
+        "elapsed": "0:00",
+        "panelOpen": true,
+        "speed": "1"
+      },
+      "canvas": {
+        "buffer": [
+          2560,
+          1440
+        ],
+        "css": [
+          1280,
+          720
+        ]
+      }
+    }
+  ]
+}
