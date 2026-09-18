@@ -1,22 +1,24 @@
 import type * as Three from 'three';
 
-/** The approved opening; changing viewport size does not change its geography. */
-export const MEDITERRANEAN_OPENING = {
-  longitude: 18,
-  latitude: 38,
+/** Inland East Asia opens onto the long Eurasian land pass as the globe rotates.
+ * Geography stays consistent across viewports; the orbit and spin rate stay fixed.
+ */
+export const NIGHT_EARTH_OPENING = {
+  longitude: 110,
+  latitude: 30,
   roll: -12,
 } as const;
 
-/** Place the Mediterranean in the visible foreground, with north upright.
+/** Place the opening region in the visible foreground, with north upright.
  * One calculation per resize, never per frame. The map's seam is ±180°.
  */
-export function orientMediterraneanEarth(
+export function orientNightEarth(
   THREE: typeof Three,
   earth: Three.Group,
   camera: Three.PerspectiveCamera,
 ) {
-  const longitude = THREE.MathUtils.degToRad(MEDITERRANEAN_OPENING.longitude);
-  const latitude = THREE.MathUtils.degToRad(MEDITERRANEAN_OPENING.latitude);
+  const longitude = THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.longitude);
+  const latitude = THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.latitude);
   const localNormal = new THREE.Vector3(
     Math.cos(latitude) * Math.cos(longitude),
     Math.sin(latitude),
@@ -68,7 +70,7 @@ export function orientMediterraneanEarth(
   earth.quaternion.premultiply(
     new THREE.Quaternion().setFromAxisAngle(
       normal,
-      THREE.MathUtils.degToRad(MEDITERRANEAN_OPENING.roll),
+      THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.roll),
     ),
   );
 }

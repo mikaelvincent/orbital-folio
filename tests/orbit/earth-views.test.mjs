@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { build } from 'esbuild';
 import sharp from 'sharp';
 import * as THREE from 'three';
-import { MEDITERRANEAN_OPENING } from '../../features/orbit/earth-view-transform.ts';
+import { NIGHT_EARTH_OPENING } from '../../features/orbit/earth-view-transform.ts';
 
 const bundled = await build({
   entryPoints: ['features/orbit/orbital-environment.ts'],
@@ -102,9 +102,9 @@ function mockBitmap(t, decode) {
 
 // Project the approved geography through the real scene, independently of the
 // placement function. This catches points placed behind Earth or below the crop.
-function projectMediterranean(env) {
-  const phi = THREE.MathUtils.degToRad(38);
-  const theta = THREE.MathUtils.degToRad(18);
+function projectGeography(env, longitude = 110, latitude = 30) {
+  const phi = THREE.MathUtils.degToRad(latitude);
+  const theta = THREE.MathUtils.degToRad(longitude);
   const normal = new THREE.Vector3(
     Math.cos(phi) * Math.cos(theta),
     Math.sin(phi),
@@ -134,24 +134,25 @@ for (const [width, height, mobile] of [
   [390, 844, true],
   [768, 4096, true],
 ]) {
-  void test(`Mediterranean stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
+  void test(`Inland East Asia stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
     const env = createOrbitalEnvironment(THREE, () => {}, {
       mobile,
+      cameraFov: 38,
       earthAppearance: 'night',
       earthTexture: textureFixture(),
     });
     t.after(() => env.dispose());
     await env.ready;
-    assert.deepEqual(MEDITERRANEAN_OPENING, {
-      longitude: 18,
-      latitude: 38,
+    assert.deepEqual(NIGHT_EARTH_OPENING, {
+      longitude: 110,
+      latitude: 30,
       roll: -12,
     });
-    assert.deepEqual(env.getDiagnostics().earthOpening, MEDITERRANEAN_OPENING);
+    assert.deepEqual(env.getDiagnostics().earthOpening, NIGHT_EARTH_OPENING);
     env.resize(width, height, mobile ? 1 : 2);
     for (const elapsed of [0, 5, 10]) {
       env.update(elapsed, true, 0, 0);
-      const { screen, front, matrices } = projectMediterranean(env);
+      const { screen, front, matrices } = projectGeography(env);
       const context = JSON.stringify({
         width,
         height,
@@ -161,7 +162,7 @@ for (const [width, height, mobile] of [
       assert.ok(matrices.every(Number.isFinite), context);
       assert.ok(
         front > 0,
-        `The Mediterranean must face the viewer: ${context}`,
+        `The opening region must face the viewer: ${context}`,
       );
       assert.ok(
         screen.x >= -1 && screen.x <= 1,
@@ -182,6 +183,108 @@ for (const [width, height, mobile] of [
     }
   });
 }
+
+// These visual proxies intentionally use the unchanged photograph, not an
+// authoritative land mask. Coarse decoding once keeps this regression lightweight.
+// The separate audit retains full-resolution comparisons and rejected openings.
+void test('The early rotation retains terrain and city detail instead of reaching the Atlantic', async (t) => {
+  const { data, info } = await sharp(
+    new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url)
+      .pathname,
+  )
+    .resize(1024)
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  for (const [width, height] of [
+    [1280, 720],
+    [2560, 600],
+    [390, 844],
+  ]) {
+    const env = createOrbitalEnvironment(THREE, () => {}, {
+      cameraFov: 38,
+      earthAppearance: 'night',
+      earthTexture: textureFixture(),
+    });
+    t.after(() => env.dispose());
+    await env.ready;
+    env.resize(width, height, 1);
+    const surface = surfaceOf(env);
+    const center = surface.parent.position;
+    const sphere = new THREE.Sphere(center, 180);
+    for (const elapsed of [0, 60, 180, 300, 600]) {
+      env.update(elapsed, true, 0, 0);
+      env.scene.updateMatrixWorld(true);
+      const inverse = surface.matrixWorld.clone().invert();
+      let samples = 0,
+        terrain = 0,
+        warmDetail = 0;
+      for (let row = 0; row < 20; row++) {
+        for (let column = 0; column < 64; column++) {
+          const direction = new THREE.Vector3(
+            -1 + (column + 0.5) / 32,
+            -1 + ((row + 0.5) * 0.65) / 20,
+            0.5,
+          )
+            .unproject(env.camera)
+            .normalize();
+          const point = new THREE.Ray(
+            new THREE.Vector3(),
+            direction,
+          ).intersectSphere(sphere, new THREE.Vector3());
+          if (!point) continue;
+          const normal = point.applyMatrix4(inverse).normalize();
+          const u = Math.atan2(-normal.z, normal.x) / (2 * Math.PI) + 0.5;
+          const v = 0.5 - Math.asin(normal.y) / Math.PI;
+          const x = Math.min(
+            info.width - 1,
+            Math.max(0, Math.floor(u * info.width)),
+          );
+          const y = Math.min(
+            info.height - 1,
+            Math.max(0, Math.floor(v * info.height)),
+          );
+          const index = (y * info.width + x) * info.channels;
+          const red = data[index],
+            blue = data[index + 2];
+          samples++;
+          if (blue > 22 || red > 28) terrain++;
+          if (red > 50 && red > 1.08 * blue) warmDetail++;
+        }
+      }
+      const context = `${width}×${height}, ${elapsed}s: ${terrain / samples} terrain, ${warmDetail / samples} warm detail`;
+      assert.ok(samples > 300, `Enough visible Earth samples: ${context}`);
+      assert.ok(
+        terrain / samples > 0.6,
+        `Terrain stays dominant through ten minutes: ${context}`,
+      );
+      if (elapsed <= 300)
+        assert.ok(
+          warmDetail / samples > 0.003,
+          `Early terrain has city detail: ${context}`,
+        );
+      // Independently selected city locations follow the westward pass through
+      // the actual scene and active clock, without using the placement helper.
+      const landmark = [
+        ['Wuhan', 0, 114.3, 30.6],
+        ['Lahore', 180, 74.34, 31.55],
+        ['Shiraz', 300, 52.6, 29.6],
+      ].find(([, time]) => time === elapsed);
+      if (landmark) {
+        const [name, , longitude, latitude] = landmark;
+        const { screen, front } = projectGeography(env, longitude, latitude);
+        assert.ok(front > 0, `${name} faces the viewer at ${width}×${height}`);
+        assert.ok(
+          screen.x >= -1 &&
+            screen.x <= 1 &&
+            screen.y >= -1 &&
+            screen.y <= -0.35,
+          `${name} remains in the visible Earth foreground: ${JSON.stringify(screen.toArray())}`,
+        );
+      }
+    }
+    env.dispose();
+  }
+});
 
 void test('Night lighting stays photographic and resizing reuses every loaded resource', async (t) => {
   let decoded = 0,
@@ -344,7 +447,10 @@ void test('The opening waits for image readiness and respects the global active 
 void test('The shipped night asset matches its manifest, real 8K dimensions and source provenance', async () => {
   const manifest = JSON.parse(
     await fs.readFile(
-      new URL('../../public/textures/earth-black-marble-8k.json', import.meta.url),
+      new URL(
+        '../../public/textures/earth-black-marble-8k.json',
+        import.meta.url,
+      ),
       'utf8',
     ),
   );

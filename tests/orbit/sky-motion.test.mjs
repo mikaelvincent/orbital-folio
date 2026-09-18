@@ -22,9 +22,10 @@ const bundled = await build({
 const { createOrbitalEnvironment } = await import(
   `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`
 );
-async function environment(t) {
+async function environment(t, options = {}) {
   const env = createOrbitalEnvironment(THREE, () => {}, {
     earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
+    ...options,
   });
   t.after(() => env.dispose());
   await env.ready;
@@ -33,6 +34,65 @@ async function environment(t) {
 }
 const starObject = (env) =>
   env.scene.children.find((object) => object.isPoints);
+
+void test('Stars cover the edges through wide, portrait and rotated camera views', async (t) => {
+  const point = new THREE.Vector3();
+  const reference = new THREE.PerspectiveCamera(38, 1, 0.1, 1200);
+  reference.updateMatrixWorld(true);
+  const moving = reference.clone();
+  // Include the actual overview drag envelope, portrait roll, and additional
+  // world directions so this cannot regress to an oversized rectangular patch.
+  for (const [width, height] of [[1440, 900], [2560, 1080], [390, 844]]) {
+    const env = await environment(t, { mobile: width < 700, cameraFov: 38 });
+    const points = starObject(env).geometry.getAttribute('position');
+    env.resize(width, height, 2);
+    const densities = [];
+    for (const [pitch, yaw, roll] of [
+      [0, 0, 0], [-0.18, -0.32, 0], [0.18, 0.32, 0],
+      [-0.18, 0.32, 0], [0.18, -0.32, 0], [0.18, 0.32, Math.PI / 2],
+      [0, Math.PI / 2, 0], [0, Math.PI, 0], [0, -Math.PI / 2, 0],
+    ]) {
+      moving.rotation.set(pitch, yaw, roll);
+      moving.updateMatrixWorld(true);
+      env.followCamera(moving, reference);
+      const edges = { left: 0, right: 0, top: 0, bottom: 0 };
+      let visible = 0;
+      for (let i = 0; i < points.count; i++) {
+        point.fromBufferAttribute(points, i).project(env.camera);
+        if (Math.abs(point.x) > 1 || Math.abs(point.y) > 1 || Math.abs(point.z) > 1) continue;
+        visible++;
+        if (point.x < -0.8) edges.left++;
+        if (point.x > 0.8) edges.right++;
+        if (point.y < -0.8) edges.bottom++;
+        if (point.y > 0.8) edges.top++;
+      }
+      const context = JSON.stringify({ width, height, pitch, yaw, roll, visible, edges });
+      assert.ok(visible > 100, context);
+      for (const count of Object.values(edges)) assert.ok(count >= 6, context);
+      densities.push(visible);
+    }
+    assert.ok(Math.max(...densities) / Math.min(...densities) < 1.5,
+      `Angular density stays comparable: ${densities.join(', ')}`);
+  }
+});
+
+void test('Star sizes form a readable hierarchy and remain CSS-sized across DPR changes', async (t) => {
+  const env = await environment(t);
+  const stars = starObject(env);
+  const size = stars.geometry.getAttribute('size');
+  const values = [...size.array];
+  const prominent = values.filter((value) => value >= 6).length;
+  const medium = values.filter((value) => value >= 3.5 && value < 6).length;
+  assert.ok(Math.min(...values) >= 2, 'No dust-sized base stars');
+  assert.ok(prominent / size.count > 0.035 && prominent / size.count < 0.07);
+  assert.ok(medium / size.count > 0.2 && medium / size.count < 0.3);
+  const original = size.array.slice();
+  for (const ratio of [1, 1.5, 2]) {
+    env.resize(1440, 900, ratio);
+    assert.equal(stars.material.uniforms.pixelRatio.value, ratio);
+    assert.deepEqual(size.array, original, 'DPR changes the shader scale, not the authored sizes');
+  }
+});
 
 void test('Seeded stars have visible independent modulation without a synchronized field pulse', async (t) => {
   const env = await environment(t);

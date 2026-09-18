@@ -1,5 +1,6 @@
 /** Developer-only finite Earth comparison. No production route imports this file. */
 import * as THREE from 'three';
+import { NIGHT_EARTH_OPENING } from '../../features/orbit/earth-view-transform';
 
 type Version = 'procedural' | '2k' | '4k' | '8k';
 const NIGHT = document.body.dataset.labMode === 'night';
@@ -23,7 +24,7 @@ type Environment = {
 type EnvironmentModule = { createOrbitalEnvironment(three: typeof THREE, invalidate: () => void, options: { mobile: boolean; earthTextureWidth?: 2048 | 4096 | 8192; earthAppearance?: 'day' | 'night' }): Environment };
 const REST_MS = 20000;
 const comparison = Object.fromEntries(VERSIONS.map(version => [version, {
-  label: version === 'procedural' ? 'Previous procedural clouds' : `${version.toUpperCase()} ${NIGHT ? 'Mediterranean night' : 'satellite'} Earth`,
+  label: version === 'procedural' ? 'Previous procedural clouds' : `${version.toUpperCase()} ${NIGHT ? 'East Asian night' : 'satellite'} Earth`,
   source: version === 'procedural' ? 'scripts/benchmarks/cloud-reference.ts' : 'features/orbit/orbital-environment.ts',
   expectedAsset: version === 'procedural' ? null : `/textures/earth-${NIGHT ? 'black' : 'blue'}-marble-${version}.jpg`,
   expectedTextureDimensions: version === 'procedural' ? null : [WIDTHS[version], WIDTHS[version]! / 2],
@@ -71,9 +72,9 @@ const status = element<HTMLParagraphElement>('status');
 const controls = element<HTMLElement>('controls');
 const restoreButton = element<HTMLButtonElement>('restore');
 if (NIGHT) {
-  document.title = 'Mediterranean night Earth resolution lab';
+  document.title = 'East Asian night Earth resolution lab';
   element<HTMLElement>('heading').textContent = document.title;
-  element<HTMLElement>('introduction').textContent = 'Current cinematic Mediterranean night background only. Three resolutions, six balanced rounds. Preview renders once; each finite round leaves a blank, idle screen for 20 seconds between blocks.';
+  element<HTMLElement>('introduction').textContent = 'Current cinematic East Asian night background only. Three resolutions, six balanced rounds. Preview renders once; each finite round leaves a blank, idle screen for 20 seconds between blocks.';
   versionInput.replaceChildren(...[...VERSIONS].reverse().map(version => new Option(comparison[version].label, version)));
   orderInput.replaceChildren(...ORDERS.map((order, index) => new Option(`Round ${index + 1} — ${order.split('').map(letter => LETTERS[letter].toUpperCase()).join(', ')}`, order)));
   framesInput.value = '120';
@@ -341,8 +342,8 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
   environment.resize(config.width, config.height, config.dpr);
   if (NIGHT) {
     const diagnostics = environment.getDiagnostics() as { earthOpeningElapsed?: number; earthOpening?: { longitude?: number; latitude?: number; roll?: number } };
-    if (diagnostics.earthOpeningElapsed !== config.frozenTime || diagnostics.earthOpening?.longitude !== 18 || diagnostics.earthOpening?.latitude !== 38 || diagnostics.earthOpening?.roll !== -12)
-      throw new Error(`${version}: Mediterranean opening and exact frozen clock must match.`);
+    if (diagnostics.earthOpeningElapsed !== config.frozenTime || diagnostics.earthOpening?.longitude !== NIGHT_EARTH_OPENING.longitude || diagnostics.earthOpening?.latitude !== NIGHT_EARTH_OPENING.latitude || diagnostics.earthOpening?.roll !== NIGHT_EARTH_OPENING.roll)
+      throw new Error(`${version}: Current night-Earth opening and exact frozen clock must match.`);
   }
   return environment;
 }

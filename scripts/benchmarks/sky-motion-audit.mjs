@@ -25,7 +25,17 @@ const sources = {
     'utf8',
   ),
 };
-async function load(source) {
+// Resolve the retained environment against its own geographic transform: the
+// production export names and approved opening can change independently.
+const earthTransforms = {
+  before: execFileSync(
+    'git',
+    ['show', baseline + ':components/earth-view-transform.ts'],
+    { cwd: repo, encoding: 'utf8' },
+  ),
+  after: await fs.readFile(path.join(repo, 'features/orbit/earth-view-transform.ts'), 'utf8'),
+};
+async function load(source, earthTransform) {
   const built = await build({
     stdin: {
       contents: source,
@@ -37,6 +47,11 @@ async function load(source) {
     platform: 'node',
     format: 'esm',
     logLevel: 'silent',
+    plugins: [{ name: 'matching-earth-transform', setup(builder) {
+      builder.onLoad({ filter: /\/earth-view-transform\.ts$/ }, () => ({
+        contents: earthTransform, loader: 'ts', resolveDir: path.join(repo, 'features/orbit'),
+      }));
+    } }],
   });
   return import(
     `data:text/javascript;base64,${Buffer.from(built.outputFiles[0].text).toString('base64')}`
@@ -61,7 +76,7 @@ const result = {
   protocol: {
     eventWindowSeconds: 180,
     observationStepSeconds: 1 / 30,
-    stars: 3100,
+    stars: 'Actual count recorded separately for each source revision',
     twinkleSeconds: 8,
     twinkleStepSeconds: 1 / 30,
     brightness:
@@ -75,8 +90,13 @@ result.protocol.sourceSha256 = Object.fromEntries(
     createHash('sha256').update(source).digest('hex'),
   ]),
 );
+result.protocol.earthTransformSha256 = Object.fromEntries(
+  Object.entries(earthTransforms).map(([name, source]) => [
+    name, createHash('sha256').update(source).digest('hex'),
+  ]),
+);
 for (const [label, source] of Object.entries(sources)) {
-  const { createOrbitalEnvironment } = await load(source);
+  const { createOrbitalEnvironment } = await load(source, earthTransforms[label]);
   const env = createOrbitalEnvironment(THREE, () => {}, {
     earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
   });

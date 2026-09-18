@@ -8,8 +8,8 @@ import {
   disposeEarthTexture,
 } from './earth-satellite';
 import {
-  MEDITERRANEAN_OPENING,
-  orientMediterraneanEarth,
+  NIGHT_EARTH_OPENING,
+  orientNightEarth,
 } from './earth-view-transform';
 import { createNightAtmosphere } from './night-atmosphere';
 
@@ -202,18 +202,32 @@ export function createOrbitalEnvironment(
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
     return seed / 4294967296;
   };
-  const count = mobile ? 2300 : 3100;
+  // A surrounding sky has no rectangular boundary for hover, drag, portrait
+  // roll or room travel to uncover. Most points are behind the camera; angular
+  // density, rather than a larger flat patch, keeps every view equally populated.
+  const count = mobile ? 9000 : 12000;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
   const sizes = new Float32Array(count);
   const twinkles = new Float32Array(count * 4);
   for (let i = 0; i < count; i++) {
+    const vertical = random() * 2 - 1;
+    const azimuth = random() * Math.PI * 2;
+    const radial = Math.sqrt(1 - vertical * vertical);
     positions.set(
-      [(random() - 0.5) * 590, (random() - 0.5) * 370, -280 - random() * 200],
+      [
+        Math.cos(azimuth) * radial * 1000,
+        vertical * 1000,
+        Math.sin(azimuth) * radial * 1000,
+      ],
       i * 3,
     );
-    const brightStar = random() > 0.989;
-    const brightness = Math.pow(random(), 2.4) * 0.86 + 0.3;
+    const tier = random();
+    const brightStar = tier > 0.95;
+    const middleStar = tier > 0.7;
+    const brightness = brightStar
+      ? 0.86 + random() * 0.14
+      : 0.42 + random() * 0.38;
     colors.set(
       [
         brightness * (0.78 + random() * 0.22),
@@ -222,15 +236,21 @@ export function createOrbitalEnvironment(
       ],
       i * 3,
     );
-    sizes[i] = brightStar ? 4.2 + random() * 1.8 : 1.05 + random() * 1.65;
+    // CSS-pixel diameters: a quiet fine field, clearly readable medium stars,
+    // and a few soft luminous anchors. Avoid a screen full of subpixel dust.
+    sizes[i] = brightStar
+      ? 6.2 + random() * 1.8
+      : middleStar
+        ? 3.6 + random() * 1.4
+        : 2.2 + random() * 1.1;
     twinkles.set(
       [
         random() * Math.PI * 2,
-        0.7 + Math.pow(random(), 1.5) * 2.4,
+        0.8 + random() * 1.4,
         brightStar
-          ? 0.68 + random() * 0.18
-          : 0.34 + Math.pow(random(), 1.25) * 0.44,
-        0.3 + random() * 1.7,
+          ? 0.86 + random() * 0.08
+          : 0.58 + random() * 0.24,
+        0.35 + random() * 1.05,
       ],
       i * 4,
     );
@@ -254,22 +274,32 @@ export function createOrbitalEnvironment(
       attribute float size;
       attribute vec4 twinkle;
       varying vec3 vColor;
+      varying float vProminence;
       uniform float pixelRatio;
       uniform float time;
       void main() {
         float pulse = sin(time * twinkle.y + twinkle.x) * 0.68
           + sin(time * twinkle.w + twinkle.x * 1.618) * 0.32;
         vColor = color * (1.0 + pulse * twinkle.z);
+        vProminence = smoothstep(4.5, 7.0, size);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         gl_Position = projectionMatrix * mv;
-        gl_PointSize = size * pixelRatio;
+        // Breathing halos make modulation readable without blinking the stars
+        // off. Independent phases prevent a synchronized pulsing background.
+        gl_PointSize = size * pixelRatio * (1.0 + pulse * 0.18);
       }
     `,
     fragmentShader: `
       varying vec3 vColor;
+      varying float vProminence;
       void main() {
-        float d = length(gl_PointCoord - 0.5);
-        float alpha = exp(-d * d * 18.0) * (1.0 - smoothstep(0.2, 0.5, d));
+        vec2 p = gl_PointCoord - 0.5;
+        float d = length(p);
+        float core = exp(-d * d * 58.0);
+        float halo = exp(-d * d * 14.0) * 0.32;
+        float glint = exp(-min(p.x * p.x, p.y * p.y) * 900.0)
+          * exp(-d * d * 20.0) * vProminence * 0.14;
+        float alpha = (core + halo + glint) * (1.0 - smoothstep(0.28, 0.5, d));
         gl_FragColor = vec4(vColor, alpha);
       }
     `,
@@ -576,7 +606,7 @@ export function createOrbitalEnvironment(
       .copy(horizonBisector)
       .multiplyScalar((180 * Math.cos(sweep)) / sinHalfAngle)
       .addScaledVector(horizonNormal, 180 * Math.sin(sweep));
-    if (appearance === 'night') orientMediterraneanEarth(THREE, earth, camera);
+    if (appearance === 'night') orientNightEarth(THREE, earth, camera);
   };
 
   let activeTime = 0;
@@ -783,7 +813,7 @@ export function createOrbitalEnvironment(
             : 'satellite-land-ocean-clouds',
         earthAppearance: appearance,
         earthOpening:
-          appearance === 'night' ? { ...MEDITERRANEAN_OPENING } : null,
+          appearance === 'night' ? { ...NIGHT_EARTH_OPENING } : null,
         earthOpeningElapsed:
           appearance === 'night' ? openingElapsed : activeTime,
         earthSource: earthStatus.source,
@@ -813,15 +843,18 @@ export function createOrbitalEnvironment(
         cloudReady: earthStatus.ready && !disposed,
         cloudTextureSize: 0,
         starCount: count,
+        starDistribution: 'uniform-surrounding-sphere',
+        starSphereRadius: 1000,
+        starBaseSizeCssRange: [2.2, 8],
         starBufferBytes:
           positions.byteLength +
           colors.byteLength +
           sizes.byteLength +
           twinkles.byteLength,
-        starTwinkleMode: 'seeded-independent-amplitude-and-two-frequencies',
-        starTwinklePrimaryFrequencyRange: [0.7, 3.1],
-        starTwinkleSecondaryFrequencyRange: [0.3, 2],
-        starTwinkleAmplitudeRange: [0.34, 0.86],
+        starTwinkleMode: 'seeded-independent-brightness-and-halo-breathing',
+        starTwinklePrimaryFrequencyRange: [0.8, 2.2],
+        starTwinkleSecondaryFrequencyRange: [0.35, 1.4],
+        starTwinkleAmplitudeRange: [0.58, 0.94],
         meteorCapacity: 9,
         meteorTimingBanks: 3,
         meteorCreationFrequencyMultiplier: 1.5,
