@@ -111,10 +111,12 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- Keep the approved **8K night Earth**, now opening over inland East Asia to
-  sustain the Eurasian land pass before reaching ocean. This supersedes the
-  earlier Mediterranean start; keep continuous rotation rather than looping or
-  freezing a favored patch. The owner sees worthwhile
+- Keep the approved **8K night Earth**, with a coastal East Asian opening and
+  tilted pass through China's and India's city-light networks. Prioritize visible
+  lights over land area: unlit terrain was the problem with the inland route.
+  Keep continuous rotation at the current speed unless the owner changes that
+  preference; later dark regions remain a known tradeoff. This supersedes the
+  earlier Mediterranean and inland East Asian starts. The owner sees worthwhile
   extra detail over 4K and accepts its added delivery/memory cost. Do not silently
   lower resolution or restore removed public globe controls. Retain useful
   developer comparison tools and their historical assets.

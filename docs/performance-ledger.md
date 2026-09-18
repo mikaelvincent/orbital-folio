@@ -20,6 +20,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 24 · 16 September 2026 | Contact computer application and animated keyboard | New authored baseline, not an optimization. Structural visible triangle inputs +664; retained geometry arrays −388,324 bytes after removing the old Contact tablet. One new keyboard atlas costs 2.667 MiB nominal texture storage. |
 | 25 · 16 September 2026 | Contact screen clearance, active social controls and wall dismissal | Structural model counts/storage unchanged against `917e7e0`. New exposed-wall picking reuses exact-ray results after geometry/camera settling; descriptive Node workload sizing does not establish browser speed, heat or battery gains. |
 | 27 · 18 September 2026 | Surrounding stars, clearer twinkle and a longer land-facing Earth opening | New art baseline: desktop star arrays +0.37 MiB, same one star draw and 8K asset. Sampled terrain-color dominance lasts roughly 12 minutes before dropping below 40%; this is a visual proxy, not a timing gain. |
+| 28 · 18 September 2026 | Retarget the early Earth pass toward visible city lights | Land coverage proved misleading. At unchanged rotation speed, weighted warm-light coverage over the first five minutes improves across all three tested layouts; texture, geometry and shaders are unchanged. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1461,6 +1462,63 @@ Mediterranean measurements.
 Verification: **335 full tests**, including 31 focused orbit tests, typecheck,
 affected lint, production build and diff checks pass. Independent review scored
 **95/100**, with the rubric and limitations recorded in the review above.
+
+## 28 — City-light composition instead of land coverage (18 September 2026)
+
+**Requested visual correction, not an optimization.** The owner correctly observed
+that the previous route quickly crossed large unlit land masses. Entry 27's
+terrain metric passed those views; its zero/five/ten-minute captures missed the
+especially dark two-minute interval. Its Earth acceptance is superseded here,
+while the approved star design and historical evidence remain intact.
+
+The production change is three orientation constants: **120°E, 25°N, +22.5° roll**,
+replacing 110°E, 30°N, −12°. This lower-latitude tilted route keeps China's and
+India's city-light networks in the foreground through the first five minutes.
+The same 8K photograph, 0.003 rad/s continuous rotation, atmosphere, stars,
+camera transforms, materials and geometry remain. There is no artificial city
+lighting, exposure boost or public globe-control UI.
+
+The [source-identified audit](evidence/earth-light-composition/light-path-audit.json)
+retains 1,344 coarse and 153 refined trials, rejected alternatives and full-cycle
+finalist timelines. It filters the unchanged image to 2048×1024 **in audit memory
+only**, then samples the production 38° lens at 20-second intervals across
+1280×720, 2560×600 and 390×844. Warm-light coverage and distribution over 15 screen
+tiles prioritize the weakest 60-second stretch as well as mean coverage and the
+opening. The foreground is weighted more than the horizon. These are image-color
+proxies, not a settlement map, measured luminance or a performance benchmark;
+the audit excludes spacecraft occlusion. It does not reuse entry 27's metric.
+
+| First-five-minute weighted warm-light coverage | Baseline `baa290b` | Selected opening |
+| --- | ---: | ---: |
+| 1280×720 | 1.52% | 4.81% |
+| 2560×600 | 2.18% | 6.42% |
+| 390×844 | 2.64% | 3.37% |
+
+Rendered frozen comparisons include zero, one, two, five and ten minutes in wide
+views and zero, two and five minutes in portrait; full live application captures
+confirm the opening with spacecraft and UI occlusion. A slower North American
+alternative was inspected but not selected: it changes motion, and merely
+postpones dark geography. No speed change was chosen while the optional preference
+question remained unanswered. A slightly different roll favored the ten-minute
+aggregate at the expense of the initial five-minute composition.
+
+**Limit:** continuous rotation still eventually exposes darker regions. The
+ten-minute capture is deliberately retained; it remains dimmer over Africa.
+This improves the initial sustained view, not perpetual illumination. Keeping a
+bright region indefinitely would require revisiting motion or illumination with
+the owner. Do not characterize this as a solved full-revolution light guarantee.
+
+The [final review, source hashes, captures and checks](evidence/earth-light-composition/review.json)
+separate the trial fixture from final production evidence. Tests now inspect warm
+light coverage and spatial distribution at 0/60/120/180/300 seconds, including
+the previously missed failure. Injecting the old opening in memory makes the
+new check fail at 120 seconds. **34 focused orbit/camera tests**, typecheck,
+affected lint and production build pass; the previous full-suite result stays
+historical. Independent critic review scored **93/100**, with no unresolved
+blockers. Hidden built-in Chromium was visually tested; native Safari was not.
+This task adds no production texture, geometry, pass or per-frame operation.
+That structural fact is not a measured CPU/GPU, heat or battery improvement.
+Deferred performance candidates remain unchanged.
 
 ## Next candidates
 

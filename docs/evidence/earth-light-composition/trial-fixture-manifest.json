@@ -1,0 +1,17 @@
+{
+  "builtAt": "2026-09-18T13:55:09.280Z",
+  "baselineRevision": "baa290b",
+  "note": "Orbital scene only; no spacecraft, AO, or vessel lighting. Finite stills unless Play. Other dependencies use the current checkout. Counts are descriptive, not timings.",
+  "variants": {
+    "baseline": {
+      "features/orbit/orbital-environment.ts": "b1991b39c651229ef336af60923dffdf6be9d9f6c5f04cf2af49d80533f59bf5",
+      "features/orbit/earth-view-transform.ts": "86ffdf7a7eb4041f21340d1e54452e2670abe34f7ef3ce93bbd479a4fa3ac770",
+      "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df"
+    },
+    "current": {
+      "features/orbit/orbital-environment.ts": "b1991b39c651229ef336af60923dffdf6be9d9f6c5f04cf2af49d80533f59bf5",
+      "features/orbit/earth-view-transform.ts": "86ffdf7a7eb4041f21340d1e54452e2670abe34f7ef3ce93bbd479a4fa3ac770",
+      "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df"
+    }
+  }
+}

@@ -221,11 +221,15 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-Production uses the **8192×4096 NASA Black Marble night map**, an inland East Asian
-opening (110°E, 30°N, −12° roll) and cinematic blue atmosphere. The current opening
-supersedes Mediterranean: the existing continuous spin brings Eurasia into view
-before the Atlantic, keeping land and city lights visible longer. No reversal,
-pause, hidden reset or texture modification is used to avoid ocean. It loads the selected map,
+Production uses the **8192×4096 NASA Black Marble night map**, a coastal East Asian
+opening (120°E, 25°N, +22.5° roll) and cinematic blue atmosphere. The current opening
+supersedes both Mediterranean and the inland East Asian trial. The owner clarified
+that a lack of visible light, including over land, was the problem: terrain area
+alone is not a useful acceptance criterion. The lower-latitude tilted pass retains
+China's and India's city-light networks through the first five minutes. Continuous
+0.003 rad/s rotation is unchanged; later dark intervals remain, including a dimmer
+ten-minute view. No reversal, pause, hidden reset or texture modification is used.
+It loads the selected map,
 not every resolution candidate. The owner sees worthwhile improvement over 4K
 and accepts the added cost; that overrides the earlier general 4K recommendation.
 Public globe controls/presets were temporary exploration UI, removed after the
@@ -247,9 +251,12 @@ because an old asset document calls procedural clouds current. These preferences
 matter if the owner later reopens cloud design.
 
 Current comparison evidence: [2K/4K/8K night Earth](evidence/performance/night-earth-resolution/README.md).
-The [current sky and land-pass review](evidence/sky-land-composition/review.json)
-records the revised composition, resource cost and visual checks; the CPU land
-audit uses a texture-color proxy, not an authoritative coastline mask.
+The [sky review](evidence/sky-land-composition/review.json) records star composition
+and resource costs. Its land-based Earth acceptance was superseded by the
+[city-light composition review](evidence/earth-light-composition/review.json),
+which records early light coverage, distribution and the remaining dark intervals.
+Both CPU audits use image-color proxies requiring rendered review, not authoritative
+land or settlement masks.
 Earlier day-map/procedural comparison: [four-way audit](evidence/performance/earth-fourway/audit-summary.md).
 Atmosphere: [horizon softening](evidence/horizon-softening/README.md).
 Asset provenance: [texture records](../public/textures/README.md).

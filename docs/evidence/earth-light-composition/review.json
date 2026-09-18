@@ -1,0 +1,286 @@
+{
+  "date": "2026-09-18",
+  "purpose": "Replace the land-heavy opening that becomes unlit after about two minutes with a route chosen for visible city-light patterns.",
+  "baselineCommit": "baa290ba077c91afb8feebdbb92d78da0c5982a3",
+  "production": {
+    "before": {
+      "longitude": 110,
+      "latitude": 30,
+      "roll": -12
+    },
+    "after": {
+      "longitude": 120,
+      "latitude": 25,
+      "roll": 22.5
+    },
+    "rotationRadiansPerSecond": 0.003,
+    "resolution": [
+      8192,
+      4096
+    ],
+    "changes": "Three orientation constants and their explanatory comment. No production shader, texture, geometry, camera, rotation speed, star or meteor changes."
+  },
+  "investigation": {
+    "audit": "light-path-audit.json",
+    "script": "light-path-audit.mjs",
+    "coarseCandidates": 1344,
+    "refinedCandidates": 153,
+    "method": "Warm-color coverage and 15-tile spatial distribution, foreground weighting and weakest rolling 60-second intervals. CPU sampling of the unchanged JPEG; not a rendering performance benchmark.",
+    "decision": "Choose the strongest tested five-minute compromise at the existing rotation speed, then judge actual rendered stills and full live application openings. The ten-minute-weighted roll and slower North American alternative are retained as rejected comparisons.",
+    "preference": "An optional question about slower rotation remained unanswered. The existing speed was therefore retained, with that assumption stated to the owner.",
+    "auditProvenance": {
+      "generatingScriptSha256": "0fb048eac9edbb31791312aa43c9a15f805767a64752893a30d0f184ea571ac4",
+      "retainedScriptSha256": "39b555832cdeb816089d4776fd5ca37b04b52684708af40a988f15ed83d2ed52",
+      "postRunEdits": [
+        "Renamed the HEAD metadata variable and output field from baselineCommit to sourceCommitAtStart.",
+        "Added historicalBaselineCommit explicitly resolving baa290b and historicalBaselineOpening explicitly110/30/−12 to the output metadata."
+      ],
+      "verification": "Reversing exactly these two metadata-only edits reconstructs the generating script byte for byte with the recorded SHA256. Computation, candidate sets, scoring, sampling, thresholds and serialization did not change. Initial measured rows and hashes were not replaced.",
+      "rawResultMaintenance": "The raw JSON metadata was relabeled to distinguish the initial source from historical baseline, and recordMaintenance was added with script/test hashes and historical regression failure. Compact numeric rows were preserved."
+    }
+  },
+  "evidence": {
+    "trialFixture": "trial-fixture-manifest.json",
+    "finalFixture": "final-fixture-manifest.json",
+    "browserMetadata": "browser-captures.json",
+    "engine": "Hidden Codex built-in Chromium; no native Safari or desktop capture.",
+    "matchingBeforeAfter": [
+      "baseline-t120.jpg",
+      "candidate-east-t120.jpg"
+    ],
+    "finalWide": [
+      "final-wide-t0.jpg",
+      "final-wide-t60.jpg",
+      "final-wide-t120.jpg",
+      "final-wide-t300.jpg",
+      "final-wide-t600.jpg"
+    ],
+    "finalPortrait": [
+      "final-portrait-t0.jpg",
+      "final-portrait-t120.jpg",
+      "final-portrait-t300.jpg"
+    ],
+    "liveFullApplication": [
+      "live-wide-opening.jpg",
+      "live-portrait-opening.jpg"
+    ],
+    "notes": "Before/after trial pair uses the same 1280×720 CSS viewport and 2560×1440 buffer. Final frozen wide frames use 1280×720 at DPR1. Portrait uses 390×844 at DPR1. Final live wide uses 1280×720 at DPR2. JPEG captures are CSS-sized, not drawing-buffer exports. Trial uses explicit developer override; final frames have no override. Live opening times are approximate, not exact-time baseline comparisons."
+  },
+  "verification": {
+    "tests": {
+      "command": "node --test tests/orbit/*.test.mjs tests/spacecraft/vessel-camera.test.mjs",
+      "passed": 34,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    "lint": {
+      "command": "npm run lint -- features/orbit/earth-view-transform.ts scripts/benchmarks/sky-composition-preview.mjs tests/orbit/earth-views.test.mjs docs/evidence/earth-light-composition/light-path-audit.mjs",
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "build.log",
+      "note": "Includes geometry consistency check. Build succeeds with module.register deprecation, large-chunk and route-classification notices; this change does not address them."
+    },
+    "diffCheck": "git diff --check passed",
+    "historicalFailure": "The agent injected old constants into an in-memory esbuild module. The new test rejects the old route at 120 seconds: wide 0.0695% warm coverage, ultrawide 0%, both 0% populated area. Thresholds differ from the broader audit, intentionally independently defined.",
+    "scope": "Coordinate-only production change: focused orbit and shared camera checks run. The previous 335-test full-suite pass is historical, not rerun or claimed for this turn.",
+    "documentation": "All relative Markdown links in AGENTS.md, README.md, PROJECT-CONTEXT.md and performance-ledger.md resolve.",
+    "localServer": "http://localhost:3000/ returned HTTP200; main development server left running. Temporary3021 fixture and hidden tabs closed.",
+    "logNormalization": "Only trailing whitespace and blank EOF lines removed from retained command output; substantive output and notices preserved."
+  },
+  "limitations": [
+    "This improves the first five minutes. Continuous full rotation still reaches dark geography, including a dimmer ten-minute view over Africa.",
+    "Color thresholds are approximate image proxies, not authoritative city boundaries, brightness measurements or heat/battery data.",
+    "Finite orbital fixtures omit spacecraft, vessel shading/AO and UI; full live application openings separately check occlusion. CPU audit covers ultrawide but no ultrawide browser screenshot was captured.",
+    "No native Safari, thermal, process-memory or GPU-timing test was performed; no performance gain is claimed.",
+    "Only initial overview geographic composition changed. The previous camera, drag and twinkle implementations remain intact."
+  ],
+  "sourceSha256": {
+    "features/orbit/earth-view-transform.ts": "0ebae74412b8985587f4832df1641676563467fa348f621a6ac43877a8c7b16b",
+    "features/orbit/orbital-environment.ts": "b1991b39c651229ef336af60923dffdf6be9d9f6c5f04cf2af49d80533f59bf5",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "tests/orbit/earth-views.test.mjs": "d94d0d02bd250396715ea9b242c7f5596e4b728105ab322e2ef0692ac1eb7073",
+    "scripts/benchmarks/sky-composition-preview.mjs": "3efb931590300e031ff41bd13d6c508ab283079a840b613d2b66f2ef005a6dc1",
+    "docs/evidence/earth-light-composition/light-path-audit.mjs": "39b555832cdeb816089d4776fd5ca37b04b52684708af40a988f15ed83d2ed52",
+    "public/textures/earth-black-marble-8k.jpg": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd"
+  },
+  "captureFiles": {
+    "baseline-t120.jpg": {
+      "sha256": "696eec9a61fb753f1df275cd08e4f116e61d039e9c4186659dc970a5f428ba0a",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-america-slow-t0.jpg": {
+      "sha256": "bd2fc26dd688f19adb328a69873353079956cb99baa540c11155cfe5ddd27e8f",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-america-slow-t300.jpg": {
+      "sha256": "e94f1a7010f23fed4c5b1360fceccb361b6279e407399fc99bb637e1e1760eb6",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-east-t0.jpg": {
+      "sha256": "296e7ef43f914aa159f0df185a7fbb82e0f07bec41c40152ef4469177b3a99ae",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-east-t120.jpg": {
+      "sha256": "a72a4d9ed768c939bc41bc75ceb3851c956b19cb36cf25d904a4dd88ffec60fc",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-east-t300.jpg": {
+      "sha256": "f820c416d3d0972004eb08cc068d0e8b64d4c8880de07ee372d0c5cee921d580",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "candidate-east-t600.jpg": {
+      "sha256": "6610088527205e03c6a7622ca9b62032fe79bf0ea31f1bec479d5fe3bb01d0e4",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "final-portrait-t0.jpg": {
+      "sha256": "f1216c79d8d58522d4d03ad2f326e08c73f4f93d659a8265bdcae3f046c9b211",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "final-portrait-t120.jpg": {
+      "sha256": "ff34c4756827021efa7ea81c4b40249a208e4d6e0aca4518408aeb18b7d4280b",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "final-portrait-t300.jpg": {
+      "sha256": "3e0b103c444ada3fc8b12d459465776b47a0b0090b4215bc38a790e41954b54f",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "final-wide-t0.jpg": {
+      "sha256": "d4e20544249f29cfeff168a4176418eac885ac27ee3923dac904c24aa75b99ca",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "final-wide-t120.jpg": {
+      "sha256": "a5147183fb29e38c4e1416c547201345df0c61135e70742bc7da29b1cb888006",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "final-wide-t300.jpg": {
+      "sha256": "d9c7ea280092d8cfa986e392a315bba0b5c132886de2b3041aa72d93f1aac75a",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "final-wide-t60.jpg": {
+      "sha256": "4b2e4d504e1ebb4e6eaed3800f8bf08443da384f834b111fc806cd845fe5ce74",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "final-wide-t600.jpg": {
+      "sha256": "86b6533def07afe9cfbb876f5759141efcdd5f4ba78c1dd798b43d4d3c25a383",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "live-portrait-opening.jpg": {
+      "sha256": "18d2a7f1c760bf6dcae65b21a108ed2ddd07b7dd05dea464fb2de31f188928f8",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "live-wide-opening.jpg": {
+      "sha256": "3a8687c37767a872a739bb8c24401a04d91916a1d95cbdf3ddf989c9c1370e05",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720
+    },
+    "portrait-east-t0.jpg": {
+      "sha256": "f1216c79d8d58522d4d03ad2f326e08c73f4f93d659a8265bdcae3f046c9b211",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "portrait-east-t120.jpg": {
+      "sha256": "ff34c4756827021efa7ea81c4b40249a208e4d6e0aca4518408aeb18b7d4280b",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "portrait-east-t300.jpg": {
+      "sha256": "3e0b103c444ada3fc8b12d459465776b47a0b0090b4215bc38a790e41954b54f",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    },
+    "portrait-east-t600.jpg": {
+      "sha256": "19cc0ff891da5014566fbf2b36777d87d5d568ce28b015a08a9b7f5fa5be54e0",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844
+    }
+  },
+  "independentCritic": {
+    "agent": "/root/earth_light_critic",
+    "score": 93,
+    "outOf": 100,
+    "approved": true,
+    "unresolvedBlockers": [],
+    "rubric": {
+      "visualComposition": [
+        34,
+        40
+      ],
+      "fulfillmentAndCorrectness": [
+        25,
+        25
+      ],
+      "verificationAndEvidence": [
+        14,
+        15
+      ],
+      "organizationAndMaintainability": [
+        10,
+        10
+      ],
+      "costAndLimitationsTransparency": [
+        10,
+        10
+      ]
+    },
+    "summary": "The route fixes the previously dark two-minute interval and retains attractive city-light networks through five minutes in wide and portrait views. Full application captures confirm useful detail remains visible around the spacecraft.",
+    "reviewed": "Final source, all 21 images, current documentation and check logs. Independently verified 8 source hashes, 21 capture hashes, fixture/source consistency and byte-exact reconstruction of the generating audit script.",
+    "revisions": [
+      "Corrected capture metadata: Earth fixtures include ordinary meteors; matching active clocks keep comparisons consistent.",
+      "Documented and independently hash-verified the audit script metadata-only post-run edits.",
+      "Normalized command-log trailing whitespace without changing substantive output."
+    ],
+    "limitations": [
+      "Darker geography returns later, especially around ten minutes; this is an improved early sequence, not perpetual illumination.",
+      "Built-in Chromium only. Native Safari and ultrawide browser rendering were not tested.",
+      "No performance gain is claimed."
+    ]
+  },
+  "implementationCommit": "bcb77c695db8a5a5f41f156c6a5be1d296e1afbd"
+}
