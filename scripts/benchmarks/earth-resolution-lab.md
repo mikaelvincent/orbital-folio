@@ -7,7 +7,7 @@ It imports no spacecraft and adds no portfolio runtime work or routes. The older
 
 ## Current cinematic night comparison
 
-Use `--night` to compare the approved Mediterranean opening with the current
+Use `--night` to compare the current East Asian opening with the current
 production cyan/cobalt atmosphere and Black Marble texture at 2K, 4K and 8K:
 
 ```sh
@@ -33,10 +33,10 @@ blank, idle recovery before every block**. Six accepted rounds yield 720 measure
 frames per resolution. Recovery is not proof of equal temperature or clocks.
 
 The default frozen time is the opening at zero seconds. All three variants use
-the same production geometry, material, Mediterranean orientation, atmosphere and
+the same production geometry, material, East Asian orientation, atmosphere and
 clock. Readiness checks require the actual requested bitmap dimensions, night
 source diagnostics, the production non-tone-mapped `MeshBasicMaterial`, and the
-exact Mediterranean opening and elapsed time. Changing a night preview's frozen
+exact current `NIGHT_EARTH_OPENING` values and elapsed time. Changing a night preview's frozen
 time replaces its environment because the production clock accumulates forward
 deltas; this prevents backwards preview seeks from introducing phase drift.
 
@@ -54,6 +54,11 @@ The CPU/GPU separation, query validation, hidden-tab/resize aborts and optional
 native thermal/power invalidation described below apply to both modes. Existing
 `audit-earth-fourway.mjs` validates the historical day protocol only; do not feed
 night reports into that auditor or combine the two designs into one timing table.
+`audit-night-earth-results.mjs` is also retained as a historical auditor: it
+validates the saved Mediterranean night records and their original source/asset
+identities. It must not be used to validate the new East Asian baseline. Preserve
+those old reports unchanged; new artwork requires a separately identified cohort
+and an auditor matching its source and protocol.
 
 ## Historical daytime / procedural comparison
 

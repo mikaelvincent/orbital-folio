@@ -1,0 +1,271 @@
+{
+  "date": "2026-09-18",
+  "baseline": "29ffee1",
+  "request": [
+    "Cover drag edges with stars",
+    "Make independent twinkling noticeable",
+    "Use readable artistic star size variation",
+    "Start Earth over a region that delays ocean-heavy views"
+  ],
+  "delivered": {
+    "stars": "Seeded uniform surrounding sphere; three size tiers; independent brightness and 18% halo breathing; a few soft glints",
+    "earth": "110°E / 30°N / −12° roll. Same 8K texture and continuous 0.003 rad/s rotation, without a reset or reversal. A roughly 35-minute revolution still includes ocean.",
+    "scope": "Visual quality work. No held performance candidate enabled. Spacecraft, camera, navigation and meteor source behavior unchanged."
+  },
+  "sourceHashes": {
+    "features/orbit/orbital-environment.ts": "b1991b39c651229ef336af60923dffdf6be9d9f6c5f04cf2af49d80533f59bf5",
+    "features/orbit/earth-view-transform.ts": "86ffdf7a7eb4041f21340d1e54452e2670abe34f7ef3ce93bbd479a4fa3ac770",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "scripts/benchmarks/sky-composition-preview.mjs": "0b1e705a77ae5ff8e0bbcd2d6560d5889c629bcdb20c5c9e9030f291f5e26454",
+    "scripts/benchmarks/earth-resolution-lab.ts": "d9384152bf5d2e29552b67e0402fd8d14050881a2f0c84fb781d0df7e2c81d80",
+    "scripts/benchmarks/sky-motion-audit.mjs": "f0732d59ad21a6298a9aa158b8bbdd1046c03539ab3a9a19cd459c3defda7d31",
+    "tests/orbit/sky-motion.test.mjs": "dc6859739985025edb46bc6425b726dcae773916c08bc44fa580958cde99cd7f",
+    "tests/orbit/earth-views.test.mjs": "2e95f902f620458f997cb8bb124fab4c1ed03a479fbf087198d7f42d1e75a78c"
+  },
+  "images": {
+    "baseline-drag-upper-right.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "7a933db57b1ce9fdfe1992dc352ec202cda62105a95962f7b7e4d4c45b9be321"
+    },
+    "current-drag-lower-left.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "eb0b5ad53f6330782439045df337bfb0d3d544ffc44c0bb895e179d5fe5731ec"
+    },
+    "current-drag-upper-right.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "6cb864127d9c2456bee6d179339deff35d1d95dcebdb73eb48d2179bcfc45dff"
+    },
+    "earth-baseline-t300.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "99e37ac4cdb966c46fe7a93aed17d45108904d14fb4964af43816b50c14a1519"
+    },
+    "earth-current-t0.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "cbb01ee58c55bfffd02b06f723c6fb85adcaadc1e3597bb7de222389447b37af"
+    },
+    "earth-current-t300.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "84925de96b6ea490092584983683c8357fa418446dc7be6996b33a3490d82edc"
+    },
+    "earth-current-t600.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "5e74c0e8a5ab523de7550850cd34234ed52b2ec688c39ce2343265a5709a122f"
+    },
+    "live-landscape-drag-return.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "82147a32e3eccdfc6563859d1eca6c7ead8a81ed8cfc216fd2e2bd38b327fc2b"
+    },
+    "live-landscape-overview.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "a56fd2383748d3b44503f72b4c8dc775c87b5b7a7f620cfa1d255616b9f8fc66"
+    },
+    "live-portrait-contact.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "75ab704cf907d7e6f6251fd9f951190aff79c58c6910b897af631ff2d64c28b6"
+    },
+    "live-portrait-drag-return.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "ac0f5c5aa0c24ce6d8d2b473ab680625f545cc593dc532517139845d15a1455a"
+    },
+    "live-portrait-overview.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "fa3a51a6a642149c09146cd0bff1198bba4035c3a975a930abb80bc71ec755ed"
+    },
+    "portrait-earth-current-t0.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "9b4fe51c27dbdcc93f65c8e170be21e141c07ad17329b23e34a891ae29511409"
+    },
+    "portrait-earth-current-t300.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "4f66e74ef75538ed058bf83841fc900d1d3d6f5be9b5f5a26810c153c139edc4"
+    },
+    "portrait-stars-current-drag.jpg": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "8c899a43384ae02bc3252f79b456d3c5d2484a05209331df6580906e4d6d15bb"
+    },
+    "stars-baseline-t0.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "af23f53ef299cdd114d7ddbaea55c6c262328d3ea5212195fa09739ca2b25ee1"
+    },
+    "stars-baseline-t2.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "4acfd7ace7929b7aabefca57a512a368ebf2ecfcc07d0b3a66a6a6fa5a2c2d99"
+    },
+    "stars-current-t0.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "4085e2a6081e45352373a901ba0e06cec4f38a126ef50fcbd4cf79b853082efc"
+    },
+    "stars-current-t2.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "8b1a0d652768cf8eed4c2702aedb1e44b1384aaede82459a72e1254c0cb72d59"
+    },
+    "stars-current-t4.jpg": {
+      "format": "jpeg",
+      "width": 1280,
+      "height": 720,
+      "sha256": "7f118f52248e0e0759089f1aa62fd4130c20bb89f1852584b78fa871eeb8ab7f"
+    }
+  },
+  "visual": {
+    "engine": "Codex built-in Chromium",
+    "nativeSafari": false,
+    "fixtures": "Exact frozen phases and angles using the production orbital environment and the same 38° FOV. No spacecraft, AO or vessel lighting in the fixture. Stars-only captures also omit Earth and meteors; normal fixture captures include those.",
+    "captures": "browser-captures.json",
+    "live": "Full app renderer at 1280×720 / DPR 2 and 390×844 / DPR 1: overview, drag return and navigation to Contact. The development accessibility banner remains visible and covers the identity area in portrait.",
+    "motion": "Individual star intensity and footprint changes verified in shader-rendered 0/2/4-second phase images. Independent phases and active-clock pause/seek are tested. No continuous video recording or native display capture.",
+    "drag": "Live gestures recorded after atomic drag/release; the spring was already returning, so these do not prove held-limit coverage. Exact corner angles ±0.32 yaw / ±0.18 pitch and 90° roll were rendered separately. CPU projection tests cover all four edges and additional world directions, including the compact 9,000-star path.",
+    "findings": "Clear larger star anchors and independent changes, without a broad empty drag edge. East Asian opening has city-light detail, inland terrain at five minutes and the Mediterranean region at ten minutes. Portrait remains legible."
+  },
+  "cost": {
+    "desktop": {
+      "beforePoints": 3100,
+      "afterPoints": 12000,
+      "beforeArrayBytes": 136400,
+      "afterArrayBytes": 528000
+    },
+    "compact": {
+      "beforePoints": 2300,
+      "afterPoints": 9000,
+      "beforeArrayBytes": 101200,
+      "afterArrayBytes": 396000
+    },
+    "draws": "One star draw both versions. Higher vertex submission and revised fragment shading; counts do not establish timing.",
+    "textures": "Same 2,329,878-byte 8K Black Marble JPEG and 178,956,972-byte estimated RGBA8 mip storage. No new runtime assets.",
+    "claims": "No measured FPS/GPU/heat/battery gain. Checks ran concurrently; their wall time is not a benchmark."
+  },
+  "earthComparison": {
+    "audit": "earth-land-audit.json",
+    "script": "earth-land-audit.mjs",
+    "candidates": 72,
+    "layouts": [
+      [
+        1280,
+        720
+      ],
+      [
+        2560,
+        600
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "method": "Actual JPEG color/light proxies sampled through the production sphere and lens at nominal overview; no authoritative land mask or spacecraft occlusion. Twenty-second time steps.",
+    "firstFiveMinuteLandProxy": {
+      "baseline": "25-34%",
+      "current": "80-92%"
+    },
+    "firstBelow40PercentProxySeconds": {
+      "baseline": [
+        0,
+        160
+      ],
+      "current": [
+        700,
+        720
+      ]
+    },
+    "limitations": "Approximate visual proxy specific to the unchanged night photograph, not all cameras/layouts. Full physical rotation eventually includes oceans."
+  },
+  "verification": {
+    "tests": {
+      "command": "npm test",
+      "passed": 335,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "orbit": {
+      "command": "node --test tests/orbit/*.test.mjs",
+      "passed": 31,
+      "failed": 0,
+      "log": "orbit-tests.log"
+    },
+    "typecheck": {
+      "passed": true,
+      "log": "typecheck.log"
+    },
+    "build": {
+      "passed": true,
+      "log": "build.log",
+      "warnings": [
+        "Existing large client-chunk advisory",
+        "Vinext dynamic-route classification limitation"
+      ]
+    },
+    "lint": {
+      "passed": true,
+      "log": "lint.log"
+    },
+    "diffCheck": true,
+    "developerTools": "Agent verified current resolution-lab and historical sky-baseline bundles, plus fixture HTTP/read-only routing. No timing runs."
+  },
+  "resolvedDuringWork": [
+    "Initial focused test and live HMR briefly encountered old Earth export names between coordinated edits. Root updated the environment imports and fresh loads worked. One old tab retained this historical error in its log; the fresh final portrait tab logged no errors.",
+    "Affected lint flagged diagnostic array interpolation in a new test. Fixed with join; initial failure preserved in lint-initial.log.",
+    "A 3,000 ms browser wait timed out once during concurrent builds/tests. The next state showed the completed scene and no application error."
+  ],
+  "limitations": [
+    "No native Safari or physical mobile testing.",
+    "Still captures and analytical motion checks rather than continuous video.",
+    "No CPU/GPU timing comparison was requested or claimed."
+  ],
+  "critic": {
+    "status": "Approved, no blockers",
+    "agent": "/root/sky_land_critic",
+    "score": 95,
+    "rubric": {
+      "fulfillmentAndCorrectness": "30/30",
+      "visualArtQuality": "33/35",
+      "maintainability": "14/15",
+      "verificationEvidence": "13/15",
+      "costTransparency": "5/5"
+    },
+    "reviewed": "Final source/docs, 19 of 20 screenshots including all current views and principal baseline comparisons. Independently checked all eight source hashes, all 20 image hashes, audit and fixture hashes; logs and diff check.",
+    "findings": "Clear larger stars and independent phase changes, covered drag edges, and a substantially longer attractive land/city-light sequence. No artwork revision requested. Initial lint finding corrected before approval.",
+    "limitations": [
+      "Chromium only; native Safari and physical mobile untested.",
+      "Still-phase review rather than continuous video; live drag captures show spring return, exact limits use fixtures.",
+      "Geographic color proxy excludes spacecraft occlusion.",
+      "No measured frame-time, heat or battery effect."
+    ]
+  }
+}

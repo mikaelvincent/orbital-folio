@@ -19,6 +19,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 23 · 15 September 2026 | Approximate prefiltered environment illumination with a fitted probe | Audited; delivered illumination retained. Both probes visibly alter shading, and the rested GPU controls fail the stability gate. No production bake is enabled. |
 | 24 · 16 September 2026 | Contact computer application and animated keyboard | New authored baseline, not an optimization. Structural visible triangle inputs +664; retained geometry arrays −388,324 bytes after removing the old Contact tablet. One new keyboard atlas costs 2.667 MiB nominal texture storage. |
 | 25 · 16 September 2026 | Contact screen clearance, active social controls and wall dismissal | Structural model counts/storage unchanged against `917e7e0`. New exposed-wall picking reuses exact-ray results after geometry/camera settling; descriptive Node workload sizing does not establish browser speed, heat or battery gains. |
+| 27 · 18 September 2026 | Surrounding stars, clearer twinkle and a longer land-facing Earth opening | New art baseline: desktop star arrays +0.37 MiB, same one star draw and 8K asset. Sampled terrain-color dominance lasts roughly 12 minutes before dropping below 40%; this is a visual proxy, not a timing gain. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1406,6 +1407,60 @@ This is requested interface work, not a measured optimization; no timing, memory
 heat or battery improvement is claimed. The [source-matched review and checks](evidence/contact-chooser-scroll/review.json)
 record landscape/portrait behavior and verification limitations. Deferred
 optimization candidates remain untouched.
+
+## 27 — Surrounding stars and a longer land-facing Earth opening (18 September 2026)
+
+**Requested visual work, not an optimization.** The owner reported starless drag
+edges, barely visible twinkle, dust-like star sizes and an Earth view that soon
+became ocean-heavy. A uniform surrounding sphere replaces the rectangular star
+patch. Three size bands (2.2–3.3, 3.6–5.0 and 6.2–8.0 CSS-pixel sprite diameters)
+combine fine stars with a few luminous anchors. Independent brightness modulation
+and 18% halo-size breathing make twinkle legible without synchronized flashing.
+The actual luminous cores are smaller than the sprites; these are shader sizes,
+not measured bright-pixel diameters. Meteor timing and appearance are unchanged.
+
+| Retained star attributes | Before (`29ffee1`) | Delivered | Change |
+| --- | ---: | ---: | ---: |
+| Desktop points / array bytes | 3,100 / 136,400 B | 12,000 / 528,000 B | +391,600 B (0.37 MiB) |
+| Compact points / array bytes | 2,300 / 101,200 B | 9,000 / 396,000 B | +294,800 B (0.28 MiB) |
+
+These counts cover the whole sphere, including points outside the current view;
+they are not the visible star count. There is still one Points geometry/material
+and one star draw, no new downloaded asset or per-frame allocation, but more
+vertex work and revised fragment shading. Array bytes exclude JS objects,
+driver copies and rasterization cost. Unchanged draws do not imply unchanged
+GPU time; this task makes no frame-rate, heat or battery claim. Keep the new art
+in future source-identified performance baselines.
+
+The same 8K Black Marble image now starts at **110°E, 30°N, −12° roll**, replacing
+Mediterranean. Existing 0.003 rad/s rotation exposes Eurasia before the Atlantic.
+No motion reversal, looping, hidden repositioning, new texture or resolution
+change is used. The [reproducible CPU composition audit](evidence/sky-land-composition/earth-land-audit.json)
+compares 72 candidate orientations across 1280×720, 2560×600 and 390×844 using
+the production 38° lens. A source-image color proxy gives approximately 66–74%
+terrain coverage initially versus 36–58%, and 80–92% mean over the first five
+minutes versus 25–34%. First sampled coverage below 40% shifts from 0–160 to
+700–720 active seconds. These are approximate texture-color classifications,
+not an authoritative land mask or guaranteed threshold for every camera.
+Sampling uses 20-second steps, excludes spacecraft occlusion and measures nominal
+overview. Warm lights and rendered images also informed selection; maximizing
+terrain alone would favor darker northern regions. A full rotation still takes
+about 35 minutes and eventually includes oceans.
+
+The [source-matched visual review and checks](evidence/sky-land-composition/review.json)
+include wide/portrait live scenes, post-release drag integration, exact-angle
+orbital fixtures, distinct twinkle phases and Earth at zero, five and ten minutes.
+Built-in Chromium is the tested engine; native Safari remains untested. The finite
+comparison fixture omits spacecraft/AO and records actual viewport/DPR/buffer
+dimensions. Live captures use the full renderer; their development accessibility
+banner is not production UI. Existing quality, cached shading and held optimization
+candidates remain unchanged. Current resolution tooling follows the new opening;
+the older night-result auditor intentionally remains scoped to its historical
+Mediterranean measurements.
+
+Verification: **335 full tests**, including 31 focused orbit tests, typecheck,
+affected lint, production build and diff checks pass. Independent review scored
+**95/100**, with the rubric and limitations recorded in the review above.
 
 ## Next candidates
 

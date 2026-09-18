@@ -111,13 +111,17 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- Keep the approved **8K Mediterranean night Earth**. The owner sees worthwhile
+- Keep the approved **8K night Earth**, now opening over inland East Asia to
+  sustain the Eurasian land pass before reaching ocean. This supersedes the
+  earlier Mediterranean start; keep continuous rotation rather than looping or
+  freezing a favored patch. The owner sees worthwhile
   extra detail over 4K and accepts its added delivery/memory cost. Do not silently
   lower resolution or restore removed public globe controls. Retain useful
   developer comparison tools and their historical assets.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
-  noticeable varied star twinkle and slower, dimmer, less frequent meteors with
+  a surrounding star field with no exposed edge during drag/roll, readable varied
+  star sizes, noticeable independent twinkle, and slower, dimmer, less frequent meteors with
   occasional groups. Procedural-cloud trials are historical, not today's design.
 
 ## Performance and comparisons

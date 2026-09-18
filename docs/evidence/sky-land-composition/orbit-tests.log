@@ -1,0 +1,39 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (35.414125ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (16.004417ms)
+✔ Disposal before injected texture installation releases it without invalidating (16.693875ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (34.6285ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (48.602708ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (28.255584ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.961334ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.423ms)
+✔ Earth loader propagates fetch and decode failures (0.570375ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.250292ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (1.541166ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.238792ms)
+✔ Texture construction/configuration failure releases owned resources (3.471625ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.119959ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.7965ms)
+✔ Night defaults to 8K while historical day defaults and all night comparison sizes remain available (1.632459ms)
+✔ The shipped 8K night map matches its source manifest and texture memory estimate (12.081792ms)
+✔ Night Earth shares one geometry with one atmosphere and has no unused daylight rig (28.311125ms)
+✔ Inland East Asia stays visible for the first ten seconds at 1280×720 (18.994541ms)
+✔ Inland East Asia stays visible for the first ten seconds at 2560×600 (15.67075ms)
+✔ Inland East Asia stays visible for the first ten seconds at 390×844 (7.1295ms)
+✔ Inland East Asia stays visible for the first ten seconds at 768×4096 (9.059334ms)
+✔ The early rotation retains terrain and city detail instead of reaching the Atlantic (248.444ms)
+✔ Night lighting stays photographic and resizing reuses every loaded resource (27.590875ms)
+✔ The opening waits for image readiness and respects the global active clock (11.093084ms)
+✔ The shipped night asset matches its manifest, real 8K dimensions and source provenance (3.259708ms)
+✔ Stars cover the edges through wide, portrait and rotated camera views (75.791417ms)
+✔ Star sizes form a readable hierarchy and remain CSS-sized across DPR changes (23.103709ms)
+✔ Seeded stars have visible independent modulation without a synchronized field pulse (76.371166ms)
+✔ Shooting stars have quiet event spacing, small coherent groups and varied restrained peaks (24.306667ms)
+✔ Sky animation stays deterministic across seeks and pauses, with no resource replacement (17.968791ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 617.733625

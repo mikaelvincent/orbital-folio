@@ -1,0 +1,5 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint features/orbit/orbital-environment.ts features/orbit/earth-view-transform.ts tests/orbit/sky-motion.test.mjs tests/orbit/earth-views.test.mjs scripts/benchmarks/sky-composition-preview.mjs docs/evidence/sky-land-composition/earth-land-audit.mjs
+
+tests/orbit/sky-motion.test.mjs:75:44: error typescript(restrict-template-expressions): Invalid type used in template literal expression.

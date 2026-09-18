@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 16 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 18 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -221,8 +221,11 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-Production uses the **8192×4096 NASA Black Marble night map**, a fixed
-Mediterranean opening and cinematic blue atmosphere. It loads the selected map,
+Production uses the **8192×4096 NASA Black Marble night map**, an inland East Asian
+opening (110°E, 30°N, −12° roll) and cinematic blue atmosphere. The current opening
+supersedes Mediterranean: the existing continuous spin brings Eurasia into view
+before the Atlantic, keeping land and city lights visible longer. No reversal,
+pause, hidden reset or texture modification is used to avoid ocean. It loads the selected map,
 not every resolution candidate. The owner sees worthwhile improvement over 4K
 and accepts the added cost; that overrides the earlier general 4K recommendation.
 Public globe controls/presets were temporary exploration UI, removed after the
@@ -230,7 +233,11 @@ pose was selected. Keep useful developer comparisons and historical assets.
 
 Atmosphere art takes priority over strict realism: preserve the gradual blue
 horizon with a restrained peak, without gray pollution-like haze or glaring
-electric blue. Stars visibly twinkle with varied timing. Meteors are quieter,
+electric blue. Stars surround the world on a uniform sphere, eliminating the old
+rectangular patch's exposed drag edges. A hierarchy of small, medium and a few
+larger luminous stars replaces the dust-like field. Independent brightness and
+halo-size modulation make twinkle noticeable without pulsing the entire sky.
+Meteors are quieter,
 slower and less frequent than the early implementation, occasionally grouped.
 
 Earlier cloud requests favored scattered formations with varied volume and
@@ -240,6 +247,9 @@ because an old asset document calls procedural clouds current. These preferences
 matter if the owner later reopens cloud design.
 
 Current comparison evidence: [2K/4K/8K night Earth](evidence/performance/night-earth-resolution/README.md).
+The [current sky and land-pass review](evidence/sky-land-composition/review.json)
+records the revised composition, resource cost and visual checks; the CPU land
+audit uses a texture-color proxy, not an authoritative coastline mask.
 Earlier day-map/procedural comparison: [four-way audit](evidence/performance/earth-fourway/audit-summary.md).
 Atmosphere: [horizon softening](evidence/horizon-softening/README.md).
 Asset provenance: [texture records](../public/textures/README.md).
