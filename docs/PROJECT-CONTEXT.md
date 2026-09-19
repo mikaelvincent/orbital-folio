@@ -33,7 +33,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Room furniture | `features/spacecraft/rooms/about-personal-study.ts`, `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/case-study-archive.ts`, `features/spacecraft/rooms/contact-flight-console.ts` |
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
-| Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
+| Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
@@ -221,27 +221,49 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-The owner selected **Europe at Night** on 20 September 2026, using the
-**8192×4096 NASA Black Marble night map** and cinematic blue atmosphere.
-The fixed opening is **12° longitude / 48° latitude / −10° roll**, rotating at
-**0.0045 rad/s (1.5× the original 0.003 rad/s)**. The approved constants live in
+The owner selected **Europe at Night** on 20 September 2026, then requested a
+seamlessly repeating regional texture to avoid long passages over dark ocean or
+unlit terrain. Production now uses **`earth-europe-loop.webp` (4096×3072)**,
+authored from the **8192×4096 NASA Black Marble night map**, with the same cinematic
+blue atmosphere. The fixed opening remains **12° longitude / 48° latitude /
+−10° roll**, rotating at **0.0045 rad/s (1.5× the original 0.003 rad/s)**.
+The approved constants live in
 `features/orbit/earth-view-transform.ts`; the single-map loader is in
 `features/orbit/earth-satellite.ts`. Rotation starts after the texture is ready
 and respects the existing active clock, visibility and reduced-motion behavior.
 Camera movement still carries the orbital background naturally across rooms.
 
-This is the former **Europe at night** preset, distinct from Mediterranean
-classic (18° / 38° / −12°). The explicit selection supersedes the provisional
-East Asian default and earlier route recommendations. The owner accepts 8K's
-additional delivery/storage cost; continuous rotation still reaches dim regions.
-The earlier CPU light scores were comparison aids, not substitutes for this choice.
+The regional atlas repeats every **180° / 698.13 seconds (11 minutes 38 seconds)**
+while the sphere continues rotating forward. Two exact texture repeats around
+the sphere keep its longitude seam aligned. A protected **1536×3072 European
+core** contains byte-identical decoded source pixels; an offline deterministic
+builder joins native-scale satellite patches into the connecting fictional
+geography. No resizing, AI imagery, blur, relighting or runtime synthesis is
+used. This is an artistic satellite collage, not a factual full-world map.
+Its 4096-pixel width does **not** mean the earlier downsampled 4K globe: the
+source texels retain their original angular density.
+
+The loop has **64 MiB** of nominal RGBA8 mip storage versus **170.67 MiB** for the
+full 8K image. Lossless encoding instead increases the asset download from
+**2,329,878 to 3,625,576 bytes**. These are asset/allocation facts, not measured
+process memory or evidence of faster frames, less heat or lower power use. The
+[regional-loop evidence](evidence/europe-regional-loop/README.md) records the
+visual checks, measurements and rejected trials.
+
+The opening is the former **Europe at night** preset, distinct from Mediterranean
+classic (18° / 38° / −12°). It supersedes the provisional East Asian default and
+earlier route recommendations. The regional-loop request also supersedes the
+decision to accept darker regions later in a full-world rotation. CPU light
+scores remain comparison aids, not substitutes for rendered visual review.
 
 The Earth view launcher, angle/preset/model controls, temporary playback clock,
 copy/paste settings, daytime rendering and helper-specific tests have been
 removed. There is no visitor-facing Earth configuration or persisted preview.
-Only the night 8K texture remains an application asset; daytime and lower-resolution
-maps are removed. Their small provenance manifests and raw performance results
-remain in historical evidence. Reproducing those old implementations requires
+Only the regional night WebP is fetched by normal application visits. The full
+8K night JPEG remains in `public/textures/` for rebuilding, regression tests and
+historical comparisons; it is not an additional runtime request. Daytime and
+lower-resolution maps remain removed. Their small provenance manifests and raw
+performance results remain in historical evidence. Reproducing those old implementations requires
 checkpoint `56c67bb`, as described by the [historical resolution guide](../scripts/benchmarks/earth-resolution-lab.md).
 Independently used cloud benchmark fixtures remain for their retained tests and
 case-study evidence; the production renderer does not load them.
@@ -294,13 +316,14 @@ Resolution comparisons include actual transfer bytes, decoded/nominal texture
 storage with mipmaps, decode/upload/first-frame preparation and steady CPU/GPU/
 frame pacing. Verify decoded dimensions and loading success. Preparation records
 are not cold-network benchmarks; multi-version lab residency is not single-map
-production memory. Current night data do not reliably rank steady rendering at
+production memory. Historical full-globe night data do not reliably rank steady rendering at
 2K/4K/8K; delivery/storage differences are clear. Keep day/procedural comparisons
 separate and identify preserved historical source explicitly.
 
 Geometry/render experiments should first rank current costly passes/groups,
-then compare the affected rooms and activities. Keep approved 8K Earth in
-unrelated baselines. Match production build, viewport, drawing buffer, camera,
+then compare the affected rooms and activities. Keep the approved regional Earth
+with its original 8K texel density in unrelated baselines; source-identify older
+full-globe comparisons separately. Match production build, viewport, drawing buffer, camera,
 time, quality, power and motion state. Repeat balanced orders and reference
 controls. Stop builds/tests/other rendering during timed work. CPU microbenchmarks
 and sustained browser captures answer different questions.

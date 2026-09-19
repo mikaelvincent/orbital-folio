@@ -1,0 +1,51 @@
+{
+  "agent": "/root/earth_cleanup_audit",
+  "score": 94,
+  "unresolvedBlockers": false,
+  "rubric": [
+    {
+      "criterion": "Request fulfillment",
+      "score": 20,
+      "maximum": 20
+    },
+    {
+      "criterion": "Visual quality and continuity",
+      "score": 27,
+      "maximum": 30
+    },
+    {
+      "criterion": "Runtime and mapping correctness",
+      "score": 25,
+      "maximum": 25
+    },
+    {
+      "criterion": "Organization and provenance",
+      "score": 9,
+      "maximum": 10
+    },
+    {
+      "criterion": "Verification and performance evidence",
+      "score": 13,
+      "maximum": 15
+    }
+  ],
+  "reviewedAssetSha256": "6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c",
+  "independentFindings": [
+    "Protected European core has zero altered decoded RGB channels; periodic border retains exact source adjacency.",
+    "Sampled phase, wrap and sphere-seam captures are coherent; final actual-app portrait/desktop and Contact captures pass.",
+    "Both timing orders match final runtime/asset hashes and are correctly classified inconclusive.",
+    "Final README tables match raw timing reports; local preparation observations do not establish general startup or power gains."
+  ],
+  "revisions": [
+    "Rejected oversized AI light flares and changed photographic character.",
+    "Replaced long-strip collage with smaller native patches to avoid duplicated whole-country shapes.",
+    "Corrected lab FOV from42 to production38 before final captures and measurements.",
+    "Clarified exclusive crop bounds and seed provenance in documentation."
+  ],
+  "limitations": [
+    "Chromium only; native Safari not tested.",
+    "Finite sampled camera/loop coverage; no uninterrupted full-loop visual watch.",
+    "No proven steady-rendering speed improvement.",
+    "Artistic collage can contain similar recognizable fragments; not a factual world map."
+  ]
+}

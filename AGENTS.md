@@ -113,15 +113,21 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 - The owner selected **Europe at Night** on 20 September 2026: longitude **12°**,
   latitude **48°**, roll **−10°**, rotating at **0.0045 rad/s (1.5× the original
-  rate)**. Keep the approved 8K Black Marble night texture and cinematic
-  atmosphere. This supersedes earlier Mediterranean/East Asian defaults and
-  temporary route recommendations; later dim regions remain part of full rotation.
+  rate)**. The subsequent regional-loop request supersedes full-globe travel
+  through long dark regions: use the **4096×3072 lossless regional WebP**, retaining
+  the original 8K map's texel density and unchanged European core. Its authored
+  connecting geography repeats every **180° / 698.13 seconds** under continuous
+  physical rotation. Preserve the cinematic atmosphere and native pixel detail;
+  the smaller atlas is a crop and collage, not a downsampled 4K globe.
 - The temporary Earth helper, other presets, day-model toggle, portable settings
   and their dedicated tests have been retired at the owner's request. Do not
   restore public Earth controls or daytime rendering without a new request.
-  Only the 8K night map belongs in production. Keep raw comparison evidence and
-  provenance; removed implementations/assets can be recovered from checkpoint
-  `56c67bb`. Preserve independently used developer benchmark fixtures and tests.
+  The application fetches only `earth-europe-loop.webp`; retain the full 8K night
+  JPEG as the deterministic builder input, test fixture and historical baseline.
+  It is not fetched by ordinary visits. The authored bridge uses native satellite
+  pixels, not AI imagery or runtime synthesis. Keep raw comparison evidence and
+  provenance; removed variants are recoverable from checkpoint `56c67bb`.
+  See [regional-loop evidence](docs/evidence/europe-regional-loop/README.md).
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied

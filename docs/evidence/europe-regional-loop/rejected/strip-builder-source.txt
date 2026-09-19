@@ -1,0 +1,151 @@
+/** Build the authored Europe loop from unchanged native-resolution night pixels.
+ * No resizing, neural enhancement or runtime synthesis. Rebuild with:
+ *   node scripts/build-regional-earth.mjs
+ * The fixed source revision also reproduces the previous full-globe baseline.
+ */
+import sharp from 'sharp';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { resolve, dirname } from 'node:path';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const revision = 'c645c839fc638be005038eb3d039c4daac1f098d';
+const sourcePath = 'public/textures/earth-black-marble-8k.jpg';
+const sourceHash = '48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd';
+const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+let encodedSource;
+try {
+  encodedSource = await readFile(resolve(root, sourcePath));
+} catch {
+  encodedSource = execFileSync('git', ['show', `${revision}:${sourcePath}`], {
+    cwd: root, maxBuffer: 16 * 1024 * 1024,
+  });
+}
+if (digest(encodedSource) !== sourceHash) throw new Error('Night source identity changed');
+const { data: source, info } = await sharp(encodedSource).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+if (info.width !== 8192 || info.height !== 4096 || info.channels !== 3)
+  throw new Error('Expected the original RGB 8192×4096 night image');
+
+const width = 4096, height = 3072, sourceX = 3712, sourceY = 128;
+const coreWidth = 1536, stripWidth = 384, overlap = 128, step = stripWidth - overlap;
+const pixels = Buffer.alloc(width * height * 3);
+const sourceIndex = (x, y) => ((y + sourceY) * info.width + x) * 3;
+const outputIndex = (x, y) => (y * width + x) * 3;
+// Protected Europe: decoded pixels survive byte-for-byte in the lossless output.
+for (let y = 0; y < height; y++) {
+  const start = sourceIndex(sourceX, y);
+  source.copy(pixels, outputIndex(0, y), start, start + coreWidth * 3);
+}
+
+/** A join follows naturally similar dark terrain, avoiding bright city centres.
+ * Sample selection uses the upper/mid latitude band most exposed by the camera.
+ * All transferred pixels retain their original scale and RGB values.
+ */
+const energy = (ox, sx, y, column) => {
+  const a = outputIndex(ox + column, y), b = sourceIndex(sx + column, y);
+  let difference = 0;
+  for (let c = 0; c < 3; c++) difference += (pixels[a + c] - source[b + c]) ** 2;
+  const peak = Math.max(pixels[a], pixels[a + 1], pixels[a + 2], source[b], source[b + 1], source[b + 2]);
+  // Cutting through very bright structures is visibly worse than dark ground.
+  return difference + Math.max(0, peak - 45) ** 2 * 0.35;
+};
+const seamFor = (ox, sx) => {
+  const parent = new Int8Array(width ? overlap * height : 0);
+  let previous = new Float64Array(overlap), current = new Float64Array(overlap);
+  for (let x = 0; x < overlap; x++) previous[x] = energy(ox, sx, 0, x);
+  for (let y = 1; y < height; y++) {
+    for (let x = 0; x < overlap; x++) {
+      let best = previous[x], direction = 0;
+      if (x > 0 && previous[x - 1] < best) { best = previous[x - 1]; direction = -1; }
+      if (x + 1 < overlap && previous[x + 1] < best) { best = previous[x + 1]; direction = 1; }
+      current[x] = best + energy(ox, sx, y, x);
+      parent[y * overlap + x] = direction;
+    }
+    [previous, current] = [current, previous];
+  }
+  let x = 0;
+  for (let i = 1; i < overlap; i++) if (previous[i] < previous[x]) x = i;
+  const cost = previous[x], path = new Uint16Array(height);
+  for (let y = height - 1; y >= 0; y--) {
+    path[y] = x;
+    x += parent[y * overlap + x];
+  }
+  return { path, cost };
+};
+
+const strips = [];
+const usage = new Map();
+for (let ox = coreWidth - overlap, index = 0; ox + stripWidth <= width; ox += step, index++) {
+  const first = index === 0, last = ox + stripWidth === width;
+  let sx;
+  if (first) sx = sourceX + coreWidth - overlap;
+  else if (last) sx = sourceX - stripWidth;
+  else {
+    const candidates = [];
+    for (let candidate = 3872; candidate <= 4864; candidate += 32) {
+      // Avoid directly repeating the previous strip or regularly marching across
+      // the original map; the connecting region must have its own coastline.
+      if (strips.some((strip) => Math.abs(strip.sourceX - candidate) < 96)) continue;
+      let cost = 0;
+      for (let y = 256; y < 1536; y += 8) {
+        let best = Infinity;
+        for (let x = 8; x < overlap - 8; x += 4) best = Math.min(best, energy(ox, candidate, y, x));
+        cost += best;
+      }
+      const used = usage.get(Math.floor(candidate / 128)) ?? 0;
+      candidates.push({ sx: candidate, cost: cost * (1 + used * 0.6) });
+    }
+    if (!candidates.length) {
+      // The authored strip count is small; this fallback avoids a hidden
+      // dependency on palette size if the generation recipe is later changed.
+      sx = 4000 + (index % 4) * 192;
+    } else {
+      candidates.sort((a, b) => a.cost - b.cost || a.sx - b.sx);
+      sx = candidates[0].sx;
+    }
+  }
+  const seam = first ? { path: new Uint16Array(height).fill(overlap), cost: 0 } : seamFor(ox, sx);
+  for (let y = 0; y < height; y++) {
+    const cut = seam.path[y];
+    const start = sourceIndex(sx + cut, y);
+    source.copy(pixels, outputIndex(ox + cut, y), start, sourceIndex(sx + stripWidth, y));
+  }
+  usage.set(Math.floor(sx / 128), (usage.get(Math.floor(sx / 128)) ?? 0) + 1);
+  strips.push({ outputX: ox, sourceX: sx, sourceY, width: stripWidth, overlap, minimumErrorPathCost: seam.cost });
+}
+if (strips.at(-1).outputX + stripWidth !== width) throw new Error('Authored strips do not cover the tile');
+
+const output = await sharp(pixels, { raw: { width, height, channels: 3 } })
+  .webp({ lossless: true, effort: 6 }).toBuffer();
+const decoded = await sharp(output).removeAlpha().raw().toBuffer();
+if (!decoded.equals(pixels)) throw new Error('Texture encoding did not preserve authored RGB pixels');
+let coreErrors = 0;
+for (let y = 0; y < height; y++) {
+  const a = source.subarray(sourceIndex(sourceX, y), sourceIndex(sourceX + coreWidth, y));
+  const b = decoded.subarray(outputIndex(0, y), outputIndex(coreWidth, y));
+  if (!a.equals(b)) coreErrors++;
+}
+if (coreErrors) throw new Error('Protected Europe pixels changed');
+
+let mipBytes = 0;
+for (let w = width, h = height; ; w = Math.max(1, w >> 1), h = Math.max(1, h >> 1)) {
+  mipBytes += w * h * 4;
+  if (w === 1 && h === 1) break;
+}
+const asset = '/textures/earth-europe-loop.webp';
+const manifest = {
+  title: 'Europe at Night — artistically repeated regional satellite texture',
+  asset, width, height, format: 'webp', lossless: true, encodedBytes: output.length,
+  sha256: digest(output), colorSpace: 'sRGB', estimatedRgba8WithMipmapsBytes: mipBytes,
+  projection: 'equirectangular regional atlas; 180-degree horizontal period; north-to-south rows',
+  mapping: { sourceWidth: info.width, sourceHeight: info.height, sourceX, sourceY, coreWidth, longitudePeriodDegrees: 180, latitudeNorth: 84.375, latitudeSouth: -50.625 },
+  quality: { resampled: false, protectedCoreDecodedPixelDifferences: coreErrors, coreSha256: digest(await sharp(pixels, { raw: { width, height, channels: 3 } }).extract({ left: 0, top: 0, width: coreWidth, height }).raw().toBuffer()) },
+  source: { revision, path: sourcePath, sha256: sourceHash, credit: 'NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC', page: 'https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/', note: '2016 composite. The original Europe core is preserved; the connecting geography is an authored collage and is not a factual world map.' },
+  preparation: { command: 'node scripts/build-regional-earth.mjs', recipe: 'Native-scale vertical satellite strips joined along minimum-error terrain paths; exact original geographic wrap at tile boundary; lossless WebP. No AI-generated pixels, blur, upscaling, relighting or runtime synthesis.', sharp: sharp.versions.sharp, vips: sharp.versions.vips, webp: sharp.versions.webp, strips },
+};
+await mkdir(resolve(root, 'public/textures'), { recursive: true });
+await writeFile(resolve(root, `public${asset}`), output);
+await writeFile(resolve(root, 'public/textures/earth-europe-loop.json'), JSON.stringify(manifest, null, 2) + '\n');
+console.log(JSON.stringify({ asset, width, height, encodedBytes: output.length, mipBytes, coreErrors, sha256: manifest.sha256, strips }, null, 2));

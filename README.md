@@ -6,13 +6,17 @@ A reusable developer portfolio with a real, editable Three.js spacecraft, server
 
 The interactive view makes the ship the main interface. Projects and Case studies sit above About and Contact, linked by side doors and a tall left ladder bay. Cabin dimensions and object placement remain consistent across viewports. The camera moves around the stationary spacecraft; portrait overview uses a camera roll to present its satellite end upward. Choose a visible room, a doorway, or the persistent navigation to approach it. Direct room URLs animate in from overview. The existing semantic readers, editable content and reduced-motion/reading fallbacks remain available.
 
-Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses an 8K night Earth opening over Europe, a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
+Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background opens over Europe at night and repeats an authored regional landscape at the original 8K map's detail density, with a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
 The approved Earth composition is **Europe at Night**: 12° longitude, 48° latitude,
-−10° tilt, rotating at **1.5× (0.0045 rad/s)**. The temporary Earth controls,
-comparison presets and daytime renderer have been removed. Only the 8K night
-map loads in the application. See the [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art)
-and [texture provenance](public/textures/README.md).
+−10° tilt, rotating at **1.5× (0.0045 rad/s)**. The **4096×3072 lossless regional
+texture** preserves the original European pixels and joins them to fictional
+satellite terrain, repeating every **11 minutes 38 seconds**. This keeps native
+8K detail without loading the entire world map. The temporary Earth controls,
+comparison presets and daytime renderer remain removed. See the
+[current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art),
+[texture provenance](public/textures/README.md) and
+[regional-loop evidence](docs/evidence/europe-regional-loop/README.md).
 
 ## Run locally
 

@@ -1,0 +1,895 @@
+{
+  "conclusion": "Inconclusive speed comparison: both orders fail repeated-control stability; do not infer heat, power, battery or whole-app performance.",
+  "runs": [
+    {
+      "file": "timing-abba.json",
+      "status": "complete",
+      "configuration": {
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 0,
+        "camera": {
+          "yaw": 0,
+          "pitch": 0,
+          "roll": 0
+        },
+        "comparison": {
+          "reference": {
+            "label": "Before — complete 8K night Earth",
+            "source": "Git baseline/features/orbit/orbital-environment.ts"
+          },
+          "current": {
+            "label": "After — regional night loop",
+            "source": "features/orbit/orbital-environment.ts"
+          }
+        },
+        "order": "ABBA",
+        "framesPerBlock": 600,
+        "measuredFramesPerVersion": 1200,
+        "warmupFramesPerBlock": 30,
+        "idleRestMs": 60000,
+        "blocks": 4,
+        "frozenView": {
+          "yaw": 0,
+          "pitch": 0,
+          "roll": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render",
+        "gpuSampleEveryFrames": 5
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2560,
+          "height": 1440
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "assessment": {
+        "metric": "gpuMs",
+        "controlSpreadLimitPercent": 5,
+        "controls": {
+          "reference": {
+            "blockMeansMs": [
+              3.6312679083333324,
+              2.648723458333333
+            ],
+            "meanMs": 3.139995683333333,
+            "spreadPercent": 31.291267539481364,
+            "returnChangePercent": -27.057889277328602,
+            "stable": false
+          },
+          "current": {
+            "blockMeansMs": [
+              2.521613733333334,
+              3.604240458333334
+            ],
+            "meanMs": 3.062927095833334,
+            "spreadPercent": 35.34614736579124,
+            "returnChangePercent": 42.933884388743,
+            "stable": false
+          }
+        },
+        "relativeSavingPercent": 2.4544169888216256,
+        "exceedsObservedControlSpread": false,
+        "conclusion": "inconclusive: repeated controls exceed the 5% spread gate or have insufficient data",
+        "limits": "This heuristic is not a confidence interval or a thermal diagnosis. GPU-unavailable fallback describes CPU command submission only. Small CPU timings are sensitive to timer quantization. No power, heat, whole-app FPS or battery claim follows."
+      },
+      "pooled": {
+        "reference": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.139995683333331,
+            "median": 2.82627,
+            "p95": 3.981249,
+            "min": 1.382749,
+            "max": 4.449958
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.02908333289126555,
+            "median": 0,
+            "p95": 0.09999999403953552,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.3346666670590639,
+            "median": 0.30000001192092896,
+            "p95": 0.5,
+            "min": 0,
+            "max": 0.800000011920929
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.37399999996026356,
+            "median": 0.4000000059604645,
+            "p95": 0.5999999940395355,
+            "min": 0,
+            "max": 0.800000011920929
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.6652754590985,
+            "median": 16.699999999953434,
+            "p95": 17.600000000093132,
+            "min": 14.699999999953434,
+            "max": 18.599999999976717
+          },
+          "invalidGpuFrames": 0
+        },
+        "current": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.0629270958333334,
+            "median": 2.8086035,
+            "p95": 3.9955,
+            "min": 1.321624,
+            "max": 4.237749
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.026833333497246106,
+            "median": 0,
+            "p95": 0.10000002384185791,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.26175000014404454,
+            "median": 0.29999998211860657,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.800000011920929
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.2991666670391957,
+            "median": 0.30000001192092896,
+            "p95": 0.5,
+            "min": 0,
+            "max": 0.800000011920929
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.665776293823114,
+            "median": 16.699999999953434,
+            "p95": 17.600000000093132,
+            "min": 15.599999999976717,
+            "max": 17.79999999993015
+          },
+          "invalidGpuFrames": 0
+        }
+      },
+      "perBlock": [
+        {
+          "index": 0,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.6312679083333324,
+              "median": 3.6619785,
+              "p95": 4.0805,
+              "min": 2.52925,
+              "max": 4.449958
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.03483333254853884,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.413166666974624,
+              "median": 0.4000000059604645,
+              "p95": 0.5999999940395355,
+              "min": 0.19999998807907104,
+              "max": 0.800000011920929
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.46199999943375586,
+              "median": 0.5,
+              "p95": 0.6000000238418579,
+              "min": 0.19999998807907104,
+              "max": 0.800000011920929
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66560934891478,
+              "median": 16.699999999953434,
+              "p95": 17.899999999906868,
+              "min": 14.699999999953434,
+              "max": 18.599999999976717
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 1,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 2.521613733333334,
+              "median": 2.650937,
+              "p95": 2.785999,
+              "min": 1.321624,
+              "max": 3.991
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.01883333335320155,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.19650000015894573,
+              "median": 0.19999998807907104,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.22450000017881394,
+              "median": 0.20000001788139343,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.664941569282213,
+              "median": 16.699999999953434,
+              "p95": 17.600000000093132,
+              "min": 15.599999999976717,
+              "max": 17.79999999993015
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 2,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.604240458333334,
+              "median": 3.66752,
+              "p95": 4.021999,
+              "min": 2.691625,
+              "max": 4.237749
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.03483333364129067,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.19999998807907104
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.3270000001291434,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0.09999999403953552,
+              "max": 0.800000011920929
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.37383333389957746,
+              "median": 0.4000000059604645,
+              "p95": 0.5,
+              "min": 0.19999998807907104,
+              "max": 0.800000011920929
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66661101836402,
+              "median": 16.699999999953434,
+              "p95": 17.699999999953434,
+              "min": 15.599999999976717,
+              "max": 17.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 3,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 2.648723458333333,
+              "median": 2.7065625,
+              "p95": 2.805249,
+              "min": 1.382749,
+              "max": 2.856125
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.023333333233992257,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.25616666714350383,
+              "median": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.28600000048677127,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.664941569282213,
+              "median": 16.699999999953434,
+              "p95": 17.600000000093132,
+              "min": 15.599999999976717,
+              "max": 17.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        }
+      ],
+      "preparation": [
+        {
+          "version": "reference",
+          "startedAt": "2026-09-19T18:19:45.397Z",
+          "trigger": "comparison",
+          "moduleImportWallMs": 11.900000005960464,
+          "factoryCpuMs": 12.900000005960464,
+          "readyWaitWallMs": 185.90000000596046,
+          "compileAsyncWallMs": 12.599999994039536,
+          "firstRenderCpuMs": 616.2000000178814,
+          "firstSubmittedFrameWallMs": 842.2000000178814,
+          "firstRenderGpuMs": 18.236291,
+          "firstRenderGpuStatus": "valid",
+          "fetchMs": 6.5,
+          "decodeMs": 179.5
+        },
+        {
+          "version": "current",
+          "startedAt": "2026-09-19T18:19:46.256Z",
+          "trigger": "comparison",
+          "moduleImportWallMs": 0.5,
+          "factoryCpuMs": 5.9000000059604645,
+          "readyWaitWallMs": 93.5,
+          "compileAsyncWallMs": 0.19999998807907104,
+          "firstRenderCpuMs": 232.09999999403954,
+          "firstSubmittedFrameWallMs": 332.7000000178814,
+          "firstRenderGpuMs": 5.629541,
+          "firstRenderGpuStatus": "valid",
+          "fetchMs": 6.4000000059604645,
+          "decodeMs": 87.09999999403954
+        }
+      ],
+      "counts": [
+        {
+          "version": "reference",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "current",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "current",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "reference",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        }
+      ]
+    },
+    {
+      "file": "timing-baab.json",
+      "status": "complete",
+      "configuration": {
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "mobile": false,
+        "frozenTime": 0,
+        "camera": {
+          "yaw": 0,
+          "pitch": 0,
+          "roll": 0
+        },
+        "comparison": {
+          "reference": {
+            "label": "Before — complete 8K night Earth",
+            "source": "Git baseline/features/orbit/orbital-environment.ts"
+          },
+          "current": {
+            "label": "After — regional night loop",
+            "source": "features/orbit/orbital-environment.ts"
+          }
+        },
+        "order": "BAAB",
+        "framesPerBlock": 600,
+        "measuredFramesPerVersion": 1200,
+        "warmupFramesPerBlock": 30,
+        "idleRestMs": 60000,
+        "blocks": 4,
+        "frozenView": {
+          "yaw": 0,
+          "pitch": 0,
+          "roll": 0
+        },
+        "queryScope": "renderer.render(environment.scene, environment.camera)",
+        "sampleUnit": "one background render",
+        "gpuSampleEveryFrames": 5
+      },
+      "device": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+        "platform": "MacIntel",
+        "hardwareConcurrency": 10,
+        "deviceMemoryGiB": 16,
+        "nativePixelRatio": 1,
+        "threeRevision": "185",
+        "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "drawingBuffer": {
+          "width": 2560,
+          "height": 1440
+        },
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "high-performance",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "gpuTimerAvailable": true,
+        "visibility": "visible",
+        "fullscreen": false
+      },
+      "assessment": {
+        "metric": "gpuMs",
+        "controlSpreadLimitPercent": 5,
+        "controls": {
+          "reference": {
+            "blockMeansMs": [
+              3.333273441666668,
+              4.295620366666667
+            ],
+            "meanMs": 3.8144469041666675,
+            "spreadPercent": 25.22900302921482,
+            "returnChangePercent": 28.87092648837165,
+            "stable": false
+          },
+          "current": {
+            "blockMeansMs": [
+              3.9174182250000005,
+              3.9166457083333346
+            ],
+            "meanMs": 3.9170319666666673,
+            "spreadPercent": 0.01972199035493932,
+            "returnChangePercent": -0.019720045762177715,
+            "stable": true
+          }
+        },
+        "relativeSavingPercent": -2.689382368592997,
+        "exceedsObservedControlSpread": false,
+        "conclusion": "inconclusive: repeated controls exceed the 5% spread gate or have insufficient data",
+        "limits": "This heuristic is not a confidence interval or a thermal diagnosis. GPU-unavailable fallback describes CPU command submission only. Small CPU timings are sensitive to timer quantization. No power, heat, whole-app FPS or battery claim follows."
+      },
+      "pooled": {
+        "reference": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.81444690416667,
+            "median": 3.0027285,
+            "p95": 7.783083,
+            "min": 0.9725,
+            "max": 14.479708
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.017583333576718967,
+            "median": 0,
+            "p95": 0.09999999403953552,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.16224999994039535,
+            "median": 0.19999998807907104,
+            "p95": 0.30000001192092896,
+            "min": 0,
+            "max": 0.4000000059604645
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.184416666974624,
+            "median": 0.19999998807907104,
+            "p95": 0.30000001192092896,
+            "min": 0,
+            "max": 0.5
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.66661101836392,
+            "median": 16.699999999953434,
+            "p95": 17.599999999976717,
+            "min": 15.600000000093132,
+            "max": 17.70000000006985
+          },
+          "invalidGpuFrames": 0
+        },
+        "current": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 3.9170319666666655,
+            "median": 3.813416,
+            "p95": 7.217374,
+            "min": 0.994375,
+            "max": 10.240875
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.019166666915019354,
+            "median": 0,
+            "p95": 0.09999999403953552,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.19858333277205625,
+            "median": 0.19999998807907104,
+            "p95": 0.30000001192092896,
+            "min": 0,
+            "max": 0.4000000059604645
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.22224999969204268,
+            "median": 0.20000001788139343,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.5
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.66652754590985,
+            "median": 16.699999999953434,
+            "p95": 17.599999999976717,
+            "min": 15.600000000093132,
+            "max": 17.70000000006985
+          },
+          "invalidGpuFrames": 0
+        }
+      },
+      "perBlock": [
+        {
+          "index": 0,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.9174182250000005,
+              "median": 3.8152495,
+              "p95": 5.445375,
+              "min": 1.631499,
+              "max": 5.576124
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.021333333452542624,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.2298333331445853,
+              "median": 0.20000001788139343,
+              "p95": 0.3999999761581421,
+              "min": 0,
+              "max": 0.4000000059604645
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.2561666665474574,
+              "median": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.666444073455683,
+              "median": 16.699999999953434,
+              "p95": 17.599999999976717,
+              "min": 15.699999999953434,
+              "max": 17.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 1,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.333273441666668,
+              "median": 2.26925,
+              "p95": 7.913,
+              "min": 1.002291,
+              "max": 14.479708
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.019500000377496083,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.16666666626930238,
+              "median": 0.19999998807907104,
+              "p95": 0.30000001192092896,
+              "min": 0,
+              "max": 0.4000000059604645
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.19133333350221315,
+              "median": 0.19999998807907104,
+              "p95": 0.30000001192092896,
+              "min": 0,
+              "max": 0.5
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.666611018363824,
+              "median": 16.699999999953434,
+              "p95": 17.599999999976717,
+              "min": 15.600000000093132,
+              "max": 17.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 2,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 4.295620366666667,
+              "median": 4.4425825,
+              "p95": 7.302666,
+              "min": 0.9725,
+              "max": 8.125166
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.015666666775941848,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.19999998807907104
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.15783333361148835,
+              "median": 0.19999998807907104,
+              "p95": 0.29999998211860657,
+              "min": 0,
+              "max": 0.30000001192092896
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.17750000044703484,
+              "median": 0.19999998807907104,
+              "p95": 0.30000001192092896,
+              "min": 0,
+              "max": 0.4000000059604645
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66661101836402,
+              "median": 16.699999999953434,
+              "p95": 17.5,
+              "min": 15.600000000093132,
+              "max": 17.699999999953434
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 3,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.9166457083333346,
+              "median": 3.6367495,
+              "p95": 7.860333,
+              "min": 0.994375,
+              "max": 10.240875
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.017000000377496084,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.10000002384185791
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.16733333239952722,
+              "median": 0.19999998807907104,
+              "p95": 0.29999998211860657,
+              "min": 0,
+              "max": 0.4000000059604645
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.18833333283662795,
+              "median": 0.19999998807907104,
+              "p95": 0.30000001192092896,
+              "min": 0,
+              "max": 0.4000000059604645
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66661101836402,
+              "median": 16.699999999953434,
+              "p95": 17.5,
+              "min": 15.600000000093132,
+              "max": 17.699999999953434
+            },
+            "invalidGpuFrames": 0
+          }
+        }
+      ],
+      "preparation": [
+        {
+          "version": "current",
+          "startedAt": "2026-09-19T18:25:01.225Z",
+          "trigger": "comparison",
+          "moduleImportWallMs": 39.5,
+          "factoryCpuMs": 7.200000017881393,
+          "readyWaitWallMs": 94,
+          "compileAsyncWallMs": 11.800000011920929,
+          "firstRenderCpuMs": 237.30000001192093,
+          "firstSubmittedFrameWallMs": 394.60000002384186,
+          "firstRenderGpuMs": 8.9255,
+          "firstRenderGpuStatus": "valid",
+          "fetchMs": 6.700000017881393,
+          "decodeMs": 87.40000000596046
+        },
+        {
+          "version": "reference",
+          "startedAt": "2026-09-19T18:25:01.637Z",
+          "trigger": "comparison",
+          "moduleImportWallMs": 8.799999982118607,
+          "factoryCpuMs": 15.200000017881393,
+          "readyWaitWallMs": 212.09999999403954,
+          "compileAsyncWallMs": 0.20000001788139343,
+          "firstRenderCpuMs": 631.5,
+          "firstSubmittedFrameWallMs": 872.2999999821186,
+          "firstRenderGpuMs": 36.223333,
+          "firstRenderGpuStatus": "valid",
+          "fetchMs": 5.199999988079071,
+          "decodeMs": 206.90000000596046
+        }
+      ],
+      "counts": [
+        {
+          "version": "current",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "reference",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "reference",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        },
+        {
+          "version": "current",
+          "calls": 4,
+          "triangles": 48642,
+          "points": 12000
+        }
+      ]
+    }
+  ]
+}

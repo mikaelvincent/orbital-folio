@@ -1,0 +1,12 @@
+Sat Sep 19 18:21:55 UTC 2026
+Note: No thermal warning level has been recorded
+Note: No performance warning level has been recorded
+Note: No CPU power status has been recorded
+Now drawing from 'Battery Power'
+ -InternalBattery-0 (id=24969315)	30%; discharging; 1:51 remaining present: true
+Sat Sep 19 18:31:01 UTC 2026
+Note: No thermal warning level has been recorded
+Note: No performance warning level has been recorded
+Note: No CPU power status has been recorded
+Now drawing from 'Battery Power'
+ -InternalBattery-0 (id=24969315)	26%; discharging; 1:18 remaining present: true

@@ -1,0 +1,125 @@
+{
+  "title": "Europe at Night — artistically repeated regional satellite texture",
+  "asset": "/textures/earth-europe-loop.webp",
+  "width": 4096,
+  "height": 3072,
+  "format": "webp",
+  "lossless": true,
+  "encodedBytes": 2338398,
+  "sha256": "520a211f41bae81846e24033a1643432ff640741971e060edf4b46fe2378a4a2",
+  "colorSpace": "sRGB",
+  "estimatedRgba8WithMipmapsBytes": 67108860,
+  "projection": "equirectangular regional atlas; 180-degree horizontal period; north-to-south rows",
+  "mapping": {
+    "sourceWidth": 8192,
+    "sourceHeight": 4096,
+    "sourceX": 3712,
+    "sourceY": 128,
+    "coreWidth": 1536,
+    "longitudePeriodDegrees": 180,
+    "latitudeNorth": 84.375,
+    "latitudeSouth": -50.625
+  },
+  "quality": {
+    "resampled": false,
+    "protectedCoreDecodedPixelDifferences": 0,
+    "coreSha256": "b3768ea7969a308f4ae95b79fe95c01691b7829ccc36d360de47e9dec3ce81ae"
+  },
+  "source": {
+    "revision": "c645c839fc638be005038eb3d039c4daac1f098d",
+    "path": "public/textures/earth-black-marble-8k.jpg",
+    "sha256": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+    "credit": "NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC",
+    "page": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+    "note": "2016 composite. The original Europe core is preserved; the connecting geography is an authored collage and is not a factual world map."
+  },
+  "preparation": {
+    "command": "node scripts/build-regional-earth.mjs",
+    "recipe": "Native-scale vertical satellite strips joined along minimum-error terrain paths; exact original geographic wrap at tile boundary; lossless WebP. No AI-generated pixels, blur, upscaling, relighting or runtime synthesis.",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "webp": "1.6.0",
+    "strips": [
+      {
+        "outputX": 1408,
+        "sourceX": 5120,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 0
+      },
+      {
+        "outputX": 1664,
+        "sourceX": 4864,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 677584.4500000001
+      },
+      {
+        "outputX": 1920,
+        "sourceX": 4032,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 307063.1500000003
+      },
+      {
+        "outputX": 2176,
+        "sourceX": 4288,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 24276.000000000004
+      },
+      {
+        "outputX": 2432,
+        "sourceX": 4544,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 33584.24999999995
+      },
+      {
+        "outputX": 2688,
+        "sourceX": 4768,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 132906.09999999974
+      },
+      {
+        "outputX": 2944,
+        "sourceX": 4192,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 272455.25000000023
+      },
+      {
+        "outputX": 3200,
+        "sourceX": 4448,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 25118.79999999992
+      },
+      {
+        "outputX": 3456,
+        "sourceX": 4672,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 106122.04999999955
+      },
+      {
+        "outputX": 3712,
+        "sourceX": 3328,
+        "sourceY": 128,
+        "width": 384,
+        "overlap": 128,
+        "minimumErrorPathCost": 3218134.9000000027
+      }
+    ]
+  }
+}

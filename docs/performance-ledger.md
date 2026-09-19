@@ -1787,9 +1787,75 @@ historical-fixture loader/readiness assumptions. Final source hashes, captures,
 Chromium-only, no-full-rotation/no-timing limitations above; old comparisons also
 require their documented Git objects.
 
+### Continuous regional night Earth (20 September 2026)
+
+**Approved art change and implemented.** The owner authorized a seamlessly
+repeating regional map, including believable fictional geography, while retaining
+the visible quality of the 8K night image. The approved **12° / 48° / −10° Europe
+opening** and **0.0045 rad/s** forward motion are unchanged. The new map repeats
+every **180° / 698.13s (11m38s)**, with no reset, reversal, animated dissolve or
+runtime generation. This supersedes the preceding full-world Earth baseline;
+the held shadow/AO/illumination candidates remain held.
+
+The **4096×3072 lossless WebP** retains the original 8192×4096 image's texel density.
+It is not a downsampled 4K globe. A protected 1536×3072 European core has **zero
+decoded RGB differences** from the original. The rest uses deterministic native
+satellite patches joined along minimum-error paths, preserving fine light detail.
+The fictional connecting geography is intentionally artistic. The AI trial was
+rejected for oversized light flares and changed photographic character; an early
+long-strip collage was rejected for recognizable repeated country shapes. Both
+rejected approaches and final provenance remain in the
+[regional-loop evidence record](evidence/europe-regional-loop/README.md).
+
+| Earth asset cost | Previous full-world image | Delivered regional loop |
+| --- | ---: | ---: |
+| Encoded download | 2,329,878 bytes | 3,625,576 bytes |
+| Nominal RGBA8 base texture | 128 MiB | 48 MiB |
+| Nominal RGBA8 with mipmaps | 170.67 MiB | 64 MiB |
+
+The **62.5% reduction in estimated texture allocation** is accompanied by a
+**1,295,698-byte / 55.6% larger download** to avoid another lossy encoding
+generation. These are asset bytes and calculated texture storage, not measured
+process/GPU memory. The existing single sphere, material lookup and frame-update
+path remain; resource counts alone do not prove a rendering speedup. The full
+night JPEG remains an actively used source/comparison fixture and is not fetched
+by normal application visits.
+
+The camera audit samples **2,079 scenarios / 11 viewports**. Its largest observed
+longitude span is **152.06°**, below the 180° repeat; sampled latitudes remain
+inside the crop with a minimum **4.12°** margin. This finite audit ignores ship
+occlusion and approximates drag/spring extremes; it is not a guarantee for future
+camera changes. The warm-light image proxy improves across the sampled loop, but
+is not a land/water classifier or an aesthetic acceptance rule. Desktop and
+portrait phase captures, loop-boundary and sphere-seam checks provide the visual
+evidence. The original opening matches; the 160s regional view retains lit coast
+where the original is nearly dark. Live app checks cover overview, drag release,
+portrait roll/navigation and Contact close-ups, with no captured console errors.
+
+The reusable `scripts/regional-earth-lab.mjs` freezes both source/asset versions
+and records separate preparation, CPU, GPU-where-available and frame-cadence data.
+At **1280×720 / DPR 2**, background-only ABBA measured GPU means **3.140 → 3.063ms**;
+BAAB measured **3.814 → 3.917ms**. The apparent ranking reverses and both runs fail
+the 5% repeated-control gate (reference spread **31.29% / 25.23%**). **Rendering
+speed is inconclusive**, with all raw/excluded-as-ranking observations retained.
+Each order includes 1,200 frames and 240 valid GPU queries per version after
+60-second non-rendering rests before each block. Background counts remain four
+draws / 48,642 triangles / 12,000 points. Local decode and first-upload observations
+favor the smaller texture, but only two sequential, cache-warm preparations per
+version were recorded; this is not a cold-network/startup benchmark. Tables,
+source hashes, power context and limitations are in the linked evidence record.
+
+Verification: **332 tests passed**, typecheck, affected lint, production build and
+retained sky-audit smoke passed. Actual app and frozen preview checks used hidden
+built-in **Chromium 153**, not Safari. Independent critic: **94/100**, no unresolved
+blockers; rubric **20/20 fulfillment, 27/30 visual quality, 25/25 runtime/mapping,
+9/10 organization/provenance, 13/15 verification/evidence**. Review preserves the
+finite-camera, sampled-loop, Chromium-only and inconclusive-timing limitations.
+This art change does not claim lower heat, power or battery use.
+
 ## Next candidates
 
-**Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
+**Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. The 20 September regional loop now preserves that source texel density in a cropped/composited atlas; use its exact asset/hash in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 
@@ -1815,7 +1881,7 @@ Three.js exposes separate light-map and AO-map inputs; preparing suitable UV coo
 
 ### Measurement and acceptance record
 
-For each approved experiment, preserve a source/asset-hashed baseline and candidate, with 8K Earth, matching viewport/drawing buffer, frozen background time and deterministic camera/input routes. Measure each selected room and the overview at rest; ordinary and ladder travel; open/half-open/closed doors; pointer and keyboard hover; and both portrait and landscape transitions. Camera-only work must remain distinguishable from light-to-object changes.
+For each approved experiment, preserve a source/asset-hashed baseline and candidate, with the current Earth representation at approved 8K source detail, matching viewport/drawing buffer, frozen background time and deterministic camera/input routes. Measure each selected room and the overview at rest; ordinary and ladder travel; open/half-open/closed doors; pointer and keyboard hover; and both portrait and landscape transitions. Camera-only work must remain distinguishable from light-to-object changes.
 
 Record CPU mean/p95, GPU mean/p95 where available, frame intervals and long frames, draw/triangle counts by pass, and shadow/AO refresh counts and reasons. The current spacecraft pass includes shadow-map generation when requested; do not label its entire cost “shadows.” Separate refreshed frames from cached frames, and use a narrowly scoped developer measurement if further attribution is needed. Report AO refresh cost and its frequency independently. Hiding groups changes occlusion, so differences are not additive invoices for objects.
 

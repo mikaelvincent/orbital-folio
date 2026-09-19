@@ -9,6 +9,10 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { build } from 'esbuild';
 import * as THREE from 'three';
+import {
+  EARTH_TEXTURE_WIDTH,
+  EARTH_TEXTURE_HEIGHT,
+} from '../../features/orbit/earth-satellite.ts';
 const repo = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../..',
@@ -114,7 +118,10 @@ result.protocol.earthLoaderSha256 = Object.fromEntries(
 for (const [label, source] of Object.entries(sources)) {
   const { createOrbitalEnvironment } = await load(source, earthTransforms[label], earthLoaders[label]);
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
+    earthTexture: new THREE.Texture({
+      width: label === 'before' ? 8192 : EARTH_TEXTURE_WIDTH,
+      height: label === 'before' ? 4096 : EARTH_TEXTURE_HEIGHT,
+    }),
   });
   await env.ready;
   env.resize(1440, 900, 2);

@@ -85,7 +85,7 @@ Open `http://127.0.0.1:3019/` in the hidden built-in browser. On other operating
 systems, omit the optional native sampler; thermal context then stays unknown.
 Compile before recovery periods. Keep the main application server at port 3000.
 
-- **Check setup** checks mounting, the 8K texture and same-frame image comparison.
+- **Check setup** checks mounting, the configured Earth texture and same-frame image comparison.
 - **Start survey** records all rooms, hover/focus, doors, ordinary/ladder travel,
   drag release, readers and both Home↔Projects transitions. Those overview
   transitions occur inside recorded windows, not only during room preparation.
@@ -176,7 +176,7 @@ queries and balanced original/indexed orders for idle overview and Projects came
 motion. Both variants use the current geometry-based AO invalidation rule.
 
 Navigate the same tab to `/startup` for fresh iframe/model/WebGL-context samples.
-It measures construction, first submitted frame and first 8K-ready frame separately,
+It measures construction, first submitted frame and first Earth-texture-ready frame separately,
 releasing each scene before the next sample. Close other rendering tabs first.
 Fresh mounts still share driver caches and do not measure physical presentation
 latency. The paired scene retains extra CPU arrays for switching and releases

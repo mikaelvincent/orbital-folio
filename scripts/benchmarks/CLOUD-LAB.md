@@ -1,7 +1,7 @@
 # Standalone Earth comparison lab
 
 This developer fixture compares the **frozen satellite cloud volume immediately
-before the 2K satellite Earth change** with the current production 8K night environment.
+before the 2K satellite Earth change** with the current production regional night environment.
 It adds no portfolio routes, UI, or runtime work. The older procedural-cloud
 reference remains in `cloud-reference.ts` for historical comparisons; it is not
 loaded by this comparison.
@@ -11,11 +11,14 @@ loaded by this comparison.
   changed. It loads `cloud-satellite-v2.cfd.gz` and the unchanged
   `scripts/benchmarks/clouds/cloud-volume.ts` shader.
 - **B / current / after:** `features/orbit/orbital-environment.ts`, using the
-  fixed 8192×4096 Black Marble night image, the approved Europe opening
-  (12° / 48° / −10°) and 0.0045 rad/s rotation.
+  4096×3072 lossless regional atlas at the original 8K source's texel density,
+  the approved Europe opening (12° / 48° / −10°) and 0.0045 rad/s rotation.
+  Authored connecting geography repeats every 180° / 698.13 seconds.
 
-The current 8K JPEG is derived directly from NASA's original 13500×6750 night
-GeoTIFF, not upscaled from an earlier map. The old day and lower-resolution night
+The retained 8K source JPEG is derived directly from NASA's original 13500×6750
+night GeoTIFF. The regional atlas preserves its native pixel density and unchanged
+European core; its connecting collage is fictional geography. The production
+renderer requests only the regional WebP. The old day and lower-resolution night
 JPEGs no longer ship in `public/textures`; reproduce those historical experiments
 in the separate checkout described in the
 [archived resolution guide](earth-resolution-lab.md). This paired lab compares
@@ -98,4 +101,8 @@ Compare actual GPU elapsed milliseconds, submitted draws and triangles, asset
 bytes, estimated texture storage, and readiness/preparation timings separately.
 Do not convert fewer texture samples into a predicted FPS or battery multiplier.
 
-The current image dimensions and readiness checks come from the production Earth configuration. Saved iteration 07 reports remain 2K observations; new 8K night results must not be conflated with those historical daytime measurements. Rebuilding the active image defaults to width 8192; see the [source preparation instructions](../assets/README.md).
+The current image dimensions and readiness checks come from the production Earth
+configuration. Saved iteration 07 reports remain 2K observations; new regional
+night results must not be conflated with those historical daytime measurements
+or later full-globe 8K runs. Rebuild the active atlas with
+`node scripts/build-regional-earth.mjs`; see the [source preparation instructions](../assets/README.md).

@@ -1,0 +1,55 @@
+{
+  "tests": {
+    "passed": 332,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "affectedLint": "passed",
+  "productionBuild": "passed",
+  "skyAudit": {
+    "status": "completed",
+    "before": {
+      "starCount": 3100,
+      "starBufferBytes": 136400,
+      "meteorCapacity": 9,
+      "earthTextureDimensions": [
+        8192,
+        4096
+      ]
+    },
+    "after": {
+      "starCount": 12000,
+      "starBufferBytes": 528000,
+      "meteorCapacity": 9,
+      "earthTextureDimensions": [
+        4096,
+        3072
+      ]
+    }
+  },
+  "localhost": {
+    "homeStatus": 200,
+    "assetStatus": 200,
+    "assetMime": "image/webp",
+    "assetBytes": 3625576,
+    "assetSha256": "6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c"
+  },
+  "browser": "hidden built-in Chromium153; native Safari not tested",
+  "appConsole": "no warnings/errors captured",
+  "visualChecks": {
+    "desktop": [
+      1280,
+      720
+    ],
+    "portrait": [
+      390,
+      844
+    ],
+    "appDpr": 1,
+    "frozenLabDpr": 2
+  },
+  "limits": [
+    "No continuous full-loop visual watch; sampled phases and numerical loop tests.",
+    "Timing remains inconclusive; neither order met baseline stability gate."
+  ]
+}

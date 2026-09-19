@@ -1,23 +1,60 @@
 # Satellite texture sources
 
-## Production night Earth
+## Production regional night Earth
 
-`public/textures/earth-black-marble-8k.jpg` is the only production Earth map:
-8192×4096, derived directly from NASA's 13500×6750 Black Marble 2016 color GeoTIFF.
-The application loads this checked-in image locally; no source download or image
-encoding runs in the browser. The chosen Europe opening is 12° longitude,
-48° latitude, −10° roll, rotating at 0.0045 rad/s (1.5× the former base rate).
+`public/textures/earth-europe-loop.webp` is the only Earth image fetched by the
+application: **4096×3072**, losslessly encoded from native pixels of the retained
+8192×4096 night source. The chosen Europe opening remains **12° longitude,
+48° latitude, −10° roll**, rotating at **0.0045 rad/s (1.5× the former base rate)**.
+The authored regional landscape repeats every **180° / 698.13 seconds**, with
+continuous forward sphere rotation and the original source texel density.
+
+Rebuild deterministically from the checked-in full night source:
+
+```sh
+node scripts/build-regional-earth.mjs
+```
+
+The builder checks the source hash, retains a **1536×3072** original European
+core, and joins native-scale satellite patches along minimum-error terrain paths
+to form the connecting fictional geography. It does not resize, blur, relight or
+generate AI pixels. The lossless encoder preserves the decoded core byte for byte.
+Its manifest records the seed-derived patch choices, codec versions, source
+identity and core comparison. Source recovery from Git `c645c83` is a fallback
+when the local JPEG is absent. No rebuilding or encoding runs in the browser.
+
+The delivered file contains **3,625,576 bytes**, SHA-256
+`6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c`.
+Its nominal RGBA8 mip chain occupies **67,108,860 bytes (64 MiB)** versus
+178,956,972 bytes (170.67 MiB) for the full map. Delivery grows from the source
+JPEG's 2,329,878 bytes; preserving pixels takes priority over compressing this
+authored texture further. Allocation calculations are not measured process/GPU
+memory or frame-time savings. See [regional-loop evidence](../../docs/evidence/europe-regional-loop/README.md).
+
+The atlas covers source columns from x=3712, crops rows from y=128 for 3072 rows,
+and retains the original 8192×4096 coordinate scale. The loader applies one
+vertical flip during `createImageBitmap` decoding, sets Three.js `flipY=false`,
+repeats U twice and clamps V. The integer horizontal repeat keeps the sphere's
+antimeridian phases identical throughout physical rotation.
+
+## Retained 8K night source and historical baseline
+
+`public/textures/earth-black-marble-8k.jpg` is the **8192×4096** source derived from
+NASA's 13500×6750 Black Marble 2016 color GeoTIFF. Keep it for rebuilding,
+regression tests and historical comparisons. Ordinary application visits do not
+fetch it; retaining it in public assets does not imply a second runtime request.
 
 Credit: **NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from
 Miguel Román, NASA GSFC**. [NASA's map page](https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/)
 and [processing explanation](https://science.nasa.gov/earth/earth-observatory/night-light-maps-open-up-new-applications-90008/)
 describe a historical composite selected from cloud-free nights throughout 2016,
-not live weather or a simultaneous global photograph. Our prepared image has no
-added clouds, glow, sharpening or artistic color adjustment. NASA is acknowledged
+not live weather or a simultaneous global photograph. The prepared source JPEG has
+no added clouds, glow, sharpening or artistic color adjustment; the regional
+derivative changes geography as described above. NASA is acknowledged
 as the imagery source without implying endorsement; see
 [NASA's usage guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/).
 
-To reproduce the image, download the
+To reproduce the full source JPEG, download the
 [original color GeoTIFF](https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/144000/144898/BlackMarble_2016_3km_geo.tif),
 install the repository's pinned dependencies, then run:
 
@@ -28,17 +65,16 @@ node scripts/prepare-night-earth-texture.mjs /path/to/BlackMarble_2016_3km_geo.t
 The source is 64,383,740 bytes, SHA-256
 `e915ef2a20d84e2a59e1547d3ad564463ad4bcf22bfa02e0e0b8ed1cd722e9c0`.
 The preparation script verifies that hash and its dimensions, then uses Sharp
-Lanczos3 resizing and sRGB JPEG quality 90, MozJPEG, 4:4:4 chroma. The final image
+Lanczos3 resizing and sRGB JPEG quality 90, MozJPEG, 4:4:4 chroma. The source JPEG
 is 2,329,878 bytes, SHA-256
 `48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd`.
 Its nominal RGBA8 mip chain is 178,956,972 bytes, excluding driver overhead and
 decoded CPU image memory; this is an allocation calculation, not measured GPU
 memory. The adjacent JSON preserves codec versions, source credit and recipe.
 
-Image rows run north to south and longitude columns west to east, with the
-antimeridian at the seam. Preparation applies no geographic flip or crop.
-The loader applies one vertical flip during `createImageBitmap` decoding and
-sets the resulting Three.js texture's `flipY` to false.
+Full-source image rows run north to south and longitude columns west to east,
+with the antimeridian at the seam. Source preparation applies no geographic flip
+or crop. The regional builder performs the separately documented crop and collage.
 
 ## Archived day and resolution experiments
 
