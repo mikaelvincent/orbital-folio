@@ -1639,6 +1639,53 @@ critic scored **94/100**, with no blockers. Several-minute sparse-light stretche
 remain; threshold-derived durations are approximate visual guidance. Native Safari
 and live full-cycle hover/drag were not tested. Production defaults remain unchanged.
 
+### Mediterranean history and regional alternatives (19 September 2026)
+
+The owner asked to revisit a previously liked Europe/Middle East composition.
+History identifies the expressly selected Mediterranean opening at **18° / 38° /
+−12°** in checkpoint `2e6937c`. The helper restores it as **Mediterranean classic**,
+alongside **Mediterranean diagonal** (18° / 38° / 45°), the earlier **Europe at
+night** helper view (12° / 48° / −10°), **Nile & Mediterranean** (32° / 30° /
+20°), and **Middle East sweep** (50° / 32° / −52.5°). Prior Asian/American choices
+and the production reference remain available under **Earlier comparisons**.
+Revisiting classic first follows the owner's earlier preference; it does not
+establish a final new choice or invalidate the previous comparison evidence.
+
+These comparisons retain the intended **2–3×** saved speed and continuous rotation,
+including its later dark stretches. Presets preserve the chosen rate. Production
+remains **120° / 25° / 22.5° at 0.003 rad/s**, with the same 8K texture. Recovering
+classic's angles does not recreate the original screenshot pixel for pixel:
+`c777fc2` changed the background's 42° lens to the shared 38° camera and introduced
+world-relative travel. Its geographic transform and sphere-placement math are
+unchanged.
+
+The [source-identified follow-up review](evidence/earth-mediterranean-presets/review.json)
+owns the exact history, sampled regional comparisons, rendered evidence,
+verification and independent critic findings. This is requested art-selection
+work, **not a performance optimization**. No CPU/GPU, memory, thermal or battery
+benefit is claimed. The earlier records remain historical evidence, and held
+optimization candidates below remain unchanged.
+
+The historical Mediterranean ran at **1×**; at 2× its coastal sequence passes
+twice as quickly. The regional audit screened 84 coarse and 84 refined candidates,
+then sampled 26 finalists over a complete 2× loop. Classic best recovers the
+owner's earlier composition; diagonal is the strongest new artistic alternative.
+Nile favors its distinctive opening silhouette over sustained light coverage.
+The restored Europe helper is a historical comparison, with markedly weaker
+wide-view light coverage through the rest of its rotation. None removes later
+dark periods. Threshold-derived timing is approximate, layout-dependent guidance,
+not a measured geographic classification or guarantee of perceived brightness.
+
+Verification: **37 orbit tests passed**, along with typecheck, affected lint and
+production build. Twenty-two hidden Chromium captures cover wide/portrait
+openings, finite 2×/3× comparisons and keyboard-accessible grouped controls.
+Preset changes retain the selected rotation speed. Native Safari and live
+full-cycle hover/drag were not tested. The temporary comparison server was
+stopped; the main development server remains available at localhost:3000.
+The independent critic scored **95/100**, with no blockers, after reviewing the
+final source, matching captures, history and checks. This score evaluates the
+implementation and comparison evidence, not the owner's acceptance of a route.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

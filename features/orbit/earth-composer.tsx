@@ -6,6 +6,7 @@ import { copyText } from '@/lib/clipboard';
 import { NIGHT_EARTH_OPENING, type EarthOpening } from './earth-view-transform';
 import {
   EARTH_COMPOSITION_PRESETS,
+  EARTH_PRESET_GROUPS,
   EARTH_PREVIEW_SPEEDS,
   EARTH_ROTATION_RADIANS_PER_SECOND,
   MAX_EARTH_ROTATION_RADIANS_PER_SECOND,
@@ -321,33 +322,41 @@ export function EarthComposer({
               Choose a starting angle, then preview where the lights go. Closing
               keeps this frame visible.
             </p>
-            <fieldset
-              className="earth-composer-presets"
-              hidden={mode !== 'presets'}
-            >
-              <legend>Routes to compare</legend>
+            <div className="earth-composer-routes" hidden={mode !== 'presets'}>
               <p className="earth-composer-intro">
                 Compared at 2× rotation, with 3× checks. Choose your speed in
                 Motion; changing presets keeps it. Every route has darker
                 stretches.
               </p>
-              {EARTH_COMPOSITION_PRESETS.map((preset, index) => (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => applyOpening(preset.opening)}
-                  aria-pressed={angles.every(
-                    ({ key }) => view.opening[key] === preset.opening[key],
-                  )}
-                >
-                  <strong>
-                    {preset.label}
-                    {index === 0 && <em>Start here</em>}
-                  </strong>
-                  <span>{preset.description}</span>
-                </button>
+              {EARTH_PRESET_GROUPS.map((group, index) => (
+                <details key={group} open={index === 0}>
+                  <summary>{group}</summary>
+                  <div className="earth-composer-presets">
+                    {EARTH_COMPOSITION_PRESETS.filter(
+                      (preset) => preset.group === group,
+                    ).map((preset) => (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => applyOpening(preset.opening)}
+                        aria-pressed={angles.every(
+                          ({ key }) =>
+                            view.opening[key] === preset.opening[key],
+                        )}
+                      >
+                        <strong>
+                          {preset.label}
+                          {preset.id === 'mediterranean-classic' && (
+                            <em>Previously chosen</em>
+                          )}
+                        </strong>
+                        <span>{preset.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                </details>
               ))}
-            </fieldset>
+            </div>
             <fieldset
               className="earth-composer-angles"
               hidden={mode !== 'angles'}

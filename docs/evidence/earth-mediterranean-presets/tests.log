@@ -1,0 +1,45 @@
+✔ Settings are versioned, exact round trips and strictly reject invalid imports (2.172583ms)
+✔ Preview speed changes preserve phase, pause and seek without accelerating sky or camera (36.92825ms)
+✔ Saved rotation rate stays separate from fast-forward, zero stays still, and reset restores production time (21.852958ms)
+✔ Explicit preview Play can run under reduced motion, waits for readiness, and never double counts time (8.325334ms)
+✔ Using the visible frame as the opening survives export/import, resize and full revolutions exactly (15.331125ms)
+✔ Preview reuses the loaded scene resources through edits, navigation, resizing and disposal (7.223667ms)
+✔ Satellite environment wide preserves framing, active clock and owns resources (24.619333ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (8.404791ms)
+✔ Disposal before injected texture installation releases it without invalidating (14.570834ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (28.695458ms)
+✔ Audit resolution options preserve one renderer while accounting for each asset size (32.211125ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (24.259875ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.793708ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.876583ms)
+✔ Earth loader propagates fetch and decode failures (0.546834ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.216208ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.312333ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.194042ms)
+✔ Texture construction/configuration failure releases owned resources (0.867291ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.050666ms)
+✔ Each shipped size uses its own exact image and rejects an invalid size (0.315417ms)
+✔ Night defaults to 8K while historical day defaults and all night comparison sizes remain available (0.309417ms)
+✔ The shipped 8K night map matches its source manifest and texture memory estimate (9.341875ms)
+✔ Night Earth shares one geometry with one atmosphere and has no unused daylight rig (21.075834ms)
+✔ The coastal East Asia opening stays visible for the first ten seconds at 1280×720 (15.384292ms)
+✔ The coastal East Asia opening stays visible for the first ten seconds at 2560×600 (12.050208ms)
+✔ The coastal East Asia opening stays visible for the first ten seconds at 390×844 (8.008375ms)
+✔ The coastal East Asia opening stays visible for the first ten seconds at 768×4096 (4.998958ms)
+✔ The early pass retains distributed city-light detail across screen shapes (294.962916ms)
+✔ Night lighting stays photographic and resizing reuses every loaded resource (28.745042ms)
+✔ The opening waits for image readiness and respects the global active clock (12.4985ms)
+✔ The shipped night asset matches its manifest, real 8K dimensions and source provenance (4.234083ms)
+✔ Stars cover the edges through wide, portrait and rotated camera views (64.627166ms)
+✔ Star sizes form a readable hierarchy and remain CSS-sized across DPR changes (8.831667ms)
+✔ Seeded stars have visible independent modulation without a synchronized field pulse (70.309458ms)
+✔ Shooting stars have quiet event spacing, small coherent groups and varied restrained peaks (21.383542ms)
+✔ Sky animation stays deterministic across seeks and pauses, with no resource replacement (17.639709ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1578.90025

@@ -40,16 +40,64 @@ export type EarthCompositionSettings = {
 };
 
 /** Screened across a 2× cycle, with 3× checks; all routes have dim stretches. */
+export const EARTH_PRESET_GROUPS = [
+  'Mediterranean & Europe',
+  'Middle East',
+  'Earlier comparisons',
+] as const;
+
 export const EARTH_COMPOSITION_PRESETS = [
   {
+    id: 'mediterranean-classic',
+    group: 'Mediterranean & Europe',
+    label: 'Mediterranean classic',
+    description:
+      'The previously chosen angles: Italy, Greece and illuminated coastlines against dark water.',
+    opening: { longitude: 18, latitude: 38, roll: -12 },
+  },
+  {
+    id: 'mediterranean-diagonal',
+    group: 'Mediterranean & Europe',
+    label: 'Mediterranean diagonal',
+    description:
+      'A more cinematic tilt of the same region, with a broad sweep of lights and coastlines.',
+    opening: { longitude: 18, latitude: 38, roll: 45 },
+  },
+  {
+    id: 'europe',
+    group: 'Mediterranean & Europe',
+    label: 'Europe at night',
+    description:
+      'The earlier European preset. Denser mainland lights, less sea; the Atlantic arrives sooner.',
+    opening: { longitude: 12, latitude: 48, roll: -10 },
+  },
+  {
+    id: 'nile-mediterranean',
+    group: 'Middle East',
+    label: 'Nile & Mediterranean',
+    description:
+      'A bright Nile delta beside the sea. Distinctive light shapes, with more unlit desert around them.',
+    opening: { longitude: 32, latitude: 30, roll: 20 },
+  },
+  {
+    id: 'middle-east-sweep',
+    group: 'Middle East',
+    label: 'Middle East sweep',
+    description:
+      'Starts farther east and reaches the Mediterranean later. A longer early sequence, with dim inland patches.',
+    opening: { longitude: 50, latitude: 32, roll: -52.5 },
+  },
+  {
     id: 'coastal-asia',
+    group: 'Earlier comparisons',
     label: 'Coastal Asia',
     description:
-      'Best tested balance of city lights and dark coastlines. An early inland dip remains.',
+      'The earlier overall-balance recommendation: city lights and dark coastlines, with an early inland dip.',
     opening: { longitude: 124, latitude: 31, roll: 7.5 },
   },
   {
     id: 'tilted-asia',
+    group: 'Earlier comparisons',
     label: 'Tilted Asia',
     description:
       'A cinematic sweep of lights and sculptural coastlines. More dramatic, less geographically familiar.',
@@ -57,6 +105,7 @@ export const EARTH_COMPOSITION_PRESETS = [
   },
   {
     id: 'asian-light-corridor',
+    group: 'Earlier comparisons',
     label: 'Asian light corridor',
     description:
       'More lights through the first few minutes, but longer dark stretches later. Closest to the old opening.',
@@ -64,6 +113,7 @@ export const EARTH_COMPOSITION_PRESETS = [
   },
   {
     id: 'american-city-lights',
+    group: 'Earlier comparisons',
     label: 'American city lights',
     description:
       'A dazzling opening city network. Fades toward a long Pacific stretch within about two minutes at 2×.',
@@ -71,12 +121,14 @@ export const EARTH_COMPOSITION_PRESETS = [
   },
   {
     id: 'current',
+    group: 'Earlier comparisons',
     label: 'Current opening',
     description: 'The existing coastal East Asia view, for comparison.',
     opening: { ...NIGHT_EARTH_OPENING },
   },
 ] as const satisfies readonly {
   id: string;
+  group: (typeof EARTH_PRESET_GROUPS)[number];
   label: string;
   description: string;
   opening: EarthOpening;

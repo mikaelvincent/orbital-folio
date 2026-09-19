@@ -175,11 +175,22 @@
   gap: 7px;
   margin-top: 0;
 }
-.earth-composer fieldset[hidden] {
+.earth-composer fieldset[hidden],
+.earth-composer-routes[hidden] {
   display: none;
 }
-.earth-composer-presets > .earth-composer-intro {
-  grid-column: 1 / -1;
+.earth-composer-routes details {
+  margin-bottom: 12px;
+}
+.earth-composer-routes summary {
+  cursor: pointer;
+  color: #e8decd;
+  padding: 7px 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.earth-composer-routes summary::marker {
+  color: #d6af70;
 }
 .earth-composer-presets button {
   display: flex;

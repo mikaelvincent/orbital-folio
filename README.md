@@ -9,14 +9,17 @@ The interactive view makes the ship the main interface. Projects and Case studie
 Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses an 8K night Earth opening over coastal East Asia for an early pass through prominent city-light networks, a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
 The temporary **Earth view** helper lets the owner choose a better opening: try
-the five presets, adjust longitude/latitude/tilt, then play or scrub its rotation
+the grouped presets, adjust longitude/latitude/tilt, then play or scrub its rotation
 at up to 60× preview speed. The **Motion** tab also selects the actual rotation
 speed from 0× (still) to 5× the current rate. The latest presets were evaluated
 for the owner's intended **2×**, with **3×** as an optional faster comparison:
-start with **Coastal Asia** for the overall balance, or **Tilted Asia** for a more
-artistic diagonal. **Asian light corridor** favors the first few minutes;
-**American city lights** favors immediate impact. **Current opening** remains a
-reference. Presets retain your selected speed, so set it in Motion before comparing.
+start with **Mediterranean classic**, which restores the exact geographic angles
+of the owner's earlier selection. **Mediterranean diagonal** offers a new artistic
+tilt; **Europe at night**, **Nile & Mediterranean** and **Middle East sweep**
+provide nearby alternatives. The previous Asian and American options remain under
+**Earlier comparisons**, alongside **Current opening**. These are choices to
+inspect, not accepted replacement defaults. Presets retain your selected speed,
+so set it in Motion before comparing.
 A full rotation takes about 17:27 at 2× or 11:38 at 3×; every route still passes
 dark regions. The chosen rate is included in copied settings.
 Use **Use this frame as the start** to adopt a later preview frame, then **Copy

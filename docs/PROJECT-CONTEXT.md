@@ -237,17 +237,41 @@ assets. The owner sees worthwhile improvement over 4K and accepts the added cost
 The owner has now authorized a **temporary Earth view helper** to select the final
 composition directly. This expressly supersedes the earlier removal of public
 globe controls for this selection process. Its launcher opens longitude, latitude
-and tilt sliders with numeric inputs. The latest route comparison replaces the
-original opening-only suggestions with these presets, evaluated for the owner's
-intended **2× saved rotation** (0.006 rad/s), with **3×** (0.009 rad/s) optional:
+and tilt sliders with numeric inputs. The owner subsequently recalled liking a
+previous Europe/Middle East view. Git history identifies the explicitly selected
+**Mediterranean** opening as **18° / 38° / −12°**, in checkpoint `2e6937c`.
+This is distinct from the later **Europe at night** helper preset at
+**12° / 48° / −10°**. Start by revisiting Mediterranean classic, with Mediterranean
+diagonal as a new artistic alternative; neither is a newly approved default.
+The grouped catalogue retains the previous options for direct comparison at the
+owner's intended **2× saved rotation** (0.006 rad/s), with **3×** (0.009 rad/s) optional:
 
 | Preset | Longitude / latitude / roll | Purpose and main tradeoff |
 | --- | --- | --- |
-| **Coastal Asia** | 124° / 31° / 7.5° | Recommended overall balance of city lights and coastline; brief inland dimness still occurs early. |
+| **Mediterranean classic** | 18° / 38° / −12° | Recovered earlier selection: recognizable Italian, Adriatic and Greek coastlines. Revisit this first; its opening does not prevent later Atlantic darkness. |
+| **Mediterranean diagonal** | 18° / 38° / 45° | New artistic tilt of the same starting region, altering the coastline composition and subsequent visible route. |
+| **Europe at night** | 12° / 48° / −10° | Restored earlier helper view: dense mainland lights, distinct from the classic Mediterranean coastlines. |
+| **Nile & Mediterranean** | 32° / 30° / 20° | Distinctive Nile and coastal light patterns with dark sea and desert contrast. |
+| **Middle East sweep** | 50° / 32° / −52.5° | A more dramatic regional sweep; sparsely lit terrain remains a tradeoff. |
+| **Coastal Asia** | 124° / 31° / 7.5° | Prior route comparison's overall recommendation, retained for comparison; brief inland dimness occurs early. |
 | **Tilted Asia** | 112° / 32.5° / 135° | Artistic diagonal alternative; shorter longest water-dominated stretch in the proxy comparison, with fewer lights on average than Coastal Asia. |
 | **Asian light corridor** | 116° / 23.5° / 7.5° | Longer early sequence of light networks; darker stretches are worse over the complete rotation. |
 | **American city lights** | −86° / 32.5° / 7.5° | Strong immediate city-light impact; Pacific darkness arrives relatively early. |
 | **Current opening** | 120° / 25° / 22.5° | Unchanged production reference, not the recommended new composition. |
+
+The first three choices appear under **Mediterranean & Europe**, the next two
+under **Middle East**, and the prior five under **Earlier comparisons**. The
+[Mediterranean follow-up review](evidence/earth-mediterranean-presets/review.json)
+records history, regional comparisons and verification. Classic restores the
+geographic angles, not a pixel-identical historical screenshot: world-camera
+commit `c777fc2` changed the background lens from 42° to the shared 38° lens and
+made it respond to spacecraft camera travel. The sphere radius, responsive
+placement and geographic orientation math remain the same; later atmosphere,
+star and spacecraft art also differ from the earliest captures.
+The historical selection rotated at 1×, so its familiar coastline passes twice
+as quickly at the owner's proposed 2×. Europe at night is retained as a historical
+reference; its strong opening does not sustain good wide-view lighting through
+the rest of the rotation.
 
 Presets preserve the user's selected speed. These are recommendations for owner
 comparison, not accepted production defaults. One revolution takes about **17:27

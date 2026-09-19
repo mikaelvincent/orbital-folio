@@ -1,0 +1,722 @@
+{
+  "date": "2026-09-19",
+  "baselineCommit": "5dae8e73e6c6ea24dbb2a150c3b89369afd55a10",
+  "request": "Explore more Earth openings around the previously liked Europe/Middle East view; recover the historical choice and compare at the intended2–3× saved rotation.",
+  "history": {
+    "expresslySelected": {
+      "name": "Mediterranean",
+      "opening": {
+        "longitude": 18,
+        "latitude": 38,
+        "roll": -12
+      },
+      "rotationRadiansPerSecond": 0.003,
+      "commit": "2e6937c9d06cd8f42736d37e4a57f6292ea9cb4a",
+      "source": "components/earth-view-transform.ts",
+      "userStatement": "Alright, let's go with Mediterranean."
+    },
+    "separateEarlierHelper": {
+      "name": "Europe at night",
+      "opening": {
+        "longitude": 12,
+        "latitude": 48,
+        "roll": -10
+      },
+      "commit": "c7c5ab1"
+    },
+    "middleEast": "No dedicated Middle East preset was found in the inspected earlier catalogue. Nile and Middle East sweep are new alternatives, not claimed historical approvals.",
+    "references": [
+      "docs/evidence/mediterranean-night/environment.json",
+      "docs/evidence/night-earth-openings/desktop-mediterranean-0s.png",
+      "docs/evidence/horizon-softening/gentler-crest.png",
+      "docs/evidence/earth-composer/wide-europe-opening.jpg",
+      "docs/evidence/sky-land-composition/earth-baseline-t300.jpg"
+    ],
+    "caveat": "Classic restores geographic angles. c777fc2 changed the background from42° to the shared38° camera and introduced world-relative travel; later spacecraft/sky art also differs. Transform and sphere placement math are unchanged. At2×, the old1× coast sequence passes twice as quickly."
+  },
+  "implementation": {
+    "changed": "Five regional presets added/restored. Native disclosure groups distinguish Mediterranean & Europe, Middle East, and Earlier comparisons. Classic is marked Previously chosen. All five prior choices remain available; preset selection retains saved speed.",
+    "unchanged": "Production120/25/22.5 opening,0.003rad/s default,8K asset, continuous rotation, rendering, navigation, temporary-only settings, exports, held optimization candidates.",
+    "adoption": "No preset is a final owner selection. Revisit classic first and diagonal second; keep production unchanged until the owner chooses."
+  },
+  "sourceHashes": {
+    "features/orbit/earth-composition.ts": "748aac1c2b49e0f5c9d0229043436f0bf509e7c3e0d57f79a868020190488578",
+    "features/orbit/earth-composer.tsx": "70a6aeed786114b2f8e3f4d59e3f941bbb1afa200199fcc88f941daa4b2c9374",
+    "features/orbit/earth-composer.css": "680c7009ba2705d31e48a942c1c8140747c3f2b0d40dc4990da26b3685da6c0c",
+    "features/orbit/earth-view-transform.ts": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d",
+    "features/orbit/orbital-environment.ts": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "features/spacecraft/spacecraft-runtime.ts": "edfd2048b06365fea1057be1bc99071fd238cb6519ac5e8700fbb17d4466715e",
+    "docs/evidence/earth-mediterranean-presets/region-audit.mjs": "064bcf696fc0e69163f26445cd5e1d6ed4d7be95affe35534a4a36a1d20aad37",
+    "docs/evidence/earth-mediterranean-presets/visual-lab.mjs": "4965042ae86c9f2a87674564909ad96acc401d402327e80a0ce59dc5977e376e"
+  },
+  "assetAndAuditSourceHashes": {
+    "features/orbit/orbital-environment.ts": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a",
+    "features/orbit/earth-view-transform.ts": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "public/textures/earth-black-marble-8k.jpg": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+    "public/textures/earth-blue-marble-8k.jpg": "f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de",
+    "docs/evidence/earth-mediterranean-presets/region-audit.mjs": "064bcf696fc0e69163f26445cd5e1d6ed4d7be95affe35534a4a36a1d20aad37",
+    "docs/evidence/mediterranean-night/environment.json": "a7ebde9d8fb1e4d20dbbeb8ba120ab491e04a473e45e21c57bd0c88697716201"
+  },
+  "comparison": {
+    "raw": "region-audit.json",
+    "coarse": "coarse-results.json",
+    "fixture": "visual-lab.mjs",
+    "fixtureManifest": "fixture-manifest.json",
+    "coarseCount": 84,
+    "refinedCount": 84,
+    "fineFinalists": 26,
+    "method": {
+      "nightTexture": "8K production JPEG filtered to2K in memory for sparse CPU sampling",
+      "dayTexture": "8K historical day JPEG filtered to2K, qualitative blue-water proxy only",
+      "rate": 0.006,
+      "cycleSeconds2x": 1047.1975511965977,
+      "cycleSeconds3x": 698.1317007977318,
+      "layouts": [
+        [
+          1280,
+          720
+        ],
+        [
+          2560,
+          600
+        ],
+        [
+          390,
+          844
+        ]
+      ],
+      "screenNdcRectangle": [
+        -1,
+        -1,
+        1,
+        -0.35
+      ],
+      "samples": {
+        "coarse": [
+          56,
+          18
+        ],
+        "fine": [
+          168,
+          54
+        ]
+      },
+      "warm": "clamp((red−1.12blue−3)/26,0,1) × clamp((red+green−72)/125,0,1), coverage threshold >.045",
+      "waterProxy": "Day blue>red×1.18+5 && blue>green×1.03 && red<105. Clouds, haze, shallow water and green terrain are misclassified. NOT a geographic land/ocean mask.",
+      "timelineColumns": [
+        "secondsAt2x",
+        "weightedWarmLightCoverage",
+        "weightedPopulatedTileFraction",
+        "weightedWarmSignal",
+        "weightedDarkFraction",
+        "dayBlueWaterProxy",
+        "frameScore"
+      ],
+      "score": "Frame: light coverage ×(.35+.65×distributed15tileFraction). Candidate: .35×worst-layout opening + .15×mean opening + .30×first3min mean + .10×worst-layout first3min15th percentile + .10×fullcycle mean. Longitudes bounded−4..60° at2° steps.",
+      "lowLightThreshold": "<1% warm coverage; not a calibrated human dimness threshold",
+      "sourceOrientation": "Current orientNightEarth(THREE,earth,camera,opening) direct call; longitude phase can vary opening but not complete-loop statistics."
+    },
+    "limitations": [
+      "CPU proxies require rendered review and do not establish visual quality. Previously favored proxies disappointed the owner.",
+      "Actual spacecraft occlusion, tone mapping, night material shading, atmosphere, hover, drag and room movement are omitted. Fixed overview crop only.",
+      "Blue day-image threshold is not a reliable unlit-land classifier. We do not claim true land/water percentages or exact unlit-land durations.",
+      "At3× the same path takes2/3 the listed2×times. Speed cannot remove ocean or empty geography, only change its duration.",
+      "Art selection only; no runtime performance, memory, heat or battery measurements or benefits."
+    ],
+    "visualFixture": "Finite actual8K orbital rendering at1280×720,DPR1,38° FOV,ACES exposure.95, shown in smaller approximately201×113CSS contact-sheet cells inside1280×720 captures. No spacecraft,AO,full UI occlusion,hover/drag,live portrait roll or runtime timing. Actual application opening captures add the real spacecraft and portrait camera.",
+    "sourceMatching": "Fixture bundle predates only the preset catalogue and helper grouping changes. Its manifest retains the original earth-composition.ts hash. Candidate angles are explicit fixture inputs, and rendering/transform/asset sources match final source. Full application captures use the final catalogue and grouped helper.",
+    "times": {
+      "early2x": [
+        0,
+        30,
+        60,
+        120,
+        180,
+        300
+      ],
+      "fullCycleSamples2x": [
+        0,
+        180,
+        360,
+        540,
+        720,
+        900
+      ],
+      "early3x": [
+        0,
+        20,
+        40,
+        80,
+        120,
+        200
+      ],
+      "threeTimes": "Early3× frames were rendered. Complete-loop3× timing is the exact2/3 scaling of2×, not a separate11-minute real-time observation."
+    },
+    "interpretation": "Low-light intervals are threshold-derived guidance, not calibrated human perception or semantic ocean/unlit-land classification. Long dark intervals remain in every continuous route. Artistic selection considers recognizable lit geography and negative space, not only proxy scores.",
+    "rejected": [
+      "Nearby longitude25/35 shifts mostly delayed the same dark interval by20–50seconds without providing a distinct strong opening.",
+      "4/48/45 produced a strong initial proxy score but faded quickly with poor full-cycle light coverage.",
+      "48/35/−20 was less visually compelling than the selected Middle East sweep.",
+      "35/32/20 improved the Nile full-cycle proxy but weakened the initial delta silhouette;32/30/20 was chosen for opening identity."
+    ],
+    "routes": [
+      {
+        "name": "Mediterranean classic",
+        "opening": {
+          "longitude": 18,
+          "latitude": 38,
+          "roll": -12
+        },
+        "pro": "Best historical match: recognizable Italy, Greece and illuminated coastlines balanced with water.",
+        "con": "A darker Atlantic interval begins around two minutes at2×.",
+        "longestLowLightSeconds2xAcrossLayouts": 305.43261909900764,
+        "layouts": [
+          {
+            "size": [
+              1280,
+              720
+            ],
+            "openingWarmCoverage": 0.026933,
+            "longestLowLightSeconds2x": 270.526034,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 110.537519,
+                "endSeconds2x": 235.619449
+              },
+              {
+                "startSeconds2x": 407.243492,
+                "endSeconds2x": 677.769526
+              },
+              {
+                "startSeconds2x": 785.398163,
+                "endSeconds2x": 933.75115
+              }
+            ]
+          },
+          {
+            "size": [
+              2560,
+              600
+            ],
+            "openingWarmCoverage": 0.023541,
+            "longestLowLightSeconds2x": 273.434916,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 110.537519,
+                "endSeconds2x": 250.163859
+              },
+              {
+                "startSeconds2x": 418.87902,
+                "endSeconds2x": 692.313937
+              },
+              {
+                "startSeconds2x": 791.215928,
+                "endSeconds2x": 936.660032
+              }
+            ]
+          },
+          {
+            "size": [
+              390,
+              844
+            ],
+            "openingWarmCoverage": 0.02213,
+            "longestLowLightSeconds2x": 305.432619,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 113.446401,
+                "endSeconds2x": 238.528331
+              },
+              {
+                "startSeconds2x": 383.972435,
+                "endSeconds2x": 689.405055
+              },
+              {
+                "startSeconds2x": 887.209036,
+                "endSeconds2x": 925.024504
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Mediterranean diagonal",
+        "opening": {
+          "longitude": 18,
+          "latitude": 38,
+          "roll": 45
+        },
+        "pro": "Strongest new artistic alternative; broader diagonal coast/light sweep and useful portrait coverage.",
+        "con": "Less immediately recognizable geography; the first dark interval begins a little sooner.",
+        "longestLowLightSeconds2xAcrossLayouts": 267.61715197246383,
+        "layouts": [
+          {
+            "size": [
+              1280,
+              720
+            ],
+            "openingWarmCoverage": 0.038606,
+            "longestLowLightSeconds2x": 267.617152,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 98.901991,
+                "endSeconds2x": 247.254977
+              },
+              {
+                "startSeconds2x": 430.514549,
+                "endSeconds2x": 698.131701
+              },
+              {
+                "startSeconds2x": 823.213631,
+                "endSeconds2x": 925.024504
+              }
+            ]
+          },
+          {
+            "size": [
+              2560,
+              600
+            ],
+            "openingWarmCoverage": 0.034616,
+            "longestLowLightSeconds2x": 267.617152,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 87.266463,
+                "endSeconds2x": 250.163859
+              },
+              {
+                "startSeconds2x": 427.605667,
+                "endSeconds2x": 695.222819
+              },
+              {
+                "startSeconds2x": 805.760338,
+                "endSeconds2x": 904.662329
+              }
+            ]
+          },
+          {
+            "size": [
+              390,
+              844
+            ],
+            "openingWarmCoverage": 0.024231,
+            "longestLowLightSeconds2x": 264.70827,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 93.084227,
+                "endSeconds2x": 232.710567
+              },
+              {
+                "startSeconds2x": 410.152374,
+                "endSeconds2x": 674.860644
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Europe at night",
+        "opening": {
+          "longitude": 12,
+          "latitude": 48,
+          "roll": -10
+        },
+        "pro": "Restores the earlier separate helper option, with dense mainland lights at the opening.",
+        "con": "Less water/coast balance and the weakest sustained wide-view light coverage of these five; not recommended for continuous rotation.",
+        "longestLowLightSeconds2xAcrossLayouts": 904.6623289503941,
+        "layouts": [
+          {
+            "size": [
+              1280,
+              720
+            ],
+            "openingWarmCoverage": 0.037433,
+            "longestLowLightSeconds2x": 904.662329,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 75.630934,
+                "endSeconds2x": 980.293263
+              }
+            ]
+          },
+          {
+            "size": [
+              2560,
+              600
+            ],
+            "openingWarmCoverage": 0.038374,
+            "longestLowLightSeconds2x": 575.958653,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 78.539816,
+                "endSeconds2x": 375.245789
+              },
+              {
+                "startSeconds2x": 398.516846,
+                "endSeconds2x": 974.475499
+              },
+              {
+                "startSeconds2x": 977.384381,
+                "endSeconds2x": 1012.290966
+              }
+            ]
+          },
+          {
+            "size": [
+              390,
+              844
+            ],
+            "openingWarmCoverage": 0.028501,
+            "longestLowLightSeconds2x": 351.974732,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 84.357581,
+                "endSeconds2x": 223.983921
+              },
+              {
+                "startSeconds2x": 317.068147,
+                "endSeconds2x": 669.04288
+              },
+              {
+                "startSeconds2x": 753.40046,
+                "endSeconds2x": 933.75115
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nile & Mediterranean",
+        "opening": {
+          "longitude": 32,
+          "latitude": 30,
+          "roll": 20
+        },
+        "pro": "A distinctive bright delta and river beside the Mediterranean, especially clear at the opening.",
+        "con": "More unlit desert; lower overall coverage and a substantially earlier weak interval on ultrawide screens.",
+        "longestLowLightSeconds2xAcrossLayouts": 346.1569683122087,
+        "layouts": [
+          {
+            "size": [
+              1280,
+              720
+            ],
+            "openingWarmCoverage": 0.045393,
+            "longestLowLightSeconds2x": 279.25268,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 110.537519,
+                "endSeconds2x": 296.705973
+              },
+              {
+                "startSeconds2x": 447.967841,
+                "endSeconds2x": 727.220522
+              }
+            ]
+          },
+          {
+            "size": [
+              2560,
+              600
+            ],
+            "openingWarmCoverage": 0.065115,
+            "longestLowLightSeconds2x": 346.156968,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 46.542113,
+                "endSeconds2x": 311.250383
+              },
+              {
+                "startSeconds2x": 430.514549,
+                "endSeconds2x": 776.671517
+              },
+              {
+                "startSeconds2x": 855.211333,
+                "endSeconds2x": 904.662329
+              }
+            ]
+          },
+          {
+            "size": [
+              390,
+              844
+            ],
+            "openingWarmCoverage": 0.019536,
+            "longestLowLightSeconds2x": 302.523737,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 110.537519,
+                "endSeconds2x": 290.888209
+              },
+              {
+                "startSeconds2x": 450.876723,
+                "endSeconds2x": 753.40046
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Middle East sweep",
+        "opening": {
+          "longitude": 50,
+          "latitude": 32,
+          "roll": -52.5
+        },
+        "pro": "Farther-east start delays arrival at the Mediterranean and the first substantial weak-light interval.",
+        "con": "Dim inland patches are present from the start; longer initial sequence is not continuous brightness.",
+        "longestLowLightSeconds2xAcrossLayouts": 319.9770295322937,
+        "layouts": [
+          {
+            "size": [
+              1280,
+              720
+            ],
+            "openingWarmCoverage": 0.034793,
+            "longestLowLightSeconds2x": 276.343798,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 189.077336,
+                "endSeconds2x": 331.612558
+              },
+              {
+                "startSeconds2x": 497.418837,
+                "endSeconds2x": 773.762635
+              },
+              {
+                "startSeconds2x": 884.300154,
+                "endSeconds2x": 936.660032
+              },
+              {
+                "startSeconds2x": 977.384381,
+                "endSeconds2x": 1018.10873
+              }
+            ]
+          },
+          {
+            "size": [
+              2560,
+              600
+            ],
+            "openingWarmCoverage": 0.060863,
+            "longestLowLightSeconds2x": 270.526034,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 189.077336,
+                "endSeconds2x": 357.792497
+              },
+              {
+                "startSeconds2x": 514.872129,
+                "endSeconds2x": 785.398163
+              },
+              {
+                "startSeconds2x": 893.026801,
+                "endSeconds2x": 948.29556
+              },
+              {
+                "startSeconds2x": 983.202145,
+                "endSeconds2x": 1032.653141
+              }
+            ]
+          },
+          {
+            "size": [
+              390,
+              844
+            ],
+            "openingWarmCoverage": 0.022043,
+            "longestLowLightSeconds2x": 319.97703,
+            "substantialLowLightIntervals": [
+              {
+                "startSeconds2x": 171.624043,
+                "endSeconds2x": 322.885912
+              },
+              {
+                "startSeconds2x": 462.512252,
+                "endSeconds2x": 782.489281
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "engine": "Hidden built-in Chromium; no native app/screen capture",
+    "applicationViewports": {
+      "wide": [
+        1280,
+        720
+      ],
+      "portrait": [
+        390,
+        844
+      ],
+      "note": "These are actual CSS capture dimensions, not contact-sheet render dimensions. Runtime drawing-buffer dimensions were not freshly sampled in this follow-up; no DPR/performance comparison is inferred."
+    },
+    "captures": [
+      {
+        "file": "classic-portrait.jpg",
+        "sha256": "c2039b752b8863bf4c1b06e6e1f5ba55e973274d2a4ccff4488855ddb0ad9b50"
+      },
+      {
+        "file": "classic-wide.jpg",
+        "sha256": "3d059a6105f31e7b5175ed1ac574e70e576ba07215ffda0eb8bbc619234e5862"
+      },
+      {
+        "file": "diagonal-portrait.jpg",
+        "sha256": "ecc38e7be24a4bee07ab4ca5af8f3b64896b89fa80345c1c6663d862984ae386"
+      },
+      {
+        "file": "diagonal-wide.jpg",
+        "sha256": "cc9b1cc5c12b7362dd3edbffa8899998112e1369b3a811c3de565a6d2b59a8a6"
+      },
+      {
+        "file": "early-europe-3x.jpg",
+        "sha256": "d7f9bda6eecdf2a5c8dad576bec086fb0f5c4a653c9eb81d6cca823329b47d37"
+      },
+      {
+        "file": "early-middle-east-3x.jpg",
+        "sha256": "a02b45455d06540de6c79fbbf8089cfd2e4e444a2263b15a98870ad0675238ee"
+      },
+      {
+        "file": "europe-portrait.jpg",
+        "sha256": "e5e3f360dc25ccc8e699d0ffec0c2f3af1226f7fa46cc2f6dd44008ffa26c165"
+      },
+      {
+        "file": "europe-wide.jpg",
+        "sha256": "d54af0c7acb0667880673dc913d5e5dd453f7ea8159029cb2587d3330d674774"
+      },
+      {
+        "file": "full-cycle-europe-2x.jpg",
+        "sha256": "8c4dfaadef514c809d59993e963915a5b6a06f2dd9a1a7fa86ffcbc1b340c730"
+      },
+      {
+        "file": "full-cycle-middle-east-2x.jpg",
+        "sha256": "3bd8a446d883d66ae67301a651eeca9ad5a145688abbdfbe56ef0d07f73261be"
+      },
+      {
+        "file": "groups-portrait-keyboard.jpg",
+        "sha256": "7b605c99e4038fa5f7fac82e4d27198c73a0611dde4f8a8075a71e5a4c524960"
+      },
+      {
+        "file": "mediterranean-refinement.jpg",
+        "sha256": "375bd92b23af9a5f7bcc3ac387b534376fe4d33cf624f26988ee9069ab815b59"
+      },
+      {
+        "file": "middle-east-portrait.jpg",
+        "sha256": "4ce7092ac78feb5c6573c969209f53fd9d4371eb31c27519ce6e57262bfb3d9c"
+      },
+      {
+        "file": "middle-east-wide.jpg",
+        "sha256": "1a2e57b7c2c6c7281538f37916d3ce246317ea9711989bbd004666ff513342ad"
+      },
+      {
+        "file": "nile-portrait.jpg",
+        "sha256": "7f4171aa27223ae248afeb5f04e81e2aac123e4dd4d61ae74d11cf2a25565399"
+      },
+      {
+        "file": "nile-refinement.jpg",
+        "sha256": "f870104ee6db3f347f66c01228d7e6bb7182f3faf3a992301ead418c2112883e"
+      },
+      {
+        "file": "nile-wide.jpg",
+        "sha256": "30637f3d3364d7499a97f9ca20a4c995cc4e3a4494224562828f165fb48ba766"
+      },
+      {
+        "file": "presets-portrait-3x.jpg",
+        "sha256": "253afc17643278735863aa2786cb7dfc849053c41ab18321e0904cdc86ef0392"
+      },
+      {
+        "file": "presets-wide.jpg",
+        "sha256": "ddcc449ebcdbf849e3adfbfa2ac3c332550031b3d93487edd4161a2393efea73"
+      },
+      {
+        "file": "regional-middle-east-trials.jpg",
+        "sha256": "e524add2f75603a9abf2988ad919d6233e823b4c6fa715ba6e278476f5ddca85"
+      },
+      {
+        "file": "regional-reference-trials.jpg",
+        "sha256": "7bbff78e8ffb998b05733dfddbce333a8d0c9ed515a5f9078e3eaa6a4847f400"
+      },
+      {
+        "file": "regional-refinement-alternatives.jpg",
+        "sha256": "09f4d2d2b6137defab058a24688e01c1ee875e6be45c34f40f5eeb3e13e8ffdf"
+      }
+    ]
+  },
+  "verification": {
+    "orbitTests": {
+      "command": "node --test --test-concurrency=1 tests/orbit/*.test.mjs",
+      "passed": 37,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "typecheck": "npm run typecheck passed",
+    "lint": "Affected TS/TSX and both evidence scripts passed",
+    "build": {
+      "command": "npm run build",
+      "result": "passed",
+      "log": "build.log",
+      "warnings": [
+        "Existing Node module.register deprecation",
+        "Client bundle over500kB advisory",
+        "Vinext static route classification limitation"
+      ]
+    },
+    "diff": "git diff --check passed",
+    "browser": [
+      "All five regional presets selected and inspected at wide and portrait openings",
+      "Native disclosure Enter activation and visible focus ring",
+      "Earlier comparisons remain accessible; Current opening still selects",
+      "Preset selection retained2× and3× saved speed",
+      "Portrait controls and scrolling remain usable",
+      "Browser error log empty"
+    ],
+    "omissions": [
+      "Full341-test suite not rerun for bounded preset/helper grouping change;37 orbit tests cover relevant state and transforms.",
+      "No native Safari,physical touch,native clipboard or live full-cycle hover/drag checks.",
+      "No CPU/GPU,frame pacing,memory,heat or battery benchmark; this is art selection."
+    ],
+    "localServer": "Temporary3031 finite fixture stopped; localhost3000 retained and returnsHTTP200",
+    "logNormalization": "Only trailing line whitespace and extra blank EOF lines removed from copied logs for git diff hygiene; check output/content preserved."
+  },
+  "critic": {
+    "status": "Passed; no unresolved blockers",
+    "agent": "/root/earth_routes_critic",
+    "score": 95,
+    "rubric": {
+      "fulfillment": {
+        "score": 29,
+        "max": 30
+      },
+      "visualUsefulness": {
+        "score": 23,
+        "max": 25
+      },
+      "correctness": {
+        "score": 19,
+        "max": 20
+      },
+      "evidenceAndMethodHonesty": {
+        "score": 15,
+        "max": 15
+      },
+      "organizationAndScope": {
+        "score": 9,
+        "max": 10
+      }
+    },
+    "reviewed": "Final source and documentation, all five wide/portrait openings, grouped keyboard-focus UI, regional2×/3× sheets, all38 source/asset/capture hash entries, historical reference paths,37-pass test log/build completion and clean diff check. Independently corroborated historical18/38/−12 and42°→38° camera provenance.",
+    "recommendation": "Mediterranean classic first for remembered preference; diagonal as strongest new artistic alternative. Europe at night is a brief-opening historical reference, not a sustained-lighting recommendation.",
+    "revisions": "Final docs and comparison notes explicitly qualify Europe continuity, distinguish historical1× from proposed2×, and retain darker-period/proxy/camera limitations. No implementation changes after matching visual captures.",
+    "limitations": [
+      "CPU masks are proxies, not geographic classification.",
+      "Later finite rendered frames omit spacecraft/hover; actual application checks cover openings.",
+      "No native Safari testing.",
+      "Review score is not owner acceptance of any final route."
+    ]
+  }
+}
