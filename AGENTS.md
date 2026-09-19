@@ -111,34 +111,17 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- Keep the approved **8K night Earth** and the default 0.003 rad/s rotation until
-  the owner chooses a replacement in the temporary helper. The owner
-  sees worthwhile detail over 4K and accepts its added delivery/memory cost.
-  Prioritize visible city lights over land area; unlit terrain was the inland
-  route's problem, and the coastal East Asian opening is also not yet accepted
-  as the final composition. Preserve that default while the owner chooses.
-- The owner authorized a **temporary Earth view helper** with angle controls,
-  presets, selectable rotation speed, a Night Earth / Blue Marble model toggle,
-  Earth-only fast-forward and copy/paste
-  settings. This supersedes the earlier prohibition on restoring public globe
-  controls for this selection process only. Keep previews in temporary interface
-  state, without database or
-  browser-storage writes. Export the selected opening and chosen rotation rate;
-  preview fast-forward is separate and must not become the saved rate. A later
-  preview frame must be explicitly adopted as the opening. Once the owner
-  shares their choice, apply it and remove the helper as requested. Retain useful
-  developer comparisons and historical assets. Do not treat a preset or an
-  automated light score as final approval; continuous rotation still reaches
-  darker regions. The owner intends 2–3× saved rotation, probably 2×, for the
-  current comparison. The owner has asked to revisit their earlier Mediterranean
-  selection and explore Europe/Middle East alternatives. Start comparison with
-  Mediterranean classic's recovered angles; this is not a new final selection.
-  Keep earlier comparison presets available. See the current context for exact
-  angles and route tradeoffs. Presets preserve the chosen rate, and this comparison
-  does not change the production opening or default speed before final approval.
-  Blue Marble uses the existing 8K daytime satellite asset. Switching models must
-  retain the selected angles, saved speed and preview frame; include the model
-  in portable settings. Keep night as the default until the owner chooses.
+- The owner selected **Europe at Night** on 20 September 2026: longitude **12°**,
+  latitude **48°**, roll **−10°**, rotating at **0.0045 rad/s (1.5× the original
+  rate)**. Keep the approved 8K Black Marble night texture and cinematic
+  atmosphere. This supersedes earlier Mediterranean/East Asian defaults and
+  temporary route recommendations; later dim regions remain part of full rotation.
+- The temporary Earth helper, other presets, day-model toggle, portable settings
+  and their dedicated tests have been retired at the owner's request. Do not
+  restore public Earth controls or daytime rendering without a new request.
+  Only the 8K night map belongs in production. Keep raw comparison evidence and
+  provenance; removed implementations/assets can be recovered from checkpoint
+  `56c67bb`. Preserve independently used developer benchmark fixtures and tests.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied

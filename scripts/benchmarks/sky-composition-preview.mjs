@@ -20,6 +20,7 @@ const run = promisify(execFile);
 const sourcePaths = [
   'orbital-environment.ts',
   'earth-view-transform.ts',
+  'earth-satellite.ts',
   'night-atmosphere.ts',
 ].map((name) => `features/orbit/${name}`);
 const snapshots = { baseline: {}, current: {} };
@@ -185,7 +186,8 @@ addEventListener('resize', resize);
 addEventListener('pagehide', () => { stop(); ready = false; environment.dispose(); renderer.dispose(); }, { once: true });
 try {
   environment = createOrbitalEnvironment(THREE, () => {}, {
-    earthAppearance: 'night', earthTextureWidth: 8192, cameraFov: 38, mobile: innerWidth < 700,
+    /* historical-night-selection */
+    cameraFov: 38, mobile: innerWidth < 700,
   });
   await environment.ready;
   if (!environment.getDiagnostics().earthReady) throw new Error('8K Earth failed to load');
@@ -201,7 +203,11 @@ const bundles = {};
 for (const [variant, sources] of Object.entries(snapshots)) {
   const result = await build({
     absWorkingDir: root,
-    stdin: { contents: client, resolveDir: root, loader: 'ts' },
+    stdin: {
+      contents: client.replace('/* historical-night-selection */', variant === 'baseline'
+        ? "earthAppearance: 'night', earthTextureWidth: 8192," : ''),
+      resolveDir: root, loader: 'ts',
+    },
     write: false,
     bundle: true,
     format: 'esm',
@@ -214,7 +220,7 @@ for (const [variant, sources] of Object.entries(snapshots)) {
           builder.onLoad(
             {
               filter:
-                /\/(orbital-environment|earth-view-transform|night-atmosphere)\.ts$/,
+                /\/(orbital-environment|earth-view-transform|earth-satellite|night-atmosphere)\.ts$/,
             },
             (args) => {
               const path = relative(root, args.path).split(sep).join('/');

@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 19 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 20 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -34,7 +34,6 @@ inspect source and `package.json` for exact current constants and versions.
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts` |
-| Temporary Earth composition helper | `features/orbit/earth-composer.tsx` and `earth-composer.css` for the interface; `earth-composition.ts` for presets, validation and portable settings; `features/spacecraft/spacecraft-runtime.ts` connects preview playback to the existing environment |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
@@ -222,95 +221,30 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-Production uses the **8192×4096 NASA Black Marble night map** and cinematic blue
-atmosphere. The default remains the coastal East Asian opening (120°E, 25°N,
-+22.5° roll), superseding Mediterranean and the inland East Asian trial. The owner
-has not accepted that opening as final: its initial ocean and sparse lights still
-disappoint despite improved later city-light coverage. Terrain area and automated
-light scores are useful comparison evidence, not substitutes for the owner's
-visual choice. The default rotation remains 0.003 rad/s pending the owner's choice;
-later dark regions
-are an inherent tradeoff of the current full rotation. No texture modification or
-resolution change is introduced. Only the selected 8K map loads, not all comparison
-assets. The owner sees worthwhile improvement over 4K and accepts the added cost.
+The owner selected **Europe at Night** on 20 September 2026, using the
+**8192×4096 NASA Black Marble night map** and cinematic blue atmosphere.
+The fixed opening is **12° longitude / 48° latitude / −10° roll**, rotating at
+**0.0045 rad/s (1.5× the original 0.003 rad/s)**. The approved constants live in
+`features/orbit/earth-view-transform.ts`; the single-map loader is in
+`features/orbit/earth-satellite.ts`. Rotation starts after the texture is ready
+and respects the existing active clock, visibility and reduced-motion behavior.
+Camera movement still carries the orbital background naturally across rooms.
 
-The owner also authorized a **Night Earth / Blue Marble** toggle inside the
-temporary helper. Night remains the production default; Blue Marble previews the
-existing `public/textures/earth-blue-marble-8k.jpg` daytime satellite image with
-land, ocean and photographed clouds. Switching retains the same geographic pose,
-preview time and selected rotation rate. This is an appearance comparison, not
-approval to replace night permanently. Preset lighting recommendations below
-were evaluated with the night map, not the daytime image.
+This is the former **Europe at night** preset, distinct from Mediterranean
+classic (18° / 38° / −12°). The explicit selection supersedes the provisional
+East Asian default and earlier route recommendations. The owner accepts 8K's
+additional delivery/storage cost; continuous rotation still reaches dim regions.
+The earlier CPU light scores were comparison aids, not substitutes for this choice.
 
-The owner has now authorized a **temporary Earth view helper** to select the final
-composition directly. This expressly supersedes the earlier removal of public
-globe controls for this selection process. Its launcher opens longitude, latitude
-and tilt sliders with numeric inputs. The owner subsequently recalled liking a
-previous Europe/Middle East view. Git history identifies the explicitly selected
-**Mediterranean** opening as **18° / 38° / −12°**, in checkpoint `2e6937c`.
-This is distinct from the later **Europe at night** helper preset at
-**12° / 48° / −10°**. Start by revisiting Mediterranean classic, with Mediterranean
-diagonal as a new artistic alternative; neither is a newly approved default.
-The grouped catalogue retains the previous options for direct comparison at the
-owner's intended **2× saved rotation** (0.006 rad/s), with **3×** (0.009 rad/s) optional:
-
-| Preset | Longitude / latitude / roll | Purpose and main tradeoff |
-| --- | --- | --- |
-| **Mediterranean classic** | 18° / 38° / −12° | Recovered earlier selection: recognizable Italian, Adriatic and Greek coastlines. Revisit this first; its opening does not prevent later Atlantic darkness. |
-| **Mediterranean diagonal** | 18° / 38° / 45° | New artistic tilt of the same starting region, altering the coastline composition and subsequent visible route. |
-| **Europe at night** | 12° / 48° / −10° | Restored earlier helper view: dense mainland lights, distinct from the classic Mediterranean coastlines. |
-| **Nile & Mediterranean** | 32° / 30° / 20° | Distinctive Nile and coastal light patterns with dark sea and desert contrast. |
-| **Middle East sweep** | 50° / 32° / −52.5° | A more dramatic regional sweep; sparsely lit terrain remains a tradeoff. |
-| **Coastal Asia** | 124° / 31° / 7.5° | Prior route comparison's overall recommendation, retained for comparison; brief inland dimness occurs early. |
-| **Tilted Asia** | 112° / 32.5° / 135° | Artistic diagonal alternative; shorter longest water-dominated stretch in the proxy comparison, with fewer lights on average than Coastal Asia. |
-| **Asian light corridor** | 116° / 23.5° / 7.5° | Longer early sequence of light networks; darker stretches are worse over the complete rotation. |
-| **American city lights** | −86° / 32.5° / 7.5° | Strong immediate city-light impact; Pacific darkness arrives relatively early. |
-| **Current opening** | 120° / 25° / 22.5° | Unchanged production reference, not the recommended new composition. |
-
-The first three choices appear under **Mediterranean & Europe**, the next two
-under **Middle East**, and the prior five under **Earlier comparisons**. The
-[Mediterranean follow-up review](evidence/earth-mediterranean-presets/review.json)
-records history, regional comparisons and verification. Classic restores the
-geographic angles, not a pixel-identical historical screenshot: world-camera
-commit `c777fc2` changed the background lens from 42° to the shared 38° lens and
-made it respond to spacecraft camera travel. The sphere radius, responsive
-placement and geographic orientation math remain the same; later atmosphere,
-star and spacecraft art also differ from the earliest captures.
-The historical selection rotated at 1×, so its familiar coastline passes twice
-as quickly at the owner's proposed 2×. Europe at night is retained as a historical
-reference; its strong opening does not sustain good wide-view lighting through
-the rest of the rotation.
-
-Presets preserve the user's selected speed. These are recommendations for owner
-comparison, not accepted production defaults. One revolution takes about **17:27
-at 2×** or **11:38 at 3×**; the faster rate follows the same route in two-thirds
-the time. No angle eliminates long dim regions throughout continuous rotation.
-The [route-preset review](evidence/earth-route-presets/review.json) records rendered
-comparisons, complete-cycle CPU proxies and their limitations. Color thresholds
-are not authoritative land/water masks or a substitute for aesthetic judgment.
-
-The Motion tab selects a saved rotation rate from 0× (stationary) to 5× the
-current 0.003 rad/s rate. Rate edits pause at the chosen starting view; selecting
-an angle preset retains the rate. Preview offers pause/play, separate
-1×/10×/30×/60× fast-forward and a 35-minute timeline at the chosen rotation rate,
-return to 0:00 and reset angle. Only Earth fast-forwards; the spacecraft, stars
-and meteors retain their normal clocks. Explicit Play can run Earth under reduced
-motion without restarting those other animations. Closing the helper pauses it
-and retains the selected frame; a page reload returns to the production default.
-
-"Use this frame as the start" folds the preview's rotation into its opening before
-copying. Version-2 JSON contains longitude/latitude/roll, the selected rotation
-rate from 0 to 0.015 rad/s and `earthAppearance` (`day` or `night`), excluding
-preview time and fast-forward. Previously copied version-1 settings remain
-supported and select Night Earth.
-A zero rate disables playback and seeking, while allowing the stationary view
-to be copied. Reset speed restores 1× without changing the selected angle.
-Copy and pasted-settings import
-let the owner send an exact choice in chat; malformed settings are rejected with
-feedback. Choices remain in temporary interface state without database or browser
-storage writes. After the owner selects and shares settings, apply that opening
-and rotation rate, then remove the helper. Preserve useful developer comparisons and historical
-assets; do not preempt that choice by promoting a preset.
+The Earth view launcher, angle/preset/model controls, temporary playback clock,
+copy/paste settings, daytime rendering and helper-specific tests have been
+removed. There is no visitor-facing Earth configuration or persisted preview.
+Only the night 8K texture remains an application asset; daytime and lower-resolution
+maps are removed. Their small provenance manifests and raw performance results
+remain in historical evidence. Reproducing those old implementations requires
+checkpoint `56c67bb`, as described by the [historical resolution guide](../scripts/benchmarks/earth-resolution-lab.md).
+Independently used cloud benchmark fixtures remain for their retained tests and
+case-study evidence; the production renderer does not load them.
 
 Atmosphere art takes priority over strict realism: preserve the gradual blue
 horizon with a restrained peak, without gray pollution-like haze or glaring
@@ -327,15 +261,15 @@ Those experiments were superseded by the satellite Earth. Do not resurrect them
 because an old asset document calls procedural clouds current. These preferences
 matter if the owner later reopens cloud design.
 
-Current comparison evidence: [2K/4K/8K night Earth](evidence/performance/night-earth-resolution/README.md).
+Historical comparison evidence: [2K/4K/8K night Earth](evidence/performance/night-earth-resolution/README.md).
 The [sky review](evidence/sky-land-composition/review.json) records star composition
 and resource costs. Its land-based Earth acceptance was superseded by the
 [city-light composition review](evidence/earth-light-composition/review.json),
 which records early light coverage, distribution and the remaining dark intervals.
 Both CPU audits use image-color proxies requiring rendered review, not authoritative
 land or settlement masks.
-The [temporary helper review](evidence/earth-composer/review.json) records its
-final source, checked interaction states and verification limitations.
+The [retired helper review](evidence/earth-composer/review.json) records its
+historical source, checked interaction states and verification limitations.
 Earlier day-map/procedural comparison: [four-way audit](evidence/performance/earth-fourway/audit-summary.md).
 Atmosphere: [horizon softening](evidence/horizon-softening/README.md).
 Asset provenance: [texture records](../public/textures/README.md).

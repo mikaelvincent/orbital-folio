@@ -35,7 +35,15 @@ const earthTransforms = {
   ),
   after: await fs.readFile(path.join(repo, 'features/orbit/earth-view-transform.ts'), 'utf8'),
 };
-async function load(source, earthTransform) {
+// Old environments use the loader API shipped in their own revision. Keeping
+// that snapshot here avoids retaining obsolete day/resolution runtime APIs.
+const earthLoaders = {
+  before: execFileSync('git', ['show', baseline + ':components/earth-satellite.ts'], {
+    cwd: repo, encoding: 'utf8',
+  }),
+  after: await fs.readFile(path.join(repo, 'features/orbit/earth-satellite.ts'), 'utf8'),
+};
+async function load(source, earthTransform, earthLoader) {
   const built = await build({
     stdin: {
       contents: source,
@@ -48,6 +56,9 @@ async function load(source, earthTransform) {
     format: 'esm',
     logLevel: 'silent',
     plugins: [{ name: 'matching-earth-transform', setup(builder) {
+      builder.onLoad({ filter: /\/earth-satellite\.ts$/ }, () => ({
+        contents: earthLoader, loader: 'ts', resolveDir: path.join(repo, 'features/orbit'),
+      }));
       builder.onLoad({ filter: /\/earth-view-transform\.ts$/ }, () => ({
         contents: earthTransform, loader: 'ts', resolveDir: path.join(repo, 'features/orbit'),
       }));
@@ -95,8 +106,13 @@ result.protocol.earthTransformSha256 = Object.fromEntries(
     name, createHash('sha256').update(source).digest('hex'),
   ]),
 );
+result.protocol.earthLoaderSha256 = Object.fromEntries(
+  Object.entries(earthLoaders).map(([name, source]) => [
+    name, createHash('sha256').update(source).digest('hex'),
+  ]),
+);
 for (const [label, source] of Object.entries(sources)) {
-  const { createOrbitalEnvironment } = await load(source, earthTransforms[label]);
+  const { createOrbitalEnvironment } = await load(source, earthTransforms[label], earthLoaders[label]);
   const env = createOrbitalEnvironment(THREE, () => {}, {
     earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
   });

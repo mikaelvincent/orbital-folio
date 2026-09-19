@@ -1,32 +1,24 @@
 import type * as Three from 'three';
 
-export type EarthOpening = {
-  longitude: number;
-  latitude: number;
-  roll: number;
-};
-
-/** A lower-latitude, tilted pass keeps urban light networks in the foreground.
- * Geography stays consistent across viewports; the orbit and spin rate stay fixed.
- */
+/** Approved Europe at Night opening, with rotation at 1.5× the original rate. */
 export const NIGHT_EARTH_OPENING = {
-  longitude: 120,
-  latitude: 25,
-  roll: 22.5,
+  longitude: 12,
+  latitude: 48,
+  roll: -10,
 } as const;
+export const EARTH_ROTATION_RADIANS_PER_SECOND = 0.0045;
 
 /** Place the opening region in the visible foreground, with north upright.
- * Recomputed on resize or explicit composition edits, not per frame.
+ * Recomputed on resize, not per frame.
  * The map's seam is ±180°.
  */
 export function orientNightEarth(
   THREE: typeof Three,
   earth: Three.Group,
   camera: Three.PerspectiveCamera,
-  opening: EarthOpening = NIGHT_EARTH_OPENING,
 ) {
-  const longitude = THREE.MathUtils.degToRad(opening.longitude);
-  const latitude = THREE.MathUtils.degToRad(opening.latitude);
+  const longitude = THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.longitude);
+  const latitude = THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.latitude);
   const localNormal = new THREE.Vector3(
     Math.cos(latitude) * Math.cos(longitude),
     Math.sin(latitude),
@@ -78,7 +70,7 @@ export function orientNightEarth(
   earth.quaternion.premultiply(
     new THREE.Quaternion().setFromAxisAngle(
       normal,
-      THREE.MathUtils.degToRad(opening.roll),
+      THREE.MathUtils.degToRad(NIGHT_EARTH_OPENING.roll),
     ),
   );
 }

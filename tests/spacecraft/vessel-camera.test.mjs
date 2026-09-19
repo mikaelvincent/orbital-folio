@@ -10,7 +10,7 @@ const sameMatrix = (a, b, label) =>
   a.elements.forEach((v, i) => close(v, b.elements[i], `${label}[${i}]`));
 const zAxis = new THREE.Vector3(0, 0, 1);
 
-test('Stationary hull camera preserves the prior model-view matrix through travel, tilt, dolly and every roll', () => {
+void test('Stationary hull camera preserves the prior model-view matrix through travel, tilt, dolly and every roll', () => {
   const rig = createVesselCameraFrame(THREE);
   const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 500);
   const oldCamera = camera.clone();
@@ -62,7 +62,7 @@ test('Stationary hull camera preserves the prior model-view matrix through trave
   }
 });
 
-test('Transferred lighting preserves the rectangular shadow projection and light direction relative to the hull', () => {
+void test('Transferred lighting preserves the rectangular shadow projection and light direction relative to the hull', () => {
   const oldLight = new THREE.DirectionalLight();
   const newLight = new THREE.DirectionalLight();
   for (const light of [oldLight, newLight]) {
@@ -106,9 +106,8 @@ const { createOrbitalEnvironment, ORBITAL_WORLD_SCALE } = await import(
   `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`
 );
 
-test('Orbital camera shares the physical pose under a fixed world registration, without resetting on updates', async (t) => {
+void test('Orbital camera shares the physical pose under a fixed world registration, without resetting on updates', async (t) => {
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthAppearance: 'night',
     earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
     cameraFov: 38,
   });

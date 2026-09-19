@@ -4,10 +4,7 @@ import { build } from 'esbuild';
 import * as THREE from 'three';
 
 const bundled = await build({
-  entryPoints: [
-    process.env.ORBITAL_EARTH_AUDIT_ARTIFACT ??
-      'features/orbit/orbital-environment.ts',
-  ],
+  entryPoints: ['features/orbit/orbital-environment.ts'],
   bundle: true,
   write: false,
   platform: 'node',
@@ -69,12 +66,12 @@ for (const mobile of [false, true])
     assert.equal(fetch.mock.callCount(), 0);
     assert.ok(invalidations >= 2);
     assert.equal(surface.material.map, texture);
-    assert.equal(surface.material.isMeshLambertMaterial, true);
+    assert.equal(surface.material.isMeshBasicMaterial, true);
     assert.equal(surface.scale.x, 180);
     assert.equal(
       surface.parent.children.length,
-      3,
-      'Surface and two atmosphere layers; no cloud volume',
+      2,
+      'Surface and one night atmosphere; no cloud volume',
     );
     assert.ok(
       ![...collect(env.scene)].some(
@@ -82,6 +79,7 @@ for (const mobile of [false, true])
       ),
     );
     const version = texture.version;
+    let activeTime = 0;
     for (const [width, height] of [
       [1280, 720],
       [390, 844],
@@ -90,10 +88,11 @@ for (const mobile of [false, true])
       [0, 0],
     ]) {
       env.resize(width, height, 2);
-      for (const time of [0, 15, 180, 900, 100000]) {
-        env.update(time, true, -0.8, 0.75);
+      for (const delta of [0, 15, 180, 900, 100000]) {
+        activeTime += delta;
+        env.update(activeTime, true, -0.8, 0.75);
         const d = env.getDiagnostics();
-        assert.equal(d.earthRotation, (time * 0.003) % (Math.PI * 2));
+        assert.equal(d.earthRotation, (activeTime * 0.0045) % (Math.PI * 2));
         assert.equal(d.cloudRotation, d.earthRotation);
         assert.ok(
           [...env.camera.projectionMatrix.elements, ...d.earthPosition].every(
@@ -119,7 +118,7 @@ for (const mobile of [false, true])
     assert.equal(d.earthTextureGpuBytes, 178956972);
     assert.equal(d.cloudFieldSamples, 0);
     assert.equal(d.cloudTextureSize, 0);
-    assert.equal(d.dayTextureSize, 8192);
+    assert.deepEqual(d.earthTextureDimensions, [8192, 4096]);
     assert.equal(d.earthTextureSamples, 1);
     const disposed = watch(collect(env.scene));
     env.dispose();
@@ -175,29 +174,4 @@ void test('Failed asset keeps an inexpensive ocean and reports failure, without 
     env.scene.getObjectByName('satellite-earth-surface').material.map,
     null,
   );
-});
-
-void test('Audit resolution options preserve one renderer while accounting for each asset size', async () => {
-  for (const [width, gpuBytes] of [
-    [2048, 11184812],
-    [4096, 44739244],
-    [8192, 178956972],
-  ]) {
-    const env = createOrbitalEnvironment(THREE, () => {}, {
-      earthTextureWidth: width,
-      earthTexture: new THREE.Texture({ width, height: width / 2 }),
-    });
-    await env.ready;
-    const d = env.getDiagnostics();
-    assert.deepEqual(d.earthTextureDimensions, [width, width / 2]);
-    assert.equal(d.earthTextureGpuBytes, gpuBytes);
-    assert.equal(d.earthTextureBytes, width * width * 2);
-    assert.equal(d.earthTextureSamples, 1);
-    assert.equal(
-      env.scene.getObjectByName('satellite-earth-surface').parent.children
-        .length,
-      3,
-    );
-    env.dispose();
-  }
 });

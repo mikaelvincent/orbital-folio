@@ -6,30 +6,13 @@ A reusable developer portfolio with a real, editable Three.js spacecraft, server
 
 The interactive view makes the ship the main interface. Projects and Case studies sit above About and Contact, linked by side doors and a tall left ladder bay. Cabin dimensions and object placement remain consistent across viewports. The camera moves around the stationary spacecraft; portrait overview uses a camera roll to present its satellite end upward. Choose a visible room, a doorway, or the persistent navigation to approach it. Direct room URLs animate in from overview. The existing semantic readers, editable content and reduced-motion/reading fallbacks remain available.
 
-Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses an 8K night Earth opening over coastal East Asia for an early pass through prominent city-light networks, a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
+Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background uses an 8K night Earth opening over Europe, a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
-The temporary **Earth view** helper lets the owner choose a better opening: try
-the grouped presets, adjust longitude/latitude/tilt, then play or scrub its rotation
-at up to 60× preview speed. The **Motion** tab also selects the actual rotation
-speed from 0× (still) to 5× the current rate. The latest presets were evaluated
-for the owner's intended **2×**, with **3×** as an optional faster comparison:
-start with **Mediterranean classic**, which restores the exact geographic angles
-of the owner's earlier selection. **Mediterranean diagonal** offers a new artistic
-tilt; **Europe at night**, **Nile & Mediterranean** and **Middle East sweep**
-provide nearby alternatives. The previous Asian and American options remain under
-**Earlier comparisons**, alongside **Current opening**. These are choices to
-inspect, not accepted replacement defaults. Presets retain your selected speed,
-so set it in Motion before comparing.
-A full rotation takes about 17:27 at 2× or 11:38 at 3×; every route still passes
-dark regions. The chosen rate is included in copied settings.
-The **Earth model** toggle compares **Night Earth** with the existing 8K
-**Blue Marble** daytime image without resetting your angles or preview time.
-Blue Marble loads on selection; copied settings include the model choice.
-Use **Use this frame as the start** to adopt a later preview frame, then **Copy
-starting view** to share the exact settings. Fast-forward is separate from the
-saved rotation speed. Settings can also be pasted back into the helper.
-Changes last only for the current visit; after a final choice, the helper is to
-be removed. See the [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art).
+The approved Earth composition is **Europe at Night**: 12° longitude, 48° latitude,
+−10° tilt, rotating at **1.5× (0.0045 rad/s)**. The temporary Earth controls,
+comparison presets and daytime renderer have been removed. Only the 8K night
+map loads in the application. See the [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art)
+and [texture provenance](public/textures/README.md).
 
 ## Run locally
 

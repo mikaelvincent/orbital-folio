@@ -1,5 +1,5 @@
 /** Developer-only, finite background comparison. No portfolio route imports this file.
- * A: frozen satellite cloud volume. B: current production satellite Earth texture.
+ * A: frozen satellite cloud volume. B: current production night Earth texture.
  */
 import * as THREE from 'three';
 import { EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT } from '../../features/orbit/earth-satellite';
@@ -23,7 +23,7 @@ const comparison = {
     expectedAsset: '/textures/cloud-satellite-v2.cfd.gz',
   },
   current: {
-    label: `After — ${EARTH_TEXTURE_WIDTH / 1024}K satellite Earth`,
+    label: `After — ${EARTH_TEXTURE_WIDTH / 1024}K night Earth`,
     source: 'features/orbit/orbital-environment.ts',
     expectedTextureDimensions: [EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT],
   },
@@ -159,13 +159,16 @@ function requireReadyEnvironment(version: Version, environment: Environment) {
       diagnostics.cloudWeatherModel !== 'satellite-scattered-variable-depth'
     ) throw new Error('Before: the exact satellite cloud atlas must load successfully; recovery or incomplete clouds are not a valid baseline.');
   } else {
-    const source = diagnostics.earthSource;
+    const dimensions = diagnostics.earthTextureDimensions;
     if (
       diagnostics.earthReady !== true ||
       diagnostics.earthLoadError !== null ||
-      typeof source !== 'string' || !source || /loading|fallback|recovery/i.test(source) ||
-      diagnostics.dayTextureSize !== EARTH_TEXTURE_WIDTH
-    ) throw new Error('After: the current satellite image must load successfully; fallback or incomplete Earth rendering is not a valid comparison.');
+      diagnostics.earthSource !== 'local-satellite-image' ||
+      diagnostics.earthMode !== 'satellite-night-lights' ||
+      diagnostics.earthAppearance !== 'night' ||
+      !Array.isArray(dimensions) || dimensions.length !== 2 ||
+      dimensions[0] !== EARTH_TEXTURE_WIDTH || dimensions[1] !== EARTH_TEXTURE_HEIGHT
+    ) throw new Error('After: the current 8K night image must load successfully; fallback or incomplete Earth rendering is not a valid comparison.');
   }
   return value;
 }

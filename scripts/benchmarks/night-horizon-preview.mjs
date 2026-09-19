@@ -1,7 +1,7 @@
 /** Finite, developer-only still comparisons; never imported by the portfolio.
  * node scripts/benchmarks/night-horizon-preview.mjs
  * Baseline source is retained with the review; all variants render one frozen
- * 8K Mediterranean opening. No animation or performance benchmark runs here.
+ * 8K production opening. No animation or performance benchmark runs here.
  */
 import { build } from 'esbuild';
 import { createServer } from 'node:http';
@@ -31,9 +31,9 @@ for (const [name, contents] of Object.entries(variants)) {
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = .95;
         renderer.setClearColor('#050a11',1);
-        renderer.domElement.setAttribute('aria-label','Frozen 8K Mediterranean horizon');
+        renderer.domElement.setAttribute('aria-label','Frozen 8K production horizon');
         document.body.appendChild(renderer.domElement);
-        const environment = createOrbitalEnvironment(THREE,()=>{}, {earthAppearance:'night',earthTextureWidth:8192,mobile:innerWidth<700});
+        const environment = createOrbitalEnvironment(THREE,()=>{}, {mobile:innerWidth<700});
         await environment.ready;
         const draw = ()=> {
           renderer.setPixelRatio(2); renderer.setSize(innerWidth,innerHeight);

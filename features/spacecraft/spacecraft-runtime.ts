@@ -33,7 +33,6 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
-import type { EarthCompositionControls } from '../orbit/earth-composition';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
 import {
@@ -78,7 +77,6 @@ export type SpacecraftProps = {
   enabled: boolean;
   diagnosticsEnabled?: boolean;
   onDiagnosticsClose?: () => void;
-  onEarthCompositionReady?: (controls: EarthCompositionControls | null) => void;
   onNavigate: (section: string) => void;
   onOpenContact?: () => void;
   onCloseContact?: () => void;
@@ -675,12 +673,10 @@ export function mountSpacecraftScene({
             }),
           {
             mobile: mobile(),
-            earthAppearance: 'night',
             cameraFov: camera.fov,
           },
         );
         let backgroundSettled = false;
-        let earthPreviewPlaying = false;
         void background.ready.then(() => {
           backgroundSettled = true;
           if (!destroyed) kick();
@@ -743,7 +739,6 @@ export function mountSpacecraftScene({
             note: 'Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.',
           };
         };
-        let refreshSceneInventory = () => {};
         let bottomReservation = mobile() ? 132 : 80;
         const readerInsets = () => ({ top: 20, bottom: bottomReservation });
         const readerHeight = () =>
@@ -1754,7 +1749,6 @@ export function mountSpacecraftScene({
               !stop,
               0,
               0,
-              delta,
             );
             background.followCamera(camera, backgroundReference);
           }
@@ -2050,7 +2044,7 @@ export function mountSpacecraftScene({
           lastFrame = now;
           draw(now, Math.min(0.05, rawDelta), rawDelta);
           if (
-            (!stop || travelling || earthPreviewPlaying) &&
+            (!stop || travelling) &&
             experiment !== 'render-once'
           )
             frame = requestAnimationFrame(loop);
@@ -2268,27 +2262,17 @@ export function mountSpacecraftScene({
         const feedbackChanged = () => kick();
         const trackPointer = (event: PointerEvent) => {
           if (!event.isPrimary) return;
-          if ((event.target as Element).closest('[data-earth-composer]')) {
-            feedback.reset();
-            pointerGoal.set(0, 0);
-            kick();
-            return;
-          }
           if ((event.target as Element).closest('[data-scene-perf]')) return;
           feedback.move(event.clientX, event.clientY, event.pointerType);
           feedbackChanged();
         };
         const trackPress = (event: PointerEvent) => {
           if (!event.isPrimary) return;
-          if ((event.target as Element).closest('[data-earth-composer]'))
-            return;
           if ((event.target as Element).closest('[data-scene-perf]')) return;
           feedback.press(event.clientX, event.clientY, event.pointerType);
           feedbackChanged();
         };
         const trackKeyboard = (event: KeyboardEvent) => {
-          if ((event.target as Element).closest('[data-earth-composer]'))
-            return;
           if ((event.target as Element).closest('[data-scene-perf]')) return;
           if (
             ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key) ||
@@ -2616,35 +2600,6 @@ export function mountSpacecraftScene({
             kick();
           },
         };
-        latest.current.onEarthCompositionReady?.({
-          async setEarthAppearance(appearance) {
-            if (destroyed) return;
-            await background.setEarthAppearance(appearance);
-            if (destroyed) return;
-            refreshSceneInventory();
-            resetDiagnostics('earth-appearance');
-            kick();
-          },
-          setEarthComposition(opening, rotationRadiansPerSecond) {
-            if (destroyed) return;
-            background.setEarthComposition(opening, rotationRadiansPerSecond);
-            const preview = background.getEarthPreview();
-            earthPreviewPlaying = preview.active && !preview.paused;
-            lastFrame = 0;
-            resetDiagnostics('earth-composition');
-            kick();
-          },
-          setEarthPreview(options) {
-            if (destroyed) return;
-            background.setEarthPreview(options);
-            const preview = background.getEarthPreview();
-            earthPreviewPlaying = preview.active && !preview.paused;
-            lastFrame = 0;
-            resetDiagnostics('earth-preview');
-            kick();
-          },
-          getEarthPreview: () => background.getEarthPreview(),
-        });
         latest.current.onNavigationReady((section) => {
           if (
             !travelling ||
@@ -2664,7 +2619,6 @@ export function mountSpacecraftScene({
           if (!enabled) {
             unmountPerformancePanel();
             unmountPerformancePanel = () => {};
-            refreshSceneInventory = () => {};
             restoreShadowDiagnostics();
             diagnostics?.dispose();
             diagnostics = null;
@@ -2694,10 +2648,7 @@ export function mountSpacecraftScene({
             },
           );
           if (audit) return;
-          let sceneInventory = collectSceneInventory();
-          refreshSceneInventory = () => {
-            sceneInventory = collectSceneInventory();
-          };
+          const sceneInventory = collectSceneInventory();
           unmountPerformancePanel = mountPerformancePanel({
             collector: {
               snapshot: (includeFrames) => diagnostics!.snapshot(includeFrames),
@@ -3058,7 +3009,6 @@ export function mountSpacecraftScene({
           diagnostics?.dispose();
           spacecraftPerformance?.dispose();
           latest.current.onNavigationReady(null);
-          latest.current.onEarthCompositionReady?.(null);
           cancelAnimationFrame(frame);
           annotations.dispose();
           observer.disconnect();

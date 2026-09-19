@@ -2,34 +2,7 @@ import type * as Three from 'three';
 
 export const EARTH_TEXTURE_WIDTH = 8192;
 export const EARTH_TEXTURE_HEIGHT = 4096;
-export const EARTH_TEXTURE_ASSET = '/textures/earth-blue-marble-8k.jpg';
-export const EARTH_NIGHT_TEXTURE_WIDTH = 8192;
-export const EARTH_NIGHT_TEXTURE_ASSET = '/textures/earth-black-marble-8k.jpg';
-
-export type EarthTextureWidth = 2048 | 4096 | 8192;
-export type EarthAppearance = 'day' | 'night';
-
-/** Fixed local assets; audits can compare sizes through the production loader. */
-export function earthTextureSpec(
-  requestedWidth?: EarthTextureWidth,
-  appearance: EarthAppearance = 'day',
-) {
-  const width =
-    requestedWidth ??
-    (appearance === 'night' ? EARTH_NIGHT_TEXTURE_WIDTH : EARTH_TEXTURE_WIDTH);
-  if (![2048, 4096, 8192].includes(width))
-    throw new Error('Unsupported Earth texture width');
-  if (appearance !== 'day' && appearance !== 'night')
-    throw new Error('Unsupported Earth appearance');
-  return {
-    width,
-    height: width / 2,
-    asset:
-      appearance === 'night'
-        ? `/textures/earth-black-marble-${width / 1024}k.jpg`
-        : `/textures/earth-blue-marble-${width / 1024}k.jpg`,
-  };
-}
+export const EARTH_TEXTURE_ASSET = '/textures/earth-black-marble-8k.jpg';
 
 const ownedBitmaps = new WeakMap<Three.Texture, ImageBitmap>();
 const disposedTextures = new WeakSet<Three.Texture>();
@@ -119,13 +92,10 @@ export type EarthTextureLoad = {
 export async function loadEarthTexture(
   THREE: typeof Three,
   signal: AbortSignal,
-  width?: EarthTextureWidth,
-  appearance: EarthAppearance = 'day',
 ): Promise<EarthTextureLoad> {
-  const spec = earthTextureSpec(width, appearance);
   checkAbort(signal);
   const fetchStart = performance.now();
-  const response = await fetch(spec.asset, {
+  const response = await fetch(EARTH_TEXTURE_ASSET, {
     signal,
     mode: 'same-origin',
     credentials: 'same-origin',
@@ -153,9 +123,12 @@ export async function loadEarthTexture(
       signal,
     );
     checkAbort(signal);
-    if (bitmap.width !== spec.width || bitmap.height !== spec.height) {
+    if (
+      bitmap.width !== EARTH_TEXTURE_WIDTH ||
+      bitmap.height !== EARTH_TEXTURE_HEIGHT
+    ) {
       throw new Error(
-        `Earth texture must be ${spec.width}×${spec.height}; received ${bitmap.width}×${bitmap.height}`,
+        `Earth texture must be ${EARTH_TEXTURE_WIDTH}×${EARTH_TEXTURE_HEIGHT}; received ${bitmap.width}×${bitmap.height}`,
       );
     }
     const decodeMs = performance.now() - decodeStart;

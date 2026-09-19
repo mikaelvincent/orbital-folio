@@ -8,9 +8,6 @@ import {
   EARTH_TEXTURE_ASSET,
   EARTH_TEXTURE_WIDTH,
   EARTH_TEXTURE_HEIGHT,
-  EARTH_NIGHT_TEXTURE_WIDTH,
-  EARTH_NIGHT_TEXTURE_ASSET,
-  earthTextureSpec,
   configureEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
@@ -300,74 +297,16 @@ void test('Texture configuration also supports a caller-owned injected texture',
   assert.equal(disposals, 1);
 });
 
-void test('Each shipped size uses its own exact image and rejects an invalid size', async (t) => {
-  for (const width of [2048, 4096, 8192]) {
-    const bitmap = bitmapFixture(width, width / 2);
-    stubBitmap(t, async () => bitmap);
-    const fetch = stubResponse(t);
-    const loaded = await loadEarthTexture(
-      THREE,
-      new AbortController().signal,
-      width,
-    );
-    assert.equal(
-      fetch.mock.calls[0].arguments[0],
-      `/textures/earth-blue-marble-${width / 1024}k.jpg`,
-    );
-    assert.equal(loaded.texture.image.width, width);
-    disposeEarthTexture(loaded.texture);
-    fetch.mock.restore();
-  }
-  await assert.rejects(
-    loadEarthTexture(THREE, new AbortController().signal, 1234),
-    /Unsupported/,
-  );
-});
-
-void test('Night defaults to 8K while historical day defaults and all night comparison sizes remain available', async (t) => {
-  assert.deepEqual(earthTextureSpec(), {
-    width: 8192,
-    height: 4096,
-    asset: EARTH_TEXTURE_ASSET,
-  });
-  assert.equal(EARTH_NIGHT_TEXTURE_WIDTH, 8192);
-  assert.deepEqual(earthTextureSpec(undefined, 'night'), {
-    width: 8192,
-    height: 4096,
-    asset: EARTH_NIGHT_TEXTURE_ASSET,
-  });
-  for (const requestedWidth of [undefined, 2048, 4096, 8192]) {
-    const width = requestedWidth ?? 8192;
-    const bitmap = bitmapFixture(width, width / 2);
-    stubBitmap(t, async () => bitmap);
-    const fetch = stubResponse(t);
-    const loaded = await loadEarthTexture(
-      THREE,
-      new AbortController().signal,
-      requestedWidth,
-      'night',
-    );
-    assert.equal(
-      fetch.mock.calls[0].arguments[0],
-      `/textures/earth-black-marble-${width / 1024}k.jpg`,
-    );
-    assert.equal(loaded.texture.image.width, width);
-    disposeEarthTexture(loaded.texture);
-    fetch.mock.restore();
-  }
-  assert.throws(
-    () => earthTextureSpec(2048, 'unknown'),
-    /Unsupported Earth appearance/,
-  );
-});
-
 void test('The shipped 8K night map matches its source manifest and texture memory estimate', async () => {
   const asset = await fs.readFile(
     new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url),
   );
   const manifest = JSON.parse(
     await fs.readFile(
-      new URL('../../public/textures/earth-black-marble-8k.json', import.meta.url),
+      new URL(
+        '../../public/textures/earth-black-marble-8k.json',
+        import.meta.url,
+      ),
       'utf8',
     ),
   );
@@ -382,7 +321,7 @@ void test('The shipped 8K night map matches its source manifest and texture memo
     manifest.sha256,
     createHash('sha256').update(asset).digest('hex'),
   );
-  assert.equal(manifest.asset, EARTH_NIGHT_TEXTURE_ASSET);
+  assert.equal(manifest.asset, EARTH_TEXTURE_ASSET);
   assert.equal(manifest.source.width, 13500);
   assert.equal(manifest.source.height, 6750);
   assert.equal(

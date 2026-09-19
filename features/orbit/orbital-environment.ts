@@ -1,8 +1,7 @@
 import type * as Three from 'three';
 import {
-  earthTextureSpec,
-  type EarthTextureWidth,
-  type EarthAppearance,
+  EARTH_TEXTURE_WIDTH,
+  EARTH_TEXTURE_HEIGHT,
   configureEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
@@ -10,27 +9,14 @@ import {
 import {
   NIGHT_EARTH_OPENING,
   orientNightEarth,
-  type EarthOpening,
-} from './earth-view-transform';
-import {
-  EARTH_PREVIEW_SPEEDS,
   EARTH_ROTATION_RADIANS_PER_SECOND,
-  validateEarthOpening,
-  validateEarthRotationRate,
-  type EarthPreviewOptions,
-  type EarthPreviewSpeed,
-  type EarthPreviewState,
-} from './earth-composition';
+} from './earth-view-transform';
 import { createNightAtmosphere } from './night-atmosphere';
 
 type EnvironmentOptions = {
   mobile?: boolean;
   /** Developer audits may inject a decoded texture; the environment owns it. */
   earthTexture?: Three.Texture;
-  /** Developer comparisons use the same loader and renderer at each shipped size. */
-  earthTextureWidth?: EarthTextureWidth;
-  /** Portfolio uses night; the day default retains reproducible historical audits. */
-  earthAppearance?: EarthAppearance;
   /** Match the vessel lens when this environment shares its world camera. */
   cameraFov?: number;
 };
@@ -46,21 +32,8 @@ export function createOrbitalEnvironment(
   options: EnvironmentOptions = {},
 ) {
   const mobile = options.mobile ?? false;
-  let appearance = options.earthAppearance ?? 'day';
-  let requestedAppearance = appearance;
-  let appearanceLoading = true;
-  let appearanceError: string | null = null;
-  let earthSpec = earthTextureSpec(options.earthTextureWidth, appearance);
-  // Legacy day audits keep their Euler pose until geographic controls are used.
-  // Switching only the photographic surface never rewrites the current pose.
-  let geographicOrientation = appearance === 'night';
   let openingElapsed = 0,
     previousEarthTime = 0;
-  let previewOpening: EarthOpening | null = null;
-  let previewElapsed = 0;
-  let previewPaused = true;
-  let previewSpeed: EarthPreviewSpeed = 1;
-  let previewRotationRate = EARTH_ROTATION_RADIANS_PER_SECOND;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     options.cameraFov ?? 42,
@@ -92,10 +65,7 @@ export function createOrbitalEnvironment(
     encodedBytes: null as number | null,
     responseBytes: 0,
   };
-  let assetAbort: AbortController | undefined;
-  let appearanceRequest = 0;
-  let pendingAppearance: Promise<void> | null = null;
-  let externalTextureRequests = 0;
+  const assetAbort = new AbortController();
 
   const smooth = (a: number, b: number, value: number) => {
     const t = Math.max(0, Math.min(1, (value - a) / (b - a)));
@@ -171,10 +141,10 @@ export function createOrbitalEnvironment(
     skyGpuBytes += w * h * 4;
     if (w === 1 && h === 1) break;
   }
-  const earthTextureBytes = earthSpec.width * earthSpec.height * 4;
+  const earthTextureBytes = EARTH_TEXTURE_WIDTH * EARTH_TEXTURE_HEIGHT * 4;
   let earthGpuBytes = 0;
   for (
-    let w: number = earthSpec.width, h = earthSpec.height;
+    let w: number = EARTH_TEXTURE_WIDTH, h = EARTH_TEXTURE_HEIGHT;
     ;
     w = Math.max(1, w >> 1), h = Math.max(1, h >> 1)
   ) {
@@ -437,241 +407,65 @@ export function createOrbitalEnvironment(
   let disposed = false;
   const earth = new THREE.Group();
   earth.position.set(-56.652, -215.289, -161.903);
-  // Start over the Indian Ocean: broken clouds, visible water and nearby land.
-  // This only selects geography; globe position, radius and active rotation are unchanged.
-  earth.rotation.set(-1.2, -1.05, 0.18);
   const sphereGeometry = new THREE.SphereGeometry(
     1,
     mobile ? 96 : 128,
     mobile ? 64 : 96,
   );
-  const surface = new THREE.Mesh<Three.SphereGeometry, Three.Material>(
+  const surface = new THREE.Mesh(
     sphereGeometry,
-    appearance === 'night'
-      ? new THREE.MeshBasicMaterial({ color: 0x020713, toneMapped: false })
-      : new THREE.MeshStandardMaterial({
-          color: 0x1664a7,
-          roughness: 0.62,
-          metalness: 0,
-          emissive: 0x06182f,
-          emissiveIntensity: 0.2,
-        }),
+    new THREE.MeshBasicMaterial({ color: 0x020713, toneMapped: false }),
   );
   surface.scale.setScalar(180);
-  earth.add(surface);
+  earth.add(surface, createNightAtmosphere(THREE, sphereGeometry));
   surface.name = 'satellite-earth-surface';
-  const createEarthLighting = (kind: EarthAppearance) => {
-    const shells: Three.Mesh[] = [];
-    const lights: Three.Light[] = [];
-    if (kind === 'night') {
-      shells.push(createNightAtmosphere(THREE, sphereGeometry));
-    } else {
-      // Retain the day atmosphere for historical resolution comparisons.
-      const atmosphereVertex = `
-      varying vec3 vNormal;
-      varying vec3 vWorldNormal;
-      varying vec3 vView;
-      void main() {
-        vec4 p = modelViewMatrix * vec4(position, 1.0);
-        vNormal = normalize(normalMatrix * normal);
-        vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
-        vView = normalize(-p.xyz);
-        gl_Position = projectionMatrix * p;
-      }
-    `;
-      const sunDirection = new THREE.Vector3(-120, 100, 120).normalize();
-      const atmosphere = new THREE.Mesh(
-        sphereGeometry,
-        new THREE.ShaderMaterial({
-          transparent: true,
-          blending: THREE.AdditiveBlending,
-          side: THREE.BackSide,
-          depthWrite: false,
-          uniforms: { sunDirection: { value: sunDirection } },
-          vertexShader: atmosphereVertex,
-          fragmentShader: `
-        varying vec3 vNormal;
-        varying vec3 vWorldNormal;
-        varying vec3 vView;
-        uniform vec3 sunDirection;
-        void main() {
-          float mu = abs(dot(normalize(vNormal), normalize(vView)));
-          // Fade to zero at the outer silhouette instead of ending in a hard ring.
-          float rim = pow(1.0 - mu, 2.4) * smoothstep(0.0, 0.18, mu);
-          float daylight = smoothstep(-0.3, 0.45, dot(normalize(vWorldNormal), sunDirection));
-          gl_FragColor = vec4(0.16, 0.52, 1.0, rim * (0.20 + daylight * 0.66));
-        }
-      `,
-        }),
-      );
-      atmosphere.scale.setScalar(181.5);
-      atmosphere.renderOrder = 3;
-      shells.push(atmosphere);
-
-      // Inner atmospheric scattering retains the existing soft horizon.
-      const haze = new THREE.Mesh(
-        sphereGeometry,
-        new THREE.ShaderMaterial({
-          transparent: true,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false,
-          uniforms: { sunDirection: { value: sunDirection } },
-          vertexShader: atmosphereVertex,
-          fragmentShader: `
-        varying vec3 vNormal;
-        varying vec3 vWorldNormal;
-        varying vec3 vView;
-        uniform vec3 sunDirection;
-        void main() {
-          float rim = pow(1.0 - max(0.0, dot(normalize(vNormal), normalize(vView))), 2.6);
-          float daylight = smoothstep(-0.25, 0.45, dot(normalize(vWorldNormal), sunDirection));
-          gl_FragColor = vec4(0.09, 0.38, 0.88, rim * (0.035 + daylight * 0.21));
-        }
-      `,
-        }),
-      );
-      haze.scale.setScalar(180.27);
-      haze.renderOrder = 1;
-      shells.push(haze);
-      lights.push(new THREE.AmbientLight(0x527dab, 0.65));
-      const sunlight = new THREE.DirectionalLight(0xf0f7ff, 3.2);
-      sunlight.position.set(-120, 100, 120);
-      lights.push(sunlight);
+  const earthReady = (async () => {
+    let loadedTexture: Three.Texture | undefined;
+    try {
+      const loaded = options.earthTexture
+        ? {
+            texture: options.earthTexture,
+            encodedBytes: null,
+            responseBytes: 0,
+            fetchMs: 0,
+            decodeMs: 0,
+          }
+        : await loadEarthTexture(THREE, assetAbort.signal);
+      loadedTexture = loaded.texture;
+      // Injected assets obey the same asynchronous readiness/lifetime contract.
+      await Promise.resolve();
+      if (disposed) return;
+      if (options.earthTexture) configureEarthTexture(THREE, loaded.texture);
+      // City-light photography is not relit or tone mapped.
+      const material = new THREE.MeshBasicMaterial({
+        map: loaded.texture,
+        toneMapped: false,
+      });
+      surface.material.dispose();
+      surface.material = material;
+      earthTexture = loaded.texture;
+      loadedTexture = undefined;
+      Object.assign(earthStatus, {
+        ready: true,
+        source: options.earthTexture
+          ? 'injected-satellite-texture'
+          : 'local-satellite-image',
+        encodedBytes: loaded.encodedBytes,
+        responseBytes: loaded.responseBytes,
+        fetchMs: loaded.fetchMs,
+        decodeMs: loaded.decodeMs,
+        readyMs: performance.now() - generationStarted,
+      });
+    } catch (error) {
+      if (disposed) return;
+      earthStatus.error =
+        error instanceof Error ? error.message : String(error);
+      earthStatus.source = 'ocean-fallback';
+    } finally {
+      if (loadedTexture) disposeEarthTexture(loadedTexture);
+      if (!disposed) invalidate();
     }
-    return { shells, lights };
-  };
-  let earthLighting = createEarthLighting(appearance);
-  const attachEarthLighting = () => {
-    for (const shell of earthLighting.shells) earth.add(shell);
-    for (const light of earthLighting.lights) scene.add(light);
-  };
-  const disposeEarthLighting = () => {
-    for (const shell of earthLighting.shells) {
-      shell.removeFromParent();
-      for (const material of [shell.material].flat()) material.dispose();
-    }
-    for (const light of earthLighting.lights) light.removeFromParent();
-  };
-  attachEarthLighting();
-
-  const setEarthAppearance = (
-    nextAppearance: EarthAppearance,
-    injectedTexture?: Three.Texture,
-  ): Promise<void> => {
-    if (disposed) return Promise.resolve();
-    const nextSpec = earthTextureSpec(
-      options.earthTextureWidth,
-      nextAppearance,
-    );
-    if (
-      !injectedTexture &&
-      appearanceLoading &&
-      requestedAppearance === nextAppearance &&
-      pendingAppearance
-    )
-      return pendingAppearance;
-
-    const request = ++appearanceRequest;
-    assetAbort?.abort();
-    requestedAppearance = nextAppearance;
-    appearanceError = null;
-    // A second click can cancel an in-flight alternative without reloading the
-    // surface that is still visible. No second full-resolution cache is retained.
-    if (
-      !injectedTexture &&
-      earthStatus.ready &&
-      appearance === nextAppearance
-    ) {
-      appearanceLoading = false;
-      pendingAppearance = null;
-      invalidate();
-      return Promise.resolve();
-    }
-    appearanceLoading = true;
-    const controller = new AbortController();
-    assetAbort = controller;
-    const started = request === 1 ? generationStarted : performance.now();
-    if (!injectedTexture) externalTextureRequests++;
-    const pending = (async () => {
-      let loadedTexture: Three.Texture | undefined;
-      try {
-        const loaded = injectedTexture
-          ? {
-              texture: injectedTexture,
-              encodedBytes: null,
-              responseBytes: 0,
-              fetchMs: 0,
-              decodeMs: 0,
-            }
-          : await loadEarthTexture(
-              THREE,
-              controller.signal,
-              nextSpec.width,
-              nextAppearance,
-            );
-        loadedTexture = loaded.texture;
-        // Injected assets obey the same asynchronous readiness/lifetime contract.
-        await Promise.resolve();
-        if (disposed || request !== appearanceRequest) return;
-        if (injectedTexture) configureEarthTexture(THREE, loaded.texture);
-        // Day imagery retains photographic cloud shading plus broad illumination;
-        // city-light photography is never relit by the day sun.
-        const material =
-          nextAppearance === 'night'
-            ? new THREE.MeshBasicMaterial({
-                map: loaded.texture,
-                toneMapped: false,
-              })
-            : new THREE.MeshLambertMaterial({ map: loaded.texture });
-        if (appearance !== nextAppearance) {
-          const nextLighting = createEarthLighting(nextAppearance);
-          disposeEarthLighting();
-          earthLighting = nextLighting;
-          attachEarthLighting();
-        }
-        surface.material.dispose();
-        surface.material = material;
-        if (earthTexture) disposeEarthTexture(earthTexture);
-        earthTexture = loaded.texture;
-        loadedTexture = undefined;
-        appearance = nextAppearance;
-        earthSpec = nextSpec;
-        Object.assign(earthStatus, {
-          ready: true,
-          error: null,
-          source: injectedTexture
-            ? 'injected-satellite-texture'
-            : 'local-satellite-image',
-          encodedBytes: loaded.encodedBytes,
-          responseBytes: loaded.responseBytes,
-          fetchMs: loaded.fetchMs,
-          decodeMs: loaded.decodeMs,
-          readyMs: performance.now() - started,
-        });
-      } catch (error) {
-        if (disposed || request !== appearanceRequest) return;
-        appearanceError =
-          error instanceof Error ? error.message : String(error);
-        // A failed replacement keeps the previous visible map and its metrics.
-        // Startup has only the existing inexpensive solid-color fallback.
-        if (!earthStatus.ready) {
-          earthStatus.error = appearanceError;
-          earthStatus.source = 'ocean-fallback';
-        }
-      } finally {
-        if (loadedTexture) disposeEarthTexture(loadedTexture);
-        if (!disposed && request === appearanceRequest) {
-          appearanceLoading = false;
-          pendingAppearance = null;
-          invalidate();
-        }
-      }
-    })();
-    pendingAppearance = pending;
-    invalidate();
-    return pending;
-  };
-  const earthReady = setEarthAppearance(appearance, options.earthTexture);
+  })();
   scene.add(earth);
 
   // The reference horizon begins at 76% viewport height and leaves the bottom
@@ -706,44 +500,8 @@ export function createOrbitalEnvironment(
       .copy(horizonBisector)
       .multiplyScalar((180 * Math.cos(sweep)) / sinHalfAngle)
       .addScaledVector(horizonNormal, 180 * Math.sin(sweep));
-    if (geographicOrientation)
-      orientNightEarth(
-        THREE,
-        earth,
-        camera,
-        previewOpening ?? NIGHT_EARTH_OPENING,
-      );
+    orientNightEarth(THREE, earth, camera);
   };
-
-  const applyEarthRotation = () => {
-    const elapsed = previewOpening
-      ? previewElapsed
-      : geographicOrientation
-        ? openingElapsed
-        : activeTime;
-    const rotationRate = previewOpening
-      ? previewRotationRate
-      : EARTH_ROTATION_RADIANS_PER_SECOND;
-    surface.rotation.y = (elapsed * rotationRate) % (Math.PI * 2);
-  };
-  const getEarthPreview = (): EarthPreviewState => ({
-    appearance,
-    requestedAppearance,
-    appearanceLoading,
-    appearanceError,
-    active: previewOpening !== null,
-    opening: { ...(previewOpening ?? NIGHT_EARTH_OPENING) },
-    elapsed: previewOpening
-      ? previewElapsed
-      : geographicOrientation
-        ? openingElapsed
-        : activeTime,
-    paused: previewOpening ? previewPaused : false,
-    speed: previewOpening ? previewSpeed : 1,
-    rotationRadiansPerSecond: previewOpening
-      ? previewRotationRate
-      : EARTH_ROTATION_RADIANS_PER_SECOND,
-  });
 
   let activeTime = 0;
   const phaseHash = (value: number) => {
@@ -842,52 +600,6 @@ export function createOrbitalEnvironment(
     scene,
     camera,
     ready: earthReady,
-    getEarthPreview,
-    setEarthAppearance(nextAppearance: EarthAppearance) {
-      return setEarthAppearance(nextAppearance);
-    },
-    setEarthComposition(
-      opening: EarthOpening | null,
-      rotationRadiansPerSecond = EARTH_ROTATION_RADIANS_PER_SECOND,
-    ) {
-      if (disposed) return;
-      const validated = opening === null ? null : validateEarthOpening(opening);
-      const validatedRate =
-        validated === null
-          ? EARTH_ROTATION_RADIANS_PER_SECOND
-          : validateEarthRotationRate(rotationRadiansPerSecond);
-      if (!previewOpening || validated === null) {
-        previewPaused = true;
-        previewSpeed = 1;
-      }
-      geographicOrientation = true;
-      previewOpening = validated;
-      previewRotationRate = validatedRate;
-      if (validatedRate === 0) previewPaused = true;
-      previewElapsed = 0;
-      orientNightEarth(
-        THREE,
-        earth,
-        camera,
-        previewOpening ?? NIGHT_EARTH_OPENING,
-      );
-      applyEarthRotation();
-      invalidate();
-    },
-    setEarthPreview({ paused, speed, elapsed }: EarthPreviewOptions) {
-      if (disposed || !previewOpening) return;
-      if (typeof paused !== 'boolean' || !EARTH_PREVIEW_SPEEDS.includes(speed))
-        throw new Error('Choose a valid preview speed and pause state.');
-      if (elapsed !== undefined && (!Number.isFinite(elapsed) || elapsed < 0))
-        throw new Error(
-          'Preview time must be a nonnegative number of seconds.',
-        );
-      previewPaused = paused || previewRotationRate === 0;
-      previewSpeed = speed;
-      if (elapsed !== undefined) previewElapsed = elapsed;
-      applyEarthRotation();
-      invalidate();
-    },
     resize(width: number, height: number, pixelRatio: number) {
       const safeHeight = Math.max(1, height);
       camera.aspect = Math.max(1, width) / safeHeight;
@@ -937,35 +649,15 @@ export function createOrbitalEnvironment(
           meteor.material.uniforms.worldView.value = true;
       }
     },
-    update(
-      time: number,
-      moving: boolean,
-      x: number,
-      y: number,
-      previewDeltaSeconds?: number,
-    ) {
+    update(time: number, moving: boolean, x: number, y: number) {
       if (disposed) return;
       if (!followsWorldCamera) camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
-      {
-        const elapsedDelta = Math.max(0, activeTime - previousEarthTime);
-        if (moving && earthStatus.ready) openingElapsed += elapsedDelta;
-        // A deliberate Play action may animate Earth under reduced motion.
-        // Only the caller's visible-frame delta is used; normal stars/meteors
-        // retain their active clock, and changing speed never rewrites phase.
-        const previewDelta =
-          previewDeltaSeconds === undefined
-            ? moving
-              ? elapsedDelta
-              : 0
-            : Number.isFinite(previewDeltaSeconds)
-              ? Math.max(0, previewDeltaSeconds)
-              : 0;
-        if (previewOpening && !previewPaused && earthStatus.ready)
-          previewElapsed += previewDelta * previewSpeed;
-        previousEarthTime = activeTime;
-      }
-      applyEarthRotation();
+      const elapsedDelta = Math.max(0, activeTime - previousEarthTime);
+      if (moving && earthStatus.ready) openingElapsed += elapsedDelta;
+      previousEarthTime = activeTime;
+      surface.rotation.y =
+        (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
       starsMaterial.uniforms.time.value = activeTime;
       for (let index = 0; index < meteors.length; index++) {
         const meteor = meteors[index];
@@ -1006,53 +698,28 @@ export function createOrbitalEnvironment(
         worldScale: ORBITAL_WORLD_SCALE,
         ready: !disposed,
         earthReady: earthStatus.ready && !disposed,
-        earthMode:
-          appearance === 'night'
-            ? 'satellite-night-lights'
-            : 'satellite-land-ocean-clouds',
-        earthAppearance: appearance,
-        earthRequestedAppearance: requestedAppearance,
-        earthAppearanceLoading: appearanceLoading,
-        earthAppearanceError: appearanceError,
-        earthPreview: previewOpening
-          ? { paused: previewPaused, speed: previewSpeed }
-          : null,
-        earthOpening: geographicOrientation
-          ? { ...(previewOpening ?? NIGHT_EARTH_OPENING) }
-          : null,
-        earthOpeningElapsed: previewOpening
-          ? previewElapsed
-          : geographicOrientation
-            ? openingElapsed
-            : activeTime,
+        earthMode: 'satellite-night-lights',
+        earthAppearance: 'night',
+        earthOpening: { ...NIGHT_EARTH_OPENING },
+        earthOpeningElapsed: openingElapsed,
         earthSource: earthStatus.source,
         earthLoadError: earthStatus.error,
         earthRotation: surface.rotation.y,
-        earthRotationRate: previewOpening
-          ? previewRotationRate
-          : EARTH_ROTATION_RADIANS_PER_SECOND,
+        earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         earthTextureFetchMs: earthStatus.fetchMs,
         earthTextureDecodeMs: earthStatus.decodeMs,
         earthTextureReadyMs: earthStatus.readyMs,
         earthEncodedBytes: earthStatus.encodedBytes,
         earthResponseBytes: earthStatus.responseBytes,
-        earthTextureDimensions: [earthSpec.width, earthSpec.height],
+        earthTextureDimensions: [EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT],
         earthTextureBytes: earthStatus.ready ? earthTextureBytes : 0,
         earthTextureGpuBytes: earthStatus.ready ? earthGpuBytes : 0,
         earthTextureSamples: 1,
         cloudRotation: surface.rotation.y,
-        cloudRotationRate: previewOpening
-          ? previewRotationRate
-          : EARTH_ROTATION_RADIANS_PER_SECOND,
+        cloudRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         cloudFieldSamples: 0,
-        cloudWeatherModel:
-          appearance === 'night'
-            ? 'cloud-free-night-composite'
-            : 'combined-satellite-image',
-        cloudLightingModel:
-          appearance === 'night'
-            ? 'photographic-night-lights'
-            : 'photographic-clouds-diffuse-globe',
+        cloudWeatherModel: 'cloud-free-night-composite',
+        cloudLightingModel: 'photographic-night-lights',
         cloudReady: earthStatus.ready && !disposed,
         cloudTextureSize: 0,
         starCount: count,
@@ -1108,13 +775,12 @@ export function createOrbitalEnvironment(
         meteorPhase: meteors.find((m) => m.mesh.visible)?.phase ?? 0,
         meteorCycle: meteors[0].cycle,
         meteorVisible: meteorCount > 0,
-        textureSize: earthSpec.width,
-        dayTextureSize: earthSpec.width,
+        textureSize: EARTH_TEXTURE_WIDTH,
         proceduralTextureBytes: skyData.byteLength,
         proceduralTextureGpuBytes: skyGpuBytes,
         proceduralGenerationMs: Math.round(generationMs * 100) / 100,
         nebulaDimensions: [skyWidth, skyHeight],
-        externalTextureRequests,
+        externalTextureRequests: options.earthTexture ? 0 : 1,
         estimatedTextureMiB:
           Math.round(
             ((skyGpuBytes + (earthStatus.ready ? earthGpuBytes : 0)) /
@@ -1123,14 +789,14 @@ export function createOrbitalEnvironment(
           ) / 10000,
         earthRadius: 180,
         earthPosition: earth.position.toArray(),
-        earthAtmosphereLayers: appearance === 'night' ? 1 : 2,
-        drawCallBudget: appearance === 'night' ? 13 : 14,
+        earthAtmosphereLayers: 1,
+        drawCallBudget: 13,
       };
     },
     dispose() {
       if (disposed) return;
       disposed = true;
-      assetAbort?.abort();
+      assetAbort.abort();
       if (earthTexture) disposeEarthTexture(earthTexture);
       skyTexture.dispose();
       const geometries = new Set<Three.BufferGeometry>();

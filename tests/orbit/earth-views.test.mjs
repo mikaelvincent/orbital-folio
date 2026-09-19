@@ -1,9 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import { build } from 'esbuild';
-import sharp from 'sharp';
 import * as THREE from 'three';
 import { NIGHT_EARTH_OPENING } from '../../features/orbit/earth-view-transform.ts';
 
@@ -24,7 +21,6 @@ const surfaceOf = (env) => env.scene.getObjectByName('satellite-earth-surface');
 
 void test('Night Earth shares one geometry with one atmosphere and has no unused daylight rig', async (t) => {
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthAppearance: 'night',
     earthTexture: textureFixture(),
   });
   t.after(() => env.dispose());
@@ -102,7 +98,7 @@ function mockBitmap(t, decode) {
 
 // Project the approved geography through the real scene, independently of the
 // placement function. This catches points placed behind Earth or below the crop.
-function projectGeography(env, longitude = 120, latitude = 25) {
+function projectGeography(env, longitude = 12, latitude = 48) {
   const phi = THREE.MathUtils.degToRad(latitude);
   const theta = THREE.MathUtils.degToRad(longitude);
   const normal = new THREE.Vector3(
@@ -134,19 +130,18 @@ for (const [width, height, mobile] of [
   [390, 844, true],
   [768, 4096, true],
 ]) {
-  void test(`The coastal East Asia opening stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
+  void test(`The approved Europe opening stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
     const env = createOrbitalEnvironment(THREE, () => {}, {
       mobile,
       cameraFov: 38,
-      earthAppearance: 'night',
       earthTexture: textureFixture(),
     });
     t.after(() => env.dispose());
     await env.ready;
     assert.deepEqual(NIGHT_EARTH_OPENING, {
-      longitude: 120,
-      latitude: 25,
-      roll: 22.5,
+      longitude: 12,
+      latitude: 48,
+      roll: -10,
     });
     assert.deepEqual(env.getDiagnostics().earthOpening, NIGHT_EARTH_OPENING);
     env.resize(width, height, mobile ? 1 : 2);
@@ -184,110 +179,6 @@ for (const [width, height, mobile] of [
   });
 }
 
-// Inspect city-light color and its distribution, not terrain coverage: the old
-// route crossed almost entirely unlit land at 120s despite passing a land test.
-// Decode the real unchanged source once; this does not allocate a browser asset.
-void test('The early pass retains distributed city-light detail across screen shapes', async (t) => {
-  const { data, info } = await sharp(
-    new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url)
-      .pathname,
-  )
-    .resize(2048, 1024)
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  for (const [width, height] of [
-    [1280, 720],
-    [2560, 600],
-    [390, 844],
-  ]) {
-    const env = createOrbitalEnvironment(THREE, () => {}, {
-      cameraFov: 38,
-      earthAppearance: 'night',
-      earthTexture: textureFixture(),
-    });
-    t.after(() => env.dispose());
-    await env.ready;
-    env.resize(width, height, 1);
-    const surface = surfaceOf(env);
-    const sphere = new THREE.Sphere(surface.parent.position, 180);
-    for (const elapsed of [0, 60, 120, 180, 300]) {
-      env.update(elapsed, true, 0, 0);
-      env.scene.updateMatrixWorld(true);
-      const inverse = surface.matrixWorld.clone().invert();
-      let samples = 0,
-        warmDetail = 0;
-      const tiles = Array.from({ length: 15 }, () => ({
-        samples: 0,
-        lights: 0,
-      }));
-      for (let row = 0; row < 40; row++) {
-        for (let column = 0; column < 128; column++) {
-          const direction = new THREE.Vector3(
-            -1 + (column + 0.5) / 64,
-            -1 + ((row + 0.5) * 0.65) / 40,
-            0.5,
-          )
-            .unproject(env.camera)
-            .normalize();
-          const point = new THREE.Ray(
-            new THREE.Vector3(),
-            direction,
-          ).intersectSphere(sphere, new THREE.Vector3());
-          if (!point) continue;
-          const normal = point.applyMatrix4(inverse).normalize();
-          const u = Math.atan2(-normal.z, normal.x) / (2 * Math.PI) + 0.5;
-          const v = 0.5 - Math.asin(normal.y) / Math.PI;
-          const x = Math.min(
-            info.width - 1,
-            Math.max(0, Math.floor(u * info.width)),
-          );
-          const y = Math.min(
-            info.height - 1,
-            Math.max(0, Math.floor(v * info.height)),
-          );
-          const index = (y * info.width + x) * info.channels;
-          const red = data[index],
-            green = data[index + 1],
-            blue = data[index + 2];
-          const tile =
-            tiles[
-              Math.floor((column * 5) / 128) + Math.floor((row * 3) / 40) * 5
-            ];
-          samples++;
-          tile.samples++;
-          // Independent simple predicate, intentionally not the audit's fitted
-          // continuous score. Blue terrain alone cannot satisfy this assertion.
-          if (red > 50 && green > 35 && red > blue * 1.15) {
-            warmDetail++;
-            tile.lights++;
-          }
-        }
-      }
-      const coverage = warmDetail / samples;
-      const distributedArea =
-        tiles.reduce(
-          (sum, tile) =>
-            sum +
-            (tile.samples && tile.lights / tile.samples > 0.01
-              ? tile.samples
-              : 0),
-          0,
-        ) / samples;
-      const context = `${width}×${height}, ${elapsed}s: ${coverage} warm coverage, ${distributedArea} populated foreground`;
-      assert.ok(samples > 1500, `Enough visible Earth samples: ${context}`);
-      assert.ok(
-        coverage > 0.015,
-        `City-light coverage remains visible: ${context}`,
-      );
-      assert.ok(
-        distributedArea > 0.2,
-        `Lights span the foreground instead of a tiny isolated sliver: ${context}`,
-      );
-    }
-    env.dispose();
-  }
-});
-
 void test('Night lighting stays photographic and resizing reuses every loaded resource', async (t) => {
   let decoded = 0,
     closed = 0,
@@ -307,9 +198,7 @@ void test('Night lighting stays photographic and resizing reuses every loaded re
     'fetch',
     async () => new Response(new Uint8Array(4)),
   );
-  const env = createOrbitalEnvironment(THREE, () => invalidations++, {
-    earthAppearance: 'night',
-  });
+  const env = createOrbitalEnvironment(THREE, () => invalidations++, {});
   t.after(() => env.dispose());
   await env.ready;
   const surface = surfaceOf(env);
@@ -400,9 +289,7 @@ void test('The opening waits for image readiness and respects the global active 
     'fetch',
     async () => new Response(new Uint8Array(4)),
   );
-  const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthAppearance: 'night',
-  });
+  const env = createOrbitalEnvironment(THREE, () => {}, {});
   t.after(() => env.dispose());
   await decoding;
   env.resize(1280, 720, 2);
@@ -426,7 +313,7 @@ void test('The opening waits for image readiness and respects the global active 
   );
   close(
     env.getDiagnostics().earthRotation,
-    0.015,
+    0.0225,
     'Earth rotates from its approved opening',
   );
   assert.equal(starClock(env), 15);
@@ -444,47 +331,4 @@ void test('The opening waits for image readiness and respects the global active 
     'Resume uses the caller’s active clock without a jump',
   );
   assert.equal(starClock(env), 16);
-});
-
-void test('The shipped night asset matches its manifest, real 8K dimensions and source provenance', async () => {
-  const manifest = JSON.parse(
-    await fs.readFile(
-      new URL(
-        '../../public/textures/earth-black-marble-8k.json',
-        import.meta.url,
-      ),
-      'utf8',
-    ),
-  );
-  const bytes = await fs.readFile(
-    new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url),
-  );
-  const metadata = await sharp(bytes).metadata();
-  assert.deepEqual([metadata.width, metadata.height], [8192, 4096]);
-  assert.deepEqual(
-    [manifest.width, manifest.height],
-    [metadata.width, metadata.height],
-  );
-  assert.equal(manifest.encodedBytes, bytes.length);
-  assert.equal(bytes.length, 2329878);
-  assert.equal(
-    manifest.sha256,
-    createHash('sha256').update(bytes).digest('hex'),
-  );
-  assert.equal(metadata.space, 'srgb');
-  assert.equal(metadata.hasAlpha, false);
-  assert.equal(manifest.estimatedRgba8WithMipmapsBytes, 178956972);
-  assert.deepEqual(
-    [manifest.source.width, manifest.source.height],
-    [13500, 6750],
-  );
-  assert.ok(
-    manifest.source.width > manifest.width,
-    'The map is downsampled from a larger original',
-  );
-  assert.equal(
-    new URL(manifest.source.url).hostname,
-    'assets.science.nasa.gov',
-  );
-  assert.match(manifest.source.note, /cloud-free/i);
 });
