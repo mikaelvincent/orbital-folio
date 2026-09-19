@@ -1,13 +1,58 @@
-# Earth resolution lab
+# Historical Earth resolution lab
+
+The live resolution fixture and unused day/2K/4K images were retired when the
+owner selected the 8K Europe night view at 1.5×. The protocol below describes the
+archived comparison implementation, **not current application controls**.
+
+## Restore the historical implementation
+
+Use a separate checkout to recover the complete source, assets and pinned
+package lock, without restoring old branches of the production renderer:
+
+```sh
+git worktree add --detach /tmp/orbital-folio-earth-comparison 56c67bb123b4afab0c34d39560100db3e2366ea2
+cd /tmp/orbital-folio-earth-comparison
+npm ci
+node scripts/earth-resolution-lab.mjs --night --port 3004
+```
+
+Choose another empty worktree path or loopback port if those are occupied. The
+commands in the archived protocol below run from that checkout. This checkpoint
+preserves the final helper-era code; reproducing an *exact recorded historical
+render* also requires its evidence manifest's source revision, opening, clock,
+viewport and asset hashes. Do not treat a fresh run as the old measurement merely
+because its textures match. No production server or data setup is required.
+
+The compact asset manifests remain under
+[`earth-fourway/assets`](../../docs/evidence/performance/earth-fourway/assets/) and
+[`night-earth-resolution/assets`](../../docs/evidence/performance/night-earth-resolution/assets/).
+Historical screenshots, raw accepted/rejected runs and summaries remain unchanged.
+
+The saved night-result audit still runs from the current checkout:
+
+```sh
+node scripts/audit-night-earth-results.mjs --partial
+```
+
+It reads the three night JPEGs and their original manifests directly from Git
+commit `56c67bb123b4afab0c34d39560100db3e2366ea2`, verifies their hashes against the
+recorded build, and reports that `assetRevision`. It restores no runtime assets,
+starts no renderer and writes no files with `--partial`. Omit `--partial` to
+regenerate the saved summaries, or use `--input-dir PATH` on a copied evidence
+folder. The exact commit must exist in local Git history; a shallow checkout may
+need that history fetched. Current-source mismatches are disclosed as warnings,
+not rewritten into the old records.
+
+## Archived protocol
 
 A developer-only finite fixture compares the retained procedural-cloud implementation
-with the current production Earth renderer at 2048×1024, 4096×2048 and 8192×4096.
+with that snapshot’s production Earth renderer at 2048×1024, 4096×2048 and 8192×4096.
 It imports no spacecraft and adds no portfolio runtime work or routes. The older
 `cloud-browser-lab` remains unchanged for its historical two-variant comparison.
 
-## Current cinematic night comparison
+## Snapshot cinematic night comparison
 
-Use `--night` to compare the current East Asian opening with the current
+Use `--night` to compare the snapshot’s East Asian opening with its
 production cyan/cobalt atmosphere and Black Marble texture at 2K, 4K and 8K:
 
 ```sh

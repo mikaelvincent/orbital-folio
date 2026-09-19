@@ -6,11 +6,21 @@ The default night scene uses `earth-black-marble-8k.jpg`: an 8192×4096 NASA Bla
 
 The locally served JPEG contains 2,329,878 bytes, SHA-256 `48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd`. It uses JPEG quality 90, MozJPEG and 4:4:4 chroma. The nominal RGBA8 texture with its full mip chain occupies 178,956,972 bytes, excluding driver overhead and decoded CPU memory. The adjacent JSON records source credit, reproducible processing, dimensions and hashes. The browser does not request the original 64 MB GeoTIFF or contact NASA. Developer source and rebuild instructions are in `scripts/assets/README.md`.
 
-## Retained daytime Earth
+## Historical Earth comparisons
 
-`earth-blue-marble-8k.jpg` is the previous 8192×4096 combined NASA Blue Marble map with land, ocean color, ice and clouds. It is encoded directly from the original 8192×4096 TIFF, without upscaling. The JPEG contains 6,615,276 bytes, with SHA-256 `f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de`. The same-origin image is decoded once with an explicit vertical flip and displayed as sRGB on the rotating globe. It is a historical composite, not live weather.
+Europe at Night is now the sole production Earth: the 8K night map above. The
+Blue Marble daytime renderer, its three JPEGs, and the lower-resolution night
+JPEGs were removed after the owner selected this view. Nothing in the application
+requests or switches to those variants.
 
-The `earth-blue-marble-2k`, `earth-blue-marble-4k` and `earth-blue-marble-8k` images and manifests preserve the earlier quality and performance experiments. The resolution comparison lab can still load each day version; the stored day-map benchmark evidence describes those maps, not the later night map.
+Their small source/processing manifests remain with the corresponding
+[day comparison evidence](../../docs/evidence/performance/earth-fourway/assets/)
+and [night comparison evidence](../../docs/evidence/performance/night-earth-resolution/assets/).
+Historical source, images and lab implementations can be recovered from Git
+commit `56c67bb123b4afab0c34d39560100db3e2366ea2`; see the
+[historical resolution guide](../../scripts/benchmarks/earth-resolution-lab.md).
+Recorded measurements remain historical evidence, not measurements of the current
+Europe opening or its 1.5× rotation.
 
 ## Retained cloud experiments
 

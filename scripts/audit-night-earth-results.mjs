@@ -12,8 +12,24 @@ import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+// Historical comparison assets no longer ship with the night-only application.
+// Read their exact Git objects without restoring files or changing the checkout.
+const assetRevision = '56c67bb123b4afab0c34d39560100db3e2366ea2';
+const execFileAsync = promisify(execFile);
+async function historicalAsset(path) {
+  try {
+    const { stdout } = await execFileAsync('git', ['show', `${assetRevision}:public/${path}`], {
+      cwd: root, encoding: 'buffer', maxBuffer: 16 * 1024 * 1024,
+    });
+    return stdout;
+  } catch (error) {
+    throw new Error(`Cannot read historical asset ${path} from ${assetRevision}. This audit requires that commit in local Git history.`, { cause: error });
+  }
+}
 const args = process.argv.slice(2);
 const inputIndex = args.indexOf('--input-dir');
 if (inputIndex >= 0 && !args[inputIndex + 1]) throw new Error('--input-dir requires a path.');
@@ -55,9 +71,9 @@ try {
 const assets = {};
 for (const [version, width] of Object.entries(WIDTHS)) {
   const path = `textures/earth-black-marble-${version}.jpg`;
-  const bytes = await readFile(join(root, 'public', path));
+  const bytes = await historicalAsset(path);
   const metadata = await sharp(bytes).metadata();
-  const declared = JSON.parse(await readFile(join(root, 'public', path.replace('.jpg', '.json')), 'utf8'));
+  const declared = JSON.parse((await historicalAsset(path.replace('.jpg', '.json'))).toString('utf8'));
   let w = width, h = width / 2, mipBytes = 0;
   for (;;) { mipBytes += w * h * 4; if (w === 1 && h === 1) break; w = Math.max(1, w >> 1); h = Math.max(1, h >> 1); }
   assets[version] = { path, width: metadata.width, height: metadata.height, bytes: bytes.length, sha256: hash(bytes), nominalRgba8MipBytes: mipBytes, nominalDecodedRgbaBytes: width * width * 2 };
@@ -199,7 +215,7 @@ if (!partial) check(Object.values(outputCohorts).some(cohort => cohort.device?.g
 const powerSources = unique(observations.map(row => row.powerSource));
 if (powerSources.length !== 1) warnings.push('Power source differs across observations; do not describe the session as constant power.');
 if (excluded.length) warnings.push(`${excluded.length} raw reports retained but excluded by status or an explicit interruption record; no timing-based trimming performed.`);
-const result = { schemaVersion: 1, generatedAt: new Date().toISOString(), status: errors.length ? 'failed' : partial ? 'partial' : 'passed', rawFiles: reports.map(({ name, sha256, condition }) => ({ name, sha256, condition })), excludedReports: excluded, explicitExclusions: { sha256: exclusionSha256, entries: explicitExclusions }, displayConditions: { sha256: conditionsSha256, entries: conditions }, validation: { errors, warnings, frozenManifestSha256: manifestHash, snapshotId: manifest.snapshotId, sourceChecks, nominalNativeSnapshots: observations.filter(row => row.thermalState === 'nominal').length, powerSources }, assets, cohorts: outputCohorts, nativeObservations: observations,
+const result = { schemaVersion: 1, assetRevision, generatedAt: new Date().toISOString(), status: errors.length ? 'failed' : partial ? 'partial' : 'passed', rawFiles: reports.map(({ name, sha256, condition }) => ({ name, sha256, condition })), excludedReports: excluded, explicitExclusions: { sha256: exclusionSha256, entries: explicitExclusions }, displayConditions: { sha256: conditionsSha256, entries: conditions }, validation: { errors, warnings, frozenManifestSha256: manifestHash, snapshotId: manifest.snapshotId, sourceChecks, nominalNativeSnapshots: observations.filter(row => row.thermalState === 'nominal').length, powerSources }, assets, cohorts: outputCohorts, nativeObservations: observations,
   limits: [
     'Per-frame observations within a block are correlated; six order-balanced blocks per resolution are the relevant repeated observations. Pooled frame p95 is descriptive, not a confidence interval.',
     'Measurements cover the orbital background only, including the same stars, frozen initial Mediterranean view and cinematic atmosphere. They exclude the spacecraft, app UI, camera travel and whole-site FPS.',
@@ -214,7 +230,7 @@ const result = { schemaVersion: 1, generatedAt: new Date().toISOString(), status
     'Compact viewports, if present, use the same desktop machine and do not establish performance on physical mobile hardware. Small inconsistent timing differences should remain inconclusive.'
   ] };
 const fmt = value => typeof value === 'number' ? value.toFixed(3) : 'Unavailable';
-const lines = ['# Night Earth resolution audit', '', `Status: **${result.status}**. ${reports.length} complete reports, ${excluded.length} excluded raw reports, ${observations.length} native snapshots.`, '', '| Map | Image download MB | Nominal texture + mips MB | Illustrative decoded RGBA MB |', '|---|---:|---:|---:|'];
+const lines = ['# Night Earth resolution audit', '', `Historical asset revision: \`${assetRevision}\`. JPEGs and manifests are read from Git without restoring removed runtime assets.`, '', `Status: **${result.status}**. ${reports.length} complete reports, ${excluded.length} excluded raw reports, ${observations.length} native snapshots.`, '', '| Map | Image download MB | Nominal texture + mips MB | Illustrative decoded RGBA MB |', '|---|---:|---:|---:|'];
 for (const [version, asset] of Object.entries(assets)) lines.push(`| ${version.toUpperCase()} | ${fmt(asset.bytes / 1e6)} | ${fmt(asset.nominalRgba8MipBytes / 1e6)} | ${fmt(asset.nominalDecodedRgbaBytes / 1e6)} |`);
 for (const [name, cohort] of Object.entries(outputCohorts)) {
   lines.push('', `## ${name}`, '', `Orders: ${cohort.orders.join(', ')}. ${cohort.completeBalancedDesign ? 'Complete six-order design.' : 'Supplemental; order design incomplete.'} ${cohort.uniquePreparations} unique preparations.`, '', '| Map | GPU mean ms | GPU block mean min–max ms | CPU submission mean ms | CPU block mean min–max ms | Frame interval mean ms | Frames |', '|---|---:|---|---:|---|---:|---:|');
@@ -224,5 +240,5 @@ for (const [name, cohort] of Object.entries(outputCohorts)) {
 }
 lines.push('', '## Qualifications', '', ...result.limits.map(text => `- ${text}`), '', '## Validation', '', ...(errors.length ? errors.map(text => `- ERROR: ${text}`) : ['- Declared checks passed.']), ...warnings.map(text => `- NOTE: ${text}`), '');
 if (!partial) { await writeFile(join(input, 'audit-summary.json'), JSON.stringify(result, null, 2) + '\n'); await writeFile(join(input, 'audit-summary.md'), lines.join('\n')); }
-console.log(JSON.stringify({ status: result.status, errors, warnings, reports: reports.length, excluded: excluded.length, snapshots: observations.length, cohorts: Object.fromEntries(Object.entries(outputCohorts).map(([name, cohort]) => [name, Object.fromEntries(Object.entries(cohort.variants).map(([version, value]) => [version, { gpuMeanMs: value.gpuMs.mean, gpuBlockRange: [value.gpuBlockMeanRange.min, value.gpuBlockMeanRange.max], cpuMeanMs: value.cpuSubmissionWallMs.mean }]))])) }, null, 2));
+console.log(JSON.stringify({ status: result.status, assetRevision, errors, warnings, reports: reports.length, excluded: excluded.length, snapshots: observations.length, cohorts: Object.fromEntries(Object.entries(outputCohorts).map(([name, cohort]) => [name, Object.fromEntries(Object.entries(cohort.variants).map(([version, value]) => [version, { gpuMeanMs: value.gpuMs.mean, gpuBlockRange: [value.gpuBlockMeanRange.min, value.gpuBlockMeanRange.max], cpuMeanMs: value.cpuSubmissionWallMs.mean }]))])) }, null, 2));
 if (errors.length) process.exitCode = 1;

@@ -12,7 +12,7 @@ The opening timer begins after the Earth asset is ready, so image loading does n
 
 The [NASA Black Marble map page](https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/) documents a historical color composite selected from cloud-free nights throughout 2016. It is not current weather or a single simultaneous full-globe photograph. Credit: **NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC**. No cloud overlay, glow, sharpening or artistic color correction was added to the prepared texture. [NASA's processing explanation](https://science.nasa.gov/earth/earth-observatory/night-light-maps-open-up-new-applications-90008/).
 
-The 13500×6750 original GeoTIFF is downsampled offline with Lanczos3, then encoded as sRGB JPEG quality 90, MozJPEG, 4:4:4 chroma. Only the local JPEG is requested at runtime; the browser never downloads the source TIFF or performs source conversion. The [manifest](../../../public/textures/earth-black-marble-8k.json) and [rebuild instructions](../../../scripts/assets/README.md#night-earth-color-map) preserve source/output hashes, credit, dimensions and the encoding recipe.
+The 13500×6750 original GeoTIFF is downsampled offline with Lanczos3, then encoded as sRGB JPEG quality 90, MozJPEG, 4:4:4 chroma. Only the local JPEG is requested at runtime; the browser never downloads the source TIFF or performs source conversion. The [manifest](../../../public/textures/earth-black-marble-8k.json) and [rebuild instructions](../../../scripts/assets/README.md#production-night-earth) preserve source/output hashes, credit, dimensions and the encoding recipe.
 
 | Property | Previous 8K day map | New 8K night map |
 | --- | ---: | ---: |

@@ -20,7 +20,7 @@ The user requested 4K and rejected the muted gray/warm atmosphere, preferring a 
 
 Texture storage is approximately four times the 2K payload and 75% below 8K. Figures exclude decoded CPU image memory and driver overhead. The 4K image improves geographic and city-light detail, with higher transfer/decode/upload and texture-storage costs. No timed rendering comparison was requested or run; unchanged draw count does not establish unchanged GPU time. No unrelated performance candidate was enabled.
 
-The 4K JPEG SHA-256 is `f2e4e44a0cc209f076ba9169753a005d216939e6b39011d16bc66a08dfba411e`. Its [manifest](../../../public/textures/earth-black-marble-4k.json) records exact source identity and preparation.
+The 4K JPEG SHA-256 is `f2e4e44a0cc209f076ba9169753a005d216939e6b39011d16bc66a08dfba411e`. Its [manifest](../performance/night-earth-resolution/assets/earth-black-marble-4k.json) records exact source identity and preparation.
 
 ## Validation
 

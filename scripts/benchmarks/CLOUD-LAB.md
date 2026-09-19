@@ -1,7 +1,7 @@
 # Standalone Earth comparison lab
 
 This developer fixture compares the **frozen satellite cloud volume immediately
-before the 2K satellite Earth change** with the current production environment.
+before the 2K satellite Earth change** with the current production 8K night environment.
 It adds no portfolio routes, UI, or runtime work. The older procedural-cloud
 reference remains in `cloud-reference.ts` for historical comparisons; it is not
 loaded by this comparison.
@@ -10,15 +10,17 @@ loaded by this comparison.
   production on 2026-09-14, with only relative imports and a provenance comment
   changed. It loads `cloud-satellite-v2.cfd.gz` and the unchanged
   `scripts/benchmarks/clouds/cloud-volume.ts` shader.
-- **B / current / after:** `features/orbit/orbital-environment.ts`, using the configured production resolution (currently 8192×4096)
-  combined satellite image of land, ocean and clouds.
+- **B / current / after:** `features/orbit/orbital-environment.ts`, using the
+  fixed 8192×4096 Black Marble night image, the approved Europe opening
+  (12° / 48° / −10°) and 0.0045 rad/s rotation.
 
-The active 8K JPEG is encoded directly from the original NASA 8192×4096 TIFF,
-not upscaled from the earlier maps. The historical 2K and 4K images remain in
-`public/textures`. To compare all three resolutions with the original image-free
-procedural implementation, use the separate [four-variant resolution lab](earth-resolution-lab.md).
-This paired lab continues to compare the retained satellite cloud volume with
-the current production image; it does not select historical image resolutions.
+The current 8K JPEG is derived directly from NASA's original 13500×6750 night
+GeoTIFF, not upscaled from an earlier map. The old day and lower-resolution night
+JPEGs no longer ship in `public/textures`; reproduce those historical experiments
+in the separate checkout described in the
+[archived resolution guide](earth-resolution-lab.md). This paired lab compares
+historical cloud rendering with today's night scene, **not equivalent imagery or
+an isolated optimization**. It does not select old image resolutions.
 
 The JSON stores these source identities in `configuration.comparison`; its
 build manifest records hashes of every actual imported source and public asset.
@@ -96,4 +98,4 @@ Compare actual GPU elapsed milliseconds, submitted draws and triangles, asset
 bytes, estimated texture storage, and readiness/preparation timings separately.
 Do not convert fewer texture samples into a predicted FPS or battery multiplier.
 
-The current image dimensions and readiness checks come from the production Earth configuration. Saved iteration 07 reports remain 2K observations; new 4K or 8K results must not be conflated with those historical measurements. Rebuilding the active image defaults to width 8192; see the [source preparation instructions](../assets/README.md).
+The current image dimensions and readiness checks come from the production Earth configuration. Saved iteration 07 reports remain 2K observations; new 8K night results must not be conflated with those historical daytime measurements. Rebuilding the active image defaults to width 8192; see the [source preparation instructions](../assets/README.md).

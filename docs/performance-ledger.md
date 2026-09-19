@@ -337,7 +337,7 @@ The globe retains its radius, screen framing, active-time pause behavior and 0.0
 
 ### Delivery, lifecycle and diagnostics
 
-The checked-in asset is `public/textures/earth-blue-marble-2k.jpg`, **526,263 bytes**, SHA-256 `d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5`. It is reproducibly resized from NASA's verified 8192×4096 TIFF with Lanczos3 and encoded as JPEG quality 85. The normal path requests only the local image, not the large source or NASA servers. Source credit, SHA-256, projection and encoder versions travel in the [manifest](../public/textures/earth-blue-marble-2k.json) and [preparation instructions](../scripts/assets/README.md).
+The checked-in asset is `public/textures/earth-blue-marble-2k.jpg`, **526,263 bytes**, SHA-256 `d2c003cc2e865c474245884cb16c9aeeb30349c8acc06e4dfb92594b2c12bbc5`. It is reproducibly resized from NASA's verified 8192×4096 TIFF with Lanczos3 and encoded as JPEG quality 85. The normal path requests only the local image, not the large source or NASA servers. Source credit, SHA-256, projection and encoder versions travel in the [manifest](evidence/performance/earth-fourway/assets/earth-blue-marble-2k.json) and [preparation instructions](../scripts/assets/README.md).
 
 | Earth representation cost | Before: satellite cloud volume | After: 2K combined image | Difference |
 | --- | ---: | ---: | ---: |
@@ -394,7 +394,7 @@ This is an approved visible quality increase, not a performance optimization. Fr
 | Estimated texture plus full mip chain | 11,184,812 bytes | 44,739,244 bytes |
 | Background draw count / geometry | Iteration 07 | Unchanged |
 
-The download is approximately 3.66 times larger than 2K; texture storage is approximately four times larger. These are verified asset bytes and calculated texture payload, excluding driver overhead and retained decoded-image memory. The 4K output SHA-256 is `ea8940c7f59de7aea44dce96c021f9c9bf7d1adae328fe9fbdc0449fa6535797`; the [public manifest](../public/textures/earth-blue-marble-4k.json) contains full source and encoding provenance.
+The download is approximately 3.66 times larger than 2K; texture storage is approximately four times larger. These are verified asset bytes and calculated texture payload, excluding driver overhead and retained decoded-image memory. The 4K output SHA-256 is `ea8940c7f59de7aea44dce96c021f9c9bf7d1adae328fe9fbdc0449fa6535797`; the [archived manifest](evidence/performance/earth-fourway/assets/earth-blue-marble-4k.json) contains full source and encoding provenance.
 
 No new timed GPU/thermal comparison was requested or run in this image-quality iteration. Iteration 07's GPU percentages remain measurements of **2K** and must not be reused as 4K results. The same shader and draw counts do not prove identical GPU time: larger textures can change cache and bandwidth cost, and image decode/upload work also increases.
 
@@ -404,7 +404,7 @@ No new timed GPU/thermal comparison was requested or run in this image-quality i
 
 ## 09 — 8K Earth and four-version rendering comparison
 
-**Approved and implemented, 14 September 2026.** The user requested an 8K trial and a rendering-performance comparison against 2K, 4K and the retained generative implementation. Production now requests `earth-blue-marble-8k.jpg`: **8192×4096**, encoded directly from the verified original NASA TIFF at JPEG quality 85. This preserves original source dimensions; it does not upscale the smaller outputs. Source, encoder and output identity are recorded in the [8K manifest](../public/textures/earth-blue-marble-8k.json). Its SHA-256 is `f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de`.
+**Approved and implemented, 14 September 2026.** The user requested an 8K trial and a rendering-performance comparison against 2K, 4K and the retained generative implementation. Production now requests `earth-blue-marble-8k.jpg`: **8192×4096**, encoded directly from the verified original NASA TIFF at JPEG quality 85. This preserves original source dimensions; it does not upscale the smaller outputs. Source, encoder and output identity are recorded in the [8K manifest](evidence/performance/earth-fourway/assets/earth-blue-marble-8k.json). Its SHA-256 is `f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de`.
 
 The default offline preparation width is now 8192. The 2K and 4K assets remain available for comparisons, but production loads only 8K. The same production loader now accepts those three explicit sizes for developer audits and verifies the exact decoded dimensions. This keeps filtering, image orientation, color handling, materials, globe geometry, framing, rotation and resource ownership consistent across resolution tests. No unrelated performance candidate was enabled.
 
@@ -460,7 +460,7 @@ The independent [saved-results audit](evidence/performance/earth-fourway/audit-s
 
 NASA's [Black Marble map page](https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/) documents a historical composite selected from cloud-free nights throughout 2016. Credit: **NASA Earth Observatory / Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC**. This is not live weather or one simultaneous photograph of the whole Earth. The image has dark geographic surfaces and city lights, with no added clouds, glow, sharpening or artistic color adjustment. NASA explains that clouds in some promotional globe views are added from Blue Marble separately; this implementation uses the cloud-free flat map. [Source processing explanation](https://science.nasa.gov/earth/earth-observatory/night-light-maps-open-up-new-applications-90008/).
 
-The source GeoTIFF is 13500×6750, so the 8192×4096 output is a genuine downsample. The developer-only preparation script verifies its source hash and dimensions, uses one Sharp worker with Lanczos3, and encodes sRGB JPEG quality 90, MozJPEG and 4:4:4 chroma to retain fine colored lights. Runtime requests only the checked-in same-origin JPEG, never NASA or the 64 MB source. [Manifest and provenance](../public/textures/earth-black-marble-8k.json) · [Reproducible source preparation](../scripts/assets/README.md#night-earth-color-map).
+The source GeoTIFF is 13500×6750, so the 8192×4096 output is a genuine downsample. The developer-only preparation script verifies its source hash and dimensions, uses one Sharp worker with Lanczos3, and encodes sRGB JPEG quality 90, MozJPEG and 4:4:4 chroma to retain fine colored lights. Runtime requests only the checked-in same-origin JPEG, never NASA or the 64 MB source. [Manifest and provenance](../public/textures/earth-black-marble-8k.json) · [Reproducible source preparation](../scripts/assets/README.md#production-night-earth).
 
 Night rendering uses one `MeshBasicMaterial` surface map with `toneMapped: false`, so photographed city lights are not shaded again by the daytime sun. The globe geometry and two atmosphere shells are retained. There is no additional cloud layer, client weather bake or continuing video decode. Changing a view adjusts the existing globe rather than loading another image or creating another background scene. Tests verify the same texture, material and geometry remain, with no additional request, decode, texture upload or disposal during setting changes.
 
@@ -1726,6 +1726,66 @@ Native Safari, physical touch and native clipboard contents remain unverified.
 The independent critic scored **95/100**, with no unresolved blockers. Review
 revisions prevent failed imports from reporting success and shorten helper prose
 so the preset choices are easier to find.
+
+### Final Europe at Night selection and helper retirement (20 September 2026)
+
+**Approved and implemented.** The owner chose **Europe at Night**, explicitly
+confirmed the night map, and authorized removing the alternatives. Production
+now opens at **12° longitude / 48° latitude / −10° roll**, with continuous rotation
+at **0.0045 rad/s (1.5× the former 0.003 base rate)**. One full rotation takes
+approximately **23 minutes 16 seconds**. This supersedes the temporary helper,
+model toggle and East Asian production reference in the preceding entries.
+The selected route still reaches darker regions later; it is not a promise of
+continuous city-light coverage.
+
+The runtime now has one fixed 8K night loader and renderer. The helper, alternate
+presets, copy/import/preview controls, day lighting/atmosphere, resolution switches
+and helper-only tests/probes are removed. Five unused Earth JPEGs total
+**9,883,979 bytes** removed from the public asset tree. This is a repository and
+deployment-payload reduction, **not a measured initial-download or rendering
+speedup**: the alternative day image was previously lazy-loaded. The retained
+night JPEG is unchanged: **2,329,878 bytes**, SHA-256
+`48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd`.
+Its estimated RGBA8 mip storage remains **170.67 MiB**; process/GPU memory and
+CPU/GPU/frame pacing were not remeasured for this requested art selection.
+
+Historical raw results, images, credits and five relocated provenance manifests
+remain under `docs/evidence/`. The deleted comparison implementations/assets are
+recoverable together from Git **`56c67bb123b4afab0c34d39560100db3e2366ea2`**;
+[the comparison guide](../scripts/benchmarks/earth-resolution-lab.md) explains the
+separate-checkout workflow. The saved night audit now records that asset revision;
+all **12 reports** passed on a temporary copy, with unchanged cohorts/asset facts.
+Retained sky fixtures snapshot their matching historical loader. Cloud benchmarks
+and their textures remain because active tests/tools use them; production does
+not request those cloud assets. Held optimization candidates remain unchanged.
+
+Verification: **330 tests passed**, plus typecheck, affected lint and production
+build (including generated-geometry verification). Three existing camera tests
+were rerun after their lint-only promise handling was corrected. Retained sky,
+cloud and horizon fixtures built and returned HTTP 200; the sky-motion audit ran
+successfully. Browser checks used **hidden built-in Chromium**, actual
+**1280×720 desktop** and **390×844 portrait** viewports at DPR 1. The live application
+rendered the night map, exposed no Earth helper, navigated into About, and produced
+no captured console warnings/errors. [Desktop](evidence/europe-night-final/desktop.jpg),
+[portrait](evidence/europe-night-final/portrait.jpg) and
+[About navigation](evidence/europe-night-final/about.jpg) are live captures, not
+frozen timing fixtures. Native Safari and a full rotation were not tested.
+
+Captured renderer SHA-256:
+`a02179571a934c89b94ce612c0c174d413a9aa333aeddf3fcda2c44588698b7b`;
+opening transform:
+`c716603a9f1dd451d6a27e63599d20a211b0e510d56c25b66b2b3fcf14d0ed37`;
+texture loader:
+`f3c468f0dadfd3f66e84a4bb2260bc91c1c329041e4b03f39dc232290ddcb1d1`.
+
+Independent critic: **95/100**, no unresolved blockers. Rubric: request
+fulfillment **30/30**, rendering/resource correctness **24/25**, cleanup and
+organization **19/20**, visual consistency **14/15**, verification/evidence
+**8/10**. Review found and resolved stale helper event guards/test options and
+historical-fixture loader/readiness assumptions. Final source hashes, captures,
+330-test log and build log were reviewed together. The review retains the
+Chromium-only, no-full-rotation/no-timing limitations above; old comparisons also
+require their documented Git objects.
 
 ## Next candidates
 
