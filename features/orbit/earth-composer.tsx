@@ -63,7 +63,7 @@ function ControlNumber({
   onChange: (value: number) => void;
 }) {
   const displayedValue = exact
-    ? String(value)
+    ? String(Number(value.toPrecision(15)))
     : String(Math.round(value * 100) / 100);
   const [draft, setDraft] = useState(displayedValue);
   useEffect(() => setDraft(displayedValue), [displayedValue]);
@@ -325,7 +325,12 @@ export function EarthComposer({
               className="earth-composer-presets"
               hidden={mode !== 'presets'}
             >
-              <legend>Places to try</legend>
+              <legend>Routes to compare</legend>
+              <p className="earth-composer-intro">
+                Compared at 2× rotation, with 3× checks. Choose your speed in
+                Motion; changing presets keeps it. Every route has darker
+                stretches.
+              </p>
               {EARTH_COMPOSITION_PRESETS.map((preset, index) => (
                 <button
                   key={preset.id}
@@ -436,8 +441,8 @@ export function EarthComposer({
                 />
               </div>
               <p>
-                Changing speed pauses at the starting view. Try 0.25× or 0.5× to
-                linger over the lights.
+                Changing speed pauses at the starting view. Try 2× for these
+                routes, or 3× to move through each region sooner.
               </p>
               <button
                 type="button"
@@ -549,7 +554,7 @@ export function EarthComposer({
                 (
                   view.rotationRadiansPerSecond /
                   EARTH_ROTATION_RADIANS_PER_SECOND
-                  ).toPrecision(6),
+                ).toPrecision(6),
               )}
               ×{' · '}
               <output aria-label="Preview time">

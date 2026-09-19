@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 18 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 19 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -237,9 +237,26 @@ assets. The owner sees worthwhile improvement over 4K and accepts the added cost
 The owner has now authorized a **temporary Earth view helper** to select the final
 composition directly. This expressly supersedes the earlier removal of public
 globe controls for this selection process. Its launcher opens longitude, latitude
-and tilt sliders with numeric inputs, plus five presets: Europe, northern India,
-eastern China, eastern United States and the current opening. Europe is the initial
-recommendation to inspect, not an automatically applied new production default.
+and tilt sliders with numeric inputs. The latest route comparison replaces the
+original opening-only suggestions with these presets, evaluated for the owner's
+intended **2× saved rotation** (0.006 rad/s), with **3×** (0.009 rad/s) optional:
+
+| Preset | Longitude / latitude / roll | Purpose and main tradeoff |
+| --- | --- | --- |
+| **Coastal Asia** | 124° / 31° / 7.5° | Recommended overall balance of city lights and coastline; brief inland dimness still occurs early. |
+| **Tilted Asia** | 112° / 32.5° / 135° | Artistic diagonal alternative; shorter longest water-dominated stretch in the proxy comparison, with fewer lights on average than Coastal Asia. |
+| **Asian light corridor** | 116° / 23.5° / 7.5° | Longer early sequence of light networks; darker stretches are worse over the complete rotation. |
+| **American city lights** | −86° / 32.5° / 7.5° | Strong immediate city-light impact; Pacific darkness arrives relatively early. |
+| **Current opening** | 120° / 25° / 22.5° | Unchanged production reference, not the recommended new composition. |
+
+Presets preserve the user's selected speed. These are recommendations for owner
+comparison, not accepted production defaults. One revolution takes about **17:27
+at 2×** or **11:38 at 3×**; the faster rate follows the same route in two-thirds
+the time. No angle eliminates long dim regions throughout continuous rotation.
+The [route-preset review](evidence/earth-route-presets/review.json) records rendered
+comparisons, complete-cycle CPU proxies and their limitations. Color thresholds
+are not authoritative land/water masks or a substitute for aesthetic judgment.
+
 The Motion tab selects a saved rotation rate from 0× (stationary) to 5× the
 current 0.003 rad/s rate. Rate edits pause at the chosen starting view; selecting
 an angle preset retains the rate. Preview offers pause/play, separate

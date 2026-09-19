@@ -1,0 +1,392 @@
+{
+  "date": "2026-09-19",
+  "baselineCommit": "22efbc61b03f681e774850089fc0fa3a18684582",
+  "request": "Compare openings and continuous Earth routes for illuminated-land/water balance, weak unlit regions and long water-dominated stretches at saved2–3×, probably2×; provide selectable presets and pros/cons.",
+  "implementation": {
+    "changed": "Four researched angle presets and descriptions replace the earlier opening-only suggestions; current production opening remains as fifth reference. Shared helper explains2×/3×, presets retain chosen speed. Speed field formats15 significant digits to suppress floating-point display debris such as3.0000000000000004; state/export keep their full numeric rate.",
+    "unchanged": "8K asset, production120/25/22.5 opening,0.003rad/s default, full continuous rotation, renderer, sky/camera behavior, storage/network behavior and held optimization candidates.",
+    "adoption": "No candidate is final owner approval. Settings remain temporary until user shares a choice."
+  },
+  "sourceHashes": {
+    "features/orbit/earth-composition.ts": "3e3e85ebd82aa8adae5923173da278725a07ceb923298f6e4515248cc2bfa361",
+    "features/orbit/earth-composer.tsx": "ddc2511abfa221d18a503b2e7d4294f4c168a74c2607fbc405696a110f9a0aa0",
+    "features/orbit/earth-composer.css": "1360b9b09912c5362b740677886f4a24ad54462d736a6dff0ac7060cd8212098",
+    "features/orbit/earth-view-transform.ts": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d",
+    "features/orbit/orbital-environment.ts": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "features/spacecraft/spacecraft-runtime.ts": "edfd2048b06365fea1057be1bc99071fd238cb6519ac5e8700fbb17d4466715e",
+    "docs/evidence/earth-route-presets/route-audit.mjs": "ead3edbfd172b54e695845ab99c9f6f8a553d4eb41930b0ac9231d22d62ac29a",
+    "docs/evidence/earth-route-presets/visual-lab.mjs": "3082010d2037f583eabab6c80cb7ec5064c75cd74ec88012ca9bd990cf9570e5"
+  },
+  "assetHashes": {
+    "features/orbit/orbital-environment.ts": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a",
+    "features/orbit/earth-view-transform.ts": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "public/textures/earth-black-marble-8k.jpg": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+    "public/textures/earth-blue-marble-8k.jpg": "f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de",
+    "docs/evidence/earth-route-presets/route-audit.mjs": "ead3edbfd172b54e695845ab99c9f6f8a553d4eb41930b0ac9231d22d62ac29a"
+  },
+  "comparison": {
+    "audit": "route-audit.json",
+    "coarse": "coarse-results.json",
+    "fixture": "visual-lab.mjs",
+    "fixtureManifest": "fixture-manifest.json",
+    "search": "120 coarse and150 refined latitude/roll candidates with longitude phase search;23 fine finalists. This is a bounded search, not proof of a global optimum.",
+    "methods": {
+      "nightTexture": "8K production JPEG filtered to2K in memory for sparse CPU sampling",
+      "dayTexture": "8K historical day JPEG filtered to2K, qualitative blue-water proxy only",
+      "rate": 0.006,
+      "cycleSeconds2x": 1047.1975511965977,
+      "cycleSeconds3x": 698.1317007977318,
+      "layouts": [
+        [
+          1280,
+          720
+        ],
+        [
+          2560,
+          600
+        ],
+        [
+          390,
+          844
+        ]
+      ],
+      "screenNdcRectangle": [
+        -1,
+        -1,
+        1,
+        -0.35
+      ],
+      "samples": {
+        "coarse": [
+          56,
+          18
+        ],
+        "fine": [
+          168,
+          54
+        ]
+      },
+      "warm": "clamp((red−1.12blue−3)/26,0,1) × clamp((red+green−72)/125,0,1), coverage threshold >.045",
+      "waterProxy": "Day blue>red×1.18+5 && blue>green×1.03 && red<105. Clouds, haze, shallow water and green terrain are misclassified. NOT a geographic land/ocean mask.",
+      "timelineColumns": [
+        "secondsAt2x",
+        "weightedWarmLightCoverage",
+        "weightedPopulatedTileFraction",
+        "weightedWarmSignal",
+        "weightedDarkFraction",
+        "dayBlueWaterProxy",
+        "frameScore"
+      ],
+      "score": "Light coverage ×(.35+.65×distributed15tileFraction). Fullcycle and first3/5min ranked separately; opening phase has extra weight.",
+      "lowLightThreshold": "<1% warm coverage; not a calibrated human dimness threshold",
+      "sourceOrientation": "Current orientNightEarth(THREE,earth,camera,opening) direct call; longitude phase can vary opening but not complete-loop statistics."
+    },
+    "limitations": [
+      "CPU proxies require rendered review and do not establish visual quality. Previously favored proxies disappointed the owner.",
+      "Actual spacecraft occlusion, tone mapping, night material shading, atmosphere, hover, drag and room movement are omitted. Fixed overview crop only.",
+      "Blue day-image threshold is not a reliable unlit-land classifier. We do not claim true land/water percentages or exact unlit-land durations.",
+      "At3× the same path takes2/3 the listed2×times. Speed cannot remove ocean or empty geography, only change its duration.",
+      "Art selection only; no runtime performance, memory, heat or battery measurements or benefits."
+    ],
+    "cycle2xSeconds": 1047.1975511965977,
+    "cycle3xSeconds": 698.1317007977318,
+    "threeTimesCheck": "Rendered0,20,40,80,120,200seconds at3× and compared with0,30,60,120,180,300at2×; full-loop3× durations use exact2/3 scaling, not a separate11-minute real-time observation.",
+    "routes": [
+      {
+        "name": "Coastal Asia",
+        "opening": {
+          "longitude": 124,
+          "latitude": 31,
+          "roll": 7.5
+        },
+        "maxLowLightProxySeconds2x": 299.61485492569324,
+        "maxLowLightProxySeconds3x": 199.74323661712882,
+        "maxMostlyWaterProxySeconds2x": 218.16615649929116,
+        "maxMostlyWaterProxySeconds3x": 145.44410433286077,
+        "qualifier": "Maximum across three layout probes over a full loop. Threshold-derived comparison, not measured perceptual darkness or a true ocean mask."
+      },
+      {
+        "name": "Tilted Asia",
+        "opening": {
+          "longitude": 112,
+          "latitude": 32.5,
+          "roll": 135
+        },
+        "maxLowLightProxySeconds2x": 305.43261909900764,
+        "maxLowLightProxySeconds3x": 203.6217460660051,
+        "maxMostlyWaterProxySeconds2x": 151.26186850617523,
+        "maxMostlyWaterProxySeconds3x": 100.8412456707835,
+        "qualifier": "Maximum across three layout probes over a full loop. Threshold-derived comparison, not measured perceptual darkness or a true ocean mask."
+      },
+      {
+        "name": "Asian light corridor",
+        "opening": {
+          "longitude": 116,
+          "latitude": 23.5,
+          "roll": 7.5
+        },
+        "maxLowLightProxySeconds2x": 415.9701383919819,
+        "maxLowLightProxySeconds3x": 277.3134255946546,
+        "maxMostlyWaterProxySeconds2x": 238.5283311058917,
+        "maxMostlyWaterProxySeconds3x": 159.0188874039278,
+        "qualifier": "Maximum across three layout probes over a full loop. Threshold-derived comparison, not measured perceptual darkness or a true ocean mask."
+      },
+      {
+        "name": "American city lights",
+        "opening": {
+          "longitude": -86,
+          "latitude": 32.5,
+          "roll": 7.5
+        },
+        "maxLowLightProxySeconds2x": 296.705972839036,
+        "maxLowLightProxySeconds3x": 197.80398189269067,
+        "maxMostlyWaterProxySeconds2x": 139.62634015954637,
+        "maxMostlyWaterProxySeconds3x": 93.08422677303092,
+        "qualifier": "Maximum across three layout probes over a full loop. Threshold-derived comparison, not measured perceptual darkness or a true ocean mask."
+      }
+    ]
+  },
+  "visualReview": {
+    "engine": "Hidden Codex built-in Chromium. Native Safari and touch not tested.",
+    "wide": {
+      "viewport": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 2,
+      "canvasBuffer": [
+        2560,
+        1440
+      ],
+      "screenshot": [
+        1280,
+        720
+      ]
+    },
+    "portrait": {
+      "viewport": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "canvasBuffer": [
+        390,
+        844
+      ],
+      "screenshot": [
+        390,
+        844
+      ]
+    },
+    "live": "All four chosen openings inspected with actual spacecraft/UI and portrait camera roll. Desktop and portrait preset cards, retained2×/3× speed, current-reference angles, scrolling to fifth preset and exact0.125input were checked. Final motion guidance/display has refreshed evidence.",
+    "finite": "8K texture rendered by current orbital environment at1280×720DPR1, displayed as approximately201×113contact-sheet cells. No spacecraft, AO, real hover/drag/portrait roll or UIocclusion in fixture. Full-cycle sheets sample0,180,360,540,720,900s at2×. Finite sheets are not live playback recordings or performance tests.",
+    "sourceCaveat": "Early comparison captures precede the final preset/help text and numeric-display edits. The orbital renderer, orientation, assets and runtime are unchanged throughout. fixture-manifest identifies its compiled snapshot; final sourceHashes identify delivered UI.",
+    "discardedCapture": "An early fullPage screenshot API produced scaled content inside excess blank space; it was not saved as evidence. Correct CUA viewport screenshots are retained.",
+    "images": [
+      {
+        "path": "asia-opening-comparison.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "2b13d7054c074fb2e0663ea24ddad4c944f3b217a8b1eb257b831cf90e0691da"
+      },
+      {
+        "path": "four-route-openings.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "303a9e10987939ac83084ccfdbb796111b0809f5ebe1c602ae9dbbeb41506331"
+      },
+      {
+        "path": "initial-asia-europe-trials.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "e4fb07efe90e06434e37f4d9f1d2a80590a0fa582d1c13632fcaa06a23bc4e38"
+      },
+      {
+        "path": "initial-us-trials.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "d4da644018673b5e8e20fa027fadb940d59bf788d7c0a25781172760389d2904"
+      },
+      {
+        "path": "motion-fractional-check.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "9fdbdb5ca60be95dc09eb12ca8962b622d551bbb43e2099a15573f2ea1286c6c"
+      },
+      {
+        "path": "motion-portrait-3x.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "95c7ac61bcc2f6105803d754eb0585678d6eb72d1e4cd2dd718f9c73fbb85d5d"
+      },
+      {
+        "path": "opening-american-lights-portrait.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "0024661110b291ea1f803213bf12d59d61c7345115bb117ac234c26d91c703b7"
+      },
+      {
+        "path": "opening-american-lights-wide.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "9ee5759a4ea4309cb32a3cf82541868cd57cbda249200b4d77ad23ea3557e5a0"
+      },
+      {
+        "path": "opening-asia-corridor-portrait.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "61875dbd5f5377ec3115cddfc91ad421cb3a7ed6933de9fc56a2c35025ddf9e1"
+      },
+      {
+        "path": "opening-asia-corridor-wide.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "6e2798110a6f0dffe20bda59299f5bbbfc189a2e0b6f88755099f08945e64736"
+      },
+      {
+        "path": "opening-coastal-asia-portrait.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "beeab539c65a476fee427e0f94f675d77c2dba9408629ad39a7aefe446d9c1c4"
+      },
+      {
+        "path": "opening-coastal-asia-wide.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a8b66a9c79f6999b4b4da1d8b2c3529f68495c18846af123dcee9f83852da202"
+      },
+      {
+        "path": "opening-tilted-asia-portrait.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "92a4a1d81346805479c71386be15e4624f5bc74e02e80f193e54e42339d279e9"
+      },
+      {
+        "path": "opening-tilted-asia-wide.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a4eab0c2b45bd5b0d9502c85d17cb22ae4385766e6b9b1b0b8dc06820d22c0ff"
+      },
+      {
+        "path": "presets-portrait-3x.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "8c73ab86b55684ec13df82903944ef0a0faecf4e68a813ac9cbe293ccc74c8a8"
+      },
+      {
+        "path": "presets-portrait-scroll.jpg",
+        "width": 390,
+        "height": 844,
+        "sha256": "c0bcca78a6db706620bccc83d69797c7d86d73469214f717ab70044320429ae1"
+      },
+      {
+        "path": "presets-wide.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "8249d0d71e38251162747a054006c84cf67a3aca8a56c7f7248d9f625963c29a"
+      },
+      {
+        "path": "selected-early-all-3x.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "adb3a628cb69dca0c458b1ab7f00ea2866fa62f46b3eebc1750fe07ab92fa44d"
+      },
+      {
+        "path": "selected-early-asia-3x.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "31fd8e96e38f83464c951f8fed8a930d51fe6fe5cc83256fd00b0d8378f0e367"
+      },
+      {
+        "path": "selected-full-cycle-all-2x.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "0d707954226149e4f22650f3134726e7bd925add113649f750c7475b59e6dac1"
+      },
+      {
+        "path": "selected-full-cycle-asia-2x.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "612d139d4d99098f528685e71f9e8c2ab999701b0491e7b8f2c7f61cac6d961f"
+      },
+      {
+        "path": "tilted-asia-refinement.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "b817832142df893cbc8a8eaee8a0bbb2562d6060f4df83386b7a3e3ec2b03b34"
+      }
+    ]
+  },
+  "findings": {
+    "recommendation": "Coastal Asia at2× is the best overall compromise of the tested routes, not a solution to constant illumination. Tilted Asia is the more cinematic alternative.",
+    "coastal": "Recognizable coastline/island/water separation in the full scene and strongest complete-cycle warm-light proxy of the four. Attractive first minute, but inland dimness around1–3min and later multi-minute darkness remain.",
+    "tilted": "Broader initial lit sweep and sculptural coastline around2–3min. Roll135 prioritizes art over familiar orientation. Less average light than Coastal, dimmer patches within first minute, a major weak interval approximately4:25–9:10on wide at2×.",
+    "corridor": "Highest first3minute mean light of the four across layouts; still not continuously bright. Resembles the previously rejected coastal opening, and has the worst full-loop low-light streak (up to~6:56at2×in the proxy).",
+    "american": "Strongest immediate lit-city spectacle. Fades rapidly across western terrain then Pacific; approximately2:05–6:18wide weak interval at2×. Longest fullcycle low-light proxy nearly tied with Coastal; timing of that interval is worse for early visitors.",
+    "rejected": "Extra US tilts, Europe/India openings and additional artistic phases retained in raw comparisons. Many looked good briefly but dimmed quickly; high-latitude views replace ocean with sparsely lit terrain.",
+    "limit": "No tested orientation keeps a full revolution lit. Several-minute weak intervals remain for every finalist. Eliminating them would require a separately approved change such as a bounded back-and-forth path or altered artwork, not another angle alone."
+  },
+  "verification": {
+    "orbitTests": {
+      "command": "node --test --test-concurrency=1 tests/orbit/*.test.mjs",
+      "passed": 37,
+      "failed": 0,
+      "note": "Final preset values covered by existing roundtrip/orientation tests. Later changes only help copy, CSS and number-field display; latter checked live at3and0.125."
+    },
+    "typecheck": "passed on final source",
+    "lint": "passed on final source",
+    "productionBuild": "passed on final source",
+    "buildWarnings": [
+      "Node module.register deprecation",
+      "Client chunks exceed500kB warning",
+      "Vinext cannot classify every route statically"
+    ],
+    "fullSuite": "Not rerun: scope is preset data/helper presentation, no shared model/renderer/navigation changes. Previous341-test run remains historical in entry29, not claimed for this turn.",
+    "performance": "No timing/thermal/memory benchmark or gain claimed. CPU audit execution time is analysis cost, not application performance.",
+    "browserErrors": "No errors returned by built-in browser console log inspection.",
+    "cleanup": "Viewport reset; hidden temporary tabs closed; finite comparison server3031stopped; mainlocalhost3000returnedHTTP200andremainsrunning."
+  },
+  "critic": {
+    "status": "Approved with no blockers",
+    "agent": "earth_routes_critic",
+    "revisions": [
+      "Added explicit complete-loop dark-stretch caveat and bounded best-tested language.",
+      "Distinguished shorter longest water-dominated stretch from lower total water.",
+      "Documented complete2×cycle versus3×early-frame/time-scaling checks.",
+      "Checked actual full-scene portrait and fifth-preset scrolling."
+    ],
+    "score": 94,
+    "rubric": {
+      "fulfillment": [
+        28,
+        30
+      ],
+      "visualUsefulness": [
+        23,
+        25
+      ],
+      "correctness": [
+        19,
+        20
+      ],
+      "evidenceHonesty": [
+        15,
+        15
+      ],
+      "organizationAndScope": [
+        9,
+        10
+      ]
+    },
+    "independentChecks": "Reviewed final source/docs, actual wide/portrait openings, helper scrolling and3×/0.125input screenshots, early/full-cycle sheets; verified37 source/asset/capture hashes andgitdiffcheck. Accepted root-reported tests/typecheck/lint/build without independently rerunning suites.",
+    "limitations": [
+      "Proxy light/water masks are not semantic geographic truth or calibrated human perception.",
+      "Every finalist retains several-minute weak stretches.",
+      "Later full-cycle sheets omit real spacecraft/hover/drag.",
+      "Native Safari is untested."
+    ],
+    "recommendation": "Coastal Asia at2× as best tested compromise; Tilted Asia for cinematic light density. Round proxy-derived durations and prominently state remaining dark intervals."
+  }
+}

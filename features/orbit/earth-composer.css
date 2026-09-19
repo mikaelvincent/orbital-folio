@@ -178,6 +178,9 @@
 .earth-composer fieldset[hidden] {
   display: none;
 }
+.earth-composer-presets > .earth-composer-intro {
+  grid-column: 1 / -1;
+}
 .earth-composer-presets button {
   display: flex;
   flex-direction: column;

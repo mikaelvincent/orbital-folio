@@ -11,9 +11,14 @@ Hover adds depth and previews doors, including during travel. Bounded dragging s
 The temporary **Earth view** helper lets the owner choose a better opening: try
 the five presets, adjust longitude/latitude/tilt, then play or scrub its rotation
 at up to 60× preview speed. The **Motion** tab also selects the actual rotation
-speed from 0× (still) to 5× the current rate; try 0.25× or 0.5× to linger over
-the lights. This chosen rate is included in copied settings. Start with
-**Europe at night** for dense city-light patterns.
+speed from 0× (still) to 5× the current rate. The latest presets were evaluated
+for the owner's intended **2×**, with **3×** as an optional faster comparison:
+start with **Coastal Asia** for the overall balance, or **Tilted Asia** for a more
+artistic diagonal. **Asian light corridor** favors the first few minutes;
+**American city lights** favors immediate impact. **Current opening** remains a
+reference. Presets retain your selected speed, so set it in Motion before comparing.
+A full rotation takes about 17:27 at 2× or 11:38 at 3×; every route still passes
+dark regions. The chosen rate is included in copied settings.
 Use **Use this frame as the start** to adopt a later preview frame, then **Copy
 starting view** to share the exact settings. Fast-forward is separate from the
 saved rotation speed. Settings can also be pasted back into the helper.

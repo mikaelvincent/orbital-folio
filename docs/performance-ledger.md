@@ -1599,6 +1599,46 @@ independent critic scored **97/100**, with no blockers. Native Safari, physical
 touch and native clipboard contents remain unverified. A final UI-only precision
 fix received refreshed browser/typecheck/lint/build checks after the full suite.
 
+### Route-preset comparison at 2–3× (19 September 2026)
+
+The owner requested presets balancing illuminated land and water at the opening
+and throughout rotation, especially avoiding long empty-water or unlit-land
+periods. This follow-up evaluates **2× saved rotation** (0.006 rad/s), the owner's
+likely choice, with **3×** (0.009 rad/s) as an optional faster comparison. A complete
+loop takes approximately **17:27 at 2×** and **11:38 at 3×**. Faster motion shortens
+all intervals proportionally; it does not remove dark geography.
+
+The revised helper offers **Coastal Asia** (124° / 31° / 7.5°) as the overall
+recommendation; **Tilted Asia** (112° / 32.5° / 135°) as an artistic alternative;
+**Asian light corridor** (116° / 23.5° / 7.5°) for a longer early light sequence;
+and **American city lights** (−86° / 32.5° / 7.5°) for immediate opening impact.
+Coastal Asia still has brief early inland dimness. The corridor trades its early
+sequence for worse dark stretches over a full loop, while the American opening
+reaches Pacific darkness relatively early. The existing **Current opening** stays
+available for comparison. Presets preserve the selected saved speed; no opening,
+production speed, texture, shader or geometry default is changed by this selection.
+
+The [source-identified route review](evidence/earth-route-presets/review.json)
+retains broad/refined candidate results, actual rendered comparisons, verification
+and review limits. CPU warm-light coverage and spatial distribution helped select
+views for rendered inspection; the day-image blue-water threshold is a
+cloud-confounded proxy, not a geographic land/water mask. Neither a proxy score nor
+an attractive opening establishes continuous brightness or owner acceptance.
+
+This is requested art-selection work, **not a performance optimization**. No
+CPU/GPU timing, memory, thermal or battery gain is claimed. Previous helper and
+composition records remain historical evidence; deferred optimization candidates
+below are unchanged.
+
+Verification: **37 orbit tests passed**, as did final typecheck, affected lint and
+production build. Twenty-two hidden Chromium captures include all four openings
+with the real spacecraft in desktop and portrait layouts, route comparison sheets,
+and helper controls. The complete 2× loop was sampled; 3× early frames were rendered
+and full-loop durations use the exact two-thirds time scaling. The independent
+critic scored **94/100**, with no blockers. Several-minute sparse-light stretches
+remain; threshold-derived durations are approximate visual guidance. Native Safari
+and live full-cycle hover/drag were not tested. Production defaults remain unchanged.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

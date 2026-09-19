@@ -128,7 +128,11 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   shares their choice, apply it and remove the helper as requested. Retain useful
   developer comparisons and historical assets. Do not treat a preset or an
   automated light score as final approval; continuous rotation still reaches
-  darker regions.
+  darker regions. The owner intends 2–3× saved rotation, probably 2×, for the
+  current comparison. The latest helper presets recommend Coastal Asia overall,
+  with Tilted Asia as an artistic alternative; see the current context for exact
+  angles and route tradeoffs. Presets preserve the chosen rate, and this comparison
+  does not change the production opening or default speed before final approval.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied

@@ -1,0 +1,29 @@
+{
+  "builtAt": "2026-09-19T14:10:58.667Z",
+  "sources": [
+    {
+      "path": "features/orbit/earth-satellite.ts",
+      "sha256": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878"
+    },
+    {
+      "path": "features/orbit/earth-view-transform.ts",
+      "sha256": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d"
+    },
+    {
+      "path": "features/orbit/earth-composition.ts",
+      "sha256": "4168fa32454af30582397049ce3901962fa6a1ebdc4e47d26eb3188d3e5867d8"
+    },
+    {
+      "path": "features/orbit/night-atmosphere.ts",
+      "sha256": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df"
+    },
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "sha256": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a"
+    }
+  ],
+  "clientSha256": "70a57e32bda6eac8a3ebee7fdd9b1f899e62fd2d51028886e4b7ebb44e1256ba",
+  "bundleSha256": "34eceb67923e43a4a179b5a4a217b84b02e1b32914cf1284317edf53c5420a87",
+  "assetSha256": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+  "note": "Finite art-selection images, not a benchmark; no spacecraft, live camera roll or AO. 8K source, 1DPR full aspect render shown at smaller CSS contact-sheet sizes."
+}

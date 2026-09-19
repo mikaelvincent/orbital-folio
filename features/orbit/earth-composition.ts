@@ -39,33 +39,35 @@ export type EarthCompositionSettings = {
   rotationRadiansPerSecond: number;
 };
 
-/** Starting points for visual comparison, not claims of continuous brightness. */
+/** Screened across a 2× cycle, with 3× checks; all routes have dim stretches. */
 export const EARTH_COMPOSITION_PRESETS = [
   {
-    id: 'europe',
-    label: 'Europe at night',
-    description: 'Dense city lights across western and central Europe.',
-    opening: { longitude: 12, latitude: 48, roll: -10 },
-  },
-  {
-    id: 'india',
-    label: 'Northern India',
-    description: 'A broad, bright network across the Indo-Gangetic plain.',
-    opening: { longitude: 80, latitude: 26, roll: 15 },
-  },
-  {
-    id: 'east-asia',
-    label: 'Eastern China',
+    id: 'coastal-asia',
+    label: 'Coastal Asia',
     description:
-      'Inland city clusters near the coast, with a tilted city-light corridor.',
-    opening: { longitude: 115, latitude: 31, roll: 22.5 },
+      'Best tested balance of city lights and dark coastlines. An early inland dip remains.',
+    opening: { longitude: 124, latitude: 31, roll: 7.5 },
   },
   {
-    id: 'north-america',
-    label: 'Eastern United States',
+    id: 'tilted-asia',
+    label: 'Tilted Asia',
     description:
-      'Great Lakes and eastern city networks, with more dark space between them.',
-    opening: { longitude: -83, latitude: 39, roll: 7.5 },
+      'A cinematic sweep of lights and sculptural coastlines. More dramatic, less geographically familiar.',
+    opening: { longitude: 112, latitude: 32.5, roll: 135 },
+  },
+  {
+    id: 'asian-light-corridor',
+    label: 'Asian light corridor',
+    description:
+      'More lights through the first few minutes, but longer dark stretches later. Closest to the old opening.',
+    opening: { longitude: 116, latitude: 23.5, roll: 7.5 },
+  },
+  {
+    id: 'american-city-lights',
+    label: 'American city lights',
+    description:
+      'A dazzling opening city network. Fades toward a long Pacific stretch within about two minutes at 2×.',
+    opening: { longitude: -86, latitude: 32.5, roll: 7.5 },
   },
   {
     id: 'current',
