@@ -1,0 +1,49 @@
+{
+  "browser": "Hidden built-in Chromium",
+  "desktop": {
+    "width": 1280,
+    "height": 720,
+    "dpr": 1
+  },
+  "portrait": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "source": "Existing DOM-published scene diagnostics; values can lag a fresh input until the next publication.",
+  "samples": [
+    {
+      "label": "60x-start",
+      "activeTime": 40.10879999999998,
+      "earthTime": 825.5112999999853,
+      "speed": 60,
+      "playing": true,
+      "phase": 0.18245783575892788
+    },
+    {
+      "label": "60x-later",
+      "activeTime": 49.801799999999496,
+      "earthTime": 1407.0912999999498,
+      "speed": 60,
+      "playing": true,
+      "phase": 0.015509821989337397
+    },
+    {
+      "label": "mouse-scrub",
+      "activeTime": 66.58059999999878,
+      "earthTime": 439.9,
+      "speed": 41,
+      "playing": false,
+      "phase": 0.6301103351951228
+    },
+    {
+      "label": "closed-normal-speed",
+      "activeTime": 92.30069999999813,
+      "earthTime": 464.90450000000385,
+      "speed": 1,
+      "playing": true,
+      "phase": 0.665926643166
+    }
+  ],
+  "console": []
+}

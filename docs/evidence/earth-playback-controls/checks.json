@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-20",
+  "baselineCommit": "9f841ec",
+  "checks": {
+    "fullSuite": {
+      "command": "npm test",
+      "tests": 338,
+      "pass": 338,
+      "fail": 0
+    },
+    "typecheck": "passed",
+    "affectedLint": "passed",
+    "productionBuild": "passed",
+    "browserConsoleWarningsOrErrors": 0
+  },
+  "verificationScope": {
+    "browser": "Hidden built-in Chromium 153; not Safari",
+    "viewports": [
+      {
+        "width": 1280,
+        "height": 720,
+        "dpr": 1
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "dpr": 1
+      }
+    ],
+    "captures": "Live application, actual viewport pixels, after final body-portal fix. No background effects omitted.",
+    "reducedMotion": "API tests and UI/source inspection; native OS/browser preference not emulated.",
+    "finalRevision": "Full suite preceded the UI-only portal correction. Typecheck, affected UI lint, production build and affected browser checks repeated after correction."
+  },
+  "sourceSha256": {
+    "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+    "features/orbit/earth-playback-controls.tsx": "eff0d2ff4dd591e40f359b6b90131cb67c85cc673e935c875155aeecf90e8ee9",
+    "features/orbit/earth-playback-controls.css": "dfde4e3094ab289756c46fc15e2b50bf4551ada9ca393dbb4c5f2cddb56c31d2",
+    "features/orbit/orbital-environment.ts": "0c7f151ff0d6082b932835b9d3dfd48f7037bff148109e861f6b12fa647c442a",
+    "features/portfolio/immersive-portfolio.tsx": "60147d2900b35b9309130f9cebd704f9e92fe790a7abf3805b891921beefb47d",
+    "features/spacecraft/spacecraft-runtime.ts": "f1b4ed794146259397f9090d5ea4d2f4eeb92706562c50946a93002b40e11b40",
+    "tests/orbit/earth-playback.test.mjs": "2c94a810d7ed2b72227d86ed72ed0fd70fad66ea925ed7d77b8957f59c55957f"
+  },
+  "imageSha256": {
+    "desktop.jpg": "a5f5dbe3e9062fc47a152ff4d38c2e196a979bf784b4249eb8e273559dfc64b5",
+    "portrait.jpg": "1ffe92408c77c18a4768d4dff71532c37ccc0d61f7cfd5dfd044db7967d58f83",
+    "portrait-overview.jpg": "2388b37b0f5f402a6465f1493275ad6eb701d2c984cad88a8bde6cdbb2aafbdf"
+  },
+  "critic": {
+    "score": 94,
+    "blockers": [],
+    "rubric": {
+      "fulfillment": [
+        24,
+        25
+      ],
+      "interactionCorrectness": [
+        29,
+        30
+      ],
+      "visualUsability": [
+        18,
+        20
+      ],
+      "organization": [
+        10,
+        10
+      ],
+      "verificationEvidence": [
+        13,
+        15
+      ]
+    },
+    "limitations": [
+      "Safari, physical touch and native reduced-motion preference not tested.",
+      "Native range End reaches 698.1s instead of exact 698.1317s endpoint."
+    ]
+  }
+}

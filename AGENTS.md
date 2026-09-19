@@ -119,10 +119,18 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   connecting geography repeats every **180° / 698.13 seconds** under continuous
   physical rotation. Preserve the cinematic atmosphere and native pixel detail;
   the smaller atlas is a crop and collage, not a downsampled 4K globe.
-- The temporary Earth helper, other presets, day-model toggle, portable settings
-  and their dedicated tests have been retired at the owner's request. Do not
-  restore public Earth controls or daytime rendering without a new request.
-  The application fetches only `earth-europe-loop.webp`; retain the full 8K night
+- The former angle/preset helper, day-model toggle and portable settings remain
+  retired. The owner subsequently authorized a **temporary Earth playback
+  helper** for inspecting the regional loop: a globe icon beside diagnostics,
+  a seekable timeline, Play/Pause/Restart and **1–60×** speed relative to the
+  approved 0.0045 rad/s rate. This narrowly supersedes the no-controls rule;
+  do not restore angle, preset or daytime controls. Seeking pauses, closing
+  preserves the chosen phase and restores normal 1× playback, and reloading
+  restores the original Europe opening. Keep this state temporary, with no
+  storage/backend writes. Only Earth playback changes; preserve sky/camera
+  timing, readiness and global reduced-motion/visibility behavior. Manual
+  seeking remains available under reduced motion.
+- The application fetches only `earth-europe-loop.webp`; retain the full 8K night
   JPEG as the deterministic builder input, test fixture and historical baseline.
   It is not fetched by ordinary visits. The authored bridge uses native satellite
   pixels, not AI imagery or runtime synthesis. Keep raw comparison evidence and

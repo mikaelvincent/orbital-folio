@@ -17,6 +17,11 @@ import {
   EARTH_ROTATION_RADIANS_PER_SECOND,
 } from './earth-view-transform';
 import { createNightAtmosphere } from './night-atmosphere';
+import {
+  normalizeEarthPlaybackSpeed,
+  type EarthPlaybackCommand,
+  type EarthPlaybackState,
+} from './earth-playback';
 
 type EnvironmentOptions = {
   mobile?: boolean;
@@ -39,6 +44,9 @@ export function createOrbitalEnvironment(
   const mobile = options.mobile ?? false;
   let openingElapsed = 0,
     previousEarthTime = 0;
+  let earthPlaybackSpeed = 1,
+    earthPlaying = true,
+    earthSeekAtEnd = false;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     options.cameraFov ?? 42,
@@ -662,7 +670,10 @@ export function createOrbitalEnvironment(
       if (!followsWorldCamera) camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
       const elapsedDelta = Math.max(0, activeTime - previousEarthTime);
-      if (moving && earthStatus.ready) openingElapsed += elapsedDelta;
+      if (moving && earthStatus.ready && earthPlaying && elapsedDelta > 0) {
+        openingElapsed += elapsedDelta * earthPlaybackSpeed;
+        earthSeekAtEnd = false;
+      }
       previousEarthTime = activeTime;
       surface.rotation.y =
         (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
@@ -694,6 +705,50 @@ export function createOrbitalEnvironment(
         } else uniforms.opacity.value = 0;
       }
     },
+    getEarthPlayback(): EarthPlaybackState {
+      return {
+        time: earthSeekAtEnd
+          ? earthLoopSeconds
+          : openingElapsed % earthLoopSeconds,
+        duration: earthLoopSeconds,
+        speed: earthPlaybackSpeed,
+        playing: earthPlaying,
+        ready: earthStatus.ready && !disposed,
+      };
+    },
+    setEarthPlayback(command: EarthPlaybackCommand): void {
+      if (disposed) return;
+      switch (command.type) {
+        case 'seek':
+          openingElapsed = Number.isFinite(command.time)
+            ? Math.max(0, Math.min(earthLoopSeconds, command.time))
+            : 0;
+          earthPlaying = false;
+          earthSeekAtEnd = openingElapsed === earthLoopSeconds;
+          break;
+        case 'speed':
+          earthPlaybackSpeed = normalizeEarthPlaybackSpeed(command.speed);
+          break;
+        case 'playing':
+          earthPlaying = command.playing;
+          break;
+        case 'reset':
+          openingElapsed = 0;
+          earthSeekAtEnd = false;
+          earthPlaybackSpeed = 1;
+          earthPlaying = true;
+          break;
+        case 'close':
+          earthPlaybackSpeed = 1;
+          earthPlaying = true;
+          break;
+      }
+      // Seeking is an explicit inspection action even when global motion is
+      // paused. No caller/star/camera clock changes, resource changes or uploads.
+      surface.rotation.y =
+        (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
+      invalidate();
+    },
     getDiagnostics() {
       const meteorCount = meteors.filter((m) => m.mesh.visible).length;
       return {
@@ -714,6 +769,8 @@ export function createOrbitalEnvironment(
         earthLoadError: earthStatus.error,
         earthRotation: surface.rotation.y,
         earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
+        earthPlaybackSpeed,
+        earthPlaying,
         earthLoopSeconds,
         earthLoopPhase: (openingElapsed % earthLoopSeconds) / earthLoopSeconds,
         earthTextureRepresentation: 'authored-regional-night-loop',

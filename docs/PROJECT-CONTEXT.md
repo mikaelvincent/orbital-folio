@@ -34,6 +34,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
+| Temporary Earth playback inspection | `features/orbit/earth-playback.ts`, `earth-playback-controls.tsx`, `earth-playback-controls.css`; the orbital environment owns Earth-only playback state |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
@@ -256,9 +257,26 @@ earlier route recommendations. The regional-loop request also supersedes the
 decision to accept darker regions later in a full-world rotation. CPU light
 scores remain comparison aids, not substitutes for rendered visual review.
 
-The Earth view launcher, angle/preset/model controls, temporary playback clock,
-copy/paste settings, daytime rendering and helper-specific tests have been
-removed. There is no visitor-facing Earth configuration or persisted preview.
+The former angle/preset/model controls, copy/paste settings, daytime rendering
+and their dedicated tests remain removed. The owner subsequently requested a
+**temporary playback helper** to inspect the regional loop. This supersedes the
+earlier no-controls rule only for playback, not angles, presets or Earth models.
+A globe icon beside diagnostics opens a video-style timeline covering the full
+**11m38s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
+**1× means the approved 0.0045 rad/s site speed**, already 1.5× the original rate;
+60× traverses the loop in approximately **11.64 seconds**.
+
+Seeking works backward or forward and pauses at the selected phase. Restart
+returns to the original opening at normal speed. Closing keeps the chosen Earth
+phase and restores normal 1× playback; reloading returns to the original Europe
+opening. State lives only in the current React/environment instance, without
+browser storage, backend writes or portable settings. The helper changes only
+Earth time, leaving stars, meteors and camera timing alone. Readiness and global
+reduced-motion/visibility rules still gate automatic playback; the timeline can
+preview still frames under reduced motion. Only an open panel polls its displayed
+state, at 10 Hz. The helper does not change texture or geometry quality. See
+[playback-control evidence](evidence/earth-playback-controls/README.md).
+
 Only the regional night WebP is fetched by normal application visits. The full
 8K night JPEG remains in `public/textures/` for rebuilding, regression tests and
 historical comparisons; it is not an additional runtime request. Daytime and
@@ -401,8 +419,8 @@ cost/candidate status in the ledger. Keep reproducible performance evidence with
 its comparison; retain necessary current maintenance documentation. Remove stale
 one-off reports, plans and screenshots once their useful decisions are captured.
 Git history preserves removed revisions. Do not create a report for routine
-organizational cleanup. Today's work
-does not include restoring 2K/4K defaults, permanent public Earth manipulators, old procedural
+organizational cleanup. The temporary playback helper above does not authorize
+permanent Earth controls or restoring 2K/4K defaults, old procedural
 clouds, ordinary-door waits, duplicate iris blades, generic exterior filler,
 angled rescue lights, end-gap reels or the short lower ladder stub.
 

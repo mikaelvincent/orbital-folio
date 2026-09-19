@@ -12,8 +12,12 @@ The approved Earth composition is **Europe at Night**: 12° longitude, 48° lati
 −10° tilt, rotating at **1.5× (0.0045 rad/s)**. The **4096×3072 lossless regional
 texture** preserves the original European pixels and joins them to fictional
 satellite terrain, repeating every **11 minutes 38 seconds**. This keeps native
-8K detail without loading the entire world map. The temporary Earth controls,
-comparison presets and daytime renderer remain removed. See the
+8K detail without loading the entire world map. A temporary **globe button beside
+diagnostics** opens playback controls: seek through the loop, pause, restart or
+preview at **1–60× the current site speed**. Seeking pauses; closing keeps that
+position and resumes normal speed, while reloading restores the Europe opening.
+Nothing is saved. Angle controls, comparison presets and daytime rendering
+remain removed. See the
 [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art),
 [texture provenance](public/textures/README.md) and
 [regional-loop evidence](docs/evidence/europe-regional-loop/README.md).

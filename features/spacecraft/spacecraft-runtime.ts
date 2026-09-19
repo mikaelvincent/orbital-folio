@@ -33,6 +33,7 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
+import type { EarthPlaybackController } from '../orbit/earth-playback';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
 import {
@@ -82,6 +83,7 @@ export type SpacecraftProps = {
   onCloseContact?: () => void;
   onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
+  onEarthPlaybackReady?: (controller: EarthPlaybackController | null) => void;
   onSettled: () => void;
   onUnavailable: () => void;
 };
@@ -1744,12 +1746,7 @@ export function mountSpacecraftScene({
           );
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
-            background.update(
-              frozenBackgroundTime ?? elapsed,
-              !stop,
-              0,
-              0,
-            );
+            background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
             background.followCamera(camera, backgroundReference);
           }
           diagnostics?.mark('background-update');
@@ -2043,10 +2040,7 @@ export function mountSpacecraftScene({
           const rawDelta = lastFrame ? (now - lastFrame) / 1000 : 0;
           lastFrame = now;
           draw(now, Math.min(0.05, rawDelta), rawDelta);
-          if (
-            (!stop || travelling) &&
-            experiment !== 'render-once'
-          )
+          if ((!stop || travelling) && experiment !== 'render-once')
             frame = requestAnimationFrame(loop);
         };
         function kick() {
@@ -2260,20 +2254,44 @@ export function mountSpacecraftScene({
           };
         }
         const feedbackChanged = () => kick();
+        const earthPlaybackInput = (target: EventTarget | null) => {
+          if (
+            !(target instanceof Element) ||
+            !target.closest('[data-earth-playback]')
+          )
+            return false;
+          // Toolbar input must not retain a room preview or drag/hover pose.
+          feedback.reset();
+          pointerGoal.set(0, 0);
+          kick();
+          return true;
+        };
         const trackPointer = (event: PointerEvent) => {
           if (!event.isPrimary) return;
-          if ((event.target as Element).closest('[data-scene-perf]')) return;
+          if (
+            earthPlaybackInput(event.target) ||
+            (event.target as Element).closest('[data-scene-perf]')
+          )
+            return;
           feedback.move(event.clientX, event.clientY, event.pointerType);
           feedbackChanged();
         };
         const trackPress = (event: PointerEvent) => {
           if (!event.isPrimary) return;
-          if ((event.target as Element).closest('[data-scene-perf]')) return;
+          if (
+            earthPlaybackInput(event.target) ||
+            (event.target as Element).closest('[data-scene-perf]')
+          )
+            return;
           feedback.press(event.clientX, event.clientY, event.pointerType);
           feedbackChanged();
         };
         const trackKeyboard = (event: KeyboardEvent) => {
-          if ((event.target as Element).closest('[data-scene-perf]')) return;
+          if (
+            earthPlaybackInput(event.target) ||
+            (event.target as Element).closest('[data-scene-perf]')
+          )
+            return;
           if (
             ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key) ||
             event.metaKey ||
@@ -2611,6 +2629,14 @@ export function mountSpacecraftScene({
           doorQueue.requestDestination(section, active, true);
           el.dataset.queuedRoom = doorQueue.destination;
           return true;
+        });
+        latest.current.onEarthPlaybackReady?.({
+          getEarthPlayback: () => background.getEarthPlayback(),
+          setEarthPlayback(command) {
+            if (destroyed) return;
+            background.setEarthPlayback(command);
+            kick();
+          },
         });
         let unmountPerformancePanel = () => {};
         function setDiagnosticsEnabled(enabled: boolean) {
@@ -3009,6 +3035,7 @@ export function mountSpacecraftScene({
           diagnostics?.dispose();
           spacecraftPerformance?.dispose();
           latest.current.onNavigationReady(null);
+          latest.current.onEarthPlaybackReady?.(null);
           cancelAnimationFrame(frame);
           annotations.dispose();
           observer.disconnect();

@@ -33,6 +33,8 @@ import {
   ContactView,
 } from './room-views';
 import { PrivacyView } from './privacy-view';
+import { EarthPlaybackControls } from '../orbit/earth-playback-controls';
+import type { EarthPlaybackController } from '../orbit/earth-playback';
 
 export function ImmersivePortfolio({
   data,
@@ -64,6 +66,8 @@ export function ImmersivePortfolio({
   const [enhanced, setEnhanced] = useState(false);
   const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
   const diagnosticsToggle = useRef<HTMLButtonElement>(null);
+  const [earthPlayback, setEarthPlayback] =
+    useState<EarthPlaybackController | null>(null);
   const [reading, setReading] = useState(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
@@ -480,6 +484,7 @@ export function ImmersivePortfolio({
               requestSceneNavigation.current = request;
             }}
             onSurfaceReady={setSurface}
+            onEarthPlaybackReady={setEarthPlayback}
             onSettled={settled}
             onUnavailable={() => {
               setReading(true);
@@ -648,6 +653,10 @@ export function ImmersivePortfolio({
         </div>
         {immersive && (
           <div className="flight-status">
+            <EarthPlaybackControls
+              controller={earthPlayback}
+              motionPaused={reduced}
+            />
             {!s.sampleMode && (
               <>
                 <span className="status-dot" />

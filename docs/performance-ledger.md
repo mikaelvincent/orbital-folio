@@ -1853,6 +1853,36 @@ blockers; rubric **20/20 fulfillment, 27/30 visual quality, 25/25 runtime/mappin
 finite-camera, sampled-loop, Chromium-only and inconclusive-timing limitations.
 This art change does not claim lower heat, power or battery use.
 
+### Temporary Earth playback inspection (20 September 2026)
+
+The owner explicitly requested a speed slider and video-style timeline to inspect
+the regional loop. A globe button beside diagnostics now opens Play/Pause/Restart,
+backward/forward seeking across the **698.13-second** loop and **1–60×** playback
+relative to the approved **0.0045 rad/s** rate. At 60×, one loop takes about
+**11.64 seconds**. The former angle/preset/day controls remain retired; this
+authorization is limited to temporary playback inspection.
+
+Seeking pauses at the selected frame. Closing preserves the Earth phase and
+restores normal 1× playback; reload resets to the original Europe opening. State
+is temporary in React/the orbital environment, with no persistent browser storage
+or backend writes. Stars, meteors and camera timing remain independent. Asset
+readiness and global reduced-motion/visibility behavior still gate automatic
+playback, while manual seeking can preview still frames under reduced motion.
+
+The open panel polls display state at **10 Hz**; closing removes that timer.
+No texture, geometry or quality settings change. This is an inspection tool, not
+a performance optimization; no timed benchmark or frame-rate, memory, heat or
+battery improvement is claimed. The preceding regional-art measurements retain
+their original source scope. Verification and critic review belong to the
+[playback-control evidence](evidence/earth-playback-controls/README.md).
+Verification: **338 tests passed**, typecheck, affected lint and production build
+passed. Final live desktop/portrait checks used hidden built-in **Chromium 153**,
+not Safari; final console capture was clear. Independent critic: **94/100**, no
+unresolved blockers (fulfillment 24/25, interaction/correctness 29/30, visual/usability
+18/20, organization 10/10, verification/evidence 13/15). The linked evidence records
+the portal layering correction, matching captures and untested native-device cases.
+Held optimization candidates remain unchanged.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. The 20 September regional loop now preserves that source texel density in a cropped/composited atlas; use its exact asset/hash in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
