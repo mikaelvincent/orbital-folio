@@ -1,0 +1,225 @@
+{
+  "date": "2026-09-19",
+  "baselineCommit": "94bdee2f2fb9cca3cca3cdbfa588d03503d99fdf",
+  "request": "Add a toggle between the existing 8K Night Earth and public/textures/earth-blue-marble-8k.jpg in the temporary Earth composition helper.",
+  "implementation": {
+    "scope": "Helper Earth model buttons select Night Earth (city lights) or Blue Marble (land, ocean and photographic clouds). Production remains night at 120° / 25° / 22.5° and 0.003 rad/s.",
+    "rendering": "In-place surface/material/atmosphere replacement in the same scene and Earth group; no full scene reconstruction. Day uses the retained Lambert sun/ambient illumination and two atmosphere shells; night restores its unlit photograph and approved cinematic atmosphere.",
+    "preservation": "Same geographic quaternion, chosen opening, elapsed frame, rotation rate, preview multiplier/play state, world camera, sky clock and shared geometry. Presets work for both maps; existing light-coverage recommendations are explicitly night-only.",
+    "loading": "Only chosen texture loads. Old surface retained until replacement success, then old bitmap/texture/material released. Latest request wins, superseded request aborts, late decoded bitmaps close, error keeps prior map and offers retry. No persistent two-map texture cache.",
+    "portableSettings": "Version 2 adds earthAppearance (day/night); strict version 1 imports select night. Import validates all fields and waits for successfully loaded requested model before applying pose/rate. Failed or superseded imports do not overwrite a later angle choice. Export omits simulated elapsed/fast-forward unless frame is explicitly adopted.",
+    "persistence": "No database/browser-storage writes; choice restores after reading-view renderer recreation, refresh returns production default.",
+    "diagnostics": "Actual/requested appearance, loading/error and texture request count exposed. Model switch resets samples and refreshes cached scene inventory; no claimed performance improvement."
+  },
+  "sourceHashes": {
+    "features/orbit/orbital-environment.ts": "e498e631fc02c44018fa440a67988c27b4dcdf278fa04b573ec2e29045428838",
+    "features/orbit/earth-composition.ts": "7b1f27879d6a2fc34c7cf3720a7ad9872f2fc374629c7532db6aa55d070ece50",
+    "features/orbit/earth-composer.tsx": "082d6e79f724e077fb8cc5b4903cb728051e7d86c7f6ed3596a47a58315ddf75",
+    "features/orbit/earth-composer.css": "f26b4d4f5811745e7f07bbc5982faf5c23814f5126846bf313beaf5fd4501414",
+    "features/orbit/earth-satellite.ts": "fdeb63d8b5781217c2c3f3e2d50904db16eaa31f1d20582c4e8cd2ee007af878",
+    "features/orbit/earth-view-transform.ts": "5beef86cb20b3fac38bd70310201c64faabeb0517b5d3cec639640c263ee520d",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "features/spacecraft/spacecraft-runtime.ts": "e074c867932c8740a00aa4272e9ed08034f67c33f0547041b16d3d6de98573bf",
+    "tests/orbit/earth-appearance.test.mjs": "ebcfd1f3458a5629cc6c318dcdd49346baa52b79f9cd83e48a84ee4c9703c88f",
+    "tests/orbit/earth-composition.test.mjs": "026477f74ad7207c0c0f6cc2301628d3aeab391ae4dc3dd2363d1b8d8f9d35a1"
+  },
+  "assets": [
+    {
+      "path": "public/textures/earth-black-marble-8k.jpg",
+      "bytes": 2329878,
+      "sha256": "48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "nominalRgbaBytes": 134217728,
+      "nominalMipmappedGpuBytes": 178956972
+    },
+    {
+      "path": "public/textures/earth-blue-marble-8k.jpg",
+      "bytes": 6615276,
+      "sha256": "f634e862be1689420d2d2dc5adf8fa460acece6896c9df1d9a67b3adde04f6de",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "nominalRgbaBytes": 134217728,
+      "nominalMipmappedGpuBytes": 178956972
+    }
+  ],
+  "resourceNotes": [
+    "JPEG file lengths and dimensions are asset facts; 178,956,972 bytes per active mipmapped map is nominal RGBA8 storage, not measured process/GPU memory.",
+    "Transient old/new decoded bitmap coexistence is possible during replacement. No permanent dual-map cache; HTTP cache may serve revisits but decoding/upload still required.",
+    "Day retains one additional atmospheric mesh pass and two non-shadow-casting lights. No CPU/GPU, heat, battery, decode/upload benchmark or speedup claim.",
+    "No held performance-ledger candidate was implemented."
+  ],
+  "visualEvidence": {
+    "engine": "Hidden built-in Chromium only; actual application rendering, no user-screen/native Safari capture",
+    "wide": {
+      "css": [
+        1280,
+        720
+      ],
+      "devicePixelRatio": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ]
+    },
+    "portrait": {
+      "css": [
+        390,
+        844
+      ],
+      "devicePixelRatio": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ]
+    },
+    "composition": {
+      "longitude": 18,
+      "latitude": 38,
+      "roll": -12
+    },
+    "timing": "Opening captures paused at 0:00; copied-settings check retained 2× saved speed, 30× preview and a 1-second frame across a model change. Playback switch verified advancing time, then paused at 5:31 in keyboard-playback-portrait. Stars/camera hover were not frozen; these are appearance checks, not pixel-perfect or performance comparisons.",
+    "captures": [
+      {
+        "file": "day-helper-portrait.jpg",
+        "sha256": "83a35595e434d2990ae1bde219e8e26ef4ba46b3f3234983c3336332d8042254"
+      },
+      {
+        "file": "day-helper-wide.jpg",
+        "sha256": "274ad36f22123c2054d47960aaefec374f28bcde9d4b4628ae8c372d499ff249"
+      },
+      {
+        "file": "day-portrait.jpg",
+        "sha256": "61caf8199c2c5baf66feed1b29134596a879ed830bc41442586f2a497fd33e56"
+      },
+      {
+        "file": "day-wide.jpg",
+        "sha256": "8c684d93b4893452043d35e491c69d6562bea563b520b1e3a0820801765ddcbb"
+      },
+      {
+        "file": "keyboard-playback-portrait.jpg",
+        "sha256": "4d631f58596a8ad2651b377cd8f8c5424bd7e82c981d2cc391bb5fe25509ae80"
+      },
+      {
+        "file": "legacy-import-portrait.jpg",
+        "sha256": "fa1f87051e858b7469811e1260a78f8703142f1b648f61342f583842fbf32699"
+      },
+      {
+        "file": "night-after-wide.jpg",
+        "sha256": "17fff32cc05f7f7f2b332e0e0fad44f97f5c3beade33b1561088ebad41821476"
+      },
+      {
+        "file": "night-before-wide.jpg",
+        "sha256": "b8f23bed58839f09e468b3e3dacb3a600afcb5410bb38a1d9645d6014b0e332b"
+      },
+      {
+        "file": "night-portrait.jpg",
+        "sha256": "7ca0a8ea0eb2a3d86e27bb043972133a4e001def7befd8227517fc334d58ce49"
+      },
+      {
+        "file": "reading-return-day.jpg",
+        "sha256": "4cdd9802fd314229857b80ca2371b33ed4de0d1615ab7b61d9a9e435a2118406"
+      },
+      {
+        "file": "settings-night-2x.jpg",
+        "sha256": "0962a3643ade1ba7dff572812e1e16a9a73f2ba7c96ee68aca6b5334a0d67709"
+      }
+    ],
+    "baseline": "night-before-wide.jpg captured before runtime appearance implementation; night-after-wide.jpg after a day→night round trip. Other files use final renderer/helper code, with shorter final preset prose replacing the preliminary helper capture."
+  },
+  "verification": {
+    "fullSuite": {
+      "command": "npm test",
+      "pass": 349,
+      "fail": 0,
+      "log": "tests.log"
+    },
+    "finalOrbit": {
+      "command": "node --test --test-concurrency=1 tests/orbit/*.test.mjs",
+      "pass": 45,
+      "fail": 0,
+      "log": "orbit-final.log",
+      "reason": "Final readiness-metric preservation and subsequent UI-only polish verified after full suite."
+    },
+    "typecheck": "npm run typecheck passed on final source",
+    "lint": "Affected renderer/runtime/helper and regression tests passed",
+    "build": {
+      "result": "npm run build passed on final source",
+      "log": "build.log",
+      "warnings": [
+        "Node module.register deprecation",
+        "Existing client-chunk size advisory",
+        "Vinext static route classification limitation"
+      ]
+    },
+    "logNormalization": "Trailing spaces and extra blank EOF lines removed from copied check logs; output otherwise preserved.",
+    "browser": [
+      "Night→Blue Marble→Night aligned Mediterranean openings",
+      "Wide and portrait toggle state/layout, real Earth appearance, readable controls",
+      "Keyboard Enter selects model during ongoing 30× preview at 2× saved speed; play remains active",
+      "Switch retained chosen angle, 2× saved rate, 30× preview and nonzero paused frame",
+      "Version 2 day export and import; version 1 import selects night",
+      "Reading→Interactive restores chosen day model and rate",
+      "Refresh restores night and default 1× rate",
+      "Browser console errors empty; viewport override reset and temporary tab closed"
+    ],
+    "unitFailureCases": [
+      "Lazy loading and duplicate-request reuse",
+      "Pose/playback continuity and repeated day/night resource disposal",
+      "Failed load keeps prior surface; retry succeeds",
+      "Aborted late bitmap decoded after cancellation is closed",
+      "Startup switching and scene disposal during load",
+      "Historical day audit Euler pose/clock and geographic helper controls",
+      "Settings v1/v2 strict validation and round trips"
+    ],
+    "limitations": [
+      "Native Safari,physical touch and native clipboard payload not tested. Copy/export JSON was verified through the helper textarea.",
+      "Failure/disposal races tested with mocked fetch/bitmap lifecycle, not browser network throttling.",
+      "No performance benchmark; no claim of equal frame time between the two appearances."
+    ],
+    "server": "Existing localhost:3000 retained and returned HTTP 200"
+  },
+  "critic": {
+    "agent": "/root/earth_appearance_critic",
+    "status": "Passed; no unresolved blockers",
+    "revisions": [
+      "Reject same-identity imports when loading failed or still pending, preserving previous pose.",
+      "Shorten redundant helper prose to expose more presets without changing behavior."
+    ],
+    "score": 95,
+    "rubric": {
+      "fulfillmentAndStatePreservation": {
+        "score": 25,
+        "max": 25
+      },
+      "asyncCorrectnessAndResourceLifecycle": {
+        "score": 30,
+        "max": 30
+      },
+      "visualAndInteractionQuality": {
+        "score": 18,
+        "max": 20
+      },
+      "organizationAndPerformanceDiscipline": {
+        "score": 10,
+        "max": 10
+      },
+      "verificationBreadth": {
+        "score": 12,
+        "max": 15
+      }
+    },
+    "reviewed": "Final source, all 11 screenshots and retained test/build logs; independently verified all 10 source hashes and 11 capture hashes. Clean diff check. Both requested revisions addressed.",
+    "conclusion": "Night/day switching preserves geographic alignment and playback. Day looks convincingly photographic; returning to night restores its established appearance. Loading cancellation, retry, disposal, backwards-compatible settings and reading-view restoration are adequately covered.",
+    "limitations": [
+      "Portrait preset browsing requires scrolling.",
+      "Native Safari and physical touch were not tested.",
+      "Failure races use mocked lifecycle tests.",
+      "No timing benchmark was conducted."
+    ]
+  }
+}

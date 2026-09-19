@@ -1,5 +1,6 @@
 import type { EarthOpening } from './earth-view-transform';
 import { NIGHT_EARTH_OPENING } from './earth-view-transform';
+import type { EarthAppearance } from './earth-satellite';
 
 export type { EarthOpening } from './earth-view-transform';
 
@@ -22,6 +23,10 @@ export type EarthPreviewState = {
   paused: boolean;
   speed: EarthPreviewSpeed;
   rotationRadiansPerSecond: number;
+  appearance: EarthAppearance;
+  requestedAppearance: EarthAppearance;
+  appearanceLoading: boolean;
+  appearanceError: string | null;
 };
 
 export type EarthCompositionControls = {
@@ -30,14 +35,14 @@ export type EarthCompositionControls = {
     rotationRadiansPerSecond?: number,
   ): void;
   setEarthPreview(options: EarthPreviewOptions): void;
+  setEarthAppearance(appearance: EarthAppearance): Promise<void>;
   getEarthPreview(): EarthPreviewState;
 };
 
 export type EarthCompositionSettings = {
-  version: 1;
   earthOpening: EarthOpening;
   rotationRadiansPerSecond: number;
-};
+} & ({ version: 1 } | { version: 2; earthAppearance: EarthAppearance });
 
 /** Screened across a 2× cycle, with 3× checks; all routes have dim stretches. */
 export const EARTH_PRESET_GROUPS = [
@@ -196,34 +201,47 @@ export function parseEarthCompositionSettings(
       'Paste the complete settings JSON copied from this helper.',
     );
   }
-  if (
-    !record(value) ||
-    !exactKeys(value, ['version', 'earthOpening', 'rotationRadiansPerSecond'])
-  )
-    throw new Error(
-      'Settings must contain version, earthOpening and rotationRadiansPerSecond.',
-    );
-  if (value.version !== 1)
-    throw new Error('This helper supports settings version 1.');
-  return {
-    version: 1,
+  if (!record(value))
+    throw new Error('Settings must be a complete settings object.');
+  if (value.version !== 1 && value.version !== 2)
+    throw new Error('This helper supports settings versions 1 and 2.');
+  const keys = ['version', 'earthOpening', 'rotationRadiansPerSecond'];
+  if (value.version === 2) keys.push('earthAppearance');
+  if (!exactKeys(value, keys))
+    throw new Error(`Settings must contain exactly ${keys.join(', ')}.`);
+  const common = {
     earthOpening: validateEarthOpening(value.earthOpening),
     rotationRadiansPerSecond: validateEarthRotationRate(
       value.rotationRadiansPerSecond,
     ),
   };
+  return value.version === 1
+    ? { version: 1, ...common }
+    : {
+        version: 2,
+        ...common,
+        earthAppearance: validateEarthAppearance(value.earthAppearance),
+      };
+}
+
+function validateEarthAppearance(value: unknown): EarthAppearance {
+  if (value !== 'night' && value !== 'day')
+    throw new Error('Earth model must be "night" or "day".');
+  return value;
 }
 
 export function serializeEarthCompositionSettings(
   opening: EarthOpening,
   rotationRadiansPerSecond = EARTH_ROTATION_RADIANS_PER_SECOND,
+  earthAppearance: EarthAppearance = 'night',
 ): string {
   const settings: EarthCompositionSettings = {
-    version: 1,
+    version: 2,
     earthOpening: validateEarthOpening(opening),
     rotationRadiansPerSecond: validateEarthRotationRate(
       rotationRadiansPerSecond,
     ),
+    earthAppearance: validateEarthAppearance(earthAppearance),
   };
   return JSON.stringify(settings, null, 2);
 }

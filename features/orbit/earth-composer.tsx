@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Globe2, Pause, Play, RotateCcw, Copy, X } from 'lucide-react';
 import { copyText } from '@/lib/clipboard';
 import { NIGHT_EARTH_OPENING, type EarthOpening } from './earth-view-transform';
+import type { EarthAppearance } from './earth-satellite';
 import {
   EARTH_COMPOSITION_PRESETS,
   EARTH_PRESET_GROUPS,
@@ -37,7 +38,7 @@ const angles = [
   {
     key: 'roll',
     label: 'Tilt',
-    hint: 'Turn the light patterns',
+    hint: 'Turn the globe',
     min: -180,
     max: 180,
   },
@@ -109,6 +110,10 @@ export function EarthComposer({
     speed: 1,
     active: false,
     rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
+    appearance: 'night',
+    requestedAppearance: 'night',
+    appearanceLoading: false,
+    appearanceError: null,
   });
   const [settingsText, setSettingsText] = useState('');
   const [message, setMessage] = useState('');
@@ -116,12 +121,25 @@ export function EarthComposer({
     'idle',
   );
   const [importError, setImportError] = useState('');
+  const [importing, setImporting] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const latestView = useRef(view);
   latestView.current = view;
   const used = useRef(false);
+  const operation = useRef(0);
+  const pendingImport = useRef(0);
+  const controllerRef = useRef(controller);
+  controllerRef.current = controller;
+  const mounted = useRef(true);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      operation.current += 1;
+    };
+  }, []);
   useEffect(() => {
     body.current?.scrollTo({ top: 0 });
   }, [mode, open]);
@@ -138,6 +156,8 @@ export function EarthComposer({
     toggle.current?.focus({ preventScroll: true });
   };
   useEffect(() => {
+    pendingImport.current = 0;
+    setImporting(false);
     if (!controller || !used.current) return;
     // Reading view disposes the scene; retain this visit's chosen composition.
     const previous = latestView.current;
@@ -150,7 +170,22 @@ export function EarthComposer({
       speed: previous.speed,
       elapsed: previous.elapsed,
     });
+    let current = true;
+    const restored = controller.setEarthAppearance(
+      previous.appearanceLoading
+        ? previous.requestedAppearance
+        : previous.appearance,
+    );
     setView(controller.getEarthPreview());
+    void restored
+      .catch(() => {})
+      .finally(() => {
+        if (current) setView(controller.getEarthPreview());
+      });
+    return () => {
+      current = false;
+      operation.current += 1;
+    };
   }, [controller]);
   useEffect(() => {
     if (!enabled) {
@@ -196,6 +231,7 @@ export function EarthComposer({
     rotationRadiansPerSecond = latestView.current.rotationRadiansPerSecond,
   ) {
     if (!controller) return;
+    operation.current += 1;
     used.current = true;
     controller.setEarthComposition(opening, rotationRadiansPerSecond);
     controller.setEarthPreview({
@@ -214,6 +250,7 @@ export function EarthComposer({
   }
   function preview(options: Partial<EarthPreviewOptions>) {
     if (!controller) return;
+    operation.current += 1;
     const current = controller.getEarthPreview();
     controller.setEarthPreview({
       paused: current.paused,
@@ -232,26 +269,90 @@ export function EarthComposer({
     setOpen(true);
   }
   async function copySettings() {
+    const current = controller?.getEarthPreview() ?? latestView.current;
+    if (current.appearanceLoading) return;
     const text = serializeEarthCompositionSettings(
-      latestView.current.opening,
-      latestView.current.rotationRadiansPerSecond,
+      current.opening,
+      current.rotationRadiansPerSecond,
+      current.appearance,
     );
     setSettingsText(text);
     const copied = await copyText(text);
+    if (!mounted.current || controllerRef.current !== controller) return;
     if (!copied) setMode('settings');
     setCopyResult(copied ? 'copied' : 'blocked');
   }
-  function importSettings() {
+  async function changeAppearance(appearance: EarthAppearance) {
+    if (!controller) return;
+    operation.current += 1;
+    used.current = true;
+    setCopyResult('idle');
+    setMessage('');
+    const pending = controller.setEarthAppearance(appearance);
+    sync();
+    try {
+      await pending;
+    } catch {
+      // The controller reports a retryable error while keeping the old Earth.
+    } finally {
+      if (mounted.current && controllerRef.current === controller) sync();
+    }
+  }
+  async function importSettings() {
+    if (!controller) return;
+    const request = ++operation.current;
     try {
       const settings = parseEarthCompositionSettings(settingsText);
+      setImportError('');
+      pendingImport.current = request;
+      setImporting(true);
+      const appearance =
+        settings.version === 2 ? settings.earthAppearance : 'night';
+      const pending = controller.setEarthAppearance(appearance);
+      sync();
+      await pending;
+      if (
+        !mounted.current ||
+        controllerRef.current !== controller ||
+        request !== operation.current
+      )
+        return;
+      const loaded = controller.getEarthPreview();
+      if (
+        loaded.appearance !== appearance ||
+        loaded.appearanceLoading ||
+        loaded.appearanceError
+      )
+        throw new Error(
+          loaded.appearanceError ??
+            'The selected Earth model could not be loaded. Try again.',
+        );
       applyOpening(settings.earthOpening, settings.rotationRadiansPerSecond);
-      setMessage('Settings applied as the new starting view.');
+      setMessage(
+        settings.version === 1
+          ? 'Legacy settings applied with Night Earth as the new starting view.'
+          : 'Earth model and settings applied as the new starting view.',
+      );
     } catch (error) {
+      if (
+        !mounted.current ||
+        controllerRef.current !== controller ||
+        request !== operation.current
+      )
+        return;
       setImportError(
         error instanceof Error
           ? error.message
           : 'These settings could not be read.',
       );
+      sync();
+    } finally {
+      if (
+        mounted.current &&
+        controllerRef.current === controller &&
+        pendingImport.current === request
+      )
+        setImporting(false);
     }
   }
 
@@ -318,15 +419,44 @@ export function EarthComposer({
             )}
           </nav>
           <div className="earth-composer-body" ref={body}>
-            <p className="earth-composer-intro">
-              Choose a starting angle, then preview where the lights go. Closing
-              keeps this frame visible.
-            </p>
+            <fieldset className="earth-composer-appearance">
+              <legend>
+                Earth model <small>8K textures</small>
+              </legend>
+              <div className="earth-composer-appearance-options">
+                {(
+                  [
+                    ['night', 'Night Earth', 'City lights'],
+                    ['day', 'Blue Marble', 'Land, oceans & clouds'],
+                  ] as const
+                ).map(([appearance, label, detail]) => (
+                  <button
+                    key={appearance}
+                    type="button"
+                    aria-pressed={view.appearance === appearance}
+                    disabled={
+                      view.appearanceLoading &&
+                      view.requestedAppearance === appearance
+                    }
+                    onClick={() => void changeAppearance(appearance)}
+                  >
+                    <strong>{label}</strong>
+                    <span>{detail}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="earth-composer-appearance-status" role="status">
+                {view.appearanceLoading
+                  ? `Loading ${view.requestedAppearance === 'day' ? 'Blue Marble' : 'Night Earth'}… Your current Earth stays visible.`
+                  : view.appearanceError
+                    ? `${view.appearanceError} Select the model again to retry.`
+                    : 'Switch models without changing your angle or playback.'}
+              </p>
+            </fieldset>
             <div className="earth-composer-routes" hidden={mode !== 'presets'}>
               <p className="earth-composer-intro">
-                Compared at 2× rotation, with 3× checks. Choose your speed in
-                Motion; changing presets keeps it. Every route has darker
-                stretches.
+                Presets were compared with Night Earth at 2–3×. The same angles
+                work with Blue Marble; your chosen speed stays selected.
               </p>
               {EARTH_PRESET_GROUPS.map((group, index) => (
                 <details key={group} open={index === 0}>
@@ -522,9 +652,9 @@ export function EarthComposer({
               aria-label="Copy or paste settings"
             >
               <p>
-                Your rotation speed is copied. Preview time and fast-forward are
-                not. Use “Use this frame as the start” first to keep a later
-                frame.
+                Your Earth model and rotation speed are copied. Preview time and
+                fast-forward are not. Use “Use this frame as the start” first to
+                keep a later frame.
               </p>
               <label htmlFor="earth-settings">Earth settings</label>
               <textarea
@@ -534,6 +664,7 @@ export function EarthComposer({
                 value={settingsText}
                 placeholder="Paste previously copied settings here"
                 onChange={(event) => {
+                  operation.current += 1;
                   setSettingsText(event.currentTarget.value);
                   setImportError('');
                 }}
@@ -550,9 +681,11 @@ export function EarthComposer({
               <button
                 type="button"
                 onClick={importSettings}
-                disabled={!settingsText.trim()}
+                disabled={
+                  !settingsText.trim() || importing || view.appearanceLoading
+                }
               >
-                Apply pasted settings
+                {importing ? 'Applying settings…' : 'Apply pasted settings'}
               </button>
             </section>
           </div>
@@ -619,6 +752,7 @@ export function EarthComposer({
               <button
                 type="button"
                 className="earth-composer-copy"
+                disabled={view.appearanceLoading}
                 onClick={copySettings}
                 aria-label="Copy starting view"
               >

@@ -234,6 +234,14 @@ are an inherent tradeoff of the current full rotation. No texture modification o
 resolution change is introduced. Only the selected 8K map loads, not all comparison
 assets. The owner sees worthwhile improvement over 4K and accepts the added cost.
 
+The owner also authorized a **Night Earth / Blue Marble** toggle inside the
+temporary helper. Night remains the production default; Blue Marble previews the
+existing `public/textures/earth-blue-marble-8k.jpg` daytime satellite image with
+land, ocean and photographed clouds. Switching retains the same geographic pose,
+preview time and selected rotation rate. This is an appearance comparison, not
+approval to replace night permanently. Preset lighting recommendations below
+were evaluated with the night map, not the daytime image.
+
 The owner has now authorized a **temporary Earth view helper** to select the final
 composition directly. This expressly supersedes the earlier removal of public
 globe controls for this selection process. Its launcher opens longitude, latitude
@@ -291,9 +299,10 @@ motion without restarting those other animations. Closing the helper pauses it
 and retains the selected frame; a page reload returns to the production default.
 
 "Use this frame as the start" folds the preview's rotation into its opening before
-copying. Strict version-1 JSON contains longitude/latitude/roll and the selected
-rotation rate from 0 to 0.015 rad/s, excluding preview time and fast-forward.
-Previously copied settings with the default 0.003 rad/s rate remain supported.
+copying. Version-2 JSON contains longitude/latitude/roll, the selected rotation
+rate from 0 to 0.015 rad/s and `earthAppearance` (`day` or `night`), excluding
+preview time and fast-forward. Previously copied version-1 settings remain
+supported and select Night Earth.
 A zero rate disables playback and seeking, while allowing the stationary view
 to be copied. Reset speed restores 1× without changing the selected angle.
 Copy and pasted-settings import

@@ -83,9 +83,10 @@ void test('Settings are versioned, exact round trips and strictly reject invalid
   for (const preset of EARTH_COMPOSITION_PRESETS) {
     const json = serializeEarthCompositionSettings(preset.opening);
     assert.deepEqual(parseEarthCompositionSettings(json), {
-      version: 1,
+      version: 2,
       earthOpening: preset.opening,
       rotationRadiansPerSecond: 0.003,
+      earthAppearance: 'night',
     });
     assert.doesNotMatch(
       json,
@@ -99,7 +100,7 @@ void test('Settings are versioned, exact round trips and strictly reject invalid
     '{',
     'null',
     '[]',
-    JSON.stringify({ ...valid, version: 2 }),
+    JSON.stringify({ ...valid, version: 3 }),
     JSON.stringify({ ...valid, elapsed: 60 }),
     JSON.stringify({ ...valid, rotationRadiansPerSecond: 0.18 }),
     JSON.stringify({ ...valid, rotationRadiansPerSecond: '0.003' }),
@@ -122,7 +123,12 @@ void test('Settings are versioned, exact round trips and strictly reject invalid
       parseEarthCompositionSettings(
         serializeEarthCompositionSettings(opening, rate),
       ),
-      { version: 1, earthOpening: opening, rotationRadiansPerSecond: rate },
+      {
+        version: 2,
+        earthOpening: opening,
+        rotationRadiansPerSecond: rate,
+        earthAppearance: 'night',
+      },
     );
     assert.equal(validateEarthRotationRate(rate), rate);
   }
@@ -145,6 +151,61 @@ void test('Settings are versioned, exact round trips and strictly reject invalid
   }
 });
 
+void test('Model settings round trip both appearances and retain compatibility with copied night-only settings', () => {
+  for (const appearance of ['day', 'night']) {
+    for (const rate of [0, 0.006, 0.009]) {
+      assert.deepEqual(
+        parseEarthCompositionSettings(
+          serializeEarthCompositionSettings(opening, rate, appearance),
+        ),
+        {
+          version: 2,
+          earthOpening: opening,
+          rotationRadiansPerSecond: rate,
+          earthAppearance: appearance,
+        },
+      );
+    }
+  }
+  const legacy = {
+    version: 1,
+    earthOpening: opening,
+    rotationRadiansPerSecond: 0.006,
+  };
+  assert.deepEqual(
+    parseEarthCompositionSettings(JSON.stringify(legacy)),
+    legacy,
+  );
+  const valid = { ...legacy, version: 2, earthAppearance: 'day' };
+  for (const earthAppearance of [
+    'Day',
+    'satellite',
+    '',
+    null,
+    false,
+    8,
+    {},
+    [],
+  ]) {
+    assert.throws(() =>
+      parseEarthCompositionSettings(
+        JSON.stringify({ ...valid, earthAppearance }),
+      ),
+    );
+    assert.throws(() =>
+      serializeEarthCompositionSettings(opening, 0.006, earthAppearance),
+    );
+  }
+  assert.throws(() =>
+    parseEarthCompositionSettings(JSON.stringify({ ...legacy, version: 2 })),
+  );
+  assert.throws(() =>
+    parseEarthCompositionSettings(
+      JSON.stringify({ ...legacy, earthAppearance: 'day' }),
+    ),
+  );
+});
+
 void test('Preview speed changes preserve phase, pause and seek without accelerating sky or camera', async (t) => {
   const env = environment(t);
   const baseline = environment(t);
@@ -160,6 +221,10 @@ void test('Preview speed changes preserve phase, pause and seek without accelera
     paused: true,
     speed: 1,
     rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
+    appearance: 'night',
+    requestedAppearance: 'night',
+    appearanceLoading: false,
+    appearanceError: null,
   });
   for (const time of [8, 9]) {
     env.update(time, true, 0, 0);

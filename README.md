@@ -22,6 +22,9 @@ inspect, not accepted replacement defaults. Presets retain your selected speed,
 so set it in Motion before comparing.
 A full rotation takes about 17:27 at 2× or 11:38 at 3×; every route still passes
 dark regions. The chosen rate is included in copied settings.
+The **Earth model** toggle compares **Night Earth** with the existing 8K
+**Blue Marble** daytime image without resetting your angles or preview time.
+Blue Marble loads on selection; copied settings include the model choice.
 Use **Use this frame as the start** to adopt a later preview frame, then **Copy
 starting view** to share the exact settings. Fast-forward is separate from the
 saved rotation speed. Settings can also be pasted back into the helper.

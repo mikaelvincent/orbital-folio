@@ -743,6 +743,7 @@ export function mountSpacecraftScene({
             note: 'Inventory includes hidden variants. Triangle inventory is not rendered cost; use per-pass draw counters. Attribute bytes are CPU-side geometry storage, not total GPU memory.',
           };
         };
+        let refreshSceneInventory = () => {};
         let bottomReservation = mobile() ? 132 : 80;
         const readerInsets = () => ({ top: 20, bottom: bottomReservation });
         const readerHeight = () =>
@@ -2616,6 +2617,14 @@ export function mountSpacecraftScene({
           },
         };
         latest.current.onEarthCompositionReady?.({
+          async setEarthAppearance(appearance) {
+            if (destroyed) return;
+            await background.setEarthAppearance(appearance);
+            if (destroyed) return;
+            refreshSceneInventory();
+            resetDiagnostics('earth-appearance');
+            kick();
+          },
           setEarthComposition(opening, rotationRadiansPerSecond) {
             if (destroyed) return;
             background.setEarthComposition(opening, rotationRadiansPerSecond);
@@ -2655,6 +2664,7 @@ export function mountSpacecraftScene({
           if (!enabled) {
             unmountPerformancePanel();
             unmountPerformancePanel = () => {};
+            refreshSceneInventory = () => {};
             restoreShadowDiagnostics();
             diagnostics?.dispose();
             diagnostics = null;
@@ -2684,7 +2694,10 @@ export function mountSpacecraftScene({
             },
           );
           if (audit) return;
-          const sceneInventory = collectSceneInventory();
+          let sceneInventory = collectSceneInventory();
+          refreshSceneInventory = () => {
+            sceneInventory = collectSceneInventory();
+          };
           unmountPerformancePanel = mountPerformancePanel({
             collector: {
               snapshot: (includeFrames) => diagnostics!.snapshot(includeFrames),

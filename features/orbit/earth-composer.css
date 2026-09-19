@@ -169,6 +169,39 @@
   color: #98acbb;
   font-weight: 400;
 }
+.earth-composer .earth-composer-appearance {
+  border-top: 0;
+  margin: 0 0 14px;
+  padding: 0;
+}
+.earth-composer-appearance-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 8px;
+}
+.earth-composer-appearance-options button {
+  flex-direction: column;
+  gap: 2px;
+  min-height: 53px;
+  padding: 8px 5px;
+}
+.earth-composer-appearance-options button[aria-pressed='true'] {
+  border-color: #d6af70;
+  background: #3b3429;
+}
+.earth-composer-appearance-options strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.earth-composer-appearance-options span {
+  font-size: 10px;
+  color: #b5c3cd;
+}
+.earth-composer-body .earth-composer-appearance-status {
+  margin: 7px 0 0;
+  font-size: 10px;
+}
 .earth-composer .earth-composer-presets {
   display: grid;
   grid-template-columns: 1fr 1fr;

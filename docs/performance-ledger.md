@@ -1686,6 +1686,47 @@ The independent critic scored **95/100**, with no blockers, after reviewing the
 final source, matching captures, history and checks. This score evaluates the
 implementation and comparison evidence, not the owner's acceptance of a route.
 
+### Night Earth / Blue Marble comparison toggle (19 September 2026)
+
+The owner requested a model toggle in the temporary Earth helper. It now compares
+the existing **8K Black Marble night** and **8K Blue Marble daytime** assets using
+the same selected angle, saved rotation rate and preview time. Night remains the
+production default. Day uses the existing photographed clouds/land/ocean surface
+and its diffuse lighting/atmosphere; this is an explicitly requested appearance
+alternative, not a claim of visually lossless optimization.
+
+The alternate texture loads only when selected. The current surface remains
+visible until the replacement is ready, then its texture/bitmap and materials
+are released. Rapid changes cancel superseded loads; failures keep the current
+Earth available for retry. The helper retains choices only for this visit.
+Version-2 copied settings include `earthAppearance`; version-1 imports still
+work and select Night Earth. Existing presets remain available, with their
+lighting recommendations explicitly identified as night-map comparisons.
+
+Measured JPEG file sizes are **2,329,878 bytes** for night and **6,615,276 bytes**
+for day; the day asset adds no initial-page download until selected.
+Both images decode to 8192×4096. Nominal RGBA8 texture storage including mipmaps
+remains **170.67 MiB per active map**, not a measured process/GPU-memory figure.
+The old and new decoded assets can overlap briefly during replacement; the
+implementation does not retain a permanent two-map GPU cache. Switching back may
+reuse the browser's HTTP cache but still requires texture preparation. Day's
+existing atmosphere uses one more mesh pass than night's; counts do not establish
+a timing, thermal or battery difference. No held optimization is implemented.
+
+The [toggle review](evidence/earth-appearance-toggle/review.json) records source
+and asset hashes, lifecycle tests, actual application captures, verification and
+independent review. Prior night-route comparisons remain historical evidence.
+
+Verification: **349 tests passed**. After final readiness-metric preservation and
+UI copy polish, all **45 orbit tests**, typecheck, affected lint and production
+build passed again. Eleven hidden Chromium captures cover both models in wide
+and portrait layouts, settings, reading-view return and active playback.
+Failure/retry, rapid switching and disposal are covered by loader lifecycle tests.
+Native Safari, physical touch and native clipboard contents remain unverified.
+The independent critic scored **95/100**, with no unresolved blockers. Review
+revisions prevent failed imports from reporting success and shorten helper prose
+so the preset choices are easier to find.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

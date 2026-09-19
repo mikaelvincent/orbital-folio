@@ -118,7 +118,8 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   route's problem, and the coastal East Asian opening is also not yet accepted
   as the final composition. Preserve that default while the owner chooses.
 - The owner authorized a **temporary Earth view helper** with angle controls,
-  presets, selectable rotation speed, Earth-only fast-forward and copy/paste
+  presets, selectable rotation speed, a Night Earth / Blue Marble model toggle,
+  Earth-only fast-forward and copy/paste
   settings. This supersedes the earlier prohibition on restoring public globe
   controls for this selection process only. Keep previews in temporary interface
   state, without database or
@@ -135,6 +136,9 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   Keep earlier comparison presets available. See the current context for exact
   angles and route tradeoffs. Presets preserve the chosen rate, and this comparison
   does not change the production opening or default speed before final approval.
+  Blue Marble uses the existing 8K daytime satellite asset. Switching models must
+  retain the selected angles, saved speed and preview frame; include the model
+  in portable settings. Keep night as the default until the owner chooses.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied
