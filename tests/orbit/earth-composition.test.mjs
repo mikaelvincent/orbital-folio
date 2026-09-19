@@ -24,6 +24,8 @@ const [{ createOrbitalEnvironment }, composition] = await Promise.all([
 const {
   EARTH_COMPOSITION_PRESETS,
   EARTH_ROTATION_RADIANS_PER_SECOND,
+  MAX_EARTH_ROTATION_RADIANS_PER_SECOND,
+  validateEarthRotationRate,
   parseEarthCompositionSettings,
   serializeEarthCompositionSettings,
   earthOpeningAtElapsed,
@@ -115,6 +117,32 @@ void test('Settings are versioned, exact round trips and strictly reject invalid
   );
   assert.throws(() => earthOpeningAtElapsed(opening, Infinity));
   assert.throws(() => earthOpeningAtElapsed(opening, -1));
+  for (const rate of [0, 0.00075, 0.0015, 0.003, 0.015]) {
+    assert.deepEqual(
+      parseEarthCompositionSettings(
+        serializeEarthCompositionSettings(opening, rate),
+      ),
+      { version: 1, earthOpening: opening, rotationRadiansPerSecond: rate },
+    );
+    assert.equal(validateEarthRotationRate(rate), rate);
+  }
+  for (const rate of [
+    -0.001,
+    MAX_EARTH_ROTATION_RADIANS_PER_SECOND + 0.0001,
+    NaN,
+    Infinity,
+    '0.003',
+    null,
+  ]) {
+    assert.throws(() => validateEarthRotationRate(rate));
+    assert.throws(() => serializeEarthCompositionSettings(opening, rate));
+    assert.throws(() => earthOpeningAtElapsed(opening, 10, rate));
+    assert.throws(() =>
+      parseEarthCompositionSettings(
+        JSON.stringify({ ...valid, rotationRadiansPerSecond: rate }),
+      ),
+    );
+  }
 });
 
 void test('Preview speed changes preserve phase, pause and seek without accelerating sky or camera', async (t) => {
@@ -131,6 +159,7 @@ void test('Preview speed changes preserve phase, pause and seek without accelera
     elapsed: 0,
     paused: true,
     speed: 1,
+    rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
   });
   for (const time of [8, 9]) {
     env.update(time, true, 0, 0);
@@ -143,13 +172,19 @@ void test('Preview speed changes preserve phase, pause and seek without accelera
   close(env.getEarthPreview().elapsed, 10);
   const beforeSpeedChange = visibleMatrix(env);
   env.setEarthPreview({ paused: false, speed: 60 });
-  assert.deepEqual(env.getDiagnostics().earthPreview, { paused: false, speed: 60 });
+  assert.deepEqual(env.getDiagnostics().earthPreview, {
+    paused: false,
+    speed: 60,
+  });
   assert.deepEqual(visibleMatrix(env), beforeSpeedChange);
   env.update(10.5, true, 0, 0);
   baseline.update(10.5, true, 0, 0);
   close(env.getEarthPreview().elapsed, 40);
   env.setEarthPreview({ paused: true, speed: 60, elapsed: 300 });
-  assert.deepEqual(env.getDiagnostics().earthPreview, { paused: true, speed: 60 });
+  assert.deepEqual(env.getDiagnostics().earthPreview, {
+    paused: true,
+    speed: 60,
+  });
   env.update(11, true, 0, 0);
   baseline.update(11, true, 0, 0);
   close(env.getDiagnostics().earthRotation, 0.9);
@@ -172,6 +207,79 @@ void test('Preview speed changes preserve phase, pause and seek without accelera
     env.getEarthPreview(),
     snapshot,
     'Inactive controls do not unexpectedly activate preview',
+  );
+});
+
+void test('Saved rotation rate stays separate from fast-forward, zero stays still, and reset restores production time', async (t) => {
+  const env = environment(t);
+  const baseline = environment(t);
+  await Promise.all([env.ready, baseline.ready]);
+  env.update(7, true, 0, 0);
+  baseline.update(7, true, 0, 0);
+  env.setEarthComposition(opening, 0.0015);
+  assert.equal(env.getEarthPreview().rotationRadiansPerSecond, 0.0015);
+  assert.equal(env.getDiagnostics().earthRotationRate, 0.0015);
+  env.setEarthPreview({ paused: false, speed: 10 });
+  env.update(8, true, 0, 0);
+  baseline.update(8, true, 0, 0);
+  close(env.getEarthPreview().elapsed, 10);
+  close(env.getDiagnostics().earthRotation, 0.015);
+  const beforeFastForward = visibleMatrix(env);
+  env.setEarthPreview({ paused: false, speed: 60 });
+  assert.deepEqual(visibleMatrix(env), beforeFastForward);
+  env.update(8.5, true, 0, 0);
+  baseline.update(8.5, true, 0, 0);
+  close(env.getEarthPreview().elapsed, 40);
+  close(env.getDiagnostics().earthRotation, 0.06);
+  assert.equal(env.getEarthPreview().rotationRadiansPerSecond, 0.0015);
+  assert.deepEqual(skyState(env), skyState(baseline));
+  const beforeInvalid = env.getEarthPreview();
+  const matrixBeforeInvalid = visibleMatrix(env);
+  for (const rate of [-1, 0.0151, NaN, Infinity, '0.003']) {
+    assert.throws(() =>
+      env.setEarthComposition({ ...opening, longitude: 70 }, rate),
+    );
+    assert.deepEqual(env.getEarthPreview(), beforeInvalid);
+    assert.deepEqual(visibleMatrix(env), matrixBeforeInvalid);
+  }
+  env.setEarthComposition(opening, 0.015);
+  close(env.getEarthPreview().elapsed, 0);
+  close(env.getDiagnostics().earthRotation, 0);
+  env.setEarthPreview({ paused: false, speed: 1 });
+  env.update(9, true, 0, 0);
+  baseline.update(9, true, 0, 0);
+  close(env.getDiagnostics().earthRotation, 0.0075);
+  env.setEarthComposition(opening, 0);
+  assert.equal(env.getEarthPreview().paused, true);
+  const stationary = visibleMatrix(env);
+  env.setEarthPreview({ paused: false, speed: 60 });
+  assert.equal(
+    env.getEarthPreview().paused,
+    true,
+    'Zero rate never requests an idle render loop',
+  );
+  env.update(10, true, 0, 0);
+  baseline.update(10, true, 0, 0);
+  close(env.getEarthPreview().elapsed, 0);
+  assert.deepEqual(visibleMatrix(env), stationary);
+  assert.deepEqual(skyState(env), skyState(baseline));
+  env.setEarthComposition(null);
+  assert.equal(
+    env.getEarthPreview().rotationRadiansPerSecond,
+    EARTH_ROTATION_RADIANS_PER_SECOND,
+  );
+  assert.equal(
+    env.getDiagnostics().earthRotationRate,
+    EARTH_ROTATION_RADIANS_PER_SECOND,
+  );
+  close(
+    env.getDiagnostics().earthRotation,
+    baseline.getDiagnostics().earthRotation,
+  );
+  env.setEarthComposition(opening);
+  assert.equal(
+    env.getEarthPreview().rotationRadiansPerSecond,
+    EARTH_ROTATION_RADIANS_PER_SECOND,
   );
 });
 
@@ -216,23 +324,25 @@ void test('Using the visible frame as the opening survives export/import, resize
       ...EARTH_COMPOSITION_PRESETS.map((preset) => preset.opening),
       { longitude: -179, latitude: 80, roll: -170 },
     ]) {
-      for (const elapsed of [0, 120, 600, 3000, 9000]) {
-        env.setEarthComposition(start);
-        env.setEarthPreview({ paused: true, speed: 60, elapsed });
-        const before = visibleMatrix(env);
-        const framed = earthOpeningAtElapsed(start, elapsed);
-        const imported = parseEarthCompositionSettings(
-          serializeEarthCompositionSettings(framed),
-        );
-        env.setEarthComposition(imported.earthOpening);
-        const after = visibleMatrix(env);
-        for (let element = 0; element < 16; element++)
-          close(after.elements[element], before.elements[element]);
-        close(env.getEarthPreview().elapsed, 0);
-        close(
-          imported.rotationRadiansPerSecond,
-          EARTH_ROTATION_RADIANS_PER_SECOND,
-        );
+      for (const rotationRate of [0, 0.0015, 0.003, 0.015]) {
+        for (const elapsed of [0, 120, 600, 3000, 9000]) {
+          env.setEarthComposition(start, rotationRate);
+          env.setEarthPreview({ paused: true, speed: 60, elapsed });
+          const before = visibleMatrix(env);
+          const framed = earthOpeningAtElapsed(start, elapsed, rotationRate);
+          const imported = parseEarthCompositionSettings(
+            serializeEarthCompositionSettings(framed, rotationRate),
+          );
+          env.setEarthComposition(
+            imported.earthOpening,
+            imported.rotationRadiansPerSecond,
+          );
+          const after = visibleMatrix(env);
+          for (let element = 0; element < 16; element++)
+            close(after.elements[element], before.elements[element]);
+          close(env.getEarthPreview().elapsed, 0);
+          close(imported.rotationRadiansPerSecond, rotationRate);
+        }
       }
     }
   }
@@ -261,7 +371,7 @@ void test('Preview reuses the loaded scene resources through edits, navigation, 
     navigating.updateMatrixWorld(true);
     env.followCamera(navigating, reference);
     const before = env.camera.matrixWorld.clone();
-    env.setEarthComposition(opening);
+    env.setEarthComposition(opening, 0.0015);
     env.setEarthPreview({ paused: true, speed: 10, elapsed: 120 });
     assert.deepEqual(
       env.camera.matrixWorld,

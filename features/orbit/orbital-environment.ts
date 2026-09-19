@@ -16,6 +16,7 @@ import {
   EARTH_PREVIEW_SPEEDS,
   EARTH_ROTATION_RADIANS_PER_SECOND,
   validateEarthOpening,
+  validateEarthRotationRate,
   type EarthPreviewOptions,
   type EarthPreviewSpeed,
   type EarthPreviewState,
@@ -53,6 +54,7 @@ export function createOrbitalEnvironment(
   let previewElapsed = 0;
   let previewPaused = true;
   let previewSpeed: EarthPreviewSpeed = 1;
+  let previewRotationRate = EARTH_ROTATION_RADIANS_PER_SECOND;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     options.cameraFov ?? 42,
@@ -634,8 +636,10 @@ export function createOrbitalEnvironment(
       : appearance === 'night'
         ? openingElapsed
         : activeTime;
-    surface.rotation.y =
-      (elapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
+    const rotationRate = previewOpening
+      ? previewRotationRate
+      : EARTH_ROTATION_RADIANS_PER_SECOND;
+    surface.rotation.y = (elapsed * rotationRate) % (Math.PI * 2);
   };
   const getEarthPreview = (): EarthPreviewState => ({
     active: previewOpening !== null,
@@ -643,6 +647,9 @@ export function createOrbitalEnvironment(
     elapsed: previewOpening ? previewElapsed : openingElapsed,
     paused: previewOpening ? previewPaused : false,
     speed: previewOpening ? previewSpeed : 1,
+    rotationRadiansPerSecond: previewOpening
+      ? previewRotationRate
+      : EARTH_ROTATION_RADIANS_PER_SECOND,
   });
 
   let activeTime = 0;
@@ -743,14 +750,23 @@ export function createOrbitalEnvironment(
     camera,
     ready: earthReady,
     getEarthPreview,
-    setEarthComposition(opening: EarthOpening | null) {
+    setEarthComposition(
+      opening: EarthOpening | null,
+      rotationRadiansPerSecond = EARTH_ROTATION_RADIANS_PER_SECOND,
+    ) {
       if (disposed || appearance !== 'night') return;
       const validated = opening === null ? null : validateEarthOpening(opening);
+      const validatedRate =
+        validated === null
+          ? EARTH_ROTATION_RADIANS_PER_SECOND
+          : validateEarthRotationRate(rotationRadiansPerSecond);
       if (!previewOpening || validated === null) {
         previewPaused = true;
         previewSpeed = 1;
       }
       previewOpening = validated;
+      previewRotationRate = validatedRate;
+      if (validatedRate === 0) previewPaused = true;
       previewElapsed = 0;
       orientNightEarth(
         THREE,
@@ -769,7 +785,7 @@ export function createOrbitalEnvironment(
         throw new Error(
           'Preview time must be a nonnegative number of seconds.',
         );
-      previewPaused = paused;
+      previewPaused = paused || previewRotationRate === 0;
       previewSpeed = speed;
       if (elapsed !== undefined) previewElapsed = elapsed;
       applyEarthRotation();
@@ -913,7 +929,9 @@ export function createOrbitalEnvironment(
         earthSource: earthStatus.source,
         earthLoadError: earthStatus.error,
         earthRotation: surface.rotation.y,
-        earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
+        earthRotationRate: previewOpening
+          ? previewRotationRate
+          : EARTH_ROTATION_RADIANS_PER_SECOND,
         earthTextureFetchMs: earthStatus.fetchMs,
         earthTextureDecodeMs: earthStatus.decodeMs,
         earthTextureReadyMs: earthStatus.readyMs,
@@ -924,7 +942,9 @@ export function createOrbitalEnvironment(
         earthTextureGpuBytes: earthStatus.ready ? earthGpuBytes : 0,
         earthTextureSamples: 1,
         cloudRotation: surface.rotation.y,
-        cloudRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
+        cloudRotationRate: previewOpening
+          ? previewRotationRate
+          : EARTH_ROTATION_RADIANS_PER_SECOND,
         cloudFieldSamples: 0,
         cloudWeatherModel:
           appearance === 'night'

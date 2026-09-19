@@ -228,7 +228,8 @@ atmosphere. The default remains the coastal East Asian opening (120°E, 25°N,
 has not accepted that opening as final: its initial ocean and sparse lights still
 disappoint despite improved later city-light coverage. Terrain area and automated
 light scores are useful comparison evidence, not substitutes for the owner's
-visual choice. Normal continuous rotation remains 0.003 rad/s; later dark regions
+visual choice. The default rotation remains 0.003 rad/s pending the owner's choice;
+later dark regions
 are an inherent tradeoff of the current full rotation. No texture modification or
 resolution change is introduced. Only the selected 8K map loads, not all comparison
 assets. The owner sees worthwhile improvement over 4K and accepts the added cost.
@@ -239,19 +240,26 @@ globe controls for this selection process. Its launcher opens longitude, latitud
 and tilt sliders with numeric inputs, plus five presets: Europe, northern India,
 eastern China, eastern United States and the current opening. Europe is the initial
 recommendation to inspect, not an automatically applied new production default.
-Preview offers pause/play, 1×/10×/30×/60× speeds, a roughly full-revolution timeline,
+The Motion tab selects a saved rotation rate from 0× (stationary) to 5× the
+current 0.003 rad/s rate. Rate edits pause at the chosen starting view; selecting
+an angle preset retains the rate. Preview offers pause/play, separate
+1×/10×/30×/60× fast-forward and a 35-minute timeline at the chosen rotation rate,
 return to 0:00 and reset angle. Only Earth fast-forwards; the spacecraft, stars
 and meteors retain their normal clocks. Explicit Play can run Earth under reduced
 motion without restarting those other animations. Closing the helper pauses it
 and retains the selected frame; a page reload returns to the production default.
 
 "Use this frame as the start" folds the preview's rotation into its opening before
-copying. Strict version-1 JSON contains longitude/latitude/roll and the normal
-0.003 rad/s rate, excluding preview time and speed. Copy and pasted-settings import
+copying. Strict version-1 JSON contains longitude/latitude/roll and the selected
+rotation rate from 0 to 0.015 rad/s, excluding preview time and fast-forward.
+Previously copied settings with the default 0.003 rad/s rate remain supported.
+A zero rate disables playback and seeking, while allowing the stationary view
+to be copied. Reset speed restores 1× without changing the selected angle.
+Copy and pasted-settings import
 let the owner send an exact choice in chat; malformed settings are rejected with
 feedback. Choices remain in temporary interface state without database or browser
 storage writes. After the owner selects and shares settings, apply that opening
-and remove the helper. Preserve useful developer comparisons and historical
+and rotation rate, then remove the helper. Preserve useful developer comparisons and historical
 assets; do not preempt that choice by promoting a preset.
 
 Atmosphere art takes priority over strict realism: preserve the gradual blue

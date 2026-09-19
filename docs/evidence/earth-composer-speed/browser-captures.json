@@ -1,0 +1,166 @@
+{
+  "engine": "Hidden built-in Chromium; native Safari untested",
+  "captures": [
+    {
+      "file": "desktop-half-speed-start.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        }
+      ],
+      "dpr": 2,
+      "elapsed": "0:00",
+      "preview": "1",
+      "rotation": "0.5",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "desktop-half-speed-seek.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        }
+      ],
+      "dpr": 2,
+      "elapsed": "10:30",
+      "preview": "1",
+      "rotation": "0.5",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "desktop-exported-half-speed.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        }
+      ],
+      "dpr": 2,
+      "elapsed": "0:00",
+      "preview": "1",
+      "rotation": "0.5",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "desktop-stationary.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        }
+      ],
+      "dpr": 2,
+      "elapsed": "0:00",
+      "preview": "60",
+      "rotation": "0",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "portrait-half-speed.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        }
+      ],
+      "dpr": 1,
+      "elapsed": "0:00",
+      "preview": "1",
+      "rotation": "0.5",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "file": "portrait-timeline.jpg",
+      "canvas": [
+        {
+          "buffer": [
+            390,
+            844
+          ],
+          "css": [
+            390,
+            844
+          ]
+        }
+      ],
+      "dpr": 1,
+      "elapsed": "3:30",
+      "preview": "1",
+      "rotation": "0.5",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "file": "desktop-precise-speed.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 2,
+      "rotation": "0.125",
+      "preview": "1",
+      "elapsed": "0:00",
+      "canvas": [
+        {
+          "buffer": [
+            2560,
+            1440
+          ],
+          "css": [
+            1280,
+            720
+          ]
+        }
+      ]
+    }
+  ]
+}

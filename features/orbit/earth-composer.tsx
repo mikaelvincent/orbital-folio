@@ -7,6 +7,8 @@ import { NIGHT_EARTH_OPENING, type EarthOpening } from './earth-view-transform';
 import {
   EARTH_COMPOSITION_PRESETS,
   EARTH_PREVIEW_SPEEDS,
+  EARTH_ROTATION_RADIANS_PER_SECOND,
+  MAX_EARTH_ROTATION_RADIANS_PER_SECOND,
   earthOpeningAtElapsed,
   parseEarthCompositionSettings,
   serializeEarthCompositionSettings,
@@ -43,28 +45,35 @@ const orbitDuration = 2100;
 const formatTime = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 
-function AngleNumber({
+function ControlNumber({
   value,
   min,
   max,
   label,
+  step = 0.5,
+  exact = false,
   onChange,
 }: {
   value: number;
   min: number;
   max: number;
   label: string;
+  step?: number | 'any';
+  exact?: boolean;
   onChange: (value: number) => void;
 }) {
-  const [draft, setDraft] = useState(String(Math.round(value * 100) / 100));
-  useEffect(() => setDraft(String(Math.round(value * 100) / 100)), [value]);
+  const displayedValue = exact
+    ? String(value)
+    : String(Math.round(value * 100) / 100);
+  const [draft, setDraft] = useState(displayedValue);
+  useEffect(() => setDraft(displayedValue), [displayedValue]);
   return (
     <input
-      aria-label={`${label} degrees`}
+      aria-label={label}
       type="number"
       min={min}
       max={max}
-      step="0.5"
+      step={step}
       value={draft}
       onChange={(event) => {
         setDraft(event.currentTarget.value);
@@ -72,7 +81,7 @@ function AngleNumber({
         if (Number.isFinite(number) && number >= min && number <= max)
           onChange(number);
       }}
-      onBlur={() => setDraft(String(Math.round(value * 100) / 100))}
+      onBlur={() => setDraft(displayedValue)}
       onKeyDown={(event) => {
         if (event.key === 'Enter') event.currentTarget.blur();
       }}
@@ -89,15 +98,16 @@ export function EarthComposer({
   enabled: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState<'presets' | 'angles' | 'settings'>(
-    'presets',
-  );
+  const [mode, setMode] = useState<
+    'presets' | 'angles' | 'motion' | 'settings'
+  >('presets');
   const [view, setView] = useState<EarthPreviewState>({
     opening: { ...NIGHT_EARTH_OPENING },
     elapsed: 0,
     paused: true,
     speed: 1,
     active: false,
+    rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
   });
   const [settingsText, setSettingsText] = useState('');
   const [message, setMessage] = useState('');
@@ -130,7 +140,10 @@ export function EarthComposer({
     if (!controller || !used.current) return;
     // Reading view disposes the scene; retain this visit's chosen composition.
     const previous = latestView.current;
-    controller.setEarthComposition(previous.opening);
+    controller.setEarthComposition(
+      previous.opening,
+      previous.rotationRadiansPerSecond,
+    );
     controller.setEarthPreview({
       paused: true,
       speed: previous.speed,
@@ -177,10 +190,13 @@ export function EarthComposer({
     };
   }, [open, controller, enabled]);
 
-  function applyOpening(opening: EarthOpening) {
+  function applyOpening(
+    opening: EarthOpening,
+    rotationRadiansPerSecond = latestView.current.rotationRadiansPerSecond,
+  ) {
     if (!controller) return;
     used.current = true;
-    controller.setEarthComposition(opening);
+    controller.setEarthComposition(opening, rotationRadiansPerSecond);
     controller.setEarthPreview({
       paused: true,
       speed: latestView.current.speed,
@@ -188,7 +204,11 @@ export function EarthComposer({
     });
     sync();
     setCopyResult('idle');
-    setMessage('Starting view updated. Press Play to check its rotation.');
+    setMessage(
+      rotationRadiansPerSecond === 0
+        ? 'Earth will stay still. Copy this view or increase rotation speed.'
+        : 'Starting view updated. Press Play to check its rotation.',
+    );
     setImportError('');
   }
   function preview(options: Partial<EarthPreviewOptions>) {
@@ -211,7 +231,10 @@ export function EarthComposer({
     setOpen(true);
   }
   async function copySettings() {
-    const text = serializeEarthCompositionSettings(latestView.current.opening);
+    const text = serializeEarthCompositionSettings(
+      latestView.current.opening,
+      latestView.current.rotationRadiansPerSecond,
+    );
     setSettingsText(text);
     const copied = await copyText(text);
     if (!copied) setMode('settings');
@@ -219,7 +242,8 @@ export function EarthComposer({
   }
   function importSettings() {
     try {
-      applyOpening(parseEarthCompositionSettings(settingsText).earthOpening);
+      const settings = parseEarthCompositionSettings(settingsText);
+      applyOpening(settings.earthOpening, settings.rotationRadiansPerSecond);
       setMessage('Settings applied as the new starting view.');
     } catch (error) {
       setImportError(
@@ -272,22 +296,25 @@ export function EarthComposer({
             className="earth-composer-modes"
             aria-label="Earth editing controls"
           >
-            {(['presets', 'angles', 'settings'] as const).map((option) => (
-              <button
-                key={option}
-                type="button"
-                aria-pressed={mode === option}
-                onClick={() => setMode(option)}
-              >
-                {
+            {(['presets', 'angles', 'motion', 'settings'] as const).map(
+              (option) => (
+                <button
+                  key={option}
+                  type="button"
+                  aria-pressed={mode === option}
+                  onClick={() => setMode(option)}
+                >
                   {
-                    presets: 'Presets',
-                    angles: 'Angles & timeline',
-                    settings: 'Settings',
-                  }[option]
-                }
-              </button>
-            ))}
+                    {
+                      presets: 'Presets',
+                      angles: 'Angles',
+                      motion: 'Motion',
+                      settings: 'Settings',
+                    }[option]
+                  }
+                </button>
+              ),
+            )}
           </nav>
           <div className="earth-composer-body" ref={body}>
             <p className="earth-composer-intro">
@@ -329,9 +356,9 @@ export function EarthComposer({
                     <strong>{label}</strong>
                     <span>{hint}</span>
                   </label>
-                  <AngleNumber
+                  <ControlNumber
                     value={view.opening[key]}
-                    label={label}
+                    label={`${label} degrees`}
                     min={min}
                     max={max}
                     onChange={(value) =>
@@ -356,9 +383,74 @@ export function EarthComposer({
                 </div>
               ))}
             </fieldset>
+            <fieldset hidden={mode !== 'motion'}>
+              <legend>
+                Rotation speed <small>Included in copied settings</small>
+              </legend>
+              <div className="earth-composer-angle">
+                <label htmlFor="earth-rotation-speed">
+                  <strong>Speed ×</strong>
+                  <span>1× = current · 0× = still</span>
+                </label>
+                <ControlNumber
+                  label="Rotation speed multiplier"
+                  exact
+                  value={
+                    view.rotationRadiansPerSecond /
+                    EARTH_ROTATION_RADIANS_PER_SECOND
+                  }
+                  min={0}
+                  max={
+                    MAX_EARTH_ROTATION_RADIANS_PER_SECOND /
+                    EARTH_ROTATION_RADIANS_PER_SECOND
+                  }
+                  step="any"
+                  onChange={(multiplier) =>
+                    applyOpening(
+                      view.opening,
+                      multiplier * EARTH_ROTATION_RADIANS_PER_SECOND,
+                    )
+                  }
+                />
+                <input
+                  id="earth-rotation-speed"
+                  aria-label="Rotation speed"
+                  type="range"
+                  min="0"
+                  max={
+                    MAX_EARTH_ROTATION_RADIANS_PER_SECOND /
+                    EARTH_ROTATION_RADIANS_PER_SECOND
+                  }
+                  step="any"
+                  value={
+                    view.rotationRadiansPerSecond /
+                    EARTH_ROTATION_RADIANS_PER_SECOND
+                  }
+                  onChange={(event) =>
+                    applyOpening(
+                      view.opening,
+                      event.currentTarget.valueAsNumber *
+                        EARTH_ROTATION_RADIANS_PER_SECOND,
+                    )
+                  }
+                />
+              </div>
+              <p>
+                Changing speed pauses at the starting view. Try 0.25× or 0.5× to
+                linger over the lights.
+              </p>
+              <button
+                type="button"
+                onClick={() =>
+                  applyOpening(view.opening, EARTH_ROTATION_RADIANS_PER_SECOND)
+                }
+              >
+                Reset speed to 1×
+              </button>
+            </fieldset>
             <fieldset
               className="earth-composer-preview"
-              hidden={mode !== 'angles'}
+              hidden={mode !== 'motion'}
             >
               <legend>Inspect the route</legend>
 
@@ -369,6 +461,7 @@ export function EarthComposer({
                 max={orbitDuration}
                 step="1"
                 value={view.elapsed}
+                disabled={view.rotationRadiansPerSecond === 0}
                 onChange={(event) =>
                   preview({
                     elapsed: event.currentTarget.valueAsNumber,
@@ -378,7 +471,7 @@ export function EarthComposer({
               />
               <div className="earth-composer-timeline-labels">
                 <span>Start</span>
-                <span>35 min · ≈ one revolution</span>
+                <span>35 min at your chosen speed</span>
               </div>
               <button
                 type="button"
@@ -387,15 +480,21 @@ export function EarthComposer({
                 onClick={() => {
                   const current = controller?.getEarthPreview() ?? view;
                   applyOpening(
-                    earthOpeningAtElapsed(current.opening, current.elapsed),
+                    earthOpeningAtElapsed(
+                      current.opening,
+                      current.elapsed,
+                      current.rotationRadiansPerSecond,
+                    ),
+                    current.rotationRadiansPerSecond,
                   );
                 }}
               >
                 Use this frame as the start
               </button>
               <p>
-                Fast-forward affects Earth only. Your chosen view will use
-                normal speed.
+                {view.rotationRadiansPerSecond === 0
+                  ? 'Earth stays still at 0×. Increase rotation speed to preview movement.'
+                  : 'Fast-forward previews your chosen speed sooner. It affects Earth only and is not saved.'}
               </p>
             </fieldset>
 
@@ -409,8 +508,9 @@ export function EarthComposer({
               aria-label="Copy or paste settings"
             >
               <p>
-                Preview time and fast-forward speed are not copied. Use “Use
-                this frame as the start” first to keep a later frame.
+                Your rotation speed is copied. Preview time and fast-forward are
+                not. Use “Use this frame as the start” first to keep a later
+                frame.
               </p>
               <label htmlFor="earth-settings">Earth settings</label>
               <textarea
@@ -444,7 +544,14 @@ export function EarthComposer({
           </div>
           <footer className="earth-composer-footer">
             <div className="earth-composer-time">
-              Preview rotation{' '}
+              Rotation{' '}
+              {Number(
+                (
+                  view.rotationRadiansPerSecond /
+                  EARTH_ROTATION_RADIANS_PER_SECOND
+                  ).toPrecision(6),
+              )}
+              ×{' · '}
               <output aria-label="Preview time">
                 {formatTime(view.elapsed)}
               </output>
@@ -452,6 +559,7 @@ export function EarthComposer({
             <div className="earth-composer-playback">
               <button
                 type="button"
+                disabled={view.rotationRadiansPerSecond === 0}
                 onClick={() =>
                   preview({
                     paused: !view.paused,
@@ -471,7 +579,7 @@ export function EarthComposer({
                 0:00
               </button>
               <label>
-                Speed
+                Preview
                 <select
                   aria-label="Preview speed"
                   value={view.speed}
@@ -487,7 +595,7 @@ export function EarthComposer({
                 >
                   {EARTH_PREVIEW_SPEEDS.map((speed) => (
                     <option value={speed} key={speed}>
-                      {speed}×{speed === 1 ? ' · Normal' : ''}
+                      {speed}×{speed === 1 ? ' · Real time' : ''}
                     </option>
                   ))}
                 </select>

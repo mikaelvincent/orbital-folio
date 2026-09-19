@@ -1,0 +1,332 @@
+{
+  "date": "2026-09-19",
+  "baselineCommit": "c7c5ab1d53651f9ca597d65772f56ceb21c5f89b",
+  "request": "Allow modifying the saved Earth rotation speed in the temporary Earth view helper.",
+  "source": [
+    {
+      "path": "features/orbit/earth-composer.tsx",
+      "sha256": "94dc92b0f7d907fcea1d115c374a8b20ab28bfbb34ceb41b12c586d245a06bbc"
+    },
+    {
+      "path": "features/orbit/earth-composer.css",
+      "sha256": "1a649ce49a82ad0380093de45e1bea29522bde80d5c959a1d71112a8f34bf73b"
+    },
+    {
+      "path": "features/orbit/earth-composition.ts",
+      "sha256": "d89c02d9ddc1a823be24be61e0f04af9300c7d5b33955e438808c1608b463317"
+    },
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "sha256": "703823ab55ef0ac112344b0bcf5a0ef486fd06a7afb91fdcb6573655cdb27f9a"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-runtime.ts",
+      "sha256": "edfd2048b06365fea1057be1bc99071fd238cb6519ac5e8700fbb17d4466715e"
+    },
+    {
+      "path": "tests/orbit/earth-composition.test.mjs",
+      "sha256": "c96511b4d8586c6cd02804d40bfc12f39459abe23a73f20a00f93720e91cfa9b"
+    }
+  ],
+  "behavior": {
+    "savedSpeed": "0–5× the existing rate, represented exactly as 0–0.015 radians/second in version-1 settings. Default remains 0.003. Copy/import includes the selected rate; older default-rate settings remain supported.",
+    "preview": "Separate fast-forward 1×/10×/30×/60× multiplies elapsed visit time. It is not included in copied settings. The 35-minute timeline reflects the selected rate and no longer claims one revolution.",
+    "editing": "Saved-rate edits pause and return to the chosen opening. Angle presets and Reset angle retain the selected rate. Reset speed returns to 1× without changing the angle. Use this frame as the start folds the selected rate into the new opening.",
+    "stationary": "Zero forces the engine paused, disables UI Play and seek, and still supports copy. Attempted API Play at zero cannot keep reduced-motion rendering alive.",
+    "persistence": "Temporary in-memory selection survives Reading/Interactive remount and viewport changes. It does not write browser storage or the database; reload keeps the unchanged production default.",
+    "production": "Existing 8K map, opening 120/25/22.5 and normal 0.003 radians/second remain unchanged until the owner submits final settings."
+  },
+  "browser": {
+    "engine": "Hidden built-in Chromium; native Safari untested",
+    "captures": [
+      {
+        "file": "desktop-half-speed-start.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              2560,
+              1440
+            ],
+            "css": [
+              1280,
+              720
+            ]
+          }
+        ],
+        "dpr": 2,
+        "elapsed": "0:00",
+        "preview": "1",
+        "rotation": "0.5",
+        "viewport": [
+          1280,
+          720
+        ],
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "d9bb6e5fafc45482989741edd688a5b6967d9a74ba629bfc854adf9f0d0f2aff"
+      },
+      {
+        "file": "desktop-half-speed-seek.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              2560,
+              1440
+            ],
+            "css": [
+              1280,
+              720
+            ]
+          }
+        ],
+        "dpr": 2,
+        "elapsed": "10:30",
+        "preview": "1",
+        "rotation": "0.5",
+        "viewport": [
+          1280,
+          720
+        ],
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "0efb448c3e6e7327aebd90eca0f6401872c0bb911b63805094bafb3f796fa9ea"
+      },
+      {
+        "file": "desktop-exported-half-speed.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              2560,
+              1440
+            ],
+            "css": [
+              1280,
+              720
+            ]
+          }
+        ],
+        "dpr": 2,
+        "elapsed": "0:00",
+        "preview": "1",
+        "rotation": "0.5",
+        "viewport": [
+          1280,
+          720
+        ],
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "df98d2da0b622360e381d27e9b0a362bacf66cf5770feb3650166c65ebee4aa8"
+      },
+      {
+        "file": "desktop-stationary.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              2560,
+              1440
+            ],
+            "css": [
+              1280,
+              720
+            ]
+          }
+        ],
+        "dpr": 2,
+        "elapsed": "0:00",
+        "preview": "60",
+        "rotation": "0",
+        "viewport": [
+          1280,
+          720
+        ],
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "655955f7afa41da67e4b8f6b01d74021d38abeec317b68d69eefed06bb4ec3d1"
+      },
+      {
+        "file": "portrait-half-speed.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              390,
+              844
+            ],
+            "css": [
+              390,
+              844
+            ]
+          }
+        ],
+        "dpr": 1,
+        "elapsed": "0:00",
+        "preview": "1",
+        "rotation": "0.5",
+        "viewport": [
+          390,
+          844
+        ],
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "2a45a720b1c1aceba78155d7b683e5c213c19aa4e0fb7cfe5b1b393b6a75ff87"
+      },
+      {
+        "file": "portrait-timeline.jpg",
+        "canvas": [
+          {
+            "buffer": [
+              390,
+              844
+            ],
+            "css": [
+              390,
+              844
+            ]
+          }
+        ],
+        "dpr": 1,
+        "elapsed": "3:30",
+        "preview": "1",
+        "rotation": "0.5",
+        "viewport": [
+          390,
+          844
+        ],
+        "imageDimensions": [
+          390,
+          844
+        ],
+        "sha256": "267d13059fce6d46d2ecfc202b636e370880aa772d70bfa82b37d00bbdd94c49"
+      },
+      {
+        "file": "desktop-precise-speed.jpg",
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 2,
+        "rotation": "0.125",
+        "preview": "1",
+        "elapsed": "0:00",
+        "canvas": [
+          {
+            "buffer": [
+              2560,
+              1440
+            ],
+            "css": [
+              1280,
+              720
+            ]
+          }
+        ],
+        "imageDimensions": [
+          1280,
+          720
+        ],
+        "sha256": "0ea01ef3f6e2ecd0ca9c9dc387c76322c0a04f10ebb3bc38cf90f3fd2b5d29f0"
+      }
+    ],
+    "checks": [
+      "Motion tab saved speed field/slider set to 0.5×; paused opening stays at 0:00 with rate visible in the pinned footer.",
+      "At 0.5×, seek 630 simulated seconds; Earth visibly rotates. Adopting this frame exports longitude −42.1445116398628,latitude 48,roll −10 and rate 0.0015; elapsed resets 0.",
+      "Set 2×, then import that exact exported JSON; rate returns 0.5×. Selecting 60× preview and Play advances the timeline while saved rate stays 0.5×.",
+      "Set 0×; Play/seek disable, exact zero is copied, and acknowledgment correctly describes a still Earth.",
+      "Reset speed restores 1×. A later 0.5× survives selecting Europe preset, closing/reopening, Reading→Interactive remount and portrait resize.",
+      "Four mode buttons, saved speed field, fixed footer controls and scrolling timeline are legible at 390×844 CSS viewport/DPR 1; desktop 1280×720/DPR 2 is separately recorded.",
+      "Final precision refinement: typing 0.125× then blurring keeps 0.125 in field/slider/footer and exports 0.000375 rad/s. Numeric rate accepts arbitrary in-range precision without two-decimal rounding.",
+      "All temporary browser tabs closed and viewport override reset. Main localhost development server preserved."
+    ],
+    "limits": [
+      "Native Safari, physical touch and the mobile software keyboard were not tested. Chromium results are not Safari results.",
+      "The copy function returned success and exposed exact generated JSON in the textarea. Native OS clipboard bytes were not inspected; import used those exact generated bytes through the form control.",
+      "Reduced-motion zero-rate pause and clock isolation are tested in the engine, not via browser reduced-motion emulation.",
+      "The first portrait capture method incorrectly scaled/cropped the rendered page; discarded that image and used the documented alternate browser screenshot API. The correct 390×844 captures are retained.",
+      "An initial desktop seek screenshot lagged the DOM clock by one step. It was replaced with a settled 10:30 capture; final file and metadata match.",
+      "The full rotation still reaches dark regions. Speed changes delay or accelerate them; they do not make every frame luminous."
+    ]
+  },
+  "verification": {
+    "fullSuite": {
+      "command": "npm test",
+      "pass": 341,
+      "fail": 0,
+      "log": "tests.log",
+      "qualification": "Runs final engine/runtime/tests. Subsequent UI-only precision formatting was checked in the live browser and followed by final typecheck/lint/build; existing 0.5×/zero captures are visually unchanged."
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "log": "typecheck.log"
+    },
+    "lint": {
+      "command": "npm run lint -- [changed TypeScript and test paths]",
+      "result": "pass",
+      "log": "lint.log"
+    },
+    "build": {
+      "command": "npm run build",
+      "result": "pass",
+      "log": "build.log",
+      "warnings": "Existing large-chunk advisory, module.register deprecation and Vinext route-classification notice."
+    },
+    "focusedAgentChecks": "Core agent independently ran 37 orbit tests, including 6 composition tests, plus scoped lint.",
+    "logs": [
+      {
+        "file": "build.log",
+        "sha256": "79c561ca92317d31304e37072ddc9acee9cad61b6f8b950359703d2efa834ff3"
+      },
+      {
+        "file": "lint.log",
+        "sha256": "3f78f7448aceee21ff99e2b0bb7ae915a496cb0cc1b0b95f0ac5b9a4b16d66cf"
+      },
+      {
+        "file": "tests.log",
+        "sha256": "69c192169e900a69188babc915f7b94f9b0a2313913a97da4ba0e8aec3cea253"
+      },
+      {
+        "file": "typecheck.log",
+        "sha256": "4ce4efc47acf07fca71727abc270eb4ec5dbd3eb860fb759ba84f18d4f129281"
+      }
+    ],
+    "logNormalization": "Trailing whitespace and blank EOF lines normalized; results and warnings retained."
+  },
+  "performance": {
+    "classification": "Requested design-selection controls, not an optimization experiment.",
+    "observations": "Selected rate changes one scalar used in the existing rotation calculation. Existing texture/geometry/material resource identity is tested. No new background assets, meshes or rendering pass.",
+    "claims": "No measured CPU/GPU, memory, heat or battery benefit. Timed test durations are verification logs, not balanced performance comparisons. Held optimization candidates remain unchanged."
+  },
+  "critic": {
+    "agent": "/root/earth_speed_critic",
+    "status": "Complete; no unresolved blockers",
+    "rubric": {
+      "fulfillment": 30,
+      "correctness": 30,
+      "usabilityVisualAndAccessibility": 25,
+      "organizationEvidenceAndCostHonesty": 15
+    },
+    "addressed": [
+      "Zero rate forces pause in the engine and has a matching UI acknowledgment.",
+      "Final-choice documentation preserves the selected rate as well as the angle.",
+      "Exact numeric speed input avoids misleading two-decimal display rounding.",
+      "Replaced scaled portrait and stale-frame screenshot evidence."
+    ],
+    "score": 97,
+    "awarded": {
+      "fulfillment": 30,
+      "correctness": 29,
+      "usabilityVisualAndAccessibility": 24,
+      "organizationEvidenceAndCostHonesty": 14
+    },
+    "confirmation": "Independently verified all 17 source/capture/log hashes and reviewed 7 final captures. Only evidence filename extensions changed afterward to match the JPEG bytes returned by the browser; hashes and dimensions remain identical."
+  }
+}

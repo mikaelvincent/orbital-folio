@@ -4,13 +4,14 @@ import { NIGHT_EARTH_OPENING } from './earth-view-transform';
 export type { EarthOpening } from './earth-view-transform';
 
 export const EARTH_ROTATION_RADIANS_PER_SECOND = 0.003;
+export const MAX_EARTH_ROTATION_RADIANS_PER_SECOND = 0.015;
 export const EARTH_PREVIEW_SPEEDS = [1, 10, 30, 60] as const;
 export type EarthPreviewSpeed = (typeof EARTH_PREVIEW_SPEEDS)[number];
 
 export type EarthPreviewOptions = {
   paused: boolean;
   speed: EarthPreviewSpeed;
-  /** Seconds of Earth rotation at the ordinary production speed. */
+  /** Simulated seconds of Earth rotation at the selected saved rate. */
   elapsed?: number;
 };
 
@@ -20,10 +21,14 @@ export type EarthPreviewState = {
   elapsed: number;
   paused: boolean;
   speed: EarthPreviewSpeed;
+  rotationRadiansPerSecond: number;
 };
 
 export type EarthCompositionControls = {
-  setEarthComposition(opening: EarthOpening | null): void;
+  setEarthComposition(
+    opening: EarthOpening | null,
+    rotationRadiansPerSecond?: number,
+  ): void;
   setEarthPreview(options: EarthPreviewOptions): void;
   getEarthPreview(): EarthPreviewState;
 };
@@ -31,7 +36,7 @@ export type EarthCompositionControls = {
 export type EarthCompositionSettings = {
   version: 1;
   earthOpening: EarthOpening;
-  rotationRadiansPerSecond: typeof EARTH_ROTATION_RADIANS_PER_SECOND;
+  rotationRadiansPerSecond: number;
 };
 
 /** Starting points for visual comparison, not claims of continuous brightness. */
@@ -112,6 +117,20 @@ export function validateEarthOpening(value: unknown): EarthOpening {
   };
 }
 
+/** Zero holds the selected view; saved rotation is separate from fast-forward. */
+export function validateEarthRotationRate(value: unknown): number {
+  if (
+    typeof value !== 'number' ||
+    !Number.isFinite(value) ||
+    value < 0 ||
+    value > MAX_EARTH_ROTATION_RADIANS_PER_SECOND
+  )
+    throw new Error(
+      `Rotation rate must be a number between 0 and ${MAX_EARTH_ROTATION_RADIANS_PER_SECOND} radians per second.`,
+    );
+  return value;
+}
+
 export function parseEarthCompositionSettings(
   text: string,
 ): EarthCompositionSettings {
@@ -132,24 +151,25 @@ export function parseEarthCompositionSettings(
     );
   if (value.version !== 1)
     throw new Error('This helper supports settings version 1.');
-  if (value.rotationRadiansPerSecond !== EARTH_ROTATION_RADIANS_PER_SECOND)
-    throw new Error(
-      'Keep the normal rotation rate at 0.003 radians per second. Fast-forward is preview-only.',
-    );
   return {
     version: 1,
     earthOpening: validateEarthOpening(value.earthOpening),
-    rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
+    rotationRadiansPerSecond: validateEarthRotationRate(
+      value.rotationRadiansPerSecond,
+    ),
   };
 }
 
 export function serializeEarthCompositionSettings(
   opening: EarthOpening,
+  rotationRadiansPerSecond = EARTH_ROTATION_RADIANS_PER_SECOND,
 ): string {
   const settings: EarthCompositionSettings = {
     version: 1,
     earthOpening: validateEarthOpening(opening),
-    rotationRadiansPerSecond: EARTH_ROTATION_RADIANS_PER_SECOND,
+    rotationRadiansPerSecond: validateEarthRotationRate(
+      rotationRadiansPerSecond,
+    ),
   };
   return JSON.stringify(settings, null, 2);
 }
@@ -158,14 +178,14 @@ export function serializeEarthCompositionSettings(
 export function earthOpeningAtElapsed(
   opening: EarthOpening,
   elapsed: number,
+  rotationRadiansPerSecond = EARTH_ROTATION_RADIANS_PER_SECOND,
 ): EarthOpening {
   const validated = validateEarthOpening(opening);
+  const rate = validateEarthRotationRate(rotationRadiansPerSecond);
   if (!Number.isFinite(elapsed) || elapsed < 0)
     throw new Error('Preview time must be a nonnegative number of seconds.');
   const longitude =
-    validated.longitude -
-    (((elapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2)) * 180) /
-      Math.PI;
+    validated.longitude - (((elapsed * rate) % (Math.PI * 2)) * 180) / Math.PI;
   return {
     ...validated,
     longitude: ((((longitude + 180) % 360) + 360) % 360) - 180,

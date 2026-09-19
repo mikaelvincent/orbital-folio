@@ -1574,6 +1574,31 @@ Native Safari and the native clipboard payload remain unverified; the evidence
 records the built-in browser's separate virtual-clipboard limitation. No timing
 or thermal improvement is claimed.
 
+### Rotation-speed selection follow-up (19 September 2026)
+
+The owner also requested control over the saved rotation speed. The helper's
+**Motion** tab now selects 0–5× the current rate (0–0.015 rad/s), including a
+stationary Earth. This rate is included in copied/imported version-1 settings;
+old settings remain valid. Preview fast-forward stays a separate 1×/10×/30×/60×
+multiplier. A rate edit pauses at the selected starting view instead of silently
+changing its angle. Presets preserve the selected rate, and adopting a preview
+frame uses that rate when computing its exact new opening. The 35-minute
+scrubber represents visit time at the chosen speed, not necessarily one revolution.
+
+Production defaults and the 8K asset remain unchanged until the owner shares a
+final choice. This is requested design tooling, not an optimization: there is no
+measured CPU/GPU, memory, heat or battery claim. Source tests verify rate handling,
+clock isolation and unchanged scene resources. The [speed follow-up review](evidence/earth-composer-speed/review.json)
+records final checks, browser coverage and critic review; entry 29's original
+screenshots and checks remain historical evidence. Held candidates are unchanged.
+
+Verification: **341 tests passed**; final typecheck, affected lint and production
+build passed. Seven live browser captures cover saved-speed selection, frame
+adoption, stationary mode, exact fractional input and portrait controls. The
+independent critic scored **97/100**, with no blockers. Native Safari, physical
+touch and native clipboard contents remain unverified. A final UI-only precision
+fix received refreshed browser/typecheck/lint/build checks after the full suite.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user has selected **8K night Earth as the intended quality level**, having found its visual improvement worthwhile. Keep that asset in subsequent baselines. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

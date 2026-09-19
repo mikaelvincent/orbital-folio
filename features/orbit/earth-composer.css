@@ -16,10 +16,11 @@
   padding: 10px 17px 0;
   flex-shrink: 0;
 }
-.earth-composer-modes button {
+.earth-composer .earth-composer-modes button {
   flex: 1;
-  padding: 7px 3px;
-  font-size: 11px;
+  min-width: 0;
+  padding: 8px 4px;
+  font-size: 12px;
   background: transparent;
 }
 .earth-composer-modes button[aria-pressed='true'] {

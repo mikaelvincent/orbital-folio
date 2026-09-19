@@ -2616,9 +2616,9 @@ export function mountSpacecraftScene({
           },
         };
         latest.current.onEarthCompositionReady?.({
-          setEarthComposition(opening) {
+          setEarthComposition(opening, rotationRadiansPerSecond) {
             if (destroyed) return;
-            background.setEarthComposition(opening);
+            background.setEarthComposition(opening, rotationRadiansPerSecond);
             const preview = background.getEarthPreview();
             earthPreviewPlaying = preview.active && !preview.paused;
             lastFrame = 0;

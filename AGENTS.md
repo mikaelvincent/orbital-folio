@@ -111,17 +111,20 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- Keep the approved **8K night Earth** and normal 0.003 rad/s rotation. The owner
+- Keep the approved **8K night Earth** and the default 0.003 rad/s rotation until
+  the owner chooses a replacement in the temporary helper. The owner
   sees worthwhile detail over 4K and accepts its added delivery/memory cost.
   Prioritize visible city lights over land area; unlit terrain was the inland
   route's problem, and the coastal East Asian opening is also not yet accepted
   as the final composition. Preserve that default while the owner chooses.
 - The owner authorized a **temporary Earth view helper** with angle controls,
-  presets, Earth-only fast-forward and copy/paste settings. This supersedes the
-  earlier prohibition on restoring public globe controls for this selection
-  process only. Keep previews in temporary interface state, without database or
-  browser-storage writes. Export the selected opening at normal rotation speed;
-  a later preview frame must be explicitly adopted as the opening. Once the owner
+  presets, selectable rotation speed, Earth-only fast-forward and copy/paste
+  settings. This supersedes the earlier prohibition on restoring public globe
+  controls for this selection process only. Keep previews in temporary interface
+  state, without database or
+  browser-storage writes. Export the selected opening and chosen rotation rate;
+  preview fast-forward is separate and must not become the saved rate. A later
+  preview frame must be explicitly adopted as the opening. Once the owner
   shares their choice, apply it and remove the helper as requested. Retain useful
   developer comparisons and historical assets. Do not treat a preset or an
   automated light score as final approval; continuous rotation still reaches
