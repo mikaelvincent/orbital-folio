@@ -108,7 +108,7 @@ const { createOrbitalEnvironment, ORBITAL_WORLD_SCALE } = await import(
 
 void test('Orbital camera shares the physical pose under a fixed world registration, without resetting on updates', async (t) => {
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
+    earthTexture: new THREE.Texture({ width: 4096, height: 3072 }),
     cameraFov: 38,
   });
   t.after(() => env.dispose());
@@ -189,5 +189,5 @@ void test('Orbital camera shares the physical pose under a fixed world registrat
     }
   }
   assert.equal(env.getDiagnostics().cameraMode, 'shared-world-camera');
-  assert.equal(env.getDiagnostics().earthTextureDimensions[0], 8192);
+  assert.equal(env.getDiagnostics().earthTextureDimensions[0], 4096);
 });

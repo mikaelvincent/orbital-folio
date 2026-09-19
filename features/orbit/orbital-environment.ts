@@ -2,6 +2,11 @@ import type * as Three from 'three';
 import {
   EARTH_TEXTURE_WIDTH,
   EARTH_TEXTURE_HEIGHT,
+  EARTH_TEXTURE_ASSET,
+  EARTH_SOURCE_WIDTH,
+  EARTH_SOURCE_HEIGHT,
+  EARTH_REGION_START_X,
+  EARTH_REGION_START_Y,
   configureEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
@@ -142,6 +147,9 @@ export function createOrbitalEnvironment(
     if (w === 1 && h === 1) break;
   }
   const earthTextureBytes = EARTH_TEXTURE_WIDTH * EARTH_TEXTURE_HEIGHT * 4;
+  const earthLoopSeconds =
+    (Math.PI * 2 * EARTH_TEXTURE_WIDTH) /
+    (EARTH_ROTATION_RADIANS_PER_SECOND * EARTH_SOURCE_WIDTH);
   let earthGpuBytes = 0;
   for (
     let w: number = EARTH_TEXTURE_WIDTH, h = EARTH_TEXTURE_HEIGHT;
@@ -706,6 +714,21 @@ export function createOrbitalEnvironment(
         earthLoadError: earthStatus.error,
         earthRotation: surface.rotation.y,
         earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
+        earthLoopSeconds,
+        earthLoopPhase: (openingElapsed % earthLoopSeconds) / earthLoopSeconds,
+        earthTextureRepresentation: 'authored-regional-night-loop',
+        earthTextureAsset: EARTH_TEXTURE_ASSET,
+        earthTextureSourceDimensions: [EARTH_SOURCE_WIDTH, EARTH_SOURCE_HEIGHT],
+        earthRegionSourceOrigin: [EARTH_REGION_START_X, EARTH_REGION_START_Y],
+        earthTextureRepeat: [
+          EARTH_SOURCE_WIDTH / EARTH_TEXTURE_WIDTH,
+          EARTH_SOURCE_HEIGHT / EARTH_TEXTURE_HEIGHT,
+        ],
+        earthTextureOffset: [
+          -EARTH_REGION_START_X / EARTH_TEXTURE_WIDTH,
+          -(EARTH_SOURCE_HEIGHT - EARTH_REGION_START_Y - EARTH_TEXTURE_HEIGHT) /
+            EARTH_TEXTURE_HEIGHT,
+        ],
         earthTextureFetchMs: earthStatus.fetchMs,
         earthTextureDecodeMs: earthStatus.decodeMs,
         earthTextureReadyMs: earthStatus.readyMs,

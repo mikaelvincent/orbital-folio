@@ -47,8 +47,8 @@ for (const mobile of [false, true])
     let closes = 0,
       invalidations = 0;
     const texture = new THREE.Texture({
-      width: 8192,
-      height: 4096,
+      width: 4096,
+      height: 3072,
       close() {
         closes++;
       },
@@ -114,12 +114,17 @@ for (const mobile of [false, true])
     assert.equal(d.earthReady, true);
     assert.equal(d.earthLoadError, null);
     assert.equal(d.earthSource, 'injected-satellite-texture');
-    assert.equal(d.earthTextureBytes, 134217728);
-    assert.equal(d.earthTextureGpuBytes, 178956972);
+    assert.equal(d.earthTextureBytes, 50331648);
+    assert.equal(d.earthTextureGpuBytes, 67108860);
     assert.equal(d.cloudFieldSamples, 0);
     assert.equal(d.cloudTextureSize, 0);
-    assert.deepEqual(d.earthTextureDimensions, [8192, 4096]);
+    assert.deepEqual(d.earthTextureDimensions, [4096, 3072]);
     assert.equal(d.earthTextureSamples, 1);
+    assert.equal(d.earthLoopSeconds, Math.PI / 0.0045);
+    assert.equal(d.earthTextureRepresentation, 'authored-regional-night-loop');
+    assert.deepEqual(d.earthTextureSourceDimensions, [8192, 4096]);
+    assert.deepEqual(d.earthRegionSourceOrigin, [3712, 128]);
+    assert.deepEqual(d.earthTextureRepeat, [2, 4 / 3]);
     const disposed = watch(collect(env.scene));
     env.dispose();
     env.dispose();
@@ -136,8 +141,8 @@ void test('Disposal before injected texture installation releases it without inv
   let closes = 0,
     invalidations = 0;
   const texture = new THREE.Texture({
-    width: 8192,
-    height: 4096,
+    width: 4096,
+    height: 3072,
     close() {
       closes++;
     },
@@ -153,6 +158,74 @@ void test('Disposal before injected texture installation releases it without inv
   assert.equal(closes, 1);
   disposed();
   assert.equal(env.getDiagnostics().earthReady, false);
+});
+
+void test('The regional surface repeats after half a revolution without changing resources or motion rate', async (t) => {
+  const texture = new THREE.Texture({ width: 4096, height: 3072 });
+  const env = createOrbitalEnvironment(THREE, () => {}, {
+    earthTexture: texture,
+  });
+  t.after(() => env.dispose());
+  await env.ready;
+  env.resize(1280, 720, 2);
+  const surface = env.scene.getObjectByName('satellite-earth-surface');
+  const resources = collect(env.scene);
+  const textureVersion = texture.version;
+  texture.updateMatrix();
+  env.scene.updateMatrixWorld(true);
+  const fixedWorldTargets = [
+    [-5, 38],
+    [12, 48],
+    [35, 55],
+  ].map(([longitude, latitude]) => {
+    const a = THREE.MathUtils.degToRad(longitude),
+      b = THREE.MathUtils.degToRad(latitude);
+    return new THREE.Vector3(
+      Math.cos(b) * Math.cos(a),
+      Math.sin(b),
+      -Math.cos(b) * Math.sin(a),
+    ).applyMatrix4(surface.matrixWorld);
+  });
+  const sample = () => {
+    env.scene.updateMatrixWorld(true);
+    return fixedWorldTargets.map((point) => {
+      const ray = new THREE.Raycaster(
+        env.camera.position,
+        point.clone().sub(env.camera.position).normalize(),
+      );
+      const hit = ray.intersectObject(surface, false)[0];
+      assert.ok(hit?.uv, 'The ray hits the visible Earth surface');
+      return texture.transformUv(hit.uv.clone());
+    });
+  };
+  const opening = sample();
+  const period = env.getDiagnostics().earthLoopSeconds;
+  for (const cycles of [1, 2, 3]) {
+    env.update(period * cycles, true, 0, 0);
+    const repeated = sample();
+    repeated.forEach((uv, index) =>
+      assert.ok(
+        uv.distanceTo(opening[index]) < 1e-6,
+        'Fixed world points sample the same texture after every authored cycle',
+      ),
+    );
+    assert.deepEqual(
+      collect(env.scene),
+      resources,
+      'No additional resources per cycle',
+    );
+    assert.equal(
+      texture.version,
+      textureVersion,
+      'No texture upload per cycle',
+    );
+    assert.equal(env.getDiagnostics().earthRotationRate, 0.0045);
+  }
+  env.update(period * 3 + 10, true, 0, 0);
+  assert.ok(
+    sample().some((uv, index) => uv.distanceTo(opening[index]) > 0.001),
+    'Normal forward motion continues between loop boundaries',
+  );
 });
 
 void test('Failed asset keeps an inexpensive ocean and reports failure, without weather generation', async (t) => {

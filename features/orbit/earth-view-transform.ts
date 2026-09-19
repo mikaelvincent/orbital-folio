@@ -1,6 +1,9 @@
 import type * as Three from 'three';
 
-/** Approved Europe at Night opening, with rotation at 1.5× the original rate. */
+/** Approved Europe at Night opening, with motion at 1.5× the original rate.
+ * The regional texture repeats twice per revolution without changing local
+ * angular motion or the retained European geography's opening placement.
+ */
 export const NIGHT_EARTH_OPENING = {
   longitude: 12,
   latitude: 48,

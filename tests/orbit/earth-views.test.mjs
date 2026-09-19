@@ -16,7 +16,7 @@ const { createOrbitalEnvironment } = await import(
   `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`
 );
 
-const textureFixture = () => new THREE.Texture({ width: 8192, height: 4096 });
+const textureFixture = () => new THREE.Texture({ width: 4096, height: 3072 });
 const surfaceOf = (env) => env.scene.getObjectByName('satellite-earth-surface');
 
 void test('Night Earth shares one geometry with one atmosphere and has no unused daylight rig', async (t) => {
@@ -186,8 +186,8 @@ void test('Night lighting stays photographic and resizing reuses every loaded re
   mockBitmap(t, async () => {
     decoded++;
     return {
-      width: 8192,
-      height: 4096,
+      width: 4096,
+      height: 3072,
       close() {
         closed++;
       },
@@ -205,7 +205,7 @@ void test('Night lighting stays photographic and resizing reuses every loaded re
   assert.equal(fetch.mock.callCount(), 1);
   assert.equal(
     fetch.mock.calls[0].arguments[0],
-    '/textures/earth-black-marble-8k.jpg',
+    '/textures/earth-europe-loop.webp',
   );
   assert.equal(surface.material.isMeshBasicMaterial, true);
   assert.equal(
@@ -301,7 +301,7 @@ void test('The opening waits for image readiness and respects the global active 
     'A slow image load must not skip the opening',
   );
   assert.equal(starClock(env), 10, 'The stars still follow the global clock');
-  releaseBitmap({ width: 8192, height: 4096, close() {} });
+  releaseBitmap({ width: 4096, height: 3072, close() {} });
   await env.ready;
   env.update(10, true, 0, 0);
   assert.equal(env.getDiagnostics().earthOpeningElapsed, 0);

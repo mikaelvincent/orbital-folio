@@ -24,7 +24,7 @@ const { createOrbitalEnvironment } = await import(
 );
 async function environment(t, options = {}) {
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthTexture: new THREE.Texture({ width: 8192, height: 4096 }),
+    earthTexture: new THREE.Texture({ width: 4096, height: 3072 }),
     ...options,
   });
   t.after(() => env.dispose());
@@ -126,7 +126,7 @@ void test('Seeded stars have visible independent modulation without a synchroniz
     (Math.max(...aggregate) - Math.min(...aggregate)) / a.count < 0.06,
     'Independent phases avoid the entire field pulsing together',
   );
-  assert.deepEqual(env.getDiagnostics().earthTextureDimensions, [8192, 4096]);
+  assert.deepEqual(env.getDiagnostics().earthTextureDimensions, [4096, 3072]);
 });
 
 void test('Shooting stars have quiet event spacing, small coherent groups and varied restrained peaks', async (t) => {

@@ -1,8 +1,15 @@
 import type * as Three from 'three';
 
-export const EARTH_TEXTURE_WIDTH = 8192;
-export const EARTH_TEXTURE_HEIGHT = 4096;
-export const EARTH_TEXTURE_ASSET = '/textures/earth-black-marble-8k.jpg';
+export const EARTH_TEXTURE_WIDTH = 4096;
+export const EARTH_TEXTURE_HEIGHT = 3072;
+export const EARTH_TEXTURE_ASSET = '/textures/earth-europe-loop.webp';
+// The regional artwork keeps the source map's texel density, rather than
+// stretching a smaller map around the whole planet. Its authored bridge joins
+// the retained European region to its next repetition at the same resolution.
+export const EARTH_SOURCE_WIDTH = 8192;
+export const EARTH_SOURCE_HEIGHT = 4096;
+export const EARTH_REGION_START_X = 3712;
+export const EARTH_REGION_START_Y = 128;
 
 const ownedBitmaps = new WeakMap<Three.Texture, ImageBitmap>();
 const disposedTextures = new WeakSet<Three.Texture>();
@@ -14,6 +21,16 @@ export function configureEarthTexture(
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.repeat.set(
+    EARTH_SOURCE_WIDTH / EARTH_TEXTURE_WIDTH,
+    EARTH_SOURCE_HEIGHT / EARTH_TEXTURE_HEIGHT,
+  );
+  texture.offset.set(
+    -EARTH_REGION_START_X / EARTH_TEXTURE_WIDTH,
+    // Bitmap decode flips the rows, so V measures from the cropped bottom.
+    -(EARTH_SOURCE_HEIGHT - EARTH_REGION_START_Y - EARTH_TEXTURE_HEIGHT) /
+      EARTH_TEXTURE_HEIGHT,
+  );
   texture.minFilter = THREE.LinearMipmapLinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.generateMipmaps = true;
@@ -119,7 +136,7 @@ export async function loadEarthTexture(
   let texture: Three.Texture | undefined;
   try {
     bitmap = await decodeBitmap(
-      new Blob([bytes], { type: 'image/jpeg' }),
+      new Blob([bytes], { type: 'image/webp' }),
       signal,
     );
     checkAbort(signal);

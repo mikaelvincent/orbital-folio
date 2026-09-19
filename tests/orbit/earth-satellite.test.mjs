@@ -8,6 +8,8 @@ import {
   EARTH_TEXTURE_ASSET,
   EARTH_TEXTURE_WIDTH,
   EARTH_TEXTURE_HEIGHT,
+  EARTH_SOURCE_WIDTH,
+  EARTH_SOURCE_HEIGHT,
   configureEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
@@ -21,7 +23,7 @@ const deferred = () => {
   });
   return { promise, resolve, reject };
 };
-const bitmapFixture = (width = 8192, height = 4096) => ({
+const bitmapFixture = (width = 4096, height = 3072) => ({
   width,
   height,
   closes: 0,
@@ -63,7 +65,7 @@ void test('Earth texture decodes once with explicit orientation/color settings a
   let decodeCalls = 0;
   stubBitmap(t, async (blob, options) => {
     decodeCalls++;
-    assert.equal(blob.type, 'image/jpeg');
+    assert.equal(blob.type, 'image/webp');
     assert.equal(blob.size, 4);
     assert.deepEqual(options, {
       imageOrientation: 'flipY',
@@ -73,8 +75,8 @@ void test('Earth texture decodes once with explicit orientation/color settings a
     return bitmap;
   });
   const result = await loadEarthTexture(THREE, controller.signal);
-  assert.equal(EARTH_TEXTURE_WIDTH, 8192);
-  assert.equal(EARTH_TEXTURE_HEIGHT, 4096);
+  assert.equal(EARTH_TEXTURE_WIDTH, 4096);
+  assert.equal(EARTH_TEXTURE_HEIGHT, 3072);
   assert.equal(fetch.mock.callCount(), 1);
   assert.deepEqual(fetch.mock.calls[0].arguments, [
     EARTH_TEXTURE_ASSET,
@@ -140,7 +142,7 @@ void test('Earth loader rejects wrong dimensions and closes its rejected bitmap'
   stubBitmap(t, async () => bitmap);
   await assert.rejects(
     loadEarthTexture(THREE, new AbortController().signal),
-    /must be 8192×4096/,
+    /must be 4096×3072/,
   );
   assert.equal(bitmap.closes, 1);
 });
@@ -297,36 +299,89 @@ void test('Texture configuration also supports a caller-owned injected texture',
   assert.equal(disposals, 1);
 });
 
-void test('The shipped 8K night map matches its source manifest and texture memory estimate', async () => {
+void test('Regional mapping preserves source texel centers and angular density without a sphere seam', () => {
+  const texture = new THREE.Texture(bitmapFixture());
+  configureEarthTexture(THREE, texture);
+  texture.updateMatrix();
+  const close = (actual, expected) =>
+    assert.ok(Math.abs(actual - expected) < 1e-10, `${actual} != ${expected}`);
+  // Known retained pixels span the European core. Their normalized geographic
+  // UVs must address exactly the corresponding crop pixel centers after flipY.
+  for (const [sourceX, sourceY] of [
+    [3800, 180],
+    [4200, 970],
+    [5200, 2000],
+  ]) {
+    const originalUv = new THREE.Vector2(
+      (sourceX + 0.5) / 8192,
+      1 - (sourceY + 0.5) / 4096,
+    );
+    const mapped = texture.transformUv(originalUv.clone());
+    close(mapped.x * 4096 - 0.5, sourceX - 3712);
+    close((1 - mapped.y) * 3072 - 0.5, sourceY - 128);
+    const nextTexel = texture.transformUv(
+      originalUv.clone().add(new THREE.Vector2(1 / 8192, 1 / 4096)),
+    );
+    close((nextTexel.x - mapped.x) * 4096, 1);
+    close((nextTexel.y - mapped.y) * 3072, 1);
+    for (const revolution of [0.5, 1, 2]) {
+      const repeated = texture.transformUv(
+        originalUv.clone().add(new THREE.Vector2(revolution, 0)),
+      );
+      close(repeated.x, mapped.x);
+      close(repeated.y, mapped.y);
+    }
+  }
+  assert.equal(EARTH_SOURCE_WIDTH, 8192);
+  assert.equal(EARTH_SOURCE_HEIGHT, 4096);
+  assert.equal(
+    Number.isInteger(texture.repeat.x),
+    true,
+    'Whole-number repeats join on the sphere longitude seam',
+  );
+  disposeEarthTexture(texture);
+});
+
+void test('The shipped regional night map matches its manifest and texture memory estimate', async () => {
   const asset = await fs.readFile(
-    new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url),
+    new URL('../../public/textures/earth-europe-loop.webp', import.meta.url),
   );
   const manifest = JSON.parse(
     await fs.readFile(
-      new URL(
-        '../../public/textures/earth-black-marble-8k.json',
-        import.meta.url,
-      ),
+      new URL('../../public/textures/earth-europe-loop.json', import.meta.url),
       'utf8',
     ),
   );
   const metadata = await sharp(asset).metadata();
-  assert.equal(metadata.width, 8192);
-  assert.equal(metadata.height, 4096);
+  assert.equal(metadata.width, 4096);
+  assert.equal(metadata.height, 3072);
   assert.equal(manifest.width, metadata.width);
   assert.equal(manifest.height, metadata.height);
   assert.equal(manifest.encodedBytes, asset.length);
-  assert.equal(asset.length, 2329878);
   assert.equal(
     manifest.sha256,
     createHash('sha256').update(asset).digest('hex'),
   );
   assert.equal(manifest.asset, EARTH_TEXTURE_ASSET);
-  assert.equal(manifest.source.width, 13500);
-  assert.equal(manifest.source.height, 6750);
+  assert.equal(metadata.format, 'webp');
+  assert.equal(manifest.lossless, true);
   assert.equal(
     manifest.source.sha256,
-    'e915ef2a20d84e2a59e1547d3ad564463ad4bcf22bfa02e0e0b8ed1cd722e9c0',
+    '48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd',
   );
-  assert.equal(manifest.estimatedRgba8WithMipmapsBytes, 178956972);
+  // Independently decoded from the approved 8K JPEG's [3712,128,1536,3072]
+  // rectangle. The bridge may evolve, but the native European detail must not
+  // silently become a resized, recolored or lossy approximation.
+  const core = await sharp(asset)
+    .removeAlpha()
+    .extract({ left: 0, top: 0, width: 1536, height: 3072 })
+    .raw()
+    .toBuffer();
+  const coreSha256 = createHash('sha256').update(core).digest('hex');
+  assert.equal(
+    coreSha256,
+    'b3768ea7969a308f4ae95b79fe95c01691b7829ccc36d360de47e9dec3ce81ae',
+  );
+  assert.equal(manifest.quality.coreSha256, coreSha256);
+  assert.equal(manifest.estimatedRgba8WithMipmapsBytes, 67108860);
 });
