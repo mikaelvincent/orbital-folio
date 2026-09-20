@@ -1,0 +1,209 @@
+{
+  "createdAt": "2026-09-20T05:23:56.776Z",
+  "generatorSha256": "dcbe638ba2d99ea6ea8708a5baffaaa34f1baacc47b32ba5319e53391346c385",
+  "sourceSha256": {
+    "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+    "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+    "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "features/spacecraft/navigation/scene-controls.ts": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+    "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+    "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+    "features/spacecraft/spacecraft-runtime.ts": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+    "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+    "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+  },
+  "assumptions": [
+    "Desktop128x96 sphere; four orientation-resize cross-product samples whose expanded half-space bound exceeds64-row margin.",
+    "Each sample tests neutral plus26 normalized[-1,0,1]^3 translation directions at radius.25 orbitalunits, crossed with neutral plus26 local-camera rotation axes at angle5.5degrees:729 exactfrusta per case.",
+    "This finite perturbation sampling is not an exhaustive optimization or mathematical proof for every point in the bounded neighborhood. Extreme drags are already at configuredlimit; additional rotations may exceed reachable productiondrag.",
+    "No texturedecode/render/GPUtiming."
+  ],
+  "cases": [
+    {
+      "viewport": [
+        2560,
+        600
+      ],
+      "state": "orientation-resize-1/overview-camera-roll-0/drag",
+      "angles": [
+        -0.18,
+        -0.32
+      ],
+      "layoutRollRadians": 1.5707963267948966,
+      "viewportCompositionRadians": 0,
+      "expandedHalfSpaceRows": [
+        469.333251953125,
+        1936.4033468749117
+      ],
+      "exactUnperturbedRows": [
+        563.6915922362064,
+        1443.0538159259854
+      ],
+      "perturbedFrusta": 729,
+      "visiblePerturbedFrusta": 729,
+      "exactPerturbedRows": [
+        512,
+        1486.4501782557581
+      ],
+      "textureOverflow": 0,
+      "filteringFailure": 0,
+      "worst": {
+        "translation": [
+          0,
+          0,
+          0.25
+        ],
+        "rotationQuaternion": [
+          -0.02770018541701239,
+          -0.02770018541701239,
+          -0.02770018541701239,
+          0.9988483864849507
+        ],
+        "sourcePixelRows": [
+          597.333251953125,
+          1486.4501782557581
+        ]
+      }
+    },
+    {
+      "viewport": [
+        4096,
+        768
+      ],
+      "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+      "angles": [
+        -0.18,
+        -0.32
+      ],
+      "layoutRollRadians": 1.5707963267948966,
+      "viewportCompositionRadians": 0.39269908169872414,
+      "expandedHalfSpaceRows": [
+        469.333251953125,
+        1875.9225450845702
+      ],
+      "exactUnperturbedRows": [
+        512,
+        1422.9427809460294
+      ],
+      "perturbedFrusta": 729,
+      "visiblePerturbedFrusta": 729,
+      "exactPerturbedRows": [
+        469.333251953125,
+        1462.9882660243898
+      ],
+      "textureOverflow": 0,
+      "filteringFailure": 0,
+      "worst": {
+        "translation": [
+          0,
+          0,
+          0.25
+        ],
+        "rotationQuaternion": [
+          0,
+          -0.04797812852134394,
+          0,
+          0.9988483864849507
+        ],
+        "sourcePixelRows": [
+          512,
+          1462.9882660243898
+        ]
+      }
+    },
+    {
+      "viewport": [
+        4096,
+        768
+      ],
+      "state": "orientation-resize-1/overview-camera-roll-0/drag",
+      "angles": [
+        -0.18,
+        -0.32
+      ],
+      "layoutRollRadians": 1.5707963267948966,
+      "viewportCompositionRadians": 0,
+      "expandedHalfSpaceRows": [
+        469.333251953125,
+        2012.2899742943277
+      ],
+      "exactUnperturbedRows": [
+        564.5532935990709,
+        1467.915313557869
+      ],
+      "perturbedFrusta": 729,
+      "visiblePerturbedFrusta": 729,
+      "exactPerturbedRows": [
+        512,
+        1515.6639022211752
+      ],
+      "textureOverflow": 0,
+      "filteringFailure": 0,
+      "worst": {
+        "translation": [
+          0,
+          0,
+          0.25
+        ],
+        "rotationQuaternion": [
+          -0.02770018541701239,
+          -0.02770018541701239,
+          -0.02770018541701239,
+          0.9988483864849507
+        ],
+        "sourcePixelRows": [
+          597.333251953125,
+          1515.6639022211752
+        ]
+      }
+    },
+    {
+      "viewport": [
+        4096,
+        768
+      ],
+      "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+      "angles": [
+        -0.18,
+        -0.32
+      ],
+      "layoutRollRadians": 1.1780972450961724,
+      "viewportCompositionRadians": 0,
+      "expandedHalfSpaceRows": [
+        469.333251953125,
+        1875.922545084571
+      ],
+      "exactUnperturbedRows": [
+        512,
+        1422.9427809460299
+      ],
+      "perturbedFrusta": 729,
+      "visiblePerturbedFrusta": 729,
+      "exactPerturbedRows": [
+        469.333251953125,
+        1463.034569155173
+      ],
+      "textureOverflow": 0,
+      "filteringFailure": 0,
+      "worst": {
+        "translation": [
+          0,
+          0,
+          0.25
+        ],
+        "rotationQuaternion": [
+          0,
+          -0.04797812852134394,
+          0,
+          0.9988483864849507
+        ],
+        "sourcePixelRows": [
+          512,
+          1463.034569155173
+        ]
+      }
+    }
+  ]
+}

@@ -318,6 +318,9 @@ function computerPose(width, height) {
   };
 }
 const samples = [];
+const hasViewportComposition =
+  typeof environment.setViewportComposition === 'function';
+let compositionClock = 0;
 function footprint(camera) {
   const result = meshUvCoverage(surface, camera);
   const guarded = meshUvCoverage(surface, camera, {
@@ -386,6 +389,11 @@ for (const [width, height] of singleViewport
     : physical.clone();
   if (!createOrbitalWorldReference)
     rig.apply(reference, home.target, home.direction, home.distance, home.roll);
+  let sampledCompositionRadians = null;
+  if (hasViewportComposition) {
+    environment.setViewportComposition(height > width, reference, true);
+    sampledCompositionRadians = home.roll;
+  }
   function sample(name, pose, pitch = 0, yaw = 0, hover = null) {
     const direction = pose.direction
       .clone()
@@ -399,11 +407,13 @@ for (const [width, height] of singleViewport
       pose.distance * (hover ? 0.975 : 1),
       pose.roll,
     );
-    environment.followCamera(physical, reference, pose.roll);
+    if (hasViewportComposition) environment.followCamera(physical, reference);
+    else environment.followCamera(physical, reference, pose.roll);
     samples.push({
       viewport: [width, height],
       verticalFieldOfView: fieldOfView,
       layoutRollRadians: pose.roll,
+      viewportCompositionRadians: sampledCompositionRadians,
       state: name,
       angles: [pitch, yaw],
       camera: {
@@ -492,6 +502,65 @@ for (const [width, height] of singleViewport
       }
     }
   }
+  if (hasViewportComposition) {
+    // Projection changes immediately on resize, while Earth art direction and
+    // camera layout roll ease independently. Cross their fractions rather than
+    // assuming their clocks or damping are coupled. Exercise the public API.
+    const portrait = height > width;
+    const startRoll = portrait ? 0 : Math.PI / 2;
+    const targetRoll = portrait ? Math.PI / 2 : 0;
+    const resizePoses = [
+      ...[0, 0.25, 0.5, 0.75, 1].map((fraction) => ({
+        name: `overview-camera-roll-${fraction}`,
+        pose: {
+          ...home,
+          roll: startRoll + (targetRoll - startRoll) * fraction,
+        },
+        range: CAMERA_RANGES.overview,
+      })),
+      ...['projects', 'experience', 'about', 'contact'].map((room) => ({
+        name: room,
+        pose: roomPose(room, width, height),
+        range: CAMERA_RANGES.room,
+      })),
+      ...['projects', 'experience', 'about'].map((room) => ({
+        name: `${room}-reader`,
+        pose: readerPose(room, width, height),
+        range: { pitch: 0, yaw: 0 },
+      })),
+      {
+        name: 'contact-computer',
+        pose: computerPose(width, height),
+        range: CAMERA_RANGES.computer,
+      },
+    ];
+    for (const fraction of [0, 0.25, 0.5, 0.75, 1]) {
+      environment.setViewportComposition(!portrait, reference, true);
+      if (fraction === 1) {
+        environment.setViewportComposition(portrait, reference, true);
+      } else if (fraction > 0) {
+        environment.setViewportComposition(portrait, reference);
+        compositionClock += -Math.log(1 - fraction) / 8;
+        environment.update(compositionClock, true, 0, 0);
+      }
+      sampledCompositionRadians =
+        startRoll + (targetRoll - startRoll) * fraction;
+      for (const { name, pose, range } of resizePoses) {
+        const label = `orientation-resize-${fraction}/${name}`;
+        sample(`${label}/neutral`, pose);
+        if (range.pitch || range.yaw)
+          for (const pitch of [-1, 1])
+            for (const yaw of [-1, 1])
+              sample(
+                `${label}/drag`,
+                pose,
+                pitch * range.pitch,
+                yaw * range.yaw,
+              );
+      }
+    }
+    environment.setViewportComposition(portrait, reference, true);
+  }
 }
 const visible = samples.filter((sample) => sample.latitude);
 const guarded = samples.map((sample) => sample.guarded).filter(Boolean);
@@ -522,13 +591,18 @@ const report = {
   assumptions: [
     'CPU homogeneous clipping of the actual rendered sphere triangles, including perspective-correct UV extrema at clipped vertices. Double-precision arithmetic; no rendering, image decode or performance claim.',
     'Front-face culling and all six frustum planes are included. Spacecraft/atmosphere/HTML occlusion is ignored, conservatively retaining hidden Earth pixels.',
-    `${createOrbitalWorldReference ? 'Authored world placement with Earth-only responsive layout-roll compensation' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. Each camera sample passes its interpolated layout roll to followCamera. Current-source spacecraft supports, camera-fit helpers, readers and Contact computer provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
+    `${createOrbitalWorldReference ? 'Authored world placement' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. ${hasViewportComposition ? 'The production viewport-composition setter selects a fixed Earth anchor once per viewport, retained through ordinary camera poses. Independent orientation-resize samples use the public setter/update API.' : 'Historical API: each camera sample passes its interpolated layout roll to followCamera; orbital revisions that implement roll compensation consume it, older revisions ignore it.'} Current-source spacecraft supports, camera-fit helpers, readers and Contact computer provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
     'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; reader/Contact bottom132px mobile, otherwise80px. Custom identity/header wrapping and safe areas may change framing.',
-    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact fit:38°vertical landscape,38°minimum horizontal portrait,78°vertical cap. Earth and atmosphere compensate the responsive hull roll only; hover, drag and camera translation retain physical relative motion.',
+    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.',
+    ...(hasViewportComposition
+      ? [
+          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; all rooms, readers and Contact plus drag corners are included. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
+        ]
+      : []),
     '5x5 bounded drag samples and hover extrema. Travel samples eleven interpolants per Home-to-room path, with5x5drag poses. These do not replay actual acceleration-limited springs or every ladder clearance route.',
     'Close readers and Contact computer are included. There is no configured maximum aspect ratio or minimum pixel dimensions;17viewports are an explicit finite audited domain, not a restriction on the application.',
-    'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled layout roll. It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
-    'Scrolling U on a sphere whose only presentation adjustment is the responsive layout roll means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
+    'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
+    'Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
     'Maximum same-latitude span compares visible U coordinates at equal V. A larger global longitude envelope across different latitudes alone does not imply simultaneous duplicated landmarks.',
     'Crop preserves native source texel density. Mipmap construction and footprint filtering differ after cropping; row margins do not prove pixel identity at every coarse mip level. Actual-resolution image and seam checks remain necessary.',
   ],

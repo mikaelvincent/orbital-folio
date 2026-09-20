@@ -407,7 +407,7 @@ void test('The opening waits for image readiness and respects the global active 
   assert.equal(starClock(env), 16);
 });
 
-void test('Layout roll keeps Earth below-left without cancelling physical sky or camera motion', async (t) => {
+void test('Portrait composition stays fixed while both directions of camera navigation move Earth on screen', async (t) => {
   const env = createOrbitalEnvironment(THREE, () => {}, {
     earthTexture: textureFixture(),
   });
@@ -415,104 +415,152 @@ void test('Layout roll keeps Earth below-left without cancelling physical sky or
   await env.ready;
   const reference = createOrbitalWorldReference(THREE);
   const camera = reference.clone();
-  const resources = resourcesOf(env.scene);
   const surface = surfaceOf(env);
+  const atmosphere = env.scene.getObjectByName('night-earth-atmosphere');
+  const resources = resourcesOf(env.scene);
   const textureVersion = surface.material.map.version;
+  const axis = new THREE.Vector3(0, 0, 1);
   env.setEarthPlayback({ type: 'seek', time: 73 });
   const phase = surface.material.map.offset.toArray();
-  // Geography projections below inspect the mesh, independent of elapsed UV time.
-  const geography = () => {
-    env.scene.updateMatrixWorld(true);
-    return [
-      [12, 48],
-      [-5, 38],
-      [35, 55],
-    ].map(([longitude, latitude]) => {
-      const phi = THREE.MathUtils.degToRad(latitude);
-      const theta = THREE.MathUtils.degToRad(longitude);
-      return new THREE.Vector3(
-        Math.cos(phi) * Math.cos(theta),
-        Math.sin(phi),
-        -Math.cos(phi) * Math.sin(theta),
-      )
-        .applyMatrix4(surface.matrixWorld)
-        .project(env.camera);
-    });
-  };
-  const originalPosition = camera.position.clone();
-  const originalQuaternion = camera.quaternion.clone();
+  let clock = 0;
   for (const [width, height] of [
     [1280, 720],
     [390, 844],
     [768, 1024],
     [1080, 1920],
   ]) {
+    const portrait = height > width;
     camera.aspect = width / height;
     camera.fov = responsiveCameraFov(camera.aspect);
     camera.updateProjectionMatrix();
     env.resize(width, height, 2, camera.fov);
-    let stationaryProjection;
-    for (const moved of [false, true]) {
-      camera.position.copy(originalPosition);
-      camera.quaternion.copy(originalQuaternion);
-      if (moved) {
-        camera.position.add(new THREE.Vector3(3, -2, 4));
-        camera.rotateY(0.08);
-      }
+    env.setViewportComposition(portrait, reference, true);
+    env.scene.updateMatrixWorld(true);
+    const earthMatrix = surface.matrixWorld.toArray();
+    const atmosphereMatrix = atmosphere.matrixWorld.toArray();
+    const latitude = THREE.MathUtils.degToRad(48),
+      longitude = THREE.MathUtils.degToRad(12);
+    const landmark = new THREE.Vector3(
+      Math.cos(latitude) * Math.cos(longitude),
+      Math.sin(latitude),
+      -Math.cos(latitude) * Math.sin(longitude),
+    ).applyMatrix4(surface.matrixWorld);
+    const projections = [];
+    const rolls = portrait
+      ? [Math.PI / 2, 1.2, 0.8, 0.4, 0, 0.4, 0.8, 1.2, Math.PI / 2]
+      : [0, 0.4, 0];
+    for (const [index, roll] of rolls.entries()) {
+      const rotation = new THREE.Quaternion().setFromAxisAngle(axis, -roll);
+      camera.position.copy(reference.position).applyQuaternion(rotation);
+      camera.quaternion.copy(reference.quaternion).premultiply(rotation);
       camera.updateMatrixWorld(true);
-      const unrolledPosition = camera.position.clone();
-      const unrolledQuaternion = camera.quaternion.clone();
-      env.followCamera(camera, reference, 0);
-      const unrolled = geography();
-      const physicalCamera = env.camera.matrixWorld.clone();
-      if (!moved) {
-        stationaryProjection = unrolled[0].clone();
-        assert.ok(unrolled[0].x < 0 && unrolled[0].x > -1);
-        assert.ok(unrolled[0].y < 0 && unrolled[0].y > -1);
-      }
-      for (const roll of [0.01, Math.PI / 4, Math.PI / 2, Math.PI / 3, 0]) {
-        const rotation = new THREE.Quaternion().setFromAxisAngle(
-          new THREE.Vector3(0, 0, 1),
-          -roll,
-        );
-        camera.position.copy(unrolledPosition).applyQuaternion(rotation);
-        camera.quaternion.copy(unrolledQuaternion).premultiply(rotation);
-        camera.updateMatrixWorld(true);
-        env.followCamera(camera, reference, roll);
-        const rolled = geography();
-        rolled.forEach((point, i) =>
-          assert.ok(
-            point.distanceTo(unrolled[i]) < 1e-8,
-            `Layout roll ${roll} preserves Earth projection at ${width}×${height}`,
-          ),
-        );
-        assert.deepEqual(
-          surface.material.map.offset.toArray(),
-          phase,
-          'No texture phase reset',
-        );
-        assert.deepEqual(
-          resourcesOf(env.scene),
-          resources,
-          'No new render resources',
-        );
-        assert.equal(
-          surface.material.map.version,
-          textureVersion,
-          'No texture upload',
-        );
-        if (roll > 0)
-          assert.notDeepEqual(
-            env.camera.matrixWorld.toArray(),
-            physicalCamera.toArray(),
-            'Stars and meteors still see the real rolled camera',
-          );
-      }
-      if (moved)
+      env.followCamera(camera, reference);
+      env.update(++clock, true, 0, 0);
+      // Same-orientation observer notifications cannot restart or retarget Earth.
+      env.setViewportComposition(portrait, reference);
+      env.scene.updateMatrixWorld(true);
+      assert.deepEqual(
+        surface.matrixWorld.toArray(),
+        earthMatrix,
+        'Navigation leaves Earth fixed in world space',
+      );
+      assert.deepEqual(
+        atmosphere.matrixWorld.toArray(),
+        atmosphereMatrix,
+        'Atmosphere shares fixed placement',
+      );
+      const expectedView = reference.matrixWorld
+        .clone()
+        .invert()
+        .multiply(camera.matrixWorld);
+      const expectedPosition = new THREE.Vector3(),
+        expectedQuaternion = new THREE.Quaternion();
+      expectedView.decompose(
+        expectedPosition,
+        expectedQuaternion,
+        new THREE.Vector3(),
+      );
+      expectedPosition.multiplyScalar(1 / 32);
+      assert.ok(env.camera.position.distanceTo(expectedPosition) < 1e-8);
+      assert.ok(
+        env.camera.quaternion.angleTo(expectedQuaternion) < 1e-7,
+        'Earth and sky use the same physical camera',
+      );
+      const screen = landmark.clone().project(env.camera);
+      projections.push(screen);
+      if (index === 0)
         assert.ok(
-          unrolled[0].distanceTo(stationaryProjection) > 0.05,
-          'Actual camera translation and yaw still change the Earth view',
+          screen.x > -1 && screen.x < 0 && screen.y > -1 && screen.y < 0,
+          'Approved opening remains below-left in overview',
         );
+      assert.deepEqual(
+        surface.material.map.offset.toArray(),
+        phase,
+        'Navigation never seeks the texture',
+      );
     }
+    assert.ok(
+      projections[0].distanceTo(projections[Math.floor(rolls.length / 2)]) >
+        0.1,
+      'Earth must visibly respond to camera rotation, not stay pinned',
+    );
+    assert.ok(
+      projections[0].distanceTo(projections.at(-1)) < 1e-8,
+      'Round trip returns to the original view',
+    );
+    assert.deepEqual(resourcesOf(env.scene), resources);
+    assert.equal(surface.material.map.version, textureVersion);
   }
+});
+
+void test('Only viewport orientation retargets Earth; resizing eases independently and reduced motion settles immediately', async (t) => {
+  const env = createOrbitalEnvironment(THREE, () => {}, {
+    earthTexture: textureFixture(),
+  });
+  t.after(() => env.dispose());
+  await env.ready;
+  const reference = createOrbitalWorldReference(THREE);
+  const surface = surfaceOf(env);
+  env.scene.updateMatrixWorld(true);
+  const landscape = surface.matrixWorld.toArray();
+  env.setViewportComposition(true, reference, true);
+  env.scene.updateMatrixWorld(true);
+  const portrait = surface.matrixWorld.toArray();
+  assert.equal(
+    env.getDiagnostics().earthCompositionRoll,
+    Math.PI / 2,
+    'Deep-link opening can start in portrait before its flight',
+  );
+  env.setViewportComposition(false, reference);
+  assert.equal(
+    env.getDiagnostics().earthCompositionRoll,
+    Math.PI / 2,
+    'Resize does not jump immediately',
+  );
+  env.update(0.05, true, 0, 0);
+  const intermediate = env.getDiagnostics().earthCompositionRoll;
+  assert.ok(intermediate > 0 && intermediate < Math.PI / 2);
+  env.setViewportComposition(false, reference);
+  assert.equal(
+    env.getDiagnostics().earthCompositionRoll,
+    intermediate,
+    'Same layout does not restart easing',
+  );
+  env.update(2, true, 0, 0);
+  assert.equal(env.getDiagnostics().earthCompositionRoll, 0);
+  env.scene.updateMatrixWorld(true);
+  surface.matrixWorld
+    .toArray()
+    .forEach((value, index) =>
+      close(value, landscape[index], 'Landscape restored without drift'),
+    );
+  env.setViewportComposition(true, reference);
+  env.update(2, false, 0, 0);
+  assert.equal(
+    env.getDiagnostics().earthCompositionRoll,
+    Math.PI / 2,
+    'Reduced motion snaps to the requested composition',
+  );
+  env.scene.updateMatrixWorld(true);
+  assert.deepEqual(surface.matrixWorld.toArray(), portrait);
 });

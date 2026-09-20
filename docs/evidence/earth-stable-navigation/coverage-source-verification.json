@@ -1,0 +1,251 @@
+{
+  "createdAt": "2026-09-20T05:24:18.512Z",
+  "baselineRevision": "e238e60a20ce8c26049ec3cc2370f96daa454ca3",
+  "method": "Current reports compare exact source bytes with the current working tree. Historical quick compares orbital modules with its recorded Git revision and remaining helpers with current source. No metadata hash replacement or equivalence substitution.",
+  "reports": {
+    "desktop": {
+      "reportSha256": "35102808d187acde231cc6ad3a5df20ff0478784639e7deee3f6eb7906fb9db8",
+      "rawSha256": "71b3a29ea069b1de8ea90d8f55844ff4347b49b3c4001dafc0bf689396e5b960",
+      "sources": {
+        "features/orbit/orbital-environment.ts": {
+          "expected": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "checked": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "matches": true
+        },
+        "features/orbit/earth-view-transform.ts": {
+          "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "checked": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "matches": true
+        },
+        "features/orbit/earth-satellite.ts": {
+          "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "checked": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "matches": true
+        },
+        "features/orbit/night-atmosphere.ts": {
+          "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "checked": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "matches": true
+        },
+        "features/spacecraft/navigation/scene-controls.ts": {
+          "expected": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "checked": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "matches": true
+        },
+        "features/spacecraft/navigation/vessel-camera.ts": {
+          "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "checked": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "matches": true
+        },
+        "features/spacecraft/navigation/contact-computer.ts": {
+          "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "checked": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-runtime.ts": {
+          "expected": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "checked": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-model.ts": {
+          "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "checked": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "matches": true
+        },
+        "scripts/benchmarks/earth-visible-coverage.mjs": {
+          "expected": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "checked": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "matches": true
+        },
+        "scripts/benchmarks/mesh-uv-coverage.mjs": {
+          "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "checked": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "matches": true
+        }
+      }
+    },
+    "mobile": {
+      "reportSha256": "5360fc89f29d875e5fefbd2ef747d4050ae69689c4db2c179286c056cfee35f4",
+      "rawSha256": "711e52857644c62693ab157245c7396ca82ad6a72e92c541506ea6f86e3522b7",
+      "sources": {
+        "features/orbit/orbital-environment.ts": {
+          "expected": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "checked": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "matches": true
+        },
+        "features/orbit/earth-view-transform.ts": {
+          "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "checked": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "matches": true
+        },
+        "features/orbit/earth-satellite.ts": {
+          "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "checked": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "matches": true
+        },
+        "features/orbit/night-atmosphere.ts": {
+          "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "checked": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "matches": true
+        },
+        "features/spacecraft/navigation/scene-controls.ts": {
+          "expected": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "checked": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "matches": true
+        },
+        "features/spacecraft/navigation/vessel-camera.ts": {
+          "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "checked": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "matches": true
+        },
+        "features/spacecraft/navigation/contact-computer.ts": {
+          "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "checked": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-runtime.ts": {
+          "expected": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "checked": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-model.ts": {
+          "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "checked": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "matches": true
+        },
+        "scripts/benchmarks/earth-visible-coverage.mjs": {
+          "expected": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "checked": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "matches": true
+        },
+        "scripts/benchmarks/mesh-uv-coverage.mjs": {
+          "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "checked": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "matches": true
+        }
+      }
+    },
+    "portrait-quick": {
+      "reportSha256": "f5a85bb6f8f7667b98cdde01105d3966ad311fd50b744644cb562afcd1f026aa",
+      "rawSha256": "7ded637125e2fb1e9106e925dcd838d0e849093a9750a1084be9bb17bd4c878c",
+      "sources": {
+        "features/orbit/orbital-environment.ts": {
+          "expected": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "checked": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+          "matches": true
+        },
+        "features/orbit/earth-view-transform.ts": {
+          "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "checked": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "matches": true
+        },
+        "features/orbit/earth-satellite.ts": {
+          "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "checked": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "matches": true
+        },
+        "features/orbit/night-atmosphere.ts": {
+          "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "checked": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "matches": true
+        },
+        "features/spacecraft/navigation/scene-controls.ts": {
+          "expected": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "checked": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "matches": true
+        },
+        "features/spacecraft/navigation/vessel-camera.ts": {
+          "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "checked": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "matches": true
+        },
+        "features/spacecraft/navigation/contact-computer.ts": {
+          "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "checked": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-runtime.ts": {
+          "expected": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "checked": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-model.ts": {
+          "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "checked": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "matches": true
+        },
+        "scripts/benchmarks/earth-visible-coverage.mjs": {
+          "expected": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "checked": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "matches": true
+        },
+        "scripts/benchmarks/mesh-uv-coverage.mjs": {
+          "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "checked": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "matches": true
+        }
+      }
+    },
+    "historical-portrait-quick": {
+      "reportSha256": "caaa37a49caa82000c39ce8b8fb22e9a550593bccccb9e6c539090390a40eed5",
+      "rawSha256": "957e08b9dee0a929f0afaa6dd69ddd6d3eccd8b8015b1b7f8d855ab9c7958182",
+      "sources": {
+        "features/orbit/orbital-environment.ts": {
+          "expected": "76af9a6ffb7d05044f2cc51714093a99b8cf39d7e15ad0fe527da14254f869c9",
+          "checked": "76af9a6ffb7d05044f2cc51714093a99b8cf39d7e15ad0fe527da14254f869c9",
+          "matches": true
+        },
+        "features/orbit/earth-view-transform.ts": {
+          "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "checked": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+          "matches": true
+        },
+        "features/orbit/earth-satellite.ts": {
+          "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "checked": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+          "matches": true
+        },
+        "features/orbit/night-atmosphere.ts": {
+          "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "checked": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+          "matches": true
+        },
+        "features/spacecraft/navigation/scene-controls.ts": {
+          "expected": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "checked": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+          "matches": true
+        },
+        "features/spacecraft/navigation/vessel-camera.ts": {
+          "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "checked": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+          "matches": true
+        },
+        "features/spacecraft/navigation/contact-computer.ts": {
+          "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "checked": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-runtime.ts": {
+          "expected": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "checked": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+          "matches": true
+        },
+        "features/spacecraft/spacecraft-model.ts": {
+          "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "checked": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+          "matches": true
+        },
+        "scripts/benchmarks/earth-visible-coverage.mjs": {
+          "expected": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "checked": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+          "matches": true
+        },
+        "scripts/benchmarks/mesh-uv-coverage.mjs": {
+          "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "checked": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+          "matches": true
+        }
+      }
+    }
+  }
+}

@@ -1748,7 +1748,7 @@ export function mountSpacecraftScene({
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
             background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
-            background.followCamera(camera, backgroundReference, roll);
+            background.followCamera(camera, backgroundReference);
           }
           diagnostics?.mark('background-update');
           renderer.info.reset();
@@ -2094,9 +2094,13 @@ export function mountSpacecraftScene({
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
           syncSceneTargets();
-          // Responsive framing moves the camera around the fixed orbital
-          // registration. Earth alone compensates the live layout roll in
-          // followCamera to preserve its requested bottom-left composition.
+          // Choose the Earth composition from viewport orientation only. It
+          // stays fixed while the camera rolls between overview and rooms.
+          background.setViewportComposition(
+            h > w,
+            backgroundReference,
+            !initializedCamera || stop,
+          );
           invalidateShadow('viewport');
           resetDiagnostics('viewport changed');
           if (!initializedCamera) {

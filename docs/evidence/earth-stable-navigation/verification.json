@@ -1,0 +1,46 @@
+{
+  "baseline": "e238e60",
+  "sourceSha256": {
+    "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+    "features/spacecraft/spacecraft-runtime.ts": "870d24a8e618285f722d14859a7203f32b717188e23432d00c6150a82045ce42",
+    "tests/orbit/earth-views.test.mjs": "eefd54fa3fc5bb41db5d0ab2ab7cad9b62edbcdc41aa8978d61cc58b8025fcb2",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "8b20fecf40884425b7baa2e1478ba43b4b93aebc7bdb18ae1bd5f63db39969db",
+    "public/textures/earth-europe-loop.webp": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+  },
+  "checks": {
+    "testsPassed": 345,
+    "testsFailed": 0,
+    "typecheckExit": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "browser": {
+    "engine": "built-in Chromium",
+    "nativeSafariTested": false,
+    "actualSupportedCaptureViewports": [
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "ultrawideRequestedAndDOMViewport": [
+      4096,
+      768
+    ],
+    "ultrawideCaptureLimitations": "Normal capture clipped/scaled; full-page attempted capture duplicated fixed scene/UI strips and was rejected. No valid whole-frame ultrawide visual proof.",
+    "sequentialCapturesPerDirection": 23,
+    "warningOrErrorLogEntries": 0,
+    "tabClosed": true,
+    "viewportReset": true
+  },
+  "localhostHTTPStatus": 200,
+  "performance": "No new timing comparison. Resource inspection and recommendation only; no geometry or asset optimization implemented."
+}

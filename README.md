@@ -10,8 +10,8 @@ Hover adds depth and previews doors, including during travel. Bounded dragging s
 
 The approved Earth composition is **Europe at Night**: 12° longitude, 48° latitude,
 −10° tilt, with apparent motion at **0.0045 rad/s**. Its authored geography stays
-consistent across screen sizes; Earth compensates for the portrait layout roll
-to keep its horizon bottom-left. A **2560×1536 lossless
+consistent across screen sizes; a viewport-selected portrait anchor puts the
+horizon bottom-left in overview and stays fixed during camera navigation. A **2560×1536 lossless
 regional texture** keeps native 8K-source detail in Europe and adds an offline
 AI-authored coastal continuation, repeating every **7 minutes 16 seconds**.
 The temporary **globe button beside diagnostics** opens a seekable timeline,

@@ -233,12 +233,18 @@ original 0.003 rate), after readiness and subject to visibility/reduced motion.
 
 Earth's authored position, radius, geography and spacecraft-world registration
 are fixed. A later owner correction keeps the horizon **bottom-left in vertical
-overview**: Earth and its atmosphere compensate only for the live layout roll,
-around the same physical pivot as the camera. This blends continuously through
-resize and room entry; zero roll restores the original landscape transform.
-Stars and meteors still follow the full physical viewpoint. Hover, drag, room
-travel and texture phase are not cancelled or reset. See the
-[portrait placement evidence](evidence/earth-portrait-placement/README.md).
+overview** using a viewport-selected anchor. That anchor stays fixed during room
+entry and return: Earth, stars and spacecraft respond to the same physical camera.
+Earth may naturally move out of the frame in a room. Only a viewport-orientation
+change eases between the portrait and original landscape anchors; initial setup
+and reduced motion apply the chosen anchor immediately. Same-orientation resize,
+hover, drag and room selection do not retarget Earth or reset its texture phase.
+This supersedes the rejected live-roll compensation in `e238e60`, which kept
+Earth steady while the rest of the world appeared to turn. Its regression test
+encoded the wrong motion rule; the corrected tests assert fixed Earth/atmosphere
+world matrices and moving projections throughout both navigation directions.
+See [stable navigation evidence](evidence/earth-stable-navigation/README.md);
+the [previous review](evidence/earth-portrait-placement/README.md) remains historical.
 Landscape uses 38° vertical FOV; portrait preserves 38° horizontal FOV,
 with a 78° vertical cap for very tall windows. Different responsive camera poses can still reveal
 different Earth pixels; only a same-eye lens/crop comparison shares the identical

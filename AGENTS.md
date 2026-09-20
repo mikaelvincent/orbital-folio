@@ -115,10 +115,13 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   roll **−10°**, with apparent rotation **0.0045 rad/s**. The later consistent-scene
   request supersedes viewport-specific Earth placement/orientation: keep Earth
   fixed in the shared physical world and let camera projection/framing determine
-  its crop. The owner's later portrait correction is a narrow exception: compensate
-  Earth and its atmosphere for the live spacecraft layout roll so the horizon
-  stays bottom-left in vertical overview. Preserve physical hover/drag/travel and
-  sky motion; do not re-aim Europe or register a new orbital world on resize.
+  its crop. The owner's portrait composition exception selects an Earth anchor
+  from viewport orientation, placing its horizon bottom-left in vertical overview.
+  Keep that anchor fixed during room navigation: Earth and stars must respond to
+  the same camera, even when Earth leaves the frame inside a room. Never use the
+  animated navigation roll to cancel Earth's apparent motion. Only an actual
+  viewport-orientation change may ease between composition anchors; preserve
+  geographic phase and the canonical world registration.
 - Production uses a **2560×1536 lossless regional WebP**, with an unchanged
   **1536×1536** European core at original 8K-source pixel density and an offline
   **AI-assisted fictional coastal continuation**. Its **112.5° / 436.332-second**

@@ -1958,6 +1958,10 @@ review limitations and browser checks.
 
 ### Entry 30 follow-up — portrait placement correction, 20 September 2026
 
+**Superseded motion policy:** the subsequent stable-navigation correction below
+replaces the live-roll compensation. Its earlier positive review checked the
+wrong perceptual invariant; retain these results only as historical evidence.
+
 The owner requested the same bottom-left Earth composition with a vertical
 spacecraft. Earth and its atmosphere now compensate only the continuous layout
 roll, around the camera's physical pivot; stars, actual hover/drag/travel and
@@ -1984,6 +1988,51 @@ build. Independent critic: **94/100**, no unresolved blockers; recommendation ke
 Phone/tablet/landscape and Contact transition checks used hidden built-in Chromium,
 not native Safari.
 
+### Entry 30 follow-up — stable Earth during navigation, 20 September 2026
+
+The owner identified that keeping Earth visually steady during portrait
+overview↔room rotation made the spacecraft and stars appear to turn around it.
+Commit `e238e60` had tied Earth placement to the animated camera roll. The
+correction chooses an anchor from viewport orientation only, holds it fixed during
+navigation, and lets Earth and stars respond to the same physical camera.
+Earth remains bottom-left in portrait overview, but may move out of frame in rooms.
+Only an actual viewport-orientation change eases between composition anchors;
+initialization and reduced motion apply the chosen anchor immediately.
+
+No asset, geometry, material or draw-pass change. The texture remains 2,862,376
+bytes and approximately 20 MiB nominal RGBA8+mip storage. Transform updates now
+belong only to viewport composition changes. Changed visible fragment coverage
+prevents inferring equal GPU time from these counts; no new timing, power or
+thermal claim is made. This is a correctness/art correction, not an optimization.
+
+Verification: **345 tests passed**, typecheck, affected lint and production build
+passed. The replacement regression asserts fixed Earth/atmosphere matrices and
+moving projections during both camera-roll directions. Live Chromium sequences
+capture both complete Contact round trips; phone, tablet and landscape were
+checked. Native Safari and a correct whole-frame ultrawide recording were not
+available; clipped/stitched capture attempts are explicitly documented.
+Independent critic: **93/100**, recommendation keep, no unresolved implementation
+blockers; sequential motion evidence and coverage limitations were reviewed.
+
+The new CPU audit includes **57,324 poses** and **5,832 targeted exact-frustum
+perturbations**. Ordinary navigation retains guarded crop margins of about
+85/138 source rows on desktop and 128/138 on compact geometry. All exact resize
+and perturbation samples fit the existing crop. Four deliberately enlarged
+ultrawide resize neighborhoods per mesh exceed the filtering allowance; their
+sufficient bounds are conservative, but that stronger certificate is **not
+claimed**. No guard was reduced to force a pass and the texture is retained.
+[Evidence, raw results and limitations](evidence/earth-stable-navigation/README.md).
+
+The owner's partial-sphere/plane idea was assessed only. The two Earth meshes
+share approximately 0.52 MiB desktop / 0.26 MiB compact geometry arrays, versus
+20 MiB nominal map storage. Back faces/offscreen regions are not fully shaded,
+although geometry processing remains. Mesh trimming alone does not shrink the
+already regional 2560×1536 map or reduce the pixels visible on screen. Further
+texture reduction needs proof that content is unused across the corrected
+navigation and full loop. A bounded exact partial-mesh benchmark is a low-priority
+held candidate, with no promised speedup or download saving. A flat-card rewrite
+is not recommended without evidence of preserved perspective and a net gain.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
@@ -2007,6 +2056,7 @@ The reflection environment is also prepared once at scene setup and reused. Room
 | 3 · audited, baseline retained | Compare the existing cached shadow map with a developer-baked static representation | Entry 21 proves native-depth transport on the tested engine but finds no steady sampling reduction, added delivery/upload cost and incorrect shadows through portrait roll. Timing rankings were rejected for drift. | Keep the source-identified lab, exact/stale-map image pairs and excluded runs. Revisit only with evidence for net startup benefit, exact validity/fallback and cross-engine rendering fidelity; no production bake is enabled. |
 | 4 · audited, baseline retention approved | Baked static contact shading and bounded live-zone hybrid in Projects | The owner approved retaining GTAO after entry 22: the bake and subdivision visibly alter shading, add 313,812 receiver triangles and require an additional asset. The hybrid improves moving contacts locally without matching the baseline. | Preserve source-matched subdivision controls, B/C image pairs, restored-A checks, rejected runs and qualified timing. Any future adoption requires acceptable art, a repeatable net benefit and renewed approval. |
 | 5 · audited, baseline retained | Fitted environment-illumination probe on static Projects materials | Entry 23 compares replacing the shared irradiance lookup against changing only its diffuse contribution. Neither adds geometry or a texture; both visibly approximate existing lighting. Held-out error is about 5.3%; rested GPU controls fail the stability gate. Retain current illumination. | Source-matched GPU fit validation, dim/hover/selected/transit and portrait-roll checks, preserved material/reflection behavior, exact restoration, preparation costs and rested timing. A visible prototype must be accepted before production integration. |
+| 6 · proposed, held | Exact visible-region Earth mesh and texture coverage | A partial mesh may save vertex work; it does not automatically shrink the existing regional texture or visible fragment work. Low priority; no measured gain. | Independent surface/atmosphere visibility envelopes across navigation, drag and resize; exact retained UV/detail and limb checks; rested matched timing. Further texture cropping needs its own proof. No flat-card replacement or implementation authorized. |
 
 Three.js exposes separate light-map and AO-map inputs; preparing suitable UV coordinates and texture/color-space handling is part of the asset work. A baked AO map is **not an exact substitute** for this application's existing screen-space multiply/composite, so passing a static screenshot check is insufficient. Keep any proposed dynamic shadow layer separate in the comparison: doors currently rely on the AO silhouette rather than casting into the key map, and adding their live cast shadows would introduce new appearance and cost. [Three.js material inputs](https://github.com/mrdoob/three.js/blob/r185/src/materials/MeshStandardMaterial.js), [GTAO implementation](https://github.com/mrdoob/three.js/blob/r185/examples/jsm/postprocessing/GTAOPass.js).
 

@@ -1,0 +1,98 @@
+{
+  "reason": "Full-page capture duplicated fixed canvas/UI in stitched strips; invalid whole-frame visual evidence. One representative retained; redundant failed frames removed.",
+  "requestedViewport": [
+    4096,
+    768
+  ],
+  "domViewport": [
+    4096,
+    768
+  ],
+  "canvasBuffer": [
+    4096,
+    768
+  ],
+  "devicePixelRatio": 1,
+  "files": [
+    {
+      "file": "resize-full/00-before.jpg",
+      "sha256": "2593f320b39802b7882449864e51f3e17bf2bfce24a36a77db545dfad2f575f3",
+      "bytes": 37812
+    },
+    {
+      "file": "resize-full/01.jpg",
+      "sha256": "60688c272bc2f9702ae3dbc7cd57b518be07c2665ce0fcf0c9c35d84b6ce4098",
+      "bytes": 119440
+    },
+    {
+      "file": "resize-full/02.jpg",
+      "sha256": "4738dff816eec51c4b23c78d6e1b9acfa615d2f381f517dd11f47a7f88beb72a",
+      "bytes": 95489
+    },
+    {
+      "file": "resize-full/03.jpg",
+      "sha256": "594ee97e1ec8b19ffd0c9c6dd6b8ac950bf9685181a03f63b2eb54fc3563e025",
+      "bytes": 95584
+    },
+    {
+      "file": "resize-full/04.jpg",
+      "sha256": "4dfbf7ef8cca017c9340e726db49447e6a135e7197801a9a0c0961144ca9f0e8",
+      "bytes": 95403
+    },
+    {
+      "file": "resize-full/05.jpg",
+      "sha256": "13c596907c9fcf4d2b37d9ebf3c76dad36b3e5f9929b7d5e0a8172da86f56b41",
+      "bytes": 95619
+    },
+    {
+      "file": "resize-full/06.jpg",
+      "sha256": "ee7119e3aeedfbae2eac97f9c4e15db230ab842363c5992bb0a61ff0dc9932e8",
+      "bytes": 95872
+    },
+    {
+      "file": "resize-full/07.jpg",
+      "sha256": "4ff94bf5b3dac26a5b4d0ee5a2004d770bd6cdce30af4405f27faf4dae1c6fe0",
+      "bytes": 95801
+    },
+    {
+      "file": "resize-full/08.jpg",
+      "sha256": "6efad4accb8752246b74674f49155ca66955b456355fc67de393d7f48458bfb5",
+      "bytes": 95681
+    },
+    {
+      "file": "resize-full/09.jpg",
+      "sha256": "ec1c3a7cd3a01016dff1c8e4fe8f34dca5eda942d7bc4c02043f2dc125313c4f",
+      "bytes": 95676
+    },
+    {
+      "file": "resize-full/10.jpg",
+      "sha256": "60a1c49d6ca9ba64bb47c85775c95bff3273c53a7ca2add1f48f70948170313c",
+      "bytes": 95668
+    },
+    {
+      "file": "resize-full/11.jpg",
+      "sha256": "11e6d6e94b5d1381031e95cfceadfed32667fcc16be40b0f161fc9dd469acf3d",
+      "bytes": 95346
+    },
+    {
+      "file": "resize-full/12.jpg",
+      "sha256": "15940120bc448e3660b41d46d34aa51b885b3e50caade6caec3821935dbcd923",
+      "bytes": 95630
+    },
+    {
+      "file": "resize-full/13.jpg",
+      "sha256": "e494cc65881b67917b02bd057187fd1948c447a546b8037249f063ad36d70606",
+      "bytes": 95690
+    },
+    {
+      "file": "resize-full/14.jpg",
+      "sha256": "105263025c21be8e2372796f503964c3af2149f9f34226585dad791ae298cb60",
+      "bytes": 95936
+    },
+    {
+      "file": "resize-full/timing.json",
+      "sha256": "ba02e839f0755e8db63054b0cafd3b078fef432dd24072d75628fd359a788905",
+      "bytes": 565
+    }
+  ]
+}

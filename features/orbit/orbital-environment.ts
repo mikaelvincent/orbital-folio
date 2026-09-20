@@ -430,7 +430,27 @@ export function createOrbitalEnvironment(
   const earthWorldReference = new THREE.Matrix4();
   const earthPresentationTransform = new THREE.Matrix4();
   const layoutRotation = new THREE.Matrix4();
-  let earthLayoutRoll = 0;
+  let earthCompositionRoll = 0;
+  let earthCompositionTarget = 0;
+  // Recompute from the authored transform only during viewport-orientation
+  // changes. Camera navigation cannot mutate this placement.
+  function presentEarth(angle: number) {
+    if (angle === earthCompositionRoll) return;
+    earthCompositionRoll = angle;
+    if (angle === 0) earthPresentationTransform.copy(authoredEarthTransform);
+    else
+      earthPresentationTransform
+        .copy(earthWorldReference)
+        .invert()
+        .multiply(layoutRotation.makeRotationZ(-angle))
+        .multiply(earthWorldReference)
+        .multiply(authoredEarthTransform);
+    earthPresentationTransform.decompose(
+      earth.position,
+      earth.quaternion,
+      earth.scale,
+    );
+  }
   const sphereGeometry = new THREE.SphereGeometry(
     1,
     mobile ? 96 : 128,
@@ -621,38 +641,24 @@ export function createOrbitalEnvironment(
         );
       }
     },
+    /** Art direction belongs to viewport layout, never to a room flight. */
+    setViewportComposition(
+      portrait: boolean,
+      reference: Three.PerspectiveCamera,
+      immediate = false,
+    ) {
+      if (disposed) return;
+      earthCompositionTarget = portrait ? Math.PI / 2 : 0;
+      earthWorldReference.copy(reference.matrixWorld);
+      earthWorldReference.elements[12] /= ORBITAL_WORLD_SCALE;
+      earthWorldReference.elements[13] /= ORBITAL_WORLD_SCALE;
+      earthWorldReference.elements[14] /= ORBITAL_WORLD_SCALE;
+      if (immediate) presentEarth(earthCompositionTarget);
+    },
     followCamera(
       worldCamera: Three.PerspectiveCamera,
       reference: Three.PerspectiveCamera,
-      layoutRoll = 0,
     ) {
-      // Keep the authored bottom-left horizon during the responsive hull roll.
-      // This narrow art-direction exception moves Earth and its atmosphere only:
-      // hover, drag, camera translation and the surrounding sky stay physical.
-      // Conjugating the world roll into orbital coordinates preserves the same
-      // pivot as the vessel camera, including the reference's translation.
-      if (earthLayoutRoll !== layoutRoll) {
-        earthLayoutRoll = layoutRoll;
-        if (layoutRoll === 0)
-          earthPresentationTransform.copy(authoredEarthTransform);
-        else {
-          earthWorldReference.copy(reference.matrixWorld);
-          earthWorldReference.elements[12] /= ORBITAL_WORLD_SCALE;
-          earthWorldReference.elements[13] /= ORBITAL_WORLD_SCALE;
-          earthWorldReference.elements[14] /= ORBITAL_WORLD_SCALE;
-          earthPresentationTransform
-            .copy(earthWorldReference)
-            .invert()
-            .multiply(layoutRotation.makeRotationZ(-layoutRoll))
-            .multiply(earthWorldReference)
-            .multiply(authoredEarthTransform);
-        }
-        earthPresentationTransform.decompose(
-          earth.position,
-          earth.quaternion,
-          earth.scale,
-        );
-      }
       if (camera.fov !== worldCamera.fov) {
         camera.fov = worldCamera.fov;
         camera.updateProjectionMatrix();
@@ -683,6 +689,16 @@ export function createOrbitalEnvironment(
       if (!followsWorldCamera) camera.position.set(x * 0.4, y * 0.4, 0);
       if (moving && Number.isFinite(time)) activeTime = Math.max(0, time);
       const elapsedDelta = Math.max(0, activeTime - previousEarthTime);
+      if (earthCompositionRoll !== earthCompositionTarget) {
+        const remaining =
+          (earthCompositionTarget - earthCompositionRoll) *
+          Math.exp(-8 * elapsedDelta);
+        presentEarth(
+          !moving || Math.abs(remaining) < 0.00001
+            ? earthCompositionTarget
+            : earthCompositionTarget - remaining,
+        );
+      }
       if (moving && earthStatus.ready && earthPlaying && elapsedDelta > 0) {
         openingElapsed += elapsedDelta * earthPlaybackSpeed;
         earthSeekAtEnd = false;
@@ -790,7 +806,8 @@ export function createOrbitalEnvironment(
           (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2),
         earthMeshRotation: surface.rotation.y,
         earthMapping: 'fixed-sphere-longitude-scroll',
-        earthLayoutRoll,
+        earthCompositionRoll,
+        earthCompositionTarget,
         earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         earthPlaybackSpeed,
         earthPlaying,
