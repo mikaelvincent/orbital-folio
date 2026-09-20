@@ -2265,6 +2265,35 @@ passed**; typecheck, affected lint and production build pass. Independent critic
 **93/100**, no implementation blockers, recommendation keep. Native Safari
 confirmation and unmeasured compositor cost remain limitations.
 
+### Entry 34 follow-up — full-glass wallpaper and list refinement, 20 September 2026
+
+Baseline `4370874`. The owner clarified that wallpaper must cover the full monitor,
+including the area outside the HTML app. Projects and Contact now show a shared
+static canvas texture on their complete rounded glass while active, restoring
+idle graphics on close. App wrappers are transparent around their opaque windows.
+Project collections are text-only; detail covers/media remain. Window chrome is
+reduced to left Back/right X, and shared Markdown restores ordered/unordered/
+nested markers and task checkboxes after the global reset.
+
+This authored design introduces one 1024×768 texture, nominally **4 MiB RGBA8
+including mipmaps**, with nominal **3 MiB canvas backing**. These are estimates,
+not measured process/GPU memory. It needs no image download; preparation/upload
+work was not timed. Actual post-batching inventory adds five retained meshes and
+five material instances sharing the texture: **21,676 geometry-array bytes**,
+130 triangles per Projects desktop and 42 for Contact. Only one wallpaper is
+visible when an app is active. Mesh counts do not establish actual draw counts
+or unchanged frame cost. Gallery image removal avoids those DOM image elements;
+no net download, CPU/GPU, FPS, heat or battery saving is claimed.
+
+[Evidence](evidence/projects-desktop-refinements/README.md) preserves final source
+hashes, post-batching inventory, live Chromium desktop/portrait images and a finite
+SSR fixture of the real list renderer/styles in immersive/reading/Studio wrappers.
+The fixture does not certify the entire authenticated editor. No owner records
+were rewritten. No camera/Earth coverage changed; all held candidates remain held.
+Full suite: **396 passed**; typecheck, affected lint and production build pass.
+Independent critic: **95/100**, no unresolved implementation blockers,
+recommendation keep. Native Safari and runtime timing remain untested.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

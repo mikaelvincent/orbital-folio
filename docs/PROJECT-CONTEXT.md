@@ -186,10 +186,17 @@ the real display surface; shrinking physical margins must not shrink readable
 text. The standalone reading collection retains category controls because it
 does not have the room's physical monitors.
 
-The desktop uses a restrained blue folded wallpaper, with an opaque reading
-window. A distinct amber-outlined Back button stays in the detail title bar and
-names the originating collection; compact windows hide the brand text to retain
-Back and X. The footer offers the same return action.
+The desktop uses a restrained blue folded wallpaper on the **entire physical
+monitor glass**, behind the opaque application window. Contact shares this
+wallpaper. It is not restricted to the HTML app rectangle, so portrait framing
+and camera movement cannot reveal bare screen backing. Idle graphics and desktop
+are mutually exclusive; closing restores the idle display.
+
+Project collection cards are text-only; detail covers and story media remain.
+The title bar has only a left-aligned, borderless **Back to projects** action on
+detail and the X at right. Back uses the same hover/focus treatment as X and
+returns to the originating collection with its scroll position; the footer has
+the same action. There is no title-bar brand, folder icon or outlined Back pill.
 
 Native application/reader HTML uses one viewport-relative projective transform
 in `features/spacecraft/projected-surface.ts`, derived from the same camera and
@@ -221,9 +228,11 @@ sample fingerprints; `sample: true` alone is not permission to overwrite an
 owner's edits. It preserves divergent drafts, publication boundaries and other
 content. Fresh seeds contain the story/category text; managed media is populated
 explicitly through the loopback-only tool. GIF is accepted by the normal image
-upload/package paths; executable embeds remain unsupported. Gallery covers retain
-the full image rather than cropping through authored text. See the
-[demo/fit follow-up](evidence/projects-demo-fit/README.md).
+upload/package paths; executable embeds remain unsupported. Covers are now used
+in detail only. Shared Markdown restores ordered, unordered and nested markers
+after the global reset; task lists use one aligned checkbox per item. See the
+[demo/fit follow-up](evidence/projects-demo-fit/README.md) and current
+[desktop/list refinement](evidence/projects-desktop-refinements/README.md).
 
 ## Contact computer and submission boundary
 
@@ -247,7 +256,8 @@ The old deployable Contact tablet is removed; Projects now uses its monitors as 
 Keep bounded hover and drag camera control active while this application is open.
 The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag
 release springs back to hover, and native form interaction never starts a drag.
-A static abstract navy/alloy-blue desktop surrounds the application window.
+A static abstract navy/alloy-blue desktop fills the full monitor glass behind
+the application window, including the space around the compact chooser.
 The neighboring social displays remain independently hoverable and selectable,
 with their amber rims inset on the glass. The already-open main display does not
 advertise another selection. Its complete monitor/support assembly is raised

@@ -1,0 +1,17 @@
+{
+  "baseline": "4370874c7269d1ef97028f33d6b27e1b7351cc93",
+  "sha256": {
+    "features/portfolio/contact-computer-window.css": "422734fedf25b32dfec18ea095dd999cc7a64319ae10df34d6cde909a18cca33",
+    "features/portfolio/project-library-window.css": "e41f1a71e0003cd0d35ed7678408afeaceb1d90de3ec54a64998040704ef3bc0",
+    "features/portfolio/project-library-window.tsx": "eab60d9de8577108d6a7497399b000d9bd1eca6e09845f66cac3736374ce0515",
+    "features/portfolio/project-markdown.css": "bce44a6e894bd36dc38b2bfa2c2598d12f1dcb376acf1ea1a41a219bf812598f",
+    "features/portfolio/project-markdown.tsx": "2ae8c038bdebc7832b8e14196bcad495fe7777a81671fe392eef1c8193f7cc5f",
+    "features/spacecraft/rooms/contact-flight-console.ts": "b81a486601b8335ba8e3087fda6188bc69be607b71f94b45f7d53e958a563475",
+    "features/spacecraft/rooms/projects-payload-module.ts": "83bc48ff12244a90fe204b7711d177d4f7d1af5b6854d39c0b9ffcd395386eb8",
+    "features/spacecraft/rooms/projects-workshop.ts": "a33f080274027603d85f333139bb3c356c968ddc082899671da89b3e0b5d8818",
+    "features/spacecraft/spacecraft-model.ts": "dd29f510ac48640dbbc076a2d83f0306a98ce31ea528cd5c2ea94fa310a21318",
+    "tests/content/project-rendering.test.mjs": "b6897172deb63b4cd260f5b5a014fc78d95ac4fe712523c3f3e31c70ca39c15e",
+    "features/spacecraft/rooms/computer-desktop.ts": "02603b2f8f921b072987acea53262937c5961d9b561ffa6e2af1c03e22b8b9bb",
+    "tests/spacecraft/computer-desktop.test.mjs": "44b6b4ab15aa4be5866be5301cc060888c4abe507dd25979b1dc88f3100400be"
+  }
+}

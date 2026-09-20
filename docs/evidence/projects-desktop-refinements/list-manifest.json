@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-09-20T14:01:07.335Z",
+  "method": "Actual ProjectMarkdown server-rendered through React, actual Tailwind Preflight, all ordinary app globals, current component and Studio styles. Only build-time CSS imports removed. Wrapper layout is a finite fixture, not a screenshot of the live app or CSS3D projection.",
+  "contexts": [
+    "immersive",
+    "reading",
+    "studio"
+  ],
+  "query": "?context=immersive|reading|studio selects one panel; omit for all panels",
+  "hashes": {
+    "node_modules/tailwindcss/preflight.css": "fa2d5ae43ae561061b7ce348b89636dbdc6cd71ab5992d4e1cdd046d0b4f28f9",
+    "app/globals.css": "be2479dac37e242a808007f7ef5e2b6d934460c0e510a019425a9f8d25e2fdfe",
+    "features/portfolio/contact-computer-window.css": "422734fedf25b32dfec18ea095dd999cc7a64319ae10df34d6cde909a18cca33",
+    "features/portfolio/project-library-window.css": "e41f1a71e0003cd0d35ed7678408afeaceb1d90de3ec54a64998040704ef3bc0",
+    "features/studio/project-editor.css": "eb7b72a17baaa227236f1cb48e85960fcaee6f380d5c2aec7639a3e99f3bae9e",
+    "features/portfolio/project-markdown.css": "bce44a6e894bd36dc38b2bfa2c2598d12f1dcb376acf1ea1a41a219bf812598f",
+    "features/portfolio/project-markdown.tsx": "2ae8c038bdebc7832b8e14196bcad495fe7777a81671fe392eef1c8193f7cc5f",
+    "features/portfolio/project-markdown-content.ts": "154fbadf7abcc2514dd3070e60c6f431edade8b689b4fffc69c9263d5c3658bd"
+  }
+}

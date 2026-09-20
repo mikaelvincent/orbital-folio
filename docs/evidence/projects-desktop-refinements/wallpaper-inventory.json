@@ -1,0 +1,78 @@
+{
+  "method": "CPU inventory after createSpacecraft batching; no canvas in Node, so texture bytes below are source-derived estimates, not measured process/GPU memory.",
+  "inventory": [
+    {
+      "display": "all",
+      "meshes": [
+        {
+          "name": "projects-computer-desktop-wallpaper-projects-screen-all",
+          "section": "projects",
+          "material": "computer-desktop-wallpaper-projects-screen-all",
+          "vertices": 132,
+          "triangles": 130,
+          "geometryArrayBytes": 5004
+        }
+      ]
+    },
+    {
+      "display": "systems",
+      "meshes": [
+        {
+          "name": "projects-computer-desktop-wallpaper-projects-screen-systems",
+          "section": "projects",
+          "material": "computer-desktop-wallpaper-projects-screen-systems",
+          "vertices": 132,
+          "triangles": 130,
+          "geometryArrayBytes": 5004
+        }
+      ]
+    },
+    {
+      "display": "interfaces",
+      "meshes": [
+        {
+          "name": "projects-computer-desktop-wallpaper-projects-screen-interfaces",
+          "section": "projects",
+          "material": "computer-desktop-wallpaper-projects-screen-interfaces",
+          "vertices": 132,
+          "triangles": 130,
+          "geometryArrayBytes": 5004
+        }
+      ]
+    },
+    {
+      "display": "experiments",
+      "meshes": [
+        {
+          "name": "projects-computer-desktop-wallpaper-projects-screen-experiments",
+          "section": "projects",
+          "material": "computer-desktop-wallpaper-projects-screen-experiments",
+          "vertices": 132,
+          "triangles": 130,
+          "geometryArrayBytes": 5004
+        }
+      ]
+    },
+    {
+      "display": "contact",
+      "meshes": [
+        {
+          "name": "contact-computer-desktop-wallpaper-contact-computer",
+          "section": "contact",
+          "material": "computer-desktop-wallpaper-contact-computer",
+          "vertices": 44,
+          "triangles": 42,
+          "geometryArrayBytes": 1660
+        }
+      ]
+    }
+  ],
+  "totalRetainedGeometryArrayBytes": 21676,
+  "nominalSharedTexture": {
+    "width": 1024,
+    "height": 768,
+    "rgba8WithMipmapsBytes": 4194304,
+    "canvasRgba8Bytes": 3145728
+  },
+  "timings": null
+}
