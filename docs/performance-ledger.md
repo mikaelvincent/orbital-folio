@@ -2196,6 +2196,44 @@ build pass. Native Safari, real touch and a cross-device video codec matrix were
 not tested. No owner records were rewritten or automatically recategorized.
 Independent critic: **94/100**, no unresolved blockers, recommendation keep.
 
+### Entry 34 follow-up — populated demos and display clearance, 20 September 2026
+
+Baseline `9efe05c`. The owner requested varied demo categories, rich media,
+physical-monitor-only category selection and correct application fit. The nine
+untouched local samples now provide **5 Systems, 3 Interfaces, 1 Experiment**,
+with Markdown, still covers, native video/captions and a finite GIF. A loopback-only
+population tool preserves edited content/private drafts and reruns without
+updates. Fresh seeds contain the story/category text; managed media is populated
+explicitly. Reading view retains its useful category filters.
+
+The HTML anchor now matches real glass depth; the physical application rectangle
+reserves `.01` extra clearance inside each feedback-rim edge. The camera preserves
+portrait text sizing. Complete covers are capped at 180 logical pixels, and narrow
+tables scroll rather than breaking ordinary words. No mesh, material or render
+pass is added. This is design/content work, not an optimization; framing and new
+DOM/media can change rendering cost. No CPU/GPU, FPS, heat or battery improvement
+is claimed, and deferred candidates remain held.
+
+Twelve managed demo assets total **206,539 bytes** (nine WebP covers 143,808 B,
+MP4 48,567 B, GIF 13,917 B, captions 247 B). This is an asset inventory, not measured
+initial transfer, decode/upload time, process/GPU memory or frame cost. The MP4
+plays on user action; the GIF runs 24 frames at 80ms twice, stopping at 3.84s.
+
+[Evidence and review](evidence/projects-demo-fit/README.md) preserve final source
+hashes, valid/rejected browser captures, clearance rays and raw crop-coverage data.
+All 1,440 monitor-perimeter rays are clear across four screens and five viewports.
+All 17,680 finite Earth poses retain the 64-row filtering allowance (minimum 84.594
+rows) and 115.3125° seam clearance. Those aggregate bounds match the prior recorded
+Entry 34 audit; its baseline was not freshly rerun. These checks do not certify
+every interruption/resize trajectory or native HTML/WebGL compositing state.
+
+Verification: **390 tests passed**; final focused regressions, typecheck, affected
+lint and production build pass. Hidden Chromium checked desktop, phone, tablet
+and a 990×1298 viewport; the last capture is bottom-cropped by the browser tool,
+and malformed full-page/clip captures were rejected. Native Safari and a full
+video codec matrix were not tested. Independent critic: **95/100**, no unresolved
+findings, recommendation keep.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

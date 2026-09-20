@@ -1,0 +1,113 @@
+{
+  "createdAt": "2026-09-20T11:25:30.551Z",
+  "baselineRevision": "9efe05c6b59b25a3808b2dd0feca34d4314ec1ca",
+  "scope": "Finite CPU regression of the Projects application relative to real batched monitor geometry. No rendering or performance timing.",
+  "sourceSha256": {
+    "features/spacecraft/navigation/project-application.ts": "a231878d45019176d5c1171abc09e042d867448fc4d73857c05969c647a4db34",
+    "features/spacecraft/rooms/projects-payload-module.ts": "655fe30e4d15d991f44ef26827f363766733f1eeea6ca7862880046b676c4141",
+    "features/spacecraft/rooms/projects-workshop.ts": "155d0a7d981703ab5be0b454f06f22ee568526d4461d5589ef5bf01206f07e8a",
+    "features/spacecraft/spacecraft-model.ts": "bdeadd00db694f767ba768c632d17853cb7a46c0e8d363bc87b0e797215270f4",
+    "features/spacecraft/navigation/scene-controls.ts": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984",
+    "tests/spacecraft/project-application.test.mjs": "92524f0b981df589947416cf7c410293a9f46a08e786fdca83c802319151a3ee"
+  },
+  "command": "node --test tests/spacecraft/project-application.test.mjs",
+  "result": {
+    "tests": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "application": {
+    "landscapeLocalSize": [
+      0.95,
+      0.51
+    ],
+    "totalInsetFromGlass": 0.06,
+    "innerHighlightOpening": [
+      0.97,
+      0.53
+    ],
+    "extraClearanceEachEdge": 0.01,
+    "planeZ": 0.111,
+    "planeMatchesRenderedGlass": true
+  },
+  "rayRegression": {
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        990,
+        1187
+      ],
+      [
+        990,
+        1298
+      ],
+      [
+        768,
+        768
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "monitors": [
+      "all",
+      "systems",
+      "interfaces",
+      "experiments"
+    ],
+    "angleCombinationsPerMonitorViewport": 9,
+    "pitchRadians": [
+      -0.04,
+      0,
+      0.04
+    ],
+    "yawRadians": [
+      -0.12,
+      0,
+      0.12
+    ],
+    "perimeterSamplesPerPose": 8,
+    "totalRays": 1440,
+    "blockedRays": 0,
+    "scope": "All four rectangle corners plus edge midpoints; actual front-facing rendered mesh intersections before each application point. Hidden idle content is excluded. Hover rim geometry is included even at zero opacity to reserve the whole feedback footprint."
+  },
+  "readabilityRegression": {
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        360,
+        800
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        932
+      ],
+      [
+        768,
+        1024
+      ]
+    ],
+    "allFourMonitors": true,
+    "minimumProjectedWidthAndHeightToLogicalPixels": 0.98,
+    "spacecraftNearPlane": 0.08,
+    "fitNearMinimum": 0.1,
+    "applicationCornersStayBeyondNearPlaneAtNineAngles": true
+  },
+  "limits": [
+    "Finite viewport, angle and perimeter samples, not a universal proof of all cameras or interrupted trajectories.",
+    "CPU rays do not evaluate AO shadow appearance, native HTML compositing, browser zoom, CSS layout, typography or video rendering. Root visual evidence covers those separately.",
+    "The application is a native HTML layer over WebGL. Keeping it inside the display rim avoids apparent overdraw; this does not introduce depth-tested DOM or new rendering passes."
+  ],
+  "testHarnessFollowup": "Top-level test calls explicitly awaited to satisfy affected-file lint; assertions and production/coverage sources unchanged. Final focused tests rerun after this edit."
+}

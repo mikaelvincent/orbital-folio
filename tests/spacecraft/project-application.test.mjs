@@ -10,7 +10,7 @@ import {
   responsiveCameraFov,
 } from '../../features/spacecraft/navigation/scene-controls.ts';
 
-test('Project screens retain independent real display anchors, inset feedback and reversible application content', () => {
+await test('Project screens retain independent real display anchors, inset feedback and reversible application content', () => {
   const model = createSpacecraft(THREE);
   const screens = model.group.userData.projectScreens;
   assert.deepEqual(
@@ -66,7 +66,7 @@ test('Project screens retain independent real display anchors, inset feedback an
   }
 });
 
-test('Portrait application preserves readable pixels inside the unchanged monitor glass', () => {
+await test('Portrait application preserves readable pixels inside the unchanged monitor glass', () => {
   for (const [w, h] of [
     [390, 844],
     [768, 1024],
@@ -85,7 +85,7 @@ test('Portrait application preserves readable pixels inside the unchanged monito
   }
 });
 
-test('Real portrait monitor projection fills the readable app area without crossing the close camera plane', () => {
+await test('Real portrait monitor projection fills the readable app area without crossing the close camera plane', () => {
   const model = createSpacecraft(THREE);
   for (const [width, height] of [
     [320, 568],
@@ -215,7 +215,111 @@ test('Real portrait monitor projection fills the readable app area without cross
   }
 });
 
-test('Project library links work in public and private preview without changing project detail routes', () => {
+await test('Application edges stay inside the real monitor rim and bezel through responsive hover and drag', () => {
+  const model = createSpacecraft(THREE);
+  const ray = new THREE.Raycaster();
+  for (const [width, height] of [
+    [390, 844],
+    [990, 1187],
+    [990, 1298],
+    [768, 768],
+    [1280, 720],
+  ]) {
+    model.setLayout(width < 700 ? 'compact' : 'wide');
+    const portrait = height > width;
+    const bottom = width < 700 ? 132 : 80;
+    const fov = responsiveCameraFov(width / height);
+    for (const screen of model.group.userData.projectScreens) {
+      model.update(1, 'projects', true, {
+        activeRoom: 'projects',
+        reading: true,
+        projectScreen: screen.category,
+      });
+      model.group.updateMatrixWorld(true);
+      const label = `${screen.category} at ${width}×${height}`;
+      // The static geometry batch replaces the original mesh while retaining
+      // the display group, so inspect the rendered glass rather than its source.
+      const glassCenter = new THREE.Box3()
+        .setFromObject(screen.idleDisplay)
+        .getCenter(new THREE.Vector3());
+      assert.ok(
+        screen.anchor
+          .getWorldPosition(new THREE.Vector3())
+          .distanceTo(glassCenter) < 1e-8,
+        `${label}: HTML must share the display plane instead of floating over its rim`,
+      );
+      const app = projectApplicationLayout(
+        width,
+        height,
+        screen.width,
+        screen.height,
+        bottom,
+      );
+      const corners = [];
+      const perimeter = [];
+      for (const x of [-1, 0, 1])
+        for (const y of [-1, 0, 1]) {
+          if (x === 0 && y === 0) continue;
+          const point = screen.anchor.localToWorld(
+            new THREE.Vector3((x * app.width) / 2, (y * app.height) / 2, 0),
+          );
+          perimeter.push(point);
+          if (x && y) corners.push(point);
+        }
+      const fit = fitPerspectiveFrame(
+        corners.map((point) => point.toArray()),
+        {
+          target: screen.anchor.getWorldPosition(new THREE.Vector3()).toArray(),
+          direction: [0, 0, 1],
+        },
+        fov,
+        width / height,
+        {
+          left: -1 + 32 / width,
+          right: 1 - 32 / width,
+          top: 1 - (2 * (portrait ? 64 : 30)) / height,
+          bottom: -1 + (2 * bottom) / height,
+        },
+        0.1,
+      );
+      const target = new THREE.Vector3(...fit.target);
+      for (const pitch of [-1, 0, 1])
+        for (const yaw of [-1, 0, 1]) {
+          const position = new THREE.Vector3(0, 0, 1)
+            .applyEuler(
+              new THREE.Euler(
+                pitch * CAMERA_RANGES.computer.pitch,
+                yaw * CAMERA_RANGES.computer.yaw,
+                0,
+              ),
+            )
+            .multiplyScalar(fit.distance * (portrait ? 1 : 1.06))
+            .add(target);
+          for (const point of perimeter) {
+            ray.set(position, point.clone().sub(position).normalize());
+            ray.far = point.distanceTo(position) - 1e-6;
+            const blocker = ray
+              .intersectObject(screen.root, true)
+              .find((hit) => {
+                for (let node = hit.object; node; node = node.parent)
+                  if (!node.visible) return false;
+                return true;
+              });
+            // Include the transparent hover rim even at zero opacity: its full
+            // footprint must stay clear when feedback fades in or out. Native
+            // HTML is composited over WebGL and cannot be hidden by that rim.
+            assert.equal(
+              blocker,
+              undefined,
+              `${label}, pitch ${pitch}, yaw ${yaw}: app overlaps ${blocker?.object.name}`,
+            );
+          }
+        }
+    }
+  }
+});
+
+await test('Project library links work in public and private preview without changing project detail routes', () => {
   assert.equal(
     destinationFromURL(new URL('https://example.test/projects?open=1')).open,
     true,

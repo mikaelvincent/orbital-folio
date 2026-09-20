@@ -103,7 +103,6 @@ export function ProjectLibraryWindow({
   data,
   category,
   project,
-  onCategoryChange,
   onProjectSelect,
   onBack,
   onClose,
@@ -111,7 +110,6 @@ export function ProjectLibraryWindow({
   data: Portfolio;
   category: ProjectFilter;
   project?: Record<string, any>;
-  onCategoryChange: (category: ProjectFilter) => void;
   onProjectSelect: (project: Record<string, any>) => void;
   onBack: () => void;
   onClose: () => void;
@@ -172,14 +170,6 @@ export function ProjectLibraryWindow({
             <X size={21} />
           </button>
         </header>
-        <CategoryControls
-          category={category}
-          data={data}
-          onChange={(next) => {
-            remember();
-            onCategoryChange(next);
-          }}
-        />
         <ContactScrollArea
           label="Projects application"
           viewportRef={scroll}
@@ -360,9 +350,9 @@ export function ProjectLibraryWindow({
                   {category !== 'all' && (
                     <button
                       type="button"
-                      onClick={() => onCategoryChange('all')}
+                      onClick={onClose}
                     >
-                      Browse all projects <ArrowUpRight size={16} />
+                      Back to room <ArrowLeft size={16} />
                     </button>
                   )}
                 </div>

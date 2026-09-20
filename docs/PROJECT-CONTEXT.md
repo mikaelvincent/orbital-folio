@@ -165,8 +165,9 @@ The four workshop monitors now open one library application, initialized to
 All projects, Systems, Interfaces or Experiments. They retain their physical
 enclosures and inset amber hover/focus rims. The camera approaches the selected
 glass; landscape shows a two-column collection and portrait crops to a tall,
-readable application region inside the same monitor. Category changes and project
-details inside that window do not initiate camera travel. Selecting another
+readable application region inside the same monitor. Choose the category at the
+physical monitor; the application does not repeat the category switcher. Project
+details and Back inside that window do not initiate camera travel. Selecting another
 visible physical monitor changes the camera anchor. Bounded hover/drag and spring
 return remain available outside the native app controls.
 
@@ -178,6 +179,12 @@ visit. A persistent scrollbar supplements ordinary native scrolling. Public
 previews and semantic reading views remain available. The superseded Projects
 clipboard and old gallery-page transport UI are removed; About and Case studies
 readers are retained.
+
+The HTML application stays within the glass and clear of its inset feedback rim,
+including close portrait and bounded hover/drag views. Its plane is registered to
+the real display surface; shrinking physical margins must not shrink readable
+text. The standalone reading collection retains category controls because it
+does not have the room's physical monitors.
 
 Studio is the primary authoring surface: title, summary and explicit multi-select
 categories, optional cover/role/period/stack/links, followed by a flexible Markdown
@@ -192,6 +199,17 @@ draft and media records; export uses the saved draft. Explicit media publication
 precedes project publication. JSON whole-content portability remains separate.
 See [operations](OPERATIONS.md#authoring-projects) for limits and package syntax,
 and [implementation evidence](evidence/projects-library/README.md) for checks.
+
+The explicit local demo population supplies nine stories across Systems (5),
+Interfaces (3) and Experiments (1), with varied Markdown, still covers, a native
+MP4/captions and a finite animated GIF. It only updates exact known untouched
+sample fingerprints; `sample: true` alone is not permission to overwrite an
+owner's edits. It preserves divergent drafts, publication boundaries and other
+content. Fresh seeds contain the story/category text; managed media is populated
+explicitly through the loopback-only tool. GIF is accepted by the normal image
+upload/package paths; executable embeds remain unsupported. Gallery covers retain
+the full image rather than cropping through authored text. See the
+[demo/fit follow-up](evidence/projects-demo-fit/README.md).
 
 ## Contact computer and submission boundary
 

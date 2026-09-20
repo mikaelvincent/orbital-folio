@@ -201,7 +201,13 @@
 }
 .project-card-cover.has-media {
   display: block;
+  height: auto;
+  max-height: 180px;
+  aspect-ratio: 8 / 5;
   padding: 0;
+}
+.project-card-cover .project-story-media img {
+  object-fit: contain;
 }
 .project-app-card-content {
   padding: 17px 18px;
@@ -445,21 +451,6 @@
   border-radius: 8px;
 }
 @container (max-width: 540px) {
-  .project-category-controls {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 8px 10px;
-    gap: 4px;
-  }
-  .project-category-controls button {
-    justify-content: flex-start;
-    font-size: 12px;
-    min-height: 38px;
-    padding: 6px 9px;
-  }
-  .project-category-controls small {
-    margin-left: auto;
-  }
   .project-window-gallery,
   .project-window-detail {
     padding: 23px 24px 26px 17px;

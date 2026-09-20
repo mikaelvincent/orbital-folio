@@ -86,7 +86,6 @@ export function ImmersivePortfolio({
     { status: 'idle', error: '' },
   );
   const [surface, setSurface] = useState<HTMLDivElement | null>(null);
-  const [projectCategory, setProjectCategory] = useState<ProjectFilter>('all');
   const [projectScreen, setProjectScreen] = useState<ProjectFilter>('all');
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
@@ -473,7 +472,6 @@ export function ImmersivePortfolio({
             projectScreen={projectScreen}
             onOpenProjects={(category) => {
               setProjectScreen(category);
-              setProjectCategory(category);
               const monitorChanged = category !== projectScreen;
               const current = latest.current;
               if (
@@ -528,12 +526,8 @@ export function ImmersivePortfolio({
               <ProjectLibraryWindow
                 key="projects"
                 data={data}
-                category={projectCategory}
+                category={projectScreen}
                 project={project}
-                onCategoryChange={(category) => {
-                  setProjectCategory(category);
-                  if (project) go({ section: 'projects', open: true });
-                }}
                 onProjectSelect={(item) =>
                   go({ section: 'projects', slug: item.slug })
                 }

@@ -82,8 +82,9 @@
 }
 .project-markdown table {
   border-collapse: collapse;
-  min-width: 100%;
+  min-width: max(100%, 30em);
   font-size: 0.9em;
+  overflow-wrap: normal;
 }
 .project-markdown td,
 .project-markdown th {

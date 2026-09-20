@@ -1,4 +1,5 @@
 /* oxlint-disable jsx-a11y/media-has-caption -- The native player renders an authored caption track when the asset has one; silent recordings may omit it. */
+/* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Scrollable tables need native keyboard focus for horizontal navigation. */
 import { createElement, Fragment, type ReactNode } from 'react';
 import type { Token, Tokens } from 'marked';
 import { decodeHTML } from 'entities';
@@ -241,7 +242,13 @@ export function ProjectMarkdown({
           return <hr key={index} />;
         case 'table':
           return (
-            <div key={index} className="project-markdown-table">
+            <div
+              key={index}
+              className="project-markdown-table"
+              role="region"
+              aria-label="Scrollable table"
+              tabIndex={0}
+            >
               <table>
                 <thead>
                   <tr>

@@ -38,7 +38,7 @@ const { ProjectMarkdown, ProjectMedia } = await loadComponent(
 const render = (body, media = []) =>
   renderToStaticMarkup(createElement(ProjectMarkdown, { body, media }));
 
-test('project content accepts only safe navigation and asset URLs', () => {
+await test('project content accepts only safe navigation and asset URLs', () => {
   for (const url of [
     'javascript:alert(1)',
     'data:text/html,<script>x</script>',
@@ -65,7 +65,7 @@ test('project content accepts only safe navigation and asset URLs', () => {
   );
 });
 
-test('raw HTML and unsafe links cannot become executable elements', () => {
+await test('raw HTML and unsafe links cannot become executable elements', () => {
   const markup = render(
     '<script>alert(1)</script>\n\n<img src=x onerror=alert(1)>\n\n[bad](javascript:alert%281%29)\n\n![bad](data:image/svg+xml;base64,AAAA)\n\n**Safe** and [Good](https://example.com).',
   );
@@ -76,7 +76,7 @@ test('raw HTML and unsafe links cannot become executable elements', () => {
   assert.match(markup, /rel="noopener noreferrer"/);
 });
 
-test('story headings stay accessible and receive unique, stable anchors including nested content', () => {
+await test('story headings stay accessible and receive unique, stable anchors including nested content', () => {
   const body =
     '# Overview\n\n## **Decisions**\n\n> ### Nested\n\n## Decisions\n\n```html\n<script>literal</script>\n```';
   const parsed = parseProjectMarkdown(body);
@@ -99,7 +99,7 @@ test('story headings stay accessible and receive unique, stable anchors includin
   );
 });
 
-test('managed video links render accessible native players with published poster/caption references', () => {
+await test('managed video links render accessible native players with published poster/caption references', () => {
   const media = [
     {
       id: 'movie',
@@ -135,13 +135,13 @@ test('managed video links render accessible native players with published poster
   assert.match(compact, /<img src="\/media\/poster"/);
 });
 
-test('unknown media references do not expose unpublished asset metadata', () => {
+await test('unknown media references do not expose unpublished asset metadata', () => {
   const markup = render('[Walkthrough](/media/private-video)', []);
   assert.doesNotMatch(markup, /<video|poster=/);
   assert.match(markup, /href="\/media\/private-video"/);
 });
 
-test('reference-style links and images resolve without displaying their definitions', () => {
+await test('reference-style links and images resolve without displaying their definitions', () => {
   const markup = render(
     '[Read the notes][notes]\n\n![System overview][diagram]\n\n[notes]: https://example.com/notes "Notes title"\n[diagram]: /media/diagram "Diagram title"',
   );
@@ -157,7 +157,7 @@ test('reference-style links and images resolve without displaying their definiti
   assert.doesNotMatch(markup, /\[notes\]:|\[diagram\]:|Notes title/);
 });
 
-test('character references render as text while code and raw HTML remain literal', () => {
+await test('character references render as text while code and raw HTML remain literal', () => {
   const markup = render(
     'Fish &amp; chips &copy; &#x1F680;\n\n`&amp;`\n\n&lt;script&gt;alert(1)&lt;/script&gt;',
   );
@@ -167,8 +167,8 @@ test('character references render as text while code and raw HTML remain literal
   assert.doesNotMatch(markup, /<script>/);
 });
 
-test('library categories rely on explicit authored assignment and keep ordinary project links', async () => {
-  const { ProjectLibraryWindow } = await loadComponent(
+await test('library categories rely on explicit authored assignment and keep ordinary project links', async () => {
+  const { ProjectLibraryWindow, ReadingProjectLibrary } = await loadComponent(
     'features/portfolio/project-library-window.tsx',
   );
   const data = {
@@ -197,7 +197,6 @@ test('library categories rely on explicit authored assignment and keep ordinary 
   const props = {
     data,
     category: 'systems',
-    onCategoryChange() {},
     onProjectSelect() {},
     onBack() {},
     onClose() {},
@@ -209,9 +208,15 @@ test('library categories rely on explicit authored assignment and keep ordinary 
   assert.doesNotMatch(markup, /href="\/projects\/legacy-system"/);
   assert.match(markup, /aria-label="Projects application content"/);
   assert.match(markup, /aria-label="Close Projects application"/);
-  assert.match(markup, /aria-pressed="true"/);
+  assert.doesNotMatch(markup, /aria-label="Project categories"/);
+  assert.doesNotMatch(markup, /aria-pressed=/);
   const all = renderToStaticMarkup(
     createElement(ProjectLibraryWindow, { ...props, category: 'all' }),
   );
   assert.match(all, /href="\/projects\/legacy-system"/);
+  const reading = renderToStaticMarkup(
+    createElement(ReadingProjectLibrary, { data }),
+  );
+  assert.match(reading, /aria-label="Project categories"/);
+  assert.match(reading, /aria-pressed="true"/);
 });

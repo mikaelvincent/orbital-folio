@@ -701,7 +701,7 @@ export function buildProjectPayloadModule(
   idleDisplay.add(screen);
   const anchor = new THREE.Object3D();
   anchor.name = prefix + options.kind + '-application-anchor';
-  anchor.position.z = 0.115;
+  anchor.position.z = screen.position.z;
   anchor.userData = {
     width: sw,
     height: sh,
