@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import { runInNewContext } from 'node:vm';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { seeds } from '../../lib/content/seed.ts';
 import {
   projectContentUrl,
   parseProjectMarkdown,
@@ -219,6 +220,38 @@ await test('task markers preserve checked state and loose paragraphs remain insi
   assert.equal((markup.match(/checked=""/g) || []).length, 1);
 });
 
+await test('shipped Relay tight nested tasks render one checkbox while intentional bracket text stays literal', () => {
+  const relay = seeds.find(
+    (seed) => seed.kind === 'project' && seed.data.slug === 'relay',
+  );
+  const markup = render(relay.data.body);
+  assert.equal((markup.match(/type="checkbox"/g) || []).length, 3);
+  assert.equal((markup.match(/checked=""/g) || []).length, 2);
+  assert.match(
+    markup,
+    /checked=""\/>Describe the duplicate-delivery scenario\.<\/li>/,
+  );
+  assert.match(
+    markup,
+    /checked=""\/>Keep the original failure context\.<\/li>/,
+  );
+  assert.match(
+    markup,
+    /aria-label="Exercise the worker-crash path in a runnable prototype\."\/>Exercise the worker-crash path in a runnable prototype\.<\/li>/,
+  );
+  assert.doesNotMatch(markup, /\[(?:x| )\]/);
+
+  const literal = render(
+    'Outside task metadata, [x] and [ ] are literal text.\n\n- [x] Preserve the literal `[x]` example.',
+  );
+  assert.match(
+    literal,
+    /<p>Outside task metadata, \[x\] and \[ \] are literal text\.<\/p>/,
+  );
+  assert.match(literal, /<code>\[x\]<\/code>/);
+  assert.equal((literal.match(/type="checkbox"/g) || []).length, 1);
+});
+
 await test('library categories rely on explicit authored assignment and keep ordinary project links', async () => {
   const { ProjectLibraryWindow, ReadingProjectLibrary } = await loadComponent(
     'features/portfolio/project-library-window.tsx',
@@ -335,6 +368,8 @@ await test('immersive gallery omits cover assets and placeholders while project 
       new RegExp(`aria-label="Read project: ${project.title}"`),
     );
   assert.doesNotMatch(gallery, /<img\b|<video\b|project-card-cover|\/media\//);
+  assert.match(gallery, /<header\b[^>]*>[\s\S]*?Systems[\s\S]*?<\/header>/);
+  assert.doesNotMatch(gallery, /<footer\b|LIBRARY ONLINE/);
 
   const imageDetail = renderToStaticMarkup(
     createElement(ProjectLibraryWindow, {
@@ -350,6 +385,11 @@ await test('immersive gallery omits cover assets and placeholders while project 
     imageDetail,
     /<button\b[^>]*>(?:(?!<\/button>)[\s\S])*Back to projects<\/button>/,
   );
+  assert.match(
+    imageDetail,
+    /<footer\b[^>]*>[\s\S]*?Illustrated project[\s\S]*?<\/footer>/,
+  );
+  assert.doesNotMatch(imageDetail, /PROJECT OPEN|END OF PROJECT/);
   const videoDetail = renderToStaticMarkup(
     createElement(ProjectLibraryWindow, {
       ...props,

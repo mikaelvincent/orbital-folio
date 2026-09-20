@@ -120,6 +120,7 @@ export function ProjectLibraryWindow({
   const viewKey = project ? `project:${project.id}` : `category:${category}`;
   const projects = filteredProjects(data, category);
   const categoryLabel = filters.find((filter) => filter.id === category)!.label;
+  const CategoryIcon = icons[category];
 
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
@@ -161,7 +162,7 @@ export function ProjectLibraryWindow({
         data-project-interface
       >
         <header className="project-window-bar">
-          {project && (
+          {project ? (
             <button
               type="button"
               className="project-library-back project-window-back"
@@ -170,6 +171,11 @@ export function ProjectLibraryWindow({
               <ArrowLeft size={16} aria-hidden="true" />
               Back to projects
             </button>
+          ) : (
+            <span className="project-window-label">
+              <CategoryIcon size={15} aria-hidden="true" />
+              <span>{categoryLabel}</span>
+            </span>
           )}
           <button
             type="button"
@@ -247,7 +253,6 @@ export function ProjectLibraryWindow({
                   <ArrowLeft size={16} aria-hidden="true" />
                   Back to projects
                 </button>
-                <span>END OF PROJECT</span>
               </footer>
             </div>
           ) : (
@@ -318,10 +323,7 @@ export function ProjectLibraryWindow({
                       : `Projects assigned to ${categoryLabel.toLowerCase()} will appear here.`}
                   </p>
                   {category !== 'all' && (
-                    <button
-                      type="button"
-                      onClick={onClose}
-                    >
+                    <button type="button" onClick={onClose}>
                       Back to room <ArrowLeft size={16} />
                     </button>
                   )}
@@ -330,13 +332,15 @@ export function ProjectLibraryWindow({
             </div>
           )}
         </ContactScrollArea>
-        <footer className="project-window-status">
-          <span>
-            <i aria-hidden="true" />
-            {project ? 'PROJECT OPEN' : 'LIBRARY ONLINE'}
-          </span>
-          <span>{project ? categoryLabel : 'SELECT A PROJECT TO EXPLORE'}</span>
-        </footer>
+        {project && (
+          <footer className="project-window-status">
+            <span>
+              <i aria-hidden="true" />
+              <span className="project-status-title">{project.title}</span>
+            </span>
+            <span>{categoryLabel}</span>
+          </footer>
+        )}
       </article>
     </div>
   );

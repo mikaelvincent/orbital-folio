@@ -73,6 +73,7 @@ export type SpacecraftProject = {
   title: string;
   slug: string;
   category?: string | null;
+  categories?: string[] | null;
   sample?: boolean;
 };
 export type SpacecraftState = {
@@ -1457,7 +1458,7 @@ export function createSpacecraft(
     { box, mesh, cylinder, torus, rod, instances },
     workshop,
     {
-      projectCount: projectData.length,
+      projects: projectData,
       accent: m.amber,
       desktopMaterial: computerDesktopMaterial,
     },
@@ -3490,7 +3491,7 @@ export function createSpacecraft(
   }
   function setProjects(items: SpacecraftProject[]) {
     projectData = items.slice();
-    projectWorkshop.setProjectCount(projectData.length);
+    projectWorkshop.setProjects(projectData);
     return setProjectPage(currentProjectPage);
   }
   function setCaseStudies(items: SpacecraftProject[]) {

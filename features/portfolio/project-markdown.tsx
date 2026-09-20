@@ -155,6 +155,10 @@ export function ProjectMarkdown({
       switch (token.type) {
         case 'space':
         case 'def':
+        // Tight task lists put their checkbox metadata directly in the block
+        // tokens; loose lists put it inside the first paragraph's inline tokens.
+        // Both are rendered once by the parent list item.
+        case 'checkbox':
           return null;
         case 'heading': {
           const heading = headings[headingIndex++];

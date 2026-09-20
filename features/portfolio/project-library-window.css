@@ -51,6 +51,24 @@
   color: #eae7de;
   cursor: pointer;
 }
+.project-window-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding-left: 14px;
+  color: #d3d6cf;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+}
+.project-window-label > svg {
+  flex: 0 0 auto;
+}
+.project-window-label > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .project-window-close:hover,
 .project-library-back:hover {
   color: #ffca79;
@@ -277,9 +295,16 @@
   display: flex;
   align-items: center;
   gap: 7px;
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
 }
+.project-status-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .project-window-status i {
+  flex: 0 0 auto;
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -384,11 +409,6 @@
   border-top: 1px solid #64757c66;
   margin-top: 32px;
   padding-top: 18px;
-}
-.project-detail-footer > span {
-  color: #8fa6b1;
-  font-size: 8px;
-  letter-spacing: 0.12em;
 }
 .project-story-pending {
   color: #a4b8c2;

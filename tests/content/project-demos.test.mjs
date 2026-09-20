@@ -82,6 +82,125 @@ await test('nine authored sample stories exercise uneven categories and rich Mar
   assert.equal(relay.mediaId, 'demo-relay');
 });
 
+await test('browsable demo stories demonstrate varied nested ordered, unordered and task lists', () => {
+  const summaries = {};
+  for (const project of projects) {
+    const summary = {
+      depth: 0,
+      ordered: false,
+      unordered: false,
+      tasks: false,
+    };
+    const inspect = (tokens, depth = 0) => {
+      for (const token of tokens) {
+        if (token.type === 'list') {
+          summary.depth = Math.max(summary.depth, depth + 1);
+          if (depth) summary[token.ordered ? 'ordered' : 'unordered'] = true;
+          for (const item of token.items) {
+            summary.tasks ||= !!item.task;
+            inspect(item.tokens, depth + 1);
+          }
+        } else if (token.tokens) inspect(token.tokens, depth);
+      }
+    };
+    inspect(marked.lexer(project.data.body));
+    summaries[project.data.slug] = summary;
+  }
+  assert.deepEqual(summaries.relay, {
+    depth: 3,
+    ordered: true,
+    unordered: true,
+    tasks: true,
+  });
+  assert.deepEqual(summaries.fieldnotes, {
+    depth: 3,
+    ordered: true,
+    unordered: true,
+    tasks: false,
+  });
+  assert.deepEqual(summaries.meter, {
+    depth: 2,
+    ordered: false,
+    unordered: true,
+    tasks: false,
+  });
+  for (const slug of ['beacon', 'parcel', 'tempo', 'ledger', 'harbor', 'atlas'])
+    assert.equal(summaries[slug].depth, 1, slug + ' keeps its shorter example');
+});
+
+await test('previous rich demo migration requires exact content and verified media IDs', async () => {
+  // Frozen authored v1 content is a migration input, not a rendering fallback.
+  const previous = JSON.parse(
+    await readFile(
+      new URL('./fixtures/project-demo-relay-v1.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const relay = projects.find((project) => project.data.slug === 'relay');
+  const localIds = Object.fromEntries(
+    manifest.assets.map((asset, i) => [asset.key, 'verified-local-' + i]),
+  );
+  const populated = {
+    ...previous.populated,
+    mediaId: localIds.relay,
+    body: previous.populated.body.replace(
+      /\/media\/demo-([a-zA-Z0-9_-]+)/g,
+      (_, key) => '/media/' + localIds[key],
+    ),
+  };
+  for (const input of [previous.seed, populated]) {
+    const current = record(relay, input);
+    const before = canonical(current);
+    const plan = samplePopulationPlan([current], [relay], localIds);
+    assert.equal(plan.update.length, 1);
+    assert.equal(plan.update[0].unchanged, false);
+    assert.equal(plan.update[0].data.mediaId, localIds.relay);
+    assert.match(plan.update[0].data.body, /   - \[x\]/);
+    assert.equal(
+      canonical(current),
+      before,
+      'migration planning stays read-only',
+    );
+  }
+  const unverified = samplePopulationPlan(
+    [record(relay, populated)],
+    [relay],
+    {},
+  );
+  assert.equal(
+    unverified.update.length,
+    0,
+    'unrecognized media IDs must not be trusted',
+  );
+  for (const edit of [
+    { ...populated, body: populated.body + '\nOwner-authored notes.' },
+    { ...populated, title: 'My own Relay study' },
+    { ...populated, mediaId: localIds.fieldnotes },
+  ]) {
+    const plan = samplePopulationPlan([record(relay, edit)], [relay], localIds);
+    assert.equal(
+      plan.update.length,
+      0,
+      'published owner edits must be retained',
+    );
+  }
+  const privateDraft = record(relay, populated);
+  privateDraft.draft = {
+    ...populated,
+    body: populated.body + '\nPrivate draft.',
+  };
+  assert.equal(
+    samplePopulationPlan([privateDraft], [relay], localIds).update.length,
+    0,
+  );
+  const unpublished = record(relay, populated);
+  unpublished.published = null;
+  assert.equal(
+    samplePopulationPlan([unpublished], [relay], localIds).update.length,
+    0,
+  );
+});
+
 await test('local population preserves owner edits, divergent drafts, unpublished content and is a no-op after an exact run', () => {
   const fresh = projects.map((s) => record(s));
   assert.equal(samplePopulationPlan(fresh, seeds, ids).update.length, 9);
