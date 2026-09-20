@@ -1,0 +1,335 @@
+{
+  "createdAt": "2026-09-20T08:37:30.230Z",
+  "method": "CPU audit of actual sphere triangle/frustum coverage. Final-source 390x844 and 768x1024 fixtures, both production meshes; includes settled overview/rooms/readers/Contact, signed drag and hover, production direct flights and independent orientation-resize compositions. Crop source rows 384..1920, safe interval 448..1856 after a 64-row filtering allowance. Exact footprints and sufficient 5.5-degree / 0.25-unit neighborhood bounds are reported separately. CPU jobs ran concurrently with verification; no timing or performance inference. Finite fixtures do not prove all viewports, histories, incoming velocities or resize interruptions. Historical 17-viewport results are not rerun or relabeled.",
+  "totalScenarios": 22040,
+  "runs": [
+    {
+      "name": "phone-desktop",
+      "report": "coverage-phone-desktop.json",
+      "raw": "coverage-phone-desktop-poses.json.gz",
+      "reportSha256": "cc0e76b4a60defa9baf86cb7de008a4184dad7144ac94c443fe0181c7917404b",
+      "rawSha256": "795dfa9c43fa454d7e21df4003aa44f04805c0f1d4216a8dbdd6b1463dca9c4a",
+      "mesh": "desktop128x96",
+      "viewports": [
+        [
+          390,
+          844
+        ]
+      ],
+      "scenarios": 5510,
+      "sourceSha256": {
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/spacecraft/navigation/scene-controls.ts": "1b5a60a6e108636b127b42c3a418967fed2c5d7f3f39bbb8efa825e9496f0cb6",
+        "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be",
+        "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "scripts/benchmarks/earth-visible-coverage.mjs": "43acec09cfce9a358518ed023561a85785bad4fc53d61c40b9b0fdbb2c7a6070",
+        "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+      },
+      "sourceHashMismatches": [],
+      "rawHashesMatch": true,
+      "groups": {
+        "ordinary": {
+          "samples": 277,
+          "visibleExact": 217,
+          "exactRows": [
+            469.333251953125,
+            1276.4959123333729
+          ],
+          "guardRows": [
+            469.333251953125,
+            1641.3971156698199
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 126.5625,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        },
+        "travel": {
+          "samples": 4968,
+          "visibleExact": 4416,
+          "exactRows": [
+            469.333251953125,
+            1276.3923998885407
+          ],
+          "guardRows": [
+            469.333251953125,
+            1641.2720482609807
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 118.125,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        },
+        "resize": {
+          "samples": 265,
+          "visibleExact": 226,
+          "exactRows": [
+            469.333251953125,
+            1487.4018644222142
+          ],
+          "guardRows": [
+            469.333251953125,
+            1792
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 118.125,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        }
+      }
+    },
+    {
+      "name": "phone-compact",
+      "report": "coverage-phone-compact.json",
+      "raw": "coverage-phone-compact-poses.json.gz",
+      "reportSha256": "19202b9f10644f1b4148955acefa700ff76070bce6deb469b902c1df50988760",
+      "rawSha256": "1b657bfa058cfe0d2226b6d99d6bee244099c26e45a8b805dd12fb03815a29b8",
+      "mesh": "mobile96x64",
+      "viewports": [
+        [
+          390,
+          844
+        ]
+      ],
+      "scenarios": 5510,
+      "sourceSha256": {
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/spacecraft/navigation/scene-controls.ts": "1b5a60a6e108636b127b42c3a418967fed2c5d7f3f39bbb8efa825e9496f0cb6",
+        "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be",
+        "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "scripts/benchmarks/earth-visible-coverage.mjs": "43acec09cfce9a358518ed023561a85785bad4fc53d61c40b9b0fdbb2c7a6070",
+        "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+      },
+      "sourceHashMismatches": [],
+      "rawHashesMatch": true,
+      "groups": {
+        "ordinary": {
+          "samples": 277,
+          "visibleExact": 217,
+          "exactRows": [
+            512,
+            1276.3792732788002
+          ],
+          "guardRows": [
+            512,
+            1641.6808364067952
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 123.75,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        },
+        "travel": {
+          "samples": 4968,
+          "visibleExact": 4416,
+          "exactRows": [
+            512,
+            1276.2712096405617
+          ],
+          "guardRows": [
+            512,
+            1641.558368181114
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 119.999993,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        },
+        "resize": {
+          "samples": 265,
+          "visibleExact": 226,
+          "exactRows": [
+            512,
+            1479.1528988866544
+          ],
+          "guardRows": [
+            512,
+            1792
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 116.250007,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        }
+      }
+    },
+    {
+      "name": "tablet-desktop",
+      "report": "coverage-tablet-desktop.json",
+      "raw": "coverage-tablet-desktop-poses.json.gz",
+      "reportSha256": "fb596223531fcc44c205e78e9b6b645cd303bd8b039446e9775ffdeed81272e0",
+      "rawSha256": "ee138ead9760544831f8562a66dd8ab5769680ef7f358fc5cfcf6bdda497ba72",
+      "mesh": "desktop128x96",
+      "viewports": [
+        [
+          768,
+          1024
+        ]
+      ],
+      "scenarios": 5510,
+      "sourceSha256": {
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/spacecraft/navigation/scene-controls.ts": "1b5a60a6e108636b127b42c3a418967fed2c5d7f3f39bbb8efa825e9496f0cb6",
+        "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be",
+        "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "scripts/benchmarks/earth-visible-coverage.mjs": "43acec09cfce9a358518ed023561a85785bad4fc53d61c40b9b0fdbb2c7a6070",
+        "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+      },
+      "sourceHashMismatches": [],
+      "rawHashesMatch": true,
+      "groups": {
+        "ordinary": {
+          "samples": 277,
+          "visibleExact": 204,
+          "exactRows": [
+            469.333251953125,
+            1231.6323215235889
+          ],
+          "guardRows": [
+            469.333251953125,
+            1605.7520549601181
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 126.5625,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        },
+        "travel": {
+          "samples": 4968,
+          "visibleExact": 4049,
+          "exactRows": [
+            469.333251953125,
+            1231.5849581526
+          ],
+          "guardRows": [
+            469.333251953125,
+            1605.7278872806264
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 120.9375,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        },
+        "resize": {
+          "samples": 265,
+          "visibleExact": 190,
+          "exactRows": [
+            469.333251953125,
+            1378.2014610284164
+          ],
+          "guardRows": [
+            469.333251953125,
+            1730.6901557250653
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 118.125,
+          "minimumGuardedSeamClearanceDegrees": 115.3125
+        }
+      }
+    },
+    {
+      "name": "tablet-compact",
+      "report": "coverage-tablet-compact.json",
+      "raw": "coverage-tablet-compact-poses.json.gz",
+      "reportSha256": "0949d60ddfe83bfdb6dc5bc405a9a972cd0c7e18ad4538452a4e1474c87da797",
+      "rawSha256": "311a7556f46e09a7269e03ffab41a8adfd827a0b887034f7b84f6aff95519555",
+      "mesh": "mobile96x64",
+      "viewports": [
+        [
+          768,
+          1024
+        ]
+      ],
+      "scenarios": 5510,
+      "sourceSha256": {
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/spacecraft/navigation/scene-controls.ts": "1b5a60a6e108636b127b42c3a418967fed2c5d7f3f39bbb8efa825e9496f0cb6",
+        "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be",
+        "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "scripts/benchmarks/earth-visible-coverage.mjs": "43acec09cfce9a358518ed023561a85785bad4fc53d61c40b9b0fdbb2c7a6070",
+        "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+      },
+      "sourceHashMismatches": [],
+      "rawHashesMatch": true,
+      "groups": {
+        "ordinary": {
+          "samples": 277,
+          "visibleExact": 204,
+          "exactRows": [
+            512,
+            1231.6073657414681
+          ],
+          "guardRows": [
+            512,
+            1605.7872342517835
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 123.75,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        },
+        "travel": {
+          "samples": 4968,
+          "visibleExact": 4047,
+          "exactRows": [
+            512,
+            1231.5609343566812
+          ],
+          "guardRows": [
+            512,
+            1605.7650287310826
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 123.75,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        },
+        "resize": {
+          "samples": 265,
+          "visibleExact": 190,
+          "exactRows": [
+            512,
+            1396.2017442600113
+          ],
+          "guardRows": [
+            512,
+            1730.7487093827722
+          ],
+          "exactAllowanceFailures": [],
+          "guardAllowanceFailures": [],
+          "minimumExactSeamClearanceDegrees": 116.250007,
+          "minimumGuardedSeamClearanceDegrees": 116.25000715255737
+        }
+      }
+    }
+  ]
+}

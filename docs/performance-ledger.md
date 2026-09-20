@@ -2134,6 +2134,30 @@ also pass; 16 conservative resize-union neighborhoods per mesh remain inconclusi
 despite safe exact footprints. This is not a universal coverage certificate.
 Independent critic: **94/100**, no unresolved blockers, recommendation keep.
 
+### Entry 33 follow-up — more responsive right-side portrait drag, 20 September 2026
+
+Baseline `610f8bf`. The owner liked the new portrait composition but found the
+rightward drag nearly inert. Its +0.03-radian cap was below the 0.036-radian hover
+range, allowing hover alone to consume the entire allowance. The portrait yaw
+maximum is now **+0.10 radians** (about 4° more travel); −0.40 left limit, ±0.32
+pitch, neutral direction and landscape controls remain. The existing shared-slope
+response stays smooth; changing the right bound also slightly changes intermediate
+leftward sensitivity, while its endpoint is unchanged.
+
+The regression now checks that right drag adds useful motion beyond right hover,
+in addition to containment, roof bias, smooth neutral response and inward flights.
+No assets, passes or runtime algorithms changed. This is a requested design
+adjustment; no performance benefit or identical GPU timing is claimed. Deferred
+optimization candidates remain held. [Follow-up evidence](evidence/portrait-right-drag/README.md)
+records live before/after drag, phone checks, final verification and finite
+source-matched Earth-coverage results. The prior 17-viewport audit remains
+historical, rather than being relabeled as a current full-domain certificate.
+Verification: 354 tests and 11 focused camera tests pass, along with typecheck,
+affected lint and build. All 22,040 sampled phone/tablet Earth poses pass exact
+and guarded filtering allowances on both meshes. Hidden Chromium checks show
+visible rightward travel and smooth spring return; Safari was not tested.
+Independent critic: **95/100**, no blockers, recommendation keep.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

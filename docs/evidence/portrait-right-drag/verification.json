@@ -1,0 +1,43 @@
+{
+  "baseline": "610f8bf",
+  "createdAt": "2026-09-20T08:41:24.940Z",
+  "sourceSha256": {
+    "features/spacecraft/navigation/scene-controls.ts": "1b5a60a6e108636b127b42c3a418967fed2c5d7f3f39bbb8efa825e9496f0cb6",
+    "tests/spacecraft/overview-composition.test.mjs": "f07f28c94a622d947f1811153f541e4ddcb00cfb4718b3f11aa54ae733957b93",
+    "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be"
+  },
+  "artifactSha256": {
+    "tests.log": "a4497b4492cc4fc9634bc1159544b2173402dcb775b139aa1f00e1c9bdeb4e0b",
+    "targeted-tests.log": "02f26893381baf6e0d37f6690d237641e55ea24a0599cad1094b027b88853e8a",
+    "typecheck.log": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+    "lint.log": "9de2f8d8ee1fde617f29b146aaa5066886221504dcfeea160feb44820a8be26f",
+    "build.log": "f6c8bd0ffff3ea70729e758f8f941391ee44c37f34c81f0128fb23bb7cdd377d",
+    "drag-trace.json": "5b366c361c8d5e68546ccea07d2790e2818fd07a3b36b5f939fc709de88ae556",
+    "before/frames.json": "54788b76672c72d1c52e773c75e6c48c4f83296ea33a3881eba8179bdea3b69d",
+    "after/frames.json": "14a9447f8a73ab4a34074a6754817321c89558fbc4b74111f62c912c746ee016",
+    "phone-drag/frames.json": "2a381e15fa0c51cb6ed81a67c6c6d3ce67d577b2e90bbaaa901467a6fb4c81b5"
+  },
+  "checks": {
+    "fullSuite": 354,
+    "focused": 11,
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "exactAndGuardedCoveragePoses": 22040
+  },
+  "browser": "Hidden built-in Chromium; no native Safari",
+  "viewports": [
+    [
+      768,
+      1024
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "dpr": 1,
+  "server": "http://localhost:3000 returned HTTP200",
+  "cleanup": "Review tab closed; viewport override reset",
+  "timing": "No performance benchmark; CPU coverage jobs overlapped tests and live QA"
+}

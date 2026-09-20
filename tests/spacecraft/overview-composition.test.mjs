@@ -235,7 +235,7 @@ test('Portrait overview reveals the ceiling side across tall and nearly square s
   }
 });
 
-test('Portrait drag favors the left physical roof and barely extends the right underside', () => {
+test('Portrait drag favors the left physical roof while allowing a modest right underside view', () => {
   for (const aspect of [0.2, 390 / 844, 768 / 1024, 0.9999]) {
     const range = overviewCameraRange(aspect);
     const base = new THREE.Vector3(
@@ -254,10 +254,10 @@ test('Portrait drag favors the left physical roof and barely extends the right u
     // camera roll that exterior appears at the left edge of the screenshot.
     assert.ok(leftRoof.y > 0.25, `${aspect}: outer left roof stays reachable`);
     assert.ok(
-      rightUnderside.y > -0.15,
+      rightUnderside.y > -0.22,
       `${aspect}: outer right stays restrained`,
     );
-    assert.ok(leftRoof.y > -rightUnderside.y * 2);
+    assert.ok(leftRoof.y > -rightUnderside.y * 1.35);
     assert.ok(physical([0, 0], [0, -1]).x > 0.35);
     assert.ok(physical([0, 0], [0, 1]).x < -0.2);
     assert.ok(physical([0, 0], [0, 0]).y < 0, 'Neutral shows room ceilings');
@@ -268,6 +268,12 @@ test('Portrait drag favors the left physical roof and barely extends the right u
 
 test('Asymmetric drag clamps both ends, preserves neutral hover and includes neutral in fit samples', () => {
   const range = overviewCameraRange(390 / 844);
+  // Hover at the right edge must not consume the drag allowance. A deliberate
+  // drag still reveals more hull instead of feeling like a disabled control.
+  const rightHover = boundedCameraAngles([1, 0], [0, 0], range)[1];
+  const rightHalfDrag = boundedCameraAngles([1, 0], [0.5, 0], range)[1];
+  assert.ok(rightHalfDrag - rightHover > 0.03);
+  assert.ok(rightHalfDrag < range.yaw - 0.005);
   assert.deepEqual(boundedCameraAngles([0, 0], [0, 0], range), [0, 0]);
   const positive = boundedCameraAngles([100, 100], [100, 100], range);
   const negative = boundedCameraAngles([-100, -100], [-100, -100], range);

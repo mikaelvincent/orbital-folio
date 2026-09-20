@@ -32,7 +32,7 @@ export const CAMERA_RANGES = {
   overview: { pitch: 0.18, yaw: 0.32 },
   // After portrait roll, negative yaw looks over the roof at screen-left.
   // Keep the opposite side restrained, matching landscape's roof-biased view.
-  portraitOverview: { pitch: 0.32, yaw: 0.03, minYaw: -0.4 },
+  portraitOverview: { pitch: 0.32, yaw: 0.1, minYaw: -0.4 },
   room: { pitch: 0.12, yaw: 0.22 },
   // A close workstation needs a smaller orbit to keep its glass above the keys.
   computer: { pitch: 0.04, yaw: 0.12 },

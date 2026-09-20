@@ -1,0 +1,19 @@
+✔ Responsive overview keeps the whole spacecraft inside the safe area across the drag and room-hover envelope (221.912167ms)
+✔ Short landscape overviews recover useful vessel size without reducing callout space below42px (34.396708ms)
+✔ Portrait overview reveals the ceiling side across tall and nearly square screens (0.308042ms)
+✔ Portrait drag favors the left physical roof while allowing a modest right underside view (0.707834ms)
+✔ Asymmetric drag clamps both ends, preserves neutral hover and includes neutral in fit samples (1.932791ms)
+✔ Roof-biased drag crosses neutral with continuous velocity and monotonic control (1.382667ms)
+✔ Portrait overview flights preserve endpoints, clamp completion and reverse the same path (7.79ms)
+✔ The camera eases only at the endpoints while advancing and rotating continuously (5.88375ms)
+✔ Portrait entry never retreats, and its eye and complete near plane remain ahead of the actual vessel (185.983792ms)
+✔ An interrupted flight carries its incoming velocity, then rests exactly at its new destination (1.172875ms)
+✔ Entry from the signed portrait drag extremes bakes the displayed angle and still travels only inward (68.428ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3660.397458

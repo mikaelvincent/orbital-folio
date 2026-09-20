@@ -97,12 +97,14 @@ Portrait overview uses the owner's nearly frontal reference orientation:
 `[+0.10, +0.08, 1]` in the virtual frame, with a slight ceiling view. The owner
 clarified that “behind the top ceiling” means the **outer left hull** in this
 orientation, and “behind the bottom floor” means the **outer right hull**.
-Portrait drag therefore uses yaw −0.40…+0.03 radians and pitch ±0.32: more access
-to the left-side roof, restrained access to the right-side underside. A smooth
-asymmetric response retains neutral and blends velocity through the center.
+Portrait drag therefore uses yaw −0.40…+0.10 radians and pitch ±0.32: more access
+to the left-side roof, modest access to the right-side underside. The original
++0.03 right limit felt unresponsive because hover alone could exhaust it; the
+owner requested slightly more travel. A smooth asymmetric response retains neutral and blends velocity through the center.
 The same limits drive input, containment and departure; portrait fit samples are
 denser to cover the larger envelope. Landscape direction, limits and fit density
-remain unchanged. See [reference/drag evidence](evidence/portrait-roof-biased-overview/README.md).
+remain unchanged. See [reference/drag evidence](evidence/portrait-roof-biased-overview/README.md)
+and the [right-drag follow-up](evidence/portrait-right-drag/README.md).
 The orientation boundary already changes overview roll.
 Overview↔room travel interpolates physical world eye and focus directly, with one
 shared ease and no whole-vessel clearance detour. Entry advances inward while
