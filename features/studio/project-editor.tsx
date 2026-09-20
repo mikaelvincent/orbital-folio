@@ -1,0 +1,558 @@
+'use client';
+import { useRef, useState } from 'react';
+import {
+  Eye,
+  FileText,
+  ImagePlus,
+  Monitor,
+  Smartphone,
+  Upload,
+} from 'lucide-react';
+import {
+  PROJECT_CATEGORIES,
+  PROJECT_STORY_TEMPLATE,
+  projectBody,
+  projectCategories,
+  projectSlug,
+} from '@/lib/content/project-content';
+import type { Content } from '@/lib/content/types';
+import {
+  ProjectMarkdown,
+  ProjectMedia,
+} from '@/features/portfolio/project-markdown';
+import {
+  insertProjectMedia,
+  projectUploadError,
+  projectAssetPublication,
+} from './project-editor-helpers';
+import './project-editor.css';
+
+export type ProjectEditorProps = {
+  data: Record<string, any>;
+  records: Content[];
+  busy: boolean;
+  onChange: (data: Record<string, any>) => void;
+  onUpload: (file: File, alt: string) => Promise<Record<string, any> | null>;
+  onPublishAssets: (assets: Content[]) => Promise<void>;
+};
+
+export function ProjectEditor({
+  data,
+  records,
+  busy,
+  onChange,
+  onUpload,
+  onPublishAssets,
+}: ProjectEditorProps) {
+  const [mode, setMode] = useState<'write' | 'preview'>('write');
+  const [frame, setFrame] = useState<'landscape' | 'portrait'>('landscape');
+  const [file, setFile] = useState<File | null>(null);
+  const [alt, setAlt] = useState('');
+  const [mediaId, setMediaId] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const source = useRef<HTMLTextAreaElement>(null);
+  const uploadInput = useRef<HTMLInputElement>(null);
+  const selection = useRef<{ start: number; end: number } | null>(null);
+  const descriptionInput = useRef<HTMLInputElement>(null);
+  const dataRef = useRef(data);
+  dataRef.current = data;
+  const body = projectBody(data);
+  const categories = projectCategories(data);
+  const media: Record<string, any>[] = records
+    .filter((r) => r.kind === 'media')
+    .map((r) => ({ ...r.draft, id: r.id, published: !!r.published }));
+  const visualMedia = media.filter((m) => /^image\/|^video\//.test(m.mime));
+  const cover = media.find((m) => m.id === data.mediaId);
+  const { pending: pendingAssets, error: assetError } = projectAssetPublication(
+    data,
+    records,
+  );
+  const change = (key: string, value: unknown) =>
+    onChange({ ...data, [key]: value });
+  const insert = (item: Record<string, any>) => {
+    const currentBody = projectBody(dataRef.current);
+    const inserted = insertProjectMedia(
+      currentBody,
+      item,
+      selection.current?.start,
+      selection.current?.end,
+    );
+    onChange({ ...dataRef.current, body: inserted.body });
+    selection.current = { start: inserted.caret, end: inserted.caret };
+    setMode('write');
+    requestAnimationFrame(() => {
+      source.current?.focus();
+      source.current?.setSelectionRange(inserted.caret, inserted.caret);
+    });
+  };
+  const receiveFiles = (files: FileList | File[]) => {
+    if (busy || !files.length) return;
+    if (files.length > 1) {
+      setFeedback(
+        'Add one media file at a time so each has its own description.',
+      );
+      return;
+    }
+    const next = files[0];
+    const invalid = projectUploadError(next);
+    if (invalid) {
+      setFeedback(invalid);
+      return;
+    }
+    setFile(next);
+    setFeedback(
+      `${next.name} is ready. Add a description, then choose Upload and insert. Nothing has been uploaded yet.`,
+    );
+    descriptionInput.current?.focus();
+  };
+  const textField = (
+    key: string,
+    label: string,
+    options: { required?: boolean; type?: string; placeholder?: string } = {},
+  ) => (
+    <label className="studio-field" key={key}>
+      {label}
+      <input
+        value={data[key] || ''}
+        onChange={(e) => change(key, e.target.value)}
+        maxLength={20000}
+        {...options}
+      />
+    </label>
+  );
+  return (
+    <fieldset className="project-editor wide-field" disabled={busy}>
+      <legend className="sr-only">Project content</legend>
+      <section
+        className="project-editor-section"
+        aria-labelledby="project-details-heading"
+      >
+        <div className="project-editor-section-heading">
+          <span>01</span>
+          <div>
+            <h3 id="project-details-heading">Project details</h3>
+            <p>The essentials visitors see in the collection.</p>
+          </div>
+        </div>
+        <div className="project-editor-grid">
+          {textField('title', 'Title', {
+            required: true,
+            placeholder: 'Give the project a clear name',
+          })}
+          <label className="studio-field">
+            URL slug
+            <input
+              value={data.slug || ''}
+              placeholder={
+                projectSlug(data.title || '') || 'generated-from-title'
+              }
+              pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+              onChange={(e) => change('slug', e.target.value)}
+              maxLength={100}
+            />
+            <small>
+              Generated from the title when first saved. Later title edits keep
+              this URL.
+            </small>
+          </label>
+          <label className="studio-field wide-field">
+            Short description
+            <textarea
+              value={data.summary || ''}
+              rows={3}
+              required
+              maxLength={20000}
+              placeholder="What is it, who is it for, and why does it matter?"
+              onChange={(e) => change('summary', e.target.value)}
+            />
+          </label>
+          <fieldset className="project-category-field wide-field">
+            <legend>Categories</legend>
+            <p>
+              Choose one or more. Every project appears in All projects
+              automatically.
+            </p>
+            <div className="project-category-options">
+              {PROJECT_CATEGORIES.map((category) => (
+                <label key={category.id}>
+                  <input
+                    type="checkbox"
+                    checked={categories.includes(category.id)}
+                    onChange={(e) =>
+                      change(
+                        'categories',
+                        e.target.checked
+                          ? [...categories, category.id]
+                          : categories.filter((id) => id !== category.id),
+                      )
+                    }
+                  />
+                  <span>{category.label}</span>
+                </label>
+              ))}
+            </div>
+            {!categories.length && (
+              <small>
+                {Array.isArray(data.categories)
+                  ? 'Select at least one category before saving.'
+                  : 'This older project is currently shown in All projects. Add categories when ready.'}
+              </small>
+            )}
+          </fieldset>
+          <label className="studio-field">
+            Cover image <span className="project-optional">Optional</span>
+            <select
+              value={data.mediaId || ''}
+              onChange={(e) => change('mediaId', e.target.value)}
+            >
+              <option value="">No cover image</option>
+              {media
+                .filter((m) => String(m.mime).startsWith('image/'))
+                .map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.title}
+                    {m.published ? '' : ' · draft'}
+                  </option>
+                ))}
+            </select>
+            <small>Upload below to add a new image to this list.</small>
+          </label>
+          {textField('stack', 'Tools / technology · optional', {
+            placeholder: 'React, TypeScript, …',
+          })}
+          {textField('role', 'My role · optional')}
+          {textField('period', 'Time period · optional', {
+            placeholder: '2026 · 6 weeks',
+          })}
+          {textField('demoUrl', 'Live project URL · optional', {
+            type: 'url',
+            placeholder: 'https://',
+          })}
+          {textField('sourceUrl', 'Source repository URL · optional', {
+            type: 'url',
+            placeholder: 'https://',
+          })}
+        </div>
+      </section>
+      <section
+        className="project-editor-section"
+        aria-labelledby="project-story-heading"
+      >
+        <div className="project-editor-section-heading">
+          <span>02</span>
+          <div>
+            <h3 id="project-story-heading">The story</h3>
+            <p>
+              Write or paste Markdown. Use headings, lists, links, images and
+              videos.
+            </p>
+          </div>
+        </div>
+        <div className="project-write-toolbar">
+          <div role="group" aria-label="Story editor mode">
+            <button
+              type="button"
+              aria-pressed={mode === 'write'}
+              onClick={() => setMode('write')}
+            >
+              <FileText size={15} />
+              Write
+            </button>
+            <button
+              type="button"
+              aria-pressed={mode === 'preview'}
+              onClick={() => setMode('preview')}
+            >
+              <Eye size={15} />
+              Preview
+            </button>
+          </div>
+          {!body.trim() && (
+            <button
+              type="button"
+              onClick={() => {
+                change('body', PROJECT_STORY_TEMPLATE);
+                setMode('write');
+              }}
+            >
+              Use section starter
+            </button>
+          )}
+          {mode === 'preview' && (
+            <div role="group" aria-label="Preview orientation">
+              <button
+                type="button"
+                aria-pressed={frame === 'landscape'}
+                onClick={() => setFrame('landscape')}
+              >
+                <Monitor size={15} />
+                Landscape
+              </button>
+              <button
+                type="button"
+                aria-pressed={frame === 'portrait'}
+                onClick={() => setFrame('portrait')}
+              >
+                <Smartphone size={15} />
+                Portrait
+              </button>
+            </div>
+          )}
+        </div>
+        {mode === 'write' ? (
+          <label className="studio-field project-markdown-field">
+            <span className="sr-only">Project Markdown</span>
+            <textarea
+              ref={source}
+              value={body}
+              rows={19}
+              maxLength={100000}
+              spellCheck
+              onSelect={(e) => {
+                selection.current = {
+                  start: e.currentTarget.selectionStart,
+                  end: e.currentTarget.selectionEnd,
+                };
+              }}
+              onDragOver={(event) => {
+                if (event.dataTransfer.types.includes('Files'))
+                  event.preventDefault();
+              }}
+              onDrop={(event) => {
+                if (!event.dataTransfer.files.length) return;
+                event.preventDefault();
+                selection.current = {
+                  start: event.currentTarget.selectionStart,
+                  end: event.currentTarget.selectionEnd,
+                };
+                receiveFiles(event.dataTransfer.files);
+              }}
+              onPaste={(event) => {
+                if (!event.clipboardData.files.length) return;
+                event.preventDefault();
+                selection.current = {
+                  start: event.currentTarget.selectionStart,
+                  end: event.currentTarget.selectionEnd,
+                };
+                receiveFiles(event.clipboardData.files);
+              }}
+              onChange={(e) => change('body', e.target.value)}
+              placeholder="## The idea\n\nTell the story in your own words…"
+            />
+            <small>
+              {body.length.toLocaleString()} / 100,000 characters · HTML is not
+              executed. Drop or paste a media file here to prepare an upload.
+            </small>
+          </label>
+        ) : (
+          <div className={`project-preview-stage is-${frame}`}>
+            <article
+              className="project-preview-document"
+              aria-label={`${frame} project preview`}
+            >
+              <p className="eyebrow">UNSAVED CONTENT PREVIEW</p>
+              <h2>{data.title || 'Untitled project'}</h2>
+              {data.summary && (
+                <p className="project-preview-summary">{data.summary}</p>
+              )}
+              {(data.role || data.period || data.stack) && (
+                <dl className="project-preview-meta">
+                  {[
+                    ['role', 'Role'],
+                    ['period', 'Period'],
+                    ['stack', 'Tools'],
+                  ].map(([key, label]) =>
+                    data[key] ? (
+                      <div key={key}>
+                        <dt>{label}</dt>
+                        <dd>{data[key]}</dd>
+                      </div>
+                    ) : null,
+                  )}
+                </dl>
+              )}
+              {cover && <ProjectMedia item={cover} media={media} />}
+              {body.trim() ? (
+                <ProjectMarkdown body={body} media={media} />
+              ) : (
+                <p>Add your story in Write to preview it here.</p>
+              )}
+            </article>
+            <p className="editor-hint">
+              Content-width preview; use Preview saved draft to check the
+              complete portfolio.
+            </p>
+          </div>
+        )}
+        {typeof data.body !== 'string' && body && (
+          <p className="editor-hint">
+            Your existing sections are included here. Editing the story moves
+            them into one Markdown document without deleting the original
+            fields.
+          </p>
+        )}
+        <details className="project-media-tools" open>
+          <summary>
+            <ImagePlus size={17} />
+            Images and video
+          </summary>
+          <div className="project-media-grid">
+            <div className="project-media-upload">
+              <label className="studio-field">
+                Upload to this project
+                <input
+                  ref={uploadInput}
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,text/vtt,.vtt"
+                  onChange={(e) => {
+                    if (e.target.files?.length) receiveFiles(e.target.files);
+                    else setFile(null);
+                  }}
+                />
+                <small>
+                  Images up to 5 MiB · MP4/WebM up to 12 MiB · VTT captions up
+                  to 256 KiB.
+                </small>
+              </label>
+              {file && <p className="editor-hint">Selected: {file.name}</p>}
+              <label className="studio-field">
+                Description / alternative text
+                <input
+                  ref={descriptionInput}
+                  value={alt}
+                  maxLength={1000}
+                  onChange={(e) => setAlt(e.target.value)}
+                  placeholder="Describe what the media shows"
+                />
+              </label>
+              <button
+                type="button"
+                className="button"
+                disabled={!file || !alt.trim() || busy}
+                onClick={async () => {
+                  if (!file) return;
+                  const invalid = projectUploadError(file);
+                  if (invalid) {
+                    setFeedback(invalid);
+                    return;
+                  }
+                  const uploaded = await onUpload(file, alt.trim());
+                  if (!uploaded) return;
+                  if (uploaded.mime !== 'text/vtt') insert(uploaded);
+                  setFeedback(
+                    uploaded.mime === 'text/vtt'
+                      ? 'Captions uploaded privately. Attach this file to a video in the Media library.'
+                      : 'Uploaded privately and inserted into your story. Save the project draft when ready.',
+                  );
+                  setFile(null);
+                  setAlt('');
+                  if (uploadInput.current) uploadInput.current.value = '';
+                }}
+              >
+                <Upload size={15} />
+                Upload{' '}
+                {file && /\.vtt$/i.test(file.name) ? 'captions' : 'and insert'}
+              </button>
+            </div>
+            <div className="project-media-existing">
+              <label className="studio-field">
+                Use existing media
+                <select
+                  value={mediaId}
+                  onChange={(e) => setMediaId(e.target.value)}
+                >
+                  <option value="">Choose an image or video</option>
+                  {visualMedia.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.title}
+                      {m.published ? '' : ' · draft'}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                className="button"
+                disabled={!mediaId}
+                onClick={() => {
+                  const item = visualMedia.find((m) => m.id === mediaId);
+                  if (item) insert(item);
+                }}
+              >
+                Insert into story
+              </button>
+              <p className="editor-hint">
+                Insertion uses the last cursor position. Manage video posters
+                and captions in the Media library. Media publication is a
+                separate, explicit step.
+              </p>
+            </div>
+          </div>
+          {feedback && (
+            <p className="project-editor-feedback" role="status">
+              {feedback}
+            </p>
+          )}
+        </details>
+      </section>
+      <section
+        className="project-media-publication"
+        aria-label="Project media publication"
+      >
+        <div>
+          <strong>
+            {assetError
+              ? 'Check referenced media'
+              : pendingAssets.length
+                ? `${pendingAssets.length} referenced media item${pendingAssets.length === 1 ? '' : 's'} needs publication`
+                : 'Referenced media is ready'}
+          </strong>
+          <p>
+            {assetError ||
+              (pendingAssets.length
+                ? 'Publishing media makes its files public immediately. Your project remains a draft until you publish it separately.'
+                : 'New uploads remain private until you explicitly publish them.')}
+          </p>
+        </div>
+        {pendingAssets.length > 0 && (
+          <button
+            type="button"
+            className="button"
+            disabled={busy}
+            onClick={() => void onPublishAssets(pendingAssets)}
+          >
+            Publish referenced media
+          </button>
+        )}
+      </section>
+      <details className="project-editor-advanced">
+        <summary>Display order and search settings</summary>
+        <div className="project-editor-grid">
+          <label className="studio-field">
+            Display order
+            <input
+              type="number"
+              step={1}
+              value={data.order || 0}
+              onChange={(e) => change('order', Number(e.target.value))}
+            />
+          </label>
+          <label className="project-sample-setting">
+            <input
+              type="checkbox"
+              checked={!!data.sample}
+              onChange={(e) => change('sample', e.target.checked)}
+            />
+            Sample content metadata
+          </label>
+          {textField('subtitle', 'Subtitle · optional')}
+          {textField('seoTitle', 'Search / social title · optional')}
+          {textField(
+            'seoDescription',
+            'Search / social description · optional',
+          )}
+        </div>
+      </details>
+    </fieldset>
+  );
+}

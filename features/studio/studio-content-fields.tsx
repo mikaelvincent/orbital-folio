@@ -21,18 +21,13 @@ export const templates: Record<string, Record<string, any>> = {
     slug: '',
     subtitle: '',
     summary: '',
-    category: '',
+    categories: [],
+    body: '',
     order: 0,
     sample: true,
     stack: '',
     role: '',
     period: '',
-    problem: '',
-    approach: '',
-    system: '',
-    decisions: '',
-    outcomes: '',
-    next: '',
     demoUrl: '',
     sourceUrl: '',
     mediaId: '',
@@ -68,7 +63,16 @@ export const templates: Record<string, Record<string, any>> = {
     screen: 'auto',
     description: '',
   },
-  media: { title: '', alt: '', url: '', mime: '', size: 0, order: 0 },
+  media: {
+    title: '',
+    alt: '',
+    url: '',
+    mime: '',
+    size: 0,
+    order: 0,
+    posterMediaId: '',
+    captionsMediaId: '',
+  },
 };
 const labels: Record<string, string> = {
   name: 'Owner name',
@@ -88,6 +92,8 @@ const labels: Record<string, string> = {
   alt: 'Image alternative text',
   portraitMediaId: 'Portrait image',
   seoImageId: 'Social preview image (optional)',
+  posterMediaId: 'Video poster image (optional)',
+  captionsMediaId: 'Video captions · WebVTT (optional)',
 };
 const label = (k: string) =>
   labels[k] ||
@@ -150,7 +156,19 @@ export function StudioContentFields({
   records: Content[];
   selected: string;
 }) {
-  const filteredKeys = Object.keys(data)
+  const filteredKeys = [
+    ...new Set([
+      ...Object.keys(data),
+      ...(kind === 'media' && String(data.mime).startsWith('video/')
+        ? ['posterMediaId', 'captionsMediaId']
+        : []),
+    ]),
+  ]
+    .filter(
+      (key) =>
+        !['posterMediaId', 'captionsMediaId'].includes(key) ||
+        String(data.mime).startsWith('video/'),
+    )
     .filter(
       (k) =>
         kind !== 'site' ||
@@ -185,17 +203,33 @@ export function StudioContentFields({
                 <span>{label(key)}</span>
               </label>
             );
-          if (['mediaId', 'portraitMediaId', 'seoImageId'].includes(key))
+          if (
+            [
+              'mediaId',
+              'portraitMediaId',
+              'seoImageId',
+              'posterMediaId',
+              'captionsMediaId',
+            ].includes(key)
+          )
             return (
               <label className="studio-field" key={key}>
                 {label(key)}
                 <NativeSelect
-                  value={value}
+                  value={value || ''}
                   onChange={(e) => setData({ ...data, [key]: e.target.value })}
                 >
-                  <NativeSelectOption value="">No image</NativeSelectOption>
+                  <NativeSelectOption value="">
+                    {key === 'captionsMediaId' ? 'No captions' : 'No image'}
+                  </NativeSelectOption>
                   {records
-                    .filter((r) => r.kind === 'media')
+                    .filter(
+                      (r) =>
+                        r.kind === 'media' &&
+                        (key === 'captionsMediaId'
+                          ? r.draft.mime === 'text/vtt'
+                          : String(r.draft.mime).startsWith('image/')),
+                    )
                     .map((r) => (
                       <NativeSelectOption key={r.id} value={r.id}>
                         {r.draft.title}

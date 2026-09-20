@@ -34,6 +34,11 @@ import { StudioAccess } from './studio-access';
 import { useStudioModelTools } from './studio-model-tools';
 import { socialLinkDraft } from '@/lib/content/social-links';
 import type { Content, Kind } from '@/lib/content/types';
+import { ProjectEditor } from './project-editor';
+import {
+  projectEditorDraft,
+  projectUploadError,
+} from './project-editor-helpers';
 export { SetupForm } from './studio-setup-form';
 
 export function AdminStudio({
@@ -52,6 +57,7 @@ export function AdminStudio({
   const [records, setRecords] = useState(initialRecords);
   const [kind, setKind] = useState<Kind>('site');
   const [selected, setSelected] = useState('site');
+  const [editorReset, setEditorReset] = useState(0);
   const [data, setData] = useState<Record<string, any>>(
     initialRecords.find((r) => r.id === 'site')!.draft,
   );
@@ -85,6 +91,7 @@ export function AdminStudio({
     return () => window.removeEventListener('beforeunload', warn);
   }, [dirty]);
   const canLeave = () => {
+    if (busy) return false;
     if (!dirty) return true;
     setError('Save or discard your unsaved edits before changing records.');
     return false;
@@ -156,6 +163,113 @@ export function AdminStudio({
     [inbox, kind, selected],
   );
   useStudioModelTools({ records, act, setKind, setSelected });
+  const uploadProjectMedia = async (file: File, alt: string) => {
+    const invalid = projectUploadError(file);
+    if (invalid) {
+      setError(invalid);
+      return null;
+    }
+    setBusy(true);
+    setError('');
+    setMessage('');
+    try {
+      const body = new FormData();
+      body.set('file', file);
+      body.set('alt', alt);
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body,
+      });
+      const result = (await response.json()) as any;
+      if (!response.ok)
+        throw new Error(
+          result.error ||
+            'Media upload failed. Your project draft is unchanged.',
+        );
+      const refreshed = await fetch('/api/admin');
+      const all = (await refreshed.json()) as any;
+      if (!refreshed.ok)
+        throw new Error(
+          'Media was uploaded, but the library could not refresh. Save your project and reload the studio before uploading again.',
+        );
+      setRecords(all.records);
+      const uploaded = all.records.find((r: Content) => r.id === result.id);
+      return result.media || { ...uploaded.draft, id: result.id };
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Media upload failed.');
+      return null;
+    } finally {
+      setBusy(false);
+    }
+  };
+  const publishProjectAssets = async (assets: Content[]) => {
+    setBusy(true);
+    setError('');
+    setMessage('');
+    let published = 0;
+    try {
+      for (const asset of assets) {
+        const response = await fetch('/api/admin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'publish',
+            id: asset.id,
+            revision: asset.revision,
+          }),
+        });
+        const result = (await response.json()) as any;
+        if (!response.ok)
+          throw new Error(result.error || 'Media publication failed.');
+        setRecords(result.records);
+        published++;
+      }
+      setMessage(
+        'Referenced media is public. Your project draft and unsaved edits are unchanged; publish the project separately when ready.',
+      );
+    } catch (error) {
+      setError(
+        `${error instanceof Error ? error.message : 'Media publication failed.'}${published ? ` ${published} media item${published === 1 ? ' is' : 's are'} already public.` : ''} Your project edits are preserved.`,
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const importProject = async (file: File) => {
+    if (!canLeave()) return;
+    if (!file.size || file.size > 16 * 1024 * 1024) {
+      setError('Choose a nonempty project ZIP up to 16 MiB.');
+      return;
+    }
+    setBusy(true);
+    setError('');
+    setMessage('');
+    try {
+      const body = new FormData();
+      body.set('file', file);
+      const response = await fetch('/api/admin/projects/import', {
+        method: 'POST',
+        body,
+      });
+      const result = (await response.json()) as any;
+      if (!response.ok)
+        throw new Error(result.error || 'Project import failed.');
+      const imported = result.records.find((r: Content) => r.id === result.id);
+      setRecords(result.records);
+      setKind('project');
+      setSelected(result.id);
+      setData(imported.draft);
+      setMessage(
+        'Project and media imported as private drafts. Review the story, then publish its media and project separately.',
+      );
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'Project import failed.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
   const preview =
     kind === 'project'
       ? '/admin/preview?section=projects&id=' + selected
@@ -287,6 +401,26 @@ export function AdminStudio({
                     Add {names[kind].toLowerCase().replace(/s$/, '')}
                   </button>
                 )}
+                {kind === 'project' && (
+                  <label className="studio-field project-zip-import">
+                    Import project ZIP
+                    <input
+                      type="file"
+                      accept="application/zip,.zip"
+                      disabled={busy}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        e.target.value = '';
+                        if (file) void importProject(file);
+                      }}
+                    />
+                    <small>
+                      One Markdown project with metadata and media. Up to 16 MiB
+                      compressed, 24 MiB expanded, 100 files. Always imported
+                      privately.
+                    </small>
+                  </label>
+                )}
                 <div className="studio-note">
                   <Shield size={17} />
                   <p>
@@ -364,7 +498,7 @@ export function AdminStudio({
                         setSelected(b.id);
                         setData(all.find((r: Content) => r.id === b.id).draft);
                         setMessage(
-                          'Image uploaded as a private draft. Publish it to use it on the public site.',
+                          'Media uploaded as a private draft. Publish it to use it on the public site.',
                         );
                       } catch (e: any) {
                         setError(e.message);
@@ -373,18 +507,19 @@ export function AdminStudio({
                       }
                     }}
                   >
-                    <strong>Upload an image</strong>
+                    <strong>Upload media</strong>
                     <label className="studio-field">
-                      Image file · PNG, JPEG, WebP · max 5 MB
+                      PNG / JPEG / WebP · 5 MiB, MP4 / WebM · 12 MiB, VTT · 256
+                      KiB
                       <input
                         type="file"
                         name="file"
-                        accept="image/png,image/jpeg,image/webp"
+                        accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,text/vtt,.vtt"
                         required
                       />
                     </label>
                     <label className="studio-field">
-                      Alternative text
+                      Description / alternative text
                       <input name="alt" required maxLength={1000} />
                     </label>
                     <button className="button" disabled={busy}>
@@ -400,20 +535,37 @@ export function AdminStudio({
                       action: 'save',
                       id: selected === 'new' ? undefined : selected,
                       kind,
-                      data: kind === 'link' ? socialLinkDraft(data) : data,
+                      data:
+                        kind === 'link'
+                          ? socialLinkDraft(data)
+                          : kind === 'project'
+                            ? projectEditorDraft(data)
+                            : data,
                       revision: current?.revision,
                     });
                   }}
                 >
-                  <StudioContentFields
-                    kind={kind}
-                    data={data}
-                    siteGroup={siteGroup}
-                    search={search}
-                    setData={setData}
-                    records={records}
-                    selected={selected}
-                  />
+                  {kind === 'project' ? (
+                    <ProjectEditor
+                      key={`${selected}:${editorReset}`}
+                      data={data}
+                      records={records}
+                      busy={busy}
+                      onChange={setData}
+                      onUpload={uploadProjectMedia}
+                      onPublishAssets={publishProjectAssets}
+                    />
+                  ) : (
+                    <StudioContentFields
+                      kind={kind}
+                      data={data}
+                      siteGroup={siteGroup}
+                      search={search}
+                      setData={setData}
+                      records={records}
+                      selected={selected}
+                    />
+                  )}
                   <div className="editor-actions">
                     <button
                       className="button amber"
@@ -452,6 +604,19 @@ export function AdminStudio({
                         >
                           Publish
                         </button>
+                        {kind === 'project' && (
+                          <a
+                            className={`button ${dirty || busy ? 'disabled-link' : ''}`}
+                            href={`/api/admin/projects/${encodeURIComponent(selected)}/export`}
+                            aria-disabled={dirty || busy}
+                            onClick={(e) => {
+                              if (dirty || busy) e.preventDefault();
+                            }}
+                          >
+                            <Download size={15} />
+                            Export project ZIP
+                          </a>
+                        )}
                         {current.published && kind !== 'site' && (
                           <button
                             className="quiet-button"
@@ -493,6 +658,7 @@ export function AdminStudio({
                       type="button"
                       className="button"
                       onClick={() => {
+                        setEditorReset((value) => value + 1);
                         setData(
                           current
                             ? { ...current.draft }

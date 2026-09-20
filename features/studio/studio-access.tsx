@@ -25,7 +25,8 @@ export function StudioAccess({
         <p>
           Export all drafts and published snapshots as portable JSON.
           Credentials, access lists, and private messages are excluded. Uploaded
-          image files are backed up separately from object storage.
+          media files are backed up separately from object storage. For one
+          project with its media included, use Export project ZIP in Projects.
         </p>
         <a className="button" href="/api/admin/export">
           <Download size={16} />
