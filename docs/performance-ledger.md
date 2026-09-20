@@ -2035,6 +2035,9 @@ is not recommended without evidence of preserved perspective and a net gain.
 
 ### Entry 31 — continuous portrait overview flights, 20 September 2026
 
+**Superseded by entry 32:** the owner rejected the residual clearance pullback.
+The earlier critic score did not establish user acceptance.
+
 Art/motion baseline change from `f907b7b`, explicitly requested by the owner.
 Portrait overview gains a restrained oblique angle; landscape directions remain
 unchanged. The old three-stage pullback/roll/approach itinerary is replaced by
@@ -2061,6 +2064,43 @@ Existing extreme ultrawide resize sufficient-bound exceptions remain disclosed;
 all exact resize samples and 5,832 additional perturbed frusta fit. Arbitrary
 interrupted-flight coverage and native Safari were not exhaustively tested.
 Independent critic: **94/100**, recommendation keep, no unresolved blockers.
+
+### Entry 32 — ceiling-facing overview and direct inward entry, 20 September 2026
+
+Baseline `9b4ae30`. The owner requested the opposite portrait elevation and **no
+zoom-out during room entry**. The prior curve still targeted widened clearance
+poses. Those controls and their 17-roll support fitting are removed from runtime.
+One ease now advances the physical eye and focus directly toward their endpoint
+while rotating; the hull may crop during travel. Portrait virtual X is reversed
+for every aspect below 1, showing ceilings; landscape direction remains unchanged.
+Displayed hover/drag/dolly are absorbed into departure, and history-interruption
+velocity is transformed into the same world frame.
+
+Live phone baseline eye Z moved from 16.815 to 26.290 before arriving at 7.129.
+Fresh candidate entry from highlighted Contact moved from 16.277 to 7.129 with
+**zero outward depth steps** across 149 recorded frames. Its active authored
+duration is about 3.20 seconds, not a render-performance metric. The different
+hover state means the opening coordinates are not an exact same-input image
+comparison; the retreat versus inward-only behavior is directly observable.
+The first candidate diagnostic export was stale after HMR and was rejected;
+its reason, original data and fresh repeat remain in the evidence.
+
+No asset, geometry, material, render pass, resolution or texture change. Removing
+clearance fitting simplifies navigation setup, but this is an art/motion change
+and no CPU/GPU, frame-rate, heat or battery saving is claimed. Existing AO refresh
+and roll-driven shadow invalidation remain. Deferred optimization candidates stay
+held. [Evidence and verification](evidence/portrait-inward-flight/README.md) include
+fresh live traces, sequences, responsive views, coverage limits and critic review.
+
+Verification: 350 tests passed; final focused tests (7), typecheck, affected lint
+and build passed. Hidden Chromium phone/tablet/landscape views, normal entry,
+return and history reversal were checked. The updated coverage audit includes
+118,508 exact poses, 5,832 targeted resize perturbations and 3,084 recorded
+frame/mesh checks; all exact footprints retain the crop's 64-row allowance.
+Ordinary/new-flight guarded bounds pass. Four pre-existing extreme ultrawide
+resize bounds per mesh remain conservative exceptions, not universally certified
+states. Native Safari and every possible interruption were not tested.
+Independent critic: **93/100**, no unresolved blockers, recommendation keep.
 
 ## Next candidates
 

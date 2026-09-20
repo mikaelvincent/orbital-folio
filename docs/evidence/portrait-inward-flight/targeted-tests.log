@@ -1,0 +1,15 @@
+✔ Responsive overview keeps the whole spacecraft inside the safe area across the drag and room-hover envelope (148.281667ms)
+✔ Short landscape overviews recover useful vessel size without reducing callout space below42px (22.248292ms)
+✔ Portrait overview reveals the ceiling side across tall and nearly square screens (0.227042ms)
+✔ Portrait overview flights preserve endpoints, clamp completion and reverse the same path (3.783667ms)
+✔ The camera eases only at the endpoints while advancing and rotating continuously (2.831ms)
+✔ Portrait entry never retreats, and its eye and complete near plane remain ahead of the actual vessel (98.434ms)
+✔ An interrupted flight carries its incoming velocity, then rests exactly at its new destination (0.941458ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2841.640292

@@ -81,9 +81,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 - Use the shared architectural reference for consistent room scale/perspective.
   Furniture edits must not independently alter a room's camera fit. Frame overview
   responsively while preserving readable labels and the intended silhouette.
-- Portrait overview has a restrained oblique camera angle. Blend overview↔room
-  pullback, roll and approach into one continuous flight; clearance controls must
-  not become intermediate stops. Preserve velocity when history interrupts travel.
+- Portrait overview reveals room ceilings, not floors. Overview→room travel
+  moves directly inward while rolling; do not pull back or preserve whole-hull
+  framing during travel. Hull cropping is intentional. Fold the displayed hover/
+  drag/dolly into departure and preserve momentum when history interrupts travel.
 - Direct room URLs begin at overview and use the ordinary room-entry transition.
   Preserve reading-view, reduced-motion, keyboard/focus and history behavior.
 - Drag release springs smoothly back to hover control without snapping or

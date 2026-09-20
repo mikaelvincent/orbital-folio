@@ -93,13 +93,19 @@ view essentially unchanged. The annotation-only virtual frame preserves portrait
 ordering. Light/reflection transforms compensate for the old vessel roll; a
 stationary hull therefore does not imply all lighting is invariant or bakeable.
 
-Portrait overview now uses a mildly stronger oblique camera direction (approximately
-`[-0.22, 0.22, 1]` on phone/tablet), fading to the previous direction near square;
-landscape directions remain unchanged. Overview↔room roll follows one eased cubic
-flight with clearance controls, overlapping pullback, rotation and approach.
-Those controls are not stopping destinations. Browser-history interruption carries
-incoming velocity through a short decaying tangent; ordinary room routes retain
-their springs and door interlocks. See [continuous portrait flight evidence](evidence/portrait-continuous-flight/README.md).
+Portrait overview reverses its elevation to reveal ceilings (approximately
+`[+0.22, +0.22, 1]` in the virtual frame on phone/tablet). All portrait aspect
+ratios use positive virtual X, including nearly square layouts; landscape
+angles remain unchanged. The orientation boundary already changes overview roll.
+Overview↔room travel interpolates physical world eye and focus directly, with one
+shared ease and no whole-vessel clearance detour. Entry advances inward while
+rolling; cropping the hull during travel is intentional. The displayed hover,
+drag and dolly are folded into departure so returning them to neutral cannot
+cause a small initial retreat. History interruptions preserve physical momentum.
+Ordinary cabin springs, room fits, lens and door interlocks remain unchanged.
+See [direct inward flight evidence](evidence/portrait-inward-flight/README.md).
+The previous clearance curve in ledger entry 31 and its evidence remains historical; the owner
+rejected its residual pullback despite its earlier positive critic score.
 
 Direct room URLs begin at overview and animate inward using normal room entry.
 Keep the shared architectural fit independent of furniture extents. Hover adds

@@ -1,0 +1,139 @@
+{
+  "createdAt": "2026-09-20T07:16:33.039Z",
+  "generatorSha256": "70b021fa3fe626c7684471f9c7f3308f1d5833d0567b19d0b9a20fd97ee0bc45",
+  "sourceSha256": {
+    "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+    "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+    "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "features/spacecraft/navigation/scene-controls.ts": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+    "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+    "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+    "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+    "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+    "features/spacecraft/spacecraft-runtime.ts": "032c8f0bedfe460d1b31f1ef72262f2a2522e8cfef90baa2113e0603e6ffbeb2",
+    "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+    "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+  },
+  "traces": {
+    "entry-trace.json": {
+      "sha256": "f52a0c712a1801be7a2b860fcb85a332e4c9697a454d893d671337dac0004cc2",
+      "frames": 149
+    },
+    "return-trace.json": {
+      "sha256": "2a1b09db237418d926da6ede106bcd4715805cacbb9a891a98b846f0d8d9cefe",
+      "frames": 193
+    },
+    "history-trace.json": {
+      "sha256": "f304c6e3d092dc5b99d8fb276a9b353f7e08b560fb5f85b1c6ea40b8905998de",
+      "frames": 1200
+    }
+  },
+  "assumptions": [
+    "Parent task captured these final built-in Chromium traces at actual 390x844 CSS pixels, DPR1, with a settled portrait Earth composition anchor. Replay uses recorded background camera transforms directly; no inferred camera path.",
+    "Entry and return are full final normal Contact transitions; history is the retained 1200-frame window including a Back interruption. This is finite evidence for those exact recorded frames, not every interruption or browser.",
+    "Both production sphere meshes are audited against the recorded cameras. This does not mean the browser rendered both meshes or that Safari was tested.",
+    "Exact triangle clipping plus unchanged 0.25-unit/5.5-degree local bounds; ship/atmosphere/HTML occlusion omitted conservatively. Same-latitude longitude sweep omitted because this supplemental check certifies crop rows and geometric seam only.",
+    "No texture decode, image comparison or performance timing. Main reports retain full fixture coverage and the known resize guard exceptions."
+  ],
+  "summary": [
+    {
+      "mesh": "desktop",
+      "trace": "entry-trace.json",
+      "frames": 149,
+      "exactSourceRows": [
+        469.333251953125,
+        1231.6227815017041
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        1596.5729192122458
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 118.125
+    },
+    {
+      "mesh": "desktop",
+      "trace": "return-trace.json",
+      "frames": 193,
+      "exactSourceRows": [
+        469.333251953125,
+        1231.6920666143033
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        1596.6448190552846
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 118.125
+    },
+    {
+      "mesh": "desktop",
+      "trace": "history-trace.json",
+      "frames": 1200,
+      "exactSourceRows": [
+        512,
+        1231.6920666143033
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        1596.6448190552846
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 123.75
+    },
+    {
+      "mesh": "mobile",
+      "trace": "entry-trace.json",
+      "frames": 149,
+      "exactSourceRows": [
+        512,
+        1231.656742988726
+      ],
+      "guardedSourceRows": [
+        512,
+        1596.6864622528483
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 116.25000715255737
+    },
+    {
+      "mesh": "mobile",
+      "trace": "return-trace.json",
+      "frames": 193,
+      "exactSourceRows": [
+        512,
+        1231.7257382761836
+      ],
+      "guardedSourceRows": [
+        512,
+        1596.7583695852454
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 116.25000715255737
+    },
+    {
+      "mesh": "mobile",
+      "trace": "history-trace.json",
+      "frames": 1200,
+      "exactSourceRows": [
+        512,
+        1231.7257382761836
+      ],
+      "guardedSourceRows": [
+        512,
+        1596.7583695852454
+      ],
+      "exact64RowMarginFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedSeamClearanceDegrees": 123.75
+    }
+  ],
+  "rawSamples": "coverage-live-traces-rows.json.gz"
+}

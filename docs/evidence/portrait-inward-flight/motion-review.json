@@ -1,0 +1,80 @@
+{
+  "before-entry": {
+    "frames": 224,
+    "activeSeconds": 3.7332999999999945,
+    "firstZ": 16.81492421286756,
+    "maximumZ": 26.290443832757475,
+    "lastZ": 7.128602380952107,
+    "positiveDepthSteps": 103,
+    "totalPositiveDepth": 9.475716773593408,
+    "fixedVessel": true,
+    "settled": true
+  },
+  "entry": {
+    "frames": 149,
+    "activeSeconds": 3.2007999999999854,
+    "firstZ": 16.277487874929882,
+    "maximumZ": 16.277487874929882,
+    "lastZ": 7.128602380954846,
+    "positiveDepthSteps": 0,
+    "totalPositiveDepth": 0,
+    "fixedVessel": true,
+    "settled": true
+  },
+  "return": {
+    "frames": 193,
+    "activeSeconds": 3.216600000000003,
+    "firstZ": 7.128615632501446,
+    "maximumZ": 16.69564573904515,
+    "lastZ": 16.69564573904515,
+    "positiveDepthSteps": 191,
+    "totalPositiveDepth": 9.567030106543706,
+    "fixedVessel": true,
+    "settled": true
+  },
+  "hoverDeparture": {
+    "hover": "contact",
+    "firstFramePositionChange": 0.000015767044245045395
+  },
+  "history": {
+    "arrived": true,
+    "aroundReversal": [
+      {
+        "time": 318989.7,
+        "active": "contact",
+        "roll": 1.2410987825775934,
+        "z": 14.687190433171889
+      },
+      {
+        "time": 319005.7,
+        "active": "contact",
+        "roll": 1.2293762876757233,
+        "z": 14.61579763901941
+      },
+      {
+        "time": 319023.1,
+        "active": "home",
+        "roll": 1.217991026653345,
+        "z": 14.546354172731542
+      },
+      {
+        "time": 319039.7,
+        "active": "home",
+        "roll": 1.209408004072171,
+        "z": 14.494002706541865
+      },
+      {
+        "time": 319056.4,
+        "active": "home",
+        "roll": 1.202673393304338,
+        "z": 14.452925432019498
+      },
+      {
+        "time": 319073,
+        "active": "home",
+        "roll": 1.1975765340358768,
+        "z": 14.421837424480907
+      }
+    ]
+  }
+}

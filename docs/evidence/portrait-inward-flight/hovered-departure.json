@@ -1,0 +1,106 @@
+{
+  "dpr": 1,
+  "framing": {
+    "distance": 17.516539065193303,
+    "fullCraft": true,
+    "mode": "overview",
+    "roll": 1.5707963267948966,
+    "safe": {
+      "bottom": -0.6966824644549763,
+      "left": -0.8153846153846154,
+      "right": 0.8153846153846154,
+      "top": 0.6154843009478673
+    },
+    "supportPoints": 112
+  },
+  "height": 844,
+  "last": {
+    "active": "home",
+    "backgroundPosition": [
+      0.3002659766828038,
+      -0.20278565477351845,
+      -0.387072191733612
+    ],
+    "backgroundQuaternion": [
+      -0.027191317201602852,
+      0.3088924036250184,
+      -0.6584231161785956,
+      0.6858025337757715
+    ],
+    "cameraFar": 80,
+    "delta": 0.0165,
+    "focus": [
+      0.15190964771256676,
+      -0.1288890219276787,
+      -0.030064978269967874
+    ],
+    "hover": "contact",
+    "hoverPortal": "contact",
+    "hoveredWalkway": false,
+    "irisOpen": {
+      "about:contact": 0,
+      "about:projects": 0,
+      "contact:about": 0,
+      "experience:projects": 0,
+      "projects:about": 0,
+      "projects:experience": 0
+    },
+    "position": [
+      3.507525485418825,
+      -3.768627584326983,
+      16.277502971112273
+    ],
+    "quaternion": [
+      0.0017346228440359155,
+      0.15023565659892885,
+      -0.6909625514355235,
+      0.7071046535581483
+    ],
+    "queuedRoom": "",
+    "roll": 1.5707963267948966,
+    "roomLevels": {
+      "about": 0.5,
+      "contact": 1,
+      "experience": 0.5,
+      "projects": 0.5,
+      "walkway": 0.5
+    },
+    "time": 153423.3,
+    "transitRoom": "",
+    "transitWalkway": false,
+    "travelling": false,
+    "velocities": [
+      0,
+      0,
+      0,
+      1.214306433183766e-16,
+      2.428612866367532e-16,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "vesselMatrix": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "waitingForDoors": false
+  },
+  "width": 390
+}

@@ -1,0 +1,154 @@
+{
+  "checkedAt": "2026-09-20T07:15:08.428Z",
+  "sources": {
+    "desktop": {
+      "features/orbit/orbital-environment.ts": {
+        "expected": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "actual": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "matches": true
+      },
+      "features/orbit/earth-view-transform.ts": {
+        "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "actual": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "matches": true
+      },
+      "features/orbit/earth-satellite.ts": {
+        "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "actual": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "matches": true
+      },
+      "features/orbit/night-atmosphere.ts": {
+        "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "actual": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "matches": true
+      },
+      "features/spacecraft/navigation/scene-controls.ts": {
+        "expected": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+        "actual": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+        "matches": true
+      },
+      "features/spacecraft/navigation/vessel-camera.ts": {
+        "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "actual": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "matches": true
+      },
+      "features/spacecraft/navigation/overview-flight.ts": {
+        "expected": "64246f551be7bc5a3dadbf31a0d8e5879d5a2016797c412004f9e513727980a3",
+        "actual": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "matches": false
+      },
+      "features/spacecraft/navigation/flight.ts": {
+        "expected": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "actual": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "matches": true
+      },
+      "features/spacecraft/navigation/contact-computer.ts": {
+        "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "actual": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "matches": true
+      },
+      "features/spacecraft/spacecraft-runtime.ts": {
+        "expected": "75130f6d14a444d5d88fe66ede24666e1eb07e38fcbf507b613c968813d753fd",
+        "actual": "032c8f0bedfe460d1b31f1ef72262f2a2522e8cfef90baa2113e0603e6ffbeb2",
+        "matches": false
+      },
+      "features/spacecraft/spacecraft-model.ts": {
+        "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "actual": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "matches": true
+      },
+      "scripts/benchmarks/earth-visible-coverage.mjs": {
+        "expected": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+        "actual": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+        "matches": true
+      },
+      "scripts/benchmarks/mesh-uv-coverage.mjs": {
+        "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+        "actual": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+        "matches": true
+      }
+    },
+    "mobile": {
+      "features/orbit/orbital-environment.ts": {
+        "expected": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "actual": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "matches": true
+      },
+      "features/orbit/earth-view-transform.ts": {
+        "expected": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "actual": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "matches": true
+      },
+      "features/orbit/earth-satellite.ts": {
+        "expected": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "actual": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "matches": true
+      },
+      "features/orbit/night-atmosphere.ts": {
+        "expected": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "actual": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "matches": true
+      },
+      "features/spacecraft/navigation/scene-controls.ts": {
+        "expected": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+        "actual": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+        "matches": true
+      },
+      "features/spacecraft/navigation/vessel-camera.ts": {
+        "expected": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "actual": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+        "matches": true
+      },
+      "features/spacecraft/navigation/overview-flight.ts": {
+        "expected": "64246f551be7bc5a3dadbf31a0d8e5879d5a2016797c412004f9e513727980a3",
+        "actual": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+        "matches": false
+      },
+      "features/spacecraft/navigation/flight.ts": {
+        "expected": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "actual": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+        "matches": true
+      },
+      "features/spacecraft/navigation/contact-computer.ts": {
+        "expected": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "actual": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+        "matches": true
+      },
+      "features/spacecraft/spacecraft-runtime.ts": {
+        "expected": "75130f6d14a444d5d88fe66ede24666e1eb07e38fcbf507b613c968813d753fd",
+        "actual": "032c8f0bedfe460d1b31f1ef72262f2a2522e8cfef90baa2113e0603e6ffbeb2",
+        "matches": false
+      },
+      "features/spacecraft/spacecraft-model.ts": {
+        "expected": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "actual": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+        "matches": true
+      },
+      "scripts/benchmarks/earth-visible-coverage.mjs": {
+        "expected": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+        "actual": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+        "matches": true
+      },
+      "scripts/benchmarks/mesh-uv-coverage.mjs": {
+        "expected": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+        "actual": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35",
+        "matches": true
+      }
+    }
+  },
+  "disclosedLaterChanges": {
+    "features/spacecraft/navigation/overview-flight.ts": "Only the prose comment changed from A room entry to Settled room entry. Reversing that exact comment edit reproduces the original audit source SHA-256; see commentOnlyHelperVerification. Executable helper code and captured trajectories are unchanged.",
+    "features/spacecraft/spacecraft-runtime.ts": "After the audits began, runtime seeds its motion axes to the already-baked departure pose before clearing additive input. This prevents an artificial first-frame velocity on an immediate history interruption. The imported camera helper, angle fit and settled trajectory are unchanged; runtime is source context rather than executed by this fixture. An unused pose overviewRoll parameter was also removed; it had no callers. Nonzero incoming-velocity interruption states remain outside the sampled domain."
+  },
+  "commentOnlyHelperVerification": {
+    "desktop": {
+      "reconstructedAuditSourceSha256": "64246f551be7bc5a3dadbf31a0d8e5879d5a2016797c412004f9e513727980a3",
+      "matchesAudit": true
+    },
+    "mobile": {
+      "reconstructedAuditSourceSha256": "64246f551be7bc5a3dadbf31a0d8e5879d5a2016797c412004f9e513727980a3",
+      "matchesAudit": true
+    }
+  },
+  "note": "Hashes are preserved from each audit invocation. Runtime is source context; the fixture imports the camera helper, fit, model and orbital dependencies. Any mismatch must be explained before claiming final-source verification."
+}

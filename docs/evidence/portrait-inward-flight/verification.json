@@ -1,0 +1,62 @@
+{
+  "baseline": "9b4ae3055f407874b74a0112bce95eb3f1410295",
+  "sourceHashes": {
+    "AGENTS.md": "4ac3ce7610c3fa56e73cb367f686ef6e2fc591e9311c98c5952e4ef62428d30c",
+    "docs/PROJECT-CONTEXT.md": "8806dddbb5b90b04d9a457c4bedaba85d58eba758bcf4401633bb7c3a1a23b0e",
+    "docs/performance-ledger.md": "bd9eb8c47b114874ed219901585bc18dddf2c0e0a05b30aab5d1ffa3c6107212",
+    "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+    "features/spacecraft/navigation/scene-controls.ts": "8f9e0f510ef5d65f00566f65e13de6d3ef6d0309edac5207647404ea5bf2de49",
+    "features/spacecraft/spacecraft-runtime.ts": "032c8f0bedfe460d1b31f1ef72262f2a2522e8cfef90baa2113e0603e6ffbeb2",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "c94c5534810f3b2aa2c6058ba1245f29e18a9e02d99b98c86f15d63d6574b156",
+    "tests/spacecraft/overview-flight.test.mjs": "2c72fe6e5f5f04415523af2dc74fe80fe2b25277f3afd4a6fd9bd936d170b06c",
+    "tests/spacecraft/overview-composition.test.mjs": "b23f747108f3a0aca1b8534e53e24dbe30920213cee4a03e1271e6bd6f2d8807"
+  },
+  "checks": {
+    "fullSuite": {
+      "passed": 350,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "finalFocusedSuite": {
+      "passed": 7,
+      "failed": 0,
+      "log": "targeted-tests.log"
+    },
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "diffCheck": "passed"
+  },
+  "visual": {
+    "engine": "hidden built-in Chromium",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "dpr": 1,
+    "safariTested": false,
+    "browserWarningsOrErrors": [],
+    "temporaryTabClosed": true,
+    "viewportRestored": true
+  },
+  "scope": {
+    "performanceClaims": false,
+    "resourcesChanged": false,
+    "sourceAfterFullSuite": "Baked-axis seeding verified in final focused/type/build checks and fresh live hovered/history traces; remaining changes comment and unused optional argument cleanup."
+  },
+  "critic": {
+    "score": 93,
+    "blockers": 0,
+    "record": "critic-review.md"
+  }
+}
