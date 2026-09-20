@@ -100,7 +100,7 @@ function archiveDirectory(bytes: Uint8Array) {
     if (isDirectory && expanded) invalid('ZIP directories must be empty.');
     if (!isDirectory && name !== documentName && !mimeForFilename(name))
       invalid(
-        `Unsupported asset: ${name}. Use PNG, JPEG, WebP, MP4, WebM or WebVTT.`,
+        `Unsupported asset: ${name}. Use PNG, JPEG, WebP, GIF, MP4, WebM or WebVTT.`,
       );
     if (
       view.getUint32(local, true) !== 0x04034b50 ||

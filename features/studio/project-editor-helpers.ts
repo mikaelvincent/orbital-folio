@@ -60,10 +60,12 @@ export function projectUploadError(
   file: Pick<File, 'type' | 'size' | 'name'>,
 ): string | null {
   const captions = /\.vtt$/i.test(file.name);
-  const image = ['image/png', 'image/jpeg', 'image/webp'].includes(file.type);
+  const image = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'].includes(
+    file.type,
+  );
   const video = ['video/mp4', 'video/webm'].includes(file.type);
   if (!image && !video && !captions)
-    return 'Choose PNG, JPEG, WebP, MP4, WebM or WebVTT.';
+    return 'Choose PNG, JPEG, WebP, GIF, MP4, WebM or WebVTT.';
   const limit = captions
     ? 256 * 1024
     : image

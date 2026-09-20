@@ -42,10 +42,12 @@ Never expose the development server or the raw Worker emulator to the internet. 
 1. Open **Identity & copy**. Edit identity, branding, contact details, biography, and the sample notice. The other editor sections cover the domain, SEO, navigation, error page, and every public interface label.
 2. **Save draft** preserves the current public snapshot. **Preview saved draft** opens the complete private portfolio with draft navigation. **Publish** replaces the public snapshot.
 3. Add projects, experience chapters, journal pages, social links, and media. Projects have a dedicated Markdown editor, category selection, integrated media insertion, and landscape/portrait preview. Change **Display order** and publish to reorder them. Every published entry appears in its collection; the ship’s rooms lead to those collections regardless of their size.
-4. Upload PNG/JPEG/WebP images (5 MiB), MP4/WebM videos (12 MiB), or WebVTT captions (256 KiB). Publish referenced media explicitly before publishing a project. Videos support optional posters/captions and never autoplay. External HTTPS image URLs are also supported. No media is fabricated as the owner’s real work.
+4. Upload PNG/JPEG/WebP/GIF images (5 MiB), MP4/WebM videos (12 MiB), or WebVTT captions (256 KiB). Publish referenced media explicitly before publishing a project. Videos support optional posters/captions and never autoplay. External HTTPS image URLs are also supported. No media is fabricated as the owner’s real work.
 5. Projects accept optional independent demo and repository URLs. A demo can be hosted on any HTTPS origin, including an owner-controlled subdomain.
 6. Replace the sample material with accurate content before disabling **Show sample notice & keep search indexing off**. Individual records also have sample labels.
 7. Contact messages appear in **Inbox**. This release stores inquiries; it does not send emails. Reply through your email application. Delete messages when no longer needed.
+
+For a populated local example library, follow [local demonstration library](docs/OPERATIONS.md#local-demonstration-library). It adds rich stories and media only to untouched sample projects.
 
 Project stories support safe Markdown rendered as React elements; raw HTML, executable embeds and unsafe links are not accepted. Other content retains its existing text structure. Project ZIP import/export bundles one editable draft and its managed media; see [authoring and package format](docs/OPERATIONS.md#authoring-projects). Accent colors are checked for readable text contrast.
 

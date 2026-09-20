@@ -403,7 +403,7 @@ export function ProjectEditor({
                 <input
                   ref={uploadInput}
                   type="file"
-                  accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,text/vtt,.vtt"
+                  accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,text/vtt,.vtt"
                   onChange={(e) => {
                     if (e.target.files?.length) receiveFiles(e.target.files);
                     else setFile(null);

@@ -1,4 +1,4 @@
-import { gridSamples } from './sample-projects.mjs';
+import { gridSamples, sampleProjectData } from './sample-projects.mjs';
 // Initial fixtures only. Public rendering always reads persistent database records.
 export const seedSite = {
   notFoundEyebrow: '404 / OFF COURSE',
@@ -339,3 +339,6 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
   ];
 
 seeds.push(...gridSamples);
+
+for (const record of seeds)
+  if (record.kind === 'project') record.data = sampleProjectData(record.data);

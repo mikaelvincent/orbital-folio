@@ -81,7 +81,7 @@ Raw HTML, JSX, executable embeds and unsafe URL schemes are not rendered as HTML
 The story is limited to **100,000 characters**, including after media-reference
 rewriting during import/export. Its authored indentation and newlines are retained.
 
-Upload limits: PNG/JPEG/WebP images **5 MiB**, MP4/WebM videos **12 MiB**, WebVTT
+Upload limits: PNG/JPEG/WebP/GIF images **5 MiB**, MP4/WebM videos **12 MiB**, WebVTT
 captions **256 KiB**. Types/signatures and request sizes are checked on the server.
 Video byte ranges and HEAD are supported. A private draft asset returns 404 to
 visitors. **Publish referenced media** explicitly makes only that story's media
@@ -89,6 +89,36 @@ and its poster/caption dependencies public; it can also publish pending metadata
 changes to those assets. Project Publish refuses missing or unpublished media.
 Media referenced by a published project cannot be deleted or unpublished until
 its live references are removed. Uploading or importing does not publish anything.
+
+### Local demonstration library
+
+With the existing local server running, use:
+
+```sh
+node scripts/populate-demo-projects.mjs          # inspect proposed changes
+node scripts/populate-demo-projects.mjs --apply  # populate eligible local demos
+```
+
+This loopback-only tool adds media and rich Markdown to the nine known, untouched
+sample projects: **5 Systems, 3 Interfaces, 1 Experiment**. It skips owner-authored
+content, private-only entries, edited samples and divergent draft/published
+versions. It checks revisions again before mutation, reuses matching media by
+content hash, and a completed rerun makes no updates. It does not reset identity,
+other content or the database. Fresh setup seeds already contain the categories
+and text; run this explicit step to populate their managed media. Do not rerun
+`npm run setup` merely to refresh demos in an existing studio.
+
+Examples include headings, emphasis, quotations, lists, fenced code,
+tables, still illustrations, a controlled MP4 with captions, and a finite GIF.
+GIF uploads use ordinary image Markdown; videos use the managed video link syntax
+above. There is no new third-party iframe or executable-embed support.
+
+The checked-in assets and provenance/hashes live in
+`scripts/assets/project-demos/manifest.json`. They are synthetic, code-authored
+illustrations, not recordings or evidence of real project outcomes. The optional
+`node scripts/generate-project-demos.mjs` rebuild uses installed Sharp and macOS
+Swift/AVFoundation for H.264 encoding; population and the site do not require that
+encoder. The GIF runs twice (3.84 seconds total) and stops.
 
 ### Portable project packages
 

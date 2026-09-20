@@ -9,6 +9,7 @@ export const MEDIA_TYPES = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/webp': 'webp',
+  'image/gif': 'gif',
   'video/mp4': 'mp4',
   'video/webm': 'webm',
   'text/vtt': 'vtt',
@@ -30,7 +31,7 @@ export function validateMediaBytes(
   mime: string,
 ): asserts mime is ManagedMediaType {
   if (!Object.hasOwn(MEDIA_TYPES, mime))
-    throw new HttpError(400, 'Use PNG, JPEG, WebP, MP4, WebM or WebVTT.');
+    throw new HttpError(400, 'Use PNG, JPEG, WebP, GIF, MP4, WebM or WebVTT.');
   const limit = mime.startsWith('image/')
     ? MEDIA_LIMITS.image
     : mime === 'text/vtt'
@@ -57,6 +58,12 @@ export function validateMediaBytes(
       bytes.length >= 16 &&
       ascii(bytes, 0, 4) === 'RIFF' &&
       ascii(bytes, 8, 12) === 'WEBP';
+  else if (mime === 'image/gif')
+    valid =
+      bytes.length >= 14 &&
+      ['GIF87a', 'GIF89a'].includes(ascii(bytes, 0, 6)) &&
+      bytes[6] + bytes[7] * 256 > 0 &&
+      bytes[8] + bytes[9] * 256 > 0;
   else if (mime === 'video/mp4') {
     // ISO base media file with an MP4-compatible brand; never accept arbitrary HTML renamed .mp4.
     const brands = ascii(bytes, 8, Math.min(bytes.length, 64));

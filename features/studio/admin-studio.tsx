@@ -509,12 +509,12 @@ export function AdminStudio({
                   >
                     <strong>Upload media</strong>
                     <label className="studio-field">
-                      PNG / JPEG / WebP · 5 MiB, MP4 / WebM · 12 MiB, VTT · 256
+                      PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT · 256
                       KiB
                       <input
                         type="file"
                         name="file"
-                        accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,text/vtt,.vtt"
+                        accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,text/vtt,.vtt"
                         required
                       />
                     </label>

@@ -1,0 +1,125 @@
+{
+  "format": "orbital-demo-media/v1",
+  "provenance": "Offline code-authored SVG diagrams rasterized with Sharp; MP4 encoded using macOS AVFoundation. Synthetic illustrations, no user data, recordings, external assets or real performance claims.",
+  "assets": [
+    {
+      "key": "relay",
+      "file": "relay.webp",
+      "mime": "image/webp",
+      "title": "Relay interface overview",
+      "alt": "A code-authored Relay design illustration showing a service pipeline and event timeline.",
+      "size": 16098,
+      "sha256": "74bec28b26ba287b97869614c36237d90cd1866d000df97e7edd7c6fc063ea32"
+    },
+    {
+      "key": "beacon",
+      "file": "beacon.webp",
+      "mime": "image/webp",
+      "title": "Beacon interface overview",
+      "alt": "A code-authored Beacon design illustration showing a service pipeline and event timeline.",
+      "size": 17110,
+      "sha256": "3be2feee6a5d3f8c52548104ba87f0533b13a9f335e0848daad672663854091a"
+    },
+    {
+      "key": "parcel",
+      "file": "parcel.webp",
+      "mime": "image/webp",
+      "title": "Parcel interface overview",
+      "alt": "A code-authored Parcel design illustration showing a service pipeline and event timeline.",
+      "size": 16346,
+      "sha256": "9f6e333c6cde2397e8fbcda786d4bcf9229ad3bec2a52526aeced33f44317c3f"
+    },
+    {
+      "key": "tempo",
+      "file": "tempo.webp",
+      "mime": "image/webp",
+      "title": "Tempo interface overview",
+      "alt": "A code-authored Tempo design illustration showing a service pipeline and event timeline.",
+      "size": 16070,
+      "sha256": "143c32b9400169eb53a4794169008a06bcdf6e8994848630815985433e511343"
+    },
+    {
+      "key": "atlas",
+      "file": "atlas.webp",
+      "mime": "image/webp",
+      "title": "Atlas interface overview",
+      "alt": "A code-authored Atlas design illustration showing a service pipeline and event timeline.",
+      "size": 16014,
+      "sha256": "a34912349d46c8628ddfefd3da9e3ecba13853f5ab74a6cd4ea0f6634956518d"
+    },
+    {
+      "key": "fieldnotes",
+      "file": "fieldnotes.webp",
+      "mime": "image/webp",
+      "title": "Fieldnotes interface overview",
+      "alt": "A code-authored Fieldnotes design illustration showing a workspace with revision cards.",
+      "size": 16244,
+      "sha256": "7b1afe9e012abf7d1e98f4c49cb48ca80b541a1d9a4e4603d00f9b504f709989"
+    },
+    {
+      "key": "ledger",
+      "file": "ledger.webp",
+      "mime": "image/webp",
+      "title": "Ledger interface overview",
+      "alt": "A code-authored Ledger design illustration showing a workspace with revision cards.",
+      "size": 14764,
+      "sha256": "abeeb46a0177e61dbb51b65a647893104bcd9bc5c818545702936fe143499cd2"
+    },
+    {
+      "key": "harbor",
+      "file": "harbor.webp",
+      "mime": "image/webp",
+      "title": "Harbor interface overview",
+      "alt": "A code-authored Harbor design illustration showing a workspace with revision cards.",
+      "size": 15480,
+      "sha256": "482094f7aa88c2d58acd52f14f2d996fe569c536d3bd7304b0a96538fd06317e"
+    },
+    {
+      "key": "meter",
+      "file": "meter.webp",
+      "mime": "image/webp",
+      "title": "Meter interface overview",
+      "alt": "A code-authored Meter design illustration showing two workload scenario curves.",
+      "size": 15682,
+      "sha256": "5323ac70a75b58ce248b9024ecbc7527e822b4c16fcf7b5372ece4b333209372"
+    },
+    {
+      "key": "relay-captions",
+      "file": "relay-lifecycle.vtt",
+      "mime": "text/vtt",
+      "title": "Lifecycle captions",
+      "alt": "English descriptions of the silent queue lifecycle animation.",
+      "size": 247,
+      "sha256": "169a7768b5101c85b618b5d253398d247efab1c34c09a6e5790727be608ce541"
+    },
+    {
+      "key": "relay-video",
+      "file": "relay-lifecycle.mp4",
+      "mime": "video/mp4",
+      "title": "Relay lifecycle walkthrough",
+      "alt": "A silent four-second animation of a request moving through accepted, queued, running and completed states.",
+      "size": 48567,
+      "sha256": "cbddcaf4278a79d9f1e1a8091b8b58f6a702c184ee2b1ce39c96f80e9bbd35f8",
+      "poster": "relay",
+      "captions": "relay-captions",
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 4
+    },
+    {
+      "key": "relay-motion",
+      "file": "relay-lifecycle.gif",
+      "mime": "image/gif",
+      "title": "Relay retry sequence",
+      "alt": "An animated diagram of a request moving through four service states; it stops after two short passes.",
+      "size": 13917,
+      "sha256": "b4727348a5e307f4c93563b94b9d42c255a501c8cb0caab06e8a844c6af95610",
+      "width": 320,
+      "height": 180,
+      "frames": 24,
+      "loop": 2,
+      "frameDelayMilliseconds": 80,
+      "totalDurationSeconds": 3.84
+    }
+  ]
+}

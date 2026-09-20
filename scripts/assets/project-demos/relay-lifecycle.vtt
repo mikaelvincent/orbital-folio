@@ -1,0 +1,10 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+A request is accepted and its intent is stored.
+
+00:00:01.000 --> 00:00:02.500
+The queued job is picked up by a worker.
+
+00:00:02.500 --> 00:00:04.000
+The worker completes the job and acknowledges the result.
