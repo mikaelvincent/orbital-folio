@@ -1748,7 +1748,7 @@ export function mountSpacecraftScene({
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
             background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
-            background.followCamera(camera, backgroundReference);
+            background.followCamera(camera, backgroundReference, roll);
           }
           diagnostics?.mark('background-update');
           renderer.info.reset();
@@ -2094,8 +2094,9 @@ export function mountSpacecraftScene({
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
           syncSceneTargets();
-          // Responsive framing moves only the camera. Orbital registration is
-          // fixed at scene creation, including through portrait roll and resize.
+          // Responsive framing moves the camera around the fixed orbital
+          // registration. Earth alone compensates the live layout roll in
+          // followCamera to preserve its requested bottom-left composition.
           invalidateShadow('viewport');
           resetDiagnostics('viewport changed');
           if (!initializedCamera) {

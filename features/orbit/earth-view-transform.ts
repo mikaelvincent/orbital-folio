@@ -11,7 +11,7 @@ export const NIGHT_EARTH_OPENING = {
 } as const;
 export const EARTH_ROTATION_RADIANS_PER_SECOND = 0.0045;
 
-/** Authoring reference, not a responsive target. Window changes only crop the scene. */
+/** Fixed authoring reference; layout-roll presentation is applied separately. */
 export const EARTH_REFERENCE_ASPECT = 1280 / 720;
 export const EARTH_REFERENCE_FOV = 38;
 export const EARTH_RADIUS = 180;
@@ -42,7 +42,7 @@ export function createOrbitalWorldReference(THREE: typeof Three) {
   return reference;
 }
 
-/** Reproduce the approved desktop horizon once in a fixed orbital world. */
+/** Author the approved desktop horizon before the layout-roll presentation. */
 export function placeNightEarth(THREE: typeof Three, earth: Three.Group) {
   const focal = Math.tan(THREE.MathUtils.degToRad(EARTH_REFERENCE_FOV / 2));
   const left = new THREE.Vector3(

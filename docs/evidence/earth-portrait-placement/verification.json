@@ -1,0 +1,51 @@
+{
+  "baseline": "e716ab0",
+  "sourceSha256": {
+    "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+    "features/orbit/orbital-environment.ts": "76af9a6ffb7d05044f2cc51714093a99b8cf39d7e15ad0fe527da14254f869c9",
+    "features/spacecraft/spacecraft-runtime.ts": "f7088c996cea80d7c40f1afc556ac17667a368e24beb7006f808ab4f3347456f",
+    "tests/orbit/earth-views.test.mjs": "b372dc0bafa54433affff77cbff2ff35d2040091e5c8294a92b6e079f75b8391",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "d3f24e77b68430dc642fe9591767ec63ba900742d6e28220c03f3c8b10d4972d",
+    "public/textures/earth-europe-loop.webp": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+  },
+  "checks": {
+    "tests": {
+      "passed": 344,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "typecheck": 0,
+    "lint": 0,
+    "build": 0
+  },
+  "browser": {
+    "engine": "built-in Chromium",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "warningOrErrorEntries": 0,
+    "nativeSafariTested": false,
+    "screenshots": "actual CSS sizes; composition comparison, phases not matched",
+    "actions": [
+      "portrait drag and release",
+      "phone/tablet/landscape resize",
+      "Contact entry",
+      "return to overview"
+    ],
+    "temporaryTabClosed": true,
+    "viewportReset": true
+  },
+  "performance": "Resource and code inspection only; no new timed benchmark. Different fragment coverage can change GPU cost.",
+  "localhostStatus": 200
+}

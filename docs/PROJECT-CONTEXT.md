@@ -231,11 +231,16 @@ back to itself. The cinematic blue atmosphere and opening **12° longitude /
 48° latitude / −10° roll** remain. Normal rotation is **0.0045 rad/s** (1.5× the
 original 0.003 rate), after readiness and subject to visibility/reduced motion.
 
-Earth position, radius, orientation and spacecraft-world registration are fixed.
-Resizing changes camera projection and responsive spacecraft framing, not Earth's
-transform. Landscape uses 38° vertical FOV; portrait preserves 38° horizontal FOV,
-with a 78° vertical cap for very tall windows. Portrait camera roll naturally
-turns the horizon. Different responsive spacecraft camera poses can still reveal
+Earth's authored position, radius, geography and spacecraft-world registration
+are fixed. A later owner correction keeps the horizon **bottom-left in vertical
+overview**: Earth and its atmosphere compensate only for the live layout roll,
+around the same physical pivot as the camera. This blends continuously through
+resize and room entry; zero roll restores the original landscape transform.
+Stars and meteors still follow the full physical viewpoint. Hover, drag, room
+travel and texture phase are not cancelled or reset. See the
+[portrait placement evidence](evidence/earth-portrait-placement/README.md).
+Landscape uses 38° vertical FOV; portrait preserves 38° horizontal FOV,
+with a 78° vertical cap for very tall windows. Different responsive camera poses can still reveal
 different Earth pixels; only a same-eye lens/crop comparison shares the identical
 physical viewpoint. This is not a screen-space photograph or Earth attached to
 each room's camera.

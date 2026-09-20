@@ -9,8 +9,9 @@ The interactive view makes the ship the main interface. Projects and Case studie
 Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background opens over Europe at night and repeats an authored regional landscape at the original 8K map's detail density, with a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
 The approved Earth composition is **Europe at Night**: 12° longitude, 48° latitude,
-−10° tilt, with apparent motion at **0.0045 rad/s**. Its physical placement and
-geographic orientation are fixed across screen sizes. A **2560×1536 lossless
+−10° tilt, with apparent motion at **0.0045 rad/s**. Its authored geography stays
+consistent across screen sizes; Earth compensates for the portrait layout roll
+to keep its horizon bottom-left. A **2560×1536 lossless
 regional texture** keeps native 8K-source detail in Europe and adds an offline
 AI-authored coastal continuation, repeating every **7 minutes 16 seconds**.
 The temporary **globe button beside diagnostics** opens a seekable timeline,

@@ -406,3 +406,113 @@ void test('The opening waits for image readiness and respects the global active 
   );
   assert.equal(starClock(env), 16);
 });
+
+void test('Layout roll keeps Earth below-left without cancelling physical sky or camera motion', async (t) => {
+  const env = createOrbitalEnvironment(THREE, () => {}, {
+    earthTexture: textureFixture(),
+  });
+  t.after(() => env.dispose());
+  await env.ready;
+  const reference = createOrbitalWorldReference(THREE);
+  const camera = reference.clone();
+  const resources = resourcesOf(env.scene);
+  const surface = surfaceOf(env);
+  const textureVersion = surface.material.map.version;
+  env.setEarthPlayback({ type: 'seek', time: 73 });
+  const phase = surface.material.map.offset.toArray();
+  // Geography projections below inspect the mesh, independent of elapsed UV time.
+  const geography = () => {
+    env.scene.updateMatrixWorld(true);
+    return [
+      [12, 48],
+      [-5, 38],
+      [35, 55],
+    ].map(([longitude, latitude]) => {
+      const phi = THREE.MathUtils.degToRad(latitude);
+      const theta = THREE.MathUtils.degToRad(longitude);
+      return new THREE.Vector3(
+        Math.cos(phi) * Math.cos(theta),
+        Math.sin(phi),
+        -Math.cos(phi) * Math.sin(theta),
+      )
+        .applyMatrix4(surface.matrixWorld)
+        .project(env.camera);
+    });
+  };
+  const originalPosition = camera.position.clone();
+  const originalQuaternion = camera.quaternion.clone();
+  for (const [width, height] of [
+    [1280, 720],
+    [390, 844],
+    [768, 1024],
+    [1080, 1920],
+  ]) {
+    camera.aspect = width / height;
+    camera.fov = responsiveCameraFov(camera.aspect);
+    camera.updateProjectionMatrix();
+    env.resize(width, height, 2, camera.fov);
+    let stationaryProjection;
+    for (const moved of [false, true]) {
+      camera.position.copy(originalPosition);
+      camera.quaternion.copy(originalQuaternion);
+      if (moved) {
+        camera.position.add(new THREE.Vector3(3, -2, 4));
+        camera.rotateY(0.08);
+      }
+      camera.updateMatrixWorld(true);
+      const unrolledPosition = camera.position.clone();
+      const unrolledQuaternion = camera.quaternion.clone();
+      env.followCamera(camera, reference, 0);
+      const unrolled = geography();
+      const physicalCamera = env.camera.matrixWorld.clone();
+      if (!moved) {
+        stationaryProjection = unrolled[0].clone();
+        assert.ok(unrolled[0].x < 0 && unrolled[0].x > -1);
+        assert.ok(unrolled[0].y < 0 && unrolled[0].y > -1);
+      }
+      for (const roll of [0.01, Math.PI / 4, Math.PI / 2, Math.PI / 3, 0]) {
+        const rotation = new THREE.Quaternion().setFromAxisAngle(
+          new THREE.Vector3(0, 0, 1),
+          -roll,
+        );
+        camera.position.copy(unrolledPosition).applyQuaternion(rotation);
+        camera.quaternion.copy(unrolledQuaternion).premultiply(rotation);
+        camera.updateMatrixWorld(true);
+        env.followCamera(camera, reference, roll);
+        const rolled = geography();
+        rolled.forEach((point, i) =>
+          assert.ok(
+            point.distanceTo(unrolled[i]) < 1e-8,
+            `Layout roll ${roll} preserves Earth projection at ${width}×${height}`,
+          ),
+        );
+        assert.deepEqual(
+          surface.material.map.offset.toArray(),
+          phase,
+          'No texture phase reset',
+        );
+        assert.deepEqual(
+          resourcesOf(env.scene),
+          resources,
+          'No new render resources',
+        );
+        assert.equal(
+          surface.material.map.version,
+          textureVersion,
+          'No texture upload',
+        );
+        if (roll > 0)
+          assert.notDeepEqual(
+            env.camera.matrixWorld.toArray(),
+            physicalCamera.toArray(),
+            'Stars and meteors still see the real rolled camera',
+          );
+      }
+      if (moved)
+        assert.ok(
+          unrolled[0].distanceTo(stationaryProjection) > 0.05,
+          'Actual camera translation and yaw still change the Earth view',
+        );
+    }
+  }
+});

@@ -399,10 +399,11 @@ for (const [width, height] of singleViewport
       pose.distance * (hover ? 0.975 : 1),
       pose.roll,
     );
-    environment.followCamera(physical, reference);
+    environment.followCamera(physical, reference, pose.roll);
     samples.push({
       viewport: [width, height],
       verticalFieldOfView: fieldOfView,
+      layoutRollRadians: pose.roll,
       state: name,
       angles: [pitch, yaw],
       camera: {
@@ -521,13 +522,13 @@ const report = {
   assumptions: [
     'CPU homogeneous clipping of the actual rendered sphere triangles, including perspective-correct UV extrema at clipped vertices. Double-precision arithmetic; no rendering, image decode or performance claim.',
     'Front-face culling and all six frustum planes are included. Spacecraft/atmosphere/HTML occlusion is ignored, conservatively retaining hidden Earth pixels.',
-    `${createOrbitalWorldReference ? 'Fixed' : 'Historical responsive'} Earth placement/orientation and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. Current-source spacecraft supports, camera-fit helpers, readers and Contact computer provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
+    `${createOrbitalWorldReference ? 'Authored world placement with Earth-only responsive layout-roll compensation' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. Each camera sample passes its interpolated layout roll to followCamera. Current-source spacecraft supports, camera-fit helpers, readers and Contact computer provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
     'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; reader/Contact bottom132px mobile, otherwise80px. Custom identity/header wrapping and safe areas may change framing.',
-    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact fit:38°vertical landscape,38°minimum horizontal portrait,78°vertical cap. Earth position/orientation remains fixed.',
+    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact fit:38°vertical landscape,38°minimum horizontal portrait,78°vertical cap. Earth and atmosphere compensate the responsive hull roll only; hover, drag and camera translation retain physical relative motion.',
     '5x5 bounded drag samples and hover extrema. Travel samples eleven interpolants per Home-to-room path, with5x5drag poses. These do not replay actual acceleration-limited springs or every ladder clearance route.',
     'Close readers and Contact computer are included. There is no configured maximum aspect ratio or minimum pixel dimensions;17viewports are an explicit finite audited domain, not a restriction on the application.',
-    'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes. It rigorously covers those neighborhoods; this audit does not prove their union covers every possible production state.',
-    'Fixed sphere with scrolling U means V coverage and the geometric UV seam remain unchanged over the complete playback loop. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
+    'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled layout roll. It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
+    'Scrolling U on a sphere whose only presentation adjustment is the responsive layout roll means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
     'Maximum same-latitude span compares visible U coordinates at equal V. A larger global longitude envelope across different latitudes alone does not imply simultaneous duplicated landmarks.',
     'Crop preserves native source texel density. Mipmap construction and footprint filtering differ after cropping; row margins do not prove pixel identity at every coarse mip level. Actual-resolution image and seam checks remain necessary.',
   ],
@@ -664,6 +665,7 @@ const report = {
         viewport,
         state,
         angles,
+        layoutRollRadians,
         longitude,
         latitude,
         sourcePixelRows,
@@ -672,6 +674,7 @@ const report = {
         viewport,
         state,
         angles,
+        layoutRollRadians,
         longitude,
         latitude,
         sourcePixelRows,

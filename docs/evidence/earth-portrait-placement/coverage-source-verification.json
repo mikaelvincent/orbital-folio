@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-09-20T02:37:36.602Z",
+  "method": "Reconstruct sampled sources from reconstructionBaseRevision (runtime additionally passes roll to background.followCamera) or reverse the two formatting changes in orbital-environment; require exact match with recorded computed SHA-256, then compare minified esbuild JavaScript output with comments removed to final working-tree sources. Full sweeps retain their actual source hashes; no rerun or source substitution is implied.",
+  "changes": [
+    {
+      "path": "features/orbit/earth-view-transform.ts",
+      "computedSha256": "9c4e748e3b46a31f71805b68f773602f41fcd0cfc1c111ed71b3972b13f02ea4",
+      "finalSha256": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+      "compiledJavaScriptSha256": "baeda873df19d0559613d41c503223014215294f68e8bfd4b11e4c2026a410e8",
+      "sameCompiledJavaScript": true
+    },
+    {
+      "path": "features/spacecraft/spacecraft-runtime.ts",
+      "computedSha256": "56649d5d08adedf3620cb129e73afb20008bcfad9919d964122c25cdce5f3738",
+      "finalSha256": "f7088c996cea80d7c40f1afc556ac17667a368e24beb7006f808ab4f3347456f",
+      "compiledJavaScriptSha256": "15cb14a50242622662cf71708bddeb9ffa13b7549f02a06f41860fd30fc26dcf",
+      "sameCompiledJavaScript": true
+    },
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "computedSha256": "acca5b5cd4cd52b6e5ad1af5e20da5218960bc5c366935636a12eb05db3a97d1",
+      "finalSha256": "76af9a6ffb7d05044f2cc51714093a99b8cf39d7e15ad0fe527da14254f869c9",
+      "compiledJavaScriptSha256": "d0da6356ac6f54511b3c7ef5c3707ea0585bc6b904c9fb23bf72aee347ea26b8",
+      "sameCompiledJavaScript": true,
+      "change": "oxfmt expanded two statements across multiple lines; quick portrait run already used final formatting."
+    }
+  ],
+  "reconstructionBaseRevision": "e716ab0c888976c831d806ecc68254dd28b114b8",
+  "verifiedReports": [
+    "coverage-desktop.json",
+    "coverage-mobile.json",
+    "coverage-portrait-quick.json"
+  ],
+  "allFinalSourcesMatchOrCompileIdentically": true
+}

@@ -425,6 +425,12 @@ export function createOrbitalEnvironment(
   let disposed = false;
   const earth = new THREE.Group();
   placeNightEarth(THREE, earth);
+  earth.updateMatrix();
+  const authoredEarthTransform = earth.matrix.clone();
+  const earthWorldReference = new THREE.Matrix4();
+  const earthPresentationTransform = new THREE.Matrix4();
+  const layoutRotation = new THREE.Matrix4();
+  let earthLayoutRoll = 0;
   const sphereGeometry = new THREE.SphereGeometry(
     1,
     mobile ? 96 : 128,
@@ -618,7 +624,35 @@ export function createOrbitalEnvironment(
     followCamera(
       worldCamera: Three.PerspectiveCamera,
       reference: Three.PerspectiveCamera,
+      layoutRoll = 0,
     ) {
+      // Keep the authored bottom-left horizon during the responsive hull roll.
+      // This narrow art-direction exception moves Earth and its atmosphere only:
+      // hover, drag, camera translation and the surrounding sky stay physical.
+      // Conjugating the world roll into orbital coordinates preserves the same
+      // pivot as the vessel camera, including the reference's translation.
+      if (earthLayoutRoll !== layoutRoll) {
+        earthLayoutRoll = layoutRoll;
+        if (layoutRoll === 0)
+          earthPresentationTransform.copy(authoredEarthTransform);
+        else {
+          earthWorldReference.copy(reference.matrixWorld);
+          earthWorldReference.elements[12] /= ORBITAL_WORLD_SCALE;
+          earthWorldReference.elements[13] /= ORBITAL_WORLD_SCALE;
+          earthWorldReference.elements[14] /= ORBITAL_WORLD_SCALE;
+          earthPresentationTransform
+            .copy(earthWorldReference)
+            .invert()
+            .multiply(layoutRotation.makeRotationZ(-layoutRoll))
+            .multiply(earthWorldReference)
+            .multiply(authoredEarthTransform);
+        }
+        earthPresentationTransform.decompose(
+          earth.position,
+          earth.quaternion,
+          earth.scale,
+        );
+      }
       if (camera.fov !== worldCamera.fov) {
         camera.fov = worldCamera.fov;
         camera.updateProjectionMatrix();
@@ -756,6 +790,7 @@ export function createOrbitalEnvironment(
           (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2),
         earthMeshRotation: surface.rotation.y,
         earthMapping: 'fixed-sphere-longitude-scroll',
+        earthLayoutRoll,
         earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         earthPlaybackSpeed,
         earthPlaying,

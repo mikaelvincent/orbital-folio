@@ -1956,6 +1956,34 @@ build. Independent critic: **94/100**, no unresolved blockers. Runtime and asset
 changes are committed as `319fdd0`; the linked evidence records final source hashes,
 review limitations and browser checks.
 
+### Entry 30 follow-up — portrait placement correction, 20 September 2026
+
+The owner requested the same bottom-left Earth composition with a vertical
+spacecraft. Earth and its atmosphere now compensate only the continuous layout
+roll, around the camera's physical pivot; stars, actual hover/drag/travel and
+texture playback remain unchanged. Zero roll retains landscape placement. This
+is an approved art-direction exception to entry 30's completely fixed Earth
+transform, not a new optimization or a new texture.
+
+No image, geometry, shader, material or draw pass was added. Four reusable CPU
+matrices are recomputed only when layout roll changes. Visible fragment coverage
+differs in portrait, so unchanged resource counts do not establish unchanged
+GPU time. No new performance timing or heat/battery claim is made; entry 30's
+timings remain historical to that source. Deferred candidates remain held.
+
+The renewed desktop/mobile crop audit covers **48,314 poses**. Worst guarded
+source rows are **469.333–1782.073**, retaining **85.333/137.927 rows** beyond
+the sampled footprint inside the existing crop. Both exceed the chosen 64-row
+filtering allowance. The geometric longitude seam remains at least **115.3125°**
+away in the guarded audit. No asset or crop change was needed. This remains a
+bounded pose/viewport certificate. See [portrait placement evidence](evidence/earth-portrait-placement/README.md)
+for captures, raw coverage, source identity, verification and independent review.
+
+Verification: **344 tests passed**, plus typecheck, affected lint and production
+build. Independent critic: **94/100**, no unresolved blockers; recommendation keep.
+Phone/tablet/landscape and Contact transition checks used hidden built-in Chromium,
+not native Safari.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

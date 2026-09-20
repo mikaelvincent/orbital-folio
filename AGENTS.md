@@ -115,7 +115,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   roll **−10°**, with apparent rotation **0.0045 rad/s**. The later consistent-scene
   request supersedes viewport-specific Earth placement/orientation: keep Earth
   fixed in the shared physical world and let camera projection/framing determine
-  its crop. Do not re-aim Europe or register a new orbital world on resize.
+  its crop. The owner's later portrait correction is a narrow exception: compensate
+  Earth and its atmosphere for the live spacecraft layout roll so the horizon
+  stays bottom-left in vertical overview. Preserve physical hover/drag/travel and
+  sky motion; do not re-aim Europe or register a new orbital world on resize.
 - Production uses a **2560×1536 lossless regional WebP**, with an unchanged
   **1536×1536** European core at original 8K-source pixel density and an offline
   **AI-assisted fictional coastal continuation**. Its **112.5° / 436.332-second**
