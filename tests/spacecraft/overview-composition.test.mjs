@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import {
   overviewCameraDirection,
+  overviewCameraRange,
+  boundedCameraAngles,
   responsiveCameraFov,
   overviewCalloutGutter,
   fitPerspectiveFrame,
@@ -17,8 +19,8 @@ const data = model.group.userData;
 const axis = new THREE.Vector3(0, 0, 1);
 const baseline = [-0.18, 0.14, 1];
 
-// Independently project real assembly supports through Three at 169 angles;
-// production chooses its containment distance using only 25 angle samples.
+// Independently project real assembly supports through Three at a denser angle
+// grid than production, including the neutral axis within asymmetric drag bounds.
 function fitOverview(width, height, candidate = true) {
   const fov = responsiveCameraFov(width / height);
   const portrait = height > width,
@@ -61,8 +63,8 @@ function fitOverview(width, height, candidate = true) {
   ];
   const fitViews = cursorViewSamples(
     { target: target.toArray(), direction: direction.toArray() },
-    4,
-    CAMERA_RANGES.overview,
+    width < height ? 8 : 4,
+    overviewCameraRange(width / height),
   );
   const distance =
     Math.max(
@@ -108,11 +110,12 @@ function fitOverview(width, height, candidate = true) {
     ((box.top - box.bottom) * height) / 2,
   ];
   let outsidePixels = 0;
-  for (const v of cursorViewSamples(
+  const verificationViews = cursorViewSamples(
     { target: target.toArray(), direction: direction.toArray() },
     12,
-    CAMERA_RANGES.overview,
-  ))
+    overviewCameraRange(width / height),
+  );
+  for (const v of verificationViews)
     for (const sx of [-1, 1])
       for (const sy of [-1, 1]) {
         setCamera(
@@ -149,7 +152,7 @@ function fitOverview(width, height, candidate = true) {
     restBox: box,
     outsidePixels,
     points: points.length,
-    angleSamples: 169,
+    angleSamples: verificationViews.length,
     hoverOffsetSamples: 4,
   };
 }
@@ -200,7 +203,10 @@ test('Short landscape overviews recover useful vessel size without reducing call
       ...overviewCameraDirection(aspect + 1e-6),
     ).normalize();
     assert.ok(separation < 0.00005);
-    assert.ok(closerLeft.distanceTo(closerRight) < separation * 0.11);
+    assert.ok(
+      separation === 0 ||
+        closerLeft.distanceTo(closerRight) < separation * 0.11,
+    );
   }
   for (const aspect of [1, 4 / 3, 16 / 9, 2.5]) {
     const t = Math.max(0, Math.min(1, (aspect - 0.9) / 0.9));
@@ -227,4 +233,106 @@ test('Portrait overview reveals the ceiling side across tall and nearly square s
       `${aspect}: keep a restrained frontal composition`,
     );
   }
+});
+
+test('Portrait drag favors the left physical roof and barely extends the right underside', () => {
+  for (const aspect of [0.2, 390 / 844, 768 / 1024, 0.9999]) {
+    const range = overviewCameraRange(aspect);
+    const base = new THREE.Vector3(
+      ...overviewCameraDirection(aspect),
+    ).normalize();
+    const physical = (pointer, drag) => {
+      const [pitch, yaw] = boundedCameraAngles(pointer, drag, range);
+      return base
+        .clone()
+        .applyEuler(new THREE.Euler(pitch, yaw, 0))
+        .applyAxisAngle(axis, -Math.PI / 2);
+    };
+    const leftRoof = physical([-1, 0], [-1, 0]);
+    const rightUnderside = physical([1, 0], [1, 0]);
+    // In stationary vessel coordinates +Y is its roof: after the portrait
+    // camera roll that exterior appears at the left edge of the screenshot.
+    assert.ok(leftRoof.y > 0.25, `${aspect}: outer left roof stays reachable`);
+    assert.ok(
+      rightUnderside.y > -0.15,
+      `${aspect}: outer right stays restrained`,
+    );
+    assert.ok(leftRoof.y > -rightUnderside.y * 2);
+    assert.ok(physical([0, 0], [0, -1]).x > 0.35);
+    assert.ok(physical([0, 0], [0, 1]).x < -0.2);
+    assert.ok(physical([0, 0], [0, 0]).y < 0, 'Neutral shows room ceilings');
+  }
+  for (const aspect of [1, 4 / 3, 16 / 9, 2.5])
+    assert.deepEqual(overviewCameraRange(aspect), CAMERA_RANGES.overview);
+});
+
+test('Asymmetric drag clamps both ends, preserves neutral hover and includes neutral in fit samples', () => {
+  const range = overviewCameraRange(390 / 844);
+  assert.deepEqual(boundedCameraAngles([0, 0], [0, 0], range), [0, 0]);
+  const positive = boundedCameraAngles([100, 100], [100, 100], range);
+  const negative = boundedCameraAngles([-100, -100], [-100, -100], range);
+  assert.deepEqual(positive, [range.pitch, range.yaw]);
+  assert.deepEqual(negative, [range.minPitch ?? -range.pitch, range.minYaw]);
+  const hover = boundedCameraAngles([0.5, -0.5], [0, 0], range);
+  assert.ok(
+    hover[0] < 0 && hover[1] > 0,
+    'Ordinary hover still follows the pointer',
+  );
+  for (const steps of [1, 2, 4, 12]) {
+    const view = { target: [0, 0, 0], direction: [0, 0, 1] };
+    const samples = cursorViewSamples(view, steps, range);
+    assert.ok(
+      samples.some((sample) =>
+        sample.direction.every(
+          (v, i) => Math.abs(v - view.direction[i]) < 1e-12,
+        ),
+      ),
+      'Neutral must be sampled even when the signed grid misses zero',
+    );
+    for (const angles of [positive, negative]) {
+      const expected = new THREE.Vector3(0, 0, 1).applyEuler(
+        new THREE.Euler(...angles, 0),
+      );
+      assert.ok(
+        samples.some(
+          (sample) =>
+            new THREE.Vector3(...sample.direction).distanceTo(expected) < 1e-12,
+        ),
+        'Fit covers the actual drag endpoint',
+      );
+    }
+  }
+});
+
+test('Roof-biased drag crosses neutral with continuous velocity and monotonic control', () => {
+  const range = overviewCameraRange(390 / 844);
+  const yawAt = (drag) => boundedCameraAngles([0, 0], [drag, 0], range)[1];
+  const epsilon = 1e-6;
+  const leftVelocity = (yawAt(0) - yawAt(-epsilon)) / epsilon;
+  const rightVelocity = (yawAt(epsilon) - yawAt(0)) / epsilon;
+  assert.ok(
+    Math.abs(leftVelocity - rightVelocity) < 1e-5,
+    'Spring release or re-grab must not change angular velocity abruptly at neutral',
+  );
+  assert.ok(
+    leftVelocity > 0 && rightVelocity > 0,
+    'Neutral remains responsive',
+  );
+  let previous = -Infinity;
+  for (let step = 0; step <= 400; step++) {
+    const angle = yawAt(step / 200 - 1);
+    assert.ok(
+      angle > previous,
+      'Continuous drag never reverses or becomes flat',
+    );
+    assert.ok(angle >= range.minYaw && angle <= range.yaw);
+    previous = angle;
+  }
+  // Existing landscape and room controls keep their exact linear response.
+  for (const limits of [CAMERA_RANGES.overview, CAMERA_RANGES.room])
+    for (const drag of [-1, -0.5, -0.01, 0, 0.01, 0.5, 1])
+      assert.deepEqual(boundedCameraAngles([0, 0], [drag, drag], limits), [
+        drag * limits.pitch,
+        drag * limits.yaw,
+      ]);
 });

@@ -19,14 +19,27 @@ export type RoomCameraFrame = {
   aperture: Aperture;
   requiredPoints: readonly Vec3[];
 };
+/** Positive endpoints plus optional asymmetric negative endpoints, in radians. */
+export type CameraAngleRange = {
+  pitch: number;
+  yaw: number;
+  minPitch?: number;
+  minYaw?: number;
+};
 /** Shared by actual input and the camera-fit envelope (radians). */
 export const CAMERA_RANGES = {
   hover: { pitch: 0.021, yaw: 0.036 },
   overview: { pitch: 0.18, yaw: 0.32 },
+  // After portrait roll, negative yaw looks over the roof at screen-left.
+  // Keep the opposite side restrained, matching landscape's roof-biased view.
+  portraitOverview: { pitch: 0.32, yaw: 0.03, minYaw: -0.4 },
   room: { pitch: 0.12, yaw: 0.22 },
   // A close workstation needs a smaller orbit to keep its glass above the keys.
   computer: { pitch: 0.04, yaw: 0.12 },
 } as const;
+export function overviewCameraRange(aspect: number): CameraAngleRange {
+  return aspect < 1 ? CAMERA_RANGES.portraitOverview : CAMERA_RANGES.overview;
+}
 /** Keep a useful horizontal lens in portrait instead of cropping away the
  * fixed orbital horizon. The cap avoids extreme wide-angle perspective on
  * unusually tall windows; responsive framing still fits the physical vessel.
@@ -40,22 +53,15 @@ export function responsiveCameraFov(aspect: number): number {
   );
 }
 
-/** More depth on broad canvases, a gently oblique silhouette beside portrait callouts.
- * Keep this continuous at square/tablet sizes; the fit still owns distance and
- * screen-space centering, and room cameras retain their common frontal view. */
+/** Portrait matches the owner's nearly frontal, ceiling-facing reference.
+ * The layout switches roll at square; landscape retains its existing depth.
+ * Framing owns distance/centering, and room cameras keep their frontal view. */
 export function overviewCameraDirection(aspect: number): Vec3 {
+  // Inverse quarter-turn maps +X to world -Y: a slight view of the ceilings.
+  if (aspect < 1) return [0.1, 0.08, 1];
   const t = Math.max(0, Math.min(1, (aspect - 0.9) / 0.9));
   const landscape = t * t * (3 - 2 * t);
-  const p = Math.max(0, Math.min(1, (1 - aspect) / 0.15));
-  const portrait = p * p * (3 - 2 * p);
-  const yaw = -0.1 - 0.18 * landscape - 0.12 * portrait;
-  // Portrait's inverse quarter-turn maps +X to world -Y: reveal ceilings.
-  // The layout already switches its roll at square; retain landscape exactly.
-  return [
-    aspect < 1 ? -yaw : yaw,
-    0.18 + 0.02 * landscape + 0.04 * portrait,
-    1,
-  ];
+  return [-0.1 - 0.18 * landscape, 0.18 + 0.02 * landscape, 1];
 }
 /** Reserve room for the existing callout pills without wasting most of a
  * short landscape viewport on the desktop leader-line spacing. */
@@ -73,22 +79,52 @@ export function overviewCalloutGutter(
 export function boundedCameraAngles(
   pointer: readonly [number, number],
   drag: readonly [number, number],
-  view: boolean | { pitch: number; yaw: number },
+  view: boolean | CameraAngleRange,
 ): [number, number] {
-  const limits =
+  const limits: CameraAngleRange =
     typeof view === 'boolean'
       ? view
         ? CAMERA_RANGES.overview
         : CAMERA_RANGES.room
       : view;
-  const angle = (p: number, d: number, ambient: number, limit: number) =>
-    Math.max(
-      -limit,
-      Math.min(limit, response(p) * ambient + response(d) * limit),
-    );
+  const angle = (
+    p: number,
+    d: number,
+    ambient: number,
+    min: number,
+    max: number,
+  ) => {
+    const input = response(d);
+    let offset = input * max;
+    if (min !== -max) {
+      // Two monotone Hermite spans share their slope at neutral. Multiplying
+      // each side by its own limit would abruptly change camera velocity there.
+      const span = input < 0 ? -min : max;
+      const commonSlope = (2 * -min * max) / (max - min);
+      const t = Math.abs(input);
+      offset =
+        Math.sign(input) *
+        ((commonSlope - span) * t * t * t +
+          2 * (span - commonSlope) * t * t +
+          commonSlope * t);
+    }
+    return Math.max(min, Math.min(max, response(p) * ambient + offset));
+  };
   return [
-    angle(pointer[1], drag[1], CAMERA_RANGES.hover.pitch, limits.pitch),
-    angle(pointer[0], drag[0], CAMERA_RANGES.hover.yaw, limits.yaw),
+    angle(
+      pointer[1],
+      drag[1],
+      CAMERA_RANGES.hover.pitch,
+      limits.minPitch ?? -limits.pitch,
+      limits.pitch,
+    ),
+    angle(
+      pointer[0],
+      drag[0],
+      CAMERA_RANGES.hover.yaw,
+      limits.minYaw ?? -limits.yaw,
+      limits.yaw,
+    ),
   ];
 }
 const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
@@ -341,14 +377,23 @@ export function fitRoomCameraFrame(
 export function cursorViewSamples(
   view: CameraView,
   steps = 2,
-  limits: { pitch: number; yaw: number } = CAMERA_RANGES.hover,
+  limits: CameraAngleRange = CAMERA_RANGES.hover,
 ): CameraView[] {
   const divisions = Math.max(1, Math.floor(steps)),
     result: CameraView[] = [];
-  for (let iy = 0; iy <= divisions; iy++)
-    for (let ix = 0; ix <= divisions; ix++) {
-      const pitch = ((iy * 2) / divisions - 1) * limits.pitch,
-        yaw = ((ix * 2) / divisions - 1) * limits.yaw;
+  const samples = (min: number, max: number) =>
+    [
+      ...new Set([
+        0,
+        ...Array.from({ length: divisions + 1 }, (_, i) =>
+          min === -max
+            ? ((i * 2) / divisions - 1) * max
+            : min + ((max - min) * i) / divisions,
+        ),
+      ]),
+    ].sort((a, b) => a - b);
+  for (const pitch of samples(limits.minPitch ?? -limits.pitch, limits.pitch))
+    for (const yaw of samples(limits.minYaw ?? -limits.yaw, limits.yaw)) {
       const [x, y, z] = view.direction;
       const qx = Math.cos(yaw) * x + Math.sin(yaw) * z,
         qz = -Math.sin(yaw) * x + Math.cos(yaw) * z;

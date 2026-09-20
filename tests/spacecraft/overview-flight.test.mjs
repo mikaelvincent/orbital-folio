@@ -8,13 +8,13 @@ import {
 } from '../../features/spacecraft/navigation/overview-flight.ts';
 import { createVesselCameraFrame } from '../../features/spacecraft/navigation/vessel-camera.ts';
 import {
-  CAMERA_RANGES,
   cursorViewSamples,
   fitPerspectiveDistance,
   fitPerspectiveFrame,
   fitRoomCameraFrame,
   overviewCalloutGutter,
   overviewCameraDirection,
+  overviewCameraRange,
   responsiveCameraFov,
 } from '../../features/spacecraft/navigation/scene-controls.ts';
 
@@ -67,8 +67,8 @@ function flightFixture(width, height, room) {
     ];
     const views = cursorViewSamples(
       { target, direction: direction.toArray() },
-      4,
-      CAMERA_RANGES.overview,
+      width < height ? 8 : 4,
+      overviewCameraRange(width / height),
     );
     const distance =
       Math.max(
@@ -227,6 +227,7 @@ test('Portrait entry never retreats, and its eye and complete near plane remain 
       camera.fov = fixture.fov;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      const range = overviewCameraRange(width / height);
       let previousZ = Infinity;
       let previousDistance = Infinity;
       for (let step = 0; step <= 80; step++) {
@@ -244,14 +245,10 @@ test('Portrait entry never retreats, and its eye and complete near plane remain 
         previousDistance = pose.distance;
         // Extra angular stress beyond the baked-departure path; this does not
         // replay input springs, which navigation folds in and clears.
-        for (const pitch of [-1, 0, 1])
-          for (const yaw of [-1, 0, 1]) {
+        for (const pitch of [range.minPitch ?? -range.pitch, 0, range.pitch])
+          for (const yaw of [range.minYaw ?? -range.yaw, 0, range.yaw]) {
             const direction = new THREE.Vector3(...pose.direction).applyEuler(
-              new THREE.Euler(
-                pitch * CAMERA_RANGES.overview.pitch,
-                yaw * CAMERA_RANGES.overview.yaw,
-                0,
-              ),
+              new THREE.Euler(pitch, yaw, 0),
             );
             rig.apply(
               camera,
@@ -312,5 +309,45 @@ test('An interrupted flight carries its incoming velocity, then rests exactly at
     coordinates(end).forEach((v, i) =>
       assert.ok(Math.abs(v - coordinates(phone.home)[i]) < 1e-8),
     );
+  }
+});
+
+test('Entry from the signed portrait drag extremes bakes the displayed angle and still travels only inward', () => {
+  for (const [width, height] of [
+    [390, 844],
+    [768, 1024],
+    [1280, 1281],
+  ]) {
+    const range = overviewCameraRange(width / height);
+    for (const room of rooms) {
+      const fixture = flightFixture(width, height, room);
+      for (const pitch of [range.minPitch ?? -range.pitch, 0, range.pitch])
+        for (const yaw of [range.minYaw ?? -range.yaw, 0, range.yaw]) {
+          const anchor = new THREE.Vector3(
+            ...data.roomAnchors[room],
+          ).applyAxisAngle(zAxis, fixture.home.roll);
+          const departure = {
+            ...fixture.home,
+            target: fixture.home.target.map((v, i) =>
+              i < 2 ? v + (anchor.getComponent(i) - v) * 0.022 : v,
+            ),
+            direction: new THREE.Vector3(...fixture.home.direction)
+              .applyEuler(new THREE.Euler(pitch, yaw, 0))
+              .toArray(),
+            distance: fixture.home.distance * 0.975,
+          };
+          const flight = createOverviewFlight(departure, fixture.destination);
+          closePose(sampleOverviewFlight(flight, 0), departure);
+          let previous = Infinity;
+          for (let step = 0; step <= 80; step++) {
+            const eye = worldEye(sampleOverviewFlight(flight, step / 80));
+            assert.ok(
+              eye.z < previous,
+              `${width}x${height}/${room}/${pitch},${yaw}/${step}: drag departure must not pull back`,
+            );
+            previous = eye.z;
+          }
+        }
+    }
   }
 });

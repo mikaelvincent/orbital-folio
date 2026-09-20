@@ -64,10 +64,12 @@ import {
   cursorViewSamples,
   boundedCameraAngles,
   overviewCameraDirection,
+  overviewCameraRange,
   responsiveCameraFov,
   overviewCalloutGutter,
   CAMERA_RANGES,
   type BoundedDrag,
+  type CameraAngleRange,
   type Vec3,
 } from '@/features/spacecraft/navigation/scene-controls';
 
@@ -560,6 +562,8 @@ export function mountSpacecraftScene({
           rangeMotion = [
             axis(CAMERA_RANGES.overview.pitch),
             axis(CAMERA_RANGES.overview.yaw),
+            axis(-CAMERA_RANGES.overview.pitch),
+            axis(-CAMERA_RANGES.overview.yaw),
           ],
           hoverMotion = [axis(), axis()],
           dollyMotion = axis();
@@ -963,8 +967,8 @@ export function mountSpacecraftScene({
                 target: target.toArray(),
                 direction: direction.toArray(),
               },
-              4,
-              CAMERA_RANGES.overview,
+              camera.aspect < 1 ? 8 : 4,
+              overviewCameraRange(camera.aspect),
             );
             desiredDistance =
               Math.max(
@@ -1208,7 +1212,12 @@ export function mountSpacecraftScene({
               const angles = boundedCameraAngles(
                 [at(pointerMotion[0]), at(pointerMotion[1])],
                 [at(dragMotion[0]), at(dragMotion[1])],
-                { pitch: at(rangeMotion[0]), yaw: at(rangeMotion[1]) },
+                {
+                  pitch: at(rangeMotion[0]),
+                  yaw: at(rangeMotion[1]),
+                  minPitch: at(rangeMotion[2]),
+                  minYaw: at(rangeMotion[3]),
+                },
               );
               return {
                 target: new THREE.Vector3(
@@ -1619,13 +1628,18 @@ export function mountSpacecraftScene({
                 },
               );
           }
-          const range =
+          const range: CameraAngleRange =
             active === 'home'
-              ? CAMERA_RANGES.overview
+              ? overviewCameraRange(camera.aspect)
               : reading && active === 'contact'
                 ? CAMERA_RANGES.computer
                 : CAMERA_RANGES.room;
-          [range.pitch, range.yaw].forEach((value, index) => {
+          [
+            range.pitch,
+            range.yaw,
+            range.minPitch ?? -range.pitch,
+            range.minYaw ?? -range.yaw,
+          ].forEach((value, index) => {
             if (stop || flightImmediate) resetAxis(rangeMotion[index], value);
             else
               moveCameraAxis(rangeMotion[index], value, delta, {
@@ -1637,7 +1651,12 @@ export function mountSpacecraftScene({
           const angles = boundedCameraAngles(
             [pointerCurrent.x, pointerCurrent.y],
             [dragMotion[0].value, dragMotion[1].value],
-            { pitch: rangeMotion[0].value, yaw: rangeMotion[1].value },
+            {
+              pitch: rangeMotion[0].value,
+              yaw: rangeMotion[1].value,
+              minPitch: rangeMotion[2].value,
+              minYaw: rangeMotion[3].value,
+            },
           );
           const direction = viewDirection
             .clone()
@@ -2042,6 +2061,11 @@ export function mountSpacecraftScene({
               dragResponse: dragMotion.map((s) => s.value.toFixed(5)).join(','),
               cameraAngles: angles.map((v) => v.toFixed(5)).join(','),
               cameraAngleLimits: rangeMotion
+                .slice(0, 2)
+                .map((s) => s.value.toFixed(5))
+                .join(','),
+              cameraAngleMinimums: rangeMotion
+                .slice(2)
                 .map((s) => s.value.toFixed(5))
                 .join(','),
               vesselName,

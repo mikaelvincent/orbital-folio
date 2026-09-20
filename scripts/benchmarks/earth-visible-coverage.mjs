@@ -23,6 +23,7 @@ import { createVesselCameraFrame } from '../../features/spacecraft/navigation/ve
 import {
   responsiveCameraFov,
   overviewCameraDirection,
+  overviewCameraRange,
   overviewCalloutGutter,
   fitPerspectiveFrame,
   fitPerspectiveDistance,
@@ -151,6 +152,23 @@ const environment = createOrbitalEnvironment(THREE, () => {}, {
 await environment.ready;
 const surface = environment.scene.getObjectByName('satellite-earth-surface');
 const rounded = (value) => Math.round(value * 1e6) / 1e6;
+const signedAngle = (fraction, maximum, minimum = -maximum) =>
+  fraction < 0 ? -fraction * minimum : fraction * maximum;
+const portraitRange = overviewCameraRange(0.5);
+const landscapeRange = overviewCameraRange(2);
+const overviewResizeRange = {
+  pitch: Math.max(portraitRange.pitch, landscapeRange.pitch),
+  yaw: Math.max(portraitRange.yaw, landscapeRange.yaw),
+  minPitch: Math.min(
+    portraitRange.minPitch ?? -portraitRange.pitch,
+    landscapeRange.minPitch ?? -landscapeRange.pitch,
+  ),
+  minYaw: Math.min(
+    portraitRange.minYaw ?? -portraitRange.yaw,
+    landscapeRange.minYaw ?? -landscapeRange.yaw,
+  ),
+};
+
 function overviewPose(width, height) {
   const portrait = height > width,
     roll = portrait ? Math.PI / 2 : 0;
@@ -192,8 +210,8 @@ function overviewPose(width, height) {
     Math.max(
       ...cursorViewSamples(
         { target: target.toArray(), direction: direction.toArray() },
-        4,
-        CAMERA_RANGES.overview,
+        width < height ? 8 : 4,
+        overviewCameraRange(width / height),
       ).flatMap((view) =>
         [-1, 1].flatMap((sx) =>
           [-1, 1].map((sy) =>
@@ -430,7 +448,11 @@ for (const [width, height] of singleViewport
     });
   }
   for (const { name, pose, range } of [
-    { name: 'overview', pose: home, range: CAMERA_RANGES.overview },
+    {
+      name: 'overview',
+      pose: home,
+      range: overviewCameraRange(width / height),
+    },
     ...['projects', 'experience', 'about', 'contact'].map((room) => ({
       name: room,
       pose: roomPose(room, width, height),
@@ -451,15 +473,26 @@ for (const [width, height] of singleViewport
     for (const pitch of [-1, -0.5, 0, 0.5, 1])
       for (const yaw of [-1, -0.5, 0, 0.5, 1]) {
         if (pitch || yaw)
-          sample(`${name}/drag`, pose, pitch * range.pitch, yaw * range.yaw);
+          sample(
+            `${name}/drag`,
+            pose,
+            signedAngle(pitch, range.pitch, range.minPitch),
+            signedAngle(yaw, range.yaw, range.minYaw),
+          );
       }
     for (const pitch of [-1, 1])
       for (const yaw of [-1, 1]) {
         sample(
           `${name}/hover`,
           pose,
-          pitch * CAMERA_RANGES.hover.pitch,
-          yaw * CAMERA_RANGES.hover.yaw,
+          Math.max(
+            range.minPitch ?? -range.pitch,
+            Math.min(range.pitch, pitch * CAMERA_RANGES.hover.pitch),
+          ),
+          Math.max(
+            range.minYaw ?? -range.yaw,
+            Math.min(range.yaw, yaw * CAMERA_RANGES.hover.yaw),
+          ),
         );
       }
   }
@@ -475,8 +508,16 @@ for (const [width, height] of singleViewport
         sample(
           `overview/hover-${room}-with-drag`,
           home,
-          sy * CAMERA_RANGES.overview.pitch,
-          sx * CAMERA_RANGES.overview.yaw,
+          signedAngle(
+            sy,
+            overviewCameraRange(width / height).pitch,
+            overviewCameraRange(width / height).minPitch,
+          ),
+          signedAngle(
+            sx,
+            overviewCameraRange(width / height).yaw,
+            overviewCameraRange(width / height).minYaw,
+          ),
           hover,
         );
   }
@@ -507,13 +548,19 @@ for (const [width, height] of singleViewport
       for (const returning of [false, true]) {
         const start = returning ? destination : home;
         const end = returning ? home : destination;
-        const range = returning ? CAMERA_RANGES.room : CAMERA_RANGES.overview;
+        const range = returning
+          ? CAMERA_RANGES.room
+          : overviewCameraRange(width / height);
         const departures = [];
         for (const pitch of [-1, -0.5, 0, 0.5, 1])
           for (const yaw of [-1, -0.5, 0, 0.5, 1])
             departures.push({
               name: `drag-${pitch}-${yaw}`,
-              pose: departurePose(start, pitch * range.pitch, yaw * range.yaw),
+              pose: departurePose(
+                start,
+                signedAngle(pitch, range.pitch, range.minPitch),
+                signedAngle(yaw, range.yaw, range.minYaw),
+              ),
             });
         if (!returning) {
           const anchor = new THREE.Vector3(
@@ -529,8 +576,8 @@ for (const [width, height] of singleViewport
                 name: `hover-dolly-drag-${pitch}-${yaw}`,
                 pose: departurePose(
                   start,
-                  pitch * range.pitch,
-                  yaw * range.yaw,
+                  signedAngle(pitch, range.pitch, range.minPitch),
+                  signedAngle(yaw, range.yaw, range.minYaw),
                   hover,
                 ),
               });
@@ -587,7 +634,9 @@ for (const [width, height] of singleViewport
           ...home,
           roll: startRoll + (targetRoll - startRoll) * fraction,
         },
-        range: CAMERA_RANGES.overview,
+        // The bounds ease independently when the viewport changes orientation.
+        // Cover their union rather than assuming the target limits apply at once.
+        range: overviewResizeRange,
       })),
       ...['projects', 'experience', 'about', 'contact'].map((room) => ({
         name: room,
@@ -625,8 +674,8 @@ for (const [width, height] of singleViewport
               sample(
                 `${label}/drag`,
                 pose,
-                pitch * range.pitch,
-                yaw * range.yaw,
+                signedAngle(pitch, range.pitch, range.minPitch),
+                signedAngle(yaw, range.yaw, range.minYaw),
               );
       }
     }
@@ -667,10 +716,10 @@ const report = {
     'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.',
     ...(hasViewportComposition
       ? [
-          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; all rooms, readers and Contact plus drag corners are included. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
+          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; all rooms, readers and Contact plus drag corners are included. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
         ]
       : []),
-    '5x5 bounded drag samples and hover extrema. Portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
+    '5x5 signed bounded angle samples and hover extrema (reachable angular positions, not equal raw drag displacements); negative/positive portrait yaw uses its actual asymmetric bounds, while neutral is always included. Resize-only overview samples conservatively use the union of both orientation profiles. Portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
     'Close readers and Contact computer are included. There is no configured maximum aspect ratio or minimum pixel dimensions;17viewports are an explicit finite audited domain, not a restriction on the application.',
     'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
     'Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
