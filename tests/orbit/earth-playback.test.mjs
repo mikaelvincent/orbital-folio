@@ -17,7 +17,7 @@ const { createOrbitalEnvironment } = await import(
 const close = (actual, expected) =>
   assert.ok(Math.abs(actual - expected) < 1e-8, `${actual} ≠ ${expected}`);
 function fixture(t, invalidate = () => {}) {
-  const texture = new THREE.Texture({ width: 4096, height: 3072 });
+  const texture = new THREE.Texture({ width: 2560, height: 1536 });
   const environment = createOrbitalEnvironment(THREE, invalidate, {
     earthTexture: texture,
   });
@@ -46,7 +46,7 @@ void test('Unopened Earth playback preserves normal timing and exposes ready sta
   const initial = environment.getEarthPlayback();
   assert.deepEqual(initial, {
     time: 0,
-    duration: Math.PI / 0.0045,
+    duration: (Math.PI * 2 * 2560) / (0.0045 * 8192),
     speed: 1,
     playing: true,
     ready: false,
@@ -81,7 +81,12 @@ void test('Seeking is immediate, reversible and Earth-only even when global moti
     environment.setEarthPlayback({ type: 'seek', time });
     close(environment.getEarthPlayback().time, time);
     assert.equal(environment.getEarthPlayback().playing, false);
-    close(surface.rotation.y, time * 0.0045);
+    close(environment.getDiagnostics().earthRotation, time * 0.0045);
+    close(surface.rotation.y, 0);
+    close(
+      texture.offset.x,
+      -3712 / 2560 - ((((time * 0.0045) / (Math.PI * 2)) * 3.2) % 1),
+    );
     assert.deepEqual(
       skyState(environment),
       previousSky,
@@ -241,8 +246,8 @@ void test('Slow image readiness and disposal remain authoritative during preview
   assert.equal(environment.getEarthPlayback().time, 75);
   assert.equal(environment.getEarthPlayback().ready, false);
   releaseBitmap({
-    width: 4096,
-    height: 3072,
+    width: 2560,
+    height: 1536,
     close() {
       closed++;
     },

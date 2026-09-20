@@ -8,12 +8,14 @@ import {
   EARTH_REGION_START_X,
   EARTH_REGION_START_Y,
   configureEarthTexture,
+  advanceEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
 } from './earth-satellite';
 import {
   NIGHT_EARTH_OPENING,
-  orientNightEarth,
+  placeNightEarth,
+  EARTH_RADIUS,
   EARTH_ROTATION_RADIANS_PER_SECOND,
 } from './earth-view-transform';
 import { createNightAtmosphere } from './night-atmosphere';
@@ -422,7 +424,7 @@ export function createOrbitalEnvironment(
 
   let disposed = false;
   const earth = new THREE.Group();
-  earth.position.set(-56.652, -215.289, -161.903);
+  placeNightEarth(THREE, earth);
   const sphereGeometry = new THREE.SphereGeometry(
     1,
     mobile ? 96 : 128,
@@ -432,7 +434,7 @@ export function createOrbitalEnvironment(
     sphereGeometry,
     new THREE.MeshBasicMaterial({ color: 0x020713, toneMapped: false }),
   );
-  surface.scale.setScalar(180);
+  surface.scale.setScalar(EARTH_RADIUS);
   earth.add(surface, createNightAtmosphere(THREE, sphereGeometry));
   surface.name = 'satellite-earth-surface';
   const earthReady = (async () => {
@@ -460,6 +462,10 @@ export function createOrbitalEnvironment(
       surface.material.dispose();
       surface.material = material;
       earthTexture = loaded.texture;
+      advanceEarthTexture(
+        earthTexture,
+        openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND,
+      );
       loadedTexture = undefined;
       Object.assign(earthStatus, {
         ready: true,
@@ -483,41 +489,6 @@ export function createOrbitalEnvironment(
     }
   })();
   scene.add(earth);
-
-  // The reference horizon begins at 76% viewport height and leaves the bottom
-  // at 86% viewport width. Showing more of the globe avoids stretching a tiny
-  // geographic patch across the foreground, while preserving the low orbit view.
-  const horizonLeftRay = new THREE.Vector3();
-  const horizonRightRay = new THREE.Vector3();
-  const horizonBisector = new THREE.Vector3();
-  const horizonNormal = new THREE.Vector3();
-  const placeEarth = (width: number, height: number) => {
-    const focalLength =
-      (height * 0.5) / Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
-    const horizonY = height * 0.76;
-    horizonLeftRay
-      .set(
-        (-width * 0.5) / focalLength,
-        (height * 0.5 - horizonY) / focalLength,
-        -1,
-      )
-      .normalize();
-    horizonRightRay
-      .set((width * 0.36) / focalLength, (-height * 0.5) / focalLength, -1)
-      .normalize();
-    horizonBisector.copy(horizonLeftRay).add(horizonRightRay).normalize();
-    horizonNormal.crossVectors(horizonLeftRay, horizonRightRay).normalize();
-    const cosHalfAngle = horizonBisector.dot(horizonLeftRay);
-    const sinHalfAngle = Math.sqrt(
-      Math.max(0.0001, 1 - cosHalfAngle * cosHalfAngle),
-    );
-    const sweep = 1.2;
-    earth.position
-      .copy(horizonBisector)
-      .multiplyScalar((180 * Math.cos(sweep)) / sinHalfAngle)
-      .addScaledVector(horizonNormal, 180 * Math.sin(sweep));
-    orientNightEarth(THREE, earth, camera);
-  };
 
   let activeTime = 0;
   const phaseHash = (value: number) => {
@@ -616,14 +587,18 @@ export function createOrbitalEnvironment(
     scene,
     camera,
     ready: earthReady,
-    resize(width: number, height: number, pixelRatio: number) {
+    resize(
+      width: number,
+      height: number,
+      pixelRatio: number,
+      fieldOfView = camera.fov,
+    ) {
       const safeHeight = Math.max(1, height);
+      camera.fov = fieldOfView;
       camera.aspect = Math.max(1, width) / safeHeight;
       camera.updateProjectionMatrix();
-      camera.position.set(0, 0, 0);
-      camera.quaternion.identity();
-      camera.updateMatrixWorld(true);
-      placeEarth(Math.max(1, width), safeHeight);
+      // A resize changes projection only. Preserve the current physical camera
+      // and fixed Earth transform; the caller may subsequently reframe its view.
       starsMaterial.uniforms.pixelRatio.value = Math.max(1, pixelRatio);
       for (const { material, tailLength } of meteors) {
         material.uniforms.aspect.value = camera.aspect;
@@ -644,6 +619,10 @@ export function createOrbitalEnvironment(
       worldCamera: Three.PerspectiveCamera,
       reference: Three.PerspectiveCamera,
     ) {
+      if (camera.fov !== worldCamera.fov) {
+        camera.fov = worldCamera.fov;
+        camera.updateProjectionMatrix();
+      }
       // Equivalent to placing this entire orbital scene under the fixed world
       // transform reference.matrixWorld * scale(ORBITAL_WORLD_SCALE).
       relativeCamera
@@ -675,8 +654,11 @@ export function createOrbitalEnvironment(
         earthSeekAtEnd = false;
       }
       previousEarthTime = activeTime;
-      surface.rotation.y =
-        (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
+      if (earthTexture)
+        advanceEarthTexture(
+          earthTexture,
+          openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND,
+        );
       starsMaterial.uniforms.time.value = activeTime;
       for (let index = 0; index < meteors.length; index++) {
         const meteor = meteors[index];
@@ -745,8 +727,11 @@ export function createOrbitalEnvironment(
       }
       // Seeking is an explicit inspection action even when global motion is
       // paused. No caller/star/camera clock changes, resource changes or uploads.
-      surface.rotation.y =
-        (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2);
+      if (earthTexture)
+        advanceEarthTexture(
+          earthTexture,
+          openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND,
+        );
       invalidate();
     },
     getDiagnostics() {
@@ -767,7 +752,10 @@ export function createOrbitalEnvironment(
         earthOpeningElapsed: openingElapsed,
         earthSource: earthStatus.source,
         earthLoadError: earthStatus.error,
-        earthRotation: surface.rotation.y,
+        earthRotation:
+          (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2),
+        earthMeshRotation: surface.rotation.y,
+        earthMapping: 'fixed-sphere-longitude-scroll',
         earthRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         earthPlaybackSpeed,
         earthPlaying,
@@ -782,7 +770,7 @@ export function createOrbitalEnvironment(
           EARTH_SOURCE_HEIGHT / EARTH_TEXTURE_HEIGHT,
         ],
         earthTextureOffset: [
-          -EARTH_REGION_START_X / EARTH_TEXTURE_WIDTH,
+          earthTexture?.offset.x ?? -EARTH_REGION_START_X / EARTH_TEXTURE_WIDTH,
           -(EARTH_SOURCE_HEIGHT - EARTH_REGION_START_Y - EARTH_TEXTURE_HEIGHT) /
             EARTH_TEXTURE_HEIGHT,
         ],
@@ -795,7 +783,8 @@ export function createOrbitalEnvironment(
         earthTextureBytes: earthStatus.ready ? earthTextureBytes : 0,
         earthTextureGpuBytes: earthStatus.ready ? earthGpuBytes : 0,
         earthTextureSamples: 1,
-        cloudRotation: surface.rotation.y,
+        cloudRotation:
+          (openingElapsed * EARTH_ROTATION_RADIANS_PER_SECOND) % (Math.PI * 2),
         cloudRotationRate: EARTH_ROTATION_RADIANS_PER_SECOND,
         cloudFieldSamples: 0,
         cloudWeatherModel: 'cloud-free-night-composite',
@@ -867,7 +856,8 @@ export function createOrbitalEnvironment(
               1048576) *
               10000,
           ) / 10000,
-        earthRadius: 180,
+        earthRadius: EARTH_RADIUS,
+        earthQuaternion: earth.quaternion.toArray(),
         earthPosition: earth.position.toArray(),
         earthAtmosphereLayers: 1,
         drawCallBudget: 13,

@@ -6,6 +6,7 @@ type Frame = {
   direction: Three.Vector3;
   distance: number;
   roll: number;
+  fov: number;
 };
 
 /** Native callouts are projected from the same space as the spacecraft. The
@@ -177,6 +178,9 @@ export function createOverviewAnnotations(
     height = host.clientHeight;
     depth = frame.distance;
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    // The reference unprojection must use the same lens as the rendered ship.
+    // Otherwise a portrait lens change drags the identity into the vessel.
+    reference.fov = frame.fov;
     reference.aspect = width / height;
     reference.far = Math.max(200, depth * 4);
     reference.position

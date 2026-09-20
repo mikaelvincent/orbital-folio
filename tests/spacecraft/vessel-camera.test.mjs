@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 import * as THREE from 'three';
 import { createVesselCameraFrame } from '../../features/spacecraft/navigation/vessel-camera.ts';
+import { responsiveCameraFov } from '../../features/spacecraft/navigation/scene-controls.ts';
 
 const close = (a, b, label) =>
   assert.ok(Math.abs(a - b) < 1e-8, `${label}: ${a} vs ${b}`);
@@ -108,7 +109,7 @@ const { createOrbitalEnvironment, ORBITAL_WORLD_SCALE } = await import(
 
 void test('Orbital camera shares the physical pose under a fixed world registration, without resetting on updates', async (t) => {
   const env = createOrbitalEnvironment(THREE, () => {}, {
-    earthTexture: new THREE.Texture({ width: 4096, height: 3072 }),
+    earthTexture: new THREE.Texture({ width: 2560, height: 1536 }),
     cameraFov: 38,
   });
   t.after(() => env.dispose());
@@ -122,7 +123,10 @@ void test('Orbital camera shares the physical pose under a fixed world registrat
     [390, 844, 60, Math.PI / 2],
     [768, 4096, 220, Math.PI / 2],
   ]) {
+    // Deliberately keep the previous lens in the environment here: following
+    // the physical camera must synchronize its changed lens as well as its pose.
     env.resize(width, height, 2);
+    physical.fov = responsiveCameraFov(width / height);
     reference.aspect = physical.aspect = width / height;
     reference.updateProjectionMatrix();
     physical.updateProjectionMatrix();
@@ -158,6 +162,7 @@ void test('Orbital camera shares the physical pose under a fixed world registrat
         overviewRoll * (1 - ratio),
       );
       env.followCamera(physical, reference);
+      close(env.camera.fov, physical.fov, 'shared physical lens');
       for (const point of [
         [-40, -60, -280],
         [80, 60, -480],
@@ -189,5 +194,5 @@ void test('Orbital camera shares the physical pose under a fixed world registrat
     }
   }
   assert.equal(env.getDiagnostics().cameraMode, 'shared-world-camera');
-  assert.equal(env.getDiagnostics().earthTextureDimensions[0], 4096);
+  assert.equal(env.getDiagnostics().earthTextureDimensions[0], 2560);
 });

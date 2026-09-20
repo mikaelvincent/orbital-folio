@@ -9,6 +9,7 @@ import {
 } from '../../features/spacecraft/geometry/spacecraft-wall-layout.ts';
 import {
   fitRoomCameraFrame,
+  responsiveCameraFov,
   cursorViewSamples,
   CAMERA_RANGES,
 } from '../../features/spacecraft/navigation/scene-controls.ts';
@@ -22,7 +23,7 @@ const roomTarget = (room) =>
     data.roomAnchors[room][2],
   );
 
-test('Shared room framing preserves the same projected architecture and visible navigation across viewports', () => {
+void test('Shared room framing preserves the same projected architecture and visible navigation across viewports', () => {
   for (const [width, height] of [
     [2560, 1080],
     [1920, 1080],
@@ -41,13 +42,14 @@ test('Shared room framing preserves the same projected architecture and visible 
       top: 1 - 48 / height,
       bottom: -1 + 160 / height,
     };
+    const fov = responsiveCameraFov(width / height);
     const fit = fitRoomCameraFrame(
       data.roomCameraFrame,
-      38,
+      fov,
       width / height,
       safe,
     );
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.5, 80);
+    const camera = new THREE.PerspectiveCamera(fov, width / height, 0.5, 80);
     let reference;
     for (const room of ['projects', 'experience', 'about', 'contact']) {
       const target = roomTarget(room);
@@ -122,7 +124,7 @@ test('Shared room framing preserves the same projected architecture and visible 
   }
 });
 
-test('Adding or rearranging furniture cannot change the shared room framing', () => {
+void test('Adding or rearranging furniture cannot change the shared room framing', () => {
   const before = structuredClone(data.roomCameraFrame);
   const console = model.group.getObjectByName('contact-flight-console');
   const decoration = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2));
@@ -136,7 +138,7 @@ test('Adding or rearranging furniture cannot change the shared room framing', ()
   decoration.material.dispose();
 });
 
-test('Overview pointers use the true front-opening edge midpoints in both layouts', () => {
+void test('Overview pointers use the true front-opening edge midpoints in both layouts', () => {
   const sections = ['about', 'projects', 'contact', 'experience'];
   for (const [layout, scale] of [
     ['wide', 1.4],

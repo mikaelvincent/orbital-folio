@@ -1,7 +1,7 @@
 import type * as Three from 'three';
 
-export const EARTH_TEXTURE_WIDTH = 4096;
-export const EARTH_TEXTURE_HEIGHT = 3072;
+export const EARTH_TEXTURE_WIDTH = 2560;
+export const EARTH_TEXTURE_HEIGHT = 1536;
 export const EARTH_TEXTURE_ASSET = '/textures/earth-europe-loop.webp';
 // The regional artwork keeps the source map's texel density, rather than
 // stretching a smaller map around the whole planet. Its authored bridge joins
@@ -9,7 +9,7 @@ export const EARTH_TEXTURE_ASSET = '/textures/earth-europe-loop.webp';
 export const EARTH_SOURCE_WIDTH = 8192;
 export const EARTH_SOURCE_HEIGHT = 4096;
 export const EARTH_REGION_START_X = 3712;
-export const EARTH_REGION_START_Y = 128;
+export const EARTH_REGION_START_Y = 384;
 
 const ownedBitmaps = new WeakMap<Three.Texture, ImageBitmap>();
 const disposedTextures = new WeakSet<Three.Texture>();
@@ -39,6 +39,19 @@ export function configureEarthTexture(
   texture.flipY = false;
   texture.premultiplyAlpha = false;
   texture.needsUpdate = true;
+}
+
+/** Advance longitude without moving the mesh's hidden nonperiodic seam.
+ * Updating a texture transform changes one uniform, never the decoded bitmap.
+ */
+export function advanceEarthTexture(
+  texture: Three.Texture,
+  radians: number,
+): void {
+  const phase =
+    (((radians / (Math.PI * 2)) * EARTH_SOURCE_WIDTH) / EARTH_TEXTURE_WIDTH) %
+    1;
+  texture.offset.x = -EARTH_REGION_START_X / EARTH_TEXTURE_WIDTH - phase;
 }
 
 /** Release an owned bitmap and GPU texture once, including injected test assets. */

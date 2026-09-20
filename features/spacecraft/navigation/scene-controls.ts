@@ -27,6 +27,19 @@ export const CAMERA_RANGES = {
   // A close workstation needs a smaller orbit to keep its glass above the keys.
   computer: { pitch: 0.04, yaw: 0.12 },
 } as const;
+/** Keep a useful horizontal lens in portrait instead of cropping away the
+ * fixed orbital horizon. The cap avoids extreme wide-angle perspective on
+ * unusually tall windows; responsive framing still fits the physical vessel.
+ */
+export function responsiveCameraFov(aspect: number): number {
+  const safeAspect = Number.isFinite(aspect) && aspect > 0 ? aspect : 1;
+  const horizontalSlope = Math.tan((38 * Math.PI) / 360);
+  return Math.min(
+    78,
+    (Math.atan(horizontalSlope / Math.min(1, safeAspect)) * 360) / Math.PI,
+  );
+}
+
 /** More depth on broad canvases, a quieter silhouette beside portrait callouts.
  * Keep this continuous at square/tablet sizes; the fit still owns distance and
  * screen-space centering, and room cameras retain their common frontal view. */

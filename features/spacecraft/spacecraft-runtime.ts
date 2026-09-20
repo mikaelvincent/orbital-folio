@@ -34,6 +34,7 @@ import {
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
+import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
 import {
@@ -57,6 +58,7 @@ import {
   cursorViewSamples,
   boundedCameraAngles,
   overviewCameraDirection,
+  responsiveCameraFov,
   overviewCalloutGutter,
   CAMERA_RANGES,
   type BoundedDrag,
@@ -237,8 +239,7 @@ export function mountSpacecraftScene({
         latest.current.onSurfaceReady(surfaceElement);
         const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 80);
         const cameraFrame = createVesselCameraFrame(THREE);
-        const overviewCameraFrame = createVesselCameraFrame(THREE);
-        const backgroundReference = camera.clone();
+        const backgroundReference = createOrbitalWorldReference(THREE);
         const pmrem = new THREE.PMREMGenerator(renderer),
           roomEnvironment = new RoomEnvironment();
         const environment = pmrem.fromScene(roomEnvironment, 0.035);
@@ -1101,7 +1102,7 @@ export function mountSpacecraftScene({
           const overview = pose('home', false);
           const support = model.group.userData.overviewSupportPoints || [];
           annotations.layout(
-            overview,
+            { ...overview, fov: camera.fov },
             support.length
               ? support
               : [
@@ -2067,7 +2068,7 @@ export function mountSpacecraftScene({
           cssRenderer.setSize(w, h);
           ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
           invalidateAo('drawing-size');
-          background.resize(w, h, renderer.getPixelRatio());
+          background.resize(w, h, renderer.getPixelRatio(), camera.fov);
         };
         const identity = document.querySelector('.orbital-identity');
         let initializedCamera = false;
@@ -2088,21 +2089,13 @@ export function mountSpacecraftScene({
           // Reframing an unchanged viewport here would cancel the entrance.
           if (viewport === previousViewport) return;
           previousViewport = viewport;
+          camera.fov = responsiveCameraFov(w / h);
           setDrawingSize();
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
           syncSceneTargets();
-          // Register the orbital world once per viewport, never on room
-          // changes. All subsequent camera motion is shared by both scenes.
-          const reference = pose('home', false);
-          backgroundReference.copy(camera);
-          overviewCameraFrame.apply(
-            backgroundReference,
-            reference.target,
-            reference.direction,
-            reference.distance,
-            reference.roll,
-          );
+          // Responsive framing moves only the camera. Orbital registration is
+          // fixed at scene creation, including through portrait roll and resize.
           invalidateShadow('viewport');
           resetDiagnostics('viewport changed');
           if (!initializedCamera) {

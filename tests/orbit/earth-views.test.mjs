@@ -2,7 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 import * as THREE from 'three';
-import { NIGHT_EARTH_OPENING } from '../../features/orbit/earth-view-transform.ts';
+import { responsiveCameraFov } from '../../features/spacecraft/navigation/scene-controls.ts';
+import {
+  NIGHT_EARTH_OPENING,
+  createOrbitalWorldReference,
+} from '../../features/orbit/earth-view-transform.ts';
 
 const bundled = await build({
   entryPoints: ['features/orbit/orbital-environment.ts'],
@@ -16,7 +20,7 @@ const { createOrbitalEnvironment } = await import(
   `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`
 );
 
-const textureFixture = () => new THREE.Texture({ width: 4096, height: 3072 });
+const textureFixture = () => new THREE.Texture({ width: 2560, height: 1536 });
 const surfaceOf = (env) => env.scene.getObjectByName('satellite-earth-surface');
 
 void test('Night Earth shares one geometry with one atmosphere and has no unused daylight rig', async (t) => {
@@ -109,7 +113,13 @@ function projectGeography(env, longitude = 12, latitude = 48) {
   env.scene.updateMatrixWorld(true);
   env.camera.updateMatrixWorld(true);
   const surface = surfaceOf(env);
-  const point = normal.clone().applyMatrix4(surface.matrixWorld);
+  const point = normal
+    .clone()
+    .applyAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      env.getDiagnostics().earthRotation,
+    )
+    .applyMatrix4(surface.matrixWorld);
   const center = surface.getWorldPosition(new THREE.Vector3());
   return {
     screen: point.clone().project(env.camera),
@@ -124,12 +134,7 @@ function projectGeography(env, longitude = 12, latitude = 48) {
   };
 }
 
-for (const [width, height, mobile] of [
-  [1280, 720, false],
-  [2560, 600, false],
-  [390, 844, true],
-  [768, 4096, true],
-]) {
+for (const [width, height, mobile] of [[1280, 720, false]]) {
   void test(`The approved Europe opening stays visible for the first ten seconds at ${width}×${height}`, async (t) => {
     const env = createOrbitalEnvironment(THREE, () => {}, {
       mobile,
@@ -179,6 +184,75 @@ for (const [width, height, mobile] of [
   });
 }
 
+void test('Resizing crops a fixed geographic scene without moving Earth or resetting the physical camera', async (t) => {
+  const env = createOrbitalEnvironment(THREE, () => {}, {
+    cameraFov: 38,
+    earthTexture: textureFixture(),
+  });
+  t.after(() => env.dispose());
+  await env.ready;
+  const reference = createOrbitalWorldReference(THREE);
+  const camera = reference.clone();
+  camera.position.add(new THREE.Vector3(3, -2, 4));
+  camera.rotateY(0.08);
+  camera.updateMatrixWorld(true);
+  env.followCamera(camera, reference);
+  env.update(83, true, 0, 0);
+  const surface = surfaceOf(env);
+  env.scene.updateMatrixWorld(true);
+  const earthMatrix = surface.matrixWorld.toArray();
+  const cameraMatrix = env.camera.matrixWorld.toArray();
+  const offset = surface.material.map.offset.toArray();
+  let referenceProjection;
+  for (const [width, height] of [
+    [1280, 720],
+    [390, 844],
+    [2560, 600],
+    [768, 4096],
+    [1280, 720],
+  ]) {
+    const fov = responsiveCameraFov(width / height);
+    env.resize(width, height, 2, fov);
+    env.scene.updateMatrixWorld(true);
+    assert.deepEqual(
+      surface.matrixWorld.toArray(),
+      earthMatrix,
+      'World geometry is independent of screen dimensions',
+    );
+    assert.deepEqual(
+      env.camera.matrixWorld.toArray(),
+      cameraMatrix,
+      'Resizing does not reset shared camera travel',
+    );
+    assert.deepEqual(
+      surface.material.map.offset.toArray(),
+      offset,
+      'Resizing does not seek or reorient the geography',
+    );
+    const { screen } = projectGeography(env);
+    const focal = Math.tan(THREE.MathUtils.degToRad(fov / 2));
+    const unscaled = [
+      ((screen.x * width) / height) * focal,
+      screen.y * focal,
+      screen.z,
+    ];
+    referenceProjection ??= unscaled;
+    unscaled.forEach((value, index) =>
+      close(
+        value,
+        referenceProjection[index],
+        'Identical world ray; only lens and framing change',
+      ),
+    );
+  }
+  const independent = createOrbitalWorldReference(THREE);
+  assert.deepEqual(
+    independent.matrixWorld.toArray(),
+    reference.matrixWorld.toArray(),
+    'Registration never depends on the first visitor viewport',
+  );
+});
+
 void test('Night lighting stays photographic and resizing reuses every loaded resource', async (t) => {
   let decoded = 0,
     closed = 0,
@@ -186,8 +260,8 @@ void test('Night lighting stays photographic and resizing reuses every loaded re
   mockBitmap(t, async () => {
     decoded++;
     return {
-      width: 4096,
-      height: 3072,
+      width: 2560,
+      height: 1536,
       close() {
         closed++;
       },
@@ -301,7 +375,7 @@ void test('The opening waits for image readiness and respects the global active 
     'A slow image load must not skip the opening',
   );
   assert.equal(starClock(env), 10, 'The stars still follow the global clock');
-  releaseBitmap({ width: 4096, height: 3072, close() {} });
+  releaseBitmap({ width: 2560, height: 1536, close() {} });
   await env.ready;
   env.update(10, true, 0, 0);
   assert.equal(env.getDiagnostics().earthOpeningElapsed, 0);

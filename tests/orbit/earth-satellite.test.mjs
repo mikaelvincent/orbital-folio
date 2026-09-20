@@ -10,7 +10,10 @@ import {
   EARTH_TEXTURE_HEIGHT,
   EARTH_SOURCE_WIDTH,
   EARTH_SOURCE_HEIGHT,
+  EARTH_REGION_START_X,
+  EARTH_REGION_START_Y,
   configureEarthTexture,
+  advanceEarthTexture,
   loadEarthTexture,
   disposeEarthTexture,
 } from '../../features/orbit/earth-satellite.ts';
@@ -23,7 +26,7 @@ const deferred = () => {
   });
   return { promise, resolve, reject };
 };
-const bitmapFixture = (width = 4096, height = 3072) => ({
+const bitmapFixture = (width = 2560, height = 1536) => ({
   width,
   height,
   closes: 0,
@@ -75,8 +78,8 @@ void test('Earth texture decodes once with explicit orientation/color settings a
     return bitmap;
   });
   const result = await loadEarthTexture(THREE, controller.signal);
-  assert.equal(EARTH_TEXTURE_WIDTH, 4096);
-  assert.equal(EARTH_TEXTURE_HEIGHT, 3072);
+  assert.equal(EARTH_TEXTURE_WIDTH, 2560);
+  assert.equal(EARTH_TEXTURE_HEIGHT, 1536);
   assert.equal(fetch.mock.callCount(), 1);
   assert.deepEqual(fetch.mock.calls[0].arguments, [
     EARTH_TEXTURE_ASSET,
@@ -142,7 +145,7 @@ void test('Earth loader rejects wrong dimensions and closes its rejected bitmap'
   stubBitmap(t, async () => bitmap);
   await assert.rejects(
     loadEarthTexture(THREE, new AbortController().signal),
-    /must be 4096×3072/,
+    /must be 2560×1536/,
   );
   assert.equal(bitmap.closes, 1);
 });
@@ -299,7 +302,7 @@ void test('Texture configuration also supports a caller-owned injected texture',
   assert.equal(disposals, 1);
 });
 
-void test('Regional mapping preserves source texel centers and angular density without a sphere seam', () => {
+void test('Regional mapping preserves source texel centers and angular density', () => {
   const texture = new THREE.Texture(bitmapFixture());
   configureEarthTexture(THREE, texture);
   texture.updateMatrix();
@@ -308,23 +311,28 @@ void test('Regional mapping preserves source texel centers and angular density w
   // Known retained pixels span the European core. Their normalized geographic
   // UVs must address exactly the corresponding crop pixel centers after flipY.
   for (const [sourceX, sourceY] of [
-    [3800, 180],
+    [3800, 400],
     [4200, 970],
-    [5200, 2000],
+    [5200, 1500],
   ]) {
     const originalUv = new THREE.Vector2(
       (sourceX + 0.5) / 8192,
       1 - (sourceY + 0.5) / 4096,
     );
     const mapped = texture.transformUv(originalUv.clone());
-    close(mapped.x * 4096 - 0.5, sourceX - 3712);
-    close((1 - mapped.y) * 3072 - 0.5, sourceY - 128);
+    close(mapped.x * EARTH_TEXTURE_WIDTH - 0.5, sourceX - EARTH_REGION_START_X);
+    close(
+      (1 - mapped.y) * EARTH_TEXTURE_HEIGHT - 0.5,
+      sourceY - EARTH_REGION_START_Y,
+    );
     const nextTexel = texture.transformUv(
       originalUv.clone().add(new THREE.Vector2(1 / 8192, 1 / 4096)),
     );
-    close((nextTexel.x - mapped.x) * 4096, 1);
-    close((nextTexel.y - mapped.y) * 3072, 1);
-    for (const revolution of [0.5, 1, 2]) {
+    close((nextTexel.x - mapped.x) * EARTH_TEXTURE_WIDTH, 1);
+    close((nextTexel.y - mapped.y) * EARTH_TEXTURE_HEIGHT, 1);
+    for (const revolution of [1, 2, 4].map(
+      (count) => (count * EARTH_TEXTURE_WIDTH) / EARTH_SOURCE_WIDTH,
+    )) {
       const repeated = texture.transformUv(
         originalUv.clone().add(new THREE.Vector2(revolution, 0)),
       );
@@ -334,11 +342,42 @@ void test('Regional mapping preserves source texel centers and angular density w
   }
   assert.equal(EARTH_SOURCE_WIDTH, 8192);
   assert.equal(EARTH_SOURCE_HEIGHT, 4096);
-  assert.equal(
-    Number.isInteger(texture.repeat.x),
-    true,
-    'Whole-number repeats join on the sphere longitude seam',
-  );
+  disposeEarthTexture(texture);
+});
+
+void test('Longitude scroll preserves angular rotation, wraps exactly, and never uploads another image', () => {
+  const texture = new THREE.Texture(bitmapFixture());
+  configureEarthTexture(THREE, texture);
+  const initialVersion = texture.version;
+  const period = (Math.PI * 2 * EARTH_TEXTURE_WIDTH) / EARTH_SOURCE_WIDTH;
+  const modulo = (value) => ((value % 1) + 1) % 1;
+  const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-10, `${a} != ${b}`);
+  for (const angle of [
+    0,
+    0.001,
+    0.43,
+    1.75,
+    period,
+    period + 0.02,
+    period * 4,
+  ]) {
+    advanceEarthTexture(texture, angle);
+    texture.updateMatrix();
+    for (const u of [0.39, 0.5, 0.7]) {
+      const actual = texture.transformUv(new THREE.Vector2(u, 0.55));
+      const expected = modulo(
+        ((u - angle / (Math.PI * 2)) * EARTH_SOURCE_WIDTH) /
+          EARTH_TEXTURE_WIDTH -
+          3712 / EARTH_TEXTURE_WIDTH,
+      );
+      close(actual.x, expected);
+    }
+    assert.equal(
+      texture.version,
+      initialVersion,
+      'Transform updates never mark image data for upload',
+    );
+  }
   disposeEarthTexture(texture);
 });
 
@@ -353,8 +392,8 @@ void test('The shipped regional night map matches its manifest and texture memor
     ),
   );
   const metadata = await sharp(asset).metadata();
-  assert.equal(metadata.width, 4096);
-  assert.equal(metadata.height, 3072);
+  assert.equal(metadata.width, EARTH_TEXTURE_WIDTH);
+  assert.equal(metadata.height, EARTH_TEXTURE_HEIGHT);
   assert.equal(manifest.width, metadata.width);
   assert.equal(manifest.height, metadata.height);
   assert.equal(manifest.encodedBytes, asset.length);
@@ -369,19 +408,64 @@ void test('The shipped regional night map matches its manifest and texture memor
     manifest.source.sha256,
     '48270283df64bcf5c892a15c2efcbaf2a468fb292c1e534b67d47b6ac2c707cd',
   );
-  // Independently decoded from the approved 8K JPEG's [3712,128,1536,3072]
-  // rectangle. The bridge may evolve, but the native European detail must not
-  // silently become a resized, recolored or lossy approximation.
+  assert.deepEqual(manifest.mapping, {
+    sourceWidth: EARTH_SOURCE_WIDTH,
+    sourceHeight: EARTH_SOURCE_HEIGHT,
+    sourceX: EARTH_REGION_START_X,
+    sourceY: EARTH_REGION_START_Y,
+    coreWidth: 1536,
+    longitudePeriodDegrees: 112.5,
+    latitudeNorth: 73.125,
+    latitudeSouth: 5.625,
+  });
+  // Compare the protected region against the original decoder output rather
+  // than trusting provenance fields or a hash copied from the generated asset.
   const core = await sharp(asset)
     .removeAlpha()
-    .extract({ left: 0, top: 0, width: 1536, height: 3072 })
+    .extract({
+      left: 0,
+      top: 0,
+      width: manifest.mapping.coreWidth,
+      height: metadata.height,
+    })
     .raw()
     .toBuffer();
-  const coreSha256 = createHash('sha256').update(core).digest('hex');
+  const originalCore = await sharp(
+    new URL('../../public/textures/earth-black-marble-8k.jpg', import.meta.url)
+      .pathname,
+  )
+    .removeAlpha()
+    .extract({
+      left: manifest.mapping.sourceX,
+      top: manifest.mapping.sourceY,
+      width: manifest.mapping.coreWidth,
+      height: metadata.height,
+    })
+    .raw()
+    .toBuffer();
   assert.equal(
-    coreSha256,
-    'b3768ea7969a308f4ae95b79fe95c01691b7829ccc36d360de47e9dec3ce81ae',
+    core.equals(originalCore),
+    true,
+    'European core remains native decoded source pixels',
   );
+  assert.equal(manifest.quality.protectedCoreDecodedPixelDifferences, 0);
+  const coreSha256 = createHash('sha256').update(core).digest('hex');
   assert.equal(manifest.quality.coreSha256, coreSha256);
-  assert.equal(manifest.estimatedRgba8WithMipmapsBytes, 67108860);
+  assert.equal(manifest.quality.resampled, false);
+  const generatedInput = await fs.readFile(
+    new URL('../../scripts/assets/earth-europe-ai-bridge.png', import.meta.url),
+  );
+  assert.equal(
+    manifest.generated.sha256,
+    createHash('sha256').update(generatedInput).digest('hex'),
+  );
+  assert.ok(
+    manifest.generated.percentOfAtlas > 0 &&
+      manifest.generated.percentOfAtlas < 40,
+  );
+  assert.equal(
+    manifest.generated.percentOfAtlas,
+    (manifest.generated.usedPixels / (metadata.width * metadata.height)) * 100,
+  );
+  assert.equal(manifest.estimatedRgba8WithMipmapsBytes, 20971512);
 });

@@ -47,8 +47,8 @@ for (const mobile of [false, true])
     let closes = 0,
       invalidations = 0;
     const texture = new THREE.Texture({
-      width: 4096,
-      height: 3072,
+      width: 2560,
+      height: 1536,
       close() {
         closes++;
       },
@@ -114,17 +114,17 @@ for (const mobile of [false, true])
     assert.equal(d.earthReady, true);
     assert.equal(d.earthLoadError, null);
     assert.equal(d.earthSource, 'injected-satellite-texture');
-    assert.equal(d.earthTextureBytes, 50331648);
-    assert.equal(d.earthTextureGpuBytes, 67108860);
+    assert.equal(d.earthTextureBytes, 15728640);
+    assert.equal(d.earthTextureGpuBytes, 20971512);
     assert.equal(d.cloudFieldSamples, 0);
     assert.equal(d.cloudTextureSize, 0);
-    assert.deepEqual(d.earthTextureDimensions, [4096, 3072]);
+    assert.deepEqual(d.earthTextureDimensions, [2560, 1536]);
     assert.equal(d.earthTextureSamples, 1);
-    assert.equal(d.earthLoopSeconds, Math.PI / 0.0045);
+    assert.equal(d.earthLoopSeconds, (Math.PI * 2 * 2560) / (0.0045 * 8192));
     assert.equal(d.earthTextureRepresentation, 'authored-regional-night-loop');
     assert.deepEqual(d.earthTextureSourceDimensions, [8192, 4096]);
-    assert.deepEqual(d.earthRegionSourceOrigin, [3712, 128]);
-    assert.deepEqual(d.earthTextureRepeat, [2, 4 / 3]);
+    assert.deepEqual(d.earthRegionSourceOrigin, [3712, 384]);
+    assert.deepEqual(d.earthTextureRepeat, [3.2, 8 / 3]);
     const disposed = watch(collect(env.scene));
     env.dispose();
     env.dispose();
@@ -141,8 +141,8 @@ void test('Disposal before injected texture installation releases it without inv
   let closes = 0,
     invalidations = 0;
   const texture = new THREE.Texture({
-    width: 4096,
-    height: 3072,
+    width: 2560,
+    height: 1536,
     close() {
       closes++;
     },
@@ -160,8 +160,8 @@ void test('Disposal before injected texture installation releases it without inv
   assert.equal(env.getDiagnostics().earthReady, false);
 });
 
-void test('The regional surface repeats after half a revolution without changing resources or motion rate', async (t) => {
-  const texture = new THREE.Texture({ width: 4096, height: 3072 });
+void test('The regional surface repeats each authored period without changing resources or motion rate', async (t) => {
+  const texture = new THREE.Texture({ width: 2560, height: 1536 });
   const env = createOrbitalEnvironment(THREE, () => {}, {
     earthTexture: texture,
   });
@@ -188,6 +188,7 @@ void test('The regional surface repeats after half a revolution without changing
   });
   const sample = () => {
     env.scene.updateMatrixWorld(true);
+    texture.updateMatrix(); // The renderer refreshes map transforms before drawing.
     return fixedWorldTargets.map((point) => {
       const ray = new THREE.Raycaster(
         env.camera.position,
