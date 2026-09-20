@@ -1,0 +1,20 @@
+{
+  "baseline": "4a1f715",
+  "sha256": {
+    "features/portfolio/project-library-window.css": "a8c153c5d5e795946e05a707ddaf39a65fae97fbc659605d7ee196b872dba0fb",
+    "features/portfolio/project-library-window.tsx": "c72ade38f6aeefbef24cbebc4077b0531a13661189e37dadca441fa77240e0e4",
+    "features/portfolio/project-markdown.tsx": "b77ac3056e6ef3466aaa070ec35c9d5e7eddb35079261c164a92c22b8d1de043",
+    "features/spacecraft/rooms/contact-display-surface.ts": "b0ffc873c59db25cc4ab3f8d5b3e87e12d0f7d715932f40f0a7b6d40c27c8a53",
+    "features/spacecraft/rooms/contact-flight-console.ts": "ebe3b8c2c39c6bbefadea85872cd79dcdf075569386bd1a47bad9358391ba70c",
+    "features/spacecraft/rooms/projects-workshop.ts": "1ce21ab1e6837eb78d1e3a56a013bcf11e83cc0122d63e29578d65c1fa207b4f",
+    "features/spacecraft/spacecraft-model.ts": "b6dd343936219f9edc385968936cf99a6ceaae97c299f46d1dfaf5075716cb1b",
+    "features/spacecraft/spacecraft-runtime.ts": "b40c5a5c825cc71b1e794d6a68463eee8dda709b43659143d22dc9dc77ca2a7e",
+    "lib/content/sample-projects.mjs": "4e336d97a72459b37ea9f8c164a2df042434b07e18a21ae79ff46a53d9c7c9e9",
+    "scripts/demo-projects/population-plan.mjs": "6c5856a7c2dcf89b8a66bd7526c9883d09b9b41a7d4189c57ceb4c52ae9afa6c",
+    "tests/content/fixtures/project-demo-relay-v1.json": "05fd9902f4483c979c488260d6b968b6b07a8e2ce10f6929113561aeae5468a2",
+    "tests/content/project-demos.test.mjs": "7c87e455e6ef7b3ea436fd2734620e8dacbdae2649560bdc081be8de6cb6e38b",
+    "tests/content/project-rendering.test.mjs": "1a7d97660b03ef27ade227c61bf7ae90d4d05a086cec4e016b007f692288f7ee",
+    "tests/spacecraft/contact-display-surface.test.mjs": "c4a80fa448db02016693c69992fbfac1fdb8ccc93b45b3c3a43ac628581b7c49",
+    "tests/spacecraft/project-monitor-counts.test.mjs": "1a58746047b66fe7f90fb6d7b42766fe3d65509f3af4d39c05224b0b6a86226b"
+  }
+}

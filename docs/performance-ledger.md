@@ -2294,6 +2294,39 @@ Full suite: **396 passed**; typecheck, affected lint and production build pass.
 Independent critic: **95/100**, no unresolved implementation blockers,
 recommendation keep. Native Safari and runtime timing remain untested.
 
+### Entry 34 follow-up — fitted Contact frames and Projects finishing, 20 September 2026
+
+Baseline `4a1f715`. Contact's three monitors replace protruding stacked trim with
+one seated rounded frame and concentric corners, giving the glass a uniform dark
+border. The glass and application anchors move slightly backward; screen sizes
+and camera-control settings stay unchanged. Projects adds category title-bar
+labels, removes the gallery status bar, replaces generic detail status with the
+project title and paints category counts on all four room screens. Three guarded
+local demos now contain nested lists; tight nested task metadata renders once.
+
+Post-batching retained Contact output changes by **−1 mesh, −3,652 triangle
+inputs, +61,672 geometry/index-array bytes**. Effectively visible deltas are
+−1 mesh, −3,692 triangles and +60,152 bytes. Projects geometry and nominal texture
+storage stay unchanged; no added texture or image download. These are structural
+inventories, not actual draw calls or measured process/GPU allocations. No timed
+CPU/GPU, frame-pacing, heat, battery or net delivery improvement is claimed.
+
+[Source-identified evidence](evidence/monitor-finishing/README.md) preserves model
+sources, reproducible inventory, live Chromium desktop/portrait checks and raw
+coverage. The desktop sphere audit checks 66,598 finite poses over 17 viewports;
+exact sampled footprints retain the 64-row allowance and positive seam clearance.
+The compact mesh repeats those 66,598 poses and also passes exact sampled
+coverage. Broad ±.25-position/5.5° neighborhoods exceed the south crop by
+170.67 rows (desktop) and 192 rows (compact):
+that continuous certificate is **inconclusive**, not a passing universal guarantee.
+The texture/crop is unchanged and no held optimization is implemented.
+
+Full suite: **400 passed**. The final isolated tight-task renderer correction
+then passed 19 focused tests; typecheck, affected lint and production build pass.
+Native Safari, real touch and runtime timing remain untested. Independent critic:
+**95/100**, no unresolved implementation blockers, recommendation keep; full
+rubric and review corrections are recorded with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

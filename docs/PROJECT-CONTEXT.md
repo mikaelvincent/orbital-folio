@@ -193,10 +193,13 @@ and camera movement cannot reveal bare screen backing. Idle graphics and desktop
 are mutually exclusive; closing restores the idle display.
 
 Project collection cards are text-only; detail covers and story media remain.
-The title bar has only a left-aligned, borderless **Back to projects** action on
-detail and the X at right. Back uses the same hover/focus treatment as X and
-returns to the originating collection with its scroll position; the footer has
-the same action. There is no title-bar brand, folder icon or outlined Back pill.
+The collection title bar shows its category name and small category icon, with
+an X at right and no bottom status bar. Detail has a left-aligned, borderless
+**Back to projects** action and the X at right. Back uses the same hover/focus
+treatment as X and restores the originating collection and scroll position;
+the story footer repeats the action. The detail status bar shows the original-case
+project name and category context. All four room monitors show counts derived
+from the same public or preview collection and category rules as the app.
 
 Native application/reader HTML uses one viewport-relative projective transform
 in `features/spacecraft/projected-surface.ts`, derived from the same camera and
@@ -230,9 +233,12 @@ content. Fresh seeds contain the story/category text; managed media is populated
 explicitly through the loopback-only tool. GIF is accepted by the normal image
 upload/package paths; executable embeds remain unsupported. Covers are now used
 in detail only. Shared Markdown restores ordered, unordered and nested markers
-after the global reset; task lists use one aligned checkbox per item. See the
+after the global reset; task lists use one aligned checkbox per item, including
+tight nested task lists. Relay, Fieldnotes and Meter have browsable mixed nested
+examples under Design principles; exact-known prior sample fingerprints can be
+updated by the guarded local tool, without overwriting edited samples. See the
 [demo/fit follow-up](evidence/projects-demo-fit/README.md) and current
-[desktop/list refinement](evidence/projects-desktop-refinements/README.md).
+[monitor/list finishing evidence](evidence/monitor-finishing/README.md).
 
 ## Contact computer and submission boundary
 
@@ -257,7 +263,11 @@ Keep bounded hover and drag camera control active while this application is open
 The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag
 release springs back to hover, and native form interaction never starts a drag.
 A static abstract navy/alloy-blue desktop fills the full monitor glass behind
-the application window, including the space around the compact chooser.
+the application window, including the space around the compact chooser. Main and
+both social displays use a single seated rounded frame, with concentric corner
+radii for a consistent narrow dark border. The glass is recessed behind that
+frame; app and interaction anchors remain aligned to the visible face. This
+replaces the protruding stacked trim and mismatched corner gaps.
 The neighboring social displays remain independently hoverable and selectable,
 with their amber rims inset on the glass. The already-open main display does not
 advertise another selection. Its complete monitor/support assembly is raised
