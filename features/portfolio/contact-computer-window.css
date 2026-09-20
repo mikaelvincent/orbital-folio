@@ -184,7 +184,8 @@
   opacity: 0;
   transition: opacity 180ms ease;
 }
-#ship[data-hover-object='contact-room-dismiss'] .contact-room-return-hint {
+#ship[data-hover-object='contact-room-dismiss'] .contact-room-return-hint,
+#ship[data-hover-object='projects-room-dismiss'] .contact-room-return-hint {
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,14 @@
 'use client';
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Native keyboard scrolling needs a focusable viewport. */
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from 'react';
 
 type Point = { x: number; y: number };
 
@@ -24,7 +32,21 @@ export function projectedScrollFraction(
 
 /** Native scrolling with a persistent indicator, independent of OS scrollbar
  * auto-hide preferences. Only resize and input events do work; no frame loop. */
-export function ContactScrollArea({ children }: { children: ReactNode }) {
+export function ContactScrollArea({
+  children,
+  label = 'Contact application',
+  viewportRef,
+  onScroll,
+  restorationKey,
+  initialScrollTop = 0,
+}: {
+  children: ReactNode;
+  label?: string;
+  viewportRef?: RefObject<HTMLDivElement | null>;
+  onScroll?: (top: number) => void;
+  restorationKey?: string;
+  initialScrollTop?: number;
+}) {
   const id = useId();
   const viewport = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
@@ -39,6 +61,13 @@ export function ContactScrollArea({ children }: { children: ReactNode }) {
   );
   const travel = trackHeight - thumbHeight;
   const thumbTop = maximum ? (metrics.top / maximum) * travel : 0;
+
+  useLayoutEffect(() => {
+    if (viewport.current) viewport.current.scrollTop = initialScrollTop;
+    // The stored position belongs to the selected page/category. Ordinary
+    // scrolling must not trigger a restore on each render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restorationKey]);
 
   useEffect(() => {
     const pane = viewport.current;
@@ -90,10 +119,14 @@ export function ContactScrollArea({ children }: { children: ReactNode }) {
       <div
         className="contact-window-body"
         id={id}
-        ref={viewport}
+        ref={(element) => {
+          viewport.current = element;
+          if (viewportRef) viewportRef.current = element;
+        }}
         tabIndex={0}
         role="region"
-        aria-label="Contact application content"
+        aria-label={`${label} content`}
+        onScroll={(event) => onScroll?.(event.currentTarget.scrollTop)}
       >
         <div ref={content}>{children}</div>
       </div>
@@ -102,7 +135,7 @@ export function ContactScrollArea({ children }: { children: ReactNode }) {
           className="contact-window-scrollbar"
           role="scrollbar"
           tabIndex={0}
-          aria-label="Scroll Contact application"
+          aria-label={`Scroll ${label}`}
           aria-controls={id}
           aria-orientation="vertical"
           aria-valuemin={0}

@@ -16,7 +16,7 @@ test('Flight destinations preserve public and private readable URLs', () => {
   assert.equal(destinationFromURL(url('/contact?sent=1')).sent, true);
   assert.equal(destinationFromURL(url('/contact?sent=1')).open, true);
   assert.equal(destinationFromURL(url('/?open=1')).open, false);
-  assert.equal(destinationFromURL(url('/projects?open=1')).open, false);
+  assert.equal(destinationFromURL(url('/projects?open=1')).open, true);
   assert.equal(destinationFromURL(url('/admin')), null);
   assert.equal(destinationFromURL(url('/experience/missing')), null);
   assert.equal(destinationFromURL(url('/projects/one/two')), null);

@@ -1,8 +1,5 @@
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
-import {
-  PROJECTS_GRID,
-  PROJECTS_UNDERBENCH,
-} from './cabin-composition.ts';
+import { PROJECTS_GRID, PROJECTS_UNDERBENCH } from './cabin-composition.ts';
 
 /** Static category workshop. Origin is the cabin floor; +Z faces the visitor. */
 export function buildProjectsWorkshop(
@@ -604,6 +601,8 @@ export function buildProjectsWorkshop(
     'projects-workshop-fastener-slots',
   );
   return {
+    screens: modules,
+    root: parent,
     setProjectCount: (count: number) => modules[0].setCount(count),
   };
 }

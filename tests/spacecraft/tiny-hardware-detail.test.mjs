@@ -218,7 +218,8 @@ test('Geometry savings survive production material batching in both spacecraft l
   for (const layout of Object.values(report.layouts)) {
     // The approved sealed docking pads replace the old display vent slots,
     // adding 1,920 triangles without restoring the removed tiny bezel detail.
-    assert.equal(layout.furniture.projects.triangles, 146396);
+    // Four inset selectable-monitor rims add 544 triangles to the authored baseline.
+    assert.equal(layout.furniture.projects.triangles, 146940);
     // About's approved berth redesign also removes the pleated divider. Keep
     // the hardware budget without tying later art changes to the old room total.
     assert.ok(layout.furniture.about.triangles <= 70954);

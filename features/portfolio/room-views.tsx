@@ -8,8 +8,12 @@ import {
   BookOpen,
   Layers,
 } from 'lucide-react';
-import { ProjectCards, RoomIntro, TextBlocks } from './portfolio-parts';
+import { RoomIntro, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content/types';
+import { projectBody } from '@/lib/content/project-content';
+import { ReadingProjectLibrary, ProjectLinks } from './project-library-window';
+import { ProjectMarkdown, ProjectMedia } from './project-markdown';
+import { parseProjectMarkdown } from './project-markdown-content';
 import {
   ContactForm,
   type ContactDraft,
@@ -26,7 +30,7 @@ export function ProjectsView({ data }: { data: Portfolio }) {
           {data.site.allProjectsLabel}
         </span>
       </div>
-      <ProjectCards projects={data.projects} site={data.site} />
+      <ReadingProjectLibrary data={data} />
     </>
   );
 }
@@ -39,6 +43,19 @@ export function DossierView({
 }) {
   const s = data.site;
   const media = data.media.find((m) => m.id === p.mediaId);
+  const body = projectBody(p);
+  const legacySections = [
+    'problem',
+    'approach',
+    'system',
+    'decisions',
+    'outcomes',
+    'next',
+  ];
+  const isMarkdown = typeof p.body === 'string';
+  const headings = isMarkdown
+    ? parseProjectMarkdown(body).headings
+    : legacySections.map((id) => ({ id, text: s[id + 'Label'] }));
   return (
     <>
       <a className="back-link" href={pathFor('/projects', s)}>
@@ -52,45 +69,31 @@ export function DossierView({
             <p className="eyebrow">{p.category}</p>
           </div>
           <h1>{p.title}</h1>
-          <p className="dossier-subtitle">{p.subtitle}</p>
+          {p.subtitle && <p className="dossier-subtitle">{p.subtitle}</p>}
           <p className="dossier-summary">{p.summary}</p>
-          {media && (
-            <figure className="project-media">
-              <img
-                src={media.url}
-                alt={media.alt}
-                width="900"
-                height="560"
-                loading="lazy"
-              />
-              <figcaption>{media.title}</figcaption>
-            </figure>
+          {media && <ProjectMedia item={media} media={data.media} />}
+          {isMarkdown ? (
+            <ProjectMarkdown body={body} media={data.media} />
+          ) : (
+            legacySections.map((id, index) => (
+              <section id={id} key={id}>
+                <h2>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {s[id + 'Label']}
+                </h2>
+                {id === 'system' && (
+                  <div className="system-flow" aria-hidden="true">
+                    <FileText />
+                    <ArrowRight />
+                    <Layers />
+                    <ArrowRight />
+                    <Radio />
+                  </div>
+                )}
+                <TextBlocks text={p[id]} />
+              </section>
+            ))
           )}
-          {[
-            'problem',
-            'approach',
-            'system',
-            'decisions',
-            'outcomes',
-            'next',
-          ].map((id, i) => (
-            <section id={id} key={id}>
-              <h2>
-                <span>0{i + 1}</span>
-                {s[id + 'Label']}
-              </h2>
-              {id === 'system' && (
-                <div className="system-flow" aria-hidden="true">
-                  <FileText />
-                  <ArrowRight />
-                  <Layers />
-                  <ArrowRight />
-                  <Radio />
-                </div>
-              )}
-              <TextBlocks text={p[id]} />
-            </section>
-          ))}
           <a className="paper-cta" href={pathFor('/contact', s)}>
             {s.inviteLabel}
             <ArrowUpRight size={20} />
@@ -102,51 +105,37 @@ export function DossierView({
             {s.dossierLabel}
           </p>
           <h2>{p.title}</h2>
-          <nav aria-label={s.dossierLabel}>
-            {[
-              'problem',
-              'approach',
-              'system',
-              'decisions',
-              'outcomes',
-              'next',
-            ].map((id, i) => (
-              <a href={'#' + id} key={id}>
-                <span>0{i + 1}</span>
-                {s[id + 'Label']}
-              </a>
-            ))}
-          </nav>
+          {!!headings.length && (
+            <nav aria-label={s.dossierLabel}>
+              {headings.map((heading, index) => (
+                <a href={'#' + heading.id} key={heading.id}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          )}
           <div className="dossier-meta">
-            <p>{s.roleLabel}</p>
-            <strong>{p.role}</strong>
-            <p>{s.periodLabel}</p>
-            <strong>{p.period}</strong>
-            <p>{s.stackLabel}</p>
-            <strong>{p.stack}</strong>
+            {p.role && (
+              <>
+                <p>{s.roleLabel}</p>
+                <strong>{p.role}</strong>
+              </>
+            )}
+            {p.period && (
+              <>
+                <p>{s.periodLabel}</p>
+                <strong>{p.period}</strong>
+              </>
+            )}
+            {p.stack && (
+              <>
+                <p>{s.stackLabel}</p>
+                <strong>{p.stack}</strong>
+              </>
+            )}
           </div>
-          {p.demoUrl && (
-            <a
-              className="button amber"
-              href={p.demoUrl}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {s.demoLabel}
-              <ArrowUpRight size={16} />
-            </a>
-          )}
-          {p.sourceUrl && (
-            <a
-              className="text-link"
-              href={p.sourceUrl}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {s.codeLabel}
-              <ArrowUpRight size={16} />
-            </a>
-          )}
+          <ProjectLinks project={p} site={s} />
         </aside>
       </div>
     </>

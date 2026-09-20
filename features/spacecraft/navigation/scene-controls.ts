@@ -204,6 +204,7 @@ export function fitPerspectiveFrame(
   fovDegrees: number,
   aspect: number,
   bounds: NdcBounds,
+  near = 0.5,
 ) {
   const frame = basis(view),
     slope = slopes(fovDegrees, aspect);
@@ -211,7 +212,7 @@ export function fitPerspectiveFrame(
     right = -Infinity,
     bottom = Infinity,
     top = -Infinity,
-    distance = 0.5;
+    distance = positive(near, 'Near distance');
   for (const point of points) {
     const p = sub(point, view.target),
       x = dot(p, frame.right),
@@ -221,7 +222,7 @@ export function fitPerspectiveFrame(
     right = Math.max(right, x + bounds.right * slope.x * z);
     bottom = Math.min(bottom, y + bounds.bottom * slope.y * z);
     top = Math.max(top, y + bounds.top * slope.y * z);
-    distance = Math.max(distance, z + 0.5);
+    distance = Math.max(distance, z + near);
   }
   distance = Math.max(
     distance,

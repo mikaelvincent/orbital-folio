@@ -94,6 +94,7 @@ export type SpacecraftState = {
   slug?: string | null;
   projectPage?: number;
   reading?: boolean;
+  projectScreen?: string;
   delta?: number;
   /** Use the fixed side collar plaques for a +PI/2 portrait overview. */
   labelPortrait?: boolean;
@@ -529,6 +530,8 @@ export function createSpacecraft(
     );
     skin.position.set(x, 0, 0);
     if (section === 'contact') skin.material.userData.contactRoomWall = true;
+    if (section === 'contact' || section === 'projects')
+      skin.material.userData.applicationRoomWall = section;
     // The single pressure skin now supplies the floor at its unchanged datum;
     // the former thick deck slab is no longer stacked on top of it.
 
@@ -832,10 +835,12 @@ export function createSpacecraft(
       1,
     );
     wall.userData.batchRoot = true;
-    if (section === 'about')
-      wall.traverse((part: any) => {
-        if (part.isMesh) part.material.userData.contactRoomWall = true;
-      });
+    wall.traverse((part: any) => {
+      if (!part.isMesh) return;
+      if (section === 'about') part.material.userData.contactRoomWall = true;
+      part.material.userData.applicationRoomWall =
+        section === 'about' ? 'contact' : 'projects';
+    });
     roomWallMounts.push({ group: wall, origin, sign: 1 });
   }
 
@@ -1438,9 +1443,8 @@ export function createSpacecraft(
       // The shared shutter added below includes this passage's full-depth guide.
     }
   }
-  // Projects is a static category workshop. The previous individual-project
+  // Projects category monitors share a single library application. The previous individual-project
   // lockers and their pick surfaces disappear with the replaced furnishings.
-  // Catalog interaction is intentionally deferred; keep the public reader APIs.
   const workshop = new THREE.Group();
   workshop.name = 'projects-workshop';
   workshop.position.set(legacyCenters.projects + 0.18, previousFloorTop, 0);
@@ -1455,6 +1459,9 @@ export function createSpacecraft(
       accent: m.amber,
     },
   );
+  group.userData.projectScreens = projectWorkshop.screens;
+  group.userData.projectWorkshop = workshop;
+  readerSurfaces.projects = projectWorkshop.screens[0].anchor;
   // Case Studies uses a fixed archive rack with a raked terminal. Its old
   // individual-case doors and hotspots leave with the replaced furnishings.
   const archive = new THREE.Group();
@@ -1581,6 +1588,16 @@ export function createSpacecraft(
     }),
   );
 
+  for (const screen of projectWorkshop.screens)
+    objectHighlights.push(
+      createObjectHighlight(THREE, screen.root, screen.interactableId, {
+        width: screen.width,
+        height: screen.height,
+        radius: 0.026,
+        z: 0.118,
+      }),
+    );
+
   const { docking, service, solarWings, dishAssembly } =
     buildDockingAndServiceAssemblies(
       THREE,
@@ -1594,7 +1611,6 @@ export function createSpacecraft(
   // Final centers are [roomCenter.x, roomCenter.y, 1.72], width 2.4, height 2.7.
   // All moving parts receive light but do not cast into the static shadow map.
   for (const [section, x] of Object.entries({
-    projects: -3,
     experience: 0,
     about: 3,
   })) {
@@ -1640,32 +1656,7 @@ export function createSpacecraft(
       0.007,
       'blank-reader-surface',
     );
-    if (section === 'projects') {
-      box(
-        0.39,
-        0.106,
-        0.136,
-        m.metal,
-        0,
-        1.397,
-        0.121,
-        tray,
-        0.047,
-        'reader-top-clip',
-      );
-      box(
-        0.225,
-        0.121,
-        0.072,
-        m.amber,
-        0,
-        1.426,
-        0.217,
-        tray,
-        0.033,
-        'reader-amber-clip-cap',
-      );
-    } else if (section === 'about') {
+    if (section === 'about') {
       box(
         0.125,
         2.829,
@@ -1776,12 +1767,7 @@ export function createSpacecraft(
       width: 2.4,
       height: 2.7,
       section,
-      kind:
-        section === 'projects'
-          ? 'clipboard'
-          : section === 'about'
-            ? 'journal'
-            : 'instrument',
+      kind: section === 'about' ? 'journal' : 'instrument',
       deployedPosition: [
         roomCenters[section][0],
         roomCenters[section][1],
@@ -3606,6 +3592,16 @@ export function createSpacecraft(
       if (previousProgress !== p) geometryChanged();
       if (p !== goal) motionActive = true;
     }
+    const projectApplicationActive =
+      currentState.reading && currentState.activeRoom === 'projects';
+    for (const screen of projectWorkshop.screens) {
+      const selected =
+        projectApplicationActive &&
+        screen.category === (currentState.projectScreen || 'all');
+      if (screen.idleDisplay.visible === !!selected) geometryChanged();
+      screen.setActive(!!selected);
+      if (selected) readerSurfaces.projects = screen.anchor;
+    }
     const computerActive =
       currentState.reading && currentState.activeRoom === 'contact';
     if (contactComputer.idleDisplay.visible === !!computerActive)
@@ -3617,15 +3613,15 @@ export function createSpacecraft(
       motionActive = true;
     }
     group.userData.motionActive = motionActive;
-    const wallFocusGoal = computerActive ? 1 : 0;
+    const wallFocusGoal = computerActive || projectApplicationActive ? 1 : 0;
     contactWallFocus += (wallFocusGoal - contactWallFocus) * blend;
     if (Math.abs(contactWallFocus - wallFocusGoal) < 0.002)
       contactWallFocus = wallFocusGoal;
     if (contactWallFocus !== wallFocusGoal) group.userData.motionActive = true;
     const wallHoverGoal =
-      computerActive &&
+      (computerActive || projectApplicationActive) &&
       !currentState.travelling &&
-      currentState.hoveredObject === 'contact-room-dismiss'
+      currentState.hoveredObject === `${currentState.activeRoom}-room-dismiss`
         ? 1
         : 0;
     contactWallHover += (wallHoverGoal - contactWallHover) * blend;
@@ -3675,9 +3671,15 @@ export function createSpacecraft(
         material.color
           .copy(material.userData.baseColor)
           .multiplyScalar(materialLevel);
-        if (material.userData.contactRoomWall)
+        if (
+          (material.userData.contactRoomWall &&
+            currentState.activeRoom === 'contact') ||
+          material.userData.applicationRoomWall === currentState.activeRoom
+        )
           material.color
-            .multiplyScalar(1 - 0.24 * contactWallFocus * (1 - contactWallHover))
+            .multiplyScalar(
+              1 - 0.24 * contactWallFocus * (1 - contactWallHover),
+            )
             .lerp(paintedHover, contactWallHover * 0.6)
             .multiplyScalar(1 + contactWallHover * 0.07);
         material.emissive
@@ -3723,10 +3725,16 @@ export function createSpacecraft(
       if (
         highlight.update(
           currentState.hoveredObject === highlight.id,
-          currentState.activeRoom === 'contact' &&
-            !currentState.travelling &&
-            (!currentState.reading ||
-              highlight.id.startsWith('contact-social-')),
+          !currentState.travelling &&
+            ((currentState.activeRoom === 'contact' &&
+              highlight.id.startsWith('contact-') &&
+              (!currentState.reading ||
+                highlight.id.startsWith('contact-social-'))) ||
+              (currentState.activeRoom === 'projects' &&
+                highlight.id.startsWith('projects-screen-') &&
+                (!currentState.reading ||
+                  highlight.id !==
+                    `projects-screen-${currentState.projectScreen || 'all'}`))),
           dt,
           instantHighlight,
         )

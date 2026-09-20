@@ -35,7 +35,7 @@ export function destinationFromURL(
     section,
     slug,
     open:
-      ['experience', 'about', 'contact'].includes(section) &&
+      ['projects', 'experience', 'about', 'contact'].includes(section) &&
       (url.searchParams.get('open') === '1' ||
         url.searchParams.get('sent') === '1' ||
         url.searchParams.get('error') === '1'),

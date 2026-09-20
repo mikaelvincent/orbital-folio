@@ -16,7 +16,12 @@ export function Spacecraft(props: SpacecraftProps) {
   const s = props.site;
   useEffect(() => {
     api.current?.go();
-  }, [props.section, props.slug, props.readingSurface, props.projectPage]);
+  }, [
+    props.section,
+    props.readingSurface,
+    props.projectPage,
+    props.projectScreen,
+  ]);
   useEffect(() => {
     api.current?.pause(props.paused);
   }, [props.paused]);

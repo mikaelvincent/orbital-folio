@@ -1,3 +1,4 @@
+import { projectApplicationLayout } from './navigation/project-application';
 import { resolveSocialScreens } from '@/lib/content/social-links';
 import {
   canUseDoorDuringTravel,
@@ -84,6 +85,11 @@ export type SpacecraftProps = {
   slug?: string;
   readingSurface: boolean;
   projectPage: number;
+  projectScreen?: string;
+  onOpenProjects?: (
+    category: 'all' | 'systems' | 'interfaces' | 'experiments',
+  ) => void;
+  onCloseProjects?: () => void;
   paused: boolean;
   enabled: boolean;
   diagnosticsEnabled?: boolean;
@@ -485,6 +491,32 @@ export function mountSpacecraftScene({
         };
         const computerTarget = new CSS3DObject(computerButton);
         cssScene.add(computerTarget);
+        const projectControls = model.group.userData.projectScreens.map(
+          (screen: any) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'world-object-target world-computer-screen';
+            button.setAttribute('aria-label', `Open ${screen.label}`);
+            button.dataset.targetKey = screen.interactableId;
+            button.dataset.sceneObject = screen.interactableId;
+            button.style.width = '500px';
+            button.style.height = `${(500 * screen.height) / screen.width}px`;
+            button.onclick = () => {
+              if (active === 'projects' && !travelling)
+                latest.current.onOpenProjects?.(screen.category);
+            };
+            const object = new CSS3DObject(button);
+            cssScene.add(object);
+            return { screen, button, object };
+          },
+        );
+        const selectedProjectScreen = () =>
+          projectControls.find(
+            ({ screen }: any) =>
+              screen.category === latest.current.projectScreen,
+          )?.screen || projectControls[0].screen;
+        const applicationRoom = () =>
+          active === 'contact' || active === 'projects';
         const screenProjection = new THREE.Vector3();
         function screenInViewport(screen: any) {
           let left = Infinity,
@@ -509,6 +541,9 @@ export function mountSpacecraftScene({
         let contactRoomPicker: ReturnType<
           typeof createContactRoomDismissPicker
         >;
+        let projectRoomPicker: ReturnType<
+          typeof createContactRoomDismissPicker
+        >;
         const lastContactPickRay = new THREE.Ray();
         let contactWallPicks = 0;
         let contactPickRevision = -1,
@@ -528,6 +563,23 @@ export function mountSpacecraftScene({
               blockers.push(object);
           });
           contactRoomPicker = createContactRoomDismissPicker(walls, blockers);
+          const projectWalls: Three.Mesh[] = [],
+            projectBlockers: Three.Mesh[] = [];
+          model.group.traverse((object: any) => {
+            if (
+              object.isMesh &&
+              object.material?.userData.applicationRoomWall === 'projects'
+            )
+              projectWalls.push(object);
+          });
+          model.group.userData.projectWorkshop.traverse((object: any) => {
+            if (object.isMesh && !object.userData.isInteractionProxy)
+              projectBlockers.push(object);
+          });
+          projectRoomPicker = createContactRoomDismissPicker(
+            projectWalls,
+            projectBlockers,
+          );
           contactPickRevision = -1;
           for (const hotspot of hotspotObjects) {
             const source = model.group.userData.portals.find(
@@ -773,15 +825,23 @@ export function mountSpacecraftScene({
             ),
           );
         const computerLayout = () =>
-          contactApplicationLayout(
-            el.clientWidth,
-            el.clientHeight,
-            computer.width,
-            computer.height,
-            // Overview poses also refresh the shared dock inset during resize.
-            // Keep the Contact window's own compact reservation stable.
-            Math.max(bottomReservation, mobile() ? 132 : 80),
-          );
+          active === 'projects'
+            ? projectApplicationLayout(
+                el.clientWidth,
+                el.clientHeight,
+                selectedProjectScreen().width,
+                selectedProjectScreen().height,
+                Math.max(bottomReservation, mobile() ? 132 : 80),
+              )
+            : contactApplicationLayout(
+                el.clientWidth,
+                el.clientHeight,
+                computer.width,
+                computer.height,
+                // Overview poses also refresh the shared dock inset during resize.
+                // Keep the Contact window's own compact reservation stable.
+                Math.max(bottomReservation, mobile() ? 132 : 80),
+              );
         const portraitOverview = () => el.clientHeight > el.clientWidth;
         const zAxis = new THREE.Vector3(0, 0, 1);
         const pose = (section: string, isReading: boolean) => {
@@ -885,6 +945,44 @@ export function mountSpacecraftScene({
             desiredDistance = framed.distance * (layout.portrait ? 1 : 1.06);
             el.dataset.framing = JSON.stringify({
               mode: 'contact-computer',
+              ...layout,
+              distance: desiredDistance,
+            });
+          } else if (isReading && section === 'projects') {
+            model.group.updateMatrixWorld(true);
+            const screen = selectedProjectScreen();
+            const layout = computerLayout();
+            const points: Vec3[] = [];
+            for (const x of [-layout.width / 2, layout.width / 2])
+              for (const y of [-layout.height / 2, layout.height / 2])
+                points.push(
+                  screen.anchor
+                    .localToWorld(new THREE.Vector3(x, y, 0))
+                    .toArray(),
+                );
+            const framed = fitPerspectiveFrame(
+              points,
+              {
+                target: screen.anchor
+                  .getWorldPosition(new THREE.Vector3())
+                  .toArray(),
+                direction: direction.toArray(),
+              },
+              camera.fov,
+              camera.aspect,
+              {
+                left: -1 + 32 / el.clientWidth,
+                right: 1 - 32 / el.clientWidth,
+                top: 1 - (2 * (layout.portrait ? 64 : 30)) / el.clientHeight,
+                bottom: -1 + (2 * bottomReservation) / el.clientHeight,
+              },
+              0.1,
+            );
+            target.set(...framed.target);
+            desiredDistance = framed.distance * (layout.portrait ? 1 : 1.06);
+            el.dataset.framing = JSON.stringify({
+              mode: 'projects-application',
+              screen: screen.category,
               ...layout,
               distance: desiredDistance,
             });
@@ -1513,7 +1611,7 @@ export function mountSpacecraftScene({
           const motionDelta = stop ? 0 : delta;
           const pointerLimits = { frequency: 8, speed: 3, acceleration: 12 };
           const feedbackTarget = feedback.resolve(
-            (reading && active !== 'contact') ||
+            (reading && !applicationRoom()) ||
               !latest.current.enabled ||
               !!down?.gesture.dragging ||
               document.hidden,
@@ -1540,7 +1638,7 @@ export function mountSpacecraftScene({
             el.style.cursor =
               effectivePortal || effectiveObject
                 ? 'pointer'
-                : reading && active !== 'contact'
+                : reading && !applicationRoom()
                   ? 'auto'
                   : 'grab';
           const inspectingPassage =
@@ -1564,7 +1662,7 @@ export function mountSpacecraftScene({
           pointerCurrent.set(
             moveCameraAxis(
               pointerMotion[0],
-              reading && active !== 'contact'
+              reading && !applicationRoom()
                 ? 0
                 : inspectingPassage
                   ? passagePeek
@@ -1574,7 +1672,7 @@ export function mountSpacecraftScene({
             ),
             moveCameraAxis(
               pointerMotion[1],
-              (reading && active !== 'contact') || inspectingPassage
+              (reading && !applicationRoom()) || inspectingPassage
                 ? 0
                 : pointerGoal.y,
               motionDelta,
@@ -1614,12 +1712,12 @@ export function mountSpacecraftScene({
             if (stop)
               resetAxis(
                 dragMotion[index],
-                reading && active !== 'contact' ? 0 : goal,
+                reading && !applicationRoom() ? 0 : goal,
               );
             else
               moveCameraAxis(
                 dragMotion[index],
-                reading && active !== 'contact' ? 0 : goal,
+                reading && !applicationRoom() ? 0 : goal,
                 delta,
                 {
                   frequency: 10,
@@ -1631,7 +1729,7 @@ export function mountSpacecraftScene({
           const range: CameraAngleRange =
             active === 'home'
               ? overviewCameraRange(camera.aspect)
-              : reading && active === 'contact'
+              : reading && applicationRoom()
                 ? CAMERA_RANGES.computer
                 : CAMERA_RANGES.room;
           [
@@ -1725,6 +1823,7 @@ export function mountSpacecraftScene({
               hoveredProject: null,
               hoveredCaseStudy: null,
               projectPage: latest.current.projectPage,
+              projectScreen: latest.current.projectScreen || 'all',
               reading,
               delta,
             },
@@ -1736,6 +1835,17 @@ export function mountSpacecraftScene({
             if (anchor.userData.kind !== 'computer')
               anchor.parent.scale.y *= readerStretch();
           updateRenderSceneMatrices(scene);
+          // Small workshop displays require closer portrait framing than cabin views.
+          // Retain their near plane through the closing flight to avoid a clipping pop.
+          const near =
+            (reading && active === 'projects') ||
+            (travelling && camera.near < 0.5)
+              ? 0.08
+              : 0.5;
+          if (camera.near !== near) {
+            camera.near = near;
+            camera.updateProjectionMatrix();
+          }
           camera.updateMatrixWorld(true);
           (audit?.shadingFrame ?? audit?.contactFrame)?.();
           diagnostics?.mark('matrices');
@@ -1752,7 +1862,7 @@ export function mountSpacecraftScene({
           );
           diagnostics?.mark('annotations');
           const application = computerLayout();
-          const isComputer = active === 'contact';
+          const isComputer = applicationRoom();
           const logicalWidth = isComputer
             ? application.pixelsWidth
             : paperPixels();
@@ -1831,6 +1941,33 @@ export function mountSpacecraftScene({
           computerButton.classList.toggle(
             'is-object-active',
             computerTarget.visible && effectiveObject === 'contact-computer',
+          );
+          for (const { screen, button, object } of projectControls) {
+            screen.anchor.matrixWorld.decompose(
+              object.position,
+              object.quaternion,
+              object.scale,
+            );
+            object.scale.multiplyScalar(screen.width / 500);
+            object.visible =
+              active === 'projects' &&
+              !travelling &&
+              (!reading ||
+                (screen !== selectedProjectScreen() &&
+                  screenInViewport(screen)));
+            button.inert = !object.visible;
+            button.classList.toggle(
+              'is-object-active',
+              object.visible &&
+                !down?.gesture.dragging &&
+                effectiveObject === screen.interactableId,
+            );
+          }
+          contactReturnHint.classList.toggle(
+            'is-visible',
+            reading &&
+              applicationRoom() &&
+              effectiveObject === `${active}-room-dismiss`,
           );
           diagnostics?.mark('html-sync');
           if (experiment !== 'no-background') {
@@ -2102,10 +2239,9 @@ export function mountSpacecraftScene({
               background.getDiagnostics(),
             );
             if (reading && model.readerSurfaces[active]) {
-              const layout =
-                active === 'contact'
-                  ? computerLayout()
-                  : { width: 2.4, height: 2.7 };
+              const layout = applicationRoom()
+                ? computerLayout()
+                : { width: 2.4, height: 2.7 };
               const points = [
                 [-layout.width / 2, layout.height / 2],
                 [layout.width / 2, layout.height / 2],
@@ -2248,8 +2384,12 @@ export function mountSpacecraftScene({
           // and doorway navigation stays behind the application boundary.
           if (
             reading &&
-            (active !== 'contact' ||
-              !target.dataset.sceneObject?.startsWith('contact-social-'))
+            !(
+              (active === 'contact' &&
+                target.dataset.sceneObject?.startsWith('contact-social-')) ||
+              (active === 'projects' &&
+                target.dataset.sceneObject?.startsWith('projects-screen-'))
+            )
           )
             return EMPTY_SCENE_FEEDBACK;
           if (
@@ -2282,7 +2422,7 @@ export function mountSpacecraftScene({
             (-(y - rect.top) / rect.height) * 2 + 1,
           );
           ray.setFromCamera(pointer, camera);
-          if (reading && active === 'contact' && !travelling) {
+          if (reading && applicationRoom() && !travelling) {
             // Detailed occlusion is needed only for a new ray or changed
             // geometry. DOM hit testing still runs first on every frame.
             const revision = model.group.userData.geometryRevision;
@@ -2290,13 +2430,15 @@ export function mountSpacecraftScene({
               contactPickRevision !== revision ||
               !lastContactPickRay.equals(ray.ray)
             ) {
-              contactPickWall = !!contactRoomPicker?.pick(ray);
+              contactPickWall = !!(
+                active === 'projects' ? projectRoomPicker : contactRoomPicker
+              )?.pick(ray);
               el.dataset.contactWallPicks = String(++contactWallPicks);
               contactPickRevision = revision;
               lastContactPickRay.copy(ray.ray);
             }
             return {
-              section: contactPickWall ? 'contact' : '',
+              section: contactPickWall ? active : '',
               walkway: false,
               closeContact: contactPickWall,
             };
@@ -2335,7 +2477,11 @@ export function mountSpacecraftScene({
             return EMPTY_SCENE_FEEDBACK;
           const hit = pickAt(x, y);
           if ('closeContact' in hit && hit.closeContact)
-            return { room: '', object: 'contact-room-dismiss', walkway: false };
+            return {
+              room: '',
+              object: `${active}-room-dismiss`,
+              walkway: false,
+            };
           return {
             room: hit.section,
             object: '',
@@ -2396,7 +2542,7 @@ export function mountSpacecraftScene({
           if (
             !down &&
             (event.target as Element).closest('.world-surface') &&
-            (!(reading && active === 'contact') || event.buttons !== 0)
+            (!(reading && applicationRoom()) || event.buttons !== 0)
           )
             return;
           if (down) {
@@ -2427,7 +2573,7 @@ export function mountSpacecraftScene({
           }
           if (
             (event.target as Element).closest('button') &&
-            !(reading && active === 'contact')
+            !(reading && applicationRoom())
           )
             return;
           const rect = el.getBoundingClientRect();
@@ -2442,7 +2588,7 @@ export function mountSpacecraftScene({
             down ||
             !event.isPrimary ||
             event.button !== 0 ||
-            (reading && (active !== 'contact' || travelling)) ||
+            (reading && (!applicationRoom() || travelling)) ||
             (event.target as Element).closest('.world-surface')
           )
             return;
@@ -2468,7 +2614,7 @@ export function mountSpacecraftScene({
             ...selection,
             control,
             pointerType: event.pointerType,
-            navigationOnly: travelling || (reading && active !== 'contact'),
+            navigationOnly: travelling || (reading && !applicationRoom()),
             gesture: beginBoundedDrag({
               pointerId: event.pointerId,
               x: event.clientX,
@@ -2529,11 +2675,13 @@ export function mountSpacecraftScene({
           if (completed.activate && !action.control && action.section) {
             if (
               action.closeContact &&
-              active === 'contact' &&
+              applicationRoom() &&
               reading &&
               !travelling
             )
-              latest.current.onCloseContact?.();
+              (active === 'projects'
+                ? latest.current.onCloseProjects
+                : latest.current.onCloseContact)?.();
             else if (action.roomTarget) navigateRoom(action.section);
             else if (action.portalId) navigateDoor(action.portalId);
           }

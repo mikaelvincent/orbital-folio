@@ -6,10 +6,6 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
-  FileText,
-  Layers,
-  Radio,
-  ArrowRight,
 } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { TextBlocks } from './portfolio-parts';
@@ -17,11 +13,10 @@ import { type ContactDraft, type ContactSubmission } from './contact-form';
 import { pathFor } from '@/lib/paths';
 import { ContactComputerWindow } from './contact-computer-window';
 
-/** A DOM page mounted on the clipboard / console / journal's actual world-space plane. */
+/** Native DOM content on the console, case-study reader or journal plane. */
 export function WorldReader({
   data,
   section,
-  project,
   sent,
   error,
   draft,
@@ -33,7 +28,6 @@ export function WorldReader({
 }: {
   data: Portfolio;
   section: string;
-  project?: Record<string, any>;
   sent?: boolean;
   error?: boolean;
   submission?: ContactSubmission;
@@ -44,7 +38,6 @@ export function WorldReader({
   onClose: () => void;
 }) {
   const s = data.site;
-  const [page, setPage] = useState(0);
   const [chapter, setChapter] = useState(0);
   if (section === 'contact')
     return (
@@ -60,90 +53,38 @@ export function WorldReader({
         onClose={onClose}
       />
     );
-  const parts = [
-    ['problem', 'approach'],
-    ['system'],
-    ['decisions'],
-    ['outcomes', 'next'],
-  ];
   const entries = section === 'about' ? data.journal : data.experience;
   const entry = entries[chapter];
-  const count = project ? parts.length : entries.length;
-  const index = project ? page : chapter;
+  const count = entries.length;
+  const index = chapter;
   const firstPage = Math.max(0, Math.min(index - 1, count - 3));
   const visiblePages = Array.from(
     { length: Math.min(3, count) },
     (_, i) => firstPage + i,
   );
-  const select = (value: number) => {
-    if (project) setPage(value);
-    else setChapter(value);
-  };
+  const select = setChapter;
   return (
     <article
       className={`world-document document-${section}`}
       tabIndex={-1}
       id="world-reader"
-      aria-label={project?.title || s[section + 'Label']}
+      aria-label={s[section + 'Label']}
     >
       <header className="world-document-bar">
         <button type="button" onClick={onClose}>
           <ArrowLeft size={18} />
           {s.closeReaderLabel}
         </button>
-        <span>{project ? s.dossierLabel : s[section + 'Room']}</span>
+        <span>{s[section + 'Room']}</span>
       </header>
       <div
         className="world-document-body"
         tabIndex={0}
         role="region"
         aria-label={s.readLabel}
-        key={`${page}-${chapter}`}
+        key={chapter}
       >
-        {project ? (
-          <>
-            <div className="world-kicker">
-              <span>{project.category}</span>
-            </div>
-            <h1>{project.title}</h1>
-            <p className="world-subtitle">{project.subtitle}</p>
-            {page === 0 && <p>{project.summary}</p>}
-            {parts[page].map((id) => (
-              <section key={id}>
-                <h2>{s[id + 'Label']}</h2>
-                <TextBlocks text={project[id]} />
-                {id === 'system' && (
-                  <div className="world-flow" aria-hidden="true">
-                    <FileText />
-                    <ArrowRight />
-                    <Layers />
-                    <ArrowRight />
-                    <Radio />
-                  </div>
-                )}
-              </section>
-            ))}
-            {page === 3 && (
-              <dl className="world-facts">
-                <dt>{s.roleLabel}</dt>
-                <dd>{project.role}</dd>
-                <dt>{s.periodLabel}</dt>
-                <dd>{project.period}</dd>
-                <dt>{s.stackLabel}</dt>
-                <dd>{project.stack}</dd>
-              </dl>
-            )}
-            {data.media.find((m) => m.id === project.mediaId) && page === 0 && (
-              <figure className="world-media">
-                <img
-                  src={data.media.find((m) => m.id === project.mediaId)!.url}
-                  alt={data.media.find((m) => m.id === project.mediaId)!.alt}
-                  loading="lazy"
-                />
-              </figure>
-            )}
-          </>
-        ) : section === 'experience' ? (
+        {section === 'experience' ? (
           <>
             <p className="world-kicker">{s.experienceRoom}</p>
             <h1>{s.experienceHeading}</h1>
@@ -204,16 +145,14 @@ export function WorldReader({
           >
             <ChevronLeft size={22} />
           </button>
-          <nav aria-label={project ? s.dossierLabel : s.readAllLabel}>
+          <nav aria-label={s.readAllLabel}>
             {visiblePages.map((i) => (
               <button
                 key={i}
                 type="button"
                 aria-current={i === index ? 'page' : undefined}
                 onClick={() => select(i)}
-                aria-label={
-                  project ? s[parts[i][0] + 'Label'] : entries[i].title
-                }
+                aria-label={entries[i].title}
               >
                 {String(i + 1).padStart(2, '0')}
               </button>
@@ -228,26 +167,6 @@ export function WorldReader({
             <ChevronRight size={22} />
           </button>
         </footer>
-      )}
-      {project && (project.demoUrl || project.sourceUrl) && (
-        <div className="world-launches">
-          {project.demoUrl && (
-            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-              {s.demoLabel}
-              <ArrowUpRight size={16} />
-            </a>
-          )}
-          {project.sourceUrl && (
-            <a
-              href={project.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {s.codeLabel}
-              <ArrowUpRight size={16} />
-            </a>
-          )}
-        </div>
       )}
     </article>
   );

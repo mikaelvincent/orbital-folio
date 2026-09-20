@@ -692,7 +692,36 @@ export function buildProjectPayloadModule(
   screen.position.z = 0.111;
   screen.castShadow = false;
   screen.receiveShadow = false;
+  // Dynamic display contents and the DOM application share the real glass plane.
+  // Keep the screen separate from static batches so opening the app can hide it.
+  const idleDisplay = new THREE.Group();
+  idleDisplay.name = prefix + options.kind + '-idle-display';
+  idleDisplay.userData.animated = true;
+  group.add(idleDisplay);
+  idleDisplay.add(screen);
+  const anchor = new THREE.Object3D();
+  anchor.name = prefix + options.kind + '-application-anchor';
+  anchor.position.z = 0.115;
+  anchor.userData = {
+    width: sw,
+    height: sh,
+    section: 'projects',
+    kind: 'computer',
+  };
+  group.add(anchor);
   return {
+    root: group,
+    anchor,
+    screen,
+    idleDisplay,
+    width: sw,
+    height: sh,
+    category: options.kind,
+    label: options.label,
+    interactableId: `projects-screen-${options.kind}`,
+    setActive(active: boolean) {
+      idleDisplay.visible = !active;
+    },
     setCount(next: number | null) {
       const value =
         typeof next === 'number' && Number.isFinite(next)

@@ -5,6 +5,10 @@ import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from '../spacecraft/scene-loader';
 import { WorldReader } from './world-reader';
 import {
+  ProjectLibraryWindow,
+  type ProjectFilter,
+} from './project-library-window';
+import {
   Activity,
   ArrowLeft,
   BookOpen,
@@ -15,7 +19,6 @@ import {
 import type { Portfolio } from '@/lib/content/types';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
-  PROJECTS_PER_PAGE,
   destinationFromURL,
   rooms,
   type Destination,
@@ -83,15 +86,8 @@ export function ImmersivePortfolio({
     { status: 'idle', error: '' },
   );
   const [surface, setSurface] = useState<HTMLDivElement | null>(null);
-  const [projectPage, setProjectPage] = useState(
-    Math.max(
-      0,
-      Math.floor(
-        data.projects.findIndex((p) => p.slug === initialSlug) /
-          PROJECTS_PER_PAGE,
-      ),
-    ),
-  );
+  const [projectCategory, setProjectCategory] = useState<ProjectFilter>('all');
+  const [projectScreen, setProjectScreen] = useState<ProjectFilter>('all');
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
   latest.current = destination;
@@ -144,17 +140,15 @@ export function ImmersivePortfolio({
         navigationToggle.current?.focus({ preventScroll: true });
         return true;
       }
-      setArrived(false);
-      setTravel(!reading);
+      const withinProjectApplication =
+        latest.current.section === 'projects' &&
+        next.section === 'projects' &&
+        !!(latest.current.slug || latest.current.open) &&
+        !!(next.slug || next.open);
+      setArrived(withinProjectApplication);
+      setTravel(!reading && !withinProjectApplication);
       latest.current = next;
       setDestination(next);
-      if (next.slug)
-        setProjectPage(
-          Math.floor(
-            data.projects.findIndex((p) => p.slug === next.slug) /
-              PROJECTS_PER_PAGE,
-          ),
-        );
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
       return true;
     },
@@ -303,11 +297,15 @@ export function ImmersivePortfolio({
     if (!arrived || !immersive || destination.section === 'home') return;
     // A visitor may be choosing a new destination as the current flight ends.
     if (navigation.current?.querySelector('nav')) return;
-    if (readingSurface)
-      document
-        .querySelector<HTMLElement>('#world-reader')
-        ?.focus({ preventScroll: true });
-    else
+    if (readingSurface) {
+      const appHeading =
+        destination.section === 'projects'
+          ? document.querySelector<HTMLElement>('#world-reader h1')
+          : null;
+      (
+        appHeading || document.querySelector<HTMLElement>('#world-reader')
+      )?.focus({ preventScroll: true });
+    } else
       // Announce arrival without selecting a door or moving the camera toward
       // an arbitrary neighbor. Tab still reaches every visible scene control.
       document
@@ -330,6 +328,8 @@ export function ImmersivePortfolio({
       'a[href]',
     );
     if (!anchor || anchor.target || anchor.hasAttribute('download')) return;
+    // The library saves its scroll position before handling its own project links.
+    if (anchor.closest('[data-project-interface]')) return;
     const raw = anchor.getAttribute('href') || '';
     if (raw.startsWith('#')) return;
     const url = new URL(anchor.href, location.href);
@@ -469,7 +469,27 @@ export function ImmersivePortfolio({
             section={destination.section}
             slug={destination.slug}
             readingSurface={readingSurface}
-            projectPage={projectPage}
+            projectPage={0}
+            projectScreen={projectScreen}
+            onOpenProjects={(category) => {
+              setProjectScreen(category);
+              setProjectCategory(category);
+              const monitorChanged = category !== projectScreen;
+              const current = latest.current;
+              if (
+                !(
+                  current.section === 'projects' &&
+                  current.open &&
+                  !current.slug
+                )
+              )
+                go({ section: 'projects', open: true });
+              if (monitorChanged) {
+                setArrived(false);
+                setTravel(true);
+              }
+            }}
+            onCloseProjects={() => go({ section: 'projects' })}
             paused={reduced}
             enabled={immersive}
             diagnosticsEnabled={diagnosticsEnabled}
@@ -504,59 +524,37 @@ export function ImmersivePortfolio({
           readingSurface &&
           surface &&
           createPortal(
-            <WorldReader
-              key={destination.slug || destination.section}
-              data={data}
-              section={destination.section}
-              project={project}
-              sent={destination.sent}
-              error={destination.error}
-              submission={contactSubmission}
-              onSubmissionChange={setContactSubmission}
-              draft={contactDraft}
-              onDraftChange={setContactDraft}
-              onClose={() => go({ section: destination.section })}
-            />,
+            destination.section === 'projects' ? (
+              <ProjectLibraryWindow
+                key="projects"
+                data={data}
+                category={projectCategory}
+                project={project}
+                onCategoryChange={(category) => {
+                  setProjectCategory(category);
+                  if (project) go({ section: 'projects', open: true });
+                }}
+                onProjectSelect={(item) =>
+                  go({ section: 'projects', slug: item.slug })
+                }
+                onBack={() => go({ section: 'projects', open: true })}
+                onClose={() => go({ section: 'projects' })}
+              />
+            ) : (
+              <WorldReader
+                key={destination.section}
+                data={data}
+                section={destination.section}
+                sent={destination.sent}
+                error={destination.error}
+                submission={contactSubmission}
+                onSubmissionChange={setContactSubmission}
+                draft={contactDraft}
+                onDraftChange={setContactDraft}
+                onClose={() => go({ section: destination.section })}
+              />
+            ),
             surface,
-          )}
-        {immersive &&
-          destination.section === 'projects' &&
-          !readingSurface &&
-          (data.projects.length > PROJECTS_PER_PAGE ||
-            !data.projects.length) && (
-            <div className="room-transport">
-              {destination.section === 'projects' &&
-                data.projects.length > PROJECTS_PER_PAGE && (
-                  <>
-                    <button
-                      type="button"
-                      disabled={projectPage === 0}
-                      onClick={() => setProjectPage(projectPage - 1)}
-                      aria-label={s.previousPageLabel}
-                    >
-                      ←
-                    </button>
-                    <span>
-                      {projectPage + 1} /{' '}
-                      {Math.ceil(data.projects.length / PROJECTS_PER_PAGE)}
-                    </span>
-                    <button
-                      type="button"
-                      disabled={
-                        (projectPage + 1) * PROJECTS_PER_PAGE >=
-                        data.projects.length
-                      }
-                      onClick={() => setProjectPage(projectPage + 1)}
-                      aria-label={s.nextPageLabel}
-                    >
-                      →
-                    </button>
-                  </>
-                )}
-              {destination.section === 'projects' && !data.projects.length && (
-                <p>{s.emptyLabel}</p>
-              )}
-            </div>
           )}
         <div className="reader-stage" hidden={immersive}>
           <div
