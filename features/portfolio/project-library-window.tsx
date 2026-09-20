@@ -128,6 +128,10 @@ export function ProjectLibraryWindow({
   const remember = () => {
     positions.current[viewKey] = scroll.current?.scrollTop ?? 0;
   };
+  const returnToCollection = () => {
+    remember();
+    onBack();
+  };
   const selectProject = (
     event: MouseEvent<HTMLAnchorElement>,
     selected: Record<string, any>,
@@ -157,18 +161,31 @@ export function ProjectLibraryWindow({
         data-project-interface
       >
         <header className="project-window-bar">
-          <span>
-            <FolderOpen size={15} aria-hidden="true" /> PROJECT LIBRARY
+          <span className="project-window-brand">
+            <FolderOpen size={15} aria-hidden="true" />
+            <span className="project-window-title">PROJECT LIBRARY</span>
           </span>
-          <button
-            type="button"
-            className="project-window-close"
-            onClick={onClose}
-            aria-label="Close Projects application"
-            title="Close Projects application"
-          >
-            <X size={21} />
-          </button>
+          <div className="project-window-actions">
+            {project && (
+              <button
+                type="button"
+                className="project-library-back project-window-back"
+                onClick={returnToCollection}
+              >
+                <ArrowLeft size={15} aria-hidden="true" />
+                Back to {categoryLabel.toLowerCase()}
+              </button>
+            )}
+            <button
+              type="button"
+              className="project-window-close"
+              onClick={onClose}
+              aria-label="Close Projects application"
+              title="Close Projects application"
+            >
+              <X size={21} aria-hidden="true" />
+            </button>
+          </div>
         </header>
         <ContactScrollArea
           label="Projects application"
@@ -181,17 +198,6 @@ export function ProjectLibraryWindow({
         >
           {project ? (
             <div className="project-window-detail">
-              <button
-                className="project-library-back"
-                type="button"
-                onClick={() => {
-                  remember();
-                  onBack();
-                }}
-              >
-                <ArrowLeft size={16} />
-                {categoryLabel}
-              </button>
               <div className="project-detail-heading">
                 <p className="project-library-eyebrow">
                   {project.category ||
@@ -242,12 +248,9 @@ export function ProjectLibraryWindow({
                 <button
                   className="project-library-back"
                   type="button"
-                  onClick={() => {
-                    remember();
-                    onBack();
-                  }}
+                  onClick={returnToCollection}
                 >
-                  <ArrowLeft size={16} />
+                  <ArrowLeft size={16} aria-hidden="true" />
                   Back to {categoryLabel.toLowerCase()}
                 </button>
                 <span>END OF PROJECT</span>

@@ -1,0 +1,11 @@
+{
+  "baseline": "071841a43fc2628b68896d5b8fe3847ddfee05e7",
+  "sha256": {
+    "app/globals.css": "be2479dac37e242a808007f7ef5e2b6d934460c0e510a019425a9f8d25e2fdfe",
+    "features/portfolio/project-library-window.css": "9e6ff1383467cd4823ab8397e4eecd6dd8509aa0e215ea9752a87a5ec2d12bbc",
+    "features/portfolio/project-library-window.tsx": "6faa66b24db35460f8ddc99f84ebdeb698106603b261de64b6e1fe761b9fa59a",
+    "features/spacecraft/projected-surface.ts": "02c7a0dcaad1a0a3a6b16295ae7013bad179c2619e5358a8d25db1ddff0d45ce",
+    "features/spacecraft/spacecraft-runtime.ts": "b56102b41df88cacf0589caa5662e022c7460c8451b968acd1e5151735f78080",
+    "tests/spacecraft/projected-surface.test.mjs": "3310f805fd6d4b28b2cb80e7c680a240ba9dc0cbe2ef1d7e91a8d703b1b220b6"
+  }
+}

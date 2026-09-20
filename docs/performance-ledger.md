@@ -2234,6 +2234,37 @@ and malformed full-page/clip captures were rejected. Native Safari and a full
 video codec matrix were not tested. Independent critic: **95/100**, no unresolved
 findings, recommendation keep.
 
+### Entry 34 follow-up — desktop projection and navigation, 20 September 2026
+
+Baseline `071841a`. The owner reported a downward-offset Projects window on
+Safari desktop. The existing glass/camera anchors matched in Chromium; the
+large displacement was not reproduced there. Native reader HTML now uses one
+explicit viewport-relative projective matrix, replacing its nested CSS3D camera
+wrappers and percentage centering. Hotspots retain CSS3DRenderer. The shared
+physical camera, surface anchors, geometry and Earth coverage envelope are
+unchanged. This is a robust positioning correction; native Safari confirmation
+is still outstanding, and no exact engine-specific cause is claimed.
+
+Projects gains static CSS wallpaper and a distinct, persistent title-bar Back
+control. No image asset, scene texture, mesh, shadow or postprocess pass is added.
+The new projection performs matrix composition in the existing CSS phase, reuses
+scratch matrices/cached viewport dimensions, skips hidden surfaces and caches
+unchanged style writes. It introduces no per-frame DOM read. These implementation
+facts do **not** establish unchanged compositor cost or a measured performance
+gain. No CPU/GPU, frame-pacing, delivery/memory, heat or battery saving is claimed.
+This design/correctness work does not implement any held candidate.
+
+[Source-identified evidence](evidence/projects-screen-projection/README.md) records
+Chromium checks from 320×568 to 1920×1080, a default 1280×720 DPR2 view, category
+return/scroll/resize/drag/close, and shared Contact/About/Case readers. Settled
+neutral DOM/physical-plane bounds agree within 0.003 CSS pixels. Moving samples
+with a delayed diagnostic snapshot are explicitly excluded from that bound and
+retained. The new finite regression covers 1,125 projected points and inverse
+mapping; it cannot certify an engine's native compositor. Full suite: **392
+passed**; typecheck, affected lint and production build pass. Independent critic:
+**93/100**, no implementation blockers, recommendation keep. Native Safari
+confirmation and unmeasured compositor cost remain limitations.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

@@ -186,6 +186,20 @@ the real display surface; shrinking physical margins must not shrink readable
 text. The standalone reading collection retains category controls because it
 does not have the room's physical monitors.
 
+The desktop uses a restrained blue folded wallpaper, with an opaque reading
+window. A distinct amber-outlined Back button stays in the detail title bar and
+names the originating collection; compact windows hide the brand text to retain
+Back and X. The footer offers the same return action.
+
+Native application/reader HTML uses one viewport-relative projective transform
+in `features/spacecraft/projected-surface.ts`, derived from the same camera and
+physical plane as WebGL. It has an explicit top-left origin and invertible depth
+mapping for native input. Only scene hotspots retain the nested CSS3D renderer.
+This removes the native window's dependence on its nested camera wrappers and
+percentage centering. The reported Safari desktop offset was not reproduced in
+Chromium, so Safari confirmation remains outstanding. See the
+[projection and desktop follow-up](evidence/projects-screen-projection/README.md).
+
 Studio is the primary authoring surface: title, summary and explicit multi-select
 categories, optional cover/role/period/stack/links, followed by a flexible Markdown
 story. The optional section starter is guidance, not a required essay structure.
