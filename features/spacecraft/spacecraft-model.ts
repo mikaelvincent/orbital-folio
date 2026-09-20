@@ -1580,15 +1580,15 @@ export function createSpacecraft(
         width: screen.glassWidth,
         height: screen.glassHeight,
         radius: 0.035,
-        z: 0.134,
+        z: screen.anchor.position.z,
       });
     });
   objectHighlights.push(
     createObjectHighlight(THREE, contactComputer.root, 'contact-computer', {
-      width: contactComputer.width + 0.035,
-      height: contactComputer.height + 0.035,
-      radius: 0.04,
-      z: 0.134,
+      width: contactComputer.width,
+      height: contactComputer.height,
+      radius: 0.035,
+      z: contactComputer.anchor.position.z,
     }),
   );
 

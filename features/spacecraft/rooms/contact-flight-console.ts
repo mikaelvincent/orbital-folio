@@ -1,4 +1,5 @@
 import type { SocialScreenLinks } from '../../../lib/content/social-links.ts';
+import { createContactDisplaySurface } from './contact-display-surface.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
 import { buildContactAudio } from './contact-flight-audio.ts';
 import { buildContactKeyboard } from './contact-keyboard.ts';
@@ -386,50 +387,15 @@ export function buildContactFlightConsole(
     mount.userData.excludePick = kind !== 'contact';
     parent.add(mount);
     box(w, height, 0.18, m.shell, 0, 0, 0, mount, 0.065, `${kind}-bezel`);
-    box(
-      kind === 'contact' ? w - 0.244 : w - 0.085,
-      height - 0.09,
-      0.027,
-      m.face,
-      0,
-      0,
-      0.095,
-      mount,
-      0.012,
-      `${kind}-display-rebate`,
-    );
     const sw = w - (kind === 'contact' ? 0.3 : 0.1),
       sh = height - 0.15;
-    box(
-      sw + 0.027,
-      sh + 0.027,
-      0.025,
+    const surface = createContactDisplaySurface(THREE, sw, sh);
+    h.mesh(
+      surface.frame,
       m.rubber,
-      0,
-      0,
-      0.117,
       mount,
-      0.012,
-      `${kind}-display-seal`,
+      `contact-flight-${kind}-display-frame`,
     );
-    const glassOutline = new THREE.Shape();
-    const gx = -sw / 2,
-      gy = -sh / 2,
-      gr = 0.035;
-    glassOutline.moveTo(gx + gr, gy);
-    glassOutline.lineTo(gx + sw - gr, gy);
-    glassOutline.quadraticCurveTo(gx + sw, gy, gx + sw, gy + gr);
-    glassOutline.lineTo(gx + sw, gy + sh - gr);
-    glassOutline.quadraticCurveTo(gx + sw, gy + sh, gx + sw - gr, gy + sh);
-    glassOutline.lineTo(gx + gr, gy + sh);
-    glassOutline.quadraticCurveTo(gx, gy + sh, gx, gy + sh - gr);
-    glassOutline.lineTo(gx, gy + gr);
-    glassOutline.quadraticCurveTo(gx, gy, gx + gr, gy);
-    const glassGeometry = new THREE.ShapeGeometry(glassOutline, 10);
-    const gp = glassGeometry.attributes.position,
-      guv = glassGeometry.attributes.uv;
-    for (let i = 0; i < gp.count; i++)
-      guv.setXY(i, gp.getX(i) / sw + 0.5, gp.getY(i) / sh + 0.5);
     // Preserve this group through static batching so the idle graphics can be
     // hidden behind the active HTML application without swapping cloned materials.
     const idleDisplay = new THREE.Group();
@@ -437,12 +403,12 @@ export function buildContactFlightConsole(
     if (kind === 'contact') idleDisplay.userData.animated = true;
     mount.add(idleDisplay);
     const face = h.mesh(
-      glassGeometry,
+      surface.glass,
       screen(kind, sw, sh),
       idleDisplay,
       `contact-flight-${kind}-screen-glass`,
     );
-    face.position.z = 0.132;
+    face.position.z = surface.glassZ;
     face.castShadow = false;
     if (kind === 'contact') {
       const desktopDisplay = attachComputerDesktop(
@@ -453,7 +419,7 @@ export function buildContactFlightConsole(
       );
       const anchor = new THREE.Object3D();
       anchor.name = 'contact-computer-application-anchor';
-      anchor.position.z = 0.135;
+      anchor.position.z = surface.interfaceZ;
       anchor.userData = {
         width: sw,
         height: sh,
@@ -480,7 +446,7 @@ export function buildContactFlightConsole(
       // to the actual glass at every room layout and camera angle.
       const anchor = new THREE.Object3D();
       anchor.name = `contact-social-${side}-anchor`;
-      anchor.position.z = 0.134;
+      anchor.position.z = surface.interfaceZ;
       mount.add(anchor);
       floorRoot.userData.socialScreens.push({
         side,
