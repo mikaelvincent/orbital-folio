@@ -1,0 +1,88 @@
+{
+  "time": 86079.6,
+  "delta": 0.016700000000011643,
+  "position": [
+    0.9205761752361907,
+    -1.8501734514197292,
+    17.30610073994161
+  ],
+  "quaternion": [
+    0.0071533870852006284,
+    0.06323826781991236,
+    -0.7042733286751223,
+    0.7070705969372573
+  ],
+  "vesselMatrix": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "backgroundPosition": [
+    0.23106894066652825,
+    -0.15388683791060395,
+    -0.32395679563933555
+  ],
+  "backgroundQuaternion": [
+    -0.022528304796362954,
+    0.22441001990819728,
+    -0.6804706798685191,
+    0.6972031786266326
+  ],
+  "hover": "contact",
+  "hoverPortal": "contact",
+  "queuedRoom": "",
+  "active": "home",
+  "travelling": false,
+  "focus": [
+    0.10456275252558747,
+    -0.5089475340731832,
+    0.15093994544456132
+  ],
+  "waitingForDoors": false,
+  "irisOpen": {
+    "experience:projects": 0,
+    "projects:experience": 0,
+    "projects:about": 0,
+    "about:projects": 0,
+    "about:contact": 0,
+    "contact:about": 0
+  },
+  "transitRoom": "",
+  "transitWalkway": false,
+  "hoveredWalkway": false,
+  "roll": 1.5707963267948966,
+  "cameraFar": 80,
+  "roomLevels": {
+    "projects": 0.5,
+    "experience": 0.5,
+    "about": 0.5,
+    "contact": 1,
+    "walkway": 0.5
+  },
+  "velocities": [
+    0,
+    0,
+    0,
+    1.3357370765021422e-16,
+    2.6714741530042844e-16,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

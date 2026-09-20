@@ -1,0 +1,130 @@
+[
+  {
+    "mesh": "desktop",
+    "trace": "entry-trace.json",
+    "frames": 192,
+    "exactSourceRows": [
+      469.333251953125,
+      1168.0938160352925
+    ],
+    "guardedSourceRows": [
+      469.333251953125,
+      1547.5059678800776
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 118.125
+  },
+  {
+    "mesh": "desktop",
+    "trace": "return-trace.json",
+    "frames": 193,
+    "exactSourceRows": [
+      469.333251953125,
+      1168.176172449157
+    ],
+    "guardedSourceRows": [
+      469.333251953125,
+      1547.5912907506458
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 118.125
+  },
+  {
+    "mesh": "desktop",
+    "trace": "left-drag-trace.json",
+    "frames": 250,
+    "exactSourceRows": [
+      512,
+      1087.5503588393672
+    ],
+    "guardedSourceRows": [
+      469.333251953125,
+      1517.8731245621207
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 118.125
+  },
+  {
+    "mesh": "desktop",
+    "trace": "right-drag-trace.json",
+    "frames": 250,
+    "exactSourceRows": [
+      512,
+      1096.4074647167504
+    ],
+    "guardedSourceRows": [
+      469.333251953125,
+      1522.7849716186038
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 129.375
+  },
+  {
+    "mesh": "mobile",
+    "trace": "entry-trace.json",
+    "frames": 192,
+    "exactSourceRows": [
+      512,
+      1168.0349668020303
+    ],
+    "guardedSourceRows": [
+      512,
+      1547.5491972593604
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 116.25000715255737
+  },
+  {
+    "mesh": "mobile",
+    "trace": "return-trace.json",
+    "frames": 193,
+    "exactSourceRows": [
+      512,
+      1168.1170476523553
+    ],
+    "guardedSourceRows": [
+      512,
+      1547.6351549684018
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 116.25000715255737
+  },
+  {
+    "mesh": "mobile",
+    "trace": "left-drag-trace.json",
+    "frames": 250,
+    "exactSourceRows": [
+      512,
+      1087.7005735591133
+    ],
+    "guardedSourceRows": [
+      512,
+      1517.8037242351643
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 116.25000715255737
+  },
+  {
+    "mesh": "mobile",
+    "trace": "right-drag-trace.json",
+    "frames": 250,
+    "exactSourceRows": [
+      512,
+      1096.3853403113271
+    ],
+    "guardedSourceRows": [
+      512,
+      1522.7402191054493
+    ],
+    "exact64RowMarginFailures": 0,
+    "guarded64RowMarginFailures": 0,
+    "guardedSeamClearanceDegrees": 130.59404831779855
+  }
+]

@@ -1,0 +1,65 @@
+{
+  "baseline": "73e576a",
+  "date": "2026-09-20T08:06:43.471Z",
+  "sourceSha256": {
+    "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+    "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+    "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "features/spacecraft/navigation/scene-controls.ts": "dee5839c75b5395da4c7332ef86fd6c414c2c2f2baefceb2039a66dee015c08d",
+    "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+    "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+    "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+    "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+    "features/spacecraft/spacecraft-runtime.ts": "17f49191c4f33b6f8f77c1a15c283603476102a7cdde2bdf7188d67a38f320be",
+    "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "43acec09cfce9a358518ed023561a85785bad4fc53d61c40b9b0fdbb2c7a6070",
+    "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+  },
+  "artifactSha256": {
+    "tests.log": "276cdc51f38d245c97631782c5c1e75dcee0ff496dcfda96a1e83dbb33aee909",
+    "targeted-tests.log": "58400689175a2a25fb9c92aa21b00eac7429d01244fd79f306273bf90e14c6b3",
+    "typecheck.log": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+    "lint.log": "86f2a4ce9d84516c250482fc20605b928f909a0971c1ae02ccf227b48a7d753b",
+    "build.log": "de306b393dc58792148d91519bcefbb917b48404d9e6138a89b8da68c4015f1e",
+    "entry-trace.json": "0820d3113fc268466e2987dbb2338fe8e59966b1d8b2e74cc3cab939d3f317e6",
+    "return-trace.json": "e5aa934abbe2e6f048d9b3183a2333af8ab1f57fb71e03e0350d8cdbfaa3ee58",
+    "left-drag-trace.json": "35ae60a86cbb0f1b9420bddc18b6c747299063ff363116e2732ba4ba31ec9b29",
+    "right-drag-trace.json": "be749cae525f3a05b2be25944e1fc7b2ef1b801ab5599866f446a91f5c147041",
+    "coverage-live-traces.mjs": "506445bc9716599a52061086ec0382c8105697428f3b10d2a8b46f9f709f8794"
+  },
+  "checks": {
+    "fullSuite": 354,
+    "focusedFinal": 11,
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "exactCoveragePoses": 118508,
+    "recordedFrameMeshChecks": 1770,
+    "resizeGuardExceptions": 32,
+    "critic": 94
+  },
+  "browser": "Hidden built-in Chromium; no native Safari",
+  "viewports": [
+    [
+      390,
+      844
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      1280,
+      720
+    ]
+  ],
+  "DPR": 1,
+  "notes": [
+    "Full suite ran during the final response refinement; focused checks cover final source.",
+    "No timing/performance benchmark; no asset or render-pass changes.",
+    "28MiB evidence includes compressed source-identified geometry samples.",
+    "Main localhost:3000 returned HTTP200; review tab closed and viewport reset."
+  ],
+  "implementationCommit": "7fb9022"
+}

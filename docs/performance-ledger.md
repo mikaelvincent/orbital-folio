@@ -2102,6 +2102,38 @@ resize bounds per mesh remain conservative exceptions, not universally certified
 states. Native Safari and every possible interruption were not tested.
 Independent critic: **93/100**, no unresolved blockers, recommendation keep.
 
+### Entry 33 — reference-matched portrait overview and roof-biased drag, 20 September 2026
+
+Baseline `73e576a`. The owner supplied a gentler vertical overview and clarified
+that the roof to expose is the **outer left hull** after rotation; the underside
+to restrain is the **outer right hull**. Portrait now uses virtual direction
+`[0.10, 0.08, 1]`, yaw −0.40…+0.03 radians and pitch ±0.32. Both halves of the
+asymmetric response share a derivative at neutral, avoiding a drag-speed jump.
+The displayed pose and range velocities are retained when departing/interrupted.
+The prior direct inward path, spring return, landscape direction/ranges/fit,
+stationary spacecraft and physical orbital viewpoint remain.
+
+This is authored camera design, not a performance optimization. It adds two
+scalar range springs and denser portrait-only containment sampling (8 divisions,
+including neutral, versus 4); containment runs when resolving a pose, not as a
+new render pass. No texture, mesh, material, shader or render-pass changes were
+made. The changed view can affect screen coverage, so unchanged resources do not
+prove equal CPU/GPU cost. No frame-rate, memory, heat or battery benefit is claimed;
+all held optimization candidates remain held.
+
+[Evidence](evidence/portrait-roof-biased-overview/README.md) records the source
+hashes, before/after portrait views, near-limit roof view, capped underside view,
+release sequences and final live room entry/return. Phone entry has 192 frames
+with **zero outward depth steps**; return is monotonic outward to overview.
+Full suite: **354 tests passed**; final focused camera tests (11), typecheck,
+affected lint and production build passed. Live checks use hidden built-in
+Chromium at actual 390×844, 768×1024 and 1280×720 CSS pixels, DPR 1; Safari was
+not tested. All 118,508 exact audit poses and 1,770 recorded frame/mesh checks
+pass the retained crop's filtering allowance. Normal-view/flight guarded bounds
+also pass; 16 conservative resize-union neighborhoods per mesh remain inconclusive
+despite safe exact footprints. This is not a universal coverage certificate.
+Independent critic: **94/100**, no unresolved blockers, recommendation keep.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

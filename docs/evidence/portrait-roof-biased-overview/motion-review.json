@@ -1,0 +1,28 @@
+{
+  "entry": {
+    "frames": 192,
+    "seconds": 3.1841000000000057,
+    "firstZ": 17.306083946517088,
+    "lastZ": 7.128602380954846,
+    "maximumZ": 17.306083946517088,
+    "positiveDepthSteps": 0,
+    "negativeDepthSteps": 191,
+    "fixedVessel": true,
+    "settled": true
+  },
+  "departure": {
+    "hover": "contact",
+    "firstFrameDelta": 0.000016919308856500147
+  },
+  "return": {
+    "frames": 193,
+    "seconds": 3.198300000000003,
+    "firstZ": 7.128617087340584,
+    "lastZ": 17.745976657749225,
+    "maximumZ": 17.745976657749225,
+    "positiveDepthSteps": 191,
+    "negativeDepthSteps": 0,
+    "fixedVessel": true,
+    "settled": true
+  }
+}

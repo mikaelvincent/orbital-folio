@@ -1,0 +1,703 @@
+{
+  "method": "Summaries of final-source 17-viewport finite fixtures; the existing crop covers source rows384..1920 with 64-row filtering allowance (safe interval448..1856). Exact poses and conservative angular/position guards are reported separately. Resize-only guards use the union of both orientation control profiles while varying camera roll and Earth anchor independently; a guard failure is inconclusive, not demonstrated leakage.",
+  "meshes": [
+    {
+      "mesh": "desktop",
+      "report": "coverage-desktop.json",
+      "scenarios": 59254,
+      "ranges": {
+        "ordinary": {
+          "samples": 4709,
+          "exactRows": [
+            469.333251953125,
+            1442.857969698297
+          ],
+          "guardRows": [
+            469.333251953125,
+            1738.9831362130212
+          ]
+        },
+        "travel": {
+          "samples": 50040,
+          "exactRows": [
+            469.333251953125,
+            1448.2814654519307
+          ],
+          "guardRows": [
+            469.333251953125,
+            1782.0734017246732
+          ]
+        },
+        "resize": {
+          "samples": 4505,
+          "exactRows": [
+            469.333251953125,
+            1593.314920539664
+          ],
+          "guardRows": [
+            469.333251953125,
+            2090.6666259765625
+          ]
+        }
+      },
+      "exactAllowanceFailures": 0,
+      "guardAllowanceFailures": [
+        {
+          "viewport": [
+            1280,
+            720
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.3470942434919,
+            1405.0427366936133
+          ],
+          "guardRows": [
+            469.333251953125,
+            1878.032495548708
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.8958607564664,
+            1404.368144513262
+          ],
+          "guardRows": [
+            469.333251953125,
+            1876.9225940926967
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            1080
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.8569656035647,
+            1434.6344853152273
+          ],
+          "guardRows": [
+            469.333251953125,
+            1945.6504865487473
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.5/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1431.2469589345515
+          ],
+          "guardRows": [
+            469.333251953125,
+            1919.2281551295973
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            554.666748046875,
+            1455.29719611975
+          ],
+          "guardRows": [
+            469.333251953125,
+            1972.2015207364757
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1431.246958934552
+          ],
+          "guardRows": [
+            469.333251953125,
+            1919.2281551295982
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            622.6873043346322,
+            1513.024283488709
+          ],
+          "guardRows": [
+            469.333251953125,
+            2090.6666259765625
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            554.666748046875,
+            1455.29719611975
+          ],
+          "guardRows": [
+            469.333251953125,
+            1972.2015207364757
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.5/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1431.246958934552
+          ],
+          "guardRows": [
+            469.333251953125,
+            1919.2281551295978
+          ]
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            621.1920476387727,
+            1428.4837845695115
+          ],
+          "guardRows": [
+            469.333251953125,
+            1927.5022380493137
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.5/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1565.5113751153967
+          ],
+          "guardRows": [
+            469.333251953125,
+            1962.666748046875
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            554.666748046875,
+            1488.537953203408
+          ],
+          "guardRows": [
+            469.333251953125,
+            2090.6666259765625
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1565.5113751153995
+          ],
+          "guardRows": [
+            469.333251953125,
+            1962.666748046875
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.4099556018828,
+            1544.6574674780163
+          ],
+          "guardRows": [
+            469.333251953125,
+            2090.6666259765625
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            554.666748046875,
+            1488.537953203408
+          ],
+          "guardRows": [
+            469.333251953125,
+            2090.6666259765625
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.5/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            469.333251953125,
+            1565.511375115398
+          ],
+          "guardRows": [
+            469.333251953125,
+            1962.666748046875
+          ]
+        }
+      ],
+      "minimumExactSeamClearanceDegrees": 115.3125,
+      "sourceHashMismatches": []
+    },
+    {
+      "mesh": "compact",
+      "report": "coverage-compact.json",
+      "scenarios": 59254,
+      "ranges": {
+        "ordinary": {
+          "samples": 4709,
+          "exactRows": [
+            512,
+            1435.2996187249323
+          ],
+          "guardRows": [
+            512,
+            1738.9356963158084
+          ]
+        },
+        "travel": {
+          "samples": 50040,
+          "exactRows": [
+            512,
+            1440.4690347057726
+          ],
+          "guardRows": [
+            512,
+            1782.0030818615319
+          ]
+        },
+        "resize": {
+          "samples": 4505,
+          "exactRows": [
+            512,
+            1600
+          ],
+          "guardRows": [
+            448,
+            2112
+          ]
+        }
+      },
+      "exactAllowanceFailures": 0,
+      "guardAllowanceFailures": [
+        {
+          "viewport": [
+            1280,
+            720
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.3444501919121,
+            1405.187299139689
+          ],
+          "guardRows": [
+            512,
+            1878.862495628528
+          ]
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.8933038348432,
+            1404.5143300028722
+          ],
+          "guardRows": [
+            512,
+            1877.7412451743376
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            1080
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.8544045280814,
+            1435.2548171755489
+          ],
+          "guardRows": [
+            512,
+            1946.725535871034
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.5/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1431.7170948687062
+          ],
+          "guardRows": [
+            512,
+            1919.405916146442
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            522.7565602365621,
+            1455.7772746684864
+          ],
+          "guardRows": [
+            512,
+            1972.0833582458094
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1431.7170948687067
+          ],
+          "guardRows": [
+            512,
+            1919.405916146443
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            622.6845576936148,
+            1513.3350635482893
+          ],
+          "guardRows": [
+            512,
+            2112
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            522.7565602365617,
+            1455.7772746684864
+          ],
+          "guardRows": [
+            512,
+            1972.08335824581
+          ]
+        },
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.5/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1431.7170948687062
+          ],
+          "guardRows": [
+            512,
+            1919.4059161464425
+          ]
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            621.1890637768483,
+            1428.9554944359747
+          ],
+          "guardRows": [
+            512,
+            1927.7864455319555
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.5/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1536
+          ],
+          "guardRows": [
+            512,
+            1978.352802846161
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            523.826091396777,
+            1488.748275865334
+          ],
+          "guardRows": [
+            512,
+            2082.410092122772
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1536
+          ],
+          "guardRows": [
+            512,
+            1978.3528028461583
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            623.4073236087315,
+            1545.0782793837925
+          ],
+          "guardRows": [
+            512,
+            2112
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            523.826091396777,
+            1488.748275865334
+          ],
+          "guardRows": [
+            512,
+            2082.410092122773
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.5/drag",
+          "angles": [
+            -0.32,
+            -0.4
+          ],
+          "exactRows": [
+            512,
+            1536
+          ],
+          "guardRows": [
+            512,
+            1978.352802846161
+          ]
+        }
+      ],
+      "minimumExactSeamClearanceDegrees": 116.250007,
+      "sourceHashMismatches": []
+    }
+  ]
+}

@@ -81,6 +81,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 - Use the shared architectural reference for consistent room scale/perspective.
   Furniture edits must not independently alter a room's camera fit. Frame overview
   responsively while preserving readable labels and the intended silhouette.
+- Portrait overview keeps a gentle, nearly frontal ceiling view. Its drag envelope
+  favors the spacecraft's physical roof at screen-left and limits the underside
+  at screen-right; “top ceiling/bottom floor” refers to these physical surfaces.
+  Share asymmetric limits across input, fitting, departure and coverage checks.
 - Portrait overview reveals room ceilings, not floors. Overview→room travel
   moves directly inward while rolling; do not pull back or preserve whole-hull
   framing during travel. Hull cropping is intentional. Fold the displayed hover/
