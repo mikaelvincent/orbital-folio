@@ -1,0 +1,138 @@
+{
+  "baselineCommit": "e940a53c1882519094398a040793bf2b200c74fb",
+  "checks": [
+    {
+      "command": "npm test",
+      "result": "pass",
+      "tests": 381,
+      "skipped": 0,
+      "scope": "Full repository suite before final package boundary/whitespace refinements and final reference-definition rendering fix; later targeted checks below cover those changes."
+    },
+    {
+      "command": "node --test tests/content/project-package.test.mjs tests/content/project-package-api.test.mjs tests/content/project-rendering.test.mjs",
+      "result": "pass",
+      "tests": 23,
+      "skipped": 0,
+      "scope": "Final source: 14 package/validation, 1 live localhost API integration, 8 renderer/library tests."
+    },
+    {
+      "command": "node --test tests/spacecraft/project-application.test.mjs",
+      "result": "pass",
+      "tests": 4,
+      "scope": "Also included in the full run; all real monitor anchors, portrait projected readability and near-plane boundaries."
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass"
+    },
+    {
+      "command": "npm run lint -- <40 changed TypeScript/TSX/MJS paths>",
+      "result": "pass",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "command": "npm run build",
+      "result": "pass",
+      "includes": "geometry:check",
+      "advisories": [
+        "Node26 module.register() deprecation",
+        "Vite minified chunk exceeds 500 kB",
+        "Vinext static route classification is incomplete"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    },
+    {
+      "command": "curl http://localhost:3000/",
+      "result": "HTTP 200; original development server retained"
+    }
+  ],
+  "initialFailuresAndRevisions": [
+    "Initial full run: 378 tests, 376 passed, 2 obsolete expectations failed (Projects open URL and added rim triangle count). Updated expectations, focused10 passed before final381 run.",
+    "Combined affected lint detected prohibited test variable name module; renamed local binding loaded, reran lint and renderer tests.",
+    "Portrait visual check found too-distant 0.5 fit minimum and batched idle screen still visible. Projects-specific fit/near plane and hideable animated display group fixed; new actual projection regression passes.",
+    "Independent review corrected media title roundtripping, literal/nested/reference Markdown rewrite fidelity and hidden definition tokens.",
+    "Independent review corrected Unicode/legacy/post-rewrite document limits, exact export preflight, and Markdown indentation preservation.",
+    "Live Studio check found discard retained a staged file; editor reset now remounts staged UI on discard."
+  ],
+  "visual": {
+    "engine": "Hidden built-in Chromium",
+    "dpr": 1,
+    "captureSizes": [
+      "1280x800",
+      "390x844",
+      "768x1024"
+    ],
+    "additionalInteractionViewport": "2560x720",
+    "mode": "Live development rendering; normal desktop/tablet AO; existing mobile path without AO on phone",
+    "checks": [
+      "All four physical monitors open",
+      "Visible neighboring monitor switch and arrival focus",
+      "Internal category/detail routes retain camera",
+      "Back and browser Back",
+      "Per-view scroll restoration",
+      "X and exposed wall dismissal",
+      "Portrait bounded drag/release",
+      "Reading category/detail parity",
+      "Contact selection/deselection, scrolling and close smoke",
+      "Studio metadata, starter, both previews and explicit media staging"
+    ],
+    "notTested": [
+      "Native Safari",
+      "Real touch hardware",
+      "Real-device video codec matrix",
+      "Universal arbitrary resize/interruption coverage"
+    ],
+    "browserCleanup": "Temporary hidden tab closed, viewport override reset; user tabs preserved"
+  },
+  "performance": {
+    "geometry": "geometry.json",
+    "coverage": "coverage.json",
+    "poses": 17680,
+    "measuredTiming": false,
+    "limitations": "Node scene graph inventory and finite geometric coverage only; no FPS/CPU/GPU/thermal/battery claim. Held candidates not implemented."
+  },
+  "critic": {
+    "agent": "/root/projects_critic",
+    "score": 94,
+    "recommendation": "Keep",
+    "unresolvedBlockers": 0,
+    "rubric": {
+      "fulfillment": {
+        "score": 24,
+        "maximum": 25
+      },
+      "correctnessAndSecurity": {
+        "score": 24,
+        "maximum": 25
+      },
+      "visualAndResponsiveDesign": {
+        "score": 23,
+        "maximum": 25
+      },
+      "organization": {
+        "score": 14,
+        "maximum": 15
+      },
+      "evidenceAndPerformanceHonesty": {
+        "score": 9,
+        "maximum": 10
+      }
+    },
+    "reviewed": "Final source, seven matching captures, final23 targeted test log, prior381 full-suite log, source-matched geometry/coverage and documentation. Root reported final typecheck/lint/build; independent diff check clean.",
+    "iterations": "Resolved package source-preservation, media titles, rewritten-size and whitespace fidelity, Markdown definition rendering, physical monitor travel/focus. Browser findings corrected portrait fit/display and staged-file reset.",
+    "limitations": [
+      "Chromium only; no native Safari or real touch checks",
+      "No comprehensive video-codec matrix",
+      "No steady-state GPU benchmark; resource inventory and finite geometric coverage are not timing evidence"
+    ]
+  },
+  "implementationCommits": [
+    "a2bf2d4",
+    "7787658",
+    "3fa1dbe"
+  ]
+}

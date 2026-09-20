@@ -62,12 +62,90 @@ For a project such as `calculator.<owner-domain>`:
 
 The portfolio links to the application; it does not proxy or execute arbitrary external code. Keep admin/session cookies host-only at the gateway. Do not share an admin cookie across demo subdomains. Each demo owns its own availability, authentication, rate limits, and lifecycle.
 
+## Authoring projects
+
+Use **Projects → Add project** in Content studio. Supply a title and short description,
+choose Systems, Interfaces and/or Experiments, then write or paste Markdown.
+All projects is automatic. The URL slug is generated on first save and remains
+stable when the title changes. Cover image, role, period, technology and links
+are optional. The story may use any headings; the section starter is optional.
+Existing projects retain their old section content until a Markdown body is
+explicitly authored. Save, private preview and Publish remain separate actions.
+
+The editor inserts uploaded or existing managed media at the text selection.
+Images use `![Alternative text](/media/<id>)`; video links such as
+`[Demo walkthrough](/media/<id>)` render a player with controls and no autoplay.
+Use Media library to attach an image poster and a WebVTT caption record to a
+video. The preview uses the same renderer as the application and reading view.
+Raw HTML, JSX, executable embeds and unsafe URL schemes are not rendered as HTML.
+The story is limited to **100,000 characters**, including after media-reference
+rewriting during import/export. Its authored indentation and newlines are retained.
+
+Upload limits: PNG/JPEG/WebP images **5 MiB**, MP4/WebM videos **12 MiB**, WebVTT
+captions **256 KiB**. Types/signatures and request sizes are checked on the server.
+Video byte ranges and HEAD are supported. A private draft asset returns 404 to
+visitors. **Publish referenced media** explicitly makes only that story's media
+and its poster/caption dependencies public; it can also publish pending metadata
+changes to those assets. Project Publish refuses missing or unpublished media.
+Media referenced by a published project cannot be deleted or unpublished until
+its live references are removed. Uploading or importing does not publish anything.
+
+### Portable project packages
+
+**Import project ZIP** creates a new draft, including media bytes. Existing slugs
+are rejected rather than overwritten. **Export project ZIP** exports the selected
+saved draft; save outstanding edits first. It does not export owner access,
+inquiries, secrets, or unrelated content. Unlike whole-content JSON backups, a
+project package includes its referenced managed media bytes. External images
+must be uploaded first; export never fetches arbitrary external URLs.
+
+A package contains `project.md` and its declared `assets/` files. Example:
+
+```yaml
+---
+format: orbital-project/v1
+title: A useful tool
+slug: a-useful-tool
+summary: What this project does and why it matters.
+categories: [systems, interfaces]
+cover: assets/cover.webp
+role: Design and development
+stack: TypeScript
+media:
+  - path: assets/cover.webp
+    alt: The tool's overview screen
+    title: The finished overview
+  - path: assets/walkthrough.mp4
+    alt: A narrated walkthrough
+    poster: assets/cover.webp
+    captions: assets/walkthrough.vtt
+  - path: assets/walkthrough.vtt
+    alt: English captions
+---
+## Overview
+Write the story here.
+
+![Overview](assets/cover.webp)
+
+[Watch the walkthrough](assets/walkthrough.mp4)
+```
+
+Package limits are **16 MiB compressed/exported**, **24 MiB expanded**, and
+**100 entries** including the Markdown file. Each media file also has its upload
+limit. `project.md`, including YAML and story, must fit **256 KiB UTF-8**.
+Optional media `title` values preserve display captions separately from alt text.
+Only declared and referenced assets are accepted. Absolute/traversing paths,
+symlinks, encrypted/duplicate entries, malformed archives, checksum mismatches and
+inflated-size violations are rejected. Imports rewrite local references to managed
+IDs; exports reverse them. Imported projects must be reviewed and published in
+Studio. Legacy section fields and custom display-category metadata also round-trip.
+
 ## Content and media backups
 
 - **Content export** includes drafts, published snapshots, order, media metadata, and timestamps. It excludes owner access, secrets, audit logs, and private inquiries.
 - **Import drafts** merges matching IDs and leaves live snapshots unchanged. It does not remove unrelated records. This is the safest owner-facing restore/edit workflow.
 - Use provider-native D1 backups/time travel or a database export for a complete operational backup, including private inquiries and access records. Store those backups privately and encrypt them at rest.
-- Back up R2 object bytes separately. Content JSON alone does not contain uploaded images. Preserve each object key, MIME type, and byte content. Uploaded keys match media record IDs.
+- Back up R2 object bytes separately. Content JSON alone does not contain uploaded images, videos or captions. Preserve each object key, MIME type, and byte content. Uploaded keys match media record IDs.
 
 For an exact content restore into a fresh migrated database before the first application visit:
 
@@ -84,12 +162,12 @@ The script produces insert-only SQL and refuses malformed export structure. Exis
 
 Contact forms store a name, reply address, intent, message, and timestamp in a private inbox. Success means durable receipt in D1. There is no email-delivery promise or third-party mail integration. Owners reply using their own email client and control retention by deleting messages. The inbox loads older entries on demand.
 
-Contact and claim attempts use durable, expiring rate-limit counters. Request bodies are bounded before the framework parses multipart forms, including streamed requests with no `Content-Length`. Images are limited to 5 MB and checked for allowed type/signature; active SVG/HTML uploads are not accepted. Public delivery only serves published media records. Deleting an uploaded media record also removes its object bytes.
+Contact and claim attempts use durable, expiring rate-limit counters. Request bodies are bounded before the framework parses multipart forms, including streamed requests with no `Content-Length`. Media upload limits and signature checks are described above; active SVG/HTML uploads are not accepted. Public delivery only serves published media records. Deleting an uploaded media record also removes its object bytes.
 
 ## Security and maintenance
 
 - Prepared SQL and database unique indexes protect content and routes. Optimistic revisions reject stale-tab overwrites.
-- React escapes content. Rich HTML and executable embeds are not accepted. URLs require HTTPS (or mailto for contact links).
+- React escapes content, including the safe project Markdown token renderer. Rich HTML and executable embeds are not accepted. URLs require HTTPS (or mailto for contact links).
 - Mutations require a same-origin request. The gateway session plus explicit server authorization remain the primary security boundary.
 - Security headers include CSP, nosniff, restrictive browser permissions, referrer policy, and HSTS in production. Inline script/style allowances are needed by the current React hydration/style implementation; no arbitrary HTML is rendered.
 - There are no analytics trackers. Remote images entered by an owner can contact that image host.

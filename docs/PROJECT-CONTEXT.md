@@ -159,6 +159,40 @@ and [visible-room navigation evidence](evidence/room-access-and-hardware/README.
 remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
+## Projects library and authoring
+
+The four workshop monitors now open one library application, initialized to
+All projects, Systems, Interfaces or Experiments. They retain their physical
+enclosures and inset amber hover/focus rims. The camera approaches the selected
+glass; landscape shows a two-column collection and portrait crops to a tall,
+readable application region inside the same monitor. Category changes and project
+details inside that window do not initiate camera travel. Selecting another
+visible physical monitor changes the camera anchor. Bounded hover/drag and spring
+return remain available outside the native app controls.
+
+An X or the exposed Projects pressure wall returns to the room. Workshop
+furnishings block through-wall dismissal. Back restores the collection category
+and scroll position; each detail also retains its scroll position during that
+visit. A persistent scrollbar supplements ordinary native scrolling. Public
+`/projects`, `/projects?open=1` and `/projects/<slug>` URLs, browser history, private
+previews and semantic reading views remain available. The superseded Projects
+clipboard and old gallery-page transport UI are removed; About and Case studies
+readers are retained.
+
+Studio is the primary authoring surface: title, summary and explicit multi-select
+categories, optional cover/role/period/stack/links, followed by a flexible Markdown
+story. The optional section starter is guidance, not a required essay structure.
+Older section-based projects remain readable/editable; their custom category text
+is retained but is not guessed into the new filters. Until an owner assigns new
+categories they appear in All projects. No persisted owner content is migrated.
+Managed images, videos, posters and captions are reusable; uploads insert local
+references into the story. Preview offers portrait/landscape content widths and
+the existing complete private scene preview. ZIP import produces a new private
+draft and media records; export uses the saved draft. Explicit media publication
+precedes project publication. JSON whole-content portability remains separate.
+See [operations](OPERATIONS.md#authoring-projects) for limits and package syntax,
+and [implementation evidence](evidence/projects-library/README.md) for checks.
+
 ## Contact computer and submission boundary
 
 The idle center monitor keeps its small `COMMUNICATIONS` label and uses
@@ -176,7 +210,7 @@ application. Clicking exposed Contact-room pressure walls also returns to the
 room; those walls dim during screen use, brighten on hover and show a secondary
 return cue. Main/social screens, keyboard and desk block that wall action using
 their actual rendered silhouettes.
-The old deployable Contact tablet is removed; other room readers remain unchanged.
+The old deployable Contact tablet is removed; Projects now uses its monitors as described above.
 
 Keep bounded hover and drag camera control active while this application is open.
 The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag

@@ -2158,6 +2158,44 @@ and guarded filtering allowances on both meshes. Hidden Chromium checks show
 visible rightward travel and smooth spring return; Safari was not tested.
 Independent critic: **95/100**, no blockers, recommendation keep.
 
+### Entry 34 — Projects application and portable authoring, 20 September 2026
+
+Baseline `e940a53`. The existing four Projects monitors now open an application
+window on their own glass, with category browsing, full project stories,
+persistent scrolling, responsive close-camera framing and shared reading content.
+Studio adds structured metadata, flexible Markdown, managed image/video/caption
+media and bounded draft-only ZIP import/export. Existing owner content and
+publication state are preserved. The old Projects clipboard is removed; other
+readers remain. This is a feature/art change, not a ledger optimization.
+
+The source-identified Node/Three inventory has the same deltas for wide/compact:
+all objects **+30 meshes, −4,864 triangles, −127,232 geometry-array bytes**;
+effectively visible neutral overview **+35 meshes, +544 triangles, +20,672 bytes**.
+Removing hidden reader geometry accounts for the retained-storage decrease;
+independent screens/rims and material isolation add visible mesh slots. These
+are not actual draw counts, process/GPU memory or timing. There is no added
+postprocess, shadow pass or Earth asset. New DOM/Markdown and authored media have
+costs; no delivery, first-frame, steady CPU/GPU, frame-pacing, heat or battery
+improvement is claimed. Future measurement should include closed/open library,
+story scrolling and video, rather than attributing this new baseline to a gain.
+All held optimization candidates remain held.
+
+The close portrait application uses a Projects-only fit minimum and near plane;
+ordinary cameras retain their previous values. The updated Earth coverage audit
+checks **17,680 finite poses** across 17 viewports, all four monitor anchors and
+both sphere meshes. Every exact footprint retains the 64-row filtering allowance
+(minimum **84.594 rows**); seam clearance remains at least **115.3125°**. This is
+not a proof of arbitrary interrupted/resize trajectories. The initial pre-fix
+coverage remains source-identified as superseded.
+
+[Evidence, verification and critic review](evidence/projects-library/README.md)
+include current source hashes, inventory definitions, raw coverage, responsive
+Chromium views, interaction checks and the corrected initial failures. Full suite:
+381 passed; final targeted regressions, typecheck, affected lint and production
+build pass. Native Safari, real touch and a cross-device video codec matrix were
+not tested. No owner records were rewritten or automatically recategorized.
+Independent critic: **94/100**, no unresolved blockers, recommendation keep.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
