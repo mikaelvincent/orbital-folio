@@ -29,8 +29,52 @@
 .project-markdown ol {
   margin: 0.8em 0 1em;
 }
+.project-markdown ul,
+.project-markdown ol {
+  /* Tailwind's reset removes markers and indentation. Restore them here so
+     all readers and the Studio preview share the authored list hierarchy. */
+  padding-inline-start: 1.65em;
+  list-style-position: outside;
+}
+.project-markdown ul {
+  list-style-type: disc;
+}
+.project-markdown ol {
+  list-style-type: decimal;
+}
+.project-markdown li ul {
+  list-style-type: circle;
+}
+.project-markdown li li ul {
+  list-style-type: square;
+}
+.project-markdown li > ul,
+.project-markdown li > ol {
+  margin-block: 0.4em 0.6em;
+}
 .project-markdown li + li {
   margin-top: 0.3em;
+}
+.project-markdown li > :first-child {
+  margin-top: 0;
+}
+.project-markdown li > :last-child {
+  margin-bottom: 0;
+}
+.project-markdown .project-task-item {
+  position: relative;
+  list-style-type: none;
+}
+.project-markdown .project-task-item > input[type='checkbox'] {
+  position: absolute;
+  inset-inline-start: -1.65em;
+  top: 0.375em;
+  width: 1em;
+  height: 1em;
+  margin: 0;
+}
+.project-markdown .project-task-item > input + p {
+  margin-top: 0;
 }
 .project-markdown a {
   color: inherit;
@@ -119,21 +163,4 @@
   line-height: 1.5;
   opacity: 0.75;
   margin: 0.7em 0 0;
-}
-.project-story-media.is-compact {
-  margin: 0;
-  height: 100%;
-}
-.project-story-media.is-compact img {
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0;
-}
-.project-video-cover {
-  display: grid;
-  height: 100%;
-  place-items: center;
-  color: #d5cdbb;
-  background: #152632;
-  font-size: 0.8em;
 }

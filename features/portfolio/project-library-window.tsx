@@ -161,31 +161,25 @@ export function ProjectLibraryWindow({
         data-project-interface
       >
         <header className="project-window-bar">
-          <span className="project-window-brand">
-            <FolderOpen size={15} aria-hidden="true" />
-            <span className="project-window-title">PROJECT LIBRARY</span>
-          </span>
-          <div className="project-window-actions">
-            {project && (
-              <button
-                type="button"
-                className="project-library-back project-window-back"
-                onClick={returnToCollection}
-              >
-                <ArrowLeft size={15} aria-hidden="true" />
-                Back to {categoryLabel.toLowerCase()}
-              </button>
-            )}
+          {project && (
             <button
               type="button"
-              className="project-window-close"
-              onClick={onClose}
-              aria-label="Close Projects application"
-              title="Close Projects application"
+              className="project-library-back project-window-back"
+              onClick={returnToCollection}
             >
-              <X size={21} aria-hidden="true" />
+              <ArrowLeft size={16} aria-hidden="true" />
+              Back to projects
             </button>
-          </div>
+          )}
+          <button
+            type="button"
+            className="project-window-close"
+            onClick={onClose}
+            aria-label="Close Projects application"
+            title="Close Projects application"
+          >
+            <X size={21} aria-hidden="true" />
+          </button>
         </header>
         <ContactScrollArea
           label="Projects application"
@@ -251,7 +245,7 @@ export function ProjectLibraryWindow({
                   onClick={returnToCollection}
                 >
                   <ArrowLeft size={16} aria-hidden="true" />
-                  Back to {categoryLabel.toLowerCase()}
+                  Back to projects
                 </button>
                 <span>END OF PROJECT</span>
               </footer>
@@ -275,12 +269,8 @@ export function ProjectLibraryWindow({
               </p>
               {projects.length ? (
                 <div className="project-app-grid">
-                  {projects.map((item, index) => {
-                    const media = data.media.find(
-                      (asset) => asset.id === item.mediaId,
-                    );
+                  {projects.map((item) => {
                     const categories = projectCategories(item);
-                    const Icon = icons[categories[0] || 'all'];
                     return (
                       <a
                         className="project-app-card"
@@ -289,29 +279,6 @@ export function ProjectLibraryWindow({
                         onClick={(event) => selectProject(event, item)}
                         aria-label={`Read project: ${item.title}`}
                       >
-                        <div
-                          className={`project-card-cover${media ? ' has-media' : ''}`}
-                        >
-                          {media ? (
-                            <ProjectMedia
-                              item={media}
-                              media={data.media}
-                              compact
-                              caption={false}
-                            />
-                          ) : (
-                            <>
-                              <Icon
-                                size={38}
-                                strokeWidth={1.1}
-                                aria-hidden="true"
-                              />
-                              <span aria-hidden="true">
-                                {String(index + 1).padStart(2, '0')}
-                              </span>
-                            </>
-                          )}
-                        </div>
                         <div className="project-app-card-content">
                           <div className="project-card-kicker">
                             <span>

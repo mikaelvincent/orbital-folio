@@ -8,18 +8,6 @@
   box-sizing: border-box;
   height: 100%;
   padding: 24px 14px 14px;
-  /* Static wallpaper echoes the Contact desktop's satin-blue folds. The
-     light stays in the gutter, leaving the reading surface calm and opaque. */
-  background:
-    radial-gradient(ellipse at 90% 110%, #53747890, transparent 62%),
-    linear-gradient(
-      145deg,
-      transparent 28%,
-      #9aaca540 29%,
-      #345360aa 43%,
-      transparent 65%
-    ),
-    linear-gradient(155deg, #294252, #0b1420 67%, #263e48);
   border-radius: 6px;
   overflow: clip;
 }
@@ -46,33 +34,15 @@
   justify-content: space-between;
   gap: 12px;
   flex: 0 0 auto;
-  min-height: 42px;
-  padding-left: 15px;
+  min-height: 44px;
   background: #26353f;
   border-bottom: 1px solid #516067;
-}
-.project-window-brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: #d3d6cf;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  white-space: nowrap;
-}
-.project-window-brand > svg {
-  flex: 0 0 auto;
-}
-.project-window-actions {
-  display: flex;
-  align-items: center;
-  align-self: stretch;
-  flex: 0 0 auto;
 }
 .project-window-close {
   align-self: stretch;
   flex: 0 0 44px;
   width: 44px;
+  margin-left: auto;
   display: grid;
   place-items: center;
   border: 0;
@@ -81,7 +51,8 @@
   color: #eae7de;
   cursor: pointer;
 }
-.project-window-close:hover {
+.project-window-close:hover,
+.project-library-back:hover {
   color: #ffca79;
   background: #e4b15a20;
 }
@@ -199,36 +170,6 @@
 .project-app-card:hover {
   border-color: #c8a367;
   background: #1d2f3d;
-}
-.project-card-cover {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 110px;
-  padding: 23px;
-  color: #adbdbe;
-  border-bottom: 1px solid #53687380;
-  background:
-    radial-gradient(ellipse at 5% 0%, #7c969d30, transparent 65%),
-    linear-gradient(120deg, #223644, #152330);
-}
-.project-card-cover > span {
-  color: #879ba34a;
-  font-size: 66px;
-  line-height: 1;
-  letter-spacing: -0.08em;
-  font-weight: 300;
-}
-.project-card-cover.has-media {
-  display: block;
-  height: auto;
-  max-height: 180px;
-  aspect-ratio: 8 / 5;
-  padding: 0;
-}
-.project-card-cover .project-story-media img {
-  object-fit: contain;
 }
 .project-app-card-content {
   padding: 17px 18px;
@@ -355,25 +296,19 @@
   gap: 8px;
   min-height: 36px;
   padding: 7px 11px;
-  color: #f0cf99;
-  background: #b88f4615;
-  border: 1px solid #a88b5e;
-  border-radius: 5px;
+  color: #eae7de;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
   font: inherit;
   font-size: 12px;
   cursor: pointer;
   white-space: nowrap;
 }
-.project-library-back:hover {
-  color: #ffd18c;
-  background: #b88f462d;
-  border-color: #d0ae73;
-}
 .project-window-back {
-  min-height: 30px;
-  margin: 5px 6px 5px 0;
-  padding: 4px 9px;
-  font-size: 11px;
+  align-self: stretch;
+  min-height: 44px;
+  padding: 8px 14px;
 }
 .project-detail-heading {
   margin-top: 0;
@@ -483,9 +418,6 @@
   border-radius: 8px;
 }
 @container (max-width: 540px) {
-  .project-window-bar:has(.project-window-back) .project-window-title {
-    display: none;
-  }
   .project-window-gallery,
   .project-window-detail {
     padding: 23px 24px 26px 17px;
@@ -496,9 +428,6 @@
   .project-app-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
-  }
-  .project-card-cover {
-    height: 115px;
   }
   .project-app-card h2 {
     font-size: 21px;
@@ -535,8 +464,7 @@
     font-size: 13px;
   }
   .project-window-back {
-    min-height: 38px;
-    margin-block: 3px;
+    min-height: 44px;
     font-size: 12px;
   }
   .project-window-status > span:last-child {

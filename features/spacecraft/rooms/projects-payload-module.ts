@@ -1,3 +1,8 @@
+import {
+  attachComputerDesktop,
+  createComputerDesktopMaterial,
+} from './computer-desktop.ts';
+
 /** Static removable Projects category display; local front is +Z and up is +Y. */
 export function buildProjectPayloadModule(
   THREE: any,
@@ -10,6 +15,7 @@ export function buildProjectPayloadModule(
     accent?: any;
     screenLabels?: boolean;
     sharedMaterials?: Map<string, any>;
+    desktopMaterial?: any;
   },
 ) {
   const prefix = 'projects-workshop-';
@@ -699,6 +705,12 @@ export function buildProjectPayloadModule(
   idleDisplay.userData.animated = true;
   group.add(idleDisplay);
   idleDisplay.add(screen);
+  const desktopDisplay = attachComputerDesktop(
+    THREE,
+    screen,
+    group,
+    options.desktopMaterial ?? createComputerDesktopMaterial(THREE),
+  );
   const anchor = new THREE.Object3D();
   anchor.name = prefix + options.kind + '-application-anchor';
   anchor.position.z = screen.position.z;
@@ -714,6 +726,7 @@ export function buildProjectPayloadModule(
     anchor,
     screen,
     idleDisplay,
+    desktopDisplay,
     width: sw,
     height: sh,
     category: options.kind,
@@ -721,6 +734,7 @@ export function buildProjectPayloadModule(
     interactableId: `projects-screen-${options.kind}`,
     setActive(active: boolean) {
       idleDisplay.visible = !active;
+      desktopDisplay.visible = active;
     },
     setCount(next: number | null) {
       const value =

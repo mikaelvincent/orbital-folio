@@ -4,6 +4,10 @@ import { buildContactAudio } from './contact-flight-audio.ts';
 import { buildContactKeyboard } from './contact-keyboard.ts';
 import { CABIN_FLOOR } from '../geometry/spacecraft-wall-layout.ts';
 import { CONTACT_GRID } from './cabin-composition.ts';
+import {
+  attachComputerDesktop,
+  createComputerDesktopMaterial,
+} from './computer-desktop.ts';
 
 /** Floor-referenced Contact furnishings and physical computer controls. Browser
  * input and camera state remain owned by the spacecraft runtime. */
@@ -14,6 +18,7 @@ export function buildContactFlightConsole(
   options: {
     accent?: any;
     socials?: SocialScreenLinks;
+    desktopMaterial?: any;
     rearWallProfile?: Array<{ y: number; z: number }>;
   } = {},
 ) {
@@ -440,6 +445,12 @@ export function buildContactFlightConsole(
     face.position.z = 0.132;
     face.castShadow = false;
     if (kind === 'contact') {
+      const desktopDisplay = attachComputerDesktop(
+        THREE,
+        face,
+        mount,
+        options.desktopMaterial ?? createComputerDesktopMaterial(THREE),
+      );
       const anchor = new THREE.Object3D();
       anchor.name = 'contact-computer-application-anchor';
       anchor.position.z = 0.135;
@@ -457,8 +468,10 @@ export function buildContactFlightConsole(
         width: sw,
         height: sh,
         idleDisplay,
+        desktopDisplay,
         setActive(active: boolean) {
           idleDisplay.visible = !active;
+          desktopDisplay.visible = active;
         },
       };
     } else {

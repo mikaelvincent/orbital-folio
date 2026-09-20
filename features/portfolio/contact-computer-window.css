@@ -15,17 +15,6 @@
   padding: 14px;
   overflow: clip;
   border-radius: 7px;
-  /* A static, abstract desktop: quiet alloy-blue light across deep navy. */
-  background:
-    radial-gradient(ellipse at 90% 110%, #53747880, transparent 62%),
-    linear-gradient(
-      145deg,
-      transparent 34%,
-      #869d9b24 35%,
-      #213d4d88 48%,
-      transparent 69%
-    ),
-    linear-gradient(155deg, #182b3b, #080f1b 68%, #223944);
 }
 .contact-computer-window {
   width: 100%;

@@ -32,7 +32,7 @@ async function loadComponent(entryPoint) {
   });
   return loaded.exports;
 }
-const { ProjectMarkdown, ProjectMedia } = await loadComponent(
+const { ProjectMarkdown } = await loadComponent(
   'features/portfolio/project-markdown.tsx',
 );
 const render = (body, media = []) =>
@@ -128,11 +128,6 @@ await test('managed video links render accessible native players with published 
   assert.match(markup, /<track kind="captions" src="\/media\/captions"/);
   assert.match(markup, /<a href="\/media\/movie">video link<\/a>/);
   assert.doesNotMatch(markup, /autoplay|<p><figure/);
-  const compact = renderToStaticMarkup(
-    createElement(ProjectMedia, { item: media[0], media, compact: true }),
-  );
-  assert.doesNotMatch(compact, /<video/);
-  assert.match(compact, /<img src="\/media\/poster"/);
 });
 
 await test('unknown media references do not expose unpublished asset metadata', () => {
@@ -165,6 +160,63 @@ await test('character references render as text while code and raw HTML remain l
   assert.match(markup, /<code>&amp;amp;<\/code>/);
   assert.match(markup, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
   assert.doesNotMatch(markup, /<script>/);
+});
+
+await test('ordered and unordered lists retain mixed nesting, authored starts and inline formatting', () => {
+  const markup = render(
+    [
+      '7. **Prepare** the release.',
+      '   - Review *changes*.',
+      '     1. Run `npm test`.',
+      '     2. Inspect the result.',
+      '   - Publish the notes.',
+      '8. Finish.',
+      '',
+      '- Parent item',
+      '  - Child item',
+      '    - Grandchild item',
+      '- Another parent',
+      '',
+      '0. Start from zero.',
+      '1. Continue.',
+    ].join('\n'),
+  );
+  assert.match(
+    markup,
+    /<ol start="7"><li><strong>Prepare<\/strong> the release\.<ul><li>Review <em>changes<\/em>\.<ol start="1"><li>Run <code>npm test<\/code>\.<\/li><li>Inspect the result\.<\/li><\/ol><\/li><li>Publish the notes\.<\/li><\/ul><\/li><li>Finish\.<\/li><\/ol>/,
+  );
+  assert.match(
+    markup,
+    /<ul><li>Parent item<ul><li>Child item<ul><li>Grandchild item<\/li><\/ul><\/li><\/ul><\/li><li>Another parent<\/li><\/ul>/,
+  );
+  assert.match(
+    markup,
+    /<ol start="0"><li>Start from zero\.<\/li><li>Continue\.<\/li><\/ol>/,
+  );
+});
+
+await test('task markers preserve checked state and loose paragraphs remain inside their list items', () => {
+  const markup = render(
+    [
+      '- [x] Completed **review**.',
+      '',
+      '  Notes for the completed item.',
+      '',
+      '- [ ] Pending item.',
+      '  - Nested supporting detail.',
+    ].join('\n'),
+  );
+  assert.match(
+    markup,
+    /<li class="project-task-item"><input[^>]*checked=""\/><p>Completed <strong>review<\/strong>\.<\/p><p>Notes for the completed item\.<\/p><\/li>/,
+  );
+  assert.match(
+    markup,
+    /<li class="project-task-item"><input[^>]*\/><p>Pending item\.<\/p><ul><li>Nested supporting detail\.<\/li><\/ul><\/li>/,
+  );
+  assert.equal((markup.match(/type="checkbox"/g) || []).length, 2);
+  assert.equal((markup.match(/disabled=""/g) || []).length, 2);
+  assert.equal((markup.match(/checked=""/g) || []).length, 1);
 });
 
 await test('library categories rely on explicit authored assignment and keep ordinary project links', async () => {
@@ -219,4 +271,94 @@ await test('library categories rely on explicit authored assignment and keep ord
   );
   assert.match(reading, /aria-label="Project categories"/);
   assert.match(reading, /aria-pressed="true"/);
+});
+
+await test('immersive gallery omits cover assets and placeholders while project details retain their media', async () => {
+  const { ProjectLibraryWindow } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
+  const projects = [
+    {
+      id: 'illustrated',
+      slug: 'illustrated',
+      title: 'Illustrated project',
+      mediaId: 'cover',
+    },
+    { id: 'filmed', slug: 'filmed', title: 'Filmed project', mediaId: 'movie' },
+    { id: 'text-only', slug: 'text-only', title: 'Text-only project' },
+  ].map((project) => ({
+    ...project,
+    categories: ['systems'],
+    summary: 'A project to explore.',
+  }));
+  const data = {
+    site: {},
+    experience: [],
+    journal: [],
+    links: [],
+    projects,
+    media: [
+      {
+        id: 'cover',
+        url: '/media/cover',
+        mime: 'image/webp',
+        alt: 'Project overview',
+      },
+      {
+        id: 'movie',
+        url: '/media/movie',
+        mime: 'video/mp4',
+        alt: 'Project walkthrough',
+        posterMediaId: 'poster',
+      },
+      {
+        id: 'poster',
+        url: '/media/poster',
+        mime: 'image/webp',
+        alt: 'Walkthrough preview',
+      },
+    ],
+  };
+  const props = {
+    data,
+    category: 'systems',
+    onProjectSelect() {},
+    onBack() {},
+    onClose() {},
+  };
+  const gallery = renderToStaticMarkup(
+    createElement(ProjectLibraryWindow, props),
+  );
+  for (const project of projects)
+    assert.match(
+      gallery,
+      new RegExp(`aria-label="Read project: ${project.title}"`),
+    );
+  assert.doesNotMatch(gallery, /<img\b|<video\b|project-card-cover|\/media\//);
+
+  const imageDetail = renderToStaticMarkup(
+    createElement(ProjectLibraryWindow, {
+      ...props,
+      project: projects[0],
+    }),
+  );
+  assert.match(
+    imageDetail,
+    /<img[^>]*src="\/media\/cover"[^>]*alt="Project overview"/,
+  );
+  assert.match(
+    imageDetail,
+    /<button\b[^>]*>(?:(?!<\/button>)[\s\S])*Back to projects<\/button>/,
+  );
+  const videoDetail = renderToStaticMarkup(
+    createElement(ProjectLibraryWindow, {
+      ...props,
+      project: projects[1],
+    }),
+  );
+  assert.match(
+    videoDetail,
+    /<video[^>]*controls=""[^>]*poster="\/media\/poster"/,
+  );
+  assert.match(videoDetail, /<source[^>]*src="\/media\/movie"/);
 });

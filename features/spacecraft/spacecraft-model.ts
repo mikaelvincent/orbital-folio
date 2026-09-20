@@ -1,4 +1,5 @@
 import { createModelPrimitives } from './geometry/model-primitives.ts';
+import { createComputerDesktopMaterial } from './rooms/computer-desktop.ts';
 import { indexedCylinderType } from './geometry/indexed-cylinder.generated.js';
 import { buildDockingAndServiceAssemblies } from './equipment/docking-service-assemblies.ts';
 import { buildContinuousExteriorSkin } from './geometry/continuous-exterior-skin.ts';
@@ -1450,6 +1451,7 @@ export function createSpacecraft(
   workshop.position.set(legacyCenters.projects + 0.18, previousFloorTop, 0);
   workshop.userData.batchRoot = true;
   rooms.projects.add(workshop);
+  const computerDesktopMaterial = createComputerDesktopMaterial(THREE);
   const projectWorkshop = buildProjectsWorkshop(
     THREE,
     { box, mesh, cylinder, torus, rod, instances },
@@ -1457,6 +1459,7 @@ export function createSpacecraft(
     {
       projectCount: projectData.length,
       accent: m.amber,
+      desktopMaterial: computerDesktopMaterial,
     },
   );
   group.userData.projectScreens = projectWorkshop.screens;
@@ -1507,6 +1510,7 @@ export function createSpacecraft(
     {
       accent: m.amber,
       socials: options.socials,
+      desktopMaterial: computerDesktopMaterial,
       rearWallProfile: interiorPoints.map((point: any) => ({
         y: point.y,
         z: -point.x,

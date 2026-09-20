@@ -15,12 +15,10 @@ export function ProjectMedia({
   item,
   media,
   caption = true,
-  compact = false,
 }: {
   item: Media;
   media: Media[];
   caption?: boolean;
-  compact?: boolean;
 }) {
   const url = projectContentUrl(item.url, 'media');
   if (!url) return null;
@@ -36,8 +34,8 @@ export function ProjectMedia({
   if (!isVideo && !String(item.mime).startsWith('image/')) return null;
   const posterUrl = projectContentUrl(poster?.url, 'media');
   return (
-    <figure className={`project-story-media${compact ? ' is-compact' : ''}`}>
-      {isVideo && !compact ? (
+    <figure className="project-story-media">
+      {isVideo ? (
         <video
           controls
           preload="none"
@@ -58,16 +56,6 @@ export function ProjectMedia({
           Your browser does not support this video.{' '}
           <a href={url}>Download the video</a>.
         </video>
-      ) : isVideo ? (
-        posterUrl ? (
-          <img
-            src={posterUrl}
-            alt={item.alt || item.title || ''}
-            loading="lazy"
-          />
-        ) : (
-          <span className="project-video-cover">Video walkthrough</span>
-        )
       ) : (
         <img
           src={url}
@@ -113,6 +101,10 @@ export function ProjectMarkdown({
           return <code key={index}>{token.text}</code>;
         case 'br':
           return <br key={index} />;
+        case 'checkbox':
+          // The parent list item owns the accessible checkbox. Marked also
+          // includes this inline token, which must not become literal [x].
+          return null;
         case 'link': {
           const href = projectContentUrl(token.href);
           return href ? (
@@ -218,7 +210,10 @@ export function ProjectMarkdown({
             list.ordered ? 'ol' : 'ul',
             { key: index, ...(list.ordered ? { start: list.start } : {}) },
             list.items.map((item, itemIndex) => (
-              <li key={itemIndex}>
+              <li
+                key={itemIndex}
+                className={item.task ? 'project-task-item' : undefined}
+              >
                 {item.task && (
                   <input
                     type="checkbox"

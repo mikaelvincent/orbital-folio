@@ -6,7 +6,12 @@ export function buildProjectsWorkshop(
   THREE: any,
   h: any,
   floorRoot: any,
-  options: { projectCount?: number; accent?: any; screenLabels?: boolean } = {},
+  options: {
+    projectCount?: number;
+    accent?: any;
+    screenLabels?: boolean;
+    desktopMaterial?: any;
+  } = {},
 ) {
   // Match Contact's 0.731-high working surface. Move the bank and worktop
   // together to retain screen clearance; grounded feet and support joints stay fitted.
@@ -580,6 +585,7 @@ export function buildProjectsWorkshop(
       accent: options.accent,
       screenLabels: options.screenLabels,
       sharedMaterials: moduleMaterials,
+      desktopMaterial: options.desktopMaterial,
     });
   });
 
