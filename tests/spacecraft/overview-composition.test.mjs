@@ -183,8 +183,9 @@ test('Short landscape overviews recover useful vessel size without reducing call
   assert.equal(overviewCalloutGutter(390, 98, 80, false), 42);
   assert.equal(overviewCalloutGutter(720, 98, 80, false), 72);
   assert.equal(overviewCalloutGutter(844, 118, 80, true), 48);
-  // There is no additional camera discontinuity at the square/tablet breakpoint.
-  for (const aspect of [0.85, 0.9, 1, 1.8]) {
+  // Responsive joins remain continuous within each layout. The sign changes
+  // at square deliberately accompany the existing portrait roll switch.
+  for (const aspect of [0.85, 0.9, 1.8]) {
     const left = new THREE.Vector3(
       ...overviewCameraDirection(aspect - 1e-5),
     ).normalize();
@@ -209,5 +210,21 @@ test('Short landscape overviews recover useful vessel size without reducing call
       0.18 + 0.02 * original,
       1,
     ]);
+  }
+});
+
+test('Portrait overview reveals the ceiling side across tall and nearly square screens', () => {
+  for (const aspect of [0.2, 360 / 800, 390 / 844, 768 / 1024, 0.9, 0.9999]) {
+    const direction = new THREE.Vector3(...overviewCameraDirection(aspect))
+      .normalize()
+      .applyAxisAngle(axis, -Math.PI / 2);
+    assert.ok(
+      direction.y < -0.09,
+      `${aspect}: camera must look up toward ceilings`,
+    );
+    assert.ok(
+      direction.z > 0.9,
+      `${aspect}: keep a restrained frontal composition`,
+    );
   }
 });

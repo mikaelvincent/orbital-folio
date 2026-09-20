@@ -39,17 +39,12 @@ function flightFixture(width, height, room) {
       bottom: -1 + (2 * (80 + gutter)) / height,
     };
   };
-  function overview(roll, sweep = false) {
+  function overview(roll) {
     const direction = new THREE.Vector3(
       ...overviewCameraDirection(width / height),
     ).normalize();
-    const rolls = sweep
-      ? Array.from({ length: 17 }, (_, i) => (i * Math.PI) / 32)
-      : [roll];
-    const points = rolls.flatMap((angle) =>
-      data.overviewSupportPoints.map((point) =>
-        new THREE.Vector3(...point).applyAxisAngle(zAxis, angle).toArray(),
-      ),
+    const points = data.overviewSupportPoints.map((point) =>
+      new THREE.Vector3(...point).applyAxisAngle(zAxis, roll).toArray(),
     );
     const initialTarget = new THREE.Vector3(...data.overviewBounds.center)
       .applyAxisAngle(zAxis, roll)
@@ -114,14 +109,12 @@ function flightFixture(width, height, room) {
     roll: 0,
   };
   const home = overview(Math.PI / 2);
-  const outwardStart = overview(Math.PI / 2, true);
-  const outwardEnd = overview(0, true);
   return {
     fov,
     home,
     destination,
-    forward: createOverviewFlight(home, destination, outwardStart, outwardEnd),
-    reverse: createOverviewFlight(destination, home, outwardEnd, outwardStart),
+    forward: createOverviewFlight(home, destination),
+    reverse: createOverviewFlight(destination, home),
   };
 }
 
@@ -135,6 +128,19 @@ function closePose(actual, expected, tolerance = 1e-10) {
   coordinates(actual).forEach((value, i) =>
     assert.ok(Math.abs(value - coordinates(expected)[i]) < tolerance),
   );
+}
+
+const eyeRig = createVesselCameraFrame(THREE);
+const eyeCamera = new THREE.PerspectiveCamera();
+function worldEye(pose) {
+  eyeRig.apply(
+    eyeCamera,
+    new THREE.Vector3(...pose.target),
+    new THREE.Vector3(...pose.direction),
+    pose.distance,
+    pose.roll,
+  );
+  return eyeCamera.position.clone();
 }
 
 const phone = flightFixture(390, 844, 'contact');
@@ -156,9 +162,9 @@ test('Portrait overview flights preserve endpoints, clamp completion and reverse
   }
 });
 
-test('The camera eases only at the endpoints while rotation remains continuous through the clearance arc', () => {
+test('The camera eases only at the endpoints while advancing and rotating continuously', () => {
   for (const path of [phone.forward, phone.reverse]) {
-    const sign = Math.sign(path.controls[3].roll - path.controls[0].roll);
+    const sign = Math.sign(path.end.roll - path.start.roll);
     let previous = sampleOverviewFlight(path, 0);
     for (let step = 1; step <= 200; step++) {
       const current = sampleOverviewFlight(path, step / 200);
@@ -167,14 +173,21 @@ test('The camera eases only at the endpoints while rotation remains continuous t
       assert.ok((current.roll - previous.roll) * sign > 0);
       previous = current;
     }
-    // At the old internal stops (middle of each half), travel must still have
-    // appreciable angular velocity, even when outward distance reverses sign.
+    // At the old internal stops, translation and rotation must both continue.
+    // The world eye is measured through the real camera adapter, so a retreat
+    // hidden by changing target/direction/roll cannot pass this test.
     for (const progress of [0.25, 0.4, 0.5, 0.6, 0.75]) {
       const before = sampleOverviewFlight(path, progress - 0.0001);
       const after = sampleOverviewFlight(path, progress + 0.0001);
       const radiansPerSecond =
         ((after.roll - before.roll) * sign) / (0.0002 * path.duration);
       assert.ok(radiansPerSecond > 0.12, `Angular speed ${radiansPerSecond}`);
+      assert.ok(
+        Math.abs(worldEye(after).z - worldEye(before).z) /
+          (0.0002 * path.duration) >
+          0.1,
+        'Translation must not pause while the camera rolls',
+      );
     }
     // Finite differences at decreasing intervals approach rest smoothly.
     for (const edge of [0, 1]) {
@@ -196,7 +209,7 @@ test('The camera eases only at the endpoints while rotation remains continuous t
   }
 });
 
-test('Sampled portrait flights keep the eye and complete near plane ahead of the actual vessel', () => {
+test('Portrait entry never retreats, and its eye and complete near plane remain ahead of the actual vessel', () => {
   const rig = createVesselCameraFrame(THREE);
   const frontmost = Math.max(
     ...data.overviewSupportPoints.map((point) => point[2]),
@@ -214,9 +227,23 @@ test('Sampled portrait flights keep the eye and complete near plane ahead of the
       camera.fov = fixture.fov;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      let previousZ = Infinity;
+      let previousDistance = Infinity;
       for (let step = 0; step <= 80; step++) {
         const pose = sampleOverviewFlight(fixture.forward, step / 80);
-        // Drag/hover retains its existing bounded return spring during travel.
+        const eye = worldEye(pose);
+        assert.ok(
+          eye.z < previousZ,
+          `${width}×${height}/${room}/${step}: camera retreats from vessel`,
+        );
+        assert.ok(
+          pose.distance < previousDistance,
+          `${width}×${height}/${room}/${step}: camera pulls away from focus`,
+        );
+        previousZ = eye.z;
+        previousDistance = pose.distance;
+        // Extra angular stress beyond the baked-departure path; this does not
+        // replay input springs, which navigation folds in and clears.
         for (const pitch of [-1, 0, 1])
           for (const yaw of [-1, 0, 1]) {
             const direction = new THREE.Vector3(...pose.direction).applyEuler(
@@ -268,13 +295,7 @@ test('An interrupted flight carries its incoming velocity, then rests exactly at
       distance: (after.distance - before.distance) / dt,
       roll: (after.roll - before.roll) / dt,
     };
-    const interrupted = createOverviewFlight(
-      start,
-      phone.home,
-      original.controls[2],
-      original.controls[1],
-      velocity,
-    );
+    const interrupted = createOverviewFlight(start, phone.home, velocity);
     closePose(sampleOverviewFlight(interrupted, 0), start);
     closePose(sampleOverviewFlight(interrupted, 1), phone.home);
     const immediate = sampleOverviewFlight(interrupted, epsilon);

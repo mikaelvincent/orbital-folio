@@ -780,16 +780,9 @@ export function mountSpacecraftScene({
           );
         const portraitOverview = () => el.clientHeight > el.clientWidth;
         const zAxis = new THREE.Vector3(0, 0, 1);
-        const pose = (
-          section: string,
-          isReading: boolean,
-          overviewRoll?: number,
-          sweep?: [number, number],
-        ) => {
+        const pose = (section: string, isReading: boolean) => {
           const home = section === 'home';
-          const desiredRoll = home
-            ? (overviewRoll ?? (portraitOverview() ? Math.PI / 2 : 0))
-            : 0;
+          const desiredRoll = home && portraitOverview() ? Math.PI / 2 : 0;
           const target = new THREE.Vector3(
             ...(anchors[section] || anchors.home),
           );
@@ -917,19 +910,12 @@ export function mountSpacecraftScene({
                   [min[2], max[2]].map((z) => [x, y, z]),
                 ),
               );
-            const rolls = sweep
-              ? Array.from(
-                  { length: 17 },
-                  (_, i) => sweep[0] + ((sweep[1] - sweep[0]) * i) / 16,
-                )
-              : [desiredRoll];
-            for (const fitRoll of rolls)
-              for (const point of support)
-                points.push(
-                  new THREE.Vector3(...(point as [number, number, number]))
-                    .applyAxisAngle(zAxis, fitRoll)
-                    .toArray(),
-                );
+            for (const point of support)
+              points.push(
+                new THREE.Vector3(...(point as [number, number, number]))
+                  .applyAxisAngle(zAxis, desiredRoll)
+                  .toArray(),
+              );
             target
               .set(
                 (min[0] + max[0]) / 2,
@@ -1214,36 +1200,60 @@ export function mountSpacecraftScene({
             }
           }
           if (!immediate && !stop && Math.abs(roll - desired.roll) > 0.01) {
-            const sweep: [number, number] = [roll, desired.roll];
-            const startOverview = pose('home', false, roll, sweep);
-            const endOverview = pose('home', false, desired.roll, sweep);
+            // Depart from the displayed view, including hover dolly and drag.
+            // Otherwise those offsets unwind before the slow start of the flight
+            // and create an unwanted retreat even on a strictly inward path.
+            const departure = (dt = 0): FlightPose => {
+              const at = (axis: MotionAxis) => axis.value + axis.velocity * dt;
+              const angles = boundedCameraAngles(
+                [at(pointerMotion[0]), at(pointerMotion[1])],
+                [at(dragMotion[0]), at(dragMotion[1])],
+                { pitch: at(rangeMotion[0]), yaw: at(rangeMotion[1]) },
+              );
+              return {
+                target: new THREE.Vector3(
+                  at(targetMotion[0]) + at(hoverMotion[0]),
+                  at(targetMotion[1]) + at(hoverMotion[1]),
+                  at(targetMotion[2]),
+                ),
+                direction: new THREE.Vector3(...directionMotion.map(at))
+                  .normalize()
+                  .applyEuler(new THREE.Euler(angles[0], angles[1], 0)),
+                distance: at(distanceMotion) * (1 - 0.025 * at(dollyMotion)),
+                roll: at(rollMotion),
+              };
+            };
+            const start = flightPoseData(departure());
+            const previous = flightPoseData(departure(-0.0001));
             const path = createOverviewFlight(
-              flightPoseData({
-                target: currentTarget,
-                direction: viewDirection,
-                distance,
-                roll,
-              }),
+              start,
               flightPoseData(desired),
-              flightPoseData(startOverview),
-              flightPoseData(endOverview),
               travelling
                 ? {
-                    target: targetMotion.map((axis) => axis.velocity) as [
-                      number,
-                      number,
-                      number,
-                    ],
-                    direction: directionMotion.map((axis) => axis.velocity) as [
-                      number,
-                      number,
-                      number,
-                    ],
-                    distance: distanceMotion.velocity,
-                    roll: rollMotion.velocity,
+                    target: start.target.map(
+                      (v, i) => (v - previous.target[i]) / 0.0001,
+                    ) as [number, number, number],
+                    direction: start.direction.map(
+                      (v, i) => (v - previous.direction[i]) / 0.0001,
+                    ) as [number, number, number],
+                    distance: (start.distance - previous.distance) / 0.0001,
+                    roll: (start.roll - previous.roll) / 0.0001,
                   }
                 : undefined,
             );
+            // Seed the shared axes in the same baked frame. The first velocity
+            // sample must measure actual travel, not the folded input offsets.
+            start.target.forEach((v, i) => resetAxis(targetMotion[i], v));
+            start.direction.forEach((v, i) => resetAxis(directionMotion[i], v));
+            resetAxis(distanceMotion, start.distance);
+            resetAxis(rollMotion, start.roll);
+            [
+              ...pointerMotion,
+              ...dragMotion,
+              ...hoverMotion,
+              dollyMotion,
+            ].forEach((s) => resetAxis(s, 0));
+            pointerCurrent.set(0, 0);
             overviewFlight = { path, elapsed: 0 };
             itinerary = [];
             travelledRoute = [];
@@ -1256,15 +1266,11 @@ export function mountSpacecraftScene({
           const hullDiameter = new THREE.Vector3(
             ...overviewBounds.max,
           ).distanceTo(new THREE.Vector3(...overviewBounds.min));
-          // Very tall portrait screens need a distant clearance pose. Keep the
-          // entire hull inside the depth range as well as the visible frame.
+          // Preserve the depth range throughout travel; screen-space hull
+          // cropping is intentional while a portrait view turns toward a room.
           camera.far = Math.max(
             80,
-            Math.max(
-              distance,
-              ...itinerary.map((p) => p.distance),
-              ...(overviewFlight?.path.controls.map((p) => p.distance) || []),
-            ) +
+            Math.max(distance, ...itinerary.map((p) => p.distance)) +
               hullDiameter +
               2,
           );

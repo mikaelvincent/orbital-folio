@@ -48,8 +48,11 @@ export function overviewCameraDirection(aspect: number): Vec3 {
   const landscape = t * t * (3 - 2 * t);
   const p = Math.max(0, Math.min(1, (1 - aspect) / 0.15));
   const portrait = p * p * (3 - 2 * p);
+  const yaw = -0.1 - 0.18 * landscape - 0.12 * portrait;
+  // Portrait's inverse quarter-turn maps +X to world -Y: reveal ceilings.
+  // The layout already switches its roll at square; retain landscape exactly.
   return [
-    -0.1 - 0.18 * landscape - 0.12 * portrait,
+    aspect < 1 ? -yaw : yaw,
     0.18 + 0.02 * landscape + 0.04 * portrait,
     1,
   ];

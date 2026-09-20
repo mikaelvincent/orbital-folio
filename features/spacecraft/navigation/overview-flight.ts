@@ -7,42 +7,71 @@ export type OverviewFlightPose = {
   distance: number;
   roll: number;
 };
+type WorldPose = { eye: Vec3; focus: Vec3; roll: number };
 export type OverviewFlight = {
-  controls: readonly [
-    OverviewFlightPose,
-    OverviewFlightPose,
-    OverviewFlightPose,
-    OverviewFlightPose,
-  ];
+  start: WorldPose;
+  end: WorldPose;
   duration: number;
-  /** Incoming units/second when browser history interrupts a moving flight. */
-  velocity?: OverviewFlightPose;
+  velocity?: WorldPose;
 };
+const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const scale = (v: Vec3, s: number): Vec3 => [v[0] * s, v[1] * s, v[2] * s];
+const rotate = (v: Vec3, r: number): Vec3 => [
+  Math.cos(r) * v[0] - Math.sin(r) * v[1],
+  Math.sin(r) * v[0] + Math.cos(r) * v[1],
+  v[2],
+];
+const lerp = (a: Vec3, b: Vec3, t: number): Vec3 =>
+  add(scale(a, 1 - t), scale(b, t));
 
-/** Clearance poses shape one continuous curve; they are never arrival stops.
- * The same curve reversed gives the return flight. Room endpoints intentionally
- * crop the hull; all controls keep the eye in front of the vessel instead of
- * trying to fit the entire spacecraft while entering a cabin.
+/** Convert the annotation-oriented frame into the actual stationary vessel world. */
+function worldPose(p: OverviewFlightPose): WorldPose {
+  return {
+    focus: rotate(p.target, -p.roll),
+    eye: rotate(add(p.target, scale(p.direction, p.distance)), -p.roll),
+    roll: p.roll,
+  };
+}
+function worldVelocity(
+  p: OverviewFlightPose,
+  v: OverviewFlightPose,
+): WorldPose {
+  // d(R(-roll) * point)/dt includes the moving coordinate frame's derivative.
+  const derivative = (point: Vec3, velocity: Vec3) =>
+    rotate(add(velocity, [v.roll * point[1], -v.roll * point[0], 0]), -p.roll);
+  return {
+    focus: derivative(p.target, v.target),
+    eye: derivative(
+      add(p.target, scale(p.direction, p.distance)),
+      add(
+        v.target,
+        add(scale(v.direction, p.distance), scale(p.direction, v.distance)),
+      ),
+    ),
+    roll: v.roll,
+  };
+}
+
+/** One direct eye/focus flight, without a whole-vessel clearance detour.
+ * World-space interpolation avoids orbiting the target around the ship origin as
+ * roll unwinds. Settled room entry advances in depth throughout; hull cropping while
+ * turning is intentional. The fixed lens and endpoint room fit are unchanged.
  */
 export function createOverviewFlight(
   start: OverviewFlightPose,
   end: OverviewFlightPose,
-  outwardStart: OverviewFlightPose,
-  outwardEnd: OverviewFlightPose,
   velocity?: OverviewFlightPose,
 ): OverviewFlight {
-  const clearance = Math.max(outwardStart.distance, outwardEnd.distance) * 1.02;
+  const a = worldPose(start),
+    b = worldPose(end);
   return {
-    controls: [
-      start,
-      { ...outwardStart, distance: clearance, roll: start.roll },
-      { ...outwardEnd, distance: clearance, roll: end.roll },
-      end,
-    ],
-    // A little more time for exceptionally narrow windows, without three
-    // independent spring tails. Seconds are active animation time.
-    duration: Math.max(3.2, Math.min(4.6, 2.8 + clearance / 35)),
-    velocity,
+    start: a,
+    end: b,
+    duration: Math.max(
+      3.2,
+      Math.min(4, 2.8 + Math.hypot(...add(b.eye, scale(a.eye, -1))) / 30),
+    ),
+    velocity: velocity ? worldVelocity(start, velocity) : undefined,
   };
 }
 
@@ -50,30 +79,28 @@ export function sampleOverviewFlight(
   flight: OverviewFlight,
   progress: number,
 ): OverviewFlightPose {
-  const t = flightEase(progress),
-    s = 1 - t;
-  const weights = [s ** 3, 3 * s * s * t, 3 * s * t * t, t ** 3];
   const p = Math.max(0, Math.min(1, progress));
-  const seconds = p * flight.duration;
-  // A short decaying tangent preserves incoming velocity on interruption.
-  // Its value is zero at both endpoints, its initial derivative is one, and
-  // its final derivatives vanish. Settled departures use the reversible curve.
+  const t = flightEase(p),
+    seconds = p * flight.duration;
+  // Preserve momentum on interrupted travel; ordinary entry starts at rest.
+  // This term is zero at both endpoints and has incoming velocity at departure.
   const tangent = seconds * Math.exp(-seconds / 0.18) * (1 - p) ** 3;
-  const scalar = (get: (pose: OverviewFlightPose) => number) =>
-    flight.controls.reduce((sum, pose, i) => sum + weights[i] * get(pose), 0) +
-    (flight.velocity ? get(flight.velocity) * tangent : 0);
-  const vector = (key: 'target' | 'direction'): [number, number, number] =>
-    [0, 1, 2].map((axis) => scalar((pose) => pose[key][axis])) as [
-      number,
-      number,
-      number,
-    ];
-  const direction = vector('direction');
-  const length = Math.hypot(...direction);
+  const vector = (key: 'eye' | 'focus') =>
+    add(
+      lerp(flight.start[key], flight.end[key], t),
+      scale(flight.velocity?.[key] ?? [0, 0, 0], tangent),
+    );
+  const roll =
+    flight.start.roll * (1 - t) +
+    flight.end.roll * t +
+    (flight.velocity?.roll ?? 0) * tangent;
+  const focus = vector('focus');
+  const back = add(vector('eye'), scale(focus, -1));
+  const distance = Math.hypot(...back);
   return {
-    target: vector('target'),
-    direction: direction.map((v) => v / length) as [number, number, number],
-    distance: scalar((pose) => pose.distance),
-    roll: scalar((pose) => pose.roll),
+    target: rotate(focus, roll),
+    direction: rotate(scale(back, 1 / distance), roll),
+    distance,
+    roll,
   };
 }
