@@ -1,30 +1,38 @@
-/** Frozen developer-only comparison: Git 8K night baseline vs current regional loop.
+/** Frozen developer-only comparison: Git regional baseline vs the current source/asset candidate.
  * Derived from the established finite cloud lab protocol; no production imports.
  */
 import * as THREE from 'three';
+import { responsiveCameraFov } from '../../features/spacecraft/navigation/scene-controls';
 import { EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT } from '../../features/orbit/earth-satellite';
+// @ts-expect-error Standalone launcher resolves the dimensions from frozen Git source.
+import { EARTH_TEXTURE_WIDTH as BASELINE_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT as BASELINE_TEXTURE_HEIGHT } from 'regional-earth-baseline-texture';
 
 type Version = 'reference' | 'current';
+type AnimationMode = 'frozen' | 'replay-60hz';
+type PlaybackState = { time: number; duration: number; speed: number; playing: boolean; ready: boolean };
+type PlaybackCommand = { type: 'seek'; time: number } | { type: 'speed'; speed: number } | { type: 'playing'; playing: boolean };
 type Environment = {
   scene: THREE.Scene;
   camera: THREE.Camera;
   ready?: Promise<unknown>;
-  resize(width: number, height: number, pixelRatio: number): void;
+  resize(width: number, height: number, pixelRatio: number, cameraFov?: number): void;
   update(time: number, moving: boolean, x: number, y: number): void;
   followCamera(world: THREE.PerspectiveCamera, reference: THREE.PerspectiveCamera): void;
   getDiagnostics(): unknown;
+  getEarthPlayback?(): PlaybackState;
+  setEarthPlayback?(command: PlaybackCommand): void;
   dispose(): void;
 };
 type EnvironmentModule = { createOrbitalEnvironment(three: typeof THREE, invalidate: () => void, options: { mobile: boolean; cameraFov: number }): Environment };
 const REST_MS = 60000;
 const WARMUP_FRAMES = 30;
 const comparison = {
-  reference: { label: 'Before — complete 8K night Earth', source: 'Git baseline/features/orbit/orbital-environment.ts' },
-  current: { label: 'After — regional night loop', source: 'features/orbit/orbital-environment.ts' },
+  reference: { label: 'Before — previous regional Earth', source: 'Git baseline/features/orbit/orbital-environment.ts', textureDimensions: [BASELINE_TEXTURE_WIDTH, BASELINE_TEXTURE_HEIGHT] },
+  current: { label: 'After — current regional Earth', source: 'features/orbit/orbital-environment.ts', textureDimensions: [EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT] },
 };
 type TimerExtension = { TIME_ELAPSED_EXT: number; GPU_DISJOINT_EXT: number };
 type Frame = {
-  index: number; rafTimestamp: number; frameIntervalMs: number | null;
+  index: number; rafTimestamp: number; frameIntervalMs: number | null; animationTime: number;
   updateCpuMs: number; renderCpuMs: number; totalCpuMs: number;
   gpuNs: number | null; gpuMs: number | null;
   gpuStatus: 'pending' | 'valid' | 'unsupported' | 'disjoint' | 'stopped' | 'timeout' | 'query-unavailable' | 'not-sampled';
@@ -34,6 +42,8 @@ type Block = {
   index: number; version: Version; startedAt: string; finishedAt?: string;
   warmupFrames: number; measuredFramesTarget: number; environmentDiagnostics: unknown;
   frames: Frame[]; disjointEvents: number[];
+  animation: { mode: AnimationMode; startTime: number; finalTime: number; stepSeconds: number; firstMeasuredTime: number | null };
+  finalEnvironmentDiagnostics?: unknown;
 };
 type Report = {
   schemaVersion: 1; runId: string; startedAt: string; finishedAt?: string;
@@ -53,7 +63,10 @@ const rollInput = element<HTMLInputElement>('roll');
 const dprInput = element<HTMLSelectElement>('dpr');
 const orderInput = element<HTMLSelectElement>('order');
 const framesInput = element<HTMLSelectElement>('frames');
+const animationInput = element<HTMLSelectElement>('animation');
 const previewButton = element<HTMLButtonElement>('preview');
+const beforeButton = element<HTMLButtonElement>('before');
+const afterButton = element<HTMLButtonElement>('after');
 const startButton = element<HTMLButtonElement>('start');
 const stopButton = element<HTMLButtonElement>('stop');
 const fullscreenButton = element<HTMLButtonElement>('fullscreen');
@@ -69,7 +82,10 @@ const settings = () => ({
   width: innerWidth, height: innerHeight,
   dpr: dprInput.value === 'native' ? devicePixelRatio : Number(dprInput.value),
   mobile: innerWidth < 700, frozenTime: Math.max(0, Number(timeInput.value)),
+  animationMode: animationInput.value as AnimationMode,
   camera: { yaw: Number(yawInput.value), pitch: Number(pitchInput.value), roll: Number(rollInput.value) },
+  cameraScope: 'Shared origin camera/reference. Baseline lens38 degrees; candidate uses delivered responsive lens (desktop38, portrait preserves38 horizontal up to78 vertical). Does not reproduce whole-app camera position, framing or roll.',
+  lens: { reference: 38, current: responsiveCameraFov(innerWidth / innerHeight) },
 });
 let renderer: THREE.WebGLRenderer | undefined;
 let extension: TimerExtension | null = null;
@@ -117,7 +133,7 @@ function resizeRenderer() {
   const config = settings();
   renderer.setPixelRatio(config.dpr);
   renderer.setSize(config.width, config.height, false);
-  for (const { environment } of environments.values()) environment.resize(config.width, config.height, config.dpr);
+  for (const [version, { environment }] of environments) environment.resize(config.width, config.height, config.dpr, config.lens[version]);
 }
 function blank() {
   if (!renderer || renderer.getContext().isContextLost()) return;
@@ -133,7 +149,7 @@ function disposeIncomplete() {
 }
 function busy(controller?: AbortController) {
   active = controller;
-  for (const input of [versionInput, timeInput, phaseInput, periodInput, yawInput, pitchInput, rollInput, dprInput, orderInput, framesInput, previewButton, startButton, fullscreenButton]) input.disabled = !!controller;
+  for (const input of [versionInput, timeInput, phaseInput, periodInput, yawInput, pitchInput, rollInput, dprInput, orderInput, framesInput, animationInput, previewButton, beforeButton, afterButton, startButton, fullscreenButton]) input.disabled = !!controller;
   stopButton.disabled = !controller;
   copyButton.disabled = downloadButton.disabled = !!controller || !lastReport;
   showButton.disabled = !!controller || !lastReport;
@@ -153,7 +169,7 @@ function requireReadyEnvironment(version: Version, environment: Environment) {
   if (diagnostics.ready !== true)
     throw new Error(`${comparison[version].label}: environment is not ready.`);
   const dimensions = diagnostics.earthTextureDimensions;
-  const expected = version === 'reference' ? [8192, 4096] : [EARTH_TEXTURE_WIDTH, EARTH_TEXTURE_HEIGHT];
+  const expected = comparison[version].textureDimensions;
   if (diagnostics.earthReady !== true || diagnostics.earthLoadError !== null ||
     !Array.isArray(dimensions) || dimensions[0] !== expected[0] || dimensions[1] !== expected[1])
     throw new Error(`${comparison[version].label}: expected texture not ready; incomplete or fallback rendering is not a valid comparison.`);
@@ -203,7 +219,7 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
       : import('../../features/orbit/orbital-environment.ts'), signal);
     check(signal);
     const imported = performance.now();
-    environment = source.createOrbitalEnvironment(THREE, () => {}, { mobile: config.mobile, cameraFov: 38 });
+    environment = source.createOrbitalEnvironment(THREE, () => {}, { mobile: config.mobile, cameraFov: config.lens[version] });
     const constructed = performance.now();
     const preparation: Preparation = {
       version, startedAt: preparationStartedAt, trigger,
@@ -215,7 +231,7 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
     preparation.readyWaitWallMs = performance.now() - constructed;
     check(signal);
     requireReadyEnvironment(version, environment);
-    environment.resize(config.width, config.height, config.dpr);
+    environment.resize(config.width, config.height, config.dpr, config.lens[version]);
     setCamera(environment);
     environment.update(config.frozenTime, true, 0, 0);
     status.textContent = `Preparing ${version} shaders and first complete frame…`;
@@ -258,7 +274,7 @@ async function loadEnvironment(version: Version, signal: AbortSignal, trigger: P
   await abortable(environment.ready ?? Promise.resolve(), signal);
   check(signal);
   requireReadyEnvironment(version, environment);
-  environment.resize(config.width, config.height, config.dpr);
+  environment.resize(config.width, config.height, config.dpr, config.lens[version]);
   setCamera(environment);
   return environment;
 }
@@ -359,6 +375,28 @@ function publish(report: Report) {
   copyButton.disabled = downloadButton.disabled = false;
   showButton.disabled = false;
 }
+function requirePlayback(environment: Environment, version: Version) {
+  const playback = environment.getEarthPlayback?.();
+  if (!environment.setEarthPlayback || !playback || !playback.ready ||
+    !Number.isFinite(playback.duration) || playback.duration <= 0)
+    throw new Error(`${comparison[version].label}: animated timing requires the Earth playback API. Use frozen timing with older baselines.`);
+  return playback;
+}
+/** Reset outside measurement; both sky and Earth replay the same elapsed range. */
+function resetBlockClock(environment: Environment, version: Version, startTime: number, mode: AnimationMode) {
+  if (!environment.getEarthPlayback || !environment.setEarthPlayback) {
+    if (mode !== 'frozen') requirePlayback(environment, version);
+    return;
+  }
+  const playback = requirePlayback(environment, version);
+  environment.setEarthPlayback({ type: 'playing', playing: false });
+  // update accepts an absolute caller clock. This synchronizes the sky and the
+  // previous-Earth-time anchor without advancing Earth during the rewind.
+  environment.update(startTime, true, 0, 0);
+  environment.setEarthPlayback({ type: 'seek', time: startTime % playback.duration });
+  environment.setEarthPlayback({ type: 'speed', speed: 1 });
+  environment.setEarthPlayback({ type: 'playing', playing: true });
+}
 async function measureBlock(block: Block, environment: Environment, frozenTime: number, signal: AbortSignal) {
   const target = getRenderer();
   const gl = target.getContext() as WebGL2RenderingContext;
@@ -408,13 +446,14 @@ async function measureBlock(block: Block, environment: Environment, frozenTime: 
     for (let index = 0; index < block.measuredFramesTarget; index++) {
       const timestamp = await frame(signal);
       const disjoint = poll();
+      const animationTime = frozenTime + (index + 1) * block.animation.stepSeconds;
       const start = performance.now();
-      environment.update(frozenTime, true, 0, 0);
+      environment.update(animationTime, true, 0, 0);
       const updated = performance.now();
       const sampled = index % 5 === 0;
       const query = timer && sampled && !disjoint && !sawDisjoint ? gl.createQuery() : null;
       const row: Frame = {
-        index, rafTimestamp: timestamp, frameIntervalMs: lastTimestamp === null ? null : timestamp - lastTimestamp,
+        index, rafTimestamp: timestamp, frameIntervalMs: lastTimestamp === null ? null : timestamp - lastTimestamp, animationTime,
         updateCpuMs: updated - start, renderCpuMs: 0, totalCpuMs: 0, gpuNs: null, gpuMs: null,
         gpuStatus: !timer ? 'unsupported' : sawDisjoint ? 'disjoint' : !sampled ? 'not-sampled' : query ? 'pending' : 'query-unavailable',
         calls: 0, triangles: 0, points: 0,
@@ -431,6 +470,8 @@ async function measureBlock(block: Block, environment: Environment, frozenTime: 
       row.triangles = target.info.render.triangles;
       row.points = target.info.render.points;
       lastTimestamp = timestamp;
+      block.animation.firstMeasuredTime ??= animationTime;
+      block.animation.finalTime = animationTime;
     }
     const drainDeadline = performance.now() + 3000;
     while (pending.size && performance.now() < drainDeadline) {
@@ -441,6 +482,7 @@ async function measureBlock(block: Block, environment: Environment, frozenTime: 
   } finally {
     invalidatePending('stopped');
     block.finishedAt = now();
+    block.finalEnvironmentDiagnostics = environment.getDiagnostics();
   }
 }
 async function preview() {
@@ -460,7 +502,12 @@ async function preview() {
     const diagnostics = environment.getDiagnostics() as Record<string, unknown>;
     const period = Number(diagnostics.earthLoopSeconds);
     if (versionInput.value === 'current' && period > 0) periodInput.value = String(period);
-    element<HTMLPreElement>('preview-info').textContent = JSON.stringify({ ...settings(), diagnostics }, null, 2);
+    element<HTMLPreElement>('preview-info').textContent = JSON.stringify({
+      version: versionInput.value, ...settings(), diagnostics,
+      source: comparison[versionInput.value as Version],
+      buildManifest: await manifestPromise,
+      comparisonBasis: 'Before and after use the same elapsed seconds and fixed camera pose. A changed loop period means their fractional phases can differ.',
+    }, null, 2);
   } catch (error) { disposeIncomplete(); status.textContent = error instanceof Error ? error.message : String(error); blank(); }
   finally { busy(); }
 }
@@ -480,7 +527,7 @@ async function compare() {
     report = {
       schemaVersion: 1, runId: crypto.randomUUID(), startedAt: now(), status: 'running',
       buildManifest: await abortable(manifestPromise, controller.signal), device: deviceDetails(),
-      configuration: { ...config, comparison, order, framesPerBlock: measuredFrames, measuredFramesPerVersion: measuredFrames * order.length / 2, warmupFramesPerBlock: WARMUP_FRAMES, idleRestMs: REST_MS, blocks: order.length, frozenView: config.camera, queryScope: 'renderer.render(environment.scene, environment.camera)', sampleUnit: 'one background render', gpuSampleEveryFrames: 5 },
+      configuration: { ...config, animationProtocol: config.animationMode === 'replay-60hz' ? 'Each measured frame advances all environment animation by deterministic 1/60 seconds at normal Earth 1× speed. Warmup stays frozen. Earth phase and sky clock reset outside timing before every block. This is motion-work replay, not wall-clock-rate playback.' : 'All measured frames use the same fixed elapsed time.', comparison, order, framesPerBlock: measuredFrames, measuredFramesPerVersion: measuredFrames * order.length / 2, warmupFramesPerBlock: WARMUP_FRAMES, idleRestMs: REST_MS, blocks: order.length, frozenView: config.camera, queryScope: 'renderer.render(environment.scene, environment.camera)', sampleUnit: 'one background render', gpuSampleEveryFrames: 5 },
       blocks: [], limits: ['GPU timings are direct elapsed timer queries, not power or temperature measurements.', 'This finite background-only comparison excludes spacecraft rendering, app UI and camera motion.', 'Frame intervals include browser scheduling; CPU submission duration is not GPU execution time.', 'Shared device load and thermal state are uncontrolled. Compare repeated ABBA and BAAB runs on the same device/configuration.', 'Both environments are retained during timing for fair warm switching; total process/resource memory is not normal visitor memory. Per-Earth texture storage is an allocation estimate in diagnostics, not a measured process-memory saving.', 'Hidden tabs, viewport changes and lost WebGL contexts stop and invalidate the comparison.', 'Timer disjoint invalidates the affected entire block. Unsupported/invalid query results are null, never zero.'],
     };
     resetEnvironments();
@@ -491,6 +538,8 @@ async function compare() {
     const reusedVersions = [...environments].filter(([, value]) => value.mobile === config.mobile && value.preparation.firstSubmittedFrameWallMs !== undefined).map(([version]) => version);
     const preparationOrder = [...new Set(order.split('').map(letter => letter === 'A' ? 'reference' : 'current'))] as Version[];
     for (const version of preparationOrder) prepared.set(version, await loadEnvironment(version, controller.signal, 'comparison'));
+    if (config.animationMode === 'replay-60hz')
+      for (const [version, environment] of prepared) requirePlayback(environment, version);
     report.preparationMs = performance.now() - preparationStart;
     report.preparation = {
       reusedVersions, preparationOrder,
@@ -503,7 +552,8 @@ async function compare() {
       await rest(`${index === 0 ? 'Preparation complete' : `Block ${index}/${sequence.length} complete`}`, controller.signal);
       const version = sequence[index];
       const environment = prepared.get(version)!;
-      const block: Block = { index, version, startedAt: now(), warmupFrames: 0, measuredFramesTarget: measuredFrames, environmentDiagnostics: requireReadyEnvironment(version, environment), frames: [], disjointEvents: [] };
+      resetBlockClock(environment, version, config.frozenTime, config.animationMode);
+      const block: Block = { index, version, startedAt: now(), warmupFrames: 0, measuredFramesTarget: measuredFrames, environmentDiagnostics: requireReadyEnvironment(version, environment), frames: [], disjointEvents: [], animation: { mode: config.animationMode, startTime: config.frozenTime, finalTime: config.frozenTime, stepSeconds: config.animationMode === 'replay-60hz' ? 1 / 60 : 0, firstMeasuredTime: null } };
       report.blocks.push(block);
       await measureBlock(block, environment, config.frozenTime, controller.signal);
     }
@@ -524,6 +574,8 @@ async function compare() {
   }
 }
 previewButton.addEventListener('click', () => void preview());
+for (const [button, version] of [[beforeButton, 'reference'], [afterButton, 'current']] as const)
+  button.addEventListener('click', () => { versionInput.value = version; void preview(); });
 element<HTMLButtonElement>('phase-apply').addEventListener('click', () => {
   if (active) return;
   timeInput.value = String(Math.max(0, Number(periodInput.value) * Number(phaseInput.value)));
@@ -553,7 +605,7 @@ copyButton.addEventListener('click', () => {
   if (!navigator.clipboard?.writeText) { fallback(); return; }
   void navigator.clipboard.writeText(output.value).then(() => { status.textContent = 'Comparison JSON copied.'; }, fallback);
 });
-for (const input of [versionInput, timeInput, dprInput, yawInput, pitchInput, rollInput]) input.addEventListener('change', () => {
+for (const input of [versionInput, timeInput, animationInput, dprInput, yawInput, pitchInput, rollInput]) input.addEventListener('change', () => {
   resizeRenderer(); blank(); status.textContent = 'Settings changed. Choose Preview or Start; rendering remains idle.';
 });
 window.addEventListener('resize', () => {

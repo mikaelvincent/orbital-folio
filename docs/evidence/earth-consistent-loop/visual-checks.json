@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-20 01:48:12.363573+00:00",
+  "browser": "Hidden Codex built-in Chromium, not Safari",
+  "appViewports": [
+    [
+      1280,
+      720
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "fixtureViewports": [
+    [
+      1280,
+      720
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "fixtureDpr": 2,
+  "screenshots": "Actual viewport captures; no CSS-scaled device fixture. Background lab excludes spacecraft/AO; app captures use live full renderer.",
+  "checks": {
+    "landscapeOpening": "Matched original Europe detail by eye; core verified lossless separately",
+    "portrait": "Earth limb remains visible; title no longer overlaps dish after shared annotation lens correction",
+    "portraitContact": "Room and neighbor readable; final asset capture refreshed",
+    "portraitContactApplication": "Accessible application window fits viewport in actual room zoom",
+    "resize": "Landscape to portrait and back keeps fixed Earth world; framing changes only camera",
+    "playback": "60x advances loop; paused; sought436.2s and changed1x, then Play crossed7:16 to0:00 normally; no runtime errors observed",
+    "quarterPhases": [
+      0,
+      109.083,
+      218.166,
+      327.249,
+      436.33231299858244
+    ]
+  },
+  "limitations": [
+    "No native Safari interaction or power/temperature measurements",
+    "Phase screenshots do not certify every frame or all possible browser ratios",
+    "Some phases remain sea-heavy or sparsely illuminated",
+    "Portrait extreme78-degree cap can crop Earth out at unusually tall ratios"
+  ]
+}

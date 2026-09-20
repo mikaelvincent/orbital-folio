@@ -1,0 +1,15 @@
+✔ Overview identity remains at its measured layout position when the responsive lens changes (38.474792ms)
+✔ Shared room framing preserves the same projected architecture and visible navigation across viewports (47.275833ms)
+✔ Adding or rearranging furniture cannot change the shared room framing (14.626208ms)
+✔ Overview pointers use the true front-opening edge midpoints in both layouts (7.740625ms)
+✔ Stationary hull camera preserves the prior model-view matrix through travel, tilt, dolly and every roll (24.685708ms)
+✔ Transferred lighting preserves the rectangular shadow projection and light direction relative to the hull (1.785834ms)
+✔ Orbital camera shares the physical pose under a fixed world registration, without resetting on updates (65.092666ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2940.124833

@@ -22,6 +22,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 27 · 18 September 2026 | Surrounding stars, clearer twinkle and a longer land-facing Earth opening | New art baseline: desktop star arrays +0.37 MiB, same one star draw and 8K asset. Sampled terrain-color dominance lasts roughly 12 minutes before dropping below 40%; this is a visual proxy, not a timing gain. |
 | 28 · 18 September 2026 | Retarget the early Earth pass toward visible city lights | Land coverage proved misleading. At unchanged rotation speed, weighted warm-light coverage over the first five minutes improves across all three tested layouts; texture, geometry and shaders are unchanged. |
 | 29 · 18 September 2026 | Temporary Earth composition helper for the owner's final selection | The coastal opening remains unsatisfactory to the owner. Presets, direct angle controls, Earth-only preview and portable settings enable an explicit choice; no new opening or performance optimization is adopted. |
+| 30 · 20 September 2026 | Fixed Earth scene and compact coastal loop | Native Europe detail retained; 21.05% fewer download bytes and 68.75% less nominal map storage. New art/camera baseline; measured timing and limitations in entry 30. |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -1883,9 +1884,81 @@ unresolved blockers (fulfillment 24/25, interaction/correctness 29/30, visual/us
 the portal layering correction, matching captures and untested native-device cases.
 Held optimization candidates remain unchanged.
 
+## 30 — Fixed Earth scene and shorter native-detail coastal loop (20 September 2026)
+
+**Authorized design and measurement work.** The owner approved replacing
+viewport-dependent Earth composition with one physical scene, auditing the
+visible texture domain, shortening/cropping the loop without reducing retained
+source detail, and an AI-assisted believable continuation. This supersedes the
+4096×3072 satellite-only regional collage. It does not authorize held lighting,
+shadow or other optimization candidates.
+
+Earth placement, orientation, radius and spacecraft-world registration are fixed.
+Responsive camera framing remains: 38° vertical landscape, 38° horizontal portrait,
+78° vertical cap. Portrait roll naturally rotates the horizon. The first fixed
+scene trial hid Earth entirely in portrait; a wider physical lens and matching
+annotation unprojection corrected that regression. Different responsive camera
+poses are still different physical viewpoints, not identical image crops.
+
+The final 2560×1536 lossless WebP preserves a 1536×1536 original European core and
+uses a native AI-authored coastal bridge, with no upscaling or runtime generation.
+Generated pixels account for 28.346%; original satellite pixels 71.654%. Normal
+motion remains 0.0045 rad/s. Scrolling U coordinates over a stationary sphere gives
+a 112.5° / 7m 16s period with the existing single texture sample. The hidden mesh
+longitude seam stays outside the audited camera envelope. The previous map's
+11m38s period and simultaneous globe rotation are historical behavior.
+
+| Asset cost | Before | Delivered |
+| --- | ---: | ---: |
+| Download | 3,625,576 B | 2,862,376 B (−21.05%) |
+| Nominal RGBA8 mip chain | 64 MiB | 20 MiB (−68.75%) |
+| Base decoded RGBA8 pixels | 48 MiB | 15 MiB |
+| Runtime maps / samples | 1 / 1 | 1 / 1 |
+
+These are asset/allocation facts, not measured process/GPU memory or proof of
+faster frames, less heat or battery savings. Image SHA-256:
+`19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1`.
+
+The actual-triangle/frustum UV audit covers 48,314 poses across 17 viewport shapes,
+including room, reader, Contact, hover/drag and route fixtures plus continuous
+pose neighborhoods. Guarded source rows 469.333–1805.333 fit inside 384–1919 with
+85.33/114.67 rows of margin, above the chosen 64-row allowance. This is a
+conditional camera-domain bound, not a universal proof of minimal dimensions for
+all possible screens. It excludes spacecraft occlusion conservatively. Changing
+camera limits requires rerunning the audit.
+
+Desktop hidden Chromium/Metal timing used eight balanced normal-motion blocks,
+2,400 frames per version, at 1280×720 / DPR 2 with 60-second blank rests. Pooled GPU
+means were 3.201→2.993ms, but repeated-version means drifted 85%/72%, failing the
+predeclared 5% control gate. **The apparent 6.5% saving is rejected as inconclusive;
+neither a speedup nor slowdown is established.** Both versions averaged 16.667ms
+frame intervals. This background-only fixture does not establish whole-app or
+portrait spacecraft cost, heat or power use. Raw samples and qualified local
+preparation observations are preserved; CPU and GPU durations are not added.
+
+The additional portrait BAAB probe at 390×844 / DPR 2 measured GPU means
+1.595→1.635 ms. The apparent 2.5% increase is below repeated-control variation
+(3.59%/3.95%), so its ranking is also inconclusive. Mean frame intervals remain
+16.665 ms. That fixture uses each version's delivered lens but a neutral camera;
+it does not measure the production portrait spacecraft/AO combination. Neither
+run supports claiming faster frames or guaranteed unchanged whole-app cost.
+
+The [source-identified evidence](evidence/earth-consistent-loop/README.md) retains
+raw coverage, rejected art/framing stages, prompts, build/input hashes, before/
+after captures and verification. Baseline Git is `4e215f2`. Final timing results
+and independent critic review are retained in that record. The visual recommendation
+is **keep**: Europe remains intact and the continuation is more varied/coastal.
+Some sea-heavy and sparsely lit phases remain; the loop is shorter and therefore
+more recognizable during very long visits or accelerated preview.
+
+Verification: **343 tests passed**, plus typecheck, affected lint and production
+build. Independent critic: **94/100**, no unresolved blockers. Runtime and asset
+changes are committed as `319fdd0`; the linked evidence records final source hashes,
+review limitations and browser checks.
+
 ## Next candidates
 
-**Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. The 20 September regional loop now preserves that source texel density in a cropped/composited atlas; use its exact asset/hash in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
+**Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
 
 The completed camera and atmosphere changes establish the new baseline measured in entry 19; their effects are not attributed to the AO optimization. The spacecraft now stays fixed while the camera moves; the light rig, shadow-camera up direction and environment orientation are transformed during roll to preserve the authored appearance. Illumination therefore still changes relative to the stationary geometry, so one fixed shadow bake cannot reproduce every roll. The background now projects its sky texture from camera rays, adding normalization, matrix arithmetic and atan/asin operations per pixel. Unchanged draw, texture or pass counts do not establish unchanged GPU time; include this shader work in the new baseline.
 

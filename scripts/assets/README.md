@@ -3,39 +3,38 @@
 ## Production regional night Earth
 
 `public/textures/earth-europe-loop.webp` is the only Earth image fetched by the
-application: **4096×3072**, losslessly encoded from native pixels of the retained
-8192×4096 night source. The chosen Europe opening remains **12° longitude,
-48° latitude, −10° roll**, rotating at **0.0045 rad/s (1.5× the former base rate)**.
-The authored regional landscape repeats every **180° / 698.13 seconds**, with
-continuous forward sphere rotation and the original source texel density.
+application: **2560×1536**, with native 8K-source pixel density and a protected
+1536×1536 European core. The rest combines natural satellite boundary strips and
+an AI-authored coastal bridge. The source row crop is **384–1919**; original
+columns begin at **3712**. The fixed Earth scene has the same geographic frame on
+all screens. Scrolling longitude UVs repeat the regional image every **112.5° /
+436.332 seconds**, at the approved **0.0045 rad/s** apparent rotation speed.
 
-Rebuild deterministically from the checked-in full night source:
+Rebuild deterministically from the checked-in inputs:
 
 ```sh
 node scripts/build-regional-earth.mjs
 ```
 
-The builder checks the source hash, retains a **1536×3072** original European
-core, and joins native-scale satellite patches along minimum-error terrain paths
-to form the connecting fictional geography. It does not resize, blur, relight or
-generate AI pixels. The lossless encoder preserves the decoded core byte for byte.
-Its manifest records the seed-derived patch choices, codec versions, source
-identity and core comparison. Source recovery from Git `c645c83` is a fallback
-when the local JPEG is absent. No rebuilding or encoding runs in the browser.
+The builder verifies `public/textures/earth-black-marble-8k.jpg` and
+`earth-europe-ai-bridge.png` against pinned hashes. The latter is a **1024×1536**
+native output from the built-in image generator, with its
+[exact prompt](../../docs/evidence/earth-consistent-loop/art/prompt-v3.txt) and
+reference workflow in the current evidence. Rebuilding does not regenerate it.
+Europe and wrap-adjacent columns remain original source pixels. Minimum-error
+cuts through boundary overlaps avoid blurred city lights. Both inputs use the same latitude window, with no extrapolated padding. Nothing
+is resized or generated in the browser.
 
-The delivered file contains **3,625,576 bytes**, SHA-256
-`6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c`.
-Its nominal RGBA8 mip chain occupies **67,108,860 bytes (64 MiB)** versus
-178,956,972 bytes (170.67 MiB) for the full map. Delivery grows from the source
-JPEG's 2,329,878 bytes; preserving pixels takes priority over compressing this
-authored texture further. Allocation calculations are not measured process/GPU
-memory or frame-time savings. See [regional-loop evidence](../../docs/evidence/europe-regional-loop/README.md).
+Lossless encoding is checked against the entire assembled RGB buffer; the
+protected core is separately compared byte for byte with the source. The manifest
+records exact generated-pixel attribution (**28.346% of the atlas**), input/output
+hashes, cut hashes and codec versions. The generated terrain is fictional.
 
-The atlas covers source columns from x=3712, crops rows from y=128 for 3072 rows,
-and retains the original 8192×4096 coordinate scale. The loader applies one
-vertical flip during `createImageBitmap` decoding, sets Three.js `flipY=false`,
-repeats U twice and clamps V. The integer horizontal repeat keeps the sphere's
-antimeridian phases identical throughout physical rotation.
+The delivered image is **2,862,376 bytes** with **20 MiB** nominal RGBA8 mip storage.
+See [texture provenance](../../public/textures/README.md) and
+[current coverage/performance evidence](../../docs/evidence/earth-consistent-loop/README.md)
+for qualified comparisons. The original 4096×3072 deterministic collage builder
+and asset remain available at Git `4e215f2`, matching the historical ledger entry.
 
 ## Retained 8K night source and historical baseline
 

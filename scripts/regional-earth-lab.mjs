@@ -1,5 +1,5 @@
 /** Frozen, background-only Europe loop comparison; never imported by production.
- * node scripts/regional-earth-lab.mjs [--port 3025] [--baseline c645c83]
+ * node scripts/regional-earth-lab.mjs [--port 3025] [--baseline HEAD]
  * Restart after source/asset changes. The main app on port 3000 is untouched.
  */
 import { build } from 'esbuild';
@@ -14,17 +14,25 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const arg = (name, fallback) => { const index = process.argv.indexOf(name); return index < 0 ? fallback : process.argv[index + 1]; };
 const port = Number(arg('--port', '3025'));
 if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('Choose a port between 1024 and 65535.');
-const baselineRevision = execFileSync('git', ['rev-parse', '--verify', `${arg('--baseline', 'c645c83')}^{commit}`], { cwd: root, encoding: 'utf8' }).trim();
+const baselineRevision = execFileSync('git', ['rev-parse', '--verify', `${arg('--baseline', 'HEAD')}^{commit}`], { cwd: root, encoding: 'utf8' }).trim();
 const snapshot = await fs.mkdtemp(join(tmpdir(), 'orbital-regional-earth-'));
 const hash = data => createHash('sha256').update(data).digest('hex');
 const baselineSources = [];
+const baselineAssets = new Map();
 const paths = execFileSync('git', ['ls-tree', '-r', '--name-only', baselineRevision, 'features/orbit'], { cwd: root, encoding: 'utf8' }).trim().split('\n');
 for (const path of paths) {
   const data = execFileSync('git', ['show', `${baselineRevision}:${path}`], { cwd: root });
   const target = join(snapshot, 'baseline', path);
   await fs.mkdir(dirname(target), { recursive: true });
-  await fs.writeFile(target, data);
-  baselineSources.push({ path, bytes: data.byteLength, sha256: hash(data) });
+  // Both versions may request the same public filename. Rewrite only baseline
+  // asset URLs into an isolated namespace, preserving the original source hash.
+  const original = data.toString('utf8');
+  const rewritten = original.replace(/(['"])(\/textures\/[^'"]+)\1/g, (match, quote, url) => {
+    baselineAssets.set(url, `/baseline${url}`);
+    return `${quote}/baseline${url}${quote}`;
+  });
+  await fs.writeFile(target, rewritten);
+  baselineSources.push({ path, bytes: data.byteLength, sha256: hash(data), compiledSha256: hash(rewritten) });
 }
 // Isolated baseline dependencies resolve Three from this installed stack.
 await fs.symlink(join(root, 'node_modules'), join(snapshot, 'baseline/node_modules'), 'dir');
@@ -36,13 +44,19 @@ const result = await build({
   sourcemap: true, metafile: true, define: { 'process.env.NODE_ENV': '"production"' },
   plugins: [{ name: 'frozen-regional-reference', setup(plugin) {
     plugin.onResolve({ filter: /^regional-earth-baseline$/ }, () => ({ path: join(snapshot, 'baseline/features/orbit/orbital-environment.ts') }));
+    plugin.onResolve({ filter: /^regional-earth-baseline-texture$/ }, () => ({ path: join(snapshot, 'baseline/features/orbit/earth-satellite.ts') }));
   } }],
 });
 await fs.cp(join(root, 'public'), join(snapshot, 'public'), { recursive: true });
-// Preserve the baseline's exact JPEG even if the candidate retires it publicly.
-const oldAsset = 'public/textures/earth-black-marble-8k.jpg';
-const oldBytes = execFileSync('git', ['show', `${baselineRevision}:${oldAsset}`], { cwd: root, maxBuffer: 16 * 1024 * 1024 });
-await fs.writeFile(join(snapshot, oldAsset), oldBytes);
+const baselineAssetFiles = [];
+for (const [url, servedUrl] of baselineAssets) {
+  const path = `public${url}`;
+  const data = execFileSync('git', ['show', `${baselineRevision}:${path}`], { cwd: root, maxBuffer: 64 * 1024 * 1024 });
+  const target = join(snapshot, 'public', servedUrl);
+  await fs.mkdir(dirname(target), { recursive: true });
+  await fs.writeFile(target, data);
+  baselineAssetFiles.push({ path, servedUrl, bytes: data.byteLength, sha256: hash(data) });
+}
 await fs.copyFile(join(root, 'scripts/benchmarks/regional-earth-lab.html'), join(snapshot, 'index.html'));
 const sources = await Promise.all(Object.keys(result.metafile.inputs).map(async path => {
   const absolute = resolve(root, path);
@@ -59,11 +73,11 @@ async function inventory(directory, prefix = '') {
   return files;
 }
 const manifest = {
-  schemaVersion: 1, snapshotId: randomUUID(), builtAt: new Date().toISOString(),
+  schemaVersion: 2, snapshotId: randomUUID(), builtAt: new Date().toISOString(),
   baselineRevision, candidateHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
-  node: process.version, baselineSources, sourceFiles: sources,
+  node: process.version, baselineSources, baselineAssetFiles, sourceFiles: sources,
   bundleFiles: await inventory(bundle), publicFiles: await inventory(join(snapshot, 'public')),
-  note: 'Current working-tree candidate and Git baseline compiled together, with isolated source dependencies. All modules and assets frozen at launch. This is a background-only fixture, not whole-app performance. Restart after edits.',
+  note: 'Current working-tree candidate and Git baseline compiled together, with isolated source dependencies and baseline texture URLs. Baseline source rewrites only prepend /baseline to local texture URLs; original and compiled hashes are recorded. All modules and assets frozen at launch. This is a background-only fixture, not whole-app performance. Restart after edits.',
 };
 await fs.writeFile(join(snapshot, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.json': 'application/json', '.map': 'application/json', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gz': 'application/gzip' };

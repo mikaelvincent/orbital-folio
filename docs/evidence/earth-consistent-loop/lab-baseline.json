@@ -1,0 +1,37 @@
+{
+  "capturedAt": "2026-09-20T01:06:38.148Z",
+  "baselineRevision": "4e215f2556fe17003df041c457bfedc7649347a6",
+  "files": [
+    {
+      "path": "public/textures/earth-europe-loop.webp",
+      "bytes": 3625576,
+      "sha256": "6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c",
+      "matchesHead": true
+    },
+    {
+      "path": "public/textures/earth-europe-loop.json",
+      "bytes": 48989,
+      "sha256": "c677814e62aa88421a823d85be5bfbe14c0cc331858127a1cbeb52c9260e7fa8",
+      "matchesHead": true
+    },
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "bytes": 32850,
+      "sha256": "0c7f151ff0d6082b932835b9d3dfd48f7037bff148109e861f6b12fa647c442a",
+      "matchesHead": true
+    },
+    {
+      "path": "features/orbit/earth-satellite.ts",
+      "bytes": 5421,
+      "sha256": "514ac9523e45dcf2987d169d5422682d7a6ad013cec3a5017796f9e6687c44d2",
+      "matchesHead": true
+    },
+    {
+      "path": "features/orbit/earth-view-transform.ts",
+      "bytes": 2972,
+      "sha256": "b68bf91ce8a9d1d2b0c3070a99d122822efbab506361161668b787808788bb77",
+      "matchesHead": true
+    }
+  ],
+  "note": "Captured before runtime/asset implementation. Clean working tree at task start; exact baseline sources and assets remain recoverable from this Git commit."
+}

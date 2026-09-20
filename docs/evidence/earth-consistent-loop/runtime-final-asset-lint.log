@@ -1,0 +1,3 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint tests/orbit/earth-environment.test.mjs tests/orbit/earth-satellite.test.mjs

@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-09-20T01:09:04.742Z",
+  "checks": {
+    "frozenBaselineServed": true,
+    "isolatedAssetHash": "6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c",
+    "baselineRevision": "4e215f2556fe17003df041c457bfedc7649347a6",
+    "baselineSourceOriginalAndCompiledHashes": true,
+    "htmlResponds": true,
+    "typecheck": "npm run typecheck passed",
+    "affectedLint": "npm run lint -- scripts/regional-earth-lab.mjs scripts/benchmarks/regional-earth-lab.ts passed",
+    "diffWhitespace": "git diff --check passed"
+  },
+  "note": "Server/build smoke only. This launch predates candidate implementation and is not measurement evidence. Root must restart after final sources/assets.",
+  "animationReplayRevision": {
+    "checkedAt": "2026-09-20T01:21:27.510Z",
+    "mode": "Optional replay-60hz; frozen remains default and previews always freeze.",
+    "clock": "Outside measurement: pause Earth, reset absolute sky clock, seek Earth to common start modulo its period, set1x and play. Measured frame i advances absolute caller time start+(i+1)/60.",
+    "checks": [
+      "typecheck passed",
+      "affected lab lint passed",
+      "git diff --check passed"
+    ],
+    "limits": "No lab launch or GPU benchmark during this bounded tooling revision. Final browser/benchmark checks remain pending."
+  }
+}

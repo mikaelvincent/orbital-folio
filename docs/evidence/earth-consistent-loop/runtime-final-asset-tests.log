@@ -1,0 +1,25 @@
+✔ Satellite environment wide preserves framing, active clock and owns resources (18.164042ms)
+✔ Satellite environment compact preserves framing, active clock and owns resources (8.161666ms)
+✔ Disposal before injected texture installation releases it without invalidating (11.297416ms)
+✔ The regional surface repeats each authored period without changing resources or motion rate (22.946125ms)
+✔ Failed asset keeps an inexpensive ocean and reports failure, without weather generation (19.65675ms)
+✔ Earth texture decodes once with explicit orientation/color settings and transfers ownership (19.28175ms)
+✔ Earth loader reports missing/invalid transfer size without inventing zero (0.76975ms)
+✔ Earth loader rejects wrong dimensions and closes its rejected bitmap (0.335333ms)
+✔ Earth loader propagates fetch and decode failures (0.476875ms)
+✔ Earth loader does not fetch when already aborted, or decode an aborted body (0.218625ms)
+✔ Aborting in-flight decode rejects promptly and releases a bitmap delivered later (0.293458ms)
+✔ Aborting after bitmap resolves but before ownership transfer closes it once (0.188542ms)
+✔ Texture construction/configuration failure releases owned resources (0.795584ms)
+✔ Texture configuration also supports a caller-owned injected texture (0.050583ms)
+✔ Regional mapping preserves source texel centers and angular density (0.196208ms)
+✔ Longitude scroll preserves angular rotation, wraps exactly, and never uploads another image (0.110625ms)
+✔ The shipped regional night map matches its manifest and texture memory estimate (227.608042ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 561.997041

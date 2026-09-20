@@ -2,29 +2,38 @@
 
 ## Regional night Earth — current runtime asset
 
-The application loads **`earth-europe-loop.webp`**, a **4096×3072 lossless regional
-atlas** built from the retained 8K night source below. Its original European
-core stays unchanged; an authored bridge of native-scale satellite patches
-connects the region to its next repetition. The connecting geography is
-fictional. No AI-generated pixels, resizing, blur, relighting or browser-side
-image synthesis is used. The smaller atlas keeps the original source's texel
-density rather than stretching a downsampled 4K world map across the globe.
+The application loads **`earth-europe-loop.webp`**, a **2560×1536 lossless atlas**.
+It retains the original 8K night map's pixel density: the protected **1536×1536**
+Europe strip is unchanged, with native satellite boundary strips and an
+**AI-generated fictional coastal continuation**. The delivered atlas is **28.346%
+generated pixels** and **71.654% original satellite pixels**. This is artistic
+geography, not a factual map or a NASA-produced image. No source or generated
+pixels are upscaled or extrapolated.
 
-The Europe opening remains **12° longitude / 48° latitude / −10° roll**, rotating
-at **0.0045 rad/s**. The texture repeats every **180° / 698.13 seconds** while the
-sphere continues rotating forward. Production mapping crops original rows
-128–3199 and repeats twice horizontally; its source-pixel scale is preserved.
+Earth's physical placement and geographic orientation no longer change with
+viewport dimensions. The approved opening remains **12° longitude / 48° latitude /
+−10° roll**. A stationary sphere samples scrolling texture coordinates at the
+same apparent **0.0045 rad/s**, repeating every **112.5° / 436.332 seconds (7m16s)**.
+The fixed geometric longitude seam stays outside the audited camera domain.
+The loader keeps source coordinates, cropping rows **384–1919**, repeating U by
+**3.2**, and clamping V. See the bounded [coverage method](../../docs/evidence/earth-consistent-loop/coverage-method.md);
+this is not a claim of universal minimal height or identical mip filtering.
 
-The WebP contains **3,625,576 bytes**, SHA-256
-`6c4101fb65ee6584a03d89a0adbde475c5db1b53162fc7074677e809ec3a671c`.
-Nominal RGBA8 storage including all mip levels is **67,108,860 bytes (64 MiB)**,
-excluding driver overhead and decoded CPU memory. This reduces calculated texture
-storage from the full map's 170.67 MiB, but lossless delivery is **larger** than
-the former 2,329,878-byte JPEG. These facts do not establish a frame-time or power
-improvement. The [manifest](earth-europe-loop.json) records its recipe, individual
-patches, source hashes and zero decoded-pixel differences in the protected core.
-See [regional-loop evidence](../../docs/evidence/europe-regional-loop/README.md)
-and [rebuild instructions](../../scripts/assets/README.md).
+The WebP contains **2,862,376 bytes**, SHA-256
+`19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1`.
+Nominal RGBA8 storage including all mip levels is **20,971,512 bytes (20 MiB)**,
+excluding driver overhead and decoded CPU memory. Compared with the previous
+4096×3072 collage, download bytes fall **21.05%** and calculated mip storage
+**68.75%**. These facts alone do not establish faster frames or lower power use.
+
+The [manifest](earth-europe-loop.json) identifies the NASA source, checked-in AI
+input, generation prompt, minimum-error cuts, hashes and exact decoded-core check.
+Rebuild with `node scripts/build-regional-earth.mjs`; generation is not rerun.
+The AI input in `scripts/assets/earth-europe-ai-bridge.png` is a developer asset,
+not another runtime request. [Current comparison evidence](../../docs/evidence/earth-consistent-loop/README.md)
+separates measured results and aesthetic tradeoffs. The previous satellite-only
+collage remains reproducible from Git `4e215f2` and its
+[historical evidence](../../docs/evidence/europe-regional-loop/README.md).
 
 ## Retained full night source — rebuild and comparison fixture
 

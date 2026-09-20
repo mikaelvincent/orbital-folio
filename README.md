@@ -9,18 +9,16 @@ The interactive view makes the ship the main interface. Projects and Case studie
 Hover adds depth and previews doors, including during travel. Bounded dragging springs back to hover control on release. One next destination can be queued, with later choices replacing it; ladder passage retains its one-door-at-a-time interlock. The current orbital background opens over Europe at night and repeats an authored regional landscape at the original 8K map's detail density, with a softened cinematic blue horizon, surrounding stars with varied sizes and visible twinkle, and occasional quieter meteor groups. Both exterior access ladders are mirrored; matching stowed maintenance spanners and clear grab-bar pairs complete the ladder bay. Interior brightness continues to respond to hover, selection and passage.
 
 The approved Earth composition is **Europe at Night**: 12° longitude, 48° latitude,
-−10° tilt, rotating at **1.5× (0.0045 rad/s)**. The **4096×3072 lossless regional
-texture** preserves the original European pixels and joins them to fictional
-satellite terrain, repeating every **11 minutes 38 seconds**. This keeps native
-8K detail without loading the entire world map. A temporary **globe button beside
-diagnostics** opens playback controls: seek through the loop, pause, restart or
-preview at **1–60× the current site speed**. Seeking pauses; closing keeps that
-position and resumes normal speed, while reloading restores the Europe opening.
-Nothing is saved. Angle controls, comparison presets and daytime rendering
-remain removed. See the
-[current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art),
+−10° tilt, with apparent motion at **0.0045 rad/s**. Its physical placement and
+geographic orientation are fixed across screen sizes. A **2560×1536 lossless
+regional texture** keeps native 8K-source detail in Europe and adds an offline
+AI-authored coastal continuation, repeating every **7 minutes 16 seconds**.
+The temporary **globe button beside diagnostics** opens a seekable timeline,
+Play/Pause/Restart and **1–60×** playback. Seeking pauses; closing resumes normal
+speed from that position. Reload restores the opening; nothing is saved.
+See [current Earth decisions](docs/PROJECT-CONTEXT.md#earth-and-atmospheric-art),
 [texture provenance](public/textures/README.md) and
-[regional-loop evidence](docs/evidence/europe-regional-loop/README.md).
+[comparison evidence](docs/evidence/earth-consistent-loop/README.md).
 
 ## Run locally
 

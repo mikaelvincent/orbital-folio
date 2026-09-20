@@ -111,14 +111,20 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 
 ## Earth and sky
 
-- The owner selected **Europe at Night** on 20 September 2026: longitude **12°**,
-  latitude **48°**, roll **−10°**, rotating at **0.0045 rad/s (1.5× the original
-  rate)**. The subsequent regional-loop request supersedes full-globe travel
-  through long dark regions: use the **4096×3072 lossless regional WebP**, retaining
-  the original 8K map's texel density and unchanged European core. Its authored
-  connecting geography repeats every **180° / 698.13 seconds** under continuous
-  physical rotation. Preserve the cinematic atmosphere and native pixel detail;
-  the smaller atlas is a crop and collage, not a downsampled 4K globe.
+- The owner selected **Europe at Night**: longitude **12°**, latitude **48°**,
+  roll **−10°**, with apparent rotation **0.0045 rad/s**. The later consistent-scene
+  request supersedes viewport-specific Earth placement/orientation: keep Earth
+  fixed in the shared physical world and let camera projection/framing determine
+  its crop. Do not re-aim Europe or register a new orbital world on resize.
+- Production uses a **2560×1536 lossless regional WebP**, with an unchanged
+  **1536×1536** European core at original 8K-source pixel density and an offline
+  **AI-assisted fictional coastal continuation**. Its **112.5° / 436.332-second**
+  loop scrolls texture coordinates on a fixed sphere with one texture sample.
+  Keep the cinematic atmosphere, native detail and naturally connected lights;
+  avoid broad unlit land blocks and oversized glowing cities. The fixed sphere's
+  UV seam must stay outside the verified camera envelope; rerun coverage after
+  camera changes. Crop height is bounded evidence with filtering margins, not a
+  universal mathematical optimum. See [current evidence](docs/evidence/earth-consistent-loop/README.md).
 - The former angle/preset helper, day-model toggle and portable settings remain
   retired. The owner subsequently authorized a **temporary Earth playback
   helper** for inspecting the regional loop: a globe icon beside diagnostics,
@@ -130,12 +136,12 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   storage/backend writes. Only Earth playback changes; preserve sky/camera
   timing, readiness and global reduced-motion/visibility behavior. Manual
   seeking remains available under reduced motion.
-- The application fetches only `earth-europe-loop.webp`; retain the full 8K night
-  JPEG as the deterministic builder input, test fixture and historical baseline.
-  It is not fetched by ordinary visits. The authored bridge uses native satellite
-  pixels, not AI imagery or runtime synthesis. Keep raw comparison evidence and
-  provenance; removed variants are recoverable from checkpoint `56c67bb`.
-  See [regional-loop evidence](docs/evidence/europe-regional-loop/README.md).
+- The application fetches only `earth-europe-loop.webp`. Retain the original
+  night JPEG and checked-in AI input for rebuilding, regression tests and
+  source-identified comparisons. No runtime generation or extra image request.
+  Generated geography is explicitly fictional in developer provenance; preserve
+  input/prompt hashes and exact original-core checks. Older atlas/rendering
+  revisions remain available through Git and their matching evidence records.
 - Favor cinematic science-fiction art with plausible cues: a blue horizon
   gradient with a restrained peak, not gray haze or glaring electric blue. Keep
   a surrounding star field with no exposed edge during drag/roll, readable varied

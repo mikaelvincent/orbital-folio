@@ -1,0 +1,84 @@
+{
+  "scope": "Final fixed Earth world, UV scroll and shared responsive lens regression checks",
+  "checks": {
+    "targetedTests": {
+      "passed": 43,
+      "failed": 0,
+      "command": "node --test --test-concurrency=1 tests/orbit/*.test.mjs tests/spacecraft/vessel-camera.test.mjs tests/spacecraft/room-framing.test.mjs",
+      "stage": "Before annotation reference-lens correction; following checks verify affected final source."
+    },
+    "typecheck": "passed",
+    "affectedLint": "passed",
+    "gitDiffCheck": "passed",
+    "annotationFollowup": {
+      "passed": 7,
+      "failed": 0,
+      "command": "node --test tests/spacecraft/overview-annotations.test.mjs tests/spacecraft/room-framing.test.mjs tests/spacecraft/vessel-camera.test.mjs",
+      "typecheck": "passed",
+      "affectedLint": "passed"
+    },
+    "finalAssetFollowup": {
+      "passed": 17,
+      "failed": 0,
+      "command": "node --test --test-concurrency=1 tests/orbit/earth-environment.test.mjs tests/orbit/earth-satellite.test.mjs",
+      "affectedLint": "passed",
+      "cropY": 384,
+      "width": 2560,
+      "height": 1536
+    },
+    "finalFullSuite": {
+      "passed": 343,
+      "failed": 0,
+      "log": "full-tests.log",
+      "command": "npm test"
+    },
+    "finalProductionBuild": {
+      "status": "passed",
+      "log": "build.log",
+      "command": "npm run build"
+    }
+  },
+  "lens": {
+    "desktopVerticalFovDegrees": 38,
+    "portrait390x844VerticalFovDegrees": 73.38403101444618,
+    "portrait390x844HorizontalFovDegrees": 38,
+    "maximumVerticalFovDegrees": 78
+  },
+  "contractsVerified": [
+    "Earth position, quaternion and geographic phase remain unchanged when viewport aspect/lens change.",
+    "Physical and orbital cameras project the same world points under the fixed registration, including changed portrait lens and roll.",
+    "Shared cabin aperture and navigation targets remain framed across wide and portrait viewports using the actual responsive lens.",
+    "Regional longitude scroll wraps at the new period and does not upload image data or move the mesh.",
+    "Earth playback remains isolated from sky/camera clocks, respects readiness and global motion pause, and preserves close/reset behavior.",
+    "Retained European pixels compare byte-for-byte with original NASA decoder output; generated artwork/atlas hashes match provenance.",
+    "Actual overview-annotation projection/unprojection keeps the identity at its measured screen position through landscape-to-portrait lens changes, preventing title/spacecraft overlap."
+  ],
+  "limitations": [
+    "CPU source/API and projection tests are not visual quality or GPU performance measurements. Parent owns browser captures, complete application suite, build and performance comparisons.",
+    "The 78-degree vertical lens cap intentionally limits extreme tall-window perspective; such crops do not guarantee Earth visibility."
+  ],
+  "revisions": [
+    "Initial affected room-framing lint exposed existing unhandled node:test promises. Added explicit void to the three calls; final lint passes.",
+    "Critic found annotation reference camera still used38\u00b0 in portrait. Layout now receives actual camera FOV before projection/unprojection. New DOM/Three.js regression reproduces the responsive-lens identity positioning failure;7 affected checks,typecheck andlint pass after correction.",
+    "The parent full suite at /tmp/earth-consistent-tests-final.log found stale Y320/latitude expectations after the final atlas moved toY384. Corrected earth-environment source origin and earth-satellite latitude boundaries to73.125\u00b0N/5.625\u00b0N. Ran the two affected files:17tests pass. The original failing full run remains separate evidence, not retroactively relabeled passing."
+  ],
+  "sourceSha256": {
+    "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+    "features/orbit/earth-view-transform.ts": "9c4e748e3b46a31f71805b68f773602f41fcd0cfc1c111ed71b3972b13f02ea4",
+    "features/orbit/orbital-environment.ts": "6af3047bf425732d34bb802f1657b0400a0d4dd70eb70b1a2d13470500e981c2",
+    "features/spacecraft/navigation/scene-controls.ts": "1b525be59aa26da5f56231543e1067d2699b9b17d3665a2e033cc3383b5a6212",
+    "features/spacecraft/spacecraft-runtime.ts": "3bac743c407217a5d615af80d44df9cc90ae08a8fe549d2e85fad3a98b263fc7",
+    "tests/orbit/earth-environment.test.mjs": "e4d2ed09174716869f701931f8df6c911cf30c247b37dbd4e2e64298d4658cb5",
+    "tests/orbit/earth-playback.test.mjs": "4b748d341c1bb35cf4647356852edbe1474fb9d47b65f0ef0ccb4cc997d9d97d",
+    "tests/orbit/earth-satellite.test.mjs": "bd4cc9b35ea1216fdb186425279cfc7552cdd43078f6ec7378a1c622ea1478eb",
+    "tests/orbit/earth-views.test.mjs": "42aeadb7f13d80312d659c04c475aa9980722e1edc136239ed0f6ccaec6b0e43",
+    "tests/orbit/sky-motion.test.mjs": "d9cb7015e611d2a391d4d7b00af3644c040469431adc6d8940daf154801dd6be",
+    "tests/spacecraft/vessel-camera.test.mjs": "124e93faae64981b1be38f9dcfe8cfff61dd609985455fbc5511816ba4f731ce",
+    "tests/spacecraft/room-framing.test.mjs": "114161e4a2129db3b4abeebc01bc147dc5abde63bc369fae3d1a1665adad5dc0",
+    "features/spacecraft/overview-annotations.ts": "7a3f35de18a7e04c8bf91d8084d3b2a58cc9a73591b990824bd9b99a85716806",
+    "tests/spacecraft/overview-annotations.test.mjs": "33357711322563a64ed79b48579941ef4054c6a8a5919cda76a952f34d5e0389",
+    "public/textures/earth-europe-loop.webp": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1",
+    "public/textures/earth-europe-loop.json": "6b067658128821a0fc974b804f945260d95bcc31c1cf5632f32b22e43f202216",
+    "scripts/assets/earth-europe-ai-bridge.png": "3c916200f9ed7975d34281f5216ff1ba196526fd1a4b723338ae670065a02a92"
+  }
+}

@@ -1,0 +1,1044 @@
+{
+  "desktop": {
+    "runId": "1f87e1bb-eb80-4224-af2e-b72010b7de48",
+    "configuration": {
+      "width": 1280,
+      "height": 720,
+      "dpr": 2,
+      "mobile": false,
+      "frozenTime": 0,
+      "animationMode": "replay-60hz",
+      "camera": {
+        "yaw": 0,
+        "pitch": 0,
+        "roll": 0
+      },
+      "cameraScope": "Shared origin camera/reference. Baseline lens38 degrees; candidate uses delivered responsive lens (desktop38, portrait preserves38 horizontal up to78 vertical). Does not reproduce whole-app camera position, framing or roll.",
+      "lens": {
+        "reference": 38,
+        "current": 38
+      },
+      "animationProtocol": "Each measured frame advances all environment animation by deterministic 1/60 seconds at normal Earth 1\u00d7 speed. Warmup stays frozen. Earth phase and sky clock reset outside timing before every block. This is motion-work replay, not wall-clock-rate playback.",
+      "comparison": {
+        "reference": {
+          "label": "Before \u2014 previous regional Earth",
+          "source": "Git baseline/features/orbit/orbital-environment.ts",
+          "textureDimensions": [
+            4096,
+            3072
+          ]
+        },
+        "current": {
+          "label": "After \u2014 current regional Earth",
+          "source": "features/orbit/orbital-environment.ts",
+          "textureDimensions": [
+            2560,
+            1536
+          ]
+        }
+      },
+      "order": "ABBABAAB",
+      "framesPerBlock": 600,
+      "measuredFramesPerVersion": 2400,
+      "warmupFramesPerBlock": 30,
+      "idleRestMs": 60000,
+      "blocks": 8,
+      "frozenView": {
+        "yaw": 0,
+        "pitch": 0,
+        "roll": 0
+      },
+      "queryScope": "renderer.render(environment.scene, environment.camera)",
+      "sampleUnit": "one background render",
+      "gpuSampleEveryFrames": 5
+    },
+    "device": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "platform": "MacIntel",
+      "hardwareConcurrency": 10,
+      "deviceMemoryGiB": 16,
+      "nativePixelRatio": 1,
+      "threeRevision": "185",
+      "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+      "vendor": "WebKit",
+      "renderer": "WebKit WebGL",
+      "unmaskedVendor": "Google Inc. (Apple)",
+      "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "contextAttributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": false,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": false,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "gpuTimerAvailable": true,
+      "visibility": "visible",
+      "fullscreen": false
+    },
+    "summary": {
+      "pooled": {
+        "reference": {
+          "measuredFrames": 2400,
+          "gpuMs": {
+            "count": 480,
+            "mean": 3.2005548270833324,
+            "median": 2.8942490000000003,
+            "p95": 4.875249,
+            "min": 1.144,
+            "max": 5.932625
+          },
+          "updateCpuMs": {
+            "count": 2400,
+            "mean": 0.031041666952272257,
+            "median": 0,
+            "p95": 0.10000002384185791,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 2400,
+            "mean": 0.33533333250631886,
+            "median": 0.30000001192092896,
+            "p95": 0.5,
+            "min": 0,
+            "max": 3.0999999940395355
+          },
+          "totalCpuMs": {
+            "count": 2400,
+            "mean": 0.37391666606068613,
+            "median": 0.4000000059604645,
+            "p95": 0.5999999940395355,
+            "min": 0,
+            "max": 3.300000011920929
+          },
+          "frameIntervalMs": {
+            "count": 2396,
+            "mean": 16.666777963272118,
+            "median": 16.69999999999709,
+            "p95": 17.699999999953434,
+            "min": 14.69999999999709,
+            "max": 18.70000000001164
+          },
+          "invalidGpuFrames": 0
+        },
+        "current": {
+          "measuredFrames": 2400,
+          "gpuMs": {
+            "count": 480,
+            "mean": 2.9932049500000004,
+            "median": 2.786416,
+            "p95": 4.905874,
+            "min": 1.38475,
+            "max": 6.085625
+          },
+          "updateCpuMs": {
+            "count": 2400,
+            "mean": 0.028999999997516474,
+            "median": 0,
+            "p95": 0.10000002384185791,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 2400,
+            "mean": 0.30166666679084303,
+            "median": 0.30000001192092896,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.5999999940395355
+          },
+          "totalCpuMs": {
+            "count": 2400,
+            "mean": 0.3384583334252238,
+            "median": 0.3999999761581421,
+            "p95": 0.5,
+            "min": 0,
+            "max": 0.7000000178813934
+          },
+          "frameIntervalMs": {
+            "count": 2396,
+            "mean": 16.666444073455718,
+            "median": 16.699999999982538,
+            "p95": 17.699999999982538,
+            "min": 14.599999999976717,
+            "max": 18.79999999998836
+          },
+          "invalidGpuFrames": 0
+        }
+      },
+      "perBlock": [
+        {
+          "index": 0,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 4.718210683333333,
+              "median": 4.7106245,
+              "p95": 4.996833,
+              "min": 2.958916,
+              "max": 5.910458
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.03866666714350382,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.418666666050752,
+              "median": 0.4000000059604645,
+              "p95": 0.5999999940395355,
+              "min": 0,
+              "max": 3.0999999940395355
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.4655000000198682,
+              "median": 0.5,
+              "p95": 0.6000000238418579,
+              "min": 0,
+              "max": 3.300000011920929
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.666611018363945,
+              "median": 16.69999999999709,
+              "p95": 17.80000000000291,
+              "min": 14.69999999999709,
+              "max": 18.60000000000582
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 1,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 3.9016553416666686,
+              "median": 4.0585615,
+              "p95": 4.907374,
+              "min": 2.634291,
+              "max": 5.000375
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.04200000122189522,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.3363333327571551,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.38816666762034097,
+              "median": 0.4000000059604645,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.7000000178813934
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.6661101836394,
+              "median": 16.699999999982538,
+              "p95": 18.10000000000582,
+              "min": 14.699999999982538,
+              "max": 18.79999999998836
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 2,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 4.088576600000001,
+              "median": 4.4350830000000006,
+              "p95": 5.880749,
+              "min": 1.612624,
+              "max": 6.085625
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.017833333164453506,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.10000002384185791
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.27516666635870934,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.30349999929467836,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66644407345573,
+              "median": 16.70000000001164,
+              "p95": 18.199999999982538,
+              "min": 14.599999999976717,
+              "max": 18.70000000001164
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 3,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 4.077469675,
+              "median": 4.6026035,
+              "p95": 4.921874,
+              "min": 2.66575,
+              "max": 5.932625
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.024666666587193808,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.19999998807907104
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.2959999991953373,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.32999999885757764,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.664941569282213,
+              "median": 16.70000000001164,
+              "p95": 18.100000000034925,
+              "min": 14.700000000011642,
+              "max": 18.70000000001164
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 4,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 2.0547352833333328,
+              "median": 1.8955415,
+              "p95": 3.185541,
+              "min": 1.537291,
+              "max": 3.986166
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.02733333284656207,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.19999998807907104
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.27433333426713946,
+              "median": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "min": 0.09999999403953552,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.30733333374063176,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0.09999999403953552,
+              "max": 0.5999999940395355
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66661101836392,
+              "median": 16.70000000001164,
+              "p95": 17.100000000034925,
+              "min": 15.700000000011642,
+              "max": 17.70000000001164
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 5,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 2.0032835500000004,
+              "median": 1.9168745,
+              "p95": 2.832791,
+              "min": 1.413458,
+              "max": 3.823666
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.03266666665673256,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.3221666660408179,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.36049999927481013,
+              "median": 0.3999999761581421,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.6000000238418579
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66744574290482,
+              "median": 16.699999999953434,
+              "p95": 17.699999999953434,
+              "min": 15.600000000034925,
+              "max": 17.70000000001164
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 6,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 2.0032554000000005,
+              "median": 1.9042284999999999,
+              "p95": 2.735625,
+              "min": 1.144,
+              "max": 4.41925
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.028166667421658832,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.30449999873836836,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.33966666609048846,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.668113522537485,
+              "median": 16.70000000001164,
+              "p95": 17.599999999976717,
+              "min": 15.599999999976717,
+              "max": 17.70000000001164
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 7,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 1.9278525749999984,
+              "median": 1.8529575,
+              "p95": 2.583499,
+              "min": 1.38475,
+              "max": 3.412624
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.028833332757155102,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.32083333378036816,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.3548333330452442,
+              "median": 0.3999999761581421,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.6000000238418579
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.666611018363824,
+              "median": 16.699999999953434,
+              "p95": 17.099999999976717,
+              "min": 15.699999999953434,
+              "max": 17.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        }
+      ]
+    },
+    "comparisonAssessment": {
+      "metric": "gpuMs",
+      "controlSpreadLimitPercent": 5,
+      "controls": {
+        "reference": {
+          "blockMeansMs": [
+            4.718210683333333,
+            4.077469675,
+            2.0032835500000004,
+            2.0032554000000005
+          ],
+          "meanMs": 3.2005548270833333,
+          "spreadPercent": 84.82764489329097,
+          "returnChangePercent": -57.542052815141865,
+          "stable": false
+        },
+        "current": {
+          "blockMeansMs": [
+            3.9016553416666686,
+            4.088576600000001,
+            2.0547352833333328,
+            1.9278525749999984
+          ],
+          "meanMs": 2.99320495,
+          "spreadPercent": 72.18764037524402,
+          "returnChangePercent": -50.588855083840436,
+          "stable": false
+        }
+      },
+      "relativeSavingPercent": 6.47856038361609,
+      "exceedsObservedControlSpread": false,
+      "conclusion": "inconclusive: repeated controls exceed the 5% spread gate or have insufficient data",
+      "limits": "This heuristic is not a confidence interval or a thermal diagnosis. GPU-unavailable fallback describes CPU command submission only. Small CPU timings are sensitive to timer quantization. No power, heat, whole-app FPS or battery claim follows."
+    },
+    "preparation": [
+      {
+        "version": "reference",
+        "factoryCpuMs": 12.699999988079071,
+        "readyWaitWallMs": 88.7000000178814,
+        "compileAsyncWallMs": 14.600000023841858,
+        "firstRenderCpuMs": 239.90000000596046,
+        "firstSubmittedFrameWallMs": 362,
+        "firstRenderGpuMs": 4.940041
+      },
+      {
+        "version": "current",
+        "factoryCpuMs": 9.599999994039536,
+        "readyWaitWallMs": 49,
+        "compileAsyncWallMs": 0.19999998807907104,
+        "firstRenderCpuMs": 2.800000011920929,
+        "firstSubmittedFrameWallMs": 64.30000001192093,
+        "firstRenderGpuMs": 2.942333
+      }
+    ]
+  },
+  "portrait": {
+    "runId": "6fb1f099-c675-48dc-9536-2aa8308e183a",
+    "configuration": {
+      "width": 390,
+      "height": 844,
+      "dpr": 2,
+      "mobile": true,
+      "frozenTime": 0,
+      "animationMode": "replay-60hz",
+      "camera": {
+        "yaw": 0,
+        "pitch": 0,
+        "roll": 0
+      },
+      "cameraScope": "Shared origin camera/reference. Baseline lens38 degrees; candidate uses delivered responsive lens (desktop38, portrait preserves38 horizontal up to78 vertical). Does not reproduce whole-app camera position, framing or roll.",
+      "lens": {
+        "reference": 38,
+        "current": 73.38403101444618
+      },
+      "animationProtocol": "Each measured frame advances all environment animation by deterministic 1/60 seconds at normal Earth 1\u00d7 speed. Warmup stays frozen. Earth phase and sky clock reset outside timing before every block. This is motion-work replay, not wall-clock-rate playback.",
+      "comparison": {
+        "reference": {
+          "label": "Before \u2014 previous regional Earth",
+          "source": "Git baseline/features/orbit/orbital-environment.ts",
+          "textureDimensions": [
+            4096,
+            3072
+          ]
+        },
+        "current": {
+          "label": "After \u2014 current regional Earth",
+          "source": "features/orbit/orbital-environment.ts",
+          "textureDimensions": [
+            2560,
+            1536
+          ]
+        }
+      },
+      "order": "BAAB",
+      "framesPerBlock": 600,
+      "measuredFramesPerVersion": 1200,
+      "warmupFramesPerBlock": 30,
+      "idleRestMs": 60000,
+      "blocks": 4,
+      "frozenView": {
+        "yaw": 0,
+        "pitch": 0,
+        "roll": 0
+      },
+      "queryScope": "renderer.render(environment.scene, environment.camera)",
+      "sampleUnit": "one background render",
+      "gpuSampleEveryFrames": 5
+    },
+    "device": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "platform": "MacIntel",
+      "hardwareConcurrency": 10,
+      "deviceMemoryGiB": 16,
+      "nativePixelRatio": 1,
+      "threeRevision": "185",
+      "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "shadingLanguage": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+      "vendor": "WebKit",
+      "renderer": "WebKit WebGL",
+      "unmaskedVendor": "Google Inc. (Apple)",
+      "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "drawingBuffer": {
+        "width": 780,
+        "height": 1688
+      },
+      "contextAttributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": false,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": false,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "gpuTimerAvailable": true,
+      "visibility": "visible",
+      "fullscreen": false
+    },
+    "summary": {
+      "pooled": {
+        "reference": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 1.5950153083333338,
+            "median": 1.6619575,
+            "p95": 2.054791,
+            "min": 0.480874,
+            "max": 2.517124
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.028166666602094968,
+            "median": 0,
+            "p95": 0.10000002384185791,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.2617500001937151,
+            "median": 0.29999998211860657,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.5999999940395355
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.29450000007947286,
+            "median": 0.30000001192092896,
+            "p95": 0.4000000059604645,
+            "min": 0,
+            "max": 0.5999999940395355
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.665275459098595,
+            "median": 16.699999999953434,
+            "p95": 18.5,
+            "min": 14.699999999953434,
+            "max": 18.70000000006985
+          },
+          "invalidGpuFrames": 0
+        },
+        "current": {
+          "measuredFrames": 1200,
+          "gpuMs": {
+            "count": 240,
+            "mean": 1.634858358333333,
+            "median": 1.674937,
+            "p95": 2.214083,
+            "min": 0.4445,
+            "max": 5.949874
+          },
+          "updateCpuMs": {
+            "count": 1200,
+            "mean": 0.026583333387970923,
+            "median": 0,
+            "p95": 0.10000002384185791,
+            "min": 0,
+            "max": 0.20000001788139343
+          },
+          "renderCpuMs": {
+            "count": 1200,
+            "mean": 0.304250000367562,
+            "median": 0.30000001192092896,
+            "p95": 0.5,
+            "min": 0,
+            "max": 4.299999982118607
+          },
+          "totalCpuMs": {
+            "count": 1200,
+            "mean": 0.33641666707893214,
+            "median": 0.30000001192092896,
+            "p95": 0.5,
+            "min": 0,
+            "max": 4.299999982118607
+          },
+          "frameIntervalMs": {
+            "count": 1198,
+            "mean": 16.66502504173619,
+            "median": 16.699999999953434,
+            "p95": 18.599999999976717,
+            "min": 14.599999999976717,
+            "max": 18.800000000046566
+          },
+          "invalidGpuFrames": 0
+        }
+      },
+      "perBlock": [
+        {
+          "index": 0,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 1.6025801166666673,
+              "median": 1.594958,
+              "p95": 2.214083,
+              "min": 0.492999,
+              "max": 5.949874
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.024166666567325593,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.33816666637857756,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 4.299999982118607
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.3686666662991047,
+              "median": 0.4000000059604645,
+              "p95": 0.5,
+              "min": 0,
+              "max": 4.299999982118607
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66677796327216,
+              "median": 16.699999999953434,
+              "p95": 18.599999999976717,
+              "min": 14.600000000093132,
+              "max": 18.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 1,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 1.6236464083333335,
+              "median": 1.6920410000000001,
+              "p95": 2.061124,
+              "min": 0.480874,
+              "max": 2.517124
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.03233333334326744,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.20000001788139343
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.25300000041723253,
+              "median": 0.20000001788139343,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.28966666718324025,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66393989983317,
+              "median": 16.699999999953434,
+              "p95": 18.599999999976717,
+              "min": 14.699999999953434,
+              "max": 18.70000000006985
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 2,
+          "version": "reference",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 1.5663842083333337,
+              "median": 1.635145,
+              "p95": 1.977291,
+              "min": 0.698833,
+              "max": 2.308625
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.023999999860922494,
+              "median": 0,
+              "p95": 0.09999999403953552,
+              "min": 0,
+              "max": 0.19999998807907104
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.2704999999701977,
+              "median": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.29933333297570547,
+              "median": 0.30000001192092896,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5999999940395355
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66661101836402,
+              "median": 16.699999999953434,
+              "p95": 18,
+              "min": 14.699999999953434,
+              "max": 18.599999999976717
+            },
+            "invalidGpuFrames": 0
+          }
+        },
+        {
+          "index": 3,
+          "version": "current",
+          "summary": {
+            "measuredFrames": 600,
+            "gpuMs": {
+              "count": 120,
+              "mean": 1.6671366,
+              "median": 1.742687,
+              "p95": 2.213666,
+              "min": 0.4445,
+              "max": 3.878624
+            },
+            "updateCpuMs": {
+              "count": 600,
+              "mean": 0.029000000208616258,
+              "median": 0,
+              "p95": 0.10000002384185791,
+              "min": 0,
+              "max": 0.10000002384185791
+            },
+            "renderCpuMs": {
+              "count": 600,
+              "mean": 0.2703333343565464,
+              "median": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "min": 0,
+              "max": 0.5
+            },
+            "totalCpuMs": {
+              "count": 600,
+              "mean": 0.30416666785875957,
+              "median": 0.30000001192092896,
+              "p95": 0.5,
+              "min": 0,
+              "max": 0.6000000238418579
+            },
+            "frameIntervalMs": {
+              "count": 599,
+              "mean": 16.66327212020022,
+              "median": 16.699999999953434,
+              "p95": 18.599999999976717,
+              "min": 14.599999999976717,
+              "max": 18.800000000046566
+            },
+            "invalidGpuFrames": 0
+          }
+        }
+      ]
+    },
+    "comparisonAssessment": {
+      "metric": "gpuMs",
+      "controlSpreadLimitPercent": 5,
+      "controls": {
+        "reference": {
+          "blockMeansMs": [
+            1.6236464083333335,
+            1.5663842083333337
+          ],
+          "meanMs": 1.5950153083333336,
+          "spreadPercent": 3.5900721266327125,
+          "returnChangePercent": -3.526765415554932,
+          "stable": true
+        },
+        "current": {
+          "blockMeansMs": [
+            1.6025801166666673,
+            1.6671366
+          ],
+          "meanMs": 1.6348583583333336,
+          "spreadPercent": 3.948750850755368,
+          "returnChangePercent": 4.028284306160547,
+          "stable": true
+        }
+      },
+      "relativeSavingPercent": -2.497972890406479,
+      "exceedsObservedControlSpread": false,
+      "conclusion": "inconclusive: difference does not exceed observed control variation",
+      "limits": "This heuristic is not a confidence interval or a thermal diagnosis. GPU-unavailable fallback describes CPU command submission only. Small CPU timings are sensitive to timer quantization. No power, heat, whole-app FPS or battery claim follows."
+    },
+    "preparation": [
+      {
+        "version": "current",
+        "factoryCpuMs": 8.400000005960464,
+        "readyWaitWallMs": 48.30000001192093,
+        "compileAsyncWallMs": 57.5,
+        "firstRenderCpuMs": 82.19999998807907,
+        "firstSubmittedFrameWallMs": 260,
+        "firstRenderGpuMs": 2.287
+      },
+      {
+        "version": "reference",
+        "factoryCpuMs": 6.299999982118607,
+        "readyWaitWallMs": 95.30000001192093,
+        "compileAsyncWallMs": 0.30000001192092896,
+        "firstRenderCpuMs": 240.7000000178814,
+        "firstSubmittedFrameWallMs": 402.2000000178814,
+        "firstRenderGpuMs": 9.113416
+      }
+    ]
+  }
+}

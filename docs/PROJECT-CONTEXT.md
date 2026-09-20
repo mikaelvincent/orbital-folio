@@ -222,34 +222,41 @@ the subsequently approved status behavior and its verification limits.
 
 ## Earth and atmospheric art
 
-The owner selected **Europe at Night** on 20 September 2026, then requested a
-seamlessly repeating regional texture to avoid long passages over dark ocean or
-unlit terrain. Production now uses **`earth-europe-loop.webp` (4096×3072)**,
-authored from the **8192×4096 NASA Black Marble night map**, with the same cinematic
-blue atmosphere. The fixed opening remains **12° longitude / 48° latitude /
-−10° roll**, rotating at **0.0045 rad/s (1.5× the original 0.003 rad/s)**.
-The approved constants live in
-`features/orbit/earth-view-transform.ts`; the single-map loader is in
-`features/orbit/earth-satellite.ts`. Rotation starts after the texture is ready
-and respects the existing active clock, visibility and reduced-motion behavior.
-Camera movement still carries the orbital background naturally across rooms.
+The owner selected **Europe at Night**, then approved a shorter seamless regional
+loop with believable fictional geography, native source detail and a fixed
+physical Earth across screen sizes. Production uses **`earth-europe-loop.webp`
+(2560×1536)**. The original **8192×4096 NASA Black Marble night map** supplies the
+protected European core; an offline AI-assisted coastal continuation joins it
+back to itself. The cinematic blue atmosphere and opening **12° longitude /
+48° latitude / −10° roll** remain. Normal rotation is **0.0045 rad/s** (1.5× the
+original 0.003 rate), after readiness and subject to visibility/reduced motion.
 
-The regional atlas repeats every **180° / 698.13 seconds (11 minutes 38 seconds)**
-while the sphere continues rotating forward. Two exact texture repeats around
-the sphere keep its longitude seam aligned. A protected **1536×3072 European
-core** contains byte-identical decoded source pixels; an offline deterministic
-builder joins native-scale satellite patches into the connecting fictional
-geography. No resizing, AI imagery, blur, relighting or runtime synthesis is
-used. This is an artistic satellite collage, not a factual full-world map.
-Its 4096-pixel width does **not** mean the earlier downsampled 4K globe: the
-source texels retain their original angular density.
+Earth position, radius, orientation and spacecraft-world registration are fixed.
+Resizing changes camera projection and responsive spacecraft framing, not Earth's
+transform. Landscape uses 38° vertical FOV; portrait preserves 38° horizontal FOV,
+with a 78° vertical cap for very tall windows. Portrait camera roll naturally
+turns the horizon. Different responsive spacecraft camera poses can still reveal
+different Earth pixels; only a same-eye lens/crop comparison shares the identical
+physical viewpoint. This is not a screen-space photograph or Earth attached to
+each room's camera.
 
-The loop has **64 MiB** of nominal RGBA8 mip storage versus **170.67 MiB** for the
-full 8K image. Lossless encoding instead increases the asset download from
-**2,329,878 to 3,625,576 bytes**. These are asset/allocation facts, not measured
-process memory or evidence of faster frames, less heat or lower power use. The
-[regional-loop evidence](evidence/europe-regional-loop/README.md) records the
-visual checks, measurements and rejected trials.
+A fixed sphere with scrolling longitude UVs repeats every **112.5° / 436.33 seconds
+(7 minutes 16 seconds)**. One map and the existing sampling shader remain. The
+sphere's geometric U boundary stays outside the audited camera envelope; changing
+camera limits requires rerunning the reusable triangle/frustum UV audit. It bounds
+all fragments at each audited pose plus explicitly described pose neighborhoods,
+not every conceivable browser dimension or future camera change.
+
+The **1536×1536 protected core** retains decoded NASA pixels exactly. The authored
+bridge is generated offline at native resolution, stitched with minimum-error
+cuts, then losslessly encoded. The rest is a fictional satellite-style map, not a
+factual view of Earth. No runtime image generation, crossfade or second texture
+sample is introduced. Texture width describes a regional crop, not downsampling
+the original full 8K world. Smaller storage does not by itself prove faster frames.
+See the [current evidence](evidence/earth-consistent-loop/README.md) for the asset
+identity, generated/source proportions, bounded crop proof, measured comparison,
+rejected portrait framing and recommendation. The [original regional-loop
+record](evidence/europe-regional-loop/README.md) remains historical evidence.
 
 The opening is the former **Europe at night** preset, distinct from Mediterranean
 classic (18° / 38° / −12°). It supersedes the provisional East Asian default and
@@ -262,9 +269,9 @@ and their dedicated tests remain removed. The owner subsequently requested a
 **temporary playback helper** to inspect the regional loop. This supersedes the
 earlier no-controls rule only for playback, not angles, presets or Earth models.
 A globe icon beside diagnostics opens a video-style timeline covering the full
-**11m38s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
+**7m16s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
 **1× means the approved 0.0045 rad/s site speed**, already 1.5× the original rate;
-60× traverses the loop in approximately **11.64 seconds**.
+60× traverses the loop in approximately **7.27 seconds**.
 
 Seeking works backward or forward and pauses at the selected phase. Restart
 returns to the original opening at normal speed. Closing keeps the chosen Earth
