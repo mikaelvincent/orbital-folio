@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import {
   overviewCameraDirection,
+  responsiveCameraFov,
   overviewCalloutGutter,
   fitPerspectiveFrame,
   fitPerspectiveDistance,
@@ -19,6 +20,7 @@ const baseline = [-0.18, 0.14, 1];
 // Independently project real assembly supports through Three at 169 angles;
 // production chooses its containment distance using only 25 angle samples.
 function fitOverview(width, height, candidate = true) {
+  const fov = responsiveCameraFov(width / height);
   const portrait = height > width,
     roll = portrait ? Math.PI / 2 : 0;
   const direction = new THREE.Vector3(
@@ -45,7 +47,7 @@ function fitOverview(width, height, candidate = true) {
     ...fitPerspectiveFrame(
       points,
       { target: target.toArray(), direction: direction.toArray() },
-      38,
+      fov,
       width / height,
       safe,
     ).target,
@@ -77,7 +79,7 @@ function fitOverview(width, height, candidate = true) {
                   v.target[2],
                 ],
               },
-              38,
+              fov,
               width / height,
               safe,
             ),
@@ -85,7 +87,7 @@ function fitOverview(width, height, candidate = true) {
         ),
       ),
     ) / 0.975;
-  const camera = new THREE.PerspectiveCamera(38, width / height, 0.5, 500);
+  const camera = new THREE.PerspectiveCamera(fov, width / height, 0.5, 500);
   const setCamera = (v, d = distance) => {
     camera.position
       .fromArray(v.target)
@@ -182,13 +184,30 @@ test('Short landscape overviews recover useful vessel size without reducing call
   assert.equal(overviewCalloutGutter(720, 98, 80, false), 72);
   assert.equal(overviewCalloutGutter(844, 118, 80, true), 48);
   // There is no additional camera discontinuity at the square/tablet breakpoint.
-  for (const aspect of [0.9, 1, 1.8]) {
+  for (const aspect of [0.85, 0.9, 1, 1.8]) {
     const left = new THREE.Vector3(
       ...overviewCameraDirection(aspect - 1e-5),
     ).normalize();
     const right = new THREE.Vector3(
       ...overviewCameraDirection(aspect + 1e-5),
     ).normalize();
-    assert.ok(left.angleTo(right) < 1e-5);
+    const separation = left.distanceTo(right);
+    const closerLeft = new THREE.Vector3(
+      ...overviewCameraDirection(aspect - 1e-6),
+    ).normalize();
+    const closerRight = new THREE.Vector3(
+      ...overviewCameraDirection(aspect + 1e-6),
+    ).normalize();
+    assert.ok(separation < 0.00005);
+    assert.ok(closerLeft.distanceTo(closerRight) < separation * 0.11);
+  }
+  for (const aspect of [1, 4 / 3, 16 / 9, 2.5]) {
+    const t = Math.max(0, Math.min(1, (aspect - 0.9) / 0.9));
+    const original = t * t * (3 - 2 * t);
+    assert.deepEqual(overviewCameraDirection(aspect), [
+      -0.1 - 0.18 * original,
+      0.18 + 0.02 * original,
+      1,
+    ]);
   }
 });

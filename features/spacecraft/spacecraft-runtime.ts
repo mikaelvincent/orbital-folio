@@ -13,6 +13,12 @@ import { createScenePerformance } from '@/features/diagnostics/scene-performance
 import { updateRenderSceneMatrices } from '@/features/spacecraft/scene-matrices';
 import { createVesselCameraFrame } from '@/features/spacecraft/navigation/vessel-camera';
 import {
+  createOverviewFlight,
+  sampleOverviewFlight,
+  type OverviewFlight,
+  type OverviewFlightPose,
+} from './navigation/overview-flight';
+import {
   createSpacecraftPerformance,
   type SpacecraftPerformanceFilter,
 } from '@/features/diagnostics/spacecraft-performance';
@@ -1031,6 +1037,14 @@ export function mountSpacecraftScene({
         };
         type FlightPose = ReturnType<typeof pose>;
         let itinerary: FlightPose[] = [];
+        let overviewFlight: { path: OverviewFlight; elapsed: number } | null =
+          null;
+        const flightPoseData = (p: FlightPose): OverviewFlightPose => ({
+          target: p.target.toArray() as Vec3,
+          direction: p.direction.toArray() as Vec3,
+          distance: p.distance,
+          roll: p.roll,
+        });
         let travelledRoute: string[] = [];
         let lastSettledSection = 'home';
         let itineraryPlan: unknown = null;
@@ -1043,7 +1057,7 @@ export function mountSpacecraftScene({
           return (
             travelling &&
             (itineraryPlan as { kind?: string } | null)?.kind !==
-              'portrait-clearance' &&
+              'overview-curve' &&
             Math.abs(focus.x - bounds.center[0]) < bounds.size[0] / 2 &&
             Math.abs(focus.y - bounds.center[1]) < bounds.size[1] / 2
           );
@@ -1114,6 +1128,7 @@ export function mountSpacecraftScene({
           const desired = active === 'home' ? overview : pose(active, reading);
           const desiredFraming = el.dataset.framing;
           itinerary = [];
+          overviewFlight = null;
           flightTrace.length = 0;
           travelledRoute = [];
           itineraryPlan = null;
@@ -1202,18 +1217,37 @@ export function mountSpacecraftScene({
             const sweep: [number, number] = [roll, desired.roll];
             const startOverview = pose('home', false, roll, sweep);
             const endOverview = pose('home', false, desired.roll, sweep);
-            // Both endpoint targets reserve every intermediate hull orientation.
-            // Independent target/roll springs can therefore never steal clearance.
-            const clearance =
-              Math.max(startOverview.distance, endOverview.distance) * 1.02;
-            // Pull back before orbiting around the hull. Keep the diagonal envelope
-            // clear throughout the rotation, then enter the upright cabin.
-            itinerary = [
-              { ...startOverview, distance: clearance },
-              { ...endOverview, distance: clearance },
-            ];
+            const path = createOverviewFlight(
+              flightPoseData({
+                target: currentTarget,
+                direction: viewDirection,
+                distance,
+                roll,
+              }),
+              flightPoseData(desired),
+              flightPoseData(startOverview),
+              flightPoseData(endOverview),
+              travelling
+                ? {
+                    target: targetMotion.map((axis) => axis.velocity) as [
+                      number,
+                      number,
+                      number,
+                    ],
+                    direction: directionMotion.map((axis) => axis.velocity) as [
+                      number,
+                      number,
+                      number,
+                    ],
+                    distance: distanceMotion.velocity,
+                    roll: rollMotion.velocity,
+                  }
+                : undefined,
+            );
+            overviewFlight = { path, elapsed: 0 };
+            itinerary = [];
             travelledRoute = [];
-            itineraryPlan = { kind: 'portrait-clearance', clearance };
+            itineraryPlan = { kind: 'overview-curve', ...path };
             openPortalIds = [];
             cabinFlight = false;
           }
@@ -1226,7 +1260,11 @@ export function mountSpacecraftScene({
           // entire hull inside the depth range as well as the visible frame.
           camera.far = Math.max(
             80,
-            Math.max(distance, ...itinerary.map((p) => p.distance)) +
+            Math.max(
+              distance,
+              ...itinerary.map((p) => p.distance),
+              ...(overviewFlight?.path.controls.map((p) => p.distance) || []),
+            ) +
               hullDiameter +
               2,
           );
@@ -1344,6 +1382,7 @@ export function mountSpacecraftScene({
             el.dataset.waitingForDoors = String(waitingForDoors);
             const beforeRoll = roll;
             if (immediate) {
+              overviewFlight = null;
               if (itinerary.length) {
                 aim(itinerary[itinerary.length - 1]);
                 itinerary = [];
@@ -1356,6 +1395,28 @@ export function mountSpacecraftScene({
                 .forEach((v, i) => resetAxis(directionMotion[i], v));
               resetAxis(distanceMotion, nextDistance);
               resetAxis(rollMotion, nextRoll);
+            } else if (overviewFlight) {
+              overviewFlight.elapsed = Math.min(
+                overviewFlight.path.duration,
+                overviewFlight.elapsed + delta,
+              );
+              const progress =
+                overviewFlight.elapsed / overviewFlight.path.duration;
+              const p = sampleOverviewFlight(overviewFlight.path, progress);
+              // Retain actual velocity in the shared axes, so cancellation and
+              // subsequent camera springs never inherit old waypoint velocities.
+              const apply = (axis: MotionAxis, value: number) => {
+                axis.velocity =
+                  progress === 1 || delta <= 0
+                    ? 0
+                    : (value - axis.value) / delta;
+                axis.value = value;
+              };
+              p.target.forEach((v, i) => apply(targetMotion[i], v));
+              p.direction.forEach((v, i) => apply(directionMotion[i], v));
+              apply(distanceMotion, p.distance);
+              apply(rollMotion, p.roll);
+              if (progress === 1) overviewFlight = null;
             } else {
               (exitBlocked ? doorHoldTarget : nextTarget)
                 .toArray()
@@ -1400,6 +1461,7 @@ export function mountSpacecraftScene({
             roll = rollMotion.value;
             if (Math.abs(beforeRoll - roll) > 0.00001) invalidateShadow('roll');
             const settled =
+              !overviewFlight &&
               currentTarget.distanceTo(nextTarget) < 0.003 &&
               Math.abs(distance - nextDistance) < 0.003 &&
               Math.abs(roll - nextRoll) < 0.0003 &&

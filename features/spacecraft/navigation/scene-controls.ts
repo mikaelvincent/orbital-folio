@@ -40,13 +40,19 @@ export function responsiveCameraFov(aspect: number): number {
   );
 }
 
-/** More depth on broad canvases, a quieter silhouette beside portrait callouts.
+/** More depth on broad canvases, a gently oblique silhouette beside portrait callouts.
  * Keep this continuous at square/tablet sizes; the fit still owns distance and
  * screen-space centering, and room cameras retain their common frontal view. */
 export function overviewCameraDirection(aspect: number): Vec3 {
   const t = Math.max(0, Math.min(1, (aspect - 0.9) / 0.9));
   const landscape = t * t * (3 - 2 * t);
-  return [-0.1 - 0.18 * landscape, 0.18 + 0.02 * landscape, 1];
+  const p = Math.max(0, Math.min(1, (1 - aspect) / 0.15));
+  const portrait = p * p * (3 - 2 * p);
+  return [
+    -0.1 - 0.18 * landscape - 0.12 * portrait,
+    0.18 + 0.02 * landscape + 0.04 * portrait,
+    1,
+  ];
 }
 /** Reserve room for the existing callout pills without wasting most of a
  * short landscape viewport on the desktop leader-line spacing. */
