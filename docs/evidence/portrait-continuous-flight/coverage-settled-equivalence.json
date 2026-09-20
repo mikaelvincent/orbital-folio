@@ -1,0 +1,11 @@
+{
+  "createdAt": "2026-09-20T06:14:39.870Z",
+  "comparedPoses": 32032,
+  "exactNumericMatches": 32032,
+  "scope": "Final helper with omitted incoming velocity versus the pre-tangent cubic formula. Covers both directions, four clearance scales, four room anchors, and 1001 time samples each. Runtime interruption states with incoming velocity are deliberately outside this coverage audit; parent-task tests own those.",
+  "sourceSha256": {
+    "features/spacecraft/navigation/overview-flight.ts": "9b7b2fbe7fe57ecfe677eac14a9d7d2e628352a3a6665ac7c39df197928c8d16",
+    "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95"
+  },
+  "generatorSha256": "fd7ad9a0c5d4dec84ac995f9d1350580a9e97dd7e3cf953349c56451fa6bd202"
+}

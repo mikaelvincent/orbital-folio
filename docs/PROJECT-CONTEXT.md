@@ -93,6 +93,14 @@ view essentially unchanged. The annotation-only virtual frame preserves portrait
 ordering. Light/reflection transforms compensate for the old vessel roll; a
 stationary hull therefore does not imply all lighting is invariant or bakeable.
 
+Portrait overview now uses a mildly stronger oblique camera direction (approximately
+`[-0.22, 0.22, 1]` on phone/tablet), fading to the previous direction near square;
+landscape directions remain unchanged. Overview↔room roll follows one eased cubic
+flight with clearance controls, overlapping pullback, rotation and approach.
+Those controls are not stopping destinations. Browser-history interruption carries
+incoming velocity through a short decaying tangent; ordinary room routes retain
+their springs and door interlocks. See [continuous portrait flight evidence](evidence/portrait-continuous-flight/README.md).
+
 Direct room URLs begin at overview and animate inward using normal room entry.
 Keep the shared architectural fit independent of furniture extents. Hover adds
 restrained depth; dragging gives a bounded larger view and springs back to current

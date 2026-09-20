@@ -1,0 +1,79 @@
+{
+  "transitionIndex": 859,
+  "aroundTransition": [
+    {
+      "time": 132645.2,
+      "active": "contact",
+      "roll": 1.2158970962687259,
+      "rollSpeed": -0.914003977410647,
+      "distanceSpeed": 6.467199033107087,
+      "travelling": true
+    },
+    {
+      "time": 132661.8,
+      "active": "contact",
+      "roll": 1.2003911792011555,
+      "rollSpeed": -0.9340913896139866,
+      "distanceSpeed": 6.14048806468978,
+      "travelling": true
+    },
+    {
+      "time": 132678.4,
+      "active": "contact",
+      "roll": 1.1845612018461562,
+      "rollSpeed": -0.953613093674319,
+      "distanceSpeed": 5.802356173822802,
+      "travelling": true
+    },
+    {
+      "time": 132693.3,
+      "active": "home",
+      "roll": 1.1716481593840304,
+      "rollSpeed": -0.8666471451094504,
+      "distanceSpeed": 5.272768016095777,
+      "travelling": true
+    },
+    {
+      "time": 132711.8,
+      "active": "home",
+      "roll": 1.1588577535875852,
+      "rollSpeed": -0.6913732862943347,
+      "distanceSpeed": 4.203167151193516,
+      "travelling": true
+    },
+    {
+      "time": 132728.5,
+      "active": "home",
+      "roll": 1.149929531882955,
+      "rollSpeed": -0.5346240541691037,
+      "distanceSpeed": 3.242781855426509,
+      "travelling": true
+    },
+    {
+      "time": 132743.5,
+      "active": "home",
+      "roll": 1.1436986126147224,
+      "rollSpeed": -0.41539461788217363,
+      "distanceSpeed": 2.508430773726171,
+      "travelling": true
+    },
+    {
+      "time": 132761.8,
+      "active": "home",
+      "roll": 1.1380272301652525,
+      "rollSpeed": -0.3099116092608449,
+      "distanceSpeed": 1.8543170386391978,
+      "travelling": true
+    },
+    {
+      "time": 132778.4,
+      "active": "home",
+      "roll": 1.1344215563086564,
+      "rollSpeed": -0.21720926846957195,
+      "distanceSpeed": 1.2743870298770144,
+      "travelling": true
+    }
+  ],
+  "arrived": true,
+  "fixedVessel": true
+}

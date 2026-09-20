@@ -2033,6 +2033,35 @@ navigation and full loop. A bounded exact partial-mesh benchmark is a low-priori
 held candidate, with no promised speedup or download saving. A flat-card rewrite
 is not recommended without evidence of preserved perspective and a net gain.
 
+### Entry 31 — continuous portrait overview flights, 20 September 2026
+
+Art/motion baseline change from `f907b7b`, explicitly requested by the owner.
+Portrait overview gains a restrained oblique angle; landscape directions remain
+unchanged. The old three-stage pullback/roll/approach itinerary is replaced by
+one eased cubic curve whose clearance poses are shaping controls. Normal phone
+entry and return each take about **3.73 seconds of active animation time** in the
+captured trace, with no intermediate settle gate. This is authored motion duration,
+not render performance. Camera traces preserve a fixed spacecraft matrix. Browser
+history interruption carries current velocity through a short decaying tangent.
+
+No texture, geometry, material, render pass or resolution changes. Curve setup is
+performed on navigation and scalar interpolation runs during flight. AO still
+refreshes as the camera moves; changing roll still invalidates the cached shadow.
+Different motion and visible fragment coverage establish a new baseline; no CPU/GPU,
+frame-rate, heat or battery improvement is claimed. Deferred optimizations remain
+held. The full source-identified [evidence](evidence/portrait-continuous-flight/README.md)
+includes sequential before/after images, live camera traces, tests, crop-coverage
+limits, an initial stale-test failure and the independent critic review.
+
+Verification: **349 tests passed**, typecheck, affected lint and production build
+passed. Hidden Chromium phone/tablet/landscape checks, both portrait directions,
+direct About entry, queued Overview and mid-flight browser Back were exercised.
+The renewed crop audit covers 115,564 poses; ordinary/curve guarded bounds pass.
+Existing extreme ultrawide resize sufficient-bound exceptions remain disclosed;
+all exact resize samples and 5,832 additional perturbed frusta fit. Arbitrary
+interrupted-flight coverage and native Safari were not exhaustively tested.
+Independent critic: **94/100**, recommendation keep, no unresolved blockers.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

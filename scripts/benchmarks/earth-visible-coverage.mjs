@@ -15,6 +15,10 @@ import * as THREE from 'three';
 import { meshUvCoverage } from './mesh-uv-coverage.mjs';
 import { contactApplicationLayout } from '../../features/spacecraft/navigation/contact-computer.ts';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
+import {
+  createOverviewFlight,
+  sampleOverviewFlight,
+} from '../../features/spacecraft/navigation/overview-flight.ts';
 import { createVesselCameraFrame } from '../../features/spacecraft/navigation/vessel-camera.ts';
 import {
   responsiveCameraFov,
@@ -79,6 +83,8 @@ const sourcePaths = [
   'features/orbit/night-atmosphere.ts',
   'features/spacecraft/navigation/scene-controls.ts',
   'features/spacecraft/navigation/vessel-camera.ts',
+  'features/spacecraft/navigation/overview-flight.ts',
+  'features/spacecraft/navigation/flight.ts',
   'features/spacecraft/navigation/contact-computer.ts',
   'features/spacecraft/spacecraft-runtime.ts',
   'features/spacecraft/spacecraft-model.ts',
@@ -145,9 +151,9 @@ const environment = createOrbitalEnvironment(THREE, () => {}, {
 await environment.ready;
 const surface = environment.scene.getObjectByName('satellite-earth-surface');
 const rounded = (value) => Math.round(value * 1e6) / 1e6;
-function overviewPose(width, height) {
+function overviewPose(width, height, explicitRoll, sweep) {
   const portrait = height > width,
-    roll = portrait ? Math.PI / 2 : 0;
+    roll = explicitRoll ?? (portrait ? Math.PI / 2 : 0);
   const direction = new THREE.Vector3(
     ...overviewCameraDirection(width / height),
   ).normalize();
@@ -160,8 +166,16 @@ function overviewPose(width, height) {
     top: 1 - (2 * (topInset + gutter)) / height,
     bottom: -1 + (2 * (bottomInset + gutter)) / height,
   };
-  const points = data.overviewSupportPoints.map((p) =>
-    new THREE.Vector3(...p).applyAxisAngle(axis, roll).toArray(),
+  const rolls = sweep
+    ? Array.from(
+        { length: 17 },
+        (_, i) => sweep[0] + ((sweep[1] - sweep[0]) * i) / 16,
+      )
+    : [roll];
+  const points = rolls.flatMap((fitRoll) =>
+    data.overviewSupportPoints.map((p) =>
+      new THREE.Vector3(...p).applyAxisAngle(axis, fitRoll).toArray(),
+    ),
   );
   const target = new THREE.Vector3(
     ...data.overviewBounds.center,
@@ -474,27 +488,60 @@ for (const [width, height] of singleViewport
           hover,
         );
   }
-  // Conservative interpolation envelope, including the portrait-to-room roll.
-  // This is not a frame-for-frame spring or clearance-route replay.
+  // Portrait entry and return use the actual production cubic flight. Fit the
+  // same 17-roll support sweep as runtime; the public-seed UI insets are fixture
+  // assumptions. Keep landscape's old endpoint envelope: those springs did not
+  // change and are not claimed to be replayed frame-for-frame here.
+  const toFlightPose = (pose) => ({
+    ...pose,
+    target: pose.target.toArray(),
+    direction: pose.direction.toArray(),
+  });
+  const fromFlightPose = (pose) => ({
+    ...pose,
+    target: new THREE.Vector3(...pose.target),
+    direction: new THREE.Vector3(...pose.direction),
+  });
   for (const room of ['projects', 'experience', 'about', 'contact']) {
     const destination = roomPose(room, width, height);
-    for (let step = 1; step < 12; step++) {
-      const t = step / 12;
-      const pose = {
-        target: home.target.clone().lerp(destination.target, t),
-        direction: home.direction
-          .clone()
-          .lerp(destination.direction, t)
-          .normalize(),
-        distance: home.distance * (1 - t) + destination.distance * t,
-        roll: home.roll * (1 - t),
-      };
-      sample(`travel-${room}/${step}`, pose);
-      {
+    const paths = home.roll ? ['outbound', 'return'] : ['landscape-envelope'];
+    const sweep = [home.roll, destination.roll];
+    const startOverview = home.roll
+      ? overviewPose(width, height, home.roll, sweep)
+      : null;
+    const endOverview = home.roll
+      ? overviewPose(width, height, destination.roll, sweep)
+      : null;
+    for (const travelDirection of paths) {
+      const returning = travelDirection === 'return';
+      const flight = home.roll
+        ? createOverviewFlight(
+            toFlightPose(returning ? destination : home),
+            toFlightPose(returning ? home : destination),
+            toFlightPose(returning ? endOverview : startOverview),
+            toFlightPose(returning ? startOverview : endOverview),
+          )
+        : null;
+      const steps = flight ? 24 : 12;
+      for (let step = 1; step < steps; step++) {
+        const t = step / steps;
+        const pose = flight
+          ? fromFlightPose(sampleOverviewFlight(flight, t))
+          : {
+              target: home.target.clone().lerp(destination.target, t),
+              direction: home.direction
+                .clone()
+                .lerp(destination.direction, t)
+                .normalize(),
+              distance: home.distance * (1 - t) + destination.distance * t,
+              roll: home.roll * (1 - t),
+            };
+        const label = `travel-${room}/${travelDirection}/${step}`;
+        sample(label, pose);
         for (const pitch of [-1, -0.5, 0, 0.5, 1])
           for (const yaw of [-1, -0.5, 0, 0.5, 1])
             sample(
-              `travel-${room}/${step}/drag`,
+              `${label}/drag`,
               pose,
               CAMERA_RANGES.overview.pitch * pitch,
               CAMERA_RANGES.overview.yaw * yaw,
@@ -599,7 +646,7 @@ const report = {
           'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; all rooms, readers and Contact plus drag corners are included. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
         ]
       : []),
-    '5x5 bounded drag samples and hover extrema. Travel samples eleven interpolants per Home-to-room path, with5x5drag poses. These do not replay actual acceleration-limited springs or every ladder clearance route.',
+    '5x5 bounded drag samples and hover extrema. Portrait travel independently samples outbound and return production createOverviewFlight/sampleOverviewFlight curves at 23 interior times each, with 5x5 overview-range drag poses. The clearance controls use the same 17-roll support sweep, hover/dolly reservation and 1.02 multiplier as runtime. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize or unsettled initial state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
     'Close readers and Contact computer are included. There is no configured maximum aspect ratio or minimum pixel dimensions;17viewports are an explicit finite audited domain, not a restriction on the application.',
     'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
     'Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',

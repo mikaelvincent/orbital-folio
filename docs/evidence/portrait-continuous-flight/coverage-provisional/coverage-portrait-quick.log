@@ -1,0 +1,462 @@
+{
+  "output": "/Users/mikaelvincent/Documents/GitHub/orbital-folio/docs/evidence/portrait-continuous-flight/coverage-portrait-quick.json",
+  "mesh": "desktop128x96",
+  "scenarios": 5326,
+  "visibleScenarios": 3986,
+  "latitudeRange": [
+    23.166098,
+    69.375004
+  ],
+  "original8192x4096PixelRows": [
+    469,
+    1521
+  ],
+  "maxSimultaneousLongitudeSpan": 84.375,
+  "maxSameLatitudeLongitudeSpan": 82.05794818005508,
+  "continuousPoseNeighborhood": {
+    "positionTolerance": 0.25,
+    "planeAngleToleranceDegrees": 5.5,
+    "sourcePixelRows": [
+      469.333251953125,
+      1834.666748046875
+    ],
+    "fixedSeamClearanceDegrees": 115.3125,
+    "conservativeGlobalLongitudeSpan": 87.1875,
+    "note": "A mathematical superset for any camera within the stated translation distance and frustum-plane angular difference of an audited pose. This is not a proof that every production trajectory or unbounded viewport is covered by those neighborhoods."
+  },
+  "fixedLongitudeRange": [
+    -22.5,
+    64.6875
+  ],
+  "minimumFixedAntimeridianClearanceDegrees": 115.3125,
+  "proposedOriginalPixelCrop": {
+    "x": 3712,
+    "y": 384,
+    "width": 2560,
+    "height": 1536,
+    "longitudePeriodDegrees": 112.5,
+    "repeatPeriodSecondsAt0045RadSec": 436.33231299858244,
+    "latitudeRange": [
+      5.625,
+      73.125
+    ],
+    "baseFootprintMinimumHeightRows": 1366,
+    "guardedCropMarginRows": {
+      "north": 85.333251953125,
+      "south": 85.333251953125
+    },
+    "filteringAllowance": {
+      "rowsEachEdge": 64,
+      "includedWithinCrop": true,
+      "recommendedGridMultiple": 128,
+      "minimumGridAlignedHeightWith64RowAllowance": 1536,
+      "scope": "Practical authored margin; not a guarantee of pixel equality at every mip level. Coarse mip texels can summarize arbitrarily remote rows."
+    },
+    "textureRepeat": [
+      3.2,
+      2.6666666666666665
+    ],
+    "textureOffset": [
+      -1.45,
+      -1.4166666666666667
+    ],
+    "fixedSphereUvSeam": {
+      "usesScrollingUv": true,
+      "sampledSeamClearanceDegrees": 115.3125,
+      "guardedSeamClearanceDegrees": 115.3125,
+      "integerLongitudinalRepeat": false,
+      "u0WrappedPhase": 0.55,
+      "u1WrappedPhase": 0.7500000000000002,
+      "phaseDifference": 0.20000000000000018,
+      "completeTurnTexturePeriods": 3.2,
+      "wouldRemainContinuousIfSphereRotated": false,
+      "remainingCheck": "Authored first/last columns and filtered mip levels must be visually continuous; this audit does not decode or sample image pixels."
+    },
+    "sampledLongitudeSpanMarginDegrees": 28.125,
+    "sampledLatitudeMarginDegrees": {
+      "north": 3.749996,
+      "south": 17.541098
+    },
+    "caveat": "Finite sampled coverage, not a proof for arbitrary browser aspect ratios or every spring trajectory. Crop retains original texel density; source/repaint quality and visual continuity require image checks."
+  },
+  "tileCandidates": [
+    {
+      "width": 1536,
+      "longitudePeriodDegrees": 67.5,
+      "periodSeconds": 261.79938779914943,
+      "sampledSameLatitudeSpanMarginDegrees": -14.557948,
+      "sampledSpanMarginDegrees": -16.875
+    },
+    {
+      "width": 2048,
+      "longitudePeriodDegrees": 90,
+      "periodSeconds": 349.0658503988659,
+      "sampledSameLatitudeSpanMarginDegrees": 7.942052,
+      "sampledSpanMarginDegrees": 5.625
+    },
+    {
+      "width": 2304,
+      "longitudePeriodDegrees": 101.25,
+      "periodSeconds": 392.69908169872417,
+      "sampledSameLatitudeSpanMarginDegrees": 19.192052,
+      "sampledSpanMarginDegrees": 16.875
+    },
+    {
+      "width": 2560,
+      "longitudePeriodDegrees": 112.5,
+      "periodSeconds": 436.33231299858244,
+      "sampledSameLatitudeSpanMarginDegrees": 30.442052,
+      "sampledSpanMarginDegrees": 28.125
+    },
+    {
+      "width": 3072,
+      "longitudePeriodDegrees": 135,
+      "periodSeconds": 523.5987755982989,
+      "sampledSameLatitudeSpanMarginDegrees": 52.942052,
+      "sampledSpanMarginDegrees": 50.625
+    },
+    {
+      "width": 3584,
+      "longitudePeriodDegrees": 157.5,
+      "periodSeconds": 610.8652381980154,
+      "sampledSameLatitudeSpanMarginDegrees": 75.442052,
+      "sampledSpanMarginDegrees": 73.125
+    },
+    {
+      "width": 4096,
+      "longitudePeriodDegrees": 180,
+      "periodSeconds": 698.1317007977318,
+      "sampledSameLatitudeSpanMarginDegrees": 97.942052,
+      "sampledSpanMarginDegrees": 95.625
+    }
+  ],
+  "byViewport": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "verticalFieldOfView": 73.38403101444618,
+      "longitudeMaxSpan": 84.375,
+      "latitudeRange": [
+        23.166098,
+        69.375004
+      ],
+      "fixedAntimeridianClearance": 115.3125
+    }
+  ],
+  "maximumSpanScenarios": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-projects/outbound/15/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.706492,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.9233873242024
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-projects/outbound/16/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.178529072718775,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.358932,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1038.5878673097045
+      ],
+      "maximumSameLatitudeLongitudeSpan": 82.05794818005504
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-projects/return/8/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.17852907271877502,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.358932,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1038.5878673097045
+      ],
+      "maximumSameLatitudeLongitudeSpan": 82.05794818005508
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-projects/return/9/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.706492,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.9233873242024
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-experience/outbound/15/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.729833,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.3922334932058
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-experience/outbound/16/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.178529072718775,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.386227,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1037.9667389565316
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.89135255428648
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-experience/return/8/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.17852907271877502,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.386227,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1037.9667389565316
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.89135255428656
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-experience/return/9/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.729833,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.3922334932058
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-about/outbound/15/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.708369,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.8806750834897
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-about/outbound/16/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.178529072718775,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.362436,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1038.5081193968008
+      ],
+      "maximumSameLatitudeLongitudeSpan": 82.04541744478583
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-about/return/8/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.17852907271877502,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        44.362436,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1038.5081193968012
+      ],
+      "maximumSameLatitudeLongitudeSpan": 82.04541744478587
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "state": "travel-about/return/9/drag",
+      "angles": [
+        -0.18,
+        0.32
+      ],
+      "layoutRollRadians": 0.2914291409270601,
+      "longitude": {
+        "start": -22.5,
+        "endUnwrapped": 61.875,
+        "span": 84.375
+      },
+      "latitude": [
+        45.708369,
+        67.5
+      ],
+      "sourcePixelRows": [
+        512,
+        1007.8806750834897
+      ],
+      "maximumSameLatitudeLongitudeSpan": 81.5625
+    }
+  ]
+}

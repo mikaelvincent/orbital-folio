@@ -1,0 +1,6 @@
+{
+  "status": "Superseded provisional source",
+  "reason": "Root narrowed overview tilt to portrait only, restoring baseline overview direction for aspect >= 1. Trajectory implementation unchanged. Completed provisional reports retain source hashes; final coverage rerun uses corrected helper.",
+  "desktopRun": "Interrupted before completion after helper changed; no incomplete report used.",
+  "recordedAt": "2026-09-20T06:08:26.643433+00:00"
+}

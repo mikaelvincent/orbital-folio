@@ -1,0 +1,338 @@
+{
+  "desktop": {
+    "sourceSha256": {
+      "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+      "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+      "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+      "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+      "features/spacecraft/navigation/scene-controls.ts": "85192b11074eef6b4349f8ede99033b015c4ee103b7059983a58ee2391df0e97",
+      "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+      "features/spacecraft/navigation/overview-flight.ts": "3c9e1561f7694c9b7588eeb2b2dc010ac9125b0b20d1eb3de3016ea4ba7c8131",
+      "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+      "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+      "features/spacecraft/spacecraft-runtime.ts": "55e8086fa4609790c6d05829d19a77a1e678860b31904209f398b3b21240738c",
+      "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+      "scripts/benchmarks/earth-visible-coverage.mjs": "fd60cc1012b8b92c4fc1db36806176f1a3bec8153f850735b3262a11b41f18bf",
+      "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+    },
+    "ordinary": {
+      "scenarios": 53277,
+      "visibleScenarios": 37794,
+      "exactSourceRows": [
+        469.333251953125,
+        1448.2814654519307
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        1782.0734017246732
+      ],
+      "guardedMargins": {
+        "north": 85.333251953125,
+        "south": 137.9265982753268
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedMinimumSeamClearance": 115.3125,
+      "guardedExceptions": []
+    },
+    "portraitCubicTravel": {
+      "scenarios": 38272,
+      "visibleScenarios": 27008,
+      "exactSourceRows": [
+        469.333251953125,
+        1308.7668118363822
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        1629.7325681309371
+      ],
+      "guardedMargins": {
+        "north": 85.333251953125,
+        "south": 290.2674318690629
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedMinimumSeamClearance": 115.3125,
+      "guardedExceptions": []
+    },
+    "orientationResizeCrossProduct": {
+      "scenarios": 4505,
+      "visibleScenarios": 3797,
+      "exactSourceRows": [
+        469.333251953125,
+        1593.314920539664
+      ],
+      "guardedSourceRows": [
+        469.333251953125,
+        2012.2899742943277
+      ],
+      "guardedMargins": {
+        "north": 85.333251953125,
+        "south": -92.28997429432775
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 2,
+      "guarded64RowMarginFailures": 4,
+      "guardedMinimumSeamClearance": 115.3125,
+      "guardedExceptions": [
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            563.6915922362064,
+            1443.0538159259854
+          ],
+          "guardedSourceRows": [
+            469.333251953125,
+            1936.4033468749117
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0.39269908169872414,
+          "sourcePixelRows": [
+            512,
+            1422.9427809460294
+          ],
+          "guardedSourceRows": [
+            469.333251953125,
+            1875.9225450845702
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            564.5532935990709,
+            1467.915313557869
+          ],
+          "guardedSourceRows": [
+            469.333251953125,
+            2012.2899742943277
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.1780972450961724,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            512,
+            1422.9427809460299
+          ],
+          "guardedSourceRows": [
+            469.333251953125,
+            1875.922545084571
+          ]
+        }
+      ]
+    }
+  },
+  "mobile": {
+    "sourceSha256": {
+      "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+      "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+      "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+      "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+      "features/spacecraft/navigation/scene-controls.ts": "85192b11074eef6b4349f8ede99033b015c4ee103b7059983a58ee2391df0e97",
+      "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+      "features/spacecraft/navigation/overview-flight.ts": "3c9e1561f7694c9b7588eeb2b2dc010ac9125b0b20d1eb3de3016ea4ba7c8131",
+      "features/spacecraft/navigation/flight.ts": "dc78545c70aebfb58a4f42636c5f848a6456287ecd1e366aebecad33e38fbb95",
+      "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+      "features/spacecraft/spacecraft-runtime.ts": "55e8086fa4609790c6d05829d19a77a1e678860b31904209f398b3b21240738c",
+      "features/spacecraft/spacecraft-model.ts": "4c780f5017117132f1f6a6152fa4469df05b39913a703ff662487c6d5c006c28",
+      "scripts/benchmarks/earth-visible-coverage.mjs": "fd60cc1012b8b92c4fc1db36806176f1a3bec8153f850735b3262a11b41f18bf",
+      "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+    },
+    "ordinary": {
+      "scenarios": 53277,
+      "visibleScenarios": 37759,
+      "exactSourceRows": [
+        512,
+        1440.4690347057726
+      ],
+      "guardedSourceRows": [
+        512,
+        1782.0030818615319
+      ],
+      "guardedMargins": {
+        "north": 128,
+        "south": 137.99691813846812
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedMinimumSeamClearance": 116.25000715255737,
+      "guardedExceptions": []
+    },
+    "portraitCubicTravel": {
+      "scenarios": 38272,
+      "visibleScenarios": 26968,
+      "exactSourceRows": [
+        512,
+        1308.4170365078594
+      ],
+      "guardedSourceRows": [
+        512,
+        1632.551179371514
+      ],
+      "guardedMargins": {
+        "north": 128,
+        "south": 287.4488206284859
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 0,
+      "guarded64RowMarginFailures": 0,
+      "guardedMinimumSeamClearance": 116.25000715255737,
+      "guardedExceptions": []
+    },
+    "orientationResizeCrossProduct": {
+      "scenarios": 4505,
+      "visibleScenarios": 3796,
+      "exactSourceRows": [
+        512,
+        1600
+      ],
+      "guardedSourceRows": [
+        512,
+        2012.9298020697447
+      ],
+      "guardedMargins": {
+        "north": 128,
+        "south": -92.92980206974471
+      },
+      "exactCropFailures": 0,
+      "exact64RowMarginFailures": 0,
+      "guardedCropFailures": 2,
+      "guarded64RowMarginFailures": 4,
+      "guardedMinimumSeamClearance": 116.25000715255737,
+      "guardedExceptions": [
+        {
+          "viewport": [
+            2560,
+            600
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            576,
+            1443.207851350412
+          ],
+          "guardedSourceRows": [
+            512,
+            1936.834896714373
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-0.75/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0.39269908169872414,
+          "sourcePixelRows": [
+            512,
+            1423.2183235690195
+          ],
+          "guardedSourceRows": [
+            512,
+            1876.8891670240423
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.5707963267948966,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            576,
+            1468.1696148700594
+          ],
+          "guardedSourceRows": [
+            512,
+            2012.9298020697447
+          ]
+        },
+        {
+          "viewport": [
+            4096,
+            768
+          ],
+          "state": "orientation-resize-1/overview-camera-roll-0.25/drag",
+          "angles": [
+            -0.18,
+            -0.32
+          ],
+          "layoutRollRadians": 1.1780972450961724,
+          "viewportCompositionRadians": 0,
+          "sourcePixelRows": [
+            512,
+            1423.21832356902
+          ],
+          "guardedSourceRows": [
+            512,
+            1876.8891670240428
+          ]
+        }
+      ]
+    }
+  }
+}

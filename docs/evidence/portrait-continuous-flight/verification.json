@@ -1,0 +1,54 @@
+{
+  "baseline": "f907b7b36e5b39f4e011fe3d423f0d83558aac1f",
+  "sourceHashes": {
+    "AGENTS.md": "1ae6c59445c2df569bf2a98fde49506daf09eb9562c889f17eb0985d93b76ebc",
+    "docs/PROJECT-CONTEXT.md": "9259ff4baa5a4e011207f31e300bd5be0dd4cf79e64a9ca88f6687485a13020c",
+    "docs/performance-ledger.md": "c25dd9b66055c11876aee9cfe43988a3acadcfa937060679a09dba1629f65746",
+    "features/spacecraft/navigation/overview-flight.ts": "9b7b2fbe7fe57ecfe677eac14a9d7d2e628352a3a6665ac7c39df197928c8d16",
+    "features/spacecraft/navigation/scene-controls.ts": "85192b11074eef6b4349f8ede99033b015c4ee103b7059983a58ee2391df0e97",
+    "features/spacecraft/spacecraft-runtime.ts": "a6e8b66674cd62d5837636dceed6e47a3193cfe10963b3e7308d3012bc47587f",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "fd60cc1012b8b92c4fc1db36806176f1a3bec8153f850735b3262a11b41f18bf",
+    "tests/spacecraft/overview-flight.test.mjs": "8d30a22372cee9629229a42970460b6b251e4234f131081f1751800699d65e6d",
+    "tests/spacecraft/overview-composition.test.mjs": "c9f4ea5cad4a6a3512e090e2a695deb34b50329035d15fd300f777ec5bd225b0"
+  },
+  "checks": {
+    "tests": {
+      "passed": 349,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "diffCheck": "passed"
+  },
+  "visual": {
+    "engine": "hidden built-in Chromium",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "dpr": 1,
+    "safariTested": false,
+    "performanceTimingClaim": false
+  },
+  "sourceHistory": {
+    "normalFlightCaptures": "Phone/tablet poses unchanged by landscape-preservation correction; optional history tangent inactive on settled departures.",
+    "coverage": "See coverage-source-verification.json and coverage-settled-equivalence.json; original input hashes preserved."
+  },
+  "critic": {
+    "score": 94,
+    "blockers": 0,
+    "record": "critic-review.md"
+  }
+}

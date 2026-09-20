@@ -1,0 +1,4 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint scripts/benchmarks/earth-visible-coverage.mjs docs/evidence/portrait-continuous-flight/summarize-coverage.mjs docs/evidence/portrait-continuous-flight/coverage-perturbations.mjs docs/evidence/portrait-continuous-flight/verify-settled-flight.mjs
+
