@@ -3611,7 +3611,8 @@ body:has(#room-reader:target) .boot-loader {
   }
 }
 
-.world-css-renderer {
+.world-css-renderer,
+.world-surface-layer {
   /* Focus must not scroll the projected coordinate system away from WebGL. */
   overflow: clip !important;
   position: absolute;

@@ -1,4 +1,5 @@
 import { projectApplicationLayout } from './navigation/project-application';
+import { createProjectedSurface } from './projected-surface';
 import { resolveSocialScreens } from '@/lib/content/social-links';
 import {
   canUseDoorDuringTravel,
@@ -241,6 +242,12 @@ export function mountSpacecraftScene({
         const cssRenderer = new CSS3DRenderer();
         cssRenderer.domElement.className = 'world-css-renderer';
         el.appendChild(cssRenderer.domElement);
+        // Native application content uses one viewport-relative projection.
+        // Keep its origin independent of CSS3D's nested camera wrappers and
+        // percentage centering; scene hotspots continue to use CSS3DRenderer.
+        const surfaceLayer = document.createElement('div');
+        surfaceLayer.className = 'world-surface-layer';
+        el.appendChild(surfaceLayer);
         const contactReturnHint = document.createElement('span');
         contactReturnHint.className = 'contact-room-return-hint';
         contactReturnHint.textContent = 'Click wall to return';
@@ -248,8 +255,11 @@ export function mountSpacecraftScene({
         el.appendChild(contactReturnHint);
         const surfaceElement = document.createElement('div');
         surfaceElement.className = 'world-surface';
-        const surface = new CSS3DObject(surfaceElement);
+        const surface = new THREE.Object3D();
         cssScene.add(surface);
+        surfaceLayer.appendChild(surfaceElement);
+        const projectedSurface = createProjectedSurface(THREE, surfaceElement);
+        const projectedViewport = new THREE.Vector2();
         latest.current.onSurfaceReady(surfaceElement);
         const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 80);
         const cameraFrame = createVesselCameraFrame(THREE);
@@ -1866,8 +1876,11 @@ export function mountSpacecraftScene({
           const logicalWidth = isComputer
             ? application.pixelsWidth
             : paperPixels();
+          const logicalHeight = isComputer
+            ? application.pixelsHeight
+            : logicalWidth * 1.125 * readerStretch();
           surfaceElement.style.width = `${logicalWidth}px`;
-          surfaceElement.style.height = `${isComputer ? application.pixelsHeight : logicalWidth * 1.125 * readerStretch()}px`;
+          surfaceElement.style.height = `${logicalHeight}px`;
           surfaceElement.dataset.compact = String(mobile());
           surfaceElement.dataset.computer = String(isComputer);
           surfaceElement.dataset.computerPortrait = String(
@@ -2064,6 +2077,15 @@ export function mountSpacecraftScene({
           }
           diagnostics?.endGpuFrame();
           cssRenderer.render(cssScene, camera);
+          projectedSurface.update(
+            camera,
+            surface.matrixWorld,
+            logicalWidth,
+            logicalHeight,
+            projectedViewport.x,
+            projectedViewport.y,
+            surface.visible,
+          );
           diagnostics?.mark('css-render');
           if (auditMotion) {
             const sample = {
@@ -2294,6 +2316,7 @@ export function mountSpacecraftScene({
           );
           renderer.setSize(w, h);
           cssRenderer.setSize(w, h);
+          projectedViewport.set(w, h);
           ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
           invalidateAo('drawing-size');
           background.resize(w, h, renderer.getPixelRatio(), camera.fov);
@@ -3352,6 +3375,7 @@ export function mountSpacecraftScene({
           renderer.dispose();
           renderer.domElement.remove();
           cssRenderer.domElement.remove();
+          surfaceLayer.remove();
           contactReturnHint.remove();
           api.current = null;
         };
