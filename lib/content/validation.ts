@@ -1,7 +1,8 @@
-import { socialPlatforms, socialScreens } from './social-links';
-import { kinds, type Kind } from './types';
-import { seedSite } from './seed';
-import { HttpError } from '../http-error';
+import { PROJECT_CATEGORIES } from './project-content.ts';
+import { socialPlatforms, socialScreens } from './social-links.ts';
+import { kinds, type Kind } from './types.ts';
+import { seedSite } from './seed.ts';
+import { HttpError } from '../http-error.ts';
 const fields: Record<Kind, string[]> = {
   site: Object.keys(seedSite),
   project: [
@@ -10,6 +11,8 @@ const fields: Record<Kind, string[]> = {
     'subtitle',
     'summary',
     'category',
+    'categories',
+    'body',
     'order',
     'sample',
     'stack',
@@ -42,7 +45,16 @@ const fields: Record<Kind, string[]> = {
   ],
   journal: ['slug', 'title', 'subtitle', 'body', 'order', 'sample'],
   link: ['title', 'url', 'order', 'platform', 'screen', 'description'],
-  media: ['title', 'alt', 'url', 'mime', 'size', 'order'],
+  media: [
+    'title',
+    'alt',
+    'url',
+    'mime',
+    'size',
+    'order',
+    'posterMediaId',
+    'captionsMediaId',
+  ],
 };
 export function safeUrl(value: string, allowMail = false) {
   try {
@@ -68,7 +80,15 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
   for (const key of fields[kind]) {
     const value = data[key];
     if (value === undefined) continue;
-    if (key === 'sample' || key === 'sampleMode') {
+    if (key === 'categories') {
+      if (
+        !Array.isArray(value) ||
+        value.length > PROJECT_CATEGORIES.length ||
+        value.some((id) => !PROJECT_CATEGORIES.some((c) => c.id === id))
+      )
+        throw new HttpError(400, 'Choose Systems, Interfaces or Experiments.');
+      clean[key] = [...new Set(value)];
+    } else if (key === 'sample' || key === 'sampleMode') {
       if (typeof value !== 'boolean')
         throw new HttpError(400, `${key} must be true or false.`);
       clean[key] = value;
@@ -77,12 +97,15 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
         throw new HttpError(400, `${key} must be a valid integer.`);
       clean[key] = value;
     } else {
-      if (typeof value !== 'string' || value.length > 20000)
+      const limit = key === 'body' && kind === 'project' ? 100000 : 20000;
+      if (typeof value !== 'string' || value.length > limit)
         throw new HttpError(
           400,
-          `${key} must be text under 20,000 characters.`,
+          `${key} must be text under ${limit.toLocaleString('en-US')} characters.`,
         );
-      clean[key] = value.trim();
+      // Markdown indentation and surrounding newlines are authored content.
+      // Trimming the story can turn an indented code block into ordinary prose.
+      clean[key] = kind === 'project' && key === 'body' ? value : value.trim();
     }
   }
   if (kind === 'site') {
@@ -172,8 +195,21 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
         'Keep the destination URL under 2,001 characters.',
       );
   }
+  // Legacy projects have no categories field and remain valid without conversion.
+  if (
+    kind === 'project' &&
+    'categories' in clean &&
+    (!clean.categories.length || !clean.summary)
+  )
+    throw new HttpError(
+      400,
+      'Add a short description and at least one category.',
+    );
+  for (const key of ['mediaId', 'posterMediaId', 'captionsMediaId'])
+    if (clean[key] && !/^[a-zA-Z0-9-]{1,100}$/.test(clean[key]))
+      throw new HttpError(400, `Choose a valid ${key}.`);
   if (kind === 'media' && !clean.alt)
-    throw new HttpError(400, 'Add descriptive alternative text for the image.');
+    throw new HttpError(400, 'Add descriptive alternative text for the media.');
   return clean;
 }
 export { fields };

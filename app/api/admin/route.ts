@@ -1,4 +1,9 @@
-import { database, getRecords, logAction, bindings } from '@/lib/content/repository';
+import {
+  database,
+  getRecords,
+  logAction,
+  bindings,
+} from '@/lib/content/repository';
 import {
   requireAdmin,
   sameOrigin,
@@ -8,6 +13,11 @@ import {
   json,
 } from '@/lib/security';
 import { validateContent } from '@/lib/content/validation';
+import {
+  validateProjectPublication,
+  mediaDependencyClosure,
+  directProjectMediaIds,
+} from '@/lib/content/project-package-media';
 export async function GET() {
   try {
     await requireAdmin();
@@ -69,9 +79,44 @@ export async function POST(req: Request) {
     } else if (['publish', 'unpublish', 'delete'].includes(b.action)) {
       if (b.id === 'site' && b.action !== 'publish')
         throw new HttpError(400, 'Site settings must remain published.');
-      const old = (await getRecords()).find((r) => r.id === b.id);
+      const records = await getRecords();
+      const old = records.find((r) => r.id === b.id);
       if (!old) throw new HttpError(404, 'Record not found.');
-      if (b.action === 'publish') validateContent(old.kind, old.draft);
+      if (b.action === 'publish') {
+        validateContent(old.kind, old.draft);
+        if (old.kind === 'project')
+          validateProjectPublication(old.draft, records);
+        if (old.kind === 'media') {
+          // Validate the current video draft but resolve its dependencies from
+          // published metadata; unrelated media drafts remain private.
+          mediaDependencyClosure(
+            [old.id],
+            records.map((r) =>
+              r.id === old.id ? { ...r, published: old.draft } : r,
+            ),
+            true,
+          );
+        }
+      }
+      if (old.kind === 'media' && b.action !== 'publish') {
+        const used = records.some(
+          (r) =>
+            r.id !== old.id &&
+            r.published &&
+            ((r.kind === 'project' &&
+              directProjectMediaIds(r.published).includes(old.id)) ||
+              (r.kind === 'media' &&
+                [
+                  r.published.posterMediaId,
+                  r.published.captionsMediaId,
+                ].includes(old.id))),
+        );
+        if (used)
+          throw new HttpError(
+            409,
+            'This media is used by published content. Remove that reference or unpublish the content first.',
+          );
+      }
       const query =
         b.action === 'delete'
           ? 'DELETE FROM content WHERE id=? AND revision=?'
