@@ -118,6 +118,10 @@ export function samplePopulationPlan(records, seeds, assets = {}) {
         ORIGINAL_SAMPLE_HASHES[seed.data.slug],
         contentHash(seed.data),
         contentHash(rich),
+        // Exact last-shipped samples before project dates were retired. Keep
+        // every other field in the fingerprint; edited dates are not a match.
+        contentHash({ ...seed.data, period: 'Sample project · 2026' }),
+        contentHash({ ...rich, period: 'Sample project · 2026' }),
       ].includes(hash)
     ) {
       skipped.push({

@@ -16,6 +16,11 @@
   overflow: clip;
   border-radius: 7px;
 }
+@media (min-width: 1000px) and (min-height: 650px) {
+  .contact-computer-desktop {
+    padding: 6px;
+  }
+}
 .contact-computer-window {
   width: 100%;
   height: 100%;

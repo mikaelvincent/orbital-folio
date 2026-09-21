@@ -221,9 +221,6 @@ export function ProjectEditor({
             placeholder: 'React, TypeScript, …',
           })}
           {textField('role', 'My role · optional')}
-          {textField('period', 'Time period · optional', {
-            placeholder: '2026 · 6 weeks',
-          })}
           {textField('demoUrl', 'Live project URL · optional', {
             type: 'url',
             placeholder: 'https://',
@@ -355,11 +352,10 @@ export function ProjectEditor({
               {data.summary && (
                 <p className="project-preview-summary">{data.summary}</p>
               )}
-              {(data.role || data.period || data.stack) && (
+              {(data.role || data.stack) && (
                 <dl className="project-preview-meta">
                   {[
                     ['role', 'Role'],
-                    ['period', 'Period'],
                     ['stack', 'Tools'],
                   ].map(([key, label]) =>
                     data[key] ? (

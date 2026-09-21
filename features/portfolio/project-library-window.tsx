@@ -8,6 +8,8 @@ import {
   Layers,
   Code2,
   FlaskConical,
+  GitBranch,
+  Globe,
   X,
 } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
@@ -219,12 +221,12 @@ export function ProjectLibraryWindow({
                 {project.summary && (
                   <p className="project-detail-summary">{project.summary}</p>
                 )}
+                <ProjectLinks project={project} site={data.site} />
               </div>
-              {(project.role || project.period || project.stack) && (
+              {(project.role || project.stack) && (
                 <dl className="project-library-meta">
                   {[
                     ['role', data.site.roleLabel || 'Role'],
-                    ['period', data.site.periodLabel || 'Period'],
                     ['stack', data.site.stackLabel || 'Built with'],
                   ].map(([key, label]) =>
                     project[key] ? (
@@ -236,7 +238,6 @@ export function ProjectLibraryWindow({
                   )}
                 </dl>
               )}
-              <ProjectLinks project={project} site={data.site} />
               {cover && <ProjectMedia item={cover} media={data.media} />}
               <ProjectMarkdown body={projectBody(project)} media={data.media} />
               {!projectBody(project).trim() && (
@@ -244,16 +245,6 @@ export function ProjectLibraryWindow({
                   More details about this project will be added here.
                 </p>
               )}
-              <footer className="project-detail-footer">
-                <button
-                  className="project-library-back"
-                  type="button"
-                  onClick={returnToCollection}
-                >
-                  <ArrowLeft size={16} aria-hidden="true" />
-                  Back to projects
-                </button>
-              </footer>
             </div>
           ) : (
             <div className="project-window-gallery">
@@ -303,9 +294,6 @@ export function ProjectLibraryWindow({
                           <h2>{item.title}</h2>
                           <p>{item.summary}</p>
                           {item.stack && <small>{item.stack}</small>}
-                          <span className="project-card-read">
-                            Explore project <span aria-hidden="true">↗</span>
-                          </span>
                         </div>
                       </a>
                     );
@@ -338,7 +326,6 @@ export function ProjectLibraryWindow({
               <i aria-hidden="true" />
               <span className="project-status-title">{project.title}</span>
             </span>
-            <span>{categoryLabel}</span>
           </footer>
         )}
       </article>
@@ -355,22 +342,37 @@ export function ProjectLinks({
 }) {
   const links = [
     {
-      href: projectContentUrl(project.demoUrl),
-      label: site.demoLabel || 'Live project',
-    },
-    {
+      kind: 'source',
       href: projectContentUrl(project.sourceUrl),
       label: site.codeLabel || 'Source code',
+      Icon: GitBranch,
+    },
+    {
+      kind: 'live',
+      href: projectContentUrl(project.demoUrl),
+      label: site.demoLabel || 'Live project',
+      Icon: Globe,
     },
   ].filter((link) => link.href);
   return links.length ? (
-    <div className="project-library-links">
-      {links.map(({ href, label }) => (
-        <a key={href} href={href} target="_blank" rel="noopener noreferrer">
-          {label}
-          <ArrowUpRight size={16} />
+    <nav className="project-library-links" aria-label="Project resources">
+      {links.map(({ kind, href, label, Icon }) => (
+        <a
+          key={kind}
+          className={`project-resource-link is-${kind}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon size={17} aria-hidden="true" />
+          <span>{label}</span>
+          <ArrowUpRight
+            className="project-resource-external"
+            size={14}
+            aria-hidden="true"
+          />
         </a>
       ))}
-    </div>
+    </nav>
   ) : null;
 }

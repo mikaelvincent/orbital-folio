@@ -27,7 +27,6 @@ export const templates: Record<string, Record<string, any>> = {
     sample: true,
     stack: '',
     role: '',
-    period: '',
     demoUrl: '',
     sourceUrl: '',
     mediaId: '',
@@ -169,6 +168,7 @@ export function StudioContentFields({
         !['posterMediaId', 'captionsMediaId'].includes(key) ||
         String(data.mime).startsWith('video/'),
     )
+    .filter((k) => !(kind === 'site' && k === 'periodLabel'))
     .filter(
       (k) =>
         kind !== 'site' ||

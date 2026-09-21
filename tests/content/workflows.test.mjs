@@ -324,6 +324,9 @@ await test('Persistent portfolio workflows and security boundaries', async (t) =
           headline: 'A different owner.\nA different story.',
           seoTitle: 'Rowan Aster — Sample portfolio',
           sampleMode: true,
+          // Retain old identity copy through backup/import despite retiring
+          // project dates and their authoring control.
+          periodLabel: 'Aster legacy period label',
         });
         await api({
           action: 'import',

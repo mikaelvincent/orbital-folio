@@ -74,7 +74,6 @@ export const seedSite = {
   outcomesLabel: 'Outcomes & lessons',
   nextLabel: 'What comes next',
   roleLabel: 'Role & context',
-  periodLabel: 'Period',
   stackLabel: 'Built with',
   dossierLabel: 'PROJECT DOSSIER',
   backLabel: 'Back to projects',
@@ -152,7 +151,6 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
         sample: true,
         stack: 'TypeScript, PostgreSQL, Redis, Docker',
         role: 'Concept · system design & prototype',
-        period: 'Sample project · 2026',
         problem:
           'A slow task should not become a slow interface. Teams also need to know when a background job failed, why it failed, and whether trying again is safe.',
         approach:
@@ -186,7 +184,6 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
         sample: true,
         stack: 'React, TypeScript, PostgreSQL',
         role: 'Concept · product & engineering',
-        period: 'Sample project · 2026',
         problem:
           'Useful decisions disappear across chat messages and disconnected documents. Search alone cannot fix content that has no owner or structure.',
         approach:
@@ -220,7 +217,6 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
         sample: true,
         stack: 'TypeScript, Web APIs, SQLite',
         role: 'Concept · interface & modelling',
-        period: 'Sample project · 2026',
         problem:
           'Usage-based pricing is hard to reason about when each service describes a different unit. Small assumptions can hide large differences.',
         approach:

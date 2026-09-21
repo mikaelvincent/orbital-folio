@@ -4,7 +4,9 @@ import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
 import { HttpError } from '../http-error.ts';
 const fields: Record<Kind, string[]> = {
-  site: Object.keys(seedSite),
+  // Retired presentation copy is no longer seeded or edited, but existing
+  // identity exports must round-trip without silently discarding owner text.
+  site: [...Object.keys(seedSite), 'periodLabel'],
   project: [
     'slug',
     'title',
@@ -17,7 +19,6 @@ const fields: Record<Kind, string[]> = {
     'sample',
     'stack',
     'role',
-    'period',
     'problem',
     'approach',
     'system',

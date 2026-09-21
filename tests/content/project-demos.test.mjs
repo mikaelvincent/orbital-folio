@@ -52,6 +52,11 @@ const { validateMediaBytes, projectUploadError } = await import(
 await test('nine authored sample stories exercise uneven categories and rich Markdown without dangling fresh-seed media', () => {
   const counts = { systems: 0, interfaces: 0, experiments: 0 };
   for (const project of projects) {
+    assert.equal(
+      project.data.period,
+      undefined,
+      'new projects omit retired dates',
+    );
     counts[project.data.categories[0]]++;
     const types = new Set();
     void marked.walkTokens(marked.lexer(project.data.body), (t) =>
@@ -230,6 +235,32 @@ await test('local population preserves owner edits, divergent drafts, unpublishe
     'https://localhost:3000',
   ])
     assert.throws(() => localBase(url));
+});
+
+await test('retiring a sample project date recognizes only exact previous demo data', () => {
+  const previous = projects.map((seed) =>
+    record(seed, {
+      ...sampleProjectData(seed.data, ids),
+      period: 'Sample project · 2026',
+    }),
+  );
+  const before = canonical(previous);
+  const plan = samplePopulationPlan(previous, seeds, ids);
+  assert.equal(plan.update.length, 9);
+  assert.ok(plan.update.every((item) => item.data.period === undefined));
+  assert.equal(
+    canonical(previous),
+    before,
+    'planning leaves existing records unchanged',
+  );
+  previous[0].draft.period = 'Owner-authored dates';
+  previous[0].published.period = 'Owner-authored dates';
+  assert.equal(samplePopulationPlan(previous, seeds, ids).update.length, 8);
+  assert.ok(
+    seeds
+      .filter((seed) => seed.kind === 'experience')
+      .every((seed) => seed.data.period),
+  );
 });
 
 await test('checked-in demo media matches provenance hashes and contains decoded images and a finite animated GIF', async () => {

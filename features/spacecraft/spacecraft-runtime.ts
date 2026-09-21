@@ -292,7 +292,6 @@ export function mountSpacecraftScene({
             title: String(p.title),
             slug: String(p.slug),
             category: p.category,
-            categories: p.categories,
             sample: p.sample && (s.sampleMode || s._preview),
           })),
           caseStudies: latest.current.caseStudies.map((p) => ({

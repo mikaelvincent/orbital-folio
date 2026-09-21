@@ -11,6 +11,13 @@
   border-radius: 6px;
   overflow: clip;
 }
+@media (min-width: 1000px) and (min-height: 650px) {
+  .project-computer-desktop {
+    /* The physical application plane already leaves wallpaper around all four
+       edges. Spend less of that plane on a second inset when room is available. */
+    padding: 4px;
+  }
+}
 .project-library-window {
   container-type: inline-size;
   width: 100%;
@@ -228,16 +235,6 @@
   color: #96aeb8;
   font-size: 10px;
 }
-.project-card-read {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #6f81874a;
-  margin-top: 16px;
-  padding-top: 11px;
-  font-size: 10px;
-  color: #f0cf99;
-}
 .project-app-empty {
   display: flex;
   flex-direction: column;
@@ -310,11 +307,6 @@
   border-radius: 50%;
   background: #c2b181;
 }
-.project-window-status > span:last-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 .project-library-back {
   display: inline-flex;
   align-items: center;
@@ -351,7 +343,7 @@
 }
 .project-library-meta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin: 24px 0;
   padding: 17px 0;
@@ -372,23 +364,38 @@
 .project-library-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0 30px;
+  align-items: center;
+  gap: 8px 20px;
+  margin: 20px 0 26px;
 }
 .project-library-links a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 12px;
-  border: 1px solid #9c885f;
-  border-radius: 5px;
+  min-height: 40px;
+  padding: 6px 0;
+  border-bottom: 1px solid #80919a80;
   color: inherit;
   font: inherit;
-  font-size: 12px;
+  font-size: 13px;
   text-decoration: none;
 }
+.project-library-links a.is-live {
+  border-bottom-color: #b19c74;
+}
+.project-resource-external {
+  margin-left: 2px;
+  opacity: 0.65;
+}
 .project-library-links a:hover {
-  background: #ba955c20;
+  border-bottom-color: currentColor;
+}
+.project-library-window .project-library-links a.is-live {
+  color: #efcf9d;
+}
+.project-library-links a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 .project-window-detail .project-markdown {
   margin-top: 28px;
@@ -400,15 +407,6 @@
 }
 .project-window-detail .project-markdown a {
   color: #f1ce92;
-}
-.project-detail-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-top: 1px solid #64757c66;
-  margin-top: 32px;
-  padding-top: 18px;
 }
 .project-story-pending {
   color: #a4b8c2;
@@ -455,8 +453,7 @@
   .project-app-card p {
     font-size: 14px;
   }
-  .project-app-card-content > small,
-  .project-card-read {
+  .project-app-card-content > small {
     font-size: 12px;
   }
   .project-card-kicker {
@@ -486,9 +483,6 @@
   .project-window-back {
     min-height: 44px;
     font-size: 12px;
-  }
-  .project-window-status > span:last-child {
-    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

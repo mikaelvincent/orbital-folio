@@ -11,7 +11,6 @@ export function buildProjectPayloadModule(
   options: {
     label: string;
     kind: 'all' | 'systems' | 'interfaces' | 'experiments';
-    count?: number;
     accent?: any;
     screenLabels?: boolean;
     sharedMaterials?: Map<string, any>;
@@ -532,11 +531,6 @@ export function buildProjectPayloadModule(
     uvs = screenGeometry.attributes.uv;
   for (let i = 0; i < positions.count; i++)
     uvs.setXY(i, positions.getX(i) / sw + 0.5, positions.getY(i) / sh + 0.5);
-  let count: number | null =
-    typeof options.count === 'number' && Number.isFinite(options.count)
-      ? Math.max(0, Math.floor(options.count))
-      : null;
-  let texture: any = null;
   let canvas: HTMLCanvasElement | null = null;
   let context: CanvasRenderingContext2D | null = null;
   if (typeof document !== 'undefined') {
@@ -669,19 +663,10 @@ export function buildProjectPayloadModule(
       }
     }
     ctx.restore();
-    if (options.screenLabels !== false && count !== null) {
-      ctx.fillStyle = '#f3f6f8';
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'alphabetic';
-      ctx.font =
-        '500 70px Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText(String(count), 934, 567, 270);
-    }
-    if (texture) texture.needsUpdate = true;
   };
   drawScreen();
   if (canvas && context) {
-    texture = new THREE.CanvasTexture(canvas);
+    const texture = new THREE.CanvasTexture(canvas);
     texture.name = prefix + options.kind + '-display-texture';
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = 8;
@@ -735,15 +720,6 @@ export function buildProjectPayloadModule(
     setActive(active: boolean) {
       idleDisplay.visible = !active;
       desktopDisplay.visible = active;
-    },
-    setCount(next: number | null) {
-      const value =
-        typeof next === 'number' && Number.isFinite(next)
-          ? Math.max(0, Math.floor(next))
-          : null;
-      if (value === count) return;
-      count = value;
-      drawScreen();
     },
   };
 }

@@ -81,6 +81,9 @@ function parseProjectFiles(
     cover,
     media: definitions = [],
     body: _body,
+    // v1 packages written before project dates were retired remain importable.
+    // The old metadata is intentionally omitted from new drafts and exports.
+    period: _legacyPeriod,
     ...data
   } = metadata;
   const allowed = new Set([
@@ -94,7 +97,6 @@ function parseProjectFiles(
     'sample',
     'stack',
     'role',
-    'period',
     'problem',
     'approach',
     'system',

@@ -368,6 +368,7 @@ await test('immersive gallery omits cover assets and placeholders while project 
       new RegExp(`aria-label="Read project: ${project.title}"`),
     );
   assert.doesNotMatch(gallery, /<img\b|<video\b|project-card-cover|\/media\//);
+  assert.doesNotMatch(gallery, /Explore project/);
   assert.match(gallery, /<header\b[^>]*>[\s\S]*?Systems[\s\S]*?<\/header>/);
   assert.doesNotMatch(gallery, /<footer\b|LIBRARY ONLINE/);
 
@@ -390,6 +391,7 @@ await test('immersive gallery omits cover assets and placeholders while project 
     /<footer\b[^>]*>[\s\S]*?Illustrated project[\s\S]*?<\/footer>/,
   );
   assert.doesNotMatch(imageDetail, /PROJECT OPEN|END OF PROJECT/);
+  assert.equal((imageDetail.match(/Back to projects/g) || []).length, 1);
   const videoDetail = renderToStaticMarkup(
     createElement(ProjectLibraryWindow, {
       ...props,
@@ -401,4 +403,70 @@ await test('immersive gallery omits cover assets and placeholders while project 
     /<video[^>]*controls=""[^>]*poster="\/media\/poster"/,
   );
   assert.match(videoDetail, /<source[^>]*src="\/media\/movie"/);
+});
+
+await test('project resource links share safe source/live destinations and retired dates stay out of both public views', async () => {
+  const { ProjectLibraryWindow, ProjectLinks } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
+  const { DossierView } = await loadComponent(
+    'features/portfolio/room-views.tsx',
+  );
+  const project = {
+    id: 'linked',
+    slug: 'linked',
+    title: 'A linked project',
+    summary: 'A useful tool.',
+    categories: ['systems'],
+    role: 'Developer',
+    period: 'RETIRED PROJECT DATE',
+    sourceUrl: 'https://code.example/repository',
+    demoUrl: 'https://demo.example/',
+    body: '## Overview\n\nA complete project story.',
+  };
+  const data = {
+    site: {},
+    projects: [project],
+    media: [],
+    experience: [],
+    journal: [],
+    links: [],
+  };
+  for (const markup of [
+    renderToStaticMarkup(
+      createElement(ProjectLibraryWindow, {
+        data,
+        project,
+        category: 'systems',
+        onProjectSelect() {},
+        onBack() {},
+        onClose() {},
+      }),
+    ),
+    renderToStaticMarkup(createElement(DossierView, { data, project })),
+  ]) {
+    assert.doesNotMatch(markup, /RETIRED PROJECT DATE/);
+    assert.match(markup, /Developer/);
+    assert.match(markup, /aria-label="Project resources"/);
+    assert.match(
+      markup,
+      /href="https:\/\/code.example\/repository" target="_blank" rel="noopener noreferrer"/,
+    );
+    assert.match(
+      markup,
+      /href="https:\/\/demo.example\/" target="_blank" rel="noopener noreferrer"/,
+    );
+    assert.ok(
+      markup.indexOf('Project resources') < markup.indexOf('project-overview'),
+    );
+  }
+  assert.equal(
+    renderToStaticMarkup(
+      createElement(ProjectLinks, {
+        project: { sourceUrl: 'javascript:alert(1)', demoUrl: '' },
+        site: {},
+      }),
+    ),
+    '',
+  );
 });

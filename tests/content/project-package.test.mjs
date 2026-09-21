@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 import { zipSync, strToU8 } from 'fflate';
+import { seedSite } from '../../lib/content/seed.ts';
 
 const bundled = await build({
   stdin: {
@@ -56,7 +57,7 @@ const make = (
     ...assets,
   });
 
-test('project metadata is explicit, bounded and legacy-compatible', () => {
+await test('project metadata is explicit, bounded and legacy-compatible', () => {
   assert.deepEqual(
     projectCategories({ title: 'Interface system', category: 'Systems' }),
     [],
@@ -121,7 +122,48 @@ test('project metadata is explicit, bounded and legacy-compatible', () => {
   );
 });
 
-test('package roundtrip preserves Markdown, category choices, covers and video dependencies', () => {
+await test('retired project dates are omitted while older packages and experience dates remain compatible', () => {
+  assert.equal(
+    validateContent('site', {
+      ...seedSite,
+      periodLabel: 'Owner-authored legacy label',
+    }).periodLabel,
+    'Owner-authored legacy label',
+  );
+  assert.equal(validateContent('site', seedSite).periodLabel, undefined);
+  const legacy = {
+    title: 'Legacy project',
+    slug: 'legacy-project',
+    summary: 'Existing work.',
+    categories: ['systems'],
+    period: '2024–2026',
+    body: '## Overview\n\nThe existing story.',
+  };
+  assert.equal(validateContent('project', legacy).period, undefined);
+  assert.equal(
+    validateContent('experience', {
+      title: 'Engineering role',
+      slug: 'engineering-role',
+      period: '2024–2026',
+    }).period,
+    '2024–2026',
+  );
+  const oldPackage = parseProjectPackage(make('period: 2024–2026\n'));
+  assert.equal(oldPackage.project.period, undefined);
+  const exported = buildProjectPackage(legacy, []);
+  const document = new TextDecoder().decode(
+    readProjectArchive(exported).get('project.md'),
+  );
+  assert.doesNotMatch(document, /^period:/m);
+  assert.equal(parseProjectPackage(exported).project.title, legacy.title);
+  assert.equal(
+    legacy.period,
+    '2024–2026',
+    'export does not mutate the persisted source object',
+  );
+});
+
+await test('package roundtrip preserves Markdown, category choices, covers and video dependencies', () => {
   const original = make(
     `cover: assets/cover.png\nmedia:\n  - path: assets/cover.png\n    alt: Atlas map\n  - path: assets/demo.mp4\n    alt: Atlas demonstration\n    poster: assets/cover.png\n    captions: assets/demo.vtt\n  - path: assets/demo.vtt\n    alt: English captions\n`,
     '## Story\n\n![Map](assets/cover.png "Map title")\n\n[Watch the demo][clip]\n\n[clip]: assets/demo.mp4\n\n```md\n![Example](assets/cover.png)\n```\n',
@@ -166,7 +208,7 @@ test('package roundtrip preserves Markdown, category choices, covers and video d
   assert.ok(reparsed.project.body.includes('![Example](assets/cover.png)'));
 });
 
-test('Markdown rewriting retains reference definitions, prose and fenced examples', () => {
+await test('Markdown rewriting retains reference definitions, prose and fenced examples', () => {
   const input =
     'Prose /media/id-1 stays.\n\n![Image][pic]\n\n[pic]: /media/id-1 "Image"\n\n~~~md\n![Example](/media/id-1)\n~~~\n';
   const result = rewriteProjectMedia(
@@ -178,7 +220,7 @@ test('Markdown rewriting retains reference definitions, prose and fenced example
   assert.ok(result.includes('![Example](/media/id-1)'));
 });
 
-test('media destination rewrites preserve inline, escaped and nested code examples exactly', () => {
+await test('media destination rewrites preserve inline, escaped and nested code examples exactly', () => {
   const examples = [
     '`![Example](/media/id-1)`',
     '!\\[Escaped](/media/id-1)',
@@ -218,7 +260,7 @@ test('media destination rewrites preserve inline, escaped and nested code exampl
   );
 });
 
-test('nested reference definitions survive export and reimport without managed URLs leaking into the package', () => {
+await test('nested reference definitions survive export and reimport without managed URLs leaking into the package', () => {
   const examples = [
     '- [Download][asset]\n\n    [asset]: /media/id-1\n',
     '> [Download][asset]\n>\n> [asset]: /media/id-1\n',
@@ -273,7 +315,7 @@ test('nested reference definitions survive export and reimport without managed U
   );
 });
 
-test('packages reject unsafe paths, undeclared/missing assets and malformed metadata before any writes', () => {
+await test('packages reject unsafe paths, undeclared/missing assets and malformed metadata before any writes', () => {
   const cases = [
     zipSync({ '../project.md': strToU8('unsafe') }),
     zipSync({ 'project.md': strToU8('no frontmatter') }),
@@ -306,7 +348,7 @@ test('packages reject unsafe paths, undeclared/missing assets and malformed meta
   for (const bytes of cases) assert.throws(() => parseProjectPackage(bytes));
 });
 
-test('ZIP validation rejects duplicate names, symlinks, checksum damage and false expansion sizes', () => {
+await test('ZIP validation rejects duplicate names, symlinks, checksum damage and false expansion sizes', () => {
   const original = zipSync(
     {
       'project.md': strToU8('metadata'),
@@ -347,7 +389,7 @@ test('ZIP validation rejects duplicate names, symlinks, checksum damage and fals
   assert.throws(() => readProjectArchive(understatement), /declared size/);
 });
 
-test('media upload signature and size rules cover video and captions as well as images', () => {
+await test('media upload signature and size rules cover video and captions as well as images', () => {
   assert.doesNotThrow(() => validateMediaBytes(png, 'image/png'));
   assert.doesNotThrow(() => validateMediaBytes(mp4, 'video/mp4'));
   assert.doesNotThrow(() => validateMediaBytes(vtt, 'text/vtt'));
@@ -375,7 +417,7 @@ const record = (id, data, published = data) => ({
   revision: 1,
   updatedAt: 'now',
 });
-test('publication follows only referenced published media and never exposes unrelated drafts', () => {
+await test('publication follows only referenced published media and never exposes unrelated drafts', () => {
   const image = {
     title: 'Cover',
     alt: 'Cover',
@@ -441,7 +483,7 @@ test('publication follows only referenced published media and never exposes unre
   );
 });
 
-test('export applies import document-byte and generated-story limits before creating a ZIP', () => {
+await test('export applies import document-byte and generated-story limits before creating a ZIP', () => {
   const project = {
     title: 'Project',
     slug: 'project',
@@ -470,7 +512,7 @@ test('export applies import document-byte and generated-story limits before crea
   );
 });
 
-test('story limits hold after media URL rewriting in both import and export directions', () => {
+await test('story limits hold after media URL rewriting in both import and export directions', () => {
   const project = {
     title: 'Project',
     slug: 'project',
@@ -527,7 +569,7 @@ test('story limits hold after media URL rewriting in both import and export dire
   assert.doesNotThrow(() => validateContent('project', imported.project));
 });
 
-test('project Markdown preserves leading indented code and surrounding whitespace on save and package roundtrip', () => {
+await test('project Markdown preserves leading indented code and surrounding whitespace on save and package roundtrip', () => {
   for (const body of [
     '    const answer = 42;\n',
     '\n\n    const answer = 42;\n\n',
@@ -553,7 +595,7 @@ test('project Markdown preserves leading indented code and surrounding whitespac
   }
 });
 
-test('export preflights its exact metadata and asset manifest through the importer', () => {
+await test('export preflights its exact metadata and asset manifest through the importer', () => {
   const project = {
     title: 'Project',
     slug: 'project',
@@ -585,7 +627,7 @@ test('export preflights its exact metadata and asset manifest through the import
   );
 });
 
-test('export never fetches external URLs or silently drops a missing managed asset', () => {
+await test('export never fetches external URLs or silently drops a missing managed asset', () => {
   const project = {
     title: 'Project',
     slug: 'project',

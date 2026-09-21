@@ -1,8 +1,5 @@
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
 import { PROJECTS_GRID, PROJECTS_UNDERBENCH } from './cabin-composition.ts';
-import { projectCategories } from '../../../lib/content/project-content.ts';
-
-type WorkshopProject = { categories?: unknown };
 
 /** Static category workshop. Origin is the cabin floor; +Z faces the visitor. */
 export function buildProjectsWorkshop(
@@ -10,21 +7,11 @@ export function buildProjectsWorkshop(
   h: any,
   floorRoot: any,
   options: {
-    projects?: WorkshopProject[];
     accent?: any;
     screenLabels?: boolean;
     desktopMaterial?: any;
   } = {},
 ) {
-  const projectCount = (
-    category: 'all' | 'systems' | 'interfaces' | 'experiments',
-    projects: WorkshopProject[],
-  ) =>
-    category === 'all'
-      ? projects.length
-      : projects.filter((project) =>
-          projectCategories(project).includes(category),
-        ).length;
   // Match Contact's 0.731-high working surface. Move the bank and worktop
   // together to retain screen clearance; grounded feet and support joints stay fitted.
   const lowering = PROJECTS_GRID.lowering;
@@ -592,7 +579,6 @@ export function buildProjectsWorkshop(
     return buildProjectPayloadModule(THREE, h, carrier, {
       label: config.label,
       kind: config.kind,
-      count: projectCount(config.kind, options.projects ?? []),
       accent: options.accent,
       screenLabels: options.screenLabels,
       sharedMaterials: moduleMaterials,
@@ -620,11 +606,5 @@ export function buildProjectsWorkshop(
   return {
     screens: modules,
     root: parent,
-    // Use exactly the supplied public/preview collection. Publication filtering
-    // belongs upstream, as it does for the application gallery.
-    setProjects: (projects: WorkshopProject[]) => {
-      for (const screen of modules)
-        screen.setCount(projectCount(screen.category, projects));
-    },
   };
 }

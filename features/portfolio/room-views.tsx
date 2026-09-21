@@ -71,6 +71,7 @@ export function DossierView({
           <h1>{p.title}</h1>
           {p.subtitle && <p className="dossier-subtitle">{p.subtitle}</p>}
           <p className="dossier-summary">{p.summary}</p>
+          <ProjectLinks project={p} site={s} />
           {media && <ProjectMedia item={media} media={data.media} />}
           {isMarkdown ? (
             <ProjectMarkdown body={body} media={data.media} />
@@ -122,12 +123,6 @@ export function DossierView({
                 <strong>{p.role}</strong>
               </>
             )}
-            {p.period && (
-              <>
-                <p>{s.periodLabel}</p>
-                <strong>{p.period}</strong>
-              </>
-            )}
             {p.stack && (
               <>
                 <p>{s.stackLabel}</p>
@@ -135,7 +130,6 @@ export function DossierView({
               </>
             )}
           </div>
-          <ProjectLinks project={p} site={s} />
         </aside>
       </div>
     </>
