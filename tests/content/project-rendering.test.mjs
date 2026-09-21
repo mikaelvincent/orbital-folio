@@ -3,9 +3,11 @@ import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 import { createRequire } from 'node:module';
 import { runInNewContext } from 'node:vm';
+import { readFile } from 'node:fs/promises';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { seeds } from '../../lib/content/seed.ts';
+import { sampleProjectData } from '../../lib/content/sample-projects.mjs';
 import {
   projectContentUrl,
   parseProjectMarkdown,
@@ -135,6 +137,67 @@ await test('unknown media references do not expose unpublished asset metadata', 
   const markup = render('[Walkthrough](/media/private-video)', []);
   assert.doesNotMatch(markup, /<video|poster=/);
   assert.match(markup, /href="\/media\/private-video"/);
+});
+
+await test('the populated Relay story renders its complete media and Markdown showcase', async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL(
+        '../../scripts/assets/project-demos/manifest.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const ids = Object.fromEntries(
+    manifest.assets.map((asset) => [asset.key, 'demo-' + asset.key]),
+  );
+  const media = manifest.assets.map((asset) => ({
+    id: ids[asset.key],
+    url: '/media/' + ids[asset.key],
+    mime: asset.mime,
+    title: asset.title,
+    alt: asset.alt,
+    ...(asset.poster ? { posterMediaId: ids[asset.poster] } : {}),
+    ...(asset.captions ? { captionsMediaId: ids[asset.captions] } : {}),
+  }));
+  const relay = sampleProjectData(
+    seeds.find((seed) => seed.id === 'project-relay').data,
+    ids,
+  );
+  const markup = render(relay.body, media);
+  assert.match(markup, /<img[^>]*src="\/media\/demo-relay"/);
+  assert.match(markup, /<img[^>]*src="\/media\/demo-relay-motion"/);
+  assert.match(markup, /<video[^>]*controls=""[^>]*preload="none"/);
+  assert.match(markup, /<source src="\/media\/demo-relay-video"/);
+  assert.match(
+    markup,
+    /<track kind="captions" src="\/media\/demo-relay-captions"/,
+  );
+  for (const tag of [
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'strong',
+    'em',
+    'del',
+    'code',
+    'pre',
+    'blockquote',
+    'ol',
+    'ul',
+    'table',
+    'hr',
+    'br',
+  ])
+    assert.match(markup, new RegExp('<' + tag + '(?:[ >]|/)'), tag);
+  assert.match(markup, /<ol start="7">/);
+  assert.equal((markup.match(/type="checkbox"/g) || []).length, 3);
+  assert.match(markup, /href="https:\/\/docs.bullmq.io\/"/);
+  assert.match(markup, /href="https:\/\/github.com\/taskforcesh\/bullmq"/);
+  assert.doesNotMatch(markup, /autoplay|<iframe|<script/);
 });
 
 await test('reference-style links and images resolve without displaying their definitions', () => {
@@ -448,6 +511,10 @@ await test('project resource links share safe source/live destinations and retir
     assert.doesNotMatch(markup, /RETIRED PROJECT DATE/);
     assert.match(markup, /Developer/);
     assert.match(markup, /aria-label="Project resources"/);
+    const resources = markup.match(
+      /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
+    )?.[1];
+    assert.equal((resources?.match(/<a\b/g) || []).length, 2);
     assert.match(
       markup,
       /href="https:\/\/code.example\/repository" target="_blank" rel="noopener noreferrer"/,
@@ -459,6 +526,40 @@ await test('project resource links share safe source/live destinations and retir
     assert.ok(
       markup.indexOf('Project resources') < markup.indexOf('project-overview'),
     );
+  }
+  const relay = {
+    id: 'project-relay',
+    ...seeds.find((seed) => seed.id === 'project-relay').data,
+  };
+  const relayData = { ...data, projects: [relay] };
+  for (const markup of [
+    renderToStaticMarkup(
+      createElement(ProjectLibraryWindow, {
+        data: relayData,
+        project: relay,
+        category: 'systems',
+        onProjectSelect() {},
+        onBack() {},
+        onClose() {},
+      }),
+    ),
+    renderToStaticMarkup(
+      createElement(DossierView, { data: relayData, project: relay }),
+    ),
+  ]) {
+    const explanation = markup.indexOf(
+      'source and live links are BullMQ reference examples, not a deployed Relay product',
+    );
+    const resources = markup.indexOf('aria-label="Project resources"');
+    assert.ok(
+      explanation >= 0 && explanation < resources,
+      'clarify the actual destinations in the introduction immediately before the resource links',
+    );
+    assert.ok(resources < markup.indexOf('project-overview'));
+    const links = markup.match(
+      /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
+    )?.[1];
+    assert.equal((links?.match(/<a\b/g) || []).length, 2);
   }
   assert.equal(
     renderToStaticMarkup(

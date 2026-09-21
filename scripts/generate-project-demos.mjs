@@ -1,5 +1,6 @@
 /** Offline, code-authored demo visuals. macOS Swift/AVFoundation encodes the MP4.
- * Run `node scripts/generate-project-demos.mjs`; no network or persisted content changes. */
+ * Run `node scripts/generate-project-demos.mjs`; use `--cover=meter` to update
+ * only that cover. No network or persisted content changes. */
 import sharp from 'sharp';
 import {
   mkdtemp,
@@ -14,9 +15,9 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { SAMPLE_PROJECT_CATEGORIES } from '../lib/content/sample-projects.mjs';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const output = resolve(root, 'scripts/assets/project-demos');
-const temporary = await mkdtemp(resolve(tmpdir(), 'orbital-project-demo-'));
 const projects = [
   ['relay', 'Relay', 'Durable work. Visible state.', 'systems'],
   ['beacon', 'Beacon', 'A useful signal in the noise.', 'systems'],
@@ -26,15 +27,27 @@ const projects = [
   ['fieldnotes', 'Fieldnotes', 'A shared place for good ideas.', 'interfaces'],
   ['ledger', 'Ledger', 'A plan you can follow.', 'interfaces'],
   ['harbor', 'Harbor', 'Small releases. Clear decisions.', 'interfaces'],
-  ['meter', 'Meter', 'Explore the shape of a workload.', 'experiments'],
+  ['meter', 'Meter', 'Explore the shape of a workload.', 'comparison'],
 ];
 const assets = [];
 const gifOnly = process.argv.includes('--gif-only');
+const onlyCover = process.argv
+  .find((value) => value.startsWith('--cover='))
+  ?.slice(8);
+if (onlyCover && !projects.some(([slug]) => slug === onlyCover))
+  throw new Error('Unknown cover: ' + onlyCover);
+const previousManifest = JSON.parse(
+  await readFile(resolve(output, 'manifest.json'), 'utf8').catch((error) => {
+    if (error.code === 'ENOENT') return '{"assets":[]}';
+    throw error;
+  }),
+);
+const temporary = await mkdtemp(resolve(tmpdir(), 'orbital-project-demo-'));
 const text = (x, y, value, size = 18, color = '#dce5e7', weight = 400) =>
   `<text x="${x}" y="${y}" font-family="Arial, sans-serif" font-size="${size}" font-weight="${weight}" fill="${color}">${value}</text>`;
 const rect = (x, y, w, h, fill = '#152b3d', radius = 12, stroke = '#385266') =>
   `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${radius}" fill="${fill}" stroke="${stroke}"/>`;
-function cover(name, subtitle, category, index) {
+function cover(name, subtitle, category, index, shelf) {
   const accent =
     category === 'systems'
       ? '#e6af5b'
@@ -124,7 +137,7 @@ function cover(name, subtitle, category, index) {
       text(122, 247, 'SCENARIO COMPARISON', 12, '#90afbd', 700) +
       text(648, 477, 'workload →', 13, '#90afbd');
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#203c51"/><stop offset="1" stop-color="#091523"/></linearGradient></defs><rect width="960" height="600" fill="url(#bg)"/>${text(76, 58, category.toUpperCase() + ' / ' + String(index + 1).padStart(2, '0'), 12, accent, 700)}${text(74, 130, name, 56, '#eff0e9', 700)}${text(77, 166, subtitle, 20, '#adc0c9')}${content}<path d="M76 551 H884" stroke="#344e61"/>${text(76, 578, 'DESIGN EXPLORATION', 11, '#799bad', 600)}${text(755, 578, 'ORBITAL / 2026', 11, '#799bad', 600)}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#203c51"/><stop offset="1" stop-color="#091523"/></linearGradient></defs><rect width="960" height="600" fill="url(#bg)"/>${text(76, 58, shelf.toUpperCase() + ' / ' + String(index + 1).padStart(2, '0'), 12, accent, 700)}${text(74, 130, name, 56, '#eff0e9', 700)}${text(77, 166, subtitle, 20, '#adc0c9')}${content}<path d="M76 551 H884" stroke="#344e61"/>${text(76, 578, 'DESIGN EXPLORATION', 11, '#799bad', 600)}${text(755, 578, 'ORBITAL / 2026', 11, '#799bad', 600)}</svg>`;
 }
 function frame(progress) {
   const xs = [76, 238, 400, 562],
@@ -141,6 +154,15 @@ function frame(progress) {
 }
 async function record(key, file, mime, title, alt, extras = {}) {
   const bytes = await readFile(resolve(output, file));
+  const sha256 = createHash('sha256').update(bytes).digest('hex');
+  const previous = previousManifest.assets.find((asset) => asset.key === key);
+  const previousVersions = [...(previous?.previousVersions || [])];
+  if (
+    previous &&
+    previous.sha256 !== sha256 &&
+    !previousVersions.some((version) => version.sha256 === previous.sha256)
+  )
+    previousVersions.push({ size: previous.size, sha256: previous.sha256 });
   assets.push({
     key,
     file,
@@ -148,15 +170,26 @@ async function record(key, file, mime, title, alt, extras = {}) {
     title,
     alt,
     size: bytes.length,
-    sha256: createHash('sha256').update(bytes).digest('hex'),
+    sha256,
+    ...(previousVersions.length ? { previousVersions } : {}),
     ...extras,
   });
 }
 try {
   await mkdir(output, { recursive: true });
   for (const [index, [slug, name, subtitle, category]] of projects.entries()) {
-    if (!gifOnly)
-      await sharp(Buffer.from(cover(name, subtitle, category, index)))
+    if (!gifOnly && (!onlyCover || onlyCover === slug))
+      await sharp(
+        Buffer.from(
+          cover(
+            name,
+            subtitle,
+            category,
+            index,
+            SAMPLE_PROJECT_CATEGORIES[slug],
+          ),
+        ),
+      )
         .webp({ quality: 86 })
         .toFile(resolve(output, slug + '.webp'));
     await record(
@@ -169,7 +202,7 @@ try {
   }
   const frames = resolve(temporary, 'frames');
   await mkdir(frames);
-  if (!gifOnly) {
+  if (!gifOnly && !onlyCover) {
     for (let i = 0; i < 48; i++)
       await sharp(Buffer.from(frame(i / 47)))
         .png()
@@ -189,24 +222,26 @@ try {
     );
     await copyFile(encodedVideo, resolve(output, 'relay-lifecycle.mp4'));
   }
-  const gifFrames = [];
-  for (let i = 0; i < 24; i++)
-    gifFrames.push(
-      await sharp(Buffer.from(frame(i / 23)))
-        .resize(320, 180)
-        .ensureAlpha()
-        .raw()
-        .toBuffer(),
+  if (!onlyCover) {
+    const gifFrames = [];
+    for (let i = 0; i < 24; i++)
+      gifFrames.push(
+        await sharp(Buffer.from(frame(i / 23)))
+          .resize(320, 180)
+          .ensureAlpha()
+          .raw()
+          .toBuffer(),
+      );
+    await sharp(Buffer.concat(gifFrames), {
+      raw: { width: 320, height: 180 * 24, channels: 4, pageHeight: 180 },
+    })
+      .gif({ loop: 2, delay: Array(24).fill(80), colours: 64, dither: 0 })
+      .toFile(resolve(output, 'relay-lifecycle.gif'));
+    await writeFile(
+      resolve(output, 'relay-lifecycle.vtt'),
+      'WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nA request is accepted and its intent is stored.\n\n00:00:01.000 --> 00:00:02.500\nThe queued job is picked up by a worker.\n\n00:00:02.500 --> 00:00:04.000\nThe worker completes the job and acknowledges the result.\n',
     );
-  await sharp(Buffer.concat(gifFrames), {
-    raw: { width: 320, height: 180 * 24, channels: 4, pageHeight: 180 },
-  })
-    .gif({ loop: 2, delay: Array(24).fill(80), colours: 64, dither: 0 })
-    .toFile(resolve(output, 'relay-lifecycle.gif'));
-  await writeFile(
-    resolve(output, 'relay-lifecycle.vtt'),
-    'WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nA request is accepted and its intent is stored.\n\n00:00:01.000 --> 00:00:02.500\nThe queued job is picked up by a worker.\n\n00:00:02.500 --> 00:00:04.000\nThe worker completes the job and acknowledges the result.\n',
-  );
+  }
   await record(
     'relay-captions',
     'relay-lifecycle.vtt',

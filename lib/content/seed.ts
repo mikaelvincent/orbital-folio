@@ -145,7 +145,7 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
         title: 'Relay',
         subtitle: 'Background work, brought into focus.',
         summary:
-          'A concept for a dependable job queue with clear retries, useful visibility, and a calmer operations experience.',
+          'A concept for a dependable job queue with clear retries, useful visibility, and a calmer operations experience. The source and live links are BullMQ reference examples, not a deployed Relay product.',
         category: 'BACKEND SERVICE',
         order: 0,
         sample: true,

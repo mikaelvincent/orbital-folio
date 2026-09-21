@@ -35,6 +35,33 @@ const PREVIOUS_RICH_SAMPLE_HASHES = {
       'f4a2afd2c9875ea7fb9c3aa4f00f00ee1e4cca8147934464b54d3ba094c49b25',
   },
 };
+// Exact nested-story samples through 194d359 and the first full-format Relay
+// story before its introduction clarified the reference links. Keep period-era
+// variants without relaxing any owner-authored field or media verification.
+const PREVIOUS_KNOWN_SAMPLE_HASHES = {
+  relay: {
+    seed: [
+      'c27a2571d448c35f0d4e0e357411b6b741896988dee9d3609d7971559872bb80',
+      '4bed11e108db26d38d04c1cb2477cc48df057c1efca8d76a60eea885b64a3b8e',
+      '5aed5b407d823eb6bdcda2e78fdec46f220d8c22222282756cce5ccf671021a7',
+    ],
+    populated: [
+      'd159289f5ba4dc7f7ae3abcad2d8c14ba4ec57d39456cef32f3df0f5dc631fd7',
+      '6524f444e4f5aae28a4a3604f645e417f6a167ef56e748459a934e1c2eb21304',
+      '3b83b8c0212d8df6d2c3b9399d7765ae7238ee66bc712b0bfb807e0b74dda7dd',
+    ],
+  },
+  meter: {
+    seed: [
+      '19076b57d702b291984e2b4d2da01d7701cb2d57887d3e783d51be772e0321b7',
+      'c202f480e6a051a6df7e3d977bca481d5e31ca3964d0abc42559b44ac824e723',
+    ],
+    populated: [
+      'b5d0c13389424b41cd6e1006e9b9d0349eaa9bce5e9394d34c15c55f9b56c0c6',
+      'e9e2c18458169e0a0f0f41dd1d05e431eea17eef234218c09a9d1e170f386a33',
+    ],
+  },
+};
 export function canonical(value) {
   if (Array.isArray(value)) return '[' + value.map(canonical).join(',') + ']';
   if (value && typeof value === 'object')
@@ -50,10 +77,21 @@ export function canonical(value) {
 }
 export const contentHash = (value) =>
   createHash('sha256').update(canonical(value)).digest('hex');
-function knownMediaHash(data, assets) {
-  const normalizedIds = new Map(
-    Object.entries(assets).map(([key, id]) => [id, 'demo-' + key]),
+function knownMediaHash(data, assets, previousAssets) {
+  const normalizedIds = new Map([
+    ...Object.entries(previousAssets).flatMap(([key, ids]) =>
+      ids.map((id) => [id, 'demo-' + key]),
+    ),
+    ...Object.entries(assets).map(([key, id]) => [id, 'demo-' + key]),
+  ]);
+  const mediaRefs = String(data.body || '').matchAll(
+    /\/media\/([a-zA-Z0-9_-]+)/g,
   );
+  if (
+    (data.mediaId && !normalizedIds.has(data.mediaId)) ||
+    [...mediaRefs].some(([, id]) => !normalizedIds.has(id))
+  )
+    return undefined;
   return contentHash({
     ...data,
     mediaId: normalizedIds.get(data.mediaId) || data.mediaId,
@@ -77,7 +115,12 @@ export function localBase(value = 'http://localhost:3000') {
     );
   return url.origin;
 }
-export function samplePopulationPlan(records, seeds, assets = {}) {
+export function samplePopulationPlan(
+  records,
+  seeds,
+  assets = {},
+  previousAssets = {},
+) {
   const update = [],
     skipped = [];
   for (const seed of seeds.filter(
@@ -108,10 +151,17 @@ export function samplePopulationPlan(records, seeds, assets = {}) {
     const rich = sampleProjectData(seed.data, assets);
     const hash = contentHash(current.draft);
     const previous = PREVIOUS_RICH_SAMPLE_HASHES[seed.data.slug];
+    const known = PREVIOUS_KNOWN_SAMPLE_HASHES[seed.data.slug];
+    const normalizedHash = knownMediaHash(
+      current.draft,
+      assets,
+      previousAssets,
+    );
     const knownPrevious =
-      previous &&
-      (hash === previous.seed ||
-        knownMediaHash(current.draft, assets) === previous.populated);
+      (previous &&
+        (hash === previous.seed || normalizedHash === previous.populated)) ||
+      known?.seed.includes(hash) ||
+      known?.populated.includes(normalizedHash);
     if (
       !knownPrevious &&
       ![

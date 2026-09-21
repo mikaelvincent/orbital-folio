@@ -41,6 +41,7 @@ const action = async (body) =>
   ).json();
 let records = await refresh();
 const ids = {},
+  previousIds = {},
   existingAssets = new Map();
 function metadata(asset, id) {
   return {
@@ -55,32 +56,44 @@ function metadata(asset, id) {
   };
 }
 for (const asset of manifest.assets) {
-  for (const record of records.filter(
-    (r) =>
-      r.kind === 'media' &&
-      r.draft.title === asset.title &&
-      r.draft.mime === asset.mime &&
-      r.draft.size === asset.size,
-  )) {
-    if (canonical(record.draft) !== canonical(metadata(asset, record.id)))
-      continue;
-    if (
-      record.published &&
-      canonical(record.published) !== canonical(record.draft)
-    )
-      continue;
-    const bytes = await (await request('/media/' + record.id)).arrayBuffer();
-    if (
-      createHash('sha256').update(new Uint8Array(bytes)).digest('hex') !==
-      asset.sha256
-    )
-      continue;
-    ids[asset.key] = record.id;
-    existingAssets.set(asset.key, record);
-    break;
+  for (const version of [
+    asset,
+    ...(asset.previousVersions || []).map((previous) => ({
+      ...asset,
+      ...previous,
+    })),
+  ]) {
+    for (const record of records.filter(
+      (r) =>
+        r.kind === 'media' &&
+        r.draft.title === asset.title &&
+        r.draft.mime === asset.mime &&
+        r.draft.size === version.size,
+    )) {
+      if (canonical(record.draft) !== canonical(metadata(version, record.id)))
+        continue;
+      if (
+        record.published &&
+        canonical(record.published) !== canonical(record.draft)
+      )
+        continue;
+      const bytes = await (await request('/media/' + record.id)).arrayBuffer();
+      if (
+        createHash('sha256').update(new Uint8Array(bytes)).digest('hex') !==
+        version.sha256
+      )
+        continue;
+      if (version === asset) {
+        ids[asset.key] = record.id;
+        existingAssets.set(asset.key, record);
+      } else {
+        (previousIds[asset.key] ||= []).push(record.id);
+      }
+      break;
+    }
   }
 }
-let plan = samplePopulationPlan(records, seeds, ids);
+let plan = samplePopulationPlan(records, seeds, ids, previousIds);
 if (!apply) {
   console.log(
     JSON.stringify(
@@ -156,7 +169,7 @@ for (const asset of needed) {
 }
 // Re-check exact revisions and owner changes after uploads, before touching any project.
 records = await refresh();
-plan = samplePopulationPlan(records, seeds, ids);
+plan = samplePopulationPlan(records, seeds, ids, previousIds);
 for (const item of plan.update) {
   if (item.unchanged) continue;
   const saved = await action({

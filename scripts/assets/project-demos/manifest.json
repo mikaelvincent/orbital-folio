@@ -80,8 +80,14 @@
       "mime": "image/webp",
       "title": "Meter interface overview",
       "alt": "A code-authored Meter design illustration showing two workload scenario curves.",
-      "size": 15682,
-      "sha256": "5323ac70a75b58ce248b9024ecbc7527e822b4c16fcf7b5372ece4b333209372"
+      "size": 15470,
+      "sha256": "4249c4817b8af0e4e4b79f0c57d6307b7034715bf3b7f6eef140fe2a95bb8e39",
+      "previousVersions": [
+        {
+          "size": 15682,
+          "sha256": "5323ac70a75b58ce248b9024ecbc7527e822b4c16fcf7b5372ece4b333209372"
+        }
+      ]
     },
     {
       "key": "relay-captions",

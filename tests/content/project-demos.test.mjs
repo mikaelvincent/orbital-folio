@@ -77,7 +77,12 @@ await test('nine authored sample stories exercise uneven categories and rich Mar
       'fresh seeds do not reference absent blobs',
     );
   }
-  assert.deepEqual(counts, { systems: 5, interfaces: 3, experiments: 1 });
+  assert.deepEqual(counts, { systems: 6, interfaces: 3, experiments: 0 });
+  assert.equal(
+    projects.length,
+    9,
+    'keep every story while exposing an empty shelf',
+  );
   const relay = sampleProjectData(
     projects.find((p) => p.data.slug === 'relay').data,
     ids,
@@ -85,6 +90,60 @@ await test('nine authored sample stories exercise uneven categories and rich Mar
   assert.ok(relay.body.includes('/media/demo-relay-video'));
   assert.ok(relay.body.includes('/media/demo-relay-motion'));
   assert.equal(relay.mediaId, 'demo-relay');
+});
+
+await test('Relay demonstrates the supported rich-story vocabulary and identifies its external reference links honestly', () => {
+  const relay = sampleProjectData(
+    projects.find((project) => project.data.slug === 'relay').data,
+    ids,
+  );
+  const types = new Set(),
+    headings = new Set(),
+    tasks = new Set(),
+    starts = new Set();
+  void marked.walkTokens(marked.lexer(relay.body), (token) => {
+    types.add(token.type);
+    if (token.type === 'heading') headings.add(token.depth);
+    if (token.type === 'list' && token.ordered) starts.add(token.start);
+    if (token.type === 'list_item' && token.task) tasks.add(token.checked);
+  });
+  for (const type of [
+    'heading',
+    'strong',
+    'em',
+    'del',
+    'codespan',
+    'code',
+    'blockquote',
+    'list',
+    'table',
+    'hr',
+    'br',
+    'link',
+    'image',
+  ])
+    assert.ok(types.has(type), type);
+  assert.deepEqual(
+    [...headings].sort((a, b) => a - b),
+    [2, 3, 4, 5, 6],
+  );
+  assert.deepEqual(
+    [...tasks].sort((a, b) => Number(a) - Number(b)),
+    [false, true],
+  );
+  assert.ok(starts.has(7), 'authored numbered-list starts remain visible');
+  assert.equal(relay.sourceUrl, 'https://github.com/taskforcesh/bullmq');
+  assert.equal(relay.demoUrl, 'https://docs.bullmq.io/');
+  assert.match(
+    relay.summary,
+    /source and live links are BullMQ reference examples, not a deployed Relay product/,
+  );
+  assert.match(
+    relay.body,
+    /independent queue-design references, not a Relay deployment/,
+  );
+  for (const key of ['relay', 'relay-video', 'relay-motion'])
+    assert.ok(relay.body.includes('/media/' + ids[key]));
 });
 
 await test('browsable demo stories demonstrate varied nested ordered, unordered and task lists', () => {
@@ -206,6 +265,131 @@ await test('previous rich demo migration requires exact content and verified med
   );
 });
 
+await test('the full-feature story upgrade recognizes only exact previous nested samples', async () => {
+  const previous = JSON.parse(
+    await readFile(
+      new URL('./fixtures/project-demo-nested-v2.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const localIds = Object.fromEntries(
+    manifest.assets.map((asset, i) => [asset.key, 'verified-upgrade-' + i]),
+  );
+  for (const slug of ['relay', 'meter']) {
+    const seed = projects.find((project) => project.data.slug === slug);
+    const populated = {
+      ...previous[slug].populated,
+      mediaId: localIds[slug],
+      body: previous[slug].populated.body.replace(
+        /\/media\/demo-([a-zA-Z0-9_-]+)/g,
+        (_, key) => '/media/' + localIds[key],
+      ),
+    };
+    for (const input of [previous[slug].seed, populated]) {
+      for (const data of [
+        input,
+        { ...input, period: 'Sample project · 2026' },
+      ]) {
+        const current = record(seed, data);
+        const before = canonical(current);
+        const plan = samplePopulationPlan([current], [seed], localIds);
+        assert.equal(plan.update.length, 1, slug);
+        assert.equal(plan.update[0].unchanged, false);
+        assert.deepEqual(plan.update[0].data.categories, ['systems']);
+        assert.equal(
+          canonical(current),
+          before,
+          'planning does not mutate input',
+        );
+      }
+    }
+    for (const data of [populated, previous[slug].populated])
+      assert.equal(
+        samplePopulationPlan([record(seed, data)], [seed], {}).update.length,
+        0,
+        'unverified media cannot qualify, including canonical demo IDs',
+      );
+    for (const edit of [
+      { body: populated.body + '\nOwner notes.' },
+      { title: 'An authored title' },
+      { sourceUrl: 'https://github.com/owner/project' },
+      { demoUrl: 'https://owner.example/project' },
+      { categories: ['interfaces'] },
+      { period: 'An authored date' },
+      { mediaId: localIds.fieldnotes },
+    ])
+      assert.equal(
+        samplePopulationPlan(
+          [record(seed, { ...populated, ...edit })],
+          [seed],
+          localIds,
+        ).update.length,
+        0,
+        'retain every owner-edited field',
+      );
+  }
+  const meter = projects.find((project) => project.data.slug === 'meter');
+  const oldMediaId = 'verified-prior-meter-cover';
+  const oldMeter = {
+    ...previous.meter.populated,
+    mediaId: oldMediaId,
+    body: previous.meter.populated.body.replaceAll(
+      '/media/demo-meter',
+      '/media/' + oldMediaId,
+    ),
+  };
+  assert.equal(
+    samplePopulationPlan([record(meter, oldMeter)], [meter], localIds).update
+      .length,
+    0,
+  );
+  const assetUpgrade = samplePopulationPlan(
+    [record(meter, oldMeter)],
+    [meter],
+    localIds,
+    { meter: [oldMediaId] },
+  );
+  assert.equal(assetUpgrade.update.length, 1);
+  assert.equal(assetUpgrade.update[0].data.mediaId, localIds.meter);
+  assert.ok(
+    assetUpgrade.update[0].data.body.includes('/media/' + localIds.meter),
+  );
+  assert.ok(!assetUpgrade.update[0].data.body.includes(oldMediaId));
+  assert.equal(
+    samplePopulationPlan(
+      [record(meter, { ...oldMeter, title: 'Owner edit' })],
+      [meter],
+      localIds,
+      { meter: [oldMediaId] },
+    ).update.length,
+    0,
+  );
+});
+
+await test('clarifying reference links upgrades only the exact preceding Relay story', async () => {
+  const previous = JSON.parse(
+    await readFile(
+      new URL('./fixtures/project-demo-relay-v3.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const relay = projects.find((project) => project.data.slug === 'relay');
+  for (const input of [previous.seed, previous.populated]) {
+    const plan = samplePopulationPlan([record(relay, input)], [relay], ids);
+    assert.equal(plan.update.length, 1);
+    assert.equal(plan.update[0].unchanged, false);
+    assert.match(plan.update[0].data.summary, /BullMQ reference examples/);
+    assert.equal(
+      samplePopulationPlan(
+        [record(relay, { ...input, summary: input.summary + ' Owner edit.' })],
+        [relay],
+        ids,
+      ).update.length,
+      0,
+    );
+  }
+});
+
 await test('local population preserves owner edits, divergent drafts, unpublished content and is a no-op after an exact run', () => {
   const fresh = projects.map((s) => record(s));
   assert.equal(samplePopulationPlan(fresh, seeds, ids).update.length, 9);
@@ -309,7 +493,7 @@ await test('checked-in demo media matches provenance hashes and contains decoded
       );
     }
   }
-  assert.equal(total, 206539);
+  assert.equal(total, 206327);
   assert.doesNotThrow(() =>
     validateMediaBytes(
       Uint8Array.from([71, 73, 70, 56, 57, 97, 1, 0, 1, 0, 0, 0, 0, 59]),
