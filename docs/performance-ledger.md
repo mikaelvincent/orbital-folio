@@ -2573,6 +2573,33 @@ and affected lint and production build pass. Independent critic: **95/100**, app
 no blockers or required revisions. The rubric and limitations are recorded with
 the matching evidence.
 
+## 43 — Restore dim idle and bright hover feedback (22 September 2026)
+
+Baseline `53f1e4f`. The owner clarified that the dim resting state was desirable;
+entry 42 had removed it while addressing the wrong interpretation of the report.
+The shared selectable-object multiplier is restored to **0.65 idle → 1.15 hover
+or focus → 0.65 idle**, including all four archive cartridges. The earlier
+correction keeping archive categories interactive remains. The cartridge rim,
+colors, dimensions and artwork are unchanged; the owner explicitly deferred a
+separate outline redesign.
+
+[Evidence](evidence/dim-hover-restoration/README.md) records sustained idle,
+focus/departure and material regression coverage. Runtime inspection found no
+separate timed reset; this change restores the requested behavior and does not
+claim to identify another reset mechanism. The model reapplies feedback after
+ordinary room lighting each frame. Camera, geometry, textures, room illumination
+and orbital projection remain unchanged. No CPU/GPU performance, memory, heat or
+battery measurements or improvement claims are made; held candidates remain held.
+
+Verification: the focused regression suite passed **5/5**; the isolated full
+suite passed **434/434**, with typecheck, affected lint and production build
+passing against matching source. Hidden Chromium desktop and portrait captures
+show dim idle, brighter keyboard focus and a dim return; the archive also
+remained dim after 50.5 seconds of idle. Native pointer movement, Safari and
+physical touch were not tested. Independent critic: **96/100**, approved with
+no unresolved blockers or required revisions; rubric and limitations are recorded
+with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

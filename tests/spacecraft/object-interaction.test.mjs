@@ -68,7 +68,7 @@ test('The shared brightness transition is smooth and independent of refresh rate
   assert.ok(Math.abs(simulate(60) - simulate(120)) < 1e-12);
 });
 
-test('Arriving in an application room preserves every screen’s resting brightness', () => {
+test('Selectable screens and cartridges stay dim until hover and return to dim after it leaves', () => {
   const model = createSpacecraft(THREE, {
     projects: [
       {
@@ -107,8 +107,6 @@ test('Arriving in an application room preserves every screen’s resting brightn
   ];
   try {
     for (const [room, screens] of rooms) {
-      // The final travel frame and the first settled frame share full room
-      // illumination. Enabling selection must not introduce a darker material.
       model.update(1, room, true, {
         activeRoom: room,
         transitRoom: room,
@@ -123,6 +121,8 @@ test('Arriving in an application room preserves every screen’s resting brightn
           for (const material of [object.material].flat())
             if (material?.color)
               before.set(material, {
+                screen,
+                rim: material.name.endsWith('-hover-rim'),
                 color: material.color.clone(),
                 emissive: material.emissive?.clone(),
                 intensity: material.emissiveIntensity,
@@ -130,23 +130,77 @@ test('Arriving in an application room preserves every screen’s resting brightn
         });
       }
       assert.ok(before.size > 0);
-      for (let frame = 0; frame < 12; frame++) {
-        model.update(1 + (frame + 1) / 60, room, false, {
-          travelling: false,
-          delta: 1 / 60,
-        });
-        for (const [material, previous] of before) {
+      const assertMaterials = (hoveredId = null) => {
+        for (const [material, authored] of before) {
+          const hovered =
+            hoveredId === authored.screen.root.userData.interactableId;
+          const level = authored.rim ? 1 : hovered ? 1.15 : 0.65;
           assert.ok(
-            material.color.equals(previous.color),
-            `${room}: ${material.name} must not darken when travel ends`,
+            material.color.equals(authored.color.clone().multiplyScalar(level)),
+            `${room}: ${material.name} must retain its intended idle/hover level`,
           );
-          if (previous.emissive)
+          if (authored.emissive)
             assert.ok(
-              material.emissive.equals(previous.emissive),
-              `${room}: ${material.name} must retain its backlight`,
+              material.emissive.equals(
+                authored.emissive.clone().multiplyScalar(level),
+              ),
+              `${room}: ${material.name} backlight must follow the same level`,
             );
-          assert.equal(material.emissiveIntensity, previous.intensity);
+          assert.equal(material.emissiveIntensity, authored.intensity);
+          if (authored.rim) assert.equal(material.opacity, hovered ? 0.95 : 0);
         }
+      };
+      // Ten seconds of real model updates cannot brighten idle controls again.
+      // Defer matrix refresh, as the production runtime does; materials still
+      // pass through room illumination and object feedback every frame.
+      for (let frame = 0; frame < 600; frame++) {
+        model.update(
+          1 + (frame + 1) / 60,
+          room,
+          false,
+          {
+            travelling: false,
+            delta: 1 / 60,
+          },
+          true,
+        );
+        if (frame % 60 === 0 || frame === 599) assertMaterials();
+      }
+      for (const screen of screens) {
+        model.update(
+          12,
+          room,
+          true,
+          {
+            hoveredObject: screen.root.userData.interactableId,
+          },
+          true,
+        );
+        // Contact's main computer uses its registered object id on the root.
+        const hoveredId = screen.root.userData.interactableId;
+        assertMaterials(hoveredId);
+        model.update(
+          12 + 1 / 60,
+          room,
+          false,
+          {
+            hoveredObject: null,
+            delta: 1 / 60,
+          },
+          true,
+        );
+        assert.ok(screen.root.userData.highlightLevel < 1.15);
+        assert.ok(screen.root.userData.highlightLevel > 0.65);
+        for (let frame = 0; frame < 180; frame++)
+          model.update(
+            12 + (frame + 2) / 60,
+            room,
+            false,
+            { delta: 1 / 60 },
+            true,
+          );
+        assert.equal(screen.root.userData.highlightLevel, 0.65);
+        assertMaterials();
       }
     }
   } finally {
@@ -266,7 +320,7 @@ test('Computer and social screens retain native anchors, independent feedback an
       hoveredObject: selected.interactableId,
     });
     assert.equal(selected.root.userData.highlightLevel, 1.15);
-    assert.equal(other.root.userData.highlightLevel, 1);
+    assert.equal(other.root.userData.highlightLevel, 0.65);
     assert.equal(computer.root.userData.hoverProgress, 0);
     assert.equal(model.group.userData.geometryRevision, activeRevision);
   }
@@ -276,7 +330,7 @@ test('Computer and social screens retain native anchors, independent feedback an
     hoveredObject: 'contact-social-left',
   });
   assert.equal(left.root.userData.highlightLevel, 1.15);
-  assert.equal(right.root.userData.highlightLevel, 1);
+  assert.equal(right.root.userData.highlightLevel, 0.65);
   model.update(2, '', true, {
     activeRoom: 'contact',
     hoveredObject: 'contact-social-left',

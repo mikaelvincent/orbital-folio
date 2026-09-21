@@ -1,0 +1,18 @@
+{
+  "baseline": "53f1e4f5fdbd3821c7ed042a639c66035eeba9dc",
+  "paths": {
+    "features/spacecraft/navigation/interactable-object-highlight.ts": {
+      "root": "453e52760fa472ae71eccc65535ea493d82bbabce244c2e8a94f1e9674f7485b",
+      "fixture": "453e52760fa472ae71eccc65535ea493d82bbabce244c2e8a94f1e9674f7485b"
+    },
+    "tests/spacecraft/object-interaction.test.mjs": {
+      "root": "d1b4b089e71e5637e2501fe47e11c7fe8f2bc1a91b2e813944d51c3038e0c859",
+      "fixture": "d1b4b089e71e5637e2501fe47e11c7fe8f2bc1a91b2e813944d51c3038e0c859"
+    }
+  },
+  "note": "Production helper and regression test were identical between the working tree and isolated verification fixture.",
+  "documentationAfterReview": {
+    "docs/PROJECT-CONTEXT.md": "52c500d56b26c8157c0ffa79ea549afa0989549cff4ee979148eb86e0b06c017",
+    "docs/performance-ledger.md": "51fd4c038e3cee56da077fda9a37e95fed4d608fd867e76498f45b2a1dc11d1d"
+  }
+}

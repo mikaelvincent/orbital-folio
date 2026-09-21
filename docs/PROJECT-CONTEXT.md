@@ -170,11 +170,15 @@ and [visible-room navigation evidence](evidence/room-access-and-hardware/README.
 remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
-Registered screens in Projects, Case studies and Contact retain their authored
-resting brightness as room travel settles. Hover/focus adds up to 15% brightness
-and the existing inset amber rim, then eases back to the resting level. The former
-65% idle multiplier produced a sudden darkening when interaction became enabled;
-it is removed. Ordinary room dimming and application wall feedback remain.
+The owner clarified on 22 September 2026 that the dim resting state is desired.
+Selectable screens in Projects, Case studies and Contact, including the four
+archive cartridges, stay at a **0.65** multiplier until hovered or keyboard-focused,
+then ease toward **1.15** and return to **0.65** on departure. Do not restore regular
+brightness merely because hover ended or idle time elapsed. Normal room lighting
+still applies; overview, disabled controls and an already-open application's own
+monitor keep their existing nonselectable behavior. This supersedes the earlier
+removal of the dim resting state. The owner explicitly deferred any redesign of
+the cartridge highlight box: preserve its existing rim, color and dimensions.
 
 ## Projects library and authoring
 

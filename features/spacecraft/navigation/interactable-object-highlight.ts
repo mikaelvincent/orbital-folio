@@ -106,9 +106,10 @@ export function createObjectHighlight(
         : 1 - Math.exp(-Math.max(0, Math.min(0.1, delta)) * 15);
       progress += (target - progress) * blend;
       if (Math.abs(target - progress) < 0.002) progress = target;
-      // Selection becomes enabled when room travel ends. Keep the authored
-      // resting brightness through that boundary; only hover adds brightness.
-      const level = enabled ? 1 + progress * 0.15 : 1;
+      // Selectable objects stay dim until hovered or focused, then return to
+      // that same dim baseline. Reapply from the room material every frame so
+      // neither room lighting nor a completed hover can restore regular idle.
+      const level = enabled ? 0.65 + progress * 0.5 : 1;
       for (const [source, material] of materials) {
         material.color.copy(source.color).multiplyScalar(level);
         if (material.emissive && source.emissive) {

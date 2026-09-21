@@ -1,0 +1,47 @@
+{
+  "reviewer": "Independent critic agent /root/case_study_critic",
+  "verdict": "approve",
+  "score": 96,
+  "rubric": [
+    {
+      "criterion": "Clarified request and scope",
+      "score": 30,
+      "maximum": 30
+    },
+    {
+      "criterion": "Correctness and regression protection",
+      "score": 30,
+      "maximum": 30
+    },
+    {
+      "criterion": "Visual consistency and accessibility",
+      "score": 18,
+      "maximum": 20
+    },
+    {
+      "criterion": "Verification and evidence",
+      "score": 18,
+      "maximum": 20
+    }
+  ],
+  "blockers": [],
+  "requiredRevisions": [],
+  "resolvedFindings": [
+    "Corrected documentation to attribute only the deferred outline redesign to the owner; small portrait targets are an unchanged existing limitation."
+  ],
+  "reviewed": [
+    "Final production helper and model regression source, with matching isolated-fixture hashes",
+    "All 13 final desktop and portrait live Chromium captures",
+    "50.5-second sustained-idle capture and recorded hover/camera states",
+    "434 passing isolated tests, typecheck, affected lint, production build, and diff check",
+    "Project context, evidence README, and ledger update"
+  ],
+  "conclusion": "Selectable screens and cartridges follow 0.65 idle → 1.15 hover/focus → 0.65 idle. Archive choices remain interactive. Rim geometry, color, dimensions and behavior are unchanged. No unresolved blockers or required revisions.",
+  "limitations": [
+    "Browser interaction used genuine keyboard focus; physical pointer movement is not available in the browser API.",
+    "Native Safari, physical touch, and live OS reduced-motion changes were not tested.",
+    "Small portrait targets and existing rim contrast remain unchanged.",
+    "No separate timed reset was reproduced; this work restores the requested state model without claiming another reset mechanism was identified."
+  ],
+  "postReviewChanges": "Only recording this verdict in the README/ledger and evidence metadata; no production or test changes."
+}

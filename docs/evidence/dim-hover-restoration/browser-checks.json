@@ -1,0 +1,171 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "input": "Native keyboard focus; physical pointer movement unavailable",
+  "captures": "Original browser JPEGs, no manual scaling",
+  "desktop": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "runtimeDpr": 2,
+    "drawingBuffer": [
+      2560,
+      1440
+    ],
+    "gtao": true
+  },
+  "portrait": {
+    "viewport": [
+      390,
+      844
+    ],
+    "runtimeDpr": 1,
+    "drawingBuffer": [
+      390,
+      844
+    ],
+    "gtao": false
+  },
+  "sustainedIdleIntervalMs": 50489,
+  "checks": [
+    {
+      "timestamp": 1790034308945,
+      "stage": "case-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "2.0870,1.5400,5.5100",
+      "hover": "",
+      "renderDpr": "2"
+    },
+    {
+      "timestamp": 1790034322381,
+      "stage": "cartridge-focused",
+      "viewport": [
+        1280,
+        720
+      ],
+      "focused": "Open Product engineering",
+      "hover": "case-study-screen-product"
+    },
+    {
+      "timestamp": 1790034366138,
+      "stage": "case-returned-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "2.0870,1.5400,5.5100",
+      "focused": "Scene tools",
+      "hover": ""
+    },
+    {
+      "timestamp": 1790034416627,
+      "stage": "case-sustained-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "2.0870,1.5400,5.5100",
+      "hover": "",
+      "lighting": 1
+    },
+    {
+      "timestamp": 1790034455774,
+      "stage": "projects-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "-2.0870,1.5400,5.5102",
+      "hover": "",
+      "renderDpr": "2"
+    },
+    {
+      "timestamp": 1790034475828,
+      "stage": "projects-focused",
+      "viewport": [
+        1280,
+        720
+      ],
+      "focused": "Open All projects",
+      "hover": "projects-screen-all"
+    },
+    {
+      "timestamp": 1790034490915,
+      "stage": "projects-returned-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "-2.0870,1.5400,5.5102",
+      "hover": ""
+    },
+    {
+      "timestamp": 1790034625562,
+      "stage": "contact-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "2.0870,-1.4050,5.5100",
+      "drawingBuffer": "2560,1440",
+      "hover": "",
+      "renderDpr": "2"
+    },
+    {
+      "timestamp": 1790034637573,
+      "stage": "contact-focused",
+      "viewport": [
+        1280,
+        720
+      ],
+      "focused": "Open Contact computer",
+      "hover": "contact-computer"
+    },
+    {
+      "timestamp": 1790034661045,
+      "stage": "contact-returned-idle",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": "2.0870,-1.4050,5.5100",
+      "hover": ""
+    },
+    {
+      "timestamp": 1790034681808,
+      "stage": "case-portrait-idle",
+      "viewport": [
+        390,
+        844
+      ],
+      "camera": "2.0870,1.5400,7.1286",
+      "drawingBuffer": "390,844",
+      "hover": "",
+      "renderDpr": "1",
+      "shading": "false"
+    },
+    {
+      "timestamp": 1790034695086,
+      "stage": "case-portrait-focused",
+      "viewport": [
+        390,
+        844
+      ],
+      "focused": "Open Product engineering",
+      "hover": "case-study-screen-product"
+    },
+    {
+      "timestamp": 1790034728206,
+      "stage": "case-portrait-returned-idle",
+      "viewport": [
+        390,
+        844
+      ],
+      "camera": "2.0870,1.5400,7.1286",
+      "hover": ""
+    }
+  ]
+}
