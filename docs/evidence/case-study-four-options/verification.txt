@@ -1,0 +1,68 @@
+Case studies four-option screen: automated verification
+Date: 2026-09-21
+Runtime: Node v26.0.0; installed repository dependencies.
+
+Isolation:
+- Disposable tracked-source checkout from HEAD, then final changed source files copied.
+- Excluded .env*, .dev.vars and .wrangler; no main secrets, database or uploads copied.
+- Fresh npm run setup generated test-only secrets and applied all five migrations.
+- Separate loopback dev server: http://127.0.0.1:3005 (HTTP 200 before tests).
+- Verified .dev.vars, .wrangler/state and both Vite caches resolve inside fixture.
+- Tests ran from the disposable checkout with explicit TEST_BASE_URL.
+- Dependencies shared via individual symlinks; caches and emulator state stayed isolated.
+
+Source SHA-256 (fixture matches final workspace):
+8696b6f96b1d15e728e725c64f2252caac79cac659cfbc04de1771db32b9bc6b  features/spacecraft/rooms/case-study-archive.ts
+87d263e43d6f9414e37b782476aaca63e3244a956825d216627212da6dba1574  features/spacecraft/rooms/cabin-composition.ts
+be3d6cafd8c6164254e23423682ddd7e2dd8a681376b0bd60d494e4c2c8c9fa9  features/spacecraft/spacecraft-model.ts
+777243c3f4fd62bcba58e3b5dd75ad9c28ef21a9fd3aaf3d5c60091343dee005  tests/spacecraft/coalesce-static-instances.test.mjs
+
+Full suite command:
+TEST_BASE_URL=http://127.0.0.1:3005 npm test
+
+Initial result, before correcting the stale art-count assertion:
+ℹ tests 416
+ℹ suites 0
+ℹ pass 415
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144464.116583
+
+The sole failure was tests/spacecraft/coalesce-static-instances.test.mjs:
+"expected useful static sibling savings, received 18".
+The old minimum was >=20 draws removed. Removing authored furniture changes that
+count. The final test requires positive savings and retains the stronger exact
+rendered-instance preservation checks across six layout/room/reading states plus
+manual/automatic coalescing equivalence. No production source changed after the
+full suite. Only that affected test file was rerun, as shown below.
+
+Final focused command:
+node --test tests/spacecraft/coalesce-static-instances.test.mjs
+✔ Coalescing retains every exact geometry input, world instance matrix, color and render flag (10.055459ms)
+✔ Different geometry bytes, sibling transforms, state, materials and parents remain separate (3.859042ms)
+✔ Dynamic, transparent, custom shader/callback and interactive instances are rejected (1.55775ms)
+✔ Transmissive physical siblings retain separate draw ordering even with transparent=false (0.267458ms)
+✔ Real spacecraft batches preserve exact instances through layouts, room updates and reading transitions (1697.8395ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1915.135167
+
+Other required checks:
+- npm run typecheck: PASS (exit 0).
+- npm run build: PASS (exit 0), including npm run geometry:check prebuild.
+- npm run lint -- features/spacecraft/rooms/case-study-archive.ts features/spacecraft/rooms/cabin-composition.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/coalesce-static-instances.test.mjs: PASS (exit 0).
+
+Build limitations/notices:
+- Existing tooling warns module.register() is deprecated under Node 26.
+- Vite warns about chunks larger than 500 kB after minification.
+- Vinext reports some routes cannot be classified with its current static analysis.
+- No browser or performance measurements were performed by the verification agent.
+
+Cleanup: fixture server stopped, port 3005 closed, and disposable source/state removed.

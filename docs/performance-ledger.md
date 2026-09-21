@@ -2483,6 +2483,34 @@ is untested. Held optimization candidates remain held.
 All **25 targeted tests** and required checks pass. Independent critic:
 **95/100**, keep, no unresolved blockers.
 
+## 40 — Four-recorder Case studies room and taller terminal (21 September 2026)
+
+Baseline `32d7577`. The owner removed the bottom Field notes recorder and asked
+for a taller, narrower screen that fills the available space. The four upper
+cartridges stay aligned; terminal glass is now **1.76 × 0.99 (16:9)** before its
+existing 0.85 scale, with matching casing, handles, hinge supports and artwork.
+This supersedes entry 36's restored wide terminal and is a new authored baseline.
+Shared room cameras and the renderer remain unchanged.
+
+[Source-identified evidence](evidence/case-study-four-options/README.md) preserves
+live Chromium desktop, portrait, compact, drag-return and overview views. The
+static Node wide-layout inventory (excluding document-backed graphics/textures)
+changes **452 → 450 visible meshes**, **1,009,734 → 1,000,234 triangle inputs** and
+**36,143,548 → 35,892,276 geometry-array bytes**. These are not submitted draw calls
+or GPU timings. The larger 1536×864 screen canvas, less the removed 1536×115 label,
+adds an estimated **3,535,832 RGBA8+mip bytes (3.37 MiB)**. No new media download,
+render pass or per-frame painting. Actual memory, preparation/upload, CPU/GPU
+pacing, heat and battery were not measured; no speedup is claimed. Held candidates
+remain held.
+
+The isolated full suite passed **415/416**, with one stale minimum-batch assertion
+exposed by the removed recorder. After replacing that art-dependent threshold
+with actual-coalescing and retaining all exact-instance/equivalence checks, the
+full affected file passes **5/5**. Typecheck, affected lint and production build
+pass. No implementation changed after that full suite; only the test was corrected.
+Native Safari and physical touch remain untested. Independent critic: **94/100**,
+approve, no blockers or required revisions; rubric is preserved with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

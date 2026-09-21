@@ -1,0 +1,21 @@
+{
+  "method": "Nominal RGBA8 storage with full mip chains; estimates, not GPU/process memory. Dimensions derived from Canvas2D graphics helper. Excludes canvas backing, driver overhead, Earth, other textures and targets.",
+  "terminal": {
+    "before": {
+      "width": 1536,
+      "height": 318,
+      "bytes": 2603080
+    },
+    "after": {
+      "width": 1536,
+      "height": 864,
+      "bytes": 7077784
+    }
+  },
+  "removedFieldNotesPrint": {
+    "width": 1536,
+    "height": 115,
+    "bytes": 938872
+  },
+  "netByteDelta": 3535832
+}

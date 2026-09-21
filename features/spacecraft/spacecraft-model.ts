@@ -2854,7 +2854,7 @@ export function createSpacecraft(
     'https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking',
   ];
   group.userData.description =
-    'A two-by-two toybox spacecraft with a four-module project workshop, five flight-recorder category cartridges and a raked archive terminal, a retained personal study and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
+    'A two-by-two toybox spacecraft with a four-module project workshop, four flight-recorder category cartridges and a raked archive terminal, a retained personal study and a dedicated communications room; a docking nose and right-hand service wings complete the pressure hull';
   group.userData.detailStats = {
     staticSourceParts: sourceParts,
     drawCalls: targets.length,

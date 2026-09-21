@@ -81,10 +81,16 @@ Recent approved arrangement:
 - Hull, roof/keel and ladder returns read as continuous rounded pressure
   structure. Preserve curves while eliminating bulges, clipping, exposed seams,
   raised reveal trim and flicker. Functional tool edges are not chassis defects.
-- The Case studies floor terminal retains its original wide, raked display on
-  paired hinged supports, with 2.37 × 0.49 glass in local model units before the
-  existing 0.85 rig scale. The compact 16:9 redesign was reverted at the owner's
-  request; its historical evidence does not describe the current terminal.
+- Case studies has four recorder cartridges: Product engineering, Systems &
+  reliability, Research & experiments, and Design & interfaces. The owner removed
+  the bottom Field notes cartridge and its runners. The remaining rows retain
+  their upper alignment, making room below for taller **16:9** terminal glass
+  (**1.76 × 0.99** local units before the existing 0.85 rig scale). Its narrower
+  casing, handles, paired floor supports and centered screen artwork fit the new
+  proportions. The raked screen and shared room camera remain. This new request
+  supersedes the earlier restoration of the wide 2.37 × 0.49 display; it does not
+  restore the earlier rejected implementation. See the
+  [four-option room evidence](evidence/case-study-four-options/README.md).
 
 Current evidence: [symmetric access refinement](evidence/spacecraft-access-symmetry/README.md).
 The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves

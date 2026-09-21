@@ -219,16 +219,6 @@ export function buildCaseStudyArchive(
       ctx.lineTo(14, 11);
       ctx.lineTo(-14, 11);
       ctx.closePath();
-    } else {
-      ctx.moveTo(-10, -12);
-      ctx.lineTo(9, -12);
-      ctx.lineTo(9, 12);
-      ctx.lineTo(-10, 12);
-      ctx.closePath();
-      for (const yy of [-6, 0, 6]) {
-        ctx.moveTo(-5, yy);
-        ctx.lineTo(5, yy);
-      }
     }
     ctx.stroke();
     ctx.restore();
@@ -430,7 +420,7 @@ export function buildCaseStudyArchive(
   );
   if (rackMark.plane) rackMark.plane.position.set(0, 2.161, -0.727);
 
-  // Physical category cartridges. The last two use archive-dark jackets, as in the reference.
+  // Four category cartridges retain their upper rows, leaving room for the taller terminal.
   const categories = [
     {
       title: 'Product engineering',
@@ -456,10 +446,9 @@ export function buildCaseStudyArchive(
       code: 'FR–04',
       active: false,
     },
-    { title: 'Field notes', kind: 'notes', code: 'FR–05', active: false },
   ];
   categories.forEach((category, index) => {
-    const y = ARCHIVE_GRID.centerY + (2 - index) * ARCHIVE_GRID.rowPitch;
+    const y = ARCHIVE_GRID.topY - index * ARCHIVE_GRID.rowPitch;
     const cartridge = new THREE.Group();
     cartridge.name = prefix + 'cartridge-' + index;
     cartridge.position.set(0, y, -0.65);
@@ -669,18 +658,24 @@ export function buildCaseStudyArchive(
   fasteners(structuralScrews, floorRoot, 'structural');
 
   // A separate raked terminal on paired hinged struts; all components share the tilt.
+  const screenWidth = 1.76;
+  const screenHeight = (screenWidth * 9) / 16;
+  const enclosureWidth = screenWidth + 0.27;
+  const enclosureHeight = screenHeight + 0.245;
+  const handleX = enclosureWidth / 2 - 0.031;
+  const handleY = enclosureHeight / 2 - 0.1295;
   const terminalRig = new THREE.Group();
   terminalRig.name = prefix + 'terminal-floor-rig';
   terminalRig.scale.setScalar(0.85);
   floorRoot.add(terminalRig);
   const terminal = new THREE.Group();
   terminal.name = prefix + 'raked-terminal';
-  terminal.position.set(0, 0.435, 0.04);
+  terminal.position.set(0, 0.625, 0.04);
   terminal.rotation.x = -0.55;
   terminalRig.add(terminal);
   box(
-    2.64,
-    0.735,
+    enclosureWidth,
+    enclosureHeight,
     0.16,
     m.graphite,
     0,
@@ -691,8 +686,8 @@ export function buildCaseStudyArchive(
     'terminal-solid-enclosure',
   );
   box(
-    2.53,
-    0.635,
+    screenWidth + 0.16,
+    screenHeight + 0.145,
     0.026,
     m.recess,
     0,
@@ -703,10 +698,10 @@ export function buildCaseStudyArchive(
     'terminal-rebate',
   );
   const bezel = ring(
-    2.57,
-    0.668,
-    2.397,
-    0.51,
+    screenWidth + 0.2,
+    screenHeight + 0.178,
+    screenWidth + 0.027,
+    screenHeight + 0.02,
     0.039,
     m.edge,
     terminal,
@@ -714,8 +709,8 @@ export function buildCaseStudyArchive(
   );
   bezel.position.z = 0.091;
   box(
-    2.421,
-    0.535,
+    screenWidth + 0.051,
+    screenHeight + 0.045,
     0.025,
     m.rubber,
     0,
@@ -727,8 +722,8 @@ export function buildCaseStudyArchive(
   );
   let caseCount = Math.max(0, Math.floor(options.caseCount || 0));
   const display = graphics(
-    2.37,
-    0.49,
+    screenWidth,
+    screenHeight,
     terminal,
     'terminal-screen',
     (ctx, cw, ch) => {
@@ -738,54 +733,58 @@ export function buildCaseStudyArchive(
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
       ctx.strokeStyle = '#b9d7e7';
-      icon(ctx, 'folder', 90, 110, 77);
+      icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
       ctx.fillStyle = '#e2ebed';
-      ctx.textAlign = 'left';
+      ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = '600 70px Arial, sans-serif';
-      ctx.fillText('All case studies', 170, 114, 1030);
-      ctx.textAlign = 'right';
-      ctx.font = '500 65px Arial, sans-serif';
-      ctx.fillText(String(caseCount).padStart(2, '0'), cw - 65, 114, 220);
+      ctx.font = '600 100px Arial, sans-serif';
+      ctx.fillText('All case studies', cw / 2, ch * 0.48, cw - 150);
+      ctx.fillStyle = '#a8becb';
+      ctx.font = '400 39px Arial, sans-serif';
+      ctx.fillText(
+        'Ideas. Systems. People. Progress.',
+        cw / 2,
+        ch * 0.62,
+        cw - 150,
+      );
       ctx.strokeStyle = '#38596d';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(67, 175);
-      ctx.lineTo(cw - 67, 175);
+      ctx.moveTo(85, ch * 0.76);
+      ctx.lineTo(cw - 85, ch * 0.76);
       ctx.stroke();
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#a8becb';
-      ctx.font = '400 32px Arial, sans-serif';
-      ctx.fillText('Ideas. Systems. People. Progress.', 170, 224, 1100);
       ctx.fillStyle = '#7a98a9';
-      ctx.font = '500 17px monospace';
-      ctx.fillText('ARCHIVE INDEX  /  FLIGHT RECORDS', 67, ch - 30);
+      ctx.font = '500 26px monospace';
+      ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88);
       ctx.textAlign = 'right';
       ctx.fillStyle = '#d6b271';
-      ctx.fillText('LIBRARY ONLINE', cw - 67, ch - 30);
+      ctx.font = '500 38px Arial, sans-serif';
+      ctx.fillText(String(caseCount).padStart(2, '0'), cw - 85, ch * 0.88);
     },
     true,
   );
   if (display.plane) display.plane.position.z = 0.121;
   fasteners(
-    [
-      [-1.247, -0.299, 0.11],
-      [1.247, -0.299, 0.11],
-      [-1.247, 0.299, 0.11],
-      [1.247, 0.299, 0.11],
-    ],
+    [-1, 1].flatMap((x) =>
+      [-1, 1].map((y) => [
+        x * (enclosureWidth / 2 - 0.073),
+        y * (enclosureHeight / 2 - 0.0685),
+        0.11,
+      ]),
+    ),
     terminal,
     'terminal-bezel',
   );
   for (const side of [-1, 1]) {
     // Side handles stand proud of the screen; their shoes are fastened into the chassis.
-    for (const yy of [-0.238, 0.238]) {
+    for (const yy of [-handleY, handleY]) {
       box(
         0.079,
         0.078,
         0.12,
         m.graphite,
-        side * 1.289,
+        side * handleX,
         yy,
         0.098,
         terminal,
@@ -796,7 +795,7 @@ export function buildCaseStudyArchive(
         0.024,
         0.027,
         m.alloy,
-        side * 1.289,
+        side * handleX,
         yy,
         0.159,
         terminal,
@@ -805,15 +804,21 @@ export function buildCaseStudyArchive(
       );
     }
     rod(
-      [side * 1.289, -0.24, 0.163],
-      [side * 1.289, 0.24, 0.163],
+      [side * handleX, -handleY, 0.163],
+      [side * handleX, handleY, 0.163],
       0.021,
       m.amber,
       terminal,
       'terminal-amber-handle',
     );
     // At the floor, solid feet overlap both the knee and the two support members.
-    const x = side * 1.24;
+    const x = side * (enclosureWidth / 2 - 0.08);
+    const attachment = (y: number, z: number) =>
+      new THREE.Vector3(x, y, z)
+        .applyEuler(terminal.rotation)
+        .add(terminal.position);
+    const front = attachment(-0.16, -0.06);
+    const rear = attachment(0.16, -0.06);
     box(
       0.22,
       0.033,
@@ -840,7 +845,7 @@ export function buildCaseStudyArchive(
     );
     rod(
       [x, 0.071, 0.12],
-      [x, 0.287, 0.178],
+      front.toArray(),
       0.042,
       m.graphite,
       terminalRig,
@@ -848,7 +853,7 @@ export function buildCaseStudyArchive(
     );
     rod(
       [x, 0.074, -0.1],
-      [x, 0.569, -0.094],
+      rear.toArray(),
       0.034,
       m.edge,
       terminalRig,
@@ -859,8 +864,8 @@ export function buildCaseStudyArchive(
       0.135,
       m.graphite,
       x,
-      0.285,
-      0.172,
+      front.y,
+      front.z,
       terminalRig,
       'x',
       'terminal-hinge-housing',
@@ -870,8 +875,8 @@ export function buildCaseStudyArchive(
       0.145,
       m.alloy,
       x,
-      0.285,
-      0.172,
+      front.y,
+      front.z,
       terminalRig,
       'x',
       'terminal-hinge-pin',
@@ -881,8 +886,8 @@ export function buildCaseStudyArchive(
       0.149,
       m.amber,
       x,
-      0.285,
-      0.172,
+      front.y,
+      front.z,
       terminalRig,
       'x',
       'terminal-hinge-cap',
@@ -893,8 +898,8 @@ export function buildCaseStudyArchive(
       0.2,
       m.graphite,
       x,
-      0.574,
-      -0.078,
+      rear.y,
+      rear.z,
       terminalRig,
       0.022,
       'terminal-rear-saddle',
@@ -902,20 +907,20 @@ export function buildCaseStudyArchive(
   }
   // A solid satin edge guard protects the tilted terminal's lower casing.
   box(
-    2.25,
+    screenWidth - 0.12,
     0.054,
     0.115,
     m.edge,
     0,
-    -0.363,
+    -enclosureHeight / 2 + 0.0045,
     -0.018,
     terminal,
     0.015,
     'terminal-lower-edge-guard',
   );
   const cable = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0.96 * 0.85, 0.38 * 0.85, -0.035 * 0.85),
-    new THREE.Vector3(0.97 * 0.85, 0.31 * 0.85, -0.34 * 0.85),
+    new THREE.Vector3(0.7 * 0.85, 0.625 * 0.85, -0.035 * 0.85),
+    new THREE.Vector3(0.76 * 0.85, 0.48 * 0.85, -0.34 * 0.85),
     new THREE.Vector3(1.04, 0.43, -0.7),
     new THREE.Vector3(1.12, 0.69, -0.87),
     new THREE.Vector3(1.12, 0.84, -0.87),
@@ -964,7 +969,7 @@ export function buildCaseStudyArchive(
     );
 
   floorRoot.userData.archive = {
-    cartridgeCount: 5,
+    cartridgeCount: categories.length,
     terminalTilt: -0.55,
     static: true,
     categoryLabels: categories.map((c) => c.title),

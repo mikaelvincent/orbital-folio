@@ -30,7 +30,7 @@ export const PROJECTS_GRID = {
 };
 
 export const ARCHIVE_GRID = {
-  centerY: 1.392,
+  topY: 1.94,
   rowPitch: 0.274,
 };
 
