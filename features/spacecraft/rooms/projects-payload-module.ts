@@ -534,6 +534,8 @@ export function buildProjectPayloadModule(
   let canvas: HTMLCanvasElement | null = null;
   let context: CanvasRenderingContext2D | null = null;
   let available = true;
+  const desktopMaterial =
+    options.desktopMaterial ?? createComputerDesktopMaterial(THREE);
   if (typeof document !== 'undefined') {
     canvas = document.createElement('canvas');
     canvas.width = 1024;
@@ -544,9 +546,20 @@ export function buildProjectPayloadModule(
     if (!canvas || !context) return;
     const ctx = context;
     if (!available) {
-      // An unused module stays installed, but has no readable/interactive face.
-      ctx.fillStyle = '#050b12';
+      // Reuse the desktop artwork on the existing idle canvas. This is an
+      // intentional standby display, not an available category or app target.
+      const wallpaper = desktopMaterial.map?.image;
+      ctx.fillStyle = '#182b3b';
       ctx.fillRect(0, 0, 1024, 640);
+      if (wallpaper) ctx.drawImage(wallpaper, 0, 0, 1024, 640);
+      ctx.fillStyle = '#06101e38';
+      ctx.fillRect(0, 0, 1024, 640);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#b0c0c7';
+      ctx.font =
+        '500 48px Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      ctx.fillText('STANDBY', 512, 470);
       return;
     }
     const background = ctx.createLinearGradient(0, 0, 850, 640);
@@ -701,7 +714,7 @@ export function buildProjectPayloadModule(
     THREE,
     screen,
     group,
-    options.desktopMaterial ?? createComputerDesktopMaterial(THREE),
+    desktopMaterial,
   );
   const anchor = new THREE.Object3D();
   anchor.name = prefix + options.kind + '-application-anchor';
