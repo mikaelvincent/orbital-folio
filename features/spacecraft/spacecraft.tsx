@@ -14,6 +14,11 @@ export function Spacecraft(props: SpacecraftProps) {
   latest.current = props;
   const [state, setState] = useState('loading');
   const s = props.site;
+  // Refresh collection availability before a changed selection is framed.
+  // Content updates must not recreate the scene or reset its physical camera.
+  useEffect(() => {
+    api.current?.projects();
+  }, [props.projects]);
   useEffect(() => {
     api.current?.go();
   }, [

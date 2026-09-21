@@ -319,6 +319,59 @@
 .project-detail-heading {
   margin-top: 0;
 }
+.project-detail-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+}
+.project-detail-title-row h1 {
+  flex: 1 1 220px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dossier-paper .project-detail-title-row {
+  margin: 26px 0 13px;
+}
+.dossier-paper .project-detail-title-row h1 {
+  margin: 0;
+}
+.project-live-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 auto;
+  gap: 9px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #cda35e;
+  border-radius: 6px;
+  background: #dfbb7a;
+  color: #182733;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.project-live-link svg {
+  flex: 0 0 auto;
+}
+.project-live-link span {
+  overflow-wrap: anywhere;
+}
+.project-live-link:hover {
+  background: #edca8f;
+  border-color: #e3bd7b;
+}
+.project-detail-title-row .project-live-link:focus-visible {
+  outline: 2px solid #4d7e9f;
+  outline-offset: 3px;
+}
 .project-detail-subtitle {
   margin: 13px 0 0;
   color: #d8c59f;
@@ -369,18 +422,12 @@
   font-size: 13px;
   text-decoration: none;
 }
-.project-library-links a.is-live {
-  border-bottom-color: #b19c74;
-}
 .project-resource-external {
   margin-left: 2px;
   opacity: 0.65;
 }
 .project-library-links a:hover {
   border-bottom-color: currentColor;
-}
-.project-library-window .project-library-links a.is-live {
-  color: #efcf9d;
 }
 .project-library-links a:focus-visible {
   outline: 2px solid currentColor;
@@ -425,6 +472,13 @@
   border-radius: 8px;
 }
 @container (max-width: 540px) {
+  .project-detail-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .project-detail-title-row h1 {
+    flex: none;
+  }
   .project-window-gallery,
   .project-window-detail {
     padding: 23px 24px 26px 17px;
@@ -474,8 +528,18 @@
     font-size: 12px;
   }
 }
+@media (max-width: 620px) {
+  .dossier-paper .project-detail-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dossier-paper .project-detail-title-row h1 {
+    flex: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .project-app-card {
+  .project-app-card,
+  .project-live-link {
     transition: none;
   }
 }

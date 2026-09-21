@@ -16,6 +16,18 @@ export function projectCategories(project: Project): ProjectCategory[] {
   );
 }
 
+/** Public collections use explicit assignments, never the legacy display label. */
+export function projectCategoryCount(
+  projects: readonly Project[],
+  category: 'all' | ProjectCategory,
+): number {
+  return category === 'all'
+    ? projects.length
+    : projects.filter((project) =>
+        projectCategories(project).includes(category),
+      ).length;
+}
+
 /** Older projects keep their authored story without requiring a migration. */
 export function projectBody(project: Project): string {
   if (typeof project.body === 'string') return project.body;

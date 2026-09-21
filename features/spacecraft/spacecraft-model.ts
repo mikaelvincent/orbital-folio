@@ -1,4 +1,5 @@
 import { createModelPrimitives } from './geometry/model-primitives.ts';
+import { projectCategoryCount } from '../../lib/content/project-content.ts';
 import { createComputerDesktopMaterial } from './rooms/computer-desktop.ts';
 import { indexedCylinderType } from './geometry/indexed-cylinder.generated.js';
 import { buildDockingAndServiceAssemblies } from './equipment/docking-service-assemblies.ts';
@@ -73,6 +74,7 @@ export type SpacecraftProject = {
   title: string;
   slug: string;
   category?: string | null;
+  categories?: string[];
   sample?: boolean;
 };
 export type SpacecraftState = {
@@ -1462,6 +1464,11 @@ export function createSpacecraft(
     },
   );
   group.userData.projectScreens = projectWorkshop.screens;
+  for (const screen of projectWorkshop.screens)
+    screen.setAvailable(projectCategoryCount(projectData, screen.category) > 0);
+  const projectScreensById = new Map(
+    projectWorkshop.screens.map((screen) => [screen.interactableId, screen]),
+  );
   group.userData.projectWorkshop = workshop;
   readerSurfaces.projects = projectWorkshop.screens[0].anchor;
   // Case Studies uses a fixed archive rack with a raked terminal. Its old
@@ -3489,6 +3496,10 @@ export function createSpacecraft(
   }
   function setProjects(items: SpacecraftProject[]) {
     projectData = items.slice();
+    for (const screen of projectWorkshop.screens)
+      screen.setAvailable(
+        projectCategoryCount(projectData, screen.category) > 0,
+      );
     return setProjectPage(currentProjectPage);
   }
   function setCaseStudies(items: SpacecraftProject[]) {
@@ -3598,6 +3609,7 @@ export function createSpacecraft(
       currentState.reading && currentState.activeRoom === 'projects';
     for (const screen of projectWorkshop.screens) {
       const selected =
+        screen.available &&
         projectApplicationActive &&
         screen.category === (currentState.projectScreen || 'all');
       if (screen.idleDisplay.visible === !!selected) geometryChanged();
@@ -3734,6 +3746,7 @@ export function createSpacecraft(
                 highlight.id.startsWith('contact-social-'))) ||
               (currentState.activeRoom === 'projects' &&
                 highlight.id.startsWith('projects-screen-') &&
+                projectScreensById.get(highlight.id)?.available &&
                 (!currentState.reading ||
                   highlight.id !==
                     `projects-screen-${currentState.projectScreen || 'all'}`))),

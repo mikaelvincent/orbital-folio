@@ -10,8 +10,18 @@ import {
   responsiveCameraFov,
 } from '../../features/spacecraft/navigation/scene-controls.ts';
 
+const populated = {
+  projects: [
+    {
+      title: 'Shared',
+      slug: 'shared',
+      categories: ['systems', 'interfaces', 'experiments'],
+    },
+  ],
+};
+
 await test('Project screens retain independent real display anchors, inset feedback and reversible application content', () => {
-  const model = createSpacecraft(THREE);
+  const model = createSpacecraft(THREE, populated);
   const screens = model.group.userData.projectScreens;
   assert.deepEqual(
     screens.map((s) => s.category),
@@ -97,7 +107,7 @@ await test('Portrait application preserves readable pixels inside the unchanged 
 });
 
 await test('Real portrait monitor projection fills the readable app area without crossing the close camera plane', () => {
-  const model = createSpacecraft(THREE);
+  const model = createSpacecraft(THREE, populated);
   for (const [width, height] of [
     [320, 568],
     [360, 800],
@@ -227,7 +237,7 @@ await test('Real portrait monitor projection fills the readable app area without
 });
 
 await test('Application edges stay inside the visible monitor bezel through responsive hover and drag', () => {
-  const model = createSpacecraft(THREE);
+  const model = createSpacecraft(THREE, populated);
   const ray = new THREE.Raycaster();
   for (const [width, height] of [
     [390, 844],
@@ -271,7 +281,9 @@ await test('Application edges stay inside the visible monitor bezel through resp
       const framingCorners = [];
       for (const x of [-app.framing.width / 2, app.framing.width / 2])
         for (const y of [-app.framing.height / 2, app.framing.height / 2])
-          framingCorners.push(screen.anchor.localToWorld(new THREE.Vector3(x, y, 0)));
+          framingCorners.push(
+            screen.anchor.localToWorld(new THREE.Vector3(x, y, 0)),
+          );
       const perimeter = [];
       for (const x of [-1, 0, 1])
         for (const y of [-1, 0, 1]) {
@@ -319,8 +331,11 @@ await test('Application edges stay inside the visible monitor bezel through resp
                 for (let node = hit.object; node; node = node.parent)
                   if (!node.visible) return false;
                 const materials = [hit.object.material].flat();
-                return materials.some((material) => material.visible &&
-                  (!material.transparent || material.opacity > 0));
+                return materials.some(
+                  (material) =>
+                    material.visible &&
+                    (!material.transparent || material.opacity > 0),
+                );
               });
             // The selected monitor's hover rim is immediately disabled while
             // its application is active; only visible geometry can cover it.

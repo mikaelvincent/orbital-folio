@@ -533,6 +533,7 @@ export function buildProjectPayloadModule(
     uvs.setXY(i, positions.getX(i) / sw + 0.5, positions.getY(i) / sh + 0.5);
   let canvas: HTMLCanvasElement | null = null;
   let context: CanvasRenderingContext2D | null = null;
+  let available = true;
   if (typeof document !== 'undefined') {
     canvas = document.createElement('canvas');
     canvas.width = 1024;
@@ -542,6 +543,12 @@ export function buildProjectPayloadModule(
   const drawScreen = () => {
     if (!canvas || !context) return;
     const ctx = context;
+    if (!available) {
+      // An unused module stays installed, but has no readable/interactive face.
+      ctx.fillStyle = '#050b12';
+      ctx.fillRect(0, 0, 1024, 640);
+      return;
+    }
     const background = ctx.createLinearGradient(0, 0, 850, 640);
     background.addColorStop(0, '#112b43');
     background.addColorStop(1, '#061526');
@@ -717,7 +724,21 @@ export function buildProjectPayloadModule(
     category: options.kind,
     label: options.label,
     interactableId: `projects-screen-${options.kind}`,
+    get available() {
+      return available;
+    },
+    setAvailable(value: boolean) {
+      if (available === value) return;
+      available = value;
+      drawScreen();
+      if (screenMat.map) screenMat.map.needsUpdate = true;
+      if (!available) {
+        idleDisplay.visible = true;
+        desktopDisplay.visible = false;
+      }
+    },
     setActive(active: boolean) {
+      active = active && available;
       idleDisplay.visible = !active;
       desktopDisplay.visible = active;
     },

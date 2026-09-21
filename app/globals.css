@@ -3163,6 +3163,8 @@ svg {
   margin-top: 25px;
 }
 .room-reader .dossier-paper {
+  width: 100%;
+  min-width: 0;
   padding: 44px 38px 32px;
 }
 .room-reader .dossier-paper h1 {

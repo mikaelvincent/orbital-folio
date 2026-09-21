@@ -4,7 +4,15 @@ import * as THREE from 'three';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 
 await test('full-glass desktops retain room ownership and replace idle graphics exclusively after batching', () => {
-  const model = createSpacecraft(THREE);
+  const model = createSpacecraft(THREE, {
+    projects: [
+      {
+        title: 'Shared',
+        slug: 'shared',
+        categories: ['systems', 'interfaces', 'experiments'],
+      },
+    ],
+  });
   const projects = model.group.userData.projectScreens;
   const contact = model.group.userData.contactComputer;
   const displays = [...projects, contact];

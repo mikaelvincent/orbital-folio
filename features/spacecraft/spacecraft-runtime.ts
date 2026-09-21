@@ -106,6 +106,7 @@ export type SpacecraftProps = {
 };
 export type SpacecraftSceneAPI = {
   go: () => void;
+  projects: () => void;
   pause: (paused: boolean) => void;
   diagnostics: (enabled: boolean) => void;
 };
@@ -277,6 +278,14 @@ export function mountSpacecraftScene({
         } catch {
           // The editable owner name also works before a domain is configured.
         }
+        const projectItems = () =>
+          latest.current.projects.map((p) => ({
+            title: String(p.title),
+            slug: String(p.slug),
+            category: p.category,
+            categories: p.categories,
+            sample: p.sample && (s.sampleMode || s._preview),
+          }));
         const modelOptions = {
           vesselName,
           socials: resolveSocialScreens(latest.current.links),
@@ -288,12 +297,7 @@ export function mountSpacecraftScene({
           layout: 'wide' as const,
           geometryCompaction: audit?.geometryCompaction,
           sampleLabel: s.sampleLabel,
-          projects: latest.current.projects.map((p) => ({
-            title: String(p.title),
-            slug: String(p.slug),
-            category: p.category,
-            sample: p.sample && (s.sampleMode || s._preview),
-          })),
+          projects: projectItems(),
           caseStudies: latest.current.caseStudies.map((p) => ({
             title: String(p.title),
             slug: String(p.slug),
@@ -506,13 +510,14 @@ export function mountSpacecraftScene({
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'world-object-target world-computer-screen';
+            button.disabled = !screen.available;
             button.setAttribute('aria-label', `Open ${screen.label}`);
             button.dataset.targetKey = screen.interactableId;
             button.dataset.sceneObject = screen.interactableId;
             button.style.width = '500px';
             button.style.height = `${(500 * screen.height) / screen.width}px`;
             button.onclick = () => {
-              if (active === 'projects' && !travelling)
+              if (screen.available && active === 'projects' && !travelling)
                 latest.current.onOpenProjects?.(screen.category);
             };
             const object = new CSS3DObject(button);
@@ -523,6 +528,7 @@ export function mountSpacecraftScene({
         const selectedProjectScreen = () =>
           projectControls.find(
             ({ screen }: any) =>
+              screen.available &&
               screen.category === latest.current.projectScreen,
           )?.screen || projectControls[0].screen;
         const applicationRoom = () =>
@@ -965,8 +971,14 @@ export function mountSpacecraftScene({
             const screen = selectedProjectScreen();
             const layout = projectLayout();
             const points: Vec3[] = [];
-            for (const x of [-layout.framing.width / 2, layout.framing.width / 2])
-              for (const y of [-layout.framing.height / 2, layout.framing.height / 2])
+            for (const x of [
+              -layout.framing.width / 2,
+              layout.framing.width / 2,
+            ])
+              for (const y of [
+                -layout.framing.height / 2,
+                layout.framing.height / 2,
+              ])
                 points.push(
                   screen.anchor
                     .localToWorld(new THREE.Vector3(x, y, 0))
@@ -1965,12 +1977,15 @@ export function mountSpacecraftScene({
             );
             object.scale.multiplyScalar(screen.width / 500);
             object.visible =
+              screen.available &&
               active === 'projects' &&
               !travelling &&
               (!reading ||
                 (screen !== selectedProjectScreen() &&
                   screenInViewport(screen)));
             button.inert = !object.visible;
+            button.disabled = !screen.available;
+            button.setAttribute('aria-hidden', String(!object.visible));
             button.classList.toggle(
               'is-object-active',
               object.visible &&
@@ -2866,6 +2881,11 @@ export function mountSpacecraftScene({
           );
         }
         api.current = {
+          projects: () => {
+            model.setProjects(projectItems());
+            feedback.reset();
+            kick();
+          },
           go: () => {
             // Browser history and reader changes supersede a queued hop.
             // Internal resize() calls go directly and preserves the queue.

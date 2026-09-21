@@ -367,6 +367,13 @@ await test('library categories rely on explicit authored assignment and keep ord
   );
   assert.match(reading, /aria-label="Project categories"/);
   assert.match(reading, /aria-pressed="true"/);
+  assert.match(reading, />Systems<\/span>/);
+  assert.doesNotMatch(reading, />Interfaces<\/span>|>Experiments<\/span>/);
+  const empty = renderToStaticMarkup(
+    createElement(ReadingProjectLibrary, { data: { ...data, projects: [] } }),
+  );
+  assert.doesNotMatch(empty, /<button/);
+  assert.match(empty, /No projects are available yet/);
 });
 
 await test('immersive gallery omits cover assets and placeholders while project details retain their media', async () => {
@@ -469,9 +476,8 @@ await test('immersive gallery omits cover assets and placeholders while project 
 });
 
 await test('project resource links share safe source/live destinations and retired dates stay out of both public views', async () => {
-  const { ProjectLibraryWindow, ProjectLinks } = await loadComponent(
-    'features/portfolio/project-library-window.tsx',
-  );
+  const { ProjectLibraryWindow, ProjectLinks, ProjectLiveLink } =
+    await loadComponent('features/portfolio/project-library-window.tsx');
   const { DossierView } = await loadComponent(
     'features/portfolio/room-views.tsx',
   );
@@ -514,7 +520,21 @@ await test('project resource links share safe source/live destinations and retir
     const resources = markup.match(
       /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
     )?.[1];
-    assert.equal((resources?.match(/<a\b/g) || []).length, 2);
+    assert.equal((resources?.match(/<a\b/g) || []).length, 1);
+    assert.match(resources, /class="project-resource-link is-source"/);
+    const titleRow = markup.match(
+      /<div class="project-detail-title-row">([\s\S]*?)<\/div>/,
+    )?.[1];
+    assert.match(titleRow, /<h1[^>]*>A linked project<\/h1>/);
+    assert.match(
+      titleRow,
+      /class="project-live-link" href="https:\/\/demo.example\/"/,
+    );
+    assert.equal((titleRow?.match(/<a\b/g) || []).length, 1);
+    assert.ok(
+      markup.indexOf('A useful tool.') < markup.indexOf('Project resources'),
+      'the source link keeps its position below the introduction',
+    );
     assert.match(
       markup,
       /href="https:\/\/code.example\/repository" target="_blank" rel="noopener noreferrer"/,
@@ -559,7 +579,7 @@ await test('project resource links share safe source/live destinations and retir
     const links = markup.match(
       /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
     )?.[1];
-    assert.equal((links?.match(/<a\b/g) || []).length, 2);
+    assert.equal((links?.match(/<a\b/g) || []).length, 1);
   }
   assert.equal(
     renderToStaticMarkup(
@@ -570,4 +590,88 @@ await test('project resource links share safe source/live destinations and retir
     ),
     '',
   );
+  assert.equal(
+    renderToStaticMarkup(
+      createElement(ProjectLiveLink, {
+        project: { demoUrl: 'javascript:alert(1)' },
+        site: {},
+      }),
+    ),
+    '',
+  );
+  for (const component of [ProjectLinks, ProjectLiveLink])
+    assert.equal(
+      renderToStaticMarkup(createElement(component, { project: {}, site: {} })),
+      '',
+    );
+});
+
+await test('optional source and live links occupy only their intended detail positions in both views', async () => {
+  const { ProjectLibraryWindow } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
+  const { DossierView } = await loadComponent(
+    'features/portfolio/room-views.tsx',
+  );
+  for (const [sourceUrl, demoUrl, expectedSource, expectedLive] of [
+    ['', '', 0, 0],
+    ['https://code.example/repository', '', 1, 0],
+    ['', 'https://live.example/', 0, 1],
+    ['https://code.example/repository', 'https://live.example/', 1, 1],
+    ['javascript:alert(1)', 'data:text/html,unsafe', 0, 0],
+  ]) {
+    const project = {
+      id: 'optional',
+      slug: 'optional',
+      title: 'Optional resources',
+      summary: 'An introduction.',
+      categories: ['systems'],
+      body: '## Overview\n\nStory text.',
+      sourceUrl,
+      demoUrl,
+    };
+    const data = {
+      site: { codeLabel: 'View source', demoLabel: 'Open live project' },
+      projects: [project],
+      media: [],
+      experience: [],
+      journal: [],
+      links: [],
+    };
+    for (const markup of [
+      renderToStaticMarkup(
+        createElement(ProjectLibraryWindow, {
+          data,
+          project,
+          category: 'systems',
+          onProjectSelect() {},
+          onBack() {},
+          onClose() {},
+        }),
+      ),
+      renderToStaticMarkup(createElement(DossierView, { data, project })),
+    ]) {
+      assert.equal(
+        (markup.match(/class="project-resource-link is-source"/g) || []).length,
+        expectedSource,
+      );
+      assert.equal(
+        (markup.match(/class="project-live-link"/g) || []).length,
+        expectedLive,
+      );
+      assert.equal(
+        (markup.match(/aria-label="Project resources"/g) || []).length,
+        expectedSource,
+        'missing source links leave no empty resource container',
+      );
+      const titleRow = markup.match(
+        /<div class="project-detail-title-row">([\s\S]*?)<\/div>/,
+      )?.[1];
+      assert.equal((titleRow?.match(/<a\b/g) || []).length, expectedLive);
+      assert.ok(titleRow?.includes('Optional resources'));
+      if (expectedLive) assert.match(titleRow, />Open live project<\/span>/);
+      if (expectedSource) assert.match(markup, />View source<\/span>/);
+      assert.doesNotMatch(markup, /href="(?:javascript:|data:)/);
+    }
+  }
 });

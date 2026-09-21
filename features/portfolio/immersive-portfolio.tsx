@@ -10,6 +10,7 @@ import {
 } from './project-library-window';
 import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
+import { projectCategoryCount } from '@/lib/content/project-content';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
   destinationFromURL,
@@ -79,12 +80,21 @@ export function ImmersivePortfolio({
     { status: 'idle', error: '' },
   );
   const [surface, setSurface] = useState<HTMLDivElement | null>(null);
-  const [projectScreen, setProjectScreen] = useState<ProjectFilter>('all');
+  const [selectedProjectScreen, setProjectScreen] =
+    useState<ProjectFilter>('all');
+  const projectScreen = projectCategoryCount(
+    data.projects,
+    selectedProjectScreen,
+  )
+    ? selectedProjectScreen
+    : 'all';
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
   latest.current = destination;
   const immersive = enhanced && !reading && destination.section !== 'privacy';
-  const readingSurface = !!(destination.slug || destination.open);
+  const readingSurface =
+    !!(destination.slug || destination.open) &&
+    (destination.section !== 'projects' || data.projects.length > 0);
   const project = data.projects.find((p) => p.slug === destination.slug);
   const hrefFor = useCallback(
     (d: Destination) => {
@@ -464,6 +474,7 @@ export function ImmersivePortfolio({
             projectPage={0}
             projectScreen={projectScreen}
             onOpenProjects={(category) => {
+              if (!projectCategoryCount(data.projects, category)) return;
               setProjectScreen(category);
               const monitorChanged = category !== projectScreen;
               const current = latest.current;

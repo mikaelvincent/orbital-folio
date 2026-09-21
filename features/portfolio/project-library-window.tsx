@@ -17,6 +17,7 @@ import {
   PROJECT_CATEGORIES,
   projectBody,
   projectCategories,
+  projectCategoryCount,
   type ProjectCategory,
 } from '@/lib/content/project-content';
 import { pathFor } from '@/lib/paths';
@@ -58,6 +59,8 @@ function CategoryControls({
   return (
     <nav className="project-category-controls" aria-label="Project categories">
       {filters.map((filter) => {
+        const count = projectCategoryCount(data.projects, filter.id);
+        if (!count) return null;
         const Icon = icons[filter.id];
         return (
           <button
@@ -68,7 +71,7 @@ function CategoryControls({
           >
             <Icon size={16} aria-hidden="true" />
             <span>{filter.label}</span>
-            <small>{filteredProjects(data, filter.id).length}</small>
+            <small>{count}</small>
           </button>
         );
       })}
@@ -79,7 +82,10 @@ function CategoryControls({
 /** A small client boundary keeps the reading page's ordinary native links,
  * document flow and card styling while sharing explicit authored categories. */
 export function ReadingProjectLibrary({ data }: { data: Portfolio }) {
-  const [category, setCategory] = useState<ProjectFilter>('all');
+  const [selectedCategory, setCategory] = useState<ProjectFilter>('all');
+  const category = projectCategoryCount(data.projects, selectedCategory)
+    ? selectedCategory
+    : 'all';
   const projects = filteredProjects(data, category);
   return (
     <div className="reading-project-library">
@@ -212,9 +218,12 @@ export function ProjectLibraryWindow({
                       .join(' · ') ||
                     'PROJECT'}
                 </p>
-                <h1 ref={heading} tabIndex={-1}>
-                  {project.title}
-                </h1>
+                <div className="project-detail-title-row">
+                  <h1 ref={heading} tabIndex={-1}>
+                    {project.title}
+                  </h1>
+                  <ProjectLiveLink project={project} site={data.site} />
+                </div>
                 {project.subtitle && (
                   <p className="project-detail-subtitle">{project.subtitle}</p>
                 )}
@@ -340,39 +349,45 @@ export function ProjectLinks({
   project: Record<string, any>;
   site: Record<string, any>;
 }) {
-  const links = [
-    {
-      kind: 'source',
-      href: projectContentUrl(project.sourceUrl),
-      label: site.codeLabel || 'Source code',
-      Icon: GitBranch,
-    },
-    {
-      kind: 'live',
-      href: projectContentUrl(project.demoUrl),
-      label: site.demoLabel || 'Live project',
-      Icon: Globe,
-    },
-  ].filter((link) => link.href);
-  return links.length ? (
+  const href = projectContentUrl(project.sourceUrl);
+  return href ? (
     <nav className="project-library-links" aria-label="Project resources">
-      {links.map(({ kind, href, label, Icon }) => (
-        <a
-          key={kind}
-          className={`project-resource-link is-${kind}`}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon size={17} aria-hidden="true" />
-          <span>{label}</span>
-          <ArrowUpRight
-            className="project-resource-external"
-            size={14}
-            aria-hidden="true"
-          />
-        </a>
-      ))}
+      <a
+        className="project-resource-link is-source"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <GitBranch size={17} aria-hidden="true" />
+        <span>{site.codeLabel || 'Source code'}</span>
+        <ArrowUpRight
+          className="project-resource-external"
+          size={14}
+          aria-hidden="true"
+        />
+      </a>
     </nav>
+  ) : null;
+}
+
+export function ProjectLiveLink({
+  project,
+  site,
+}: {
+  project: Record<string, any>;
+  site: Record<string, any>;
+}) {
+  const href = projectContentUrl(project.demoUrl);
+  return href ? (
+    <a
+      className="project-live-link"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Globe size={17} aria-hidden="true" />
+      <span>{site.demoLabel || 'Open live project'}</span>
+      <ArrowUpRight size={16} aria-hidden="true" />
+    </a>
   ) : null;
 }
