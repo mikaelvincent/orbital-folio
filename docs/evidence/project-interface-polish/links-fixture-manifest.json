@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-09-20T23:40:42.299Z",
+  "method": "Actual ProjectLibraryWindow and DossierView SSR, actual Tailwind preflight and application styles. Only build-time CSS imports removed. Wrapper is a finite layout fixture; no camera, WebGL, hydration, live API or persistence.",
+  "paths": {
+    "output": "/tmp/orbital-project-links",
+    "review": "http://127.0.0.1:3002/?context=immersive",
+    "reading": "http://127.0.0.1:3002/?context=reading"
+  },
+  "syntheticProject": {
+    "id": "fixture",
+    "slug": "visual-review",
+    "title": "Project links — visual review",
+    "summary": "A finite layout fixture showing optional repository and live project links. These example destinations do not describe an actual portfolio project.",
+    "categories": [
+      "systems"
+    ],
+    "role": "Design and implementation",
+    "stack": "React, TypeScript",
+    "sourceUrl": "https://github.com/example/demo",
+    "demoUrl": "https://docs.example.com/",
+    "body": "## Overview\n\nThe two resources sit below the introduction, before project metadata and the story. The source uses a repository icon; the live project has a globe and a restrained amber accent.\n\n### Detail\n\nNo media or external resource is requested by this fixture."
+  },
+  "htmlSha256": "10957ef41d134d45250525b4ac34ea246ecd45e7240db75b78e8cb5bcf2f29cf",
+  "generatorSha256": "dea0280397745b62e12c4d4ba1a6f663ce842d70ce79b101eecab8841bbe5a39",
+  "sources": {
+    "node_modules/tailwindcss/preflight.css": "fa2d5ae43ae561061b7ce348b89636dbdc6cd71ab5992d4e1cdd046d0b4f28f9",
+    "app/globals.css": "85f66cc30922b39a823fe0c1bab6b5a81c2d24864e6d1cab91af2747a8b79057",
+    "features/portfolio/contact-computer-window.css": "d3583acef2ac7d614fd2146160b4077f1d5ed4a50c8ebd106c529b4ca18d0de0",
+    "features/portfolio/project-library-window.css": "8f4e62e3b235ae6b8f51f5541d95cb96acbad78b764c741a3c893057bdff95c5",
+    "features/portfolio/project-markdown.css": "bce44a6e894bd36dc38b2bfa2c2598d12f1dcb376acf1ea1a41a219bf812598f",
+    "features/portfolio/project-library-window.tsx": "03416d42a0d1d425b2878667cc6931e99f1407202258e6a6e84925374786d8df",
+    "features/portfolio/room-views.tsx": "86c29c0494af5417ee87fa4b845550ad8f3a60e228b19c0f1a16e7f9c3d30f45",
+    "features/portfolio/project-markdown.tsx": "b77ac3056e6ef3466aaa070ec35c9d5e7eddb35079261c164a92c22b8d1de043"
+  }
+}

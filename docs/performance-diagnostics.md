@@ -2,7 +2,7 @@
 
 See the [performance ledger](performance-ledger.md) for the current optimization status, repeatable geometry checks and measured before/after results.
 
-Click the small **pulse icon** beside the Content studio icon in the top-right corner. It opens **Performance check** without reloading the page or resetting the camera. The optional `?perf=1` URL shortcut also works, including in a production build. Normal visits do not instantiate the collector, request GPU queries, mount the panel, or start diagnostic timers. No measurements are sent to a server or stored in browser storage.
+Open **Tools** at the bottom-right, then choose **Scene diagnostics**. It opens **Performance check** without reloading the page or resetting the camera. Opening Tools alone does not start instrumentation. The optional `?perf=1` URL shortcut also works, including in a production build. Normal visits do not instantiate the collector, request GPU queries, mount the panel, or start diagnostic timers. No measurements are sent to a server or stored in browser storage.
 
 The opening summary shows **Smoothness · FPS**, **CPU preparing · ms**, and **GPU drawing ship · ms**. These describe the page's work, not a device rating. The workflow is the same on every machine. When Safari or another browser does not expose usable GPU timing, that value stays unavailable; CPU, frame timing, draw counts and comparisons remain usable. Missing GPU timing never means zero GPU work.
 

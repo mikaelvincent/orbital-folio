@@ -6,6 +6,30 @@ The application uses React 19, Vinext (Next.js-compatible server rendering), Clo
 
 D1 and R2 are durable managed resources. Do not replace them with the Worker’s ephemeral filesystem. Local equivalents live under `.wrangler/state`; deleting that directory deletes the local database and uploads. Keep it out of Git and preserve it across server restarts.
 
+## Isolated verification
+
+`npm test` includes API/workflow tests that create, update and delete records;
+`npm run check` includes that suite too. Their default target is
+`http://localhost:3000`, so running them against the owner's development server
+can change persisted content. Restore hooks are not a preservation guarantee:
+validation can discard legacy fields when restoring a snapshot.
+
+Run full suites and any mutation-bearing tests in a disposable source checkout:
+
+1. Copy source only, excluding `.dev.vars`, `.env*`, `.wrangler`, backups and
+   private exports. Initialize fresh test-only secrets and isolated D1/R2 stores
+   there. Never clone the main database or uploads for these tests.
+2. Start a separate loopback server on an unused port using that checkout and its
+   own emulator state. Installed dependencies may be shared; keep the temporary
+   Vite cache in the test directory too. Leave the main server and store intact.
+3. Run tests **from the disposable checkout**, since some read `.dev.vars` from
+   the current directory, and explicitly select the test server; for example,
+   `TEST_BASE_URL=http://localhost:3003 npm test`. Verify both the target URL and
+   state paths before running. Focused pure unit tests may use the main checkout
+   only after confirming that they do not call live endpoints or mutate storage.
+4. Stop and remove only the temporary server and test state after verification.
+   Do not print, commit or copy test secrets into the main workspace.
+
 ## Authentication boundary
 
 The production studio uses **Sign in with ChatGPT** through the Sites gateway. Authentication identifies a visitor; the database `admins` allowlist separately authorizes owners. Every protected read, mutation, preview, export, and draft-image request checks that allowlist on the server.
@@ -67,10 +91,18 @@ The portfolio links to the application; it does not proxy or execute arbitrary e
 Use **Projects → Add project** in Content studio. Supply a title and short description,
 choose Systems, Interfaces and/or Experiments, then write or paste Markdown.
 All projects is automatic. The URL slug is generated on first save and remains
-stable when the title changes. Cover image, role, period, technology and links
+stable when the title changes. Cover image, role, technology and links
 are optional. The story may use any headings; the section starter is optional.
 Existing projects retain their old section content until a Markdown body is
 explicitly authored. Save, private preview and Publish remain separate actions.
+Project dates are no longer authored or shown; experience dates are unchanged.
+Older v1 ZIP packages may include `period`; imports ignore that retired project
+field, and new exports omit it. Existing database records are not bulk rewritten.
+The legacy site-level `periodLabel` remains optional round-trip metadata so
+identity backups preserve owner-authored copy; it has no editor or public output.
+Optional source repository and live project links appear beside each other below
+the introduction in both views. The live destination retains the established
+`demoUrl` field; the repository uses `sourceUrl`.
 
 The editor inserts uploaded or existing managed media at the text selection.
 Images use `![Alternative text](/media/<id>)`; video links such as

@@ -141,8 +141,8 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   universal mathematical optimum. See [current evidence](docs/evidence/earth-consistent-loop/README.md).
 - The former angle/preset helper, day-model toggle and portable settings remain
   retired. The owner subsequently authorized a **temporary Earth playback
-  helper** for inspecting the regional loop: a globe icon beside diagnostics,
-  a seekable timeline, Play/Pause/Restart and **1–60×** speed relative to the
+  helper** for inspecting the regional loop: **Tools → Earth playback** at the
+  bottom-right opens a seekable timeline, Play/Pause/Restart and **1–60×** speed relative to the
   approved 0.0045 rad/s rate. This narrowly supersedes the no-controls rule;
   do not restore angle, preset or daytime controls. Seeking pauses, closing
   preserves the chosen phase and restores normal 1× playback, and reloading
@@ -165,10 +165,11 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 ## Performance and comparisons
 
 - Diagnostics must stay device-agnostic, approachable for nontechnical users and
-  useful for technical users. Preserve the pulse launcher beside the Content
-  studio icon, opt-in instrumentation, semantic room/part breakdowns, advanced
-  controls and
-  named exports. A URL parameter is optional, not the only way to open it.
+  useful for technical users. Preserve **Tools → Scene diagnostics** at the
+  bottom-right, alongside Earth playback and Content studio. Opening the menu
+  alone must not start instrumentation or playback polling. Preserve opt-in
+  instrumentation, semantic room/part breakdowns, advanced controls and named
+  exports. A URL parameter is optional, not the only way to open it.
 - The owner uses a passively cooled **MacBook Air M4**. Account for thermal drift,
   but do not infer throttling from timing alone or hardcode M4-only quality rules.
   Safari is an important target; report the engine actually tested.
@@ -203,6 +204,14 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   typecheck/build and affected lint. Avoid implementation-mirroring tests and
   needless repeated suites after checks pass. Documentation-only work needs
   accuracy, link/path, consistency and diff checks, not WebGL or full app tests.
+- `npm test` (also `npm run check`) includes API/workflow tests that mutate data
+  and default to `http://localhost:3000`. Run these tests and full suites from a
+  disposable source checkout against a separate loopback server, with fresh
+  isolated D1/R2 state and test-only secrets; explicitly set `TEST_BASE_URL`.
+  The test working directory matters: some tests read `.dev.vars` there.
+  Never copy private environment files or the main database/uploads into the
+  fixture. Preserve the main server/store; test restore hooks are not a safety
+  guarantee. See [isolated test procedure](docs/OPERATIONS.md#isolated-verification).
 - Visually inspect authored changes at useful camera states and responsive
   layouts. Geometry tests cannot judge aesthetics. Record actual versus scaled
   viewport sizes, finite fixtures versus live rendering, engine and omitted

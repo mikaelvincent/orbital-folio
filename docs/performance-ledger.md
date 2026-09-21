@@ -1,6 +1,6 @@
 # Spacecraft performance ledger
 
-This is the running record of implemented optimizations, measured results, visual checks and remaining candidates. Timing results are specific to their recorded browser, viewport and conditions; geometry counts provide a separate device-independent measure of work. Open the pulse icon beside SAMPLE / CONCEPT to repeat measurements using the [diagnostics guide](performance-diagnostics.md).
+This is the running record of implemented optimizations, measured results, visual checks and remaining candidates. Timing results are specific to their recorded browser, viewport and conditions; geometry counts provide a separate device-independent measure of work. Open **Tools → Scene diagnostics** at the bottom right to repeat measurements using the [diagnostics guide](performance-diagnostics.md).
 
 ## Current status
 
@@ -2326,6 +2326,45 @@ then passed 19 focused tests; typecheck, affected lint and production build pass
 Native Safari, real touch and runtime timing remain untested. Independent critic:
 **95/100**, no unresolved implementation blockers, recommendation keep; full
 rubric and review corrections are recorded with the evidence.
+
+## 35 — Project interface polish and compact archive terminal (21 September 2026)
+
+Baseline `c7a5c9c`. Projects removes redundant card/detail actions, footer category
+copy, project period fields and physical-monitor counts. Optional repository/live
+links share a restrained resource row in the application and reading view. Gallery
+counts and Experience timelines remain. Bottom **Tools** groups Earth playback,
+opt-in diagnostics and Content studio; opening its list starts neither inspection
+tool. At viewports at least 1000×650, Projects/Contact reduce their inner application
+padding to 4px/6px. Physical safe insets, projection and camera paths are unchanged.
+
+The Case studies floor terminal changes from a very wide strip to **16:9** glass
+(1.12×0.63 before its existing 0.85 rig scale). Its enclosure, handles, cable and
+supports follow those dimensions. This is a new authored design baseline, not an
+optimization and not authorization for any held candidate below.
+
+The [source-identified inventory and visual evidence](evidence/project-interface-polish/README.md)
+compare the normal batched model in wide/compact layouts, idle and Contact-open
+states. Mesh, triangle-input, geometry-array, material and structural submission
+counts are unchanged. The Case assembly retains 28 meshes, 76,062 triangle inputs
+and 2,163,692 geometry-array bytes. Its canvas changes **1536×318 → 1536×864** to
+preserve the existing horizontal artwork resolution at the new aspect ratio:
+nominal RGBA8 storage including mip levels increases **2,603,080 → 7,077,784 bytes**,
+or **4,474,704 bytes / 4.27 MiB**. Total retained model texture estimates change
+101,808,796 → 106,283,500 bytes. Canvas backing, driver allocations, Earth,
+environment maps and render targets are not included. No new image download is
+introduced; the display is painted locally.
+
+These are structural counts and storage estimates, not measured browser/GPU
+memory or CPU/GPU timing. No frame-rate, delivery, heat or battery gain is claimed.
+Chromium visual/interaction checks and validation limitations are recorded with
+the evidence; native Safari was not controlled. Existing optimization candidates
+remain held.
+
+Final isolated full suite: **405 passed**; typecheck, production build and affected
+lint pass. Independent critic: **91/100**, keep. The evidence also discloses an
+initial test-isolation failure that removed deprecated site-label metadata,
+unsuccessful exact-value recovery, and the compatibility/isolation safeguards
+added afterward; the final suite used separate disposable data.
 
 ## Next candidates
 

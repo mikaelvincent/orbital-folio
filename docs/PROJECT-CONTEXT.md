@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 20 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 21 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -35,6 +35,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
 | Temporary Earth playback inspection | `features/orbit/earth-playback.ts`, `earth-playback-controls.tsx`, `earth-playback-controls.css`; the orbital environment owns Earth-only playback state |
+| Bottom scene tools menu | `features/portfolio/scene-tools-menu.tsx`, `scene-tools-menu.css`; Earth playback, Scene diagnostics and Content studio beside Reading view |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
 | Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
@@ -80,6 +81,9 @@ Recent approved arrangement:
 - Hull, roof/keel and ladder returns read as continuous rounded pressure
   structure. Preserve curves while eliminating bulges, clipping, exposed seams,
   raised reveal trim and flicker. Functional tool edges are not chassis defects.
+- The Case studies floor terminal is a compact, seated-use display on paired
+  hinged supports. Its glass is 16:9, measuring 1.12 × 0.63 local model units
+  before the existing 0.85 rig scale, with matching enclosure and handle spacing.
 
 Current evidence: [symmetric access refinement](evidence/spacecraft-access-symmetry/README.md).
 The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves
@@ -192,14 +196,27 @@ wallpaper. It is not restricted to the HTML app rectangle, so portrait framing
 and camera movement cannot reveal bare screen backing. Idle graphics and desktop
 are mutually exclusive; closing restores the idle display.
 
-Project collection cards are text-only; detail covers and story media remain.
+At viewport widths of at least 1000 CSS pixels and heights of at least 650 CSS
+pixels, the Projects desktop uses 4px padding and Contact uses 6px, giving their
+application windows more room. This changes the native window's inset, not the
+physical display dimensions or camera framing. Smaller viewports retain their
+responsive layouts.
+
+Project collection cards are text-only, with no repeated footer action; detail
+covers and story media remain.
 The collection title bar shows its category name and small category icon, with
 an X at right and no bottom status bar. Detail has a left-aligned, borderless
 **Back to projects** action and the X at right. Back uses the same hover/focus
-treatment as X and restores the originating collection and scroll position;
-the story footer repeats the action. The detail status bar shows the original-case
-project name and category context. All four room monitors show counts derived
-from the same public or preview collection and category rules as the app.
+treatment as X and restores the originating collection and scroll position.
+There is no repeated Back action below the story. The detail status bar shows
+only the original-case project title. Counts remain in the application collection,
+but are removed from all four physical Projects room monitor graphics.
+
+Optional source and live-project links share one resource row beneath the detail
+summary in both immersive and reading views, before role/stack metadata. Source
+comes first, then Live; absent links leave no placeholder or empty row. They use
+subtle underlined labels and external-link cues, with a restrained amber live
+link in the immersive application.
 
 Native application/reader HTML uses one viewport-relative projective transform
 in `features/spacecraft/projected-surface.ts`, derived from the same camera and
@@ -211,11 +228,14 @@ Chromium, so Safari confirmation remains outstanding. See the
 [projection and desktop follow-up](evidence/projects-screen-projection/README.md).
 
 Studio is the primary authoring surface: title, summary and explicit multi-select
-categories, optional cover/role/period/stack/links, followed by a flexible Markdown
+categories, optional cover/role/stack/links, followed by a flexible Markdown
 story. The optional section starter is guidance, not a required essay structure.
 Older section-based projects remain readable/editable; their custom category text
 is retained but is not guessed into the new filters. Until an owner assigns new
-categories they appear in All projects. No persisted owner content is migrated.
+categories they appear in All projects. Owner records are not bulk-migrated.
+Project periods are no longer authored or displayed; new saves and exports omit
+them. Older v1 ZIP packages may still contain `period`, which imports accept and
+discard. Experience/Case studies periods remain supported.
 Managed images, videos, posters and captions are reusable; uploads insert local
 references into the story. Preview offers portrait/landscape content widths and
 the existing complete private scene preview. ZIP import produces a new private
@@ -388,8 +408,8 @@ The former angle/preset/model controls, copy/paste settings, daytime rendering
 and their dedicated tests remain removed. The owner subsequently requested a
 **temporary playback helper** to inspect the regional loop. This supersedes the
 earlier no-controls rule only for playback, not angles, presets or Earth models.
-A globe icon beside diagnostics opens a video-style timeline covering the full
-**7m16s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
+**Tools → Earth playback** at the bottom-right opens a video-style timeline
+covering the full **7m16s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
 **1× means the approved 0.0045 rad/s site speed**, already 1.5× the original rate;
 60× traverses the loop in approximately **7.27 seconds**.
 
@@ -450,7 +470,14 @@ Retain hypotheses, baselines, source/asset hashes, setup, raw runs, exclusions,
 visual changes, decisions and limitations. New art costs must remain distinct
 from optimization savings. No benchmark is needed just to edit these instructions.
 
-The pulse icon beside the Content studio icon opens guided diagnostics with advanced
+The bottom-right **Tools** launcher sits beside Reading view and opens an upward
+popover containing **Earth playback**, **Scene diagnostics** and **Content studio**.
+Opening the menu alone starts neither playback polling nor instrumentation.
+Escape, outside interaction or focus leaving the menu closes it; closing an
+inspection panel returns focus to Tools. On narrow screens, Reading view keeps
+its accessible label while displaying only its icon to leave room for navigation.
+
+**Tools → Scene diagnostics** opens guided diagnostics with advanced
 room/assembly/pass inspection and named exports. Instrumentation is opt-in and
 normal rendering is restored on close. The owner has an Air M4 with passive
 cooling; diagnostics must remain useful across devices/browsers. Unsupported GPU
