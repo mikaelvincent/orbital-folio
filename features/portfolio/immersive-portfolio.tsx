@@ -8,14 +8,7 @@ import {
   ProjectLibraryWindow,
   type ProjectFilter,
 } from './project-library-window';
-import {
-  Activity,
-  ArrowLeft,
-  BookOpen,
-  ChevronUp,
-  Home,
-  Orbit,
-} from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
@@ -36,7 +29,7 @@ import {
   ContactView,
 } from './room-views';
 import { PrivacyView } from './privacy-view';
-import { EarthPlaybackControls } from '../orbit/earth-playback-controls';
+import { SceneToolsMenu } from './scene-tools-menu';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 
 export function ImmersivePortfolio({
@@ -68,7 +61,7 @@ export function ImmersivePortfolio({
   });
   const [enhanced, setEnhanced] = useState(false);
   const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
-  const diagnosticsToggle = useRef<HTMLButtonElement>(null);
+  const sceneToolsToggle = useRef<HTMLButtonElement>(null);
   const [earthPlayback, setEarthPlayback] =
     useState<EarthPlaybackController | null>(null);
   const [reading, setReading] = useState(false);
@@ -493,7 +486,7 @@ export function ImmersivePortfolio({
             diagnosticsEnabled={diagnosticsEnabled}
             onDiagnosticsClose={() => {
               setDiagnosticsEnabled(false);
-              diagnosticsToggle.current?.focus({ preventScroll: true });
+              sceneToolsToggle.current?.focus({ preventScroll: true });
             }}
             onNavigate={(id) => go({ section: id })}
             onOpenContact={() => go({ section: 'contact', open: true })}
@@ -630,7 +623,18 @@ export function ImmersivePortfolio({
           </div>
         )}
         <div className="flight-tools" hidden={!enhanced}>
+          {immersive && (
+            <SceneToolsMenu
+              launcherRef={sceneToolsToggle}
+              earthPlayback={earthPlayback}
+              motionPaused={reduced}
+              diagnosticsEnabled={diagnosticsEnabled}
+              onDiagnosticsChange={setDiagnosticsEnabled}
+              studioLabel={s.studioLabel}
+            />
+          )}
           <button
+            className="flight-view-toggle"
             type="button"
             onClick={() => {
               setReading(!reading);
@@ -638,42 +642,17 @@ export function ImmersivePortfolio({
               setArrived(false);
             }}
             aria-pressed={reading}
+            aria-label={reading ? s.sceneLabel : s.readLabel}
+            title={reading ? s.sceneLabel : s.readLabel}
           >
             <BookOpen size={16} />
             <span>{reading ? s.sceneLabel : s.readLabel}</span>
           </button>
         </div>
-        {immersive && (
+        {immersive && !s.sampleMode && (
           <div className="flight-status">
-            <EarthPlaybackControls
-              controller={earthPlayback}
-              motionPaused={reduced}
-            />
-            {!s.sampleMode && (
-              <>
-                <span className="status-dot" />
-                {s.availability}
-              </>
-            )}
-            <button
-              ref={diagnosticsToggle}
-              type="button"
-              className="flight-diagnostics-toggle"
-              data-scene-perf="toggle"
-              aria-label={
-                diagnosticsEnabled
-                  ? 'Close scene diagnostics'
-                  : 'Open scene diagnostics'
-              }
-              aria-pressed={diagnosticsEnabled}
-              title="Scene diagnostics"
-              onClick={() => setDiagnosticsEnabled((value) => !value)}
-            >
-              <Activity size={15} aria-hidden="true" />
-            </button>
-            <a href="/admin" aria-label={s.studioLabel}>
-              <Orbit size={15} />
-            </a>
+            <span className="status-dot" />
+            {s.availability}
           </div>
         )}
         <span className="sr-only" aria-live="polite">

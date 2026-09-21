@@ -1,14 +1,13 @@
-.earth-playback-controls {
-  display: flex;
-  align-items: center;
-}
 .earth-playback-panel {
   position: fixed;
   z-index: 45;
-  top: max(62px, calc(env(safe-area-inset-top) + 52px));
-  right: max(18px, env(safe-area-inset-right));
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  right: calc(24px + env(safe-area-inset-right, 0px));
   width: min(350px, calc(100vw - 28px));
-  max-height: calc(100dvh - 148px);
+  max-height: calc(
+    100dvh - 100px - env(safe-area-inset-top, 0px) -
+      env(safe-area-inset-bottom, 0px)
+  );
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 20px;
@@ -122,9 +121,9 @@
   font-size: 11px;
   color: #95adbd;
 }
-@media (max-width: 480px) {
+@media (max-width: 699px) {
   .earth-playback-panel {
-    right: 14px;
+    right: calc(12px + env(safe-area-inset-right, 0px));
     padding: 16px;
   }
 }

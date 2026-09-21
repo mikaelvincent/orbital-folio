@@ -1,0 +1,94 @@
+.scene-tools-chevron {
+  transition: transform 160ms ease;
+}
+.scene-tools-toggle[aria-expanded='true'] .scene-tools-chevron {
+  transform: rotate(180deg);
+}
+.scene-tools-popover {
+  position: fixed;
+  /* Keep the launcher menu usable even while the diagnostics panel is open. */
+  z-index: 20010;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  width: min(252px, calc(100vw - 24px));
+  max-height: calc(
+    100dvh - 100px - env(safe-area-inset-top, 0px) -
+      env(safe-area-inset-bottom, 0px)
+  );
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
+  border: 1px solid #afdbef4a;
+  border-radius: 15px;
+  background: #102332f5;
+  color: #e7f3ff;
+  box-shadow:
+    0 12px 38px #0005,
+    inset 0 1px #e1f1ff16;
+  backdrop-filter: blur(18px);
+  font:
+    400 14px/1.4 Arial,
+    Helvetica,
+    sans-serif;
+}
+.scene-tools-heading {
+  margin: 2px 9px 7px;
+  color: #9db8c9;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scene-tools-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  gap: 11px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+.scene-tools-item svg {
+  flex: 0 0 auto;
+  stroke-width: 1.5;
+  color: #afccdb;
+}
+.scene-tools-item > span {
+  flex: 1;
+}
+.scene-tools-item small {
+  color: #ead0a2;
+  font-size: 10px;
+}
+.scene-tools-item:hover:not(:disabled),
+.scene-tools-item:focus-visible {
+  background: #9ec6da12;
+  color: #f3dfbe;
+}
+.scene-tools-item:focus-visible {
+  outline: 2px solid #c4e7ff;
+  outline-offset: -2px;
+}
+.scene-tools-item:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+@media (max-width: 699px) {
+  .scene-tools-popover {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+  }
+  .scene-tools-chevron {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-tools-chevron {
+    transition: none;
+  }
+}

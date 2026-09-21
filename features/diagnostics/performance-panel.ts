@@ -33,7 +33,7 @@ const experiments: Array<[Experiment, string]> = [
 ];
 
 const styles = `
-.scene-perf{position:fixed;top:12px;left:12px;z-index:20000;width:min(390px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #475569;border-radius:12px;background:#0b1420f5;color:#e5edf7;box-shadow:0 12px 38px #0007;font:12px/1.5 ui-sans-serif,system-ui,sans-serif;letter-spacing:normal;text-align:left;color-scheme:dark}
+.scene-perf{position:fixed;top:12px;left:12px;z-index:20000;width:min(390px,calc(100vw - 24px));max-height:calc(100dvh - 104px - env(safe-area-inset-bottom,0px));overflow:auto;border:1px solid #475569;border-radius:12px;background:#0b1420f5;color:#e5edf7;box-shadow:0 12px 38px #0007;font:12px/1.5 ui-sans-serif,system-ui,sans-serif;letter-spacing:normal;text-align:left;color-scheme:dark}
 .scene-perf *{box-sizing:border-box}
 .scene-perf header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;position:sticky;top:0;background:#0b1420;z-index:1;border-radius:12px 12px 0 0}
 .scene-perf h2{font:600 13px/1.4 ui-sans-serif,system-ui,sans-serif;margin:0;color:#f3f7ff}
