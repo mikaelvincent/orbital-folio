@@ -545,15 +545,19 @@ export function buildProjectPayloadModule(
   const drawScreen = () => {
     if (!canvas || !context) return;
     const ctx = context;
-    if (!available) {
-      // Reuse the desktop artwork on the existing idle canvas. This is an
-      // intentional standby display, not an available category or app target.
+    const background = ctx.createLinearGradient(0, 0, 850, 640);
+    background.addColorStop(0, '#112b43');
+    background.addColorStop(1, '#061526');
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, 1024, 640);
+    if (available) {
+      // Populated monitors carry the desktop artwork behind their category.
+      // Standby keeps the quiet plain background and its passive label.
       const wallpaper = desktopMaterial.map?.image;
-      ctx.fillStyle = '#182b3b';
-      ctx.fillRect(0, 0, 1024, 640);
       if (wallpaper) ctx.drawImage(wallpaper, 0, 0, 1024, 640);
       ctx.fillStyle = '#06101e38';
       ctx.fillRect(0, 0, 1024, 640);
+    } else {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = '#b0c0c7';
@@ -562,11 +566,6 @@ export function buildProjectPayloadModule(
       ctx.fillText('STANDBY', 512, 470);
       return;
     }
-    const background = ctx.createLinearGradient(0, 0, 850, 640);
-    background.addColorStop(0, '#112b43');
-    background.addColorStop(1, '#061526');
-    ctx.fillStyle = background;
-    ctx.fillRect(0, 0, 1024, 640);
     if (options.screenLabels !== false) {
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
