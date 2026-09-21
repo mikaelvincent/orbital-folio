@@ -669,12 +669,6 @@ export function buildCaseStudyArchive(
   fasteners(structuralScrews, floorRoot, 'structural');
 
   // A separate raked terminal on paired hinged struts; all components share the tilt.
-  const screenWidth = 1.12;
-  const screenHeight = (screenWidth * 9) / 16;
-  const enclosureWidth = screenWidth + 0.22;
-  const enclosureHeight = screenHeight + 0.185;
-  const handleX = enclosureWidth / 2 - 0.035;
-  const supportX = enclosureWidth / 2 - 0.105;
   const terminalRig = new THREE.Group();
   terminalRig.name = prefix + 'terminal-floor-rig';
   terminalRig.scale.setScalar(0.85);
@@ -685,8 +679,8 @@ export function buildCaseStudyArchive(
   terminal.rotation.x = -0.55;
   terminalRig.add(terminal);
   box(
-    enclosureWidth,
-    enclosureHeight,
+    2.64,
+    0.735,
     0.16,
     m.graphite,
     0,
@@ -697,8 +691,8 @@ export function buildCaseStudyArchive(
     'terminal-solid-enclosure',
   );
   box(
-    screenWidth + 0.16,
-    screenHeight + 0.12,
+    2.53,
+    0.635,
     0.026,
     m.recess,
     0,
@@ -709,10 +703,10 @@ export function buildCaseStudyArchive(
     'terminal-rebate',
   );
   const bezel = ring(
-    screenWidth + 0.17,
-    screenHeight + 0.12,
-    screenWidth + 0.027,
-    screenHeight + 0.02,
+    2.57,
+    0.668,
+    2.397,
+    0.51,
     0.039,
     m.edge,
     terminal,
@@ -720,8 +714,8 @@ export function buildCaseStudyArchive(
   );
   bezel.position.z = 0.091;
   box(
-    screenWidth + 0.051,
-    screenHeight + 0.045,
+    2.421,
+    0.535,
     0.025,
     m.rubber,
     0,
@@ -733,8 +727,8 @@ export function buildCaseStudyArchive(
   );
   let caseCount = Math.max(0, Math.floor(options.caseCount || 0));
   const display = graphics(
-    screenWidth,
-    screenHeight,
+    2.37,
+    0.49,
     terminal,
     'terminal-screen',
     (ctx, cw, ch) => {
@@ -743,64 +737,55 @@ export function buildCaseStudyArchive(
       bg.addColorStop(1, '#041321');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
-      ctx.fillStyle = '#7a98a9';
-      ctx.font = '500 30px monospace';
-      ctx.textAlign = 'left';
-      ctx.fillText('FLIGHT RECORDS', 80, 84);
-      ctx.textAlign = 'right';
-      ctx.fillStyle = '#d6b271';
-      ctx.fillText(String(caseCount).padStart(2, '0'), cw - 80, 84);
-      ctx.strokeStyle = '#a7c9da';
-      icon(ctx, 'folder', cw / 2, ch * 0.32, 145);
+      ctx.strokeStyle = '#b9d7e7';
+      icon(ctx, 'folder', 90, 110, 77);
       ctx.fillStyle = '#e2ebed';
-      ctx.textAlign = 'center';
+      ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.font = '600 104px Arial, sans-serif';
-      ctx.fillText('All case studies', cw / 2, ch * 0.56, cw - 150);
-      ctx.fillStyle = '#a8becb';
-      ctx.font = '400 36px Arial, sans-serif';
-      ctx.fillText(
-        'Ideas. Systems. People. Progress.',
-        cw / 2,
-        ch * 0.7,
-        cw - 150,
-      );
+      ctx.font = '600 70px Arial, sans-serif';
+      ctx.fillText('All case studies', 170, 114, 1030);
+      ctx.textAlign = 'right';
+      ctx.font = '500 65px Arial, sans-serif';
+      ctx.fillText(String(caseCount).padStart(2, '0'), cw - 65, 114, 220);
       ctx.strokeStyle = '#38596d';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(80, ch - 105);
-      ctx.lineTo(cw - 80, ch - 105);
+      ctx.moveTo(67, 175);
+      ctx.lineTo(cw - 67, 175);
       ctx.stroke();
       ctx.textAlign = 'left';
+      ctx.fillStyle = '#a8becb';
+      ctx.font = '400 32px Arial, sans-serif';
+      ctx.fillText('Ideas. Systems. People. Progress.', 170, 224, 1100);
       ctx.fillStyle = '#7a98a9';
-      ctx.font = '500 25px monospace';
-      ctx.fillText('ARCHIVE INDEX', 80, ch - 60);
+      ctx.font = '500 17px monospace';
+      ctx.fillText('ARCHIVE INDEX  /  FLIGHT RECORDS', 67, ch - 30);
       ctx.textAlign = 'right';
       ctx.fillStyle = '#d6b271';
-      ctx.fillText('LIBRARY ONLINE', cw - 80, ch - 60);
+      ctx.fillText('LIBRARY ONLINE', cw - 67, ch - 30);
     },
     true,
   );
   if (display.plane) display.plane.position.z = 0.121;
   fasteners(
     [
-      [-enclosureWidth / 2 + 0.07, -enclosureHeight / 2 + 0.045, 0.11],
-      [enclosureWidth / 2 - 0.07, -enclosureHeight / 2 + 0.045, 0.11],
-      [-enclosureWidth / 2 + 0.07, enclosureHeight / 2 - 0.045, 0.11],
-      [enclosureWidth / 2 - 0.07, enclosureHeight / 2 - 0.045, 0.11],
+      [-1.247, -0.299, 0.11],
+      [1.247, -0.299, 0.11],
+      [-1.247, 0.299, 0.11],
+      [1.247, 0.299, 0.11],
     ],
     terminal,
     'terminal-bezel',
   );
   for (const side of [-1, 1]) {
     // Side handles stand proud of the screen; their shoes are fastened into the chassis.
-    for (const yy of [-enclosureHeight * 0.32, enclosureHeight * 0.32]) {
+    for (const yy of [-0.238, 0.238]) {
       box(
         0.079,
         0.078,
         0.12,
         m.graphite,
-        side * handleX,
+        side * 1.289,
         yy,
         0.098,
         terminal,
@@ -811,7 +796,7 @@ export function buildCaseStudyArchive(
         0.024,
         0.027,
         m.alloy,
-        side * handleX,
+        side * 1.289,
         yy,
         0.159,
         terminal,
@@ -820,24 +805,15 @@ export function buildCaseStudyArchive(
       );
     }
     rod(
-      [side * handleX, -enclosureHeight * 0.32, 0.163],
-      [side * handleX, enclosureHeight * 0.32, 0.163],
+      [side * 1.289, -0.24, 0.163],
+      [side * 1.289, 0.24, 0.163],
       0.021,
       m.amber,
       terminal,
       'terminal-amber-handle',
     );
     // At the floor, solid feet overlap both the knee and the two support members.
-    const x = side * supportX;
-    // Derive the support joints from the tilted enclosure's rear face.
-    const front = terminal.localToWorld(
-      new THREE.Vector3(x, -enclosureHeight * 0.3, -0.085),
-    );
-    const rear = terminal.localToWorld(
-      new THREE.Vector3(x, enclosureHeight * 0.23, -0.085),
-    );
-    terminalRig.worldToLocal(front);
-    terminalRig.worldToLocal(rear);
+    const x = side * 1.24;
     box(
       0.22,
       0.033,
@@ -864,7 +840,7 @@ export function buildCaseStudyArchive(
     );
     rod(
       [x, 0.071, 0.12],
-      front.toArray(),
+      [x, 0.287, 0.178],
       0.042,
       m.graphite,
       terminalRig,
@@ -872,7 +848,7 @@ export function buildCaseStudyArchive(
     );
     rod(
       [x, 0.074, -0.1],
-      rear.toArray(),
+      [x, 0.569, -0.094],
       0.034,
       m.edge,
       terminalRig,
@@ -883,8 +859,8 @@ export function buildCaseStudyArchive(
       0.135,
       m.graphite,
       x,
-      front.y,
-      front.z,
+      0.285,
+      0.172,
       terminalRig,
       'x',
       'terminal-hinge-housing',
@@ -894,8 +870,8 @@ export function buildCaseStudyArchive(
       0.145,
       m.alloy,
       x,
-      front.y,
-      front.z,
+      0.285,
+      0.172,
       terminalRig,
       'x',
       'terminal-hinge-pin',
@@ -905,8 +881,8 @@ export function buildCaseStudyArchive(
       0.149,
       m.amber,
       x,
-      front.y,
-      front.z,
+      0.285,
+      0.172,
       terminalRig,
       'x',
       'terminal-hinge-cap',
@@ -917,8 +893,8 @@ export function buildCaseStudyArchive(
       0.2,
       m.graphite,
       x,
-      rear.y,
-      rear.z,
+      0.574,
+      -0.078,
       terminalRig,
       0.022,
       'terminal-rear-saddle',
@@ -926,24 +902,20 @@ export function buildCaseStudyArchive(
   }
   // A solid satin edge guard protects the tilted terminal's lower casing.
   box(
-    enclosureWidth - 0.18,
+    2.25,
     0.054,
     0.115,
     m.edge,
     0,
-    -enclosureHeight / 2 + 0.004,
+    -0.363,
     -0.018,
     terminal,
     0.015,
     'terminal-lower-edge-guard',
   );
-  const cableSocket = terminal.localToWorld(
-    new THREE.Vector3(supportX - 0.05, 0, -0.075),
-  );
-  floorRoot.worldToLocal(cableSocket);
   const cable = new THREE.CatmullRomCurve3([
-    cableSocket,
-    new THREE.Vector3(0.55, 0.28, -0.34),
+    new THREE.Vector3(0.96 * 0.85, 0.38 * 0.85, -0.035 * 0.85),
+    new THREE.Vector3(0.97 * 0.85, 0.31 * 0.85, -0.34 * 0.85),
     new THREE.Vector3(1.04, 0.43, -0.7),
     new THREE.Vector3(1.12, 0.69, -0.87),
     new THREE.Vector3(1.12, 0.84, -0.87),
