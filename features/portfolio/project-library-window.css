@@ -7,16 +7,9 @@
 .project-computer-desktop {
   box-sizing: border-box;
   height: 100%;
-  padding: 24px 14px 14px;
+  padding: 2px;
   border-radius: 6px;
   overflow: clip;
-}
-@media (min-width: 1000px) and (min-height: 650px) {
-  .project-computer-desktop {
-    /* The physical application plane already leaves wallpaper around all four
-       edges. Spend less of that plane on a second inset when room is available. */
-    padding: 4px;
-  }
 }
 .project-library-window {
   container-type: inline-size;
@@ -29,7 +22,6 @@
   border: 1px solid #708185;
   border-radius: 7px;
   overflow: clip;
-  box-shadow: 0 10px 30px #0004;
   font-family: var(--font-sans, Arial, sans-serif);
   font-size: 15px;
   line-height: 1.5;
@@ -126,9 +118,6 @@
 }
 .project-library-window .contact-window-body > div {
   min-height: 100%;
-}
-.project-library-window .contact-window-scrollbar {
-  background: #0c15209c;
 }
 .project-window-gallery,
 .project-window-detail {

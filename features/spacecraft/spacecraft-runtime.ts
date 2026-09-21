@@ -834,15 +834,17 @@ export function mountSpacecraftScene({
               readerHeight() / (1.125 * readerStretch()),
             ),
           );
+        const projectLayout = () =>
+          projectApplicationLayout(
+            el.clientWidth,
+            el.clientHeight,
+            selectedProjectScreen().width,
+            selectedProjectScreen().height,
+            Math.max(bottomReservation, mobile() ? 132 : 80),
+          );
         const computerLayout = () =>
           active === 'projects'
-            ? projectApplicationLayout(
-                el.clientWidth,
-                el.clientHeight,
-                selectedProjectScreen().width,
-                selectedProjectScreen().height,
-                Math.max(bottomReservation, mobile() ? 132 : 80),
-              )
+            ? projectLayout()
             : contactApplicationLayout(
                 el.clientWidth,
                 el.clientHeight,
@@ -961,10 +963,10 @@ export function mountSpacecraftScene({
           } else if (isReading && section === 'projects') {
             model.group.updateMatrixWorld(true);
             const screen = selectedProjectScreen();
-            const layout = computerLayout();
+            const layout = projectLayout();
             const points: Vec3[] = [];
-            for (const x of [-layout.width / 2, layout.width / 2])
-              for (const y of [-layout.height / 2, layout.height / 2])
+            for (const x of [-layout.framing.width / 2, layout.framing.width / 2])
+              for (const y of [-layout.framing.height / 2, layout.framing.height / 2])
                 points.push(
                   screen.anchor
                     .localToWorld(new THREE.Vector3(x, y, 0))

@@ -360,8 +360,8 @@ function projectApplicationPose(screen, width, height) {
   );
   const direction = new THREE.Vector3(0, 0, 1);
   const points = [];
-  for (const x of [-layout.width / 2, layout.width / 2])
-    for (const y of [-layout.height / 2, layout.height / 2])
+  for (const x of [-layout.framing.width / 2, layout.framing.width / 2])
+    for (const y of [-layout.framing.height / 2, layout.framing.height / 2])
       points.push(
         screen.anchor.localToWorld(new THREE.Vector3(x, y, 0)).toArray(),
       );

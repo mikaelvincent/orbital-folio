@@ -66,6 +66,17 @@ await test('Project screens retain independent real display anchors, inset feedb
   }
 });
 
+await test('A roomier landscape window preserves the established camera framing rectangle', () => {
+  const desktop = projectApplicationLayout(1470, 830, 1.01, 0.57);
+  assert.ok(Math.abs(desktop.framing.width - 0.95) < 1e-10);
+  assert.ok(Math.abs(desktop.framing.height - 0.51) < 1e-10);
+  assert.ok(desktop.width > desktop.framing.width);
+  assert.ok(desktop.height > desktop.framing.height);
+  const portrait = projectApplicationLayout(390, 844, 1.01, 0.57, 132);
+  assert.equal(portrait.width, portrait.framing.width);
+  assert.equal(portrait.height, portrait.framing.height);
+});
+
 await test('Portrait application preserves readable pixels inside the unchanged monitor glass', () => {
   for (const [w, h] of [
     [390, 844],
@@ -215,7 +226,7 @@ await test('Real portrait monitor projection fills the readable app area without
   }
 });
 
-await test('Application edges stay inside the real monitor rim and bezel through responsive hover and drag', () => {
+await test('Application edges stay inside the visible monitor bezel through responsive hover and drag', () => {
   const model = createSpacecraft(THREE);
   const ray = new THREE.Raycaster();
   for (const [width, height] of [
@@ -224,6 +235,8 @@ await test('Application edges stay inside the real monitor rim and bezel through
     [990, 1298],
     [768, 768],
     [1280, 720],
+    [1470, 830],
+    [1920, 1080],
   ]) {
     model.setLayout(width < 700 ? 'compact' : 'wide');
     const portrait = height > width;
@@ -255,7 +268,10 @@ await test('Application edges stay inside the real monitor rim and bezel through
         screen.height,
         bottom,
       );
-      const corners = [];
+      const framingCorners = [];
+      for (const x of [-app.framing.width / 2, app.framing.width / 2])
+        for (const y of [-app.framing.height / 2, app.framing.height / 2])
+          framingCorners.push(screen.anchor.localToWorld(new THREE.Vector3(x, y, 0)));
       const perimeter = [];
       for (const x of [-1, 0, 1])
         for (const y of [-1, 0, 1]) {
@@ -264,10 +280,9 @@ await test('Application edges stay inside the real monitor rim and bezel through
             new THREE.Vector3((x * app.width) / 2, (y * app.height) / 2, 0),
           );
           perimeter.push(point);
-          if (x && y) corners.push(point);
         }
       const fit = fitPerspectiveFrame(
-        corners.map((point) => point.toArray()),
+        framingCorners.map((point) => point.toArray()),
         {
           target: screen.anchor.getWorldPosition(new THREE.Vector3()).toArray(),
           direction: [0, 0, 1],
@@ -303,11 +318,12 @@ await test('Application edges stay inside the real monitor rim and bezel through
               .find((hit) => {
                 for (let node = hit.object; node; node = node.parent)
                   if (!node.visible) return false;
-                return true;
+                const materials = [hit.object.material].flat();
+                return materials.some((material) => material.visible &&
+                  (!material.transparent || material.opacity > 0));
               });
-            // Include the transparent hover rim even at zero opacity: its full
-            // footprint must stay clear when feedback fades in or out. Native
-            // HTML is composited over WebGL and cannot be hidden by that rim.
+            // The selected monitor's hover rim is immediately disabled while
+            // its application is active; only visible geometry can cover it.
             assert.equal(
               blocker,
               undefined,

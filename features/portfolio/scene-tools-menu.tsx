@@ -38,6 +38,7 @@ export function SceneToolsMenu({
 }) {
   const id = useId();
   const panel = useRef<HTMLDivElement>(null);
+  const pointerToggle = useRef<boolean | null>(null);
   const [open, setOpen] = useState(false);
   const [earthOpen, setEarthOpen] = useState(false);
   const closeEarth = useCallback(() => {
@@ -85,7 +86,23 @@ export function SceneToolsMenu({
         aria-expanded={open}
         aria-controls={id}
         title="Scene tools"
-        onClick={() => setOpen((value) => !value)}
+        onPointerDown={(event) => {
+          // Focus can leave the popover before click (notably when a browser
+          // does not focus pointer-clicked buttons). Keep this press's intent
+          // so the outside-focus dismissal cannot turn Close into Open.
+          pointerToggle.current =
+            event.isPrimary && event.button === 0 ? !open : null;
+        }}
+        onPointerCancel={() => {
+          pointerToggle.current = null;
+        }}
+        onClick={(event) => {
+          const intended = pointerToggle.current;
+          pointerToggle.current = null;
+          setOpen((value) =>
+            event.detail > 0 && intended !== null ? intended : !value,
+          );
+        }}
       >
         <SlidersHorizontal size={16} aria-hidden="true" />
         <span>Tools</span>
