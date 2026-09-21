@@ -2456,6 +2456,33 @@ desktop rest/focus, portrait and narrow views and inert standby interaction;
 native Safari remains untested. This is design work; held candidates remain held.
 Independent critic: **95/100**, keep, no unresolved blockers.
 
+## 39 — Populated-monitor wallpaper and grouped resource actions (21 September 2026)
+
+Baseline `1e7eacc`. The owner requested the reverse room-view background
+assignment: populated monitors now use the folded wallpaper behind their title
+and icon; unavailable monitors retain STANDBY on the plain navy gradient.
+Live and Source now share the resource row below the introduction, in that order,
+in both views. Their approved visual states remain; obsolete title-side layout
+code is removed. [Evidence and source identities](evidence/project-screen-hierarchy/README.md)
+record the new composition and responsive checks.
+
+This only changes Canvas2D painting and HTML/CSS composition. Existing geometry,
+material/texture allocation, canvas dimensions and render-pass code are unchanged
+by inspection; the inventory was not remeasured. Copying wallpaper now happens
+for the initially available draw of each monitor and subsequent populated-state
+repaints. A monitor later marked unavailable is repainted with gradient/text.
+This changes bounded preparation/repaint work, not per-frame painting. There is
+no new media request. Preparation, upload, CPU/GPU timing, actual memory and
+session delivery were not measured; no performance improvement is claimed.
+
+Verification covers the affected pure renderer, category availability, desktop
+and application-layout suites plus typecheck, affected lint and production build.
+No shared renderer, navigation, backend or data code changed, so the mutating API
+suite was not repeated. Hidden Chromium provides visual evidence; native Safari
+is untested. Held optimization candidates remain held.
+All **25 targeted tests** and required checks pass. Independent critic:
+**95/100**, keep, no unresolved blockers.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

@@ -100,20 +100,21 @@ Older v1 ZIP packages may include `period`; imports ignore that retired project
 field, and new exports omit it. Existing database records are not bulk rewritten.
 The legacy site-level `periodLabel` remains optional round-trip metadata so
 identity backups preserve owner-authored copy; it has no editor or public output.
-The optional Live project link appears as a dark, amber-tinted outlined anchor
-beside the title in both views, stacking below it on narrow layouts. It fills
-amber on hover or keyboard focus. The optional source repository link is a
-secondary blue-gray outlined control below the summary, labelled View source code
-by default. The former exact View source wording is expanded for display only;
-other custom labels are retained and stored copy is not migrated. The live destination
-retains the established `demoUrl` field; the repository uses `sourceUrl`.
+Optional project links share a wrapping row below the summary in both views,
+with Open live project first and View source code second. Live keeps its dark,
+amber-tinted outline and fills amber on hover or keyboard focus; Source is a
+secondary blue-gray outlined control. The former exact View source wording is
+expanded for display only; other custom labels are retained and stored copy is
+not migrated. The live destination retains the established `demoUrl` field;
+the repository uses `sourceUrl`.
 
-Categories without readable projects keep their physical monitor installed but
-showing subdued wallpaper and STANDBY, without a category name, hotspot, tab stop,
-hover effect or app activation.
-Reading view omits those category controls. Availability follows published content
-for visitors and draft content in private preview; publishing or assigning
-projects enables the corresponding screen without separate configuration.
+Categories without readable projects keep their physical monitor installed,
+showing a plain navy background and STANDBY, without a category name, hotspot,
+tab stop, hover effect or app activation. Populated monitors use the folded
+desktop wallpaper behind their title and icon. Reading view omits empty category
+controls. Availability follows published content for visitors and draft content
+in private preview; publishing or assigning projects enables the corresponding
+screen without separate configuration.
 
 The editor inserts uploaded or existing managed media at the text selection.
 Images use `![Alternative text](/media/<id>)`; video links such as

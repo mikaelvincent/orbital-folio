@@ -192,10 +192,12 @@ the real display surface; shrinking physical margins must not shrink readable
 text. The standalone reading collection retains category controls because it
 does not have the room's physical monitors, but omits empty categories.
 
-An empty category retains its installed monitor with subdued desktop wallpaper
-and a small STANDBY label. It has no category name/icon, interaction hotspot,
-tab stop, hover feedback or application activation. The passive wallpaper replaces
-the rejected black face, which looked like a rendering fault.
+Populated room-view category monitors use the subdued folded desktop wallpaper
+behind their title and icon. An empty category retains its installed monitor
+with the plain navy gradient and a small STANDBY label. It has no category
+name/icon, interaction hotspot, tab stop, hover feedback or application activation.
+This swaps the earlier wallpaper-on-standby assignment while retaining the
+intentional passive label; do not restore the rejected black face.
 Availability follows the current published or private-preview project collection;
 adding readable content restores that category's display and controls. This
 supersedes the earlier selectable empty-category application. The overall Projects
@@ -229,13 +231,13 @@ There is no repeated Back action below the story. The detail status bar shows
 only the original-case project title. Counts remain in the application collection,
 but are removed from all four physical Projects room monitor graphics.
 
-The optional Live project link is a dark, amber-tinted outlined anchor beside
-the project title in both views. Hover and keyboard focus produce a stronger
-amber fill; pressing darkens it without movement. It sits to the title's right
-when space permits and stacks beneath it on narrow layouts. The optional source
-repository link is a secondary blue-gray outlined control below the summary,
-before role/stack metadata. Both use 44px minimum height, 6px corners and
-external-link cues. Source has a code icon and defaults to **View source code**;
+Optional resource links share one row below the summary in both views, before
+role/stack metadata: **Open live project** first, then **View source code**. They
+wrap in that order on narrow screens. Live keeps its dark amber-tinted outline;
+hover and keyboard focus produce a stronger amber fill, and pressing darkens it
+without movement. Source remains a secondary blue-gray outlined control. The
+former title-side Live placement is superseded. Both use 44px minimum height,
+6px corners and external-link cues. Source has a code icon and defaults to **View source code**;
 the exact former **View source** label is expanded at presentation only, while
 other configured copy is preserved. Absent links leave no placeholder or empty
 row. The solid amber resting state and text-like source underline are superseded.
@@ -268,7 +270,7 @@ and [implementation evidence](evidence/projects-library/README.md) for checks.
 
 The explicit local demo population supplies nine stories: All projects (9),
 Systems (6), Interfaces (3) and Experiments (0). The Experiments monitor remains
-installed in wallpaper standby and unavailable, demonstrating the dormant category state.
+installed in plain navy standby and unavailable, demonstrating the dormant category state.
 The stories include varied Markdown, still covers, a native MP4/captions and a
 finite animated GIF. The tool only updates exact known untouched
 sample fingerprints; `sample: true` alone is not permission to overwrite an
@@ -296,10 +298,11 @@ until the explicit population step supplies those assets. See the
 [screen refinement evidence](evidence/project-screen-refinement/README.md) records
 the reduced wallpaper margin, resource examples and the now-superseded selectable
 empty-category trial. The current [category/action evidence](evidence/project-category-actions/README.md)
-records the first dormant-monitor treatment and narrow reading fit. The latest
+records the first dormant-monitor treatment and narrow reading fit. The earlier
 [standby/resource refinement](evidence/project-standby-resources/README.md) replaces
 its black face and solid resting button with intentional passive art and clearer
-resource action states.
+resource action states. The subsequent [screen/resource hierarchy correction](evidence/project-screen-hierarchy/README.md)
+assigns wallpaper to populated monitors and groups the resource actions below the introduction.
 
 ## Contact computer and submission boundary
 

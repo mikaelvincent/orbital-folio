@@ -1,0 +1,82 @@
+{
+  "recordedAt": "2026-09-21T07:44:11.355736+00:00",
+  "baselineCommit": "1e7eaccb24ffc0eda8864a9b46358a944c555298",
+  "sourceSha256": {
+    "features/portfolio/project-library-window.css": "3880861e604bbc2aa08dab848a8bf3667af10e74cc9ccf91202f84bfff4579f8",
+    "features/portfolio/project-library-window.tsx": "bcb830b2ca9518f02e9485fef60509dd524891bda569e54536f641d987f48f57",
+    "features/portfolio/room-views.tsx": "86c29c0494af5417ee87fa4b845550ad8f3a60e228b19c0f1a16e7f9c3d30f45",
+    "features/spacecraft/rooms/projects-payload-module.ts": "6c5467dacad9ae663f40b404d88c9964a6693913daa3bb963d3dad8e109494d6",
+    "tests/content/project-rendering.test.mjs": "0662817e7b78c97da42e7063db2939c11421d3adbbaa1c04ff4e3a83c53b7748"
+  },
+  "sourceChangesSinceSnapshot": [],
+  "scope": {
+    "riskBasedSelection": "Changes are confined to the Projects room canvas artwork and project resource-link markup/styles. The shared model, renderer, navigation, API, persistence and data schema are unchanged. The four pure targets cover affected markup/link order and existing category/display/application invariants.",
+    "fullMutationBearingSuiteRerun": false,
+    "apiOrWorkflowTestsRun": false,
+    "testServerStarted": false,
+    "mainApiAccessed": false,
+    "privateStateCopied": false,
+    "isolatedSourceAndViteCache": true,
+    "testOnlyConfigOverride": "vite.config.ts cacheDir: '.vite-isolated-test-cache'"
+  },
+  "checks": {
+    "targetedTests": {
+      "command": "node --test --test-reporter=tap --test-concurrency=1 tests/content/project-rendering.test.mjs tests/spacecraft/project-availability.test.mjs tests/spacecraft/computer-desktop.test.mjs tests/spacecraft/project-application.test.mjs",
+      "exitCode": 0,
+      "wallDurationSeconds": 35.603,
+      "isolatedSourceCwd": true,
+      "result": {
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 35364.133667
+      },
+      "logSha256": "73ab5e565eb8a596ee3cdbd93fce85c801770ec2f94ff6fd487956bc9c085f10"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "wallDurationSeconds": 23.285,
+      "isolatedSourceCwd": true,
+      "logSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625"
+    },
+    "lint": {
+      "command": "npm run lint -- features/portfolio/project-library-window.tsx features/portfolio/room-views.tsx features/spacecraft/rooms/projects-payload-module.ts tests/content/project-rendering.test.mjs",
+      "exitCode": 0,
+      "wallDurationSeconds": 3.145,
+      "isolatedSourceCwd": true,
+      "logSha256": "15a35ece3e85a7bc21275bb9c53af13a8d56d20b7e5f386551bd6afb707e18c8"
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "wallDurationSeconds": 22.076,
+      "isolatedSourceCwd": true,
+      "logSha256": "b8d7b890702c8489d01723a073175cf690f4e4f87effafd390a4312642a866c9",
+      "nonBlockingDiagnostics": [
+        "Node DEP0205: module.register() deprecation warning.",
+        "Vite reports a minified chunk above 500 kB.",
+        "Vinext build table retains the existing Unknown classification for the case-studies route."
+      ]
+    },
+    "diff": {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  },
+  "cleanup": {
+    "temporarySourceAndBuildStateRemoved": true,
+    "mainPort3000StillListening": true,
+    "mainServerAndStoreUntouched": true
+  },
+  "limitations": [
+    "These Node checks validate server-rendered markup and Three.js model/application invariants. They do not inspect browser layout, canvas pixels or artistic quality.",
+    "Node model fixtures have no document/canvas, so the active-wallpaper and plain-Standby artwork is verified separately through browser evidence.",
+    "No native Safari testing or control occurred during this verification.",
+    "Verification wall durations are execution records, not application CPU/GPU, memory or battery measurements."
+  ]
+}
