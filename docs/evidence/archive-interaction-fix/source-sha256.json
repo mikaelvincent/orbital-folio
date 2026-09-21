@@ -1,0 +1,16 @@
+{
+  "baseline": "7970fe61a1f097000e58c179f5dea830cac048bf",
+  "sha256": {
+    "docs/OPERATIONS.md": "45eb8c86fcbb46794b3b7f2ab39248cd3726ded20f74ca7038f78c9303de548f",
+    "docs/PROJECT-CONTEXT.md": "6ce684a93f968f54e758b4ecf540e1424d32c3db90f18ba5a410b8e5a0c7e9bf",
+    "docs/performance-ledger.md": "e94d0dd5625635df49f3ec41ba9a10e491bf4561956a600d22c193917d3e861e",
+    "features/portfolio/case-study-library-window.tsx": "b9244b60ffc495787c7ead30d59ae93a9f64e439f08417ee5bf2fe465ac56223",
+    "features/portfolio/immersive-portfolio.tsx": "d1268dfe815ee469aa1bb9f6f39ee6b66e1c7b9fad830e8053c038ba8cebe44d",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "e2bae92b470536c5aa8b178373c7395548497cb7803f14da3737b0980ac89cec",
+    "features/spacecraft/rooms/case-study-archive.ts": "338bd3de61998430bc380b60bf9573680f0598a575285b0ce9d054e16701dff2",
+    "features/spacecraft/spacecraft-model.ts": "69f8ac138debd888c8c6ed0f15ca55ca5ce4d14f3c21edf079569092d6939e29",
+    "tests/content/case-study-rendering.test.mjs": "fb3ad6e98d9f5b51532ee6e9b6b3d6f72b7221249dda5029d596d903503f2ea0",
+    "tests/spacecraft/case-study-application.test.mjs": "b3fc9a6b91ce0255d1b5a97524567e1f7fe1d58e018f80e33ad8eb86090842ca",
+    "tests/spacecraft/object-interaction.test.mjs": "2f74790e384ad055f136d09661f557e1feda7ff585d4bb0d9b5eb0d5b1322429"
+  }
+}

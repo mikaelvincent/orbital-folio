@@ -68,6 +68,100 @@ test('The shared brightness transition is smooth and independent of refresh rate
   assert.ok(Math.abs(simulate(60) - simulate(120)) < 1e-12);
 });
 
+test('Arriving in an application room preserves every screen’s resting brightness', () => {
+  const model = createSpacecraft(THREE, {
+    projects: [
+      {
+        title: 'Project',
+        slug: 'project',
+        categories: ['systems', 'interfaces', 'experiments'],
+      },
+    ],
+    caseStudies: [
+      {
+        title: 'Case study',
+        slug: 'case-study',
+        categories: ['product', 'systems', 'research', 'interfaces'],
+      },
+    ],
+    socials: resolveSocialScreens([
+      {
+        id: 'github',
+        title: 'GitHub',
+        url: 'https://github.com',
+        screen: 'left',
+        platform: 'github',
+      },
+    ]),
+  });
+  const rooms = [
+    ['projects', model.group.userData.projectScreens],
+    ['experience', model.group.userData.caseStudyScreens],
+    [
+      'contact',
+      [
+        model.group.userData.contactComputer,
+        ...model.group.userData.socialScreens.filter((screen) => screen.link),
+      ],
+    ],
+  ];
+  try {
+    for (const [room, screens] of rooms) {
+      // The final travel frame and the first settled frame share full room
+      // illumination. Enabling selection must not introduce a darker material.
+      model.update(1, room, true, {
+        activeRoom: room,
+        transitRoom: room,
+        travelling: true,
+        reading: false,
+        hoveredObject: null,
+      });
+      const before = new Map();
+      for (const screen of screens) {
+        assert.equal(screen.root.userData.highlightLevel, 1);
+        screen.root.traverse((object) => {
+          for (const material of [object.material].flat())
+            if (material?.color)
+              before.set(material, {
+                color: material.color.clone(),
+                emissive: material.emissive?.clone(),
+                intensity: material.emissiveIntensity,
+              });
+        });
+      }
+      assert.ok(before.size > 0);
+      for (let frame = 0; frame < 12; frame++) {
+        model.update(1 + (frame + 1) / 60, room, false, {
+          travelling: false,
+          delta: 1 / 60,
+        });
+        for (const [material, previous] of before) {
+          assert.ok(
+            material.color.equals(previous.color),
+            `${room}: ${material.name} must not darken when travel ends`,
+          );
+          if (previous.emissive)
+            assert.ok(
+              material.emissive.equals(previous.emissive),
+              `${room}: ${material.name} must retain its backlight`,
+            );
+          assert.equal(material.emissiveIntensity, previous.intensity);
+        }
+      }
+    }
+  } finally {
+    const geometries = new Set(),
+      materials = new Set();
+    model.group.traverse((object) => {
+      if (object.geometry) geometries.add(object.geometry);
+      for (const material of [object.material].flat())
+        if (material) materials.add(material);
+    });
+    geometries.forEach((geometry) => geometry.dispose());
+    materials.forEach((material) => material.dispose());
+  }
+});
+
 test('Computer and social screens retain native anchors, independent feedback and portal navigation', () => {
   const model = createSpacecraft(THREE, {
     socials: resolveSocialScreens([
@@ -172,7 +266,7 @@ test('Computer and social screens retain native anchors, independent feedback an
       hoveredObject: selected.interactableId,
     });
     assert.equal(selected.root.userData.highlightLevel, 1.15);
-    assert.equal(other.root.userData.highlightLevel, 0.65);
+    assert.equal(other.root.userData.highlightLevel, 1);
     assert.equal(computer.root.userData.hoverProgress, 0);
     assert.equal(model.group.userData.geometryRevision, activeRevision);
   }
@@ -182,7 +276,7 @@ test('Computer and social screens retain native anchors, independent feedback an
     hoveredObject: 'contact-social-left',
   });
   assert.equal(left.root.userData.highlightLevel, 1.15);
-  assert.equal(right.root.userData.highlightLevel, 0.65);
+  assert.equal(right.root.userData.highlightLevel, 1);
   model.update(2, '', true, {
     activeRoom: 'contact',
     hoveredObject: 'contact-social-left',

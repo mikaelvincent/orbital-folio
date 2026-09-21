@@ -11,7 +11,6 @@ import {
 import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { projectCategoryCount } from '@/lib/content/project-content';
-import { caseStudyCategoryCount } from '@/lib/content/case-study-content';
 import { CaseStudyLibraryWindow } from './case-study-library-window';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
@@ -91,19 +90,14 @@ export function ImmersivePortfolio({
   )
     ? selectedProjectScreen
     : 'all';
-  const caseStudyScreen =
-    destination.category &&
-    caseStudyCategoryCount(data.experience, destination.category)
-      ? destination.category
-      : 'all';
+  const caseStudyScreen = destination.category || 'all';
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
   latest.current = destination;
   const immersive = enhanced && !reading && destination.section !== 'privacy';
   const readingSurface =
     !!(destination.slug || destination.open) &&
-    (destination.section !== 'projects' || data.projects.length > 0) &&
-    (destination.section !== 'experience' || data.experience.length > 0);
+    (destination.section !== 'projects' || data.projects.length > 0);
   const project =
     destination.section === 'projects'
       ? data.projects.find((p) => p.slug === destination.slug)
@@ -523,7 +517,6 @@ export function ImmersivePortfolio({
             projectScreen={projectScreen}
             caseStudyScreen={caseStudyScreen}
             onOpenCaseStudies={(category) => {
-              if (!caseStudyCategoryCount(data.experience, category)) return;
               go({ section: 'experience', open: true, category });
             }}
             onCloseCaseStudies={() => go({ section: 'experience' })}

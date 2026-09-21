@@ -106,9 +106,9 @@ export function createObjectHighlight(
         : 1 - Math.exp(-Math.max(0, Math.min(0.1, delta)) * 15);
       progress += (target - progress) * blend;
       if (Math.abs(target - progress) < 0.002) progress = target;
-      // Dim only enabled objects in a selected room. Overview retains the
-      // established room lighting, and inactive equipment is never advertised.
-      const level = enabled ? 0.65 + progress * 0.5 : 1;
+      // Selection becomes enabled when room travel ends. Keep the authored
+      // resting brightness through that boundary; only hover adds brightness.
+      const level = enabled ? 1 + progress * 0.15 : 1;
       for (const [source, material] of materials) {
         material.color.copy(source.color).multiplyScalar(level);
         if (material.emissive && source.emissive) {

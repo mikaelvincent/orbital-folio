@@ -155,7 +155,9 @@ unchanged. Private preview opens the chosen story by ID; public stories have
 `/case-studies/<slug>` URLs and a semantic Reading view.
 
 The four physical category cartridges open their collection on the same terminal;
-All case studies opens the full archive. Empty choices are passive standby.
+All case studies opens the full archive. Every cartridge and the terminal remain
+selectable even when empty; the chosen collection explains that no stories have
+been added yet. Reading view offers the same five choices.
 Back restores the collection and its scroll position; X or an exposed room wall
 returns to the room. Case studies uses the existing JSON content backup workflow.
 The standalone project ZIP format remains specific to Projects.

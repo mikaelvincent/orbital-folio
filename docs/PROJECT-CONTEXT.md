@@ -170,6 +170,12 @@ and [visible-room navigation evidence](evidence/room-access-and-hardware/README.
 remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
+Registered screens in Projects, Case studies and Contact retain their authored
+resting brightness as room travel settles. Hover/focus adds up to 15% brightness
+and the existing inset amber rim, then eases back to the resting level. The former
+65% idle multiplier produced a sudden darkening when interaction became enabled;
+it is removed. Ordinary room dimming and application wall feedback remain.
+
 ## Projects library and authoring
 
 The four workshop monitors now open one library application, initialized to
@@ -315,12 +321,14 @@ assigns wallpaper to populated monitors and groups the resource actions below th
 Approved on 22 September 2026: the four recorder cartridges select Product
 engineering, Systems & reliability, Research & experiments, or Design &
 interfaces; the terminal selects All case studies. Every option approaches the
-same existing 16:9 raked monitor. Populated cartridges have inset amber hover/
-focus feedback; empty categories retain their installed hardware with subdued
-category labels and no interaction target. An empty All terminal displays STANDBY.
-Published content drives public
-availability; the private preview uses drafts. No category is guessed from a
-title or older record.
+same existing 16:9 raked monitor. The owner's subsequent correction makes all
+five controls interactive even with no assigned or published stories. Cartridges
+keep their cream category labels and inset amber hover/focus feedback; the terminal
+keeps its All case studies display. Empty selections open their own category with
+an honest empty-state message instead of falling back to All. This supersedes the
+initial Case studies standby/availability rule; Projects' separate empty-monitor
+standby behavior is unchanged. Published content drives the visitor collection;
+private preview uses drafts. No category is guessed from a title or older record.
 
 The monitor displays a numbered archive list with summaries and optional
 organization/period metadata. A story opens in the same window without camera
@@ -333,8 +341,8 @@ legacy chapter pager are removed; About remains unchanged.
 
 Public `/case-studies/<slug>` URLs, category query state, browser history,
 `/experience` compatibility and authenticated preview by ID/slug share the
-existing `experience` storage identity. Reading view offers populated-category
-controls and the same story renderer. Details use record titles/summaries for
+existing `experience` storage identity. Reading view offers all five category
+controls, including empty categories, and the same story renderer. Details use record titles/summaries for
 metadata and appear in the sitemap only when published.
 
 Content studio labels this collection Case studies and shares Projects' Markdown

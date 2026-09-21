@@ -1,0 +1,242 @@
+{
+  "description": "Before/after reproduction of the shared screen brightness change when room travel ends.",
+  "scope": "Pure material-state fixture, without rendering, textures, timing or performance measurement. The stable source represents the same fully lit room at level 1 throughout all stages. The integration regression separately covers the actual Projects, Case studies and Contact model materials.",
+  "baseline": {
+    "commit": "7970fe61a1f097000e58c179f5dea830cac048bf",
+    "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+    "sha256": "a3b3a5c93289c2025f998b582a4575d1d84d745514c2f6046bc84822866e11fd",
+    "unchangedSource": {
+      "linearColor": [
+        0.005181516700061659,
+        0.024157632443547246,
+        0.061246054224174035
+      ],
+      "linearEmissive": [
+        1,
+        1,
+        1
+      ],
+      "emissiveIntensity": 0.85
+    },
+    "stages": [
+      {
+        "name": "travelling",
+        "hovered": false,
+        "enabled": false,
+        "multiplier": 1,
+        "linearColor": [
+          0.005181516700061659,
+          0.024157632443547246,
+          0.061246054224174035
+        ],
+        "linearEmissive": [
+          1,
+          1,
+          1
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.85,
+          0.85,
+          0.85
+        ]
+      },
+      {
+        "name": "arrived_idle",
+        "hovered": false,
+        "enabled": true,
+        "multiplier": 0.65,
+        "linearColor": [
+          0.0033679858550400787,
+          0.01570246108830571,
+          0.03980993524571312
+        ],
+        "linearEmissive": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.5525,
+          0.5525,
+          0.5525
+        ]
+      },
+      {
+        "name": "hovered",
+        "hovered": true,
+        "enabled": true,
+        "multiplier": 1.15,
+        "linearColor": [
+          0.0059587442050709075,
+          0.02778127731007933,
+          0.07043296235780014
+        ],
+        "linearEmissive": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.9774999999999999,
+          0.9774999999999999,
+          0.9774999999999999
+        ]
+      },
+      {
+        "name": "returned_to_idle",
+        "hovered": false,
+        "enabled": true,
+        "multiplier": 0.65,
+        "linearColor": [
+          0.0033679858550400787,
+          0.01570246108830571,
+          0.03980993524571312
+        ],
+        "linearEmissive": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.5525,
+          0.5525,
+          0.5525
+        ]
+      }
+    ]
+  },
+  "final": {
+    "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+    "sha256": "e2bae92b470536c5aa8b178373c7395548497cb7803f14da3737b0980ac89cec",
+    "unchangedSource": {
+      "linearColor": [
+        0.005181516700061659,
+        0.024157632443547246,
+        0.061246054224174035
+      ],
+      "linearEmissive": [
+        1,
+        1,
+        1
+      ],
+      "emissiveIntensity": 0.85
+    },
+    "stages": [
+      {
+        "name": "travelling",
+        "hovered": false,
+        "enabled": false,
+        "multiplier": 1,
+        "linearColor": [
+          0.005181516700061659,
+          0.024157632443547246,
+          0.061246054224174035
+        ],
+        "linearEmissive": [
+          1,
+          1,
+          1
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.85,
+          0.85,
+          0.85
+        ]
+      },
+      {
+        "name": "arrived_idle",
+        "hovered": false,
+        "enabled": true,
+        "multiplier": 1,
+        "linearColor": [
+          0.005181516700061659,
+          0.024157632443547246,
+          0.061246054224174035
+        ],
+        "linearEmissive": [
+          1,
+          1,
+          1
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.85,
+          0.85,
+          0.85
+        ]
+      },
+      {
+        "name": "hovered",
+        "hovered": true,
+        "enabled": true,
+        "multiplier": 1.15,
+        "linearColor": [
+          0.0059587442050709075,
+          0.02778127731007933,
+          0.07043296235780014
+        ],
+        "linearEmissive": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.9774999999999999,
+          0.9774999999999999,
+          0.9774999999999999
+        ]
+      },
+      {
+        "name": "returned_to_idle",
+        "hovered": false,
+        "enabled": true,
+        "multiplier": 1,
+        "linearColor": [
+          0.005181516700061659,
+          0.024157632443547246,
+          0.061246054224174035
+        ],
+        "linearEmissive": [
+          1,
+          1,
+          1
+        ],
+        "emissiveIntensity": 0.85,
+        "effectiveLinearEmission": [
+          0.85,
+          0.85,
+          0.85
+        ]
+      }
+    ]
+  },
+  "fixture": {
+    "material": {
+      "type": "MeshStandardMaterial",
+      "colorHex": "0x102b46",
+      "emissiveHex": "0xffffff",
+      "emissiveIntensity": 0.85
+    },
+    "roomLightingLevel": 1,
+    "geometry": "PlaneGeometry(1, 1)",
+    "helper": "createObjectHighlight(THREE, group, \"fixture-screen\")",
+    "update": "For each stage: feedback.update(stage.hovered, stage.enabled, 1 / 60, true)",
+    "baselineLoading": "git show <baseline.commit>:<baseline.path>; node:module stripTypeScriptTypes; import the resulting source as an in-memory data URL",
+    "finalLoading": "Read final.path; stripTypeScriptTypes; import the resulting source as an in-memory data URL"
+  },
+  "observedRegressionBeforeFix": {
+    "command": "node --test --test-name-pattern='Arriving in an application' tests/spacecraft/object-interaction.test.mjs",
+    "exitCode": 1,
+    "passed": 0,
+    "failed": 1,
+    "assertion": "projects: projects-workshop-recess-projects-screen-all must not darken when travel ends",
+    "evidence": "Exact assertion and test counts retained from the executed pre-fix tool output; no reconstructed full log."
+  },
+  "result": "Baseline arrival changes the resting multiplier from 1 to 0.65, reducing material color and emission by 35% despite unchanged room lighting. Final arrival retains multiplier 1. Both versions reach 1.15 on hover; the final version returns to 1 at rest."
+}

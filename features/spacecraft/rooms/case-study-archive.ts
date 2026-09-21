@@ -438,39 +438,33 @@ export function buildCaseStudyArchive(
     width: number;
     height: number;
     interactableId: string;
-    readonly available: boolean;
-    setAvailable: (value: boolean) => void;
+    available: true;
   }> = [];
   // Four category cartridges retain their upper rows, leaving room for the taller terminal.
   const categories: Array<{
     title: string;
     kind: Exclude<CaseStudyFilter, 'all'>;
     code: string;
-    active: boolean;
   }> = [
     {
       title: 'Product engineering',
       kind: 'product',
       code: 'FR–01',
-      active: false,
     },
     {
       title: 'Systems & reliability',
       kind: 'systems',
       code: 'FR–02',
-      active: false,
     },
     {
       title: 'Research & experiments',
       kind: 'research',
       code: 'FR–03',
-      active: false,
     },
     {
       title: 'Design & interfaces',
       kind: 'interfaces',
       code: 'FR–04',
-      active: false,
     },
   ];
   categories.forEach((category, index) => {
@@ -541,11 +535,11 @@ export function buildCaseStudyArchive(
       0.029,
       'cartridge-edge-lip',
     );
-    const jacket = box(
+    box(
       2.175,
       0.19,
       0.032,
-      material('cartridge-' + category.kind + '-jacket', 0x283440, 0.53),
+      material('cartridge-' + category.kind + '-jacket', 0xdfd6c5, 0.53),
       0,
       0,
       0.102,
@@ -553,7 +547,6 @@ export function buildCaseStudyArchive(
       0.025,
       'cartridge-label-jacket',
     );
-    const jacketMaterial = jacket.material;
     // End retainers are separate latch mechanisms, not orange paint on the label.
     for (const side of [-1, 1]) {
       const xx = side * 1.171;
@@ -664,9 +657,7 @@ export function buildCaseStudyArchive(
       cartridge,
       'cartridge-print-' + index,
       (ctx, cw, ch) => {
-        ctx.strokeStyle = ctx.fillStyle = category.active
-          ? '#20303e'
-          : '#b0c0c7';
+        ctx.strokeStyle = ctx.fillStyle = '#20303e';
         icon(ctx, category.kind, 45, ch / 2, ch * 0.7);
         ctx.font = `600 ${ch * 0.53}px Arial, sans-serif`;
         ctx.textAlign = 'left';
@@ -695,16 +686,8 @@ export function buildCaseStudyArchive(
       width: 2.175,
       height: 0.19,
       interactableId: `case-study-screen-${category.kind}`,
-      get available() {
-        return category.active;
-      },
-      setAvailable(value: boolean) {
-        if (category.active === value) return;
-        category.active = value;
-        jacketMaterial.color.set(value ? 0xdfd6c5 : 0x283440);
-        jacketMaterial.userData.baseColor?.copy(jacketMaterial.color);
-        print.repaint();
-      },
+      // Categories are destinations even before stories have been assigned.
+      available: true,
     });
   });
   fasteners(structuralScrews, floorRoot, 'structural');
@@ -773,7 +756,6 @@ export function buildCaseStudyArchive(
     'terminal-glass-seal',
   );
   let caseCount = Math.max(0, Math.floor(options.caseCount || 0));
-  let terminalAvailable = caseCount > 0;
   const desktopMaterial =
     options.desktopMaterial ?? createComputerDesktopMaterial(THREE);
   const display = graphics(
@@ -787,12 +769,10 @@ export function buildCaseStudyArchive(
       bg.addColorStop(1, '#041321');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
-      if (terminalAvailable) {
-        const wallpaper = desktopMaterial.map?.image;
-        if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
-        ctx.fillStyle = '#06101e38';
-        ctx.fillRect(0, 0, cw, ch);
-      }
+      const wallpaper = desktopMaterial.map?.image;
+      if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
+      ctx.fillStyle = '#06101e38';
+      ctx.fillRect(0, 0, cw, ch);
       ctx.strokeStyle = '#b9d7e7';
       icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
       ctx.fillStyle = '#e2ebed';
@@ -803,7 +783,7 @@ export function buildCaseStudyArchive(
       ctx.fillStyle = '#a8becb';
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
-        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
+        'Ideas. Systems. People. Progress.',
         cw / 2,
         ch * 0.62,
         cw - 150,
@@ -1066,7 +1046,6 @@ export function buildCaseStudyArchive(
     width: screenWidth,
     height: screenHeight,
     setActive(active: boolean) {
-      active = active && terminalAvailable;
       idleDisplay.visible = !active;
       desktopDisplay.visible = active;
     },
@@ -1079,24 +1058,13 @@ export function buildCaseStudyArchive(
       category: 'all' as const,
       label: 'All case studies',
       interactableId: 'case-study-screen-all',
-      get available() {
-        return terminalAvailable;
-      },
-      setAvailable(value: boolean) {
-        if (terminalAvailable === value) return;
-        terminalAvailable = value;
-        display.repaint();
-        if (!value) computer.setActive(false);
-      },
+      available: true as const,
     },
     ...cartridgeControls.map((control) => ({
       ...control,
       // The physical choice and application are separate surfaces: every
       // cartridge opens the same terminal without moving or deploying props.
       anchor,
-      get available() {
-        return control.available;
-      },
     })),
   ];
   return {

@@ -1,0 +1,85 @@
+
+> orbital-folio@0.1.0 prebuild
+> npm run geometry:check
+
+
+> orbital-folio@0.1.0 geometry:check
+> node scripts/generate-indexed-cylinder.mjs --check
+
+Indexed cylinder artifact matches its installed source and generator.
+
+> orbital-folio@0.1.0 build
+> vinext build
+
+
+  vinext build  (Vite 8.2.2)
+
+(node:90348) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/5] analyze client references...
+transforming...
+✓ 341 modules transformed.
+rendering chunks...
+✓ built in 711ms
+[2/5] analyze server references...
+transforming...
+✓ 459 modules transformed.
+rendering chunks...
+✓ built in 1.12s
+[3/5] build rsc environment...
+transforming...
+✓ 405 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 652ms
+[4/5] build client environment...
+transforming...
+✓ 2229 modules transformed.
+rendering chunks...
+computing gzip size...
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.33s
+[5/5] build ssr environment...
+transforming...
+✓ 466 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 722ms
+[0m
+  Route (app)
+  ┌ ƒ /
+  ├ ƒ /about
+  ├ ƒ /admin
+  ├ ƒ /admin/preview
+  ├ λ /api/admin
+  ├ λ /api/admin/export
+  ├ λ /api/admin/inbox
+  ├ λ /api/admin/projects/:id/export
+  ├ λ /api/admin/projects/import
+  ├ λ /api/admin/setup
+  ├ λ /api/admin/upload
+  ├ λ /api/contact
+  ├ ƒ /case-studies
+  ├ ƒ /case-studies/:slug
+  ├ ƒ /contact
+  ├ ? /experience
+  ├ ƒ /experience/:slug
+  ├ λ /icon.svg
+  ├ λ /media/:id
+  ├ ƒ /privacy
+  ├ ƒ /projects
+  ├ ƒ /projects/:slug
+  ├ λ /robots.txt
+  └ λ /sitemap.xml
+
+  λ API  ƒ Dynamic  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  Build complete. Run `vinext start` to start the production server.

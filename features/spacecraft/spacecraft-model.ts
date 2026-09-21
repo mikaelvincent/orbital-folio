@@ -1,6 +1,5 @@
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
-import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
 import { createComputerDesktopMaterial } from './rooms/computer-desktop.ts';
 import { indexedCylinderType } from './geometry/indexed-cylinder.generated.js';
 import { buildDockingAndServiceAssemblies } from './equipment/docking-service-assemblies.ts';
@@ -1500,10 +1499,6 @@ export function createSpacecraft(
   group.userData.caseStudyComputer = caseStudyComputer;
   group.userData.caseStudyScreens = caseArchive.screens;
   readerSurfaces.experience = caseStudyComputer.anchor;
-  for (const screen of caseArchive.screens)
-    screen.setAvailable(
-      caseStudyCategoryCount(caseStudyData, screen.category) > 0,
-    );
   const caseStudyScreensById = new Map(
     caseArchive.screens.map((screen) => [screen.interactableId, screen]),
   );
@@ -3507,10 +3502,6 @@ export function createSpacecraft(
   function setCaseStudies(items: SpacecraftProject[]) {
     caseStudyData = items.slice();
     caseArchive.setCaseCount(caseStudyData.length);
-    for (const screen of caseArchive.screens)
-      screen.setAvailable(
-        caseStudyCategoryCount(caseStudyData, screen.category) > 0,
-      );
     return setCaseStudyPage(currentCaseStudyPage);
   }
   function setReading(section: string, reading: boolean, instant = false) {

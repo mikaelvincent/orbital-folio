@@ -2545,6 +2545,34 @@ and battery were not measured. No speedup is claimed; held candidates remain hel
 Independent critic: **93/100**, approve, no blockers or required revisions; the
 rubric and limitations are recorded with the matching evidence.
 
+## 42 — Active archive categories and stable screen brightness (22 September 2026)
+
+Baseline `7970fe61`. The owner clarified that the four Case studies cartridges and
+All terminal must be interactive. Their count gates are removed, including in
+Reading view and selected-category routing: an empty choice opens its own empty
+collection. This supersedes entry 41's Case studies standby policy. Projects'
+empty-monitor standby remains unchanged. Existing records are not recategorized.
+
+The reported screen darkening after arrival was the shared object-feedback
+multiplier changing **1 → 0.65** when interaction became enabled. Resting brightness
+now stays **1**, while hover/focus still reaches **1.15** with the original rim
+and easing. Authored colors/emission, room lighting, textures, geometry, camera
+fits and orbital projection are preserved; Case study cartridges use their
+existing active cream artwork regardless of content count.
+
+[Evidence](evidence/archive-interaction-fix/README.md) retains the exact baseline/
+final helper hashes and linear material-state reproduction, live Chromium
+desktop/portrait captures and interaction checks. This is a correctness correction,
+not a performance optimization or a measured rendered-luminance claim. CPU/GPU
+time, memory, pacing, heat and battery were not measured; held candidates remain
+held. Native Safari and physical touch were not tested. Small portrait cartridge
+targets remain unchanged. No new Earth coverage claim is made.
+
+The fresh isolated full suite passed **434/434** with no skips/failures; typecheck
+and affected lint and production build pass. Independent critic: **95/100**, approve, with
+no blockers or required revisions. The rubric and limitations are recorded with
+the matching evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

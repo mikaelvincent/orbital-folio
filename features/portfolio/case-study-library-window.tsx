@@ -116,7 +116,9 @@ function CaseStudyList({
     </ol>
   ) : (
     <p className="case-study-empty" role="status">
-      No case studies are available yet.
+      {category === 'all'
+        ? 'No case studies are available yet.'
+        : 'No case studies have been added to this category yet.'}
     </p>
   );
 }
@@ -132,10 +134,7 @@ export function ReadingCaseStudyLibrary({
   onCategoryChange?: (category: CaseStudyFilter) => void;
 }) {
   const [selected, setSelected] = useState<CaseStudyFilter>('all');
-  const requested = requestedCategory ?? selected;
-  const category = caseStudyCategoryCount(data.experience, requested)
-    ? requested
-    : 'all';
+  const category = requestedCategory ?? selected;
   return (
     <div className="reading-case-study-library">
       <nav
@@ -145,7 +144,7 @@ export function ReadingCaseStudyLibrary({
         {filters.map((filter) => {
           const count = caseStudyCategoryCount(data.experience, filter.id);
           const Icon = icons[filter.id];
-          return count ? (
+          return (
             <button
               key={filter.id}
               type="button"
@@ -159,7 +158,7 @@ export function ReadingCaseStudyLibrary({
               <span>{filter.label}</span>
               <small>{count}</small>
             </button>
-          ) : null;
+          );
         })}
       </nav>
       <CaseStudyList data={data} category={category} />

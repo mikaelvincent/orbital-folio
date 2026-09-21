@@ -24,7 +24,7 @@ test('Archive choices share fixed terminal glass while retaining distinct physic
   );
   assert.deepEqual(
     screens.map((s) => s.available),
-    [true, true, true, false, false],
+    [true, true, true, true, true],
   );
   assert.equal(
     model.group.getObjectByName('experience-deployable-reader'),
@@ -72,37 +72,35 @@ test('Archive choices share fixed terminal glass while retaining distinct physic
   assert.ok(anchorMatrices.flat().every(Number.isFinite));
 });
 
-test('Empty archive categories remain passive and live content updates restore only their authored choices', () => {
-  const model = createSpacecraft(THREE, { caseStudies });
+test('All archive choices stay interactive before assignments and after their collection becomes empty', () => {
+  const model = createSpacecraft(THREE, { caseStudies: [] });
   const screens = model.group.userData.caseStudyScreens;
   const computer = model.group.userData.caseStudyComputer;
-  const research = screens.find((s) => s.category === 'research');
-  model.update(1, 'experience', true, {
-    activeRoom: 'experience',
-    reading: false,
-    hoveredObject: research.interactableId,
-  });
-  assert.equal(research.root.userData.highlightLevel, 1);
-  assert.ok(research.root.visible);
-  model.update(2, 'experience', true, {
-    reading: true,
-    caseStudyScreen: 'research',
-  });
-  assert.equal(computer.desktopDisplay.visible, false);
-  model.setCaseStudies([
-    { title: 'Experiment', slug: 'experiment', categories: ['research'] },
-  ]);
-  assert.deepEqual(
-    screens.map((s) => s.available),
-    [true, false, false, true, false],
-  );
-  model.update(3, 'experience', true, {
-    reading: true,
-    caseStudyScreen: 'research',
-  });
-  assert.equal(computer.desktopDisplay.visible, true);
+  let time = 0;
+  for (const entries of [[], caseStudies, []]) {
+    model.setCaseStudies(entries);
+    assert.equal(screens.length, 5);
+    for (const screen of screens) {
+      assert.equal(screen.available, true, `${screen.category}: enabled`);
+      model.update(++time, 'experience', true, {
+        activeRoom: 'experience',
+        reading: false,
+        hoveredObject: screen.interactableId,
+      });
+      assert.equal(screen.root.userData.highlightLevel, 1.15);
+      assert.ok(screen.root.visible);
+      model.update(++time, 'experience', true, {
+        reading: true,
+        caseStudyScreen: screen.category,
+      });
+      assert.equal(computer.desktopDisplay.visible, true);
+      assert.equal(computer.idleDisplay.visible, false);
+    }
+  }
+  // Removing the final entry while its terminal is open does not strand the UI.
   model.setCaseStudies([]);
-  assert.ok(screens.every((s) => !s.available));
+  assert.equal(computer.desktopDisplay.visible, true);
+  model.update(++time, 'experience', true, { reading: false });
   assert.equal(computer.desktopDisplay.visible, false);
   assert.equal(computer.idleDisplay.visible, true);
 });

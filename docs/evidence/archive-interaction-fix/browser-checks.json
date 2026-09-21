@@ -1,0 +1,218 @@
+[
+  {
+    "check": "Empty Product category opens without fallback",
+    "heading": "Product engineering",
+    "status": "No case studies have been added to this category yet.",
+    "url": "http://localhost:3000/case-studies?open=1&category=product"
+  },
+  {
+    "check": "Empty physical category opens",
+    "heading": "Systems & reliability",
+    "status": "No case studies have been added to this category yet.",
+    "travelling": "false",
+    "url": "http://localhost:3000/case-studies?open=1&category=systems"
+  },
+  {
+    "check": "Empty physical category opens",
+    "heading": "Research & experiments",
+    "status": "No case studies have been added to this category yet.",
+    "travelling": "false",
+    "url": "http://localhost:3000/case-studies?open=1&category=research"
+  },
+  {
+    "check": "Empty physical category opens",
+    "heading": "Design & interfaces",
+    "status": "No case studies have been added to this category yet.",
+    "travelling": "false",
+    "url": "http://localhost:3000/case-studies?open=1&category=interfaces"
+  },
+  {
+    "check": "Terminal catch-all includes legacy unassigned cases",
+    "titles": [
+      "Building the whole product",
+      "Making systems dependable",
+      "Learning by building"
+    ],
+    "url": "http://localhost:3000/case-studies?open=1"
+  },
+  {
+    "check": "Existing story opens from settled All terminal",
+    "title": "Building the whole product",
+    "travelling": "false",
+    "url": "http://localhost:3000/case-studies/building-products"
+  },
+  {
+    "check": "Portrait category targets enabled",
+    "contactShading": "false",
+    "dpr": 1,
+    "drawingBuffer": "390,844",
+    "renderDpr": "1",
+    "targets": [
+      {
+        "box": {
+          "height": 62.11492919921875,
+          "width": 124.82902526855467
+        },
+        "disabled": false,
+        "name": "Open All case studies"
+      },
+      {
+        "box": {
+          "height": 14.054962158203123,
+          "width": 160.9157257080078
+        },
+        "disabled": false,
+        "name": "Open Product engineering"
+      },
+      {
+        "box": {
+          "height": 14.05499267578125,
+          "width": 160.9157257080078
+        },
+        "disabled": false,
+        "name": "Open Systems & reliability"
+      },
+      {
+        "box": {
+          "height": 14.054962158203123,
+          "width": 160.9157257080078
+        },
+        "disabled": false,
+        "name": "Open Research & experiments"
+      },
+      {
+        "box": {
+          "height": 14.05499267578125,
+          "width": 160.9157257080078
+        },
+        "disabled": false,
+        "name": "Open Design & interfaces"
+      }
+    ],
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "check": "Keyboard opens empty category in portrait",
+    "heading": "Research & experiments",
+    "status": "No case studies have been added to this category yet.",
+    "url": "http://localhost:3000/case-studies?open=1&category=research"
+  },
+  {
+    "buttons": [
+      "All case studies3",
+      "Product engineering0",
+      "Systems & reliability0",
+      "Research & experiments0",
+      "Design & interfaces0"
+    ],
+    "check": "Reading view preserves empty selection and all choices",
+    "selected": "Research & experiments0",
+    "url": "http://localhost:3000/case-studies?open=1&category=research"
+  },
+  {
+    "check": "Projects resting screens after arrival",
+    "controls": [
+      {
+        "disabled": false,
+        "name": "Open All projects"
+      },
+      {
+        "disabled": false,
+        "name": "Open Systems"
+      },
+      {
+        "disabled": false,
+        "name": "Open Interfaces"
+      }
+    ],
+    "drawingBuffer": "1280,720",
+    "lighting": {
+      "dimmer": 1,
+      "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 0,
+      "fixtureEmission": 1,
+      "hoveredWalkway": false,
+      "interiorColor": 1,
+      "labels": 1,
+      "level": 1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 1,
+      "selected": true,
+      "targetLevel": 1,
+      "transit": false
+    },
+    "renderDpr": "1",
+    "travelling": "false",
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  {
+    "check": "Projects application opens and returns to room",
+    "passed": true
+  },
+  {
+    "check": "Contact resting screens after arrival",
+    "drawingBuffer": "1280,720",
+    "lighting": {
+      "dimmer": 1,
+      "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+      "exteriorColor": 1,
+      "exteriorLabels": 0,
+      "fixtureEmission": 1,
+      "hoveredWalkway": false,
+      "interiorColor": 1,
+      "labels": 1,
+      "level": 1,
+      "pointIntensities": [
+        0.35,
+        0.35
+      ],
+      "screenEmission": 1,
+      "selected": true,
+      "targetLevel": 1,
+      "transit": false
+    },
+    "renderDpr": "1",
+    "travelling": "false",
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  {
+    "check": "Contact application opens and returns without submission",
+    "passed": true
+  },
+  {
+    "check": "Contact portrait layout",
+    "contactShading": "false",
+    "drawingBuffer": "390,844",
+    "renderDpr": "1",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "check": "Projects portrait settled room",
+    "contactShading": "false",
+    "drawingBuffer": "390,844",
+    "renderDpr": "1",
+    "travelling": "false",
+    "viewport": [
+      390,
+      844
+    ]
+  }
+]

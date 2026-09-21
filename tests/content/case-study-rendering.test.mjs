@@ -103,7 +103,7 @@ test('physical category collections show assigned studies, accessible native lin
   assert.match(all, /href="\/case-studies\/recovery"/);
 });
 
-test('reading collection exposes only populated categories and handles a wholly empty archive', () => {
+test('reading and monitor collections retain empty category selections without falling back to All', () => {
   const markup = render(ReadingCaseStudyLibrary, {
     data,
     category: 'research',
@@ -113,16 +113,33 @@ test('reading collection exposes only populated categories and handles a wholly 
     markup,
     /aria-pressed="true"[^>]*>.*?<span>Research &amp; experiments<\/span>/,
   );
-  assert.doesNotMatch(
-    markup,
-    /Product engineering|Design &amp; interfaces|older-story/,
-  );
+  for (const label of ['Product engineering', 'Systems &amp; reliability', 'Design &amp; interfaces'])
+    assert.ok(markup.includes(label));
+  assert.doesNotMatch(markup, /href="[^"]*older-story/);
   assert.match(markup, /href="\/case-studies\/recovery\?category=research"/);
-  const empty = render(ReadingCaseStudyLibrary, {
+  for (const experience of [data.experience, []]) {
+    const emptyCategory = render(ReadingCaseStudyLibrary, {
+      data: { ...data, experience },
+      category: 'product',
+    });
+    assert.match(emptyCategory, /aria-pressed="true"[^>]*>.*?<span>Product engineering<\/span>/);
+    assert.match(emptyCategory, /No case studies have been added to this category yet/);
+    assert.equal((emptyCategory.match(/<button/g) || []).length, 5);
+    assert.doesNotMatch(emptyCategory, /<a /);
+    const monitor = render(CaseStudyLibraryWindow, {
+      ...windowProps,
+      data: { ...data, experience },
+      category: 'product',
+    });
+    assert.match(monitor, /Product engineering/);
+    assert.match(monitor, /No case studies have been added to this category yet/);
+    assert.doesNotMatch(monitor, /Read case study:/);
+  }
+  const emptyAll = render(ReadingCaseStudyLibrary, {
     data: { ...data, experience: [] },
   });
-  assert.match(empty, /No case studies are available yet/);
-  assert.doesNotMatch(empty, /<button|<a /);
+  assert.match(emptyAll, /No case studies are available yet/);
+  assert.equal((emptyAll.match(/<button/g) || []).length, 5);
 });
 
 test('legacy case studies and optional metadata survive in both semantic and monitor detail', () => {
