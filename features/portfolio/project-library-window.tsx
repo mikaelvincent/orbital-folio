@@ -217,12 +217,9 @@ export function ProjectLibraryWindow({
                       .join(' · ') ||
                     'PROJECT'}
                 </p>
-                <div className="project-detail-title-row">
-                  <h1 ref={heading} tabIndex={-1}>
-                    {project.title}
-                  </h1>
-                  <ProjectLiveLink project={project} site={data.site} />
-                </div>
+                <h1 ref={heading} tabIndex={-1}>
+                  {project.title}
+                </h1>
                 {project.subtitle && (
                   <p className="project-detail-subtitle">{project.subtitle}</p>
                 )}
@@ -348,49 +345,42 @@ export function ProjectLinks({
   project: Record<string, any>;
   site: Record<string, any>;
 }) {
-  const href = projectContentUrl(project.sourceUrl);
+  const sourceHref = projectContentUrl(project.sourceUrl);
+  const liveHref = projectContentUrl(project.demoUrl);
   const label =
     !site.codeLabel || site.codeLabel === 'View source'
       ? 'View source code'
       : site.codeLabel;
-  return href ? (
+  return liveHref || sourceHref ? (
     <nav className="project-library-links" aria-label="Project resources">
-      <a
-        className="project-resource-link is-source"
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Code2 size={17} aria-hidden="true" />
-        <span>{label}</span>
-        <ArrowUpRight
-          className="project-resource-external"
-          size={14}
-          aria-hidden="true"
-        />
-      </a>
+      {liveHref && (
+        <a
+          className="project-live-link"
+          href={liveHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Globe size={17} aria-hidden="true" />
+          <span>{site.demoLabel || 'Open live project'}</span>
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      )}
+      {sourceHref && (
+        <a
+          className="project-resource-link is-source"
+          href={sourceHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Code2 size={17} aria-hidden="true" />
+          <span>{label}</span>
+          <ArrowUpRight
+            className="project-resource-external"
+            size={14}
+            aria-hidden="true"
+          />
+        </a>
+      )}
     </nav>
-  ) : null;
-}
-
-export function ProjectLiveLink({
-  project,
-  site,
-}: {
-  project: Record<string, any>;
-  site: Record<string, any>;
-}) {
-  const href = projectContentUrl(project.demoUrl);
-  return href ? (
-    <a
-      className="project-live-link"
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Globe size={17} aria-hidden="true" />
-      <span>{site.demoLabel || 'Open live project'}</span>
-      <ArrowUpRight size={16} aria-hidden="true" />
-    </a>
   ) : null;
 }

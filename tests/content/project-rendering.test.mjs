@@ -476,8 +476,9 @@ await test('immersive gallery omits cover assets and placeholders while project 
 });
 
 await test('project resource links share safe source/live destinations and retired dates stay out of both public views', async () => {
-  const { ProjectLibraryWindow, ProjectLinks, ProjectLiveLink } =
-    await loadComponent('features/portfolio/project-library-window.tsx');
+  const { ProjectLibraryWindow, ProjectLinks } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
   const { DossierView } = await loadComponent(
     'features/portfolio/room-views.tsx',
   );
@@ -520,20 +521,20 @@ await test('project resource links share safe source/live destinations and retir
     const resources = markup.match(
       /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
     )?.[1];
-    assert.equal((resources?.match(/<a\b/g) || []).length, 1);
+    assert.equal((resources?.match(/<a\b/g) || []).length, 2);
     assert.match(resources, /class="project-resource-link is-source"/);
-    const titleRow = markup.match(
-      /<div class="project-detail-title-row">([\s\S]*?)<\/div>/,
-    )?.[1];
-    assert.match(titleRow, /<h1[^>]*>A linked project<\/h1>/);
+    assert.match(markup, /<h1[^>]*>A linked project<\/h1>/);
     assert.match(
-      titleRow,
+      resources,
       /class="project-live-link" href="https:\/\/demo.example\/"/,
     );
-    assert.equal((titleRow?.match(/<a\b/g) || []).length, 1);
+    assert.deepEqual(
+      [...resources.matchAll(/href="([^"]+)"/g)].map((match) => match[1]),
+      ['https://demo.example/', 'https://code.example/repository'],
+    );
     assert.ok(
       markup.indexOf('A useful tool.') < markup.indexOf('Project resources'),
-      'the source link keeps its position below the introduction',
+      'both resource controls follow the introduction',
     );
     assert.match(
       markup,
@@ -579,7 +580,7 @@ await test('project resource links share safe source/live destinations and retir
     const links = markup.match(
       /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
     )?.[1];
-    assert.equal((links?.match(/<a\b/g) || []).length, 1);
+    assert.equal((links?.match(/<a\b/g) || []).length, 2);
   }
   assert.equal(
     renderToStaticMarkup(
@@ -592,21 +593,22 @@ await test('project resource links share safe source/live destinations and retir
   );
   assert.equal(
     renderToStaticMarkup(
-      createElement(ProjectLiveLink, {
+      createElement(ProjectLinks, {
         project: { demoUrl: 'javascript:alert(1)' },
         site: {},
       }),
     ),
     '',
   );
-  for (const component of [ProjectLinks, ProjectLiveLink])
-    assert.equal(
-      renderToStaticMarkup(createElement(component, { project: {}, site: {} })),
-      '',
-    );
+  assert.equal(
+    renderToStaticMarkup(
+      createElement(ProjectLinks, { project: {}, site: {} }),
+    ),
+    '',
+  );
 });
 
-await test('optional source and live links occupy only their intended detail positions in both views', async () => {
+await test('optional resource controls share the intro row in live-before-source order in both views', async () => {
   const { ProjectLibraryWindow } = await loadComponent(
     'features/portfolio/project-library-window.tsx',
   );
@@ -661,19 +663,60 @@ await test('optional source and live links occupy only their intended detail pos
       );
       assert.equal(
         (markup.match(/aria-label="Project resources"/g) || []).length,
-        expectedSource,
-        'missing source links leave no empty resource container',
+        expectedSource || expectedLive ? 1 : 0,
+        'missing resources leave no empty action row',
       );
-      const titleRow = markup.match(
-        /<div class="project-detail-title-row">([\s\S]*?)<\/div>/,
+      const resources = markup.match(
+        /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
       )?.[1];
-      assert.equal((titleRow?.match(/<a\b/g) || []).length, expectedLive);
-      assert.ok(titleRow?.includes('Optional resources'));
-      if (expectedLive) assert.match(titleRow, />Open live project<\/span>/);
-      if (expectedSource) assert.match(markup, />View source code<\/span>/);
+      const expectedUrls = [
+        ...(expectedLive ? ['https://live.example/'] : []),
+        ...(expectedSource ? ['https://code.example/repository'] : []),
+      ];
+      assert.deepEqual(
+        [...(resources || '').matchAll(/href="([^"]+)"/g)].map(
+          (match) => match[1],
+        ),
+        expectedUrls,
+      );
+      assert.match(markup, /<h1[^>]*>Optional resources<\/h1>/);
+      if (resources)
+        assert.ok(
+          markup.indexOf('An introduction.') <
+            markup.indexOf('Project resources'),
+        );
+      if (expectedLive) assert.match(resources, />Open live project<\/span>/);
+      if (expectedSource) assert.match(resources, />View source code<\/span>/);
       assert.doesNotMatch(markup, /href="(?:javascript:|data:)/);
     }
   }
+});
+
+await test('the shared resource row retains configured live and source labels with native safe navigation', async () => {
+  const { ProjectLinks } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
+  const markup = renderToStaticMarkup(
+    createElement(ProjectLinks, {
+      project: {
+        demoUrl: 'https://live.example/',
+        sourceUrl: 'https://code.example/project',
+      },
+      site: {
+        demoLabel: 'Try the experience',
+        codeLabel: 'Inspect the repository',
+      },
+    }),
+  );
+  assert.ok(
+    markup.indexOf('Try the experience') <
+      markup.indexOf('Inspect the repository'),
+  );
+  assert.equal(
+    (markup.match(/target="_blank" rel="noopener noreferrer"/g) || []).length,
+    2,
+  );
+  assert.doesNotMatch(markup, /<button/);
 });
 
 await test('source control clarifies only its legacy default label and preserves authored alternatives', async () => {

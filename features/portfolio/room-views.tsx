@@ -11,11 +11,7 @@ import {
 import { RoomIntro, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content/types';
 import { projectBody } from '@/lib/content/project-content';
-import {
-  ReadingProjectLibrary,
-  ProjectLinks,
-  ProjectLiveLink,
-} from './project-library-window';
+import { ReadingProjectLibrary, ProjectLinks } from './project-library-window';
 import { ProjectMarkdown, ProjectMedia } from './project-markdown';
 import { parseProjectMarkdown } from './project-markdown-content';
 import {
@@ -72,10 +68,7 @@ export function DossierView({
           <div className="paper-top">
             <p className="eyebrow">{p.category}</p>
           </div>
-          <div className="project-detail-title-row">
-            <h1>{p.title}</h1>
-            <ProjectLiveLink project={p} site={s} />
-          </div>
+          <h1>{p.title}</h1>
           {p.subtitle && <p className="dossier-subtitle">{p.subtitle}</p>}
           <p className="dossier-summary">{p.summary}</p>
           <ProjectLinks project={p} site={s} />
