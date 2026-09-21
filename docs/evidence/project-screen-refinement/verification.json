@@ -1,0 +1,19 @@
+{
+  "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+  "result": {
+    "tests": 411,
+    "suites": 0,
+    "pass": 411,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "duration_ms": 149403.361667
+  },
+  "isolatedState": true,
+  "freshSecrets": true,
+  "privateStateCopied": false,
+  "cacheOverride": "vite.config.ts cacheDir: '.vite-isolated-test-cache'",
+  "sourceChangesSinceSnapshot": [],
+  "mainServerUntouchedBySuite": true
+}

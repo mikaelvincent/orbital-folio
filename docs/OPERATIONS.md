@@ -132,16 +132,23 @@ node scripts/populate-demo-projects.mjs --apply  # populate eligible local demos
 ```
 
 This loopback-only tool adds media and rich Markdown to the nine known, untouched
-sample projects: **5 Systems, 3 Interfaces, 1 Experiment**. It skips owner-authored
-content, private-only entries, edited samples and divergent draft/published
-versions. It checks revisions again before mutation, reuses matching media by
-content hash, and a completed rerun makes no updates. It does not reset identity,
+sample projects: **All projects 9, Systems 6, Interfaces 3, Experiments 0**. The
+Experiments room screen remains selectable to demonstrate an empty collection.
+The tool skips owner-authored content, private-only entries, edited samples and
+divergent draft/published versions. It checks revisions again before mutation,
+reuses matching media by content hash, and a completed rerun makes no updates.
+It does not reset identity,
 other content or the database. Fresh setup seeds already contain the categories
 and text; run this explicit step to populate their managed media. Do not rerun
 `npm run setup` merely to refresh demos in an existing studio.
 
 Examples include headings, emphasis, quotations, lists, fenced code,
 tables, still illustrations, a controlled MP4 with captions, and a finite GIF.
+Relay is the full presentation reference, including optional source/live links,
+heading levels, nested lists/tasks, strikethrough, separators and reference links.
+Its public BullMQ repository/documentation links are explicitly attributed
+references, not a Relay deployment or the owner's work. Keep this known sample
+current when supported presentation features change, without replacing owner edits.
 GIF uploads use ordinary image Markdown; videos use the managed video link syntax
 above. There is no new third-party iframe or executable-embed support.
 

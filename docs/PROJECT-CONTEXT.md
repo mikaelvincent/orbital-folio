@@ -81,9 +81,10 @@ Recent approved arrangement:
 - Hull, roof/keel and ladder returns read as continuous rounded pressure
   structure. Preserve curves while eliminating bulges, clipping, exposed seams,
   raised reveal trim and flicker. Functional tool edges are not chassis defects.
-- The Case studies floor terminal is a compact, seated-use display on paired
-  hinged supports. Its glass is 16:9, measuring 1.12 × 0.63 local model units
-  before the existing 0.85 rig scale, with matching enclosure and handle spacing.
+- The Case studies floor terminal retains its original wide, raked display on
+  paired hinged supports, with 2.37 × 0.49 glass in local model units before the
+  existing 0.85 rig scale. The compact 16:9 redesign was reverted at the owner's
+  request; its historical evidence does not describe the current terminal.
 
 Current evidence: [symmetric access refinement](evidence/spacecraft-access-symmetry/README.md).
 The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves
@@ -196,11 +197,16 @@ wallpaper. It is not restricted to the HTML app rectangle, so portrait framing
 and camera movement cannot reveal bare screen backing. Idle graphics and desktop
 are mutually exclusive; closing restores the idle display.
 
-At viewport widths of at least 1000 CSS pixels and heights of at least 650 CSS
-pixels, the Projects desktop uses 4px padding and Contact uses 6px, giving their
-application windows more room. This changes the native window's inset, not the
-physical display dimensions or camera framing. Smaller viewports retain their
-responsive layouts.
+The Projects desktop uses 2px padding, without an exterior window shadow or the
+dark backing behind its scrollbar. Landscape rendering leaves a total 0.02-unit
+inset within the physical glass (0.01 per edge); portrait retains its 0.06-unit
+base inset and existing narrow crop. Camera fitting uses a separate `framing`
+rectangle with the original 0.06-unit inset in both orientations, so enlarging
+the window does not change the camera destination or physical monitor. The selected
+monitor's amber rim is hidden while its application is open; other monitors retain
+hover feedback.
+Contact has its earlier 14px desktop padding again, replacing the later 6px
+wide-screen override.
 
 Project collection cards are text-only, with no repeated footer action; detail
 covers and story media remain.
@@ -244,9 +250,11 @@ precedes project publication. JSON whole-content portability remains separate.
 See [operations](OPERATIONS.md#authoring-projects) for limits and package syntax,
 and [implementation evidence](evidence/projects-library/README.md) for checks.
 
-The explicit local demo population supplies nine stories across Systems (5),
-Interfaces (3) and Experiments (1), with varied Markdown, still covers, a native
-MP4/captions and a finite animated GIF. It only updates exact known untouched
+The explicit local demo population supplies nine stories: All projects (9),
+Systems (6), Interfaces (3) and Experiments (0). The Experiments monitor remains
+rendered and selectable so the application's empty collection can be reviewed.
+The stories include varied Markdown, still covers, a native MP4/captions and a
+finite animated GIF. The tool only updates exact known untouched
 sample fingerprints; `sample: true` alone is not permission to overwrite an
 owner's edits. It preserves divergent drafts, publication boundaries and other
 content. Fresh seeds contain the story/category text; managed media is populated
@@ -256,9 +264,21 @@ in detail only. Shared Markdown restores ordered, unordered and nested markers
 after the global reset; task lists use one aligned checkbox per item, including
 tight nested task lists. Relay, Fieldnotes and Meter have browsable mixed nested
 examples under Design principles; exact-known prior sample fingerprints can be
-updated by the guarded local tool, without overwriting edited samples. See the
+updated by the guarded local tool, without overwriting edited samples.
+
+Relay is the ongoing presentation reference: it exercises supported heading
+levels, emphasis, strikethrough, quotations, inline and fenced code, tables,
+ordered/unordered/mixed nested task lists, non-default numbering, separators,
+line breaks, links, still images, native video with poster/captions, and a finite
+GIF. Its optional repository and live links point to BullMQ's public source and
+documentation as explicitly attributed queue-design references, not a Relay
+deployment or owner-authored code. Extend this known sample as supported features
+change without overwriting owner edits. Fresh seeds omit managed media references
+until the explicit population step supplies those assets. See the
 [demo/fit follow-up](evidence/projects-demo-fit/README.md) and current
-[monitor/list finishing evidence](evidence/monitor-finishing/README.md).
+[monitor/list finishing evidence](evidence/monitor-finishing/README.md). The latest
+[screen refinement evidence](evidence/project-screen-refinement/README.md) records
+the reduced wallpaper margin, empty collection and resource examples.
 
 ## Contact computer and submission boundary
 
@@ -476,6 +496,10 @@ Opening the menu alone starts neither playback polling nor instrumentation.
 Escape, outside interaction or focus leaving the menu closes it; closing an
 inspection panel returns focus to Tools. On narrow screens, Reading view keeps
 its accessible label while displaying only its icon to leave room for navigation.
+The launcher records its intended Open/Close action on primary pointerdown, so a
+focus dismissal between press and click cannot reopen a menu the visitor meant
+to close. Keyboard activation still uses current state. A pure event-ordering
+regression covers that race; it does not establish a native Safari reproduction.
 
 **Tools → Scene diagnostics** opens guided diagnostics with advanced
 room/assembly/pass inspection and named exports. Instrumentation is opt-in and

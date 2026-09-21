@@ -1,0 +1,28 @@
+{
+  "baseline": "194d35983e4bb11ac37567eb14bd5d9b3cb2e716",
+  "sha256": {
+    "features/portfolio/contact-computer-window.css": "422734fedf25b32dfec18ea095dd999cc7a64319ae10df34d6cde909a18cca33",
+    "features/portfolio/project-library-window.css": "65272e43149884d278b99c93c092bb99f01ccc336245a8e5d4f48d1517812ca2",
+    "features/portfolio/scene-tools-menu.tsx": "85ffeaba53cda592239c119a3efb5275ddd233189cf203fe9bf7ffd24e3fc107",
+    "features/spacecraft/navigation/project-application.ts": "9bc31b9ab08533e0d1b3289c2f60b1e19ac8544d2d29faa3d5b5cc4f40295772",
+    "features/spacecraft/rooms/case-study-archive.ts": "eb4c6ead3b1b1cd04ff5b678f7407551da5949fdbb759bf44cc7907748d87630",
+    "features/spacecraft/spacecraft-runtime.ts": "6505d5ed5b001209279f713412374606a2f07f7737ea1a05f775b43f5aa18069",
+    "lib/content/sample-projects.mjs": "a3c0f3c92a93e998aae753a825eb54f2299e71ef1cd6d28f00af0369af2113b8",
+    "lib/content/seed.ts": "e3d654a37cdb05d3eb40238fc5c07acb6bd3ad1032ecbb84704781d865d7f2a3",
+    "scripts/assets/project-demos/manifest.json": "54880459bb06f9b5efa584e91b48077a7546f9da3df1af93bea598e209c0c91f",
+    "scripts/assets/project-demos/meter.webp": "4249c4817b8af0e4e4b79f0c57d6307b7034715bf3b7f6eef140fe2a95bb8e39",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "c7cb6d25e3c1f9b643a65b45b3fc28f3908355941f272bacf07329a27f0080bf",
+    "scripts/demo-projects/population-plan.mjs": "7fb8e205418fd529ce3a6543eec6ec8ebea81a09435344999bff4292c459b6f2",
+    "scripts/generate-project-demos.mjs": "4d92d093d9bb2e9e9f5d37919c2ec7dcada63b57900a373b88cbc09bdd5395a7",
+    "scripts/populate-demo-projects.mjs": "4ac97d6f969129f4645a517afe5f44f8b43390ccfb7aea5ecb39f15994437c12",
+    "tests/content/project-demos.test.mjs": "950af672459e11d97cf384b1e436a6e2525debe757208af48e769cdab991fdde",
+    "tests/content/project-rendering.test.mjs": "48baf4fc22e1d35a8efeb575058d30389e114d211fb8f3832be7d34fb7fbced1",
+    "tests/content/scene-tools.test.mjs": "d650d211265736102e9d933c07c283b0e6f7d50cfd6d1155d7c89f9a8dbee70f",
+    "tests/spacecraft/project-application.test.mjs": "403b3fa6ef4c1d08afae11bb189c15c0530eae590cccf89faeed82cbd45674c1",
+    "tests/content/fixtures/project-demo-nested-v2.json": "b977e08325999a800553a7f66bedbdbbef9e6b183bdf81a20f354a5826fb1719",
+    "tests/content/fixtures/project-demo-relay-v3.json": "f0e34c59f7ea7301b453cd1f8d015c8017ace2631bbbeaaa1285dd6f7ea94f81"
+  },
+  "deleted": [
+    "tests/spacecraft/case-terminal.test.mjs"
+  ]
+}

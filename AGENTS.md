@@ -250,6 +250,11 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   `npm run typecheck`, `npm run lint -- <changed files>`, `npm run build`. On a
   genuinely fresh checkout use `npm ci` and `npm run setup`; do not reset an
   existing studio/database as routine setup.
+- Keep the known Relay sample as a browsable reference for all supported project
+  presentation and media features, including optional resource links. Extend its
+  examples when supported features change. Refresh only exact known untouched
+  sample versions through the guarded local tool; never overwrite an owner-edited
+  sample or divergent draft. Keep external reference examples clearly attributed.
 - Preserve persisted identity, draft/published content, authentication, privacy,
   semantic readers and contact behavior. Preserve demo/sample metadata and studio
   controls, but omit visitor-facing

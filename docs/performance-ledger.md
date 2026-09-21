@@ -2366,6 +2366,42 @@ initial test-isolation failure that removed deprecated site-label metadata,
 unsuccessful exact-value recovery, and the compatibility/isolation safeguards
 added afterward; the final suite used separate disposable data.
 
+## 36 — Project screen refinement and archive-terminal restoration (21 September 2026)
+
+Baseline `194d359`. This follow-up replaces entry 35's application padding
+adjustment with the requested smaller **physical wallpaper margin** in Projects.
+The landscape HTML surface now has a 0.02 total glass inset instead of 0.06,
+with 2px inner padding. The existing 0.06 rectangle still determines camera
+framing, so camera endpoints and motion are unchanged; portrait retains its
+original physical rectangle. Contact's preceding desktop-only padding rule is
+reverted to uniform 14px. Projects removes the exterior app shadow and wide dark
+scrollbar backing, retaining the outline, track/thumb and focus feedback.
+
+The owner rejected the Case studies 16:9 terminal; its original wide geometry
+and canvas are restored. The [source-identified comparison](evidence/project-screen-refinement/README.md)
+records unchanged mesh, triangle, material-submission and geometry-array counts.
+The canvas returns from 1536×864 to 1536×318: nominal RGBA8+mip storage decreases
+by **4,474,704 bytes / 4.27 MiB**, returning the retained model estimate from
+106,283,500 to 101,808,796 bytes. This is a design reversal, not a measured
+rendering-speed improvement. Actual process/GPU memory, CPU/GPU timing, startup,
+frame pacing, heat and battery were not measured. Held candidates remain held.
+
+Relay now demonstrates all supported project formatting/media and the optional
+resource buttons, with explicit attribution of its BullMQ example destinations.
+Meter moves to Systems, leaving Experiments empty but selectable: counts
+9/6/3/0. The replacement Meter cover shrinks 15,682 → 15,470 bytes; the managed
+demo asset set totals 206,327 bytes and loads on demand. Old persisted media is
+preserved. No total session-download or runtime gain is inferred from these bytes.
+Tools also preserves pointer toggle intent through intervening focus dismissal;
+ordinary second-click closure was verified in Chromium, with the ordering defect
+covered by an event regression rather than a claimed Safari reproduction.
+
+The final full suite used separate fresh D1/R2/secrets/cache: **411 passed**,
+no failures or skips. Typecheck, production build and affected lint pass. Live
+Chromium desktop, portrait and narrow evidence is preserved; native Safari and
+real touch are untested. Independent critic: **94/100**, keep, no unresolved
+blockers; rubric, corrections and limitations are recorded with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
