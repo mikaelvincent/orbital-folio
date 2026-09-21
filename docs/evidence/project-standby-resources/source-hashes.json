@@ -1,0 +1,10 @@
+{
+  "baseline": "c2886e5bfcef368e978366da3f3d438953c067c2",
+  "sourceSha256": {
+    "features/portfolio/project-library-window.css": "ee5813dba05349841e0dce9b24c242e3547996adf7a75f717e0e7a3e619c16b6",
+    "features/portfolio/project-library-window.tsx": "f7a308d20a8c0c008f5dd9b4b4aa75ec84a3f99f8085c34d6610c02bd92d2e76",
+    "features/spacecraft/rooms/projects-payload-module.ts": "ded963812ea0c920297d4ccbe60b2468e279d14343a2da0a6bf1edacba44a2e5",
+    "lib/content/seed.ts": "da3d8f81099afc945800aef2433abe800bb528c44cf150d2a95b247ca058a4af",
+    "tests/content/project-rendering.test.mjs": "068731dfef4c2474cacc90d762dad5e40c94b1ba6d6d7eb736074f42626a83b0"
+  }
+}

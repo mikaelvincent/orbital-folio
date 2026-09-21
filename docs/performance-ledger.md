@@ -2431,6 +2431,31 @@ portrait and narrow views; native Safari was not controlled. The evidence record
 source hashes, the superseded partial suite, corrected capture artifacts and
 independent critic findings. Final critic: **95/100**, keep, no unresolved blockers.
 
+## 38 — Intentional standby art and quieter resource actions (21 September 2026)
+
+Baseline `c2886e5`. The owner rejected entry 37's black dormant face and solid
+amber resting button. Inactive monitors now show the existing desktop wallpaper,
+subdued with a small STANDBY label, while preserving all availability guards.
+Live rests in a dark amber tint with an outline; hover/focus produces a stronger
+fill. Source is a secondary outlined control with code icon and View source code
+wording. Both interactive and reading views use these states.
+
+The [source-identified comparison](evidence/project-standby-resources/README.md)
+records unchanged geometry arrays, mesh/triangle inputs, material submissions and
+nominal texture storage in the populated structural fixtures. The retained model
+estimate remains 101,808,796 RGBA8+mip bytes. Standby copies the already-created
+desktop canvas into the existing idle canvas, adding a copy/overlay/text operation
+and reupload when availability changes, not per-frame painting. There are no new
+media assets, texture allocations, geometry or render passes. The changed Canvas2D
+preparation/upload and HTML visual-state costs were not timed. No runtime,
+memory-residency, download, thermal or battery improvement is claimed.
+
+The isolated full suite passes **415/415** against the final source, along with
+typecheck, affected lint and production build. Hidden Chromium evidence covers
+desktop rest/focus, portrait and narrow views and inert standby interaction;
+native Safari remains untested. This is design work; held candidates remain held.
+Independent critic: **95/100**, keep, no unresolved blockers.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
