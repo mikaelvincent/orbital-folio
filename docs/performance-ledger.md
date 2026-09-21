@@ -2402,6 +2402,35 @@ Chromium desktop, portrait and narrow evidence is preserved; native Safari and
 real touch are untested. Independent critic: **94/100**, keep, no unresolved
 blockers; rubric, corrections and limitations are recorded with the evidence.
 
+## 37 — Dormant project categories and prominent live action (21 September 2026)
+
+Baseline `0f4e03d`. Empty categories now retain dark, unlabelled installed
+monitors with no hover, activation or keyboard/accessibility target; reading
+view omits their filters. This supersedes entry 36's selectable empty state.
+Availability updates from the same explicit categories throughout React, the
+runtime and model without recreating the scene. The optional live-project link
+is now an amber title-side action, stacking on narrow screens; source-link
+appearance remains unchanged. A scoped reading-paper width fix prevents rich
+content from widening the page on portrait screens.
+
+The [source-identified evidence](evidence/project-category-actions/README.md)
+records zero structural changes in mesh/triangle inputs, material submissions,
+geometry arrays and nominal texture storage across wide/compact idle and
+Contact-open fixtures. Retained model RGBA8+mip estimate remains 101,808,796
+bytes. Empty monitors reuse their existing canvases; installed hardware is
+preserved. No media asset or texture download is added. The inventory uses
+populated fixtures and does not measure HTML layout, changed canvas pixels,
+collection-refresh timing or browser/GPU allocation.
+
+No runtime timing, startup, pacing, total delivery, heat or battery gain is
+claimed. This is requested behavior/design work; held candidates remain held.
+The isolated full suite passed **414 tests**. After the sole subsequent source
+change (the narrow reading-paper CSS fix), **15 renderer tests**, typecheck,
+affected lint and production build pass. Live Chromium checks cover desktop,
+portrait and narrow views; native Safari was not controlled. The evidence records
+source hashes, the superseded partial suite, corrected capture artifacts and
+independent critic findings. Final critic: **95/100**, keep, no unresolved blockers.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

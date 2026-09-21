@@ -1,0 +1,20 @@
+{
+  "baseline": "0f4e03d2fc3935f60fa5b4673e6a79c0a38d997d",
+  "finalSourceSha256": {
+    "app/globals.css": "ec2dd3d348d122aa51789bdd3e4313e4ba7447550e90b76118e204736e778988",
+    "features/portfolio/immersive-portfolio.tsx": "b527d3f6bfafe0e8287802e55a90b89472c08e07d0ae9d2f8474f5ff4deeca7c",
+    "features/portfolio/project-library-window.css": "2703860f86fde68a1adbad3fbc0a050bc837a9387a5d2f1af58003b5b1fd4243",
+    "features/portfolio/project-library-window.tsx": "00d17f5217c673d2aea87533f1a75278048de6c39e71411684283b08ac9d4d23",
+    "features/portfolio/room-views.tsx": "b9a1b35197547c03d249fdd4a8607530c914dd6ab6cddb932b3ce2971f3260ff",
+    "features/spacecraft/rooms/projects-payload-module.ts": "99c8b832c1ff57b2d18b2f8c05bb05696a601bf98054fc5ec48336f840fbb125",
+    "features/spacecraft/spacecraft-model.ts": "b43e9625e718b00350521c65c363d1c398ae0986b251459f0c76db8fcf90b9f1",
+    "features/spacecraft/spacecraft-runtime.ts": "ce93e0b4374978bc148bdafdfd43cb89cbebd9eea6e4fa42f46e6725a5c1e646",
+    "features/spacecraft/spacecraft.tsx": "5744b36b865db94fbc8b3f374392350e47851da5f7a2157dbd2f4fc681fca901",
+    "lib/content/project-content.ts": "1eda895468877331ac50e249cfc36d9d057dafab0c409cbd904db0951d395089",
+    "tests/content/project-rendering.test.mjs": "9289bfed403b2db37cf9efc1df77b5b9c7cdd231453b4cf1c82c15afbfb170e1",
+    "tests/spacecraft/computer-desktop.test.mjs": "556e8bba3caaf1e4d92f221b12de4ea9602ad07197c21150b87f01c3cacd0c86",
+    "tests/spacecraft/project-application.test.mjs": "c9cdeeba4741a824a2224651efeef2eba5715e8b14efaad7e4af10bf3034892d",
+    "tests/spacecraft/project-availability.test.mjs": "ae14ed373d79a9a4efdd1fd39f41c657d0e98e70ea25c42a20a407bf05fd1017",
+    "tests/spacecraft/project-props-sync.test.mjs": "800feeaf00a6686f647a7f8e4e4fb48e5f22cc5a518a30c9af451d1b690d7c4a"
+  }
+}

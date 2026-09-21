@@ -167,7 +167,8 @@ in Git history; the interaction contract here and current source govern.
 ## Projects library and authoring
 
 The four workshop monitors now open one library application, initialized to
-All projects, Systems, Interfaces or Experiments. They retain their physical
+All projects, Systems, Interfaces or Experiments when that category has readable
+projects. They retain their physical
 enclosures and inset amber hover/focus rims. The camera approaches the selected
 glass; landscape shows a two-column collection and portrait crops to a tall,
 readable application region inside the same monitor. Choose the category at the
@@ -189,7 +190,15 @@ The HTML application stays within the glass and clear of its inset feedback rim,
 including close portrait and bounded hover/drag views. Its plane is registered to
 the real display surface; shrinking physical margins must not shrink readable
 text. The standalone reading collection retains category controls because it
-does not have the room's physical monitors.
+does not have the room's physical monitors, but omits empty categories.
+
+An empty category retains its installed monitor as dark, unlabelled hardware.
+It has no interaction hotspot, tab stop, hover feedback or application activation.
+Availability follows the current published or private-preview project collection;
+adding readable content restores that category's display and controls. This
+supersedes the earlier selectable empty-category application. The overall Projects
+reading route can still explain that no projects are available when the whole
+collection is empty.
 
 The desktop uses a restrained blue folded wallpaper on the **entire physical
 monitor glass**, behind the opaque application window. Contact shares this
@@ -218,11 +227,12 @@ There is no repeated Back action below the story. The detail status bar shows
 only the original-case project title. Counts remain in the application collection,
 but are removed from all four physical Projects room monitor graphics.
 
-Optional source and live-project links share one resource row beneath the detail
-summary in both immersive and reading views, before role/stack metadata. Source
-comes first, then Live; absent links leave no placeholder or empty row. They use
-subtle underlined labels and external-link cues, with a restrained amber live
-link in the immersive application.
+The optional Live project link is an amber filled anchor beside the project
+title in both immersive and reading views. It sits to the title's right when
+space permits and stacks beneath it on narrow layouts. The optional source
+repository link keeps its understated underline below the summary, before
+role/stack metadata. Both retain external-link cues; absent links leave no
+placeholder or empty row.
 
 Native application/reader HTML uses one viewport-relative projective transform
 in `features/spacecraft/projected-surface.ts`, derived from the same camera and
@@ -252,7 +262,7 @@ and [implementation evidence](evidence/projects-library/README.md) for checks.
 
 The explicit local demo population supplies nine stories: All projects (9),
 Systems (6), Interfaces (3) and Experiments (0). The Experiments monitor remains
-rendered and selectable so the application's empty collection can be reviewed.
+installed but dark and unavailable, demonstrating the dormant category state.
 The stories include varied Markdown, still covers, a native MP4/captions and a
 finite animated GIF. The tool only updates exact known untouched
 sample fingerprints; `sample: true` alone is not permission to overwrite an
@@ -276,9 +286,11 @@ deployment or owner-authored code. Extend this known sample as supported feature
 change without overwriting owner edits. Fresh seeds omit managed media references
 until the explicit population step supplies those assets. See the
 [demo/fit follow-up](evidence/projects-demo-fit/README.md) and current
-[monitor/list finishing evidence](evidence/monitor-finishing/README.md). The latest
+[monitor/list finishing evidence](evidence/monitor-finishing/README.md). The earlier
 [screen refinement evidence](evidence/project-screen-refinement/README.md) records
-the reduced wallpaper margin, empty collection and resource examples.
+the reduced wallpaper margin, resource examples and the now-superseded selectable
+empty-category trial. The current [category/action evidence](evidence/project-category-actions/README.md)
+records dormant monitors, the prominent live destination and narrow reading fit.
 
 ## Contact computer and submission boundary
 

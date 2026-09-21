@@ -100,9 +100,16 @@ Older v1 ZIP packages may include `period`; imports ignore that retired project
 field, and new exports omit it. Existing database records are not bulk rewritten.
 The legacy site-level `periodLabel` remains optional round-trip metadata so
 identity backups preserve owner-authored copy; it has no editor or public output.
-Optional source repository and live project links appear beside each other below
-the introduction in both views. The live destination retains the established
-`demoUrl` field; the repository uses `sourceUrl`.
+The optional Live project link appears as an amber filled anchor beside the title
+in both views, stacking below the title on narrow layouts. The optional source
+repository link remains underlined below the summary. The live destination
+retains the established `demoUrl` field; the repository uses `sourceUrl`.
+
+Categories without readable projects keep their physical monitor installed but
+dark and unlabelled, without a hotspot, tab stop, hover effect or app activation.
+Reading view omits those category controls. Availability follows published content
+for visitors and draft content in private preview; publishing or assigning
+projects enables the corresponding screen without separate configuration.
 
 The editor inserts uploaded or existing managed media at the text selection.
 Images use `![Alternative text](/media/<id>)`; video links such as
@@ -133,7 +140,8 @@ node scripts/populate-demo-projects.mjs --apply  # populate eligible local demos
 
 This loopback-only tool adds media and rich Markdown to the nine known, untouched
 sample projects: **All projects 9, Systems 6, Interfaces 3, Experiments 0**. The
-Experiments room screen remains selectable to demonstrate an empty collection.
+Experiments room screen remains installed but dormant and cannot open an empty
+category application.
 The tool skips owner-authored content, private-only entries, edited samples and
 divergent draft/published versions. It checks revisions again before mutation,
 reuses matching media by content hash, and a completed rerun makes no updates.
