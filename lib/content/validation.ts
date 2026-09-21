@@ -1,4 +1,5 @@
 import { PROJECT_CATEGORIES } from './project-content.ts';
+import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
 import { socialPlatforms, socialScreens } from './social-links.ts';
 import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
@@ -34,10 +35,16 @@ const fields: Record<Kind, string[]> = {
   experience: [
     'slug',
     'title',
+    'subtitle',
     'organization',
     'period',
     'role',
     'summary',
+    'categories',
+    'body',
+    'mediaId',
+    'seoTitle',
+    'seoDescription',
     'context',
     'decisions',
     'impact',
@@ -82,12 +89,19 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
     const value = data[key];
     if (value === undefined) continue;
     if (key === 'categories') {
+      const categories =
+        kind === 'experience' ? CASE_STUDY_CATEGORIES : PROJECT_CATEGORIES;
       if (
         !Array.isArray(value) ||
-        value.length > PROJECT_CATEGORIES.length ||
-        value.some((id) => !PROJECT_CATEGORIES.some((c) => c.id === id))
+        value.length > categories.length ||
+        value.some((id) => !categories.some((c) => c.id === id))
       )
-        throw new HttpError(400, 'Choose Systems, Interfaces or Experiments.');
+        throw new HttpError(
+          400,
+          kind === 'experience'
+            ? 'Choose Product engineering, Systems & reliability, Research & experiments or Design & interfaces.'
+            : 'Choose Systems, Interfaces or Experiments.',
+        );
       clean[key] = [...new Set(value)];
     } else if (key === 'sample' || key === 'sampleMode') {
       if (typeof value !== 'boolean')
@@ -98,7 +112,9 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
         throw new HttpError(400, `${key} must be a valid integer.`);
       clean[key] = value;
     } else {
-      const limit = key === 'body' && kind === 'project' ? 100000 : 20000;
+      const markdown =
+        key === 'body' && (kind === 'project' || kind === 'experience');
+      const limit = markdown ? 100000 : 20000;
       if (typeof value !== 'string' || value.length > limit)
         throw new HttpError(
           400,
@@ -106,7 +122,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
         );
       // Markdown indentation and surrounding newlines are authored content.
       // Trimming the story can turn an indented code block into ordinary prose.
-      clean[key] = kind === 'project' && key === 'body' ? value : value.trim();
+      clean[key] = markdown ? value : value.trim();
     }
   }
   if (kind === 'site') {
@@ -196,9 +212,9 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
         'Keep the destination URL under 2,001 characters.',
       );
   }
-  // Legacy projects have no categories field and remain valid without conversion.
+  // Legacy stories have no categories field and remain valid without conversion.
   if (
-    kind === 'project' &&
+    (kind === 'project' || kind === 'experience') &&
     'categories' in clean &&
     (!clean.categories.length || !clean.summary)
   )

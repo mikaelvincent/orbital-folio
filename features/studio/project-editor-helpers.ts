@@ -1,5 +1,6 @@
 import { projectSlug } from '../../lib/content/project-content.ts';
 import { projectMediaClosure } from '../../lib/content/project-package-media.ts';
+import { caseStudyMediaClosure } from '../../lib/content/case-study-media.ts';
 import type { Content } from '../../lib/content/types.ts';
 
 /** A generated slug becomes an authored value on first save and stays stable. */
@@ -37,10 +38,13 @@ export function insertProjectMedia(
 export function projectAssetPublication(
   data: Record<string, any>,
   records: Content[],
+  kind: 'project' | 'experience' = 'project',
 ) {
   try {
+    const mediaClosure =
+      kind === 'experience' ? caseStudyMediaClosure : projectMediaClosure;
     return {
-      pending: projectMediaClosure(data, records).filter(
+      pending: mediaClosure(data, records).filter(
         (r) => JSON.stringify(r.draft) !== JSON.stringify(r.published),
       ),
       error: '',
@@ -51,7 +55,7 @@ export function projectAssetPublication(
       error:
         error instanceof Error
           ? error.message
-          : 'Check the project’s media references.',
+          : 'Check the story’s media references.',
     };
   }
 }

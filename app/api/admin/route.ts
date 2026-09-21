@@ -18,6 +18,10 @@ import {
   mediaDependencyClosure,
   directProjectMediaIds,
 } from '@/lib/content/project-package-media';
+import {
+  directCaseStudyMediaIds,
+  validateCaseStudyPublication,
+} from '@/lib/content/case-study-media';
 export async function GET() {
   try {
     await requireAdmin();
@@ -86,6 +90,8 @@ export async function POST(req: Request) {
         validateContent(old.kind, old.draft);
         if (old.kind === 'project')
           validateProjectPublication(old.draft, records);
+        if (old.kind === 'experience')
+          validateCaseStudyPublication(old.draft, records);
         if (old.kind === 'media') {
           // Validate the current video draft but resolve its dependencies from
           // published metadata; unrelated media drafts remain private.
@@ -105,6 +111,8 @@ export async function POST(req: Request) {
             r.published &&
             ((r.kind === 'project' &&
               directProjectMediaIds(r.published).includes(old.id)) ||
+              (r.kind === 'experience' &&
+                directCaseStudyMediaIds(r.published).includes(old.id)) ||
               (r.kind === 'media' &&
                 [
                   r.published.posterMediaId,

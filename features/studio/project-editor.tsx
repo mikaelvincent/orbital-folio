@@ -15,6 +15,12 @@ import {
   projectCategories,
   projectSlug,
 } from '@/lib/content/project-content';
+import {
+  CASE_STUDY_CATEGORIES,
+  CASE_STUDY_STORY_TEMPLATE,
+  caseStudyBody,
+  caseStudyCategories,
+} from '@/lib/content/case-study-content';
 import type { Content } from '@/lib/content/types';
 import {
   ProjectMarkdown,
@@ -28,6 +34,7 @@ import {
 import './project-editor.css';
 
 export type ProjectEditorProps = {
+  kind?: 'project' | 'experience';
   data: Record<string, any>;
   records: Content[];
   busy: boolean;
@@ -37,6 +44,7 @@ export type ProjectEditorProps = {
 };
 
 export function ProjectEditor({
+  kind = 'project',
   data,
   records,
   busy,
@@ -44,6 +52,17 @@ export function ProjectEditor({
   onUpload,
   onPublishAssets,
 }: ProjectEditorProps) {
+  const isCaseStudy = kind === 'experience';
+  const noun = isCaseStudy ? 'case study' : 'project';
+  const title = isCaseStudy ? 'Case study' : 'Project';
+  const collection = isCaseStudy ? 'All case studies' : 'All projects';
+  const categoryOptions = isCaseStudy
+    ? CASE_STUDY_CATEGORIES
+    : PROJECT_CATEGORIES;
+  const storyBody = isCaseStudy ? caseStudyBody : projectBody;
+  const storyTemplate = isCaseStudy
+    ? CASE_STUDY_STORY_TEMPLATE
+    : PROJECT_STORY_TEMPLATE;
   const [mode, setMode] = useState<'write' | 'preview'>('write');
   const [frame, setFrame] = useState<'landscape' | 'portrait'>('landscape');
   const [file, setFile] = useState<File | null>(null);
@@ -56,8 +75,20 @@ export function ProjectEditor({
   const descriptionInput = useRef<HTMLInputElement>(null);
   const dataRef = useRef(data);
   dataRef.current = data;
-  const body = projectBody(data);
-  const categories = projectCategories(data);
+  const body = storyBody(data);
+  const categories: string[] = isCaseStudy
+    ? caseStudyCategories(data)
+    : projectCategories(data);
+  const metadataFields = isCaseStudy
+    ? [
+        ['role', 'Role'],
+        ['organization', 'Organization'],
+        ['period', 'Period'],
+      ]
+    : [
+        ['role', 'Role'],
+        ['stack', 'Tools'],
+      ];
   const media: Record<string, any>[] = records
     .filter((r) => r.kind === 'media')
     .map((r) => ({ ...r.draft, id: r.id, published: !!r.published }));
@@ -66,11 +97,12 @@ export function ProjectEditor({
   const { pending: pendingAssets, error: assetError } = projectAssetPublication(
     data,
     records,
+    kind,
   );
   const change = (key: string, value: unknown) =>
     onChange({ ...data, [key]: value });
   const insert = (item: Record<string, any>) => {
-    const currentBody = projectBody(dataRef.current);
+    const currentBody = storyBody(dataRef.current);
     const inserted = insertProjectMedia(
       currentBody,
       item,
@@ -122,7 +154,7 @@ export function ProjectEditor({
   );
   return (
     <fieldset className="project-editor wide-field" disabled={busy}>
-      <legend className="sr-only">Project content</legend>
+      <legend className="sr-only">{title} content</legend>
       <section
         className="project-editor-section"
         aria-labelledby="project-details-heading"
@@ -130,14 +162,14 @@ export function ProjectEditor({
         <div className="project-editor-section-heading">
           <span>01</span>
           <div>
-            <h3 id="project-details-heading">Project details</h3>
+            <h3 id="project-details-heading">{title} details</h3>
             <p>The essentials visitors see in the collection.</p>
           </div>
         </div>
         <div className="project-editor-grid">
           {textField('title', 'Title', {
             required: true,
-            placeholder: 'Give the project a clear name',
+            placeholder: `Give the ${noun} a clear name`,
           })}
           <label className="studio-field">
             URL slug
@@ -169,11 +201,11 @@ export function ProjectEditor({
           <fieldset className="project-category-field wide-field">
             <legend>Categories</legend>
             <p>
-              Choose one or more. Every project appears in All projects
+              Choose one or more. Every {noun} appears in {collection}{' '}
               automatically.
             </p>
             <div className="project-category-options">
-              {PROJECT_CATEGORIES.map((category) => (
+              {categoryOptions.map((category) => (
                 <label key={category.id}>
                   <input
                     type="checkbox"
@@ -195,7 +227,7 @@ export function ProjectEditor({
               <small>
                 {Array.isArray(data.categories)
                   ? 'Select at least one category before saving.'
-                  : 'This older project is currently shown in All projects. Add categories when ready.'}
+                  : `This older ${noun} is currently shown in ${collection}. Add categories when ready.`}
               </small>
             )}
           </fieldset>
@@ -217,18 +249,27 @@ export function ProjectEditor({
             </select>
             <small>Upload below to add a new image to this list.</small>
           </label>
-          {textField('stack', 'Tools / technology · optional', {
-            placeholder: 'React, TypeScript, …',
-          })}
           {textField('role', 'My role · optional')}
-          {textField('demoUrl', 'Live project URL · optional', {
-            type: 'url',
-            placeholder: 'https://',
-          })}
-          {textField('sourceUrl', 'Source repository URL · optional', {
-            type: 'url',
-            placeholder: 'https://',
-          })}
+          {isCaseStudy ? (
+            <>
+              {textField('organization', 'Organization / team · optional')}
+              {textField('period', 'Period · optional')}
+            </>
+          ) : (
+            <>
+              {textField('stack', 'Tools / technology · optional', {
+                placeholder: 'React, TypeScript, …',
+              })}
+              {textField('demoUrl', 'Live project URL · optional', {
+                type: 'url',
+                placeholder: 'https://',
+              })}
+              {textField('sourceUrl', 'Source repository URL · optional', {
+                type: 'url',
+                placeholder: 'https://',
+              })}
+            </>
+          )}
         </div>
       </section>
       <section
@@ -268,7 +309,7 @@ export function ProjectEditor({
             <button
               type="button"
               onClick={() => {
-                change('body', PROJECT_STORY_TEMPLATE);
+                change('body', storyTemplate);
                 setMode('write');
               }}
             >
@@ -298,7 +339,7 @@ export function ProjectEditor({
         </div>
         {mode === 'write' ? (
           <label className="studio-field project-markdown-field">
-            <span className="sr-only">Project Markdown</span>
+            <span className="sr-only">{title} Markdown</span>
             <textarea
               ref={source}
               value={body}
@@ -345,19 +386,16 @@ export function ProjectEditor({
           <div className={`project-preview-stage is-${frame}`}>
             <article
               className="project-preview-document"
-              aria-label={`${frame} project preview`}
+              aria-label={`${frame} ${noun} preview`}
             >
               <p className="eyebrow">UNSAVED CONTENT PREVIEW</p>
-              <h2>{data.title || 'Untitled project'}</h2>
+              <h2>{data.title || `Untitled ${noun}`}</h2>
               {data.summary && (
                 <p className="project-preview-summary">{data.summary}</p>
               )}
-              {(data.role || data.stack) && (
+              {metadataFields.some(([key]) => data[key]) && (
                 <dl className="project-preview-meta">
-                  {[
-                    ['role', 'Role'],
-                    ['stack', 'Tools'],
-                  ].map(([key, label]) =>
+                  {metadataFields.map(([key, label]) =>
                     data[key] ? (
                       <div key={key}>
                         <dt>{label}</dt>
@@ -395,7 +433,7 @@ export function ProjectEditor({
           <div className="project-media-grid">
             <div className="project-media-upload">
               <label className="studio-field">
-                Upload to this project
+                Upload to this {noun}
                 <input
                   ref={uploadInput}
                   type="file"
@@ -438,7 +476,7 @@ export function ProjectEditor({
                   setFeedback(
                     uploaded.mime === 'text/vtt'
                       ? 'Captions uploaded privately. Attach this file to a video in the Media library.'
-                      : 'Uploaded privately and inserted into your story. Save the project draft when ready.',
+                      : `Uploaded privately and inserted into your story. Save the ${noun} draft when ready.`,
                   );
                   setFile(null);
                   setAlt('');
@@ -493,7 +531,7 @@ export function ProjectEditor({
       </section>
       <section
         className="project-media-publication"
-        aria-label="Project media publication"
+        aria-label={`${title} media publication`}
       >
         <div>
           <strong>
@@ -506,7 +544,7 @@ export function ProjectEditor({
           <p>
             {assetError ||
               (pendingAssets.length
-                ? 'Publishing media makes its files public immediately. Your project remains a draft until you publish it separately.'
+                ? `Publishing media makes its files public immediately. Your ${noun} remains a draft until you publish it separately.`
                 : 'New uploads remain private until you explicitly publish them.')}
           </p>
         </div>

@@ -76,6 +76,7 @@ export function AdminStudio({
   const [search, setSearch] = useState('');
   const [moreInbox, setMoreInbox] = useState(inquiries.length === 100);
   const current = records.find((r) => r.id === selected);
+  const storyNoun = kind === 'experience' ? 'case study' : 'project';
   const dirty =
     JSON.stringify(data) !== JSON.stringify(current?.draft ?? templates[kind]);
   const visible = records
@@ -184,13 +185,13 @@ export function AdminStudio({
       if (!response.ok)
         throw new Error(
           result.error ||
-            'Media upload failed. Your project draft is unchanged.',
+            `Media upload failed. Your ${storyNoun} draft is unchanged.`,
         );
       const refreshed = await fetch('/api/admin');
       const all = (await refreshed.json()) as any;
       if (!refreshed.ok)
         throw new Error(
-          'Media was uploaded, but the library could not refresh. Save your project and reload the studio before uploading again.',
+          `Media was uploaded, but the library could not refresh. Save your ${storyNoun} and reload the studio before uploading again.`,
         );
       setRecords(all.records);
       const uploaded = all.records.find((r: Content) => r.id === result.id);
@@ -225,11 +226,11 @@ export function AdminStudio({
         published++;
       }
       setMessage(
-        'Referenced media is public. Your project draft and unsaved edits are unchanged; publish the project separately when ready.',
+        `Referenced media is public. Your ${storyNoun} draft and unsaved edits are unchanged; publish the ${storyNoun} separately when ready.`,
       );
     } catch (error) {
       setError(
-        `${error instanceof Error ? error.message : 'Media publication failed.'}${published ? ` ${published} media item${published === 1 ? ' is' : 's are'} already public.` : ''} Your project edits are preserved.`,
+        `${error instanceof Error ? error.message : 'Media publication failed.'}${published ? ` ${published} media item${published === 1 ? ' is' : 's are'} already public.` : ''} Your ${storyNoun} edits are preserved.`,
       );
     } finally {
       setBusy(false);
@@ -273,14 +274,15 @@ export function AdminStudio({
   const preview =
     kind === 'project'
       ? '/admin/preview?section=projects&id=' + selected
-      : '/admin/preview?section=' +
-        ({
-          site: 'home',
-          experience: 'experience',
-          journal: 'about',
-          link: 'contact',
-          media: 'projects',
-        }[kind] || 'home');
+      : kind === 'experience'
+        ? '/admin/preview?section=experience&id=' + selected
+        : '/admin/preview?section=' +
+          ({
+            site: 'home',
+            journal: 'about',
+            link: 'contact',
+            media: 'projects',
+          }[kind] || 'home');
   return (
     <div className="studio">
       <header className="studio-header">
@@ -398,7 +400,10 @@ export function AdminStudio({
                     }}
                   >
                     <Plus size={16} />
-                    Add {names[kind].toLowerCase().replace(/s$/, '')}
+                    Add{' '}
+                    {kind === 'experience'
+                      ? 'case study'
+                      : names[kind].toLowerCase().replace(/s$/, '')}
                   </button>
                 )}
                 {kind === 'project' && (
@@ -509,8 +514,8 @@ export function AdminStudio({
                   >
                     <strong>Upload media</strong>
                     <label className="studio-field">
-                      PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT · 256
-                      KiB
+                      PNG / JPEG / WebP / GIF · 5 MiB, MP4 / WebM · 12 MiB, VTT
+                      · 256 KiB
                       <input
                         type="file"
                         name="file"
@@ -538,16 +543,17 @@ export function AdminStudio({
                       data:
                         kind === 'link'
                           ? socialLinkDraft(data)
-                          : kind === 'project'
+                          : kind === 'project' || kind === 'experience'
                             ? projectEditorDraft(data)
                             : data,
                       revision: current?.revision,
                     });
                   }}
                 >
-                  {kind === 'project' ? (
+                  {kind === 'project' || kind === 'experience' ? (
                     <ProjectEditor
                       key={`${selected}:${editorReset}`}
+                      kind={kind}
                       data={data}
                       records={records}
                       busy={busy}
@@ -679,8 +685,9 @@ export function AdminStudio({
                     <p className="editor-hint">
                       Change “Display order” to organize entries, then publish
                       the reordered record. All published entries appear
-                      automatically; the ship always leads to the full
-                      collection.
+                      automatically.
+                      {(kind === 'project' || kind === 'experience') &&
+                        ' All includes every published entry; category assignments determine the filtered collections.'}
                     </p>
                   )}
                 </form>

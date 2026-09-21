@@ -84,12 +84,16 @@ export function mediaDependencyClosure(
 export function validateProjectPublication(
   project: Record<string, any>,
   records: Content[],
+  contentLabel = 'project',
 ) {
   const used = projectMediaClosure(project, records, true);
   if (project.mediaId) {
     const cover = used.find((r) => r.id === project.mediaId)?.published;
     if (cover?.mime && !String(cover.mime).startsWith('image/'))
-      throw new HttpError(400, 'Choose an image for the project cover.');
+      throw new HttpError(
+        400,
+        `Choose an image for the ${contentLabel} cover.`,
+      );
   }
   return used;
 }
