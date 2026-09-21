@@ -8,7 +8,6 @@ import {
   Layers,
   Code2,
   FlaskConical,
-  GitBranch,
   Globe,
   X,
 } from 'lucide-react';
@@ -350,6 +349,10 @@ export function ProjectLinks({
   site: Record<string, any>;
 }) {
   const href = projectContentUrl(project.sourceUrl);
+  const label =
+    !site.codeLabel || site.codeLabel === 'View source'
+      ? 'View source code'
+      : site.codeLabel;
   return href ? (
     <nav className="project-library-links" aria-label="Project resources">
       <a
@@ -358,8 +361,8 @@ export function ProjectLinks({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <GitBranch size={17} aria-hidden="true" />
-        <span>{site.codeLabel || 'Source code'}</span>
+        <Code2 size={17} aria-hidden="true" />
+        <span>{label}</span>
         <ArrowUpRight
           className="project-resource-external"
           size={14}

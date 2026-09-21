@@ -38,7 +38,7 @@ export const seedSite = {
   inviteLabel: 'Let’s talk',
   projectCta: 'View case study',
   demoLabel: 'Open live project',
-  codeLabel: 'View source',
+  codeLabel: 'View source code',
   heroEyebrow: 'A SMALL SHIP. A WORLD OF POSSIBILITIES.',
   shipCaption: 'Choose a room. Discover what’s inside.',
   sceneLoading: 'Preparing your spacecraft…',

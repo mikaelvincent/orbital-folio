@@ -670,8 +670,42 @@ await test('optional source and live links occupy only their intended detail pos
       assert.equal((titleRow?.match(/<a\b/g) || []).length, expectedLive);
       assert.ok(titleRow?.includes('Optional resources'));
       if (expectedLive) assert.match(titleRow, />Open live project<\/span>/);
-      if (expectedSource) assert.match(markup, />View source<\/span>/);
+      if (expectedSource) assert.match(markup, />View source code<\/span>/);
       assert.doesNotMatch(markup, /href="(?:javascript:|data:)/);
     }
+  }
+});
+
+await test('source control clarifies only its legacy default label and preserves authored alternatives', async () => {
+  const { ProjectLinks } = await loadComponent(
+    'features/portfolio/project-library-window.tsx',
+  );
+  for (const [configured, expected] of [
+    [undefined, 'View source code'],
+    ['', 'View source code'],
+    ['View source', 'View source code'],
+    ['View source code', 'View source code'],
+    ['Source code', 'Source code'],
+    ['Explore the repository', 'Explore the repository'],
+  ]) {
+    const site = configured === undefined ? {} : { codeLabel: configured };
+    const before = structuredClone(site);
+    const markup = renderToStaticMarkup(
+      createElement(ProjectLinks, {
+        project: { sourceUrl: 'https://code.example/project' },
+        site,
+      }),
+    );
+    assert.ok(markup.includes('<span>' + expected + '</span>'));
+    assert.match(
+      markup,
+      /<a[^>]*href="https:\/\/code.example\/project"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/,
+    );
+    assert.doesNotMatch(markup, /<button/);
+    assert.deepEqual(
+      site,
+      before,
+      'display wording does not rewrite configured content',
+    );
   }
 });
