@@ -1,0 +1,210 @@
+[
+  {
+    "check": "detail retains category and renderer without flight",
+    "before": {
+      "position": "2.0870,1.4613,1.3649",
+      "quaternion": "-0.271403,-0.000000,-0.000000,0.962466",
+      "renderer": "97e0aaa6-a66b-437e-a9d8-a7b9b800403e",
+      "url": "http://localhost:3003/case-studies?open=1&category=product"
+    },
+    "after": {
+      "position": "2.0870,1.4615,1.3648",
+      "quaternion": "-0.271484,-0.000000,-0.000000,0.962443",
+      "renderer": "97e0aaa6-a66b-437e-a9d8-a7b9b800403e",
+      "travelling": "false",
+      "url": "http://localhost:3003/case-studies/building-products?category=product"
+    }
+  },
+  {
+    "check": "browser Back restores detail scroll",
+    "expectedScroll": 874,
+    "actual": {
+      "scroll": 874,
+      "travelling": "false",
+      "url": "http://localhost:3003/case-studies/building-products?category=product"
+    }
+  },
+  {
+    "check": "browser Forward restores filtered collection",
+    "actual": {
+      "title": "Product engineering",
+      "travelling": "false",
+      "url": "http://localhost:3003/case-studies?open=1&category=product"
+    }
+  },
+  {
+    "check": "terminal housing does not dismiss through to wall",
+    "url": "http://localhost:3003/case-studies?open=1&category=product"
+  },
+  {
+    "check": "exposed pressure wall closes the app at 1600x720",
+    "url": "http://localhost:3003/case-studies"
+  },
+  {
+    "check": "physical Systems & reliability",
+    "result": {
+      "entries": [
+        "Making systems dependable"
+      ],
+      "title": "Systems & reliability",
+      "url": "http://localhost:3003/case-studies?open=1&category=systems"
+    }
+  },
+  {
+    "check": "physical Research & experiments",
+    "result": {
+      "entries": [
+        "Learning by building"
+      ],
+      "title": "Research & experiments",
+      "url": "http://localhost:3003/case-studies?open=1&category=research"
+    }
+  },
+  {
+    "check": "physical Design & interfaces",
+    "result": {
+      "entries": [
+        "Building the whole product"
+      ],
+      "title": "Design & interfaces",
+      "url": "http://localhost:3003/case-studies?open=1&category=interfaces"
+    }
+  },
+  {
+    "check": "physical All case studies",
+    "result": {
+      "entries": [
+        "Choosing a focused workflow",
+        "Building the whole product",
+        "Making systems dependable",
+        "Learning by building"
+      ],
+      "title": "Case studies",
+      "url": "http://localhost:3003/case-studies?open=1"
+    }
+  },
+  {
+    "check": "All collection scroll restored",
+    "expected": 311,
+    "actual": 311
+  },
+  {
+    "check": "portrait frame",
+    "actual": {
+      "app": {
+        "bottom": 702.057746887207,
+        "height": 628.0067138671875,
+        "left": 17.992158889770508,
+        "right": 372.03555488586426,
+        "top": 74.05103302001953,
+        "width": 354.04339599609375,
+        "x": 17.992158889770508,
+        "y": 74.05103302001953
+      },
+      "buffer": "390,844",
+      "shading": "false",
+      "viewport": [
+        390,
+        844,
+        1
+      ]
+    }
+  },
+  {
+    "check": "Reading view retains selected story",
+    "actual": {
+      "title": "Building the whole product",
+      "url": "http://localhost:3003/case-studies/building-products"
+    }
+  },
+  {
+    "check": "portrait physical hit targets",
+    "viewport": [
+      390,
+      844
+    ],
+    "targets": [
+      {
+        "box": {
+          "bottom": 448.9629211425781,
+          "height": 14.06024169921875,
+          "left": 114.51126098632812,
+          "right": 275.48876953125,
+          "top": 434.9026794433594,
+          "width": 160.97750854492188,
+          "x": 114.51126098632812,
+          "y": 434.9026794433594
+        },
+        "disabled": false,
+        "name": "Open Design & interfaces"
+      },
+      {
+        "box": {
+          "bottom": 518.930419921875,
+          "height": 62.14703369140625,
+          "left": 132.56031799316406,
+          "right": 257.439697265625,
+          "top": 456.7833862304687,
+          "width": 124.87937927246094,
+          "x": 132.56031799316406,
+          "y": 456.7833862304687
+        },
+        "disabled": false,
+        "name": "Open All case studies"
+      },
+      {
+        "box": {
+          "bottom": 388.1241149902344,
+          "height": 14.060882568359377,
+          "left": 114.50951385498048,
+          "right": 275.4905014038086,
+          "top": 374.063232421875,
+          "width": 160.98098754882812,
+          "x": 114.50951385498048,
+          "y": 374.063232421875
+        },
+        "disabled": false,
+        "name": "Open Product engineering"
+      },
+      {
+        "box": {
+          "bottom": 408.4039916992187,
+          "height": 14.060638427734377,
+          "left": 114.51009368896484,
+          "right": 275.4899215698242,
+          "top": 394.3433532714844,
+          "width": 160.97982788085938,
+          "x": 114.51009368896484,
+          "y": 394.3433532714844
+        },
+        "disabled": false,
+        "name": "Open Systems & reliability"
+      },
+      {
+        "box": {
+          "bottom": 428.68359375,
+          "height": 14.0604248046875,
+          "left": 114.51068115234376,
+          "right": 275.4893493652344,
+          "top": 414.6231689453125,
+          "width": 160.97866821289062,
+          "x": 114.51068115234376,
+          "y": 414.6231689453125
+        },
+        "disabled": false,
+        "name": "Open Research & experiments"
+      }
+    ]
+  },
+  {
+    "check": "private preview opens saved draft by ID",
+    "actual": {
+      "title": "Private archive verification",
+      "url": "http://localhost:3003/admin/preview?section=experience&id=00a07917-ccc8-4628-ac34-3a50f529f7a2"
+    }
+  },
+  {
+    "check": "public page retains published title after draft edit",
+    "title": "Choosing a focused workflow"
+  }
+]

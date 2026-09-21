@@ -20,6 +20,9 @@ export function Spacecraft(props: SpacecraftProps) {
     api.current?.projects();
   }, [props.projects]);
   useEffect(() => {
+    api.current?.caseStudies?.();
+  }, [props.caseStudies]);
+  useEffect(() => {
     api.current?.go();
   }, [
     props.section,

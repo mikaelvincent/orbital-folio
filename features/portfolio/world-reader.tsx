@@ -13,7 +13,7 @@ import { type ContactDraft, type ContactSubmission } from './contact-form';
 import { pathFor } from '@/lib/paths';
 import { ContactComputerWindow } from './contact-computer-window';
 
-/** Native DOM content on the console, case-study reader or journal plane. */
+/** Native DOM content on the console or journal plane. */
 export function WorldReader({
   data,
   section,
@@ -53,7 +53,7 @@ export function WorldReader({
         onClose={onClose}
       />
     );
-  const entries = section === 'about' ? data.journal : data.experience;
+  const entries = data.journal;
   const entry = entries[chapter];
   const count = entries.length;
   const index = chapter;
@@ -84,34 +84,7 @@ export function WorldReader({
         aria-label={s.readLabel}
         key={chapter}
       >
-        {section === 'experience' ? (
-          <>
-            <p className="world-kicker">{s.experienceRoom}</p>
-            <h1>{s.experienceHeading}</h1>
-            {entry ? (
-              <>
-                <div className="world-kicker">
-                  <span>{entry.period}</span>
-                </div>
-                <h2 className="world-entry-title">{entry.title}</h2>
-                <p className="world-subtitle">
-                  {entry.role} / {entry.organization}
-                </p>
-                <p>{entry.summary}</p>
-                {['context', 'decisions', 'impact'].map((id, i) => (
-                  <section key={id}>
-                    <h3>
-                      {s[['roleLabel', 'decisionsLabel', 'outcomesLabel'][i]]}
-                    </h3>
-                    <TextBlocks text={entry[id]} />
-                  </section>
-                ))}
-              </>
-            ) : (
-              <p>{s.emptyLabel}</p>
-            )}
-          </>
-        ) : section === 'about' ? (
+        {section === 'about' ? (
           <>
             <p className="world-kicker">{s.journalLabel}</p>
             <h1>{s.name}</h1>

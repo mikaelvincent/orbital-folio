@@ -1,9 +1,15 @@
+import {
+  CASE_STUDY_CATEGORIES,
+  type CaseStudyFilter,
+} from '../../../lib/content/case-study-content.ts';
+
 // Keep the persisted experience key while its rendered room is Case studies.
 export const rooms = ['experience', 'projects', 'about', 'contact'] as const;
 export type Room = (typeof rooms)[number];
 export type Destination = {
   section: string;
   slug?: string;
+  category?: CaseStudyFilter;
   open?: boolean;
   sent?: boolean;
   error?: boolean;
@@ -12,6 +18,7 @@ export function destinationFromURL(
   url: URL,
   preview = false,
   projects: Record<string, any>[] = [],
+  caseStudies: Record<string, any>[] = [],
 ): Destination | null {
   let section: string, slug: string | undefined;
   if (preview) {
@@ -19,21 +26,34 @@ export function destinationFromURL(
     section = url.searchParams.get('section') || 'home';
     slug = url.searchParams.get('slug') || undefined;
     if (url.searchParams.has('id')) {
-      slug = projects.find((p) => p.id === url.searchParams.get('id'))?.slug;
+      const entries = ['experience', 'case-studies'].includes(section)
+        ? caseStudies
+        : projects;
+      slug = entries.find((p) => p.id === url.searchParams.get('id'))?.slug;
       if (!slug) return null;
     }
   } else {
     const parts = url.pathname.split('/').filter(Boolean);
-    if (parts.length > 2 || (parts.length === 2 && parts[0] !== 'projects'))
+    if (
+      parts.length > 2 ||
+      (parts.length === 2 &&
+        !['projects', 'case-studies', 'experience'].includes(parts[0]))
+    )
       return null;
     section = parts[0] || 'home';
     slug = parts[1];
   }
   if (section === 'case-studies') section = 'experience';
   if (!['home', 'privacy', ...rooms].includes(section)) return null;
+  const category = url.searchParams.get('category');
   return {
     section,
     slug,
+    ...(section === 'experience' &&
+    category &&
+    CASE_STUDY_CATEGORIES.some((item) => item.id === category)
+      ? { category: category as CaseStudyFilter }
+      : {}),
     open:
       ['projects', 'experience', 'about', 'contact'].includes(section) &&
       (url.searchParams.get('open') === '1' ||

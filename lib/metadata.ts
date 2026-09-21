@@ -20,9 +20,12 @@ export function pageMetadata(
     record?.seoTitle ||
     (section === 'home'
       ? s.seoTitle
-      : `${s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
+      : `${record?.title || s[section + 'Label'] || s.privacyLabel} — ${s.name}`);
   const description =
-    record?.seoDescription || s[section + 'Intro'] || s.seoDescription;
+    record?.seoDescription ||
+    record?.summary ||
+    s[section + 'Intro'] ||
+    s.seoDescription;
   const images = socialImage(data, record ? record.mediaId : s.seoImageId);
   return {
     title,

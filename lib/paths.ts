@@ -1,7 +1,7 @@
 export function pathFor(path: string, site: Record<string, any>) {
   // Preserve existing links and persisted section IDs, with one public URL.
   if (!site._preview)
-    path = path.replace(/^\/experience(?=$|[?#])/, '/case-studies');
+    path = path.replace(/^\/experience(?=$|[/?#])/, '/case-studies');
   if (
     !site._preview ||
     !path.startsWith('/') ||
@@ -10,13 +10,18 @@ export function pathFor(path: string, site: Record<string, any>) {
     path.startsWith('//')
   )
     return path;
-  const [pathname, hash] = path.split('#');
+  const [location, hash] = path.split('#');
+  const [pathname, query = ''] = location.split('?');
   const parts = pathname.split('/').filter(Boolean);
-  if (!parts.length) return '/admin/preview?section=home';
-  return (
-    '/admin/preview?section=' +
-    encodeURIComponent(parts[0] === 'case-studies' ? 'experience' : parts[0]) +
-    (parts[1] ? '&slug=' + encodeURIComponent(parts[1]) : '') +
-    (hash ? '#' + hash : '')
+  const search = new URLSearchParams(query);
+  search.set(
+    'section',
+    !parts.length
+      ? 'home'
+      : parts[0] === 'case-studies'
+        ? 'experience'
+        : parts[0],
   );
+  if (parts[1]) search.set('slug', parts[1]);
+  return '/admin/preview?' + search.toString() + (hash ? '#' + hash : '');
 }

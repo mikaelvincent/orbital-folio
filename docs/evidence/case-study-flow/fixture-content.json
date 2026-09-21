@@ -1,0 +1,76 @@
+{
+  "description": "Disposable local fixture only; no owner data or store was changed.",
+  "sourceAssets": [
+    "scripts/assets/project-demos/relay.webp",
+    "scripts/assets/project-demos/relay-lifecycle.mp4",
+    "scripts/assets/project-demos/relay-lifecycle.vtt"
+  ],
+  "studies": [
+    {
+      "id": "00a07917-ccc8-4628-ac34-3a50f529f7a2",
+      "slug": "focused-workflow",
+      "title": "Choosing a focused workflow",
+      "organization": "Verification fixture",
+      "period": "2026",
+      "role": "Design and implementation",
+      "summary": "How a small prototype clarified scope, feedback, and recovery.",
+      "categories": [
+        "product"
+      ],
+      "body": "## Context\n\nA synthetic fourth record for collection filtering.\n\n## Decisions\n\nKeep each step visible and reversible.\n\n## Outcome\n\nA clearer route from category to story."
+    },
+    {
+      "id": "experience-one",
+      "slug": "building-products",
+      "title": "Building the whole product",
+      "organization": "Example Product Studio",
+      "period": "Sample chapter · 2024–present",
+      "role": "Full-stack developer · sample role",
+      "summary": "Connecting useful interfaces to dependable services.",
+      "categories": [
+        "product",
+        "interfaces"
+      ],
+      "body": "## The challenge\n\nA **synthetic verification story** about choosing a smaller, clearer workflow. This fixture is not a claim about the owner's work.\n\n### What mattered\n\n- Accessible controls with clear outcomes\n- Explicit service boundaries\n- [x] Preserve the original content\n- [ ] Measure the next release\n\n> A good decision should explain its tradeoff.\n\n## Evidence\n\n![Synthetic architecture illustration](/media/5213cece-3740-49ed-a4ce-4f129f2aff95)\n\n| Approach | Tradeoff |\n| --- | --- |\n| One focused workflow | Less initial configuration |\n| Explicit state | More predictable recovery |\n\n### A small implementation detail\n\n```ts\nconst next = { ...entry, status: 'ready' };\n```\n\n[Watch the synthetic workflow](/media/3c760fbf-2448-4e47-a812-abff58d4e112)\n\n## Results and reflection\n\nThe prototype clarified the sequence and made failure states easier to explain. This is illustrative content for testing the archive reader.\n\n### Observation 1\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 2\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 3\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 4\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 5\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 6\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 7\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 8\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 9\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.\n\n### Observation 10\n\nThe team reviewed the assumptions, tested the smallest useful change, and recorded what remained uncertain. Each paragraph exercises native scrolling and the restored reading position.",
+      "context": "Sample entry: a small cross-functional team turning a complicated workflow into a focused web product. This is demonstration content, not employment history.",
+      "decisions": "Begin with the smallest complete user journey. Keep data contracts explicit, use accessible components, and ship changes that can be observed and rolled back.",
+      "impact": "Sample lessons: clear boundaries reduce coordination cost. A feature is only finished when people can use it and the team can support it.",
+      "order": 0,
+      "sample": true
+    },
+    {
+      "id": "experience-three",
+      "slug": "learning-by-building",
+      "title": "Learning by building",
+      "organization": "Independent exploration",
+      "period": "Sample chapter · foundations",
+      "role": "Developer · sample role",
+      "summary": "Curiosity, small experiments, and better questions.",
+      "categories": [
+        "research"
+      ],
+      "context": "Sample entry: exploring web foundations through small, complete projects and deliberate practice.",
+      "decisions": "Finish a narrow slice, explain its tradeoffs, and revisit the parts that were harder to understand than they needed to be.",
+      "impact": "Sample lessons: writing down decisions makes the next iteration better. Replace this entry with the owner’s actual experience.",
+      "order": 2,
+      "sample": true
+    },
+    {
+      "id": "experience-two",
+      "slug": "reliable-systems",
+      "title": "Making systems dependable",
+      "organization": "Example Engineering Team",
+      "period": "Sample chapter · 2022–2024",
+      "role": "Backend engineer · sample role",
+      "summary": "Looking beyond the happy path.",
+      "categories": [
+        "systems"
+      ],
+      "context": "Sample entry: improving APIs and asynchronous workflows where reliability mattered more than adding features quickly.",
+      "decisions": "Treat retries, timeouts, and partial failure as normal conditions. Add structured logs and define recovery steps before increasing traffic.",
+      "impact": "Sample lessons: the simplest system the team can operate is often the right starting point. No numerical or commercial results are claimed.",
+      "order": 1,
+      "sample": true
+    }
+  ]
+}

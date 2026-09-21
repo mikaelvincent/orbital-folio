@@ -1,3 +1,4 @@
+import type { CaseStudyFilter } from '../../lib/content/case-study-content';
 import { projectApplicationLayout } from './navigation/project-application';
 import { createProjectedSurface } from './projected-surface';
 import { resolveSocialScreens } from '@/lib/content/social-links';
@@ -87,6 +88,9 @@ export type SpacecraftProps = {
   readingSurface: boolean;
   projectPage: number;
   projectScreen?: string;
+  caseStudyScreen?: CaseStudyFilter;
+  onOpenCaseStudies?: (category: CaseStudyFilter) => void;
+  onCloseCaseStudies?: () => void;
   onOpenProjects?: (
     category: 'all' | 'systems' | 'interfaces' | 'experiments',
   ) => void;
@@ -107,6 +111,7 @@ export type SpacecraftProps = {
 export type SpacecraftSceneAPI = {
   go: () => void;
   projects: () => void;
+  caseStudies: () => void;
   pause: (paused: boolean) => void;
   diagnostics: (enabled: boolean) => void;
 };
@@ -286,6 +291,13 @@ export function mountSpacecraftScene({
             categories: p.categories,
             sample: p.sample && (s.sampleMode || s._preview),
           }));
+        const caseStudyItems = () =>
+          latest.current.caseStudies.map((item) => ({
+            title: String(item.title),
+            slug: String(item.slug),
+            categories: item.categories,
+            sample: item.sample && (s.sampleMode || s._preview),
+          }));
         const modelOptions = {
           vesselName,
           socials: resolveSocialScreens(latest.current.links),
@@ -298,11 +310,7 @@ export function mountSpacecraftScene({
           geometryCompaction: audit?.geometryCompaction,
           sampleLabel: s.sampleLabel,
           projects: projectItems(),
-          caseStudies: latest.current.caseStudies.map((p) => ({
-            title: String(p.title),
-            slug: String(p.slug),
-            sample: p.sample && (s.sampleMode || s._preview),
-          })),
+          caseStudies: caseStudyItems(),
           labels: {
             projects: s.projectsLabel,
             experience: s.experienceLabel,
@@ -525,6 +533,27 @@ export function mountSpacecraftScene({
             return { screen, button, object };
           },
         );
+        const caseComputer = model.group.userData.caseStudyComputer;
+        const caseStudyControls = model.group.userData.caseStudyScreens.map(
+          (screen: any) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'world-object-target world-computer-screen';
+            button.disabled = !screen.available;
+            button.setAttribute('aria-label', `Open ${screen.label}`);
+            button.dataset.targetKey = screen.interactableId;
+            button.dataset.sceneObject = screen.interactableId;
+            button.style.width = '500px';
+            button.style.height = `${(500 * screen.height) / screen.width}px`;
+            button.onclick = () => {
+              if (screen.available && active === 'experience' && !travelling)
+                latest.current.onOpenCaseStudies?.(screen.category);
+            };
+            const object = new CSS3DObject(button);
+            cssScene.add(object);
+            return { screen, button, object };
+          },
+        );
         const selectedProjectScreen = () =>
           projectControls.find(
             ({ screen }: any) =>
@@ -532,7 +561,9 @@ export function mountSpacecraftScene({
               screen.category === latest.current.projectScreen,
           )?.screen || projectControls[0].screen;
         const applicationRoom = () =>
-          active === 'contact' || active === 'projects';
+          active === 'contact' ||
+          active === 'projects' ||
+          active === 'experience';
         const screenProjection = new THREE.Vector3();
         function screenInViewport(screen: any) {
           let left = Infinity,
@@ -543,7 +574,9 @@ export function mountSpacecraftScene({
             for (const y of [-0.5, 0.5]) {
               screenProjection
                 .set(x * screen.width, y * screen.height, 0)
-                .applyMatrix4(screen.anchor.matrixWorld)
+                .applyMatrix4(
+                  (screen.interactionAnchor || screen.anchor).matrixWorld,
+                )
                 .project(camera);
               if (screenProjection.z < -1 || screenProjection.z > 1)
                 return false;
@@ -558,6 +591,9 @@ export function mountSpacecraftScene({
           typeof createContactRoomDismissPicker
         >;
         let projectRoomPicker: ReturnType<
+          typeof createContactRoomDismissPicker
+        >;
+        let caseStudyRoomPicker: ReturnType<
           typeof createContactRoomDismissPicker
         >;
         const lastContactPickRay = new THREE.Ray();
@@ -595,6 +631,26 @@ export function mountSpacecraftScene({
           projectRoomPicker = createContactRoomDismissPicker(
             projectWalls,
             projectBlockers,
+          );
+          const caseWalls: Three.Mesh[] = [],
+            caseBlockers: Three.Mesh[] = [];
+          model.group.traverse((object: any) => {
+            if (
+              object.isMesh &&
+              (object.material?.userData.applicationRoomWall === 'experience' ||
+                object.material?.userData.applicationRoomWalls?.includes(
+                  'experience',
+                ))
+            )
+              caseWalls.push(object);
+          });
+          model.group.userData.caseStudyArchive.traverse((object: any) => {
+            if (object.isMesh && !object.userData.isInteractionProxy)
+              caseBlockers.push(object);
+          });
+          caseStudyRoomPicker = createContactRoomDismissPicker(
+            caseWalls,
+            caseBlockers,
           );
           contactPickRevision = -1;
           for (const hotspot of hotspotObjects) {
@@ -848,18 +904,28 @@ export function mountSpacecraftScene({
             selectedProjectScreen().height,
             Math.max(bottomReservation, mobile() ? 132 : 80),
           );
+        const caseStudyLayout = () =>
+          projectApplicationLayout(
+            el.clientWidth,
+            el.clientHeight,
+            caseComputer.width,
+            caseComputer.height,
+            Math.max(bottomReservation, mobile() ? 132 : 80),
+          );
         const computerLayout = () =>
           active === 'projects'
             ? projectLayout()
-            : contactApplicationLayout(
-                el.clientWidth,
-                el.clientHeight,
-                computer.width,
-                computer.height,
-                // Overview poses also refresh the shared dock inset during resize.
-                // Keep the Contact window's own compact reservation stable.
-                Math.max(bottomReservation, mobile() ? 132 : 80),
-              );
+            : active === 'experience'
+              ? caseStudyLayout()
+              : contactApplicationLayout(
+                  el.clientWidth,
+                  el.clientHeight,
+                  computer.width,
+                  computer.height,
+                  // Overview poses also refresh the shared dock inset during resize.
+                  // Keep the Contact window's own compact reservation stable.
+                  Math.max(bottomReservation, mobile() ? 132 : 80),
+                );
         const portraitOverview = () => el.clientHeight > el.clientWidth;
         const zAxis = new THREE.Vector3(0, 0, 1);
         const pose = (section: string, isReading: boolean) => {
@@ -966,10 +1032,22 @@ export function mountSpacecraftScene({
               ...layout,
               distance: desiredDistance,
             });
-          } else if (isReading && section === 'projects') {
+          } else if (
+            isReading &&
+            (section === 'projects' || section === 'experience')
+          ) {
             model.group.updateMatrixWorld(true);
-            const screen = selectedProjectScreen();
-            const layout = projectLayout();
+            const screen =
+              section === 'experience' ? caseComputer : selectedProjectScreen();
+            const layout =
+              section === 'experience' ? caseStudyLayout() : projectLayout();
+            if (section === 'experience')
+              direction
+                .set(0, 0, 1)
+                .applyQuaternion(
+                  screen.anchor.getWorldQuaternion(new THREE.Quaternion()),
+                )
+                .normalize();
             const points: Vec3[] = [];
             for (const x of [
               -layout.framing.width / 2,
@@ -1005,8 +1083,14 @@ export function mountSpacecraftScene({
             target.set(...framed.target);
             desiredDistance = framed.distance * (layout.portrait ? 1 : 1.06);
             el.dataset.framing = JSON.stringify({
-              mode: 'projects-application',
-              screen: screen.category,
+              mode:
+                section === 'experience'
+                  ? 'case-studies-application'
+                  : 'projects-application',
+              screen:
+                section === 'experience'
+                  ? latest.current.caseStudyScreen || 'all'
+                  : screen.category,
               ...layout,
               distance: desiredDistance,
             });
@@ -1848,6 +1932,7 @@ export function mountSpacecraftScene({
               hoveredCaseStudy: null,
               projectPage: latest.current.projectPage,
               projectScreen: latest.current.projectScreen || 'all',
+              caseStudyScreen: latest.current.caseStudyScreen || 'all',
               reading,
               delta,
             },
@@ -1862,7 +1947,7 @@ export function mountSpacecraftScene({
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
           const near =
-            (reading && active === 'projects') ||
+            (reading && (active === 'projects' || active === 'experience')) ||
             (travelling && camera.near < 0.5)
               ? 0.08
               : 0.5;
@@ -1983,6 +2068,29 @@ export function mountSpacecraftScene({
               (!reading ||
                 (screen !== selectedProjectScreen() &&
                   screenInViewport(screen)));
+            button.inert = !object.visible;
+            button.disabled = !screen.available;
+            button.setAttribute('aria-hidden', String(!object.visible));
+            button.classList.toggle(
+              'is-object-active',
+              object.visible &&
+                !down?.gesture.dragging &&
+                effectiveObject === screen.interactableId,
+            );
+          }
+          for (const { screen, button, object } of caseStudyControls) {
+            screen.interactionAnchor.matrixWorld.decompose(
+              object.position,
+              object.quaternion,
+              object.scale,
+            );
+            object.scale.multiplyScalar(screen.width / 500);
+            object.visible =
+              screen.available &&
+              active === 'experience' &&
+              !travelling &&
+              (!reading ||
+                (screen.category !== 'all' && screenInViewport(screen)));
             button.inert = !object.visible;
             button.disabled = !screen.available;
             button.setAttribute('aria-hidden', String(!object.visible));
@@ -2428,7 +2536,9 @@ export function mountSpacecraftScene({
               (active === 'contact' &&
                 target.dataset.sceneObject?.startsWith('contact-social-')) ||
               (active === 'projects' &&
-                target.dataset.sceneObject?.startsWith('projects-screen-'))
+                target.dataset.sceneObject?.startsWith('projects-screen-')) ||
+              (active === 'experience' &&
+                target.dataset.sceneObject?.startsWith('case-study-screen-'))
             )
           )
             return EMPTY_SCENE_FEEDBACK;
@@ -2471,7 +2581,11 @@ export function mountSpacecraftScene({
               !lastContactPickRay.equals(ray.ray)
             ) {
               contactPickWall = !!(
-                active === 'projects' ? projectRoomPicker : contactRoomPicker
+                active === 'projects'
+                  ? projectRoomPicker
+                  : active === 'experience'
+                    ? caseStudyRoomPicker
+                    : contactRoomPicker
               )?.pick(ray);
               el.dataset.contactWallPicks = String(++contactWallPicks);
               contactPickRevision = revision;
@@ -2721,7 +2835,9 @@ export function mountSpacecraftScene({
             )
               (active === 'projects'
                 ? latest.current.onCloseProjects
-                : latest.current.onCloseContact)?.();
+                : active === 'experience'
+                  ? latest.current.onCloseCaseStudies
+                  : latest.current.onCloseContact)?.();
             else if (action.roomTarget) navigateRoom(action.section);
             else if (action.portalId) navigateDoor(action.portalId);
           }
@@ -2881,6 +2997,11 @@ export function mountSpacecraftScene({
           );
         }
         api.current = {
+          caseStudies: () => {
+            model.setCaseStudies(caseStudyItems());
+            feedback.reset();
+            kick();
+          },
           projects: () => {
             model.setProjects(projectItems());
             feedback.reset();

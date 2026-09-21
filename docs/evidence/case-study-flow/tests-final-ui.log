@@ -1,0 +1,31 @@
+✔ physical category collections show assigned studies, accessible native links and one close control (29.798333ms)
+✔ reading collection exposes only populated categories and handles a wholly empty archive (5.127459ms)
+✔ legacy case studies and optional metadata survive in both semantic and monitor detail (54.365542ms)
+✔ case studies reuse safe Markdown and managed image/video rendering without executable HTML (8.811292ms)
+✔ private case links retain the preview boundary and selected category (4.504166ms)
+✔ case detail metadata uses the canonical public URL and authored title, summary and overrides (6.291666ms)
+✔ project content accepts only safe navigation and asset URLs (3.509667ms)
+✔ raw HTML and unsafe links cannot become executable elements (81.581042ms)
+✔ story headings stay accessible and receive unique, stable anchors including nested content (10.095667ms)
+✔ managed video links render accessible native players with published poster/caption references (2.685083ms)
+✔ unknown media references do not expose unpublished asset metadata (1.786041ms)
+✔ the populated Relay story renders its complete media and Markdown showcase (91.689333ms)
+✔ reference-style links and images resolve without displaying their definitions (1.746334ms)
+✔ character references render as text while code and raw HTML remain literal (1.872834ms)
+✔ ordered and unordered lists retain mixed nesting, authored starts and inline formatting (5.424667ms)
+✔ task markers preserve checked state and loose paragraphs remain inside their list items (2.404708ms)
+✔ shipped Relay tight nested tasks render one checkbox while intentional bracket text stays literal (13.822583ms)
+✔ library categories rely on explicit authored assignment and keep ordinary project links (366.201667ms)
+✔ immersive gallery omits cover assets and placeholders while project details retain their media (216.623083ms)
+✔ project resource links share safe source/live destinations and retired dates stay out of both public views (517.147042ms)
+✔ optional resource controls share the intro row in live-before-source order in both views (598.271583ms)
+✔ the shared resource row retains configured live and source labels with native safe navigation (248.955958ms)
+✔ source control clarifies only its legacy default label and preserves authored alternatives (273.676166ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3718.054458

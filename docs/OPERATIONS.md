@@ -134,7 +134,33 @@ changes to those assets. Project Publish refuses missing or unpublished media.
 Media referenced by a published project cannot be deleted or unpublished until
 its live references are removed. Uploading or importing does not publish anything.
 
-### Local demonstration library
+## Authoring case studies
+
+Use **Case studies → Add case study** in Content studio. Supply a title and short
+description, assign one or more of Product engineering, Systems & reliability,
+Research & experiments, or Design & interfaces, then write or paste Markdown.
+All case studies is automatic. Existing unassigned records remain readable under
+All until an owner assigns categories; adding this flow does not rewrite them.
+The URL slug is generated on first save and stays stable when the title changes.
+Optional fields include cover, subtitle, role, organization, period and search
+metadata. The context/decisions/impact of older entries remains the fallback story
+until a Markdown body is authored.
+
+The writing/preview controls and managed image/video syntax are the same as
+Projects, including the 100,000-character story limit, media limits, escaped raw
+HTML and explicit referenced-media publication. Case-study publication refuses
+missing or private media; live references also protect poster/caption dependencies
+against deletion or unpublishing. Saving a draft leaves its published snapshot
+unchanged. Private preview opens the chosen story by ID; public stories have
+`/case-studies/<slug>` URLs and a semantic Reading view.
+
+The four physical category cartridges open their collection on the same terminal;
+All case studies opens the full archive. Empty choices are passive standby.
+Back restores the collection and its scroll position; X or an exposed room wall
+returns to the room. Case studies uses the existing JSON content backup workflow.
+The standalone project ZIP format remains specific to Projects.
+
+## Local demonstration library
 
 With the existing local server running, use:
 
@@ -172,7 +198,7 @@ illustrations, not recordings or evidence of real project outcomes. The optional
 Swift/AVFoundation for H.264 encoding; population and the site do not require that
 encoder. The GIF runs twice (3.84 seconds total) and stops.
 
-### Portable project packages
+## Portable project packages
 
 **Import project ZIP** creates a new draft, including media bytes. Existing slugs
 are rejected rather than overwritten. **Export project ZIP** exports the selected

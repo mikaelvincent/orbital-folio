@@ -11,6 +11,8 @@ import {
 import { ArrowLeft, BookOpen, ChevronUp, Home } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { projectCategoryCount } from '@/lib/content/project-content';
+import { caseStudyCategoryCount } from '@/lib/content/case-study-content';
+import { CaseStudyLibraryWindow } from './case-study-library-window';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import {
   destinationFromURL,
@@ -26,6 +28,7 @@ import {
   ProjectsView,
   DossierView,
   ExperienceView,
+  CaseStudyView,
   AboutView,
   ContactView,
 } from './room-views';
@@ -88,14 +91,27 @@ export function ImmersivePortfolio({
   )
     ? selectedProjectScreen
     : 'all';
+  const caseStudyScreen =
+    destination.category &&
+    caseStudyCategoryCount(data.experience, destination.category)
+      ? destination.category
+      : 'all';
   const reader = useRef<HTMLDivElement>(null);
   const latest = useRef(destination);
   latest.current = destination;
   const immersive = enhanced && !reading && destination.section !== 'privacy';
   const readingSurface =
     !!(destination.slug || destination.open) &&
-    (destination.section !== 'projects' || data.projects.length > 0);
-  const project = data.projects.find((p) => p.slug === destination.slug);
+    (destination.section !== 'projects' || data.projects.length > 0) &&
+    (destination.section !== 'experience' || data.experience.length > 0);
+  const project =
+    destination.section === 'projects'
+      ? data.projects.find((p) => p.slug === destination.slug)
+      : undefined;
+  const caseStudy =
+    destination.section === 'experience'
+      ? data.experience.find((entry) => entry.slug === destination.slug)
+      : undefined;
   const hrefFor = useCallback(
     (d: Destination) => {
       const path = pathFor(
@@ -104,18 +120,30 @@ export function ImmersivePortfolio({
           : '/' + d.section + (d.slug ? '/' + d.slug : ''),
         s,
       );
-      return path + (d.open ? (path.includes('?') ? '&' : '?') + 'open=1' : '');
+      const query = new URLSearchParams();
+      if (d.open) query.set('open', '1');
+      if (d.section === 'experience' && d.category && d.category !== 'all')
+        query.set('category', d.category);
+      return (
+        path + (query.size ? (path.includes('?') ? '&' : '?') + query : '')
+      );
     },
     [s],
   );
   const parseURL = useCallback(
-    (url: URL) => destinationFromURL(url, preview, data.projects),
-    [preview, data.projects],
+    (url: URL) =>
+      destinationFromURL(url, preview, data.projects, data.experience),
+    [preview, data.projects, data.experience],
   );
 
   const go = useCallback(
     (next: Destination, push = true) => {
-      if (next.slug && !data.projects.some((p) => p.slug === next.slug))
+      if (
+        next.slug &&
+        !(next.section === 'experience' ? data.experience : data.projects).some(
+          (p) => p.slug === next.slug,
+        )
+      )
         return false;
       setNavigationOpen(false);
       // Leave the URL and current destination unchanged until the camera
@@ -135,6 +163,7 @@ export function ImmersivePortfolio({
       const same =
         latest.current.section === next.section &&
         latest.current.slug === next.slug &&
+        latest.current.category === next.category &&
         !!latest.current.open === !!next.open &&
         !!latest.current.sent === !!next.sent &&
         !!latest.current.error === !!next.error;
@@ -142,19 +171,19 @@ export function ImmersivePortfolio({
         navigationToggle.current?.focus({ preventScroll: true });
         return true;
       }
-      const withinProjectApplication =
-        latest.current.section === 'projects' &&
-        next.section === 'projects' &&
+      const withinApplication =
+        ['projects', 'experience'].includes(latest.current.section) &&
+        next.section === latest.current.section &&
         !!(latest.current.slug || latest.current.open) &&
         !!(next.slug || next.open);
-      setArrived(withinProjectApplication);
-      setTravel(!reading && !withinProjectApplication);
+      setArrived(withinApplication);
+      setTravel(!reading && !withinApplication);
       latest.current = next;
       setDestination(next);
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
       return true;
     },
-    [data.projects, hrefFor, reading, immersive],
+    [data.projects, data.experience, hrefFor, reading, immersive],
   );
 
   useEffect(() => {
@@ -247,7 +276,7 @@ export function ImmersivePortfolio({
 
   useEffect(() => {
     if (!enhanced) return;
-    const meta = pageMetadata(data, destination.section, project);
+    const meta = pageMetadata(data, destination.section, caseStudy || project);
     document.title = preview ? 'Private draft preview' : meta.title;
     if (!preview) {
       document
@@ -289,7 +318,7 @@ export function ImmersivePortfolio({
       window.scrollTo({ top: 0, behavior: 'instant' });
       reader.current?.focus({ preventScroll: true });
     }
-  }, [destination, enhanced, preview, project, s, data, reading]);
+  }, [destination, enhanced, preview, project, caseStudy, s, data, reading]);
 
   const settled = useCallback(() => {
     setTravel(false);
@@ -300,10 +329,11 @@ export function ImmersivePortfolio({
     // A visitor may be choosing a new destination as the current flight ends.
     if (navigation.current?.querySelector('nav')) return;
     if (readingSurface) {
-      const appHeading =
-        destination.section === 'projects'
-          ? document.querySelector<HTMLElement>('#world-reader h1')
-          : null;
+      const appHeading = ['projects', 'experience'].includes(
+        destination.section,
+      )
+        ? document.querySelector<HTMLElement>('#world-reader h1')
+        : null;
       (
         appHeading || document.querySelector<HTMLElement>('#world-reader')
       )?.focus({ preventScroll: true });
@@ -331,7 +361,8 @@ export function ImmersivePortfolio({
     );
     if (!anchor || anchor.target || anchor.hasAttribute('download')) return;
     // The library saves its scroll position before handling its own project links.
-    if (anchor.closest('[data-project-interface]')) return;
+    if (anchor.closest('[data-project-interface], [data-case-study-interface]'))
+      return;
     const raw = anchor.getAttribute('href') || '';
     if (raw.startsWith('#')) return;
     const url = new URL(anchor.href, location.href);
@@ -339,7 +370,10 @@ export function ImmersivePortfolio({
     const next = parseURL(url);
     if (
       !next ||
-      (next.slug && !data.projects.some((p) => p.slug === next.slug))
+      (next.slug &&
+        !(next.section === 'experience' ? data.experience : data.projects).some(
+          (p) => p.slug === next.slug,
+        ))
     )
       return;
     event.preventDefault();
@@ -354,7 +388,21 @@ export function ImmersivePortfolio({
         <ProjectsView data={data} />
       )
     ) : destination.section === 'experience' ? (
-      <ExperienceView data={data} />
+      caseStudy ? (
+        <CaseStudyView
+          data={data}
+          caseStudy={caseStudy}
+          category={caseStudyScreen}
+        />
+      ) : (
+        <ExperienceView
+          data={data}
+          category={caseStudyScreen}
+          onCategoryChange={(category) =>
+            go({ section: 'experience', category })
+          }
+        />
+      )
     ) : destination.section === 'about' ? (
       <AboutView data={data} />
     ) : destination.section === 'contact' ? (
@@ -473,6 +521,12 @@ export function ImmersivePortfolio({
             readingSurface={readingSurface}
             projectPage={0}
             projectScreen={projectScreen}
+            caseStudyScreen={caseStudyScreen}
+            onOpenCaseStudies={(category) => {
+              if (!caseStudyCategoryCount(data.experience, category)) return;
+              go({ section: 'experience', open: true, category });
+            }}
+            onCloseCaseStudies={() => go({ section: 'experience' })}
             onOpenProjects={(category) => {
               if (!projectCategoryCount(data.projects, category)) return;
               setProjectScreen(category);
@@ -537,6 +591,28 @@ export function ImmersivePortfolio({
                 }
                 onBack={() => go({ section: 'projects', open: true })}
                 onClose={() => go({ section: 'projects' })}
+              />
+            ) : destination.section === 'experience' ? (
+              <CaseStudyLibraryWindow
+                key="case-studies"
+                data={data}
+                category={caseStudyScreen}
+                caseStudy={caseStudy}
+                onCaseStudySelect={(item) =>
+                  go({
+                    section: 'experience',
+                    slug: item.slug,
+                    category: caseStudyScreen,
+                  })
+                }
+                onBack={() =>
+                  go({
+                    section: 'experience',
+                    open: true,
+                    category: caseStudyScreen,
+                  })
+                }
+                onClose={() => go({ section: 'experience' })}
               />
             ) : (
               <WorldReader

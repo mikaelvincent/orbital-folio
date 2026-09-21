@@ -9,6 +9,7 @@ export async function GET() {
     '/contact',
     '/privacy',
     ...d.projects.map((p) => '/projects/' + p.slug),
+    ...d.experience.map((entry) => '/case-studies/' + entry.slug),
   ];
   const escape = (v: string) =>
     v

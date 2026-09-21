@@ -18,7 +18,8 @@ test('Flight destinations preserve public and private readable URLs', () => {
   assert.equal(destinationFromURL(url('/?open=1')).open, false);
   assert.equal(destinationFromURL(url('/projects?open=1')).open, true);
   assert.equal(destinationFromURL(url('/admin')), null);
-  assert.equal(destinationFromURL(url('/experience/missing')), null);
+  assert.equal(destinationFromURL(url('/experience/legacy')).slug, 'legacy');
+  assert.equal(destinationFromURL(url('/about/missing')), null);
   assert.equal(destinationFromURL(url('/projects/one/two')), null);
   assert.equal(
     destinationFromURL(url('/admin/preview?section=projects&slug=draft'), true)
@@ -97,5 +98,65 @@ test('Cursor rotation stays bounded and damping is independent of refresh rate',
   assert.equal(
     destinationFromURL(new URL('https://example.com/about?open=1')).open,
     true,
+  );
+});
+
+test('Case study routes retain category and resolve preview IDs only in the selected collection', () => {
+  const url = (path) => new URL(path, 'https://portfolio.example');
+  const projects = [{ id: 'shared', slug: 'project-story' }];
+  const studies = [{ id: 'shared', slug: 'case-story' }];
+  const detail = destinationFromURL(
+    url('/case-studies/case-story?category=systems'),
+  );
+  assert.equal(detail.section, 'experience');
+  assert.equal(detail.slug, 'case-story');
+  assert.equal(detail.category, 'systems');
+  assert.equal(
+    destinationFromURL(url('/case-studies?open=1&category=product')).open,
+    true,
+  );
+  assert.equal(
+    destinationFromURL(url('/case-studies?category=invalid')).category,
+    undefined,
+  );
+  assert.equal(
+    destinationFromURL(url('/projects?category=systems')).category,
+    undefined,
+  );
+  assert.equal(destinationFromURL(url('/case-studies/a/b')), null);
+  const draft = destinationFromURL(
+    url('/admin/preview?section=experience&id=shared&category=research'),
+    true,
+    projects,
+    studies,
+  );
+  assert.equal(draft.slug, 'case-story');
+  assert.equal(draft.category, 'research');
+  assert.equal(
+    destinationFromURL(
+      url('/admin/preview?section=case-studies&id=shared'),
+      true,
+      projects,
+      studies,
+    ).slug,
+    'case-story',
+  );
+  assert.equal(
+    destinationFromURL(
+      url('/admin/preview?section=experience&id=absent'),
+      true,
+      projects,
+      studies,
+    ),
+    null,
+  );
+  assert.equal(
+    destinationFromURL(
+      url('/admin/preview?section=projects&id=shared'),
+      true,
+      projects,
+      studies,
+    ).slug,
+    'project-story',
   );
 });

@@ -52,6 +52,12 @@ function fixture() {
           synchronized = latest.current.projects;
           events.push({ type: 'projects', projects: synchronized });
         },
+        caseStudies() {
+          events.push({
+            type: 'caseStudies',
+            caseStudies: latest.current.caseStudies,
+          });
+        },
         go() {
           events.push({
             type: 'go',
@@ -172,4 +178,51 @@ await test('project prop changes refresh the existing scene before framing, with
     scene.events.map(({ type }) => type),
     ['unmount'],
   );
+});
+
+await test('Case study updates refresh availability without remounting; category and detail changes keep the same terminal camera', () => {
+  const scene = fixture();
+  let props = {
+    site: {},
+    links: [],
+    enabled: true,
+    projects: [],
+    caseStudies: [{ slug: 'study', categories: ['systems'] }],
+    section: 'experience',
+    caseStudyScreen: 'all',
+    projectPage: 0,
+    readingSurface: false,
+    paused: false,
+    diagnosticsEnabled: false,
+  };
+  scene.render(props);
+  scene.events.length = 0;
+  props = {
+    ...props,
+    caseStudies: [{ slug: 'study', categories: ['product'] }],
+    readingSurface: true,
+    caseStudyScreen: 'product',
+  };
+  scene.render(props);
+  assert.deepEqual(
+    scene.events.map((event) => event.type),
+    ['caseStudies', 'go'],
+  );
+  assert.equal(scene.events[0].caseStudies, props.caseStudies);
+  scene.events.length = 0;
+  props = { ...props, slug: 'study' };
+  scene.render(props);
+  scene.render({ ...props, slug: undefined, caseStudyScreen: 'all' });
+  assert.deepEqual(
+    scene.events,
+    [],
+    'One terminal does not travel between its collection and stories',
+  );
+  props = { ...props, caseStudies: [], readingSurface: false };
+  scene.render(props);
+  assert.deepEqual(
+    scene.events.map((event) => event.type),
+    ['caseStudies', 'go'],
+  );
+  scene.unmount();
 });

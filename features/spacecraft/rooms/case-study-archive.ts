@@ -1,11 +1,16 @@
+import type { CaseStudyFilter } from '../../../lib/content/case-study-content.ts';
 import { ARCHIVE_GRID } from './cabin-composition.ts';
+import {
+  attachComputerDesktop,
+  createComputerDesktopMaterial,
+} from './computer-desktop.ts';
 
 /** Static flight-recorder library. Floor origin, +Y up, +Z toward the visitor. */
 export function buildCaseStudyArchive(
   THREE: any,
   h: any,
   floorRoot: any,
-  options: { caseCount?: number; accent?: any } = {},
+  options: { caseCount?: number; accent?: any; desktopMaterial?: any } = {},
 ) {
   const prefix = 'case-archive-';
   const material = (
@@ -231,19 +236,22 @@ export function buildCaseStudyArchive(
     draw: (ctx: any, cw: number, ch: number) => void,
     luminous = false,
   ) {
-    if (typeof document === 'undefined') return { repaint: () => {} };
-    const canvas = document.createElement('canvas');
-    canvas.width = 1536;
-    canvas.height = Math.max(96, Math.round((1536 * height) / w));
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return { repaint: () => {} };
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.name = prefix + name + '-texture';
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.generateMipmaps = true;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.anisotropy = 8;
+    const canvas =
+      typeof document === 'undefined' ? null : document.createElement('canvas');
+    if (canvas) {
+      canvas.width = 1536;
+      canvas.height = Math.max(96, Math.round((1536 * height) / w));
+    }
+    const ctx = canvas?.getContext('2d');
+    const texture = canvas && ctx ? new THREE.CanvasTexture(canvas) : null;
+    if (texture) {
+      texture.name = prefix + name + '-texture';
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.generateMipmaps = true;
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.anisotropy = 8;
+    }
     const mat = material(name + '-ink', 0xffffff, 1, 0);
     mat.map = texture;
     mat.transparent = !luminous;
@@ -265,6 +273,7 @@ export function buildCaseStudyArchive(
     plane.castShadow = false;
     plane.receiveShadow = false;
     const repaint = () => {
+      if (!canvas || !ctx || !texture) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       draw(ctx, canvas.width, canvas.height);
       texture.needsUpdate = true;
@@ -420,25 +429,42 @@ export function buildCaseStudyArchive(
   );
   if (rackMark.plane) rackMark.plane.position.set(0, 2.161, -0.727);
 
+  const cartridgeControls: Array<{
+    category: CaseStudyFilter;
+    label: string;
+    root: any;
+    interactionAnchor: any;
+    hitTarget: any;
+    width: number;
+    height: number;
+    interactableId: string;
+    readonly available: boolean;
+    setAvailable: (value: boolean) => void;
+  }> = [];
   // Four category cartridges retain their upper rows, leaving room for the taller terminal.
-  const categories = [
+  const categories: Array<{
+    title: string;
+    kind: Exclude<CaseStudyFilter, 'all'>;
+    code: string;
+    active: boolean;
+  }> = [
     {
       title: 'Product engineering',
       kind: 'product',
       code: 'FR–01',
-      active: true,
+      active: false,
     },
     {
       title: 'Systems & reliability',
       kind: 'systems',
       code: 'FR–02',
-      active: true,
+      active: false,
     },
     {
       title: 'Research & experiments',
       kind: 'research',
       code: 'FR–03',
-      active: true,
+      active: false,
     },
     {
       title: 'Design & interfaces',
@@ -452,6 +478,7 @@ export function buildCaseStudyArchive(
     const cartridge = new THREE.Group();
     cartridge.name = prefix + 'cartridge-' + index;
     cartridge.position.set(0, y, -0.65);
+    cartridge.userData.caseStudyCategory = category.kind;
     floorRoot.add(cartridge);
     // Load-bearing runners continue behind each solid cassette into the uprights.
     box(
@@ -514,11 +541,11 @@ export function buildCaseStudyArchive(
       0.029,
       'cartridge-edge-lip',
     );
-    box(
+    const jacket = box(
       2.175,
       0.19,
       0.032,
-      category.active ? m.shell : m.graphite,
+      material('cartridge-' + category.kind + '-jacket', 0x283440, 0.53),
       0,
       0,
       0.102,
@@ -526,6 +553,7 @@ export function buildCaseStudyArchive(
       0.025,
       'cartridge-label-jacket',
     );
+    const jacketMaterial = jacket.material;
     // End retainers are separate latch mechanisms, not orange paint on the label.
     for (const side of [-1, 1]) {
       const xx = side * 1.171;
@@ -653,7 +681,31 @@ export function buildCaseStudyArchive(
         ctx.restore();
       },
     );
-    if (print.plane) print.plane.position.set(-0.022, 0, 0.124);
+    print.plane.position.set(-0.022, 0, 0.124);
+    const interactionAnchor = new THREE.Object3D();
+    interactionAnchor.name = prefix + category.kind + '-category-anchor';
+    interactionAnchor.position.z = 0.124;
+    cartridge.add(interactionAnchor);
+    cartridgeControls.push({
+      category: category.kind,
+      label: category.title,
+      root: cartridge,
+      interactionAnchor,
+      hitTarget: print.plane,
+      width: 2.175,
+      height: 0.19,
+      interactableId: `case-study-screen-${category.kind}`,
+      get available() {
+        return category.active;
+      },
+      setAvailable(value: boolean) {
+        if (category.active === value) return;
+        category.active = value;
+        jacketMaterial.color.set(value ? 0xdfd6c5 : 0x283440);
+        jacketMaterial.userData.baseColor?.copy(jacketMaterial.color);
+        print.repaint();
+      },
+    });
   });
   fasteners(structuralScrews, floorRoot, 'structural');
 
@@ -721,6 +773,9 @@ export function buildCaseStudyArchive(
     'terminal-glass-seal',
   );
   let caseCount = Math.max(0, Math.floor(options.caseCount || 0));
+  let terminalAvailable = caseCount > 0;
+  const desktopMaterial =
+    options.desktopMaterial ?? createComputerDesktopMaterial(THREE);
   const display = graphics(
     screenWidth,
     screenHeight,
@@ -732,6 +787,12 @@ export function buildCaseStudyArchive(
       bg.addColorStop(1, '#041321');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
+      if (terminalAvailable) {
+        const wallpaper = desktopMaterial.map?.image;
+        if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
+        ctx.fillStyle = '#06101e38';
+        ctx.fillRect(0, 0, cw, ch);
+      }
       ctx.strokeStyle = '#b9d7e7';
       icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
       ctx.fillStyle = '#e2ebed';
@@ -742,7 +803,7 @@ export function buildCaseStudyArchive(
       ctx.fillStyle = '#a8becb';
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
-        'Ideas. Systems. People. Progress.',
+        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
         cw / 2,
         ch * 0.62,
         cw - 150,
@@ -764,7 +825,29 @@ export function buildCaseStudyArchive(
     },
     true,
   );
-  if (display.plane) display.plane.position.z = 0.121;
+  display.plane.position.z = 0.121;
+  const idleDisplay = new THREE.Group();
+  idleDisplay.name = prefix + 'terminal-idle-display';
+  idleDisplay.userData.animated = true;
+  terminal.add(idleDisplay);
+  idleDisplay.add(display.plane);
+  const desktopDisplay = attachComputerDesktop(
+    THREE,
+    display.plane,
+    terminal,
+    desktopMaterial,
+  );
+  const anchor = new THREE.Object3D();
+  anchor.name = prefix + 'terminal-application-anchor';
+  anchor.position.z = display.plane.position.z;
+  anchor.userData = {
+    width: screenWidth,
+    height: screenHeight,
+    section: 'experience',
+    kind: 'computer',
+  };
+  terminal.add(anchor);
+  terminal.userData.caseStudyCategory = 'all';
   fasteners(
     [-1, 1].flatMap((x) =>
       [-1, 1].map((y) => [
@@ -974,7 +1057,51 @@ export function buildCaseStudyArchive(
     static: true,
     categoryLabels: categories.map((c) => c.title),
   };
+  const computer = {
+    root: terminal,
+    anchor,
+    screen: display.plane,
+    idleDisplay,
+    desktopDisplay,
+    width: screenWidth,
+    height: screenHeight,
+    setActive(active: boolean) {
+      active = active && terminalAvailable;
+      idleDisplay.visible = !active;
+      desktopDisplay.visible = active;
+    },
+  };
+  const screens = [
+    {
+      ...computer,
+      interactionAnchor: anchor,
+      hitTarget: display.plane,
+      category: 'all' as const,
+      label: 'All case studies',
+      interactableId: 'case-study-screen-all',
+      get available() {
+        return terminalAvailable;
+      },
+      setAvailable(value: boolean) {
+        if (terminalAvailable === value) return;
+        terminalAvailable = value;
+        display.repaint();
+        if (!value) computer.setActive(false);
+      },
+    },
+    ...cartridgeControls.map((control) => ({
+      ...control,
+      // The physical choice and application are separate surfaces: every
+      // cartridge opens the same terminal without moving or deploying props.
+      anchor,
+      get available() {
+        return control.available;
+      },
+    })),
+  ];
   return {
+    computer,
+    screens,
     setCaseCount: (count: number) => {
       caseCount = Math.max(0, Math.floor(Number.isFinite(count) ? count : 0));
       display.repaint();

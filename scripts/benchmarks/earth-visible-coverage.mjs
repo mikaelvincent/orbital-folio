@@ -3,6 +3,7 @@
  *   [--tile-width 2560] [--crop-y 384] [--crop-height 1536]
  *   [--mobile-mesh] [--gzip-samples] [--angular-tolerance 5.5] [--position-tolerance .25]
  *   [--projects-only] limits the audit to Projects room/application/resize poses.
+ *   [--case-studies-only] limits it to the Case studies room/terminal/resize poses.
  * Uses production Earth placement, spacecraft supports, camera-fit helpers and
  * world-camera registration. UI insets use the documented public seed fixture.
  */
@@ -40,6 +41,15 @@ const argument = (name) => {
 };
 const revision = argument('--revision');
 const projectsOnly = process.argv.includes('--projects-only');
+const caseStudiesOnly = process.argv.includes('--case-studies-only');
+if (projectsOnly && caseStudiesOnly)
+  throw new RangeError('Choose one focused application audit.');
+const focused = projectsOnly || caseStudiesOnly;
+const rooms = projectsOnly
+  ? ['projects']
+  : caseStudiesOnly
+    ? ['experience']
+    : ['projects', 'experience', 'about', 'contact'];
 const tileWidth = Number(argument('--tile-width') ?? 2560);
 const positionTolerance = Number(argument('--position-tolerance') ?? 0.25);
 const angularToleranceDegrees = Number(argument('--angular-tolerance') ?? 5.5);
@@ -95,7 +105,9 @@ const sourcePaths = [
   'features/spacecraft/spacecraft-model.ts',
   'features/spacecraft/rooms/projects-workshop.ts',
   'features/spacecraft/rooms/projects-payload-module.ts',
+  'features/spacecraft/rooms/case-study-archive.ts',
   'features/spacecraft/rooms/cabin-composition.ts',
+  'lib/content/case-study-content.ts',
   'scripts/benchmarks/earth-visible-coverage.mjs',
   'scripts/benchmarks/mesh-uv-coverage.mjs',
 ];
@@ -348,7 +360,12 @@ function computerPose(width, height) {
     roll: 0,
   };
 }
-function projectApplicationPose(screen, width, height) {
+function projectApplicationPose(
+  screen,
+  width,
+  height,
+  useSurfaceNormal = false,
+) {
   model.group.updateMatrixWorld(true);
   const bottom = width < 700 ? 132 : 80;
   const layout = projectApplicationLayout(
@@ -359,6 +376,10 @@ function projectApplicationPose(screen, width, height) {
     bottom,
   );
   const direction = new THREE.Vector3(0, 0, 1);
+  if (useSurfaceNormal)
+    direction
+      .applyQuaternion(screen.anchor.getWorldQuaternion(new THREE.Quaternion()))
+      .normalize();
   const points = [];
   for (const x of [-layout.framing.width / 2, layout.framing.width / 2])
     for (const y of [-layout.framing.height / 2, layout.framing.height / 2])
@@ -392,6 +413,10 @@ function projectApplicationPose(screen, width, height) {
 if (!Array.isArray(data.projectScreens) || data.projectScreens.length !== 4)
   throw new Error(
     'The Projects coverage fixture expects all four physical monitor anchors.',
+  );
+if (!data.caseStudyComputer?.anchor || data.caseStudyScreens?.length !== 5)
+  throw new Error(
+    'The Case studies coverage fixture expects one terminal and five category controls.',
   );
 const samples = [];
 const hasViewportComposition =
@@ -470,11 +495,27 @@ for (const [width, height] of singleViewport
     environment.setViewportComposition(height > width, reference, true);
     sampledCompositionRadians = home.roll;
   }
-  const projectPoses = data.projectScreens.map((screen) => ({
-    name: `projects-application-${screen.category}`,
-    pose: projectApplicationPose(screen, width, height),
-    range: CAMERA_RANGES.computer,
-  }));
+  const projectPoses = (caseStudiesOnly ? [] : data.projectScreens).map(
+    (screen) => ({
+      name: `projects-application-${screen.category}`,
+      pose: projectApplicationPose(screen, width, height),
+      range: CAMERA_RANGES.computer,
+    }),
+  );
+  const caseStudyPoses = projectsOnly
+    ? []
+    : [
+        {
+          name: 'case-studies-application-terminal',
+          pose: projectApplicationPose(
+            data.caseStudyComputer,
+            width,
+            height,
+            true,
+          ),
+          range: CAMERA_RANGES.computer,
+        },
+      ];
   function sample(name, pose, pitch = 0, yaw = 0, hover = null) {
     physical.near = pose.near ?? 0.5;
     physical.updateProjectionMatrix();
@@ -508,7 +549,7 @@ for (const [width, height] of singleViewport
     });
   }
   for (const { name, pose, range } of [
-    ...(!projectsOnly
+    ...(!focused
       ? [
           {
             name: 'overview',
@@ -517,20 +558,17 @@ for (const [width, height] of singleViewport
           },
         ]
       : []),
-    ...(projectsOnly
-      ? ['projects']
-      : ['projects', 'experience', 'about', 'contact']
-    ).map((room) => ({
+    ...rooms.map((room) => ({
       name: room,
       pose: roomPose(room, width, height),
       range: CAMERA_RANGES.room,
     })),
-    ...(projectsOnly ? [] : ['experience', 'about']).map((room) => ({
+    ...(focused ? [] : ['about']).map((room) => ({
       name: `${room}-reader`,
       pose: readerPose(room, width, height),
       range: { pitch: 0, yaw: 0 },
     })),
-    ...(!projectsOnly
+    ...(!focused
       ? [
           {
             name: 'contact-computer',
@@ -540,6 +578,7 @@ for (const [width, height] of singleViewport
         ]
       : []),
     ...projectPoses,
+    ...caseStudyPoses,
   ]) {
     sample(`${name}/neutral`, pose);
     for (const pitch of [-1, -0.5, 0, 0.5, 1])
@@ -587,36 +626,55 @@ for (const [width, height] of singleViewport
       })),
     ),
   ];
-  for (const transition of projectTransitions)
+  const caseStudyTransitions = caseStudyPoses.map((application) => ({
+    name: `room-and-${application.name}`,
+    start: roomPose('experience', width, height),
+    end: application.pose,
+  }));
+  const transitionPose = (transition, fraction) => ({
+    target: transition.start.target
+      .clone()
+      .lerp(transition.end.target, fraction),
+    direction: transition.start.direction
+      .clone()
+      .lerp(transition.end.direction, fraction)
+      .normalize(),
+    distance:
+      transition.start.distance * (1 - fraction) +
+      transition.end.distance * fraction,
+    roll: 0,
+    near: 0.08,
+  });
+  const transitionRange = {
+    pitch: Math.max(CAMERA_RANGES.room.pitch, CAMERA_RANGES.computer.pitch),
+    yaw: Math.max(CAMERA_RANGES.room.yaw, CAMERA_RANGES.computer.yaw),
+  };
+  const applicationTransitions = [
+    ...projectTransitions.map((transition) => ({
+      ...transition,
+      scope: 'projects',
+    })),
+    ...caseStudyTransitions.map((transition) => ({
+      ...transition,
+      scope: 'case-studies',
+    })),
+  ];
+  for (const transition of applicationTransitions)
     for (const fraction of [0, 0.25, 0.5, 0.75, 1]) {
-      const pose = {
-        target: transition.start.target
-          .clone()
-          .lerp(transition.end.target, fraction),
-        direction: transition.start.direction
-          .clone()
-          .lerp(transition.end.direction, fraction)
-          .normalize(),
-        distance:
-          transition.start.distance * (1 - fraction) +
-          transition.end.distance * fraction,
-        roll: 0,
-        near: 0.08,
-      };
-      const label = `projects-application-travel/${transition.name}/${fraction}`;
+      const pose = transitionPose(transition, fraction);
+      const label = `${transition.scope}-application-travel/${transition.name}/${fraction}`;
       sample(`${label}/neutral`, pose);
       for (const pitch of [-1, 1])
         for (const yaw of [-1, 1])
           sample(
             `${label}/angle-envelope`,
             pose,
-            pitch *
-              Math.max(CAMERA_RANGES.room.pitch, CAMERA_RANGES.computer.pitch),
-            yaw * Math.max(CAMERA_RANGES.room.yaw, CAMERA_RANGES.computer.yaw),
+            pitch * transitionRange.pitch,
+            yaw * transitionRange.yaw,
           );
     }
   // Include physical translation/dolly caused by hovering every overview room.
-  for (const [room, anchor] of projectsOnly
+  for (const [room, anchor] of focused
     ? []
     : Object.entries(data.roomAnchors)) {
     const target = new THREE.Vector3(...anchor).applyAxisAngle(axis, home.roll);
@@ -663,7 +721,7 @@ for (const [width, height] of singleViewport
       .applyEuler(new THREE.Euler(pitch, yaw, 0)),
     distance: pose.distance * (hover ? 0.975 : 1),
   });
-  for (const room of projectsOnly
+  for (const room of focused
     ? []
     : ['projects', 'experience', 'about', 'contact']) {
     const destination = roomPose(room, width, height);
@@ -751,7 +809,7 @@ for (const [width, height] of singleViewport
     const startRoll = portrait ? 0 : Math.PI / 2;
     const targetRoll = portrait ? Math.PI / 2 : 0;
     const resizePoses = [
-      ...(projectsOnly ? [] : [0, 0.25, 0.5, 0.75, 1]).map((fraction) => ({
+      ...(focused ? [] : [0, 0.25, 0.5, 0.75, 1]).map((fraction) => ({
         name: `overview-camera-roll-${fraction}`,
         pose: {
           ...home,
@@ -761,20 +819,17 @@ for (const [width, height] of singleViewport
         // Cover their union rather than assuming the target limits apply at once.
         range: overviewResizeRange,
       })),
-      ...(projectsOnly
-        ? ['projects']
-        : ['projects', 'experience', 'about', 'contact']
-      ).map((room) => ({
+      ...rooms.map((room) => ({
         name: room,
         pose: roomPose(room, width, height),
         range: CAMERA_RANGES.room,
       })),
-      ...(projectsOnly ? [] : ['experience', 'about']).map((room) => ({
+      ...(focused ? [] : ['about']).map((room) => ({
         name: `${room}-reader`,
         pose: readerPose(room, width, height),
         range: { pitch: 0, yaw: 0 },
       })),
-      ...(!projectsOnly
+      ...(!focused
         ? [
             {
               name: 'contact-computer',
@@ -784,6 +839,14 @@ for (const [width, height] of singleViewport
           ]
         : []),
       ...projectPoses,
+      ...caseStudyPoses,
+      ...caseStudyTransitions.flatMap((transition) =>
+        [0.25, 0.5, 0.75].map((fraction) => ({
+          name: `case-studies-application-travel-${fraction}`,
+          pose: transitionPose(transition, fraction),
+          range: transitionRange,
+        })),
+      ),
     ];
     for (const fraction of [0, 0.25, 0.5, 0.75, 1]) {
       environment.setViewportComposition(!portrait, reference, true);
@@ -842,19 +905,20 @@ const report = {
   assumptions: [
     'CPU homogeneous clipping of the actual rendered sphere triangles, including perspective-correct UV extrema at clipped vertices. Double-precision arithmetic; no rendering, image decode or performance claim.',
     'Front-face culling and all six frustum planes are included. Spacecraft/atmosphere/HTML occlusion is ignored, conservatively retaining hidden Earth pixels.',
-    `${createOrbitalWorldReference ? 'Authored world placement' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. ${hasViewportComposition ? 'The production viewport-composition setter selects a fixed Earth anchor once per viewport, retained through ordinary camera poses. Independent orientation-resize samples use the public setter/update API.' : 'Historical API: each camera sample passes its interpolated layout roll to followCamera; orbital revisions that implement roll compensation consume it, older revisions ignore it.'} Current-source spacecraft supports, camera-fit helpers, readers and Contact computer provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
-    'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; reader/Contact/Projects application bottom132px mobile, otherwise80px. Projects uses its actual portrait64px/landscape30px top reservation. Custom identity/header wrapping and safe areas may change framing.',
-    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact/Projects fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.',
+    `${createOrbitalWorldReference ? 'Authored world placement' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. ${hasViewportComposition ? 'The production viewport-composition setter selects a fixed Earth anchor once per viewport, retained through ordinary camera poses. Independent orientation-resize samples use the public setter/update API.' : 'Historical API: each camera sample passes its interpolated layout roll to followCamera; orbital revisions that implement roll compensation consume it, older revisions ignore it.'} Current-source spacecraft supports, camera-fit helpers, retained readers and application monitors provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
+    'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; reader/Contact/Projects/Case studies application bottom132px mobile, otherwise80px. Projects and Case studies use their actual portrait64px/landscape30px top reservation. Custom identity/header wrapping and safe areas may change framing.',
+    'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact/Projects/Case studies fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.',
     ...(hasViewportComposition
       ? [
-          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; all rooms, readers and Contact plus drag corners are included. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
+          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; the rooms/applications selected by the audit scope plus drag corners are included. Case studies also crosses the three interior room-to-terminal position/angle probes with every resize-composition fraction. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
         ]
       : []),
-    '5x5 signed bounded angle samples and hover extrema (reachable angular positions, not equal raw drag displacements); negative/positive portrait yaw uses its actual asymmetric bounds, while neutral is always included. Resize-only overview samples conservatively use the union of both orientation profiles. Portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
-    `Audit scope: ${projectsOnly ? 'Projects room and all four physical application monitor anchors only. Historical overview/other room travel is excluded from this focused extension.' : 'Full historical room/overview envelope plus the Projects application extension. The retired Projects paper-reader camera is replaced by its actual monitor cameras.'}`,
-    'Projects application camera fits use projectApplicationLayout and all four production screen anchors/corner transforms, exact room/application endpoint fits, computer 5x5 hover/drag angular samples, and independently eased orientation-resize composition states. Room↔monitor and all six monitor-pair transitions include endpoints and three interior linear-envelope samples, with neutral and union room/computer angle corners. These are conservative finite position/angle probes, not exact ordinary-spring time replays or a proof of arbitrary interrupted trajectories.',
-    'Projects uses the production 0.1 fit minimum and spacecraft near plane 0.08, retained through application closing/switching envelopes; settled ordinary room poses use near0.5. Orbital followCamera retains its own near/far projection as in production: changing the spacecraft near plane does not change Earth clipping, while the closer fitted physical camera position does.',
-    'The default domain includes close readers, Contact computer and Projects application cameras. There is no configured maximum aspect ratio or minimum pixel dimensions;17viewports are an explicit finite audited domain, not a restriction on the application.',
+    'All scopes use 5x5 signed bounded angle samples and hover extrema (reachable angular positions, not equal raw drag displacements); negative/positive portrait yaw uses its actual asymmetric bounds, while neutral is always included. Resize-only overview samples conservatively use the union of both orientation profiles. Only the full historical scope includes overview and overview-room travel. In that full scope, portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
+    `Audit scope: ${projectsOnly ? 'Projects room and all four physical application monitor anchors only. Historical overview/other room travel is excluded from this focused extension.' : caseStudiesOnly ? 'Case studies room and its single physical raked application terminal only, including bounded input, room-terminal travel probes and orientation-resize composition. All five category controls, list/detail and Back share this terminal pose. Unchanged overview and other room travel are excluded.' : 'Full historical room/overview envelope plus the Projects and Case studies applications. Their retired paper-reader cameras are replaced by actual monitor cameras.'}`,
+    'Where included by scope, Projects application camera fits use projectApplicationLayout and all four production screen anchors/corner transforms, exact room/application endpoint fits, computer 5x5 hover/drag angular samples, and independently eased orientation-resize composition states. Room↔monitor and all six monitor-pair transitions include endpoints and three interior linear-envelope samples, with neutral and union room/computer angle corners. These are conservative finite position/angle probes, not exact ordinary-spring time replays or a proof of arbitrary interrupted trajectories.',
+    'Projects and Case studies use the production 0.1 fit minimum and spacecraft near plane 0.08, retained through application closing/switching envelopes; settled ordinary room poses use near0.5. Orbital followCamera retains its own near/far projection as in production: changing the spacecraft near plane does not change Earth clipping, while the closer fitted physical camera position does.',
+    'Case studies uses projectApplicationLayout with caseStudyComputer width/height and transformed framing corners. Its view direction is the terminal anchor world quaternion applied to +Z, matching the production raked-glass normal. The room-terminal transition is sampled at fractions 0,.25,.5,.75,1 with neutral and union room/computer angle corners; its three interior probes are also crossed with every orientation-composition fraction. These linear position/direction/distance probes bound selected finite states; they do not replay independently damped axes, spring overshoot, nonzero incoming velocity or arbitrary interrupted trajectories.',
+    'The default full scope includes the retained About reader, Contact computer, Projects monitor cameras and Case studies terminal. There is no configured maximum aspect ratio or minimum pixel dimensions; 17 viewports are an explicit finite audited domain, not a restriction on the application.',
     'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
     'Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
     'Maximum same-latitude span compares visible U coordinates at equal V. A larger global longitude envelope across different latitudes alone does not imply simultaneous duplicated landmarks.',
@@ -863,10 +927,16 @@ const report = {
   summary: {
     scope: projectsOnly
       ? 'projects-application-extension'
-      : 'full-camera-envelope',
-    projectMonitorCategories: data.projectScreens.map(
+      : caseStudiesOnly
+        ? 'case-studies-application-extension'
+        : 'full-camera-envelope',
+    projectMonitorCategories: (caseStudiesOnly ? [] : data.projectScreens).map(
       (screen) => screen.category,
     ),
+    caseStudyControlCategories: (projectsOnly ? [] : data.caseStudyScreens).map(
+      (screen) => screen.category,
+    ),
+    caseStudyApplicationAnchorCount: projectsOnly ? 0 : 1,
     mesh: process.argv.includes('--mobile-mesh')
       ? 'mobile96x64'
       : 'desktop128x96',
@@ -980,8 +1050,11 @@ const report = {
         ({ viewport }) => viewport.join('x') === key,
       );
       return {
-        viewport: matching[0].viewport,
-        verticalFieldOfView: matching[0].verticalFieldOfView,
+        viewport: key.split('x').map(Number),
+        verticalFieldOfView: responsiveCameraFov(
+          Number(key.split('x')[0]) / Number(key.split('x')[1]),
+        ),
+        visibleScenarios: matching.length,
         longitudeMaxSpan: Math.max(
           ...matching.map((sample) => sample.longitude.span),
         ),

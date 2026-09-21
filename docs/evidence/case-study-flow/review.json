@@ -1,0 +1,59 @@
+{
+  "reviewer": "Independent case_study_critic agent",
+  "date": "2026-09-22",
+  "verdict": "approve",
+  "score": 93,
+  "blockers": [],
+  "requiredRevisions": [],
+  "rubric": [
+    {
+      "criterion": "Approved flow and functional correctness",
+      "score": 30,
+      "maximum": 30
+    },
+    {
+      "criterion": "Visual quality and responsive presentation",
+      "score": 22,
+      "maximum": 25
+    },
+    {
+      "criterion": "Content integrity, privacy and publication safety",
+      "score": 15,
+      "maximum": 15
+    },
+    {
+      "criterion": "Accessibility and input usability",
+      "score": 12,
+      "maximum": 15
+    },
+    {
+      "criterion": "Organization, verification and evidence",
+      "score": 14,
+      "maximum": 15
+    }
+  ],
+  "assessment": "The archive is distinct yet consistent with Projects. Category filtering, fixed-terminal detail navigation, restored scroll, history, private preview, safe Markdown/media and publication safeguards are coherent. Desktop and portrait application captures show readable, well-organized content.",
+  "reviewed": [
+    "Final source and matching screenshots",
+    "Browser checks",
+    "433 passing isolated full-suite tests",
+    "23 passing final rendering tests",
+    "Build, typecheck and lint logs",
+    "Operating documentation, project context and ledger entry 41",
+    "All 38 source hashes independently checked, with zero mismatches",
+    "Diff whitespace check"
+  ],
+  "resolvedFindings": [
+    "Removed outdated documentation about the deployable Case studies reader",
+    "Corrected empty-cartridge versus empty-terminal wording",
+    "Corrected Studio guidance about filtered collections"
+  ],
+  "limitations": [
+    "Portrait cartridge labels and approximately 161 by 14 CSS pixel targets are small; accurate physical targeting, keyboard controls and Reading view remain available",
+    "Native Safari, physical touch, video playback and live OS reduced-motion changes were not tested",
+    "Earth sampled footprints and seam clearance pass within the recorded envelope; the conservative southern filtering allowance remains unverified and is disclosed",
+    "No measured performance, memory, heat or battery claims"
+  ],
+  "sourceChangesAfterReview": "Only this review record, the recorded score and test-environment cleanup note were added, and log trailing whitespace was normalized; source hashes were refreshed for documentation changes. No implementation changed.",
+  "criticEditedSource": false
+}

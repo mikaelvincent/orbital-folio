@@ -1,5 +1,6 @@
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
+import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
 import { createComputerDesktopMaterial } from './rooms/computer-desktop.ts';
 import { indexedCylinderType } from './geometry/indexed-cylinder.generated.js';
 import { buildDockingAndServiceAssemblies } from './equipment/docking-service-assemblies.ts';
@@ -90,6 +91,7 @@ export type SpacecraftState = {
   selectedCaseStudy?: string | null;
   hoveredCaseStudy?: string | null;
   caseStudyPage?: number;
+  caseStudyScreen?: string;
   room?: string;
   selectedProject?: string | null;
   hoveredProject?: string | null;
@@ -533,7 +535,7 @@ export function createSpacecraft(
     );
     skin.position.set(x, 0, 0);
     if (section === 'contact') skin.material.userData.contactRoomWall = true;
-    if (section === 'contact' || section === 'projects')
+    if (['contact', 'projects', 'experience'].includes(section))
       skin.material.userData.applicationRoomWall = section;
     // The single pressure skin now supplies the floor at its unchanged datum;
     // the former thick deck slab is no longer stacked on top of it.
@@ -843,6 +845,11 @@ export function createSpacecraft(
       if (section === 'about') part.material.userData.contactRoomWall = true;
       part.material.userData.applicationRoomWall =
         section === 'about' ? 'contact' : 'projects';
+      if (section === 'projects')
+        part.material.userData.applicationRoomWalls = [
+          'projects',
+          'experience',
+        ];
     });
     roomWallMounts.push({ group: wall, origin, sign: 1 });
   }
@@ -1482,7 +1489,23 @@ export function createSpacecraft(
     THREE,
     { box, mesh, cylinder, torus, rod, instances },
     archive,
-    { caseCount: caseStudyData.length, accent: m.amber },
+    {
+      caseCount: caseStudyData.length,
+      accent: m.amber,
+      desktopMaterial: computerDesktopMaterial,
+    },
+  );
+  const caseStudyComputer = caseArchive.computer;
+  group.userData.caseStudyArchive = archive;
+  group.userData.caseStudyComputer = caseStudyComputer;
+  group.userData.caseStudyScreens = caseArchive.screens;
+  readerSurfaces.experience = caseStudyComputer.anchor;
+  for (const screen of caseArchive.screens)
+    screen.setAvailable(
+      caseStudyCategoryCount(caseStudyData, screen.category) > 0,
+    );
+  const caseStudyScreensById = new Map(
+    caseArchive.screens.map((screen) => [screen.interactableId, screen]),
   );
   // ABOUT — a static crew study with retained personal belongings and paper tabs.
   const cabin = rooms.about;
@@ -1608,6 +1631,16 @@ export function createSpacecraft(
       }),
     );
 
+  for (const screen of caseArchive.screens)
+    objectHighlights.push(
+      createObjectHighlight(THREE, screen.root, screen.interactableId, {
+        width: screen.width,
+        height: screen.height,
+        radius: screen.category === 'all' ? 0.031 : 0.025,
+        z: screen.interactionAnchor.position.z + 0.002,
+      }),
+    );
+
   const { docking, service, solarWings, dishAssembly } =
     buildDockingAndServiceAssemblies(
       THREE,
@@ -1617,13 +1650,9 @@ export function createSpacecraft(
       boltGeometry,
     );
 
-  // Deployable reading stations. HTML attaches to the anchor in readerSurfaces:
-  // Final centers are [roomCenter.x, roomCenter.y, 1.72], width 2.4, height 2.7.
-  // All moving parts receive light but do not cast into the static shadow map.
-  for (const [section, x] of Object.entries({
-    experience: 0,
-    about: 3,
-  })) {
+  // About retains its deployable reading station. Application rooms attach
+  // HTML to their fixed computer glass. Moving reader parts do not cast shadows.
+  for (const [section, x] of Object.entries({ about: 3 })) {
     const tray = new THREE.Group();
     tray.name = section + '-deployable-reader';
     tray.userData.animated = true;
@@ -1634,7 +1663,7 @@ export function createSpacecraft(
       2.57,
       2.87,
       0.092,
-      section === 'about' ? m.upholstery : m.navy,
+      m.upholstery,
       0,
       0,
       -0.021,
@@ -1658,7 +1687,7 @@ export function createSpacecraft(
       2.4,
       2.7,
       0.016,
-      section === 'experience' || section === 'contact' ? m.navy : m.paper,
+      m.paper,
       0,
       0,
       0.094,
@@ -1666,76 +1695,47 @@ export function createSpacecraft(
       0.007,
       'blank-reader-surface',
     );
-    if (section === 'about') {
-      box(
-        0.125,
-        2.829,
-        0.093,
-        m.upholstery,
-        -1.247,
-        0,
-        0.13,
-        tray,
-        0.045,
-        'journal-bound-spine',
-      );
-      for (const yy of [-0.84, 0, 0.84]) {
-        const ring = torus(0.084, 0.013, m.metal, -1.238, yy, 0.189, tray);
-        ring.scale.x = 0.58;
-      }
-      box(
-        0.049,
-        2.576,
-        0.073,
-        m.paper,
-        1.217,
-        0,
-        0.049,
-        tray,
-        0.015,
-        'journal-visible-page-block',
-      );
-      for (const zz of [0.031, 0.053, 0.075])
-        box(
-          0.009,
-          2.523,
-          0.006,
-          m.liner,
-          1.246,
-          0,
-          zz,
-          tray,
-          0.002,
-          'journal-page-edge',
-        );
-    } else {
-      cylinder(0.088, 0.078, m.navy, 0.76, -1.49, 0.21, tray, 'z');
-      torus(0.094, 0.013, m.amber, 0.76, -1.49, 0.198, tray);
-      box(
-        0.314,
-        0.077,
-        0.034,
-        m.amber,
-        -0.59,
-        -1.49,
-        0.182,
-        tray,
-        0.016,
-        'instrument-reader-control',
-      );
-      box(
-        0.145,
-        0.077,
-        0.034,
-        m.gasket,
-        -0.23,
-        -1.49,
-        0.182,
-        tray,
-        0.016,
-        'instrument-reader-control',
-      );
+    box(
+      0.125,
+      2.829,
+      0.093,
+      m.upholstery,
+      -1.247,
+      0,
+      0.13,
+      tray,
+      0.045,
+      'journal-bound-spine',
+    );
+    for (const yy of [-0.84, 0, 0.84]) {
+      const ring = torus(0.084, 0.013, m.metal, -1.238, yy, 0.189, tray);
+      ring.scale.x = 0.58;
     }
+    box(
+      0.049,
+      2.576,
+      0.073,
+      m.paper,
+      1.217,
+      0,
+      0.049,
+      tray,
+      0.015,
+      'journal-visible-page-block',
+    );
+    for (const zz of [0.031, 0.053, 0.075])
+      box(
+        0.009,
+        2.523,
+        0.006,
+        m.liner,
+        1.246,
+        0,
+        zz,
+        tray,
+        0.002,
+        'journal-page-edge',
+      );
     box(
       2.685,
       0.151,
@@ -1777,7 +1777,7 @@ export function createSpacecraft(
       width: 2.4,
       height: 2.7,
       section,
-      kind: section === 'about' ? 'journal' : 'instrument',
+      kind: 'journal',
       deployedPosition: [
         roomCenters[section][0],
         roomCenters[section][1],
@@ -2813,9 +2813,9 @@ export function createSpacecraft(
     ]),
   );
   group.userData.readerAnchors = Object.fromEntries(
-    Object.entries(roomCenters).map(([section, [x, y]]) => [
+    Object.keys(readerTrays).map((section) => [
       section,
-      [x, y, 1.72],
+      [...roomCenters[section], 1.72],
     ]),
   );
   group.userData.readerSize = { width: 2.4, height: 2.7 };
@@ -3025,8 +3025,10 @@ export function createSpacecraft(
         center: [x, y + 0.045, 0.035],
         size: [3.3 * layoutScale, 3.25, 2.8],
       };
-      group.userData.readerAnchors[section] = [x, y, 1.72];
-      readerSurfaces[section].userData.deployedPosition = [x, y, 1.72];
+      if (readerTrays[section]) {
+        group.userData.readerAnchors[section] = [x, y, 1.72];
+        readerSurfaces[section].userData.deployedPosition = [x, y, 1.72];
+      }
       group.userData.labelAnchors[section] = [x, y - 1.279, 1.428];
       group.userData.sideLabelAnchors[section] = [
         x - 1.565 * layoutScale,
@@ -3505,6 +3507,10 @@ export function createSpacecraft(
   function setCaseStudies(items: SpacecraftProject[]) {
     caseStudyData = items.slice();
     caseArchive.setCaseCount(caseStudyData.length);
+    for (const screen of caseArchive.screens)
+      screen.setAvailable(
+        caseStudyCategoryCount(caseStudyData, screen.category) > 0,
+      );
     return setCaseStudyPage(currentCaseStudyPage);
   }
   function setReading(section: string, reading: boolean, instant = false) {
@@ -3616,6 +3622,17 @@ export function createSpacecraft(
       screen.setActive(!!selected);
       if (selected) readerSurfaces.projects = screen.anchor;
     }
+    const caseStudyApplicationActive =
+      currentState.reading && currentState.activeRoom === 'experience';
+    const caseStudyAvailable = caseArchive.screens.some(
+      (screen) =>
+        screen.category === (currentState.caseStudyScreen || 'all') &&
+        screen.available,
+    );
+    const caseStudyActive = !!caseStudyApplicationActive && caseStudyAvailable;
+    if (caseStudyComputer.idleDisplay.visible === caseStudyActive)
+      geometryChanged();
+    caseStudyComputer.setActive(caseStudyActive);
     const computerActive =
       currentState.reading && currentState.activeRoom === 'contact';
     if (contactComputer.idleDisplay.visible === !!computerActive)
@@ -3627,13 +3644,15 @@ export function createSpacecraft(
       motionActive = true;
     }
     group.userData.motionActive = motionActive;
-    const wallFocusGoal = computerActive || projectApplicationActive ? 1 : 0;
+    const applicationActive =
+      computerActive || projectApplicationActive || caseStudyActive;
+    const wallFocusGoal = applicationActive ? 1 : 0;
     contactWallFocus += (wallFocusGoal - contactWallFocus) * blend;
     if (Math.abs(contactWallFocus - wallFocusGoal) < 0.002)
       contactWallFocus = wallFocusGoal;
     if (contactWallFocus !== wallFocusGoal) group.userData.motionActive = true;
     const wallHoverGoal =
-      (computerActive || projectApplicationActive) &&
+      applicationActive &&
       !currentState.travelling &&
       currentState.hoveredObject === `${currentState.activeRoom}-room-dismiss`
         ? 1
@@ -3688,7 +3707,10 @@ export function createSpacecraft(
         if (
           (material.userData.contactRoomWall &&
             currentState.activeRoom === 'contact') ||
-          material.userData.applicationRoomWall === currentState.activeRoom
+          material.userData.applicationRoomWall === currentState.activeRoom ||
+          material.userData.applicationRoomWalls?.includes(
+            currentState.activeRoom,
+          )
         )
           material.color
             .multiplyScalar(
@@ -3749,7 +3771,12 @@ export function createSpacecraft(
                 projectScreensById.get(highlight.id)?.available &&
                 (!currentState.reading ||
                   highlight.id !==
-                    `projects-screen-${currentState.projectScreen || 'all'}`))),
+                    `projects-screen-${currentState.projectScreen || 'all'}`)) ||
+              (currentState.activeRoom === 'experience' &&
+                highlight.id.startsWith('case-study-screen-') &&
+                caseStudyScreensById.get(highlight.id)?.available &&
+                (!currentState.reading ||
+                  highlight.id !== 'case-study-screen-all'))),
           dt,
           instantHighlight,
         )

@@ -11,6 +11,14 @@ import {
 import { RoomIntro, TextBlocks } from './portfolio-parts';
 import type { Portfolio } from '@/lib/content/types';
 import { projectBody } from '@/lib/content/project-content';
+import {
+  caseStudyBody,
+  type CaseStudyFilter,
+} from '@/lib/content/case-study-content';
+import {
+  CaseStudyStory,
+  ReadingCaseStudyLibrary,
+} from './case-study-library-window';
 import { ReadingProjectLibrary, ProjectLinks } from './project-library-window';
 import { ProjectMarkdown, ProjectMedia } from './project-markdown';
 import { parseProjectMarkdown } from './project-markdown-content';
@@ -135,64 +143,70 @@ export function DossierView({
     </>
   );
 }
-export function ExperienceView({ data }: { data: Portfolio }) {
-  const s = data.site;
+export function ExperienceView({
+  data,
+  category,
+  onCategoryChange,
+}: {
+  data: Portfolio;
+  category?: CaseStudyFilter;
+  onCategoryChange?: (category: CaseStudyFilter) => void;
+}) {
   return (
     <>
-      <RoomIntro site={s} section="experience" number="02" />
-      <div className="mission-console">
-        <div className="console-top">
-          <span className="eyebrow">
-            <span className="status-dot" />
-            {s.experienceRoom}
-          </span>
-          <span>{s.connectionLabel}</span>
-        </div>
-        <nav className="chapter-navigation" aria-label={s.readAllLabel}>
-          {data.experience.map((e, i) => (
-            <a key={e.id} href={'#' + e.slug}>
-              <span>0{i + 1}</span>
-              {e.title}
-            </a>
-          ))}
-        </nav>
-        <div className="mission-entries">
-          {data.experience.map((e, i) => (
-            <article id={e.slug} className="mission-entry" key={e.id}>
-              <div className="entry-marker" aria-hidden="true">
-                0{i + 1}
-              </div>
-              <div className="entry-content">
-                <div className="entry-head">
-                  <p className="eyebrow">{e.period}</p>
-                </div>
-                <h2>{e.title}</h2>
-                <p className="entry-org">
-                  {e.role} / {e.organization}
-                </p>
-                <p className="entry-summary">{e.summary}</p>
-                <section>
-                  <h3>{s.roleLabel}</h3>
-                  <TextBlocks text={e.context} />
-                </section>
-                <section>
-                  <h3>{s.decisionsLabel}</h3>
-                  <TextBlocks text={e.decisions} />
-                </section>
-                <section>
-                  <h3>{s.outcomesLabel}</h3>
-                  <TextBlocks text={e.impact} />
-                </section>
-              </div>
-            </article>
-          ))}
-          {!data.experience.length && <p>{s.emptyLabel}</p>}
-        </div>
-        <div className="console-bottom">
-          <i />
-          <span>{s.experienceLabel}</span>
-          <i />
-        </div>
+      <RoomIntro site={data.site} section="experience" number="02" />
+      <ReadingCaseStudyLibrary
+        data={data}
+        category={category}
+        onCategoryChange={onCategoryChange}
+      />
+    </>
+  );
+}
+
+export function CaseStudyView({
+  data,
+  caseStudy,
+  category = 'all',
+}: {
+  data: Portfolio;
+  caseStudy: Record<string, any>;
+  category?: CaseStudyFilter;
+}) {
+  const headings = parseProjectMarkdown(caseStudyBody(caseStudy)).headings;
+  return (
+    <>
+      <a
+        className="back-link"
+        href={pathFor(
+          `/case-studies${category === 'all' ? '' : `?category=${category}`}`,
+          data.site,
+        )}
+      >
+        <ArrowLeft size={16} />
+        Back to case studies
+      </a>
+      <div className="dossier-layout">
+        <article className="dossier-paper case-study-reading-paper">
+          <CaseStudyStory data={data} caseStudy={caseStudy} />
+        </article>
+        <aside className="dossier-index">
+          <p className="eyebrow">
+            <FileText size={16} />
+            Case study
+          </p>
+          <h2>{caseStudy.title}</h2>
+          {!!headings.length && (
+            <nav aria-label="Case study contents">
+              {headings.map((heading, index) => (
+                <a href={'#' + heading.id} key={heading.id}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          )}
+        </aside>
       </div>
     </>
   );

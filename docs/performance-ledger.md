@@ -2511,6 +2511,40 @@ pass. No implementation changed after that full suite; only the test was correct
 Native Safari and physical touch remain untested. Independent critic: **94/100**,
 approve, no blockers or required revisions; rubric is preserved with the evidence.
 
+## 41 — Case studies terminal flow and Markdown authoring (22 September 2026)
+
+Baseline `747aeac4`. The owner approved category cartridges plus All opening the
+existing raked 16:9 terminal, then an archive collection and story in that same
+window. This adds filtered archive rows, shared safe Markdown/media authoring,
+public detail URLs/history, retained scroll, Reading view and private preview.
+Legacy content remains readable and uncategorized until explicitly assigned;
+the former experience paper reader is retired. The approved room hardware and
+ordinary room/overview camera fits remain unchanged.
+
+[Source-identified evidence](evidence/case-study-flow/README.md) includes live
+Chromium desktop/portrait captures and interaction checks. The isolated full suite
+passed **433/433**, followed by **23/23** final UI tests; typecheck, affected lint
+and production build pass. Last studio copy corrections were lint/typechecked and
+recaptured. Native Safari, physical touch and video playback remain untested.
+Portrait cartridge targets retain their small physical-label dimensions; Reading
+view and keyboard interaction remain available.
+
+The actual terminal camera was added to the Earth coverage audit: both mesh
+profiles cover 17 viewports and 3,536 poses. All sampled source rows fit the
+existing crop, and the fixed sphere UV seam stays outside the guarded envelope.
+The broad ultrawide transition neighborhoods leave **zero southern filtering
+margin** (`includedWithinCrop: false`), so this is not a full filtering-coverage
+proof. Raw poses and the failed conservative guard are retained; no Earth asset
+or composition was altered. See the evidence for the exact envelope assumptions.
+
+This is a feature baseline, not an optimization. It adds terminal interaction and
+DOM rendering while removing the old reader. The archive now constructs graphics
+planes in headless mode too, preventing a fair old/new cost comparison from those
+inventories alone. CPU/GPU time, actual memory, preparation, frame pacing, heat
+and battery were not measured. No speedup is claimed; held candidates remain held.
+Independent critic: **93/100**, approve, no blockers or required revisions; the
+rubric and limitations are recorded with the matching evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

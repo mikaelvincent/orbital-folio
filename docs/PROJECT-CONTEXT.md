@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 21 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 22 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -189,8 +189,8 @@ and scroll position; each detail also retains its scroll position during that
 visit. A persistent scrollbar supplements ordinary native scrolling. Public
 `/projects`, `/projects?open=1` and `/projects/<slug>` URLs, browser history, private
 previews and semantic reading views remain available. The superseded Projects
-clipboard and old gallery-page transport UI are removed; About and Case studies
-readers are retained.
+clipboard and old gallery-page transport UI are removed. About retains its
+deployable reader; Case studies now uses its fixed archive terminal.
 
 The HTML application stays within the glass and clear of its inset feedback rim,
 including close portrait and bounded hover/drag views. Its plane is registered to
@@ -309,6 +309,45 @@ records the first dormant-monitor treatment and narrow reading fit. The earlier
 its black face and solid resting button with intentional passive art and clearer
 resource action states. The subsequent [screen/resource hierarchy correction](evidence/project-screen-hierarchy/README.md)
 assigns wallpaper to populated monitors and groups the resource actions below the introduction.
+
+## Case studies archive and authoring
+
+Approved on 22 September 2026: the four recorder cartridges select Product
+engineering, Systems & reliability, Research & experiments, or Design &
+interfaces; the terminal selects All case studies. Every option approaches the
+same existing 16:9 raked monitor. Populated cartridges have inset amber hover/
+focus feedback; empty categories retain their installed hardware with subdued
+category labels and no interaction target. An empty All terminal displays STANDBY.
+Published content drives public
+availability; the private preview uses drafts. No category is guessed from a
+title or older record.
+
+The monitor displays a numbered archive list with summaries and optional
+organization/period metadata. A story opens in the same window without camera
+travel. Back to case studies restores its category and scroll position, with
+separate retained scroll for each story during the visit. X, Escape or an
+exposed pressure-wall click returns to the room; hardware blocks through-wall
+dismissal. Responsive framing approaches the fixed glass and crops its width in
+portrait, keeping text readable. The former Case studies deployable reader and
+legacy chapter pager are removed; About remains unchanged.
+
+Public `/case-studies/<slug>` URLs, category query state, browser history,
+`/experience` compatibility and authenticated preview by ID/slug share the
+existing `experience` storage identity. Reading view offers populated-category
+controls and the same story renderer. Details use record titles/summaries for
+metadata and appear in the sitemap only when published.
+
+Content studio labels this collection Case studies and shares Projects' Markdown
+editor, safe preview and managed image/video insertion. Categories are explicit
+and may overlap. Cover, subtitle, role, organization, period and SEO fields are
+optional. Old context/decisions/impact sections provide a fallback story until an
+owner authors Markdown; existing records are not rewritten or recategorized.
+Save, private preview and Publish remain separate. Publishing checks all media
+and poster/caption dependencies, and live case-study references prevent deleting
+or unpublishing their assets. Project ZIP packaging remains project-specific;
+whole-content JSON backups include case studies as before. See
+[authoring instructions](OPERATIONS.md#authoring-case-studies) and
+[verification evidence](evidence/case-study-flow/README.md).
 
 ## Contact computer and submission boundary
 
