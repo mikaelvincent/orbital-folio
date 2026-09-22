@@ -94,6 +94,8 @@ export async function POST(req: Request) {
         validateContent(old.kind, old.draft);
         if (old.kind === 'project')
           validateProjectPublication(old.draft, records);
+        if (old.kind === 'journal')
+          validateProjectPublication(old.draft, records, 'notebook chapter');
         if (old.kind === 'experience')
           validateCaseStudyPublication(old.draft, records);
         if (old.kind === 'site' || old.kind === 'link')
@@ -136,7 +138,7 @@ export async function POST(req: Request) {
             (directAboutPhotoMediaIds(r.kind, r.published, records).includes(
               old.id,
             ) ||
-              (r.kind === 'project' &&
+              ((r.kind === 'project' || r.kind === 'journal') &&
                 directProjectMediaIds(r.published).includes(old.id)) ||
               (r.kind === 'experience' &&
                 directCaseStudyMediaIds(r.published).includes(old.id)) ||

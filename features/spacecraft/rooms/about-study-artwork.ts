@@ -1,5 +1,9 @@
 /** Original, static artwork for the personal study. No images or font downloads. */
-export function drawStudyArtwork(ctx: any, kind: string) {
+export function drawStudyArtwork(
+  ctx: any,
+  kind: string,
+  options: { notebookName?: string } = {},
+) {
   const landscape = kind === 'landscape-postcard';
   const width = landscape ? 512 : 768;
   const height = landscape ? 320 : 1024;
@@ -35,10 +39,12 @@ export function drawStudyArtwork(ctx: any, kind: string) {
     size = 28,
     style = '',
     color = ink,
+    maxWidth?: number,
   ) => {
     ctx.fillStyle = color;
     ctx.font = `${style} ${size}px "Helvetica Neue", Arial, sans-serif`;
-    ctx.fillText(text, x, y);
+    if (maxWidth === undefined) ctx.fillText(text, x, y);
+    else ctx.fillText(text, x, y, maxWidth);
   };
   const paper = () => {
     ctx.fillStyle = '#ece0c7';
@@ -530,7 +536,15 @@ export function drawStudyArtwork(ctx: any, kind: string) {
         paleInk,
         1,
       );
-      lettering('Mikael Vincent', 72, 212, 48, '500');
+      lettering(
+        options.notebookName?.trim() || 'Personal log',
+        72,
+        212,
+        48,
+        '500',
+        ink,
+        572,
+      );
       lettering('Useful products.', 72, 278, 30);
       lettering('Thoughtful engineering.', 72, 320, 30);
       path(

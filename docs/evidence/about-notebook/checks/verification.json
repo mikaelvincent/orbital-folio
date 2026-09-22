@@ -1,0 +1,109 @@
+{
+  "fixture": "/private/tmp/orbital-notebook-verification-ecv5v_lb",
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "baselineCommit": "86ca38566eb27f983de5fb4b01489dee49d82645",
+  "testBaseUrl": "http://localhost:3003",
+  "serverSession": 41858,
+  "isolation": {
+    "freshTestOnlySecrets": true,
+    "freshD1R2": true,
+    "stateDirectory": ".wrangler/state/v3",
+    "dependenciesSharedOnly": true,
+    "viteCache": ".verification-vite-cache",
+    "privateEnvironmentOrStateCopied": false,
+    "mainServerMutated": false
+  },
+  "initialSuite": {
+    "tests": 475,
+    "passed": 472,
+    "failed": 3,
+    "skipped": 0,
+    "log": "full-tests-initial.log",
+    "sourceHashes": "initial-source-hashes.json",
+    "failures": [
+      "About photos API: fresh fixture owner was not claimed yet; later contact setup claimed it.",
+      "Case studies API: same missing initial owner setup.",
+      "Old About deployable geometry expectation; replaced by mounted notebook/AO regression in final source."
+    ]
+  },
+  "fullSuite": {
+    "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+    "tests": 479,
+    "passed": 479,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 382787.298916,
+    "log": "full-tests-final.log",
+    "sourceHashes": "full-suite-source-hashes.json"
+  },
+  "finalSourceChange": {
+    "record": "post-suite-source-change.json",
+    "files": [
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/portfolio/about-notebook.css",
+      "app/globals.css"
+    ],
+    "followup": "Restore notebook scroll after visible arrival; fix immersive scene to viewport to prevent keyboard focus scrolling and clipping the book; remove an orphaned room-transport CSS rule after legacy transport removal. These four UI source files changed after the full suite; no full mutation suite repeated."
+  },
+  "finalChecks": {
+    "typecheck": {
+      "result": "pass",
+      "log": "typecheck-scroll-restoration.log",
+      "scope": "Latest TSX source checked after scroll restoration; later changes only affect CSS."
+    },
+    "build": {
+      "result": "pass",
+      "log": "build-final-cleanup.log"
+    },
+    "affectedLint": {
+      "result": "pass",
+      "initialFiles": 25,
+      "initialLog": "lint-final.log",
+      "postSuiteFiles": 2,
+      "postSuiteLog": "lint-keyboard-viewport.log"
+    },
+    "sourceHashes": "final-source-hashes.json",
+    "format": {
+      "result": "pass",
+      "files": 3,
+      "log": "format-keyboard-viewport.log",
+      "finalGlobalsFollowup": {
+        "result": "pass",
+        "log": "format-final-css.log",
+        "files": [
+          "app/globals.css",
+          "features/portfolio/about-notebook.css"
+        ]
+      }
+    },
+    "sourceComparison": {
+      "comparedFiles": 396,
+      "mismatches": [],
+      "expectedExcludedPath": "vite.config.ts",
+      "explanationField": "fixtureOnlySourceDifference"
+    }
+  },
+  "buildNotices": [
+    "Node module.register deprecation",
+    "Chunks exceed the configured 500kB warning size",
+    "Vinext cannot classify /experience by static analysis"
+  ],
+  "visualVerification": "Owned by root agent; this record makes no browser or Safari verification claim.",
+  "serverRetained": "Retained during visual verification, then stopped and the disposable checkout removed after evidence capture.",
+  "fixtureOnlySourceDifference": {
+    "path": "vite.config.ts",
+    "expectedDifference": "Fixture only adds cacheDir: '.verification-vite-cache' so shared node_modules never shares the Vite cache.",
+    "mainSha256": "7183c338ee9f0f2820097551f9690f9f5ea3e3ce86da86ffd89430c1b9df12a6",
+    "fixtureSha256": "34c4effc2a6d3f2f29d61ddad580b1aa497f7a8e33824de9734ebb280471a89f",
+    "copiedToMain": false
+  },
+  "cleanup": {
+    "fixtureServerStopped": true,
+    "port3003Listener": false,
+    "mainPort3000HttpStatus": 200,
+    "browserReviewTabsClosed": true,
+    "temporaryViewportReset": true,
+    "fixtureRemovedAfterEvidenceCopy": true
+  }
+}

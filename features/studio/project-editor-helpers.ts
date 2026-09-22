@@ -38,7 +38,7 @@ export function insertProjectMedia(
 export function projectAssetPublication(
   data: Record<string, any>,
   records: Content[],
-  kind: 'project' | 'experience' = 'project',
+  kind: 'project' | 'experience' | 'journal' = 'project',
 ) {
   try {
     const mediaClosure =

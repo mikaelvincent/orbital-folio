@@ -101,6 +101,7 @@ export type SpacecraftState = {
   projectPage?: number;
   reading?: boolean;
   projectScreen?: string;
+  notebookChapter?: number;
   delta?: number;
   /** Use the fixed side collar plaques for a +PI/2 portrait overview. */
   labelPortrait?: boolean;
@@ -119,6 +120,8 @@ export function createSpacecraft(
     projects?: SpacecraftProject[];
     caseStudies?: SpacecraftProject[];
     socials?: SocialScreenLinks;
+    journal?: { title: string }[];
+    notebookName?: string;
     aboutPhotos?: AboutPhotos;
     onAboutPhotoChange?: () => void;
     sampleLabel?: string;
@@ -289,7 +292,6 @@ export function createSpacecraft(
     wayfinding.centerY,
     wayfinding.roomSignFaceZ,
   ];
-  const readerTrays: Record<string, { group: any; progress: number }> = {};
   const primitives = createModelPrimitives(
     THREE,
     group,
@@ -538,7 +540,7 @@ export function createSpacecraft(
     );
     skin.position.set(x, 0, 0);
     if (section === 'contact') skin.material.userData.contactRoomWall = true;
-    if (['contact', 'projects', 'experience'].includes(section))
+    if (['contact', 'projects', 'experience', 'about'].includes(section))
       skin.material.userData.applicationRoomWall = section;
     // The single pressure skin now supplies the floor at its unchanged datum;
     // the former thick deck slab is no longer stacked on top of it.
@@ -848,11 +850,10 @@ export function createSpacecraft(
       if (section === 'about') part.material.userData.contactRoomWall = true;
       part.material.userData.applicationRoomWall =
         section === 'about' ? 'contact' : 'projects';
-      if (section === 'projects')
-        part.material.userData.applicationRoomWalls = [
-          'projects',
-          'experience',
-        ];
+      part.material.userData.applicationRoomWalls =
+        section === 'projects'
+          ? ['projects', 'experience']
+          : ['about', 'contact'];
     });
     roomWallMounts.push({ group: wall, origin, sign: 1 });
   }
@@ -1524,9 +1525,15 @@ export function createSpacecraft(
     {
       accent: m.amber,
       photos: options.aboutPhotos,
+      journal: options.journal,
+      notebookName: options.notebookName,
       onPhotoChange: options.onAboutPhotoChange,
     },
   );
+  const aboutNotebook = personalStudy.userData.aboutNotebook;
+  group.userData.aboutNotebook = aboutNotebook;
+  group.userData.personalStudy = personalStudy;
+  readerSurfaces.about = aboutNotebook.anchor;
   group.userData.aboutSocialCards = personalStudy.userData.aboutSocialCards;
   group.userData.aboutPhotoPrints = personalStudy.userData.aboutPhotoPrints;
   group.userData.aboutPhotosReady = personalStudy.userData.aboutPhotosReady;
@@ -1629,6 +1636,20 @@ export function createSpacecraft(
     }),
   );
 
+  objectHighlights.push(
+    createObjectHighlight(
+      THREE,
+      aboutNotebook.openingAnchor,
+      'about-notebook',
+      {
+        width: aboutNotebook.openingWidth,
+        height: aboutNotebook.openingHeight,
+        radius: 0.025,
+        z: 0.002,
+      },
+    ),
+  );
+
   for (const card of group.userData.aboutSocialCards)
     objectHighlights.push(
       createObjectHighlight(THREE, card.root, card.interactableId, {
@@ -1668,144 +1689,6 @@ export function createSpacecraft(
       boltGeometry,
     );
 
-  // About retains its deployable reading station. Application rooms attach
-  // HTML to their fixed computer glass. Moving reader parts do not cast shadows.
-  for (const [section, x] of Object.entries({ about: 3 })) {
-    const tray = new THREE.Group();
-    tray.name = section + '-deployable-reader';
-    tray.userData.animated = true;
-    tray.userData.excludePick = true;
-    tray.position.set(x, 0, 1.61);
-    rooms[section].add(tray);
-    box(
-      2.57,
-      2.87,
-      0.092,
-      m.upholstery,
-      0,
-      0,
-      -0.021,
-      tray,
-      0.045,
-      'reader-rigid-backboard',
-    );
-    box(
-      2.467,
-      2.777,
-      0.043,
-      m.chalk,
-      0,
-      0,
-      0.06,
-      tray,
-      0.021,
-      'reader-paper-retainer',
-    );
-    box(
-      2.4,
-      2.7,
-      0.016,
-      m.paper,
-      0,
-      0,
-      0.094,
-      tray,
-      0.007,
-      'blank-reader-surface',
-    );
-    box(
-      0.125,
-      2.829,
-      0.093,
-      m.upholstery,
-      -1.247,
-      0,
-      0.13,
-      tray,
-      0.045,
-      'journal-bound-spine',
-    );
-    for (const yy of [-0.84, 0, 0.84]) {
-      const ring = torus(0.084, 0.013, m.metal, -1.238, yy, 0.189, tray);
-      ring.scale.x = 0.58;
-    }
-    box(
-      0.049,
-      2.576,
-      0.073,
-      m.paper,
-      1.217,
-      0,
-      0.049,
-      tray,
-      0.015,
-      'journal-visible-page-block',
-    );
-    for (const zz of [0.031, 0.053, 0.075])
-      box(
-        0.009,
-        2.523,
-        0.006,
-        m.liner,
-        1.246,
-        0,
-        zz,
-        tray,
-        0.002,
-        'journal-page-edge',
-      );
-    box(
-      2.685,
-      0.151,
-      0.349,
-      m.chalk,
-      0,
-      -1.488,
-      -0.013,
-      tray,
-      0.073,
-      'reader-mechanical-tray',
-    );
-    for (const sign of [-1, 1]) {
-      box(
-        0.11,
-        0.175,
-        0.366,
-        m.amber,
-        sign * 1.29,
-        -1.47,
-        -0.01,
-        tray,
-        0.05,
-        'reader-tray-bumper',
-      );
-      rod(
-        [sign * 1.115, -1.42, -0.232],
-        [sign * 1.08, -0.569, -0.269],
-        0.047,
-        m.metal,
-        tray,
-      );
-      cylinder(0.087, 0.085, m.navy, sign * 1.1, -0.97, -0.242, tray, 'x');
-    }
-    const surface = new THREE.Object3D();
-    surface.name = section + '-html-reading-surface';
-    surface.position.set(0, 0, 0.11);
-    surface.userData = {
-      width: 2.4,
-      height: 2.7,
-      section,
-      kind: 'journal',
-      deployedPosition: [
-        roomCenters[section][0],
-        roomCenters[section][1],
-        1.72,
-      ],
-    };
-    tray.add(surface);
-    readerSurfaces[section] = surface;
-    readerTrays[section] = { group: tray, progress: 0 };
-  }
   // Computer and social controls use native screen-face anchors. Room and
   // portal navigation retain their separate geometry-based pick targets.
 
@@ -2191,7 +2074,6 @@ export function createSpacecraft(
       if (
         child === structures[section] ||
         child === contents[section] ||
-        child === readerTrays[section]?.group ||
         child.userData.physicalLabel ||
         child.userData.portal ||
         (child.userData.isInteractionProxy && child.userData.isPortal)
@@ -2830,13 +2712,11 @@ export function createSpacecraft(
       [x, y + headerPosition(section)[0], headerPosition(section)[1]],
     ]),
   );
-  group.userData.readerAnchors = Object.fromEntries(
-    Object.keys(readerTrays).map((section) => [
-      section,
-      [...roomCenters[section], 1.72],
-    ]),
-  );
-  group.userData.readerSize = { width: 2.4, height: 2.7 };
+  group.userData.readerAnchors = {};
+  group.userData.readerSize = {
+    width: aboutNotebook.width,
+    height: aboutNotebook.height,
+  };
   group.userData.projectPageSize = projectPageSize;
   group.userData.projectCapacity = 9;
   group.userData.projectCategoryCapacity = 4;
@@ -2916,7 +2796,10 @@ export function createSpacecraft(
   function captureOverviewBounds() {
     const box = new THREE.Box3();
     group.updateMatrixWorld(true);
-    // Ignore deployed readers/doors for framing: the pressure shell and service
+    group.userData.readerAnchors.about = vesselPosition(
+      aboutNotebook.framingAnchor,
+    ).toArray();
+    // Ignore moving doors for framing: the pressure shell and service
     // appendages determine overview silhouette, regardless of current selection.
     for (const section of Object.keys(rooms))
       box.union(vesselBounds(structures[section]));
@@ -3043,10 +2926,6 @@ export function createSpacecraft(
         center: [x, y + 0.045, 0.035],
         size: [3.3 * layoutScale, 3.25, 2.8],
       };
-      if (readerTrays[section]) {
-        group.userData.readerAnchors[section] = [x, y, 1.72];
-        readerSurfaces[section].userData.deployedPosition = [x, y, 1.72];
-      }
       group.userData.labelAnchors[section] = [x, y - 1.279, 1.428];
       group.userData.sideLabelAnchors[section] = [
         x - 1.565 * layoutScale,
@@ -3614,21 +3493,23 @@ export function createSpacecraft(
         if (slot.progress !== goal || slot.hover !== hoverGoal)
           motionActive = true;
       }
-    for (const [section, tray] of Object.entries(readerTrays)) {
-      const previousProgress = tray.progress;
-      const goal =
-        currentState.reading && currentState.activeRoom === section ? 1 : 0;
-      tray.progress += (goal - tray.progress) * blend;
-      if (Math.abs(tray.progress - goal) < 0.002) tray.progress = goal;
-      const p = tray.progress;
-      tray.group.visible = p > 0;
-      tray.group.scale.setScalar(p > 0 ? 1 : 0.001);
-      tray.group.position.y = -0.1 * (1 - p);
-      tray.group.position.z = -0.63 + 2.24 * p;
-      tray.group.rotation.x = -0.1 * (1 - p);
-      if (previousProgress !== p) geometryChanged();
-      if (p !== goal) motionActive = true;
+    const notebookActive =
+      !!currentState.reading && currentState.activeRoom === 'about';
+    if (aboutNotebook.active !== notebookActive) {
+      aboutNotebook.setActive(notebookActive);
+      geometryChanged();
     }
+    const wasTurning = aboutNotebook.turning;
+    aboutNotebook.setChapter(
+      currentState.notebookChapter || 0,
+      instantHighlight || !notebookActive,
+    );
+    if (
+      aboutNotebook.update(dt, instantHighlight) ||
+      wasTurning !== aboutNotebook.turning
+    )
+      geometryChanged();
+    if (aboutNotebook.turning) motionActive = true;
     const projectApplicationActive =
       currentState.reading && currentState.activeRoom === 'projects';
     for (const screen of projectWorkshop.screens) {
@@ -3663,7 +3544,10 @@ export function createSpacecraft(
     }
     group.userData.motionActive = motionActive;
     const applicationActive =
-      computerActive || projectApplicationActive || caseStudyActive;
+      computerActive ||
+      projectApplicationActive ||
+      caseStudyActive ||
+      notebookActive;
     const wallFocusGoal = applicationActive ? 1 : 0;
     contactWallFocus += (wallFocusGoal - contactWallFocus) * blend;
     if (Math.abs(contactWallFocus - wallFocusGoal) < 0.002)
@@ -3778,7 +3662,7 @@ export function createSpacecraft(
     for (const highlight of objectHighlights) {
       const objectRoom = highlight.id.startsWith('contact-')
         ? 'contact'
-        : highlight.id.startsWith('about-social-')
+        : highlight.id.startsWith('about-')
           ? 'about'
           : highlight.id.startsWith('projects-screen-')
             ? 'projects'

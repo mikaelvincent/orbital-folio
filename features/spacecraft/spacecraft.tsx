@@ -23,6 +23,9 @@ export function Spacecraft(props: SpacecraftProps) {
     api.current?.caseStudies?.();
   }, [props.caseStudies]);
   useEffect(() => {
+    api.current?.notebook();
+  }, [props.journal, props.notebookChapter]);
+  useEffect(() => {
     api.current?.go();
   }, [
     props.section,

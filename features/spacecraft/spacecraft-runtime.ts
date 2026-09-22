@@ -1,5 +1,6 @@
 import type { CaseStudyFilter } from '../../lib/content/case-study-content';
 import { projectApplicationLayout } from './navigation/project-application';
+import { fitAboutNotebook } from './navigation/about-notebook';
 import { createProjectedSurface } from './projected-surface';
 import { resolveSocialScreens } from '@/lib/content/social-links';
 import { resolveAboutPhotos } from '@/lib/content/about-photos';
@@ -85,6 +86,10 @@ export type SpacecraftProps = {
   caseStudies: Record<string, any>[];
   links: Record<string, any>[];
   media?: Record<string, any>[];
+  journal?: Record<string, any>[];
+  notebookChapter?: number;
+  onOpenNotebook?: () => void;
+  onCloseNotebook?: () => void;
   section: string;
   slug?: string;
   readingSurface: boolean;
@@ -113,6 +118,7 @@ export type SpacecraftProps = {
 export type SpacecraftSceneAPI = {
   go: () => void;
   projects: () => void;
+  notebook: () => void;
   caseStudies: () => void;
   pause: (paused: boolean) => void;
   diagnostics: (enabled: boolean) => void;
@@ -309,6 +315,10 @@ export function mountSpacecraftScene({
           }));
         const modelOptions = {
           vesselName,
+          notebookName: String(s.name || ''),
+          journal: (latest.current.journal || []).map((entry) => ({
+            title: String(entry.title),
+          })),
           socials: resolveSocialScreens(latest.current.links),
           aboutPhotos: resolveAboutPhotos({
             site: s,
@@ -412,8 +422,7 @@ export function mountSpacecraftScene({
         const aoCameraPosition = new THREE.Vector3(),
           aoCameraQuaternion = new THREE.Quaternion();
         let aoRoll = 0;
-        let aoGeometryRevision = -1,
-          aoReaderStretch = NaN;
+        let aoGeometryRevision = -1;
         const aoProjection = new THREE.Matrix4();
         const aoDirtyReasons = new Set<string>(['initial']);
         const invalidateAo = (reason: string) => {
@@ -453,10 +462,6 @@ export function mountSpacecraftScene({
           home: [0, 0, 0],
           ...model.group.userData.roomAnchors,
         };
-        let readerAnchors = model.group.userData.readerAnchors as Record<
-          string,
-          [number, number, number]
-        >;
         const ray = new THREE.Raycaster(),
           pointer = new THREE.Vector2();
         const roomNavigation = createRoomNavigationTargets(THREE, model.group);
@@ -528,6 +533,21 @@ export function mountSpacecraftScene({
             cssScene.add(object);
             return { screen, link, object };
           });
+        const notebook = model.group.userData.aboutNotebook;
+        const notebookButton = document.createElement('button');
+        notebookButton.type = 'button';
+        notebookButton.className = 'world-object-target world-notebook-target';
+        notebookButton.setAttribute('aria-label', 'Read notebook');
+        notebookButton.dataset.targetKey = 'about-notebook';
+        notebookButton.dataset.sceneObject = 'about-notebook';
+        notebookButton.style.width = '500px';
+        notebookButton.style.height = `${(500 * notebook.openingHeight) / notebook.openingWidth}px`;
+        notebookButton.onclick = () => {
+          if (active === 'about' && !reading && !travelling)
+            latest.current.onOpenNotebook?.();
+        };
+        const notebookTarget = new CSS3DObject(notebookButton);
+        cssScene.add(notebookTarget);
         const computer = model.group.userData.contactComputer;
         const computerButton = document.createElement('button');
         computerButton.type = 'button';
@@ -593,7 +613,8 @@ export function mountSpacecraftScene({
         const applicationRoom = () =>
           active === 'contact' ||
           active === 'projects' ||
-          active === 'experience';
+          active === 'experience' ||
+          active === 'about';
         const screenProjection = new THREE.Vector3();
         function screenInViewport(screen: any) {
           let left = Infinity,
@@ -623,6 +644,9 @@ export function mountSpacecraftScene({
         let projectRoomPicker: ReturnType<
           typeof createContactRoomDismissPicker
         >;
+        let notebookRoomPicker: ReturnType<
+          typeof createContactRoomDismissPicker
+        >;
         let caseStudyRoomPicker: ReturnType<
           typeof createContactRoomDismissPicker
         >;
@@ -632,7 +656,6 @@ export function mountSpacecraftScene({
           contactPickWall = false;
         const syncSceneTargets = () => {
           Object.assign(anchors, model.group.userData.roomAnchors);
-          readerAnchors = model.group.userData.readerAnchors;
           roomNavigation.sync(model.group.userData.layoutScale);
           const walls: Three.Mesh[] = [],
             blockers: Three.Mesh[] = [];
@@ -681,6 +704,26 @@ export function mountSpacecraftScene({
           caseStudyRoomPicker = createContactRoomDismissPicker(
             caseWalls,
             caseBlockers,
+          );
+          const notebookWalls: Three.Mesh[] = [],
+            notebookBlockers: Three.Mesh[] = [];
+          model.group.traverse((object: any) => {
+            if (
+              object.isMesh &&
+              (object.material?.userData.applicationRoomWall === 'about' ||
+                object.material?.userData.applicationRoomWalls?.includes(
+                  'about',
+                ))
+            )
+              notebookWalls.push(object);
+          });
+          model.group.userData.personalStudy.traverse((object: any) => {
+            if (object.isMesh && !object.userData.isInteractionProxy)
+              notebookBlockers.push(object);
+          });
+          notebookRoomPicker = createContactRoomDismissPicker(
+            notebookWalls,
+            notebookBlockers,
           );
           contactPickRevision = -1;
           for (const hotspot of hotspotObjects) {
@@ -907,25 +950,6 @@ export function mountSpacecraftScene({
           };
         };
         let bottomReservation = mobile() ? 132 : 80;
-        const readerInsets = () => ({ top: 20, bottom: bottomReservation });
-        const readerHeight = () =>
-          el.clientHeight - readerInsets().top - readerInsets().bottom;
-        const readerStretch = () =>
-          mobile()
-            ? Math.max(
-                1,
-                Math.min(1.5, readerHeight() / (el.clientWidth - 32) / 1.125),
-              )
-            : 1;
-        const paperPixels = () =>
-          Math.max(
-            220,
-            Math.min(
-              mobile() ? 360 : 560,
-              el.clientWidth - 32,
-              readerHeight() / (1.125 * readerStretch()),
-            ),
-          );
         const projectLayout = () =>
           projectApplicationLayout(
             el.clientWidth,
@@ -1124,20 +1148,24 @@ export function mountSpacecraftScene({
               ...layout,
               distance: desiredDistance,
             });
-          } else if (isReading) {
-            if (readerAnchors[section]) target.set(...readerAnchors[section]);
-            desiredDistance =
-              (2.4 * el.clientHeight) /
-              (2 *
-                Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) *
-                paperPixels());
-            // Center the physical reader in the space above the bottom controls.
-            const insets = readerInsets();
-            target.y -=
-              ((insets.bottom - insets.top) *
-                desiredDistance *
-                Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) /
-              el.clientHeight;
+          } else if (isReading && section === 'about') {
+            model.group.updateMatrixWorld(true);
+            const framed = fitAboutNotebook(
+              THREE,
+              notebook,
+              el.clientWidth,
+              el.clientHeight,
+              camera.fov,
+              bottomReservation,
+            );
+            target.set(...framed.target);
+            direction.set(...framed.direction);
+            desiredDistance = framed.distance;
+            el.dataset.framing = JSON.stringify({
+              mode: 'about-notebook',
+              ...framed,
+              layout: 'full-spread',
+            });
           } else if (home) {
             const bounds = model.group.userData.overviewBounds;
             const min = bounds?.min || [-6, -4, -1.5];
@@ -1964,20 +1992,20 @@ export function mountSpacecraftScene({
               projectScreen: latest.current.projectScreen || 'all',
               caseStudyScreen: latest.current.caseStudyScreen || 'all',
               reading,
+              notebookChapter: latest.current.notebookChapter || 0,
               delta,
             },
             true,
           );
           diagnostics?.mark('model-update');
-          // Moving doors/readers do not cast into the cached static shadow map.
-          for (const anchor of Object.values(model.readerSurfaces))
-            if (anchor.userData.kind !== 'computer')
-              anchor.parent.scale.y *= readerStretch();
           updateRenderSceneMatrices(scene);
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
           const near =
-            (reading && (active === 'projects' || active === 'experience')) ||
+            (reading &&
+              (active === 'projects' ||
+                active === 'experience' ||
+                active === 'about')) ||
             (travelling && camera.near < 0.5)
               ? 0.08
               : 0.5;
@@ -2001,16 +2029,21 @@ export function mountSpacecraftScene({
           );
           diagnostics?.mark('annotations');
           const application = computerLayout();
-          const isComputer = applicationRoom();
+          const isNotebook = active === 'about';
+          const isComputer = applicationRoom() && !isNotebook;
           const logicalWidth = isComputer
             ? application.pixelsWidth
-            : paperPixels();
+            : notebook.pixelsWidth;
           const logicalHeight = isComputer
             ? application.pixelsHeight
-            : logicalWidth * 1.125 * readerStretch();
+            : notebook.pixelsHeight;
           surfaceElement.style.width = `${logicalWidth}px`;
           surfaceElement.style.height = `${logicalHeight}px`;
           surfaceElement.dataset.compact = String(mobile());
+          surfaceElement.dataset.notebook = String(isNotebook);
+          surfaceElement.dataset.turning = String(
+            isNotebook && notebook.turning,
+          );
           surfaceElement.dataset.computer = String(isComputer);
           surfaceElement.dataset.computerPortrait = String(
             isComputer && computerLayout().portrait,
@@ -2027,10 +2060,20 @@ export function mountSpacecraftScene({
                 ? application.width
                 : physicalSurface.userData.width) / logicalWidth,
             );
-            if (!isComputer) surface.scale.y /= readerStretch();
           }
-          surface.visible = reading && (isComputer || !travelling);
+          surface.visible = reading;
           surfaceElement.inert = !surface.visible || travelling;
+          notebook.openingAnchor.matrixWorld.decompose(
+            notebookTarget.position,
+            notebookTarget.quaternion,
+            notebookTarget.scale,
+          );
+          notebookTarget.scale.multiplyScalar(notebook.openingWidth / 500);
+          const notebookAvailable =
+            active === 'about' && !reading && !travelling;
+          notebookTarget.visible = notebookAvailable;
+          notebookButton.inert = !notebookAvailable;
+          notebookButton.tabIndex = notebookAvailable ? 0 : -1;
           for (const h of hotspotObjects) {
             const portal = model.group.userData.portals.find(
               (p: any) => p.id === h.portalId,
@@ -2219,7 +2262,6 @@ export function mountSpacecraftScene({
             const changedProjection = !aoProjection.equals(
               camera.projectionMatrix,
             );
-            const changedReaderStretch = aoReaderStretch !== readerStretch();
             const refresh =
               aoDirty ||
               changedPosition ||
@@ -2227,7 +2269,7 @@ export function mountSpacecraftScene({
               aoRoll !== roll ||
               (aoPolicy === 'legacy'
                 ? geometryMotion || previousGeometryMotion
-                : changedGeometry || changedProjection || changedReaderStretch);
+                : changedGeometry || changedProjection);
             diagnostics?.annotate({
               aoPolicy,
               geometryRevision,
@@ -2236,7 +2278,6 @@ export function mountSpacecraftScene({
               aoDirtyReasons: [...aoDirtyReasons],
               aoCameraChanged: changedPosition || changedAngle,
               aoProjectionChanged: changedProjection,
-              aoReaderStretchChanged: changedReaderStretch,
             });
             if (geometryMotion && !changedGeometry)
               diagnostics?.count('material-only-model-motion');
@@ -2251,13 +2292,11 @@ export function mountSpacecraftScene({
               if (changedAngle) diagnostics?.count('ao-camera-angle');
               if (aoRoll !== roll) diagnostics?.count('ao-roll');
               if (changedProjection) diagnostics?.count('ao-projection');
-              if (changedReaderStretch) diagnostics?.count('ao-reader-stretch');
               refreshOcclusion(delta);
               aoCameraPosition.copy(camera.position);
               aoCameraQuaternion.copy(camera.quaternion);
               aoProjection.copy(camera.projectionMatrix);
               aoGeometryRevision = geometryRevision;
-              aoReaderStretch = readerStretch();
               aoRoll = roll;
               aoDirty = false;
               aoDirtyReasons.clear();
@@ -2454,9 +2493,7 @@ export function mountSpacecraftScene({
               background.getDiagnostics(),
             );
             if (reading && model.readerSurfaces[active]) {
-              const layout = applicationRoom()
-                ? computerLayout()
-                : { width: 2.4, height: 2.7 };
+              const layout = active === 'about' ? notebook : computerLayout();
               const points = [
                 [-layout.width / 2, layout.height / 2],
                 [layout.width / 2, layout.height / 2],
@@ -2649,11 +2686,13 @@ export function mountSpacecraftScene({
               !lastContactPickRay.equals(ray.ray)
             ) {
               contactPickWall = !!(
-                active === 'projects'
-                  ? projectRoomPicker
-                  : active === 'experience'
-                    ? caseStudyRoomPicker
-                    : contactRoomPicker
+                active === 'about'
+                  ? notebookRoomPicker
+                  : active === 'projects'
+                    ? projectRoomPicker
+                    : active === 'experience'
+                      ? caseStudyRoomPicker
+                      : contactRoomPicker
               )?.pick(ray);
               el.dataset.contactWallPicks = String(++contactWallPicks);
               contactPickRevision = revision;
@@ -2815,7 +2854,7 @@ export function mountSpacecraftScene({
           )
             return;
           const control = (event.target as Element).closest<HTMLElement>(
-            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen',
+            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen, .world-notebook-target',
           );
           if ((event.target as Element).closest('button') && !control) return;
           suppressClickUntil = 0;
@@ -2853,7 +2892,7 @@ export function mountSpacecraftScene({
         const pointerUp = (event: PointerEvent) => {
           if (!down || event.pointerId !== down.gesture.pointerId) return;
           const control = (event.target as Element).closest<HTMLElement>(
-            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen',
+            '.world-hotspot, .overview-callout, .world-social-screen, .world-computer-screen, .world-notebook-target',
           );
           const completed = endBoundedDrag(
             down.gesture,
@@ -2901,11 +2940,13 @@ export function mountSpacecraftScene({
               reading &&
               !travelling
             )
-              (active === 'projects'
-                ? latest.current.onCloseProjects
-                : active === 'experience'
-                  ? latest.current.onCloseCaseStudies
-                  : latest.current.onCloseContact)?.();
+              (active === 'about'
+                ? latest.current.onCloseNotebook
+                : active === 'projects'
+                  ? latest.current.onCloseProjects
+                  : active === 'experience'
+                    ? latest.current.onCloseCaseStudies
+                    : latest.current.onCloseContact)?.();
             else if (action.roomTarget) navigateRoom(action.section);
             else if (action.portalId) navigateDoor(action.portalId);
           }
@@ -3064,7 +3105,20 @@ export function mountSpacecraftScene({
             motionDiagnostic,
           );
         }
+        let notebookEntries = latest.current.journal;
         api.current = {
+          notebook: () => {
+            if (notebookEntries !== latest.current.journal) {
+              notebookEntries = latest.current.journal;
+              notebook.setChapters(
+                (notebookEntries || []).map((entry) => ({
+                  title: String(entry.title),
+                })),
+              );
+              invalidateAo('notebook-content');
+            }
+            kick();
+          },
           caseStudies: () => {
             model.setCaseStudies(caseStudyItems());
             feedback.reset();

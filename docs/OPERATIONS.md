@@ -86,6 +86,22 @@ For a project such as `calculator.<owner-domain>`:
 
 The portfolio links to the application; it does not proxy or execute arbitrary external code. Keep admin/session cookies host-only at the gateway. Do not share an admin cookie across demo subdomains. Each demo owns its own availability, authentication, rate limits, and lifecycle.
 
+## Authoring notebook chapters
+
+Use **Journal** in Content studio to edit the About notebook. The title labels its
+paper marker; subtitle introduces the page, and Order determines chapter order.
+The Markdown editor shares Write/Preview, image/video insertion and explicit media
+publishing with Projects and Case studies. Single line breaks are preserved for
+existing journal prose. Save draft, Preview and Publish remain separate; publishing
+a chapter requires all managed images, videos, posters and captions it references
+to be published. Published chapters protect those dependencies from deletion or
+unpublishing until their replacement is published.
+
+The notebook shows three markers at a time. Previous/next page controls reach
+additional chapters, and long chapters scroll within the right paper page. Desktop
+and mobile currently share the full physical spread; mobile layout refinement is
+intentionally deferred. Reading view renders every chapter in ordinary document flow.
+
 ## Authoring About photos and social cards
 
 In **Identity & copy → Portrait image**, choose an image from the library or

@@ -4,6 +4,7 @@
  *   [--mobile-mesh] [--gzip-samples] [--angular-tolerance 5.5] [--position-tolerance .25]
  *   [--projects-only] limits the audit to Projects room/application/resize poses.
  *   [--case-studies-only] limits it to the Case studies room/terminal/resize poses.
+ *   [--about-only] limits it to About room/notebook/entry/exit/resize poses.
  * Uses production Earth placement, spacecraft supports, camera-fit helpers and
  * world-camera registration. UI insets use the documented public seed fixture.
  */
@@ -17,6 +18,7 @@ import * as THREE from 'three';
 import { meshUvCoverage } from './mesh-uv-coverage.mjs';
 import { contactApplicationLayout } from '../../features/spacecraft/navigation/contact-computer.ts';
 import { projectApplicationLayout } from '../../features/spacecraft/navigation/project-application.ts';
+import { fitAboutNotebook } from '../../features/spacecraft/navigation/about-notebook.ts';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
 import {
   createOverviewFlight,
@@ -42,14 +44,17 @@ const argument = (name) => {
 const revision = argument('--revision');
 const projectsOnly = process.argv.includes('--projects-only');
 const caseStudiesOnly = process.argv.includes('--case-studies-only');
-if (projectsOnly && caseStudiesOnly)
+const aboutOnly = process.argv.includes('--about-only');
+if ([projectsOnly, caseStudiesOnly, aboutOnly].filter(Boolean).length > 1)
   throw new RangeError('Choose one focused application audit.');
-const focused = projectsOnly || caseStudiesOnly;
+const focused = projectsOnly || caseStudiesOnly || aboutOnly;
 const rooms = projectsOnly
   ? ['projects']
   : caseStudiesOnly
     ? ['experience']
-    : ['projects', 'experience', 'about', 'contact'];
+    : aboutOnly
+      ? ['about']
+      : ['projects', 'experience', 'about', 'contact'];
 const tileWidth = Number(argument('--tile-width') ?? 2560);
 const positionTolerance = Number(argument('--position-tolerance') ?? 0.25);
 const angularToleranceDegrees = Number(argument('--angular-tolerance') ?? 5.5);
@@ -101,11 +106,14 @@ const sourcePaths = [
   'features/spacecraft/navigation/flight.ts',
   'features/spacecraft/navigation/contact-computer.ts',
   'features/spacecraft/navigation/project-application.ts',
+  'features/spacecraft/navigation/about-notebook.ts',
   'features/spacecraft/spacecraft-runtime.ts',
   'features/spacecraft/spacecraft-model.ts',
   'features/spacecraft/rooms/projects-workshop.ts',
   'features/spacecraft/rooms/projects-payload-module.ts',
   'features/spacecraft/rooms/case-study-archive.ts',
+  'features/spacecraft/rooms/about-personal-study.ts',
+  'features/spacecraft/rooms/about-notebook-layout.ts',
   'features/spacecraft/rooms/cabin-composition.ts',
   'lib/content/case-study-content.ts',
   'scripts/benchmarks/earth-visible-coverage.mjs',
@@ -280,37 +288,22 @@ function roomPose(room, width, height) {
     safe,
   };
 }
-function readerPose(room, width, height) {
-  const bottom = width < 700 ? 132 : 80;
-  const target = new THREE.Vector3(...data.readerAnchors[room]);
-  const availableHeight = height - 20 - bottom;
-  const stretch =
-    width < 700
-      ? Math.max(1, Math.min(1.5, availableHeight / (width - 32) / 1.125))
-      : 1;
-  const pixels = Math.max(
-    220,
-    Math.min(
-      width < 700 ? 360 : 560,
-      width - 32,
-      availableHeight / (1.125 * stretch),
-    ),
+function readerPose(_room, width, height) {
+  model.group.updateMatrixWorld(true);
+  const pose = fitAboutNotebook(
+    THREE,
+    data.aboutNotebook,
+    width,
+    height,
+    responsiveCameraFov(width / height),
   );
-  const distance =
-    (2.4 * height) /
-    (2 *
-      Math.tan(
-        THREE.MathUtils.degToRad(responsiveCameraFov(width / height) / 2),
-      ) *
-      pixels);
-  target.y -=
-    ((bottom - 20) *
-      distance *
-      Math.tan(
-        THREE.MathUtils.degToRad(responsiveCameraFov(width / height) / 2),
-      )) /
-    height;
-  return { target, direction: new THREE.Vector3(0, 0, 1), distance, roll: 0 };
+  return {
+    ...pose,
+    target: new THREE.Vector3(...pose.target),
+    direction: new THREE.Vector3(...pose.direction),
+    roll: 0,
+    near: 0.08,
+  };
 }
 function computerPose(width, height) {
   model.group.updateMatrixWorld(true);
@@ -418,6 +411,10 @@ if (!data.caseStudyComputer?.anchor || data.caseStudyScreens?.length !== 5)
   throw new Error(
     'The Case studies coverage fixture expects one terminal and five category controls.',
   );
+if (!data.aboutNotebook?.framingAnchor)
+  throw new Error(
+    'The About coverage fixture expects the retained notebook anchor.',
+  );
 const samples = [];
 const hasViewportComposition =
   typeof environment.setViewportComposition === 'function';
@@ -495,27 +492,38 @@ for (const [width, height] of singleViewport
     environment.setViewportComposition(height > width, reference, true);
     sampledCompositionRadians = home.roll;
   }
-  const projectPoses = (caseStudiesOnly ? [] : data.projectScreens).map(
-    (screen) => ({
-      name: `projects-application-${screen.category}`,
-      pose: projectApplicationPose(screen, width, height),
-      range: CAMERA_RANGES.computer,
-    }),
-  );
-  const caseStudyPoses = projectsOnly
-    ? []
-    : [
-        {
-          name: 'case-studies-application-terminal',
-          pose: projectApplicationPose(
-            data.caseStudyComputer,
-            width,
-            height,
-            true,
-          ),
-          range: CAMERA_RANGES.computer,
-        },
-      ];
+  const projectPoses = (
+    caseStudiesOnly || aboutOnly ? [] : data.projectScreens
+  ).map((screen) => ({
+    name: `projects-application-${screen.category}`,
+    pose: projectApplicationPose(screen, width, height),
+    range: CAMERA_RANGES.computer,
+  }));
+  const caseStudyPoses =
+    projectsOnly || aboutOnly
+      ? []
+      : [
+          {
+            name: 'case-studies-application-terminal',
+            pose: projectApplicationPose(
+              data.caseStudyComputer,
+              width,
+              height,
+              true,
+            ),
+            range: CAMERA_RANGES.computer,
+          },
+        ];
+  const aboutPoses =
+    !focused || aboutOnly
+      ? [
+          {
+            name: 'about-notebook',
+            pose: readerPose('about', width, height),
+            range: CAMERA_RANGES.computer,
+          },
+        ]
+      : [];
   function sample(name, pose, pitch = 0, yaw = 0, hover = null) {
     physical.near = pose.near ?? 0.5;
     physical.updateProjectionMatrix();
@@ -563,11 +571,7 @@ for (const [width, height] of singleViewport
       pose: roomPose(room, width, height),
       range: CAMERA_RANGES.room,
     })),
-    ...(focused ? [] : ['about']).map((room) => ({
-      name: `${room}-reader`,
-      pose: readerPose(room, width, height),
-      range: { pitch: 0, yaw: 0 },
-    })),
+    ...aboutPoses,
     ...(!focused
       ? [
           {
@@ -631,6 +635,11 @@ for (const [width, height] of singleViewport
     start: roomPose('experience', width, height),
     end: application.pose,
   }));
+  const aboutTransitions = aboutPoses.map((application) => ({
+    name: `room-and-${application.name}`,
+    start: roomPose('about', width, height),
+    end: application.pose,
+  }));
   const transitionPose = (transition, fraction) => ({
     target: transition.start.target
       .clone()
@@ -657,6 +666,10 @@ for (const [width, height] of singleViewport
     ...caseStudyTransitions.map((transition) => ({
       ...transition,
       scope: 'case-studies',
+    })),
+    ...aboutTransitions.map((transition) => ({
+      ...transition,
+      scope: 'about',
     })),
   ];
   for (const transition of applicationTransitions)
@@ -824,11 +837,7 @@ for (const [width, height] of singleViewport
         pose: roomPose(room, width, height),
         range: CAMERA_RANGES.room,
       })),
-      ...(focused ? [] : ['about']).map((room) => ({
-        name: `${room}-reader`,
-        pose: readerPose(room, width, height),
-        range: { pitch: 0, yaw: 0 },
-      })),
+      ...aboutPoses,
       ...(!focused
         ? [
             {
@@ -843,6 +852,13 @@ for (const [width, height] of singleViewport
       ...caseStudyTransitions.flatMap((transition) =>
         [0.25, 0.5, 0.75].map((fraction) => ({
           name: `case-studies-application-travel-${fraction}`,
+          pose: transitionPose(transition, fraction),
+          range: transitionRange,
+        })),
+      ),
+      ...aboutTransitions.flatMap((transition) =>
+        [0.25, 0.5, 0.75].map((fraction) => ({
+          name: `about-notebook-travel-${fraction}`,
           pose: transitionPose(transition, fraction),
           range: transitionRange,
         })),
@@ -906,19 +922,20 @@ const report = {
     'CPU homogeneous clipping of the actual rendered sphere triangles, including perspective-correct UV extrema at clipped vertices. Double-precision arithmetic; no rendering, image decode or performance claim.',
     'Front-face culling and all six frustum planes are included. Spacecraft/atmosphere/HTML occlusion is ignored, conservatively retaining hidden Earth pixels.',
     `${createOrbitalWorldReference ? 'Authored world placement' : 'Historical responsive Earth placement/orientation'} and ${createOrbitalWorldReference ? 'canonical' : 'viewport'} world reference come from production. ${hasViewportComposition ? 'The production viewport-composition setter selects a fixed Earth anchor once per viewport, retained through ordinary camera poses. Independent orientation-resize samples use the public setter/update API.' : 'Historical API: each camera sample passes its interpolated layout roll to followCamera; orbital revisions that implement roll compensation consume it, older revisions ignore it.'} Current-source spacecraft supports, camera-fit helpers, retained readers and application monitors provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.`,
-    'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; reader/Contact/Projects/Case studies application bottom132px mobile, otherwise80px. Projects and Case studies use their actual portrait64px/landscape30px top reservation. Custom identity/header wrapping and safe areas may change framing.',
+    'Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; notebook/Contact/Projects/Case studies application bottom132px mobile, otherwise80px. About uses its shared production fit with top32px and side20px reservations; Projects and Case studies use their actual portrait64px/landscape30px top reservation. Custom identity/header wrapping and safe areas may change framing.',
     'The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact/Projects/Case studies fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.',
     ...(hasViewportComposition
       ? [
-          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; the rooms/applications selected by the audit scope plus drag corners are included. Case studies also crosses the three interior room-to-terminal position/angle probes with every resize-composition fraction. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
+          'Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; the rooms/applications selected by the audit scope plus drag corners are included. Case studies and About also cross their three interior room-to-application position/angle probes with every resize-composition fraction. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.',
         ]
       : []),
     'All scopes use 5x5 signed bounded angle samples and hover extrema (reachable angular positions, not equal raw drag displacements); negative/positive portrait yaw uses its actual asymmetric bounds, while neutral is always included. Resize-only overview samples conservatively use the union of both orientation profiles. Only the full historical scope includes overview and overview-room travel. In that full scope, portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.',
-    `Audit scope: ${projectsOnly ? 'Projects room and all four physical application monitor anchors only. Historical overview/other room travel is excluded from this focused extension.' : caseStudiesOnly ? 'Case studies room and its single physical raked application terminal only, including bounded input, room-terminal travel probes and orientation-resize composition. All five category controls, list/detail and Back share this terminal pose. Unchanged overview and other room travel are excluded.' : 'Full historical room/overview envelope plus the Projects and Case studies applications. Their retired paper-reader cameras are replaced by actual monitor cameras.'}`,
+    `Audit scope: ${projectsOnly ? 'Projects room and all four physical application monitor anchors only. Historical overview/other room travel is excluded from this focused extension.' : caseStudiesOnly ? 'Case studies room and its single physical raked application terminal only, including bounded input, room-terminal travel probes and orientation-resize composition. All five category controls, list/detail and Back share this terminal pose. Unchanged overview and other room travel are excluded.' : aboutOnly ? 'About room and its mounted two-page notebook only, including bounded input, entry/exit travel-envelope probes and orientation-resize composition. Every chapter shares the same complete-spread pose. Unchanged overview and other room travel are excluded.' : 'Full historical room/overview envelope plus the Projects, Case studies and About applications. Retired paper-reader cameras are replaced by actual fixed-object cameras.'}`,
     'Where included by scope, Projects application camera fits use projectApplicationLayout and all four production screen anchors/corner transforms, exact room/application endpoint fits, computer 5x5 hover/drag angular samples, and independently eased orientation-resize composition states. Room↔monitor and all six monitor-pair transitions include endpoints and three interior linear-envelope samples, with neutral and union room/computer angle corners. These are conservative finite position/angle probes, not exact ordinary-spring time replays or a proof of arbitrary interrupted trajectories.',
     'Projects and Case studies use the production 0.1 fit minimum and spacecraft near plane 0.08, retained through application closing/switching envelopes; settled ordinary room poses use near0.5. Orbital followCamera retains its own near/far projection as in production: changing the spacecraft near plane does not change Earth clipping, while the closer fitted physical camera position does.',
     'Case studies uses projectApplicationLayout with caseStudyComputer width/height and transformed framing corners. Its view direction is the terminal anchor world quaternion applied to +Z, matching the production raked-glass normal. The room-terminal transition is sampled at fractions 0,.25,.5,.75,1 with neutral and union room/computer angle corners; its three interior probes are also crossed with every orientation-composition fraction. These linear position/direction/distance probes bound selected finite states; they do not replay independently damped axes, spring overshoot, nonzero incoming velocity or arbitrary interrupted trajectories.',
-    'The default full scope includes the retained About reader, Contact computer, Projects monitor cameras and Case studies terminal. There is no configured maximum aspect ratio or minimum pixel dimensions; 17 viewports are an explicit finite audited domain, not a restriction on the application.',
+    'About uses the production fitAboutNotebook helper and complete spread framingAnchor/width/height at every viewport, with a 0.08 fit minimum, 0.08 spacecraft near plane and CAMERA_RANGES.computer hover/drag bounds. No page cropping or stretching is introduced. Room↔notebook travel uses the same finite endpoint/interior position-direction-distance envelope as Case studies, including its three interior probes crossed with all five orientation-composition fractions. These probes cover both entry and exit positions but do not reproduce every spring trajectory, interrupted transition or nonzero incoming velocity.',
+    'The default full scope includes the mounted About notebook, Contact computer, Projects monitor cameras and Case studies terminal. There is no configured maximum aspect ratio or minimum pixel dimensions; 17 viewports are an explicit finite audited domain, not a restriction on the application.',
     'The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.',
     'Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.',
     'Maximum same-latitude span compares visible U coordinates at equal V. A larger global longitude envelope across different latitudes alone does not imply simultaneous duplicated landmarks.',
@@ -929,14 +946,19 @@ const report = {
       ? 'projects-application-extension'
       : caseStudiesOnly
         ? 'case-studies-application-extension'
-        : 'full-camera-envelope',
-    projectMonitorCategories: (caseStudiesOnly ? [] : data.projectScreens).map(
-      (screen) => screen.category,
-    ),
-    caseStudyControlCategories: (projectsOnly ? [] : data.caseStudyScreens).map(
-      (screen) => screen.category,
-    ),
-    caseStudyApplicationAnchorCount: projectsOnly ? 0 : 1,
+        : aboutOnly
+          ? 'about-notebook-extension'
+          : 'full-camera-envelope',
+    projectMonitorCategories: (caseStudiesOnly || aboutOnly
+      ? []
+      : data.projectScreens
+    ).map((screen) => screen.category),
+    caseStudyControlCategories: (projectsOnly || aboutOnly
+      ? []
+      : data.caseStudyScreens
+    ).map((screen) => screen.category),
+    caseStudyApplicationAnchorCount: projectsOnly || aboutOnly ? 0 : 1,
+    aboutNotebookAnchorCount: !focused || aboutOnly ? 1 : 0,
     mesh: process.argv.includes('--mobile-mesh')
       ? 'mobile96x64'
       : 'desktop128x96',

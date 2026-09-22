@@ -77,13 +77,15 @@ export function AdminStudio({
   const [moreInbox, setMoreInbox] = useState(inquiries.length === 100);
   const current = records.find((r) => r.id === selected);
   const storyNoun =
-    kind === 'experience'
-      ? 'case study'
-      : kind === 'site'
-        ? 'identity'
-        : kind === 'link'
-          ? 'social link'
-          : 'project';
+    kind === 'journal'
+      ? 'chapter'
+      : kind === 'experience'
+        ? 'case study'
+        : kind === 'site'
+          ? 'identity'
+          : kind === 'link'
+            ? 'social link'
+            : 'project';
   const dirty =
     JSON.stringify(data) !== JSON.stringify(current?.draft ?? templates[kind]);
   const visible = records
@@ -550,7 +552,9 @@ export function AdminStudio({
                       data:
                         kind === 'link'
                           ? socialLinkDraft(data)
-                          : kind === 'project' || kind === 'experience'
+                          : kind === 'project' ||
+                              kind === 'experience' ||
+                              kind === 'journal'
                             ? projectEditorDraft(data)
                             : data,
                       revision: current?.revision,

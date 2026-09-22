@@ -6,6 +6,7 @@ import { resolveSocialScreens } from '../../lib/content/social-links.ts';
 
 const model = createSpacecraft(THREE, {
   layout: 'wide',
+  journal: [{ title: 'One' }, { title: 'Two' }],
   socials: resolveSocialScreens([
     {
       id: 'github',
@@ -108,33 +109,41 @@ void test('Every iris geometry change, including its final snap, invalidates AO'
   assert.equal(model.group.userData.motionActive, false);
 });
 
-void test('Reader deployment, final snap and immediate hiding remain AO-invalidating', () => {
+void test('Mounted notebook turns, final leaf removal and reduced-motion cancellation invalidate AO', () => {
   reset();
-  update({ activeRoom: 'about' }, true);
-  const tray = model.readerSurfaces.about.parent;
-  const deployedZ = -0.63 + 2.24;
+  update({ activeRoom: 'about', reading: true, notebookChapter: 0 }, true);
+  const book = model.group.userData.aboutNotebook;
+  const mounted = book.root.matrixWorld.toArray();
+  let before = revision();
+  update({ activeRoom: 'about', reading: true, notebookChapter: 1 });
+  assert.equal(book.turning, true);
+  assert.ok(revision() > before);
   let frames = 0;
-  while (tray.position.z !== deployedZ && frames++ < 240) {
-    const before = revision();
-    const previousZ = tray.position.z;
-    update({ activeRoom: 'about', reading: true });
-    assert.ok(tray.position.z > previousZ);
-    assert.equal(tray.visible, true);
-    assert.ok(revision() > before);
-    assert.equal(model.group.userData.geometryChanged, true);
+  while (book.turning && frames++ < 120) {
+    before = revision();
+    update({ activeRoom: 'about', reading: true, notebookChapter: 1 });
+    assert.ok(
+      revision() > before,
+      'Moving and final hidden leaf both refresh occlusion',
+    );
   }
-  assert.equal(tray.position.z, deployedZ);
-  assert.equal(model.group.userData.motionActive, false);
-  const deployed = revision();
-  update({ activeRoom: 'about', reading: true });
-  assert.equal(revision(), deployed);
-  assert.equal(model.group.userData.geometryChanged, false);
+  assert.equal(book.turning, false);
+  assert.deepEqual(book.root.matrixWorld.toArray(), mounted);
+  before = revision();
+  update({ activeRoom: 'about', reading: true, notebookChapter: 1 });
+  assert.equal(revision(), before);
+  update({ activeRoom: 'about', reading: true, notebookChapter: 0 });
+  assert.equal(book.turning, true);
+  before = revision();
+  update({ activeRoom: 'about', reading: true, notebookChapter: 0 }, true);
+  assert.equal(book.turning, false);
+  assert.ok(
+    revision() > before,
+    'Reduced motion must clear the cached moving leaf',
+  );
   model.setReading('about', false, true);
-  assert.equal(tray.visible, false);
-  assert.equal(tray.position.z, -0.63);
-  assert.ok(revision() > deployed);
-  assert.equal(model.group.userData.geometryChanged, true);
-  assert.equal(model.group.userData.motionActive, false);
+  assert.equal(book.root.visible, true);
+  assert.deepEqual(book.root.matrixWorld.toArray(), mounted);
 });
 
 void test('Layout changes survive until the renderer observes their revision', () => {

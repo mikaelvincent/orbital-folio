@@ -34,7 +34,7 @@ import {
 import './project-editor.css';
 
 export type ProjectEditorProps = {
-  kind?: 'project' | 'experience';
+  kind?: 'project' | 'experience' | 'journal';
   data: Record<string, any>;
   records: Content[];
   busy: boolean;
@@ -53,16 +53,23 @@ export function ProjectEditor({
   onPublishAssets,
 }: ProjectEditorProps) {
   const isCaseStudy = kind === 'experience';
-  const noun = isCaseStudy ? 'case study' : 'project';
-  const title = isCaseStudy ? 'Case study' : 'Project';
+  const isJournal = kind === 'journal';
+  const noun = isJournal ? 'chapter' : isCaseStudy ? 'case study' : 'project';
+  const title = isJournal
+    ? 'Notebook chapter'
+    : isCaseStudy
+      ? 'Case study'
+      : 'Project';
   const collection = isCaseStudy ? 'All case studies' : 'All projects';
   const categoryOptions = isCaseStudy
     ? CASE_STUDY_CATEGORIES
     : PROJECT_CATEGORIES;
   const storyBody = isCaseStudy ? caseStudyBody : projectBody;
-  const storyTemplate = isCaseStudy
-    ? CASE_STUDY_STORY_TEMPLATE
-    : PROJECT_STORY_TEMPLATE;
+  const storyTemplate = isJournal
+    ? '## A moment that mattered\n\nTell the story in your own words.\n\n## What stayed with me\n\nShare what you learned or how it shaped you.\n'
+    : isCaseStudy
+      ? CASE_STUDY_STORY_TEMPLATE
+      : PROJECT_STORY_TEMPLATE;
   const [mode, setMode] = useState<'write' | 'preview'>('write');
   const [frame, setFrame] = useState<'landscape' | 'portrait'>('landscape');
   const [file, setFile] = useState<File | null>(null);
@@ -79,16 +86,18 @@ export function ProjectEditor({
   const categories: string[] = isCaseStudy
     ? caseStudyCategories(data)
     : projectCategories(data);
-  const metadataFields = isCaseStudy
-    ? [
-        ['role', 'Role'],
-        ['organization', 'Organization'],
-        ['period', 'Period'],
-      ]
-    : [
-        ['role', 'Role'],
-        ['stack', 'Tools'],
-      ];
+  const metadataFields = isJournal
+    ? []
+    : isCaseStudy
+      ? [
+          ['role', 'Role'],
+          ['organization', 'Organization'],
+          ['period', 'Period'],
+        ]
+      : [
+          ['role', 'Role'],
+          ['stack', 'Tools'],
+        ];
   const media: Record<string, any>[] = records
     .filter((r) => r.kind === 'media')
     .map((r) => ({ ...r.draft, id: r.id, published: !!r.published }));
@@ -163,7 +172,11 @@ export function ProjectEditor({
           <span>01</span>
           <div>
             <h3 id="project-details-heading">{title} details</h3>
-            <p>The essentials visitors see in the collection.</p>
+            <p>
+              {isJournal
+                ? 'Each published chapter becomes a page marker in the About notebook. Keep its title short and easy to scan.'
+                : 'The essentials visitors see in the collection.'}
+            </p>
           </div>
         </div>
         <div className="project-editor-grid">
@@ -187,87 +200,92 @@ export function ProjectEditor({
               this URL.
             </small>
           </label>
-          <label className="studio-field wide-field">
-            Short description
-            <textarea
-              value={data.summary || ''}
-              rows={3}
-              required
-              maxLength={20000}
-              placeholder="What is it, who is it for, and why does it matter?"
-              onChange={(e) => change('summary', e.target.value)}
-            />
-          </label>
-          <fieldset className="project-category-field wide-field">
-            <legend>Categories</legend>
-            <p>
-              Choose one or more. Every {noun} appears in {collection}{' '}
-              automatically.
-            </p>
-            <div className="project-category-options">
-              {categoryOptions.map((category) => (
-                <label key={category.id}>
-                  <input
-                    type="checkbox"
-                    checked={categories.includes(category.id)}
-                    onChange={(e) =>
-                      change(
-                        'categories',
-                        e.target.checked
-                          ? [...categories, category.id]
-                          : categories.filter((id) => id !== category.id),
-                      )
-                    }
-                  />
-                  <span>{category.label}</span>
-                </label>
-              ))}
-            </div>
-            {!categories.length && (
-              <small>
-                {Array.isArray(data.categories)
-                  ? 'Select at least one category before saving.'
-                  : `This older ${noun} is currently shown in ${collection}. Add categories when ready.`}
-              </small>
-            )}
-          </fieldset>
-          <label className="studio-field">
-            Cover image <span className="project-optional">Optional</span>
-            <select
-              value={data.mediaId || ''}
-              onChange={(e) => change('mediaId', e.target.value)}
-            >
-              <option value="">No cover image</option>
-              {media
-                .filter((m) => String(m.mime).startsWith('image/'))
-                .map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.title}
-                    {m.published ? '' : ' · draft'}
-                  </option>
-                ))}
-            </select>
-            <small>Upload below to add a new image to this list.</small>
-          </label>
-          {textField('role', 'My role · optional')}
-          {isCaseStudy ? (
+          {isJournal && textField('subtitle', 'Subtitle · optional')}
+          {!isJournal && (
             <>
-              {textField('organization', 'Organization / team · optional')}
-              {textField('period', 'Period · optional')}
-            </>
-          ) : (
-            <>
-              {textField('stack', 'Tools / technology · optional', {
-                placeholder: 'React, TypeScript, …',
-              })}
-              {textField('demoUrl', 'Live project URL · optional', {
-                type: 'url',
-                placeholder: 'https://',
-              })}
-              {textField('sourceUrl', 'Source repository URL · optional', {
-                type: 'url',
-                placeholder: 'https://',
-              })}
+              <label className="studio-field wide-field">
+                Short description
+                <textarea
+                  value={data.summary || ''}
+                  rows={3}
+                  required
+                  maxLength={20000}
+                  placeholder="What is it, who is it for, and why does it matter?"
+                  onChange={(e) => change('summary', e.target.value)}
+                />
+              </label>
+              <fieldset className="project-category-field wide-field">
+                <legend>Categories</legend>
+                <p>
+                  Choose one or more. Every {noun} appears in {collection}{' '}
+                  automatically.
+                </p>
+                <div className="project-category-options">
+                  {categoryOptions.map((category) => (
+                    <label key={category.id}>
+                      <input
+                        type="checkbox"
+                        checked={categories.includes(category.id)}
+                        onChange={(e) =>
+                          change(
+                            'categories',
+                            e.target.checked
+                              ? [...categories, category.id]
+                              : categories.filter((id) => id !== category.id),
+                          )
+                        }
+                      />
+                      <span>{category.label}</span>
+                    </label>
+                  ))}
+                </div>
+                {!categories.length && (
+                  <small>
+                    {Array.isArray(data.categories)
+                      ? 'Select at least one category before saving.'
+                      : `This older ${noun} is currently shown in ${collection}. Add categories when ready.`}
+                  </small>
+                )}
+              </fieldset>
+              <label className="studio-field">
+                Cover image <span className="project-optional">Optional</span>
+                <select
+                  value={data.mediaId || ''}
+                  onChange={(e) => change('mediaId', e.target.value)}
+                >
+                  <option value="">No cover image</option>
+                  {media
+                    .filter((m) => String(m.mime).startsWith('image/'))
+                    .map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.title}
+                        {m.published ? '' : ' · draft'}
+                      </option>
+                    ))}
+                </select>
+                <small>Upload below to add a new image to this list.</small>
+              </label>
+              {textField('role', 'My role · optional')}
+              {isCaseStudy ? (
+                <>
+                  {textField('organization', 'Organization / team · optional')}
+                  {textField('period', 'Period · optional')}
+                </>
+              ) : (
+                <>
+                  {textField('stack', 'Tools / technology · optional', {
+                    placeholder: 'React, TypeScript, …',
+                  })}
+                  {textField('demoUrl', 'Live project URL · optional', {
+                    type: 'url',
+                    placeholder: 'https://',
+                  })}
+                  {textField('sourceUrl', 'Source repository URL · optional', {
+                    type: 'url',
+                    placeholder: 'https://',
+                  })}
+                </>
+              )}
             </>
           )}
         </div>
@@ -393,6 +411,9 @@ export function ProjectEditor({
               {data.summary && (
                 <p className="project-preview-summary">{data.summary}</p>
               )}
+              {isJournal && data.subtitle && (
+                <p className="project-preview-summary">{data.subtitle}</p>
+              )}
               {metadataFields.some(([key]) => data[key]) && (
                 <dl className="project-preview-meta">
                   {metadataFields.map(([key, label]) =>
@@ -407,7 +428,11 @@ export function ProjectEditor({
               )}
               {cover && <ProjectMedia item={cover} media={media} />}
               {body.trim() ? (
-                <ProjectMarkdown body={body} media={media} />
+                <ProjectMarkdown
+                  body={body}
+                  media={media}
+                  preserveSoftBreaks={isJournal}
+                />
               ) : (
                 <p>Add your story in Write to preview it here.</p>
               )}
@@ -560,7 +585,11 @@ export function ProjectEditor({
         )}
       </section>
       <details className="project-editor-advanced">
-        <summary>Display order and search settings</summary>
+        <summary>
+          {isJournal
+            ? 'Display order and sample metadata'
+            : 'Display order and search settings'}
+        </summary>
         <div className="project-editor-grid">
           <label className="studio-field">
             Display order
@@ -579,11 +608,15 @@ export function ProjectEditor({
             />
             Sample content metadata
           </label>
-          {textField('subtitle', 'Subtitle · optional')}
-          {textField('seoTitle', 'Search / social title · optional')}
-          {textField(
-            'seoDescription',
-            'Search / social description · optional',
+          {!isJournal && (
+            <>
+              {textField('subtitle', 'Subtitle · optional')}
+              {textField('seoTitle', 'Search / social title · optional')}
+              {textField(
+                'seoDescription',
+                'Search / social description · optional',
+              )}
+            </>
           )}
         </div>
       </details>

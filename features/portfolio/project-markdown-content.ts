@@ -42,11 +42,14 @@ export function projectContentUrl(
 
 export type ProjectHeading = { id: string; text: string; depth: number };
 
-export function parseProjectMarkdown(body: string): {
+export function parseProjectMarkdown(
+  body: string,
+  { preserveSoftBreaks = false }: { preserveSoftBreaks?: boolean } = {},
+): {
   tokens: TokensList;
   headings: ProjectHeading[];
 } {
-  const tokens = marked.lexer(body, { gfm: true, breaks: false });
+  const tokens = marked.lexer(body, { gfm: true, breaks: preserveSoftBreaks });
   const headings: ProjectHeading[] = [];
   const used = new Map<string, number>();
   void marked.walkTokens(tokens, (token) => {

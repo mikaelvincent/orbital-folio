@@ -1,0 +1,19 @@
+{
+  "files": [
+    "features/portfolio/about-notebook.tsx",
+    "features/portfolio/immersive-portfolio.tsx",
+    "features/portfolio/about-notebook.css",
+    "app/globals.css"
+  ],
+  "reason": "Restore notebook scroll after visible arrival; fix immersive scene to viewport to prevent keyboard focus scrolling and clipping the book; remove an orphaned room-transport CSS rule after legacy transport removal.",
+  "fullSuite": "479/479 passed before this UI-only change.",
+  "requiredFollowup": [
+    "affected lint",
+    "typecheck for TSX changes",
+    "production build of final source",
+    "CSS formatter check",
+    "root live browser verification of reopening scroll retention and keyboard focus at 1280px"
+  ],
+  "fullSuiteSourceHashes": "full-suite-source-hashes.json",
+  "finalSourceHashes": "final-source-hashes.json"
+}

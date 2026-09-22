@@ -5,6 +5,7 @@ import {
   NativeSelectOption,
 } from '@/components/ui/native-select';
 import { SocialLinkFields } from './social-link-fields';
+import { ProjectEditor } from './project-editor';
 import type { Content, Kind } from '@/lib/content/types';
 import {
   ABOUT_PORTRAIT_ASPECT,
@@ -173,6 +174,18 @@ export function StudioContentFields({
   records: Content[];
   selected: string;
 } & PhotoMediaActions) {
+  if (kind === 'journal')
+    return (
+      <ProjectEditor
+        kind="journal"
+        data={data}
+        records={records}
+        busy={busy}
+        onChange={setData}
+        onUpload={onUpload}
+        onPublishAssets={onPublishAssets}
+      />
+    );
   const filteredKeys = [
     ...new Set([
       ...Object.keys(data),

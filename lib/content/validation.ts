@@ -153,7 +153,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       clean[key] = value;
     } else {
       const markdown =
-        key === 'body' && (kind === 'project' || kind === 'experience');
+        key === 'body' && ['project', 'experience', 'journal'].includes(kind);
       const limit = markdown ? 100000 : 20000;
       if (typeof value !== 'string' || value.length > limit)
         throw new HttpError(

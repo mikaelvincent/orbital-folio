@@ -32,7 +32,14 @@ test('Archive choices share fixed terminal glass while retaining distinct physic
     model.group.getObjectByName('experience-deployable-reader'),
     undefined,
   );
-  assert.ok(model.group.getObjectByName('about-deployable-reader'));
+  assert.equal(
+    model.group.getObjectByName('about-deployable-reader'),
+    undefined,
+  );
+  assert.equal(
+    model.readerSurfaces.about,
+    model.group.userData.aboutNotebook.anchor,
+  );
   assert.ok(Math.abs(computer.width / computer.height - 16 / 9) < 1e-12);
   assert.equal(computer.root.rotation.x, -0.55);
   const anchorMatrices = [];

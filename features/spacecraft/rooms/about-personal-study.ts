@@ -1,8 +1,12 @@
 import { drawStudyArtwork } from './about-study-artwork.ts';
 import { createAboutPhotoPrints } from './about-photo-print.ts';
 import type { AboutPhotos } from '../../../lib/content/about-photos.ts';
+import {
+  ABOUT_NOTEBOOK_LAYOUT,
+  notebookWindowStart,
+} from './about-notebook-layout.ts';
 
-/** Static, floor-referenced crew study. +Z faces the visitor; all props are retained. */
+/** Floor-referenced crew study. +Z faces the visitor; the book stays retained. */
 export function buildAboutPersonalStudy(
   THREE: any,
   h: any,
@@ -11,6 +15,8 @@ export function buildAboutPersonalStudy(
     accent?: any;
     photos?: AboutPhotos;
     onPhotoChange?: () => void;
+    journal?: ReadonlyArray<{ title?: string }>;
+    notebookName?: string;
   } = {},
 ) {
   const photoPrints = createAboutPhotoPrints(THREE, options.onPhotoChange);
@@ -1203,6 +1209,30 @@ export function buildAboutPersonalStudy(
   // retains each paper layer without spending hundreds of triangles on its bevel.
   const lowerPageEdgeGeometry = new THREE.BoxGeometry(0.449, 0.0012, 0.0013);
   const outerPageEdgeGeometry = new THREE.BoxGeometry(0.0012, 0.56, 0.0013);
+  let rightPaperSection: any;
+  let rightPrintedPage: any;
+  const notebookFlags: Array<{
+    anchor: any;
+    printed: any;
+    root: any;
+  }> = [];
+  const initialChapters = options.journal ?? [
+    { title: 'My story' },
+    { title: 'How I work' },
+    { title: 'Beyond work' },
+  ];
+  const flagColors = ['#d9ae61', '#b6bf8a', '#9ab6c3'];
+  function paintFlag(ctx: any, index: number, title: string) {
+    ctx.fillStyle = flagColors[index];
+    ctx.fillRect(0, 0, 768, 256);
+    ctx.fillStyle = '#233747';
+    ctx.font = '500 69px "Helvetica Neue", Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (title) ctx.fillText(title, 412, 131, 670);
+    ctx.fillStyle = 'rgba(239,229,206,.35)';
+    ctx.fillRect(0, 0, 171, 256);
+  }
   for (const side of [-1, 1]) {
     const leaf = group(
       side < 0 ? 'left-paper-section' : 'right-paper-section',
@@ -1259,18 +1289,24 @@ export function buildAboutPersonalStudy(
       1024,
       1280,
       (ctx) =>
-        drawStudyArtwork(ctx, side < 0 ? 'journal-left' : 'journal-right'),
+        drawStudyArtwork(ctx, side < 0 ? 'journal-left' : 'journal-right', {
+          notebookName: options.notebookName,
+        }),
     );
     pageMat.userData.studyInk = true;
-    mesh(pageGeo, pageMat, 'printed-top-paper-leaf', upperLeaf);
+    const printedPage = mesh(
+      pageGeo,
+      pageMat,
+      'printed-top-paper-leaf',
+      upperLeaf,
+    );
     if (side === 1) {
+      rightPaperSection = leaf;
+      rightPrintedPage = printedPage;
       // Flags share a profile. Their adhesive region overlaps the actual leaf;
       // their free end extends beyond it, entirely clear of the cover/cradle.
-      for (const [i, title] of [
-        'My story',
-        'How I work',
-        'Beyond work',
-      ].entries()) {
+      for (let i = 0; i < 3; i++) {
+        const title = initialChapters[i]?.title ?? '';
         const y = 0.172 - i * 0.165;
         const flagRoot = group(
           'tabbed-paper-leaf-' + i,
@@ -1312,17 +1348,9 @@ export function buildAboutPersonalStudy(
         );
         flag.position.set(paperEdge + 0.0475, y, 0.0009);
         const labelMat = material('flag-print-' + i, 0xffffff, 1);
-        labelMat.map = canvasMap('paper-flag-title-' + i, 768, 256, (ctx) => {
-          ctx.fillStyle = ['#d9ae61', '#b6bf8a', '#9ab6c3'][i];
-          ctx.fillRect(0, 0, 768, 256);
-          ctx.fillStyle = '#233747';
-          ctx.font = '500 69px "Helvetica Neue", Arial, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(title, 412, 131, 670);
-          ctx.fillStyle = 'rgba(239,229,206,.35)';
-          ctx.fillRect(0, 0, 171, 256);
-        });
+        labelMat.map = canvasMap('paper-flag-title-' + i, 768, 256, (ctx) =>
+          paintFlag(ctx, i, title),
+        );
         labelMat.side = THREE.DoubleSide;
         labelMat.userData.studyInk = true;
         const label = mesh(
@@ -1341,9 +1369,186 @@ export function buildAboutPersonalStudy(
           attachedTo: 'paper',
           button: false,
         };
+        const flagAnchor = new THREE.Object3D();
+        flagAnchor.name = prefix + 'paper-flag-control-anchor-' + i;
+        flagAnchor.position.copy(flag.position);
+        flagAnchor.position.z += 0.009;
+        flagRoot.add(flagAnchor);
+        notebookFlags.push({
+          anchor: flagAnchor,
+          printed: label,
+          root: flagRoot,
+        });
       }
     }
   }
+  // Reading content stays on the existing page. These geometry-free anchors
+  // survive batching, including both physical leaves in the camera reference.
+  const notebookAnchor = new THREE.Object3D();
+  notebookAnchor.name = prefix + 'notebook-application-anchor';
+  notebookAnchor.position.set(...ABOUT_NOTEBOOK_LAYOUT.anchorPosition);
+  notebookAnchor.userData = {
+    width: ABOUT_NOTEBOOK_LAYOUT.width,
+    height: ABOUT_NOTEBOOK_LAYOUT.height,
+    section: 'about',
+    kind: 'notebook',
+  };
+  rightPaperSection.add(notebookAnchor);
+  const openingAnchor = new THREE.Object3D();
+  openingAnchor.name = prefix + 'notebook-opening-anchor';
+  openingAnchor.position.set(...ABOUT_NOTEBOOK_LAYOUT.framingAnchorPosition);
+  journal.add(openingAnchor);
+  const framingAnchor = new THREE.Object3D();
+  framingAnchor.name = prefix + 'notebook-framing-anchor';
+  framingAnchor.position.copy(openingAnchor.position);
+  journal.add(framingAnchor);
+
+  // One temporary paper leaf crosses the binding; the retained book, page
+  // blocks and adhesive flags never move. Its group remains mutable after batching.
+  const turningLeaf = group(
+    'turning-notebook-leaf',
+    0.004,
+    0,
+    0.039,
+    rightPaperSection,
+  );
+  turningLeaf.userData.animated = true;
+  turningLeaf.userData.excludePick = true;
+  turningLeaf.visible = false;
+  const turningGeometry = rightPrintedPage.geometry.clone();
+  turningGeometry.translate(0.227, 0, 0);
+  const turningMaterial = material('turning-notebook-paper', 0xffffff, 1);
+  turningMaterial.side = THREE.DoubleSide;
+  turningMaterial.userData.studyInk = true;
+  turningMaterial.map = canvasMap('turning-notebook-paper', 512, 640, (ctx) =>
+    drawStudyArtwork(ctx, 'journal-blank'),
+  );
+  const turningSurface = mesh(
+    turningGeometry,
+    turningMaterial,
+    'turning-paper-surface',
+    turningLeaf,
+  );
+  turningSurface.castShadow = turningSurface.receiveShadow = false;
+
+  const notebook = {
+    ...ABOUT_NOTEBOOK_LAYOUT,
+    root: journal,
+    studyRoot: root,
+    anchor: notebookAnchor,
+    openingAnchor,
+    framingAnchor,
+    flags: ABOUT_NOTEBOOK_LAYOUT.flags.map((flag, i) => ({
+      ...flag,
+      anchor: notebookFlags[i].anchor,
+      index: i,
+      title: initialChapters[i]?.title ?? '',
+      available: i < initialChapters.length,
+    })),
+    chapters: [...initialChapters],
+    active: false,
+    available: initialChapters.length > 0,
+    chapter: 0,
+    windowStart: 0,
+    turning: false,
+    turnProgress: 1,
+    turnDirection: 1,
+    setActive(active: boolean) {
+      if (notebook.active === active) return;
+      notebook.active = active;
+      repaintNotebook();
+      if (!active) finishTurn();
+    },
+    setChapter(index: number, instant = false) {
+      const next = Math.max(
+        0,
+        Math.min(
+          notebook.chapters.length - 1,
+          Number.isFinite(index) ? Math.floor(index) : 0,
+        ),
+      );
+      if (next === notebook.chapter) {
+        if (instant) finishTurn();
+        return;
+      }
+      notebook.turnDirection = next > notebook.chapter ? 1 : -1;
+      notebook.chapter = next;
+      notebook.windowStart = notebookWindowStart(next);
+      repaintNotebook();
+      if (instant || !notebook.active) {
+        finishTurn();
+        return;
+      }
+      notebook.turning = true;
+      notebook.turnProgress = 0;
+      turningLeaf.rotation.y = notebook.turnDirection > 0 ? 0 : -Math.PI;
+      turningLeaf.visible = true;
+    },
+    setChapters(chapters: ReadonlyArray<{ title?: string }>) {
+      notebook.chapters = [...chapters];
+      notebook.available = chapters.length > 0;
+      notebook.chapter = Math.max(
+        0,
+        Math.min(notebook.chapter, chapters.length - 1),
+      );
+      notebook.windowStart = notebookWindowStart(notebook.chapter);
+      finishTurn();
+      repaintNotebook();
+    },
+    update(delta: number, instant = false) {
+      if (!notebook.turning) return false;
+      if (instant || !notebook.active) {
+        finishTurn();
+        return true;
+      }
+      const previous = notebook.turnProgress;
+      notebook.turnProgress = Math.min(
+        1,
+        notebook.turnProgress +
+          Math.max(0, Number.isFinite(delta) ? delta : 0) / 0.44,
+      );
+      if (notebook.turnProgress === previous) return false;
+      const progress = notebook.turnProgress;
+      const eased = progress * progress * (3 - 2 * progress);
+      turningLeaf.rotation.y =
+        -Math.PI * (notebook.turnDirection > 0 ? eased : 1 - eased);
+      if (progress === 1) finishTurn();
+      return true;
+    },
+  };
+  function finishTurn() {
+    notebook.turning = false;
+    notebook.turnProgress = 1;
+    turningLeaf.visible = false;
+    turningLeaf.rotation.y = 0;
+  }
+  function repaintNotebook() {
+    const pageMap = rightPrintedPage.material.map;
+    const pageContext = pageMap?.image?.getContext?.('2d');
+    if (pageContext) {
+      drawStudyArtwork(
+        pageContext,
+        notebook.active ? 'journal-blank' : 'journal-right',
+      );
+      pageMap.needsUpdate = true;
+    }
+    for (const [i, flag] of notebook.flags.entries()) {
+      const index = notebook.windowStart + i;
+      flag.index = index;
+      flag.available = index < notebook.chapters.length;
+      flag.title = notebook.chapters[index]?.title ?? '';
+      const physical = notebookFlags[i];
+      physical.root.userData.pageFlag.label = flag.title;
+      physical.root.userData.pageFlag.page = index;
+      const map = physical.printed.material.map;
+      const context = map?.image?.getContext?.('2d');
+      if (context) {
+        paintFlag(context, i, notebook.active ? '' : flag.title);
+        map.needsUpdate = true;
+      }
+    }
+  }
+  root.userData.aboutNotebook = notebook;
   // Four clips hold the book and exposed paper; all connect around its edge.
   for (const x of [-0.441, 0.441]) {
     box(
@@ -1548,17 +1753,19 @@ export function buildAboutPersonalStudy(
   screwSet(screwPoints);
   root.userData.personalStudy = {
     floorReferenced: true,
-    static: true,
+    static: false,
     worktop: topY,
     journalTilt: -0.64,
-    pageFlags: ['My story', 'How I work', 'Beyond work'],
+    pageFlags: initialChapters
+      .slice(0, 3)
+      .map((chapter) => chapter.title ?? ''),
     pageFlagsAttachedTo: 'paper-leaves',
     enclosedStowage: true,
     berthCenter: bx,
     berthLeftEdge: bx - 0.395,
     berthFixture: 'rigid-access-rail-with-reading-light',
     readingStationOffset: 0.085,
-    noNewInteractions: true,
+    noNewInteractions: false,
   };
   return root;
 }

@@ -3,7 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from '../spacecraft/scene-loader';
-import { WorldReader } from './world-reader';
+import { ContactComputerWindow } from './contact-computer-window';
+import { AboutNotebook } from './about-notebook';
 import {
   ProjectLibraryWindow,
   type ProjectFilter,
@@ -68,6 +69,13 @@ export function ImmersivePortfolio({
   const [earthPlayback, setEarthPlayback] =
     useState<EarthPlaybackController | null>(null);
   const [reading, setReading] = useState(false);
+  const [selectedChapter, setNotebookChapter] = useState(0);
+  const notebookChapter = Math.min(
+    selectedChapter,
+    Math.max(0, data.journal.length - 1),
+  );
+  const notebookPositions = useRef<Record<string, number>>({});
+  const returnToNotebook = useRef(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
   const navigationToggle = useRef<HTMLButtonElement>(null);
@@ -172,6 +180,11 @@ export function ImmersivePortfolio({
         !!(next.slug || next.open);
       setArrived(withinApplication);
       setTravel(!reading && !withinApplication);
+      returnToNotebook.current =
+        latest.current.section === 'about' &&
+        !!latest.current.open &&
+        next.section === 'about' &&
+        !next.open;
       latest.current = next;
       setDestination(next);
       if (push) window.history.pushState({ orbital: true }, '', hrefFor(next));
@@ -322,8 +335,19 @@ export function ImmersivePortfolio({
     if (!arrived || !immersive || destination.section === 'home') return;
     // A visitor may be choosing a new destination as the current flight ends.
     if (navigation.current?.querySelector('nav')) return;
+    if (
+      returnToNotebook.current &&
+      destination.section === 'about' &&
+      !readingSurface
+    ) {
+      document
+        .querySelector<HTMLButtonElement>('.world-notebook-target')
+        ?.focus({ preventScroll: true });
+      returnToNotebook.current = false;
+      return;
+    }
     if (readingSurface) {
-      const appHeading = ['projects', 'experience'].includes(
+      const appHeading = ['projects', 'experience', 'about'].includes(
         destination.section,
       )
         ? document.querySelector<HTMLElement>('#world-reader h1')
@@ -509,6 +533,10 @@ export function ImmersivePortfolio({
             site={s}
             projects={data.projects}
             caseStudies={data.experience}
+            journal={data.journal}
+            notebookChapter={notebookChapter}
+            onOpenNotebook={() => go({ section: 'about', open: true })}
+            onCloseNotebook={() => go({ section: 'about' })}
             links={data.links}
             media={data.media}
             section={destination.section}
@@ -608,13 +636,20 @@ export function ImmersivePortfolio({
                 }
                 onClose={() => go({ section: 'experience' })}
               />
-            ) : (
-              <WorldReader
-                key={destination.section}
+            ) : destination.section === 'about' ? (
+              <AboutNotebook
                 data={data}
-                section={destination.section}
-                sent={destination.sent}
-                error={destination.error}
+                chapter={notebookChapter}
+                onChapterChange={setNotebookChapter}
+                positions={notebookPositions.current}
+                ready={arrived && !travel}
+                onClose={() => go({ section: 'about' })}
+              />
+            ) : (
+              <ContactComputerWindow
+                site={s}
+                initialSent={destination.sent}
+                initialError={destination.error}
                 submission={contactSubmission}
                 onSubmissionChange={setContactSubmission}
                 draft={contactDraft}

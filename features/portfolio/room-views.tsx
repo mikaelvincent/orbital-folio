@@ -228,7 +228,7 @@ export function AboutView({ data }: { data: Portfolio }) {
           <nav aria-label={s.aboutLabel}>
             {data.journal.map((j, i) => (
               <a href={'#' + j.slug} key={j.id}>
-                <span>0{i + 1}</span>
+                <span>{String(i + 1).padStart(2, '0')}</span>
                 {j.title}
                 <ArrowUpRight size={15} />
               </a>
@@ -241,12 +241,17 @@ export function AboutView({ data }: { data: Portfolio }) {
             <article key={j.id} id={j.slug}>
               <div className="paper-top">
                 <p className="eyebrow">
-                  {s.journalLabel} / 0{i + 1}
+                  {s.journalLabel} / {String(i + 1).padStart(2, '0')}
                 </p>
               </div>
               <h2>{j.title}</h2>
-              <p className="journal-subtitle">{j.subtitle}</p>
-              <TextBlocks text={j.body} />
+              {j.subtitle && <p className="journal-subtitle">{j.subtitle}</p>}
+              <ProjectMarkdown
+                body={j.body || ''}
+                media={data.media}
+                headingIdPrefix={`journal-${j.id}-`}
+                preserveSoftBreaks
+              />
             </article>
           ))}
           {!data.journal.length && <p>{s.emptyLabel}</p>}

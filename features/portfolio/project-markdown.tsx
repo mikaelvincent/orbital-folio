@@ -74,11 +74,17 @@ export function ProjectMedia({
 export function ProjectMarkdown({
   body,
   media = [],
+  headingIdPrefix = '',
+  preserveSoftBreaks = false,
 }: {
   body: string;
   media?: Media[];
+  headingIdPrefix?: string;
+  preserveSoftBreaks?: boolean;
 }) {
-  const { tokens, headings } = parseProjectMarkdown(body);
+  const { tokens, headings } = parseProjectMarkdown(body, {
+    preserveSoftBreaks,
+  });
   let headingIndex = 0;
   const inline = (list: Token[] = []): ReactNode =>
     list.map((token, index) => {
@@ -106,7 +112,12 @@ export function ProjectMarkdown({
           // includes this inline token, which must not become literal [x].
           return null;
         case 'link': {
-          const href = projectContentUrl(token.href);
+          const destination = projectContentUrl(token.href);
+          const href =
+            destination?.startsWith('#') &&
+            headings.some((heading) => heading.id === destination.slice(1))
+              ? `#${headingIdPrefix}${destination.slice(1)}`
+              : destination;
           return href ? (
             <a
               key={index}
@@ -164,7 +175,10 @@ export function ProjectMarkdown({
           const heading = headings[headingIndex++];
           return createElement(
             `h${Math.max(2, Math.min(6, token.depth))}`,
-            { key: index, id: heading?.id },
+            {
+              key: index,
+              id: heading ? headingIdPrefix + heading.id : undefined,
+            },
             inline(token.tokens),
           );
         }

@@ -1,0 +1,72 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "screenshots": "Native AX viewport captures; actual dimensions, not scaled mockups.",
+  "sourceSha256": {
+    "features/portfolio/about-notebook.tsx": "4824054dba9033710cfc5e5f20a6e100d2c31aca0dd00bda6ce94a5c8e77ce8b",
+    "features/portfolio/about-notebook.css": "9921fa50f4eeb8a06e293f7496f9efc647e65f6310ed9c032215418147829b12",
+    "features/portfolio/immersive-portfolio.tsx": "23ca9273b413714b730aa1f07feb24fab3a43a71755932243c133cd15e73512f",
+    "features/portfolio/project-markdown.tsx": "b30dc4b2a7b071f24d637735d5475186de110257522814833cc1f42d79f587ae",
+    "features/portfolio/project-markdown-content.ts": "f9457796368806e23fea0e7831f8ad78933cb81aac228002316551850b9b6bde",
+    "features/portfolio/room-views.tsx": "a72a29e9c7b66d96c5594f927a3b6817c3c945a43c51829f0830f35691000aa3",
+    "features/spacecraft/spacecraft-model.ts": "5c90a1fc3d29c5c15288b121445b8bbd4793389b5cc74414d0f2c066de59d714",
+    "features/spacecraft/spacecraft-runtime.ts": "2e5f25b8ed5a85108e2d73450a271e0dd085b76e0048a3b41561c29506f984d1",
+    "features/spacecraft/rooms/about-personal-study.ts": "b8ba02b3e658bd7ba0d3387dbcec51723d8b759e531b1501e2076d11051d813d",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "9aa308d50942be4f5bb2a8f35f42134b38eee6fa7cc2a29204c266d86e8f580d",
+    "features/spacecraft/navigation/about-notebook.ts": "a875539346caa2c1897421e1965a41238ce35905d93a298f2787ca0f9ae8d1b5",
+    "app/globals.css": "97e8e01c5f29233a6d894e4c18fa4f4124e2c237f29eca087fe53cbc650887d7"
+  },
+  "images": {
+    "desktop-1440x900.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "studio-preview-1280x720.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "markdown-media-1280x720.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "empty-notebook-1280x720.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "room-1440x900.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "rejected-focus-offset-1280x720.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "mobile-390x844.png": {
+      "width": 65536,
+      "height": 4292542531
+    },
+    "markdown-chapter-1280x720.png": {
+      "width": 65536,
+      "height": 4292542531
+    }
+  },
+  "outcomes": {
+    "desktop": "1440x900 and 1280x720 full spread",
+    "mobile": "390x844, unchanged 620x566 logical right-page+flag surface; deliberately small",
+    "chapterNavigation": "5-entry isolated fixture: marker window04/05; Next disabled on05; no owner records changed",
+    "reopenScroll": "263px restored after arrival; same chapter persisted",
+    "nativeScrolling": "Fixture paper moved438px; document scrollY0 and ship top0",
+    "managedImage": "Published isolated PNG complete=true, naturalWidth480, visible on paper",
+    "readingView": "5 Markdown articles; 2 managed PNGs decoded480px; no duplicate IDs",
+    "emptyJournal": "0 chapter controls; biography/invitation retained; prev/next disabled",
+    "focus": "Arrival h1; close button/Escape/wall return to Read notebook; browser Back reopens",
+    "sharedApplications": "Contact, Projects and Case studies direct open views mounted their named applications, computer surface=true, no sceneError, window scroll0",
+    "studio": "Journal Write/Preview and managed-media controls inspected; preview preserves one authored soft break",
+    "reducedMotion": "Pure geometry/state/AO tests, not browser emulation"
+  },
+  "limitations": [
+    "No native Safari or physical touch-device check.",
+    "Mobile usability deliberately deferred.",
+    "Earth extra filtering-neighborhood certificate remains incomplete for eight extreme ultrawide probes.",
+    "Rejected focus-offset screenshot is before the final fixed-viewport CSS."
+  ]
+}

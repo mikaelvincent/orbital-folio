@@ -38,7 +38,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Temporary Earth playback inspection | `features/orbit/earth-playback.ts`, `earth-playback-controls.tsx`, `earth-playback-controls.css`; the orbital environment owns Earth-only playback state |
 | Bottom scene tools menu | `features/portfolio/scene-tools-menu.tsx`, `scene-tools-menu.css`; Earth playback, Scene diagnostics and Content studio beside Reading view |
 | Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
-| Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/world-reader.tsx` |
+| Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/about-notebook.tsx`; `features/spacecraft/navigation/about-notebook.ts` and `rooms/about-notebook-layout.ts` register the mounted paper and flags |
 | Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
 | Studio coordination and workflows | `features/studio/admin-studio.tsx`, with setup, content-fields, inbox, access and model-tools modules beside it |
 | Content and persistence | `lib/content/repository.ts`, `lib/content/types.ts`, `lib/content/validation.ts`, `db/schema.ts`, `drizzle/` |
@@ -204,8 +204,8 @@ and scroll position; each detail also retains its scroll position during that
 visit. A persistent scrollbar supplements ordinary native scrolling. Public
 `/projects`, `/projects?open=1` and `/projects/<slug>` URLs, browser history, private
 previews and semantic reading views remain available. The superseded Projects
-clipboard and old gallery-page transport UI are removed. About retains its
-deployable reader; Case studies now uses its fixed archive terminal.
+clipboard and old gallery-page transport UI are removed. About uses its mounted
+notebook; Case studies uses its fixed archive terminal.
 
 The HTML application stays within the glass and clear of its inset feedback rim,
 including close portrait and bounded hover/drag views. Its plane is registered to
@@ -350,7 +350,7 @@ separate retained scroll for each story during the visit. X, Escape or an
 exposed pressure-wall click returns to the room; hardware blocks through-wall
 dismissal. Responsive framing approaches the fixed glass and crops its width in
 portrait, keeping text readable. The former Case studies deployable reader and
-legacy chapter pager are removed; About remains unchanged.
+legacy chapter pager are removed. About subsequently moved to its mounted notebook.
 
 Public `/case-studies/<slug>` URLs, category query state, browser history,
 `/experience` compatibility and authenticated preview by ID/slug share the
@@ -380,6 +380,42 @@ concepts; the tool preserves owner edits and divergent drafts, reuses only
 verified public media, and does not change Relay or other collections. Fresh
 seeds include the text; explicit population supplies managed media. See
 [current standby/demo evidence](evidence/archive-standby-demo/README.md).
+
+## About mounted notebook
+
+The September 22 implementation approval replaces the old deployable About
+reader with native content on the existing notebook in its desk cradle. Opening
+**Read notebook** moves the camera to the stationary complete spread, like the
+other rooms' screen applications. The original left-page mountain artwork stays,
+with the current editable owner name; the right physical paper holds the reader.
+There is no detached dialog, backdrop or replacement notebook.
+
+Published Journal entries retain their title, subtitle, order and body. Three
+attached colored paper flags select a window of chapters; previous/next controls
+reach every entry and advance that window beyond three chapters. A brief physical
+leaf turn accompanies selection; reduced motion changes content immediately.
+Long content scrolls within the right page with the shared persistent scrollbar,
+and per-chapter scroll positions and selection survive closing within the visit.
+Back to About, Escape or exposed pressure wall returns to the room; furniture
+blocks wall dismissal and keyboard focus returns to the notebook. The first
+chapter also includes the editable biography; configured social links and the
+Contact invitation remain available. An empty journal retains that introduction.
+
+Journal authoring reuses the Markdown Write/Preview editor and managed media
+workflow from Projects and Case studies. The notebook and semantic Reading view
+share safe Markdown rendering, preserve legacy single line breaks, and support
+headings, lists, links, images, video/captions, code and tables. Raw HTML is escaped;
+private media must publish before the chapter, and published chapter dependencies
+prevent deleting or unpublishing referenced media. No existing entries are renamed
+or rewritten by this implementation.
+
+The owner's latest instruction explicitly defers a dedicated mobile design:
+**portrait uses exactly the same full spread, page dimensions, typography and
+attached flag layout as desktop, scaled down to fit**. Earlier proposals to crop
+to the right page or relocate markers are superseded. No paper stretch or mobile
+reflow is implemented. Semantic Reading view remains the readable alternative.
+Room, overview, doorway and orbital world framing keep their existing rules;
+only the close notebook camera is new. See [implementation evidence](evidence/about-notebook/README.md).
 
 ## About photos and social cards
 
@@ -414,8 +450,9 @@ mail handler; normal context menus, keyboard activation and drag-click
 suppression remain. Targets are available only in settled About, outside reader
 mode. Empty slots keep passive paper artwork with no target or platform mark.
 Reading view and the notebook reader expose the same selected links as wrapping,
-44-pixel-high controls. The notebook, other furniture and room camera fit are
-unchanged. The three prints are 0.38 × 0.38 local units; live neutral-room checks
+44-pixel-high logical controls. The notebook reader now uses the mounted spread
+described above; other furniture and the room camera fit remain unchanged.
+The three prints are 0.38 × 0.38 local units; live neutral-room checks
 measured 24.19-pixel targets at 360 × 800 and 26.31 at 390 × 844.
 
 Save draft, private preview and Publish remain separate. Images require explicit
