@@ -1,0 +1,23 @@
+✔ Archive choices share fixed terminal glass while retaining distinct physical category anchors (5936.631209ms)
+✔ All archive choices stay interactive before assignments and after their collection becomes empty (3752.440375ms)
+✔ Tilted archive terminal remains readable, clear of its hardware and beyond the camera near plane (8355.256167ms)
+✔ Object highlights isolate shared materials and do not accumulate brightness (5.504417ms)
+✔ The shared brightness transition is smooth and independent of refresh rate (0.516416ms)
+✔ Screens and cartridges retain dim idle through previews, room entry and hover departure (7098.839125ms)
+✔ Computer and social screens retain native anchors, independent feedback and portal navigation (3505.492459ms)
+✔ Contact wall feedback changes only its paint and resets when the application closes (2918.7605ms)
+✔ Project screens retain independent real display anchors, inset feedback and reversible application content (5921.28975ms)
+✔ A roomier landscape window preserves the established camera framing rectangle (0.497667ms)
+✔ Portrait application preserves readable pixels inside the unchanged monitor glass (0.315875ms)
+✔ Real portrait monitor projection fills the readable app area without crossing the close camera plane (3636.671625ms)
+✔ Application edges stay inside the visible monitor bezel through responsive hover and drag (10248.811708ms)
+✔ Project library links work in public and private preview without changing project detail routes (1.024958ms)
+✔ only explicitly populated collections are available, including legacy and shared projects (6588.812875ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20223.3695

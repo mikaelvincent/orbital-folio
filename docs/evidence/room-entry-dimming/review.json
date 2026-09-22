@@ -1,0 +1,48 @@
+{
+  "reviewer": "Independent critic agent /root/arrival_dimming_critic",
+  "score": 96,
+  "verdict": "approved",
+  "blockers": [],
+  "requiredRevisions": [],
+  "rubric": [
+    {
+      "criterion": "Correctness and fulfillment",
+      "score": 35,
+      "maximum": 35,
+      "finding": "Separates idle dimming from interaction availability; removes the arrival/departure multiplier jump across all affected rooms."
+    },
+    {
+      "criterion": "Visual behavior",
+      "score": 24,
+      "maximum": 25,
+      "finding": "Desktop entry pairs and portrait captures retain consistent idle appearance. Focus independently brightens the intended control; rim styling remains unchanged."
+    },
+    {
+      "criterion": "Verification and evidence",
+      "score": 22,
+      "maximum": 25,
+      "finding": "Actual material continuity regression, matching baseline/candidate states and source hashes, 15 focused and 434 full tests pass. Typecheck, lint and build pass."
+    },
+    {
+      "criterion": "Scope and organization",
+      "score": 10,
+      "maximum": 10,
+      "finding": "Small production change; preserves room lighting, unavailable controls and open-application exceptions. Context and ledger clearly supersede the previous travel exception."
+    },
+    {
+      "criterion": "Performance implications",
+      "score": 5,
+      "maximum": 5,
+      "finding": "No geometry, rendering-pass or asset changes; no unsupported performance claims."
+    }
+  ],
+  "resolvedNotes": [
+    "The old helper-test assertion label incorrectly described overview behavior; it now correctly describes controls opting out of dimming."
+  ],
+  "limitations": [
+    "Chromium keyboard focus substitutes for physical hover.",
+    "No native Safari, physical touch or live OS reduced-motion validation.",
+    "Screenshot state reads precede capture, so exact arrival continuity relies on the material regression rather than screenshot timing."
+  ],
+  "postReviewEdits": "Record verification and review in documentation and evidence metadata only. No production or regression-test changes."
+}

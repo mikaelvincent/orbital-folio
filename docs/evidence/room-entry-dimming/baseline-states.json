@@ -1,0 +1,87 @@
+{
+  "baselineCommit": "be4d98bca73e8ef67287f53aa3c70dbbdd34ea3d",
+  "method": "Read-only Node model reproduction on the baseline source, before arrival-dimming source edits. createSpacecraft(THREE, {projects:[{title:\"Example\",slug:\"example\",categories:[\"systems\"]}],caseStudies:[]}); successive model.update(0, hoverRoom, true, state, true) calls; highlighted object is Product engineering cartridge in the case studies room. Values below are exact observed root.userData.highlightLevel and lightingState.experience.level. No material-channel capture was performed.",
+  "targetRoom": "experience",
+  "objectId": "case-study-screen-product",
+  "instantHighlight": true,
+  "observations": [
+    {
+      "stage": "overview",
+      "hoverRoom": "",
+      "activeRoom": "home",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": null,
+      "hoveredObject": null,
+      "objectLevel": 1,
+      "roomLevel": 0.5
+    },
+    {
+      "stage": "preview",
+      "hoverRoom": "experience",
+      "activeRoom": "home",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": null,
+      "hoveredObject": null,
+      "objectLevel": 1,
+      "roomLevel": 1
+    },
+    {
+      "stage": "entry start",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 1,
+      "roomLevel": 0.5
+    },
+    {
+      "stage": "entry destination",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "experience",
+      "hoveredObject": null,
+      "objectLevel": 1,
+      "roomLevel": 1
+    },
+    {
+      "stage": "settled",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "neighbor preview",
+      "hoverRoom": "projects",
+      "activeRoom": "experience",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "departure start",
+      "hoverRoom": "",
+      "activeRoom": "projects",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "experience",
+      "hoveredObject": null,
+      "objectLevel": 1,
+      "roomLevel": 1
+    }
+  ],
+  "finding": "The object multiplier changes from 1 to 0.65 on arrival while room level remains 1, and jumps back to 1 on departure. Hovering a noncurrent room changes room illumination, but object dim eligibility also depends on active room and !travelling, causing the unintended independent discontinuity."
+}

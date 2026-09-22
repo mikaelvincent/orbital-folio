@@ -3749,27 +3749,33 @@ export function createSpacecraft(
       };
     }
     for (const highlight of objectHighlights) {
+      const objectRoom = highlight.id.startsWith('contact-')
+        ? 'contact'
+        : highlight.id.startsWith('projects-screen-')
+          ? 'projects'
+          : 'experience';
+      // Keep available controls at their idle brightness in every room state.
+      // Only the application's own screen and unavailable controls opt out;
+      // entering a room changes input availability, not its resting appearance.
+      const dimIdle =
+        objectRoom === 'contact'
+          ? !computerActive || highlight.id.startsWith('contact-social-')
+          : objectRoom === 'projects'
+            ? !!projectScreensById.get(highlight.id)?.available &&
+              (!projectApplicationActive ||
+                highlight.id !==
+                  `projects-screen-${currentState.projectScreen || 'all'}`)
+            : !!caseStudyScreensById.get(highlight.id)?.available &&
+              (!caseStudyActive || highlight.id !== 'case-study-screen-all');
       if (
         highlight.update(
           currentState.hoveredObject === highlight.id,
           !currentState.travelling &&
-            ((currentState.activeRoom === 'contact' &&
-              highlight.id.startsWith('contact-') &&
-              (!currentState.reading ||
-                highlight.id.startsWith('contact-social-'))) ||
-              (currentState.activeRoom === 'projects' &&
-                highlight.id.startsWith('projects-screen-') &&
-                projectScreensById.get(highlight.id)?.available &&
-                (!currentState.reading ||
-                  highlight.id !==
-                    `projects-screen-${currentState.projectScreen || 'all'}`)) ||
-              (currentState.activeRoom === 'experience' &&
-                highlight.id.startsWith('case-study-screen-') &&
-                caseStudyScreensById.get(highlight.id)?.available &&
-                (!currentState.reading ||
-                  highlight.id !== 'case-study-screen-all'))),
+            currentState.activeRoom === objectRoom &&
+            dimIdle,
           dt,
           instantHighlight,
+          dimIdle,
         )
       )
         group.userData.motionActive = true;

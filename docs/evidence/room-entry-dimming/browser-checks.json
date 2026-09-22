@@ -1,0 +1,1274 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "captureMethod": "Read DOM state immediately before each browser JPEG; capture occurs later, so late-travel screenshots may cross the settlement boundary. Exact arrival continuity is verified in the model regression.",
+  "input": "Native click navigation and genuine keyboard focus. Physical pointer hover is unavailable.",
+  "desktop": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "dpr": "2",
+    "drawingBuffer": "2560,1440",
+    "gtao": "true"
+  },
+  "portrait": {
+    "viewport": [
+      390,
+      844
+    ],
+    "dpr": "1",
+    "drawingBuffer": "390,844",
+    "gtao": "false"
+  },
+  "sequences": [
+    {
+      "sequence": "overview-to-case-studies",
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 1790035297078,
+          "camera": "-8.4339,4.8547,23.6142",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 1,
+          "timestamp": 1790035297424,
+          "camera": "-1.1863,2.2208,22.5303",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.74427446905118,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.74427446905118,
+            "hoveredWalkway": false,
+            "interiorColor": 0.74427446905118,
+            "labels": 0.74427446905118,
+            "level": 0.74427446905118,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.74427446905118,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 2,
+          "timestamp": 1790035297841,
+          "camera": "1.3582,1.6654,19.2907",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.980981641973788,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.980981641973788,
+            "hoveredWalkway": false,
+            "interiorColor": 0.980981641973788,
+            "labels": 0.980981641973788,
+            "level": 0.980981641973788,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.980981641973788,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 3,
+          "timestamp": 1790035298121,
+          "camera": "2.0451,1.5448,13.1419",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 4,
+          "timestamp": 1790035298566,
+          "camera": "2.0751,1.5410,10.4546",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 5,
+          "timestamp": 1790035298874,
+          "camera": "2.0861,1.5400,6.2424",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 6,
+          "timestamp": 1790035299276,
+          "camera": "2.0869,1.5400,5.5014",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 7,
+          "timestamp": 1790035299610,
+          "camera": "2.0870,1.5400,5.5031",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 8,
+          "timestamp": 1790035299873,
+          "camera": "2.0870,1.5400,5.5085",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "sequence": "cartridge-focus",
+      "timestamp": 1790035359847,
+      "state": {
+        "hover": "case-study-screen-product"
+      }
+    },
+    {
+      "sequence": "neighbor-preview",
+      "timestamp": 1790035374285,
+      "state": {
+        "lighting": {
+          "dimmer": 1,
+          "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+          "exteriorColor": 1,
+          "exteriorLabels": 0,
+          "fixtureEmission": 1,
+          "hoveredWalkway": false,
+          "interiorColor": 1,
+          "labels": 1,
+          "level": 1,
+          "pointIntensities": [
+            0.35,
+            0.35
+          ],
+          "screenEmission": 1,
+          "selected": false,
+          "targetLevel": 1,
+          "transit": false
+        },
+        "object": "",
+        "room": "experience"
+      }
+    },
+    {
+      "sequence": "case-studies-to-projects",
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 1790035374674,
+          "camera": "2.2796,1.5400,5.5070",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": false
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 1,
+          "timestamp": 1790035374846,
+          "camera": "2.2533,1.5400,5.5075",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.8319910791157483,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.8319910791157483,
+            "hoveredWalkway": false,
+            "interiorColor": 0.8319910791157483,
+            "labels": 0.8319910791157483,
+            "level": 0.8319910791157483,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.8319910791157483,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 2,
+          "timestamp": 1790035375053,
+          "camera": "0.9356,1.5400,5.5109",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5198719283152884,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5198719283152884,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5198719283152884,
+            "labels": 0.5198719283152884,
+            "level": 0.5198719283152884,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5198719283152884,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 3,
+          "timestamp": 1790035375272,
+          "camera": "-1.1189,1.5400,5.5124",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.8652100627049889,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.8652100627049889,
+            "hoveredWalkway": false,
+            "interiorColor": 0.8652100627049889,
+            "labels": 0.8652100627049889,
+            "level": 0.8652100627049889,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.8652100627049889,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 4,
+          "timestamp": 1790035375578,
+          "camera": "-1.8652,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.989988669049814,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.989988669049814,
+            "hoveredWalkway": false,
+            "interiorColor": 0.989988669049814,
+            "labels": 0.989988669049814,
+            "level": 0.989988669049814,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.989988669049814,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 5,
+          "timestamp": 1790035375866,
+          "camera": "-2.0380,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "projects",
+          "travelling": "true"
+        },
+        {
+          "index": 6,
+          "timestamp": 1790035376190,
+          "camera": "-2.0836,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "projects",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "sequence": "projects-via-about-to-contact",
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 1790035422598,
+          "camera": "-2.0850,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 1,
+          "timestamp": 1790035422950,
+          "camera": "-2.9140,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5093023567316697,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5093023567316697,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5093023567316697,
+            "labels": 0.5093023567316697,
+            "level": 0.5093023567316697,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5093023567316697,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 2,
+          "timestamp": 1790035423362,
+          "camera": "-4.8673,1.5400,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 3,
+          "timestamp": 1790035423662,
+          "camera": "-5.1454,1.0769,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 4,
+          "timestamp": 1790035424070,
+          "camera": "-5.2171,0.0725,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 5,
+          "timestamp": 1790035424531,
+          "camera": "-5.2242,-1.1484,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 6,
+          "timestamp": 1790035424812,
+          "camera": "-4.8003,-1.3475,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 7,
+          "timestamp": 1790035425148,
+          "camera": "-4.0089,-1.3926,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 8,
+          "timestamp": 1790035425435,
+          "camera": "-2.9050,-1.4011,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 9,
+          "timestamp": 1790035425868,
+          "camera": "-1.5815,-1.4047,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 10,
+          "timestamp": 1790035426286,
+          "camera": "1.3099,-1.4050,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.9288629642067432,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.9288629642067432,
+            "hoveredWalkway": false,
+            "interiorColor": 0.9288629642067432,
+            "labels": 0.9288629642067432,
+            "level": 0.9288629642067432,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.9288629642067432,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 11,
+          "timestamp": 1790035426721,
+          "camera": "2.0093,-1.4050,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 12,
+          "timestamp": 1790035427132,
+          "camera": "2.0794,-1.4050,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "contact",
+          "travelling": "true"
+        },
+        {
+          "index": 13,
+          "timestamp": 1790035427658,
+          "camera": "2.0846,-1.4050,5.5127",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": true,
+            "targetLevel": 1,
+            "transit": false
+          },
+          "room": "contact",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "sequence": "contact-focus",
+      "timestamp": 1790035474013,
+      "state": {
+        "hover": "contact-computer"
+      }
+    },
+    {
+      "sequence": "portrait-overview-to-case-studies",
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 1790035526518,
+          "camera": "0.9016,-1.8591,17.7348",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5640587298860258,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5640587298860258,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5640587298860258,
+            "labels": 0.5640587298860258,
+            "level": 0.5640587298860258,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5640587298860258,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 1,
+          "timestamp": 1790035526734,
+          "camera": "0.9107,-1.8330,17.6533",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5048515600695013,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5048515600695013,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5048515600695013,
+            "labels": 0.5048515600695013,
+            "level": 0.5048515600695013,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5048515600695013,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 2,
+          "timestamp": 1790035527019,
+          "camera": "0.9392,-1.7513,17.3984",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 3,
+          "timestamp": 1790035527244,
+          "camera": "0.9984,-1.5816,16.8688",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 4,
+          "timestamp": 1790035527432,
+          "camera": "1.0956,-1.3029,15.9990",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 5,
+          "timestamp": 1790035527643,
+          "camera": "1.2229,-0.9379,14.8602",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.5,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.5,
+            "hoveredWalkway": false,
+            "interiorColor": 0.5,
+            "labels": 0.5,
+            "level": 0.5,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.5,
+            "selected": false,
+            "targetLevel": 0.5,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 6,
+          "timestamp": 1790035527965,
+          "camera": "1.3738,-0.5051,13.5098",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.9114995091415083,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.9114995091415083,
+            "hoveredWalkway": false,
+            "interiorColor": 0.9114995091415083,
+            "labels": 0.9114995091415083,
+            "level": 0.9114995091415083,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.9114995091415083,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 7,
+          "timestamp": 1790035528205,
+          "camera": "1.5349,-0.0433,12.0688",
+          "hover": "",
+          "lighting": {
+            "dimmer": 0.9957308783716986,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 0.9957308783716986,
+            "hoveredWalkway": false,
+            "interiorColor": 0.9957308783716986,
+            "labels": 0.9957308783716986,
+            "level": 0.9957308783716986,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 0.9957308783716986,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 8,
+          "timestamp": 1790035528467,
+          "camera": "1.6805,0.3743,10.7659",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 9,
+          "timestamp": 1790035528683,
+          "camera": "1.8137,0.7562,9.5742",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 10,
+          "timestamp": 1790035528974,
+          "camera": "2.0166,1.3380,7.7588",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 11,
+          "timestamp": 1790035529186,
+          "camera": "2.0614,1.4667,7.3573",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 12,
+          "timestamp": 1790035529490,
+          "camera": "2.0839,1.5311,7.1563",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": false,
+            "targetLevel": 1,
+            "transit": true
+          },
+          "room": "experience",
+          "travelling": "true"
+        },
+        {
+          "index": 13,
+          "timestamp": 1790035529685,
+          "camera": "2.0870,1.5400,7.1286",
+          "hover": "",
+          "lighting": {
+            "dimmer": 1,
+            "emitterPolicy": "constant room emitters; medium default, high hover/selected/transit; no pathway emitters",
+            "exteriorColor": 1,
+            "exteriorLabels": 0,
+            "fixtureEmission": 1,
+            "hoveredWalkway": false,
+            "interiorColor": 1,
+            "labels": 1,
+            "level": 1,
+            "pointIntensities": [
+              0.35,
+              0.35
+            ],
+            "screenEmission": 1,
+            "selected": true,
+            "targetLevel": 1,
+            "transit": false
+          },
+          "room": "experience",
+          "travelling": "false"
+        }
+      ]
+    }
+  ]
+}

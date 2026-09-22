@@ -2600,6 +2600,34 @@ physical touch were not tested. Independent critic: **96/100**, approved with
 no unresolved blockers or required revisions; rubric and limitations are recorded
 with the evidence.
 
+## 44 — Preserve object dimming throughout room entry (22 September 2026)
+
+Baseline `be4d98b`. The owner identified an arrival-specific brightness change
+after entry 43: screens were undimmed while the camera moved, then became dim
+when travel settled. A real-model reproduction confirms the object multiplier
+changed **1 → 0.65** at that boundary while the room level stayed at **1**. The
+same input gate also caused a reverse jump on departure. Room previews raise
+room illumination independently; they were not sufficient to explain the pop.
+
+The shared highlight now separates idle dimming from input availability.
+Available screens/cartridges retain **0.65** through overview, noncurrent-room
+previews, travel and settled idle. Only actual hover/focus in the settled current
+room raises them toward **1.15**. Unavailable controls and the open application's
+own monitor retain their existing normal brightness. Room dimmers, camera paths,
+navigation, geometry and rim styling are unchanged. This supersedes the travel
+exception recorded in entry 43.
+
+[Evidence](evidence/room-entry-dimming/README.md) retains baseline/candidate state
+reproductions, material continuity regressions and live entry captures for all
+three application rooms. No timing, memory, heat or battery improvements are
+claimed; held performance candidates remain held. Verification: focused tests
+**15/15**, isolated full suite **434/434**, typecheck, affected lint and production
+build pass. Hidden Chromium desktop/portrait checks cover entry continuity and
+post-arrival keyboard focus; native pointer hover, Safari, physical touch and live
+OS reduced-motion changes were not tested. Independent critic: **96/100**, approved
+with no unresolved blockers or required revisions; rubric and limitations are
+recorded with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

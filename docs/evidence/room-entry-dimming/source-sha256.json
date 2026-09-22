@@ -1,0 +1,51 @@
+{
+  "baselineCommit": "be4d98bca73e8ef67287f53aa3c70dbbdd34ea3d",
+  "sourceSha256": {
+    "features/spacecraft/navigation/interactable-object-highlight.ts": {
+      "root": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+      "fixture": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437"
+    },
+    "features/spacecraft/spacecraft-model.ts": {
+      "root": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3",
+      "fixture": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3"
+    },
+    "tests/spacecraft/object-interaction.test.mjs": {
+      "root": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f",
+      "fixture": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f"
+    }
+  },
+  "documentationAfterReview": {
+    "docs/PROJECT-CONTEXT.md": "a9423e093bd2a31c0fb8c87534e267faf29472936d25928c215aa7ac01f74d23",
+    "docs/performance-ledger.md": "692bf8e0ee8738b0f4aa7fbcfb41ffa038e2c26d5a4bfb457da9840eb8fab27b"
+  },
+  "afterVerificationSha256": {
+    "features/spacecraft/navigation/interactable-object-highlight.ts": {
+      "root": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+      "fixture": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+      "unchanged": true
+    },
+    "features/spacecraft/spacecraft-model.ts": {
+      "root": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3",
+      "fixture": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3",
+      "unchanged": true
+    },
+    "tests/spacecraft/object-interaction.test.mjs": {
+      "root": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f",
+      "fixture": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f",
+      "unchanged": true
+    }
+  },
+  "verification": {
+    "testBaseUrl": "http://localhost:3003",
+    "testsPassed": 434,
+    "testsFailed": 0,
+    "testsSkipped": 0,
+    "testExitCode": 0,
+    "typecheckExitCode": 0,
+    "affectedLintExitCode": 0,
+    "buildExitCode": 0,
+    "serverStopped": true,
+    "mainServerHttpStatus": 200,
+    "fixtureAndTestStateRemoved": true
+  }
+}

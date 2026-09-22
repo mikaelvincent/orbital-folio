@@ -42,7 +42,7 @@ test('Object highlights isolate shared materials and do not accumulate brightnes
   left.highlight.update(false, false, 1 / 60, true);
   assert.ok(
     left.mesh.material.color.equals(base),
-    'Overview uses normal room lighting',
+    'Controls that opt out of idle dimming use normal room lighting',
   );
   for (const target of [left, right]) {
     target.mesh.geometry.dispose();
@@ -68,7 +68,7 @@ test('The shared brightness transition is smooth and independent of refresh rate
   assert.ok(Math.abs(simulate(60) - simulate(120)) < 1e-12);
 });
 
-test('Selectable screens and cartridges stay dim until hover and return to dim after it leaves', () => {
+test('Screens and cartridges retain dim idle through previews, room entry and hover departure', () => {
   const model = createSpacecraft(THREE, {
     projects: [
       {
@@ -116,13 +116,14 @@ test('Selectable screens and cartridges stay dim until hover and return to dim a
       });
       const before = new Map();
       for (const screen of screens) {
-        assert.equal(screen.root.userData.highlightLevel, 1);
+        assert.equal(screen.root.userData.highlightLevel, 0.65);
         screen.root.traverse((object) => {
           for (const material of [object.material].flat())
             if (material?.color)
               before.set(material, {
                 screen,
                 rim: material.name.endsWith('-hover-rim'),
+                roomLit: !!material.userData.baseColor,
                 color: material.color.clone(),
                 emissive: material.emissive?.clone(),
                 intensity: material.emissiveIntensity,
@@ -130,26 +131,174 @@ test('Selectable screens and cartridges stay dim until hover and return to dim a
         });
       }
       assert.ok(before.size > 0);
-      const assertMaterials = (hoveredId = null) => {
+      const assertMaterials = (hoveredId = null, roomLevel = 1) => {
         for (const [material, authored] of before) {
           const hovered =
             hoveredId === authored.screen.root.userData.interactableId;
-          const level = authored.rim ? 1 : hovered ? 1.15 : 0.65;
+          const level = authored.rim
+            ? 1
+            : (hovered ? 1.15 / 0.65 : 1) * (authored.roomLit ? roomLevel : 1);
           assert.ok(
-            material.color.equals(authored.color.clone().multiplyScalar(level)),
+            material.color
+              .toArray()
+              .every(
+                (channel, i) =>
+                  Math.abs(channel - authored.color.toArray()[i] * level) <
+                  1e-12,
+              ),
             `${room}: ${material.name} must retain its intended idle/hover level`,
           );
           if (authored.emissive)
             assert.ok(
-              material.emissive.equals(
-                authored.emissive.clone().multiplyScalar(level),
-              ),
+              material.emissive
+                .toArray()
+                .every(
+                  (channel, i) =>
+                    Math.abs(channel - authored.emissive.toArray()[i] * level) <
+                    1e-12,
+                ),
               `${room}: ${material.name} backlight must follow the same level`,
             );
           assert.equal(material.emissiveIntensity, authored.intensity);
           if (authored.rim) assert.equal(material.opacity, hovered ? 0.95 : 0);
         }
       };
+      const otherRoom = room === 'projects' ? 'experience' : 'projects';
+      const firstId = screens[0].root.userData.interactableId;
+      const navigationStates = [
+        {
+          name: 'overview',
+          activeRoom: 'home',
+          preview: '',
+          travelling: false,
+          transitRoom: '',
+          roomLevel: 0.5,
+        },
+        {
+          name: 'overview room preview',
+          activeRoom: 'home',
+          preview: room,
+          travelling: false,
+          transitRoom: '',
+          roomLevel: 1,
+        },
+        {
+          name: 'neighbor room preview',
+          activeRoom: otherRoom,
+          preview: room,
+          travelling: false,
+          transitRoom: '',
+          roomLevel: 1,
+        },
+        {
+          name: 'entry before destination',
+          activeRoom: room,
+          preview: '',
+          travelling: true,
+          transitRoom: otherRoom,
+          roomLevel: 0.5,
+        },
+        {
+          name: 'final travel frame',
+          activeRoom: room,
+          preview: '',
+          travelling: true,
+          transitRoom: room,
+          roomLevel: 1,
+        },
+        {
+          name: 'first settled frame',
+          activeRoom: room,
+          preview: '',
+          travelling: false,
+          transitRoom: '',
+          roomLevel: 1,
+        },
+        {
+          name: 'departure frame',
+          activeRoom: otherRoom,
+          preview: '',
+          travelling: true,
+          transitRoom: room,
+          roomLevel: 1,
+        },
+      ];
+      for (const state of navigationStates) {
+        // A stale object id must not turn room previews or camera travel into
+        // screen hover. Actual settled object hover is exercised below.
+        model.update(
+          1,
+          state.preview,
+          true,
+          {
+            activeRoom: state.activeRoom,
+            travelling: state.travelling,
+            transitRoom: state.transitRoom,
+            hoveredObject:
+              state.name === 'first settled frame' ? null : firstId,
+          },
+          true,
+        );
+        assert.equal(
+          model.group.userData.lightingState[room].level,
+          state.roomLevel,
+          `${room}: ${state.name} preserves normal room lighting`,
+        );
+        for (const screen of screens) {
+          assert.equal(
+            screen.root.userData.highlightLevel,
+            0.65,
+            `${room}: ${state.name}`,
+          );
+          assert.equal(
+            screen.root.userData.hoverProgress,
+            0,
+            `${room}: ${state.name} cannot highlight an object`,
+          );
+        }
+        assertMaterials(null, state.roomLevel);
+      }
+      // Repeat the arrival boundary with normal easing and compare the actual
+      // materials exactly; input becoming enabled must not change brightness.
+      model.update(
+        1,
+        '',
+        true,
+        {
+          activeRoom: room,
+          transitRoom: room,
+          travelling: true,
+          hoveredObject: null,
+        },
+        true,
+      );
+      const arriving = new Map(
+        [...before.keys()].map((material) => [
+          material,
+          {
+            color: material.color.clone(),
+            emissive: material.emissive?.clone(),
+          },
+        ]),
+      );
+      model.update(
+        1 + 1 / 60,
+        '',
+        false,
+        { travelling: false, transitRoom: '', delta: 1 / 60 },
+        true,
+      );
+      for (const [material, previous] of arriving) {
+        assert.ok(
+          material.color.equals(previous.color),
+          `${room}: arrival color must not jump`,
+        );
+        if (previous.emissive)
+          assert.ok(
+            material.emissive.equals(previous.emissive),
+            `${room}: arrival emission must not jump`,
+          );
+      }
       // Ten seconds of real model updates cannot brighten idle controls again.
       // Defer matrix refresh, as the production runtime does; materials still
       // pass through room illumination and object feedback every frame.

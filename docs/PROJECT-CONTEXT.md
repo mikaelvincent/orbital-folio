@@ -174,10 +174,14 @@ The owner clarified on 22 September 2026 that the dim resting state is desired.
 Selectable screens in Projects, Case studies and Contact, including the four
 archive cartridges, stay at a **0.65** multiplier until hovered or keyboard-focused,
 then ease toward **1.15** and return to **0.65** on departure. Do not restore regular
-brightness merely because hover ended or idle time elapsed. Normal room lighting
-still applies; overview, disabled controls and an already-open application's own
-monitor keep their existing nonselectable behavior. This supersedes the earlier
-removal of the dim resting state. The owner explicitly deferred any redesign of
+brightness merely because hover ended or idle time elapsed. The idle multiplier
+also applies in overview, neighboring-room previews and throughout camera travel:
+input becoming available at arrival must not suddenly dim the screens. Room
+preview/transit lighting still applies independently. Object hover and its rim
+are enabled only in the settled current room. Unavailable controls and an
+already-open application's own monitor retain their normal brightness. This
+supersedes the earlier removal of the dim resting state and its travel exception.
+The owner explicitly deferred any redesign of
 the cartridge highlight box: preserve its existing rim, color and dimensions.
 
 ## Projects library and authoring

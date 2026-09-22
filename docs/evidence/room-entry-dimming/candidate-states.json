@@ -1,0 +1,101 @@
+{
+  "baselineCommit": "be4d98bca73e8ef67287f53aa3c70dbbdd34ea3d",
+  "method": "Read-only Node model reproduction on the candidate source copied into the isolated verification fixture. createSpacecraft(THREE, {projects:[{title:\"Example\",slug:\"example\",categories:[\"systems\"]}],caseStudies:[]}); successive model.update(0, hoverRoom, true, state, true) calls; highlighted object is Product engineering cartridge in the case studies room. Values below are exact observed root.userData.highlightLevel and lightingState.experience.level. No material-channel capture was performed.",
+  "targetRoom": "experience",
+  "objectId": "case-study-screen-product",
+  "instantHighlight": true,
+  "observations": [
+    {
+      "stage": "overview",
+      "hoverRoom": "",
+      "activeRoom": "home",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": null,
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 0.5
+    },
+    {
+      "stage": "preview",
+      "hoverRoom": "experience",
+      "activeRoom": "home",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": null,
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "entry start",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 0.5
+    },
+    {
+      "stage": "entry destination",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "experience",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "settled",
+      "hoverRoom": "",
+      "activeRoom": "experience",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "neighbor preview",
+      "hoverRoom": "projects",
+      "activeRoom": "experience",
+      "travelling": false,
+      "reading": false,
+      "transitRoom": "",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    },
+    {
+      "stage": "departure start",
+      "hoverRoom": "",
+      "activeRoom": "projects",
+      "travelling": true,
+      "reading": false,
+      "transitRoom": "experience",
+      "hoveredObject": null,
+      "objectLevel": 0.65,
+      "roomLevel": 1
+    }
+  ],
+  "finding": "The object multiplier stays 0.65 across all seven stages while room illumination preserves its baseline sequence. Arrival and departure no longer change the idle object multiplier.",
+  "sourceHashes": {
+    "features/spacecraft/navigation/interactable-object-highlight.ts": {
+      "root": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+      "fixture": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437"
+    },
+    "features/spacecraft/spacecraft-model.ts": {
+      "root": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3",
+      "fixture": "83dcc1907da828fc74cb585c54c1a4ddea995bc00af19be6543e8e5dc597a2f3"
+    },
+    "tests/spacecraft/object-interaction.test.mjs": {
+      "root": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f",
+      "fixture": "89c9c5c0ef1e70b08168c586dd8e9f7d305b2b099fa42e15289e6f60deb75d3f"
+    }
+  }
+}
