@@ -396,8 +396,12 @@ assigned an existing social link to Left, Center or Right, independently of the
 two Contact monitor placements. Existing links default to Off; no owner content
 is reassigned automatically. The owner's later icon-only request supersedes the
 photo/badge/caption composition: each configured card shows one centered icon
-printed directly onto its cream paper. The visual picker offers recognizable
-platform marks from Simple Icons, plus Website and Custom link symbols. An
+printed directly onto its cream paper. The owner's size refinement uses half
+of each card's width for the icon (0.19 local units), closely matching Contact's
+0.186-unit mark. This supersedes the initial 72% icon extent; the full card stays
+clickable and the studio preview uses the same 50% extent. The visual picker
+offers recognizable platform marks from Simple Icons, plus Website and Custom
+link symbols. An
 optional standard SVG or PNG upload replaces the preset in About and its readers;
 choosing a preset clears that override. Uploaded icons preserve their colors,
 transparency and full proportions. Contact continues using the shared preset.

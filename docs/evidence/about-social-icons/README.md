@@ -3,6 +3,10 @@
 The owner requested icons alone on the three cards above the notebook, popular
 preset choices and ordinary downloadable SVG/PNG uploads. This supersedes the
 photo/badge/caption treatment in [the preceding implementation](../about-photos-socials/README.md).
+**Later size refinement:** the owner requested smaller marks matching Contact.
+The current extent is 50%; this page's 72% treatment and original captures are
+historical. See [the current sizing comparison](size-refinement/README.md).
+
 Baseline: `998dd57`. The square portrait, card mounts, notebook, camera fit,
 Contact placement and native link behavior are preserved.
 

@@ -82,7 +82,8 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
       if (social) {
         // A single mark is printed directly onto the same matte paper used by
         // the room. Custom icons retain their complete aspect and transparency.
-        const size = Math.min(width, height) * 0.72;
+        // Half a 0.38-unit card closely matches Contact's 0.186-unit mark.
+        const size = Math.min(width, height) * 0.5;
         const x = (width - size) / 2;
         const y = (height - size) / 2;
         if (image) {

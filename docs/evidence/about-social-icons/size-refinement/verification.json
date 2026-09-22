@@ -1,0 +1,28 @@
+{
+  "baseline": "a50880b",
+  "sourceHashes": {
+    "features/spacecraft/rooms/about-photo-print.ts": "5b78580f49b2613e79830d267cefa85fe73726697bf583cfc6091a55d9412cca",
+    "features/studio/social-icon-fields.css": "38363fc6afce4e0679a73a3e8e06e6adb9c0ec8f0cd80ec10bccfaaefdfee584"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/spacecraft/about-icon-prints.test.mjs tests/spacecraft/about-photo-cards.test.mjs",
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint -- features/spacecraft/rooms/about-photo-print.ts",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0
+    }
+  ],
+  "mainContentWrites": false,
+  "fullApiSuiteRepeated": false
+}

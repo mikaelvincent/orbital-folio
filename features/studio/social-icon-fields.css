@@ -88,8 +88,8 @@
 .social-icon-preview > img,
 .social-icon-preview > svg {
   display: block;
-  width: 72%;
-  height: 72%;
+  width: 50%;
+  height: 50%;
   min-width: 0;
   min-height: 0;
   object-fit: contain;
