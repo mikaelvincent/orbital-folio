@@ -1,0 +1,72 @@
+{
+  "typecheck": {
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T10:41:54.074352+00:00",
+    "completedAt": "2026-09-22T10:42:05.539947+00:00",
+    "log": "typecheck.log"
+  },
+  "lint": {
+    "command": [
+      "npm",
+      "run",
+      "lint",
+      "--",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/notebook-section-pages.tsx",
+      "features/spacecraft/notebook-turn-ink.ts",
+      "features/spacecraft/rooms/about-notebook-layout.ts",
+      "features/spacecraft/rooms/about-personal-study.ts",
+      "features/spacecraft/spacecraft-model.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "lib/content/notebook-pages.ts",
+      "tests/spacecraft/about-notebook-application.test.mjs",
+      "tests/spacecraft/about-notebook.test.mjs",
+      "tests/spacecraft/notebook-turn-ink.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T10:42:05.540894+00:00",
+    "completedAt": "2026-09-22T10:42:07.544065+00:00",
+    "log": "lint.log"
+  },
+  "format": {
+    "command": [
+      "npm",
+      "run",
+      "format",
+      "--",
+      "--check",
+      "features/portfolio/about-notebook.css",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/notebook-section-pages.tsx",
+      "features/spacecraft/notebook-turn-ink.ts",
+      "features/spacecraft/rooms/about-notebook-layout.ts",
+      "features/spacecraft/rooms/about-personal-study.ts",
+      "features/spacecraft/spacecraft-model.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "lib/content/notebook-pages.ts",
+      "tests/spacecraft/about-notebook-application.test.mjs",
+      "tests/spacecraft/about-notebook.test.mjs",
+      "tests/spacecraft/notebook-turn-ink.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T10:42:07.545139+00:00",
+    "completedAt": "2026-09-22T10:42:08.245520+00:00",
+    "log": "format.log"
+  },
+  "build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T10:42:08.246555+00:00",
+    "completedAt": "2026-09-22T10:42:26.301519+00:00",
+    "log": "build.log"
+  }
+}

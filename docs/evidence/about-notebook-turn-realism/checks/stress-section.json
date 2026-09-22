@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:3003",
+  "createdAt": "2026-09-22T10:49:44.958Z",
+  "recordId": "2100fc7d-753e-4fa4-923a-a68781b2ecbe",
+  "slug": "notebook-turn-stress",
+  "title": "Long-section verification",
+  "bodyCharacters": 24301,
+  "numberedPassages": 28,
+  "published": true,
+  "mainDataTouched": false,
+  "expectedPages": "16+; exact count must be measured in browser after fonts settle"
+}

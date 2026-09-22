@@ -1,0 +1,35 @@
+{
+  "canvas": [
+    1440,
+    1000
+  ],
+  "clip": "",
+  "copies": [
+    {
+      "display": "none",
+      "nodes": 0
+    },
+    {
+      "display": "none",
+      "nodes": 0
+    },
+    {
+      "display": "none",
+      "nodes": 0
+    }
+  ],
+  "reader": {
+    "compact": "false",
+    "computer": "false",
+    "computerPortrait": "false",
+    "notebook": "true",
+    "notebookSettledPage": "15",
+    "notebookTargetPage": "15",
+    "turning": "false"
+  },
+  "viewport": [
+    1440,
+    1000,
+    1
+  ]
+}

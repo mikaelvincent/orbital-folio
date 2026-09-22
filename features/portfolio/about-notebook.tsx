@@ -34,7 +34,6 @@ export function AboutNotebook({
   onPageCount: (section: number, count: number) => void;
 }) {
   const s = data.site;
-  const count = pageCounts[section] || 1;
   const root = useRef<HTMLElement>(null);
   const start = notebookWindowStart(section);
   useEffect(() => {
@@ -58,6 +57,51 @@ export function AboutNotebook({
       />
     );
   };
+  const paper = (index: number, measuring = false) => {
+    const total = pageCounts[index] || 1;
+    const selected = measuring ? 0 : page;
+    return (
+      <div
+        className="notebook-page"
+        data-notebook-section={index}
+        style={{
+          left: ABOUT_NOTEBOOK_LAYOUT.page.x,
+          width: ABOUT_NOTEBOOK_LAYOUT.page.width,
+        }}
+      >
+        <header className="notebook-page-header">
+          <span>{s.journalLabel || 'Field notes'}</span>
+        </header>
+        {sheet(index, measuring)}
+        {total > 1 && (
+          <footer className="notebook-page-footer">
+            <button
+              type="button"
+              disabled={!ready || selected <= 0}
+              onClick={() => onPageChange(selected - 1)}
+              aria-label="Previous page in section"
+            >
+              <ChevronLeft size={18} aria-hidden="true" />
+            </button>
+            <span
+              aria-live={measuring ? undefined : 'polite'}
+              aria-atomic="true"
+            >
+              Page {selected + 1} of {total}
+            </span>
+            <button
+              type="button"
+              disabled={!ready || selected >= total - 1}
+              onClick={() => onPageChange(selected + 1)}
+              aria-label="Next page in section"
+            >
+              <ChevronRight size={18} aria-hidden="true" />
+            </button>
+          </footer>
+        )}
+      </div>
+    );
+  };
   return (
     <article
       ref={root}
@@ -68,41 +112,7 @@ export function AboutNotebook({
       data-notebook-interface
       data-section={section}
     >
-      <div
-        className="notebook-page"
-        style={{
-          left: ABOUT_NOTEBOOK_LAYOUT.page.x,
-          width: ABOUT_NOTEBOOK_LAYOUT.page.width,
-        }}
-      >
-        <header className="notebook-page-header">
-          <span>{s.journalLabel || 'Field notes'}</span>
-        </header>
-        {sheet(section)}
-        {count > 1 && (
-          <footer className="notebook-page-footer">
-            <button
-              type="button"
-              disabled={!ready || page <= 0}
-              onClick={() => onPageChange(page - 1)}
-              aria-label="Previous page in section"
-            >
-              <ChevronLeft size={18} aria-hidden="true" />
-            </button>
-            <span aria-live="polite" aria-atomic="true">
-              Page {page + 1} of {count}
-            </span>
-            <button
-              type="button"
-              disabled={!ready || page >= count - 1}
-              onClick={() => onPageChange(page + 1)}
-              aria-label="Next page in section"
-            >
-              <ChevronRight size={18} aria-hidden="true" />
-            </button>
-          </footer>
-        )}
-      </div>
+      {paper(section)}
       <div className="notebook-connections">
         <AboutSocialLinks data={data} />
         <a href={pathFor('/contact', s)}>
@@ -120,9 +130,9 @@ export function AboutNotebook({
             data-marker-index={flag.index}
             data-side={flag.side}
             style={{
-              left: flag.x,
+              left: flag.exposedX,
               top: flag.y,
-              width: flag.width,
+              width: flag.exposedWidth,
               height: flag.height,
             }}
             aria-current={flag.index === section ? 'page' : undefined}
@@ -166,7 +176,7 @@ export function AboutNotebook({
         {data.journal.map(
           (item, index) =>
             index !== section && (
-              <div key={item.id || index}>{sheet(index, true)}</div>
+              <div key={item.id || index}>{paper(index, true)}</div>
             ),
         )}
       </div>

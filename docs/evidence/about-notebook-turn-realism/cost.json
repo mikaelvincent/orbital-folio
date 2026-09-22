@@ -1,0 +1,228 @@
+{
+  "createdAt": "2026-09-22T10:44:15.443077+00:00",
+  "baselineRevision": "83748018d5bd2208bc290bced08d02623c02c431",
+  "baselineSourceSha256": {
+    "features/spacecraft/rooms/about-personal-study.ts": "f3fd6ee51caedb0d41bb62788bad9cf74ccc81a91821e03a4829ca131d72db74",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "7f4ad575b2d1a0c8693ff4e64d7e234a76b7619c30ebbe151ad05aa14a495b6e",
+    "features/spacecraft/spacecraft-model.ts": "0255aae5dc0d834a2362738c857a78118393612b2ed1005edcc81e91cf845327",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+    "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+  },
+  "candidateSourceSha256": {
+    "features/spacecraft/rooms/about-personal-study.ts": "881ca33c3ae3deea86dce327c48d4df0659c9eecca9aea346071849ff392973b",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "bf037ffc4b19dc76d3cc16bb51fb0153c9abfa9a847fce86cb1f8a84457a46c0",
+    "features/spacecraft/spacecraft-model.ts": "9809d180650841351db3c0b3a366ca326eb423988948f7eddf46f98d1c856301",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "fc53bbd6fbb30ff3e687657e28ac0a9ff1d0eda19b86bc4787724a08433d3437",
+    "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+  },
+  "fixture": {
+    "journal": "Six sections, Section 1 through Section 6, one page each; identical defaults for the remaining model options.",
+    "resting": "Initial closed-reader notebook at page0, all six markers on right",
+    "midTurn": "Active notebook, setChapter(1), update(0.18); midpoint of one 0.36-second forward leaf turn"
+  },
+  "method": "Matched baseline/candidate construction with production Three.js helpers and material batching. Existing raw notebook cost harness plus the same scene-graph inventory after createSpacecraft. Canvas drawing is stubbed but original canvas texture dimensions are allocated. All allocated scopes include hidden leaves; visible scopes traverse scene visibility only.",
+  "rawHarness": "docs/evidence/about-notebook-refinements/geometry-cost.mjs",
+  "rawHarnessSha256": "55f1a0cf991d9fdc60ce59eb9e522b725bfab8cd3c634816496ba571d869a597",
+  "limitations": [
+    "No WebGL renderer, camera frustum culling, GPU driver storage, timings, power or thermal measurements.",
+    "Mesh count is a potential draw-submission proxy; separate shadow/depth passes and actual GPU culling are not counted.",
+    "Nominal texture bytes count unique referenced textures at RGBA base level, excluding mipmaps and backend format differences.",
+    "DOM page-turn ink and native projection are outside the Three.js structural inventory."
+  ],
+  "raw": {
+    "baseline": {
+      "meshCount": 61,
+      "triangles": 12536,
+      "uniqueGeometries": 39,
+      "geometryArrayBytes": 290288,
+      "textureCount": 16,
+      "nominalTextureRgbaBaseBytes": 21299200
+    },
+    "candidate": {
+      "meshCount": 62,
+      "triangles": 12728,
+      "uniqueGeometries": 40,
+      "geometryArrayBytes": 295440,
+      "textureCount": 16,
+      "nominalTextureRgbaBaseBytes": 21299200
+    },
+    "delta": {
+      "meshCount": 1,
+      "triangles": 192,
+      "uniqueGeometries": 1,
+      "geometryArrayBytes": 5152,
+      "textureCount": 0,
+      "nominalTextureRgbaBaseBytes": 0
+    }
+  },
+  "batched": {
+    "baseline": {
+      "allocatedScene": {
+        "meshes": 599,
+        "triangles": 1304700,
+        "uniqueGeometries": 533,
+        "geometryArrayBytes": 48396284,
+        "materials": 364,
+        "textures": 51,
+        "nominalTextureRgbaBaseBytes": 87404544
+      },
+      "allocatedNotebook": {
+        "meshes": 38,
+        "triangles": 12672,
+        "uniqueGeometries": 37,
+        "geometryArrayBytes": 350152,
+        "materials": 30,
+        "textures": 16,
+        "nominalTextureRgbaBaseBytes": 21299200
+      },
+      "restingVisibleScene": {
+        "meshes": 540,
+        "triangles": 1006830,
+        "uniqueGeometries": 474,
+        "geometryArrayBytes": 36078976,
+        "materials": 352,
+        "textures": 49,
+        "nominalTextureRgbaBaseBytes": 82948096
+      },
+      "restingVisibleNotebook": {
+        "meshes": 37,
+        "triangles": 12480,
+        "uniqueGeometries": 36,
+        "geometryArrayBytes": 345000,
+        "materials": 29,
+        "textures": 15,
+        "nominalTextureRgbaBaseBytes": 19988480
+      },
+      "midTurnVisibleScene": {
+        "meshes": 541,
+        "triangles": 1007022,
+        "uniqueGeometries": 475,
+        "geometryArrayBytes": 36084128,
+        "materials": 353,
+        "textures": 50,
+        "nominalTextureRgbaBaseBytes": 84258816
+      },
+      "midTurnVisibleNotebook": {
+        "meshes": 38,
+        "triangles": 12672,
+        "uniqueGeometries": 37,
+        "geometryArrayBytes": 350152,
+        "materials": 30,
+        "textures": 16,
+        "nominalTextureRgbaBaseBytes": 21299200
+      }
+    },
+    "candidate": {
+      "allocatedScene": {
+        "meshes": 600,
+        "triangles": 1304892,
+        "uniqueGeometries": 534,
+        "geometryArrayBytes": 48401436,
+        "materials": 365,
+        "textures": 51,
+        "nominalTextureRgbaBaseBytes": 87404544
+      },
+      "allocatedNotebook": {
+        "meshes": 39,
+        "triangles": 12864,
+        "uniqueGeometries": 38,
+        "geometryArrayBytes": 355304,
+        "materials": 31,
+        "textures": 16,
+        "nominalTextureRgbaBaseBytes": 21299200
+      },
+      "restingVisibleScene": {
+        "meshes": 540,
+        "triangles": 1006830,
+        "uniqueGeometries": 474,
+        "geometryArrayBytes": 36078976,
+        "materials": 352,
+        "textures": 49,
+        "nominalTextureRgbaBaseBytes": 82948096
+      },
+      "restingVisibleNotebook": {
+        "meshes": 37,
+        "triangles": 12480,
+        "uniqueGeometries": 36,
+        "geometryArrayBytes": 345000,
+        "materials": 29,
+        "textures": 15,
+        "nominalTextureRgbaBaseBytes": 19988480
+      },
+      "midTurnVisibleScene": {
+        "meshes": 542,
+        "triangles": 1007214,
+        "uniqueGeometries": 476,
+        "geometryArrayBytes": 36089280,
+        "materials": 354,
+        "textures": 50,
+        "nominalTextureRgbaBaseBytes": 84258816
+      },
+      "midTurnVisibleNotebook": {
+        "meshes": 39,
+        "triangles": 12864,
+        "uniqueGeometries": 38,
+        "geometryArrayBytes": 355304,
+        "materials": 31,
+        "textures": 16,
+        "nominalTextureRgbaBaseBytes": 21299200
+      }
+    },
+    "delta": {
+      "allocatedScene": {
+        "meshes": 1,
+        "triangles": 192,
+        "uniqueGeometries": 1,
+        "geometryArrayBytes": 5152,
+        "materials": 1,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      },
+      "allocatedNotebook": {
+        "meshes": 1,
+        "triangles": 192,
+        "uniqueGeometries": 1,
+        "geometryArrayBytes": 5152,
+        "materials": 1,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      },
+      "restingVisibleScene": {
+        "meshes": 0,
+        "triangles": 0,
+        "uniqueGeometries": 0,
+        "geometryArrayBytes": 0,
+        "materials": 0,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      },
+      "restingVisibleNotebook": {
+        "meshes": 0,
+        "triangles": 0,
+        "uniqueGeometries": 0,
+        "geometryArrayBytes": 0,
+        "materials": 0,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      },
+      "midTurnVisibleScene": {
+        "meshes": 1,
+        "triangles": 192,
+        "uniqueGeometries": 1,
+        "geometryArrayBytes": 5152,
+        "materials": 1,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      },
+      "midTurnVisibleNotebook": {
+        "meshes": 1,
+        "triangles": 192,
+        "uniqueGeometries": 1,
+        "geometryArrayBytes": 5152,
+        "materials": 1,
+        "textures": 0,
+        "nominalTextureRgbaBaseBytes": 0
+      }
+    }
+  }
+}

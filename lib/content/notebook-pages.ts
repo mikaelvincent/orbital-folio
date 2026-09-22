@@ -44,3 +44,5 @@ export function notebookPageOffset(counts: number[], section: number) {
     .slice(0, section)
     .reduce((sum, count) => sum + Math.max(1, count), 0);
 }
+/** Shared by measured Markdown columns and their physical page-turn copies. */
+export const NOTEBOOK_COLUMN_STRIDE = 470;

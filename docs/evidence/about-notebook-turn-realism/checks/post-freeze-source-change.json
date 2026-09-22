@@ -1,0 +1,29 @@
+{
+  "observedAt": "2026-09-22T10:49:25.490937+00:00",
+  "files": [
+    {
+      "path": "docs/PROJECT-CONTEXT.md",
+      "originalSha256": "954c02310baf58d82d88d84ce5f8eb143400571d111d6c60309bd1b88bc83557",
+      "finalSha256": "c390a9ed4ccdeef1e01d014a9606c7efefc5a44a7e9826165cb2987f94750571"
+    },
+    {
+      "path": "docs/performance-ledger.md",
+      "originalSha256": "56baaf47ae5ad30c80a3562f07926d4c58503c1f1d75d72075136cd243beadf7",
+      "finalSha256": "8d24a82a0c25105f404c1fbc56694dfcb73727b0c41cbba7f228235d8a4fada5"
+    },
+    {
+      "path": "features/portfolio/about-notebook.css",
+      "originalSha256": "b2e475d0f4b1c9c533b1af0b15e1e297966199bdc5509b6d4bd413e242fa653f",
+      "finalSha256": "b7a049215f633978c4c8bde38fd5915276d6b648d993034791af5fe8fe96babd"
+    }
+  ],
+  "summary": "Focus-visible CSS selector specificity fix plus project-context and performance-ledger documentation. No application logic or test changes after freeze.",
+  "suiteContinued": true,
+  "applicationLogicChanged": false,
+  "requiredFinalChecks": [
+    "format",
+    "build"
+  ],
+  "originalSuiteHashesRetained": true,
+  "documentationFinalizedAfterBuild": true
+}

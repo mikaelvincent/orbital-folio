@@ -2754,6 +2754,32 @@ remain unchanged; no performance claim is made. Five focused tests, typecheck,
 affected lint and build pass; independent review scores **95/100** without
 unresolved blockers. Hidden Chromium desktop/phone checks support the change.
 
+## 48 — Printed notebook turns and fitted feedback (22 September 2026)
+
+Baseline `8374801`. The owner requested a cover-shaped hover outline, matching
+room/reader markers, visible content during page turns and marker hover feedback
+confined to the exposed tabs. This is authored interaction work, not an
+optimization. [Current evidence](evidence/about-notebook-turn-realism/README.md)
+records the implementation, live hidden Chromium captures and verification.
+
+The matched [structural inventory](evidence/about-notebook-turn-realism/cost.json)
+adds one reverse-face mesh, 192 triangles, 5,152 geometry-array bytes and one
+material in both raw and production-batched fixtures. It shares the existing
+left artwork texture: unique texture count and nominal texture storage do not
+increase. Resting visible geometry is unchanged; a turn exposes one additional
+mesh, a submission proxy rather than a measured GPU draw count.
+
+Native page turns use two inert Markdown copies and a links copy. Within a
+section, subsequent leaves reuse those DOM trees and change column offsets;
+they are released after settling. Their transforms and paper-occlusion masks
+update during the turn. These browser costs are outside the geometry inventory;
+no timing, process-memory, thermal, power or speedup claim is made. Camera fit,
+Earth registration, shadow/AO policy and held optimization candidates are unchanged.
+The isolated suite passed **503/503**; typecheck, affected lint, final formatting
+and production build passed. Independent review accepted the result at **94/100**
+with no unresolved blockers. Hidden Chromium checks include desktop, portrait
+and a 29-page Markdown section; native Safari and physical touch remain untested.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

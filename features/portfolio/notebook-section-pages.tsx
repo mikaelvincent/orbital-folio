@@ -1,14 +1,17 @@
 'use client';
 /* oxlint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Delegated native link clicks also receive keyboard activation; the paper wrapper is not an additional control. */
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
+import {
+  normalizeNotebookBody,
+  NOTEBOOK_COLUMN_STRIDE,
+} from '@/lib/content/notebook-pages';
 import { ProjectMarkdown } from './project-markdown';
 import { parseProjectMarkdown } from './project-markdown-content';
 import './notebook-section-pages.css';
 
 export const NOTEBOOK_INK_WIDTH = 438;
 export const NOTEBOOK_INK_HEIGHT = 428;
-const COLUMN_GAP = 32;
+const COLUMN_GAP = NOTEBOOK_COLUMN_STRIDE - NOTEBOOK_INK_WIDTH;
 
 /** A single Markdown story flows through fixed paper columns without scrolling. */
 export function NotebookSectionPages({

@@ -119,12 +119,9 @@
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  padding: 4px 8px 4px 38px;
+  padding: 4px 8px;
   line-height: 1.13;
   color: #253445;
-}
-.notebook-marker[data-side='left'] {
-  padding: 4px 38px 4px 8px;
 }
 .notebook-marker > span {
   font-size: 10px;
@@ -171,13 +168,23 @@
   opacity: 0;
   pointer-events: none;
 }
-.world-surface[data-turning='true']
-  :is(.notebook-page .notebook-ink, .notebook-connections) {
+.world-surface[data-turning='true'] .about-notebook > .notebook-page {
   opacity: 0;
+  pointer-events: none;
 }
-.world-notebook-target:focus-visible {
-  outline: 3px solid #efc883;
-  outline-offset: -10px;
+.notebook-turn-ink {
+  pointer-events: none;
+  overflow: clip;
+}
+.notebook-turn-ink * {
+  pointer-events: none !important;
+}
+.notebook-turn-ink[data-face='back'] .notebook-connections {
+  left: 45px;
+}
+.orbital-experience .world-notebook-target:focus-visible {
+  /* The physical cover rim supplies hover and keyboard focus feedback. */
+  outline: none;
 }
 
 .notebook-connections .about-social-links a {

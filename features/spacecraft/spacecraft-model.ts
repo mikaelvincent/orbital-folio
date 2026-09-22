@@ -1638,10 +1638,12 @@ export function createSpacecraft(
 
   objectHighlights.push(
     createObjectHighlight(THREE, aboutNotebook.root, 'about-notebook', {
-      width: aboutNotebook.openingWidth,
-      height: aboutNotebook.openingHeight,
-      radius: 0.025,
-      z: aboutNotebook.openingAnchor.position.z + 0.002,
+      // Shared screen rims inset their outer edge by 12mm. Compensate here so
+      // this rim follows the physical rounded cover, beneath its retaining clips.
+      width: aboutNotebook.cover.width + 0.024,
+      height: aboutNotebook.cover.height + 0.024,
+      radius: aboutNotebook.cover.radius,
+      z: aboutNotebook.cover.z + aboutNotebook.cover.depth / 2 + 0.001,
     }),
   );
 

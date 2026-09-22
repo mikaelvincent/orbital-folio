@@ -1,0 +1,15 @@
+{
+  "readyAt": "2026-09-22T10:37:03.199Z",
+  "fixturePath": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-turns-8f9hrdlx",
+  "baseUrl": "http://localhost:3003",
+  "ownerBootstrapped": true,
+  "setupStatus": 200,
+  "adminStatus": 200,
+  "aboutStatus": 200,
+  "mainAboutStatus": 200,
+  "recordCount": 23,
+  "state": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-turns-8f9hrdlx/.wrangler/state",
+  "cache": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-turns-8f9hrdlx/.verification-vite-cache",
+  "serverSession": 49837,
+  "secretsPrinted": false
+}

@@ -1,0 +1,79 @@
+{
+  "canvases": [
+    {
+      "cssHeight": 1000,
+      "cssWidth": 1440,
+      "height": 1000,
+      "width": 1440
+    }
+  ],
+  "copies": [
+    {
+      "ariaHidden": "true",
+      "display": "none",
+      "nodes": 0
+    },
+    {
+      "ariaHidden": "true",
+      "display": "none",
+      "nodes": 0
+    },
+    {
+      "ariaHidden": "true",
+      "display": "none",
+      "nodes": 0
+    }
+  ],
+  "focus": "",
+  "markers": [
+    {
+      "height": "56px",
+      "index": "0",
+      "left": "1125px",
+      "top": "45px",
+      "width": "125px"
+    },
+    {
+      "height": "56px",
+      "index": "1",
+      "left": "1125px",
+      "top": "129px",
+      "width": "125px"
+    },
+    {
+      "height": "56px",
+      "index": "2",
+      "left": "1125px",
+      "top": "213px",
+      "width": "125px"
+    },
+    {
+      "height": "56px",
+      "index": "3",
+      "left": "1125px",
+      "top": "297px",
+      "width": "125px"
+    },
+    {
+      "height": "56px",
+      "index": "4",
+      "left": "1125px",
+      "top": "381px",
+      "width": "125px"
+    }
+  ],
+  "reader": {
+    "compact": "false",
+    "computer": "false",
+    "computerPortrait": "false",
+    "notebook": "true",
+    "notebookSettledPage": "1",
+    "notebookTargetPage": "1",
+    "turning": "false"
+  },
+  "viewport": [
+    1440,
+    1000,
+    1
+  ]
+}

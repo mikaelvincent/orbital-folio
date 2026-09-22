@@ -43,6 +43,116 @@ test('The batched mounted notebook keeps its physical anchor and cabin framing t
   assert.deepEqual(model.group.userData.roomCameraFrame, framing);
 });
 
+test('Front and reverse ink anchors stay centered on the physical leaf throughout batched forward and reverse turns', () => {
+  const previousDocument = globalThis.document;
+  const canvasDocument = {
+    createElement() {
+      const canvas = { width: 0, height: 0 };
+      const context = new Proxy(
+        {
+          canvas,
+          createLinearGradient: () => ({ addColorStop() {} }),
+          createRadialGradient: () => ({ addColorStop() {} }),
+          measureText: (text) => ({ width: text.length * 12 }),
+        },
+        { get: (target, key) => target[key] ?? (() => {}) },
+      );
+      canvas.getContext = () => context;
+      return canvas;
+    },
+  };
+  let model;
+  try {
+    globalThis.document = canvasDocument;
+    model = createSpacecraft(THREE, {
+      journal: [{ title: 'First' }, { title: 'Second' }],
+    });
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
+  const notebook = model.group.userData.aboutNotebook;
+  const leaf = notebook.turningLeaf;
+  const [front, back] = notebook.turnAnchors;
+  assert.equal(front.parent, leaf);
+  assert.equal(back.parent, leaf);
+  let paper;
+  leaf.traverse((object) => {
+    if (
+      object.isMesh &&
+      [object.material]
+        .flat()
+        .some((material) => material.name.includes('turning-notebook-paper'))
+    )
+      paper = object;
+  });
+  assert.ok(paper, 'the physical front sheet survives production batching');
+  let fixedArtwork, reverseArtwork;
+  notebook.root.traverse((object) => {
+    if (!object.isMesh) return;
+    for (const material of [object.material].flat()) {
+      if (material.name.includes('left-page-ink')) fixedArtwork = material.map;
+      if (material.name.includes('turning-notebook-artwork'))
+        reverseArtwork = material.map;
+    }
+  });
+  assert.ok(
+    fixedArtwork?.isCanvasTexture,
+    'the batched comparison includes the authored canvas artwork',
+  );
+  assert.equal(
+    reverseArtwork,
+    fixedArtwork,
+    'batching and hover-material isolation keep one shared reverse illustration',
+  );
+  paper.geometry.computeBoundingBox();
+  const paperCenter = paper.geometry.boundingBox.getCenter(new THREE.Vector3());
+  const assertRegistration = () => {
+    model.group.updateMatrixWorld(true);
+    const inverseLeaf = leaf.matrixWorld.clone().invert();
+    const point = new THREE.Vector3();
+    for (const anchor of [front, back]) {
+      anchor.getWorldPosition(point).applyMatrix4(inverseLeaf);
+      assert.ok(
+        Math.abs(point.x - paperCenter.x) < 1e-6,
+        'ink is centered across the sheet width',
+      );
+      assert.ok(
+        Math.abs(point.y - paperCenter.y) < 1e-6,
+        'ink is centered down the sheet height',
+      );
+    }
+    const frontNormal = new THREE.Vector3(0, 0, 1).transformDirection(
+      front.matrixWorld,
+    );
+    const backNormal = new THREE.Vector3(0, 0, 1).transformDirection(
+      back.matrixWorld,
+    );
+    const leafNormal = new THREE.Vector3(0, 0, 1).transformDirection(
+      leaf.matrixWorld,
+    );
+    assert.ok(frontNormal.dot(leafNormal) > 1 - 1e-10);
+    assert.ok(backNormal.dot(leafNormal) < -1 + 1e-10);
+    assert.ok(
+      frontNormal.dot(backNormal) < -1 + 1e-10,
+      'front and reverse ink always face opposite sides',
+    );
+  };
+  notebook.setActive(true);
+  assertRegistration();
+  notebook.setChapter(1);
+  for (let step = 0; step < 4; step++) {
+    notebook.update(0.09);
+    assertRegistration();
+  }
+  notebook.setChapter(0);
+  for (let step = 0; step < 4; step++) {
+    notebook.update(0.09);
+    assertRegistration();
+  }
+  assert.equal(notebook.settledChapter, 0);
+});
+
 test('Desktop and portrait fit the same whole book and flags without scaling paper or changing the layout', () => {
   const model = createSpacecraft(THREE);
   const notebook = model.group.userData.aboutNotebook;
@@ -200,6 +310,43 @@ test('The notebook uses shared dim, hover and active-object lighting without cha
   for (const rim of rims) assert.equal(rim.opacity, 0);
   update({ reading: false });
   assert.equal(notebook.root.userData.highlightLevel, 0.65);
+});
+
+test('The notebook hover rim follows its rounded physical cover instead of the larger click target', () => {
+  const model = createSpacecraft(THREE);
+  const notebook = model.group.userData.aboutNotebook;
+  model.group.updateMatrixWorld(true);
+  const rimBounds = new THREE.Box3();
+  notebook.root.traverse((object) => {
+    if (
+      !object.isMesh ||
+      ![object.material]
+        .flat()
+        .some((material) => material.name === 'about-notebook-hover-rim')
+    )
+      return;
+    const transform = notebook.root.matrixWorld
+      .clone()
+      .invert()
+      .multiply(object.matrixWorld);
+    rimBounds.union(
+      new THREE.Box3()
+        .setFromBufferAttribute(object.geometry.attributes.position)
+        .applyMatrix4(transform),
+    );
+  });
+  assert.equal(rimBounds.isEmpty(), false);
+  const size = rimBounds.getSize(new THREE.Vector3());
+  const center = rimBounds.getCenter(new THREE.Vector3());
+  assert.ok(Math.abs(size.x - notebook.cover.width) < 1e-6);
+  assert.ok(Math.abs(size.y - notebook.cover.height) < 1e-6);
+  assert.ok(Math.abs(center.x) < 1e-6 && Math.abs(center.y) < 1e-6);
+  assert.ok(
+    Math.abs(center.z - (notebook.cover.z + notebook.cover.depth / 2 + 0.001)) <
+      1e-6,
+    'rim sits at the cover face so perspective and clips remain physical',
+  );
+  assert.ok(size.x < notebook.openingWidth);
 });
 
 test('Batched section tabs retain variable spacing and travel to the left with crossed pages', () => {

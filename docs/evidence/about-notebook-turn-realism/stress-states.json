@@ -1,0 +1,66 @@
+[
+  {
+    "focus": "notebook-section-pages notebook-ink",
+    "frontColumn": "translateX(-940px)",
+    "frontNodes": 133,
+    "frontPage": "20",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "20",
+      "notebookTargetPage": "46",
+      "turning": "true"
+    },
+    "underPage": "21"
+  },
+  {
+    "focus": "notebook-section-pages notebook-ink",
+    "frontColumn": "translateX(-2350px)",
+    "frontNodes": 133,
+    "frontPage": "23",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "23",
+      "notebookTargetPage": "46",
+      "turning": "true"
+    },
+    "underPage": "24"
+  },
+  {
+    "focus": "notebook-section-pages notebook-ink",
+    "frontColumn": "translateX(-3760px)",
+    "frontNodes": 133,
+    "frontPage": "26",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "26",
+      "notebookTargetPage": "46",
+      "turning": "true"
+    },
+    "underPage": "27"
+  },
+  {
+    "focus": "notebook-section-pages notebook-ink",
+    "frontColumn": "translateX(-5640px)",
+    "frontNodes": 133,
+    "frontPage": "30",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "30",
+      "notebookTargetPage": "46",
+      "turning": "true"
+    },
+    "underPage": "31"
+  }
+]

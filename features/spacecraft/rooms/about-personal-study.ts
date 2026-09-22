@@ -1186,16 +1186,16 @@ export function buildAboutPersonalStudy(
     0.025,
   );
   box(
-    1.056,
-    0.617,
-    0.023,
+    ABOUT_NOTEBOOK_LAYOUT.cover.width,
+    ABOUT_NOTEBOOK_LAYOUT.cover.height,
+    ABOUT_NOTEBOOK_LAYOUT.cover.depth,
     m.navy,
     0,
     0,
-    -0.019,
+    ABOUT_NOTEBOOK_LAYOUT.cover.z,
     'cloth-bound-cover',
     journal,
-    0.019,
+    ABOUT_NOTEBOOK_LAYOUT.cover.radius,
   );
   cylinder(0.032, 0.585, m.navySeam, 0, 0, -0.012, 'bound-spine', journal, 'y');
   // The paper bends into the binding; the cloth spine stays beneath the spread.
@@ -1213,6 +1213,7 @@ export function buildAboutPersonalStudy(
   const outerPageEdgeGeometry = new THREE.BoxGeometry(0.0012, 0.56, 0.0013);
   let rightPaperSection: any;
   let rightPrintedPage: any;
+  let leftPrintedPage: any;
   const notebookFlags: Array<{
     anchor: any;
     printed: any;
@@ -1236,15 +1237,52 @@ export function buildAboutPersonalStudy(
     '#a8c1ae',
   ];
   function paintFlag(ctx: any, index: number, title: string, back = false) {
+    // Use the same logical pixels as the native marker: only the exposed 125px
+    // tab carries its number and two-line title, with 8px breathing room.
+    ctx.save();
+    ctx.scale(768 / 155, 256 / 56);
     ctx.fillStyle = flagColors[index % flagColors.length];
-    ctx.fillRect(0, 0, 768, 256);
-    ctx.fillStyle = '#233747';
-    ctx.font = '500 69px "Helvetica Neue", Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    if (title) ctx.fillText(title, 412, 131, 670);
+    ctx.fillRect(0, 0, 155, 56);
     ctx.fillStyle = 'rgba(239,229,206,.35)';
-    ctx.fillRect(back ? 597 : 0, 0, 171, 256);
+    ctx.fillRect(back ? 125 : 0, 0, 30, 56);
+    if (title) {
+      const x = back ? 8 : 38;
+      const width = 109;
+      ctx.font = '600 13px Arial, Helvetica, sans-serif';
+      const lines: string[] = [];
+      let remaining = title.trim().replace(/\s+/g, ' ');
+      while (remaining && lines.length < 2) {
+        let end = remaining.length;
+        while (
+          end > 1 &&
+          ctx.measureText(remaining.slice(0, end)).width > width
+        )
+          end--;
+        if (end < remaining.length && lines.length === 0) {
+          const space = remaining.lastIndexOf(' ', end);
+          if (space > 0) end = space;
+        }
+        let line = remaining.slice(0, end).trim();
+        remaining = remaining.slice(end).trim();
+        if (lines.length === 1 && remaining) {
+          while (line && ctx.measureText(line + '…').width > width)
+            line = line.slice(0, -1);
+          line += '…';
+        }
+        lines.push(line);
+      }
+      const top = (56 - (11.3 + 3 + lines.length * 14.69)) / 2;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = 'rgba(37,52,69,.75)';
+      ctx.font = '400 10px Arial, Helvetica, sans-serif';
+      ctx.fillText(String(index + 1).padStart(2, '0'), x, top);
+      ctx.fillStyle = '#253445';
+      ctx.font = '600 13px Arial, Helvetica, sans-serif';
+      for (const [line, value] of lines.entries())
+        ctx.fillText(value, x, top + 14.3 + line * 14.69);
+    }
+    ctx.restore();
   }
   for (const side of [-1, 1]) {
     const leaf = group(
@@ -1314,6 +1352,7 @@ export function buildAboutPersonalStudy(
       'printed-top-paper-leaf',
       upperLeaf,
     );
+    if (side < 0) leftPrintedPage = printedPage;
     if (side === 1) {
       rightPaperSection = leaf;
       rightPrintedPage = printedPage;
@@ -1461,7 +1500,7 @@ export function buildAboutPersonalStudy(
     'turning-notebook-leaf',
     0,
     0,
-    0.047,
+    0.0385,
     rightPaperSection,
   );
   turningLeaf.userData.animated = true;
@@ -1470,7 +1509,7 @@ export function buildAboutPersonalStudy(
   const turningGeometry = rightPrintedPage.geometry.clone();
   turningGeometry.translate(0.247, 0, 0);
   const turningMaterial = material('turning-notebook-paper', 0xffffff, 1);
-  turningMaterial.side = THREE.DoubleSide;
+  turningMaterial.side = THREE.FrontSide;
   turningMaterial.userData.studyInk = true;
   turningMaterial.map = canvasMap('turning-notebook-paper', 512, 640, (ctx) =>
     drawStudyArtwork(ctx, 'journal-blank'),
@@ -1482,6 +1521,31 @@ export function buildAboutPersonalStudy(
     turningLeaf,
   );
   turningSurface.castShadow = turningSurface.receiveShadow = false;
+  // Every reverse leaf carries the same illustrated inside cover. Native ink
+  // on the front and the links on the back follow these physical paper anchors.
+  const backGeometry = turningGeometry.clone();
+  const backUv = backGeometry.attributes.uv;
+  for (let vertex = 0; vertex < backUv.count; vertex++)
+    backUv.setX(vertex, 1 - backUv.getX(vertex));
+  const backMaterial = material('turning-notebook-artwork', 0xffffff, 1);
+  backMaterial.side = THREE.BackSide;
+  backMaterial.userData.studyInk = true;
+  backMaterial.map = leftPrintedPage.material.map;
+  const turningBack = mesh(
+    backGeometry,
+    backMaterial,
+    'turning-paper-artwork',
+    turningLeaf,
+  );
+  turningBack.castShadow = turningBack.receiveShadow = false;
+  const turnAnchors = [false, true].map((back) => {
+    const anchor = new THREE.Object3D();
+    anchor.name = prefix + 'turning-paper-' + (back ? 'back' : 'front');
+    anchor.position.set(0.247, 0, back ? -0.0003 : 0.0003);
+    anchor.rotation.y = back ? Math.PI : 0;
+    turningLeaf.add(anchor);
+    return anchor;
+  });
 
   const pageCount = (chapter: { pageCount?: number }) =>
     Math.max(
@@ -1497,6 +1561,8 @@ export function buildAboutPersonalStudy(
     anchor: notebookAnchor,
     openingAnchor,
     framingAnchor,
+    turningLeaf,
+    turnAnchors,
     flags: [] as Array<
       ReturnType<typeof notebookMarkers>[number] & {
         anchor: any;
@@ -1713,10 +1779,11 @@ export function buildAboutPersonalStudy(
           !notebook.active || flag.index === notebook.turningSection
             ? flag.title
             : '';
-        if (context && label.userData.printedTitle !== title) {
+        const printKey = JSON.stringify([flag.index, title]);
+        if (context && label.userData.printedLabelKey !== printKey) {
           paintFlag(context, flag.index, title, back);
           map.needsUpdate = true;
-          label.userData.printedTitle = title;
+          label.userData.printedLabelKey = printKey;
         }
       }
     }

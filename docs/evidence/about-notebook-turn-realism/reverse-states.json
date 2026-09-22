@@ -1,0 +1,92 @@
+[
+  {
+    "faces": [
+      {
+        "display": "block",
+        "face": "under",
+        "ink": "translateX(0px)",
+        "page": "15"
+      },
+      {
+        "display": "block",
+        "face": "front",
+        "ink": "translateX(-1410px)",
+        "page": "14"
+      },
+      {
+        "display": "none",
+        "face": "back"
+      }
+    ],
+    "focus": "notebook-section-pages notebook-ink",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "15",
+      "notebookTargetPage": "0",
+      "turning": "true"
+    }
+  },
+  {
+    "faces": [
+      {
+        "display": "block",
+        "face": "under",
+        "ink": "translateX(-940px)",
+        "page": "13"
+      },
+      {
+        "display": "block",
+        "face": "front",
+        "ink": "translateX(-470px)",
+        "page": "12"
+      },
+      {
+        "display": "none",
+        "face": "back"
+      }
+    ],
+    "focus": "notebook-section-pages notebook-ink",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "13",
+      "notebookTargetPage": "0",
+      "turning": "true"
+    }
+  },
+  {
+    "faces": [
+      {
+        "display": "block",
+        "face": "under",
+        "ink": "translateX(0px)",
+        "page": "11"
+      },
+      {
+        "display": "block",
+        "face": "front",
+        "ink": "translateX(-1410px)",
+        "page": "10"
+      },
+      {
+        "display": "none",
+        "face": "back"
+      }
+    ],
+    "focus": "notebook-section-pages notebook-ink",
+    "reader": {
+      "compact": "false",
+      "computer": "false",
+      "computerPortrait": "false",
+      "notebook": "true",
+      "notebookSettledPage": "11",
+      "notebookTargetPage": "0",
+      "turning": "true"
+    }
+  }
+]

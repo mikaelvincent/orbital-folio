@@ -143,6 +143,8 @@ test('one to six section markers fit the book; later sections use another bank w
         ),
       );
       for (const [slot, flag] of notebook.flags.entries()) {
+        assert.equal(flag.exposedWidth, flag.width - 30);
+        assert.equal(flag.exposedX, flag.x + (flag.side === 'right' ? 30 : 0));
         assert.equal(
           flag.y,
           45 + slot * 84,
@@ -429,7 +431,7 @@ test('reduced motion and closure settle all pending leaves without moving the mo
   assert.equal(notebook.framingWidth, ABOUT_NOTEBOOK_LAYOUT.framingWidth);
 });
 
-test('settled frame updates leave paper textures untouched', () => {
+test('settled frame updates leave shared paper artwork textures untouched', () => {
   const previousDocument = globalThis.document;
   const canvasDocument = {
     createElement() {
@@ -450,6 +452,21 @@ test('settled frame updates leave paper textures untouched', () => {
   globalThis.document = canvasDocument;
   try {
     const { root, notebook } = fixture();
+    const artwork = root
+      .getObjectByName('personal-study-left-paper-section')
+      .getObjectByName('personal-study-printed-top-paper-leaf').material.map;
+    const turningArtwork = root.getObjectByName(
+      'personal-study-turning-paper-artwork',
+    ).material.map;
+    assert.ok(
+      artwork?.isCanvasTexture,
+      'the artwork comparison uses real canvas texture objects',
+    );
+    assert.equal(
+      turningArtwork,
+      artwork,
+      'the reverse leaf reuses the fixed left illustration texture',
+    );
     notebook.setActive(true);
     notebook.setChapter(2, true);
     const maps = new Set();
@@ -465,6 +482,118 @@ test('settled frame updates leave paper textures untouched', () => {
       [...maps].map((map) => map.version),
       versions,
     );
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
+});
+
+test('room markers preserve reader sections and print numbered titles only on exposed paper', () => {
+  const previousDocument = globalThis.document;
+  const canvasDocument = {
+    createElement() {
+      const canvas = { width: 0, height: 0, labels: [] };
+      const context = new Proxy(
+        {
+          canvas,
+          createLinearGradient: () => ({ addColorStop() {} }),
+          createRadialGradient: () => ({ addColorStop() {} }),
+          measureText(text) {
+            const size = Number(this.font?.match(/([\d.]+)px/)?.[1] || 12);
+            return { width: text.length * size * 0.6 };
+          },
+          fillText(text, x, y) {
+            canvas.labels.push({ text, x, y, font: this.font });
+          },
+        },
+        { get: (target, key) => target[key] ?? (() => {}) },
+      );
+      canvas.getContext = () => context;
+      return canvas;
+    },
+  };
+  globalThis.document = canvasDocument;
+  try {
+    const entries = [
+      { title: 'My story', pageCount: 2 },
+      { title: 'University', pageCount: 1 },
+      { title: 'Beyond the screen', pageCount: 3 },
+    ];
+    const { root, notebook } = fixture(entries);
+    const before = notebook.flags.map(
+      ({ index, title, x, y, width, height }) => ({
+        index,
+        title,
+        x,
+        y,
+        width,
+        height,
+      }),
+    );
+    for (const flag of notebook.flags) {
+      const front = root.getObjectByName(
+        `personal-study-flag-printed-adhesive-face-${flag.slot}`,
+      ).material.map.image;
+      assert.ok(
+        front.labels.some(
+          ({ text, x }) =>
+            text === String(flag.index + 1).padStart(2, '0') && x === 38,
+        ),
+      );
+      assert.ok(
+        front.labels.every(({ x }) => x >= 38),
+        'no room ink lies under the adhesive overlap',
+      );
+      assert.ok(
+        front.labels.every(({ font }) =>
+          font.endsWith('Arial, Helvetica, sans-serif'),
+        ),
+        'room labels use the native notebook font stack',
+      );
+    }
+    notebook.setActive(true);
+    assert.deepEqual(
+      notebook.flags.map(({ index, title, x, y, width, height }) => ({
+        index,
+        title,
+        x,
+        y,
+        width,
+        height,
+      })),
+      before,
+      'opening preserves every marker and its placement',
+    );
+    notebook.setChapter(3, true);
+    notebook.setActive(false);
+    assert.deepEqual(
+      notebook.flags.map(({ side }) => side),
+      ['left', 'left', 'right'],
+    );
+    for (const flag of notebook.flags.filter(({ side }) => side === 'left')) {
+      const back = root.getObjectByName(
+        `personal-study-flag-printed-adhesive-back-${flag.slot}`,
+      ).material.map.image;
+      assert.ok(
+        back.labels.some(
+          ({ text, x }) =>
+            text === String(flag.index + 1).padStart(2, '0') && x === 8,
+        ),
+        'reverse labels match their native left marker',
+      );
+    }
+    notebook.setChapters(
+      Array.from({ length: 7 }, () => ({ title: 'Same title' })),
+    );
+    notebook.setChapter(6, true);
+    const seventh = root.getObjectByName(
+      'personal-study-flag-printed-adhesive-face-0',
+    ).material.map.image.labels;
+    assert.ok(
+      seventh.some(({ text }) => text === '07'),
+      'a new marker bank repaints its number even when titles repeat',
+    );
+    assert.equal(notebook.flags.length, 1);
   } finally {
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;

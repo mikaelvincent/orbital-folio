@@ -392,6 +392,8 @@ There is no detached dialog, backdrop or replacement notebook.
 The notebook and its cradle are centered on the table, and the close camera centers
 the spread. Like the other room controls, the notebook dims at rest in the room
 and brightens on hover or keyboard focus; the open reader keeps normal brightness.
+Its physical hover/focus rim follows the rounded cloth cover, behind its retaining
+clips, without a second rectangular HTML outline.
 
 Published Journal entries are **sections**, each with its own colored paper marker.
 The marker count follows the collection, up to six visible at once; separate
@@ -402,14 +404,21 @@ Earlier section markers travel with their crossed leaves to the left, where thei
 reverse labels remain readable. Both paper stacks align with the reading leaves,
 which overlap each flag's adhesive region by 30 logical pixels. The fixed left
 artwork remains visible above the resting stack.
+Room-view flags and native reader labels share numbered titles, typography and
+placement. Only each flag's exposed 125px region is interactive or highlighted;
+its 30px adhesive overlap remains covered by the page.
 
 The bottom arrows turn **pages within the current section** and stop at its ends.
 Pages never scroll. Each section is one continuous Markdown body that flows
 automatically into fixed pages. Pagination is hidden for a one-page section.
 Each crossed physical leaf turns, including multi-section jumps; long routes use a
 2.4-second animation budget. Reduced motion settles immediately. The 14px body is
-smaller than the 16px subtitle and 17–32px headings. Selection and per-section page
-positions survive closing during a visit. Escape or exposed pressure wall returns
+smaller than the 16px subtitle and 17–32px headings. During turns, native Markdown
+ink follows the physical front of each crossed leaf and reveals the adjacent
+page beneath it. The reverse face carries the retained left artwork and links.
+Projection masks keep stationary text from showing through the moving paper;
+inert display copies preserve the original semantic reader and keyboard focus.
+Selection and per-section page positions survive closing during a visit. Escape or exposed pressure wall returns
 to the room; there is no Back to About button on the paper. Furniture blocks wall
 dismissal and focus returns to the
 notebook. The first section includes the editable biography; configured social links
@@ -440,7 +449,8 @@ reflow is implemented. Semantic Reading view remains the readable alternative.
 Room, overview, doorway and orbital world framing keep their existing rules;
 only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md),
 the [page/section refinements](evidence/about-notebook-refinements/README.md), and the
-current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md).
+current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md),
+and [printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md).
 
 ## About photos and social cards
 

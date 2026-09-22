@@ -1,0 +1,8 @@
+{
+  "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+  "workingDirectory": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-turns-8f9hrdlx",
+  "startedAt": "2026-09-22T10:41:30.291315+00:00",
+  "sourceHashes": "full-suite-source-hashes.json",
+  "exitCode": 0,
+  "completedAt": "2026-09-22T10:48:01.968395+00:00"
+}

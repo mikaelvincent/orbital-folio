@@ -2,6 +2,8 @@ import type { CaseStudyFilter } from '../../lib/content/case-study-content';
 import { projectApplicationLayout } from './navigation/project-application';
 import { fitAboutNotebook } from './navigation/about-notebook';
 import { createProjectedSurface } from './projected-surface';
+import { createNotebookTurnInk } from './notebook-turn-ink';
+import { notebookMarkers } from './rooms/about-notebook-layout';
 import { resolveSocialScreens } from '@/lib/content/social-links';
 import { resolveAboutPhotos } from '@/lib/content/about-photos';
 import {
@@ -535,6 +537,12 @@ export function mountSpacecraftScene({
             return { screen, link, object };
           });
         const notebook = model.group.userData.aboutNotebook;
+        const notebookTurnInk = createNotebookTurnInk(
+          THREE,
+          surfaceLayer,
+          surfaceElement,
+          notebook,
+        );
         const notebookButton = document.createElement('button');
         notebookButton.type = 'button';
         notebookButton.className = 'world-object-target world-notebook-target';
@@ -2046,18 +2054,21 @@ export function mountSpacecraftScene({
             isNotebook && notebook.turning,
           );
           if (isNotebook) {
+            const flags = notebookMarkers(
+              notebook.chapters.length,
+              notebook.settledSection,
+            );
             for (const marker of surfaceElement.querySelectorAll<HTMLElement>(
               '[data-marker-index]',
             )) {
               const index = Number(marker.dataset.markerIndex);
-              const left = index < notebook.settledSection;
-              marker.dataset.side = left ? 'left' : 'right';
-              marker.style.left = `${left ? 20 : 1095}px`;
-              const bankMatches =
-                Math.floor(index / 6) ===
-                Math.floor(notebook.settledSection / 6);
+              const flag = flags.find((flag) => flag.index === index);
+              if (flag) {
+                marker.dataset.side = flag.side;
+                marker.style.left = `${flag.exposedX}px`;
+              }
               marker.style.visibility =
-                bankMatches && index !== notebook.turningSection
+                flag && index !== notebook.turningSection
                   ? 'visible'
                   : 'hidden';
             }
@@ -2341,6 +2352,12 @@ export function mountSpacecraftScene({
             projectedViewport.x,
             projectedViewport.y,
             surface.visible,
+          );
+          notebookTurnInk.update(
+            camera,
+            projectedViewport.x,
+            projectedViewport.y,
+            surface.visible && isNotebook,
           );
           diagnostics?.mark('css-render');
           if (auditMotion) {
@@ -3589,6 +3606,7 @@ export function mountSpacecraftScene({
           latest.current.onEarthPlaybackReady?.(null);
           cancelAnimationFrame(frame);
           annotations.dispose();
+          notebookTurnInk.dispose();
           observer.disconnect();
           intersection.disconnect();
           document.removeEventListener('visibilitychange', syncVisibility);
