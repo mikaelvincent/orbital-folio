@@ -101,9 +101,22 @@ it out of About. This does not change **Contact console placement**. The positio
 overview shows draft and live assignments. If a live position is occupied,
 change and publish its existing link's position before publishing the replacement.
 
-Optionally select or upload a **Social photo**, then crop it behind the platform
-badge. The preview matches the desktop paper card; phones show a larger icon and
-external-link arrow. Without a photo, the link still appears as a platform print.
+Choose a recognizable icon from the visual platform picker, or upload a standard
+**SVG or PNG** in the custom icon controls. SVG is convenient for a crisp scalable
+mark; transparent PNG also works. These are ordinary downloadable icon formats,
+not an application-specific format. Icons sit directly on the cream card without
+a photo, badge or caption; the preview shows the same surface. Use an icon that
+contrasts with cream. Full proportions and transparency are preserved, with no
+crop controls. Choosing a preset clears the custom override without deleting its
+library asset. Custom icons affect About and its readers; Contact uses the preset.
+
+SVG files may be up to 1 MiB and PNGs up to 5 MiB (8192 pixels per side and
+16 megapixels). Static, self-contained SVG paths, groups, styles, local gradients
+and references work; externally linked files, scripts and animation do not.
+Both formats are decoded locally and saved as a PNG bounded to 512 pixels before
+upload. A downloaded [Simple Icons SVG](https://simpleicons.org/) works directly;
+no manual conversion is needed.
+
 Without an assigned link, the slot is decorative. The same three selected links
 appear in About's Reading view and notebook reader.
 
@@ -116,8 +129,9 @@ deleted; first clear/change and publish their parent references. Private preview
 remain authenticated. Whole-content JSON backups preserve image references/metadata, crops and
 positions; they do not contain the uploaded R2 image files.
 
-The owner's local About demonstration uses a fictional portrait, workspace and
-mountain photographs, with GitHub, LinkedIn and an example.com Website card.
+The owner's local About demonstration shows a fictional square portrait and
+GitHub, LinkedIn and an example.com Website icon. Earlier workspace/mountain
+photographs remain in the library; retired social-photo assignments are ignored.
 These remain ordinary editable records. See [sample assets and provenance](../scripts/assets/about-demos/PROMPTS.md)
 and [the local setup record](evidence/about-photos-socials/dummy-content/README.md).
 They are not automatically inserted into other databases or fresh installations.

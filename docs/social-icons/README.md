@@ -1,8 +1,8 @@
-# Contact social icon assets
+# Social icon assets
 
 Source: Simple Icons, https://github.com/simple-icons/simple-icons. SVG path data is supplied under the upstream CC0-1.0 license; the full license and upstream disclaimer are included alongside these files. Brand marks remain their respective owners' marks.
 
-All icons use `viewBox: "0 0 24 24"`; draw as filled paths, not stroked paths. The bundled paths live in `lib/content/social-platforms.ts`; `sources.json` records their upstream revisions. No package dependency is required.
+All brand icons use `viewBox: "0 0 24 24"`; draw as filled paths, not stroked paths. About and Contact share these recognizable brand marks. The bundled paths live in `lib/content/social-platforms.ts`; `sources.json` records their upstream revisions. No package dependency is required.
 
 LinkedIn comes from the official Simple Icons 13.21.0 tag because it is absent from the current develop branch. Other icons are pinned to the exact fetched commit below.
 
@@ -15,3 +15,13 @@ LinkedIn comes from the official Simple Icons 13.21.0 tag because it is absent f
 - instagram: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/instagram.svg
 - bluesky: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/bluesky.svg
 - x: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/x.svg
+
+Additional popular presets (same pinned revision):
+
+- discord: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/discord.svg
+- twitch: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/twitch.svg
+- tiktok: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/tiktok.svg
+- facebook: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/facebook.svg
+- reddit: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/reddit.svg
+
+Website and Custom are authored stroked symbols, also using a 24 × 24 viewBox. Their `filled: false` flag selects stroked rendering.

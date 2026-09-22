@@ -2518,7 +2518,6 @@ export function mountSpacecraftScene({
         let initializedCamera = false;
         let previousViewport = '';
         const resize = () => {
-          model.group.userData.aboutPhotoPrints.setCompact(mobile());
           if (el.clientWidth < 240 || el.clientHeight < 240) return;
           const w = Math.max(1, el.clientWidth),
             h = Math.max(1, el.clientHeight);

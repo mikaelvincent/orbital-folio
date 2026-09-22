@@ -27,16 +27,12 @@ export function PhotoCropFields({
   value,
   aspect,
   onChange,
-  caption,
-  overlay,
 }: {
   title: string;
   media: Content;
   value: unknown;
   aspect: number;
   onChange: (crop: ImageCrop) => void;
-  caption?: ReactNode;
-  overlay?: ReactNode;
 }) {
   const cropId = useId();
   const crop = normalizeImageCrop(value);
@@ -53,16 +49,7 @@ export function PhotoCropFields({
               style={imageCropStyle(crop)}
             />
           )}
-          {overlay && <div className="photo-crop-overlay">{overlay}</div>}
         </div>
-        {caption && (
-          <div
-            className="photo-crop-caption"
-            style={{ aspectRatio: (aspect * 0.72) / 0.28 }}
-          >
-            {caption}
-          </div>
-        )}
       </div>
       {(
         [

@@ -29,6 +29,7 @@ const {
   resolveAboutSocials,
   resolveSocialScreens,
   socialLinkDraft,
+  inferSocialPlatform,
   validateContent,
   seedSite,
   toPortfolio,
@@ -58,6 +59,31 @@ const image = {
   url: '/media/photo',
   mime: 'image/jpeg',
 };
+
+test('new social presets infer exact platform hosts without matching misleading URL paths or suffixes', () => {
+  for (const [url, platform] of [
+    ['https://discord.gg/example', 'discord'],
+    ['https://discord.com/users/example', 'discord'],
+    ['https://www.twitch.tv/example', 'twitch'],
+    ['https://www.tiktok.com/@example', 'tiktok'],
+    ['https://vm.tiktok.com/example', 'tiktok'],
+    ['https://www.facebook.com/example', 'facebook'],
+    ['https://www.reddit.com/u/example', 'reddit'],
+    ['https://redd.it/example', 'reddit'],
+  ]) {
+    assert.equal(inferSocialPlatform(url), platform);
+    assert.equal(
+      resolveAboutSocials([link('inferred', { url, aboutSlot: 'left' })]).left
+        .platform,
+      platform,
+    );
+  }
+  assert.equal(
+    inferSocialPlatform('https://discord.gg.example.com/invite'),
+    'custom',
+  );
+  assert.equal(inferSocialPlatform('https://example.com/twitch.tv'), 'custom');
+});
 
 test('photo framing fills landscape and portrait frames without stretching or exposing an image edge', () => {
   assert.deepEqual(imageCropRect(1600, 900, 1, undefined), {
@@ -133,11 +159,12 @@ test('CSS preview and canvas crop use the same image coordinates for every posit
         }
 });
 
-test('About assignments remain explicit, keep photo fields and do not disturb Contact placement', () => {
+test('About assignments preserve custom icons and legacy metadata without disturbing Contact placement', () => {
   const legacy = link('legacy', { screen: 'auto' });
   const left = link('chosen', {
     screen: 'list',
     aboutSlot: 'left',
+    iconMediaId: 'custom-icon',
     photoMediaId: 'photo',
     photoCrop: { x: 0.2, y: 0.8, zoom: 2 },
   });
@@ -148,6 +175,7 @@ test('About assignments remain explicit, keep photo fields and do not disturb Co
   ];
   const about = resolveAboutSocials(records);
   assert.equal(about.left.id, 'chosen');
+  assert.equal(about.left.iconMediaId, 'custom-icon');
   assert.equal(about.left.photoMediaId, 'photo');
   assert.deepEqual(about.left.photoCrop, left.photoCrop);
   assert.equal(about.center.id, 'other');
@@ -196,10 +224,17 @@ test('photo resolution keeps independent reading crops, authenticated drafts and
     ),
     record('photo', 'media', image, null),
     record(
+      'icon',
+      'media',
+      { ...image, mime: 'image/png', url: '/media/icon' },
+      null,
+    ),
+    record(
       'social',
       'link',
       link('social', {
         aboutSlot: 'left',
+        iconMediaId: 'icon',
         photoMediaId: 'photo',
         photoCrop: crop,
       }),
@@ -209,7 +244,12 @@ test('photo resolution keeps independent reading crops, authenticated drafts and
   const preview = resolveAboutPhotos(toPortfolio(records, true));
   assert.deepEqual(preview.portrait.crop, crop);
   assert.deepEqual(preview.portrait.readingCrop, readingCrop);
-  assert.deepEqual(preview.socials.left.photo.crop, crop);
+  assert.equal(preview.socials.left.icon.media.id, 'icon');
+  assert.equal(
+    'photo' in preview.socials.left,
+    false,
+    'Retired photos never reach the rendering contract.',
+  );
   assert.equal(preview.portrait.media.url, '/media/photo');
   assert.deepEqual(resolveAboutPhotos(toPortfolio(records)), {
     portrait: null,
@@ -222,13 +262,13 @@ test('photo resolution keeps independent reading crops, authenticated drafts and
   ]) {
     const resolved = resolveAboutPhotos(
       toPortfolio(
-        [records[0], records[2], record('photo', 'media', invalid)],
+        [records[0], records[3], record('photo', 'media', invalid)],
         true,
       ),
     );
     assert.equal(resolved.portrait, null);
     assert.equal(
-      resolved.socials.left.photo,
+      resolved.socials.left.icon,
       null,
       'configured destination remains a platform card when its image is unusable',
     );
@@ -250,6 +290,7 @@ test('validation round-trips optional photo settings and keeps older site export
     title: 'GitHub',
     url: 'https://github.com/example',
     aboutSlot: 'left',
+    iconMediaId: 'icon-1',
     photoMediaId: 'photo-1',
     photoCrop: crop,
   };
@@ -275,15 +316,143 @@ test('validation round-trips optional photo settings and keeps older site export
   }
   assert.throws(
     () => validateContent('link', { ...social, aboutSlot: 'ceiling' }),
-    /About photo position/,
+    /About icon position/,
   );
   assert.throws(
     () => validateContent('link', { ...social, photoMediaId: '../private' }),
     /valid photoMediaId/,
   );
   assert.throws(
+    () => validateContent('link', { ...social, iconMediaId: '../private' }),
+    /valid iconMediaId/,
+  );
+  assert.throws(
     () => validateContent('site', { ...site, portraitMediaId: '/media/photo' }),
     /valid portraitMediaId/,
+  );
+});
+
+test('only explicitly selected PNGs become custom icons; legacy photos and unsupported or unsafe media use the preset', () => {
+  const social = link('social', {
+    aboutSlot: 'left',
+    platform: 'github',
+    photoMediaId: 'old-photo',
+    photoCrop: { x: 1, y: 0, zoom: 3 },
+  });
+  const png = { ...image, url: '/media/icon', mime: 'image/png' };
+  const resolve = (data, custom = png) =>
+    resolveAboutPhotos(
+      toPortfolio([
+        record('social', 'link', data),
+        record('old-photo', 'media', { ...png, url: '/media/old-photo' }),
+        record('icon', 'media', custom),
+      ]),
+    ).socials.left;
+  assert.equal(
+    resolve(social).icon,
+    null,
+    'Even an old PNG photograph is never silently reused as an icon.',
+  );
+  assert.equal(resolve(social).link.platform, 'github');
+  const selected = { ...social, iconMediaId: 'icon' };
+  assert.equal(resolve(selected).icon.media.url, '/media/icon');
+  for (const mime of [
+    'image/jpeg',
+    'image/webp',
+    'image/gif',
+    'image/svg+xml',
+    'video/mp4',
+  ])
+    assert.equal(resolve(selected, { ...png, mime }).icon, null, mime);
+  for (const url of [
+    'javascript:alert(1)',
+    'data:image/png;base64,abc',
+    'https://user:password@example.com/icon',
+  ])
+    assert.equal(resolve(selected, { ...png, url }).icon, null, url);
+});
+
+test('active custom icons require published PNGs and protect managed aliases; retired photos and inactive icons do not lock assets', () => {
+  const png = { ...image, url: '/media/icon-source', mime: 'image/png' };
+  const selected = {
+    aboutSlot: 'left',
+    iconMediaId: 'icon',
+    photoMediaId: 'retired-photo',
+  };
+  const icon = record('icon', 'media', png);
+  const source = record('icon-source', 'media', png);
+  assert.deepEqual(directAboutPhotoMediaIds('link', selected, [icon, source]), [
+    'icon',
+    'icon-source',
+  ]);
+  assert.deepEqual(
+    directAboutPhotoMediaIds('link', { ...selected, aboutSlot: 'off' }, [
+      icon,
+      source,
+    ]),
+    [],
+  );
+  assert.deepEqual(
+    directAboutPhotoMediaIds('link', {
+      aboutSlot: 'left',
+      photoMediaId: 'retired-photo',
+    }),
+    [],
+  );
+  assert.doesNotThrow(() =>
+    validateAboutPhotoPublication(
+      'link',
+      { aboutSlot: 'left', photoMediaId: 'missing-retired-photo' },
+      [],
+    ),
+  );
+  assert.doesNotThrow(() =>
+    validateAboutPhotoPublication(
+      'link',
+      { ...selected, aboutSlot: 'off' },
+      [],
+    ),
+  );
+  assert.throws(
+    () => validateAboutPhotoPublication('link', selected, []),
+    /missing/,
+  );
+  assert.throws(
+    () =>
+      validateAboutPhotoPublication('link', selected, [
+        { ...icon, published: null },
+        source,
+      ]),
+    /Publish the icon/,
+  );
+  assert.throws(
+    () =>
+      validateAboutPhotoPublication('link', selected, [
+        icon,
+        { ...source, published: null },
+      ]),
+    /Publish the icon/,
+  );
+  for (const mime of ['image/svg+xml', 'image/jpeg', 'video/mp4']) {
+    assert.throws(
+      () =>
+        validateAboutPhotoPublication('link', selected, [
+          { ...icon, published: { ...png, mime } },
+          source,
+        ]),
+      /Choose a PNG icon/,
+    );
+    assert.throws(
+      () =>
+        validateAboutPhotoPublication('link', selected, [
+          icon,
+          { ...source, published: { ...png, mime } },
+        ]),
+      /Choose a PNG icon/,
+    );
+  }
+  assert.doesNotThrow(() =>
+    validateAboutPhotoPublication('link', selected, [icon, source]),
   );
 });
 
@@ -295,7 +464,7 @@ test('publishing photos requires published image metadata, uses the live MIME an
       photoMediaId: 'photo',
       aboutSlot: 'off',
     }),
-    ['photo'],
+    [],
   );
   assert.throws(
     () => validateAboutPhotoPublication('site', selected, []),

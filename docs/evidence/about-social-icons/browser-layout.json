@@ -1,0 +1,54 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "liveRendering": true,
+  "screenshotScaling": "None; actual CSS viewports",
+  "mainOrigin": "http://localhost:3000",
+  "mainStoreWrites": false,
+  "roomTargets": [
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "minimumWidth": 60.55575,
+      "minimumHeight": 60.55575
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "minimumWidth": 26.30953,
+      "minimumHeight": 26.30953
+    },
+    {
+      "viewport": [
+        360,
+        800
+      ],
+      "minimumWidth": 24.18664,
+      "minimumHeight": 24.18664
+    }
+  ],
+  "studioPhone": {
+    "viewport": [
+      390,
+      844
+    ],
+    "documentScrollWidth": 390
+  },
+  "customReader": {
+    "iconBoxes": [
+      19,
+      19
+    ],
+    "linkMinimumHeight": 44,
+    "threeImagesLoaded": true
+  },
+  "warningsAndErrorsFinalCustomTab": [],
+  "limitations": [
+    "Native Safari and physical touch untested",
+    "No live failed-image network simulation; focused canvas tests cover fallback/disposal",
+    "Phone focus capture did not prove visible rim/label and was excluded; desktop focus capture retained"
+  ]
+}

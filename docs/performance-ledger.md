@@ -2712,6 +2712,39 @@ full-resolution WebP derivatives are source-identified in the asset manifest.
 No runtime, geometry or quality policy changed, and no timing/memory comparison
 is claimed. Existing identity copy and Contact monitor assignments were preserved.
 
+## 47 — Icon-only About social cards (22 September 2026)
+
+Baseline `998dd57`. The owner replaced entry 46's optional photo/badge/caption
+composition with one icon per clipped cream card. The square main portrait,
+physical mounts, notebook, camera fit and shared interaction behavior remain.
+Fourteen bundled choices include twelve recognizable brand marks from Simple
+Icons and the existing Website/Custom symbols. About may instead use an ordinary
+SVG or PNG upload; the studio preserves proportions and transparency and converts
+it to a PNG bounded to 512 pixels (384 only if the encoded 512px file exceeds
+768 KiB). Presets require no source-image requests. Legacy social photographs
+remain portable content but are no longer fetched or active media dependencies.
+
+This is authored design work, not a performance optimization. Geometry, link
+counts and the 512² social texture dimensions remain as in entry 46. Canvas
+composition now runs initially and after a selected custom image loads; there
+is no responsive caption repaint. Up to three custom-icon sources plus the
+portrait can be decoded, deduplicated by URL. Output dimensions bound newly
+uploaded icons; an existing PNG selected from the library can be larger. No
+CPU/GPU timing, process-memory, power or thermal benefit is claimed. Held
+performance candidates remain held.
+
+[Current evidence](evidence/about-social-icons/README.md) records live desktop,
+phone and narrow-room views, the shared reader, standard icon upload workflows,
+content/publication regressions and final verification. Target sizes remain
+60.56 pixels at 1280 × 720, 26.31 at 390 × 844 and 24.19 at 360 × 800 in neutral
+About. Browser checks use hidden Chromium, not native Safari or physical touch.
+The isolated full suite passed **465/465** before final Studio-only corrections;
+all **8 final helper tests**, final typecheck, affected lint and production build
+pass. Real SVG/PNG upload checks caught and resolved a CSP incompatibility; no
+policy expansion was needed. Independent review: **94/100**, with no unresolved
+blockers. Source hashes, intermediate failure, corrected upload evidence and
+verification scope are retained with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

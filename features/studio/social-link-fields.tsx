@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import type { Content } from '@/lib/content/types';
 import {
   socialIcon,
@@ -6,15 +7,8 @@ import {
   socialLinkDraft,
   aboutSlots,
 } from '@/lib/content/social-links';
-import {
-  ABOUT_SOCIAL_PHOTO_ASPECT,
-  normalizeImageCrop,
-} from '@/lib/content/about-photos';
-import {
-  PhotoCropFields,
-  PhotoMediaFields,
-  type PhotoMediaActions,
-} from './about-photo-fields';
+import type { PhotoMediaActions } from './about-photo-fields';
+import { SocialIconFields, SocialIconMark } from './social-icon-fields';
 import {
   NativeSelect,
   NativeSelectOption,
@@ -36,6 +30,9 @@ export function SocialLinkFields({
 } & PhotoMediaActions) {
   const draft = socialLinkDraft(data),
     icon = socialIcon(draft.platform);
+  const draftRef = useRef(draft);
+  draftRef.current = draft;
+  const [preparingIcon, setPreparingIcon] = useState(false);
   const set = (key: string, value: string | number) =>
     onChange({ ...draft, [key]: value });
   const conflicts = ['left', 'right'].includes(draft.screen)
@@ -87,39 +84,47 @@ export function SocialLinkFields({
                 ? 'Your social channel'
                 : icon.label)}
           </strong>
-          <span>{draft.description || 'Social channel preview'}</span>
+          <span>{draft.description || 'Contact console preview'}</span>
         </div>
       </div>
-      <label className="studio-field">
-        Platform
-        <NativeSelect
-          value={draft.platform}
-          onChange={(e) => {
-            const next = socialIcon(e.target.value);
-            onChange({
-              ...draft,
-              platform: next.id,
-              title:
-                !draft.title || draft.title === icon.label
-                  ? next.id === 'custom'
-                    ? ''
-                    : next.label
-                  : draft.title,
-            });
-          }}
-        >
-          {socialPlatforms.map((p) => (
-            <NativeSelectOption key={p.id} value={p.id}>
-              {p.id === 'custom'
-                ? 'Custom — any other social or website'
-                : p.label}
-            </NativeSelectOption>
+      <fieldset
+        className="social-preset-fields wide-field"
+        disabled={busy || preparingIcon}
+      >
+        <legend>Popular icons</legend>
+        <p>
+          Choose a platform, or upload your own icon below. Choosing a preset
+          replaces any custom icon.
+        </p>
+        <div className="social-preset-grid">
+          {socialPlatforms.map((platform) => (
+            <button
+              key={platform.id}
+              type="button"
+              aria-label={`Use ${platform.label} icon`}
+              aria-pressed={
+                draft.platform === platform.id && !draft.iconMediaId
+              }
+              onClick={() =>
+                onChange({
+                  ...draft,
+                  platform: platform.id,
+                  iconMediaId: '',
+                  title:
+                    !draft.title || draft.title === icon.label
+                      ? platform.id === 'custom'
+                        ? ''
+                        : platform.label
+                      : draft.title,
+                })
+              }
+            >
+              <SocialIconMark platform={platform.id} />
+              <span>{platform.label}</span>
+            </button>
           ))}
-        </NativeSelect>
-        <small>
-          Preset platforms include their icons. Custom uses a link icon.
-        </small>
-      </label>
+        </div>
+      </fieldset>
       <label className="studio-field">
         Contact console placement
         <NativeSelect
@@ -148,7 +153,7 @@ export function SocialLinkFields({
         />
       </label>
       <label className="studio-field">
-        Caption (optional)
+        Contact caption (optional)
         <input
           value={draft.description}
           maxLength={64}
@@ -189,12 +194,12 @@ export function SocialLinkFields({
         </p>
       )}
       <div className="about-slot-preview wide-field">
-        <h3>About photo cards</h3>
+        <h3>About social icons</h3>
         <p>
           Choose one of the three cards above the notebook. This does not change
           your Contact console placement.
         </p>
-        <div className="about-slot-row" aria-label="About photo positions">
+        <div className="about-slot-row" aria-label="About icon positions">
           {aboutSlots
             .filter((slot) => slot.id !== 'off')
             .map((slot) => {
@@ -218,13 +223,13 @@ export function SocialLinkFields({
                       ? saved
                           .map((link) => link.title || 'Untitled link')
                           .join(', ')
-                      : 'Decorative artwork'}
+                      : 'No link'}
                   </span>
                   <span>
                     Live:{' '}
                     {live.length
                       ? live.map((record) => record.published!.title).join(', ')
-                      : 'Decorative artwork'}
+                      : 'No link'}
                   </span>
                 </div>
               );
@@ -252,47 +257,18 @@ export function SocialLinkFields({
           </p>
         )}
       </div>
-      <PhotoMediaFields
-        title="Social photo (optional)"
-        description="Add a personal photo behind this card’s platform icon. The crop preview shows the desktop card; phones use a larger icon and an external-link arrow. Use Preview About to see the full room. Without a photo, this becomes a printed platform card."
-        emptyLabel="Use the printed platform card"
-        mediaId={draft.photoMediaId}
+      <SocialIconFields
+        mediaId={draft.iconMediaId || ''}
+        platform={draft.platform}
         records={records}
         busy={busy}
         onUpload={onUpload}
         onPublishAssets={onPublishAssets}
-        onSelect={(photoMediaId) =>
-          onChange({
-            ...draft,
-            photoMediaId,
-            photoCrop: normalizeImageCrop(null),
-          })
+        onPreparingChange={setPreparingIcon}
+        onSelect={(iconMediaId) =>
+          onChange({ ...draftRef.current, iconMediaId })
         }
-      >
-        {(media) => (
-          <PhotoCropFields
-            title="About card photo"
-            media={media}
-            value={draft.photoCrop}
-            aspect={ABOUT_SOCIAL_PHOTO_ASPECT}
-            onChange={(photoCrop) => onChange({ ...draft, photoCrop })}
-            caption={icon.id === 'custom' ? 'Website' : icon.label}
-            overlay={
-              <svg
-                viewBox={icon.viewBox}
-                aria-hidden="true"
-                fill={icon.filled ? 'currentColor' : 'none'}
-                stroke={icon.filled ? 'none' : 'currentColor'}
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d={icon.path} />
-              </svg>
-            }
-          />
-        )}
-      </PhotoMediaFields>
+      />
       <p className="wide-field setup-help">
         Save a draft to preview it privately, then publish to update the
         selected rooms and Reading view. Changing the platform never changes

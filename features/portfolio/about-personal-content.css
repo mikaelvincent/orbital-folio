@@ -41,7 +41,9 @@
   overflow-wrap: anywhere;
 }
 .journal-cover .about-social-links a svg,
-.about-social-links svg {
+.about-social-links svg,
+.journal-cover .about-social-links a .about-social-custom-icon,
+.about-social-links .about-social-custom-icon {
   width: 19px;
   height: 19px;
   flex: none;
@@ -75,4 +77,10 @@
 }
 .world-about-social {
   border-radius: 8px;
+}
+
+.about-social-links .about-social-custom-icon {
+  object-fit: contain;
+  background: #eadfc9;
+  border-radius: 2px;
 }

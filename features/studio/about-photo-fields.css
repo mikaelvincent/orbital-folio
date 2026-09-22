@@ -64,7 +64,6 @@
   margin-bottom: 12px;
 }
 .photo-crop-paper {
-  container-type: inline-size;
   padding: 7px;
   max-width: 320px;
   border: 1px solid #ddd9ce;
@@ -84,33 +83,6 @@
   position: absolute;
   inset: 0;
   object-fit: cover;
-}
-.photo-crop-caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #203147;
-  font-size: 13.5cqw;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-.photo-crop-overlay {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 49%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 11.225%;
-  background: #203147;
-  color: #faf1de;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-}
-.photo-crop-overlay svg {
-  width: 66%;
-  height: 66%;
 }
 .photo-crop-control {
   gap: 0;

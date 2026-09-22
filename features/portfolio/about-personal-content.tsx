@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ArrowUpRight, BookOpen } from 'lucide-react';
 import { imageCropStyle, resolveAboutPhotos } from '@/lib/content/about-photos';
-import { resolveAboutSocials, socialIcon } from '@/lib/content/social-links';
+import { socialIcon } from '@/lib/content/social-links';
 import type { Portfolio } from '@/lib/content/types';
 import './about-personal-content.css';
 
@@ -27,14 +27,13 @@ export function AboutPortrait({ data }: { data: Portfolio }) {
 }
 
 export function AboutSocialLinks({ data }: { data: Portfolio }) {
-  const links = Object.values(resolveAboutSocials(data.links)).filter(
-    (link) => link !== null,
+  const links = Object.values(resolveAboutPhotos(data).socials).filter(
+    (social) => social !== null,
   );
   if (!links.length) return null;
   return (
     <nav className="about-social-links" aria-label="Social profiles">
-      {links.map((link) => {
-        const icon = socialIcon(link.platform);
+      {links.map(({ link, icon }) => {
         const email = link.url.startsWith('mailto:');
         return (
           <a
@@ -48,22 +47,47 @@ export function AboutSocialLinks({ data }: { data: Portfolio }) {
                 : `${link.title} (opens in a new tab)`
             }
           >
-            <svg
-              viewBox={icon.viewBox}
-              aria-hidden="true"
-              fill={icon.filled ? 'currentColor' : 'none'}
-              stroke={icon.filled ? 'none' : 'currentColor'}
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d={icon.path} />
-            </svg>
+            <AboutSocialIcon platform={link.platform} url={icon?.media.url} />
             <span>{link.title}</span>
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         );
       })}
     </nav>
+  );
+}
+
+function AboutSocialIcon({
+  platform,
+  url,
+}: {
+  platform: string;
+  url?: string;
+}) {
+  const [failedUrl, setFailedUrl] = useState('');
+  const icon = socialIcon(platform);
+  if (url && url !== failedUrl)
+    return (
+      <img
+        className="about-social-custom-icon"
+        src={url}
+        alt=""
+        width="19"
+        height="19"
+        onError={() => setFailedUrl(url)}
+      />
+    );
+  return (
+    <svg
+      viewBox={icon.viewBox}
+      aria-hidden="true"
+      fill={icon.filled ? 'currentColor' : 'none'}
+      stroke={icon.filled ? 'none' : 'currentColor'}
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={icon.path} />
+    </svg>
   );
 }

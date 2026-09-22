@@ -31,7 +31,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Hull/window returns | `features/spacecraft/geometry/continuous-exterior-skin.ts`, `features/spacecraft/geometry/rounded-cabin-interior.ts`, `features/spacecraft/geometry/flush-window-reveals.ts`, `features/spacecraft/geometry/ladder-opening-outline.ts` |
 | Overview identity/callouts | `features/spacecraft/overview-annotations.ts` and model framing/label data |
 | Room furniture | `features/spacecraft/rooms/about-personal-study.ts`, `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/case-study-archive.ts`, `features/spacecraft/rooms/contact-flight-console.ts` |
-| About photos and social cards | `lib/content/about-photos.ts`, `about-photo-publication.ts`, `social-links.ts`; `features/spacecraft/rooms/about-photo-print.ts`; `features/studio/about-photo-fields.tsx`; `features/portfolio/about-personal-content.tsx` |
+| About photos and social cards | `lib/content/about-photos.ts`, `about-photo-publication.ts`, `social-links.ts`; `features/spacecraft/rooms/about-photo-print.ts`; `features/studio/about-photo-fields.tsx`, `social-link-fields.tsx`, `social-icon-upload.ts`; `features/portfolio/about-personal-content.tsx` |
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
@@ -394,10 +394,14 @@ landscape artwork and Reading view its existing book symbol.
 Three equal square paper cards remain clipped above the notebook. Each can be
 assigned an existing social link to Left, Center or Right, independently of the
 two Contact monitor placements. Existing links default to Off; no owner content
-is reassigned automatically. Optional photos sit behind the shared platform
-icon. Desktop prints include the platform name; narrow views use a larger icon
-and external-link mark. Custom platforms use the shared link icon and Website
-caption, with the full owner-authored name in the native link and focus label.
+is reassigned automatically. The owner's later icon-only request supersedes the
+photo/badge/caption composition: each configured card shows one centered icon
+printed directly onto its cream paper. The visual picker offers recognizable
+platform marks from Simple Icons, plus Website and Custom link symbols. An
+optional standard SVG or PNG upload replaces the preset in About and its readers;
+choosing a preset clears that override. Uploaded icons preserve their colors,
+transparency and full proportions. Contact continues using the shared preset.
+The full owner-authored name remains in the native link and focus label.
 
 Configured cards share the existing dim-at-rest, bright-on-hover/focus and inset
 amber rim behavior. A viewport-size label supplies the full destination name.
@@ -411,13 +415,18 @@ unchanged. The three prints are 0.38 × 0.38 local units; live neutral-room chec
 measured 24.19-pixel targets at 360 × 800 and 26.31 at 390 × 844.
 
 Save draft, private preview and Publish remain separate. Images require explicit
-publication before their parent can publish; live photo dependencies prevent
-unpublishing/deleting those images or changing them to video. Duplicate live
+publication before their parent can publish; live portrait and active custom-icon
+dependencies prevent unpublishing/deleting those assets or changing them to an
+incompatible media type. SVG uploads are converted locally to a bounded PNG in
+an isolated image context; raw SVG is never served as an uploaded asset. Retired
+social-photo fields remain round-trippable but are neither rendered nor treated
+as active dependencies. Duplicate live
 About slots are rejected atomically. Crop/placement fields travel through content
 backups without modifying uploaded originals. Slow or failed image loads keep
 fallback artwork visible without blocking scene entry. See
 [authoring instructions](OPERATIONS.md#authoring-about-photos-and-social-cards) and
-[matching evidence](evidence/about-photos-socials/README.md).
+[current icon-only evidence](evidence/about-social-icons/README.md). Earlier
+[photo-card evidence](evidence/about-photos-socials/README.md) is historical.
 
 ## Contact computer and submission boundary
 

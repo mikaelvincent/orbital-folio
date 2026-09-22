@@ -40,5 +40,35 @@
     "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/x.svg",
     "repository": "https://github.com/simple-icons/simple-icons",
     "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "discord",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/discord.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "twitch",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/twitch.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "tiktok",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/tiktok.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "facebook",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/facebook.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
+  },
+  {
+    "id": "reddit",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/reddit.svg",
+    "repository": "https://github.com/simple-icons/simple-icons",
+    "revision": "5d5d4d1d28cbb00b21770bb69d8112da52211a95"
   }
 ]

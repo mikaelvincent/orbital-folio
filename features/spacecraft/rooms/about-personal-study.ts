@@ -969,8 +969,8 @@ export function buildAboutPersonalStudy(
         kind,
         kind === 'landscape-postcard' ? 1024 : 512,
         kind === 'landscape-postcard' ? 1024 : 512,
-        social ? social.photo : options.photos?.portrait,
-        social?.link,
+        social ? null : options.photos?.portrait,
+        social ?? undefined,
       );
       if (map) {
         print.material.map?.dispose();

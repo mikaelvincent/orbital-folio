@@ -1,0 +1,6 @@
+{
+  "status": "superseded-by-browser-finding",
+  "finding": "The existing CSP allows data: images but not blob: image URLs, so ordinary SVG custom-icon upload failed in the real browser despite pure helper checks and build success.",
+  "plannedFix": "Use FileReader data URLs in the conversion helper without widening CSP.",
+  "checksHere": "Intermediate source before that CSP-compatible image loading correction. Final checks will be repeated after the helper change."
+}

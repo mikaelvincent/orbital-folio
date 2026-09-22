@@ -1,0 +1,16 @@
+✔ downloaded PNG/SVG files work when the browser omits their MIME type (0.750583ms)
+✔ PNG preflight rejects renamed files and excessive decode dimensions before browser decoding (0.682625ms)
+✔ ordinary downloaded SVG markup keeps styles, local definitions, transforms and namespace metadata (0.832708ms)
+✔ SVG resources cannot point to remote files, data images or imported fonts (0.1485ms)
+✔ SVG processing instructions, active content, entities and oversized source are rejected (1.181541ms)
+✔ icon raster bounds preserve rectangular proportions without introducing transparent square padding (0.120291ms)
+✔ static SVG upload rejects CSS animation including escaped property and keyframe names (0.090333ms)
+✔ SVG explicit dimensions preserve letterboxing while missing dimensions follow the viewBox ratio (0.217708ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.910416

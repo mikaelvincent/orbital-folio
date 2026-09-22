@@ -65,6 +65,7 @@ const fields: Record<Kind, string[]> = {
     'screen',
     'description',
     'aboutSlot',
+    'iconMediaId',
     'photoMediaId',
     'photoCrop',
   ],
@@ -246,7 +247,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
     )
       throw new HttpError(
         400,
-        'Choose Off, Left, Center or Right for the About photo position.',
+        'Choose Off, Left, Center or Right for the About icon position.',
       );
     if (clean.title.length > 60 || (clean.description || '').length > 64)
       throw new HttpError(
@@ -272,6 +273,7 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
   for (const key of [
     'mediaId',
     'portraitMediaId',
+    'iconMediaId',
     'photoMediaId',
     'posterMediaId',
     'captionsMediaId',

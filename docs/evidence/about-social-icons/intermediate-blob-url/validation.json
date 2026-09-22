@@ -1,0 +1,77 @@
+{
+  "completedAt": "2026-09-22T03:00:37.662543+00:00",
+  "workingDirectory": "/tmp/orbital-about-icons-tcfvu3mh",
+  "testBaseUrl": "http://localhost:3003",
+  "node": "v26.0.0",
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "stateIsolation": {
+    "freshD1R2": true,
+    "mainPrivateEnvironmentCopied": false,
+    "mainDatabaseCopied": false,
+    "dependencyPackagesShared": true,
+    "viteCache": ".vite-isolated",
+    "temporaryViteConfigPreserved": true
+  },
+  "finalSourceHashes": "validation-source.json",
+  "sourceDriftAfterFinalChecks": [],
+  "checks": [
+    {
+      "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+      "exitCode": 0,
+      "tests": 465,
+      "passed": 465,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 147985.339458,
+      "sourceHashes": "validation-source-full-suite.json",
+      "log": "verification-tests.log"
+    },
+    {
+      "command": "node --test tests/content/social-icon-upload.test.mjs",
+      "exitCode": 0,
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 126.012416,
+      "sourceHashes": "validation-source.json",
+      "log": "verification-final-helper.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "sourceHashes": "validation-source.json",
+      "log": "verification-build.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "sourceHashes": "validation-source.json",
+      "log": "verification-typecheck.log"
+    },
+    {
+      "command": "npm run lint -- <17 changed TypeScript/TSX/MJS files>",
+      "exitCode": 0,
+      "sourceHashes": "validation-source.json",
+      "log": "verification-lint.log"
+    }
+  ],
+  "finalRevisions": {
+    "afterFullSuite": [
+      "features/studio/social-icon-fields.css",
+      "features/studio/social-icon-fields.tsx",
+      "features/studio/social-icon-upload.ts",
+      "tests/content/social-icon-upload.test.mjs",
+      "features/studio/social-link-fields.tsx"
+    ],
+    "description": "Final Studio changes block preset selection during custom-icon preparation/upload, reject CSS animation after escape normalization, and preserve explicit SVG intrinsic aspect. Focused helper tests, final typecheck, affected lint and production build cover the final code; browser verification is recorded separately.",
+    "fullSuiteRepeated": false
+  },
+  "limitations": [
+    "Build emits tool-level module.register deprecation, greater-than-500kB chunk guidance and Vinext route-classification notice.",
+    "Automated checks do not establish measured performance changes or Safari visual behavior.",
+    "The full suite predates the narrowly scoped final Studio fixes; focused final checks and separate browser evidence cover those revisions."
+  ]
+}

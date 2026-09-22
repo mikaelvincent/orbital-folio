@@ -11,9 +11,9 @@ export const socialScreens = [
 export type SocialScreen = (typeof socialScreens)[number]['id'];
 export const aboutSlots = [
   { id: 'off', label: 'Off — not displayed in About' },
-  { id: 'left', label: 'Left photo' },
-  { id: 'center', label: 'Center photo' },
-  { id: 'right', label: 'Right photo' },
+  { id: 'left', label: 'Left icon' },
+  { id: 'center', label: 'Center icon' },
+  { id: 'right', label: 'Right icon' },
 ] as const;
 export type AboutSlot = (typeof aboutSlots)[number]['id'];
 export type SocialLink = {
@@ -25,6 +25,8 @@ export type SocialLink = {
   description: string;
   order: number;
   aboutSlot: AboutSlot;
+  iconMediaId?: string;
+  // Retired photo settings remain portable owner content, never icon fallbacks.
   photoMediaId?: string;
   photoCrop?: ImageCrop;
 };
@@ -46,6 +48,18 @@ const hosts: Record<string, SocialPlatform> = {
   'bsky.app': 'bluesky',
   'x.com': 'x',
   'twitter.com': 'x',
+  'discord.com': 'discord',
+  'discord.gg': 'discord',
+  'twitch.tv': 'twitch',
+  'tiktok.com': 'tiktok',
+  'vm.tiktok.com': 'tiktok',
+  'vt.tiktok.com': 'tiktok',
+  'facebook.com': 'facebook',
+  'm.facebook.com': 'facebook',
+  'fb.com': 'facebook',
+  'reddit.com': 'reddit',
+  'old.reddit.com': 'reddit',
+  'redd.it': 'reddit',
 };
 export function inferSocialPlatform(url: string): SocialPlatform {
   try {
@@ -69,6 +83,7 @@ export function socialLinkDraft(data: Record<string, any>) {
     screen: data.screen || 'auto',
     description: data.description || '',
     aboutSlot: data.aboutSlot || 'off',
+    iconMediaId: data.iconMediaId || '',
     photoMediaId: data.photoMediaId || '',
     ...(data.photoCrop ? { photoCrop: data.photoCrop } : {}),
   };
@@ -131,7 +146,7 @@ export function resolveSocialScreens(
 }
 
 /** About placements are explicit and independent of Contact's console screens.
- * Legacy/unassigned links leave their decorative photographs passive. */
+ * Legacy/unassigned links leave their unassigned cards passive. */
 export function resolveAboutSocials(
   records: Record<string, any>[],
 ): AboutSocialLinks {

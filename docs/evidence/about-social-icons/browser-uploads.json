@@ -1,0 +1,68 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "origin": "http://localhost:3003",
+  "mainStoreMutated": false,
+  "uploads": [
+    {
+      "input": "discord.svg",
+      "inputBytes": 1374,
+      "inputSha256": "1d364b72c9eaf1fe37d17ca88cd8fb541308dc0f3b09e2ab3b824f380b3493d5",
+      "outputBytes": 14875,
+      "outputWidth": 512,
+      "outputHeight": 512,
+      "outputMime": "image/png",
+      "hasAlpha": true,
+      "outputSha256": "e1c1c6ac0fae6b104c3192e41efd7010b8915c17d2a9247619214719ef654ecd"
+    },
+    {
+      "input": "static-wide.svg",
+      "inputBytes": 695,
+      "inputSha256": "3cea65cde88ac5fb8409d8f20b22cf58b024aa76abbfc614a9a229542788781c",
+      "outputBytes": 112503,
+      "outputWidth": 512,
+      "outputHeight": 256,
+      "outputMime": "image/png",
+      "hasAlpha": true,
+      "outputSha256": "4c3a4d01590fc3235eacfab9e1f07f2bba8fe0413275bbda2bcb586bc3092bff"
+    },
+    {
+      "input": "large-transparent-png.png",
+      "inputBytes": 2404540,
+      "inputSha256": "42fc314a4fb2c6874da510bc2cc4b583bc5f27412570c810d76d0728c76c2165",
+      "outputBytes": 630784,
+      "outputWidth": 512,
+      "outputHeight": 307,
+      "outputMime": "image/png",
+      "hasAlpha": true,
+      "outputSha256": "2f15fc71190614903e32decfbb0dcba66d9712d96c792d778294b46b9de74e64"
+    },
+    {
+      "input": "transparent-wide.png",
+      "inputBytes": 30583,
+      "inputSha256": "3ab06801f422e580e5b008d8f7d78bb13cc2c8722cfc1a37fbc76835746dfba8",
+      "outputBytes": 11221,
+      "outputWidth": 512,
+      "outputHeight": 256,
+      "outputMime": "image/png",
+      "hasAlpha": true,
+      "outputSha256": "9660e8db25f17ff09b9b2e22577647647864d9123903a244475f0219a6855c8d"
+    }
+  ],
+  "failedInputs": [
+    {
+      "input": "linked-file-rejected.svg",
+      "message": "Use a self-contained SVG without linked files or fonts, or upload a PNG."
+    },
+    {
+      "input": "corrupt-image.png",
+      "message": "This icon could not be read. Choose another PNG or SVG."
+    }
+  ],
+  "presetRestoration": {
+    "preset": "GitHub",
+    "pressed": true,
+    "customImages": 0,
+    "selectedMediaId": "",
+    "destinationPreserved": true
+  }
+}

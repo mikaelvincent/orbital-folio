@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-09-22T02:59:26.089869+00:00",
+  "sourceSha256": {
+    "features/studio/social-icon-fields.css": "ecf8083efd60bd1bc6ddaa24a70b8ba76442413bdb0ecb668df455256de83608",
+    "features/studio/social-icon-fields.tsx": "0f8dd03003f096e059a44e3ecee82988a5d2d63836514f548b2d4a39b176270a",
+    "features/studio/social-icon-upload.ts": "019b787cb5e9d9ef440d9dad3007dd2cdeecefb1f2cd222c04d04d3ad8803eda",
+    "tests/content/social-icon-upload.test.mjs": "4713e788148d4844cb887a31875f6e8cb859e7405344ea7dc0d2c4604d794f88",
+    "tests/spacecraft/about-icon-prints.test.mjs": "c277e90121ecba09ff695a7cc2d013ed29992dedd73fd2784ee69e7d0459d708",
+    "features/portfolio/about-personal-content.css": "43f3ae0efcb9b1d23e418facf749fb580cfea006bb46019eb8e153e73ce86614",
+    "features/portfolio/about-personal-content.tsx": "82e829496912562a811852f786c0e7c04d18fb71f12d4ea54678219c01aa13d9",
+    "features/spacecraft/rooms/about-personal-study.ts": "bd78d3bf3b4d936ba2a4b36686c2fefc05e99feb5daaf0664f6a86bed457407f",
+    "features/spacecraft/rooms/about-photo-print.ts": "987a8fe05f6cdd163b245277f49ae3967d6b1dc9122c9d7601f0c5494ddfa459",
+    "features/spacecraft/spacecraft-runtime.ts": "519974c0778f7afaafbb05928cf393d71e71e75d93fd41a29c78884806cd2985",
+    "features/studio/about-photo-fields.css": "0821519295af2ee1719fc6d82dcb2e2ed4450be73cbefbaa2d1b91cfee88e13b",
+    "features/studio/about-photo-fields.tsx": "7d3fab86828fa6102f699afc8b3bf2e2a0b99aae2a63e7201e879a17ff79011e",
+    "features/studio/social-link-fields.tsx": "438bdfeac449320517146d7e5d8f34858173b13bcf9f0fee0ccf28b641186051",
+    "lib/content/about-photo-publication.ts": "aafe60005ae8077ad768f1172037937df20ede8d4b640eae8e3b02133f414237",
+    "lib/content/about-photos.ts": "6ea3d52dc85b22efef0fffcd1d43ac426b437828a1bf5252c6dd84ec14b70712",
+    "lib/content/social-links.ts": "dd94c1577e0030eab4ba29430d8fdd96dbe92efaeffe87dbb7563b67fe7a642b",
+    "lib/content/social-platforms.ts": "f07a2e534fbe1925b619e225d90e78e49bd7eaacdfb82dc6507f67acb24dff3c",
+    "lib/content/validation.ts": "8772112770fa806522faca514e62d1e21b28d22dd0344e0eee39029f81aecade",
+    "tests/content/about-photos-api.test.mjs": "c32856a243302666047c07107760129bbae431d053614aafc58fa840771e94e9",
+    "tests/content/about-photos.test.mjs": "ed9e262197ec52bcbff9ebbaa54016f42dd0747fcc63bb630332519fe215700f"
+  },
+  "fixture": "/tmp/orbital-about-icons-tcfvu3mh",
+  "testBaseUrl": "http://localhost:3003",
+  "isolated": true,
+  "mainDataCopied": false,
+  "changesSinceFullSuite": [
+    "features/studio/social-icon-fields.css",
+    "features/studio/social-icon-fields.tsx",
+    "features/studio/social-icon-upload.ts",
+    "tests/content/social-icon-upload.test.mjs",
+    "features/studio/social-link-fields.tsx"
+  ]
+}

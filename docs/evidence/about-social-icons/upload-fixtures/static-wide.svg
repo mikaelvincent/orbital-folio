@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 60" color="#173d65"><defs><linearGradient id="g"><stop stop-color="#306ed8"/><stop offset="1" stop-color="#30a28d"/></linearGradient><path id="shape" d="M15 5h20v20H15z"/><clipPath id="clip"><rect width="120" height="60" rx="10"/></clipPath></defs><style>.mark{fill:currentColor;stroke:#f4d58b;stroke-width:2}</style><g clip-path="url(#clip)"><rect width="120" height="60" fill="url(#g)"/><g transform="translate(25,15)"><use class="mark" xlink:href="#shape"/></g></g></svg>

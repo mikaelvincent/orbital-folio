@@ -8,7 +8,7 @@ if (base && !['localhost', '127.0.0.1'].includes(new URL(base).hostname))
   throw new Error('About photo API tests require an isolated loopback server.');
 
 test(
-  'About photos preserve drafts, protect published image dependencies and round-trip through backups',
+  'About portraits and icons preserve drafts, protect active PNG sources, retire social photos and round-trip through backups',
   {
     skip: !base && 'Set TEST_BASE_URL to the disposable verification server.',
   },
@@ -49,8 +49,42 @@ test(
         status,
       );
     const original = await fresh('site');
-    let photo, alias, social, duplicate;
+    let photo, alias, legacyPhoto, social, duplicate;
     try {
+      const occupied = new Set(
+        (await all())
+          .filter((record) => record.kind === 'link')
+          .map((record) => record.published?.aboutSlot),
+      );
+      const slot = ['left', 'center', 'right'].find(
+        (position) => !occupied.has(position),
+      );
+      assert.ok(
+        slot,
+        'Disposable initial state leaves an About icon slot available.',
+      );
+      const svgForm = new FormData();
+      svgForm.set(
+        'file',
+        new Blob(
+          [
+            '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v10z"/></svg>',
+          ],
+          { type: 'image/svg+xml' },
+        ),
+        'unconverted.svg',
+      );
+      svgForm.set('alt', 'Unconverted SVG fixture');
+      const svgUpload = await fetch(base + '/api/admin/upload', {
+        method: 'POST',
+        headers: { ...headers, Origin: base },
+        body: svgForm,
+      });
+      assert.equal(
+        svgUpload.status,
+        400,
+        'Raw SVG cannot bypass the editor conversion by using the media endpoint.',
+      );
       const form = new FormData();
       form.set(
         'file',
@@ -93,6 +127,15 @@ test(
       });
       await mutate(alias, 'publish');
       alias = await fresh(alias.id);
+      social = await save('link', {
+        title: 'Private custom icon fixture',
+        url: 'https://example.com/profile',
+        platform: 'custom',
+        screen: 'list',
+        aboutSlot: slot,
+        iconMediaId: alias.id,
+      });
+      await mutate(social, 'publish', 400);
 
       const crop = { x: 0.2, y: 0.8, zoom: 1.6 };
       const readingCrop = { x: 0.75, y: 0.3, zoom: 2 };
@@ -123,28 +166,25 @@ test(
       assert.equal(photo.published.mime, 'image/png');
       photo = await save('media', { ...photo.draft, mime: 'image/png' }, photo);
 
-      const occupied = new Set(
-        (await all())
-          .filter((record) => record.kind === 'link')
-          .map((record) => record.published?.aboutSlot),
-      );
-      const slot = ['left', 'center', 'right'].find(
-        (position) => !occupied.has(position),
-      );
-      assert.ok(
-        slot,
-        'Disposable initial state leaves an About photo slot available.',
-      );
+      legacyPhoto = await save('media', {
+        title: 'Retired social photo fixture',
+        alt: 'Unused historical photo',
+        mime: 'image/jpeg',
+        url: 'https://example.com/retired-photo.jpg',
+      });
+      await mutate(legacyPhoto, 'publish');
+      legacyPhoto = await fresh(legacyPhoto.id);
       const linkData = {
         title: 'About API fixture',
         url: 'https://example.com/profile',
         platform: 'custom',
         screen: 'list',
         aboutSlot: slot,
-        photoMediaId: photo.id,
+        iconMediaId: alias.id,
+        photoMediaId: legacyPhoto.id,
         photoCrop: crop,
       };
-      social = await save('link', linkData);
+      social = await save('link', linkData, social);
       duplicate = await save('link', {
         ...linkData,
         title: 'Occupied About slot fixture',
@@ -177,6 +217,10 @@ test(
       );
       assert.deepEqual(social.published, social.draft);
       await mutate(duplicate, 'publish', 409);
+      await mutate(legacyPhoto, 'unpublish');
+      legacyPhoto = await fresh(legacyPhoto.id);
+      await mutate(legacyPhoto, 'delete');
+      legacyPhoto = undefined;
 
       const backupResponse = await fetch(base + '/api/admin/export', {
         headers,
@@ -196,18 +240,29 @@ test(
       assert.deepEqual(site.draft.portraitReadingCrop, readingCrop);
       assert.deepEqual(social.draft.photoCrop, crop);
       assert.equal(social.draft.aboutSlot, slot);
-      assert.equal(social.published.photoMediaId, photo.id);
+      assert.equal(social.published.iconMediaId, alias.id);
+      assert.equal(
+        social.published.photoMediaId,
+        linkData.photoMediaId,
+        'Retired photo metadata stays portable even after unused media is removed.',
+      );
 
       site = await save('site', { ...site.draft, portraitMediaId: '' }, site);
       social = await save(
         'link',
-        { ...social.draft, photoMediaId: '' },
+        { ...social.draft, aboutSlot: 'off' },
         social,
       );
       await mutate(photo, 'unpublish', 409);
       await mutate(site, 'publish');
-      // The published social card still protects its image after site publication.
+      // The published custom icon still protects both alias and uploaded source.
       await mutate(photo, 'unpublish', 409);
+      await mutate(alias, 'delete', 409);
+      for (const mime of ['image/jpeg', 'image/svg+xml', 'video/mp4']) {
+        photo = await save('media', { ...photo.draft, mime }, photo);
+        await mutate(photo, 'publish', 400);
+      }
+      photo = await save('media', { ...photo.draft, mime: 'image/png' }, photo);
       await mutate(social, 'publish');
       social = await fresh(social.id);
       await mutate(photo, 'unpublish');
@@ -220,7 +275,7 @@ test(
       await mutate(site, 'publish');
       site = await fresh('site');
       await save('site', original.draft, site);
-      for (const created of [duplicate, social, alias, photo]) {
+      for (const created of [duplicate, social, legacyPhoto, alias, photo]) {
         if (!created) continue;
         const current = await fresh(created.id);
         if (current) await mutate(current, 'delete');

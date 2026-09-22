@@ -3,7 +3,6 @@ import type { Portfolio } from './types.ts';
 
 export type ImageCrop = { x: number; y: number; zoom: number };
 export const ABOUT_PORTRAIT_ASPECT = 1;
-export const ABOUT_SOCIAL_PHOTO_ASPECT = 1 / 0.72;
 export const DEFAULT_IMAGE_CROP: Readonly<ImageCrop> = {
   x: 0.5,
   y: 0.5,
@@ -68,12 +67,13 @@ export function imageCropStyle(crop: unknown) {
 }
 
 export type AboutPhoto = { media: Record<string, any>; crop: ImageCrop };
+export type AboutIcon = { media: Record<string, any> };
 export type AboutPhotos = {
   portrait: (AboutPhoto & { readingCrop: ImageCrop }) | null;
   socials: {
     [Slot in keyof AboutSocialLinks]: {
       link: NonNullable<AboutSocialLinks[Slot]>;
-      photo: AboutPhoto | null;
+      icon: AboutIcon | null;
     } | null;
   };
 };
@@ -90,7 +90,8 @@ function safeImageUrl(value: unknown) {
 }
 
 /** Portfolio already contains either published records or authenticated drafts.
- * Missing assets become the room's existing decorative artwork/platform print. */
+ * Missing portrait assets retain the existing artwork; custom icons fall back
+ * to their platform preset. Retired social photographs never become icons. */
 export function resolveAboutPhotos(portfolio: Portfolio): AboutPhotos {
   const photo = (id: unknown, crop: unknown): AboutPhoto | null => {
     const media = portfolio.media.find(
@@ -108,9 +109,14 @@ export function resolveAboutPhotos(portfolio: Portfolio): AboutPhotos {
   const links = resolveAboutSocials(portfolio.links);
   const social = (slot: keyof AboutSocialLinks) => {
     const link = links[slot];
-    return link
-      ? { link, photo: photo(link.photoMediaId, link.photoCrop) }
-      : null;
+    if (!link) return null;
+    const media = portfolio.media.find(
+      (item) =>
+        item.id === link.iconMediaId &&
+        item.mime === 'image/png' &&
+        safeImageUrl(item.url),
+    );
+    return { link, icon: media ? { media } : null };
   };
   return {
     portrait: portrait
