@@ -1,0 +1,92 @@
+{
+  "recordedAt": "2026-09-22T09:55:35.134Z",
+  "authorization": "The owner explicitly requested that the notebook be populated with multiple sections and multiple pages.",
+  "target": "http://localhost:3000",
+  "method": "Read the existing local authenticated admin API. Applied the loopback-only guarded sample population tool, then read the admin API again and compared every pre-existing non-journal record fingerprint. No setup, reset, uploads, private environment reads, or direct database writes.",
+  "commands": [
+    "node scripts/populate-demo-notebook.mjs",
+    "node scripts/populate-demo-notebook.mjs --apply"
+  ],
+  "dryRun": {
+    "update": ["my-story", "how-i-work", "beyond-the-screen"],
+    "create": ["learning-notes", "design-details"],
+    "skipped": []
+  },
+  "applied": {
+    "updated": 3,
+    "created": 2,
+    "publishedSections": 5,
+    "skipped": []
+  },
+  "preservation": {
+    "nonJournalRecordsCompared": 35,
+    "allUnchanged": true,
+    "comparison": "SHA-256 over canonical full admin record objects before and after; covers site identity, other content and revisions. No private record values retained in this evidence."
+  },
+  "publishedVerification": [
+    {
+      "seedId": "journal-story",
+      "slug": "my-story",
+      "bodyCharacters": 2062,
+      "markdownSha256": "d9d8d637ec502e35749c5c4ede40cd4a611ea03af4b0649a37e1f10263007010",
+      "recordDataHash": "da7c07b47701b14fce222233a22ba67585ba9597083739d4f4fbb6fb8b1b04af",
+      "draftAndPublishedMatch": true
+    },
+    {
+      "seedId": "journal-work",
+      "slug": "how-i-work",
+      "bodyCharacters": 2205,
+      "markdownSha256": "8e63b147165ab363e94a456c68345825e8fee8a4f006ad6a59c26c76b81611ec",
+      "recordDataHash": "e6a11d08e8f71b8f200dc2d680a79d87d021a63928c03c52bd3a87240a87cd38",
+      "draftAndPublishedMatch": true
+    },
+    {
+      "seedId": "journal-learning",
+      "slug": "learning-notes",
+      "bodyCharacters": 2331,
+      "markdownSha256": "97f7d6c329b703aafede009528eaa2e489bc9c9edc7b955d072cb87979f178b6",
+      "recordDataHash": "e9dd860f2e31147097d6876785f4720996617111d7326b6ad8853cbf8f5ded3b",
+      "draftAndPublishedMatch": true
+    },
+    {
+      "seedId": "journal-design",
+      "slug": "design-details",
+      "bodyCharacters": 2313,
+      "markdownSha256": "943fa670018e4c5e0d4ecb8c375e41d90d99b6a0c0b05a24556427636284365a",
+      "recordDataHash": "5441ae23091d1af356c8eaaa8f71b23cdf9c7851e79f6e319c8779e9f7e8dbe0",
+      "draftAndPublishedMatch": true
+    },
+    {
+      "seedId": "journal-beyond",
+      "slug": "beyond-the-screen",
+      "bodyCharacters": 2278,
+      "markdownSha256": "c11140f2d1f2f5b0fbd8c8137957550b484a2bb697acf2b13e0848c612b9ce30",
+      "recordDataHash": "b559b30f1b9f7ff2fef73a1b4f61d885be73f0a4d9af18af4f60e4147cfd6f0e",
+      "draftAndPublishedMatch": true
+    }
+  ],
+  "rerun": {
+    "updated": 0,
+    "created": 0,
+    "publishedSections": 5,
+    "skipped": []
+  },
+  "checks": {
+    "pureTests": "node --test tests/content/notebook-samples.test.mjs: 6 passed, 0 failed",
+    "lint": "npm run lint -- lib/content/seed.ts lib/content/sample-notebook.mjs scripts/demo-notebook/population-plan.mjs scripts/populate-demo-notebook.mjs tests/content/notebook-samples.test.mjs: passed",
+    "format": "npm run format over the six owned files: passed",
+    "diff": "git diff --check: passed"
+  },
+  "limitations": [
+    "Plain Markdown length is not a rendered page-count measurement. The parent task performs built-in-browser checks using the actual notebook renderer.",
+    "Only exact known sample records were eligible; this mechanism deliberately skips owner edits and private divergent drafts."
+  ],
+  "sourceSha256": {
+    "lib/content/seed.ts": "1da47e68508222ee6da380769636b65ccabb335636b594e0478dfa538639ff22",
+    "lib/content/sample-notebook.mjs": "e6e83854f715854c386fd23663a3a708e729b297e49b05271327f8f8b5214530",
+    "scripts/demo-notebook/population-plan.mjs": "418216113eb09c9c77f31f8e33ca2fe29307003ea6be46c005edf950b14d85ab",
+    "scripts/populate-demo-notebook.mjs": "252e1f1eac3ad1dc9417611c0ababbcfab83e678f158dd9b01709f6976aa1466",
+    "tests/content/notebook-samples.test.mjs": "71b323a1970c0bbaaee8b866da5f1ea0751b95f61400d4e4f90a1fe399648b53",
+    "tests/content/fixtures/notebook-legacy-v1.json": "a35fcbed262421ca10c8a051972bf6a5aec8b5b0b15ab8a43b706b88b849e3e5"
+  }
+}

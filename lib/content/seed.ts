@@ -1,5 +1,6 @@
 import { caseStudySamples } from './sample-case-studies.mjs';
 import { gridSamples, sampleProjectData } from './sample-projects.mjs';
+import { notebookSamples } from './sample-notebook.mjs';
 // Initial fixtures only. Public rendering always reads persistent database records.
 export const seedSite = {
   notFoundEyebrow: '404 / OFF COURSE',
@@ -238,42 +239,7 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
       },
     },
     ...caseStudySamples,
-    {
-      id: 'journal-story',
-      kind: 'journal',
-      data: {
-        slug: 'my-story',
-        title: 'My story',
-        subtitle: 'Useful things, thoughtfully made.',
-        body: 'Sample personal copy. I am interested in the space between a good idea and a product people can rely on. That means caring about the visible details and the less visible systems underneath.\n\nThis journal is a place for the owner’s real story. Replace these pages with the experiences, motivations, and perspective that make the work personal.',
-        order: 0,
-        sample: true,
-      },
-    },
-    {
-      id: 'journal-work',
-      kind: 'journal',
-      data: {
-        slug: 'how-i-work',
-        title: 'How I work',
-        subtitle: 'Understand. Build. Learn.',
-        body: '01 / Understand the constraint\nAsk what matters, who it matters to, and what a useful outcome would look like.\n\n02 / Build something useful\nChoose a small, complete path through the problem. Keep the parts easy to explain.\n\n03 / Measure, then improve\nWatch what happens, listen carefully, and let evidence shape the next decision.\n\nSample working principles, ready to personalize.',
-        order: 1,
-        sample: true,
-      },
-    },
-    {
-      id: 'journal-beyond',
-      kind: 'journal',
-      data: {
-        slug: 'beyond-the-screen',
-        title: 'Beyond the screen',
-        subtitle: 'Room for a different perspective.',
-        body: 'Sample personal copy. This page is for the things beyond work: interests, communities, books, side quests, and whatever brings a fresh perspective.\n\nNo hobbies or personal history are being attributed to the owner. Add the real details in the content studio.',
-        order: 2,
-        sample: true,
-      },
-    },
+    ...notebookSamples,
   ];
 
 seeds.push(...gridSamples);

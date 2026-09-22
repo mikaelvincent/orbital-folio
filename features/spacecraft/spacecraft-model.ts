@@ -1637,17 +1637,12 @@ export function createSpacecraft(
   );
 
   objectHighlights.push(
-    createObjectHighlight(
-      THREE,
-      aboutNotebook.openingAnchor,
-      'about-notebook',
-      {
-        width: aboutNotebook.openingWidth,
-        height: aboutNotebook.openingHeight,
-        radius: 0.025,
-        z: 0.002,
-      },
-    ),
+    createObjectHighlight(THREE, aboutNotebook.root, 'about-notebook', {
+      width: aboutNotebook.openingWidth,
+      height: aboutNotebook.openingHeight,
+      radius: 0.025,
+      z: aboutNotebook.openingAnchor.position.z + 0.002,
+    }),
   );
 
   for (const card of group.userData.aboutSocialCards)
@@ -3674,7 +3669,7 @@ export function createSpacecraft(
         objectRoom === 'contact'
           ? !computerActive || highlight.id.startsWith('contact-social-')
           : objectRoom === 'about'
-            ? true
+            ? highlight.id !== 'about-notebook' || !notebookActive
             : objectRoom === 'projects'
               ? !!projectScreensById.get(highlight.id)?.available &&
                 (!projectApplicationActive ||

@@ -671,7 +671,7 @@ export function buildAboutPersonalStudy(
   const libraryScrewStart = screwPoints.length;
   const libraryCenterX = 0.12,
     libraryWidth = 0.85,
-    journalCenterX = 0.31,
+    journalCenterX = 0.394,
     journalCradleWidth = 1.09;
   stowage(
     libraryCenterX,
@@ -1039,7 +1039,7 @@ export function buildAboutPersonalStudy(
 
   // Fold-down desk, same working elevation as Contact. Supports are continuous
   // from the wall to the underside, leaving open knees and an unobstructed aisle.
-  const dx = 0.394,
+  const dx = journalCenterX,
     topY = 0.785;
   box(
     1.43,
@@ -1931,7 +1931,7 @@ export function buildAboutPersonalStudy(
     worktop: topY,
     journalTilt: -0.64,
     pageFlags: initialChapters
-      .slice(0, 3)
+      .slice(0, NOTEBOOK_MARKER_LIMIT)
       .map((chapter) => chapter.title ?? ''),
     pageFlagsAttachedTo: 'paper-leaves',
     enclosedStowage: true,

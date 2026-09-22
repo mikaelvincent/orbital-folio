@@ -1,0 +1,18 @@
+{
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixture": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-auto-1ds6ly7t",
+  "copiedFileCount": 438,
+  "sourceOnly": true,
+  "sharedDependencies": true,
+  "privateViteCache": ".verification-vite-cache",
+  "excluded": [
+    ".dev.vars",
+    ".env*",
+    ".wrangler",
+    ".git",
+    "dist",
+    "backups",
+    "private-exports",
+    "docs/evidence/"
+  ]
+}

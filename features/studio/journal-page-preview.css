@@ -1,58 +1,5 @@
-.journal-page-toolbar {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.journal-page-toolbar [role='group'],
-.journal-page-actions,
-.journal-remove-confirmation,
-.journal-page-fit [role='group'] {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.journal-page-toolbar button,
-.journal-page-fit button {
-  border: 1px solid #8faaa044;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 13px;
-  line-height: 1.3;
-}
-.journal-page-toolbar button[aria-pressed='true'] {
-  color: #142235;
-  background: #ebc98c;
-  border-color: #ebc98c;
-}
-.journal-page-toolbar button:disabled {
-  opacity: 0.4;
-}
-.journal-remove-confirmation {
-  border: 1px solid #f0ba784d;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 13px;
-}
 .journal-page-review {
   margin-top: 14px;
-}
-.journal-page-fit {
-  margin-bottom: 14px;
-  font-size: 13px;
-  color: #365d4d;
-}
-.journal-page-fit p {
-  margin: 0;
-}
-.journal-page-fit.has-overflow {
-  color: #8f4415;
-  background: #fff3e5;
-  border-left: 3px solid #b77533;
-  padding: 10px 12px;
-}
-.journal-page-fit [role='group'] {
-  margin-top: 8px;
 }
 .journal-paper-stage {
   overflow-x: auto;
@@ -64,6 +11,7 @@
 .journal-paper-preview {
   box-sizing: content-box;
   width: 438px;
+  min-height: 532px;
   margin: 0 auto;
   padding: 18px 28px 12px;
   color: #253445;
@@ -92,13 +40,23 @@
 .journal-paper-preview > footer {
   margin-top: 10px;
   border-top: 1px solid #5f665b30;
-  justify-content: center;
+  justify-content: space-between;
 }
-.journal-paper-measurement {
-  position: fixed;
-  top: 0;
-  left: -10000px;
-  width: 520px;
-  pointer-events: none;
-  visibility: hidden;
+
+.journal-paper-preview > footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.journal-paper-preview > footer button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.journal-paper-preview > footer button:focus-visible {
+  outline: 2px solid #385c73;
+  outline-offset: 2px;
 }

@@ -1,0 +1,141 @@
+{
+  "createdAt": "2026-09-22T09:54:28.119Z",
+  "method": "CPU geometry and production camera projection. Neutral camera center is checked separately from bounded hover/drag coverage. Pixel positions are projections, not browser screenshot measurements. Camera leaves the existing top and bottom control reservations; horizontal reservations are symmetric.",
+  "sourceSha256": {
+    "features/spacecraft/rooms/about-personal-study.ts": "f3fd6ee51caedb0d41bb62788bad9cf74ccc81a91821e03a4829ca131d72db74",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "7f4ad575b2d1a0c8693ff4e64d7e234a76b7619c30ebbe151ad05aa14a495b6e",
+    "features/spacecraft/navigation/about-notebook.ts": "a875539346caa2c1897421e1965a41238ce35905d93a298f2787ca0f9ae8d1b5",
+    "features/spacecraft/spacecraft-model.ts": "0255aae5dc0d834a2362738c857a78118393612b2ed1005edcc81e91cf845327",
+    "tests/spacecraft/about-notebook.test.mjs": "d70dfea749dcee1b7572f9bb20c884257450bc2ebdd88f937147eb3b51c09050",
+    "tests/spacecraft/about-notebook-application.test.mjs": "1c98f2a82c0f54df2d5330833e4c16d4f24803ce2226d639a511cb6c49c19b9a"
+  },
+  "bookAndTableCenterX": {
+    "book": 0.47900000000000004,
+    "table": 0.47900000000000004
+  },
+  "markerTopPixelsForSix": [
+    45,
+    129,
+    213,
+    297,
+    381,
+    465
+  ],
+  "markerTopPixelsForThree": [
+    45,
+    129,
+    213
+  ],
+  "markerHeightPixels": 56,
+  "markerGapPixels": 28,
+  "viewports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "paperCenterPixels": [
+        960,
+        511.5579833989272
+      ],
+      "safeAreaCenterPixels": [
+        960,
+        516
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.681268577280268,
+        -0.5605780993016553
+      ],
+      "cameraDistance": 1.2984808730782647
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "paperCenterPixels": [
+        720.0000000000001,
+        423.84516238074985
+      ],
+      "safeAreaCenterPixels": [
+        720,
+        426
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.6858698510782286,
+        -0.5576271636117517
+      ],
+      "cameraDistance": 1.4498264520987876
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "paperCenterPixels": [
+        640.0000000000001,
+        334.8460239493702
+      ],
+      "safeAreaCenterPixels": [
+        640,
+        336
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.6884999459578478,
+        -0.5559404044252976
+      ],
+      "cameraDistance": 1.3358804199293233
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "paperCenterPixels": [
+        512,
+        359.7657104099337
+      ],
+      "safeAreaCenterPixels": [
+        512,
+        360
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.6935373549968646,
+        -0.552709762048731
+      ],
+      "cameraDistance": 1.7544043029948315
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paperCenterPixels": [
+        195,
+        377.24463658461906
+      ],
+      "safeAreaCenterPixels": [
+        195,
+        372
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.8272945199625334,
+        -0.46692725720138994
+      ],
+      "cameraDistance": 2.4931019768135916
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "paperCenterPixels": [
+        180.00000000000003,
+        355.4717090952141
+      ],
+      "safeAreaCenterPixels": [
+        180,
+        350
+      ],
+      "cameraTarget": [
+        -1.6079999999999992,
+        -1.8419037538965797,
+        -0.4575579147733793
+      ],
+      "cameraDistance": 2.516812784193474
+    }
+  ]
+}

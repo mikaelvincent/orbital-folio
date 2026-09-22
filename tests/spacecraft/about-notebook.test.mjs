@@ -75,6 +75,23 @@ test('left artwork prints the current identity within its paper margin and blank
 
 test('native page and chapter targets remain registered to the retained paper geometry', () => {
   const { root, notebook } = fixture();
+  const table = root.getObjectByName('personal-study-folding-desk-body');
+  const center = notebook.root.getWorldPosition(new THREE.Vector3());
+  close(
+    center.x,
+    table.getWorldPosition(new THREE.Vector3()).x,
+    'book is centered on the desk',
+  );
+  const feet = [];
+  root.traverse((object) => {
+    if (object.name === 'personal-study-journal-cradle-front-foot')
+      feet.push(object.getWorldPosition(new THREE.Vector3()).x);
+  });
+  close(
+    feet.reduce((sum, x) => sum + x, 0) / feet.length,
+    center.x,
+    'paired cradle feet remain centered under the book',
+  );
   const paper = root
     .getObjectByName('personal-study-right-paper-section')
     .getObjectByName('personal-study-printed-top-paper-leaf');
@@ -126,6 +143,11 @@ test('one to six section markers fit the book; later sections use another bank w
         ),
       );
       for (const [slot, flag] of notebook.flags.entries()) {
+        assert.equal(
+          flag.y,
+          45 + slot * 84,
+          'markers descend from the top with a fixed gap at every count',
+        );
         if (slot)
           assert.ok(
             flag.y > notebook.flags[slot - 1].y + flag.height,

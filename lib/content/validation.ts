@@ -1,10 +1,5 @@
 import { PROJECT_CATEGORIES } from './project-content.ts';
 import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
-import {
-  NOTEBOOK_MAX_PAGE_CHARACTERS,
-  NOTEBOOK_MAX_SECTION_PAGES,
-  splitNotebookPages,
-} from './notebook-pages.ts';
 import { aboutSlots, socialPlatforms, socialScreens } from './social-links.ts';
 import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
@@ -169,22 +164,6 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       // Trimming the story can turn an indented code block into ordinary prose.
       clean[key] = markdown ? value : value.trim();
     }
-  }
-  if (kind === 'journal') {
-    const pages = splitNotebookPages(clean.body || '');
-    if (pages.length > NOTEBOOK_MAX_SECTION_PAGES)
-      throw new HttpError(
-        400,
-        `A notebook section can contain up to ${NOTEBOOK_MAX_SECTION_PAGES} pages.`,
-      );
-    const overlong = pages.findIndex(
-      (page) => page.length > NOTEBOOK_MAX_PAGE_CHARACTERS,
-    );
-    if (overlong !== -1)
-      throw new HttpError(
-        400,
-        `Notebook page ${overlong + 1} must contain no more than ${NOTEBOOK_MAX_PAGE_CHARACTERS.toLocaleString('en-US')} characters. Move some content to another page and check the paper preview.`,
-      );
   }
   if (kind === 'site') {
     for (const key of Object.keys(seedSite)) {

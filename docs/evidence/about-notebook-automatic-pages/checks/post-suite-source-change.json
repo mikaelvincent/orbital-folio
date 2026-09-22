@@ -1,0 +1,9 @@
+{
+  "filesChangedAfterPassedSuite": [
+    "docs/PROJECT-CONTEXT.md"
+  ],
+  "applicationSourceChanged": false,
+  "reason": "Project Context wording and current evidence link updated; documentation only.",
+  "suiteSourceHashes": "full-suite-source-hashes.json",
+  "finalSourceHashes": "final-source-hashes.json"
+}

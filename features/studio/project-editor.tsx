@@ -22,12 +22,7 @@ import {
   caseStudyCategories,
 } from '@/lib/content/case-study-content';
 import type { Content } from '@/lib/content/types';
-import {
-  joinNotebookPages,
-  splitNotebookPages,
-  NOTEBOOK_MAX_PAGE_CHARACTERS,
-  NOTEBOOK_MAX_SECTION_PAGES,
-} from '@/lib/content/notebook-pages';
+import { normalizeNotebookBody } from '@/lib/content/notebook-pages';
 import { JournalPagePreview } from './journal-page-preview';
 import {
   ProjectMarkdown,
@@ -48,7 +43,6 @@ export type ProjectEditorProps = {
   onChange: (data: Record<string, any>) => void;
   onUpload: (file: File, alt: string) => Promise<Record<string, any> | null>;
   onPublishAssets: (assets: Content[]) => Promise<void>;
-  onValidationChange?: (message: string) => void;
   journalRecordId?: string;
 };
 
@@ -60,7 +54,6 @@ export function ProjectEditor({
   onChange,
   onUpload,
   onPublishAssets,
-  onValidationChange,
   journalRecordId,
 }: ProjectEditorProps) {
   const isCaseStudy = kind === 'experience';
@@ -81,8 +74,6 @@ export function ProjectEditor({
     : isCaseStudy
       ? CASE_STUDY_STORY_TEMPLATE
       : PROJECT_STORY_TEMPLATE;
-  const [journalPage, setJournalPage] = useState(0);
-  const [removePage, setRemovePage] = useState(false);
   const [mode, setMode] = useState<'write' | 'preview'>('write');
   const [frame, setFrame] = useState<'landscape' | 'portrait'>('landscape');
   const [file, setFile] = useState<File | null>(null);
@@ -96,11 +87,7 @@ export function ProjectEditor({
   const dataRef = useRef(data);
   dataRef.current = data;
   const sectionBody = storyBody(data);
-  const journalPages = isJournal
-    ? splitNotebookPages(sectionBody)
-    : [sectionBody];
-  const activePage = Math.min(journalPage, journalPages.length - 1);
-  const body = isJournal ? journalPages[activePage] : sectionBody;
+  const body = isJournal ? normalizeNotebookBody(sectionBody) : sectionBody;
   const categories: string[] = isCaseStudy
     ? caseStudyCategories(data)
     : projectCategories(data);
@@ -132,23 +119,10 @@ export function ProjectEditor({
   );
   const change = (key: string, value: unknown) =>
     onChange({ ...data, [key]: value });
-  const changeBody = (nextBody: string) => {
-    if (!isJournal) return change('body', nextBody);
-    const nextPages = [...journalPages];
-    nextPages[activePage] = nextBody;
-    change('body', joinNotebookPages(nextPages));
-  };
-  const selectPage = (index: number) => {
-    setJournalPage(index);
-    setRemovePage(false);
-    selection.current = null;
-  };
+  const changeBody = (nextBody: string) => change('body', nextBody);
   const insert = (item: Record<string, any>) => {
-    const currentPages = isJournal
-      ? splitNotebookPages(storyBody(dataRef.current))
-      : [storyBody(dataRef.current)];
     const currentBody = isJournal
-      ? currentPages[activePage] || ''
+      ? normalizeNotebookBody(storyBody(dataRef.current))
       : storyBody(dataRef.current);
     const inserted = insertProjectMedia(
       currentBody,
@@ -156,10 +130,9 @@ export function ProjectEditor({
       selection.current?.start,
       selection.current?.end,
     );
-    if (isJournal) currentPages[activePage] = inserted.body;
     onChange({
       ...dataRef.current,
-      body: isJournal ? joinNotebookPages(currentPages) : inserted.body,
+      body: inserted.body,
     });
     selection.current = { start: inserted.caret, end: inserted.caret };
     setMode('write');
@@ -216,7 +189,7 @@ export function ProjectEditor({
             <h3 id="project-details-heading">{title} details</h3>
             <p>
               {isJournal
-                ? 'Each section has its own page marker. Add pages below when the story needs more room; keep the section title short and easy to scan.'
+                ? 'Each section has its own page marker. Write one story and the notebook lays it out across pages automatically.'
                 : 'The essentials visitors see in the collection.'}
             </p>
           </div>
@@ -346,63 +319,6 @@ export function ProjectEditor({
             </p>
           </div>
         </div>
-        {isJournal && (
-          <div className="journal-page-toolbar">
-            <div role="group" aria-label="Section pages">
-              {journalPages.map((_, index) => (
-                <button
-                  type="button"
-                  key={index}
-                  aria-pressed={activePage === index}
-                  onClick={() => selectPage(index)}
-                >
-                  Page {index + 1}
-                </button>
-              ))}
-            </div>
-            <div className="journal-page-actions">
-              <button
-                type="button"
-                disabled={journalPages.length >= NOTEBOOK_MAX_SECTION_PAGES}
-                onClick={() => {
-                  const next = [...journalPages];
-                  next.splice(activePage + 1, 0, '');
-                  change('body', joinNotebookPages(next));
-                  selectPage(activePage + 1);
-                }}
-              >
-                Add page
-              </button>
-              <button
-                type="button"
-                disabled={journalPages.length <= 1}
-                onClick={() => setRemovePage(true)}
-              >
-                Remove page
-              </button>
-            </div>
-            {removePage && (
-              <div className="journal-remove-confirmation">
-                <span>Remove page {activePage + 1} and its text?</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const next = journalPages.filter(
-                      (_, index) => index !== activePage,
-                    );
-                    change('body', joinNotebookPages(next));
-                    selectPage(Math.max(0, activePage - 1));
-                  }}
-                >
-                  Remove this page
-                </button>
-                <button type="button" onClick={() => setRemovePage(false)}>
-                  Keep page
-                </button>
-              </div>
-            )}
-          </div>
-        )}
         <div className="project-write-toolbar">
           <div role="group" aria-label="Story editor mode">
             <button
@@ -461,7 +377,7 @@ export function ProjectEditor({
               ref={source}
               value={body}
               rows={19}
-              maxLength={isJournal ? NOTEBOOK_MAX_PAGE_CHARACTERS : 100000}
+              maxLength={100000}
               spellCheck
               onSelect={(e) => {
                 selection.current = {
@@ -495,15 +411,10 @@ export function ProjectEditor({
               placeholder="## The idea\n\nTell the story in your own words…"
             />
             <small>
-              {body.length.toLocaleString()} /{' '}
-              {(isJournal
-                ? NOTEBOOK_MAX_PAGE_CHARACTERS
-                : 100000
-              ).toLocaleString()}{' '}
-              characters
-              {isJournal
-                ? ' on this page. The paper preview must also fit; split longer text across pages.'
-                : ' · HTML is not executed.'}{' '}
+              {body.length.toLocaleString()} / 100,000 characters · HTML is not
+              executed.
+              {isJournal &&
+                ' Pages are laid out automatically in Preview.'}{' '}
               Drop or paste a media file here to prepare an upload.
             </small>
           </label>
@@ -543,17 +454,13 @@ export function ProjectEditor({
             </p>
           </div>
         ) : null}
-        {isJournal && (
+        {isJournal && mode === 'preview' && (
           <JournalPagePreview
             data={data}
             records={records}
             recordId={journalRecordId}
-            body={sectionBody}
+            body={body}
             media={media}
-            authoredPage={activePage}
-            visible={mode === 'preview'}
-            onValidationChange={onValidationChange}
-            onPageSelect={selectPage}
           />
         )}
         {typeof data.body !== 'string' && body && (

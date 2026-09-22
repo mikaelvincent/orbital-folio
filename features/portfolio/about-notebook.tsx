@@ -1,11 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Portfolio } from '@/lib/content/types';
 import { pathFor } from '@/lib/paths';
 import {
@@ -28,7 +23,6 @@ export function AboutNotebook({
   onSectionChange,
   onPageChange,
   onPageCount,
-  onClose,
 }: {
   data: Portfolio;
   section: number;
@@ -38,7 +32,6 @@ export function AboutNotebook({
   onSectionChange: (index: number) => void;
   onPageChange: (index: number) => void;
   onPageCount: (section: number, count: number) => void;
-  onClose: () => void;
 }) {
   const s = data.site;
   const count = pageCounts[section] || 1;
@@ -83,34 +76,32 @@ export function AboutNotebook({
         }}
       >
         <header className="notebook-page-header">
-          <button type="button" onClick={onClose}>
-            <ArrowLeft size={15} aria-hidden="true" />
-            Back to {s.aboutLabel || 'About'}
-          </button>
           <span>{s.journalLabel || 'Field notes'}</span>
         </header>
         {sheet(section)}
-        <footer className="notebook-page-footer">
-          <button
-            type="button"
-            disabled={!ready || page <= 0}
-            onClick={() => onPageChange(page - 1)}
-            aria-label="Previous page in section"
-          >
-            <ChevronLeft size={18} aria-hidden="true" />
-          </button>
-          <span aria-live="polite" aria-atomic="true">
-            Page {page + 1} of {count}
-          </span>
-          <button
-            type="button"
-            disabled={!ready || page >= count - 1}
-            onClick={() => onPageChange(page + 1)}
-            aria-label="Next page in section"
-          >
-            <ChevronRight size={18} aria-hidden="true" />
-          </button>
-        </footer>
+        {count > 1 && (
+          <footer className="notebook-page-footer">
+            <button
+              type="button"
+              disabled={!ready || page <= 0}
+              onClick={() => onPageChange(page - 1)}
+              aria-label="Previous page in section"
+            >
+              <ChevronLeft size={18} aria-hidden="true" />
+            </button>
+            <span aria-live="polite" aria-atomic="true">
+              Page {page + 1} of {count}
+            </span>
+            <button
+              type="button"
+              disabled={!ready || page >= count - 1}
+              onClick={() => onPageChange(page + 1)}
+              aria-label="Next page in section"
+            >
+              <ChevronRight size={18} aria-hidden="true" />
+            </button>
+          </footer>
+        )}
       </div>
       <div className="notebook-connections">
         <AboutSocialLinks data={data} />

@@ -1,0 +1,165 @@
+{
+  "recordedAt": "2026-09-22T10:14:08.946613+00:00",
+  "engine": "Hidden built-in Chromium",
+  "actualCssViewports": [
+    [
+      1280,
+      720
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "captureMethod": "Accessibility screenshot bytes from the live built-in browser",
+  "devicePixelRatio": "Not separately recorded; image dimensions do not imply physical display density",
+  "liveRenderer": true,
+  "nativeSafariTested": false,
+  "physicalMobileTested": false,
+  "mobile": "Same full spread, intentionally deferred",
+  "brightnessVerification": "Live keyboard-focus and idle states; pointer-hover values verified by production-model regression, no live pointer-hover screenshot",
+  "mainMutation": "Explicitly requested guarded sample population only",
+  "authoringTests": "Fresh isolated source/D1/R2 at localhost:3003",
+  "measuredMainSectionPageCounts": [
+    3,
+    4,
+    4,
+    4,
+    3
+  ],
+  "stressPages": 16,
+  "stressColumnScrollHeight": 428,
+  "mediaCaptionPages": 6,
+  "mediaCaptionColumnScrollHeight": 428,
+  "singlePageReader": {
+    "pageCount": 1,
+    "footerPresent": false,
+    "settledGlobalPage": 31,
+    "targetGlobalPage": 31,
+    "turning": false
+  },
+  "escapeResult": {
+    "url": "http://localhost:3000/about",
+    "focusedLabel": "Read notebook",
+    "documentScrollY": 0
+  },
+  "reviewTabsClosed": true,
+  "viewportOverrideReset": true,
+  "sourceSha256": {
+    "app/globals.css": "5bcdc1b72f3301b381444f918a4f7ba03a8bf810579e635f2d9e3454af46bf7c",
+    "features/portfolio/about-notebook.tsx": "8e301c8155595b091476665c73ad1d4e698d6975e6cb2b6aaf3714e66208f16c",
+    "features/portfolio/about-notebook.css": "edc0ab3b0bc5785f977b112926b9eb846254283893012552d31f78a8320adba3",
+    "features/portfolio/notebook-section-pages.tsx": "621579b4a5d28e5e9206bab873ad2e893f6a090782e8e4c6d93aa30497744136",
+    "features/portfolio/notebook-section-pages.css": "31a810643802dcd1bfe44008c5d519e65a009a0bd52af96d369b7d1ea6f4bd81",
+    "features/portfolio/immersive-portfolio.tsx": "f8fdbe482513689349f55dd0a538c42656491407ae62434041e875fb9372aa97",
+    "features/portfolio/project-markdown.tsx": "babb9a38d9a9ad6e54e195ce08927c4e13c2786ed4b36a8ef3051906b7891515",
+    "features/spacecraft/rooms/about-personal-study.ts": "f3fd6ee51caedb0d41bb62788bad9cf74ccc81a91821e03a4829ca131d72db74",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "7f4ad575b2d1a0c8693ff4e64d7e234a76b7619c30ebbe151ad05aa14a495b6e",
+    "features/spacecraft/spacecraft-model.ts": "0255aae5dc0d834a2362738c857a78118393612b2ed1005edcc81e91cf845327",
+    "features/spacecraft/spacecraft-runtime.ts": "97ba8e079ea63b901bf873ba56da41d31e13d70ef75dfbf67185ca13fc4058c6",
+    "features/spacecraft/navigation/about-notebook.ts": "a875539346caa2c1897421e1965a41238ce35905d93a298f2787ca0f9ae8d1b5",
+    "features/studio/journal-page-preview.tsx": "7449742681b6e622ea91d1b1b34f27318f75c05fb63af58a82ec5a372f514d17",
+    "features/studio/journal-page-preview.css": "4570734b8c2c8b8bd5cf9f7a73a7aca0d0199c2a91d04644139585831bf2eede",
+    "features/studio/project-editor.tsx": "55a7046eae094281f187e0d18d504ea082f6203bf91aabd012ba415e0257ae61",
+    "features/studio/admin-studio.tsx": "22790d031aa532e42eef69a61638a08cbf1e8c63ed7fb7ecbfd3dfb1c76899d8",
+    "lib/content/notebook-pages.ts": "b32aade7331bcf7153498218b3371748e1b8962a3fd7043687bfa60f8a3bb483",
+    "lib/content/seed.ts": "1da47e68508222ee6da380769636b65ccabb335636b594e0478dfa538639ff22",
+    "lib/content/sample-notebook.mjs": "e6e83854f715854c386fd23663a3a708e729b297e49b05271327f8f8b5214530"
+  },
+  "captures": [
+    {
+      "file": "desktop-first-page-1440x900.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1440,
+        900
+      ],
+      "sha256": "7afa7ac00ae4f2449b3967b93dbdeb7e79c32fea78e360e0dd2564f4dd41a322"
+    },
+    {
+      "file": "desktop-left-markers-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "a1f7c79133e2f8c97766f8f770c68de9127df119e6857a632b6e2fa819ed726b"
+    },
+    {
+      "file": "desktop-left-markers-1440x900.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1440,
+        900
+      ],
+      "sha256": "a32c4f630272aa2f6f84a06f5c39495fb0d5f335abf31d2f57d5423202a6f580"
+    },
+    {
+      "file": "desktop-page-two-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "3606758bac7e0e91818d5fe9609e19939172197679ecf7cb2eee8761ae709518"
+    },
+    {
+      "file": "mobile-full-spread-390x844.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        390,
+        844
+      ],
+      "sha256": "7c4f40872995945498744276cd566363b2d23b854a4dbec672684bd689d06915"
+    },
+    {
+      "file": "reader-single-page-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "a96e49a80e0e2dec716f0a987eca46e4a0024f2615a562795e4da0cb75f692c9"
+    },
+    {
+      "file": "room-focused-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "6f2920171fc7ef1c50d300546a52db3f2746d32ebe3685dd63771bea71dd72c2"
+    },
+    {
+      "file": "room-idle-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "50dbe56f9f4ecca7b6ce3ae3c3b809faca453139a34ea61b5be4a64ced56a858"
+    },
+    {
+      "file": "studio-automatic-media-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "dd171222a90e6ea4044dfca7c5576a35008c5ef8e195e73e888d7b77aa72af7a"
+    },
+    {
+      "file": "studio-stress-final-page-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "9196dccd24999ec84427b099ca8b5e5fba82b4be626a45de4aade3354bd7a089"
+    }
+  ]
+}

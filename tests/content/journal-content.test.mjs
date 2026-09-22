@@ -26,10 +26,7 @@ const {
   projectAssetPublication,
   projectEditorDraft,
   validateProjectPublication,
-  NOTEBOOK_MAX_PAGE_CHARACTERS,
-  NOTEBOOK_MAX_SECTION_PAGES,
-  joinNotebookPages,
-  splitNotebookPages,
+  normalizeNotebookBody,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(helpers.outputFiles[0].text).toString('base64')
@@ -50,17 +47,17 @@ test('journal Markdown preserves authored whitespace, ordering and sample metada
   assert.equal(
     validateContent('journal', {
       ...chapter,
-      body: 'a'.repeat(NOTEBOOK_MAX_PAGE_CHARACTERS),
+      body: 'a'.repeat(100000),
     }).body.length,
-    NOTEBOOK_MAX_PAGE_CHARACTERS,
+    100000,
   );
   assert.throws(
     () =>
       validateContent('journal', {
         ...chapter,
-        body: 'a'.repeat(NOTEBOOK_MAX_PAGE_CHARACTERS + 1),
+        body: 'a'.repeat(100001),
       }),
-    /page 1.*1,800/,
+    /100,000/,
   );
   const first = projectEditorDraft({ ...chapter, slug: '' });
   assert.equal(first.slug, 'university-life');
@@ -71,54 +68,33 @@ test('journal Markdown preserves authored whitespace, ordering and sample metada
   assert.equal(first.body, chapter.body);
 });
 
-test('authored notebook pages round-trip whitespace and fenced markers while server limits each page independently', () => {
+test('legacy page markers become paragraph breaks while code and authored whitespace are preserved', () => {
   const pages = [
     '\n    preserve indentation\n\n',
-    '## Next leaf\n\nA second page.\n',
+    '## Next part\n\nA second part.\n',
   ];
-  assert.deepEqual(splitNotebookPages(joinNotebookPages(pages)), pages);
-  assert.deepEqual(splitNotebookPages(chapter.body), [chapter.body]);
+  const legacy = pages.join('\n\n<!-- notebook-page -->\n\n');
+  assert.equal(normalizeNotebookBody(legacy), pages.join('\n\n'));
+  assert.equal(normalizeNotebookBody(chapter.body), chapter.body);
   const fenced = '```html\n<!-- notebook-page -->\n```\n';
-  assert.deepEqual(splitNotebookPages(fenced), [fenced]);
+  assert.equal(normalizeNotebookBody(fenced), fenced);
   const indentedCode = '    <!-- notebook-page -->\n';
-  assert.deepEqual(splitNotebookPages(indentedCode), [indentedCode]);
-  const full = joinNotebookPages(
-    Array.from({ length: NOTEBOOK_MAX_SECTION_PAGES }, () =>
-      'x'.repeat(NOTEBOOK_MAX_PAGE_CHARACTERS),
-    ),
+  assert.equal(normalizeNotebookBody(indentedCode), indentedCode);
+  const many = Array.from({ length: 40 }, () => 'A complete paragraph.').join(
+    '\n\n<!-- notebook-page -->\n\n',
   );
   assert.equal(
-    validateContent('journal', { ...chapter, body: full }).body,
-    full,
-  );
-  assert.throws(
-    () =>
-      validateContent('journal', {
-        ...chapter,
-        body: joinNotebookPages(
-          Array.from(
-            { length: NOTEBOOK_MAX_SECTION_PAGES + 1 },
-            () => 'A short page',
-          ),
-        ),
-      }),
-    /up to 32 pages/,
-  );
-  assert.throws(
-    () =>
-      validateContent('journal', {
-        ...chapter,
-        body: joinNotebookPages([
-          'A short opening',
-          'x'.repeat(NOTEBOOK_MAX_PAGE_CHARACTERS + 1),
-        ]),
-      }),
-    /page 2.*1,800/,
+    validateContent('journal', { ...chapter, body: many }).body,
+    many,
   );
   assert.equal(
-    validateContent('project', { ...chapter, body: 'x'.repeat(100000) }).body
+    normalizeNotebookBody(many).match(/A complete paragraph\./g).length,
+    40,
+  );
+  assert.equal(
+    validateContent('journal', { ...chapter, body: 'x'.repeat(8000) }).body
       .length,
-    100000,
+    8000,
   );
 });
 
@@ -264,7 +240,7 @@ test('Studio journal editing uses shared Markdown preview and managed media cont
   );
 });
 
-test('journal editor exposes authored pages and keeps fitting pending until the shared paper renderer measures them', async () => {
+test('journal editor keeps one continuous Markdown field without manual page controls or fit-gated saving', async () => {
   const { StudioContentFields } = await loadComponent(
     'features/studio/studio-content-fields.tsx',
   );
@@ -272,7 +248,7 @@ test('journal editor exposes authored pages and keeps fitting pending until the 
     kind: 'journal',
     data: {
       ...chapter,
-      body: joinNotebookPages(['First page', 'Second page']),
+      body: 'First part\n\n<!-- notebook-page -->\n\nSecond part',
     },
     records: [],
     selected: 'chapter-1',
@@ -285,19 +261,17 @@ test('journal editor exposes authored pages and keeps fitting pending until the 
     },
     async onPublishAssets() {},
   });
-  assert.match(markup, /aria-label="Section pages"/);
-  assert.match(markup, /Page 1/);
-  assert.match(markup, /Page 2/);
-  assert.match(markup, /Add page/);
-  assert.match(markup, /Remove page/);
-  assert.match(markup, /maxLength="1800"/);
-  assert.match(markup, /Checking paper fit before saving or publishing/);
-  assert.match(markup, /notebook-section-pages/);
-  assert.match(markup, /Second page/);
+  assert.match(markup, /maxLength="100000"/);
+  assert.match(markup, /First part\n\nSecond part/);
+  assert.match(markup, /Pages are laid out automatically/);
+  assert.doesNotMatch(
+    markup,
+    /Section pages|Add page|Remove page|Checking paper fit|1,800/,
+  );
   assert.doesNotMatch(markup, /&lt;!-- notebook-page --&gt;/);
 });
 
-test('journal paper fit includes the biography from the prospective published notebook, ignoring unrelated private drafts', async () => {
+test('journal paper preview includes the biography from the prospective published notebook, ignoring unrelated private drafts', async () => {
   const { JournalPagePreview } = await loadComponent(
     'features/studio/journal-page-preview.tsx',
   );
@@ -327,9 +301,6 @@ test('journal paper fit includes the biography from the prospective published no
     data: { ...chapter, order: 1 },
     body: chapter.body,
     media: [],
-    authoredPage: 0,
-    visible: true,
-    onPageSelect() {},
   };
   const first = render(JournalPagePreview, props);
   assert.match(first, /The published biography/);
@@ -370,6 +341,73 @@ test('journal paper fit includes the biography from the prospective published no
   });
   assert.match(mediaPreview, /src="\/media\/published-photo"/);
   assert.doesNotMatch(mediaPreview, /Private image edit/);
+});
+
+test('notebook Markdown accepts natural heading links and existing canonical anchors without changing other room readers', async () => {
+  const { NotebookSectionPages } = await loadComponent(
+    'features/portfolio/notebook-section-pages.tsx',
+  );
+  const body =
+    '[Jump](#final-note) · [Canonical](#project-final-note)\n\n## Final note\n\nFirst ending.\n\n## Final note\n\n[Second](#final-note-2)';
+  const paper = render(NotebookSectionPages, {
+    title: 'A section',
+    body,
+    page: 0,
+    headingIdPrefix: 'notebook-test-',
+  });
+  assert.equal(
+    (paper.match(/href="#notebook-test-project-final-note"/g) || []).length,
+    2,
+  );
+  assert.match(paper, /id="notebook-test-project-final-note"/);
+  assert.match(paper, /href="#notebook-test-project-final-note-2"/);
+  const { ProjectMarkdown } = await loadComponent(
+    'features/portfolio/project-markdown.tsx',
+  );
+  const ordinary = render(ProjectMarkdown, { body });
+  assert.match(ordinary, /href="#final-note"/);
+  assert.match(ordinary, /href="#project-final-note"/);
+});
+
+test('mounted notebook shows page controls only for sections with multiple pages and has no Back button', async () => {
+  const { AboutNotebook } = await loadComponent(
+    'features/portfolio/about-notebook.tsx',
+  );
+  const data = {
+    site: {
+      name: 'Notebook owner',
+      domain: 'https://example.com',
+      aboutLabel: 'About',
+      journalLabel: 'Personal log',
+      inviteLabel: 'Contact me',
+    },
+    journal: [{ id: 'story', ...chapter }],
+    links: [],
+    media: [],
+    projects: [],
+    experience: [],
+  };
+  const props = {
+    data,
+    section: 0,
+    page: 0,
+    ready: true,
+    pageCounts: [1],
+    onSectionChange() {},
+    onPageChange() {},
+    onPageCount() {},
+  };
+  const one = render(AboutNotebook, props);
+  assert.doesNotMatch(
+    one,
+    /Back to About|notebook-page-footer|Previous page in section|Next page in section/,
+  );
+  const several = render(AboutNotebook, { ...props, pageCounts: [3] });
+  assert.match(several, /notebook-page-footer/);
+  assert.match(several, /Previous page in section/);
+  assert.match(several, /Next page in section/);
+  assert.match(several, /Page 1 of 3/);
+  assert.doesNotMatch(several, /Back to About/);
 });
 
 test('About Reading view exposes complete Markdown chapters and media safely with distinct per-chapter heading anchors', async () => {

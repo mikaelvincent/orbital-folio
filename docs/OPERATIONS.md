@@ -90,29 +90,35 @@ The portfolio links to the application; it does not proxy or execute arbitrary e
 
 Use **Journal** in Content studio. Each entry is a section: its title labels the
 paper marker, its subtitle introduces the first page, and Order places the section.
-Use **Add page** and the numbered page buttons to split a section into individual
-Markdown pages. The bottom notebook arrows turn these pages; section markers select
-sections. Up to six markers fit at once; Earlier/More sections reaches further groups.
+Write the entire section in one Markdown input. Text flows automatically onto as
+many pages as needed. The bottom notebook arrows turn pages within that section;
+section markers select sections. One-page sections hide pagination. Up to six
+markers fit at once; Earlier/More sections reaches further groups.
 
 **Preview** shows the same fixed paper space and typography as the live notebook.
-There is no scrolling inside a page. Save draft and Publish stay disabled until all
-pages fit after fonts and images load. Move overflowing content to another page;
-even short text with many headings may need more space. Each authored page also has
-a 1,800-character cap, with up to 32 pages in a section. The opening section preview
-includes the published biography and checks prospective published section ordering.
-Existing long published stories remain readable through automatic paper pagination;
-editing them requires splitting any overfilled authored page before saving again.
+There is no scrolling inside a paper page. Preview's arrows let you inspect the
+automatically generated pages after fonts and images load. There are no manual
+page breaks, per-page character limits or page-fit Save/Publish gates. The existing
+100,000-character section-body limit remains. The opening section preview includes
+the published biography and follows prospective published section ordering.
 
 The editor retains Write/Preview, image/video insertion and explicit media publishing
 from Projects and Case studies. Single line breaks remain visible. Save draft,
 Preview saved draft and Publish are separate. A section requires its managed images,
 videos, posters and captions to be published; its live dependencies remain protected
-from deletion or unpublishing. Existing body storage/backups retain Markdown with
-standalone `<!-- notebook-page -->` separators; fenced/indented code examples do not
-create pages. Reading view hides those separators and renders the complete section.
+from deletion or unpublishing. Existing standalone `<!-- notebook-page -->`
+separators are treated as ordinary paragraph breaks; fenced/indented examples remain
+literal code. Reading view renders the complete section in continuous document flow.
 
 Desktop and mobile share the full physical spread; dedicated mobile refinement is
-deferred. No owner's records are rewritten by this layout change.
+deferred. The requested sample-content refresh preserves owner-edited records.
+
+For local demonstration content, run `node scripts/populate-demo-notebook.mjs`
+to inspect its plan, then add `--apply` to publish the eligible examples. This
+loopback-only tool updates only exact known untouched notebook samples and creates
+missing examples. Edited records, divergent drafts and identity remain intact;
+repeating the command makes no changes once the examples are current. The five
+sections contain continuous Markdown long enough to exercise automatic pagination.
 
 ## Authoring About photos and social cards
 

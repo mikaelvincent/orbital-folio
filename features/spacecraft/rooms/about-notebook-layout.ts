@@ -38,7 +38,7 @@ export function notebookMarkers(count: number, section: number) {
       index,
       side,
       x: side === 'left' ? 20 : 1095,
-      y: visible === 1 ? 255 : 45 + slot * (420 / (visible - 1)),
+      y: 45 + slot * 84,
       width: 155,
       height: 56,
       color: NOTEBOOK_MARKER_COLORS[index % NOTEBOOK_MARKER_LIMIT],

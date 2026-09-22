@@ -5,10 +5,7 @@ import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from '../spacecraft/scene-loader';
 import { ContactComputerWindow } from './contact-computer-window';
 import { AboutNotebook } from './about-notebook';
-import {
-  notebookPageOffset,
-  splitNotebookPages,
-} from '@/lib/content/notebook-pages';
+import { notebookPageOffset } from '@/lib/content/notebook-pages';
 import {
   ProjectLibraryWindow,
   type ProjectFilter,
@@ -97,9 +94,7 @@ export function ImmersivePortfolio({
     [data.journal, data.site.biography, data.media],
   );
   const notebookCounts = data.journal.map(
-    (entry, index) =>
-      measuredNotebookCounts[notebookKey(index)] ||
-      splitNotebookPages(entry.body || '').length,
+    (_entry, index) => measuredNotebookCounts[notebookKey(index)] || 1,
   );
   const notebookPage = Math.min(
     notebookPages[notebookKey(notebookChapter)] || 0,
@@ -109,9 +104,7 @@ export function ImmersivePortfolio({
     () =>
       data.journal.map((entry, index) => ({
         ...entry,
-        pageCount:
-          measuredNotebookCounts[notebookKey(index)] ||
-          splitNotebookPages(entry.body || '').length,
+        pageCount: measuredNotebookCounts[notebookKey(index)] || 1,
       })),
     [data.journal, measuredNotebookCounts, notebookKey],
   );
@@ -702,7 +695,6 @@ export function ImmersivePortfolio({
                   }))
                 }
                 onPageCount={notebookPageCount}
-                onClose={() => go({ section: 'about' })}
               />
             ) : (
               <ContactComputerWindow

@@ -66,26 +66,6 @@ export function AdminStudio({
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [journalValidation, setJournalValidation] = useState<{
-    data: Record<string, any>;
-    message: string;
-  } | null>(null);
-  const journalError =
-    kind === 'journal'
-      ? journalValidation?.data === data
-        ? journalValidation.message
-        : 'Checking paper fit before saving or publishing…'
-      : '';
-  const validateJournal = useCallback(
-    (message: string) => {
-      setJournalValidation((previous) =>
-        previous?.data === data && previous.message === message
-          ? previous
-          : { data, message },
-      );
-    },
-    [data],
-  );
   const [pending, setPending] = useState<{
     action: string;
     id: string;
@@ -565,10 +545,6 @@ export function AdminStudio({
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    if (journalError) {
-                      setError(journalError);
-                      return;
-                    }
                     void act({
                       action: 'save',
                       id: selected === 'new' ? undefined : selected,
@@ -609,15 +585,13 @@ export function AdminStudio({
                       busy={busy}
                       onUpload={uploadProjectMedia}
                       onPublishAssets={publishProjectAssets}
-                      onValidationChange={validateJournal}
                     />
                   )}
                   <div className="editor-actions">
                     <button
                       className="button amber"
                       type="submit"
-                      disabled={busy || !!journalError}
-                      title={journalError || undefined}
+                      disabled={busy}
                     >
                       <Save size={16} />
                       Save draft
@@ -654,8 +628,7 @@ export function AdminStudio({
                         <button
                           className="button publish-button"
                           type="button"
-                          disabled={busy || dirty || !!journalError}
-                          title={journalError || undefined}
+                          disabled={busy || dirty}
                           onClick={() =>
                             act({
                               action: 'publish',

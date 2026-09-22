@@ -9,14 +9,7 @@
   font-family: var(--font-sans, Arial, sans-serif);
   font-size: 14px;
   line-height: 1.55;
-}
-.notebook-authored-page {
-  position: absolute;
-  inset: 0;
-  visibility: hidden;
-}
-.notebook-authored-page[data-visible='true'] {
-  visibility: visible;
+  overflow-wrap: anywhere;
 }
 .notebook-columns {
   width: 438px;
@@ -100,4 +93,14 @@
 }
 .notebook-ink .project-markdown :is(td, th) {
   padding: 0.3em;
+}
+
+.notebook-ink .project-markdown :is(table, thead, tbody, tr, td, th) {
+  break-inside: auto;
+}
+.notebook-ink .project-markdown video {
+  aspect-ratio: 16 / 9;
+}
+.notebook-ink .project-story-media {
+  break-inside: auto;
 }

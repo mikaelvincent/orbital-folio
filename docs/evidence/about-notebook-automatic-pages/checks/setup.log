@@ -1,0 +1,109 @@
+
+> orbital-folio@0.1.0 setup
+> node scripts/setup.mjs
+
+
+ ⛅️ wrangler 4.129.1
+────────────────────
+Resource location: local 
+
+Use --remote if you want to access the remote instance.
+
+Migrations to be applied:
+┌────────────────────────────────┐
+│ name                           │
+├────────────────────────────────┤
+│ 0000_graceful_korath.sql       │
+├────────────────────────────────┤
+│ 0001_cool_sinister_six.sql     │
+├────────────────────────────────┤
+│ 0002_instrument_navigation.sql │
+├────────────────────────────────┤
+│ 0003_interactive_view.sql      │
+├────────────────────────────────┤
+│ 0004_case_studies_room.sql     │
+└────────────────────────────────┘
+? About to apply 5 migration(s)
+Your database may not be available to serve requests during the migration, continue?
+🤖 Using fallback value in non-interactive context: yes
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 8 commands executed successfully.
+┌────────────────────────────────┬────────┐
+│ name                           │ status │
+├────────────────────────────────┼────────┤
+│ 0000_graceful_korath.sql       │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0001_cool_sinister_six.sql     │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0002_instrument_navigation.sql │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0003_interactive_view.sql      │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0004_case_studies_room.sql     │ 🕒️    │
+└────────────────────────────────┴────────┘
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 3 commands executed successfully.
+┌────────────────────────────────┬────────┐
+│ name                           │ status │
+├────────────────────────────────┼────────┤
+│ 0000_graceful_korath.sql       │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0001_cool_sinister_six.sql     │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0002_instrument_navigation.sql │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0003_interactive_view.sql      │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0004_case_studies_room.sql     │ 🕒️    │
+└────────────────────────────────┴────────┘
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 1 command executed successfully.
+┌────────────────────────────────┬────────┐
+│ name                           │ status │
+├────────────────────────────────┼────────┤
+│ 0000_graceful_korath.sql       │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0001_cool_sinister_six.sql     │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0002_instrument_navigation.sql │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0003_interactive_view.sql      │ 🕒️    │
+├────────────────────────────────┼────────┤
+│ 0004_case_studies_room.sql     │ 🕒️    │
+└────────────────────────────────┴────────┘
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 1 command executed successfully.
+┌────────────────────────────────┬────────┐
+│ name                           │ status │
+├────────────────────────────────┼────────┤
+│ 0000_graceful_korath.sql       │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0001_cool_sinister_six.sql     │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0002_instrument_navigation.sql │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0003_interactive_view.sql      │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0004_case_studies_room.sql     │ 🕒️    │
+└────────────────────────────────┴────────┘
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 7 commands executed successfully.
+┌────────────────────────────────┬────────┐
+│ name                           │ status │
+├────────────────────────────────┼────────┤
+│ 0000_graceful_korath.sql       │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0001_cool_sinister_six.sql     │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0002_instrument_navigation.sql │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0003_interactive_view.sql      │ ✅     │
+├────────────────────────────────┼────────┤
+│ 0004_case_studies_room.sql     │ ✅     │
+└────────────────────────────────┴────────┘
+Database ready. Sample content is inserted once on first visit. Start with npm run dev, then visit /admin and sign in. Use ADMIN_SETUP_KEY from .dev.vars to claim the local studio.

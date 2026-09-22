@@ -165,7 +165,6 @@ export function StudioContentFields({
   busy,
   onUpload,
   onPublishAssets,
-  onValidationChange,
 }: {
   kind: Kind;
   data: Record<string, any>;
@@ -174,7 +173,6 @@ export function StudioContentFields({
   setData: (data: Record<string, any>) => void;
   records: Content[];
   selected: string;
-  onValidationChange?: (message: string) => void;
 } & PhotoMediaActions) {
   if (kind === 'journal')
     return (
@@ -186,7 +184,6 @@ export function StudioContentFields({
         onChange={setData}
         onUpload={onUpload}
         onPublishAssets={onPublishAssets}
-        onValidationChange={onValidationChange}
         journalRecordId={selected}
       />
     );

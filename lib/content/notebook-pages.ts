@@ -1,10 +1,5 @@
-/** Explicit authored leaves remain ordinary Markdown in backups and Reading view. */
-export const NOTEBOOK_PAGE_BREAK = '\n\n<!-- notebook-page -->\n\n';
-export const NOTEBOOK_MAX_PAGE_CHARACTERS = 1800;
-export const NOTEBOOK_MAX_SECTION_PAGES = 32;
-
 /** Only standalone markers outside fenced code split paper pages. */
-export function splitNotebookPages(body: string): string[] {
+function splitLegacyNotebookPages(body: string): string[] {
   const source = String(body || '');
   const pages: string[] = [];
   let fence = '';
@@ -39,8 +34,9 @@ export function splitNotebookPages(body: string): string[] {
   return pages;
 }
 
-export function joinNotebookPages(pages: string[]) {
-  return pages.join(NOTEBOOK_PAGE_BREAK);
+/** Earlier manual page markers become paragraph breaks without changing code or text. */
+export function normalizeNotebookBody(body: string) {
+  return splitLegacyNotebookPages(body).join('\n\n');
 }
 
 export function notebookPageOffset(counts: number[], section: number) {

@@ -75,6 +75,24 @@ test('Desktop and portrait fit the same whole book and flags without scaling pap
         camera.position.copy(target).addScaledVector(direction, frame.distance);
         camera.lookAt(target);
         camera.updateMatrixWorld(true);
+        if (!pitch && !yaw) {
+          const middle = notebook.framingAnchor
+            .getWorldPosition(new THREE.Vector3())
+            .project(camera);
+          const pixelX = ((middle.x + 1) * width) / 2;
+          const pixelY = ((1 - middle.y) * height) / 2;
+          const safeMiddleY =
+            ((1 - (frame.safe.top + frame.safe.bottom) / 2) * height) / 2;
+          assert.ok(
+            Math.abs(pixelX - width / 2) < 1e-6,
+            'the close camera centers the spread horizontally',
+          );
+          assert.ok(
+            Math.abs(pixelY - safeMiddleY) < 8,
+            'vertical centering respects the reserved bottom controls',
+          );
+          assert.ok(pixelY < height / 2, 'the book sits above the dock');
+        }
         for (const x of [-notebook.framingWidth / 2, notebook.framingWidth / 2])
           for (const y of [
             -notebook.framingHeight / 2,
@@ -99,6 +117,89 @@ test('Desktop and portrait fit the same whole book and flags without scaling pap
       }
   }
   assert.deepEqual(notebook.anchor.matrixWorld.toArray(), matrix);
+});
+
+test('The notebook uses shared dim, hover and active-object lighting without changing its table', () => {
+  const model = createSpacecraft(THREE);
+  const notebook = model.group.userData.aboutNotebook;
+  const materials = new Set();
+  const rims = new Set();
+  notebook.root.traverse((object) => {
+    if (!object.isMesh) return;
+    for (const material of [object.material].flat()) {
+      if (material.name.endsWith('-hover-rim')) rims.add(material);
+      else materials.add(material);
+    }
+  });
+  assert.ok(
+    materials.size > 5,
+    'feedback includes paper, binding, clips and flags',
+  );
+  assert.ok(
+    [...materials].every(
+      (material) => material.userData.interactableId === 'about-notebook',
+    ),
+  );
+  const update = (state) =>
+    model.update(1, 'about', true, {
+      activeRoom: 'about',
+      reading: false,
+      hoveredObject: null,
+      ...state,
+    });
+  update({});
+  assert.equal(notebook.root.userData.highlightLevel, 0.65);
+  const idle = new Map(
+    [...materials].map((material) => [material, material.color.clone()]),
+  );
+  const surroundings = new Map();
+  model.group.traverse((object) => {
+    if (!object.isMesh || object.userData.section !== 'about') return;
+    for (const material of [object.material].flat())
+      if (
+        material.color &&
+        material.userData.interactableId !== 'about-notebook'
+      )
+        surroundings.set(material, material.color.clone());
+  });
+  assert.ok(surroundings.size > 0);
+  update({ hoveredObject: 'about-notebook' });
+  assert.equal(notebook.root.userData.highlightLevel, 1.15);
+  for (const [material, color] of idle) {
+    const expected = color.clone().multiplyScalar(1.15 / 0.65);
+    assert.ok(
+      material.color
+        .toArray()
+        .every(
+          (channel, index) =>
+            Math.abs(channel - expected.toArray()[index]) < 1e-12,
+        ),
+      'all notebook materials brighten together',
+    );
+  }
+  for (const [material, color] of surroundings)
+    assert.ok(
+      material.color.equals(color),
+      'the desk and surrounding furniture retain their room lighting',
+    );
+  update({});
+  assert.equal(notebook.root.userData.highlightLevel, 0.65);
+  update({ travelling: true, hoveredObject: 'about-notebook' });
+  assert.equal(
+    notebook.root.userData.highlightLevel,
+    0.65,
+    'stale hover cannot brighten during travel',
+  );
+  update({ travelling: false, reading: true });
+  assert.equal(
+    notebook.root.userData.highlightLevel,
+    1,
+    'active reader retains normal brightness',
+  );
+  assert.equal(rims.size, 1);
+  for (const rim of rims) assert.equal(rim.opacity, 0);
+  update({ reading: false });
+  assert.equal(notebook.root.userData.highlightLevel, 0.65);
 });
 
 test('Batched section tabs retain variable spacing and travel to the left with crossed pages', () => {

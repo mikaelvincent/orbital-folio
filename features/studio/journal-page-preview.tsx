@@ -1,37 +1,24 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { Content } from '@/lib/content/types';
-import {
-  NOTEBOOK_MAX_PAGE_CHARACTERS,
-  NOTEBOOK_MAX_SECTION_PAGES,
-  splitNotebookPages,
-} from '@/lib/content/notebook-pages';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { NotebookSectionPages } from '@/features/portfolio/notebook-section-pages';
 import './journal-page-preview.css';
 
-/** Use the public paper renderer for both the visible preview and save checks. */
+/** The same automatic paper layout used by the mounted public notebook. */
 export function JournalPagePreview({
   data,
   records,
   recordId,
   body,
   media,
-  authoredPage,
-  visible,
-  onValidationChange,
-  onPageSelect,
 }: {
   data: Record<string, any>;
   records: Content[];
   recordId?: string;
   body: string;
   media: Record<string, any>[];
-  authoredPage: number;
-  visible: boolean;
-  onValidationChange?: (message: string) => void;
-  onPageSelect: (page: number) => void;
 }) {
-  const pages = splitNotebookPages(body);
   const previewMedia = useMemo(
     () =>
       media.map((asset) => {
@@ -79,92 +66,36 @@ export function JournalPagePreview({
   ]);
   const [measurement, setMeasurement] = useState<{
     signature: string;
-    counts: number[];
-    overHeight: boolean;
+    count: number;
   } | null>(null);
+  const [selection, setSelection] = useState<{
+    signature: string;
+    page: number;
+  } | null>(null);
+  const count = measurement?.signature === signature ? measurement.count : 1;
+  const page =
+    selection?.signature === signature
+      ? Math.min(selection.page, count - 1)
+      : 0;
   const receivePageCount = useCallback(
-    (_total: number, counts: number[], overHeight = false) => {
-      if (
-        !counts.length ||
-        counts.some((count) => !Number.isFinite(count) || count < 1)
-      )
-        return;
+    (total: number) => {
       setMeasurement((previous) =>
-        previous?.signature === signature &&
-        previous.overHeight === overHeight &&
-        previous.counts.length === counts.length &&
-        previous.counts.every((count, index) => count === counts[index])
+        previous?.signature === signature && previous.count === total
           ? previous
-          : { signature, counts: [...counts], overHeight },
+          : { signature, count: Math.max(1, total) },
       );
     },
     [signature],
   );
-  const measured =
-    measurement?.signature === signature &&
-    measurement.counts.length === pages.length;
-  const counts = measured ? measurement.counts : [];
-  const overHeight = measured && measurement.overHeight;
-  const overlong = pages.flatMap((page, index) =>
-    page.length > NOTEBOOK_MAX_PAGE_CHARACTERS ? [index] : [],
-  );
-  const overflow = counts.flatMap((count, index) => (count > 1 ? [index] : []));
-  const invalidPages = [...new Set([...overlong, ...overflow])].sort(
-    (a, b) => a - b,
-  );
-  const problem =
-    pages.length > NOTEBOOK_MAX_SECTION_PAGES
-      ? `A section can contain up to ${NOTEBOOK_MAX_SECTION_PAGES} pages. Move the remaining pages into another section before saving or publishing.`
-      : overlong.length
-        ? `Page ${overlong[0] + 1} exceeds ${NOTEBOOK_MAX_PAGE_CHARACTERS.toLocaleString()} characters. Move some text to another page before saving or publishing.`
-        : !measured
-          ? 'Checking paper fit before saving or publishing…'
-          : overHeight
-            ? 'Content extends beyond the paper. Shorten or divide the oversized block before saving or publishing.'
-            : overflow.length
-              ? `Page ${overflow[0] + 1} extends beyond the paper. Move some content to another page before saving or publishing.`
-              : '';
-  useEffect(() => {
-    onValidationChange?.(problem);
-  }, [onValidationChange, problem]);
-  const physicalPage = counts
-    .slice(0, authoredPage)
-    .reduce((total, count) => total + count, 0);
+  const selectPage = (next: number) =>
+    setSelection({ signature, page: Math.max(0, Math.min(next, count - 1)) });
 
   return (
     <div className="journal-page-review">
-      <div
-        className={`journal-page-fit ${invalidPages.length || overHeight || pages.length > NOTEBOOK_MAX_SECTION_PAGES ? 'has-overflow' : ''}`}
-        role="status"
-      >
-        <p>
-          {problem ||
-            `Page ${authoredPage + 1} fits. All ${pages.length} ${pages.length === 1 ? 'page is' : 'pages are'} ready to save.`}
-        </p>
-        {invalidPages.length > 1 && (
-          <div role="group" aria-label="Pages that need more room">
-            {invalidPages.map((index) => (
-              <button
-                type="button"
-                key={index}
-                onClick={() => onPageSelect(index)}
-              >
-                Check page {index + 1}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-      <div
-        className={
-          visible ? 'journal-paper-stage' : 'journal-paper-measurement'
-        }
-        aria-hidden={!visible || undefined}
-        inert={!visible || undefined}
-      >
+      <div className="journal-paper-stage">
         <article
           className="journal-paper-preview"
-          aria-label={`Notebook page ${authoredPage + 1} preview`}
+          aria-label={`Notebook page ${page + 1} preview`}
         >
           <header>
             <span>{site?.journalLabel || 'Personal log'}</span>
@@ -176,36 +107,46 @@ export function JournalPagePreview({
             body={body}
             media={previewMedia}
             biography={biography}
-            page={physicalPage}
+            page={page}
             onPageCount={receivePageCount}
-            onPageSelect={(physicalPage) => {
-              let offset = 0;
-              const target = pages.findIndex((_, index) => {
-                offset += counts[index] || 1;
-                return physicalPage < offset;
-              });
-              if (target >= 0) onPageSelect(target);
-            }}
+            onPageSelect={selectPage}
             headingIdPrefix="studio-notebook-"
           />
-          <footer>
-            Page {authoredPage + 1} / {pages.length}
-          </footer>
+          {count > 1 && (
+            <footer aria-label="Notebook preview pages">
+              <button
+                type="button"
+                disabled={page === 0}
+                onClick={() => selectPage(page - 1)}
+                aria-label="Previous preview page"
+              >
+                <ChevronLeft size={18} aria-hidden="true" />
+              </button>
+              <span aria-live="polite">
+                Page {page + 1} of {count}
+              </span>
+              <button
+                type="button"
+                disabled={page === count - 1}
+                onClick={() => selectPage(page + 1)}
+                aria-label="Next preview page"
+              >
+                <ChevronRight size={18} aria-hidden="true" />
+              </button>
+            </footer>
+          )}
         </article>
       </div>
-      {biography && authoredPage === 0 && (
+      {biography && page === 0 && (
         <p className="editor-hint">
           This opening page also includes the published biography from Identity
           &amp; copy.
         </p>
       )}
-      {visible && (
-        <p className="editor-hint">
-          The notebook has fixed paper pages. This preview uses the same text
-          size and available space. Any content beyond this sheet must move to
-          another page.
-        </p>
-      )}
+      <p className="editor-hint">
+        The notebook lays out your story across fixed paper pages automatically.
+        This preview uses the same text size and available space as the reader.
+      </p>
     </div>
   );
 }

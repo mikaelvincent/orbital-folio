@@ -2170,6 +2170,8 @@ svg {
   box-shadow: 0 2px 5px #34495c08;
 }
 .record-list span {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 14px;
   font-weight: 500;
   color: #23465c;

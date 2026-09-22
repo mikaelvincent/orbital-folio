@@ -389,23 +389,29 @@ reader with native content on the existing notebook in its desk cradle. Opening
 other rooms' screen applications. The original left-page mountain artwork stays,
 with the current editable owner name; the right physical paper holds the reader.
 There is no detached dialog, backdrop or replacement notebook.
+The notebook and its cradle are centered on the table, and the close camera centers
+the spread. Like the other room controls, the notebook dims at rest in the room
+and brightens on hover or keyboard focus; the open reader keeps normal brightness.
 
 Published Journal entries are **sections**, each with its own colored paper marker.
 The marker count follows the collection, up to six visible at once; separate
 Earlier/More sections controls expose additional groups without discarding records.
+Markers start near the top with a fixed, even gap regardless of section count;
+they do not stretch to justify the full height of the paper.
 Earlier section markers travel with their crossed leaves to the left, where their
 reverse labels remain readable. Both paper stacks align with the reading leaves,
 which overlap each flag's adhesive region by 30 logical pixels. The fixed left
 artwork remains visible above the resting stack.
 
 The bottom arrows turn **pages within the current section** and stop at its ends.
-Pages never scroll. Authored page breaks are stored in the existing Markdown body;
-older long content flows into additional fixed pages without rewriting saved data.
+Pages never scroll. Each section is one continuous Markdown body that flows
+automatically into fixed pages. Pagination is hidden for a one-page section.
 Each crossed physical leaf turns, including multi-section jumps; long routes use a
 2.4-second animation budget. Reduced motion settles immediately. The 14px body is
 smaller than the 16px subtitle and 17–32px headings. Selection and per-section page
-positions survive closing during a visit. Back to About, Escape or exposed pressure
-wall returns to the room; furniture blocks wall dismissal and focus returns to the
+positions survive closing during a visit. Escape or exposed pressure wall returns
+to the room; there is no Back to About button on the paper. Furniture blocks wall
+dismissal and focus returns to the
 notebook. The first section includes the editable biography; configured social links
 and the Contact invitation sit on the left paper. An empty journal retains the
 introduction. This supersedes the earlier three-marker/chapter-pager/scroll design.
@@ -414,14 +420,17 @@ Journal authoring reuses the Markdown Write/Preview editor and managed media
 workflow from Projects and Case studies. The notebook and semantic Reading view
 share safe Markdown rendering, preserve legacy single line breaks, and support
 headings, lists, links, images, video/captions, code and tables. Raw HTML is escaped;
-private media must publish before the chapter, and published chapter dependencies
-prevent deleting or unpublishing referenced media. No existing entries are renamed
-or rewritten by this implementation. Journal Write/Preview now exposes individual
-pages and uses the same 438×428px ink area as the physical reader. Save and Publish
-wait for fonts/media and reject rendered overflow, with a further 1,800-character
-limit per authored page and 32 pages per section. Publication fit uses prospective
-published section ordering and the published biography/media, not unrelated drafts.
-A later biography change can create additional reader pages automatically.
+private media must publish before the section, and published section dependencies
+prevent deleting or unpublishing referenced media. Journal Write has one Markdown
+input per section. Preview uses the same 438×428px ink area as the physical reader
+and offers automatic page navigation. The later automatic-pagination request
+supersedes manual Add/Remove page controls, per-page character limits and overflow
+Save/Publish gates. The existing whole-body size guard remains. Old page-break
+comments become ordinary paragraph breaks, preserving fenced/indented code examples.
+Preview uses prospective published section ordering and published biography/media,
+not unrelated drafts. Later biography edits can change the automatic page count.
+The requested sample population refreshes only exact untouched notebook samples,
+adds absent sample sections, and preserves owner-edited records and identity.
 
 The owner's latest instruction explicitly defers a dedicated mobile design:
 **portrait uses exactly the same full spread, page dimensions, typography and
@@ -429,8 +438,9 @@ attached flag layout as desktop, scaled down to fit**. Earlier proposals to crop
 to the right page or relocate markers are superseded. No paper stretch or mobile
 reflow is implemented. Semantic Reading view remains the readable alternative.
 Room, overview, doorway and orbital world framing keep their existing rules;
-only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md)
-and the current [page/section refinements](evidence/about-notebook-refinements/README.md).
+only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md),
+the [page/section refinements](evidence/about-notebook-refinements/README.md), and the
+current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md).
 
 ## About photos and social cards
 

@@ -1,0 +1,71 @@
+{
+  "sourceCheckout": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixtureCheckout": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-auto-1ds6ly7t",
+  "baseUrl": "http://localhost:3003",
+  "mainAboutStatus": 200,
+  "isolation": {
+    "sourceOnlyCopy": true,
+    "copiedPrivateEnvironment": false,
+    "copiedMainDatabaseOrUploads": false,
+    "freshTestSecrets": true,
+    "freshD1R2State": true,
+    "statePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-auto-1ds6ly7t/.wrangler/state",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-auto-1ds6ly7t/.verification-vite-cache",
+    "loopbackOnly": true,
+    "excludedHistoricalEvidence": true
+  },
+  "fullSuite": {
+    "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+    "tests": 499,
+    "pass": 499,
+    "fail": 0,
+    "skip": 0,
+    "exitCode": 0,
+    "durationMs": 382253.424209,
+    "sourceHashes": "full-suite-source-hashes.json",
+    "log": "full-tests.log"
+  },
+  "finalChecks": {
+    "typecheck": {
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    "build": {
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    "lint": {
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    "format": {
+      "exitCode": 0,
+      "log": "format.log"
+    }
+  },
+  "sourceIdentity": {
+    "filesHashed": 438,
+    "sourceHashes": "final-source-hashes.json",
+    "sourceSync": "source-sync.json",
+    "onlyFixtureDifference": "vite.config.ts adds private .verification-vite-cache",
+    "postSuiteDelta": "post-suite-source-change.json",
+    "applicationSourceChangedAfterChecks": false
+  },
+  "knownBuildNotices": [
+    "Node module.register deprecation",
+    "Existing chunk-size advisory",
+    "Vinext route-classification notice"
+  ],
+  "secretValueScanPassed": true,
+  "temporaryServerStillRunning": false,
+  "temporaryServerSession": 40601,
+  "cleanupPendingRootRequest": false,
+  "completedAt": "2026-09-22T10:14:37.994480+00:00",
+  "cleanup": {
+    "temporaryPort3003Listening": false,
+    "temporaryServerExitCode": 130,
+    "fixtureRemoved": true,
+    "mainAboutStatus": 200,
+    "completedAt": "2026-09-22T10:15:02.161116+00:00"
+  }
+}

@@ -38,6 +38,8 @@
 .notebook-page-header {
   border-bottom: 1px solid #5f665b30;
   margin-bottom: 18px;
+  min-height: 38px;
+  justify-content: flex-end;
 }
 .notebook-page-header > span {
   max-width: 42%;
@@ -46,7 +48,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.notebook-page-header button,
 .notebook-page-footer button {
   min-height: 38px;
   min-width: 38px;
@@ -54,9 +55,6 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-}
-.notebook-page-header button {
-  justify-content: flex-start;
 }
 .notebook-page-footer {
   border-top: 1px solid #5f665b30;
