@@ -1,0 +1,189 @@
+{
+  "opening": {
+    "connected": true,
+    "preview": "false",
+    "sameNode": true,
+    "sameText": true
+  },
+  "closing": [
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    },
+    {
+      "display": "block",
+      "hidden": "true",
+      "inert": true,
+      "preview": "true",
+      "sameNode": true,
+      "sameText": true
+    }
+  ],
+  "roomClosed": {
+    "filter": "brightness(0.65)",
+    "focus": "Read notebook",
+    "heading": "My story",
+    "preview": "true"
+  },
+  "roomTabAfterNotebook": {
+    "href": "/",
+    "label": "Overview"
+  },
+  "laterPageClose": {
+    "display": "block",
+    "footer": "Page 2 of 4",
+    "initial": "8",
+    "preview": "true",
+    "sameNode": true,
+    "settled": "8"
+  },
+  "laterPageReopen": {
+    "initialPage": "1",
+    "states": [
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "true",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      },
+      {
+        "display": "block",
+        "page": "1",
+        "preview": "false",
+        "sameNode": true
+      }
+    ]
+  }
+}

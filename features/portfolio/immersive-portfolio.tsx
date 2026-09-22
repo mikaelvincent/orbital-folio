@@ -640,7 +640,7 @@ export function ImmersivePortfolio({
           </h1>
         )}
         {immersive &&
-          readingSurface &&
+          (readingSurface || destination.section === 'about') &&
           surface &&
           createPortal(
             destination.section === 'projects' ? (
@@ -680,6 +680,7 @@ export function ImmersivePortfolio({
             ) : destination.section === 'about' ? (
               <AboutNotebook
                 data={data}
+                interactive={readingSurface && arrived && !travel}
                 section={notebookChapter}
                 ready={data.journal.every(
                   (_, index) =>

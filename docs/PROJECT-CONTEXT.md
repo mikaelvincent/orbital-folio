@@ -389,6 +389,14 @@ reader with native content on the existing notebook in its desk cradle. Opening
 other rooms' screen applications. The original left-page mountain artwork stays,
 with the current editable owner name; the right physical paper holds the reader.
 There is no detached dialog, backdrop or replacement notebook.
+The real first Markdown page is already mounted in the About room. Opening the
+notebook retains the same native content and measured pagination while the camera
+zooms; the former hardcoded right-page artwork is removed. Closing preserves the
+selected page on the physical book, so reopening also requires no content swap.
+The room preview is passive and excluded from keyboard/accessibility navigation;
+Read notebook remains the entry control. Ink follows the book's dim/bright feedback.
+Native ink stays visible during same-room zooms and is hidden during entry from
+other rooms or overview until arrival, preventing text from showing through walls.
 The notebook and its cradle are centered on the table, and the close camera centers
 the spread. Like the other room controls, the notebook dims at rest in the room
 and brightens on hover or keyboard focus; the open reader keeps normal brightness.
@@ -450,7 +458,8 @@ Room, overview, doorway and orbital world framing keep their existing rules;
 only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md),
 the [page/section refinements](evidence/about-notebook-refinements/README.md), and the
 current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md),
-and [printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md).
+[printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md),
+and [persistent real content in the room](evidence/about-notebook-room-content/README.md).
 
 ## About photos and social cards
 

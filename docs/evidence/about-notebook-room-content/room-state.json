@@ -1,0 +1,23 @@
+{
+  "viewport": [
+    1440,
+    1000,
+    2
+  ],
+  "initialRoom": {
+    "articlePointer": "none",
+    "counts": [
+      "3",
+      "4",
+      "4",
+      "4",
+      "3"
+    ],
+    "filter": "brightness(0.65)",
+    "focus": "main",
+    "hidden": "true",
+    "inert": true,
+    "pagePointer": "none",
+    "surface": "<div class=\"world-surface\" style=\"position: absolute; left: 0px; top: 0px; transform-origin: 0px 0px; width: 1270px; height: 566px; --notebook-brightness: 0.65; transform: matrix3d(1.45211, 3.47102e-07, 7.02937e-10, 6.94205e-10, -0.42998, 0.866131, -0.000604707, -0.000597195, -0.577508, -1.26824, -0.000812185, -0.000802096, 4213.22, 3125.93, 5.23759, 6.16632);\" data-compact=\"false\" data-notebook=\"true\" data-notebook-preview=\"true\" data-turning=\"false\" data-notebook-settled-page=\"0\" data-notebook-target-page=\"0\" data-computer=\"false\" data-computer-portrait=\"false\" inert=\"\" aria-hidden=\"true\"><article class=\"about-notebook\" id=\"world-reader\" ta"
+  }
+}

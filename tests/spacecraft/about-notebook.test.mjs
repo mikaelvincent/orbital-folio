@@ -44,7 +44,7 @@ function close(actual, expected, message) {
   );
 }
 
-test('left artwork prints the current identity within its paper margin and blank active paper has no old copy', () => {
+test('left artwork prints the current identity within its paper margin and reading paper leaves all text to native content', () => {
   const text = [];
   const ctx = new Proxy(
     {
@@ -67,10 +67,8 @@ test('left artwork prints the current identity within its paper margin and blank
   assert.deepEqual(
     text,
     [],
-    'active page leaves text to the attached native content',
+    'room and close views share blank paper beneath native content',
   );
-  drawStudyArtwork(ctx, 'journal-right');
-  assert.ok(text.some(([value]) => value === 'How I work'));
 });
 
 test('native page and chapter targets remain registered to the retained paper geometry', () => {
@@ -505,6 +503,10 @@ test('room markers preserve reader sections and print numbered titles only on ex
           fillText(text, x, y) {
             canvas.labels.push({ text, x, y, font: this.font });
           },
+          fillRect(x, y, width, height) {
+            if (x === 0 && y === 0 && width >= 155 && height >= 56)
+              canvas.labels.length = 0;
+          },
         },
         { get: (target, key) => target[key] ?? (() => {}) },
       );
@@ -520,6 +522,15 @@ test('room markers preserve reader sections and print numbered titles only on ex
       { title: 'Beyond the screen', pageCount: 3 },
     ];
     const { root, notebook } = fixture(entries);
+    const paperMap = root
+      .getObjectByName('personal-study-right-paper-section')
+      .getObjectByName('personal-study-printed-top-paper-leaf').material.map;
+    const paperVersion = paperMap.version;
+    assert.deepEqual(
+      paperMap.image.labels,
+      [],
+      'right paper is blank even before the reader opens',
+    );
     const before = notebook.flags.map(
       ({ index, title, x, y, width, height }) => ({
         index,
@@ -582,6 +593,65 @@ test('room markers preserve reader sections and print numbered titles only on ex
         'reverse labels match their native left marker',
       );
     }
+    const flagMaps = notebook.flags.flatMap((flag) => [
+      root.getObjectByName(
+        `personal-study-flag-printed-adhesive-face-${flag.slot}`,
+      ).material.map,
+      root.getObjectByName(
+        `personal-study-flag-printed-adhesive-back-${flag.slot}`,
+      ).material.map,
+    ]);
+    notebook.setInkMounted(true);
+    assert.ok(
+      flagMaps.every((map) => !map.image.labels.length),
+      'projected native labels suppress physical duplicates in the room',
+    );
+    const mountedVersions = flagMaps.map((map) => map.version);
+    for (let frame = 0; frame < 30; frame++) notebook.setInkMounted(true);
+    assert.deepEqual(
+      flagMaps.map((map) => map.version),
+      mountedVersions,
+      'repeated native visibility updates do not repaint textures',
+    );
+    notebook.setActive(true);
+    assert.ok(
+      flagMaps.every((map) => !map.image.labels.length),
+      'zooming in does not switch to a second printed label set',
+    );
+    notebook.setChapter(2);
+    assert.equal(notebook.turningSection, 1);
+    const movingMap = root.getObjectByName(
+      'personal-study-flag-printed-adhesive-back-1',
+    ).material.map;
+    assert.ok(
+      movingMap.image.labels.some(({ text }) => text === '02'),
+      'a turning marker retains its physical label while native labels stay mounted',
+    );
+    notebook.update(0.36);
+    assert.ok(
+      flagMaps.every((map) => !map.image.labels.length),
+      'settled markers return their labels to native ink',
+    );
+    notebook.setActive(false);
+    assert.ok(
+      flagMaps.every((map) => !map.image.labels.length),
+      'zooming back to the room keeps the same native marker ink',
+    );
+    notebook.setInkMounted(false);
+    assert.ok(
+      flagMaps.every((map) => map.image.labels.length),
+      'physical labels return when the projected notebook is hidden',
+    );
+    assert.equal(
+      paperMap.version,
+      paperVersion,
+      'zooming and changing chapters never repaint the underlying paper',
+    );
+    assert.deepEqual(
+      paperMap.image.labels,
+      [],
+      'no standby copy is introduced during opening or closing',
+    );
     notebook.setChapters(
       Array.from({ length: 7 }, () => ({ title: 'Same title' })),
     );

@@ -1,0 +1,20 @@
+{
+  "portraitRoom": {
+    "hidden": "true",
+    "inert": true,
+    "inkHeight": 428,
+    "inkWidth": 438,
+    "preview": "true",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "portraitOpening": {
+    "hidden": "false",
+    "inert": false,
+    "sameNode": true,
+    "sameText": true
+  }
+}

@@ -792,6 +792,7 @@ export function mountSpacecraftScene({
           nextRoll = 0;
         let flightImmediate = false,
           travelling = false,
+          notebookPreviewVisible = false,
           lastMetrics = 0,
           elapsed = 0,
           notifyArrival = true,
@@ -1372,6 +1373,8 @@ export function mountSpacecraftScene({
           contactPickRevision = -1;
           active = latest.current.section;
           reading = latest.current.readingSurface;
+          if (previousRoom !== 'about' || active !== 'about')
+            notebookPreviewVisible = false;
           computer.keyboard.clear();
           notifyArrival = notify;
           if (model.group.userData.projectPage !== latest.current.projectPage)
@@ -1977,6 +1980,12 @@ export function mountSpacecraftScene({
             !travelling &&
             (feedbackTarget.walkway || passage?.via === 'walkway');
           diagnostics?.mark('camera');
+          // Mount real ink on arrival and retain it throughout About's camera
+          // zooms. Native HTML cannot be depth-occluded by cabin walls, so hide
+          // it during entry from overview or another room until arrival.
+          notebookPreviewVisible =
+            active === 'about' && (notebookPreviewVisible || !travelling);
+          notebook.setInkMounted(notebookPreviewVisible);
           model.update(
             elapsed,
             effectiveHover,
@@ -2050,10 +2059,17 @@ export function mountSpacecraftScene({
           surfaceElement.style.height = `${logicalHeight}px`;
           surfaceElement.dataset.compact = String(mobile());
           surfaceElement.dataset.notebook = String(isNotebook);
+          surfaceElement.dataset.notebookPreview = String(
+            isNotebook && !reading,
+          );
           surfaceElement.dataset.turning = String(
             isNotebook && notebook.turning,
           );
           if (isNotebook) {
+            surfaceElement.style.setProperty(
+              '--notebook-brightness',
+              String(notebook.root.userData.highlightLevel ?? 1),
+            );
             const flags = notebookMarkers(
               notebook.chapters.length,
               notebook.settledSection,
@@ -2096,8 +2112,12 @@ export function mountSpacecraftScene({
                 : physicalSurface.userData.width) / logicalWidth,
             );
           }
-          surface.visible = reading;
-          surfaceElement.inert = !surface.visible || travelling;
+          surface.visible = isNotebook ? notebookPreviewVisible : reading;
+          surfaceElement.inert = !surface.visible || !reading || travelling;
+          surfaceElement.setAttribute(
+            'aria-hidden',
+            String(!surface.visible || (isNotebook && !reading)),
+          );
           notebook.openingAnchor.matrixWorld.decompose(
             notebookTarget.position,
             notebookTarget.quaternion,

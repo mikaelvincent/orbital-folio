@@ -258,37 +258,6 @@ export function drawStudyArtwork(
     }
     ctx.restore();
   };
-  const arrow = (
-    cx: number,
-    cy: number,
-    radius: number,
-    from: number,
-    to: number,
-  ) => {
-    ctx.beginPath();
-    ctx.strokeStyle = ink;
-    ctx.lineWidth = 2.6;
-    ctx.arc(cx, cy, radius, from, to);
-    ctx.stroke();
-    const x = cx + Math.cos(to) * radius;
-    const y = cy + Math.sin(to) * radius;
-    const direction = to + Math.PI / 2;
-    path(
-      [
-        [
-          x - 13 * Math.cos(direction - 0.45),
-          y - 13 * Math.sin(direction - 0.45),
-        ],
-        [x, y],
-        [
-          x - 13 * Math.cos(direction + 0.45),
-          y - 13 * Math.sin(direction + 0.45),
-        ],
-      ],
-      ink,
-      2.6,
-    );
-  };
 
   if (kind === 'landscape-postcard') {
     const sky = ctx.createLinearGradient(0, 0, 0, 240);
@@ -557,35 +526,6 @@ export function drawStudyArtwork(
       );
       mountain(86, 466, 1.19);
       lettering('Always curious.', 74, 934, 23, 'italic', paleInk);
-    } else if (kind === 'journal-right') {
-      lettering('How I work', 70, 120, 45, '600');
-      path(
-        [
-          [72, 146],
-          [642, 146],
-        ],
-        paleInk,
-        1,
-      );
-      const sentences = [
-        'Understand the constraint.',
-        'Build something useful.',
-        'Measure, then improve.',
-      ];
-      sentences.forEach((sentence, i) => {
-        const y = 225 + i * 89;
-        lettering(`0${i + 1}`, 72, y, 25, '500', paleInk);
-        lettering(sentence, 127, y, 27, '400');
-      });
-      ctx.fillStyle = ink;
-      ctx.font = 'italic 34px Georgia, serif';
-      ctx.fillText('Observe', 297, 575);
-      ctx.fillText('Build', 474, 793);
-      ctx.fillText('Improve', 160, 793);
-      arrow(375, 705, 140, -1.1, 0.3);
-      arrow(375, 705, 140, 0.89, 2.22);
-      arrow(375, 705, 140, 2.87, 4.18);
-      lettering('A little better each cycle.', 203, 953, 22, 'italic', paleInk);
     } else if (kind === 'mountain-note') {
       mountain(55, 258, 1.35);
       path(

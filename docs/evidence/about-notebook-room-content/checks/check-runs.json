@@ -1,0 +1,62 @@
+{
+  "typecheck": {
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T12:03:30.653368+00:00",
+    "completedAt": "2026-09-22T12:03:39.124955+00:00",
+    "log": "typecheck.log"
+  },
+  "lint": {
+    "command": [
+      "npm",
+      "run",
+      "lint",
+      "--",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/spacecraft/rooms/about-personal-study.ts",
+      "features/spacecraft/rooms/about-study-artwork.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "tests/spacecraft/about-notebook.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T12:03:39.125645+00:00",
+    "completedAt": "2026-09-22T12:03:40.803289+00:00",
+    "log": "lint.log"
+  },
+  "format": {
+    "command": [
+      "npm",
+      "run",
+      "format",
+      "--",
+      "--check",
+      "features/portfolio/about-notebook.css",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/spacecraft/rooms/about-personal-study.ts",
+      "features/spacecraft/rooms/about-study-artwork.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "tests/spacecraft/about-notebook.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T12:03:40.803827+00:00",
+    "completedAt": "2026-09-22T12:03:41.407981+00:00",
+    "log": "format.log"
+  },
+  "build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T12:03:41.409171+00:00",
+    "completedAt": "2026-09-22T12:03:56.417694+00:00",
+    "log": "build.log"
+  }
+}

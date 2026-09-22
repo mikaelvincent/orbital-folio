@@ -1341,7 +1341,7 @@ export function buildAboutPersonalStudy(
       1024,
       1280,
       (ctx) =>
-        drawStudyArtwork(ctx, side < 0 ? 'journal-left' : 'journal-right', {
+        drawStudyArtwork(ctx, side < 0 ? 'journal-left' : 'journal-blank', {
           notebookName: options.notebookName,
         }),
     );
@@ -1573,6 +1573,7 @@ export function buildAboutPersonalStudy(
     chapters: [...initialChapters],
     totalPages: totalPages(initialChapters),
     active: false,
+    inkMounted: false,
     available: initialChapters.length > 0,
     chapter: 0,
     section: 0,
@@ -1585,6 +1586,11 @@ export function buildAboutPersonalStudy(
     turnDirection: 1,
     turnDuration: 0.36,
     nextTurnDuration: 0.36,
+    setInkMounted(mounted: boolean) {
+      if (notebook.inkMounted === mounted) return;
+      notebook.inkMounted = mounted;
+      repaintNotebook();
+    },
     setActive(active: boolean) {
       if (notebook.active === active) return;
       notebook.active = active;
@@ -1733,16 +1739,6 @@ export function buildAboutPersonalStudy(
     repaintNotebook();
   }
   function repaintNotebook() {
-    const pageMap = rightPrintedPage.material.map;
-    const pageContext = pageMap?.image?.getContext?.('2d');
-    if (pageContext && rightPrintedPage.userData.blank !== notebook.active) {
-      drawStudyArtwork(
-        pageContext,
-        notebook.active ? 'journal-blank' : 'journal-right',
-      );
-      pageMap.needsUpdate = true;
-      rightPrintedPage.userData.blank = notebook.active;
-    }
     notebook.windowStart = notebookWindowStart(notebook.settledSection);
     notebook.flags = notebookMarkers(
       notebook.chapters.length,
@@ -1776,7 +1772,7 @@ export function buildAboutPersonalStudy(
         const map = label.material.map;
         const context = map?.image?.getContext?.('2d');
         const title =
-          !notebook.active || flag.index === notebook.turningSection
+          !notebook.inkMounted || flag.index === notebook.turningSection
             ? flag.title
             : '';
         const printKey = JSON.stringify([flag.index, title]);

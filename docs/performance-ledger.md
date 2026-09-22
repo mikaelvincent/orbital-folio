@@ -2780,6 +2780,32 @@ and production build passed. Independent review accepted the result at **94/100*
 with no unresolved blockers. Hidden Chromium checks include desktop, portrait
 and a 29-page Markdown section; native Safari and physical touch remain untested.
 
+## 49 — Actual notebook content in the About room (22 September 2026)
+
+Baseline `adca7f6`. The owner requested the real first page in the room, with
+opening reduced to a camera zoom into that same content. The native notebook now
+stays mounted across room/reader transitions. Its automatic page measurements and
+Markdown DOM are reused; the hardcoded standby artwork and activation repaint are
+removed. Later selected pages also persist when zooming out and back in.
+
+This changes content lifecycle, not geometry or scene quality. By source inspection,
+no mesh, material or texture asset is added; the existing right paper keeps its
+blank texture beneath native ink. Native Markdown, measurement DOM and any content
+media now load in the About room rather than waiting for reader entry. Preview ink
+uses the physical book's brightness level, while room preview controls remain
+inert. These earlier browser costs and brightness filtering have not been timed;
+no speedup, GPU-time, process-memory, thermal or battery claim is made.
+[Source-matched evidence](evidence/about-notebook-room-content/README.md) records
+real DOM identity across zooms, content/focus checks and isolated verification.
+Camera fit, orbital registration and held optimization candidates are unchanged.
+
+Verification: 503/503 isolated tests, typecheck, affected lint/format and production
+build passed. Hidden Chromium checks cover desktop, the unchanged portrait spread,
+same-node opening/closing, a later-page reopen, direct entry, Contact and semantic
+Reading view. Native Safari, physical touch and a live reduced-motion override were
+not tested. The [independent review](evidence/about-notebook-room-content/critic.md)
+records its final score, findings and limitations.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

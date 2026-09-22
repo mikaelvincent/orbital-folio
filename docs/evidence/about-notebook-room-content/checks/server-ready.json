@@ -1,0 +1,15 @@
+{
+  "readyAt": "2026-09-22T12:02:22.834Z",
+  "fixturePath": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji",
+  "baseUrl": "http://localhost:3003",
+  "ownerBootstrapped": true,
+  "setupStatus": 200,
+  "adminStatus": 200,
+  "aboutStatus": 200,
+  "mainAboutStatus": 200,
+  "recordCount": 23,
+  "state": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji/.wrangler/state",
+  "cache": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji/.verification-vite-cache",
+  "serverSession": 60671,
+  "secretsPrinted": false
+}

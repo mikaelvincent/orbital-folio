@@ -1,0 +1,13 @@
+{
+  "display": "",
+  "heading": "The space between idea and use",
+  "hidden": "false",
+  "page": "My storyUseful things, thoughtfully made.Sample biography — ready for the owner to rewrite. I enjoy turning complicated problems into products that feel simple. My interests sit where thoughtful interfaces meet dependable backend services.The space between idea and useA product begins with an intention: make something easier to understand, remove a frustrating step, or give a small idea room to grow. The interesting work happens between that intention and the moment somebody can actually use it.That space holds much more than code. It includes the words on a button, the shape of a first visit, the information worth keeping, and the behavior when a connection disappears. Small decisions become the experience.A complete pathAn interface and the system behind it tell one story. A clear screen needs a dependable source of truth. A reliable service needs an interface that explains what happened. Both deserve care, especially where they meet.One useful question is: Can a person follow this all the way through? From discovering an action to understanding its result, each step should make the next one easier to see.Thoughtful engineering makes room for the person using it.Notes worth keepingThis notebook holds the quieter side of a portfolio: principles to revisit, questions that remain open, and details that do not fit neatly into a project summary. A finished screen can show what exists. A few honest notes can explain what mattered while making it.Keep the problem visible while exploring the solution.Prefer a small, coherent experience over an unfinished collection of features.Write down the tradeoff, including what was deliberately left out.Leave the next person a way to understand the work.An ongoing draftPerspective changes through observation and practice. An idea that seems obvious on paper may become awkward in use; a modest change may solve more than a larger redesign. The useful response is curiosity, followed by another careful iteration.The story behind useful work is more than a list of finished things. It includes the questions that shaped them, the choices that made them possible, and the details worth carrying forward. Understand the need, make the path clear, and keep learning from what happens next.",
+  "preview": "false",
+  "url": "http://localhost:3000/about?open=1",
+  "viewport": [
+    1440,
+    1000,
+    2
+  ]
+}

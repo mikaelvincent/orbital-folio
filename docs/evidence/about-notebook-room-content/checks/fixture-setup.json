@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-09-22T12:01:23.688896+00:00",
+  "sourceRoot": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji",
+  "baseCommit": "adca7f65282a017ba72e58c938776429a40dc90d",
+  "initialSource": "committed HEAD pending final working source sync",
+  "sourceOnly": true,
+  "copiedRegularFiles": 440,
+  "excluded": [
+    "private environment files",
+    "emulator state",
+    "uploads",
+    "private exports",
+    "backups",
+    "historical evidence"
+  ],
+  "dependencies": "shared installed node_modules symlink",
+  "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji/.verification-vite-cache",
+  "state": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-room-7ro24sji/.wrangler/state",
+  "baseUrl": "http://localhost:3003"
+}

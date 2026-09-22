@@ -16,6 +16,7 @@ import './about-notebook.css';
 /** Native ink stays registered to the complete stationary physical spread. */
 export function AboutNotebook({
   data,
+  interactive,
   section,
   ready,
   page,
@@ -25,6 +26,7 @@ export function AboutNotebook({
   onPageCount,
 }: {
   data: Portfolio;
+  interactive: boolean;
   section: number;
   ready: boolean;
   page: number;
@@ -37,10 +39,11 @@ export function AboutNotebook({
   const root = useRef<HTMLElement>(null);
   const start = notebookWindowStart(section);
   useEffect(() => {
+    if (!interactive) return;
     root.current
       ?.querySelector<HTMLElement>('.notebook-page .notebook-section-pages')
       ?.focus({ preventScroll: true });
-  }, [section, page]);
+  }, [section, page, interactive]);
   const sheet = (index: number, measuring = false) => {
     const item = data.journal[index];
     return (

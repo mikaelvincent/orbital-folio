@@ -6,6 +6,10 @@
 }
 .world-surface[data-notebook='true'] {
   pointer-events: none;
+  filter: brightness(var(--notebook-brightness, 1));
+}
+.world-surface[data-notebook-preview='true'] * {
+  pointer-events: none !important;
 }
 .about-notebook {
   position: relative;
