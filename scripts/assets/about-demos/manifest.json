@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-22",
+  "source": "Built-in image-generation tool; fictional demonstration imagery.",
+  "prompts": "PROMPTS.md",
+  "assets": [
+    {
+      "key": "fictional-portrait",
+      "original": "fictional-portrait.png",
+      "originalSha256": "4f6161146ff8cee19c5925c079f08d471b19b1c6edc2ff8e187c2ecd180394a1",
+      "file": "fictional-portrait.webp",
+      "sha256": "d80eeabb625612426c134ca3ea844b110b15e4472b72194f70faad1a81bf7807",
+      "mime": "image/webp",
+      "size": 164618,
+      "width": 1254,
+      "height": 1254,
+      "encoding": "Sharp WebP quality90 effort6; original dimensions retained, no compositing or retouching."
+    },
+    {
+      "key": "workspace",
+      "original": "workspace.png",
+      "originalSha256": "d55744141b730764994cd90cc36bf92cdffb5caefd8a51b05ce339efb244ed8c",
+      "file": "workspace.webp",
+      "sha256": "d151dc0a064d9973fb71ca409d8ca657aee0bd1d03ea1c4d5e141ecbdd3911cd",
+      "mime": "image/webp",
+      "size": 170812,
+      "width": 1254,
+      "height": 1254,
+      "encoding": "Sharp WebP quality90 effort6; original dimensions retained, no compositing or retouching."
+    },
+    {
+      "key": "mountains",
+      "original": "mountains.png",
+      "originalSha256": "e325866644881bdd747e7c0da7b3b69f669afba1b7c3fbc0544a70cff6075dcb",
+      "file": "mountains.webp",
+      "sha256": "bdc0b6bc42146e21e6e704a9edb1e58c0c1b2b713166282360bec6ee54a37dc0",
+      "mime": "image/webp",
+      "size": 210246,
+      "width": 1254,
+      "height": 1254,
+      "encoding": "Sharp WebP quality90 effort6; original dimensions retained, no compositing or retouching."
+    }
+  ]
+}

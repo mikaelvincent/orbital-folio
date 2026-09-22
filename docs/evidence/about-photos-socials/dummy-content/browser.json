@@ -1,0 +1,75 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "desktopViewport": [
+    1280,
+    720
+  ],
+  "phone": {
+    "dpr": 1,
+    "links": [
+      {
+        "height": 26.309539794921875,
+        "hidden": "false",
+        "href": "https://github.com",
+        "label": "Open GitHub (new tab)",
+        "width": 26.309555053710938
+      },
+      {
+        "height": 26.309539794921875,
+        "hidden": "false",
+        "href": "https://www.linkedin.com",
+        "label": "Open LinkedIn (new tab)",
+        "width": 26.309539794921875
+      },
+      {
+        "height": 26.309539794921875,
+        "hidden": "false",
+        "href": "https://example.com",
+        "label": "Open Website (new tab)",
+        "width": 26.309539794921875
+      }
+    ],
+    "room": "about",
+    "travelling": "false",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "reader": {
+    "dpr": 1,
+    "links": [
+      {
+        "height": 44,
+        "href": "https://github.com",
+        "label": "GitHub (opens in a new tab)"
+      },
+      {
+        "height": 44,
+        "href": "https://www.linkedin.com",
+        "label": "LinkedIn (opens in a new tab)"
+      },
+      {
+        "height": 44,
+        "href": "https://example.com",
+        "label": "Website (opens in a new tab)"
+      }
+    ],
+    "pageWidth": 1280,
+    "portrait": [
+      {
+        "alt": "AI-generated sample portrait of a fictional person in a charcoal shirt; not the portfolio owner.",
+        "loaded": true
+      }
+    ],
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "logs": [],
+  "limitations": [
+    "No native Safari or physical touch checks.",
+    "Screenshots use actual viewport dimensions, not scaled desktop images."
+  ]
+}

@@ -116,6 +116,12 @@ deleted; first clear/change and publish their parent references. Private preview
 remain authenticated. Whole-content JSON backups preserve image references/metadata, crops and
 positions; they do not contain the uploaded R2 image files.
 
+The owner's local About demonstration uses a fictional portrait, workspace and
+mountain photographs, with GitHub, LinkedIn and an example.com Website card.
+These remain ordinary editable records. See [sample assets and provenance](../scripts/assets/about-demos/PROMPTS.md)
+and [the local setup record](evidence/about-photos-socials/dummy-content/README.md).
+They are not automatically inserted into other databases or fresh installations.
+
 ## Authoring projects
 
 Use **Projects → Add project** in Content studio. Supply a title and short description,

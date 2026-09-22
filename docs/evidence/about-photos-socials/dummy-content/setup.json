@@ -1,0 +1,74 @@
+{
+  "initialRecords": 34,
+  "finalRecords": 38,
+  "unchangedExistingRecords": 31,
+  "modifiedIds": [
+    "site",
+    "e68b8c6a-15c8-458e-b933-8a7346a9eec6",
+    "a0ea09eb-1860-4fb9-807e-1289905b507f"
+  ],
+  "createdIds": [
+    "dfc5e74c-bae5-4472-a1be-16c6ca27a5b9",
+    "3701f04f-44d8-429a-82a0-3c3d3a5b4d41",
+    "c6956f9b-28f4-440b-a8a1-fc1b3175863d",
+    "b4cbfc28-dfce-403b-a40a-05facd9b6f34"
+  ],
+  "media": {
+    "portrait": "dfc5e74c-bae5-4472-a1be-16c6ca27a5b9",
+    "workspace": "3701f04f-44d8-429a-82a0-3c3d3a5b4d41",
+    "mountains": "c6956f9b-28f4-440b-a8a1-fc1b3175863d"
+  },
+  "aboutSlots": {
+    "left": "e68b8c6a-15c8-458e-b933-8a7346a9eec6",
+    "center": "a0ea09eb-1860-4fb9-807e-1289905b507f",
+    "right": "b4cbfc28-dfce-403b-a40a-05facd9b6f34"
+  },
+  "preservedContactPlacement": true,
+  "preservedUnrelatedIdentityFields": true,
+  "privateBackup": "work/about-demo/before.json",
+  "modifiedBeforeHashes": {
+    "a0ea09eb-1860-4fb9-807e-1289905b507f": "e82ee6584831ad0c9a1987fb8ca1640b96be85fb76a26facf47bc1345a4af9ad",
+    "e68b8c6a-15c8-458e-b933-8a7346a9eec6": "df6b1ae58183d92a4b32e4622b664a7863ad34fbb5fc15ed6b5402652fc23b47",
+    "site": "9cf803a84c515a86d36d74ee24d3e4d72d122c609d91ee4f7929b5f627f0c462"
+  },
+  "modifiedAfterHashes": {
+    "a0ea09eb-1860-4fb9-807e-1289905b507f": "89f2ec74984c88279cadd14331d6cc6af6c917098ef706e2e2d0ac7d0b43ec08",
+    "e68b8c6a-15c8-458e-b933-8a7346a9eec6": "dcb1125bae17945cfe012219973cea804c181eab1dccac00ee0a29e8a6c2168c",
+    "site": "c27527ddde81067904b78d313e09f797089e1dd1df7ec3317858e4e4abdb88b0"
+  },
+  "mediaChecks": [
+    {
+      "key": "portrait",
+      "id": "dfc5e74c-bae5-4472-a1be-16c6ca27a5b9",
+      "status": 200,
+      "bytes": 164618,
+      "sha256": "d80eeabb625612426c134ca3ea844b110b15e4472b72194f70faad1a81bf7807",
+      "matchesAsset": true
+    },
+    {
+      "key": "workspace",
+      "id": "3701f04f-44d8-429a-82a0-3c3d3a5b4d41",
+      "status": 200,
+      "bytes": 170812,
+      "sha256": "d151dc0a064d9973fb71ca409d8ca657aee0bd1d03ea1c4d5e141ecbdd3911cd",
+      "matchesAsset": true
+    },
+    {
+      "key": "mountains",
+      "id": "c6956f9b-28f4-440b-a8a1-fc1b3175863d",
+      "status": 200,
+      "bytes": 210246,
+      "sha256": "bdc0b6bc42146e21e6e704a9edb1e58c0c1b2b713166282360bec6ee54a37dc0",
+      "matchesAsset": true
+    }
+  ],
+  "sourceCommit": "5f2bb73",
+  "runtimeChanged": false,
+  "privateSnapshotsCommitted": false,
+  "uploadAttempts": [
+    "Original PNG (portrait about2MiB) was rejected with HTTP413 before mutation.",
+    "LosslessWebP (portrait1475502bytes) was also rejected with HTTP413 before mutation.",
+    "Full-resolution WebP quality90 uploaded successfully; all three assets total545676bytes."
+  ],
+  "note": "Only the explicitly requested local dummy content was published. No test suites were run against the main store. Server-side upload limits were not changed."
+}
