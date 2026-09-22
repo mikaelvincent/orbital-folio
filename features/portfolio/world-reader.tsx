@@ -12,6 +12,7 @@ import { TextBlocks } from './portfolio-parts';
 import { type ContactDraft, type ContactSubmission } from './contact-form';
 import { pathFor } from '@/lib/paths';
 import { ContactComputerWindow } from './contact-computer-window';
+import { AboutSocialLinks } from './about-personal-content';
 
 /** Native DOM content on the console or journal plane. */
 export function WorldReader({
@@ -89,6 +90,7 @@ export function WorldReader({
             <p className="world-kicker">{s.journalLabel}</p>
             <h1>{s.name}</h1>
             <p>{s.biography}</p>
+            <AboutSocialLinks data={data} />
             {entry ? (
               <>
                 <div className="world-kicker">

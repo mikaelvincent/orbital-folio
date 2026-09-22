@@ -1,11 +1,11 @@
 import { pathFor } from '@/lib/paths';
+import { AboutPortrait, AboutSocialLinks } from './about-personal-content';
 import {
   ArrowLeft,
   ArrowUpRight,
   Radio,
   ArrowRight,
   FileText,
-  BookOpen,
   Layers,
 } from 'lucide-react';
 import { RoomIntro, TextBlocks } from './portfolio-parts';
@@ -219,20 +219,11 @@ export function AboutView({ data }: { data: Portfolio }) {
       <div className="journal">
         <aside className="journal-cover">
           <div>
-            {data.media.find((m) => m.id === s.portraitMediaId) ? (
-              <img
-                className="portrait"
-                src={data.media.find((m) => m.id === s.portraitMediaId)!.url}
-                alt={data.media.find((m) => m.id === s.portraitMediaId)!.alt}
-                width="300"
-                height="300"
-              />
-            ) : (
-              <BookOpen size={32} />
-            )}
+            <AboutPortrait data={data} />
             <p className="eyebrow">{s.journalLabel}</p>
             <h2>{s.name}</h2>
             <p>{s.biography}</p>
+            <AboutSocialLinks data={data} />
           </div>
           <nav aria-label={s.aboutLabel}>
             {data.journal.map((j, i) => (

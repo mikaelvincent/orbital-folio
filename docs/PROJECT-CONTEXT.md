@@ -31,6 +31,7 @@ inspect source and `package.json` for exact current constants and versions.
 | Hull/window returns | `features/spacecraft/geometry/continuous-exterior-skin.ts`, `features/spacecraft/geometry/rounded-cabin-interior.ts`, `features/spacecraft/geometry/flush-window-reveals.ts`, `features/spacecraft/geometry/ladder-opening-outline.ts` |
 | Overview identity/callouts | `features/spacecraft/overview-annotations.ts` and model framing/label data |
 | Room furniture | `features/spacecraft/rooms/about-personal-study.ts`, `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/case-study-archive.ts`, `features/spacecraft/rooms/contact-flight-console.ts` |
+| About photos and social cards | `lib/content/about-photos.ts`, `about-photo-publication.ts`, `social-links.ts`; `features/spacecraft/rooms/about-photo-print.ts`; `features/studio/about-photo-fields.tsx`; `features/portfolio/about-personal-content.tsx` |
 | Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
 | Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
 | Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
@@ -171,8 +172,8 @@ remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
 The owner clarified on 22 September 2026 that the dim resting state is desired.
-Selectable screens in Projects, Case studies and Contact, including the four
-archive cartridges, stay at a **0.65** multiplier until hovered or keyboard-focused,
+Selectable screens in Projects, Case studies and Contact, the four archive
+cartridges, and configured About social cards stay at a **0.65** multiplier until hovered or keyboard-focused,
 then ease toward **1.15** and return to **0.65** on departure. Do not restore regular
 brightness merely because hover ended or idle time elapsed. The idle multiplier
 also applies in overview, neighboring-room previews and throughout camera travel:
@@ -379,6 +380,44 @@ concepts; the tool preserves owner edits and divergent drafts, reuses only
 verified public media, and does not change Relay or other collections. Fresh
 seeds include the text; explicit population supplies managed media. See
 [current standby/demo evidence](evidence/archive-standby-demo/README.md).
+
+## About photos and social cards
+
+The mounted photo can display the owner's selected portrait. The owner's later
+request makes the physical frame and corner retainers square, slightly larger
+than the social prints. Its lower edge preserves clearance above that row; it
+remains passive beside the library. Identity & copy uses one
+library image with independent, nondestructive crops for the square room
+frame and square Reading view portrait. Without an image, the room retains its
+landscape artwork and Reading view its existing book symbol.
+
+Three equal square paper cards remain clipped above the notebook. Each can be
+assigned an existing social link to Left, Center or Right, independently of the
+two Contact monitor placements. Existing links default to Off; no owner content
+is reassigned automatically. Optional photos sit behind the shared platform
+icon. Desktop prints include the platform name; narrow views use a larger icon
+and external-link mark. Custom platforms use the shared link icon and Website
+caption, with the full owner-authored name in the native link and focus label.
+
+Configured cards share the existing dim-at-rest, bright-on-hover/focus and inset
+amber rim behavior. A viewport-size label supplies the full destination name.
+Native links open HTTPS destinations in a new tab and mailto destinations in the
+mail handler; normal context menus, keyboard activation and drag-click
+suppression remain. Targets are available only in settled About, outside reader
+mode. Empty slots keep passive paper artwork with no target or platform mark.
+Reading view and the notebook reader expose the same selected links as wrapping,
+44-pixel-high controls. The notebook, other furniture and room camera fit are
+unchanged. The three prints are 0.38 × 0.38 local units; live neutral-room checks
+measured 24.19-pixel targets at 360 × 800 and 26.31 at 390 × 844.
+
+Save draft, private preview and Publish remain separate. Images require explicit
+publication before their parent can publish; live photo dependencies prevent
+unpublishing/deleting those images or changing them to video. Duplicate live
+About slots are rejected atomically. Crop/placement fields travel through content
+backups without modifying uploaded originals. Slow or failed image loads keep
+fallback artwork visible without blocking scene entry. See
+[authoring instructions](OPERATIONS.md#authoring-about-photos-and-social-cards) and
+[matching evidence](evidence/about-photos-socials/README.md).
 
 ## Contact computer and submission boundary
 

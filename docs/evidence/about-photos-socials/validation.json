@@ -1,0 +1,52 @@
+{
+  "completedAt": "2026-09-22T02:20:41.117845+00:00",
+  "workingDirectory": "/tmp/orbital-about-review-v3ryh08a",
+  "testBaseUrl": "http://localhost:3003",
+  "node": "v26.0.0",
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "stateIsolation": {
+    "freshD1R2": true,
+    "mainPrivateEnvironmentCopied": false,
+    "mainDatabaseCopied": false,
+    "dependencyPackagesShared": true,
+    "viteCache": ".vite-isolated",
+    "temporaryViteConfigPreserved": true
+  },
+  "sourceHashes": "validation-source.json",
+  "sourceDriftAfterChecks": [],
+  "checks": [
+    {
+      "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+      "exitCode": 0,
+      "tests": 453,
+      "passed": 453,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 218754.096042,
+      "log": "verification-tests.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "log": "verification-build.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "verification-typecheck.log"
+    },
+    {
+      "command": "npm run lint -- <21 changed TypeScript/TSX/MJS files>",
+      "exitCode": 0,
+      "log": "verification-lint.log"
+    }
+  ],
+  "limitations": [
+    "Build emits tool-level module.register deprecation, greater-than-500kB chunk guidance and Vinext route-classification notice.",
+    "These automated checks do not establish measured performance changes or Safari visual behavior.",
+    "Browser visual checks are recorded separately by the root agent."
+  ],
+  "logFormatting": "Trailing whitespace and terminal blank lines normalized for Git; command output and results otherwise preserved."
+}

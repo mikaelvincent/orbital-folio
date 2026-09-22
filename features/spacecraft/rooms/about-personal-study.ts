@@ -1,12 +1,21 @@
 import { drawStudyArtwork } from './about-study-artwork.ts';
+import { createAboutPhotoPrints } from './about-photo-print.ts';
+import type { AboutPhotos } from '../../../lib/content/about-photos.ts';
 
 /** Static, floor-referenced crew study. +Z faces the visitor; all props are retained. */
 export function buildAboutPersonalStudy(
   THREE: any,
   h: any,
   root: any,
-  options: { accent?: any } = {},
+  options: {
+    accent?: any;
+    photos?: AboutPhotos;
+    onPhotoChange?: () => void;
+  } = {},
 ) {
+  const photoPrints = createAboutPhotoPrints(THREE, options.onPhotoChange);
+  root.userData.aboutSocialCards = [];
+  root.userData.aboutPhotoPrints = photoPrints;
   const prefix = 'personal-study-';
   const material = (
     name: string,
@@ -932,20 +941,42 @@ export function buildAboutPersonalStudy(
   const beforeWritingStation = new Set(root.children);
   const writingScrewStart = screwPoints.length;
   // Pictures are thin mounted paper with four clips, not loose ornaments.
-  function note(kind: string, x: number, y: number, w: number, height: number) {
+  function note(
+    kind: string,
+    x: number,
+    y: number,
+    w: number,
+    height: number,
+    slot?: 'left' | 'center' | 'right',
+  ) {
+    const mounted = group(kind + '-mount', x, y, -1.085);
+    const social = slot ? options.photos?.socials[slot] : null;
     box(
       w + 0.024,
       height + 0.025,
       0.025,
       m.paper,
-      x,
-      y,
-      -1.085,
+      0,
+      0,
+      0,
       kind + '-paper-backing',
-      root,
+      mounted,
       0.005,
     );
-    artwork(kind, w, height, x, y, -1.07);
+    const print = artwork(kind, w, height, 0, 0, 0.015, mounted);
+    if (social || (kind === 'landscape-postcard' && options.photos?.portrait)) {
+      const map = photoPrints.texture(
+        kind,
+        kind === 'landscape-postcard' ? 1024 : 512,
+        kind === 'landscape-postcard' ? 1024 : 512,
+        social ? social.photo : options.photos?.portrait,
+        social?.link,
+      );
+      if (map) {
+        print.material.map?.dispose();
+        print.material.map = map;
+      }
+    }
     for (const xx of [x - w / 2 + 0.015, x + w / 2 - 0.015])
       for (const yy of [y - height / 2 + 0.014, y + height / 2 - 0.014]) {
         box(
@@ -953,28 +984,50 @@ export function buildAboutPersonalStudy(
           0.035,
           0.041,
           m.amber,
-          xx,
-          yy,
-          -1.074,
+          xx - x,
+          yy - y,
+          0.011,
           kind + '-corner-retainer',
-          root,
+          mounted,
           0.006,
         );
         screwPoints.push([xx, yy, -1.05]);
       }
+    if (social && slot) {
+      const anchor = new THREE.Object3D();
+      anchor.name = `about-social-${slot}-anchor`;
+      anchor.position.z = 0.034;
+      mounted.add(anchor);
+      root.userData.aboutSocialCards.push({
+        root: mounted,
+        anchor,
+        width: w,
+        height,
+        side: slot,
+        section: 'about',
+        link: social.link,
+        interactableId: `about-social-${slot}`,
+      });
+    }
   }
-  // Compensate for the photo's deeper wall position so its visible height
-  // matches the library. Crop the artwork rather than stretching the mountains.
-  // Open a little more room beside the library without crowding the locker
-  // in the narrower layout; retain the photo's size and vertical alignment.
-  note('landscape-postcard', 0.918, 2.01, 0.5, 0.405);
+  // A square photograph, slightly larger than the social prints. Preserve its
+  // lower edge and clearance above that row; clips follow the actual frame.
+  // The original landscape fallback is cropped, never stretched.
+  note('landscape-postcard', 0.918, 2.0275, 0.44, 0.44);
   // One centered row of equal paper sizes, equal gaps, and identical retainers.
   for (const [index, kind] of [
     'mountain-note',
     'personal-note',
     'curiosity-note',
   ].entries())
-    note(kind, 0.32 + (index - 1) * 0.434, 1.575, 0.3, 0.28);
+    note(
+      kind,
+      0.32 + (index - 1) * 0.434,
+      1.575,
+      0.38,
+      0.38,
+      (['left', 'center', 'right'] as const)[index],
+    );
 
   // Fold-down desk, same working elevation as Contact. Supports are continuous
   // from the wall to the underside, leaving open knees and an unobstructed aisle.
@@ -1491,6 +1544,7 @@ export function buildAboutPersonalStudy(
     writingScrewStart,
     'writing-station-fasteners',
   );
+  root.userData.aboutPhotosReady = photoPrints.ready();
   screwSet(screwPoints);
   root.userData.personalStudy = {
     floorReferenced: true,

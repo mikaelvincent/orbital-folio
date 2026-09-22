@@ -1,13 +1,18 @@
 import { PROJECT_CATEGORIES } from './project-content.ts';
 import { CASE_STUDY_CATEGORIES } from './case-study-content.ts';
-import { socialPlatforms, socialScreens } from './social-links.ts';
+import { aboutSlots, socialPlatforms, socialScreens } from './social-links.ts';
 import { kinds, type Kind } from './types.ts';
 import { seedSite } from './seed.ts';
 import { HttpError } from '../http-error.ts';
 const fields: Record<Kind, string[]> = {
   // Retired presentation copy is no longer seeded or edited, but existing
   // identity exports must round-trip without silently discarding owner text.
-  site: [...Object.keys(seedSite), 'periodLabel'],
+  site: [
+    ...Object.keys(seedSite),
+    'periodLabel',
+    'portraitCrop',
+    'portraitReadingCrop',
+  ],
   project: [
     'slug',
     'title',
@@ -52,7 +57,17 @@ const fields: Record<Kind, string[]> = {
     'sample',
   ],
   journal: ['slug', 'title', 'subtitle', 'body', 'order', 'sample'],
-  link: ['title', 'url', 'order', 'platform', 'screen', 'description'],
+  link: [
+    'title',
+    'url',
+    'order',
+    'platform',
+    'screen',
+    'description',
+    'aboutSlot',
+    'photoMediaId',
+    'photoCrop',
+  ],
   media: [
     'title',
     'alt',
@@ -88,7 +103,31 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
   for (const key of fields[kind]) {
     const value = data[key];
     if (value === undefined) continue;
-    if (key === 'categories') {
+    if (['portraitCrop', 'portraitReadingCrop', 'photoCrop'].includes(key)) {
+      if (
+        !value ||
+        Array.isArray(value) ||
+        typeof value !== 'object' ||
+        Object.keys(value).some(
+          (field) => !['x', 'y', 'zoom'].includes(field),
+        ) ||
+        !['x', 'y', 'zoom'].every(
+          (field) =>
+            typeof value[field] === 'number' && Number.isFinite(value[field]),
+        ) ||
+        value.x < 0 ||
+        value.x > 1 ||
+        value.y < 0 ||
+        value.y > 1 ||
+        value.zoom < 1 ||
+        value.zoom > 3
+      )
+        throw new HttpError(
+          400,
+          'Photo position must be between 0 and 1, with zoom between 1 and 3.',
+        );
+      clean[key] = { x: value.x, y: value.y, zoom: value.zoom };
+    } else if (key === 'categories') {
       const categories =
         kind === 'experience' ? CASE_STUDY_CATEGORIES : PROJECT_CATEGORIES;
       if (
@@ -201,6 +240,14 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       throw new HttpError(400, 'Choose a social platform or Custom.');
     if (clean.screen && !socialScreens.some((s) => s.id === clean.screen))
       throw new HttpError(400, 'Choose a valid contact screen placement.');
+    if (
+      clean.aboutSlot &&
+      !aboutSlots.some((slot) => slot.id === clean.aboutSlot)
+    )
+      throw new HttpError(
+        400,
+        'Choose Off, Left, Center or Right for the About photo position.',
+      );
     if (clean.title.length > 60 || (clean.description || '').length > 64)
       throw new HttpError(
         400,
@@ -222,7 +269,13 @@ export function validateContent(kind: Kind, data: any): Record<string, any> {
       400,
       'Add a short description and at least one category.',
     );
-  for (const key of ['mediaId', 'posterMediaId', 'captionsMediaId'])
+  for (const key of [
+    'mediaId',
+    'portraitMediaId',
+    'photoMediaId',
+    'posterMediaId',
+    'captionsMediaId',
+  ])
     if (clean[key] && !/^[a-zA-Z0-9-]{1,100}$/.test(clean[key]))
       throw new HttpError(400, `Choose a valid ${key}.`);
   if (kind === 'media' && !clean.alt)

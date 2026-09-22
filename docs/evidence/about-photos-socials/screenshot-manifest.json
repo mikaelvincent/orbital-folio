@@ -1,0 +1,118 @@
+{
+  "images": [
+    {
+      "file": "contact-regression.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "4ec825a05380eeddc4c56fe36e1fb552379d983b52d3d063645ed0b12b8cff19"
+    },
+    {
+      "file": "overview-inert.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "4be122d30a3bef2447107c3526bc3b9f2571baa07998ab94bd954553fe7372f9"
+    },
+    {
+      "file": "reading-desktop.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "c10f30b843afee2ce76d388a873ef0d6a280eaa84ce540fa49fc92d62b2544eb"
+    },
+    {
+      "file": "reading-phone.jpg",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg",
+      "sha256": "84eea4b8ef5d8a5267a130ba9749c7ad4f64c9a7407f8a026646de5b2da78cd9"
+    },
+    {
+      "file": "room-desktop-focus.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "c2bf866f4a8b56b0310421610ce7af44a58700f693ced4e897e93c0a66ebf1c3"
+    },
+    {
+      "file": "room-desktop.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "effd90f5e51e3e36c6a1ae1fc4195f11a5a4ab4a5726f6456c47bd256debda7c"
+    },
+    {
+      "file": "room-empty.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "9226dd194b946a2984c3efba7119dbdea59fa6a6c4d4c71e3fb172c5463b9321"
+    },
+    {
+      "file": "room-narrow-focus.jpg",
+      "width": 360,
+      "height": 800,
+      "format": "jpeg",
+      "sha256": "a46c883ae95e031637917e3a896ab03124b73cecb06c80ce573822cf252d37f9"
+    },
+    {
+      "file": "room-narrow.jpg",
+      "width": 360,
+      "height": 800,
+      "format": "jpeg",
+      "sha256": "1101cad66e113db2dfaef205621c5f839820c82b17cc75dc69c1f0ca9d492429"
+    },
+    {
+      "file": "room-phone-focus.jpg",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg",
+      "sha256": "725248897b35a2d9e7688a6981cbb445f105be2adab8c6be406ed1d239e4cbd8"
+    },
+    {
+      "file": "room-phone.jpg",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg",
+      "sha256": "b23e8e40363302def246d2e21772dbe171f43e5134c99edce2203365b6f04eb8"
+    },
+    {
+      "file": "studio-portrait-desktop.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "f6bcebdf7c26a1cf2c5705e6e132f4981dbe7da53743c0fab1531e2533941557"
+    },
+    {
+      "file": "studio-portrait-phone.jpg",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg",
+      "sha256": "bd79e2e1fa0928abb52b9fc911ab5d0263d45d56cd75499591836106c56bd9b5"
+    },
+    {
+      "file": "studio-social-conflict-desktop.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "118f19899636044bb0005f10bf8e400439f350aae95c466cdd3436eb895712cd"
+    },
+    {
+      "file": "studio-social-crop-desktop.jpg",
+      "width": 1280,
+      "height": 720,
+      "format": "jpeg",
+      "sha256": "ed1e56fe6a2956a0dfcc769ec37c3f9fd442817d1e7d6672de4557687bf2040a"
+    },
+    {
+      "file": "studio-social-phone.jpg",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg",
+      "sha256": "2d06abc751dba3a8fd2b5ffaad2a62d40f6a0ada423eb189643da6d3d0e8c0de"
+    }
+  ],
+  "method": "Unmodified viewport screenshot bytes from hidden built-in Chromium. Browser returns JPEG; file extensions match. No image scaling. Room and portrait-studio captures refreshed after main-frame square revision.",
+  "sourceHashes": "source-hashes.json"
+}

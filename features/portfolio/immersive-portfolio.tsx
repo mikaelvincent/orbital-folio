@@ -510,6 +510,7 @@ export function ImmersivePortfolio({
             projects={data.projects}
             caseStudies={data.experience}
             links={data.links}
+            media={data.media}
             section={destination.section}
             slug={destination.slug}
             readingSurface={readingSurface}

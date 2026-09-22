@@ -1,0 +1,1548 @@
+{
+  "captures": [
+    {
+      "name": "room-desktop",
+      "dpr": 2,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 605.1017456054688,
+            "right": 665.65576171875,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 605.1017456054688,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 674.2608032226562,
+            "right": 734.8148193359375,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 674.2608032226562,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 743.4198608398438,
+            "right": 803.973876953125,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 743.4198608398438,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "2560,1440",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-desktop-focus",
+      "dpr": 2,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 605.1017456054688,
+            "right": 665.65576171875,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 605.1017456054688,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 674.2608032226562,
+            "right": 734.8148193359375,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 674.2608032226562,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 357.2113342285156,
+            "height": 54.179779052734375,
+            "left": 743.4198608398438,
+            "right": 803.973876953125,
+            "top": 303.03155517578125,
+            "width": 60.55401611328125,
+            "x": 743.4198608398438,
+            "y": 303.03155517578125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "2560,1440",
+        "hover": "about-social-left",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "keyboard-new-tab",
+      "url": "https://example.com/about-qa/github",
+      "originalUrl": "http://localhost:3003/about"
+    },
+    {
+      "name": "reading-desktop",
+      "dpr": 2,
+      "focused": "About",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "2560,1440",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "reading-phone",
+      "dpr": 1,
+      "focused": "GitHub (opens in a new tab)",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "2560,1440",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "room-phone",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 420.788330078125,
+            "height": 23.5400390625,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 397.248291015625,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 397.248291015625
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 420.788330078125,
+            "height": 23.5400390625,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 397.248291015625,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 397.248291015625
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 420.788330078125,
+            "height": 23.5400390625,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 397.248291015625,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 397.248291015625
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "room-phone",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 395.8635559082031,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "room-narrow",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 166.06085205078125,
+            "right": 190.2475128173828,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 166.06085205078125,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 193.68455505371097,
+            "right": 217.8712158203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 193.68455505371097,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 221.3082733154297,
+            "right": 245.49493408203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 221.3082733154297,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "360,800",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        360,
+        800
+      ]
+    },
+    {
+      "name": "room-narrow-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 166.06085205078125,
+            "right": 190.2475128173828,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 166.06085205078125,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 193.68455505371097,
+            "right": 217.8712158203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 193.68455505371097,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 221.3082733154297,
+            "right": 245.49493408203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 221.3082733154297,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "360,800",
+        "hover": "about-social-left",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        360,
+        800
+      ]
+    },
+    {
+      "name": "room-phone",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 395.8635559082031,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "-0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "room-phone-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 395.8635559082031,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "-0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "about-social-left",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "reading-phone",
+      "dpr": 1,
+      "focused": "About",
+      "links": [],
+      "scene": {
+        "angles": "-0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "reading-desktop",
+      "dpr": 1,
+      "focused": "About",
+      "links": [],
+      "scene": {
+        "angles": "-0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-desktop",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 605.1009521484375,
+            "right": 665.6563110351562,
+            "top": 299.84307861328125,
+            "width": 60.55535888671875,
+            "x": 605.1009521484375,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 674.2615356445312,
+            "right": 734.8169555664062,
+            "top": 299.84307861328125,
+            "width": 60.555419921875,
+            "x": 674.2615356445312,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 743.4221801757812,
+            "right": 803.9775390625,
+            "top": 299.84307861328125,
+            "width": 60.55535888671875,
+            "x": 743.4221801757812,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-desktop-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 605.1009521484375,
+            "right": 665.6563110351562,
+            "top": 299.84307861328125,
+            "width": 60.55535888671875,
+            "x": 605.1009521484375,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 674.2615356445312,
+            "right": 734.8169555664062,
+            "top": 299.84307861328125,
+            "width": 60.555419921875,
+            "x": 674.2615356445312,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.555389404296875,
+            "left": 743.4221801757812,
+            "right": 803.9775390625,
+            "top": 299.84307861328125,
+            "width": 60.55535888671875,
+            "x": 743.4221801757812,
+            "y": 299.84307861328125
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "about-social-left",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "reading-desktop",
+      "dpr": 1,
+      "focused": "GitHub (opens in a new tab)",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "overview-inert",
+      "dpr": 1,
+      "focused": "Overview",
+      "hint": "",
+      "links": [
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "lastGesture": "{\"pointerType\":\"mouse\",\"maxExcursion\":122.00409829181969,\"dragged\":true,\"activated\":false,\"startedOnControl\":true,\"response\":[1,-0.37]}",
+        "reading": "false",
+        "room": "home",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "contact-regression",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "contact",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-empty",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-desktop",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 605.1012573242188,
+            "right": 665.6560668945312,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 605.1012573242188,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 674.26123046875,
+            "right": 734.8160400390625,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 674.26123046875,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 743.4212036132812,
+            "right": 803.9760131835938,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 743.4212036132812,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-desktop-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 605.1012573242188,
+            "right": 665.6560668945312,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 605.1012573242188,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 674.26123046875,
+            "right": 734.8160400390625,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 674.26123046875,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 360.3984680175781,
+            "height": 60.554840087890625,
+            "left": 743.4212036132812,
+            "right": 803.9760131835938,
+            "top": 299.8436279296875,
+            "width": 60.5548095703125,
+            "x": 743.4212036132812,
+            "y": 299.8436279296875
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "about-social-left",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-phone",
+      "dpr": 1,
+      "focused": "Scene tools",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 395.8635559082031,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-phone-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 179.83738708496094,
+            "right": 206.14694213867188,
+            "top": 395.8635559082031,
+            "width": 26.309555053710938,
+            "x": 179.83738708496094,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 209.8856658935547,
+            "right": 236.19520568847656,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 209.8856658935547,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 422.173095703125,
+            "height": 26.309539794921875,
+            "left": 239.93392944335935,
+            "right": 266.24346923828125,
+            "top": 395.8635559082031,
+            "width": 26.309539794921875,
+            "x": 239.93392944335935,
+            "y": 395.8635559082031
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "390,844",
+        "hover": "about-social-left",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-narrow",
+      "dpr": 1,
+      "focused": "Scene tools",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 166.06085205078125,
+            "right": 190.2475128173828,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 166.06085205078125,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 193.68455505371097,
+            "right": 217.8712158203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 193.68455505371097,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 221.3082733154297,
+            "right": 245.49493408203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 221.3082733154297,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "360,800",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        360,
+        800
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-narrow-focus",
+      "dpr": 1,
+      "focused": "Open GitHub (new tab)",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 166.06085205078125,
+            "right": 190.2475128173828,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 166.06085205078125,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 193.68455505371097,
+            "right": 217.8712158203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 193.68455505371097,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "false",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 400.15911865234375,
+            "height": 24.1866455078125,
+            "left": 221.3082733154297,
+            "right": 245.49493408203125,
+            "top": 375.9724731445313,
+            "width": 24.18666076660156,
+            "x": 221.3082733154297,
+            "y": 375.9724731445313
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "360,800",
+        "hover": "about-social-left",
+        "reading": "false",
+        "room": "about",
+        "shading": "false",
+        "travelling": "false"
+      },
+      "viewport": [
+        360,
+        800
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "overview-inert",
+      "dpr": 1,
+      "focused": "Overview",
+      "hint": "Open GitHub ↗",
+      "links": [
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/github",
+          "label": "Open GitHub (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/linkedin",
+          "label": "Open LinkedIn (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        },
+        {
+          "hidden": "true",
+          "href": "https://example.com/about-qa/custom",
+          "label": "Open Personal site (new tab)",
+          "rect": {
+            "bottom": 0,
+            "height": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "width": 0,
+            "x": 0,
+            "y": 0
+          },
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      ],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "home",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "contact-regression",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "contact",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "portrait": "square .44 face"
+    },
+    {
+      "name": "room-empty",
+      "dpr": 1,
+      "focused": null,
+      "hint": "",
+      "links": [],
+      "scene": {
+        "angles": "0.00000,0.00000",
+        "buffer": "1280,720",
+        "hover": "",
+        "reading": "false",
+        "room": "about",
+        "shading": "true",
+        "travelling": "false"
+      },
+      "viewport": [
+        1280,
+        720
+      ],
+      "portrait": "square .44 face"
+    }
+  ],
+  "readingChecks": {
+    "links": [
+      {
+        "font": "14px",
+        "height": 44,
+        "label": "GitHub (opens in a new tab)"
+      },
+      {
+        "font": "14px",
+        "height": 44,
+        "label": "LinkedIn (opens in a new tab)"
+      },
+      {
+        "font": "14px",
+        "height": 44,
+        "label": "Personal site (opens in a new tab)"
+      }
+    ],
+    "pageWidth": 1280,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "drag": {
+    "viewport": [
+      360,
+      800
+    ],
+    "from": [
+      178,
+      388
+    ],
+    "to": [
+      275,
+      462
+    ],
+    "maxExcursion": 122.00409829181969,
+    "startedOnControl": true,
+    "dragged": true,
+    "activated": false,
+    "room": "about",
+    "tabsAfter": 1
+  },
+  "notes": [
+    "Captures with repeated names: last record matches final artifact. Earlier .34-height card captures were rejected for phone target height.",
+    "Screenshots use fullPage:false; fullPage tiling and same-call resize captures were rejected and replaced.",
+    "Native Enter previously opened the configured example.com GitHub URL in a new tab, leaving About open.",
+    "Final .44-square main photo revision is marked portrait: square .44 face. All retained room captures were refreshed after final automated checks. Reading view has not changed in that revision."
+  ],
+  "finalBrowserLogs": []
+}

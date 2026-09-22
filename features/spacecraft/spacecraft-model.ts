@@ -50,6 +50,7 @@ import {
   wallLayout,
 } from './geometry/spacecraft-wall-layout.ts';
 import type { SocialScreenLinks } from '../../lib/content/social-links.ts';
+import type { AboutPhotos } from '../../lib/content/about-photos.ts';
 import { buildAboutPersonalStudy } from './rooms/about-personal-study.ts';
 import { buildCaseStudyArchive } from './rooms/case-study-archive.ts';
 import { buildContactFlightConsole } from './rooms/contact-flight-console.ts';
@@ -118,6 +119,8 @@ export function createSpacecraft(
     projects?: SpacecraftProject[];
     caseStudies?: SpacecraftProject[];
     socials?: SocialScreenLinks;
+    aboutPhotos?: AboutPhotos;
+    onAboutPhotoChange?: () => void;
     sampleLabel?: string;
     projectPageSize?: number;
     screenLabels?: boolean;
@@ -1520,8 +1523,13 @@ export function createSpacecraft(
     personalStudy,
     {
       accent: m.amber,
+      photos: options.aboutPhotos,
+      onPhotoChange: options.onAboutPhotoChange,
     },
   );
+  group.userData.aboutSocialCards = personalStudy.userData.aboutSocialCards;
+  group.userData.aboutPhotoPrints = personalStudy.userData.aboutPhotoPrints;
+  group.userData.aboutPhotosReady = personalStudy.userData.aboutPhotosReady;
 
   // CONTACT — fixed flight console, with a live monitor and physical keyboard.
   // The existing content transform lowers legacy props to the cabin floor.
@@ -1620,6 +1628,16 @@ export function createSpacecraft(
       z: contactComputer.anchor.position.z,
     }),
   );
+
+  for (const card of group.userData.aboutSocialCards)
+    objectHighlights.push(
+      createObjectHighlight(THREE, card.root, card.interactableId, {
+        width: card.width,
+        height: card.height,
+        radius: 0.012,
+        z: 0.017,
+      }),
+    );
 
   for (const screen of projectWorkshop.screens)
     objectHighlights.push(
@@ -3760,27 +3778,32 @@ export function createSpacecraft(
     for (const highlight of objectHighlights) {
       const objectRoom = highlight.id.startsWith('contact-')
         ? 'contact'
-        : highlight.id.startsWith('projects-screen-')
-          ? 'projects'
-          : 'experience';
+        : highlight.id.startsWith('about-social-')
+          ? 'about'
+          : highlight.id.startsWith('projects-screen-')
+            ? 'projects'
+            : 'experience';
       // Keep available controls at their idle brightness in every room state.
       // Only the application's own screen and unavailable controls opt out;
       // entering a room changes input availability, not its resting appearance.
       const dimIdle =
         objectRoom === 'contact'
           ? !computerActive || highlight.id.startsWith('contact-social-')
-          : objectRoom === 'projects'
-            ? !!projectScreensById.get(highlight.id)?.available &&
-              (!projectApplicationActive ||
-                highlight.id !==
-                  `projects-screen-${currentState.projectScreen || 'all'}`)
-            : !!caseStudyScreensById.get(highlight.id)?.available &&
-              (!caseStudyActive || highlight.id !== 'case-study-screen-all');
+          : objectRoom === 'about'
+            ? true
+            : objectRoom === 'projects'
+              ? !!projectScreensById.get(highlight.id)?.available &&
+                (!projectApplicationActive ||
+                  highlight.id !==
+                    `projects-screen-${currentState.projectScreen || 'all'}`)
+              : !!caseStudyScreensById.get(highlight.id)?.available &&
+                (!caseStudyActive || highlight.id !== 'case-study-screen-all');
       if (
         highlight.update(
           currentState.hoveredObject === highlight.id,
           !currentState.travelling &&
             currentState.activeRoom === objectRoom &&
+            (objectRoom !== 'about' || !currentState.reading) &&
             dimIdle,
           dt,
           instantHighlight,

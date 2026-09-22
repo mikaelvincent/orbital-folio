@@ -1,13 +1,21 @@
 import { socialPlatforms } from './social-platforms.ts';
+import type { ImageCrop } from './about-photos.ts';
 export { socialPlatforms };
 export type SocialPlatform = (typeof socialPlatforms)[number]['id'];
 export const socialScreens = [
   { id: 'auto', label: 'Automatic — first two by display order' },
   { id: 'left', label: 'Left console screen' },
   { id: 'right', label: 'Right console screen' },
-  { id: 'list', label: 'Reading view only' },
+  { id: 'list', label: 'Off — Contact reading view only' },
 ] as const;
 export type SocialScreen = (typeof socialScreens)[number]['id'];
+export const aboutSlots = [
+  { id: 'off', label: 'Off — not displayed in About' },
+  { id: 'left', label: 'Left photo' },
+  { id: 'center', label: 'Center photo' },
+  { id: 'right', label: 'Right photo' },
+] as const;
+export type AboutSlot = (typeof aboutSlots)[number]['id'];
 export type SocialLink = {
   id: string;
   title: string;
@@ -16,11 +24,18 @@ export type SocialLink = {
   screen: SocialScreen;
   description: string;
   order: number;
+  aboutSlot: AboutSlot;
+  photoMediaId?: string;
+  photoCrop?: ImageCrop;
 };
 export type SocialScreenLinks = {
   left: SocialLink | null;
   right: SocialLink | null;
 };
+export type AboutSocialLinks = Record<
+  Exclude<AboutSlot, 'off'>,
+  SocialLink | null
+>;
 const hosts: Record<string, SocialPlatform> = {
   'github.com': 'github',
   'linkedin.com': 'linkedin',
@@ -53,6 +68,9 @@ export function socialLinkDraft(data: Record<string, any>) {
     platform: data.platform || inferSocialPlatform(data.url || ''),
     screen: data.screen || 'auto',
     description: data.description || '',
+    aboutSlot: data.aboutSlot || 'off',
+    photoMediaId: data.photoMediaId || '',
+    ...(data.photoCrop ? { photoCrop: data.photoCrop } : {}),
   };
 }
 export function isSocialDestination(value: unknown): value is string {
@@ -72,11 +90,14 @@ export function isSocialDestination(value: unknown): value is string {
  * Duplicate explicit placements never silently move to the opposite screen.
  * Published input only: drafts enter here solely through the private preview.
  */
-export function resolveSocialScreens(
-  records: Record<string, any>[],
-): SocialScreenLinks {
-  const links = records
-    .filter((r) => r.title && isSocialDestination(r.url))
+function normalizedSocialLinks(records: Record<string, any>[]): SocialLink[] {
+  return records
+    .filter(
+      (r) =>
+        typeof r.title === 'string' &&
+        r.title.trim() &&
+        isSocialDestination(r.url),
+    )
     .map(
       (r, index): SocialLink => ({
         ...socialLinkDraft(r),
@@ -89,9 +110,17 @@ export function resolveSocialScreens(
         screen: socialScreens.some((s) => s.id === r.screen)
           ? r.screen
           : 'auto',
+        aboutSlot: aboutSlots.some((slot) => slot.id === r.aboutSlot)
+          ? r.aboutSlot
+          : 'off',
       }),
     )
     .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
+}
+export function resolveSocialScreens(
+  records: Record<string, any>[],
+): SocialScreenLinks {
+  const links = normalizedSocialLinks(records);
   const result: SocialScreenLinks = { left: null, right: null };
   for (const side of ['left', 'right'] as const)
     result[side] = links.find((l) => l.screen === side) || null;
@@ -99,4 +128,17 @@ export function resolveSocialScreens(
   for (const side of ['left', 'right'] as const)
     if (!result[side]) result[side] = automatic.shift() || null;
   return result;
+}
+
+/** About placements are explicit and independent of Contact's console screens.
+ * Legacy/unassigned links leave their decorative photographs passive. */
+export function resolveAboutSocials(
+  records: Record<string, any>[],
+): AboutSocialLinks {
+  const links = normalizedSocialLinks(records);
+  return {
+    left: links.find((link) => link.aboutSlot === 'left') || null,
+    center: links.find((link) => link.aboutSlot === 'center') || null,
+    right: links.find((link) => link.aboutSlot === 'right') || null,
+  };
 }

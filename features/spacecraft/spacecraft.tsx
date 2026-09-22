@@ -46,7 +46,7 @@ export function Spacecraft(props: SpacecraftProps) {
       site: s,
       audit: props.audit,
     });
-  }, [props.enabled, s, props.links, props.audit]);
+  }, [props.enabled, s, props.links, props.media, props.audit]);
   return (
     <div id="ship" className="ship-stage immersive-ship" ref={host}>
       {state !== 'ready' && (

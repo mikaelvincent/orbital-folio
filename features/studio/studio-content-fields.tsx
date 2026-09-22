@@ -6,6 +6,15 @@ import {
 } from '@/components/ui/native-select';
 import { SocialLinkFields } from './social-link-fields';
 import type { Content, Kind } from '@/lib/content/types';
+import {
+  ABOUT_PORTRAIT_ASPECT,
+  normalizeImageCrop,
+} from '@/lib/content/about-photos';
+import {
+  PhotoCropFields,
+  PhotoMediaFields,
+  type PhotoMediaActions,
+} from './about-photo-fields';
 
 export const names: Record<Kind, string> = {
   site: 'Identity & copy',
@@ -64,6 +73,7 @@ export const templates: Record<string, Record<string, any>> = {
     platform: 'custom',
     screen: 'auto',
     description: '',
+    aboutSlot: 'off',
   },
   media: {
     title: '',
@@ -132,6 +142,8 @@ const profileKeys = [
   'sampleMode',
   'sampleNotice',
   'portraitMediaId',
+  'portraitCrop',
+  'portraitReadingCrop',
 ];
 const seoKeys = [
   'domain',
@@ -149,6 +161,9 @@ export function StudioContentFields({
   setData,
   records,
   selected,
+  busy,
+  onUpload,
+  onPublishAssets,
 }: {
   kind: Kind;
   data: Record<string, any>;
@@ -157,10 +172,11 @@ export function StudioContentFields({
   setData: (data: Record<string, any>) => void;
   records: Content[];
   selected: string;
-}) {
+} & PhotoMediaActions) {
   const filteredKeys = [
     ...new Set([
       ...Object.keys(data),
+      ...(kind === 'site' ? ['portraitMediaId'] : []),
       ...(kind === 'media' && String(data.mime).startsWith('video/')
         ? ['posterMediaId', 'captionsMediaId']
         : []),
@@ -172,6 +188,7 @@ export function StudioContentFields({
         String(data.mime).startsWith('video/'),
     )
     .filter((k) => !(kind === 'site' && k === 'periodLabel'))
+    .filter((key) => !['portraitCrop', 'portraitReadingCrop'].includes(key))
     .filter(
       (k) =>
         kind !== 'site' ||
@@ -185,17 +202,69 @@ export function StudioContentFields({
       (k) => !search || label(k).toLowerCase().includes(search.toLowerCase()),
     );
   return (
-    <div className="editor-fields">
+    <fieldset
+      className="editor-fields studio-fields-reset"
+      aria-label={`${names[kind]} fields`}
+      disabled={busy}
+    >
       {kind === 'link' ? (
         <SocialLinkFields
           data={data}
           onChange={setData}
           records={records}
           selected={selected}
+          busy={busy}
+          onUpload={onUpload}
+          onPublishAssets={onPublishAssets}
         />
       ) : (
         filteredKeys.map((key) => {
           const value = data[key];
+          if (kind === 'site' && key === 'portraitMediaId')
+            return (
+              <PhotoMediaFields
+                key={key}
+                title="Portrait image"
+                description="Use one original for the About room's mounted photo and your Reading view portrait. Frame each version independently below."
+                emptyLabel="Keep the room's landscape artwork"
+                mediaId={value || ''}
+                records={records}
+                busy={busy}
+                onUpload={onUpload}
+                onPublishAssets={onPublishAssets}
+                onSelect={(id) =>
+                  setData({
+                    ...data,
+                    portraitMediaId: id,
+                    portraitCrop: normalizeImageCrop(null),
+                    portraitReadingCrop: normalizeImageCrop(null),
+                  })
+                }
+              >
+                {(media) => (
+                  <>
+                    <PhotoCropFields
+                      title="About room frame"
+                      media={media}
+                      value={data.portraitCrop}
+                      aspect={ABOUT_PORTRAIT_ASPECT}
+                      onChange={(portraitCrop) =>
+                        setData({ ...data, portraitCrop })
+                      }
+                    />
+                    <PhotoCropFields
+                      title="Reading view portrait"
+                      media={media}
+                      value={data.portraitReadingCrop}
+                      aspect={1}
+                      onChange={(portraitReadingCrop) =>
+                        setData({ ...data, portraitReadingCrop })
+                      }
+                    />
+                  </>
+                )}
+              </PhotoMediaFields>
+            );
           if (typeof value === 'boolean')
             return (
               <label className="studio-check" key={key}>
@@ -281,6 +350,6 @@ export function StudioContentFields({
           );
         })
       )}
-    </div>
+    </fieldset>
   );
 }

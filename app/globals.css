@@ -2598,13 +2598,6 @@ svg {
     monospace;
   letter-spacing: 0.03em;
 }
-.portrait {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 25px;
-}
 .dev-audit {
   background: #fff;
   color: #1b2d3c;

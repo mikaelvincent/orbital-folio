@@ -2,6 +2,7 @@ import type { CaseStudyFilter } from '../../lib/content/case-study-content';
 import { projectApplicationLayout } from './navigation/project-application';
 import { createProjectedSurface } from './projected-surface';
 import { resolveSocialScreens } from '@/lib/content/social-links';
+import { resolveAboutPhotos } from '@/lib/content/about-photos';
 import {
   canUseDoorDuringTravel,
   createDoorNavigationQueue,
@@ -83,6 +84,7 @@ export type SpacecraftProps = {
   projects: Record<string, any>[];
   caseStudies: Record<string, any>[];
   links: Record<string, any>[];
+  media?: Record<string, any>[];
   section: string;
   slug?: string;
   readingSurface: boolean;
@@ -259,6 +261,13 @@ export function mountSpacecraftScene({
         contactReturnHint.textContent = 'Click wall to return';
         contactReturnHint.setAttribute('aria-hidden', 'true');
         el.appendChild(contactReturnHint);
+        const aboutLinkHint = document.createElement('span');
+        aboutLinkHint.className = 'about-social-link-hint';
+        aboutLinkHint.setAttribute('aria-hidden', 'true');
+        aboutLinkHint.hidden = true;
+        el.appendChild(aboutLinkHint);
+        let aboutHintHalfWidth = 0;
+        let aboutHintViewport = 0;
         const surfaceElement = document.createElement('div');
         surfaceElement.className = 'world-surface';
         const surface = new THREE.Object3D();
@@ -301,6 +310,17 @@ export function mountSpacecraftScene({
         const modelOptions = {
           vesselName,
           socials: resolveSocialScreens(latest.current.links),
+          aboutPhotos: resolveAboutPhotos({
+            site: s,
+            links: latest.current.links,
+            media: latest.current.media || [],
+            projects: [],
+            experience: [],
+            journal: [],
+          }),
+          onAboutPhotoChange: () => {
+            if (!destroyed) kick();
+          },
           accent: s.accent,
           projectPageSize: PROJECTS_PER_PAGE,
           screenLabels: false,
@@ -472,7 +492,13 @@ export function mountSpacecraftScene({
         // Genuine links aligned with the two physical screen faces. Their
         // geometry remains in WebGL; this transparent layer supplies native
         // keyboard, touch, new-tab and context-menu behavior.
-        const socialControls = (model.group.userData.socialScreens || [])
+        const socialControls = [
+          ...(model.group.userData.socialScreens || []).map((screen: any) => ({
+            ...screen,
+            section: 'contact',
+          })),
+          ...(model.group.userData.aboutSocialCards || []),
+        ]
           .filter((screen: any) => screen.link)
           .map((screen: any) => {
             const link = document.createElement('a');
@@ -490,6 +516,10 @@ export function mountSpacecraftScene({
                 : `Open ${screen.link.title} (new tab)`,
             );
             link.dataset.targetKey = `social:${screen.side}:${screen.link.id}`;
+            if (screen.section === 'about') {
+              link.classList.add('world-about-social');
+              link.dataset.targetKey = `about-social:${screen.side}:${screen.link.id}`;
+            }
             link.dataset.screen = screen.side;
             link.dataset.sceneObject = screen.interactableId;
             link.style.width = '500px';
@@ -2020,6 +2050,7 @@ export function mountSpacecraftScene({
             h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
             h.button.dataset.destination = portal.to;
           }
+          let showAboutHint = false;
           for (const { screen, link, object } of socialControls) {
             screen.anchor.matrixWorld.decompose(
               object.position,
@@ -2030,17 +2061,54 @@ export function mountSpacecraftScene({
             // Portrait frames just the application; do not tab into a social
             // screen completely outside the actual camera viewport.
             object.visible =
-              active === 'contact' &&
+              active === screen.section &&
               !travelling &&
-              (!reading || screenInViewport(screen));
+              (!reading ||
+                (screen.section === 'contact' && screenInViewport(screen)));
             link.inert = !object.visible;
+            link.setAttribute('aria-hidden', String(!object.visible));
             link.classList.toggle(
               'is-object-active',
               object.visible &&
                 !down?.gesture.dragging &&
                 effectiveObject === screen.interactableId,
             );
+            if (
+              screen.section === 'about' &&
+              object.visible &&
+              !down?.gesture.dragging &&
+              effectiveObject === screen.interactableId
+            ) {
+              screenProjection
+                .set(0, screen.height / 2, 0)
+                .applyMatrix4(screen.anchor.matrixWorld)
+                .project(camera);
+              showAboutHint = true;
+              const text = screen.link.url.startsWith('mailto:')
+                ? `Email ${screen.link.title}`
+                : `Open ${screen.link.title} ↗`;
+              if (
+                aboutLinkHint.hidden ||
+                aboutLinkHint.textContent !== text ||
+                aboutHintViewport !== el.clientWidth
+              ) {
+                aboutLinkHint.textContent = text;
+                aboutLinkHint.hidden = false;
+                aboutHintHalfWidth = aboutLinkHint.offsetWidth / 2;
+                aboutHintViewport = el.clientWidth;
+              }
+              const halfWidth = aboutHintHalfWidth;
+              aboutLinkHint.style.left = `${Math.max(
+                halfWidth + 8,
+                Math.min(
+                  el.clientWidth - halfWidth - 8,
+                  ((screenProjection.x + 1) * el.clientWidth) / 2,
+                ),
+              )}px`;
+              aboutLinkHint.style.top = `${Math.max(48, ((1 - screenProjection.y) * el.clientHeight) / 2 - 12)}px`;
+            }
           }
+          if (!showAboutHint) aboutLinkHint.hidden = true;
           computer.anchor.matrixWorld.decompose(
             computerTarget.position,
             computerTarget.quaternion,
@@ -2450,6 +2518,7 @@ export function mountSpacecraftScene({
         let initializedCamera = false;
         let previousViewport = '';
         const resize = () => {
+          model.group.userData.aboutPhotoPrints.setCompact(mobile());
           if (el.clientWidth < 240 || el.clientHeight < 240) return;
           const w = Math.max(1, el.clientWidth),
             h = Math.max(1, el.clientHeight);
@@ -3484,6 +3553,7 @@ export function mountSpacecraftScene({
             motionDiagnostic,
           );
           latest.current.onSurfaceReady(null);
+          model.group.userData.aboutPhotoPrints.dispose();
           disposeShadingAudit?.();
           const materials = new Set<Three.Material>(),
             geometries = new Set<Three.BufferGeometry>(),
@@ -3520,6 +3590,7 @@ export function mountSpacecraftScene({
           cssRenderer.domElement.remove();
           surfaceLayer.remove();
           contactReturnHint.remove();
+          aboutLinkHint.remove();
           api.current = null;
         };
       },

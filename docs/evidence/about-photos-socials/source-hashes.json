@@ -1,0 +1,30 @@
+{
+  "baseline": "04f678e23b2ee61dad8d4c52c0779613d18d8566",
+  "algorithm": "sha256",
+  "files": {
+    "app/api/admin/route.ts": "308e4434f16887f12110ffbe7c4fc66edcb27ba8a881ce2ea6c3245398d5ec3a",
+    "app/globals.css": "09fa0ac0286a9e6f88c7e478fa0d7004636c7bf0d20370a3cec2f5277c163fdf",
+    "features/portfolio/about-personal-content.css": "1c26be5fb9aa41289561bd1f98c53c1f4f01edbe16a83d11725cd27489895b03",
+    "features/portfolio/about-personal-content.tsx": "a56ab9d71ac270b30279a45dd81c3ca76813aa20736109921330b2b8e0bca4db",
+    "features/portfolio/immersive-portfolio.tsx": "ae8143722ee7f5df5a7cbf44ad4e4080b9baf4a819da8ccc575460fb23b68407",
+    "features/portfolio/room-views.tsx": "cb3851ff396affa15480fce48bc44e0cc2b4b1d6fa2c47af0a12304f8c392fa1",
+    "features/portfolio/world-reader.tsx": "82947d679900c6d5ec4489cd9300a81aeb58d1d0bcec27f742573ed3f0ac74e7",
+    "features/spacecraft/rooms/about-personal-study.ts": "f324ee12391ae2cf077565c38a2d0c362ba028e07c66c3f953f7fb670ebe77bc",
+    "features/spacecraft/rooms/about-photo-print.ts": "82d5cab0d3d5e5e20ffa24a4dbf37697902eabaec57032c4bf3209974a488d95",
+    "features/spacecraft/spacecraft-model.ts": "5a8a90dcbe71ba7044d8e5b8488b759d7c7e2262deafc19ff1ef7a6c46a6a1d2",
+    "features/spacecraft/spacecraft-runtime.ts": "b805cd8eae13caccf1964ef48aa4214b00cd89846619b59a92aaac61c972be4d",
+    "features/spacecraft/spacecraft.tsx": "6153d571ab7699c1fce581581b613fb0212429f7e7d07663f9704b085dcd46c9",
+    "features/studio/about-photo-fields.css": "8ef4ad7f493e0d675b75f14e9f2bed546ccaef094d63a275482732a6594430bf",
+    "features/studio/about-photo-fields.tsx": "d61f512bb65dfce45d142fe9ad1c559e76bc88b2c736b4c1f62339cbbc946868",
+    "features/studio/admin-studio.tsx": "bd71903941e636bfdbb8af0a96fc5271910b9ce21a97857276b2abec33b17383",
+    "features/studio/social-link-fields.tsx": "2516e3a424b8ce5688b8d2037f90408bce602c49a5c6472ff295c9a1356fad67",
+    "features/studio/studio-content-fields.tsx": "b3b7a7758191c294cc85eb32c7c9ba4a2ed6cee3c1a49681e68a807ddde098a2",
+    "lib/content/about-photo-publication.ts": "34381eb67dd7229f4d1338ec2aac283810dde4d4598d40a0f6badd81ce2508c1",
+    "lib/content/about-photos.ts": "c6f377b77e01e965148886fdfec950bda9f23601e24bd13d8e69f0667bdadd07",
+    "lib/content/social-links.ts": "dd80a99b94d9394317ee08ecce85e61cdf63523f4e86195e284e743f5c346103",
+    "lib/content/validation.ts": "b593f5fbe242f1017135f308b5d3474df3bf82728e2f6abfe98575a9b5b3a442",
+    "tests/content/about-photos-api.test.mjs": "07527ff58ba2bdec005d91d98ce35d0f5144481bb7c3c745655d86df754c20b0",
+    "tests/content/about-photos.test.mjs": "fcad9ec7eeb0b448015352637d5c91f15687058e81b8f6148ca4f8345f297344",
+    "tests/spacecraft/about-photo-cards.test.mjs": "48cb978686dae3a53a5ad28d7046269e80644dff479600a7ba72246d560bd166"
+  }
+}

@@ -22,6 +22,10 @@ import {
   directCaseStudyMediaIds,
   validateCaseStudyPublication,
 } from '@/lib/content/case-study-media';
+import {
+  directAboutPhotoMediaIds,
+  validateAboutPhotoPublication,
+} from '@/lib/content/about-photo-publication';
 export async function GET() {
   try {
     await requireAdmin();
@@ -92,7 +96,27 @@ export async function POST(req: Request) {
           validateProjectPublication(old.draft, records);
         if (old.kind === 'experience')
           validateCaseStudyPublication(old.draft, records);
+        if (old.kind === 'site' || old.kind === 'link')
+          validateAboutPhotoPublication(old.kind, old.draft, records, old.id);
         if (old.kind === 'media') {
+          // A used image cannot turn into a video through a metadata revision.
+          for (const record of records)
+            if (
+              record.published &&
+              directAboutPhotoMediaIds(
+                record.kind,
+                record.published,
+                records,
+              ).includes(old.id)
+            )
+              validateAboutPhotoPublication(
+                record.kind,
+                record.published,
+                records.map((item) =>
+                  item.id === old.id ? { ...item, published: old.draft } : item,
+                ),
+                record.id,
+              );
           // Validate the current video draft but resolve its dependencies from
           // published metadata; unrelated media drafts remain private.
           mediaDependencyClosure(
@@ -109,8 +133,11 @@ export async function POST(req: Request) {
           (r) =>
             r.id !== old.id &&
             r.published &&
-            ((r.kind === 'project' &&
-              directProjectMediaIds(r.published).includes(old.id)) ||
+            (directAboutPhotoMediaIds(r.kind, r.published, records).includes(
+              old.id,
+            ) ||
+              (r.kind === 'project' &&
+                directProjectMediaIds(r.published).includes(old.id)) ||
               (r.kind === 'experience' &&
                 directCaseStudyMediaIds(r.published).includes(old.id)) ||
               (r.kind === 'media' &&
@@ -125,10 +152,14 @@ export async function POST(req: Request) {
             'This media is used by published content. Remove that reference or unpublish the content first.',
           );
       }
+      const claimsAboutSlot =
+        b.action === 'publish' &&
+        old.kind === 'link' &&
+        ['left', 'center', 'right'].includes(old.draft.aboutSlot);
       const query =
         b.action === 'delete'
           ? 'DELETE FROM content WHERE id=? AND revision=?'
-          : `UPDATE content SET published=${b.action === 'publish' ? 'draft' : 'NULL'},revision=revision+1,updated_at=? WHERE id=? AND revision=?`;
+          : `UPDATE content SET published=${b.action === 'publish' ? 'draft' : 'NULL'},revision=revision+1,updated_at=? WHERE id=? AND revision=?${claimsAboutSlot ? " AND NOT EXISTS (SELECT 1 FROM content AS occupied WHERE occupied.kind='link' AND occupied.id<>content.id AND json_extract(occupied.published,'$.aboutSlot')=json_extract(content.draft,'$.aboutSlot'))" : ''}`;
       const statement =
         b.action === 'delete'
           ? db.prepare(query).bind(b.id, b.revision)
@@ -136,7 +167,9 @@ export async function POST(req: Request) {
       if (!(await statement.run()).meta.changes)
         throw new HttpError(
           409,
-          'This record changed in another tab. Reload before continuing.',
+          claimsAboutSlot
+            ? 'This record or its About position changed in another tab. Reload before publishing.'
+            : 'This record changed in another tab. Reload before continuing.',
         );
       if (
         b.action === 'delete' &&

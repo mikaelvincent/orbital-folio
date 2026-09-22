@@ -2664,6 +2664,46 @@ physical touch and native pointer-hover movement are untested. Independent criti
 **96/100**, approved without blockers; rubric, source hashes and limitations are
 retained with the evidence.
 
+## 46 — Editable About photograph and social prints (22 September 2026)
+
+Baseline `04f678e`. Following approval of the design proposal, the About postcard
+now supports the owner's image, with independent room/Reading view crops. Three
+matching clipped square prints link to explicitly assigned social profiles and
+can carry optional photos. Existing Contact placement, notebook and camera fit
+remain. Empty slots are passive. Configured prints share the 0.65/1.15 feedback
+and inset amber rim, with native links and a readable viewport label.
+
+This is an authored design/content baseline, not an optimization. At most three
+additional native link targets and three highlight rims are registered. A static
+post-batching inventory finds **136 triangles per rim (408 total)**. The configured
+main print is 1024 × 1024 and each configured social print is 512 × 512, replacing
+that paper's existing texture. With all four configured, RGBA8 plus complete
+mipmap chains is a nominal **9,786,704 bytes (9.33 MiB)** for these four textures
+only. This excludes original image decode buffers, canvas copies, other room
+textures and driver allocations; it is not measured GPU/process memory. Up to
+four unique source images may be loaded, deduplicated by URL within the scene.
+Canvas composition runs on load and responsive artwork changes, not every frame.
+Fallbacks render immediately; photo loading does not gate scene readiness.
+
+The owner subsequently requested a square main photograph and physical object.
+Its 0.44 × 0.44 printed face has matching backing and retainers, slightly larger
+than the social prints, with the same lower edge and clear separation from them.
+Both portrait crops are square and remain independent.
+
+The first 0.38 × 0.34 social prints failed the intended 24-pixel target height at
+390 × 844, so the approved row was refined to 0.38 × 0.38 square prints without
+changing the camera. Final neutral-room targets measure 60.56 pixels at 1280 × 720,
+26.31 at 390 × 844, and 24.19 at 360 × 800; Reading view uses 44-pixel-high links.
+The [source-matched evidence](evidence/about-photos-socials/README.md) records live
+room views, studio component checks, publication tests and limitations. No frame
+timing, power, thermal or speedup claim is made. Held candidates remain held.
+The isolated full suite passed **453/453**, with typecheck, affected lint and
+production build (including geometry precheck) passing against final source.
+Independent implementation review: **92/100**, approved with no unresolved
+blockers; its rubric, revisions and limitations are preserved with the evidence.
+Hidden Chromium checks cover desktop, phone and narrow views. Native Safari and
+physical touch remain untested.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

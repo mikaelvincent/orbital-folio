@@ -1,0 +1,78 @@
+.about-profile-photo {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+.about-profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.journal-cover .about-social-links,
+.about-social-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+.journal-cover .about-social-links a,
+.about-social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 9px 12px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: inherit;
+}
+.journal-cover .about-social-links a span,
+.about-social-links a span {
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.journal-cover .about-social-links a svg,
+.about-social-links svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  margin-left: 0;
+}
+.about-social-links a:hover {
+  background: #e3ac5f25;
+}
+.about-social-links a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.about-social-link-hint {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  max-width: min(320px, calc(100% - 24px));
+  padding: 9px 13px;
+  border: 1px solid #eac080;
+  border-radius: 6px;
+  background: #152436f5;
+  color: #fff1d8;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.about-social-link-hint[hidden] {
+  display: none;
+}
+.world-about-social {
+  border-radius: 8px;
+}

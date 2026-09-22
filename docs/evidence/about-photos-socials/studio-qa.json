@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-22T01:56:44.835Z",
+  "engine": "Hidden Codex in-app browser (Chromium); exact user-agent unavailable to read-only evaluation",
+  "fixture": "Synthetic records; actual StudioContentFields and imported CSS, loopback port3019. Component-local state only, no authentication or backend writes.",
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 720,
+      "pageWidth": 1280,
+      "scale": 1,
+      "socialPaper": {
+        "width": 320,
+        "height": 319.992
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pageWidth": 390,
+      "scale": 1,
+      "devicePixelRatio": 1,
+      "portraitPhotoFrames": [
+        {
+          "width": 262,
+          "height": 262
+        },
+        {
+          "width": 262,
+          "height": 262
+        }
+      ],
+      "socialPaper": {
+        "width": 278,
+        "height": 277.992
+      }
+    }
+  ],
+  "checks": {
+    "keyboardCrop": true,
+    "independentPortraitCrops": true,
+    "explicitSliderLabels": true,
+    "aboutContactPlacementIndependent": true,
+    "publishedSlotConflictVisible": true,
+    "librarySelectionAndRemoval": true,
+    "emptyUploadDisabled": true,
+    "explicitPublishActionInMemoryOnly": true,
+    "previewIncludesFinalDesktopIconOverlay": true,
+    "finalAffectedLint": true,
+    "finalDiffWhitespace": true
+  },
+  "revisions": [
+    "Explicit IDs and labels fix nested output taking the implicit slider label.",
+    "Scoped light error colors fix low-contrast generic form-error inheritance.",
+    "Social crop preview now includes the final centered platform badge and caption, and explains phone presentation.",
+    "Rejected fullPage images had tiling/scaling artifacts; replaced with actual viewport screenshots.",
+    "Square room cards use photo aspect 1/0.72; Studio caption aspect is derived as photoAspect×72/28 to retain the matching 72% photo and 28% caption proportions.",
+    "Owner requested the main portrait and physical frame to be square; Studio now receives shared portrait aspect1 while retaining the independent square Reading view crop."
+  ],
+  "screenshots": [
+    "studio-portrait-desktop.jpg",
+    "studio-portrait-phone.jpg",
+    "studio-social-conflict-desktop.jpg",
+    "studio-social-crop-desktop.jpg",
+    "studio-social-phone.jpg"
+  ],
+  "limitations": [
+    "Chromium only, no native Safari interaction.",
+    "Synthetic photo is a crop grid and silhouette, not personal media.",
+    "These viewport captures show scrolled parts of the editor, not full pages.",
+    "Studio preview uses desktop badge and caption even in the phone editor; Preview About shows responsive final room.",
+    "Authentication, actual upload, Save draft and Publish API are not exercised by this fixture."
+  ],
+  "sourceSnapshotAt": "2026-09-22T02:18:32.110Z",
+  "sourceHashes": {
+    "features/studio/admin-studio.tsx": "bd71903941e636bfdbb8af0a96fc5271910b9ce21a97857276b2abec33b17383",
+    "features/studio/studio-content-fields.tsx": "b3b7a7758191c294cc85eb32c7c9ba4a2ed6cee3c1a49681e68a807ddde098a2",
+    "features/studio/social-link-fields.tsx": "2516e3a424b8ce5688b8d2037f90408bce602c49a5c6472ff295c9a1356fad67",
+    "features/studio/about-photo-fields.tsx": "d61f512bb65dfce45d142fe9ad1c559e76bc88b2c736b4c1f62339cbbc946868",
+    "features/studio/about-photo-fields.css": "8ef4ad7f493e0d675b75f14e9f2bed546ccaef094d63a275482732a6594430bf",
+    "lib/content/about-photos.ts": "c6f377b77e01e965148886fdfec950bda9f23601e24bd13d8e69f0667bdadd07",
+    "lib/content/social-links.ts": "dd80a99b94d9394317ee08ecce85e61cdf63523f4e86195e284e743f5c346103",
+    "lib/content/social-platforms.ts": "be26353420d67575d7bac7a3006fab56d4cb39e57cdc41688a27c55bede0bf79",
+    "app/globals.css": "09fa0ac0286a9e6f88c7e478fa0d7004636c7bf0d20370a3cec2f5277c163fdf",
+    "components/ui/native-select.tsx": "3aafb74b98c039dae4eb2c64c47ec6f5d61fdc888c057de47550346f702f434b",
+    "components/ui/checkbox.tsx": "56b2869e5478f38238e6a3d8aefabfbe8af565b38b2ffad06466487b3eacf154"
+  },
+  "squareCardComposition": {
+    "roomWidth": 0.38,
+    "roomHeight": 0.38,
+    "photoFraction": 0.72,
+    "captionFraction": 0.28,
+    "photoAspect": 1.3888888888888888,
+    "captionAspect": 3.571428571428571,
+    "badgeWidthFraction": 0.49,
+    "badgeInsetFraction": 0.17,
+    "badgeCornerRadiusFractionOfCardWidth": 0.055,
+    "note": "Photo and caption previews now derive their proportions from the shared square-card photo aspect. Phones use the same photo crop with a larger scene icon and external-link arrow; the Studio crop preview deliberately shows the desktop badge/caption."
+  },
+  "portraitComposition": {
+    "roomWidth": 0.44,
+    "roomHeight": 0.44,
+    "roomImageAspect": 1,
+    "readingImageAspect": 1,
+    "note": "Owner-requested square portrait. Room and Reading view retain independent crop positions and zoom for the same untouched original."
+  },
+  "finalCaptureAt": "2026-09-22T02:18:32.109Z",
+  "finalCaptureNote": "Parent agent refreshed all five screenshots through the hidden built-in browser after both social cards and the main portrait were made square. All saved images use viewport-only captures; no full-page composites are retained."
+}

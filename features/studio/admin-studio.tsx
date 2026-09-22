@@ -76,7 +76,14 @@ export function AdminStudio({
   const [search, setSearch] = useState('');
   const [moreInbox, setMoreInbox] = useState(inquiries.length === 100);
   const current = records.find((r) => r.id === selected);
-  const storyNoun = kind === 'experience' ? 'case study' : 'project';
+  const storyNoun =
+    kind === 'experience'
+      ? 'case study'
+      : kind === 'site'
+        ? 'identity'
+        : kind === 'link'
+          ? 'social link'
+          : 'project';
   const dirty =
     JSON.stringify(data) !== JSON.stringify(current?.draft ?? templates[kind]);
   const visible = records
@@ -563,6 +570,7 @@ export function AdminStudio({
                     />
                   ) : (
                     <StudioContentFields
+                      key={`${selected}:${editorReset}`}
                       kind={kind}
                       data={data}
                       siteGroup={siteGroup}
@@ -570,6 +578,9 @@ export function AdminStudio({
                       setData={setData}
                       records={records}
                       selected={selected}
+                      busy={busy}
+                      onUpload={uploadProjectMedia}
+                      onPublishAssets={publishProjectAssets}
                     />
                   )}
                   <div className="editor-actions">
@@ -596,6 +607,20 @@ export function AdminStudio({
                           <Eye size={16} />
                           Preview saved draft
                         </a>
+                        {(kind === 'site' || kind === 'link') && (
+                          <a
+                            className={`button ${dirty ? 'disabled-link' : ''}`}
+                            href="/admin/preview?section=about"
+                            target="_blank"
+                            rel="noopener"
+                            aria-disabled={dirty}
+                            onClick={(event) => {
+                              if (dirty) event.preventDefault();
+                            }}
+                          >
+                            <Eye size={15} /> Preview About
+                          </a>
+                        )}
                         <button
                           className="button publish-button"
                           type="button"

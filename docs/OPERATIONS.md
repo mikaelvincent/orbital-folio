@@ -86,6 +86,36 @@ For a project such as `calculator.<owner-domain>`:
 
 The portfolio links to the application; it does not proxy or execute arbitrary external code. Keep admin/session cookies host-only at the gateway. Do not share an admin cookie across demo subdomains. Each demo owns its own availability, authentication, rate limits, and lifecycle.
 
+## Authoring About photos and social cards
+
+In **Identity & copy → Portrait image**, choose an image from the library or
+expand the upload controls to upload your own with alternative text. Adjust
+**About room frame** and **Reading view portrait** independently using Horizontal
+position, Vertical position and Zoom. Reset this crop affects only that frame;
+the uploaded original is preserved. Clearing the selection restores the room's
+landscape artwork and Reading view's book symbol.
+
+In **Social links**, edit or create a link, set its platform, display name and
+destination, then choose **About position → Left, Center or Right**. Off leaves
+it out of About. This does not change **Contact console placement**. The position
+overview shows draft and live assignments. If a live position is occupied,
+change and publish its existing link's position before publishing the replacement.
+
+Optionally select or upload a **Social photo**, then crop it behind the platform
+badge. The preview matches the desktop paper card; phones show a larger icon and
+external-link arrow. Without a photo, the link still appears as a platform print.
+Without an assigned link, the slot is decorative. The same three selected links
+appear in About's Reading view and notebook reader.
+
+Use **Save draft**, then **Preview About** from either Social links or
+Identity & copy. Uploading and saving do not publish images.
+Use the explicit image-publishing action before publishing Identity & copy or the
+social link. That image becomes publicly addressable when published, even while
+the parent remains a draft. Referenced live images cannot be unpublished or
+deleted; first clear/change and publish their parent references. Private previews
+remain authenticated. Whole-content JSON backups preserve image references/metadata, crops and
+positions; they do not contain the uploaded R2 image files.
+
 ## Authoring projects
 
 Use **Projects → Add project** in Content studio. Supply a title and short description,
