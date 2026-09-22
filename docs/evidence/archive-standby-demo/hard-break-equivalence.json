@@ -1,0 +1,6 @@
+{
+  "change": "Spell the two Markdown hard-break spaces as JavaScript hexadecimal escapes; emitted story content unchanged.",
+  "beforeSamplesSha256": "565d6c3f9c18a5c966d56cf8a5ae84e9e4dbde443b217e20ecf643c8f362f811",
+  "afterSamplesSha256": "565d6c3f9c18a5c966d56cf8a5ae84e9e4dbde443b217e20ecf643c8f362f811",
+  "equal": true
+}

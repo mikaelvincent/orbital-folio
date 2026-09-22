@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
+import { buildCaseStudyArchive } from '../../features/spacecraft/rooms/case-study-archive.ts';
+import { createModelPrimitives } from '../../features/spacecraft/geometry/model-primitives.ts';
 import { projectApplicationLayout } from '../../features/spacecraft/navigation/project-application.ts';
 import {
   CAMERA_RANGES,
@@ -24,7 +26,7 @@ test('Archive choices share fixed terminal glass while retaining distinct physic
   );
   assert.deepEqual(
     screens.map((s) => s.available),
-    [true, true, true, true, true],
+    [true, true, true, false, false],
   );
   assert.equal(
     model.group.getObjectByName('experience-deployable-reader'),
@@ -72,37 +74,155 @@ test('Archive choices share fixed terminal glass while retaining distinct physic
   assert.ok(anchorMatrices.flat().every(Number.isFinite));
 });
 
-test('All archive choices stay interactive before assignments and after their collection becomes empty', () => {
+test('Only populated archive categories are interactive, and emptied cartridges return to their dark face', () => {
   const model = createSpacecraft(THREE, { caseStudies: [] });
   const screens = model.group.userData.caseStudyScreens;
   const computer = model.group.userData.caseStudyComputer;
   let time = 0;
-  for (const entries of [[], caseStudies, []]) {
+  const fixtures = [
+    { entries: [], enabled: [] },
+    { entries: caseStudies, enabled: ['all', 'product', 'systems'] },
+    {
+      entries: [
+        { title: 'Unassigned', slug: 'unassigned', categories: ['retired'] },
+      ],
+      enabled: ['all'],
+    },
+    { entries: [], enabled: [] },
+    { entries: caseStudies, enabled: ['all', 'product', 'systems'] },
+  ];
+  for (const { entries, enabled } of fixtures) {
     model.setCaseStudies(entries);
     assert.equal(screens.length, 5);
     for (const screen of screens) {
-      assert.equal(screen.available, true, `${screen.category}: enabled`);
+      const available = enabled.includes(screen.category);
+      assert.equal(
+        screen.available,
+        available,
+        `${screen.category}: availability`,
+      );
       model.update(++time, 'experience', true, {
         activeRoom: 'experience',
         reading: false,
         hoveredObject: screen.interactableId,
       });
-      assert.equal(screen.root.userData.highlightLevel, 1.15);
-      assert.ok(screen.root.visible);
-      model.update(++time, 'experience', true, {
-        reading: true,
-        caseStudyScreen: screen.category,
-      });
-      assert.equal(computer.desktopDisplay.visible, true);
-      assert.equal(computer.idleDisplay.visible, false);
+      assert.equal(screen.root.userData.highlightLevel, available ? 1.15 : 1);
+      assert.ok(screen.root.visible, 'Empty hardware remains installed');
+      const rim = screen.root.children.find(
+        (object) =>
+          object.material?.name === `${screen.interactableId}-hover-rim`,
+      );
+      assert.equal(rim.material.opacity, available ? 0.95 : 0);
+      if (screen.category !== 'all') {
+        const jacket = screen.root.children.find((object) =>
+          object.userData.parts?.includes(
+            'case-archive-cartridge-label-jacket',
+          ),
+        );
+        const expected = new THREE.Color(
+          available ? 0xdfd6c5 : 0x283440,
+        ).multiplyScalar(available ? 1.15 : 1);
+        assert.ok(
+          Math.max(
+            ...['r', 'g', 'b'].map((channel) =>
+              Math.abs(jacket.material.color[channel] - expected[channel]),
+            ),
+          ) < 1e-10,
+          `${screen.category}: displayed jacket follows availability after lighting and highlight updates`,
+        );
+      }
+      if (available) {
+        model.update(++time, 'experience', true, {
+          reading: true,
+          caseStudyScreen: screen.category,
+        });
+        assert.equal(computer.desktopDisplay.visible, true);
+        assert.equal(computer.idleDisplay.visible, false);
+      }
     }
   }
-  // Removing the final entry while its terminal is open does not strand the UI.
-  model.setCaseStudies([]);
+  model.update(++time, 'experience', true, {
+    reading: true,
+    caseStudyScreen: 'all',
+  });
   assert.equal(computer.desktopDisplay.visible, true);
+  // Content removal closes the physical desktop rather than leaving an empty
+  // category looking active until another pointer event arrives.
+  model.setCaseStudies([]);
+  assert.equal(computer.desktopDisplay.visible, false);
+  assert.equal(computer.idleDisplay.visible, true);
   model.update(++time, 'experience', true, { reading: false });
   assert.equal(computer.desktopDisplay.visible, false);
   assert.equal(computer.idleDisplay.visible, true);
+});
+
+test('The archive shelf closes directly below its fourth cartridge with its cable junction attached', () => {
+  const archive = new THREE.Group();
+  archive.userData.section = 'experience';
+  const helpers = createModelPrimitives(THREE, archive, undefined, {
+    experience: [],
+  });
+  buildCaseStudyArchive(THREE, helpers, archive);
+  const boxInArchive = (object) => {
+    object.geometry.computeBoundingBox();
+    return object.geometry.boundingBox
+      .clone()
+      .applyMatrix4(
+        new THREE.Matrix4()
+          .copy(archive.matrixWorld)
+          .invert()
+          .multiply(object.matrixWorld),
+      );
+  };
+  for (const scale of [1, 0.84]) {
+    archive.scale.setScalar(scale);
+    archive.updateMatrixWorld(true);
+    const cartridges = archive.children.filter((child) =>
+      /^case-archive-cartridge-\d+$/.test(child.name),
+    );
+    assert.equal(cartridges.length, 4);
+    const bottomRow = Math.min(
+      ...cartridges.map((cartridge) => cartridge.position.y),
+    );
+    const crossmembers = archive.children.filter(
+      (child) => child.name === 'case-archive-rack-crossmember',
+    );
+    const bottom = crossmembers
+      .map(boxInArchive)
+      .sort((a, b) => a.min.y - b.min.y)[0];
+    const back = boxInArchive(
+      archive.getObjectByName('case-archive-closed-rack-backplane'),
+    );
+    const junction = boxInArchive(
+      archive.getObjectByName('case-archive-loom-rack-junction'),
+    );
+    const lowerRunner = archive.children
+      .filter((child) => child.name === 'case-archive-slot-support-rail')
+      .map(boxInArchive)
+      .sort((a, b) => a.min.y - b.min.y)[0];
+    assert.ok(
+      bottom.max.y >= lowerRunner.min.y,
+      'Bottom crossmember meets the lowest cartridge runner',
+    );
+    assert.ok(
+      bottom.min.y > bottomRow - 0.25,
+      'The removed fifth cartridge leaves no empty shelf bay',
+    );
+    assert.ok(
+      back.min.y >= lowerRunner.min.y,
+      'The closed back stops at the final supported row',
+    );
+    assert.ok(
+      junction.min.y >= bottom.min.y && junction.max.y <= back.max.y,
+      'The terminal cable junction remains attached to the shortened rack',
+    );
+    assert.equal(
+      archive.children.filter(
+        (child) => child.name === 'case-archive-rack-anchored-foot',
+      ).length,
+      2,
+    );
+  }
 });
 
 test('Tilted archive terminal remains readable, clear of its hardware and beyond the camera near plane', () => {

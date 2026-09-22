@@ -1,0 +1,14 @@
+✔ fresh portfolios have six distinct studies, uneven categories and one deliberately empty research shelf (29.684708ms)
+✔ the full product study demonstrates the safe Markdown vocabulary and every supported media presentation (9.508375ms)
+✔ known untouched legacy samples update and missing demos are added without rewriting other records (1.2465ms)
+✔ the rich case study renders its tables, nested tasks, images and captioned native video with the public Markdown renderer (18.609ms)
+✔ population is idempotent for exact fresh and media-populated samples, including ordinary API-generated IDs (3.248834ms)
+✔ guards preserve edited samples, divergent drafts, unpublished records and ID or slug collisions (1.17225ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 209.41425

@@ -329,13 +329,17 @@ assigns wallpaper to populated monitors and groups the resource actions below th
 Approved on 22 September 2026: the four recorder cartridges select Product
 engineering, Systems & reliability, Research & experiments, or Design &
 interfaces; the terminal selects All case studies. Every option approaches the
-same existing 16:9 raked monitor. The owner's subsequent correction makes all
-five controls interactive even with no assigned or published stories. Cartridges
-keep their cream category labels and inset amber hover/focus feedback; the terminal
-keeps its All case studies display. Empty selections open their own category with
-an honest empty-state message instead of falling back to All. This supersedes the
-initial Case studies standby/availability rule; Projects' separate empty-monitor
-standby behavior is unchanged. Published content drives the visitor collection;
+same existing 16:9 raked monitor. The owner's latest correction restores
+content-based availability: only categories with published stories are selectable;
+All is selectable only when the archive has stories. Empty or unrecognized
+categories keep their installed cartridges with dark graphite faces and pale
+printed labels, without interaction targets or hover feedback. Populated
+cartridges retain cream faces and the existing inset amber rim. An empty terminal
+uses plain navy with STANDBY and is inert. This supersedes the briefly approved
+always-interactive empty-category behavior. Availability updates when content
+changes. The shelf crossmember and backplane end directly beneath cartridge four;
+its floor uprights remain, with cable attachments raised to the shorter backplane.
+Published content drives the visitor collection;
 private preview uses drafts. No category is guessed from a title or older record.
 
 The monitor displays a numbered archive list with summaries and optional
@@ -365,6 +369,17 @@ whole-content JSON backups include case studies as before. See
 [authoring instructions](OPERATIONS.md#authoring-case-studies) and
 [verification evidence](evidence/case-study-flow/README.md).
 
+The guarded local case-study demo tool supplies **All 6, Product engineering 3,
+Systems & reliability 2, Design & interfaces 1, Research & experiments 0**.
+Research demonstrates the disabled cartridge. **Building the whole product** is
+the complete Markdown/media reference, with mixed nested lists and tasks,
+headings, code, tables, quotations, links, still images, video/poster/captions and
+a finite GIF. The other studies vary in length. These are editable fictional
+concepts; the tool preserves owner edits and divergent drafts, reuses only
+verified public media, and does not change Relay or other collections. Fresh
+seeds include the text; explicit population supplies managed media. See
+[current standby/demo evidence](evidence/archive-standby-demo/README.md).
+
 ## Contact computer and submission boundary
 
 The idle center monitor keeps its small `COMMUNICATIONS` label and uses
@@ -372,6 +387,12 @@ The idle center monitor keeps its small `COMMUNICATIONS` label and uses
 The room sign still uses the configured Contact room name.
 Its footer reads `COM / 01` and `OPEN TO CONNECT`; the left and right social
 screens are `COM / 02` and `COM / 03`, respectively. There is no fourth channel.
+
+The main Contact screen and configured social screens use the shared folded
+desktop wallpaper behind their graphics, consistent with Projects. A missing or
+invalid social destination leaves a plain dark STANDBY display, without social
+graphics, native link target or hover feedback. It remains installed as passive
+hardware. This rule applies to both social slots.
 
 The main Contact monitor is selectable with the shared screen hover/focus feedback.
 Its application replaces the idle display on the existing glass. Landscape frames

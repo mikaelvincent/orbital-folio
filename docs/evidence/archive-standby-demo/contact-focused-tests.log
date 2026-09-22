@@ -1,0 +1,14 @@
+✔ Contact uses the shared wallpaper only on available screens; unassigned channels show standby (8.816333ms)
+✔ Unassigned Contact screens have no interactive identity or hover rim (0.100208ms)
+✔ wide contact audio is supported without desk, foot or cabin-wall intersections (6.205792ms)
+✔ wide contact rear brackets reach the actual pressure wall and retain fixed display positions (22.197666ms)
+✔ compact contact audio is supported without desk, foot or cabin-wall intersections (7.762041ms)
+✔ compact contact rear brackets reach the actual pressure wall and retain fixed display positions (16.279833ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 936.107834

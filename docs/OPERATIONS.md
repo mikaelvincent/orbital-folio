@@ -155,9 +155,10 @@ unchanged. Private preview opens the chosen story by ID; public stories have
 `/case-studies/<slug>` URLs and a semantic Reading view.
 
 The four physical category cartridges open their collection on the same terminal;
-All case studies opens the full archive. Every cartridge and the terminal remain
-selectable even when empty; the chosen collection explains that no stories have
-been added yet. Reading view offers the same five choices.
+All case studies opens the full archive. Only populated categories are selectable
+in the room; empty cartridges are dark and inert. An entirely empty archive leaves
+the terminal in passive STANDBY. Reading view retains all five filters and can
+explain an empty collection; direct category URLs remain readable.
 Back restores the collection and its scroll position; X or an exposed room wall
 returns to the room. Case studies uses the existing JSON content backup workflow.
 The standalone project ZIP format remains specific to Projects.
@@ -199,6 +200,25 @@ illustrations, not recordings or evidence of real project outcomes. The optional
 `node scripts/generate-project-demos.mjs` rebuild uses installed Sharp and macOS
 Swift/AVFoundation for H.264 encoding; population and the site do not require that
 encoder. The GIF runs twice (3.84 seconds total) and stops.
+
+For the Case studies archive, use its separate guarded tool:
+
+```sh
+node scripts/populate-demo-case-studies.mjs          # inspect proposed changes
+node scripts/populate-demo-case-studies.mjs --apply  # populate eligible local cases
+```
+
+It refreshes the three exact untouched legacy case-study samples and adds three
+missing examples, for **All 6, Product 3, Systems 2, Interfaces 1, Research 0**.
+Research stays dark and disabled in the room. **Building the whole product** is
+the full Markdown/media showcase; the remaining stories vary in length. The
+tool reuses the same verified synthetic assets without changing the Relay project.
+Only public media with identical drafts and matching bytes/metadata is reused;
+otherwise it uploads a separate copy. Existing edited cases, private drafts and
+ID/slug collisions are skipped. New local records receive normal API-generated
+IDs; fresh database seeds use stable sample IDs. A completed rerun is a no-op.
+Actual totals can differ if owner content exists or an edited sample is skipped.
+The main server must already be running; no database reset is required.
 
 ## Portable project packages
 

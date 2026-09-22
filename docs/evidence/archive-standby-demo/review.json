@@ -1,0 +1,64 @@
+{
+  "reviewer": "Independent critic agent /root/arrival_dimming_critic",
+  "baselineCommit": "53dd907fa74316ae6816ef28654f658dedf5633b",
+  "score": 96,
+  "approved": true,
+  "unresolvedBlockers": [],
+  "requiredRevisions": [],
+  "rubric": [
+    {
+      "criterion": "Fulfillment and consistency",
+      "score": 25,
+      "maximum": 25,
+      "finding": "Available Contact displays use the shared wallpaper; missing channels and empty archive choices are passive. The rack closes beneath its fourth cartridge. Six varied studies have the requested 3 Product, 2 Systems, 1 Interfaces and 0 Research distribution, with a complete Markdown/media reference."
+    },
+    {
+      "criterion": "Correctness and content safeguards",
+      "score": 25,
+      "maximum": 25,
+      "finding": "Availability propagates through native controls, material feedback and content updates while preserving the arrival-dimming fix. The population planner requires exact known samples, identical published/draft content and revision-checked writes; verified media is reused conservatively. Recorded application preserved 28 unrelated records, and the second apply made zero writes."
+    },
+    {
+      "criterion": "Visual quality",
+      "score": 24,
+      "maximum": 25,
+      "finding": "Desktop and portrait captures preserve the established spacecraft design. Dark Research is visibly distinct from populated cream cartridges; the shorter rack retains attached supports and cabling. Contact graphics remain legible over wallpaper. Library and rich-story hierarchy, tables, nested lists and media remain readable. The existing small portrait room targets are unchanged."
+    },
+    {
+      "criterion": "Verification and evidence",
+      "score": 12,
+      "maximum": 15,
+      "finding": "Reviewed passing 443-test isolated suite, final 6-test Contact rerun, typecheck, affected lint and completed build. All 11 source hashes matched at initial review. The final sample-template spelling differs from its full-suite/build hash only by encoding two Markdown hard-break spaces as hexadecimal escapes; independent imports confirm identical seed and media-populated output. Six demo-content tests and affected lint pass after that cleanup. Browser evidence covers disabled pointer clicks, populated and empty scenes, responsive story views and successful four-second native video playback. Cross-engine, native caption selection and complete GIF playback limitations are explicit."
+    },
+    {
+      "criterion": "Organization, documentation and performance scope",
+      "score": 10,
+      "maximum": 10,
+      "finding": "Operations and project context clearly describe the superseding empty-category rule, guarded population workflow and fresh-seed/media distinction. Ledger and evidence retain actual results without performance claims or implementation of held optimization candidates. README links resolve. Final cleanup removes source trailing whitespace and three log EOF blank lines without changing emitted content or check results; the original full-suite/build hash remains distinguished from the final template spelling."
+    }
+  ],
+  "resolvedReviewFindings": [
+    "The first table-labeled screenshot showed the preceding tasks/code section. It was replaced after confirming scroll position; the retained screenshot shows the table.",
+    "The initial browser DOM image snapshot preceded below-fold lazy loading. The README now explicitly avoids treating it as a final image-download assertion.",
+    "Native video playback was exercised after the initial markup/poster review; the browser record confirms readyState 4 and completion at four seconds.",
+    "Final staging exposed two intentional Markdown hard-break spaces and trailing blank lines in three tool logs. The template now spells those spaces as hexadecimal escapes; independent imports confirm identical seed and media-populated content. Original/full-suite and final source hashes are separately documented, and all six demo-content tests plus affected lint pass on the final spelling."
+  ],
+  "finalCleanupReview": {
+    "file": "lib/content/sample-case-studies.mjs",
+    "fullSuiteAndBuildSha256": "0f4bd37d9481321c4db44980b3d3eeea1a97f288435dc6708f51d75d22dfb8b6",
+    "finalSha256": "654bcb5c1beb1fbd8558ae0aa61c80f1d3637c32667568134985ef2115d96b19",
+    "identicalSeedOutputSha256": "565d6c3f9c18a5c966d56cf8a5ae84e9e4dbde443b217e20ecf643c8f362f811",
+    "mediaPopulatedOutputIndependentlyComparedEqual": true,
+    "finalDemoContentTests": "6/6 passed",
+    "finalAffectedLint": "passed",
+    "fullSuiteAndBuildRepeated": false,
+    "visualBehaviorChanged": false
+  },
+  "limitations": [
+    "Visual checks used hidden built-in Chromium, not Safari.",
+    "Physical touch, live OS reduced-motion and native pointer-hover movement were not tested; shared feedback has model/material regression coverage.",
+    "Native caption selection and the GIF's complete two-cycle playback were not separately exercised.",
+    "Desktop DPR 2 and later fixture/portrait DPR 1 captures are visual evidence, not matched performance measurements.",
+    "No CPU/GPU timing, memory, heat or battery improvement is established."
+  ]
+}

@@ -1,0 +1,12 @@
+✔ Archive choices share fixed terminal glass while retaining distinct physical category anchors (1206.542625ms)
+✔ Only populated archive categories are interactive, and emptied cartridges return to their dark face (1649.325ms)
+✔ The archive shelf closes directly below its fourth cartridge with its cable junction attached (39.538042ms)
+✔ Tilted archive terminal remains readable, clear of its hardware and beyond the camera near plane (4367.446125ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7530.614958

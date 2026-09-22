@@ -1,0 +1,220 @@
+[
+  {
+    "stage": "populated-archive-room",
+    "state": {
+      "buttons": [
+        {
+          "disabled": false,
+          "hidden": "false",
+          "id": "case-study-screen-all",
+          "label": "Open All case studies"
+        },
+        {
+          "disabled": false,
+          "hidden": "false",
+          "id": "case-study-screen-product",
+          "label": "Open Product engineering"
+        },
+        {
+          "disabled": false,
+          "hidden": "false",
+          "id": "case-study-screen-systems",
+          "label": "Open Systems & reliability"
+        },
+        {
+          "disabled": false,
+          "hidden": "false",
+          "id": "case-study-screen-interfaces",
+          "label": "Open Design & interfaces"
+        }
+      ],
+      "camera": "2.0870,1.5400,5.5102",
+      "dpr": "2"
+    }
+  },
+  {
+    "stage": "rich-story-markdown",
+    "state": {
+      "headings": [
+        {
+          "level": "H1",
+          "text": "Building the whole product"
+        },
+        {
+          "level": "H2",
+          "text": "The product question"
+        },
+        {
+          "level": "H2",
+          "text": "My contribution"
+        },
+        {
+          "level": "H3",
+          "text": "Follow one request"
+        },
+        {
+          "level": "H2",
+          "text": "The implementation sketch"
+        },
+        {
+          "level": "H3",
+          "text": "States and guarantees"
+        },
+        {
+          "level": "H4",
+          "text": "Delivery guarantees"
+        },
+        {
+          "level": "H5",
+          "text": "Commit before acknowledgement"
+        },
+        {
+          "level": "H6",
+          "text": "Boundary condition"
+        },
+        {
+          "level": "H3",
+          "text": "Operator hand-off"
+        },
+        {
+          "level": "H2",
+          "text": "A traceable service lifecycle"
+        },
+        {
+          "level": "H3",
+          "text": "A finite animation"
+        },
+        {
+          "level": "H2",
+          "text": "What this case study establishes"
+        },
+        {
+          "level": "H3",
+          "text": "Next steps"
+        }
+      ],
+      "images": [
+        {
+          "alt": "A code-authored Harbor design illustration showing a workspace with revision cards.",
+          "loaded": true,
+          "src": "/media/6ebd4b7d-d80a-43fe-b17d-7cf348afdfe8"
+        },
+        {
+          "alt": "A synthetic workspace showing drafts, review and published revisions",
+          "loaded": false,
+          "src": "/media/be679cc8-4853-45a9-aafd-274d66c28c48"
+        },
+        {
+          "alt": "A request moves through accepted, queued, running and completed states",
+          "loaded": false,
+          "src": "/media/6616c4bc-6d83-46f6-a54f-c28211e9ece1"
+        }
+      ],
+      "numbering": [
+        "1",
+        "1",
+        "7"
+      ],
+      "tables": 1,
+      "tasks": [
+        {
+          "checked": true,
+          "disabled": true
+        },
+        {
+          "checked": true,
+          "disabled": true
+        },
+        {
+          "checked": false,
+          "disabled": true
+        }
+      ],
+      "videos": [
+        {
+          "controls": true,
+          "poster": "/media/68cd24e1-e9e5-4247-9b27-44d76a02d7e3",
+          "src": null,
+          "track": "/media/4985240f-75b2-444c-a1ef-d338908082ea"
+        }
+      ]
+    }
+  },
+  {
+    "stage": "story-video-playback",
+    "playback": [
+      {
+        "duration": 4,
+        "paused": true,
+        "ready": 4,
+        "source": "http://localhost:3000/media/8ebd9ff7-41c7-42d9-91b8-8465a7f4a22b",
+        "time": 4
+      }
+    ]
+  },
+  {
+    "stage": "portrait-story",
+    "contactShading": "false",
+    "dpr": 1,
+    "drawingBuffer": "390,844",
+    "height": 844,
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "stage": "return-to-product",
+    "url": "http://localhost:3000/case-studies?open=1&category=product",
+    "links": 3
+  },
+  {
+    "stage": "disabled-research-pointer",
+    "url": "http://localhost:3000/case-studies",
+    "applicationCount": 0
+  },
+  {
+    "stage": "fixture-contact-missing-github",
+    "contactShading": "true",
+    "dpr": 1,
+    "drawingBuffer": "1280,720",
+    "height": 720,
+    "links": [
+      {
+        "label": "Mikael Vincent · Overview",
+        "url": "/"
+      },
+      {
+        "label": "mikaelvincent.dev · Overview",
+        "url": "/"
+      },
+      {
+        "label": "Open LinkedIn (new tab)",
+        "url": "https://www.linkedin.com"
+      },
+      {
+        "label": "Overview",
+        "url": "/"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "stage": "fixture-disabled-social-pointer",
+    "url": "http://localhost:3003/contact",
+    "travel": "false"
+  },
+  {
+    "stage": "fixture-empty-archive",
+    "contactShading": "true",
+    "dpr": 1,
+    "drawingBuffer": "1280,720",
+    "height": 720,
+    "openControls": [],
+    "width": 1280
+  },
+  {
+    "stage": "fixture-empty-all-pointer",
+    "url": "http://localhost:3003/case-studies",
+    "applicationCount": 0,
+    "travel": "false"
+  }
+]

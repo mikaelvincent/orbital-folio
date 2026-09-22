@@ -1,4 +1,7 @@
-import type { CaseStudyFilter } from '../../../lib/content/case-study-content.ts';
+import {
+  CASE_STUDY_CATEGORIES,
+  type CaseStudyFilter,
+} from '../../../lib/content/case-study-content.ts';
 import { ARCHIVE_GRID } from './cabin-composition.ts';
 import {
   attachComputerDesktop,
@@ -282,6 +285,15 @@ export function buildCaseStudyArchive(
     return { plane, repaint };
   }
 
+  // Close the storage frame immediately beneath its final installed cartridge.
+  // The floor uprights remain load-bearing supports for the shortened rack.
+  const rackBottom =
+    ARCHIVE_GRID.topY -
+    (CASE_STUDY_CATEGORIES.length - 1) * ARCHIVE_GRID.rowPitch -
+    0.179;
+  const rackBackTop = 2.14;
+  const rackBackBottom = rackBottom + 0.035;
+  const loomRise = rackBottom - 0.665;
   // Floor-bolted rack: grounded rails, captive splice plates and closed slot backs.
   const structuralScrews: number[][] = [];
   for (const side of [-1, 1]) {
@@ -334,7 +346,7 @@ export function buildCaseStudyArchive(
       0.004,
       'upright-edge-insert',
     );
-    for (const y of [0.19, 0.7, 1.42, 2.1]) {
+    for (const y of [0.19, rackBackBottom, 1.42, 2.1]) {
       box(
         0.145,
         0.095,
@@ -362,10 +374,14 @@ export function buildCaseStudyArchive(
           'y',
           'floor-anchor-bolt',
         );
-    const slots = Array.from({ length: 15 }, (_, i) => ({
-      p: [x + side * 0.014, 0.96 + i * 0.077, -0.728],
-      s: [0.029, 0.036, 0.014],
-    }));
+    const slotStart = rackBackBottom + 0.018;
+    const slots = Array.from(
+      { length: Math.floor((2.06 - slotStart) / 0.077) + 1 },
+      (_, i) => ({
+        p: [x + side * 0.014, slotStart + i * 0.077, -0.728],
+        s: [0.029, 0.036, 0.014],
+      }),
+    );
     h.instances(
       unitBox,
       m.recess,
@@ -374,7 +390,7 @@ export function buildCaseStudyArchive(
       prefix + 'rack-index-perforations',
     );
   }
-  for (const y of [0.665, 2.16]) {
+  for (const y of [rackBottom, 2.16]) {
     box(
       2.77,
       0.105,
@@ -403,11 +419,11 @@ export function buildCaseStudyArchive(
   }
   box(
     2.5,
-    1.44,
+    rackBackTop - rackBackBottom,
     0.065,
     m.recess,
     0,
-    1.42,
+    (rackBackTop + rackBackBottom) / 2,
     -0.901,
     floorRoot,
     0.015,
@@ -438,35 +454,16 @@ export function buildCaseStudyArchive(
     width: number;
     height: number;
     interactableId: string;
-    available: true;
+    readonly available: boolean;
+    setAvailable: (value: boolean) => void;
   }> = [];
   // Four category cartridges retain their upper rows, leaving room for the taller terminal.
-  const categories: Array<{
-    title: string;
-    kind: Exclude<CaseStudyFilter, 'all'>;
-    code: string;
-  }> = [
-    {
-      title: 'Product engineering',
-      kind: 'product',
-      code: 'FR–01',
-    },
-    {
-      title: 'Systems & reliability',
-      kind: 'systems',
-      code: 'FR–02',
-    },
-    {
-      title: 'Research & experiments',
-      kind: 'research',
-      code: 'FR–03',
-    },
-    {
-      title: 'Design & interfaces',
-      kind: 'interfaces',
-      code: 'FR–04',
-    },
-  ];
+  const categories = CASE_STUDY_CATEGORIES.map(({ id, label }, index) => ({
+    title: label,
+    kind: id,
+    code: `FR–${String(index + 1).padStart(2, '0')}`,
+    active: false,
+  }));
   categories.forEach((category, index) => {
     const y = ARCHIVE_GRID.topY - index * ARCHIVE_GRID.rowPitch;
     const cartridge = new THREE.Group();
@@ -535,11 +532,11 @@ export function buildCaseStudyArchive(
       0.029,
       'cartridge-edge-lip',
     );
-    box(
+    const jacket = box(
       2.175,
       0.19,
       0.032,
-      material('cartridge-' + category.kind + '-jacket', 0xdfd6c5, 0.53),
+      material('cartridge-' + category.kind + '-jacket', 0x283440, 0.53),
       0,
       0,
       0.102,
@@ -547,6 +544,7 @@ export function buildCaseStudyArchive(
       0.025,
       'cartridge-label-jacket',
     );
+    const jacketMaterial = jacket.material;
     // End retainers are separate latch mechanisms, not orange paint on the label.
     for (const side of [-1, 1]) {
       const xx = side * 1.171;
@@ -657,7 +655,9 @@ export function buildCaseStudyArchive(
       cartridge,
       'cartridge-print-' + index,
       (ctx, cw, ch) => {
-        ctx.strokeStyle = ctx.fillStyle = '#20303e';
+        ctx.strokeStyle = ctx.fillStyle = category.active
+          ? '#20303e'
+          : '#b0c0c7';
         icon(ctx, category.kind, 45, ch / 2, ch * 0.7);
         ctx.font = `600 ${ch * 0.53}px Arial, sans-serif`;
         ctx.textAlign = 'left';
@@ -686,8 +686,16 @@ export function buildCaseStudyArchive(
       width: 2.175,
       height: 0.19,
       interactableId: `case-study-screen-${category.kind}`,
-      // Categories are destinations even before stories have been assigned.
-      available: true,
+      get available() {
+        return category.active;
+      },
+      setAvailable(value: boolean) {
+        if (category.active === value) return;
+        category.active = value;
+        jacketMaterial.color.set(value ? 0xdfd6c5 : 0x283440);
+        jacketMaterial.userData.baseColor?.copy(jacketMaterial.color);
+        print.repaint();
+      },
     });
   });
   fasteners(structuralScrews, floorRoot, 'structural');
@@ -756,6 +764,7 @@ export function buildCaseStudyArchive(
     'terminal-glass-seal',
   );
   let caseCount = Math.max(0, Math.floor(options.caseCount || 0));
+  let terminalAvailable = caseCount > 0;
   const desktopMaterial =
     options.desktopMaterial ?? createComputerDesktopMaterial(THREE);
   const display = graphics(
@@ -769,10 +778,12 @@ export function buildCaseStudyArchive(
       bg.addColorStop(1, '#041321');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
-      const wallpaper = desktopMaterial.map?.image;
-      if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
-      ctx.fillStyle = '#06101e38';
-      ctx.fillRect(0, 0, cw, ch);
+      if (terminalAvailable) {
+        const wallpaper = desktopMaterial.map?.image;
+        if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
+        ctx.fillStyle = '#06101e38';
+        ctx.fillRect(0, 0, cw, ch);
+      }
       ctx.strokeStyle = '#b9d7e7';
       icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
       ctx.fillStyle = '#e2ebed';
@@ -783,7 +794,7 @@ export function buildCaseStudyArchive(
       ctx.fillStyle = '#a8becb';
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
-        'Ideas. Systems. People. Progress.',
+        terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
         cw / 2,
         ch * 0.62,
         cw - 150,
@@ -985,8 +996,8 @@ export function buildCaseStudyArchive(
     new THREE.Vector3(0.7 * 0.85, 0.625 * 0.85, -0.035 * 0.85),
     new THREE.Vector3(0.76 * 0.85, 0.48 * 0.85, -0.34 * 0.85),
     new THREE.Vector3(1.04, 0.43, -0.7),
-    new THREE.Vector3(1.12, 0.69, -0.87),
-    new THREE.Vector3(1.12, 0.84, -0.87),
+    new THREE.Vector3(1.12, 0.69 + loomRise, -0.87),
+    new THREE.Vector3(1.12, 0.84 + loomRise, -0.87),
   ]);
   h.mesh(
     new THREE.TubeGeometry(cable, 32, 0.026, 10, false),
@@ -1000,7 +1011,7 @@ export function buildCaseStudyArchive(
     0.1,
     m.graphite,
     1.12,
-    0.77,
+    0.77 + loomRise,
     -0.877,
     floorRoot,
     0.02,
@@ -1011,13 +1022,13 @@ export function buildCaseStudyArchive(
     0.082,
     m.edge,
     1.12,
-    0.697,
+    0.697 + loomRise,
     -0.87,
     floorRoot,
     'y',
     'loom-coupling',
   );
-  for (const yy of [0.7])
+  for (const yy of [0.7 + loomRise])
     box(
       0.068,
       0.04,
@@ -1058,13 +1069,24 @@ export function buildCaseStudyArchive(
       category: 'all' as const,
       label: 'All case studies',
       interactableId: 'case-study-screen-all',
-      available: true as const,
+      get available() {
+        return terminalAvailable;
+      },
+      setAvailable(value: boolean) {
+        if (terminalAvailable === value) return;
+        terminalAvailable = value;
+        display.repaint();
+        if (!value) computer.setActive(false);
+      },
     },
     ...cartridgeControls.map((control) => ({
       ...control,
       // The physical choice and application are separate surfaces: every
       // cartridge opens the same terminal without moving or deploying props.
       anchor,
+      get available() {
+        return control.available;
+      },
     })),
   ];
   return {

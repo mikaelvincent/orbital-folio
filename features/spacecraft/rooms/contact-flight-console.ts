@@ -282,6 +282,8 @@ export function buildContactFlightConsole(
   // The captive cover is sealed; its existing two fixings provide access
   // without another ventilation pattern competing with the room's air returns.
 
+  const desktopMaterial =
+    options.desktopMaterial ?? createComputerDesktopMaterial(THREE);
   const screen = (
     kind: 'contact' | 'link' | 'signal',
     w: number,
@@ -301,17 +303,33 @@ export function buildContactFlightConsole(
     if (!ctx) return mat;
     const cw = canvas.width,
       ch = canvas.height;
+    const link =
+      kind === 'contact'
+        ? null
+        : options.socials?.[kind === 'link' ? 'left' : 'right'];
+    const available = kind === 'contact' || Boolean(link);
     const gradient = ctx.createLinearGradient(0, 0, cw, ch);
     gradient.addColorStop(0, '#102b46');
     gradient.addColorStop(1, '#041326');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, cw, ch);
+    if (available) {
+      const wallpaper = desktopMaterial.map?.image;
+      if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
+      ctx.fillStyle = '#06101e38';
+      ctx.fillRect(0, 0, cw, ch);
+    }
     // Real display graphics, never a rendered photograph standing in for geometry.
     ctx.strokeStyle = '#4d6b80';
     ctx.lineWidth = 2;
     ctx.fillStyle = '#dfe9e9';
     ctx.textBaseline = 'middle';
-    if (kind === 'contact') {
+    if (!available) {
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#b0c0c7';
+      ctx.font = '500 48px sans-serif';
+      ctx.fillText('STANDBY', cw / 2, ch * 0.73);
+    } else if (kind === 'contact') {
       ctx.font = '500 24px sans-serif';
       ctx.fillStyle = '#95b2c1';
       ctx.fillText('COMMUNICATIONS', 67, 61);
@@ -356,7 +374,7 @@ export function buildContactFlightConsole(
       ctx.fillText('OPEN TO CONNECT', 952, ch - 89);
     } else {
       const side = kind === 'link' ? 'left' : 'right';
-      drawSocialChannel(ctx, cw, ch, options.socials?.[side] || null, side);
+      drawSocialChannel(ctx, cw, ch, link || null, side);
     }
     const texture = new THREE.CanvasTexture(canvas);
     texture.name = `contact-flight-${kind}-display`;
@@ -415,7 +433,7 @@ export function buildContactFlightConsole(
         THREE,
         face,
         mount,
-        options.desktopMaterial ?? createComputerDesktopMaterial(THREE),
+        desktopMaterial,
       );
       const anchor = new THREE.Object3D();
       anchor.name = 'contact-computer-application-anchor';

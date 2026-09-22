@@ -1,3 +1,4 @@
+import { caseStudySamples } from './sample-case-studies.mjs';
 import { gridSamples, sampleProjectData } from './sample-projects.mjs';
 // Initial fixtures only. Public rendering always reads persistent database records.
 export const seedSite = {
@@ -236,66 +237,7 @@ export const seeds: { id: string; kind: string; data: Record<string, any> }[] =
           'A concept for transparent service cost estimates and inspectable assumptions.',
       },
     },
-    {
-      id: 'experience-one',
-      kind: 'experience',
-      data: {
-        slug: 'building-products',
-        title: 'Building the whole product',
-        organization: 'Example Product Studio',
-        period: 'Sample chapter · 2024–present',
-        role: 'Full-stack developer · sample role',
-        summary: 'Connecting useful interfaces to dependable services.',
-        context:
-          'Sample entry: a small cross-functional team turning a complicated workflow into a focused web product. This is demonstration content, not employment history.',
-        decisions:
-          'Begin with the smallest complete user journey. Keep data contracts explicit, use accessible components, and ship changes that can be observed and rolled back.',
-        impact:
-          'Sample lessons: clear boundaries reduce coordination cost. A feature is only finished when people can use it and the team can support it.',
-        order: 0,
-        sample: true,
-      },
-    },
-    {
-      id: 'experience-two',
-      kind: 'experience',
-      data: {
-        slug: 'reliable-systems',
-        title: 'Making systems dependable',
-        organization: 'Example Engineering Team',
-        period: 'Sample chapter · 2022–2024',
-        role: 'Backend engineer · sample role',
-        summary: 'Looking beyond the happy path.',
-        context:
-          'Sample entry: improving APIs and asynchronous workflows where reliability mattered more than adding features quickly.',
-        decisions:
-          'Treat retries, timeouts, and partial failure as normal conditions. Add structured logs and define recovery steps before increasing traffic.',
-        impact:
-          'Sample lessons: the simplest system the team can operate is often the right starting point. No numerical or commercial results are claimed.',
-        order: 1,
-        sample: true,
-      },
-    },
-    {
-      id: 'experience-three',
-      kind: 'experience',
-      data: {
-        slug: 'learning-by-building',
-        title: 'Learning by building',
-        organization: 'Independent exploration',
-        period: 'Sample chapter · foundations',
-        role: 'Developer · sample role',
-        summary: 'Curiosity, small experiments, and better questions.',
-        context:
-          'Sample entry: exploring web foundations through small, complete projects and deliberate practice.',
-        decisions:
-          'Finish a narrow slice, explain its tradeoffs, and revisit the parts that were harder to understand than they needed to be.',
-        impact:
-          'Sample lessons: writing down decisions makes the next iteration better. Replace this entry with the owner’s actual experience.',
-        order: 2,
-        sample: true,
-      },
-    },
+    ...caseStudySamples,
     {
       id: 'journal-story',
       kind: 'journal',

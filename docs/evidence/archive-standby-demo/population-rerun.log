@@ -1,0 +1,71 @@
+{
+  "mode": "applying",
+  "base": "http://localhost:3000",
+  "create": [],
+  "update": [
+    {
+      "id": "experience-one",
+      "slug": "building-products",
+      "unchanged": true
+    },
+    {
+      "id": "experience-two",
+      "slug": "reliable-systems",
+      "unchanged": true
+    },
+    {
+      "id": "experience-three",
+      "slug": "learning-by-building",
+      "unchanged": true
+    },
+    {
+      "id": "697187fc-038e-443e-aae7-9cb0474feaee",
+      "slug": "reviewable-releases",
+      "unchanged": true
+    },
+    {
+      "id": "fcd640e7-a162-4d86-a04e-d450e480fa09",
+      "slug": "resumable-transfers",
+      "unchanged": true
+    },
+    {
+      "id": "010cd6be-c2b1-4c5d-a015-e4e03d72858f",
+      "slug": "readable-review-workspace",
+      "unchanged": true
+    }
+  ],
+  "skipped": [],
+  "reusableAssets": [
+    "relay",
+    "beacon",
+    "parcel",
+    "fieldnotes",
+    "harbor",
+    "relay-captions",
+    "relay-video",
+    "relay-motion"
+  ],
+  "missingAssets": [],
+  "intendedSampleCounts": {
+    "all": 6,
+    "product": 3,
+    "systems": 2,
+    "interfaces": 1,
+    "research": 0
+  },
+  "note": "Owner records are preserved. Actual totals can differ when records are edited, skipped or additional content exists. New local records receive ordinary API-generated IDs; fresh databases use stable seed IDs."
+}
+{
+  "mode": "applied",
+  "uploaded": 0,
+  "updated": 0,
+  "created": 0,
+  "counts": {
+    "all": 6,
+    "product": 3,
+    "systems": 2,
+    "interfaces": 1,
+    "research": 0
+  },
+  "skipped": []
+}

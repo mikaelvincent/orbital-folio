@@ -1,0 +1,55 @@
+{
+  "mode": "dry-run",
+  "base": "http://localhost:3000",
+  "create": [
+    {
+      "seedId": "case-study-release-decisions",
+      "slug": "reviewable-releases"
+    },
+    {
+      "seedId": "case-study-recovery-runbook",
+      "slug": "resumable-transfers"
+    },
+    {
+      "seedId": "case-study-readable-interfaces",
+      "slug": "readable-review-workspace"
+    }
+  ],
+  "update": [
+    {
+      "id": "experience-one",
+      "slug": "building-products",
+      "unchanged": false
+    },
+    {
+      "id": "experience-two",
+      "slug": "reliable-systems",
+      "unchanged": false
+    },
+    {
+      "id": "experience-three",
+      "slug": "learning-by-building",
+      "unchanged": false
+    }
+  ],
+  "skipped": [],
+  "reusableAssets": [
+    "relay",
+    "beacon",
+    "parcel",
+    "fieldnotes",
+    "harbor",
+    "relay-captions",
+    "relay-video",
+    "relay-motion"
+  ],
+  "missingAssets": [],
+  "intendedSampleCounts": {
+    "all": 6,
+    "product": 3,
+    "systems": 2,
+    "interfaces": 1,
+    "research": 0
+  },
+  "note": "Owner records are preserved. Actual totals can differ when records are edited, skipped or additional content exists. New local records receive ordinary API-generated IDs; fresh databases use stable seed IDs."
+}

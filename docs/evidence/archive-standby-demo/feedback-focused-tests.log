@@ -1,0 +1,13 @@
+✔ Object highlights isolate shared materials and do not accumulate brightness (1.587083ms)
+✔ The shared brightness transition is smooth and independent of refresh rate (0.146542ms)
+✔ Screens and cartridges retain dim idle through previews, room entry and hover departure (972.540875ms)
+✔ Computer and social screens retain native anchors, independent feedback and portal navigation (995.325084ms)
+✔ Contact wall feedback changes only its paint and resets when the application closes (923.717958ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3087.882417

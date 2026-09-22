@@ -13,7 +13,7 @@ import {
 // Invoke the real furniture builder while retaining individual part names.
 // Box bevels stay within these bounds; their edge detail cannot conceal an
 // unsupported microphone base or a headset intersecting the desk/supports.
-function inspectableConsole() {
+function inspectableConsole(options = {}) {
   const root = new THREE.Group();
   const h = {
     mesh(geometry, material, into, name = '') {
@@ -100,6 +100,7 @@ function inspectableConsole() {
   profile.quadraticCurveTo(1.1, CABIN_CEILING, 0.67, CABIN_CEILING);
   profile.lineTo(-PRESSURE_THROAT_START, CABIN_CEILING);
   buildContactFlightConsole(THREE, h, root, {
+    ...options,
     rearWallProfile: profile.getPoints(48).map((p) => ({ y: p.y, z: -p.x })),
   });
   return root;
@@ -113,6 +114,85 @@ const matching = (root, pattern) => {
   return found;
 };
 const vessel = createSpacecraft(THREE, { layout: 'wide' });
+
+test('Contact uses the shared wallpaper only on available screens; unassigned channels show standby', (t) => {
+  const previousDocument = globalThis.document;
+  const previousPath = globalThis.Path2D;
+  t.after(() => {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+    if (previousPath === undefined) delete globalThis.Path2D;
+    else globalThis.Path2D = previousPath;
+  });
+  const canvasDocument = {
+    createElement() {
+      const calls = { images: [], text: [] };
+      const ctx = {
+        createLinearGradient: () => ({ addColorStop() {} }),
+        createRadialGradient: () => ({ addColorStop() {} }),
+        fillText: (value) => calls.text.push(value),
+        drawImage: (image) => calls.images.push(image),
+        measureText: (value) => ({ width: value.length * 18 }),
+        fillRect() {},
+        beginPath() {},
+        moveTo() {},
+        lineTo() {},
+        closePath() {},
+        arc() {},
+        fill() {},
+        stroke() {},
+        save() {},
+        restore() {},
+        translate() {},
+        scale() {},
+      };
+      return { calls, getContext: () => ctx };
+    },
+  };
+  globalThis.document = canvasDocument;
+  globalThis.Path2D = class {};
+  const wallpaper = canvasDocument.createElement();
+  const desktopMaterial = new THREE.MeshBasicMaterial({
+    map: new THREE.CanvasTexture(wallpaper),
+  });
+  const root = inspectableConsole({
+    desktopMaterial,
+    socials: {
+      left: {
+        id: 'github',
+        title: 'GitHub',
+        url: 'https://github.com',
+        platform: 'github',
+        screen: 'left',
+        description: 'Explore my code',
+        order: 0,
+      },
+      right: null,
+    },
+  });
+  const display = (kind) =>
+    root.getObjectByName(`contact-flight-${kind}-screen-glass`).material.map
+      .image.calls;
+  for (const kind of ['contact', 'link']) {
+    assert.deepEqual(display(kind).images, [wallpaper]);
+    assert.ok(!display(kind).text.includes('STANDBY'));
+  }
+  assert.ok(display('contact').text.includes('LET’S CONNECT'));
+  assert.ok(display('link').text.includes('GitHub'));
+  assert.ok(display('link').text.includes('Open link'));
+  assert.deepEqual(display('signal').images, []);
+  assert.deepEqual(display('signal').text, ['STANDBY']);
+  assert.equal(root.userData.socialScreens[1].link, null);
+});
+
+test('Unassigned Contact screens have no interactive identity or hover rim', () => {
+  for (const screen of vessel.group.userData.socialScreens) {
+    assert.equal(screen.link, null);
+    assert.equal(screen.interactableId, undefined);
+    assert.equal(screen.root.userData.interactableId, undefined);
+    assert.deepEqual(matching(screen.root, /hover-rim/), []);
+  }
+});
 
 for (const [layout, propScale, cabinScale] of [
   ['wide', 1, 1.4],

@@ -1,0 +1,67 @@
+{
+  "unrelatedRecordsChecked": 28,
+  "unrelatedRecordsUnchanged": true,
+  "publishedCases": [
+    {
+      "slug": "readable-review-workspace",
+      "title": "Making review easier to read",
+      "categories": [
+        "interfaces"
+      ],
+      "hasCover": true,
+      "bodyLength": 911
+    },
+    {
+      "slug": "reviewable-releases",
+      "title": "A release you can explain",
+      "categories": [
+        "product"
+      ],
+      "hasCover": false,
+      "bodyLength": 965
+    },
+    {
+      "slug": "building-products",
+      "title": "Building the whole product",
+      "categories": [
+        "product"
+      ],
+      "hasCover": true,
+      "bodyLength": 3888
+    },
+    {
+      "slug": "learning-by-building",
+      "title": "From prototype to useful product",
+      "categories": [
+        "product"
+      ],
+      "hasCover": false,
+      "bodyLength": 773
+    },
+    {
+      "slug": "reliable-systems",
+      "title": "Making systems dependable",
+      "categories": [
+        "systems"
+      ],
+      "hasCover": true,
+      "bodyLength": 1183
+    },
+    {
+      "slug": "resumable-transfers",
+      "title": "Recovering an interrupted transfer",
+      "categories": [
+        "systems"
+      ],
+      "hasCover": true,
+      "bodyLength": 969
+    }
+  ],
+  "counts": {
+    "all": 6,
+    "product": 3,
+    "systems": 2,
+    "research": 0,
+    "interfaces": 1
+  }
+}

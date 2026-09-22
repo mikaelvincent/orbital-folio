@@ -1,0 +1,65 @@
+{
+  "fixture": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-case-demo-vq6uj0b6",
+  "sourceRoot": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "baseline": "53dd907fa74316ae6816ef28654f658dedf5633b",
+  "baseUrl": "http://localhost:3003",
+  "sourceHashes": {
+    "features/spacecraft/rooms/case-study-archive.ts": "e783ccc8c63f09c5683cffdc4e5bb2b22fcc08bdfa1ddb4f2e61ee4351d00b77",
+    "features/spacecraft/rooms/contact-flight-console.ts": "70a436d273409cc54f176c3fc5239ab59a59392c0cbb769a5df54c1f48936007",
+    "features/spacecraft/spacecraft-model.ts": "72f8898af636267914557a1de5f858199ba225f987ae71a39ad2480b379ca16e",
+    "lib/content/sample-case-studies.mjs": "0f4bd37d9481321c4db44980b3d3eeea1a97f288435dc6708f51d75d22dfb8b6",
+    "lib/content/seed.ts": "67b881666bf6de6ff8216f9b2081cd2d7270291db2ed09a86b70224de68f9ecc",
+    "scripts/demo-case-studies/population-plan.mjs": "a5496d413c37d158ed54c005ea5649718935dffa732484e39ebe5e72ca9f12b5",
+    "scripts/populate-demo-case-studies.mjs": "b929ea8e8d6822d81e10a24618d019f94666e9583237a17d09d1da067119b8e9",
+    "tests/content/case-study-demos.test.mjs": "e2202bf6491127130261b4bc5b340b814b558f659c9a5374637b6c11393f2cf5",
+    "tests/content/fixtures/case-studies-legacy-v1.json": "5b11260310e33f4e09da8f9518fac600fc2c345aa83e56837aa6877166518df7",
+    "tests/spacecraft/case-study-application.test.mjs": "b4af485a9beecf761cd49b02398886461a90b95a943a5b32b00a838c413af51c",
+    "tests/spacecraft/contact-fittings.test.mjs": "c4c7b2bfb2b9480851331a69c324337306315e2d8553cc0a4b7863322aa4c7e7"
+  },
+  "verificationNotes": [
+    "Contact test-only mock initialization changed during the suite for lint compatibility; final source copied before its run and explicitly rerun after completion."
+  ],
+  "checks": {
+    "fullSuite": {
+      "passed": 443,
+      "failed": 0,
+      "skipped": 0
+    },
+    "typecheck": "passed",
+    "affectedLint": "passed",
+    "codeSourceMismatches": [],
+    "build": "passed",
+    "contactFocused": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "buildWarnings": [
+    "Node DEP0205: module.register() deprecation",
+    "Client chunks exceed the 500 kB minification warning threshold",
+    "Vinext static-analysis route classification notice for /experience"
+  ],
+  "isolation": {
+    "freshTestOnlySecretsAndD1R2": true,
+    "mainDatabaseOrUploadsCopied": false,
+    "mainEnvironmentCopied": false,
+    "testWorkingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-case-demo-vq6uj0b6",
+    "explicitTestBaseUrl": "http://localhost:3003",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-case-demo-vq6uj0b6/node_modules/.vite",
+    "serverStoppedBeforeBuild": true,
+    "fixtureRemoved": true,
+    "mainServerPreserved": true
+  },
+  "postVerificationCleanup": {
+    "file": "lib/content/sample-case-studies.mjs",
+    "fullSuiteAndBuildSha256": "0f4bd37d9481321c4db44980b3d3eeea1a97f288435dc6708f51d75d22dfb8b6",
+    "finalSha256": "654bcb5c1beb1fbd8558ae0aa61c80f1d3637c32667568134985ef2115d96b19",
+    "description": "Encoded the Markdown hard-break spaces as JavaScript hexadecimal escapes. Emitted caseStudySamples data is byte-identical; no behavior or screenshot difference. Full suite/build were not repeated.",
+    "equivalence": "hard-break-equivalence.json",
+    "focusedTests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "affectedLint": "passed"
+  }
+}

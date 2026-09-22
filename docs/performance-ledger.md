@@ -2628,6 +2628,42 @@ OS reduced-motion changes were not tested. Independent critic: **96/100**, appro
 with no unresolved blockers or required revisions; rubric and limitations are
 recorded with the evidence.
 
+## 45 — Content-aware standby screens, shorter archive and demo studies (22 September 2026)
+
+Baseline `53dd907`. The owner requested wallpaper on available Contact monitors,
+passive standby for missing links, dark/inert empty Case studies categories and
+All, a shelf bottom fitted to four cartridges, and a varied demo archive. This
+explicitly supersedes entry 42's always-interactive empty archive choices.
+
+Contact reuses the existing folded wallpaper behind its main/linked social
+graphics; missing social links show plain dark STANDBY with no target. The archive
+uses category counts at construction and content updates; unavailable cartridges
+return to graphite faces and the empty terminal uses standby. Shared dim-at-rest
+and travel continuity remain, as do camera fits and rim styling. The rack's bottom
+crossmember/backplane now end one row higher, directly below the fourth runner;
+perforations, splice plates and cable attachments follow that boundary while the
+floor supports and terminal position remain.
+
+The explicit guarded local tool populated six fictional studies: Product 3,
+Systems 2, Interfaces 1 and Research 0. Building the whole product exercises the
+shared Markdown/media renderer. It updated three exact untouched legacy samples,
+created three cases, reused eight verified existing media assets, and left 28
+unrelated records unchanged. A second apply made zero changes. Fresh seeds contain
+the same text; managed media is supplied by the explicit population step.
+
+[Evidence](evidence/archive-standby-demo/README.md) records source-matched visual
+checks, availability/material regressions, population guards and results. This is
+authored geometry/content work, with no measured performance or memory claim;
+held candidates remain held. The isolated full suite passed **443/443**, followed
+by the final Contact mock rerun **6/6**; typecheck, affected lint and production
+build pass. A final hard-break literal cleanup preserved identical emitted sample
+data and passed all **6 demo-content tests** plus affected lint; the full suite/build
+precede only that equivalent spelling. Hidden Chromium desktop/portrait checks
+cover the rich story, wallpaper, disabled targets and video playback. Native Safari,
+physical touch and native pointer-hover movement are untested. Independent critic:
+**96/100**, approved without blockers; rubric, source hashes and limitations are
+retained with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
