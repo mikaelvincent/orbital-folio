@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-09-22T23:44:57.129972+00:00",
+  "sourceRoot": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-markers-_3huv99t",
+  "baseCommit": "a73ad6e023bc77e9ebb4c656566b35962ccf025c",
+  "initialSource": "committed HEAD pending final working source sync",
+  "sourceOnly": true,
+  "copiedRegularFiles": 443,
+  "excluded": [
+    "private environment files",
+    "emulator state",
+    "uploads",
+    "private exports",
+    "backups",
+    "historical evidence"
+  ],
+  "dependencies": "shared installed node_modules symlink",
+  "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-markers-_3huv99t/.verification-vite-cache",
+  "state": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-markers-_3huv99t/.wrangler/state",
+  "baseUrl": "http://localhost:3003"
+}

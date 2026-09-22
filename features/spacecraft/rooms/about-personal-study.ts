@@ -1709,7 +1709,7 @@ export function buildAboutPersonalStudy(
     notebook.turningSection =
       destinationSection === notebook.settledSection
         ? -1
-        : Math.min(notebook.settledSection, destinationSection);
+        : Math.max(notebook.settledSection, destinationSection);
     notebook.turning = true;
     notebook.turnProgress = 0;
     notebook.turnDuration = notebook.nextTurnDuration;

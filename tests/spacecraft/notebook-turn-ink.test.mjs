@@ -35,6 +35,13 @@ test('Each physical leaf carries its own adjacent Markdown pages through multi-s
       notebook.turnDirection,
     );
     assert.equal(under, front + 1);
+    const frontSection = expected[front][0];
+    const underSection = expected[under][0];
+    assert.equal(
+      notebook.turningSection,
+      frontSection === underSection ? -1 : underSection,
+      'the marker belongs to the higher section on either turn direction',
+    );
     for (const absolute of [front, under]) {
       const location = notebookPageLocation(notebook.chapters, absolute);
       assert.deepEqual([location.section, location.page], expected[absolute]);
@@ -48,6 +55,10 @@ test('Each physical leaf carries its own adjacent Markdown pages through multi-s
     notebook.update(notebook.turnDuration);
   }
   assert.deepEqual(forward, [0, 1, 2, 3, 4, 5, 6]);
+  assert.deepEqual(
+    notebook.flags.map((flag) => flag.side),
+    ['left', 'left', 'left'],
+  );
   notebook.setChapter(0);
   notebook.update(notebook.turnDuration / 3);
   const oldPair = notebookTurnPages(
@@ -68,4 +79,8 @@ test('Each physical leaf carries its own adjacent Markdown pages through multi-s
     notebook.update(notebook.turnDuration);
   }
   assert.deepEqual(reverse, [6, 5, 4, 3, 2, 1, 0]);
+  assert.deepEqual(
+    notebook.flags.map((flag) => flag.side),
+    ['left', 'right', 'right'],
+  );
 });

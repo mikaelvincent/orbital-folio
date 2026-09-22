@@ -100,13 +100,13 @@ test('native page and chapter targets remain registered to the retained paper ge
   close(bottom - top, notebook.page.height, 'page height');
   for (const flag of notebook.flags) {
     const printed = root.getObjectByName(
-      `personal-study-flag-printed-adhesive-face-${flag.slot}`,
+      `personal-study-flag-printed-adhesive-${flag.side === 'left' ? 'back' : 'face'}-${flag.slot}`,
     );
     const [[x, y], [endX, endY]] = pixelsOnSurface(printed, notebook);
-    close(x, flag.x, 'flag left');
-    close(y, flag.y, 'flag top');
-    close(endX - x, flag.width, 'flag width');
-    close(endY - y, flag.height, 'flag height');
+    close(Math.min(x, endX), flag.x, 'flag left');
+    close(Math.min(y, endY), flag.y, 'flag top');
+    close(Math.abs(endX - x), flag.width, 'flag width');
+    close(Math.abs(endY - y), flag.height, 'flag height');
   }
   // Scaling the entire furniture assembly preserves its content registration.
   root.scale.setScalar(0.84);
@@ -134,6 +134,11 @@ test('one to six section markers fit the book; later sections use another bank w
       );
       const marker = notebook.flags.find((flag) => flag.index === index);
       assert.equal(marker?.title, journal[index].title);
+      assert.equal(
+        marker?.side,
+        'left',
+        'the current section marker is already behind its first page',
+      );
       assert.ok(
         notebook.flags.every(
           (flag) =>
@@ -141,6 +146,7 @@ test('one to six section markers fit the book; later sections use another bank w
         ),
       );
       for (const [slot, flag] of notebook.flags.entries()) {
+        assert.equal(flag.side, flag.index <= index ? 'left' : 'right');
         assert.equal(flag.exposedWidth, flag.width - 30);
         assert.equal(flag.exposedX, flag.x + (flag.side === 'right' ? 30 : 0));
         assert.equal(
@@ -176,6 +182,16 @@ test('one to six section markers fit the book; later sections use another bank w
     notebook.flags.map((flag) => flag.title),
     ['Section 7'],
   );
+  assert.equal(notebook.flags[0].side, 'left');
+  notebook.setChapter(5);
+  assert.deepEqual(
+    notebook.flags.map((flag) => flag.index),
+    [0, 1, 2, 3, 4, 5],
+  );
+  assert.ok(
+    notebook.flags.every((flag) => flag.side === 'left'),
+    'returning to the previous bank keeps its current and earlier markers left',
+  );
   notebook.setChapters([{ title: 'One' }, { title: 'Two' }]);
   assert.equal(notebook.chapter, 1);
   assert.equal(notebook.windowStart, 0);
@@ -186,22 +202,28 @@ test('one to six section markers fit the book; later sections use another bank w
   assert.equal(notebookWindowStart(-2), 0);
 });
 
-test('the reading leaf aligns with the indexed page stack and overlaps its flags', () => {
+test('both printed pages overlap their attached markers and aligned indexed page stacks', () => {
   const { root, notebook } = fixture();
-  const page = root
-    .getObjectByName('personal-study-right-paper-section')
-    .getObjectByName('personal-study-printed-top-paper-leaf');
-  const [[left], [right]] = pixelsOnSurface(page, notebook);
   for (const flag of notebook.flags) {
-    assert.ok(right > flag.x, 'the printed top leaf covers the adhesive edge');
-    close(right - flag.x, 30, 'adhesive overlap');
+    const page = root
+      .getObjectByName(`personal-study-${flag.side}-paper-section`)
+      .getObjectByName('personal-study-printed-top-paper-leaf');
+    const [[left], [right]] = pixelsOnSurface(page, notebook);
+    close(
+      flag.side === 'left' ? flag.x + flag.width - left : right - flag.x,
+      30,
+      'adhesive overlap',
+    );
     const sheet = root.getObjectByName(
       `personal-study-separate-indexed-paper-sheet-${flag.slot}`,
     );
-    const [[sheetLeft], [sheetRight]] = pixelsOnSurface(sheet, notebook);
+    const [[a], [b]] = pixelsOnSurface(sheet, notebook);
+    const sheetLeft = Math.min(a, b),
+      sheetRight = Math.max(a, b);
     assert.ok(sheetLeft >= left - 0.01);
     assert.ok(
-      sheetRight <= right && right - sheetRight < 5,
+      sheetRight <= right &&
+        (flag.side === 'left' ? sheetLeft - left : right - sheetRight) < 5,
       'indexed paper edges align under the top leaf',
     );
   }
@@ -210,26 +232,35 @@ test('the reading leaf aligns with the indexed page stack and overlaps its flags
 test('a two-page jump completes two discrete paper turns and moves each crossed marker to the left', () => {
   const { root, notebook } = fixture();
   const turn = root.getObjectByName('personal-study-turning-notebook-leaf');
+  const initialFlag = root.getObjectByName(
+    'personal-study-tabbed-paper-leaf-0',
+  );
+  close(initialFlag.rotation.y, -Math.PI, 'first section starts on the left');
   notebook.setActive(true);
   notebook.setChapter(2);
-  assert.equal(notebook.turningSection, 0);
+  assert.equal(notebook.turningSection, 1);
   assert.equal(notebook.update(0), false);
   notebook.update(0.18);
   close(turn.rotation.y, -Math.PI / 2, 'first half turn');
-  const firstFlag = root.getObjectByName('personal-study-tabbed-paper-leaf-0');
+  const firstFlag = root.getObjectByName('personal-study-tabbed-paper-leaf-1');
   close(firstFlag.rotation.y, turn.rotation.y, 'flag travels with its leaf');
+  close(
+    initialFlag.rotation.y,
+    -Math.PI,
+    'earlier section remains on the left',
+  );
   notebook.update(0.18);
   assert.equal(notebook.settledChapter, 1);
   assert.equal(notebook.turning, true);
-  assert.equal(notebook.turningSection, 1);
-  close(firstFlag.rotation.y, -Math.PI, 'first section tab rests on left');
+  assert.equal(notebook.turningSection, 2);
+  close(firstFlag.rotation.y, -Math.PI, 'second section tab rests on left');
   notebook.update(0.36);
   assert.equal(notebook.settledChapter, 2);
   assert.equal(notebook.turning, false);
   assert.equal(turn.visible, false);
   assert.deepEqual(
     notebook.flags.map((flag) => flag.side),
-    ['left', 'left', 'right'],
+    ['left', 'left', 'left'],
   );
 });
 
@@ -268,17 +299,30 @@ test('within-section pages flip individually while only section boundaries carry
     { title: 'Beyond', pageCount: 1 },
   ]);
   assert.equal(notebook.totalPages, 6);
+  const markerRoots = notebook.flags.map((flag) =>
+    root.getObjectByName(`personal-study-tabbed-paper-leaf-${flag.slot}`),
+  );
+  assert.deepEqual(
+    notebook.flags.map((flag) => flag.side),
+    ['left', 'right', 'right'],
+  );
   notebook.setActive(true);
   notebook.setChapter(4);
   assert.equal(notebook.section, 1);
   assert.equal(notebook.turningSection, -1);
-  notebook.update(0.72);
+  notebook.update(0.18);
+  assert.deepEqual(
+    markerRoots.map((marker) => marker.rotation.y),
+    [-Math.PI, 0, 0],
+    'within-section page turns leave every marker at rest',
+  );
+  notebook.update(0.54);
   assert.equal(notebook.settledChapter, 2);
   assert.equal(notebook.settledSection, 0);
-  assert.equal(notebook.turningSection, 0);
+  assert.equal(notebook.turningSection, 1);
   notebook.update(0.18);
   close(
-    root.getObjectByName('personal-study-tabbed-paper-leaf-0').rotation.y,
+    markerRoots[1].rotation.y,
     -Math.PI / 2,
     'section boundary flag is carried',
   );
@@ -286,27 +330,49 @@ test('within-section pages flip individually while only section boundaries carry
   assert.equal(notebook.settledChapter, 3);
   assert.equal(notebook.settledSection, 1);
   assert.equal(notebook.turningSection, -1);
-  notebook.update(0.36);
+  notebook.update(0.18);
+  assert.deepEqual(
+    markerRoots.map((marker) => marker.rotation.y),
+    [-Math.PI, -Math.PI, 0],
+    'the selected marker stays left through its later pages',
+  );
+  notebook.update(0.18);
   assert.equal(notebook.settledChapter, 4);
   assert.equal(notebook.turning, false);
   assert.deepEqual(
     notebook.flags.map((flag) => flag.side),
-    ['left', 'right', 'right'],
+    ['left', 'left', 'right'],
   );
   notebook.setChapter(1);
   notebook.update(0.36);
-  assert.equal(notebook.turningSection, 0);
+  assert.equal(notebook.turningSection, 1);
   assert.equal(notebook.turnDirection, -1);
-  notebook.update(0.72);
+  notebook.update(0.18);
+  close(
+    markerRoots[1].rotation.y,
+    -Math.PI / 2,
+    'the section being left carries its marker back to the right',
+  );
+  close(
+    markerRoots[0].rotation.y,
+    -Math.PI,
+    'the earlier section marker stays left on reversal',
+  );
+  notebook.update(0.54);
   assert.equal(notebook.settledSection, 0);
   assert.deepEqual(
     notebook.flags.map((flag) => flag.side),
-    ['right', 'right', 'right'],
+    ['left', 'right', 'right'],
   );
 });
 
 test('long destinations preserve every crossed leaf within a bounded total turn time', () => {
   const { notebook } = fixture([{ title: 'A long section', pageCount: 160 }]);
+  assert.equal(
+    notebook.flags[0].side,
+    'left',
+    'a one-section notebook starts with its sole marker on the left',
+  );
   notebook.setActive(true);
   notebook.setChapter(159);
   let elapsed = 0;
@@ -318,6 +384,12 @@ test('long destinations preserve every crossed leaf within a bounded total turn 
       page,
       'each crossed leaf settles in sequence',
     );
+    assert.equal(
+      notebook.turningSection,
+      -1,
+      'none of the pages within one section carries its marker',
+    );
+    assert.equal(notebook.flags[0].side, 'left');
   }
   assert.ok(elapsed <= 2.4 + 1e-9, 'large jumps finish within 2.4 seconds');
   assert.equal(notebook.turning, false);
@@ -415,7 +487,7 @@ test('reduced motion and closure settle all pending leaves without moving the mo
   assert.equal(notebook.settledChapter, 2);
   assert.deepEqual(
     notebook.flags.map((flag) => flag.side),
-    ['left', 'left', 'right'],
+    ['left', 'left', 'left'],
   );
   notebook.setChapter(0);
   notebook.setActive(false);
@@ -542,21 +614,22 @@ test('room markers preserve reader sections and print numbered titles only on ex
       }),
     );
     for (const flag of notebook.flags) {
-      const front = root.getObjectByName(
-        `personal-study-flag-printed-adhesive-face-${flag.slot}`,
+      const printed = root.getObjectByName(
+        `personal-study-flag-printed-adhesive-${flag.side === 'left' ? 'back' : 'face'}-${flag.slot}`,
       ).material.map.image;
+      const inset = flag.side === 'left' ? 8 : 38;
       assert.ok(
-        front.labels.some(
+        printed.labels.some(
           ({ text, x }) =>
-            text === String(flag.index + 1).padStart(2, '0') && x === 38,
+            text === String(flag.index + 1).padStart(2, '0') && x === inset,
         ),
       );
       assert.ok(
-        front.labels.every(({ x }) => x >= 38),
+        printed.labels.every(({ x }) => x >= inset),
         'no room ink lies under the adhesive overlap',
       );
       assert.ok(
-        front.labels.every(({ font }) =>
+        printed.labels.every(({ font }) =>
           font.endsWith('Arial, Helvetica, sans-serif'),
         ),
         'room labels use the native notebook font stack',
@@ -579,7 +652,7 @@ test('room markers preserve reader sections and print numbered titles only on ex
     notebook.setActive(false);
     assert.deepEqual(
       notebook.flags.map(({ side }) => side),
-      ['left', 'left', 'right'],
+      ['left', 'left', 'left'],
     );
     for (const flag of notebook.flags.filter(({ side }) => side === 'left')) {
       const back = root.getObjectByName(
@@ -619,12 +692,12 @@ test('room markers preserve reader sections and print numbered titles only on ex
       'zooming in does not switch to a second printed label set',
     );
     notebook.setChapter(2);
-    assert.equal(notebook.turningSection, 1);
+    assert.equal(notebook.turningSection, 2);
     const movingMap = root.getObjectByName(
-      'personal-study-flag-printed-adhesive-back-1',
+      'personal-study-flag-printed-adhesive-back-2',
     ).material.map;
     assert.ok(
-      movingMap.image.labels.some(({ text }) => text === '02'),
+      movingMap.image.labels.some(({ text }) => text === '03'),
       'a turning marker retains its physical label while native labels stay mounted',
     );
     notebook.update(0.36);
@@ -657,7 +730,7 @@ test('room markers preserve reader sections and print numbered titles only on ex
     );
     notebook.setChapter(6, true);
     const seventh = root.getObjectByName(
-      'personal-study-flag-printed-adhesive-face-0',
+      'personal-study-flag-printed-adhesive-back-0',
     ).material.map.image.labels;
     assert.ok(
       seventh.some(({ text }) => text === '07'),

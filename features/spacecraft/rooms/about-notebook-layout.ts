@@ -39,7 +39,9 @@ export function notebookMarkers(count: number, section: number) {
   const visible = Math.min(NOTEBOOK_MARKER_LIMIT, Math.max(0, count - start));
   return Array.from({ length: visible }, (_, slot) => {
     const index = start + slot;
-    const side = index < section ? 'left' : 'right';
+    // The divider sits behind the section's first page, so its tab is already
+    // on the turned stack while that section is being read.
+    const side = index <= section ? 'left' : 'right';
     const x = side === 'left' ? 20 : 1095;
     return {
       slot,

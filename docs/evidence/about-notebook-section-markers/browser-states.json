@@ -1,0 +1,379 @@
+{
+  "initial": {
+    "markers": [
+      {
+        "current": "page",
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "0",
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "internalPage": {
+    "markers": [
+      {
+        "current": "page",
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "1",
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "section3": {
+    "markers": [
+      {
+        "current": null,
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": "page",
+        "label": "Section 3: Learning notes",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "0",
+    "section": "2",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "section3Internal": {
+    "markers": [
+      {
+        "current": null,
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": "page",
+        "label": "Section 3: Learning notes",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "1",
+    "section": "2",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "reverseSection2": {
+    "markers": [
+      {
+        "current": null,
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": "page",
+        "label": "Section 2: How I work",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "0",
+    "section": "1",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "reverseSection1": {
+    "markers": [
+      {
+        "current": "page",
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "1",
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "room": {
+    "markers": [
+      {
+        "current": "page",
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "1",
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "portrait": {
+    "markers": [
+      {
+        "current": "page",
+        "label": "Section 1: My story",
+        "left": "20px",
+        "side": "left",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 2: How I work",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 3: Learning notes",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 4: Design details",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      },
+      {
+        "current": null,
+        "label": "Section 5: Beyond the screen",
+        "left": "1125px",
+        "side": "right",
+        "visible": "visible"
+      }
+    ],
+    "page": "1",
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "console": []
+}

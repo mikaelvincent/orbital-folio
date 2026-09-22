@@ -1,0 +1,35 @@
+{
+  "rule": "Trailing whitespace on each line and empty EOF lines removed; one final newline retained. No output content or results edited.",
+  "files": [
+    {
+      "path": "full-tests.log",
+      "rawSha256": "aec042846b851d4ec8c0e4a579058137f6c18eca0b24e10875b91d13eaeb851f",
+      "retainedSha256": "aec042846b851d4ec8c0e4a579058137f6c18eca0b24e10875b91d13eaeb851f",
+      "changed": false
+    },
+    {
+      "path": "typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "retainedSha256": "4ce4efc47acf07fca71727abc270eb4ec5dbd3eb860fb759ba84f18d4f129281",
+      "changed": true
+    },
+    {
+      "path": "lint.log",
+      "rawSha256": "69cf8af8deedbf82103e0276f76958cded257b648ae5a8a476ffb7976248d8ed",
+      "retainedSha256": "bc48166c1cb6054477cac19008d526a90f5ad4b34e21fc5acec075d57f3e6d14",
+      "changed": true
+    },
+    {
+      "path": "format.log",
+      "rawSha256": "5c490a6b002b3b494a60ebf97849ecb972e005c7514da13459b862d9080d6cc5",
+      "retainedSha256": "5c490a6b002b3b494a60ebf97849ecb972e005c7514da13459b862d9080d6cc5",
+      "changed": false
+    },
+    {
+      "path": "build.log",
+      "rawSha256": "f60c6c7b10704abc2044afdd4192a5bf85d3964e933c2953391aeabb18d62354",
+      "retainedSha256": "9cff503b584fc60aec0b0a83d155fc861db59619068bf3c343066f4d3a983169",
+      "changed": true
+    }
+  ]
+}

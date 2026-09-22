@@ -1,0 +1,29 @@
+{
+  "synchronizedAt": "2026-09-22T23:52:38.174472+00:00",
+  "sourceRoot": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-markers-_3huv99t",
+  "baseUrl": "http://localhost:3003",
+  "sourceFileCount": 443,
+  "changedFiles": [
+    "docs/PROJECT-CONTEXT.md",
+    "features/spacecraft/rooms/about-notebook-layout.ts",
+    "features/spacecraft/rooms/about-personal-study.ts",
+    "tests/spacecraft/about-notebook-application.test.mjs",
+    "tests/spacecraft/about-notebook.test.mjs",
+    "tests/spacecraft/notebook-turn-ink.test.mjs"
+  ],
+  "onlyFixtureDifference": {
+    "path": "vite.config.ts",
+    "reason": "private Vite cache",
+    "sourceSha256": "7183c338ee9f0f2820097551f9690f9f5ea3e3ce86da86ffd89430c1b9df12a6",
+    "fixtureSha256": "34c4effc2a6d3f2f29d61ddad580b1aa497f7a8e33824de9734ebb280471a89f"
+  },
+  "excluded": [
+    "private environment files",
+    "emulator state",
+    "uploads",
+    "private exports",
+    "backups",
+    "historical evidence"
+  ]
+}

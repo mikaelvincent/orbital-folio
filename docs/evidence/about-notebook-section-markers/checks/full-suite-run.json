@@ -1,0 +1,8 @@
+{
+  "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+  "workingDirectory": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-markers-_3huv99t",
+  "startedAt": "2026-09-22T23:48:32.223457+00:00",
+  "sourceHashes": "full-suite-source-hashes.json",
+  "exitCode": 0,
+  "completedAt": "2026-09-22T23:51:49.617024+00:00"
+}

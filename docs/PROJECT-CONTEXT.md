@@ -414,8 +414,12 @@ The marker count follows the collection, up to six visible at once; separate
 Earlier/More sections controls expose additional groups without discarding records.
 Markers start near the top with a fixed, even gap regardless of section count;
 they do not stretch to justify the full height of the paper.
-Earlier section markers travel with their crossed leaves to the left, where their
-reverse labels remain readable. Both paper stacks align with the reading leaves,
+Each marker sits behind its section's first page. The current section's marker
+and all earlier markers rest on the left, including the first section on initial
+entry; only future sections remain on the right. Crossing into a section carries
+that section's marker left, and crossing back before it carries the same marker
+right. Within-section turns leave markers in place. Their reverse labels remain
+readable. Both paper stacks align with the reading leaves,
 which overlap each flag's adhesive region by 30 logical pixels. The fixed left
 artwork remains visible above the resting stack.
 Room-view flags and native reader labels share numbered titles, typography and
@@ -466,7 +470,8 @@ the [page/section refinements](evidence/about-notebook-refinements/README.md), a
 current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md),
 [printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md),
 [persistent real content in the room](evidence/about-notebook-room-content/README.md),
-and [continuous content across all camera views](evidence/about-notebook-all-views/README.md).
+[continuous content across all camera views](evidence/about-notebook-all-views/README.md),
+and [markers behind each section's first page](evidence/about-notebook-section-markers/README.md).
 
 ## About photos and social cards
 

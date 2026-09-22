@@ -349,7 +349,7 @@ test('The notebook hover rim follows its rounded physical cover instead of the l
   assert.ok(size.x < notebook.openingWidth);
 });
 
-test('Batched section tabs retain variable spacing and travel to the left with crossed pages', () => {
+test('Batched section tabs retain their spacing and carry each new section marker to the left', () => {
   const model = createSpacecraft(THREE, {
     journal: Array.from({ length: 6 }, (_, index) => ({
       title: `Section ${index + 1}`,
@@ -360,15 +360,20 @@ test('Batched section tabs retain variable spacing and travel to the left with c
   notebook.setChapter(4);
   notebook.update(0.18);
   const first = notebook.root.getObjectByName(
-    'personal-study-tabbed-paper-leaf-0',
+    'personal-study-tabbed-paper-leaf-1',
   );
   assert.ok(Math.abs(first.rotation.y + Math.PI / 2) < 1e-6);
+  assert.equal(
+    notebook.root.getObjectByName('personal-study-tabbed-paper-leaf-0').rotation
+      .y,
+    -Math.PI,
+  );
   notebook.update(1.26);
   assert.equal(notebook.settledChapter, 4);
   assert.equal(notebook.turning, false);
   assert.deepEqual(
     notebook.flags.map((flag) => flag.side),
-    ['left', 'left', 'left', 'left', 'right', 'right'],
+    ['left', 'left', 'left', 'left', 'left', 'right'],
   );
   const anchorPosition = new THREE.Vector3();
   for (const flag of notebook.flags) {
