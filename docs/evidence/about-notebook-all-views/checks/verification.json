@@ -1,0 +1,96 @@
+{
+  "sourceCheckout": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixtureCheckout": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-views-gapq1jjy",
+  "baseUrl": "http://localhost:3003",
+  "mainAboutStatus": 200,
+  "isolation": {
+    "sourceOnlyCopy": true,
+    "copiedPrivateEnvironment": false,
+    "copiedMainDatabaseOrUploads": false,
+    "freshTestSecrets": true,
+    "freshD1R2State": true,
+    "statePath": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-views-gapq1jjy/.wrangler/state",
+    "viteCache": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-views-gapq1jjy/.verification-vite-cache",
+    "loopbackOnly": true,
+    "excludedHistoricalEvidence": true
+  },
+  "fullSuite": {
+    "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+    "tests": 509,
+    "pass": 509,
+    "fail": 0,
+    "skip": 0,
+    "exitCode": 0,
+    "durationMs": 368392.896958,
+    "sourceHashes": "full-suite-source-hashes.json",
+    "log": "full-tests.log"
+  },
+  "finalChecks": {
+    "typecheck": {
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    "lint": {
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    "format": {
+      "exitCode": 0,
+      "log": "format.log"
+    },
+    "build": {
+      "exitCode": 0,
+      "log": "build.log"
+    }
+  },
+  "sourceIdentity": {
+    "filesHashed": 443,
+    "sourceHashes": "final-source-hashes.json",
+    "sourceSync": "source-sync.json",
+    "onlyFixtureDifference": "vite.config.ts adds private .verification-vite-cache",
+    "documentationAfterFinalChecks": "post-check-documentation-change.json",
+    "applicationOrTestsChangedAfterChecks": false
+  },
+  "knownBuildNotices": [
+    "Node module.register deprecation",
+    "Existing chunk-size advisory",
+    "Vinext route-classification notice"
+  ],
+  "secretValueScanPassed": true,
+  "temporaryServerStillRunning": false,
+  "temporaryServerSession": 61694,
+  "cleanupPendingRootRequest": false,
+  "completedAt": "2026-09-22T21:59:13.604864+00:00",
+  "finalMetadataAt": "2026-09-22T22:00:28.539592+00:00",
+  "cleanup": {
+    "temporaryPort3003Listening": false,
+    "temporaryServerExitCode": 130,
+    "fixtureRemoved": true,
+    "temporaryHelpersRemoved": [
+      "/tmp/orbital-notebook-views-fixture-path",
+      "/tmp/orbital-notebook-views-sync.py"
+    ],
+    "mainAboutStatus": 200,
+    "completedAt": "2026-09-22T22:00:28.539618+00:00"
+  },
+  "finalSecretValueScan": {
+    "passed": true,
+    "artifacts": [
+      "build.log",
+      "check-runs.json",
+      "final-source-hashes.json",
+      "fixture-setup.json",
+      "format.log",
+      "full-suite-run.json",
+      "full-suite-source-hashes.json",
+      "full-tests.log",
+      "lint.log",
+      "post-check-documentation-change.json",
+      "server-ready.json",
+      "source-sync.json",
+      "typecheck.log",
+      "verification.json"
+    ],
+    "method": "Retained evidence scanned against actual fresh fixture secret values immediately before deleting fixture state."
+  }
+}

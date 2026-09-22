@@ -3,6 +3,8 @@ import { projectApplicationLayout } from './navigation/project-application';
 import { fitAboutNotebook } from './navigation/about-notebook';
 import { createProjectedSurface } from './projected-surface';
 import { createNotebookTurnInk } from './notebook-turn-ink';
+import { createNotebookOcclusion } from './notebook-occlusion';
+import { createNotebookOcclusionMask } from './notebook-occlusion-mask';
 import { notebookMarkers } from './rooms/about-notebook-layout';
 import { resolveSocialScreens } from '@/lib/content/social-links';
 import { resolveAboutPhotos } from '@/lib/content/about-photos';
@@ -113,6 +115,7 @@ export type SpacecraftProps = {
   onCloseContact?: () => void;
   onNavigationReady: (request: ((section: string) => boolean) | null) => void;
   onSurfaceReady: (element: HTMLDivElement | null) => void;
+  onNotebookSurfaceReady?: (element: HTMLDivElement | null) => void;
   onEarthPlaybackReady?: (controller: EarthPlaybackController | null) => void;
   onSettled: () => void;
   onUnavailable: () => void;
@@ -284,6 +287,21 @@ export function mountSpacecraftScene({
         const projectedSurface = createProjectedSurface(THREE, surfaceElement);
         const projectedViewport = new THREE.Vector2();
         latest.current.onSurfaceReady(surfaceElement);
+        // The notebook belongs to the scene, independently of the selected room's
+        // application host. Its native Markdown stays mounted throughout travel.
+        const notebookElement = document.createElement('div');
+        notebookElement.className = 'world-surface world-notebook-surface';
+        notebookElement.dataset.notebook = 'true';
+        notebookElement.inert = true;
+        notebookElement.setAttribute('aria-hidden', 'true');
+        surfaceLayer.appendChild(notebookElement);
+        const notebookSurface = new THREE.Object3D();
+        cssScene.add(notebookSurface);
+        const projectedNotebook = createProjectedSurface(
+          THREE,
+          notebookElement,
+        );
+        latest.current.onNotebookSurfaceReady?.(notebookElement);
         const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 80);
         const cameraFrame = createVesselCameraFrame(THREE);
         const backgroundReference = createOrbitalWorldReference(THREE);
@@ -537,11 +555,52 @@ export function mountSpacecraftScene({
             return { screen, link, object };
           });
         const notebook = model.group.userData.aboutNotebook;
+        const notebookMasks = new Map<
+          HTMLElement,
+          {
+            geometry: ReturnType<typeof createNotebookOcclusion>;
+            mask: ReturnType<typeof createNotebookOcclusionMask>;
+          }
+        >();
+        const occludeNotebookInk = (
+          element: HTMLElement,
+          anchor: Three.Object3D,
+          width: number,
+          height: number,
+        ) => {
+          let entry = notebookMasks.get(element);
+          if (!entry) {
+            entry = {
+              geometry: createNotebookOcclusion(THREE, model.group, notebook),
+              mask: createNotebookOcclusionMask(
+                surfaceLayer,
+                element,
+                width,
+                height,
+              ),
+            };
+            notebookMasks.set(element, entry);
+          }
+          const result = entry.geometry.update(
+            camera,
+            model.group.userData.geometryRevision,
+            anchor,
+            width,
+            height,
+          );
+          entry.mask.update(result.visible, result.path);
+          element.dataset.notebookMaskCached = String(result.stats.cacheHit);
+          element.dataset.notebookMaskPolygons = String(result.stats.polygons);
+          element.dataset.notebookMaskTriangles = String(
+            result.stats.triangles,
+          );
+        };
         const notebookTurnInk = createNotebookTurnInk(
           THREE,
           surfaceLayer,
-          surfaceElement,
+          notebookElement,
           notebook,
+          occludeNotebookInk,
         );
         const notebookButton = document.createElement('button');
         notebookButton.type = 'button';
@@ -792,7 +851,6 @@ export function mountSpacecraftScene({
           nextRoll = 0;
         let flightImmediate = false,
           travelling = false,
-          notebookPreviewVisible = false,
           lastMetrics = 0,
           elapsed = 0,
           notifyArrival = true,
@@ -1373,8 +1431,6 @@ export function mountSpacecraftScene({
           contactPickRevision = -1;
           active = latest.current.section;
           reading = latest.current.readingSurface;
-          if (previousRoom !== 'about' || active !== 'about')
-            notebookPreviewVisible = false;
           computer.keyboard.clear();
           notifyArrival = notify;
           if (model.group.userData.projectPage !== latest.current.projectPage)
@@ -1980,12 +2036,7 @@ export function mountSpacecraftScene({
             !travelling &&
             (feedbackTarget.walkway || passage?.via === 'walkway');
           diagnostics?.mark('camera');
-          // Mount real ink on arrival and retain it throughout About's camera
-          // zooms. Native HTML cannot be depth-occluded by cabin walls, so hide
-          // it during entry from overview or another room until arrival.
-          notebookPreviewVisible =
-            active === 'about' && (notebookPreviewVisible || !travelling);
-          notebook.setInkMounted(notebookPreviewVisible);
+          notebook.setInkMounted(true);
           model.update(
             elapsed,
             effectiveHover,
@@ -2058,43 +2109,47 @@ export function mountSpacecraftScene({
           surfaceElement.style.width = `${logicalWidth}px`;
           surfaceElement.style.height = `${logicalHeight}px`;
           surfaceElement.dataset.compact = String(mobile());
-          surfaceElement.dataset.notebook = String(isNotebook);
-          surfaceElement.dataset.notebookPreview = String(
-            isNotebook && !reading,
+          surfaceElement.dataset.notebook = 'false';
+          notebookElement.style.width = `${notebook.pixelsWidth}px`;
+          notebookElement.style.height = `${notebook.pixelsHeight}px`;
+          const notebookInteractive = isNotebook && reading && !travelling;
+          notebookElement.dataset.notebookPreview =
+            String(!notebookInteractive);
+          notebookElement.style.setProperty(
+            '--notebook-brightness',
+            String(notebook.root.userData.highlightLevel ?? 1),
           );
-          surfaceElement.dataset.turning = String(
-            isNotebook && notebook.turning,
+          const flags = notebookMarkers(
+            notebook.chapters.length,
+            notebook.settledSection,
           );
-          if (isNotebook) {
-            surfaceElement.style.setProperty(
-              '--notebook-brightness',
-              String(notebook.root.userData.highlightLevel ?? 1),
-            );
-            const flags = notebookMarkers(
-              notebook.chapters.length,
-              notebook.settledSection,
-            );
-            for (const marker of surfaceElement.querySelectorAll<HTMLElement>(
-              '[data-marker-index]',
-            )) {
-              const index = Number(marker.dataset.markerIndex);
-              const flag = flags.find((flag) => flag.index === index);
-              if (flag) {
-                marker.dataset.side = flag.side;
-                marker.style.left = `${flag.exposedX}px`;
-              }
-              marker.style.visibility =
-                flag && index !== notebook.turningSection
-                  ? 'visible'
-                  : 'hidden';
+          for (const marker of notebookElement.querySelectorAll<HTMLElement>(
+            '[data-marker-index]',
+          )) {
+            const index = Number(marker.dataset.markerIndex);
+            const flag = flags.find((flag) => flag.index === index);
+            if (flag) {
+              marker.dataset.side = flag.side;
+              marker.style.left = `${flag.exposedX}px`;
             }
-            surfaceElement.dataset.notebookSettledPage = String(
-              notebook.settledChapter,
-            );
-            surfaceElement.dataset.notebookTargetPage = String(
-              notebook.chapter,
-            );
+            marker.style.visibility =
+              flag && index !== notebook.turningSection ? 'visible' : 'hidden';
           }
+          notebookElement.dataset.notebookSettledPage = String(
+            notebook.settledChapter,
+          );
+          notebookElement.dataset.notebookTargetPage = String(notebook.chapter);
+          notebookElement.inert = !notebookInteractive;
+          notebookElement.setAttribute(
+            'aria-hidden',
+            String(!notebookInteractive),
+          );
+          notebook.anchor.matrixWorld.decompose(
+            notebookSurface.position,
+            notebookSurface.quaternion,
+            notebookSurface.scale,
+          );
+          notebookSurface.scale.multiplyScalar(0.001);
           surfaceElement.dataset.computer = String(isComputer);
           surfaceElement.dataset.computerPortrait = String(
             isComputer && computerLayout().portrait,
@@ -2112,12 +2167,9 @@ export function mountSpacecraftScene({
                 : physicalSurface.userData.width) / logicalWidth,
             );
           }
-          surface.visible = isNotebook ? notebookPreviewVisible : reading;
+          surface.visible = reading && !isNotebook;
           surfaceElement.inert = !surface.visible || !reading || travelling;
-          surfaceElement.setAttribute(
-            'aria-hidden',
-            String(!surface.visible || (isNotebook && !reading)),
-          );
+          surfaceElement.setAttribute('aria-hidden', String(!surface.visible));
           notebook.openingAnchor.matrixWorld.decompose(
             notebookTarget.position,
             notebookTarget.quaternion,
@@ -2373,11 +2425,26 @@ export function mountSpacecraftScene({
             projectedViewport.y,
             surface.visible,
           );
+          projectedNotebook.update(
+            camera,
+            notebookSurface.matrixWorld,
+            notebook.pixelsWidth,
+            notebook.pixelsHeight,
+            projectedViewport.x,
+            projectedViewport.y,
+            true,
+          );
+          occludeNotebookInk(
+            notebookElement,
+            notebook.anchor,
+            notebook.pixelsWidth,
+            notebook.pixelsHeight,
+          );
           notebookTurnInk.update(
             camera,
             projectedViewport.x,
             projectedViewport.y,
-            surface.visible && isNotebook,
+            true,
           );
           diagnostics?.mark('css-render');
           if (auditMotion) {
@@ -2478,7 +2545,10 @@ export function mountSpacecraftScene({
               travelling: String(travelling),
               motion: stop ? 'reduced' : 'active',
               activeTime: elapsed.toFixed(3),
-              readerAttached: String(surface.visible),
+              readerAttached: String(
+                surface.visible || (isNotebook && reading),
+              ),
+              notebookAttached: 'true',
               projectPage: String(latest.current.projectPage),
               overviewSupports: JSON.stringify(
                 model.group.userData.overviewSupportPoints.map(
@@ -3627,6 +3697,8 @@ export function mountSpacecraftScene({
           cancelAnimationFrame(frame);
           annotations.dispose();
           notebookTurnInk.dispose();
+          notebookMasks.forEach(({ mask }) => mask.dispose());
+          notebookMasks.clear();
           observer.disconnect();
           intersection.disconnect();
           document.removeEventListener('visibilitychange', syncVisibility);
@@ -3669,6 +3741,7 @@ export function mountSpacecraftScene({
             motionDiagnostic,
           );
           latest.current.onSurfaceReady(null);
+          latest.current.onNotebookSurfaceReady?.(null);
           model.group.userData.aboutPhotoPrints.dispose();
           disposeShadingAudit?.();
           const materials = new Set<Three.Material>(),

@@ -2806,6 +2806,31 @@ Reading view. Native Safari, physical touch and a live reduced-motion override w
 not tested. The [independent review](evidence/about-notebook-room-content/critic.md)
 records its final score, findings and limitations.
 
+## 50 — Notebook ink through overview and room travel (23 September 2026)
+
+Baseline `cd20515`. The owner identified the remaining blank notebook in overview
+and during room entry/departure. Its native Markdown now has a dedicated scene
+surface that persists independently of the selected room or other open readers.
+Actual opaque scene geometry supplies partial SVG masks rather than hiding the
+whole page by navigation state. The same masks cover stationary and turning ink;
+the existing iris aperture silhouette avoids treating shader-clipped blade stock
+as a solid blocker. Near/far clipping, instancing and material sidedness apply.
+
+This adds CPU bounds/chunk caches and projected mask paths, plus earlier native
+Markdown/media mounting at scene entry. It adds no scene geometry, material,
+texture asset or render pass, by source inspection. The
+[finite structural inventory](evidence/about-notebook-all-views/structural-work.json)
+records visited triangles and emitted polygons at identified model-fixture
+viewpoints. These are work/path counts, not measured browser/GPU time or memory.
+Unchanged camera/geometry updates reuse the mask; moving views recompute coverage.
+No speedup, heat or battery claim is made, and held optimization candidates remain
+unchanged. Camera framing and orbital registration are unchanged.
+
+[Current evidence](evidence/about-notebook-all-views/README.md) records live
+overview/travel continuity, depth masking, shared-reader focus checks and isolated
+verification. It also links the independent review and its testing limitations.
+All 509 isolated tests, typecheck, affected lint/format and production build passed.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

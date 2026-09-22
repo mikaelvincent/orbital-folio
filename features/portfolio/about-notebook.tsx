@@ -109,7 +109,7 @@ export function AboutNotebook({
     <article
       ref={root}
       className="about-notebook"
-      id="world-reader"
+      id={interactive ? 'world-reader' : undefined}
       tabIndex={-1}
       aria-label={`${s.journalLabel || 'Notebook'} · ${s.name}`}
       data-notebook-interface

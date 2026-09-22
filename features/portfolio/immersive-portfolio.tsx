@@ -129,6 +129,9 @@ export function ImmersivePortfolio({
     { status: 'idle', error: '' },
   );
   const [surface, setSurface] = useState<HTMLDivElement | null>(null);
+  const [notebookSurface, setNotebookSurface] = useState<HTMLDivElement | null>(
+    null,
+  );
   const [selectedProjectScreen, setProjectScreen] =
     useState<ProjectFilter>('all');
   const projectScreen = projectCategoryCount(
@@ -623,6 +626,7 @@ export function ImmersivePortfolio({
               requestSceneNavigation.current = request;
             }}
             onSurfaceReady={setSurface}
+            onNotebookSurfaceReady={setNotebookSurface}
             onEarthPlaybackReady={setEarthPlayback}
             onSettled={settled}
             onUnavailable={() => {
@@ -640,7 +644,8 @@ export function ImmersivePortfolio({
           </h1>
         )}
         {immersive &&
-          (readingSurface || destination.section === 'about') &&
+          readingSurface &&
+          destination.section !== 'about' &&
           surface &&
           createPortal(
             destination.section === 'projects' ? (
@@ -677,26 +682,6 @@ export function ImmersivePortfolio({
                 }
                 onClose={() => go({ section: 'experience' })}
               />
-            ) : destination.section === 'about' ? (
-              <AboutNotebook
-                data={data}
-                interactive={readingSurface && arrived && !travel}
-                section={notebookChapter}
-                ready={data.journal.every(
-                  (_, index) =>
-                    measuredNotebookCounts[notebookKey(index)] !== undefined,
-                )}
-                page={notebookPage}
-                pageCounts={notebookCounts}
-                onSectionChange={setNotebookChapter}
-                onPageChange={(page) =>
-                  setNotebookPages((previous) => ({
-                    ...previous,
-                    [notebookKey(notebookChapter)]: page,
-                  }))
-                }
-                onPageCount={notebookPageCount}
-              />
             ) : (
               <ContactComputerWindow
                 site={s}
@@ -710,6 +695,35 @@ export function ImmersivePortfolio({
               />
             ),
             surface,
+          )}
+        {immersive &&
+          notebookSurface &&
+          createPortal(
+            <AboutNotebook
+              data={data}
+              interactive={
+                destination.section === 'about' &&
+                readingSurface &&
+                arrived &&
+                !travel
+              }
+              section={notebookChapter}
+              ready={data.journal.every(
+                (_, index) =>
+                  measuredNotebookCounts[notebookKey(index)] !== undefined,
+              )}
+              page={notebookPage}
+              pageCounts={notebookCounts}
+              onSectionChange={setNotebookChapter}
+              onPageChange={(page) =>
+                setNotebookPages((previous) => ({
+                  ...previous,
+                  [notebookKey(notebookChapter)]: page,
+                }))
+              }
+              onPageCount={notebookPageCount}
+            />,
+            notebookSurface,
           )}
         <div className="reader-stage" hidden={immersive}>
           <div

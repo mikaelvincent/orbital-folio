@@ -1,0 +1,64 @@
+{
+  "typecheck": {
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T21:51:42.889351+00:00",
+    "completedAt": "2026-09-22T21:51:54.866416+00:00",
+    "log": "typecheck.log"
+  },
+  "lint": {
+    "command": [
+      "npm",
+      "run",
+      "lint",
+      "--",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/spacecraft/notebook-occlusion-mask.ts",
+      "features/spacecraft/notebook-occlusion.ts",
+      "features/spacecraft/notebook-turn-ink.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "tests/spacecraft/notebook-occlusion.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T21:51:54.867420+00:00",
+    "completedAt": "2026-09-22T21:51:57.103238+00:00",
+    "log": "lint.log"
+  },
+  "format": {
+    "command": [
+      "npm",
+      "run",
+      "format",
+      "--",
+      "--check",
+      "features/portfolio/about-notebook.css",
+      "features/portfolio/about-notebook.tsx",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/spacecraft/notebook-occlusion-mask.ts",
+      "features/spacecraft/notebook-occlusion.ts",
+      "features/spacecraft/notebook-turn-ink.ts",
+      "features/spacecraft/spacecraft-runtime.ts",
+      "tests/spacecraft/notebook-occlusion.test.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T21:51:57.104416+00:00",
+    "completedAt": "2026-09-22T21:51:57.833507+00:00",
+    "log": "format.log"
+  },
+  "build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-09-22T21:51:57.834541+00:00",
+    "completedAt": "2026-09-22T21:52:15.827257+00:00",
+    "log": "build.log"
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "overview": {
+    "cached": "true",
+    "counts": [
+      "3",
+      "4",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "0",
+    "polygons": "26",
+    "readerIds": 0,
+    "triangles": "8748",
+    "url": "/",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "aboutRoom": {
+    "cached": "false",
+    "counts": [
+      "3",
+      "4",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "0",
+    "polygons": "1",
+    "readerIds": 0,
+    "triangles": "6924",
+    "url": "/about",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "reader": {
+    "cached": "true",
+    "counts": [
+      "3",
+      "4",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "false",
+    "inert": false,
+    "notebookMounted": true,
+    "occlusion": "clear",
+    "opacity": "1",
+    "page": "0",
+    "polygons": "0",
+    "readerIds": 1,
+    "triangles": "12396",
+    "url": "/about",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "laterReader": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "false",
+    "inert": false,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "4",
+    "readerIds": 1,
+    "triangles": "12300",
+    "url": "/about",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "laterRoom": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "1",
+    "readerIds": 0,
+    "triangles": "6924",
+    "url": "/about",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "contactRoom": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "45",
+    "readerIds": 0,
+    "triangles": "13980",
+    "url": "/contact",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "contactReader": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "121",
+    "readerIds": 1,
+    "triangles": "22556",
+    "url": "/contact",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "returnedReader": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "false",
+    "inert": false,
+    "notebookMounted": true,
+    "occlusion": "clear",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "0",
+    "readerIds": 1,
+    "triangles": "12396",
+    "url": "/about",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "portraitOverview": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "4",
+    "readerIds": 0,
+    "triangles": "7500",
+    "url": "/",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "portraitDrag": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "7",
+    "readerIds": 0,
+    "triangles": "7596",
+    "url": "/",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "portraitRoom": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "true",
+    "inert": true,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "4",
+    "readerIds": 0,
+    "triangles": "6732",
+    "url": "/about",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "portraitReader": {
+    "cached": "true",
+    "counts": [
+      "4",
+      "3",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "false",
+    "inert": false,
+    "notebookMounted": true,
+    "occlusion": "masked",
+    "opacity": "1",
+    "page": "1",
+    "polygons": "30",
+    "readerIds": 1,
+    "triangles": "9996",
+    "url": "/about",
+    "viewport": [
+      390,
+      844,
+      1
+    ]
+  },
+  "directEntry": {
+    "cached": "true",
+    "counts": [
+      "3",
+      "4",
+      "4",
+      "4",
+      "3"
+    ],
+    "display": "block",
+    "hidden": "false",
+    "inert": false,
+    "notebookMounted": true,
+    "occlusion": "clear",
+    "opacity": "1",
+    "page": "0",
+    "polygons": "0",
+    "readerIds": 1,
+    "triangles": "12396",
+    "url": "http://localhost:3000/about?open=1",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  }
+}

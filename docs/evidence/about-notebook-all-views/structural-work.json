@@ -1,0 +1,231 @@
+{
+  "recordedAt": "2026-09-22T21:51:30.323Z",
+  "head": "cd205155fd97d0b04d2ce9869c7aa35c714306b3",
+  "sourceSha256": {
+    "features/spacecraft/notebook-occlusion.ts": "c666d06926e51bab1b19f41cd3596e4376c465da26e71ed9cbf8f509e5571b0c",
+    "features/spacecraft/spacecraft-model.ts": "9809d180650841351db3c0b3a366ca326eb423988948f7eddf46f98d1c856301",
+    "features/spacecraft/navigation/iris-hatch.ts": "e73830fb81d63b57df55dbce9120be5e944d508b615033bc4452f0e0c63528cd",
+    "features/spacecraft/navigation/about-notebook.ts": "a875539346caa2c1897421e1965a41238ce35905d93a298f2787ca0f9ae8d1b5",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "bf037ffc4b19dc76d3cc16bb51fb0153c9abfa9a847fce86cb1f8a84457a46c0",
+    "features/spacecraft/rooms/about-personal-study.ts": "6ef73583b2665c408b98dfe0c6a55091474120508a6c3a2dcfa2217a5971f865",
+    "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+  },
+  "method": "Finite Node/Three.js structural diagnostic. createSpacecraft(THREE) uses the default sample fixture, production material batching and wide layout. No DOM/canvas drawing stub is installed, so authored textures are not rasterized; this does not change the sampled opaque mesh geometry. For each documented eye the perspective camera looks at the physical notebook anchor, then createNotebookOcclusion.update(camera, model.group.userData.geometryRevision) reports its work. The three synthetic viewpoints are bounded probes, not live browser navigation poses. Only the reading eye is obtained from the production fitAboutNotebook helper. No browser, GPU timing, WebGL draws, or device-memory telemetry is measured.",
+  "camera": {
+    "fov": 38,
+    "aspect": 1.7777777777777777,
+    "near": 0.08,
+    "far": 80,
+    "referenceViewport": [
+      1280,
+      720
+    ]
+  },
+  "notebook": {
+    "pixels": [
+      1270,
+      566
+    ],
+    "anchor": [
+      -1.6079999999999992,
+      -1.661445837049156,
+      -0.5732910205900168
+    ],
+    "anchorMatrixWorld": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0.8020957578842927,
+      -0.597195441362392,
+      0,
+      0,
+      0.597195441362392,
+      0.8020957578842927,
+      0,
+      -1.6079999999999992,
+      -1.661445837049156,
+      -0.5732910205900168,
+      1
+    ]
+  },
+  "sceneVisibleTriangleInstances": 1003510,
+  "results": [
+    {
+      "name": "distant-front synthetic viewpoint",
+      "eye": [
+        0,
+        5,
+        18
+      ],
+      "lookAt": [
+        -1.6079999999999992,
+        -1.661445837049156,
+        -0.5732910205900168
+      ],
+      "cameraMatrixWorld": [
+        0.9962732410110418,
+        3.469446951953614e-18,
+        -0.08625328541774303,
+        0,
+        -0.029022925570285546,
+        0.9416888721618686,
+        -0.33523087244144095,
+        0,
+        0.08122375906529018,
+        0.33648487045706527,
+        0.9381794246927374,
+        0,
+        0,
+        5,
+        18,
+        1
+      ],
+      "surfaceVisible": true,
+      "pathCharacters": 2948,
+      "meshes": 518,
+      "candidateMeshes": 19,
+      "chunks": 88,
+      "triangles": 8364,
+      "polygons": 60,
+      "cacheHit": false,
+      "cachedUpdate": true
+    },
+    {
+      "name": "above-About synthetic viewpoint",
+      "eye": [
+        -1.6079999999999992,
+        -0.761445837049156,
+        3.426708979409983
+      ],
+      "lookAt": [
+        -1.6079999999999992,
+        -1.661445837049156,
+        -0.5732910205900168
+      ],
+      "cameraMatrixWorld": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0.975609756097561,
+        -0.21951219512195125,
+        0,
+        0,
+        0.21951219512195125,
+        0.975609756097561,
+        0,
+        -1.6079999999999992,
+        -0.761445837049156,
+        3.426708979409983,
+        1
+      ],
+      "surfaceVisible": true,
+      "pathCharacters": 1406,
+      "meshes": 518,
+      "candidateMeshes": 20,
+      "chunks": 101,
+      "triangles": 9612,
+      "polygons": 28,
+      "cacheHit": false,
+      "cachedUpdate": true
+    },
+    {
+      "name": "fitAboutNotebook reading eye",
+      "eye": [
+        -1.6079999999999992,
+        -0.9673278610567945,
+        0.5685538464759743
+      ],
+      "lookAt": [
+        -1.6079999999999992,
+        -1.661445837049156,
+        -0.5732910205900168
+      ],
+      "cameraMatrixWorld": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0.8545035361476759,
+        -0.5194455762744712,
+        0,
+        0,
+        0.5194455762744712,
+        0.8545035361476759,
+        0,
+        -1.6079999999999992,
+        -0.9673278610567945,
+        0.5685538464759743,
+        1
+      ],
+      "surfaceVisible": true,
+      "pathCharacters": 0,
+      "meshes": 518,
+      "candidateMeshes": 24,
+      "chunks": 129,
+      "triangles": 12300,
+      "polygons": 0,
+      "cacheHit": false,
+      "cachedUpdate": true
+    },
+    {
+      "name": "neighbor-side synthetic viewpoint",
+      "eye": [
+        2.392000000000001,
+        -0.861445837049156,
+        0.9267089794099832
+      ],
+      "lookAt": [
+        -1.6079999999999992,
+        -1.661445837049156,
+        -0.5732910205900168
+      ],
+      "cameraMatrixWorld": [
+        0.3511234415883916,
+        -2.7755575615628914e-17,
+        -0.9363291775690445,
+        0,
+        -0.17234653839431738,
+        0.9829138517800913,
+        -0.06462995189786902,
+        0,
+        0.9203309184584747,
+        0.18406618369169492,
+        0.34512409442192793,
+        0,
+        2.392000000000001,
+        -0.861445837049156,
+        0.9267089794099832,
+        1
+      ],
+      "surfaceVisible": true,
+      "pathCharacters": 13222,
+      "meshes": 518,
+      "candidateMeshes": 44,
+      "chunks": 373,
+      "triangles": 35652,
+      "polygons": 312,
+      "cacheHit": false,
+      "cachedUpdate": true
+    }
+  ],
+  "costs": {
+    "sceneGeometryAdded": 0,
+    "sceneMaterialsAdded": 0,
+    "sceneTexturesAdded": 0,
+    "renderPassesAdded": 0,
+    "additionalWork": "Shared CPU geometry bounds/chunk hierarchy caches and per-view triangle clipping/path construction; native SVG luminance masking in the browser is additional work not measured by this fixture.",
+    "cache": "Exact repeated camera, anchor, root transform, projection, layers and geometry revision reuse the previous mask. Animated viewpoints rebuild only the relevant coverage. Source geometry hierarchies are shared across stationary and turning surface helpers."
+  },
+  "limitations": [
+    "This finite set does not bound all camera or door states.",
+    "Candidate mesh count includes each relevant instance; visited triangles are helper tests, not GPU submissions.",
+    "Iris apertures use the existing 192-segment GTAO silhouette, rather than shader-discarded raw blade wings.",
+    "Low-opacity (below 0.98), alpha-tested, alpha-map and transmissive materials are excluded. Near-opaque materials are blockers even when transparent:true. Current architectural walls and furniture have opaque physical backing.",
+    "No throughput, frame-time, heat, battery or memory improvement is claimed."
+  ]
+}

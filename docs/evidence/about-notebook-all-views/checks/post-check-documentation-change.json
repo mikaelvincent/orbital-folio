@@ -1,0 +1,16 @@
+{
+  "recordedAt": "2026-09-22T22:00:28.298481+00:00",
+  "applicationOrTestsChanged": false,
+  "files": [
+    {
+      "path": "docs/PROJECT-CONTEXT.md",
+      "checkedSha256": "5e8ae380ffc344c1dc6dd19a0b86b96e4e73bae7b2fc868b09e2824f296ec23a",
+      "finalSha256": "1bfdfd64e2b1e71d18c1a64a282ae2f9f7620c42b05cf98b987b0c6a98a8481c"
+    },
+    {
+      "path": "docs/performance-ledger.md",
+      "checkedSha256": "1994a34e71570a796669f7dba0511c6b6b2da86f253e2852e9bb0fd4ea0cffbf",
+      "finalSha256": "b162eae3726520d80193929d9b99acd00af3182bf8183205aa297ce59477d353"
+    }
+  ]
+}

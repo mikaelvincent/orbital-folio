@@ -32,6 +32,12 @@ export function createNotebookTurnInk(
   layer: HTMLElement,
   reader: HTMLElement,
   notebook: any,
+  occlude?: (
+    element: HTMLElement,
+    anchor: any,
+    width: number,
+    height: number,
+  ) => void,
 ) {
   const makeSurface = (face: string, width: number) => {
     const element = document.createElement('div');
@@ -188,6 +194,13 @@ export function createNotebookTurnInk(
           height,
           turning && facing,
         );
+        if (turning && facing)
+          occlude?.(
+            surface.element,
+            anchor,
+            index ? notebook.page.width : notebook.pixelsWidth,
+            notebook.pixelsHeight,
+          );
       });
     },
     dispose() {
