@@ -1,0 +1,11 @@
+{
+  "base": "http://localhost:3003",
+  "signinStatus": 302,
+  "adminStatus": 200,
+  "records": 21,
+  "statePath": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-refinements-isv_bwo3/.wrangler/state",
+  "cachePath": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-refinements-isv_bwo3/.verification-vite-cache",
+  "sourceCheckout": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-refinements-isv_bwo3",
+  "ownerBootstrapped": true,
+  "testOnlySecrets": true
+}

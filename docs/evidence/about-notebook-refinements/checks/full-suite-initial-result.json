@@ -1,0 +1,14 @@
+{
+  "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+  "exitCode": 1,
+  "tests": 488,
+  "pass": 487,
+  "fail": 1,
+  "skipped": 0,
+  "durationMs": 469848.080417,
+  "failure": "tests/spacecraft/tiny-hardware-detail.test.mjs:186 expected original narrow paper width0.449; approved aligned paper now0.477. Superseded assertion will be updated by geometry owner before final suite.",
+  "sourceHashes": "full-suite-source-hashes.json",
+  "rawLog": "full-tests-initial.log",
+  "typecheck": "passed; typecheck-suite-source.log",
+  "lint": "failed2 in-flight root changes; lint-suite-source.log"
+}

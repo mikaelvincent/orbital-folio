@@ -1,3 +1,4 @@
+import { splitNotebookPages } from '@/lib/content/notebook-pages';
 import { pathFor } from '@/lib/paths';
 import { AboutPortrait, AboutSocialLinks } from './about-personal-content';
 import {
@@ -247,7 +248,7 @@ export function AboutView({ data }: { data: Portfolio }) {
               <h2>{j.title}</h2>
               {j.subtitle && <p className="journal-subtitle">{j.subtitle}</p>}
               <ProjectMarkdown
-                body={j.body || ''}
+                body={splitNotebookPages(j.body || '').join('\n\n')}
                 media={data.media}
                 headingIdPrefix={`journal-${j.id}-`}
                 preserveSoftBreaks

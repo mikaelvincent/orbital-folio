@@ -1,0 +1,111 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "actualCssViewports": [
+    [
+      1280,
+      720
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "captureMethod": "Built-in browser accessibility screenshot, matching actual viewport dimensions",
+  "devicePixelRatio": "Not separately recorded; do not infer physical display density from captures",
+  "mainContentReadOnly": true,
+  "fixtureOnlyAuthoringAndApiMutations": true,
+  "liveRenderer": true,
+  "nativeSafariTested": false,
+  "physicalMobileTested": false,
+  "mobileDesign": "Same full desktop spread scaled down, intentionally deferred",
+  "motionEvidence": "Live interactions and final states; individual leaf accounting/retargeting/reduced motion validated by model tests, no retained video",
+  "sourceHashes": {
+    "features/portfolio/about-notebook.css": "37f22fcf540d57c34c09ab11e791a1d1031bc2c46f1178fbecd6d668db86e25f",
+    "features/portfolio/about-notebook.tsx": "6906abdb34004900ba11edd475531964fb4da5155647c77b63cac6d2ac28180a",
+    "features/portfolio/immersive-portfolio.tsx": "d2e0889593f3a9b875fd45af9f7feda4396e4a1a514d4eec682638a946ee5579",
+    "features/portfolio/notebook-section-pages.css": "284fd328c1ccc85bcb752e71c9522b55d2ee3de81f4a3e9cedb29aa818e3bd19",
+    "features/portfolio/notebook-section-pages.tsx": "4a74f541e36ddec32823e267589e2bc0b0ab80bc54dcd71f44ebe01d1cd436fb",
+    "features/portfolio/project-markdown-content.ts": "f9457796368806e23fea0e7831f8ad78933cb81aac228002316551850b9b6bde",
+    "features/portfolio/project-markdown.css": "bce44a6e894bd36dc38b2bfa2c2598d12f1dcb376acf1ea1a41a219bf812598f",
+    "features/portfolio/project-markdown.tsx": "babb9a38d9a9ad6e54e195ce08927c4e13c2786ed4b36a8ef3051906b7891515",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "ad4c1386d2f0d0c7a7d5fe3ad29b4690b9b04351bc45e4394d4d80f4105074c0",
+    "features/spacecraft/rooms/about-personal-study.ts": "8b3b450b046c13ab0a0c80e2ebccbab81385e20ae5a4228b9cad17ca20b8bdfb",
+    "features/spacecraft/spacecraft-runtime.ts": "97ba8e079ea63b901bf873ba56da41d31e13d70ef75dfbf67185ca13fc4058c6",
+    "features/studio/journal-page-preview.css": "e8682b2b528eba930d68e3c51ec285cc650ea329745f266d95c0be337a37b5e2",
+    "features/studio/journal-page-preview.tsx": "9d14ba955268b026b57bbab9e61ebf2f00629a9f1f2212232a14da6764fff58a",
+    "features/studio/project-editor-helpers.ts": "43ed52ce090476cc5149272c67da4c09d1ad34fbad8081fe135e935a10d327e0",
+    "features/studio/project-editor.css": "eb7b72a17baaa227236f1cb48e85960fcaee6f380d5c2aec7639a3e99f3bae9e",
+    "features/studio/project-editor.tsx": "208f35d34d735ba4965717a2f9237d31c226bf42ed6828d2d374be8c083de8c8"
+  },
+  "captures": [
+    {
+      "file": "desktop-first-section-1440x900.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1440,
+        900
+      ],
+      "sha256": "cc3efcbfce03b38f3794d62dc3f68421d8fe5fedc912d64ace2524a1119876b8"
+    },
+    {
+      "file": "desktop-left-markers-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "dfee677c4f8b2fb2d3c08eab41144278251db7b81efb202e2105735814871d85"
+    },
+    {
+      "file": "desktop-left-markers-1440x900.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1440,
+        900
+      ],
+      "sha256": "8a6e53076ac71909c502e02ce3888786dc454312c27306c114784817a2b5d23a"
+    },
+    {
+      "file": "mobile-full-spread-390x844.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        390,
+        844
+      ],
+      "sha256": "06e838acc81c9ee898fe2121d0bbaf22672030d9cdd0909bbf06df069b610cc7"
+    },
+    {
+      "file": "section-page-two-1280x720.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "3e27205a0a2c1d874c8ef5849b0eaabdf347b7b954a1b9f6c5812fb931b7afed"
+    },
+    {
+      "file": "studio-overflow-preview.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "a6185c139a9c2646076cde8f32735e90fccb95cf20ec198449ce61ab935185ea"
+    },
+    {
+      "file": "studio-page-two-preview.jpg",
+      "format": "JPEG",
+      "imagePixels": [
+        1280,
+        720
+      ],
+      "sha256": "8c2870b4f3fd59c7cecc55e006e3dac3b1b63fe308733a50724744317749dd16"
+    }
+  ],
+  "details": "README.md",
+  "checks": "checks/verification.json"
+}

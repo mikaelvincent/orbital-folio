@@ -1,0 +1,103 @@
+.notebook-section-pages {
+  position: relative;
+  width: 438px;
+  height: 428px;
+  flex: 0 0 428px;
+  overflow: clip;
+  outline: none;
+  color: #253445;
+  font-family: var(--font-sans, Arial, sans-serif);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.notebook-authored-page {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+.notebook-authored-page[data-visible='true'] {
+  visibility: visible;
+}
+.notebook-columns {
+  width: 438px;
+  height: 428px;
+  columns: 438px;
+  column-gap: 32px;
+  column-fill: auto;
+  overflow: visible;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.notebook-ink h1 {
+  margin: 0 0 12px;
+  font:
+    400 32px/1.12 Georgia,
+    serif;
+  letter-spacing: -0.025em;
+  break-after: avoid;
+}
+.notebook-ink .notebook-subtitle {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #52606a;
+}
+.notebook-ink .notebook-biography {
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+.notebook-ink .project-markdown {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.notebook-ink .project-markdown :is(p, ul, ol) {
+  font-size: 14px;
+  margin-block: 0.65em;
+  orphans: 2;
+  widows: 2;
+}
+.notebook-ink .project-markdown :is(h2, h3, h4, h5, h6) {
+  margin: 1em 0 0.5em;
+  break-after: avoid;
+}
+.notebook-ink .project-markdown h2 {
+  font-size: 23px;
+}
+.notebook-ink .project-markdown h3 {
+  font-size: 20px;
+}
+.notebook-ink .project-markdown :is(h4, h5, h6) {
+  font-size: 17px;
+}
+.notebook-ink .project-markdown :is(img, video) {
+  max-height: 280px;
+  max-width: 100%;
+  object-fit: contain;
+  break-inside: avoid;
+}
+.notebook-ink .project-markdown :is(figure, .project-markdown-media) {
+  break-inside: avoid;
+}
+.notebook-ink .project-markdown pre {
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 0.7em;
+  border-radius: 3px;
+}
+.notebook-ink .project-markdown pre code {
+  white-space: pre-wrap;
+}
+.notebook-ink .project-markdown-table {
+  overflow: visible;
+}
+.notebook-ink .project-markdown table {
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.notebook-ink .project-markdown :is(td, th) {
+  padding: 0.3em;
+}

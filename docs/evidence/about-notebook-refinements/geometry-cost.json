@@ -1,0 +1,615 @@
+{
+  "method": "CPU construction of the retained notebook subtree before room batching, same six-section fixture in baseline and candidate. Counts all allocated meshes including hidden leaves/unused markers. Canvas drawing is stubbed but production texture dimensions are retained. Triangles count per mesh/instance; geometry bytes count unique BufferGeometry attributes and index arrays. Nominal texture storage is RGBA base level only. No GPU memory, draw timing, visibility/culling, frame-time or power claim.",
+  "baselineRevision": "bd09ce3833389e6112156c28132e7bf3aec09d34",
+  "auditSha256": "55f1a0cf991d9fdc60ce59eb9e522b725bfab8cd3c634816496ba571d869a597",
+  "baseline": {
+    "sourceSha256": {
+      "features/spacecraft/rooms/about-personal-study.ts": "b8ba02b3e658bd7ba0d3387dbcec51723d8b759e531b1501e2076d11051d813d",
+      "features/spacecraft/rooms/about-notebook-layout.ts": "9aa308d50942be4f5bb2a8f35f42134b38eee6fa7cc2a29204c266d86e8f580d",
+      "features/spacecraft/rooms/about-study-artwork.ts": "6ef9f96d2eb2c6b0f35d1bb43194859f3edf5855f460bfd7c098ad668013071e",
+      "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+    },
+    "meshCount": 46,
+    "triangles": 9332,
+    "uniqueGeometries": 24,
+    "geometryArrayBytes": 203480,
+    "textureCount": 7,
+    "nominalTextureRgbaBaseBytes": 14221312,
+    "textureDetails": [
+      {
+        "name": "",
+        "width": 128,
+        "height": 128,
+        "nominalRgbaBaseBytes": 65536
+      },
+      {
+        "name": "personal-study-left-page-print",
+        "width": 1024,
+        "height": 1280,
+        "nominalRgbaBaseBytes": 5242880
+      },
+      {
+        "name": "personal-study-right-page-print",
+        "width": 1024,
+        "height": 1280,
+        "nominalRgbaBaseBytes": 5242880
+      },
+      {
+        "name": "personal-study-paper-flag-title-0",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-1",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-2",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-turning-notebook-paper",
+        "width": 512,
+        "height": 640,
+        "nominalRgbaBaseBytes": 1310720
+      }
+    ],
+    "pieces": [
+      {
+        "name": "personal-study-journal-cradle-back",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-cloth-bound-cover",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-bound-spine",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-continuous-paper-gutter",
+        "triangles": 32
+      },
+      {
+        "name": "personal-study-bound-page-block",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-printed-top-paper-leaf",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-bound-page-block",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-printed-top-paper-leaf",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-0",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-0",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-0",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-1",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-1",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-1",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-2",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-2",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-2",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-turning-paper-surface",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-book-cover-retaining-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-paper-hold-down-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-journal-clips",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-journal-clips-slots",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-book-cover-retaining-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-paper-hold-down-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-journal-clips",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-journal-clips-slots",
+        "triangles": 24
+      }
+    ]
+  },
+  "candidate": {
+    "sourceSha256": {
+      "features/spacecraft/rooms/about-personal-study.ts": "8b3b450b046c13ab0a0c80e2ebccbab81385e20ae5a4228b9cad17ca20b8bdfb",
+      "features/spacecraft/rooms/about-notebook-layout.ts": "ad4c1386d2f0d0c7a7d5fe3ad29b4690b9b04351bc45e4394d4d80f4105074c0",
+      "features/spacecraft/rooms/about-study-artwork.ts": "6ef9f96d2eb2c6b0f35d1bb43194859f3edf5855f460bfd7c098ad668013071e",
+      "features/spacecraft/geometry/model-primitives.ts": "c72afeb8418c183c9a8a1b1e7a9de5edd7add485a3bf575a805a111e20c992c2"
+    },
+    "meshCount": 61,
+    "triangles": 12536,
+    "uniqueGeometries": 39,
+    "geometryArrayBytes": 290288,
+    "textureCount": 16,
+    "nominalTextureRgbaBaseBytes": 21299200,
+    "textureDetails": [
+      {
+        "name": "",
+        "width": 128,
+        "height": 128,
+        "nominalRgbaBaseBytes": 65536
+      },
+      {
+        "name": "personal-study-left-page-print",
+        "width": 1024,
+        "height": 1280,
+        "nominalRgbaBaseBytes": 5242880
+      },
+      {
+        "name": "personal-study-right-page-print",
+        "width": 1024,
+        "height": 1280,
+        "nominalRgbaBaseBytes": 5242880
+      },
+      {
+        "name": "personal-study-paper-flag-title-0",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-0-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-1",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-1-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-2",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-2-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-3",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-3-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-4",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-4-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-5",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-paper-flag-title-5-back",
+        "width": 768,
+        "height": 256,
+        "nominalRgbaBaseBytes": 786432
+      },
+      {
+        "name": "personal-study-turning-notebook-paper",
+        "width": 512,
+        "height": 640,
+        "nominalRgbaBaseBytes": 1310720
+      }
+    ],
+    "pieces": [
+      {
+        "name": "personal-study-journal-cradle-back",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-cloth-bound-cover",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-bound-spine",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-continuous-paper-gutter",
+        "triangles": 32
+      },
+      {
+        "name": "personal-study-bound-page-block",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-printed-top-paper-leaf",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-bound-page-block",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-lower-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-outer-page-edge",
+        "triangles": 12
+      },
+      {
+        "name": "personal-study-printed-top-paper-leaf",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-0",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-0",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-0",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-0",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-1",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-1",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-1",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-1",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-2",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-2",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-2",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-2",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-3",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-3",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-3",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-3",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-4",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-4",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-4",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-4",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-separate-indexed-paper-sheet-5",
+        "triangles": 972
+      },
+      {
+        "name": "personal-study-page-attached-flag-5",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-face-5",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-flag-printed-adhesive-back-5",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-turning-paper-surface",
+        "triangles": 192
+      },
+      {
+        "name": "personal-study-book-cover-retaining-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-paper-hold-down-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-journal-clips",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-journal-clips-slots",
+        "triangles": 24
+      },
+      {
+        "name": "personal-study-book-cover-retaining-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-paper-hold-down-clip",
+        "triangles": 300
+      },
+      {
+        "name": "personal-study-journal-clips",
+        "triangles": 96
+      },
+      {
+        "name": "personal-study-journal-clips-slots",
+        "triangles": 24
+      }
+    ]
+  },
+  "delta": {
+    "meshCount": 15,
+    "triangles": 3204,
+    "uniqueGeometries": 15,
+    "geometryArrayBytes": 86808,
+    "textureCount": 9,
+    "nominalTextureRgbaBaseBytes": 7077888
+  }
+}

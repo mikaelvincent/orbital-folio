@@ -1,0 +1,11 @@
+{
+  "command": "TEST_BASE_URL=http://localhost:3003 npm test",
+  "exitCode": 0,
+  "tests": 490,
+  "pass": 490,
+  "fail": 0,
+  "skipped": 0,
+  "durationMs": 337588.064458,
+  "sourceHashes": "full-suite-final-source-hashes.json",
+  "rawLog": "full-tests-final.log"
+}

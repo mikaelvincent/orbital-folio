@@ -318,6 +318,7 @@ export function mountSpacecraftScene({
           notebookName: String(s.name || ''),
           journal: (latest.current.journal || []).map((entry) => ({
             title: String(entry.title),
+            pageCount: entry.pageCount,
           })),
           socials: resolveSocialScreens(latest.current.links),
           aboutPhotos: resolveAboutPhotos({
@@ -2044,6 +2045,29 @@ export function mountSpacecraftScene({
           surfaceElement.dataset.turning = String(
             isNotebook && notebook.turning,
           );
+          if (isNotebook) {
+            for (const marker of surfaceElement.querySelectorAll<HTMLElement>(
+              '[data-marker-index]',
+            )) {
+              const index = Number(marker.dataset.markerIndex);
+              const left = index < notebook.settledSection;
+              marker.dataset.side = left ? 'left' : 'right';
+              marker.style.left = `${left ? 20 : 1095}px`;
+              const bankMatches =
+                Math.floor(index / 6) ===
+                Math.floor(notebook.settledSection / 6);
+              marker.style.visibility =
+                bankMatches && index !== notebook.turningSection
+                  ? 'visible'
+                  : 'hidden';
+            }
+            surfaceElement.dataset.notebookSettledPage = String(
+              notebook.settledChapter,
+            );
+            surfaceElement.dataset.notebookTargetPage = String(
+              notebook.chapter,
+            );
+          }
           surfaceElement.dataset.computer = String(isComputer);
           surfaceElement.dataset.computerPortrait = String(
             isComputer && computerLayout().portrait,
@@ -3113,6 +3137,7 @@ export function mountSpacecraftScene({
               notebook.setChapters(
                 (notebookEntries || []).map((entry) => ({
                   title: String(entry.title),
+                  pageCount: entry.pageCount,
                 })),
               );
               invalidateAo('notebook-content');

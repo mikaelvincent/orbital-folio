@@ -1,0 +1,739 @@
+{
+  "createdAt": "2026-09-22T09:10:56.314Z",
+  "revision": "bd09ce3833389e6112156c28132e7bf3aec09d34",
+  "sourceSha256": {
+    "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+    "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+    "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+    "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+    "features/spacecraft/navigation/scene-controls.ts": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984",
+    "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+    "features/spacecraft/navigation/overview-flight.ts": "c0b11d0268a22e024fe8e5c4f45b22ba4bfbf451b87ab8fd543403345d1a1c1f",
+    "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+    "features/spacecraft/navigation/contact-computer.ts": "f22a3e612f39ad5f79bafe758db220d7aa7c5303e96ad8d777d2ee4bc4535fa6",
+    "features/spacecraft/navigation/project-application.ts": "9bc31b9ab08533e0d1b3289c2f60b1e19ac8544d2d29faa3d5b5cc4f40295772",
+    "features/spacecraft/navigation/about-notebook.ts": "a875539346caa2c1897421e1965a41238ce35905d93a298f2787ca0f9ae8d1b5",
+    "features/spacecraft/spacecraft-runtime.ts": "97ba8e079ea63b901bf873ba56da41d31e13d70ef75dfbf67185ca13fc4058c6",
+    "features/spacecraft/spacecraft-model.ts": "cffe4a62e4eefa1b1acfb560c6e1c1347f54960506ad9c765a3d5c1d1cd2c021",
+    "features/spacecraft/rooms/projects-workshop.ts": "c687e5e78584539c4c3c08b1be78a4a87cf793c23671b8d703ea4668001902d6",
+    "features/spacecraft/rooms/projects-payload-module.ts": "6c5467dacad9ae663f40b404d88c9964a6693913daa3bb963d3dad8e109494d6",
+    "features/spacecraft/rooms/case-study-archive.ts": "e783ccc8c63f09c5683cffdc4e5bb2b22fcc08bdfa1ddb4f2e61ee4351d00b77",
+    "features/spacecraft/rooms/about-personal-study.ts": "8b3b450b046c13ab0a0c80e2ebccbab81385e20ae5a4228b9cad17ca20b8bdfb",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "ad4c1386d2f0d0c7a7d5fe3ad29b4690b9b04351bc45e4394d4d80f4105074c0",
+    "features/spacecraft/rooms/cabin-composition.ts": "87d263e43d6f9414e37b782476aaca63e3244a956825d216627212da6dba1574",
+    "lib/content/case-study-content.ts": "fcee14d3beec20d2240a5da2a8e7c5b63197d429e4332306503311d774625f54",
+    "scripts/benchmarks/earth-visible-coverage.mjs": "3659e03fb67d9dc232cdd9176ae7d3cdff13c64bf5d587d222461125e1482ee8",
+    "scripts/benchmarks/mesh-uv-coverage.mjs": "99f32248cad24d01063ba686f1d01f398b6b4172acea68a77a4e48e6ee0d1c35"
+  },
+  "assumptions": [
+    "CPU homogeneous clipping of the actual rendered sphere triangles, including perspective-correct UV extrema at clipped vertices. Double-precision arithmetic; no rendering, image decode or performance claim.",
+    "Front-face culling and all six frustum planes are included. Spacecraft/atmosphere/HTML occlusion is ignored, conservatively retaining hidden Earth pixels.",
+    "Authored world placement and canonical world reference come from production. The production viewport-composition setter selects a fixed Earth anchor once per viewport, retained through ordinary camera poses. Independent orientation-resize samples use the public setter/update API. Current-source spacecraft supports, camera-fit helpers, retained readers and application monitors provide poses. --revision snapshots orbital modules only; all involved source hashes are retained.",
+    "Public-seed fixture UI inset assumptions: overview top118px portrait/top98px landscape, bottom80px; rooms top24px/bottom80px; notebook/Contact/Projects/Case studies application bottom132px mobile, otherwise80px. About uses its shared production fit with top32px and side20px reservations; Projects and Case studies use their actual portrait64px/landscape30px top reservation. Custom identity/header wrapping and safe areas may change framing.",
+    "The production responsive lens is used in every Earth projection and spacecraft overview/room/reader/Contact/Projects/Case studies fit: 38° vertical landscape, 38° minimum horizontal portrait, 78° vertical cap. The current viewport composition remains fixed during navigation; the historical fallback preserves the audited orbital revision behavior.",
+    "Orientation-resize samples use the new viewport projection immediately and public composition easing at fractions 0,.25,.5,.75,1, crossed independently with overview camera rolls at the same five fractions; the rooms/applications selected by the audit scope plus drag corners are included. Case studies and About also cross their three interior room-to-application position/angle probes with every resize-composition fraction. Overview resize angles use the conservative union of portrait and landscape drag bounds because those limits ease independently. These finite samples and their neighborhoods do not reproduce every interrupted resize, old-camera distance/target or browser visual-viewport sequence.",
+    "All scopes use 5x5 signed bounded angle samples and hover extrema (reachable angular positions, not equal raw drag displacements); negative/positive portrait yaw uses its actual asymmetric bounds, while neutral is always included. Resize-only overview samples conservatively use the union of both orientation profiles. Only the full historical scope includes overview and overview-room travel. In that full scope, portrait travel uses production direct eye/focus createOverviewFlight/sampleOverviewFlight curves at 23 interior times for each of 25 departure-angle pairs in both directions and four extra destination-hover/dolly/drag corners on outbound flights. Those offsets are baked into departure, not reapplied during travel. All four rooms are included, with overview ranges on entry and room ranges on return. Endpoints are covered by settled-state samples. These are actual path samples under documented UI fixtures, not a proof for every custom header, interrupted resize, nonzero incoming velocity or unsettled state. Landscape uses the previous eleven-interpolant endpoint envelope; its acceleration-limited springs and ladder routes are not replayed.",
+    "Audit scope: About room and its mounted two-page notebook only, including bounded input, entry/exit travel-envelope probes and orientation-resize composition. Every chapter shares the same complete-spread pose. Unchanged overview and other room travel are excluded.",
+    "Where included by scope, Projects application camera fits use projectApplicationLayout and all four production screen anchors/corner transforms, exact room/application endpoint fits, computer 5x5 hover/drag angular samples, and independently eased orientation-resize composition states. Room↔monitor and all six monitor-pair transitions include endpoints and three interior linear-envelope samples, with neutral and union room/computer angle corners. These are conservative finite position/angle probes, not exact ordinary-spring time replays or a proof of arbitrary interrupted trajectories.",
+    "Projects and Case studies use the production 0.1 fit minimum and spacecraft near plane 0.08, retained through application closing/switching envelopes; settled ordinary room poses use near0.5. Orbital followCamera retains its own near/far projection as in production: changing the spacecraft near plane does not change Earth clipping, while the closer fitted physical camera position does.",
+    "Case studies uses projectApplicationLayout with caseStudyComputer width/height and transformed framing corners. Its view direction is the terminal anchor world quaternion applied to +Z, matching the production raked-glass normal. The room-terminal transition is sampled at fractions 0,.25,.5,.75,1 with neutral and union room/computer angle corners; its three interior probes are also crossed with every orientation-composition fraction. These linear position/direction/distance probes bound selected finite states; they do not replay independently damped axes, spring overshoot, nonzero incoming velocity or arbitrary interrupted trajectories.",
+    "About uses the production fitAboutNotebook helper and complete spread framingAnchor/width/height at every viewport, with a 0.08 fit minimum, 0.08 spacecraft near plane and CAMERA_RANGES.computer hover/drag bounds. No page cropping or stretching is introduced. Room↔notebook travel uses the same finite endpoint/interior position-direction-distance envelope as Case studies, including its three interior probes crossed with all five orientation-composition fractions. These probes cover both entry and exit positions but do not reproduce every spring trajectory, interrupted transition or nonzero incoming velocity.",
+    "The default full scope includes the mounted About notebook, Contact computer, Projects monitor cameras and Case studies terminal. There is no configured maximum aspect ratio or minimum pixel dimensions; 17 viewports are an explicit finite audited domain, not a restriction on the application.",
+    "The continuous-neighborhood certificate expands clipping half-spaces for bounded camera-position and frustum-plane angular changes relative to the Earth transform at each sampled viewport-composition angle (or historical layout roll). It covers those relative neighborhoods, not an independent unbounded change of Earth roll; this audit does not prove their union covers every possible production state.",
+    "Scrolling U on a sphere whose only presentation adjustment is the viewport composition (or historical responsive layout roll) means V coverage and the geometric UV seam remain unchanged over the complete playback loop at a given camera/layout pose. RepeatWrapping handles the authored image-edge join; the different U0/U1 phases remain safe only while that geometric seam is hidden.",
+    "Maximum same-latitude span compares visible U coordinates at equal V. A larger global longitude envelope across different latitudes alone does not imply simultaneous duplicated landmarks.",
+    "Crop preserves native source texel density. Mipmap construction and footprint filtering differ after cropping; row margins do not prove pixel identity at every coarse mip level. Actual-resolution image and seam checks remain necessary."
+  ],
+  "summary": {
+    "scope": "about-notebook-extension",
+    "projectMonitorCategories": [],
+    "caseStudyControlCategories": [],
+    "caseStudyApplicationAnchorCount": 0,
+    "aboutNotebookAnchorCount": 1,
+    "mesh": "desktop128x96",
+    "scenarios": 3536,
+    "visibleScenarios": 2723,
+    "latitudeRange": [
+      14.999996,
+      67.5
+    ],
+    "original8192x4096PixelRows": [
+      512,
+      1707
+    ],
+    "maxSimultaneousLongitudeSpan": 87.1875,
+    "maxSameLatitudeLongitudeSpan": 87.1875,
+    "continuousPoseNeighborhood": {
+      "positionTolerance": 0.25,
+      "planeAngleToleranceDegrees": 5.5,
+      "sourcePixelRows": [
+        469.333251953125,
+        1920
+      ],
+      "fixedSeamClearanceDegrees": 115.3125,
+      "conservativeGlobalLongitudeSpan": 87.1875,
+      "note": "A mathematical superset for any camera within the stated translation distance and frustum-plane angular difference of an audited pose. This is not a proof that every production trajectory or unbounded viewport is covered by those neighborhoods."
+    },
+    "fixedLongitudeRange": [
+      -22.5,
+      64.6875
+    ],
+    "minimumFixedAntimeridianClearanceDegrees": 115.3125,
+    "proposedOriginalPixelCrop": {
+      "x": 3712,
+      "y": 384,
+      "width": 2560,
+      "height": 1536,
+      "longitudePeriodDegrees": 112.5,
+      "repeatPeriodSecondsAt0045RadSec": 436.33231299858244,
+      "latitudeRange": [
+        5.625,
+        73.125
+      ],
+      "baseFootprintMinimumHeightRows": 1451,
+      "guardedCropMarginRows": {
+        "north": 85.333251953125,
+        "south": 0
+      },
+      "filteringAllowance": {
+        "rowsEachEdge": 64,
+        "includedWithinCrop": false,
+        "recommendedGridMultiple": 128,
+        "minimumGridAlignedHeightWith64RowAllowance": 1664,
+        "scope": "Practical authored margin; not a guarantee of pixel equality at every mip level. Coarse mip texels can summarize arbitrarily remote rows."
+      },
+      "textureRepeat": [
+        3.2,
+        2.6666666666666665
+      ],
+      "textureOffset": [
+        -1.45,
+        -1.4166666666666667
+      ],
+      "fixedSphereUvSeam": {
+        "usesScrollingUv": true,
+        "sampledSeamClearanceDegrees": 115.3125,
+        "guardedSeamClearanceDegrees": 115.3125,
+        "integerLongitudinalRepeat": false,
+        "u0WrappedPhase": 0.55,
+        "u1WrappedPhase": 0.7500000000000002,
+        "phaseDifference": 0.20000000000000018,
+        "completeTurnTexturePeriods": 3.2,
+        "wouldRemainContinuousIfSphereRotated": false,
+        "remainingCheck": "Authored first/last columns and filtered mip levels must be visually continuous; this audit does not decode or sample image pixels."
+      },
+      "sampledLongitudeSpanMarginDegrees": 25.3125,
+      "sampledLatitudeMarginDegrees": {
+        "north": 5.625,
+        "south": 9.374996
+      },
+      "caveat": "Finite sampled coverage, not a proof for arbitrary browser aspect ratios or every spring trajectory. Crop retains original texel density; source/repaint quality and visual continuity require image checks."
+    },
+    "tileCandidates": [
+      {
+        "width": 1536,
+        "longitudePeriodDegrees": 67.5,
+        "periodSeconds": 261.79938779914943,
+        "sampledSameLatitudeSpanMarginDegrees": -19.6875,
+        "sampledSpanMarginDegrees": -19.6875
+      },
+      {
+        "width": 2048,
+        "longitudePeriodDegrees": 90,
+        "periodSeconds": 349.0658503988659,
+        "sampledSameLatitudeSpanMarginDegrees": 2.8125,
+        "sampledSpanMarginDegrees": 2.8125
+      },
+      {
+        "width": 2304,
+        "longitudePeriodDegrees": 101.25,
+        "periodSeconds": 392.69908169872417,
+        "sampledSameLatitudeSpanMarginDegrees": 14.0625,
+        "sampledSpanMarginDegrees": 14.0625
+      },
+      {
+        "width": 2560,
+        "longitudePeriodDegrees": 112.5,
+        "periodSeconds": 436.33231299858244,
+        "sampledSameLatitudeSpanMarginDegrees": 25.3125,
+        "sampledSpanMarginDegrees": 25.3125
+      },
+      {
+        "width": 3072,
+        "longitudePeriodDegrees": 135,
+        "periodSeconds": 523.5987755982989,
+        "sampledSameLatitudeSpanMarginDegrees": 47.8125,
+        "sampledSpanMarginDegrees": 47.8125
+      },
+      {
+        "width": 3584,
+        "longitudePeriodDegrees": 157.5,
+        "periodSeconds": 610.8652381980154,
+        "sampledSameLatitudeSpanMarginDegrees": 70.3125,
+        "sampledSpanMarginDegrees": 70.3125
+      },
+      {
+        "width": 4096,
+        "longitudePeriodDegrees": 180,
+        "periodSeconds": 698.1317007977318,
+        "sampledSameLatitudeSpanMarginDegrees": 92.8125,
+        "sampledSpanMarginDegrees": 92.8125
+      }
+    ],
+    "byViewport": [
+      {
+        "viewport": [
+          1280,
+          720
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 185,
+        "longitudeMaxSpan": 79.385328,
+        "latitudeRange": [
+          31.392091,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 180,
+        "longitudeMaxSpan": 78.75,
+        "latitudeRange": [
+          31.916855,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          1920,
+          1080
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 185,
+        "longitudeMaxSpan": 79.384011,
+        "latitudeRange": [
+          31.392353,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 191,
+        "longitudeMaxSpan": 85.438972,
+        "latitudeRange": [
+          29.534133,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 117.061028
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 191,
+        "longitudeMaxSpan": 87.1875,
+        "latitudeRange": [
+          14.999996,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          1024,
+          768
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 175,
+        "longitudeMaxSpan": 75.9375,
+        "latitudeRange": [
+          32.66133,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          768,
+          1024
+        ],
+        "verticalFieldOfView": 49.32004031465512,
+        "visibleScenarios": 140,
+        "longitudeMaxSpan": 74.604315,
+        "latitudeRange": [
+          34.127738,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "verticalFieldOfView": 73.38403101444618,
+        "visibleScenarios": 143,
+        "longitudeMaxSpan": 84.375,
+        "latitudeRange": [
+          32.238087,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          360,
+          800
+        ],
+        "verticalFieldOfView": 74.84444386931332,
+        "visibleScenarios": 143,
+        "longitudeMaxSpan": 84.375,
+        "latitudeRange": [
+          32.11473,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          844,
+          390
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 191,
+        "longitudeMaxSpan": 84.375,
+        "latitudeRange": [
+          30.20814,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          768,
+          4096
+        ],
+        "verticalFieldOfView": 78,
+        "visibleScenarios": 106,
+        "longitudeMaxSpan": 78.75,
+        "latitudeRange": [
+          32.763155,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          320,
+          568
+        ],
+        "verticalFieldOfView": 62.865004932483515,
+        "visibleScenarios": 142,
+        "longitudeMaxSpan": 81.5625,
+        "latitudeRange": [
+          33.073531,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          320,
+          1200
+        ],
+        "verticalFieldOfView": 78,
+        "visibleScenarios": 113,
+        "longitudeMaxSpan": 83.080835,
+        "latitudeRange": [
+          32.458667,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          1080,
+          1920
+        ],
+        "verticalFieldOfView": 62.94476672485322,
+        "visibleScenarios": 142,
+        "longitudeMaxSpan": 81.5625,
+        "latitudeRange": [
+          33.069759,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          4096,
+          768
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 191,
+        "longitudeMaxSpan": 87.1875,
+        "latitudeRange": [
+          14.999996,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 115.3125
+      },
+      {
+        "viewport": [
+          700,
+          701
+        ],
+        "verticalFieldOfView": 38.0503849447693,
+        "visibleScenarios": 138,
+        "longitudeMaxSpan": 70.3125,
+        "latitudeRange": [
+          35.057889,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      },
+      {
+        "viewport": [
+          701,
+          700
+        ],
+        "verticalFieldOfView": 38,
+        "visibleScenarios": 167,
+        "longitudeMaxSpan": 70.3125,
+        "latitudeRange": [
+          33.57289,
+          67.5
+        ],
+        "fixedAntimeridianClearance": 118.125
+      }
+    ],
+    "maximumSpanScenarios": [
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.04,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          30.182234,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1361.1864960742078
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.04,
+          -0.06
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          28.070112,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1409.249000117571
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.02,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          30.173783,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1361.3787988296785
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          0,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          30.178857,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1361.2633422093086
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-application-travel/room-and-about-notebook/0.75/angle-envelope",
+        "angles": [
+          -0.12,
+          -0.22
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          34.542829,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1261.9587356510747
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "about-application-travel/room-and-about-notebook/1/angle-envelope",
+        "angles": [
+          -0.12,
+          -0.22
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          33.160311,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1293.4187018669913
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "orientation-resize-1/about-notebook/drag",
+        "angles": [
+          -0.04,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          30.182234,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1361.1864960742078
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          2560,
+          600
+        ],
+        "state": "orientation-resize-1/about-notebook-travel-0.75/drag",
+        "angles": [
+          -0.12,
+          -0.22
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          34.542829,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1261.9587356510747
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          4096,
+          768
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.04,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          25.18998,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1474.7880007736567
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          4096,
+          768
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.04,
+          -0.06
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          23.064389,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1523.1570121985337
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          4096,
+          768
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          -0.02,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          25.621714,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1464.96367324399
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      },
+      {
+        "viewport": [
+          4096,
+          768
+        ],
+        "state": "about-notebook/drag",
+        "angles": [
+          0,
+          -0.12
+        ],
+        "layoutRollRadians": 0,
+        "longitude": {
+          "start": -22.5,
+          "endUnwrapped": 64.6875,
+          "span": 87.1875
+        },
+        "latitude": [
+          26.062272,
+          67.5
+        ],
+        "sourcePixelRows": [
+          512,
+          1454.938524250636
+        ],
+        "maximumSameLatitudeLongitudeSpan": 87.1875
+      }
+    ]
+  },
+  "rawSamples": "earth-coverage-summary-poses.json.gz"
+}

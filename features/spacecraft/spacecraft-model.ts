@@ -120,7 +120,7 @@ export function createSpacecraft(
     projects?: SpacecraftProject[];
     caseStudies?: SpacecraftProject[];
     socials?: SocialScreenLinks;
-    journal?: { title: string }[];
+    journal?: { title: string; pageCount?: number }[];
     notebookName?: string;
     aboutPhotos?: AboutPhotos;
     onAboutPhotoChange?: () => void;

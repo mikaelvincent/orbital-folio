@@ -75,11 +75,15 @@ export function ProjectMarkdown({
   body,
   media = [],
   headingIdPrefix = '',
+  headingLinks,
+  paginated = false,
   preserveSoftBreaks = false,
 }: {
   body: string;
   media?: Media[];
   headingIdPrefix?: string;
+  headingLinks?: Record<string, string>;
+  paginated?: boolean;
   preserveSoftBreaks?: boolean;
 }) {
   const { tokens, headings } = parseProjectMarkdown(body, {
@@ -114,10 +118,14 @@ export function ProjectMarkdown({
         case 'link': {
           const destination = projectContentUrl(token.href);
           const href =
-            destination?.startsWith('#') &&
-            headings.some((heading) => heading.id === destination.slice(1))
-              ? `#${headingIdPrefix}${destination.slice(1)}`
-              : destination;
+            destination?.startsWith('#') && headingLinks?.[destination.slice(1)]
+              ? `#${headingLinks[destination.slice(1)]}`
+              : destination?.startsWith('#') &&
+                  headings.some(
+                    (heading) => heading.id === destination.slice(1),
+                  )
+                ? `#${headingIdPrefix}${destination.slice(1)}`
+                : destination;
           return href ? (
             <a
               key={index}
@@ -259,8 +267,8 @@ export function ProjectMarkdown({
               key={index}
               className="project-markdown-table"
               role="region"
-              aria-label="Scrollable table"
-              tabIndex={0}
+              aria-label={paginated ? 'Table' : 'Scrollable table'}
+              tabIndex={paginated ? undefined : 0}
             >
               <table>
                 <thead>

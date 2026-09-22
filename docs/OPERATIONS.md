@@ -86,21 +86,33 @@ For a project such as `calculator.<owner-domain>`:
 
 The portfolio links to the application; it does not proxy or execute arbitrary external code. Keep admin/session cookies host-only at the gateway. Do not share an admin cookie across demo subdomains. Each demo owns its own availability, authentication, rate limits, and lifecycle.
 
-## Authoring notebook chapters
+## Authoring notebook sections
 
-Use **Journal** in Content studio to edit the About notebook. The title labels its
-paper marker; subtitle introduces the page, and Order determines chapter order.
-The Markdown editor shares Write/Preview, image/video insertion and explicit media
-publishing with Projects and Case studies. Single line breaks are preserved for
-existing journal prose. Save draft, Preview and Publish remain separate; publishing
-a chapter requires all managed images, videos, posters and captions it references
-to be published. Published chapters protect those dependencies from deletion or
-unpublishing until their replacement is published.
+Use **Journal** in Content studio. Each entry is a section: its title labels the
+paper marker, its subtitle introduces the first page, and Order places the section.
+Use **Add page** and the numbered page buttons to split a section into individual
+Markdown pages. The bottom notebook arrows turn these pages; section markers select
+sections. Up to six markers fit at once; Earlier/More sections reaches further groups.
 
-The notebook shows three markers at a time. Previous/next page controls reach
-additional chapters, and long chapters scroll within the right paper page. Desktop
-and mobile currently share the full physical spread; mobile layout refinement is
-intentionally deferred. Reading view renders every chapter in ordinary document flow.
+**Preview** shows the same fixed paper space and typography as the live notebook.
+There is no scrolling inside a page. Save draft and Publish stay disabled until all
+pages fit after fonts and images load. Move overflowing content to another page;
+even short text with many headings may need more space. Each authored page also has
+a 1,800-character cap, with up to 32 pages in a section. The opening section preview
+includes the published biography and checks prospective published section ordering.
+Existing long published stories remain readable through automatic paper pagination;
+editing them requires splitting any overfilled authored page before saving again.
+
+The editor retains Write/Preview, image/video insertion and explicit media publishing
+from Projects and Case studies. Single line breaks remain visible. Save draft,
+Preview saved draft and Publish are separate. A section requires its managed images,
+videos, posters and captions to be published; its live dependencies remain protected
+from deletion or unpublishing. Existing body storage/backups retain Markdown with
+standalone `<!-- notebook-page -->` separators; fenced/indented code examples do not
+create pages. Reading view hides those separators and renders the complete section.
+
+Desktop and mobile share the full physical spread; dedicated mobile refinement is
+deferred. No owner's records are rewritten by this layout change.
 
 ## Authoring About photos and social cards
 

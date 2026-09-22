@@ -4,6 +4,8 @@ import type { AboutPhotos } from '../../../lib/content/about-photos.ts';
 import {
   ABOUT_NOTEBOOK_LAYOUT,
   notebookWindowStart,
+  notebookMarkers,
+  NOTEBOOK_MARKER_LIMIT,
 } from './about-notebook-layout.ts';
 
 /** Floor-referenced crew study. +Z faces the visitor; the book stays retained. */
@@ -15,7 +17,7 @@ export function buildAboutPersonalStudy(
     accent?: any;
     photos?: AboutPhotos;
     onPhotoChange?: () => void;
-    journal?: ReadonlyArray<{ title?: string }>;
+    journal?: ReadonlyArray<{ title?: string; pageCount?: number }>;
     notebookName?: string;
   } = {},
 ) {
@@ -1207,13 +1209,17 @@ export function buildAboutPersonalStudy(
   mesh(gutter, m.paper, 'continuous-paper-gutter', journal);
   // These hairline page shadows are only .0012 units thick. A closed cuboid
   // retains each paper layer without spending hundreds of triangles on its bevel.
-  const lowerPageEdgeGeometry = new THREE.BoxGeometry(0.449, 0.0012, 0.0013);
+  const lowerPageEdgeGeometry = new THREE.BoxGeometry(0.477, 0.0012, 0.0013);
   const outerPageEdgeGeometry = new THREE.BoxGeometry(0.0012, 0.56, 0.0013);
   let rightPaperSection: any;
   let rightPrintedPage: any;
   const notebookFlags: Array<{
     anchor: any;
     printed: any;
+    backPrinted: any;
+    mount: any;
+    sheet: any;
+    paperDepth: number;
     root: any;
   }> = [];
   const initialChapters = options.journal ?? [
@@ -1221,9 +1227,16 @@ export function buildAboutPersonalStudy(
     { title: 'How I work' },
     { title: 'Beyond work' },
   ];
-  const flagColors = ['#d9ae61', '#b6bf8a', '#9ab6c3'];
-  function paintFlag(ctx: any, index: number, title: string) {
-    ctx.fillStyle = flagColors[index];
+  const flagColors = [
+    '#d9ae61',
+    '#b6bf8a',
+    '#9ab6c3',
+    '#c5a2a0',
+    '#aca6c5',
+    '#a8c1ae',
+  ];
+  function paintFlag(ctx: any, index: number, title: string, back = false) {
+    ctx.fillStyle = flagColors[index % flagColors.length];
     ctx.fillRect(0, 0, 768, 256);
     ctx.fillStyle = '#233747';
     ctx.font = '500 69px "Helvetica Neue", Arial, sans-serif';
@@ -1231,26 +1244,27 @@ export function buildAboutPersonalStudy(
     ctx.textBaseline = 'middle';
     if (title) ctx.fillText(title, 412, 131, 670);
     ctx.fillStyle = 'rgba(239,229,206,.35)';
-    ctx.fillRect(0, 0, 171, 256);
+    ctx.fillRect(back ? 597 : 0, 0, 171, 256);
   }
   for (const side of [-1, 1]) {
     const leaf = group(
       side < 0 ? 'left-paper-section' : 'right-paper-section',
-      side * 0.009,
+      0,
       0,
       0.014,
       journal,
     );
-    leaf.rotation.y = side * -0.035;
-    const centerX = side * 0.231;
+    // A shared paper plane keeps native ink and both sides of each flag registered.
+    leaf.rotation.y = 0;
+    const centerX = side * 0.245;
     box(
-      0.462,
-      0.573,
-      0.032,
+      0.482,
+      0.563,
+      0.048,
       m.paper,
       centerX,
       0,
-      0,
+      0.006,
       'bound-page-block',
       leaf,
       0.007,
@@ -1268,15 +1282,15 @@ export function buildAboutPersonalStudy(
         m.paperLine,
         'outer-page-edge',
         leaf,
-      ).position.set(centerX + side * 0.226, 0, z);
+      ).position.set(centerX + side * 0.24, 0, z);
     }
-    const upperLeaf = group('top-paper-leaf', centerX, 0, 0.024, leaf);
+    const upperLeaf = group('top-paper-leaf', side * 0.247, 0, 0.038, leaf);
     // Slight crown at the binding makes the spread read as paper, not a tablet.
-    const pageGeo = new THREE.PlaneGeometry(0.454, 0.566, 24, 4);
+    const pageGeo = new THREE.PlaneGeometry(0.486, 0.566, 24, 4);
     const pp = pageGeo.attributes.position;
     for (let i = 0; i < pp.count; i++) {
       const x = pp.getX(i);
-      pp.setZ(i, 0.004 * Math.exp(-Math.pow((x + side * 0.223) / 0.065, 2)));
+      pp.setZ(i, 0.004 * Math.exp(-Math.pow((x + side * 0.239) / 0.065, 2)));
     }
     pageGeo.computeVertexNormals();
     const pageMat = material(
@@ -1303,40 +1317,47 @@ export function buildAboutPersonalStudy(
     if (side === 1) {
       rightPaperSection = leaf;
       rightPrintedPage = printedPage;
-      // Flags share a profile. Their adhesive region overlaps the actual leaf;
-      // their free end extends beyond it, entirely clear of the cover/cradle.
-      for (let i = 0; i < 3; i++) {
+      // Six reusable indexed sheets let each authored section carry its own tab.
+      // All paper edges stay just beneath the full-size reading leaf; the first
+      // 30 mm of adhesive paper is hidden by that leaf on either side of the book.
+      for (let i = 0; i < NOTEBOOK_MARKER_LIMIT; i++) {
         const title = initialChapters[i]?.title ?? '';
-        const y = 0.172 - i * 0.165;
-        const flagRoot = group(
-          'tabbed-paper-leaf-' + i,
+        const flagRoot = group('tabbed-paper-leaf-' + i, 0, 0, 0.037, leaf);
+        flagRoot.userData.animated = true;
+        flagRoot.userData.excludePick = true;
+        const paperDepth = 0.001 + i * 0.001;
+        const paperSheet = group(
+          'indexed-paper-depth-' + i,
           0,
           0,
-          0.017 + i * 0.002,
-          leaf,
+          -paperDepth,
+          flagRoot,
         );
-        const sheetWidth = 0.482 + i * 0.004,
-          sheetCenter = 0.246 + i * 0.002;
-        const paperEdge = sheetCenter + sheetWidth / 2;
+        paperSheet.userData.animated = true;
         box(
-          sheetWidth,
-          0.554 - i * 0.004,
+          0.484 - i * 0.0004,
+          0.562 - i * 0.0006,
           0.0011,
           m.paper,
-          sheetCenter,
+          0.246 - i * 0.0002,
           0,
           0,
           'separate-indexed-paper-sheet-' + i,
-          flagRoot,
+          paperSheet,
           0.0004,
         );
-        const colors = [0xd9ae61, 0xb6bf8a, 0x9ab6c3];
-        const flagMat = material('adhesive-paper-flag-' + i, colors[i], 0.98);
-        const flagGeo = new THREE.PlaneGeometry(0.155, 0.062, 12, 1);
+        const flagMat = material(
+          'adhesive-paper-flag-' + i,
+          Number.parseInt(flagColors[i].slice(1), 16),
+          0.98,
+        );
+        const flagMount = group('paper-flag-mount-' + i, 0, 0, 0, flagRoot);
+        flagMount.userData.animated = true;
+        const flagGeo = new THREE.PlaneGeometry(0.155, 0.056, 12, 1);
         const fp = flagGeo.attributes.position;
         for (let p = 0; p < fp.count; p++) {
           const x = fp.getX(p);
-          fp.setZ(p, Math.max(0, x + 0.0475) * 0.06);
+          fp.setZ(p, Math.max(0, x + 0.0475) * 0.04);
         }
         flagGeo.computeVertexNormals();
         flagMat.side = THREE.DoubleSide;
@@ -1344,23 +1365,46 @@ export function buildAboutPersonalStudy(
           flagGeo,
           flagMat,
           'page-attached-flag-' + i,
-          flagRoot,
+          flagMount,
         );
-        flag.position.set(paperEdge + 0.0475, y, 0.0009);
-        const labelMat = material('flag-print-' + i, 0xffffff, 1);
-        labelMat.map = canvasMap('paper-flag-title-' + i, 768, 256, (ctx) =>
-          paintFlag(ctx, i, title),
-        );
-        labelMat.side = THREE.DoubleSide;
-        labelMat.userData.studyInk = true;
-        const label = mesh(
-          flagGeo.clone(),
-          labelMat,
-          'flag-printed-adhesive-face-' + i,
-          flagRoot,
-        );
-        label.position.copy(flag.position);
-        label.position.z += 0.0006;
+        flag.position.set(0.5375, 0, 0);
+        const labels = [false, true].map((back) => {
+          const labelMat = material(
+            'flag-print-' + i + (back ? '-back' : ''),
+            0xffffff,
+            1,
+          );
+          labelMat.map = canvasMap(
+            'paper-flag-title-' + i + (back ? '-back' : ''),
+            768,
+            256,
+            (ctx) => paintFlag(ctx, i, title, back),
+          );
+          labelMat.side = THREE.FrontSide;
+          labelMat.userData.studyInk = true;
+          const geometry = flagGeo.clone();
+          if (back) {
+            const indices = geometry.index;
+            for (let triangle = 0; triangle < indices.count; triangle += 3) {
+              const second = indices.getX(triangle + 1);
+              indices.setX(triangle + 1, indices.getX(triangle + 2));
+              indices.setX(triangle + 2, second);
+            }
+            const uv = geometry.attributes.uv;
+            for (let vertex = 0; vertex < uv.count; vertex++)
+              uv.setX(vertex, 1 - uv.getX(vertex));
+            geometry.computeVertexNormals();
+          }
+          const label = mesh(
+            geometry,
+            labelMat,
+            'flag-printed-adhesive-' + (back ? 'back-' : 'face-') + i,
+            flagMount,
+          );
+          label.position.copy(flag.position);
+          label.position.z += back ? -0.0006 : 0.0006;
+          return label;
+        });
         flagRoot.userData.pageFlag = {
           label: title,
           page: i,
@@ -1369,14 +1413,22 @@ export function buildAboutPersonalStudy(
           attachedTo: 'paper',
           button: false,
         };
+        // Moving surfaces remain outside cached shadow maps.
+        flagRoot.traverse((part: any) => {
+          if (part.isMesh) part.castShadow = part.receiveShadow = false;
+        });
         const flagAnchor = new THREE.Object3D();
         flagAnchor.name = prefix + 'paper-flag-control-anchor-' + i;
         flagAnchor.position.copy(flag.position);
-        flagAnchor.position.z += 0.009;
-        flagRoot.add(flagAnchor);
+        flagAnchor.position.z += 0.001;
+        flagMount.add(flagAnchor);
         notebookFlags.push({
           anchor: flagAnchor,
-          printed: label,
+          printed: labels[0],
+          backPrinted: labels[1],
+          mount: flagMount,
+          sheet: paperSheet,
+          paperDepth,
           root: flagRoot,
         });
       }
@@ -1403,20 +1455,20 @@ export function buildAboutPersonalStudy(
   framingAnchor.position.copy(openingAnchor.position);
   journal.add(framingAnchor);
 
-  // One temporary paper leaf crosses the binding; the retained book, page
-  // blocks and adhesive flags never move. Its group remains mutable after batching.
+  // Each crossed paper leaf completes its own turn. The corresponding section
+  // flag shares that motion when the turn crosses a section boundary.
   const turningLeaf = group(
     'turning-notebook-leaf',
-    0.004,
     0,
-    0.039,
+    0,
+    0.047,
     rightPaperSection,
   );
   turningLeaf.userData.animated = true;
   turningLeaf.userData.excludePick = true;
   turningLeaf.visible = false;
   const turningGeometry = rightPrintedPage.geometry.clone();
-  turningGeometry.translate(0.227, 0, 0);
+  turningGeometry.translate(0.247, 0, 0);
   const turningMaterial = material('turning-notebook-paper', 0xffffff, 1);
   turningMaterial.side = THREE.DoubleSide;
   turningMaterial.userData.studyInk = true;
@@ -1431,6 +1483,13 @@ export function buildAboutPersonalStudy(
   );
   turningSurface.castShadow = turningSurface.receiveShadow = false;
 
+  const pageCount = (chapter: { pageCount?: number }) =>
+    Math.max(
+      1,
+      Math.floor(Number.isFinite(chapter.pageCount) ? chapter.pageCount! : 1),
+    );
+  const totalPages = (chapters: ReadonlyArray<{ pageCount?: number }>) =>
+    chapters.reduce((sum, chapter) => sum + pageCount(chapter), 0);
   const notebook = {
     ...ABOUT_NOTEBOOK_LAYOUT,
     root: journal,
@@ -1438,62 +1497,79 @@ export function buildAboutPersonalStudy(
     anchor: notebookAnchor,
     openingAnchor,
     framingAnchor,
-    flags: ABOUT_NOTEBOOK_LAYOUT.flags.map((flag, i) => ({
-      ...flag,
-      anchor: notebookFlags[i].anchor,
-      index: i,
-      title: initialChapters[i]?.title ?? '',
-      available: i < initialChapters.length,
-    })),
+    flags: [] as Array<
+      ReturnType<typeof notebookMarkers>[number] & {
+        anchor: any;
+        title: string;
+        available: boolean;
+      }
+    >,
     chapters: [...initialChapters],
+    totalPages: totalPages(initialChapters),
     active: false,
     available: initialChapters.length > 0,
     chapter: 0,
+    section: 0,
+    settledChapter: 0,
+    settledSection: 0,
     windowStart: 0,
     turning: false,
+    turningSection: -1,
     turnProgress: 1,
     turnDirection: 1,
+    turnDuration: 0.36,
+    nextTurnDuration: 0.36,
     setActive(active: boolean) {
       if (notebook.active === active) return;
       notebook.active = active;
-      repaintNotebook();
       if (!active) finishTurn();
+      else repaintNotebook();
     },
     setChapter(index: number, instant = false) {
       const next = Math.max(
         0,
         Math.min(
-          notebook.chapters.length - 1,
+          notebook.totalPages - 1,
           Number.isFinite(index) ? Math.floor(index) : 0,
         ),
       );
       if (next === notebook.chapter) {
-        if (instant) finishTurn();
+        if (instant && notebook.turning) finishTurn();
         return;
       }
-      notebook.turnDirection = next > notebook.chapter ? 1 : -1;
       notebook.chapter = next;
-      notebook.windowStart = notebookWindowStart(next);
-      repaintNotebook();
+      notebook.section = sectionForPage(next);
       if (instant || !notebook.active) {
         finishTurn();
         return;
       }
-      notebook.turning = true;
-      notebook.turnProgress = 0;
-      turningLeaf.rotation.y = notebook.turnDirection > 0 ? 0 : -Math.PI;
-      turningLeaf.visible = true;
+      const inFlightDestination =
+        notebook.settledChapter +
+        (notebook.turning ? notebook.turnDirection : 0);
+      const inFlightTime = notebook.turning
+        ? (1 - notebook.turnProgress) * notebook.turnDuration
+        : 0;
+      notebook.nextTurnDuration = Math.min(
+        0.36,
+        (2.4 - inFlightTime) /
+          Math.max(1, Math.abs(next - inFlightDestination)),
+      );
+      // An in-flight sheet finishes continuously before routing toward the latest
+      // destination. Retargeting never resets its angle or drops intervening leaves.
+      if (!notebook.turning) beginNextTurn();
     },
-    setChapters(chapters: ReadonlyArray<{ title?: string }>) {
+    setChapters(
+      chapters: ReadonlyArray<{ title?: string; pageCount?: number }>,
+    ) {
       notebook.chapters = [...chapters];
+      notebook.totalPages = totalPages(chapters);
       notebook.available = chapters.length > 0;
       notebook.chapter = Math.max(
         0,
-        Math.min(notebook.chapter, chapters.length - 1),
+        Math.min(notebook.chapter, notebook.totalPages - 1),
       );
-      notebook.windowStart = notebookWindowStart(notebook.chapter);
+      notebook.section = sectionForPage(notebook.chapter);
       finishTurn();
-      repaintNotebook();
     },
     update(delta: number, instant = false) {
       if (!notebook.turning) return false;
@@ -1501,53 +1577,151 @@ export function buildAboutPersonalStudy(
         finishTurn();
         return true;
       }
-      const previous = notebook.turnProgress;
-      notebook.turnProgress = Math.min(
-        1,
-        notebook.turnProgress +
-          Math.max(0, Number.isFinite(delta) ? delta : 0) / 0.44,
-      );
-      if (notebook.turnProgress === previous) return false;
-      const progress = notebook.turnProgress;
-      const eased = progress * progress * (3 - 2 * progress);
-      turningLeaf.rotation.y =
-        -Math.PI * (notebook.turnDirection > 0 ? eased : 1 - eased);
-      if (progress === 1) finishTurn();
+      let remaining = Math.max(0, Number.isFinite(delta) ? delta : 0);
+      if (!remaining) return false;
+      // Consume all elapsed time across discrete turns, including a backgrounded
+      // frame, so page count and marker sides cannot drift apart.
+      while (notebook.turning && remaining > 0) {
+        const duration = notebook.turnDuration;
+        const consumed = Math.min(
+          remaining,
+          (1 - notebook.turnProgress) * duration,
+        );
+        notebook.turnProgress = Math.min(
+          1,
+          notebook.turnProgress + consumed / duration,
+        );
+        remaining -= consumed;
+        const progress = notebook.turnProgress;
+        const eased = progress * progress * (3 - 2 * progress);
+        turningLeaf.rotation.y =
+          -Math.PI * (notebook.turnDirection > 0 ? eased : 1 - eased);
+        const moving = notebook.flags.find(
+          (flag) => flag.index === notebook.turningSection,
+        );
+        if (moving) {
+          const physical = notebookFlags[moving.slot];
+          physical.root.rotation.y = turningLeaf.rotation.y;
+          physical.root.position.z = turningLeaf.position.z;
+          physical.sheet.position.z =
+            -physical.paperDepth * Math.cos(turningLeaf.rotation.y);
+        }
+        if (progress >= 1 - 1e-10) {
+          notebook.settledChapter += notebook.turnDirection;
+          notebook.settledSection = sectionForPage(notebook.settledChapter);
+          notebook.turning = false;
+          beginNextTurn();
+        }
+      }
       return true;
     },
   };
+  function sectionForPage(page: number) {
+    let boundary = 0;
+    for (let index = 0; index < notebook.chapters.length; index++) {
+      boundary += pageCount(notebook.chapters[index]);
+      if (page < boundary) return index;
+    }
+    return Math.max(0, notebook.chapters.length - 1);
+  }
+  function beginNextTurn() {
+    if (notebook.settledChapter === notebook.chapter) {
+      finishTurn();
+      return;
+    }
+    notebook.turnDirection =
+      notebook.chapter > notebook.settledChapter ? 1 : -1;
+    const destinationSection = sectionForPage(
+      notebook.settledChapter + notebook.turnDirection,
+    );
+    notebook.turningSection =
+      destinationSection === notebook.settledSection
+        ? -1
+        : Math.min(notebook.settledSection, destinationSection);
+    notebook.turning = true;
+    notebook.turnProgress = 0;
+    notebook.turnDuration = notebook.nextTurnDuration;
+    turningLeaf.rotation.y = notebook.turnDirection > 0 ? 0 : -Math.PI;
+    turningLeaf.visible = true;
+    repaintNotebook();
+    const moving = notebook.flags.find(
+      (flag) => flag.index === notebook.turningSection,
+    );
+    if (moving) {
+      const physical = notebookFlags[moving.slot];
+      physical.root.rotation.y = turningLeaf.rotation.y;
+      physical.root.position.z = turningLeaf.position.z;
+      physical.sheet.position.z =
+        -physical.paperDepth * Math.cos(turningLeaf.rotation.y);
+    }
+  }
   function finishTurn() {
+    notebook.settledChapter = notebook.chapter;
+    notebook.settledSection = sectionForPage(notebook.chapter);
+    notebook.windowStart = notebookWindowStart(notebook.settledSection);
     notebook.turning = false;
+    notebook.turningSection = -1;
     notebook.turnProgress = 1;
     turningLeaf.visible = false;
     turningLeaf.rotation.y = 0;
+    repaintNotebook();
   }
   function repaintNotebook() {
     const pageMap = rightPrintedPage.material.map;
     const pageContext = pageMap?.image?.getContext?.('2d');
-    if (pageContext) {
+    if (pageContext && rightPrintedPage.userData.blank !== notebook.active) {
       drawStudyArtwork(
         pageContext,
         notebook.active ? 'journal-blank' : 'journal-right',
       );
       pageMap.needsUpdate = true;
+      rightPrintedPage.userData.blank = notebook.active;
     }
-    for (const [i, flag] of notebook.flags.entries()) {
-      const index = notebook.windowStart + i;
-      flag.index = index;
-      flag.available = index < notebook.chapters.length;
-      flag.title = notebook.chapters[index]?.title ?? '';
-      const physical = notebookFlags[i];
+    notebook.windowStart = notebookWindowStart(notebook.settledSection);
+    notebook.flags = notebookMarkers(
+      notebook.chapters.length,
+      notebook.settledSection,
+    ).map((flag) => ({
+      ...flag,
+      anchor: notebookFlags[flag.slot].anchor,
+      title: notebook.chapters[flag.index]?.title ?? '',
+      available: true,
+    }));
+    for (const physical of notebookFlags) physical.root.visible = false;
+    for (const flag of notebook.flags) {
+      const physical = notebookFlags[flag.slot];
+      physical.root.visible = true;
+      physical.root.rotation.y = flag.side === 'left' ? -Math.PI : 0;
+      physical.root.position.z = 0.037;
+      // The turned stack rests below the retained printed artwork on the left,
+      // just as the unturned stack rests below the reading page on the right.
+      physical.sheet.position.z =
+        flag.side === 'left' ? physical.paperDepth : -physical.paperDepth;
+      const y =
+        ABOUT_NOTEBOOK_LAYOUT.height / 2 - (flag.y + flag.height / 2) / 1000;
+      physical.mount.position.y = y;
       physical.root.userData.pageFlag.label = flag.title;
-      physical.root.userData.pageFlag.page = index;
-      const map = physical.printed.material.map;
-      const context = map?.image?.getContext?.('2d');
-      if (context) {
-        paintFlag(context, i, notebook.active ? '' : flag.title);
-        map.needsUpdate = true;
+      physical.root.userData.pageFlag.page = flag.index;
+      physical.root.userData.pageFlag.side = flag.side;
+      for (const [back, label] of [
+        [false, physical.printed],
+        [true, physical.backPrinted],
+      ] as const) {
+        const map = label.material.map;
+        const context = map?.image?.getContext?.('2d');
+        const title =
+          !notebook.active || flag.index === notebook.turningSection
+            ? flag.title
+            : '';
+        if (context && label.userData.printedTitle !== title) {
+          paintFlag(context, flag.index, title, back);
+          map.needsUpdate = true;
+          label.userData.printedTitle = title;
+        }
       }
     }
   }
+  repaintNotebook();
   root.userData.aboutNotebook = notebook;
   // Four clips hold the book and exposed paper; all connect around its edge.
   for (const x of [-0.441, 0.441]) {

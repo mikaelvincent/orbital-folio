@@ -1,0 +1,12 @@
+{
+  "fullSuitePassed": 490,
+  "filesChangedAfterPassedSuite": [
+    "docs/OPERATIONS.md",
+    "docs/PROJECT-CONTEXT.md",
+    "features/portfolio/immersive-portfolio.tsx",
+    "features/portfolio/notebook-section-pages.tsx"
+  ],
+  "reason": "Stable useCallback dependency declaration, documented delegated-native-anchor accessibility lint exception, and current operating documentation. Final directed checks/typecheck/build/lint/format rerun; no fullsuite repeat required for these changes.",
+  "suiteSourceHashes": "full-suite-final-source-hashes.json",
+  "finalSourceHashes": "final-source-hashes.json"
+}

@@ -1,10 +1,14 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ContactDraft, ContactSubmission } from './contact-form';
 import { SceneLoader } from '../spacecraft/scene-loader';
 import { ContactComputerWindow } from './contact-computer-window';
 import { AboutNotebook } from './about-notebook';
+import {
+  notebookPageOffset,
+  splitNotebookPages,
+} from '@/lib/content/notebook-pages';
 import {
   ProjectLibraryWindow,
   type ProjectFilter,
@@ -74,7 +78,49 @@ export function ImmersivePortfolio({
     selectedChapter,
     Math.max(0, data.journal.length - 1),
   );
-  const notebookPositions = useRef<Record<string, number>>({});
+  const [notebookPages, setNotebookPages] = useState<Record<string, number>>(
+    {},
+  );
+  const [measuredNotebookCounts, setNotebookCounts] = useState<
+    Record<string, number>
+  >({});
+  const notebookKey = useCallback(
+    (index: number) =>
+      JSON.stringify([
+        data.journal[index]?.id || index,
+        data.journal[index]?.title,
+        data.journal[index]?.subtitle,
+        data.journal[index]?.body,
+        index === 0 ? data.site.biography : '',
+        data.media,
+      ]),
+    [data.journal, data.site.biography, data.media],
+  );
+  const notebookCounts = data.journal.map(
+    (entry, index) =>
+      measuredNotebookCounts[notebookKey(index)] ||
+      splitNotebookPages(entry.body || '').length,
+  );
+  const notebookPage = Math.min(
+    notebookPages[notebookKey(notebookChapter)] || 0,
+    (notebookCounts[notebookChapter] || 1) - 1,
+  );
+  const notebookJournal = useMemo(
+    () =>
+      data.journal.map((entry, index) => ({
+        ...entry,
+        pageCount:
+          measuredNotebookCounts[notebookKey(index)] ||
+          splitNotebookPages(entry.body || '').length,
+      })),
+    [data.journal, measuredNotebookCounts, notebookKey],
+  );
+  const notebookPageCount = (section: number, count: number) => {
+    const key = notebookKey(section);
+    setNotebookCounts((previous) =>
+      previous[key] === count ? previous : { ...previous, [key]: count },
+    );
+  };
   const returnToNotebook = useRef(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const navigation = useRef<HTMLDivElement>(null);
@@ -533,8 +579,10 @@ export function ImmersivePortfolio({
             site={s}
             projects={data.projects}
             caseStudies={data.experience}
-            journal={data.journal}
-            notebookChapter={notebookChapter}
+            journal={notebookJournal}
+            notebookChapter={
+              notebookPageOffset(notebookCounts, notebookChapter) + notebookPage
+            }
             onOpenNotebook={() => go({ section: 'about', open: true })}
             onCloseNotebook={() => go({ section: 'about' })}
             links={data.links}
@@ -639,10 +687,21 @@ export function ImmersivePortfolio({
             ) : destination.section === 'about' ? (
               <AboutNotebook
                 data={data}
-                chapter={notebookChapter}
-                onChapterChange={setNotebookChapter}
-                positions={notebookPositions.current}
-                ready={arrived && !travel}
+                section={notebookChapter}
+                ready={data.journal.every(
+                  (_, index) =>
+                    measuredNotebookCounts[notebookKey(index)] !== undefined,
+                )}
+                page={notebookPage}
+                pageCounts={notebookCounts}
+                onSectionChange={setNotebookChapter}
+                onPageChange={(page) =>
+                  setNotebookPages((previous) => ({
+                    ...previous,
+                    [notebookKey(notebookChapter)]: page,
+                  }))
+                }
+                onPageCount={notebookPageCount}
                 onClose={() => go({ section: 'about' })}
               />
             ) : (

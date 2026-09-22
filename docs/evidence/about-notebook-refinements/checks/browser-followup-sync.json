@@ -1,0 +1,15 @@
+{
+  "files": [
+    "features/spacecraft/rooms/about-personal-study.ts",
+    "tests/spacecraft/about-notebook.test.mjs",
+    "tests/spacecraft/about-notebook-application.test.mjs",
+    "tests/spacecraft/tiny-hardware-detail.test.mjs",
+    "features/studio/journal-page-preview.tsx",
+    "tests/content/journal-content.test.mjs",
+    "lib/content/notebook-pages.ts",
+    "features/portfolio/notebook-section-pages.tsx",
+    "features/portfolio/notebook-section-pages.css",
+    "features/portfolio/project-markdown.tsx"
+  ],
+  "purpose": "Geometry completed, paper overflow/published preview fix and anchor navigation for isolated browser verification."
+}

@@ -1,0 +1,9 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint features/portfolio/about-notebook.tsx features/portfolio/immersive-portfolio.tsx features/portfolio/notebook-section-pages.tsx features/portfolio/project-markdown.tsx features/portfolio/room-views.tsx features/spacecraft/rooms/about-notebook-layout.ts features/spacecraft/rooms/about-personal-study.ts features/spacecraft/spacecraft-model.ts features/spacecraft/spacecraft-runtime.ts features/studio/admin-studio.tsx features/studio/journal-page-preview.tsx features/studio/project-editor.tsx features/studio/studio-content-fields.tsx lib/content/notebook-pages.ts lib/content/validation.ts tests/content/journal-content.test.mjs tests/spacecraft/about-notebook-application.test.mjs tests/spacecraft/about-notebook.test.mjs tests/spacecraft/tiny-hardware-detail.test.mjs
+
+features/portfolio/notebook-section-pages.tsx:142:5: error jsx-a11y(click-events-have-key-events): Enforce a clickable non-interactive element has at least one keyboard event listener. help: Visible, non-interactive elements with click handlers must have one of `keyup`, `keydown`, or `keypress` listener.
+features/portfolio/notebook-section-pages.tsx:142:6: error jsx-a11y(no-static-element-interactions): Static HTML elements with event handlers require a role. help: Add a role attribute to this element, or use a semantic HTML element instead.
+features/portfolio/immersive-portfolio.tsx:110:34: error react-hooks(exhaustive-deps): React Hook useMemo has a missing dependency: 'notebookKey' help: Either include it or remove the dependency array.
+features/portfolio/immersive-portfolio.tsx:113:5: error react-hooks(exhaustive-deps): React Hook useMemo has unnecessary dependency: data.site.biography help: Either include it or remove the dependency array.
+features/portfolio/immersive-portfolio.tsx:113:5: error react-hooks(exhaustive-deps): React Hook useMemo has unnecessary dependency: data.media help: Either include it or remove the dependency array.

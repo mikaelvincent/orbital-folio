@@ -10,47 +10,70 @@ import type { Portfolio } from '@/lib/content/types';
 import { pathFor } from '@/lib/paths';
 import {
   ABOUT_NOTEBOOK_LAYOUT,
+  NOTEBOOK_MARKER_LIMIT,
+  notebookMarkers,
   notebookWindowStart,
 } from '../spacecraft/rooms/about-notebook-layout';
 import { AboutSocialLinks } from './about-personal-content';
-import { ContactScrollArea } from './contact-scroll-area';
-import { ProjectMarkdown } from './project-markdown';
-import './contact-computer-window.css';
+import { NotebookSectionPages } from './notebook-section-pages';
 import './about-notebook.css';
 
-/** Transparent ink and controls registered to the actual retained paper. */
+/** Native ink stays registered to the complete stationary physical spread. */
 export function AboutNotebook({
   data,
-  chapter,
-  onChapterChange,
-  onClose,
-  positions,
+  section,
   ready,
+  page,
+  pageCounts,
+  onSectionChange,
+  onPageChange,
+  onPageCount,
+  onClose,
 }: {
   data: Portfolio;
-  chapter: number;
-  onChapterChange: (index: number) => void;
-  onClose: () => void;
-  positions: Record<string, number>;
+  section: number;
   ready: boolean;
+  page: number;
+  pageCounts: number[];
+  onSectionChange: (index: number) => void;
+  onPageChange: (index: number) => void;
+  onPageCount: (section: number, count: number) => void;
+  onClose: () => void;
 }) {
-  const entry = data.journal[chapter];
   const s = data.site;
-  const count = data.journal.length;
-  const viewKey = String(entry?.id || entry?.slug || 'introduction');
-  const heading = useRef<HTMLHeadingElement>(null);
-  const start = notebookWindowStart(chapter);
+  const count = pageCounts[section] || 1;
+  const root = useRef<HTMLElement>(null);
+  const start = notebookWindowStart(section);
   useEffect(() => {
-    heading.current?.focus({ preventScroll: true });
-  }, [viewKey]);
-
+    root.current
+      ?.querySelector<HTMLElement>('.notebook-page .notebook-section-pages')
+      ?.focus({ preventScroll: true });
+  }, [section, page]);
+  const sheet = (index: number, measuring = false) => {
+    const item = data.journal[index];
+    return (
+      <NotebookSectionPages
+        title={item?.title || s.aboutHeading || 'A little about me'}
+        subtitle={item?.subtitle}
+        body={item?.body || (!item ? s.emptyLabel || '' : '')}
+        media={data.media}
+        biography={index === 0 ? s.biography : undefined}
+        page={measuring ? 0 : page}
+        onPageSelect={measuring ? undefined : onPageChange}
+        headingIdPrefix={`notebook-${item?.id || index}-${measuring ? 'measure-' : ''}`}
+        onPageCount={(total) => onPageCount(index, total)}
+      />
+    );
+  };
   return (
     <article
+      ref={root}
       className="about-notebook"
       id="world-reader"
       tabIndex={-1}
       aria-label={`${s.journalLabel || 'Notebook'} · ${s.name}`}
       data-notebook-interface
+      data-section={section}
     >
       <div
         className="notebook-page"
@@ -66,96 +89,96 @@ export function AboutNotebook({
           </button>
           <span>{s.journalLabel || 'Field notes'}</span>
         </header>
-        <ContactScrollArea
-          label={entry?.title || s.aboutLabel}
-          // The projection is hidden during the first portal commit. Restore
-          // again after arrival, when native scroll dimensions are available.
-          restorationKey={`${viewKey}:${ready ? 'ready' : 'approaching'}`}
-          initialScrollTop={positions[viewKey] || 0}
-          onScroll={(top) => {
-            if (ready) positions[viewKey] = top;
-          }}
-        >
-          <div className="notebook-ink">
-            <p className="notebook-kicker">{s.name}</p>
-            <h1 ref={heading} tabIndex={-1}>
-              {entry?.title || s.aboutHeading || 'A little about me'}
-            </h1>
-            {entry?.subtitle && (
-              <p className="notebook-subtitle">{entry.subtitle}</p>
-            )}
-            {chapter === 0 && s.biography && (
-              <p className="notebook-biography">{s.biography}</p>
-            )}
-            {entry ? (
-              <ProjectMarkdown
-                preserveSoftBreaks
-                body={entry.body || ''}
-                media={data.media}
-                headingIdPrefix={`notebook-${entry.id || chapter}-`}
-              />
-            ) : (
-              <p>{s.emptyLabel}</p>
-            )}
-            <div className="notebook-signoff">
-              <AboutSocialLinks data={data} />
-              <a href={pathFor('/contact', s)}>
-                {s.inviteLabel}
-                <ArrowUpRight size={15} aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-        </ContactScrollArea>
+        {sheet(section)}
         <footer className="notebook-page-footer">
           <button
             type="button"
-            disabled={chapter <= 0}
-            onClick={() => onChapterChange(chapter - 1)}
-            aria-label={s.previousPageLabel || 'Previous chapter'}
+            disabled={!ready || page <= 0}
+            onClick={() => onPageChange(page - 1)}
+            aria-label="Previous page in section"
           >
             <ChevronLeft size={18} aria-hidden="true" />
           </button>
           <span aria-live="polite" aria-atomic="true">
-            {count
-              ? `${String(chapter + 1).padStart(2, '0')} / ${String(count).padStart(2, '0')}`
-              : '01'}
+            Page {page + 1} of {count}
           </span>
           <button
             type="button"
-            disabled={chapter >= count - 1}
-            onClick={() => onChapterChange(chapter + 1)}
-            aria-label={s.nextPageLabel || 'Next chapter'}
+            disabled={!ready || page >= count - 1}
+            onClick={() => onPageChange(page + 1)}
+            aria-label="Next page in section"
           >
             <ChevronRight size={18} aria-hidden="true" />
           </button>
         </footer>
       </div>
-      <nav className="notebook-markers" aria-label="Notebook chapters">
-        {ABOUT_NOTEBOOK_LAYOUT.flags.map((flag) => {
-          const index = start + flag.slot;
-          const item = data.journal[index];
-          return item ? (
-            <button
-              type="button"
-              key={flag.slot}
-              className="notebook-marker"
-              style={{
-                left: flag.x,
-                top: flag.y,
-                width: flag.width,
-                height: flag.height,
-              }}
-              aria-current={index === chapter ? 'page' : undefined}
-              aria-label={`Chapter ${index + 1}: ${item.title}`}
-              title={item.title}
-              onClick={() => onChapterChange(index)}
-            >
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{item.title}</strong>
-            </button>
-          ) : null;
-        })}
+      <div className="notebook-connections">
+        <AboutSocialLinks data={data} />
+        <a href={pathFor('/contact', s)}>
+          {s.inviteLabel}
+          <ArrowUpRight size={13} aria-hidden="true" />
+        </a>
+      </div>
+      <nav className="notebook-markers" aria-label="Notebook sections">
+        {notebookMarkers(data.journal.length, section).map((flag) => (
+          <button
+            type="button"
+            key={flag.index}
+            disabled={!ready}
+            className="notebook-marker"
+            data-marker-index={flag.index}
+            data-side={flag.side}
+            style={{
+              left: flag.x,
+              top: flag.y,
+              width: flag.width,
+              height: flag.height,
+            }}
+            aria-current={flag.index === section ? 'page' : undefined}
+            aria-label={`Section ${flag.index + 1}: ${data.journal[flag.index].title}`}
+            title={data.journal[flag.index].title}
+            onClick={() => onSectionChange(flag.index)}
+          >
+            <span>{String(flag.index + 1).padStart(2, '0')}</span>
+            <strong>{data.journal[flag.index].title}</strong>
+          </button>
+        ))}
       </nav>
+      {data.journal.length > NOTEBOOK_MARKER_LIMIT && (
+        <nav
+          className="notebook-section-banks"
+          aria-label="More notebook sections"
+        >
+          <button
+            type="button"
+            disabled={!ready || !start}
+            onClick={() => onSectionChange(start - NOTEBOOK_MARKER_LIMIT)}
+          >
+            Earlier sections
+          </button>
+          <span>
+            Sections {start + 1}–
+            {Math.min(start + NOTEBOOK_MARKER_LIMIT, data.journal.length)}
+          </span>
+          <button
+            type="button"
+            disabled={
+              !ready || start + NOTEBOOK_MARKER_LIMIT >= data.journal.length
+            }
+            onClick={() => onSectionChange(start + NOTEBOOK_MARKER_LIMIT)}
+          >
+            More sections
+          </button>
+        </nav>
+      )}
+      <div className="notebook-measurements" inert aria-hidden="true">
+        {data.journal.map(
+          (item, index) =>
+            index !== section && (
+              <div key={item.id || index}>{sheet(index, true)}</div>
+            ),
+        )}
+      </div>
     </article>
   );
 }

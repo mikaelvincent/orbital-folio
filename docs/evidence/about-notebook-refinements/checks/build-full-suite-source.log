@@ -1,0 +1,103 @@
+
+> orbital-folio@0.1.0 prebuild
+> npm run geometry:check
+
+
+> orbital-folio@0.1.0 geometry:check
+> node scripts/generate-indexed-cylinder.mjs --check
+
+Indexed cylinder artifact matches its installed source and generator.
+
+> orbital-folio@0.1.0 build
+> vinext build
+
+
+  vinext build  (Vite 8.2.2)
+
+(node:32714) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/5] analyze client references...
+transforming...
+✓ 345 modules transformed.
+rendering chunks...
+✓ built in 2.32s
+[2/5] analyze server references...
+transforming...
+✓ 476 modules transformed.
+rendering chunks...
+✓ built in 3.83s
+[33m[PLUGIN_TIMINGS] [0mPlugin hooks ran for 3.8s of this 3.8s build (99%).
+The slowest hooks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits is included):
+  - rsc:react-server-dom-webpack-alias resolveId (38%, 1.4s, 1 call)
+  - vinext:typeof-window-scan transform (30%, 1.1s, 24 calls)
+Additional hook time came from the hooks below and from hooks under 1s.
+3 hooks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - vinext:og-inline-fetch-assets resolveId (1316 calls)
+  - alias resolveId (1534 calls)
+  - vinext:optimize-imports transform (310 calls)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+
+[3/5] build rsc environment...
+transforming...
+✓ 409 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.03s
+[4/5] build client environment...
+transforming...
+✓ 2246 modules transformed.
+rendering chunks...
+computing gzip size...
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 3.79s
+[33m[PLUGIN_TIMINGS] [0mPlugin hooks ran for 3.3s of this 3.8s build (87%).
+2 hooks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - vinext:og-inline-fetch-assets resolveId (6670 calls)
+  - alias resolveId (6917 calls)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+
+[5/5] build ssr environment...
+transforming...
+✓ 483 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.00s
+[0m
+  Route (app)
+  ┌ ƒ /                             
+  ├ ƒ /about                        
+  ├ ƒ /admin                        
+  ├ ƒ /admin/preview                
+  ├ λ /api/admin                    
+  ├ λ /api/admin/export             
+  ├ λ /api/admin/inbox              
+  ├ λ /api/admin/projects/:id/export
+  ├ λ /api/admin/projects/import    
+  ├ λ /api/admin/setup              
+  ├ λ /api/admin/upload             
+  ├ λ /api/contact                  
+  ├ ƒ /case-studies                 
+  ├ ƒ /case-studies/:slug           
+  ├ ƒ /contact                      
+  ├ ? /experience                   
+  ├ ƒ /experience/:slug             
+  ├ λ /icon.svg                     
+  ├ λ /media/:id                    
+  ├ ƒ /privacy                      
+  ├ ƒ /projects                     
+  ├ ƒ /projects/:slug               
+  ├ λ /robots.txt                   
+  └ λ /sitemap.xml                  
+
+  λ API  ƒ Dynamic  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  Build complete. Run `vinext start` to start the production server.
+

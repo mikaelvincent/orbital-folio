@@ -1,0 +1,20 @@
+{
+  "filesChangedAfterInitialRejectedSuite": [
+    "features/portfolio/about-notebook.css",
+    "features/portfolio/about-notebook.tsx",
+    "features/portfolio/immersive-portfolio.tsx",
+    "features/portfolio/notebook-section-pages.tsx",
+    "features/portfolio/project-markdown.tsx",
+    "features/spacecraft/rooms/about-personal-study.ts",
+    "features/spacecraft/spacecraft-model.ts",
+    "features/studio/journal-page-preview.css",
+    "features/studio/journal-page-preview.tsx",
+    "lib/content/notebook-pages.ts",
+    "tests/content/journal-content.test.mjs",
+    "tests/spacecraft/about-notebook-application.test.mjs",
+    "tests/spacecraft/about-notebook.test.mjs",
+    "tests/spacecraft/tiny-hardware-detail.test.mjs"
+  ],
+  "initialHashes": "full-suite-source-hashes.json",
+  "finalHashes": "final-source-hashes.json"
+}

@@ -1,5 +1,4 @@
 .orbital-experience.is-immersive:has(.about-notebook) {
-  /* Native focus must scroll only the paper, never the projected scene. */
   position: fixed;
   inset: 0;
   width: 100%;
@@ -14,8 +13,8 @@
   height: 100%;
   color: #253445;
   font-family: var(--font-sans, Arial, sans-serif);
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.55;
   outline: none;
 }
 .notebook-page {
@@ -24,7 +23,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 13px 20px 9px 26px;
+  padding: 13px 22px 9px 26px;
   pointer-events: auto;
 }
 .notebook-page-header,
@@ -63,7 +62,7 @@
   border-top: 1px solid #5f665b30;
   margin-top: 10px;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.06em;
 }
 .about-notebook button {
   cursor: pointer;
@@ -77,70 +76,37 @@
   outline: 2px solid #385c73;
   outline-offset: 2px;
 }
-.notebook-ink {
-  padding: 0 21px 18px 0;
+.notebook-connections {
+  position: absolute;
+  left: 190px;
+  bottom: 16px;
+  width: 410px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  font-size: 12px;
 }
-.notebook-ink > .notebook-kicker {
-  margin: 0 0 9px;
-  font-size: 11px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-.notebook-ink h1 {
-  font-family: Georgia, serif;
-  font-size: 35px;
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  margin: 0 0 12px;
-  outline: none;
-}
-.notebook-ink .notebook-subtitle {
-  margin: 0 0 18px;
-  font-size: 15px;
-  line-height: 1.45;
-  color: #52606a;
-}
-.notebook-biography {
-  margin: 0 0 20px;
-}
-.notebook-signoff {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px solid #5f665b30;
-  font-size: 14px;
-}
-.notebook-signoff > a {
+.notebook-connections > a {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 44px;
+  gap: 6px;
+  min-height: 30px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.notebook-signoff .about-social-links {
-  margin: 0 0 12px;
+.notebook-connections .about-social-links {
+  margin: 0;
+  gap: 6px;
+  flex-wrap: nowrap;
 }
-.notebook-signoff .about-social-links a {
+.notebook-connections .about-social-links a {
+  min-height: 28px;
+  font-size: 11px;
+  padding: 3px 6px;
+  background: transparent;
   color: inherit;
   border-color: #52606a50;
-  background: transparent;
-}
-.about-notebook .contact-window-scrollbar::before {
-  background: #66766a24;
-  width: 3px;
-  left: 9px;
-}
-.about-notebook .contact-window-scroll-thumb {
-  background: #61746c88;
-  width: 3px;
-  left: 9px;
-}
-.about-notebook .contact-window-scrollbar:hover .contact-window-scroll-thumb,
-.about-notebook
-  .contact-window-scrollbar:focus-visible
-  .contact-window-scroll-thumb {
-  background: #3d5556;
 }
 .notebook-markers {
   position: absolute;
@@ -155,9 +121,12 @@
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  padding: 5px 10px 5px 40px;
+  padding: 4px 8px 4px 38px;
   line-height: 1.13;
   color: #253445;
+}
+.notebook-marker[data-side='left'] {
+  padding: 4px 38px 4px 8px;
 }
 .notebook-marker > span {
   font-size: 10px;
@@ -166,7 +135,7 @@
   opacity: 0.75;
 }
 .notebook-marker > strong {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -182,10 +151,47 @@
 .notebook-marker:hover {
   background: #fff2;
 }
-.world-surface[data-turning='true'] .notebook-ink {
+.notebook-section-banks {
+  position: absolute;
+  left: 196px;
+  top: 16px;
+  width: 380px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  font-size: 10px;
+  pointer-events: auto;
+}
+.notebook-section-banks button {
+  text-decoration: underline;
+}
+.notebook-measurements {
+  position: absolute;
+  width: 438px;
+  height: 0;
+  overflow: clip;
+  opacity: 0;
+  pointer-events: none;
+}
+.world-surface[data-turning='true']
+  :is(.notebook-page .notebook-ink, .notebook-connections) {
   opacity: 0;
 }
 .world-notebook-target:focus-visible {
   outline: 3px solid #efc883;
   outline-offset: -10px;
+}
+
+.notebook-connections .about-social-links a {
+  flex: none;
+  gap: 5px;
+}
+.notebook-connections .about-social-links a span {
+  white-space: nowrap;
+}
+.notebook-connections .about-social-links a svg:last-child {
+  display: none;
+}
+.notebook-connections > a {
+  white-space: nowrap;
 }

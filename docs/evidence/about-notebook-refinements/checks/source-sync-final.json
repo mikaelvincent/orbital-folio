@@ -1,0 +1,41 @@
+{
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixture": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-refinements-isv_bwo3",
+  "files": [
+    "docs/OPERATIONS.md",
+    "docs/PROJECT-CONTEXT.md",
+    "features/portfolio/about-notebook.css",
+    "features/portfolio/about-notebook.tsx",
+    "features/portfolio/immersive-portfolio.tsx",
+    "features/portfolio/notebook-section-pages.css",
+    "features/portfolio/notebook-section-pages.tsx",
+    "features/portfolio/project-markdown.tsx",
+    "features/portfolio/room-views.tsx",
+    "features/spacecraft/rooms/about-notebook-layout.ts",
+    "features/spacecraft/rooms/about-personal-study.ts",
+    "features/spacecraft/spacecraft-model.ts",
+    "features/spacecraft/spacecraft-runtime.ts",
+    "features/studio/admin-studio.tsx",
+    "features/studio/journal-page-preview.css",
+    "features/studio/journal-page-preview.tsx",
+    "features/studio/project-editor.tsx",
+    "features/studio/studio-content-fields.tsx",
+    "lib/content/notebook-pages.ts",
+    "lib/content/validation.ts",
+    "tests/content/journal-content.test.mjs",
+    "tests/spacecraft/about-notebook-application.test.mjs",
+    "tests/spacecraft/about-notebook.test.mjs",
+    "tests/spacecraft/tiny-hardware-detail.test.mjs"
+  ],
+  "sourceFilesHashed": 433,
+  "sourceDifferences": [
+    {
+      "path": "vite.config.ts",
+      "main": "7183c338ee9f0f2820097551f9690f9f5ea3e3ce86da86ffd89430c1b9df12a6",
+      "fixture": "34c4effc2a6d3f2f29d61ddad580b1aa497f7a8e33824de9734ebb280471a89f"
+    }
+  ],
+  "runtimeConfigException": "vite.config.ts adds only cacheDir .verification-vite-cache",
+  "baseUrl": "http://localhost:3003",
+  "capturedAt": "2026-09-22T09:23:55.112293+00:00"
+}

@@ -1,25 +1,47 @@
-/** Native pixels map 1:1000 to the retained right page and its paper flags.
- * The camera fits the complete physical spread on every viewport. */
+/** One logical pixel is one millimetre of the stationary paper spread. */
 export const ABOUT_NOTEBOOK_LAYOUT = {
-  width: 0.62,
+  width: 1.27,
   height: 0.566,
-  pixelsWidth: 620,
+  pixelsWidth: 1270,
   pixelsHeight: 566,
-  anchorPosition: [0.312, 0, 0.032],
-  page: { x: 2, y: 0, width: 454, height: 566 },
-  flags: [
-    { slot: 0, x: 455, y: 80, width: 155, height: 62 },
-    { slot: 1, x: 459, y: 245, width: 155, height: 62 },
-    { slot: 2, x: 463, y: 410, width: 155, height: 62 },
-  ],
+  anchorPosition: [0, 0, 0.038],
+  page: { x: 639, y: 0, width: 486, height: 566 },
   openingWidth: 1.18,
   openingHeight: 0.65,
-  framingWidth: 1.18,
+  framingWidth: 1.27,
   framingHeight: 0.65,
-  framingAnchorPosition: [0.045, 0, 0.052],
+  framingAnchorPosition: [0, 0, 0.052],
 } as const;
 
-/** A moving three-marker window keeps every authored chapter reachable. */
+export const NOTEBOOK_MARKER_LIMIT = 6;
+export const NOTEBOOK_MARKER_COLORS = [
+  0xd9ae61, 0xb6bf8a, 0x9ab6c3, 0xc5a2a0, 0xaca6c5, 0xa8c1ae,
+] as const;
+
+/** Additional authored sections stay available through a separate marker bank. */
 export function notebookWindowStart(index: number) {
-  return Math.floor(Math.max(0, Number.isFinite(index) ? index : 0) / 3) * 3;
+  return (
+    Math.floor(
+      Math.max(0, Number.isFinite(index) ? index : 0) / NOTEBOOK_MARKER_LIMIT,
+    ) * NOTEBOOK_MARKER_LIMIT
+  );
+}
+
+export function notebookMarkers(count: number, section: number) {
+  const start = notebookWindowStart(section);
+  const visible = Math.min(NOTEBOOK_MARKER_LIMIT, Math.max(0, count - start));
+  return Array.from({ length: visible }, (_, slot) => {
+    const index = start + slot;
+    const side = index < section ? 'left' : 'right';
+    return {
+      slot,
+      index,
+      side,
+      x: side === 'left' ? 20 : 1095,
+      y: visible === 1 ? 255 : 45 + slot * (420 / (visible - 1)),
+      width: 155,
+      height: 56,
+      color: NOTEBOOK_MARKER_COLORS[index % NOTEBOOK_MARKER_LIMIT],
+    };
+  });
 }

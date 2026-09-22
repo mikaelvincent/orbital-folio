@@ -100,3 +100,78 @@ test('Desktop and portrait fit the same whole book and flags without scaling pap
   }
   assert.deepEqual(notebook.anchor.matrixWorld.toArray(), matrix);
 });
+
+test('Batched section tabs retain variable spacing and travel to the left with crossed pages', () => {
+  const model = createSpacecraft(THREE, {
+    journal: Array.from({ length: 6 }, (_, index) => ({
+      title: `Section ${index + 1}`,
+    })),
+  });
+  const notebook = model.group.userData.aboutNotebook;
+  notebook.setActive(true);
+  notebook.setChapter(4);
+  notebook.update(0.18);
+  const first = notebook.root.getObjectByName(
+    'personal-study-tabbed-paper-leaf-0',
+  );
+  assert.ok(Math.abs(first.rotation.y + Math.PI / 2) < 1e-6);
+  notebook.update(1.26);
+  assert.equal(notebook.settledChapter, 4);
+  assert.equal(notebook.turning, false);
+  assert.deepEqual(
+    notebook.flags.map((flag) => flag.side),
+    ['left', 'left', 'left', 'left', 'right', 'right'],
+  );
+  const anchorPosition = new THREE.Vector3();
+  for (const flag of notebook.flags) {
+    flag.anchor.getWorldPosition(anchorPosition);
+    notebook.anchor.worldToLocal(anchorPosition);
+    assert.ok(
+      Math.abs(anchorPosition.x - (flag.side === 'left' ? -0.5375 : 0.5375)) <
+        1e-6,
+    );
+    assert.ok(
+      Math.abs(anchorPosition.y - (0.283 - (flag.y + flag.height / 2) / 1000)) <
+        1e-6,
+    );
+    const depth = notebook.root.getObjectByName(
+      `personal-study-indexed-paper-depth-${flag.slot}`,
+    );
+    const point = new THREE.Vector3();
+    depth.traverse((object) => {
+      if (!object.isMesh) return;
+      object.updateWorldMatrix(true, false);
+      for (let i = 0; i < object.geometry.attributes.position.count; i++) {
+        point.fromBufferAttribute(object.geometry.attributes.position, i);
+        object.localToWorld(point);
+        notebook.anchor.worldToLocal(point);
+        assert.ok(
+          point.z < 0,
+          'batched turned sheets cannot cover retained left artwork',
+        );
+      }
+    });
+  }
+  notebook.setChapters([
+    { title: 'Short', pageCount: 2 },
+    { title: 'Next', pageCount: 3 },
+  ]);
+  assert.equal(notebook.flags.length, 2);
+  for (const flag of notebook.flags) {
+    const mount = notebook.root.getObjectByName(
+      `personal-study-paper-flag-mount-${flag.slot}`,
+    );
+    assert.ok(
+      mount.children.some((object) => object.isMesh),
+      'flag artwork survives batching in a movable mount',
+    );
+    assert.equal(mount.position.y, 0.283 - (flag.y + flag.height / 2) / 1000);
+  }
+  for (let slot = 2; slot < 6; slot++) {
+    assert.equal(
+      notebook.root.getObjectByName(`personal-study-tabbed-paper-leaf-${slot}`)
+        .visible,
+      false,
+    );
+  }
+});

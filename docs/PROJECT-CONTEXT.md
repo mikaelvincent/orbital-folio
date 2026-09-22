@@ -390,16 +390,25 @@ other rooms' screen applications. The original left-page mountain artwork stays,
 with the current editable owner name; the right physical paper holds the reader.
 There is no detached dialog, backdrop or replacement notebook.
 
-Published Journal entries retain their title, subtitle, order and body. Three
-attached colored paper flags select a window of chapters; previous/next controls
-reach every entry and advance that window beyond three chapters. A brief physical
-leaf turn accompanies selection; reduced motion changes content immediately.
-Long content scrolls within the right page with the shared persistent scrollbar,
-and per-chapter scroll positions and selection survive closing within the visit.
-Back to About, Escape or exposed pressure wall returns to the room; furniture
-blocks wall dismissal and keyboard focus returns to the notebook. The first
-chapter also includes the editable biography; configured social links and the
-Contact invitation remain available. An empty journal retains that introduction.
+Published Journal entries are **sections**, each with its own colored paper marker.
+The marker count follows the collection, up to six visible at once; separate
+Earlier/More sections controls expose additional groups without discarding records.
+Earlier section markers travel with their crossed leaves to the left, where their
+reverse labels remain readable. Both paper stacks align with the reading leaves,
+which overlap each flag's adhesive region by 30 logical pixels. The fixed left
+artwork remains visible above the resting stack.
+
+The bottom arrows turn **pages within the current section** and stop at its ends.
+Pages never scroll. Authored page breaks are stored in the existing Markdown body;
+older long content flows into additional fixed pages without rewriting saved data.
+Each crossed physical leaf turns, including multi-section jumps; long routes use a
+2.4-second animation budget. Reduced motion settles immediately. The 14px body is
+smaller than the 16px subtitle and 17–32px headings. Selection and per-section page
+positions survive closing during a visit. Back to About, Escape or exposed pressure
+wall returns to the room; furniture blocks wall dismissal and focus returns to the
+notebook. The first section includes the editable biography; configured social links
+and the Contact invitation sit on the left paper. An empty journal retains the
+introduction. This supersedes the earlier three-marker/chapter-pager/scroll design.
 
 Journal authoring reuses the Markdown Write/Preview editor and managed media
 workflow from Projects and Case studies. The notebook and semantic Reading view
@@ -407,7 +416,12 @@ share safe Markdown rendering, preserve legacy single line breaks, and support
 headings, lists, links, images, video/captions, code and tables. Raw HTML is escaped;
 private media must publish before the chapter, and published chapter dependencies
 prevent deleting or unpublishing referenced media. No existing entries are renamed
-or rewritten by this implementation.
+or rewritten by this implementation. Journal Write/Preview now exposes individual
+pages and uses the same 438×428px ink area as the physical reader. Save and Publish
+wait for fonts/media and reject rendered overflow, with a further 1,800-character
+limit per authored page and 32 pages per section. Publication fit uses prospective
+published section ordering and the published biography/media, not unrelated drafts.
+A later biography change can create additional reader pages automatically.
 
 The owner's latest instruction explicitly defers a dedicated mobile design:
 **portrait uses exactly the same full spread, page dimensions, typography and
@@ -415,7 +429,8 @@ attached flag layout as desktop, scaled down to fit**. Earlier proposals to crop
 to the right page or relocate markers are superseded. No paper stretch or mobile
 reflow is implemented. Semantic Reading view remains the readable alternative.
 Room, overview, doorway and orbital world framing keep their existing rules;
-only the close notebook camera is new. See [implementation evidence](evidence/about-notebook/README.md).
+only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md)
+and the current [page/section refinements](evidence/about-notebook-refinements/README.md).
 
 ## About photos and social cards
 

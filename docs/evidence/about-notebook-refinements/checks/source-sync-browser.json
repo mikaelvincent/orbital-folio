@@ -1,0 +1,28 @@
+{
+  "files": [
+    "features/portfolio/about-notebook.css",
+    "features/portfolio/about-notebook.tsx",
+    "features/portfolio/immersive-portfolio.tsx",
+    "features/portfolio/notebook-section-pages.css",
+    "features/portfolio/notebook-section-pages.tsx",
+    "features/portfolio/project-markdown.tsx",
+    "features/portfolio/room-views.tsx",
+    "features/spacecraft/rooms/about-notebook-layout.ts",
+    "features/spacecraft/rooms/about-personal-study.ts",
+    "features/spacecraft/spacecraft-model.ts",
+    "features/spacecraft/spacecraft-runtime.ts",
+    "features/studio/admin-studio.tsx",
+    "features/studio/journal-page-preview.css",
+    "features/studio/journal-page-preview.tsx",
+    "features/studio/project-editor.tsx",
+    "features/studio/studio-content-fields.tsx",
+    "lib/content/notebook-pages.ts",
+    "lib/content/validation.ts",
+    "tests/content/journal-content.test.mjs",
+    "tests/spacecraft/about-notebook-application.test.mjs",
+    "tests/spacecraft/about-notebook.test.mjs"
+  ],
+  "purpose": "Final-ish source for isolated browser mutation verification; final full suite waits for browser completion.",
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixture": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-notebook-refinements-isv_bwo3"
+}

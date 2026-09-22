@@ -183,7 +183,7 @@ test('Projects reduced hardware retains closed openings, exact size and useful g
   }
 });
 
-test('About retains all fine paper layers at their original positions using shared closed cuboids', () => {
+test('About fine paper layers align with the wider reading leaves using shared closed cuboids', () => {
   const root = fixture(buildAboutPersonalStudy);
   const edges = [];
   root.traverse((object) => {
@@ -199,10 +199,10 @@ test('About retains all fine paper layers at their original positions using shar
     validClosedSolid(edge.geometry);
     edge.geometry.computeBoundingBox();
     const size = edge.geometry.boundingBox.getSize(new THREE.Vector3());
-    near(size.x, lower ? 0.449 : 0.0012);
+    near(size.x, lower ? 0.477 : 0.0012);
     near(size.y, lower ? 0.0012 : 0.56);
     near(size.z, 0.0013);
-    near(edge.position.x, side * (lower ? 0.231 : 0.457));
+    near(edge.position.x, side * (lower ? 0.245 : 0.485));
     near(edge.position.y, lower ? -0.28 : 0);
     assert.ok(
       Array.from({ length: 5 }, (_, i) => -0.01 + i * 0.0056).some(
@@ -210,6 +210,25 @@ test('About retains all fine paper layers at their original positions using shar
       ),
     );
     assert.equal(edge.material.name, 'personal-study-page-edge-shadow');
+    const top = edge.parent.getObjectByName(
+      'personal-study-printed-top-paper-leaf',
+    );
+    top.geometry.computeBoundingBox();
+    const paperBounds = top.geometry.boundingBox
+      .clone()
+      .applyMatrix4(
+        edge.parent.matrixWorld.clone().invert().multiply(top.matrixWorld),
+      );
+    if (lower) {
+      assert.ok(edge.position.x - size.x / 2 >= paperBounds.min.x);
+      assert.ok(edge.position.x + size.x / 2 <= paperBounds.max.x);
+    } else {
+      const printedEdge = side < 0 ? paperBounds.min.x : paperBounds.max.x;
+      assert.ok(
+        Math.abs(printedEdge - edge.position.x) <= 0.006,
+        'paper shadows follow the outer reading-page edge',
+      );
+    }
   }
 });
 
