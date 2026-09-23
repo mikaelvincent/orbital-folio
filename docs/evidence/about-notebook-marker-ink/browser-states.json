@@ -1,0 +1,395 @@
+{
+  "beforeTurning": {
+    "markers": [
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": "page",
+        "decoration": "underline",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      }
+    ],
+    "section": "4",
+    "turning": "true",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "beforeSettled": {
+    "markers": [
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": "page",
+        "decoration": "underline",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      }
+    ],
+    "section": "4",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "afterSettled": {
+    "markers": [
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": "page",
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      }
+    ],
+    "section": "4",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "afterReverseTurning": {
+    "markers": [
+      {
+        "current": "page",
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      }
+    ],
+    "section": "0",
+    "turning": "true",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "afterFirstSection": {
+    "markers": [
+      {
+        "current": "page",
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      }
+    ],
+    "section": "0",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "afterForwardTurning": {
+    "markers": [
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      },
+      {
+        "current": "page",
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 5: Beyond the screen",
+        "outline": "none",
+        "side": "right",
+        "visibility": "visible"
+      }
+    ],
+    "section": "4",
+    "turning": "true",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "keyboardFocus": {
+    "markers": [
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 1: My story",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 2: How I work",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 3: Learning notes",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": null,
+        "decoration": "none",
+        "focusVisible": false,
+        "label": "Section 4: Design details",
+        "outline": "none",
+        "side": "left",
+        "visibility": "visible"
+      },
+      {
+        "current": "page",
+        "decoration": "none",
+        "focusVisible": true,
+        "label": "Section 5: Beyond the screen",
+        "outline": "solid",
+        "side": "left",
+        "visibility": "visible"
+      }
+    ],
+    "section": "4",
+    "turning": "false",
+    "viewport": [
+      1280,
+      720,
+      2
+    ]
+  },
+  "console": []
+}

@@ -423,7 +423,9 @@ readable. Both paper stacks align with the reading leaves,
 which overlap each flag's adhesive region by 30 logical pixels. The fixed left
 artwork remains visible above the resting stack.
 Room-view flags and native reader labels share numbered titles, typography and
-placement. Only each flag's exposed 125px region is interactive or highlighted;
+placement. Marker titles stay unadorned when selected, including during page
+turns; selection semantics and keyboard focus outlines remain intact.
+Only each flag's exposed 125px region is interactive or highlighted;
 its 30px adhesive overlap remains covered by the page.
 
 The bottom arrows turn **pages within the current section** and stop at its ends.
@@ -471,7 +473,8 @@ current [automatic pages and room interaction](evidence/about-notebook-automatic
 [printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md),
 [persistent real content in the room](evidence/about-notebook-room-content/README.md),
 [continuous content across all camera views](evidence/about-notebook-all-views/README.md),
-and [markers behind each section's first page](evidence/about-notebook-section-markers/README.md).
+[markers behind each section's first page](evidence/about-notebook-section-markers/README.md),
+and [plain marker lettering](evidence/about-notebook-marker-ink/README.md).
 
 ## About photos and social cards
 

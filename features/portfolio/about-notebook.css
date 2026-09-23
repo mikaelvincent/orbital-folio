@@ -142,11 +142,6 @@
   overflow: hidden;
   overflow-wrap: anywhere;
 }
-.notebook-marker[aria-current] > strong {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
 .notebook-marker:hover {
   background: #fff2;
 }
