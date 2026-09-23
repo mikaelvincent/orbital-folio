@@ -1,3 +1,4 @@
+import { PALETTE, paletteAccent } from '../../../lib/palette.ts';
 import { clipGeometryPlane } from './clip-geometry-plane.ts';
 import {
   LADDER_CENTER_Y,
@@ -20,25 +21,17 @@ export function createModelPrimitives(
 ) {
   const cache = new Map<string, any>();
   const materials = new Map<string, any>();
-  // Preserve the owner's hue while making the material a rich painted accent
-  // under filmic lighting rather than a pale yellow reflective finish.
-  const configuredAccent = new THREE.Color(accent || '#e6a34c');
-  const accentHSL = { h: 0, s: 0, l: 0 };
-  configuredAccent.getHSL(accentHSL, THREE.SRGBColorSpace);
-  const paintedAccent = new THREE.Color().setHSL(
-    accentHSL.h,
-    Math.min(1, accentHSL.s * 1.18 + 0.045),
-    Math.min(0.47, accentHSL.l * 0.79),
-    THREE.SRGBColorSpace,
-  );
+  // Use authored sRGB paint directly. The former saturation/brightness boost
+  // turned muted hardware colors back into orange under the unchanged lights.
+  const colorHex = (color: string) => new THREE.Color(color).getHex();
   const palette = {
-    ivory: 0xe1d6c2,
-    chalk: 0xeadfc9,
-    edge: 0x9daba6,
-    navy: 0x29394a,
-    deep: 0x172635,
-    slate: 0x6e7f80,
-    amber: paintedAccent.getHex(),
+    ivory: colorHex(PALETTE.ivory),
+    chalk: colorHex(PALETTE.ivory),
+    edge: colorHex(PALETTE.alloy),
+    navy: colorHex(PALETTE.carbon),
+    deep: colorHex(PALETTE.carbonDeep),
+    slate: colorHex(PALETTE.carbonRaised),
+    amber: colorHex(paletteAccent(accent)),
     linen: 0xbab5a3,
     blue: 0x8ec5cf,
     green: 0x77907c,
@@ -64,20 +57,20 @@ export function createModelPrimitives(
   const m = {
     shell: mat('ceramic-hull', palette.ivory, 0.38, 0.07),
     chalk: mat('interior-enamel', palette.chalk, 0.54, 0.04),
-    liner: mat('warm-insulation', 0xc7bba2, 0.67, 0.01),
+    liner: mat('warm-insulation', colorHex(PALETTE.ivoryShade), 0.67, 0.01),
     wall: mat('plain-cabin-enamel', palette.ivory, 0.82, 0),
-    gasket: mat('graphite-gasket', 0x2b3948, 0.63, 0.04),
+    gasket: mat('graphite-gasket', palette.navy, 0.63, 0.04),
     navy: mat('graphite-enamel', palette.navy, 0.37, 0.28),
     deep: mat('recess', palette.deep, 0.69, 0.12),
     metal: mat('brushed-titanium', palette.edge, 0.34, 0.63),
     slate: mat('sage-utility', palette.slate, 0.44, 0.25),
     amber: mat('signal-amber', palette.amber, 0.25, 0.055),
     linen: mat('woven-linen', palette.linen, 0.94, 0.0),
-    blanket: mat('woven-ochre', 0xc89253, 0.96, 0.0, {
+    blanket: mat('woven-ochre', palette.amber, 0.96, 0.0, {
       side: THREE.DoubleSide,
     }),
-    upholstery: mat('woven-blue', 0x354d69, 0.93, 0.0),
-    paper: mat('warm-paper', 0xf0dfbc, 0.88, 0.0),
+    upholstery: mat('woven-blue', palette.navy, 0.93, 0.0),
+    paper: mat('warm-paper', palette.ivory, 0.88, 0.0),
     glass: mat('blue-optical-glass', 0x244d5c, 0.18, 0.46, {
       emissive: 0x285362,
       emissiveIntensity: 0.14,

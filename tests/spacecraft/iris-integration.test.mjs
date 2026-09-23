@@ -83,7 +83,9 @@ test('Actual C-route interlocks ladder entrances, reverses smoothly, and settles
       delta: 1 / 60,
     });
   const hatchKey = (p) =>
-    p.via === 'walkway' ? p.id : [p.from, p.to].sort().join(':');
+    p.via === 'walkway'
+      ? p.id
+      : [p.from, p.to].sort((a, b) => a.localeCompare(b)).join(':');
   const assertOne = () =>
     assert.ok(
       new Set(
@@ -423,7 +425,7 @@ test('Every physical passage has one centered blade stack and one continuous dar
         'The tunnel must not split into differently lit sections',
       );
       const material = [...materials][0];
-      assert.equal(material.userData.baseColor.getHex(), 0x2b3948);
+      assert.equal(material.userData.baseColor.getHex(), 0x1f2730);
       assert.equal(material.userData.exterior, false);
       const [a, b] = material.userData.linkedRooms;
       model.update(1, '', true, { activeRoom: a, transitWalkway: false });
@@ -441,7 +443,7 @@ test('Every physical passage has one centered blade stack and one continuous dar
   }
 });
 
-test('Both wall faces use cabin paint and both blade faces share white non-emissive paint', () => {
+test('Both wall faces use cabin paint and both blade faces share ivory non-emissive paint', () => {
   const model = createSpacecraft(THREE, { layout: 'wide' });
   const walls = new Set();
   model.group.traverse((o) => {
@@ -458,7 +460,7 @@ test('Both wall faces use cabin paint and both blade faces share white non-emiss
   });
   assert.ok(walls.size > 0);
   for (const m of walls) {
-    assert.equal(m.userData.baseColor.getHex(), 0xe1d6c2);
+    assert.equal(m.userData.baseColor.getHex(), 0xeee9de);
     assert.equal(m.roughness, 0.82);
     assert.equal(m.metalness, 0);
     assert.equal(m.userData.exterior, false);
@@ -467,7 +469,7 @@ test('Both wall faces use cabin paint and both blade faces share white non-emiss
   for (const hatch of model.group.userData.irisHatches)
     hatch.traverse((o) => {
       if (o.isMesh && o.material.name.startsWith('iris-enamel-')) {
-        assert.equal(o.material.userData.baseColor.getHex(), 0xffffff);
+        assert.equal(o.material.userData.baseColor.getHex(), 0xeee9de);
         assert.equal(o.material.metalness, 0);
         assert.equal(o.material.emissive.getHex(), 0);
         assert.equal(o.material.userData.linkedRooms.length, 2);

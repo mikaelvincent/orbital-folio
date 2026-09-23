@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import {
   attachComputerDesktop,
   createComputerDesktopMaterial,
@@ -20,7 +21,7 @@ export function buildProjectPayloadModule(
   const prefix = 'projects-workshop-';
   const material = (
     name: string,
-    color: number,
+    color: string | number,
     roughness: number,
     metalness = 0,
   ) => {
@@ -34,20 +35,20 @@ export function buildProjectPayloadModule(
     return mat;
   };
   const m = {
-    ivory: material('ivory-enamel', 0xe0d8c7, 0.54, 0.08),
-    edge: material('enamel-edge', 0xa49f90, 0.62, 0.14),
-    graphite: material('graphite-enclosure', 0x263342, 0.69, 0.12),
-    dark: material('recess', 0x101a23, 0.8, 0.04),
-    gasket: material('gasket', 0x172128, 0.88),
-    alloy: material('satin-fasteners', 0x929b9c, 0.47, 0.6),
+    ivory: material('ivory-enamel', PALETTE.carbon, 0.54, 0.08),
+    edge: material('enamel-edge', PALETTE.carbonRaised, 0.62, 0.14),
+    graphite: material('graphite-enclosure', PALETTE.carbon, 0.69, 0.12),
+    dark: material('recess', PALETTE.carbonDeep, 0.8, 0.04),
+    gasket: material('gasket', PALETTE.carbonDeep, 0.88),
+    alloy: material('satin-fasteners', PALETTE.alloy, 0.47, 0.6),
     amber: material(
       'amber-latches',
-      options.accent?.color?.getHex() ?? 0xe79625,
+      options.accent?.color?.getHex() ?? PALETTE.bronze,
       0.47,
       0.15,
     ),
     diffuser: material('diffused-task-strip', 0xffe4b8, 0.63),
-    ink: material('hardware-index', 0xd2cbbb, 0.78),
+    ink: material('hardware-index', PALETTE.ivoryShade, 0.78),
   };
   m.diffuser.emissive.set(0xffd6a0);
   m.diffuser.emissiveIntensity = 0.46;
@@ -518,7 +519,12 @@ export function buildProjectPayloadModule(
 
   const sw = 1.01,
     sh = 0.57;
-  const screenMat = material(options.kind + '-screen', 0x0a1d31, 0.76, 0.015);
+  const screenMat = material(
+    options.kind + '-screen',
+    PALETTE.carbonDeep,
+    0.76,
+    0.015,
+  );
   screenMat.emissive.set(0xffffff);
   screenMat.emissiveIntensity = 0.85;
   screenMat.envMapIntensity = 0;
@@ -546,8 +552,8 @@ export function buildProjectPayloadModule(
     if (!canvas || !context) return;
     const ctx = context;
     const background = ctx.createLinearGradient(0, 0, 850, 640);
-    background.addColorStop(0, '#112b43');
-    background.addColorStop(1, '#061526');
+    background.addColorStop(0, PALETTE.carbon);
+    background.addColorStop(1, PALETTE.carbonDeep);
     ctx.fillStyle = background;
     ctx.fillRect(0, 0, 1024, 640);
     if (available) {
@@ -555,12 +561,12 @@ export function buildProjectPayloadModule(
       // Standby keeps the quiet plain background and its passive label.
       const wallpaper = desktopMaterial.map?.image;
       if (wallpaper) ctx.drawImage(wallpaper, 0, 0, 1024, 640);
-      ctx.fillStyle = '#06101e38';
+      ctx.fillStyle = `${PALETTE.carbonDeep}38`;
       ctx.fillRect(0, 0, 1024, 640);
     } else {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#b0c0c7';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.font =
         '500 48px Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
       ctx.fillText('STANDBY', 512, 470);
@@ -569,15 +575,15 @@ export function buildProjectPayloadModule(
     if (options.screenLabels !== false) {
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#f3f6f8';
+      ctx.fillStyle = PALETTE.ivory;
       ctx.font =
         '600 84px Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
       ctx.fillText(options.label, 80, 113, 870);
     }
     ctx.save();
     ctx.translate(461, 368);
-    ctx.strokeStyle = '#d8e5f0';
-    ctx.fillStyle = '#d8e5f0';
+    ctx.strokeStyle = PALETTE.ivory;
+    ctx.fillStyle = PALETTE.ivory;
     ctx.lineWidth = 7;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -639,7 +645,7 @@ export function buildProjectPayloadModule(
         ctx.fill();
       }
       ctx.lineWidth = 4;
-      ctx.strokeStyle = '#7896ad';
+      ctx.strokeStyle = PALETTE.textMuted;
       ctx.beginPath();
       ctx.moveTo(-56, -10);
       ctx.lineTo(-2, -10);
@@ -693,7 +699,7 @@ export function buildProjectPayloadModule(
     texture.magFilter = THREE.LinearFilter;
     screenMat.map = texture;
     screenMat.emissiveMap = texture;
-    // Backlit content retains its navy tone under the room's warm task lighting.
+    // Backlit content retains its carbon tone under the room's warm task lighting.
     screenMat.color.set(0x000000);
     screenMat.emissive.set(0xffffff);
   }

@@ -8,10 +8,10 @@
   min-width: 0;
   padding: 22px;
   margin: 8px 0 24px;
-  border: 1px solid #cbd8e0;
+  border: 1px solid var(--ivory-soft);
   border-radius: 8px;
-  background: #f6f9fb;
-  color: #263f51;
+  background: var(--ivory);
+  color: var(--carbon-raised);
 }
 .about-photo-fields h3,
 .about-slot-preview h3 {
@@ -24,7 +24,7 @@
 .about-slot-preview > p {
   font-size: 12px;
   line-height: 1.7;
-  color: #607889;
+  color: var(--ink-muted);
   margin: 0 0 18px;
 }
 .about-slot-preview > .form-error,
@@ -34,7 +34,7 @@
   color: #8a363e;
 }
 .photo-upload-tools {
-  border: 1px solid #d2dfe6;
+  border: 1px solid var(--ivory-soft);
   border-radius: 6px;
   margin: 0 0 20px;
 }
@@ -66,15 +66,15 @@
 .photo-crop-paper {
   padding: 7px;
   max-width: 320px;
-  border: 1px solid #ddd9ce;
-  background: #f2ede2;
-  box-shadow: 0 3px 8px #1c34400d;
+  border: 1px solid var(--ivory-soft);
+  background: var(--ivory);
+  box-shadow: 0 3px 8px color-mix(in srgb, var(--carbon) 5.1%, transparent);
   margin-bottom: 16px;
 }
 .photo-crop-preview {
   position: relative;
   overflow: hidden;
-  background: #263f51;
+  background: var(--carbon-raised);
 }
 .photo-crop-preview img {
   display: block;
@@ -102,7 +102,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  accent-color: #315e76;
+  accent-color: var(--carbon-muted);
   cursor: pointer;
 }
 .photo-crop-fields .quiet-button {
@@ -110,13 +110,13 @@
   font-size: 12px;
 }
 .photo-publication-note {
-  border-left: 3px solid #a98445;
-  background: #f8f1e4;
+  border-left: 3px solid var(--bronze);
+  background: var(--ivory);
   padding: 16px 18px;
   margin: 20px 0;
 }
 .photo-publication-note p {
-  color: #6d5d41;
+  color: var(--ink-muted);
   margin-bottom: 12px;
 }
 .about-photo-fields .photo-field-feedback {
@@ -141,16 +141,16 @@
 .about-slot-row > div {
   min-width: 0;
   padding: 14px 10px;
-  background: #f6f3eb;
-  border: 1px solid #ddd9ce;
+  background: var(--ivory);
+  border: 1px solid var(--ivory-soft);
   border-radius: 4px;
-  color: #52616d;
+  color: var(--ink-muted);
   font-size: 12px;
   overflow-wrap: anywhere;
 }
 .about-slot-row > div.is-selected {
-  border-color: #aa8648;
-  box-shadow: inset 0 0 0 1px #aa8648;
+  border-color: var(--bronze-dark);
+  box-shadow: inset 0 0 0 1px var(--bronze);
 }
 .about-slot-row strong,
 .about-slot-row span {
@@ -158,11 +158,11 @@
 }
 .about-slot-row strong {
   margin-bottom: 8px;
-  color: #344f61;
+  color: var(--carbon-muted);
 }
 .about-photo-fields button:focus-visible,
 .about-photo-fields summary:focus-visible {
-  outline: 2px solid #2e647f;
+  outline: 2px solid var(--carbon-muted);
   outline-offset: 3px;
 }
 @media (max-width: 700px) {

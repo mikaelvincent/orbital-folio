@@ -1,3 +1,5 @@
+import { PALETTE } from '../../../lib/palette.ts';
+
 /** Original, static artwork for the personal study. No images or font downloads. */
 export function drawStudyArtwork(
   ctx: any,
@@ -11,8 +13,8 @@ export function drawStudyArtwork(
   ctx.scale(ctx.canvas.width / width, ctx.canvas.height / height);
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
-  const ink = '#203147';
-  const paleInk = '#62717b';
+  const ink: string = PALETTE.carbon;
+  const paleInk = PALETTE.bronzeDark;
   let seed = 7429;
   const random = () => {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
@@ -432,17 +434,17 @@ export function drawStudyArtwork(
       { color: string; title: string[]; subtitle: string }
     > = {
       'book-one': {
-        color: '#24384a',
+        color: PALETTE.carbon,
         title: ['Small', 'systems'],
         subtitle: 'A WORKING NOTEBOOK',
       },
       'book-two': {
-        color: '#79766d',
+        color: PALETTE.bronzeDark,
         title: ['Design', 'notes'],
         subtitle: 'OBSERVATIONS & IDEAS',
       },
       'book-three': {
-        color: '#c5b69a',
+        color: PALETTE.ivoryShade,
         title: ['Field', 'journal'],
         subtitle: 'NOTES FROM THE EVERYDAY',
       },
@@ -450,7 +452,7 @@ export function drawStudyArtwork(
     const book = variants[kind] ?? variants['book-one'];
     ctx.fillStyle = book.color;
     ctx.fillRect(0, 0, width, height);
-    const coverInk = kind === 'book-three' ? '#24384a' : '#e4dbc6';
+    const coverInk = kind === 'book-three' ? PALETTE.carbon : PALETTE.ivory;
     for (let i = 0; i < 1500; i++) {
       ctx.fillStyle = i % 2 ? 'rgba(255,246,218,0.055)' : 'rgba(10,20,28,0.06)';
       ctx.fillRect(random() * width, random() * height, 0.9, 2 + random() * 4);

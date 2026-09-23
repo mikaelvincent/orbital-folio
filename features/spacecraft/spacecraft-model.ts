@@ -1,3 +1,4 @@
+import { PALETTE } from '../../lib/palette.ts';
 import { createModelPrimitives } from './geometry/model-primitives.ts';
 import { projectCategoryCount } from '../../lib/content/project-content.ts';
 import { caseStudyCategoryCount } from '../../lib/content/case-study-content.ts';
@@ -359,7 +360,7 @@ export function createSpacecraft(
     z: number,
     parent: any,
     role: 'header',
-    inkColor = '#233549',
+    inkColor = PALETTE.carbon,
   ) {
     const section = sectionOf(parent);
     const entry: (typeof labelPlaques)[number] = {
@@ -737,7 +738,7 @@ export function createSpacecraft(
         ...headerPosition(section),
         room,
         'header',
-        '#152333',
+        PALETTE.carbon,
       );
     } else {
       box(
@@ -1730,7 +1731,7 @@ export function createSpacecraft(
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#203448';
+    ctx.fillStyle = PALETTE.carbon;
     const title = preserveCase ? text.trim() : text.trim().toUpperCase();
     let font = canvas.height * (preserveCase ? 0.9 : wayfinding.fontRatio);
     ctx.font = `800 ${font}px Arial, sans-serif`;
@@ -1860,9 +1861,9 @@ export function createSpacecraft(
       signalSource.name = 'route-paint-' + id;
       signalSource.userData.highlightScale = 0;
       const bladeSource = m.chalk.clone();
-      // Neutral white paint on every cap and edge, with shared passage lighting
+      // Ivory paint on every cap and edge, with shared passage lighting
       // on the two visible faces. The surrounding partition stays cabin ivory.
-      bladeSource.color.set(0xffffff);
+      bladeSource.color.set(PALETTE.ivory);
       bladeSource.roughness = 0.72;
       bladeSource.metalness = 0;
       bladeSource.userData.neutralPaint = true;

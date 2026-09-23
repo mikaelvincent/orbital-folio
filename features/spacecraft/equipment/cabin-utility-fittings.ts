@@ -1,3 +1,5 @@
+import { PALETTE } from '../../../lib/palette.ts';
+
 import {
   CABIN_FLOOR,
   CABIN_HALF_WIDTH,
@@ -26,7 +28,7 @@ export function buildCabinUtilityFittings(
   const prefix = `${section}-utility-`;
   const material = (
     name: string,
-    color: number,
+    color: number | string,
     roughness = 0.68,
     metalness = 0.08,
   ) => {
@@ -37,14 +39,15 @@ export function buildCabinUtilityFittings(
     return mat;
   };
   const m = {
-    enamel: material('enamel', 0xd4ccbd, 0.59),
-    frame: material('frame', 0x303d47),
-    recess: material('recess', 0x18242d, 0.9, 0),
-    metal: material('alloy', 0x879494, 0.48, 0.48),
-    amber: material('retainers', 0xc78528, 0.54, 0.14),
+    enamel: material('enamel', PALETTE.ivory, 0.59),
+    equipmentEnamel: material('equipment-enamel', PALETTE.carbon, 0.59),
+    frame: material('frame', PALETTE.carbon),
+    recess: material('recess', PALETTE.carbonDeep, 0.9, 0),
+    metal: material('alloy', PALETTE.alloy, 0.48, 0.48),
+    amber: material('retainers', PALETTE.bronze, 0.54, 0.14),
     cloth: material('retained-textile', 0x65717a, 0.98, 0),
     bedding: material('rolled-linen', 0xa59b83, 0.98, 0),
-    seam: material('textile-binding', 0x354552, 0.96, 0),
+    seam: material('textile-binding', PALETTE.carbonRaised, 0.96, 0),
   };
   root.userData.equipmentKind = 'cabin-utilities';
   const rearAt = (floorY: number) => {
@@ -326,7 +329,7 @@ export function buildCabinUtilityFittings(
             s;
           const w = (section === 'projects' ? 0.6 : 0.36) * s;
           const ht = (section === 'projects' ? 0.19 : 0.23) * s;
-          const face = mountedBox(x, y, w, ht, 0.16 * s, m.enamel);
+          const face = mountedBox(x, y, w, ht, 0.16 * s, m.equipmentEnamel);
           if (section === 'projects') {
             // Shallow tool drawers with full returns, captive pulls and corner guards.
             box(
@@ -956,7 +959,7 @@ export function buildCabinUtilityFittings(
  * Its face follows the wall; there is no extra pressure-wall panel or cutout.
  */
 export function buildLadderWebFittings(THREE: any, h: any, root: any) {
-  const material = (name: string, color: number, roughness = 0.68) => {
+  const material = (name: string, color: number | string, roughness = 0.68) => {
     const m = new THREE.MeshStandardMaterial({
       color,
       roughness,
@@ -966,10 +969,10 @@ export function buildLadderWebFittings(THREE: any, h: any, root: any) {
     m.userData.highlightScale = 0.018;
     return m;
   };
-  const dark = material('graphite', 0x293741),
-    cream = material('enamel', 0xd4ccbd),
-    metal = material('satin-alloy', 0x899797),
-    amber = material('captive-handles', 0xc78528);
+  const dark = material('graphite', PALETTE.carbon),
+    cream = material('enamel', PALETTE.ivory),
+    metal = material('satin-alloy', PALETTE.alloy),
+    amber = material('captive-handles', PALETTE.bronze);
   root.userData.equipmentKind = 'ladder-isolation-cassette';
   const box = (
     w: number,

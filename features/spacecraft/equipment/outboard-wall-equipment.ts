@@ -1,3 +1,5 @@
+import { PALETTE } from '../../../lib/palette.ts';
+
 /** Static wall-mounted equipment. Local XY follows the wall; +Z faces the cabin. */
 export function buildOutboardWallEquipment(
   THREE: any,
@@ -8,7 +10,7 @@ export function buildOutboardWallEquipment(
   const prefix = `outboard-${kind}-`;
   const material = (
     name: string,
-    color: number,
+    color: number | string,
     roughness = 0.64,
     metalness = 0.1,
   ) => {
@@ -22,11 +24,11 @@ export function buildOutboardWallEquipment(
     return value;
   };
   const m = {
-    ivory: material('enamel', 0xdfd6c5, 0.5),
-    dark: material('graphite', 0x263440),
-    rubber: material('elastomer', 0x121e27, 0.9, 0),
-    alloy: material('brushed-alloy', 0x879396, 0.44, 0.55),
-    amber: material('amber', 0xe79625, 0.43),
+    enclosure: material('enamel', PALETTE.carbon, 0.5),
+    dark: material('graphite', PALETTE.carbon),
+    rubber: material('elastomer', PALETTE.carbonDeep, 0.9, 0),
+    alloy: material('brushed-alloy', PALETTE.alloy, 0.44, 0.55),
+    amber: material('bronze', PALETTE.bronze, 0.43),
     light: material('diffuser', 0xf1d8a6, 0.65, 0),
     glass: material('instrument-glass', 0x0e2533, 0.4, 0),
     cyan: material('instrument-phosphor', 0x95c4cc, 0.8, 0),
@@ -75,7 +77,7 @@ export function buildOutboardWallEquipment(
     canvas.height = Math.max(96, Math.round((1024 * height) / w));
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    ctx.fillStyle = dark ? '#d5dedb' : '#202f39';
+    ctx.fillStyle = dark ? PALETTE.ivory : PALETTE.carbon;
     ctx.font = `600 ${canvas.height * 0.66}px Arial, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -115,7 +117,7 @@ export function buildOutboardWallEquipment(
     // Two replaceable radio trays, with guarded selectors and captive handles.
     for (const [index, y] of [0.53, 0.12].entries()) {
       box(1.08, 0.36, 0.085, m.rubber, 0, y, 0.062, 'radio-isolation-gasket');
-      box(1.04, 0.32, 0.075, m.ivory, 0, y, 0.085, 'radio-chassis');
+      box(1.04, 0.32, 0.075, m.enclosure, 0, y, 0.085, 'radio-chassis');
       box(0.68, 0.21, 0.012, m.dark, -0.09, y, 0.128, 'instrument-bezel');
       box(
         0.625,

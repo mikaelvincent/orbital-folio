@@ -18,13 +18,13 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 8px;
-  border: 1px solid #afdbef4a;
+  border: 1px solid color-mix(in srgb, var(--bronze) 29%, transparent);
   border-radius: 15px;
-  background: #102332f5;
-  color: #e7f3ff;
+  background: color-mix(in srgb, var(--carbon) 96.1%, transparent);
+  color: var(--ivory);
   box-shadow:
     0 12px 38px #0005,
-    inset 0 1px #e1f1ff16;
+    inset 0 1px color-mix(in srgb, var(--bronze) 8.6%, transparent);
   backdrop-filter: blur(18px);
   font:
     400 14px/1.4 Arial,
@@ -33,7 +33,7 @@
 }
 .scene-tools-heading {
   margin: 2px 9px 7px;
-  color: #9db8c9;
+  color: var(--text-muted);
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -57,22 +57,22 @@
 .scene-tools-item svg {
   flex: 0 0 auto;
   stroke-width: 1.5;
-  color: #afccdb;
+  color: var(--ivory-shade);
 }
 .scene-tools-item > span {
   flex: 1;
 }
 .scene-tools-item small {
-  color: #ead0a2;
+  color: var(--bronze-light);
   font-size: 10px;
 }
 .scene-tools-item:hover:not(:disabled),
 .scene-tools-item:focus-visible {
-  background: #9ec6da12;
-  color: #f3dfbe;
+  background: color-mix(in srgb, var(--ivory-shade) 7.1%, transparent);
+  color: var(--bronze-light);
 }
 .scene-tools-item:focus-visible {
-  outline: 2px solid #c4e7ff;
+  outline: 2px solid var(--focus-color);
   outline-offset: -2px;
 }
 .scene-tools-item:disabled {

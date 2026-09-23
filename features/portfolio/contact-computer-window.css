@@ -23,13 +23,13 @@
   display: flex;
   flex-direction: column;
   overflow: clip;
-  color: #f0e9db;
-  background: #101d27;
-  border: 1px solid #819092;
+  color: var(--ivory);
+  background: var(--carbon-deep);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   box-shadow:
     0 12px 35px #0005,
-    inset 0 1px #ffffff18;
+    inset 0 1px color-mix(in srgb, var(--ivory) 9.4%, transparent);
   font-family: var(--font-sans, Arial, sans-serif);
   font-size: 16px;
   line-height: 1.4;
@@ -42,8 +42,8 @@
   justify-content: space-between;
   gap: 12px;
   padding: 0 0 0 14px;
-  background: #21313b;
-  border-bottom: 1px solid #58666b;
+  background: var(--carbon);
+  border-bottom: 1px solid var(--ink-muted);
 }
 .contact-window-bar > span {
   display: flex;
@@ -51,7 +51,7 @@
   gap: 8px;
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: #c6c5b7;
+  color: var(--ivory-shade);
 }
 .contact-window-close {
   display: flex;
@@ -65,15 +65,15 @@
   align-self: stretch;
   border-radius: 0;
   background: transparent;
-  color: #f1e8d7;
+  color: var(--ivory);
   cursor: pointer;
 }
 .contact-window-close:hover {
-  background: #e9b96020;
-  color: #ffd188;
+  background: color-mix(in srgb, var(--bronze) 12.5%, transparent);
+  color: var(--bronze-light);
 }
 .contact-window-close:focus-visible {
-  outline: 2px solid #ffc36a;
+  outline: 2px solid var(--focus-color);
   outline-offset: -3px;
 }
 .contact-window-scroll {
@@ -94,7 +94,7 @@
   display: none;
 }
 .contact-window-body:focus-visible {
-  outline: 1px solid #c4a46f;
+  outline: 1px solid var(--focus-color);
   outline-offset: -2px;
 }
 .contact-window-scrollbar {
@@ -115,7 +115,7 @@
   left: 6px;
   width: 6px;
   border-radius: 4px;
-  background: #2b3e49;
+  background: var(--carbon-raised);
 }
 .contact-window-scroll-thumb {
   position: absolute;
@@ -123,14 +123,14 @@
   left: 6px;
   width: 6px;
   border-radius: 4px;
-  background: #b5aa8c;
+  background: var(--alloy);
 }
 .contact-window-scrollbar:hover .contact-window-scroll-thumb,
 .contact-window-scrollbar:focus-visible .contact-window-scroll-thumb {
-  background: #e3bc79;
+  background: var(--bronze-light);
 }
 .contact-window-scrollbar:focus-visible {
-  outline: 1px solid #e3bc79;
+  outline: 1px solid var(--focus-color);
   outline-offset: -2px;
   border-radius: 5px;
 }
@@ -165,10 +165,10 @@
   z-index: 2;
   pointer-events: none;
   padding: 9px 13px;
-  border: 1px solid #c1ab8170;
+  border: 1px solid color-mix(in srgb, var(--bronze) 43.9%, transparent);
   border-radius: 6px;
-  background: #101d27e8;
-  color: #f0dfbb;
+  background: color-mix(in srgb, var(--carbon-deep) 91%, transparent);
+  color: var(--bronze-light);
   font: 13px/1.4 var(--font-sans, Arial, sans-serif);
   opacity: 0;
   transition: opacity 180ms ease;

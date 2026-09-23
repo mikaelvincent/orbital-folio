@@ -15,7 +15,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  color: #253445;
+  color: var(--carbon);
   font-family: var(--font-sans, Arial, sans-serif);
   font-size: 14px;
   line-height: 1.55;
@@ -40,7 +40,8 @@
   font-size: 12px;
 }
 .notebook-page-header {
-  border-bottom: 1px solid #5f665b30;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
   margin-bottom: 18px;
   min-height: 38px;
   justify-content: flex-end;
@@ -61,7 +62,7 @@
   gap: 6px;
 }
 .notebook-page-footer {
-  border-top: 1px solid #5f665b30;
+  border-top: 1px solid color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
   margin-top: 10px;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.06em;
@@ -75,7 +76,7 @@
   cursor: default;
 }
 .about-notebook :is(button, a):focus-visible {
-  outline: 2px solid #385c73;
+  outline: 2px solid var(--carbon-muted);
   outline-offset: 2px;
 }
 .notebook-connections {
@@ -108,7 +109,7 @@
   padding: 3px 6px;
   background: transparent;
   color: inherit;
-  border-color: #52606a50;
+  border-color: color-mix(in srgb, var(--ink-muted) 31.4%, transparent);
 }
 .notebook-markers {
   position: absolute;
@@ -125,7 +126,7 @@
   text-align: left;
   padding: 4px 8px;
   line-height: 1.13;
-  color: #253445;
+  color: var(--carbon);
 }
 .notebook-marker > span {
   font-size: 10px;
@@ -143,7 +144,7 @@
   overflow-wrap: anywhere;
 }
 .notebook-marker:hover {
-  background: #fff2;
+  background: color-mix(in srgb, var(--ivory) 13.3%, transparent);
 }
 .notebook-section-banks {
   position: absolute;

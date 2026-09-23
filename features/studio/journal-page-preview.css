@@ -4,8 +4,8 @@
 .journal-paper-stage {
   overflow-x: auto;
   padding: 20px;
-  background: #08131a;
-  border: 1px solid #8faaa022;
+  background: var(--carbon-deep);
+  border: 1px solid color-mix(in srgb, var(--alloy) 13.3%, transparent);
   border-radius: 10px;
 }
 .journal-paper-preview {
@@ -14,11 +14,11 @@
   min-height: 532px;
   margin: 0 auto;
   padding: 18px 28px 12px;
-  color: #253445;
-  background: #eee6d3;
-  border: 1px solid #c9c1ad;
+  color: var(--carbon);
+  background: var(--ivory);
+  border: 1px solid var(--ivory-shade);
   box-shadow:
-    5px 5px 0 #d2c9b5,
+    5px 5px 0 var(--ivory-shade),
     10px 10px 24px #0005;
   font-family: var(--font-sans, Arial, sans-serif);
 }
@@ -29,17 +29,18 @@
   justify-content: space-between;
   height: 36px;
   font-size: 11px;
-  color: #52606a;
+  color: var(--ink-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .journal-paper-preview > header {
   margin-bottom: 14px;
-  border-bottom: 1px solid #5f665b30;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
 }
 .journal-paper-preview > footer {
   margin-top: 10px;
-  border-top: 1px solid #5f665b30;
+  border-top: 1px solid color-mix(in srgb, var(--ink-muted) 18.8%, transparent);
   justify-content: space-between;
 }
 
@@ -57,6 +58,6 @@
   cursor: default;
 }
 .journal-paper-preview > footer button:focus-visible {
-  outline: 2px solid #385c73;
+  outline: 2px solid var(--carbon-muted);
   outline-offset: 2px;
 }

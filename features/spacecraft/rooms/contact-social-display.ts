@@ -1,4 +1,8 @@
-import { socialIcon, type SocialLink } from '../../../lib/content/social-links.ts';
+import { PALETTE } from '../../../lib/palette.ts';
+import {
+  socialIcon,
+  type SocialLink,
+} from '../../../lib/content/social-links.ts';
 
 /** Screen graphics only; no photograph, HTML or frame-dependent drawing. */
 export function drawSocialChannel(
@@ -12,10 +16,10 @@ export function drawSocialChannel(
   const pad = width * 0.1;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#91b3c9';
+  ctx.fillStyle = PALETTE.textMuted;
   ctx.font = `500 ${width * 0.037}px monospace`;
   ctx.fillText(`COM / ${side === 'left' ? '02' : '03'}`, pad, height * 0.082);
-  ctx.fillStyle = link ? '#ffd18a' : '#7290a0';
+  ctx.fillStyle = link ? PALETTE.bronzeLight : PALETTE.alloy;
   ctx.beginPath();
   ctx.arc(width - pad, height * 0.082, width * 0.009, 0, Math.PI * 2);
   ctx.fill();
@@ -24,8 +28,8 @@ export function drawSocialChannel(
   ctx.save();
   ctx.translate((width - iconSize) / 2, height * 0.16);
   ctx.scale(iconSize / 24, iconSize / 24);
-  ctx.fillStyle = '#e8f2f7';
-  ctx.strokeStyle = '#e8f2f7';
+  ctx.fillStyle = PALETTE.ivory;
+  ctx.strokeStyle = PALETTE.ivory;
   ctx.lineWidth = 1.55;
   ctx.lineCap = ctx.lineJoin = 'round';
   const path = new Path2D(icon.path);
@@ -74,17 +78,17 @@ export function drawSocialChannel(
     link?.title || 'Unassigned',
     height * 0.56,
     width * 0.148,
-    '#f0f5f8',
+    PALETTE.ivory,
     600,
   );
   text(
     link?.description || (link ? 'Connect with me' : 'Channel standby'),
     height * 0.75,
     width * 0.061,
-    '#a8c6d8',
+    PALETTE.textMuted,
     400,
   );
-  ctx.strokeStyle = '#406278';
+  ctx.strokeStyle = PALETTE.bronze;
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.moveTo(pad, height * 0.815);
@@ -94,7 +98,7 @@ export function drawSocialChannel(
     link ? 'Open link' : 'NO LINK ASSIGNED',
     height * 0.905,
     width * (link ? 0.071 : 0.038),
-    '#cee4ed',
+    PALETTE.ivory,
     500,
     1,
   );
@@ -102,7 +106,7 @@ export function drawSocialChannel(
     const size = width * 0.06,
       x = width * 0.77,
       y = height * 0.905;
-    ctx.strokeStyle = '#ffd18a';
+    ctx.strokeStyle = PALETTE.bronzeLight;
     ctx.lineWidth = width * 0.005;
     ctx.beginPath();
     ctx.moveTo(x, y + size / 2);

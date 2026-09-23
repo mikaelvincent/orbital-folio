@@ -1,3 +1,5 @@
+import { PALETTE } from '../../../lib/palette.ts';
+
 /** Physical ANSI 75% layout, keyed by KeyboardEvent.code rather than typed text.
  * This lets Shift+A, held modifiers and non-US input keep their physical position.
  */
@@ -174,10 +176,10 @@ export function buildContactKeyboard(
   CONTACT_KEY_LAYOUT.forEach((key, index) => {
     color.set(
       key.code === 'Escape' || key.code === 'Enter'
-        ? 0xcc892e
+        ? PALETTE.bronzeDark
         : /^Key|^Digit|^Space/.test(key.code)
-          ? 0x354553
-          : 0x23313e,
+          ? PALETTE.carbonRaised
+          : PALETTE.carbon,
     );
     caps.setColorAt(index, color);
   });
@@ -189,7 +191,7 @@ export function buildContactKeyboard(
     canvas.height = 512;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      ctx.fillStyle = '#e6e5da';
+      ctx.fillStyle = PALETTE.ivory;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       CONTACT_KEY_LAYOUT.forEach((key, index) => {

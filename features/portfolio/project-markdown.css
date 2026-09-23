@@ -87,21 +87,21 @@
 .project-markdown blockquote {
   margin: 1.5em 0;
   padding: 0.2em 1.2em;
-  border-left: 3px solid #b9914f;
+  border-left: 3px solid var(--bronze);
   opacity: 0.9;
 }
 .project-markdown code {
   padding: 0.12em 0.3em;
-  background: #7c8a9020;
+  background: color-mix(in srgb, var(--line-strong) 12.5%, transparent);
   border-radius: 4px;
   font-size: 0.87em;
 }
 .project-markdown pre {
   overflow-x: auto;
   padding: 1.1em;
-  background: #15222c;
-  color: #e5e9e8;
-  border: 1px solid #53606a;
+  background: var(--carbon);
+  color: var(--ivory);
+  border: 1px solid var(--ink-muted);
   border-radius: 8px;
 }
 .project-markdown pre code {
@@ -110,7 +110,7 @@
 }
 .project-markdown hr {
   border: 0;
-  border-top: 1px solid #8a909050;
+  border-top: 1px solid color-mix(in srgb, var(--alloy) 31.4%, transparent);
   margin: 2em 0;
 }
 .project-markdown img {
@@ -134,10 +134,10 @@
 .project-markdown th {
   padding: 0.65em 0.9em;
   text-align: left;
-  border: 1px solid #8a909060;
+  border: 1px solid color-mix(in srgb, var(--alloy) 37.6%, transparent);
 }
 .project-markdown th {
-  background: #7c8a9018;
+  background: color-mix(in srgb, var(--line-strong) 9.4%, transparent);
 }
 .project-markdown input[type='checkbox'] {
   margin-right: 0.5em;
@@ -155,7 +155,7 @@
   max-height: 620px;
   height: auto;
   object-fit: contain;
-  background: #0b141c;
+  background: var(--carbon-deep);
   border-radius: 8px;
 }
 .project-story-media figcaption {

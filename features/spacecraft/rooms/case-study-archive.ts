@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import {
   CASE_STUDY_CATEGORIES,
   type CaseStudyFilter,
@@ -18,7 +19,7 @@ export function buildCaseStudyArchive(
   const prefix = 'case-archive-';
   const material = (
     name: string,
-    color: number,
+    color: string | number,
     roughness = 0.65,
     metalness = 0.08,
   ) => {
@@ -29,15 +30,15 @@ export function buildCaseStudyArchive(
     return mat;
   };
   const m = {
-    shell: material('ivory-enamel', 0xdfd6c5, 0.53),
-    graphite: material('rack-graphite', 0x283440, 0.63, 0.17),
-    edge: material('satin-edge', 0x677780, 0.49, 0.42),
-    recess: material('slot-interior', 0x0e171e, 0.91, 0),
-    rubber: material('isolators', 0x16212a, 0.88, 0),
-    alloy: material('fasteners', 0x9da5a3, 0.45, 0.5),
+    shell: material('ivory-enamel', PALETTE.ivory, 0.53),
+    graphite: material('rack-graphite', PALETTE.carbon, 0.63, 0.17),
+    edge: material('satin-edge', PALETTE.carbonRaised, 0.49, 0.42),
+    recess: material('slot-interior', PALETTE.carbonDeep, 0.91, 0),
+    rubber: material('isolators', PALETTE.carbonDeep, 0.88, 0),
+    alloy: material('fasteners', PALETTE.alloy, 0.45, 0.5),
     amber: material(
       'amber-retainers',
-      options.accent?.color?.getHex() ?? 0xe79625,
+      options.accent?.color?.getHex() ?? PALETTE.bronze,
       0.42,
       0.15,
     ),
@@ -262,7 +263,7 @@ export function buildCaseStudyArchive(
     mat.envMapIntensity = 0;
     mat.userData.archiveInk = true;
     if (luminous) {
-      mat.emissive.set(0xb4d7e6);
+      mat.emissive.set(0xffffff);
       mat.emissiveMap = texture;
       mat.emissiveIntensity = 0.36;
     }
@@ -436,7 +437,7 @@ export function buildCaseStudyArchive(
     floorRoot,
     'rack-mark',
     (ctx, cw, ch) => {
-      ctx.fillStyle = '#a9b9c0';
+      ctx.fillStyle = PALETTE.ivoryShade;
       ctx.font = `600 ${ch * 0.7}px monospace`;
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
@@ -536,7 +537,7 @@ export function buildCaseStudyArchive(
       2.175,
       0.19,
       0.032,
-      material('cartridge-' + category.kind + '-jacket', 0x283440, 0.53),
+      material('cartridge-' + category.kind + '-jacket', PALETTE.carbon, 0.53),
       0,
       0,
       0.102,
@@ -656,8 +657,8 @@ export function buildCaseStudyArchive(
       'cartridge-print-' + index,
       (ctx, cw, ch) => {
         ctx.strokeStyle = ctx.fillStyle = category.active
-          ? '#20303e'
-          : '#b0c0c7';
+          ? PALETTE.carbon
+          : PALETTE.textMuted;
         icon(ctx, category.kind, 45, ch / 2, ch * 0.7);
         ctx.font = `600 ${ch * 0.53}px Arial, sans-serif`;
         ctx.textAlign = 'left';
@@ -692,7 +693,7 @@ export function buildCaseStudyArchive(
       setAvailable(value: boolean) {
         if (category.active === value) return;
         category.active = value;
-        jacketMaterial.color.set(value ? 0xdfd6c5 : 0x283440);
+        jacketMaterial.color.set(value ? PALETTE.ivory : PALETTE.carbon);
         jacketMaterial.userData.baseColor?.copy(jacketMaterial.color);
         print.repaint();
       },
@@ -774,24 +775,24 @@ export function buildCaseStudyArchive(
     'terminal-screen',
     (ctx, cw, ch) => {
       const bg = ctx.createLinearGradient(0, 0, cw, ch);
-      bg.addColorStop(0, '#102b43');
-      bg.addColorStop(1, '#041321');
+      bg.addColorStop(0, PALETTE.carbon);
+      bg.addColorStop(1, PALETTE.carbonDeep);
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, cw, ch);
       if (terminalAvailable) {
         const wallpaper = desktopMaterial.map?.image;
         if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
-        ctx.fillStyle = '#06101e38';
+        ctx.fillStyle = `${PALETTE.carbonDeep}38`;
         ctx.fillRect(0, 0, cw, ch);
       }
-      ctx.strokeStyle = '#b9d7e7';
+      ctx.strokeStyle = PALETTE.ivory;
       icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
-      ctx.fillStyle = '#e2ebed';
+      ctx.fillStyle = PALETTE.ivory;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = '600 100px Arial, sans-serif';
       ctx.fillText('All case studies', cw / 2, ch * 0.48, cw - 150);
-      ctx.fillStyle = '#a8becb';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
         terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
@@ -799,18 +800,18 @@ export function buildCaseStudyArchive(
         ch * 0.62,
         cw - 150,
       );
-      ctx.strokeStyle = '#38596d';
+      ctx.strokeStyle = PALETTE.bronze;
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(85, ch * 0.76);
       ctx.lineTo(cw - 85, ch * 0.76);
       ctx.stroke();
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#7a98a9';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.font = '500 26px monospace';
       ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88);
       ctx.textAlign = 'right';
-      ctx.fillStyle = '#d6b271';
+      ctx.fillStyle = PALETTE.bronzeLight;
       ctx.font = '500 38px Arial, sans-serif';
       ctx.fillText(String(caseCount).padStart(2, '0'), cw - 85, ch * 0.88);
     },

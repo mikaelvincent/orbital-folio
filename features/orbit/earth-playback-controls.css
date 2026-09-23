@@ -11,11 +11,11 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 20px;
-  border: 1px solid #7796a957;
+  border: 1px solid color-mix(in srgb, var(--alloy) 34.1%, transparent);
   border-radius: 18px;
-  background: #101e2a;
+  background: var(--carbon-deep);
   box-shadow: 0 18px 56px #0008;
-  color: #edf2f3;
+  color: var(--ivory);
   font: 400 14px/1.5 var(--font-geist-sans, system-ui, sans-serif);
   letter-spacing: normal;
   text-transform: none;
@@ -35,13 +35,13 @@
   font-weight: 600;
 }
 .earth-playback-eyebrow {
-  color: #e7bd7d;
+  color: var(--bronze-light);
   font-size: 10px;
   letter-spacing: 0.15em;
 }
 .earth-playback-panel p {
   margin: 14px 0 18px;
-  color: #b7c9d5;
+  color: var(--ivory-shade);
 }
 .earth-playback-panel button {
   min-height: 40px;
@@ -50,15 +50,15 @@
   justify-content: center;
   gap: 8px;
   padding: 7px 14px;
-  border: 1px solid #9eb9c43d;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 23.9%, transparent);
   border-radius: 9px;
-  background: #263541;
-  color: #ecf1f3;
+  background: var(--carbon);
+  color: var(--ivory);
   cursor: pointer;
   font: inherit;
 }
 .earth-playback-panel button:hover {
-  background: #354754;
+  background: var(--carbon-raised);
 }
 .earth-playback-panel .earth-playback-close {
   width: 40px;
@@ -67,10 +67,10 @@
   border-color: transparent;
 }
 .earth-playback-panel .earth-playback-close:hover {
-  background: #ffffff12;
+  background: color-mix(in srgb, var(--ivory) 7.1%, transparent);
 }
 .earth-playback-panel :is(button, input):focus-visible {
-  outline: 2px solid #e6bd7b;
+  outline: 2px solid var(--focus-color);
   outline-offset: 3px;
 }
 .earth-playback-panel :disabled {
@@ -78,11 +78,11 @@
   cursor: not-allowed;
 }
 .earth-playback-label output {
-  color: #f0cb90;
+  color: var(--bronze-light);
   font-variant-numeric: tabular-nums;
 }
 .earth-playback-label output span {
-  color: #8da6b7;
+  color: var(--alloy);
 }
 .earth-playback-panel input[type='range'] {
   display: block;
@@ -95,7 +95,7 @@
   border-radius: 0;
   box-shadow: none;
   background: transparent;
-  accent-color: #e9bb78;
+  accent-color: var(--bronze);
   cursor: pointer;
 }
 .earth-playback-actions {
@@ -104,22 +104,23 @@
 }
 .earth-playback-actions button:first-child {
   min-width: 98px;
-  background: #dfb477;
-  color: #101c27;
-  border-color: #dfb477;
+  background: var(--ivory);
+  color: var(--carbon);
+  border-color: var(--bronze);
 }
 .earth-playback-actions button:first-child:hover {
-  background: #f0cb90;
+  background: var(--ivory-soft);
 }
 .earth-playback-panel .earth-playback-note {
   margin: 0 0 16px;
   font-size: 12px;
 }
 .earth-playback-panel footer {
-  border-top: 1px solid #a5c7db24;
+  border-top: 1px solid
+    color-mix(in srgb, var(--ivory-shade) 14.1%, transparent);
   padding-top: 12px;
   font-size: 11px;
-  color: #95adbd;
+  color: var(--text-muted);
 }
 @media (max-width: 699px) {
   .earth-playback-panel {

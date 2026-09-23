@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import type { SocialScreenLinks } from '../../../lib/content/social-links.ts';
 import { createContactDisplaySurface } from './contact-display-surface.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
@@ -41,7 +42,7 @@ export function buildContactFlightConsole(
   floorRoot.add(parent);
   const material = (
     name: string,
-    color: number,
+    color: string | number,
     roughness: number,
     metalness = 0,
   ) => {
@@ -55,21 +56,21 @@ export function buildContactFlightConsole(
     return value;
   };
   const m = {
-    shell: material('enamel', 0xe0d8c7, 0.46, 0.08),
-    face: material('graphite', 0x263342, 0.63, 0.12),
-    dark: material('recess', 0x101a23, 0.75, 0.05),
-    rubber: material('elastomer', 0x172128, 0.88),
-    metal: material('satin-alloy', 0x8d989a, 0.4, 0.65),
+    shell: material('enamel', PALETTE.carbon, 0.46, 0.08),
+    face: material('graphite', PALETTE.carbon, 0.63, 0.12),
+    dark: material('recess', PALETTE.carbonDeep, 0.75, 0.05),
+    rubber: material('elastomer', PALETTE.carbonDeep, 0.88),
+    metal: material('satin-alloy', PALETTE.alloy, 0.4, 0.65),
     accent: material(
       'amber',
-      options.accent?.color?.getHex() ?? 0xe79625,
+      options.accent?.color?.getHex() ?? PALETTE.bronze,
       0.37,
       0.15,
     ),
-    ink: material('markings', 0xc3cfcf, 0.85),
-    led: material('indicator', 0xeabd65, 0.4),
+    ink: material('markings', PALETTE.ivory, 0.85),
+    led: material('indicator', PALETTE.bronze, 0.4),
   };
-  m.led.emissive.set(0xe0a344);
+  m.led.emissive.set(PALETTE.bronze);
   m.led.emissiveIntensity = 0.12;
   const box = (
     w: number,
@@ -289,8 +290,8 @@ export function buildContactFlightConsole(
     w: number,
     height: number,
   ) => {
-    const mat = material(`screen-${kind}`, 0x0b2136, 0.57, 0.02);
-    mat.emissive.set(0x40759a);
+    const mat = material(`screen-${kind}`, PALETTE.carbonDeep, 0.57, 0.02);
+    mat.emissive.set(PALETTE.carbonRaised);
     mat.emissiveIntensity = 0.5;
     mat.envMapIntensity = 0.06;
     mat.roughness = 0.76;
@@ -309,43 +310,43 @@ export function buildContactFlightConsole(
         : options.socials?.[kind === 'link' ? 'left' : 'right'];
     const available = kind === 'contact' || Boolean(link);
     const gradient = ctx.createLinearGradient(0, 0, cw, ch);
-    gradient.addColorStop(0, '#102b46');
-    gradient.addColorStop(1, '#041326');
+    gradient.addColorStop(0, PALETTE.carbon);
+    gradient.addColorStop(1, PALETTE.carbonDeep);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, cw, ch);
     if (available) {
       const wallpaper = desktopMaterial.map?.image;
       if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
-      ctx.fillStyle = '#06101e38';
+      ctx.fillStyle = `${PALETTE.carbonDeep}38`;
       ctx.fillRect(0, 0, cw, ch);
     }
     // Real display graphics, never a rendered photograph standing in for geometry.
-    ctx.strokeStyle = '#4d6b80';
+    ctx.strokeStyle = PALETTE.bronze;
     ctx.lineWidth = 2;
-    ctx.fillStyle = '#dfe9e9';
+    ctx.fillStyle = PALETTE.ivory;
     ctx.textBaseline = 'middle';
     if (!available) {
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#b0c0c7';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.font = '500 48px sans-serif';
       ctx.fillText('STANDBY', cw / 2, ch * 0.73);
     } else if (kind === 'contact') {
       ctx.font = '500 24px sans-serif';
-      ctx.fillStyle = '#95b2c1';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.fillText('COMMUNICATIONS', 67, 61);
-      ctx.fillStyle = '#e4eceb';
+      ctx.fillStyle = PALETTE.ivory;
       ctx.font = '600 92px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('LET’S CONNECT', 512, 180, 870);
       ctx.font = '400 34px sans-serif';
-      ctx.fillStyle = '#bacdda';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.fillText('Start a conversation', 512, 257);
       ctx.beginPath();
       ctx.moveTo(68, 304);
       ctx.lineTo(955, 304);
       ctx.stroke();
       // Static signal diagram with a separate status footer.
-      ctx.strokeStyle = '#739fba';
+      ctx.strokeStyle = PALETTE.textMuted;
       ctx.lineWidth = 4;
       const cx = 512,
         // The arcs extend above the signal origin; center the whole graphic
@@ -356,17 +357,17 @@ export function buildContactFlightConsole(
         ctx.arc(cx, cy, radius, -2.48, -0.66);
         ctx.stroke();
       }
-      ctx.fillStyle = '#e8b65f';
+      ctx.fillStyle = PALETTE.bronze;
       ctx.beginPath();
       ctx.arc(cx, cy, 13, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = '#4d6b80';
+      ctx.strokeStyle = PALETTE.bronze;
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(68, ch - 125);
       ctx.lineTo(955, ch - 125);
       ctx.stroke();
-      ctx.fillStyle = '#94b1c1';
+      ctx.fillStyle = PALETTE.textMuted;
       ctx.font = '500 21px monospace';
       ctx.textAlign = 'left';
       ctx.fillText('COM / 01', 69, ch - 89);
@@ -385,7 +386,7 @@ export function buildContactFlightConsole(
     mat.map = texture;
     mat.emissiveMap = texture;
     mat.color.set(0xffffff);
-    mat.emissive.set(0xb0d0e6);
+    mat.emissive.set(0xffffff);
     mat.userData.displaySize = [w, height];
     return mat;
   };

@@ -1,3 +1,4 @@
+import { PALETTE } from '../../lib/palette.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
@@ -127,7 +128,7 @@ test('Only populated archive categories are interactive, and emptied cartridges 
           ),
         );
         const expected = new THREE.Color(
-          available ? 0xdfd6c5 : 0x283440,
+          available ? PALETTE.ivory : PALETTE.carbon,
         ).multiplyScalar(available ? 1.15 : 1);
         assert.ok(
           Math.max(

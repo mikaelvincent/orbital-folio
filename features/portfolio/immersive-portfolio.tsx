@@ -21,6 +21,7 @@ import {
   type Destination,
 } from '@/features/spacecraft/navigation/flight';
 import { pathFor } from '@/lib/paths';
+import { paletteAccent } from '@/lib/palette';
 import { pageMetadata } from '@/lib/metadata';
 import { Spacecraft } from '../spacecraft/spacecraft';
 import { Footer } from './portfolio-parts';
@@ -485,7 +486,7 @@ export function ImmersivePortfolio({
     <div
       className={`orbital-experience public-site ${immersive ? 'is-immersive' : 'is-readable'} destination-${destination.section} ${destination.slug ? 'has-dossier' : ''} ${travel ? 'is-travelling' : ''} ${reduced ? 'is-motionless' : ''}`}
       lang={s.language}
-      style={{ '--accent': s.accent } as React.CSSProperties}
+      style={{ '--accent': paletteAccent(s.accent) } as React.CSSProperties}
       onClickCapture={capture}
     >
       {!enhanced && <SceneLoader site={s} boot />}

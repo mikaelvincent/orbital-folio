@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import {
   imageCropRect,
   type AboutPhoto,
@@ -76,7 +77,7 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
         drawStudyArtwork(ctx, kind);
         ctx.restore();
       } else {
-        ctx.fillStyle = '#eadfc9';
+        ctx.fillStyle = PALETTE.ivory;
         ctx.fillRect(0, 0, width, height);
       }
       if (social) {
@@ -99,7 +100,7 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
           ctx.translate(x, y);
           ctx.scale(size / vw, size / vh);
           ctx.translate(-vx, -vy);
-          ctx.fillStyle = ctx.strokeStyle = '#203147';
+          ctx.fillStyle = ctx.strokeStyle = PALETTE.carbon;
           ctx.lineWidth = 1.7;
           ctx.lineCap = ctx.lineJoin = 'round';
           const path = new Path2D(icon.path);

@@ -3,12 +3,12 @@
   border: 0;
   padding: 0;
   margin: 0;
-  color: #263f51;
+  color: var(--carbon-raised);
 }
 .project-editor-section {
   padding-bottom: 26px;
   margin-bottom: 26px;
-  border-bottom: 1px solid #dce4e9;
+  border-bottom: 1px solid var(--ivory);
 }
 .project-editor-section-heading {
   display: flex;
@@ -21,11 +21,11 @@
   place-items: center;
   flex: 0 0 30px;
   height: 30px;
-  background: #eaf1f5;
-  border: 1px solid #cad7df;
+  background: var(--ivory);
+  border: 1px solid var(--ivory-soft);
   border-radius: 8px;
   font: 600 11px monospace;
-  color: #4e748a;
+  color: var(--ink-muted);
 }
 .project-editor-section-heading h3 {
   margin: 0 0 5px;
@@ -33,7 +33,7 @@
   font-weight: 600;
 }
 .project-editor-section-heading p {
-  color: #607889;
+  color: var(--ink-muted);
   font-size: 12px;
   line-height: 1.7;
   margin: 0;
@@ -47,14 +47,14 @@
   min-width: 0;
 }
 .project-editor .studio-field small {
-  color: #607889;
+  color: var(--ink-muted);
   font-weight: 400;
   font-size: 11px;
   line-height: 1.65;
 }
 .project-optional {
   font-weight: 400;
-  color: #607889;
+  color: var(--ink-muted);
 }
 .project-category-field {
   border: 0;
@@ -64,12 +64,12 @@
 .project-category-field legend {
   font-size: 12px;
   font-weight: 600;
-  color: #476173;
+  color: var(--ink-muted);
 }
 .project-category-field p,
 .project-category-field small {
   font-size: 11px;
-  color: #607889;
+  color: var(--ink-muted);
   line-height: 1.7;
   margin: 7px 0;
 }
@@ -85,21 +85,21 @@
   gap: 9px;
   min-height: 42px;
   padding: 10px 15px;
-  border: 1px solid #bdcbd4;
+  border: 1px solid var(--ivory-shade);
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
 }
 .project-category-options label:has(input:checked) {
-  border-color: #426f87;
-  background: #edf4f7;
-  color: #244a61;
+  border-color: var(--ink-muted);
+  background: var(--ivory);
+  color: var(--carbon-raised);
 }
 .project-category-options input,
 .project-sample-setting input {
   width: 16px;
   height: 16px;
-  accent-color: #315e76;
+  accent-color: var(--carbon-muted);
 }
 .project-write-toolbar {
   display: flex;
@@ -112,9 +112,9 @@
   display: flex;
   gap: 4px;
   padding: 3px;
-  border: 1px solid #d1dde4;
+  border: 1px solid var(--ivory-soft);
   border-radius: 7px;
-  background: #f2f6f8;
+  background: var(--ivory);
 }
 .project-write-toolbar button {
   display: inline-flex;
@@ -126,25 +126,25 @@
   border: 1px solid transparent;
   border-radius: 5px;
   font-size: 12px;
-  color: #476173;
+  color: var(--ink-muted);
   background: transparent;
   cursor: pointer;
 }
 .project-write-toolbar > button {
-  border-color: #c5d4dd;
+  border-color: var(--ivory-soft);
 }
 .project-write-toolbar button[aria-pressed='true'] {
-  background: #fff;
-  color: #244a61;
-  border-color: #bdcbd4;
-  box-shadow: 0 1px 3px #1736480a;
+  background: var(--ivory-shade);
+  color: var(--carbon-raised);
+  border-color: var(--bronze-dark);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--carbon) 3.9%, transparent);
 }
 .project-write-toolbar button:hover {
-  background: #e7eff4;
+  background: var(--ivory-soft);
 }
 .project-editor button:focus-visible,
 .project-editor summary:focus-visible {
-  outline: 2px solid #2e647f;
+  outline: 2px solid var(--carbon-muted);
   outline-offset: 3px;
 }
 .project-markdown-field textarea {
@@ -155,20 +155,20 @@
   min-height: 350px;
 }
 .project-preview-stage {
-  border: 1px solid #cad7df;
+  border: 1px solid var(--ivory-soft);
   border-radius: 8px;
   padding: 22px;
-  background: #e8eef2;
+  background: var(--ivory);
 }
 .project-preview-document {
   padding: clamp(20px, 3vw, 38px);
-  background: #fff;
-  border: 1px solid #ccd8df;
+  background: var(--ivory);
+  border: 1px solid var(--ivory-soft);
   border-radius: 7px;
   margin: 0 auto;
   width: 100%;
   min-width: 0;
-  color: #273e4d;
+  color: var(--carbon-raised);
   overflow-wrap: anywhere;
 }
 .project-preview-stage.is-portrait .project-preview-document {
@@ -180,7 +180,7 @@
 }
 .project-preview-document > .eyebrow {
   font-size: 9px;
-  color: #728897;
+  color: var(--ink-muted);
   letter-spacing: 0.14em;
 }
 .project-preview-document > h2 {
@@ -189,7 +189,7 @@
   margin: 18px 0 14px;
 }
 .project-preview-summary {
-  color: #536c7d;
+  color: var(--ink-muted);
   line-height: 1.8;
   margin-bottom: 28px;
 }
@@ -202,7 +202,7 @@
 }
 .project-preview-meta dt {
   font-weight: 600;
-  color: #536c7d;
+  color: var(--ink-muted);
   margin-bottom: 5px;
 }
 .project-preview-meta dd {
@@ -210,9 +210,9 @@
 }
 .project-media-tools {
   margin-top: 24px;
-  border: 1px solid #cbd8e0;
+  border: 1px solid var(--ivory-soft);
   border-radius: 8px;
-  background: #f6f9fb;
+  background: var(--ivory);
 }
 .project-media-tools > summary,
 .project-editor-advanced > summary {
@@ -242,7 +242,7 @@
 }
 .project-media-existing {
   padding-left: 25px;
-  border-left: 1px solid #d2dfe6;
+  border-left: 1px solid var(--ivory-soft);
 }
 .project-media-tools .button,
 .project-media-publication .button {
@@ -263,8 +263,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: #f1f6f8;
-  border-left: 3px solid #7a9aab;
+  background: var(--ivory);
+  border-left: 3px solid var(--alloy);
   border-radius: 4px;
   padding: 17px 19px;
   margin-bottom: 22px;
@@ -275,14 +275,14 @@
 .project-media-publication p {
   font-size: 11px;
   line-height: 1.7;
-  color: #607889;
+  color: var(--ink-muted);
   margin: 6px 0 0;
 }
 .project-media-publication .button {
   flex-shrink: 0;
 }
 .project-editor-advanced {
-  border: 1px solid #d4dfe6;
+  border: 1px solid var(--ivory-soft);
   border-radius: 7px;
 }
 .project-editor-advanced > .project-editor-grid {
@@ -298,12 +298,12 @@
 .project-zip-import {
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid #cad7df;
+  border-top: 1px solid var(--ivory-soft);
 }
 .project-zip-import small {
   font-size: 11px;
   line-height: 1.7;
-  color: #607889;
+  color: var(--ink-muted);
   font-weight: 400;
 }
 .project-editor:disabled {
@@ -315,7 +315,7 @@
   }
   .project-media-existing {
     border-left: 0;
-    border-top: 1px solid #d2dfe6;
+    border-top: 1px solid var(--ivory-soft);
     padding: 20px 0 0;
   }
   .project-media-publication {

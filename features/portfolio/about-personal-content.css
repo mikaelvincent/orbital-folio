@@ -50,7 +50,7 @@
   margin-left: 0;
 }
 .about-social-links a:hover {
-  background: #e3ac5f25;
+  background: color-mix(in srgb, var(--bronze) 14.5%, transparent);
 }
 .about-social-links a:focus-visible {
   outline: 2px solid currentColor;
@@ -63,10 +63,10 @@
   transform: translate(-50%, -100%);
   max-width: min(320px, calc(100% - 24px));
   padding: 9px 13px;
-  border: 1px solid #eac080;
+  border: 1px solid var(--bronze);
   border-radius: 6px;
-  background: #152436f5;
-  color: #fff1d8;
+  background: color-mix(in srgb, var(--carbon) 96.1%, transparent);
+  color: var(--ivory);
   font-size: 14px;
   line-height: 1.35;
   text-align: center;
@@ -81,6 +81,6 @@
 
 .about-social-links .about-social-custom-icon {
   object-fit: contain;
-  background: #eadfc9;
+  background: var(--ivory);
   border-radius: 2px;
 }

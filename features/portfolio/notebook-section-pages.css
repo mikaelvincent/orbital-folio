@@ -5,7 +5,7 @@
   flex: 0 0 428px;
   overflow: clip;
   outline: none;
-  color: #253445;
+  color: var(--carbon);
   font-family: var(--font-sans, Arial, sans-serif);
   font-size: 14px;
   line-height: 1.55;
@@ -33,7 +33,7 @@
   margin: 0 0 16px;
   font-size: 16px;
   line-height: 1.4;
-  color: #52606a;
+  color: var(--ink-muted);
 }
 .notebook-ink .notebook-biography {
   margin: 0 0 16px;

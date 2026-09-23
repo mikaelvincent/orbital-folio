@@ -21,7 +21,7 @@ export const seedSite = {
   location: 'Location to be added',
   email: 'hello@example.com',
   brand: 'ORBITAL / PERSONAL PORTFOLIO',
-  accent: '#ffb547',
+  accent: '#AA8054',
   seoTitle: 'Mikael Vincent — Developer portfolio · Sample content',
   seoDescription:
     'Explore editable concept projects and sample case studies in an interactive spacecraft portfolio. Career and project details are demonstration content.',

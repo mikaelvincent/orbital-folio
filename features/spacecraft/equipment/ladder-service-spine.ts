@@ -1,3 +1,5 @@
+import { PALETTE } from '../../../lib/palette.ts';
+
 /** Shared apertures keep the service inserts flush with the pressure lining. */
 export function getServiceSpineRecesses(THREE: any) {
   const rounded = (x: number, y: number, w: number, h: number, r: number) => {
@@ -67,7 +69,7 @@ export function buildLadderServiceSpine(
   const prefix = 'service-spine-';
   const material = (
     name: string,
-    color: number,
+    color: number | string,
     roughness = 0.65,
     metalness = 0.08,
   ) => {
@@ -78,22 +80,22 @@ export function buildLadderServiceSpine(
     return m;
   };
   const m = {
-    ivory: material('ivory-enamel', 0xd8cebb, 0.68),
-    graphite: material('graphite-casings', 0x303a42, 0.67, 0.14),
-    panel: material('removable-closeouts', 0x45505a, 0.79, 0.08),
-    rubber: material('retaining-rubber', 0x141f28, 0.92, 0),
-    pocket: material('recess-interior', 0x29343d, 0.85, 0),
-    hose: material('insulated-harness', 0x414950, 0.72, 0.08),
+    ivory: material('ivory-enamel', PALETTE.ivory, 0.68),
+    graphite: material('graphite-casings', PALETTE.carbon, 0.67, 0.14),
+    panel: material('removable-closeouts', PALETTE.carbonRaised, 0.79, 0.08),
+    rubber: material('retaining-rubber', PALETTE.carbonDeep, 0.92, 0),
+    pocket: material('recess-interior', PALETTE.carbonDeep, 0.85, 0),
+    hose: material('insulated-harness', PALETTE.carbonRaised, 0.72, 0.08),
     tread: material('brushed-tread-alloy', 0xd8dddc, 0.5, 0.25),
-    alloy: material('satin-alloy', 0x9ca8ad, 0.47, 0.55),
+    alloy: material('satin-alloy', PALETTE.alloy, 0.47, 0.55),
     amber: material(
       'anodized-grips',
-      accent?.color?.getHex() ?? 0xe69a28,
+      accent?.color?.getHex() ?? PALETTE.bronze,
       0.46,
       0.23,
     ),
     lamp: material('protected-diffuser', 0xffebc4, 0.6, 0),
-    ink: material('control-index-paint', 0xabb8bd, 1, 0),
+    ink: material('control-index-paint', PALETTE.textMuted, 1, 0),
   };
   m.lamp.emissive.set(0xffdca1);
   m.lamp.emissiveIntensity = 1.7;

@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
 import { PROJECTS_GRID, PROJECTS_UNDERBENCH } from './cabin-composition.ts';
 
@@ -21,7 +22,7 @@ export function buildProjectsWorkshop(
   floorRoot.add(parent);
   const material = (
     name: string,
-    color: number,
+    color: string | number,
     roughness: number,
     metalness = 0,
   ) => {
@@ -35,15 +36,15 @@ export function buildProjectsWorkshop(
     return value;
   };
   const m = {
-    shell: material('bench-enamel', 0xe0d8c7, 0.46, 0.08),
-    top: material('worktop-enamel', 0xe8e0d0, 0.43, 0.1),
-    graphite: material('structural-graphite', 0x263342, 0.63, 0.12),
-    recess: material('service-recess', 0x111d27, 0.84),
-    rubber: material('isolator', 0x182129, 0.89),
-    metal: material('satin-fasteners', 0x929d9f, 0.42, 0.65),
+    shell: material('bench-enamel', PALETTE.carbon, 0.46, 0.08),
+    top: material('worktop-enamel', PALETTE.ivory, 0.43, 0.1),
+    graphite: material('structural-graphite', PALETTE.carbon, 0.63, 0.12),
+    recess: material('service-recess', PALETTE.carbonDeep, 0.84),
+    rubber: material('isolator', PALETTE.carbonDeep, 0.89),
+    metal: material('satin-fasteners', PALETTE.alloy, 0.42, 0.65),
     amber: material(
       'bench-amber',
-      options.accent?.color?.getHex() ?? 0xe79625,
+      options.accent?.color?.getHex() ?? PALETTE.bronze,
       0.38,
       0.16,
     ),

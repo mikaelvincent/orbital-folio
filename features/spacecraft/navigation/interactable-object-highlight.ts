@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 /** Shared scene-object feedback. All registered objects use the same easing and
  * brightness, on top of their room's existing lighting. Never mutate a shared
  * room material: two identical consoles must respond independently.
@@ -70,7 +71,7 @@ export function createObjectHighlight(
     );
     rimMaterial = new THREE.MeshBasicMaterial({
       name: `${id}-hover-rim`,
-      color: 0xffca7b,
+      color: PALETTE.bronzeLight,
       transparent: true,
       opacity: 0,
       depthWrite: false,

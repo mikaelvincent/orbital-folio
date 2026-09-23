@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import { PASSAGE_GUIDE_WIDTH } from '../geometry/spacecraft-wall-layout.ts';
 
 /**
@@ -154,7 +155,7 @@ export function buildIrisHatch(THREE: any, options: IrisHatchOptions) {
   indicatorMaterial.name = 'iris-recessed-amber-indicator';
   indicatorMaterial.roughness = 0.4;
   indicatorMaterial.metalness = 0;
-  const amber = new THREE.Color(0xffb345);
+  const amber = new THREE.Color(PALETTE.bronze);
   const indicators: any[] = [];
   for (const side of [-1, 1]) {
     for (let i = 0; i < 4; i++) {

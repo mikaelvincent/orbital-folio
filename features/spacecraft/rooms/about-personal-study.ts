@@ -1,3 +1,4 @@
+import { PALETTE } from '../../../lib/palette.ts';
 import { drawStudyArtwork } from './about-study-artwork.ts';
 import { createAboutPhotoPrints } from './about-photo-print.ts';
 import type { AboutPhotos } from '../../../lib/content/about-photos.ts';
@@ -27,7 +28,7 @@ export function buildAboutPersonalStudy(
   const prefix = 'personal-study-';
   const material = (
     name: string,
-    color: number,
+    color: string | number,
     roughness = 0.72,
     metalness = 0,
   ) => {
@@ -38,24 +39,24 @@ export function buildAboutPersonalStudy(
     return mat;
   };
   const m = {
-    cream: material('cream-enamel', 0xdfd6c4, 0.52, 0.08),
-    edge: material('warm-edge', 0xe8dfcd, 0.48, 0.06),
-    navy: material('navy-cloth', 0x26384c, 0.97),
-    navySeam: material('navy-stitch', 0x3b4e61, 0.98),
+    cream: material('cream-enamel', PALETTE.carbon, 0.52, 0.08),
+    edge: material('warm-edge', PALETTE.carbonRaised, 0.48, 0.06),
+    navy: material('navy-cloth', PALETTE.carbon, 0.97),
+    navySeam: material('navy-stitch', PALETTE.carbonRaised, 0.98),
     linen: material('oatmeal-weave', 0xbdb098, 0.99),
     rust: material('stored-quilt', 0x9b6340, 0.99),
-    graphite: material('graphite-frame', 0x202d37, 0.62, 0.12),
-    rubber: material('webbing-and-seals', 0x14202a, 0.98),
-    metal: material('satin-fixings', 0x929b99, 0.47, 0.55),
+    graphite: material('graphite-frame', PALETTE.carbon, 0.62, 0.12),
+    rubber: material('webbing-and-seals', PALETTE.carbonDeep, 0.98),
+    metal: material('satin-fixings', PALETTE.alloy, 0.47, 0.55),
     amber: material(
       'amber-hardware',
-      options.accent?.color?.getHex() ?? 0xe79625,
+      options.accent?.color?.getHex() ?? PALETTE.bronze,
       0.48,
       0.12,
     ),
     paper: material('page-edges', 0xe1d6be, 0.98),
     paperLine: material('page-edge-shadow', 0xab9c7e, 1),
-    ink: material('printed-ink', 0x203147, 1),
+    ink: material('printed-ink', PALETTE.carbon, 1),
     diffuser: material('reading-lamp-lens', 0xffe5b4, 0.68),
     wood: material('warm-composite-writing-insert', 0xae8050, 0.7, 0.02),
   };
@@ -1274,10 +1275,10 @@ export function buildAboutPersonalStudy(
       const top = (56 - (11.3 + 3 + lines.length * 14.69)) / 2;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillStyle = 'rgba(37,52,69,.75)';
+      ctx.fillStyle = PALETTE.carbon;
       ctx.font = '400 10px Arial, Helvetica, sans-serif';
       ctx.fillText(String(index + 1).padStart(2, '0'), x, top);
-      ctx.fillStyle = '#253445';
+      ctx.fillStyle = PALETTE.carbon;
       ctx.font = '600 13px Arial, Helvetica, sans-serif';
       for (const [line, value] of lines.entries())
         ctx.fillText(value, x, top + 14.3 + line * 14.69);
