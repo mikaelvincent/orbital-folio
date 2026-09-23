@@ -1,0 +1,6 @@
+Working directory: /private/tmp/orbital-soft-graphite-w8fdiwaf
+Command: npm run typecheck
+
+
+> orbital-folio@0.1.0 typecheck
+> tsc --noEmit

@@ -1,0 +1,6 @@
+Working directory: /private/tmp/orbital-soft-graphite-w8fdiwaf
+Command: npm run lint -- features/spacecraft/rooms/computer-desktop.ts features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-social-display.ts features/spacecraft/rooms/case-study-archive.ts
+
+
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/rooms/computer-desktop.ts features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-social-display.ts features/spacecraft/rooms/case-study-archive.ts

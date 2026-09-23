@@ -1,0 +1,101 @@
+{
+  "task": "Adopt the selected Soft graphite desktop and leave the local site available",
+  "reviewer": "Independent critic agent /root/independent_critic",
+  "date": "2026-09-23",
+  "baseline": "709171631c5cfd128bf4c6b32c863f71f4e6be9c",
+  "status": "approved",
+  "score": 94,
+  "unresolvedBlockers": [],
+  "rubric": [
+    {
+      "criterion": "Fulfillment and visual design",
+      "weight": 35,
+      "score": 34,
+      "assessment": "The shared wallpaper uses the exact selected A anchors and retains the folded shape and alloy glow. It is consistent across populated Projects, Case studies and Contact displays and the exposed desktop around open applications. The brighter neutral treatment separates the screens from carbon equipment without competing with the ivory architecture. Dark footer fields are a purposeful minor addition for legibility, aligned with the existing lower information regions."
+    },
+    {
+      "criterion": "Readability and interaction states",
+      "weight": 25,
+      "score": 22,
+      "assessment": "Ivory secondary ink and local carbon footer fields address measured contrast failures created by the brighter artwork. Functional representative text-core samples exceed 4.5:1 in the recorded idle, hover and focus states, and native application text stays on opaque carbon surfaces. Some hover subtitles have limited margin and tiny passive COM indices remain below 4.5:1 at this projection; those limits are explicitly disclosed. No typography or feedback timing was changed."
+    },
+    {
+      "criterion": "Correctness and scope preservation",
+      "weight": 20,
+      "score": 20,
+      "assessment": "The implementation is limited to four canvas-art source files. Standby paths remain dark, and conditional ink/footer fields apply only to populated displays. Texture dimensions, rounded glass attachments, material finish, emission, lighting, geometry, camera and interactions are unchanged. No persisted content, authentication, navigation or held performance proposal is altered. The critic independently confirmed localhost:3000 returns HTTP 200."
+    },
+    {
+      "criterion": "Verification and matching evidence",
+      "weight": 15,
+      "score": 13,
+      "assessment": "Final four-file hashes match the completed isolated 516-test suite, typecheck/build, affected lint and all 15 captures. All image encodings, dimensions and hashes were independently checked. Source-matched rendered samples include seven images and 27 measurements. The cancelled pre-correction run is correctly excluded as a complete pass. Evidence covers each affected room and open applications, but remains finite Chromium coverage rather than universal browser or contrast proof."
+    },
+    {
+      "criterion": "Organization and project records",
+      "weight": 5,
+      "score": 5,
+      "assessment": "Shared wallpaper tones remain centralized and distinct from equipment paint. Current project decisions now record the owner’s selection and the readability support. Earlier comparison evidence is preserved and marked historical, with a link to the adoption record. The new evidence directory separates this implementation from the proposal checkpoint."
+    }
+  ],
+  "reviewed": {
+    "source": "Reviewed the complete four-file implementation diff and relevant populated/standby canvas paths, shared desktop attachment, AGENTS.md, project context and updated historical comparison note.",
+    "visual": "Independently viewed all 15 final captures: all three affected rooms at rest and in portrait; Case/Contact pointer hover; Projects and Contact social keyboard focus; all three open applications; Projects/Case open portrait.",
+    "verification": "Reviewed recorded final npm test, typecheck, build and four-file Oxlint logs. The critic did not rerun mutation-bearing tests or control any native browser.",
+    "independentChecks": [
+      "All four production source hashes match captures.json, contrast.json and the final check record.",
+      "All 15 JPEGs match inventory SHA256, actual dimensions and encoding.",
+      "Recomputed the 27 recorded rendered-text regions with an independent sRGB luminance script; small quantile-convention differences were at most 0.104 in ratio and did not change the functional/passive conclusions.",
+      "Verified localhost:3000 independently returns HTTP 200.",
+      "Ran git diff --check and reviewed current-versus-historical documentation links."
+    ],
+    "sourceHashes": {
+      "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+      "features/spacecraft/rooms/contact-flight-console.ts": "909703dc005602ad9eed236fe019d1dee2084912be93facf16a5bf011bb61aca",
+      "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+      "features/spacecraft/rooms/case-study-archive.ts": "cbea5522cbf32cf44ba4f3df5ef1098068edb0a57204a2225113f82faeb10f2d"
+    },
+    "evidenceHashes": {
+      "captures.json": "52e147b9eacdc3ff4e56de2cb019ec4121d67b78ab3e38766b7ad29c568f6d63",
+      "contrast.json": "d8dfcb549929861fa5dca4105a2d39b215f8975dcb6a6948bfd5837ffef21f22"
+    },
+    "checks": {
+      "testsPassed": 516,
+      "testsFailed": 0,
+      "typecheck": "pass",
+      "build": "pass",
+      "affectedLint": "pass",
+      "testBaseUrl": "http://localhost:3003",
+      "sourceChangedDuringFinalChecks": false
+    }
+  },
+  "resolvedFindings": [
+    {
+      "finding": "Adopting the lighter background exposed low contrast in Case secondary labels and assigned Contact social descriptions/COM labels.",
+      "resolution": "Only populated-screen secondary ink was changed to ivory. Existing standby artwork remains unchanged."
+    },
+    {
+      "finding": "Ivory alone did not sufficiently separate the Case count and Contact footer action text from the lower glow, especially during hover.",
+      "resolution": "Local 40% carbonDeep canvas fields were added beneath the existing lower information regions. Final representative Case count and Contact footer action samples are approximately 4.8:1 and 4.88:1 on hover, versus recorded pre-field values of 2.71:1 and 2.89:1."
+    },
+    {
+      "finding": "A test run started before the final footer correction would not establish final-source verification.",
+      "resolution": "That run is retained as cancelled/incomplete. A new full suite on the final source passed 516/516, with no source drift and successful typecheck/build/lint."
+    }
+  ],
+  "renderedAssessment": {
+    "projects": "Recorded All projects text-core estimates are 5.07:1 idle and 6.30:1 focused; independent recomputation gives approximately 5.06:1 and 6.30:1.",
+    "caseStudies": "Recorded subtitle estimates are 5.49:1 idle and 4.62:1 hover. The count improves to 5.92:1 idle and approximately 4.8:1 hover; a different finite-pixel quantile convention gives about 4.70:1 for the hover count.",
+    "contact": "Recorded Start a conversation estimates are 5.23:1 idle and 4.60:1 hover. Footer/link/description samples benefit from the added field; focused GitHub description and Open link are approximately 6.99:1 and 7.16:1.",
+    "passiveIndices": "Tiny COM /02 and /03 indices remain approximately 4.2–4.3:1 in these room-scale images. They are passive equipment markings, not functional link labels or required indicators; their projection limitation is documented.",
+    "limits": "JPEG compression, antialiasing, perspective and 5–8-pixel-high glyphs make these representative estimates, not a complete WCAG determination. Hover subtitle sensitivity ranges reach slightly below 4.5:1 at lower foreground percentiles. No claim is made that every displayed pixel, scale or animation frame exceeds the threshold."
+  },
+  "limitations": [
+    "Visual checks are hidden built-in Chromium only; native Safari and iOS were not tested.",
+    "Portrait room-screen text retains the existing small projection. The open Projects/Case portrait application captures remain readable, but Contact application-open portrait was not captured in this task.",
+    "The LinkedIn focus state and every intermediate hover frame are not independently sampled; shared rendering behavior is unchanged.",
+    "Selected wallpaper contrast is supported by bounded rendered evidence. Tiny decorative indices and low-margin hover subtitles remain explicit limitations, not an assertion of universal accessibility conformance.",
+    "No performance, memory, thermal or battery improvement is claimed; the existing texture dimensions and sharing remain unchanged.",
+    "The main server returned HTTP 200 during review. Final fixture cleanup, commit creation and final Git-status reporting remain the parent agent’s completion steps; they do not require further executable changes."
+  ]
+}

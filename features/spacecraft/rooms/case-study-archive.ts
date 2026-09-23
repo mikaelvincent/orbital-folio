@@ -799,6 +799,9 @@ export function buildCaseStudyArchive(
         if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
         ctx.fillStyle = `${PALETTE.carbonDeep}38`;
         ctx.fillRect(0, 0, cw, ch);
+        // Give the small record count a quiet footer over the desktop glow.
+        ctx.fillStyle = `${PALETTE.carbonDeep}66`;
+        ctx.fillRect(0, ch * 0.76, cw, ch * 0.24);
       }
       ctx.strokeStyle = PALETTE.ivory;
       icon(ctx, 'folder', cw / 2, ch * 0.27, 136);
@@ -807,7 +810,7 @@ export function buildCaseStudyArchive(
       ctx.textBaseline = 'middle';
       ctx.font = '600 100px Arial, sans-serif';
       ctx.fillText('All case studies', cw / 2, ch * 0.48, cw - 150);
-      ctx.fillStyle = PALETTE.textMuted;
+      ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '400 39px Arial, sans-serif';
       ctx.fillText(
         terminalAvailable ? 'Ideas. Systems. People. Progress.' : 'STANDBY',
@@ -822,11 +825,11 @@ export function buildCaseStudyArchive(
       ctx.lineTo(cw - 85, ch * 0.76);
       ctx.stroke();
       ctx.textAlign = 'left';
-      ctx.fillStyle = PALETTE.textMuted;
+      ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.textMuted;
       ctx.font = '500 26px monospace';
       ctx.fillText('FLIGHT RECORDS', 85, ch * 0.88);
       ctx.textAlign = 'right';
-      ctx.fillStyle = PALETTE.bronzeLight;
+      ctx.fillStyle = terminalAvailable ? PALETTE.ivory : PALETTE.bronzeLight;
       ctx.font = '500 38px Arial, sans-serif';
       ctx.fillText(String(caseCount).padStart(2, '0'), cw - 85, ch * 0.88);
     },

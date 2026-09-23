@@ -2,6 +2,10 @@
 
 23 September 2026, following palette baseline `d77d3c0`.
 
+Historical comparison: the owner subsequently selected A · Soft graphite.
+The preview status below describes this earlier checkpoint; see the
+[adoption record](../soft-graphite-desktop/README.md) for the current implementation.
+
 ## Implemented
 
 - Empty Case studies categories have no printed title, icon or identifier and no

@@ -63,8 +63,9 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   options. Do not use decorative signs on outboard walls as filler.
 - Case-study category cartridges show labels only when populated. Pack populated
   categories above blank black disabled cartridges; use whole-face brightness
-  feedback without a 3D box rim. Desktop-background options remain proposals
-  until the owner selects one; preserve the current wallpaper in the meantime.
+  feedback without a 3D box rim. The owner selected Soft graphite for the shared
+  desktop artwork; use ivory ink for readable labels on populated screens,
+  retaining plain dark standby displays and existing hover/focus timing.
 - Keep chassis surfaces, ladder returns and openings smoothly rounded and
   continuous. Fix sharp hull junctions, bulges, clipping, seams, jagged edges and
   flicker. This is not a ban on purposeful tool jaws or functional object edges.

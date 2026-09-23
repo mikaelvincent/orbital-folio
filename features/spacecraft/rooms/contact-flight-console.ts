@@ -319,6 +319,10 @@ export function buildContactFlightConsole(
       if (wallpaper) ctx.drawImage(wallpaper, 0, 0, cw, ch);
       ctx.fillStyle = `${PALETTE.carbonDeep}38`;
       ctx.fillRect(0, 0, cw, ch);
+      // Protect small status/description text from the brighter desktop glow.
+      const footerY = kind === 'contact' ? ch - 125 : ch * 0.68;
+      ctx.fillStyle = `${PALETTE.carbonDeep}66`;
+      ctx.fillRect(0, footerY, cw, ch - footerY);
     }
     // Real display graphics, never a rendered photograph standing in for geometry.
     ctx.strokeStyle = PALETTE.bronze;
@@ -332,14 +336,14 @@ export function buildContactFlightConsole(
       ctx.fillText('STANDBY', cw / 2, ch * 0.73);
     } else if (kind === 'contact') {
       ctx.font = '500 24px sans-serif';
-      ctx.fillStyle = PALETTE.textMuted;
+      ctx.fillStyle = PALETTE.ivory;
       ctx.fillText('COMMUNICATIONS', 67, 61);
       ctx.fillStyle = PALETTE.ivory;
       ctx.font = '600 92px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('LET’S CONNECT', 512, 180, 870);
       ctx.font = '400 34px sans-serif';
-      ctx.fillStyle = PALETTE.textMuted;
+      ctx.fillStyle = PALETTE.ivory;
       ctx.fillText('Start a conversation', 512, 257);
       ctx.beginPath();
       ctx.moveTo(68, 304);
@@ -367,7 +371,7 @@ export function buildContactFlightConsole(
       ctx.moveTo(68, ch - 125);
       ctx.lineTo(955, ch - 125);
       ctx.stroke();
-      ctx.fillStyle = PALETTE.textMuted;
+      ctx.fillStyle = PALETTE.ivory;
       ctx.font = '500 21px monospace';
       ctx.textAlign = 'left';
       ctx.fillText('COM / 01', 69, ch - 89);

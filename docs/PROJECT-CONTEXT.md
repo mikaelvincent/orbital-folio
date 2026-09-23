@@ -136,7 +136,7 @@ coolant vessel's blue enamel; warm lamp emitters; meaningful success/error
 colors; unchanged Earth, stars and atmosphere. Neutral white texture multipliers
 preserve image colors. See [palette verification and critic review](evidence/ivory-carbon-bronze/README.md).
 
-## Room refinements and pending desktop choice
+## Room refinements and Soft graphite desktop
 
 The follow-up to the palette implementation tightens the Projects worktop into
 a thin, inset carbon surface with a fine gasket. The working plane, grounded
@@ -144,10 +144,16 @@ supports, monitor bank, camera framing and material finish remain unchanged.
 The broader ivory slab is superseded. Archive empty-category and hover behavior
 and notebook marker feedback are described below.
 
-The owner requested brighter screen-desktop **options only**. Comparison views
-are isolated previews; no new wallpaper has been selected or implemented in the
-application. The existing folded carbon artwork remains current until approval.
-See [room refinements and desktop options](evidence/palette-room-refinements/README.md).
+The owner initially requested brighter screen-desktop options, then selected
+**A · Soft graphite**. The shared folded desktop uses base tones `#56616B`,
+`#303C47`, `#45515D` and fold tone `#65717C`; its existing alloy glow remains.
+This artwork appears on populated Projects, Case studies and Contact displays
+and behind their open applications. Ivory secondary ink and quiet carbon fields beneath Case
+and Contact footer text maintain readability over the lower glow; empty standby
+displays retain their plain dark artwork. Lighting, emission,
+material finish, typography, hover/focus dimming and timing are unchanged.
+The [earlier comparison](evidence/palette-room-refinements/README.md) is historical;
+see [implemented desktop verification](evidence/soft-graphite-desktop/README.md).
 
 ## Interaction contract
 

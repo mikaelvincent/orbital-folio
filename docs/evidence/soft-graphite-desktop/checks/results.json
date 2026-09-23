@@ -1,0 +1,81 @@
+{
+  "baseCommit": "709171631c5cfd128bf4c6b32c863f71f4e6be9c",
+  "startedAtUTC": "2026-09-23T14:02:23.029545+00:00",
+  "fixture": "/private/tmp/orbital-soft-graphite-w8fdiwaf",
+  "testBaseUrl": "http://localhost:3003",
+  "isolation": "Tracked source only; newly generated fixture secrets, fresh migrated D1/R2 and test owner. Shared dependencies with fixture-local Vite caches. Main server/store untouched.",
+  "fixtureOnlyConfig": "cacheDir: .vite-fixture-cache; configuration preserved during final-source resync",
+  "sourceHashes": {
+    "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+    "features/spacecraft/rooms/contact-flight-console.ts": "909703dc005602ad9eed236fe019d1dee2084912be93facf16a5bf011bb61aca",
+    "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+    "features/spacecraft/rooms/case-study-archive.ts": "cbea5522cbf32cf44ba4f3df5ef1098068edb0a57204a2225113f82faeb10f2d"
+  },
+  "results": [
+    {
+      "check": "test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 179.747,
+      "log": "test.log"
+    },
+    {
+      "check": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 3.587,
+      "log": "typecheck.log"
+    },
+    {
+      "check": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 7.464,
+      "log": "build.log"
+    },
+    {
+      "check": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint",
+        "--",
+        "features/spacecraft/rooms/computer-desktop.ts",
+        "features/spacecraft/rooms/contact-flight-console.ts",
+        "features/spacecraft/rooms/contact-social-display.ts",
+        "features/spacecraft/rooms/case-study-archive.ts"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.543,
+      "log": "lint.log"
+    }
+  ],
+  "finishedAtUTC": "2026-09-23T14:05:34.372088+00:00",
+  "finalSourceHashes": {
+    "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+    "features/spacecraft/rooms/contact-flight-console.ts": "909703dc005602ad9eed236fe019d1dee2084912be93facf16a5bf011bb61aca",
+    "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+    "features/spacecraft/rooms/case-study-archive.ts": "cbea5522cbf32cf44ba4f3df5ef1098068edb0a57204a2225113f82faeb10f2d"
+  },
+  "sourceChangedDuringChecks": [],
+  "cleanup": {
+    "completedAtUTC": "2026-09-23T14:09:23.066039+00:00",
+    "fixtureServerPID": 45721,
+    "fixturePortClosed": true,
+    "fixtureDirectoryRemoved": true,
+    "mainServerPID": 45500,
+    "mainHTTPStatus": 200,
+    "note": "Stopped only the verified fixture process tree and removed its exact directory, including fixture-only secrets/state. Main development server and store preserved."
+  }
+}

@@ -16,7 +16,7 @@ export function drawSocialChannel(
   const pad = width * 0.1;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
-  ctx.fillStyle = PALETTE.textMuted;
+  ctx.fillStyle = link ? PALETTE.ivory : PALETTE.textMuted;
   ctx.font = `500 ${width * 0.037}px monospace`;
   ctx.fillText(`COM / ${side === 'left' ? '02' : '03'}`, pad, height * 0.082);
   ctx.fillStyle = link ? PALETTE.bronzeLight : PALETTE.alloy;
@@ -85,7 +85,7 @@ export function drawSocialChannel(
     link?.description || (link ? 'Connect with me' : 'Channel standby'),
     height * 0.75,
     width * 0.061,
-    PALETTE.textMuted,
+    link ? PALETTE.ivory : PALETTE.textMuted,
     400,
   );
   ctx.strokeStyle = PALETTE.bronze;

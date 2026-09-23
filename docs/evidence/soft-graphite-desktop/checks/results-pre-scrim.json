@@ -1,0 +1,25 @@
+{
+  "baseCommit": "709171631c5cfd128bf4c6b32c863f71f4e6be9c",
+  "startedAtUTC": "2026-09-23T13:59:08.199436+00:00",
+  "fixture": "/private/tmp/orbital-soft-graphite-w8fdiwaf",
+  "testBaseUrl": "http://localhost:3003",
+  "isolation": "Tracked source only; newly generated fixture secrets, fresh migrated D1/R2 and test owner. Shared dependencies with fixture-local Vite caches. Main server/store untouched.",
+  "fixtureOnlyConfig": "cacheDir: .vite-fixture-cache; configuration preserved during final-source resync",
+  "sourceHashes": {
+    "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+    "features/spacecraft/rooms/contact-flight-console.ts": "11fd51bb4dd9b2e25318ef48d462b948c58817d164fe11a642233784f80387f7",
+    "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+    "features/spacecraft/rooms/case-study-archive.ts": "5eff12dc1209d08199fd4aa14e9408be225e262bb0995987889de8c41c8a6c37"
+  },
+  "results": [
+    {
+      "check": "test",
+      "status": "cancelled",
+      "exitCode": null,
+      "log": "test-pre-scrim.log",
+      "note": "Partial run interrupted before completion; not a passing suite."
+    }
+  ],
+  "cancelledAtUTC": "2026-09-23T14:00:25.816801+00:00",
+  "cancellationReason": "Root requested final-source restart after rendered contrast check identified a need for a narrow Case-study footer carbon scrim."
+}

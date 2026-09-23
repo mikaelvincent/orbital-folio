@@ -1,6 +1,15 @@
 import { PALETTE } from '../../../lib/palette.ts';
 
-/** One static wallpaper shared by the five application monitors in one scene.
+// Approved Soft graphite artwork. Keep these display tones separate from the
+// carbon equipment paint; the shared canvas supplies every populated monitor.
+const DESKTOP_COLORS = {
+  light: '#56616B',
+  shadow: '#303C47',
+  midtone: '#45515D',
+  fold: '#65717C',
+} as const;
+
+/** One static wallpaper shared by the application monitors in one scene.
  * It lives on the real rounded glass, so portrait app cropping cannot expose an
  * unpainted bezel backing. Native HTML only supplies the window above it. */
 export function createComputerDesktopMaterial(THREE: any) {
@@ -12,17 +21,17 @@ export function createComputerDesktopMaterial(THREE: any) {
     const ctx = canvas.getContext('2d');
     if (ctx) {
       const base = ctx.createLinearGradient(0, 0, 860, 768);
-      base.addColorStop(0, PALETTE.carbonRaised);
-      base.addColorStop(0.67, PALETTE.carbonDeep);
-      base.addColorStop(1, PALETTE.carbon);
+      base.addColorStop(0, DESKTOP_COLORS.light);
+      base.addColorStop(0.67, DESKTOP_COLORS.shadow);
+      base.addColorStop(1, DESKTOP_COLORS.midtone);
       ctx.fillStyle = base;
       ctx.fillRect(0, 0, 1024, 768);
 
       // A broad folded sheet of alloy light, without distracting detail.
       const fold = ctx.createLinearGradient(260, 0, 760, 768);
       fold.addColorStop(0, `${PALETTE.alloy}4a`);
-      fold.addColorStop(0.3, `${PALETTE.carbonRaised}80`);
-      fold.addColorStop(1, `${PALETTE.carbonRaised}00`);
+      fold.addColorStop(0.3, `${DESKTOP_COLORS.fold}80`);
+      fold.addColorStop(1, `${DESKTOP_COLORS.fold}00`);
       ctx.fillStyle = fold;
       ctx.beginPath();
       ctx.moveTo(670, 0);

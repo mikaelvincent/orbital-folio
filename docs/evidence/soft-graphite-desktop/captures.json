@@ -1,0 +1,120 @@
+{
+  "baseline": "7091716",
+  "engine": "Hidden built-in Chromium",
+  "sourceHashes": {
+    "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+    "features/spacecraft/rooms/contact-flight-console.ts": "909703dc005602ad9eed236fe019d1dee2084912be93facf16a5bf011bb61aca",
+    "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+    "features/spacecraft/rooms/case-study-archive.ts": "cbea5522cbf32cf44ba4f3df5ef1098068edb0a57204a2225113f82faeb10f2d"
+  },
+  "method": "Live production renderer on localhost3000; actual1440x900 landscape and390x844 portrait. DPR1, adaptive rendering remains enabled; observed Projects landscape canvas1440x900. Fullscreen JPEG captures, no postprocessing.",
+  "states": "All three affected rooms idle/portrait; Contact and Case pointer hover; Projects and Contact social real keyboard focus; all three application-open landscape and Projects/Case open portrait.",
+  "exceptions": "Standby retains dark gradient; decorative bronze rules, status dots and signal graphics remain; small passive instrument IDs retain room-scale projection limits. Native Safari untested.",
+  "images": [
+    {
+      "file": "case-studies-hover.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7dd8641cd4bbe1037b2bb3c5a13598e4c95bc201eb20dae075d913cd167bcb81"
+    },
+    {
+      "file": "case-studies-idle.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "541998efa66f4e12337bdac5f13c484a74dd7cd63625a2a619590b7960429386"
+    },
+    {
+      "file": "case-studies-open-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "c8f82df82a776cac3ac169f7a9366531c624baee1fbfc7d1107fbf06c38ae42a"
+    },
+    {
+      "file": "case-studies-open.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "24a2f0cd7b141ec53105cfc06ee83cdcc5796c9f6a9a3a504bb9e874877b33d1"
+    },
+    {
+      "file": "case-studies-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "9b7a5c9b1de1f374386dd850060c27eea09dbe3ca49b78aad70bdf07c0858b78"
+    },
+    {
+      "file": "contact-hover.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "332e8f0a77d15a70d1ca62d13c2b1a79839cf8eb0577efcce70331a4cfc09f4d"
+    },
+    {
+      "file": "contact-idle.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "dccd0663a65daad4cc95d52266b5c22d805ed7dd35d239f52e1e18cf91811316"
+    },
+    {
+      "file": "contact-open.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7595b248dee31bd7a66ae6f1c50438a1276f95a6b9858521f667bb6a4d15f7c1"
+    },
+    {
+      "file": "contact-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "32682c565250bd3a9be136da9f995541c71e8646687b4224b7e121827c53efd1"
+    },
+    {
+      "file": "contact-social-focus.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "5f809dbbb259ddd2417fcca3f44ea1746932723660f96c90e0a49becffcbe04b"
+    },
+    {
+      "file": "projects-focus.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "39f8ffdefa9f034b6cc1d81dd8bd864d169f327d9e236b257707bf3c9cbd525b"
+    },
+    {
+      "file": "projects-idle.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "f8a2c04b1620a8bb930d71b105c9570eb164c1332e759d61fd274c984617daba"
+    },
+    {
+      "file": "projects-open-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "d2ea883573553a33f3f9424b31982e5d1ee08713ba9d714c2be55d4f4f5d6f04"
+    },
+    {
+      "file": "projects-open.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "63ff862496ca2d2497a6e2e356cc09fe557fca6c6b48d1fecc12b6da4fd0f021"
+    },
+    {
+      "file": "projects-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "873d06040c163d3da203a2b13e5a46e99e611f1874143e3c65a803205d7a538a"
+    }
+  ]
+}

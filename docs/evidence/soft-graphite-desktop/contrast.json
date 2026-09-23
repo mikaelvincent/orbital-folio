@@ -1,0 +1,919 @@
+{
+  "status": "Final representative rendered-pixel audit after ivory secondary ink and local carbon status fields; bounded to the recorded captures and projection.",
+  "method": "Sharp decodes native 1440×900 JPEGs to raw RGB, without resizing. Foreground is the median luminance of the brightest 5% of a tight text ROI (97.5th percentile); nearby blank-screen background is its median luminance. sRGB linearization and 0.2126/0.7152/0.0722 weights give (Ltext+0.05)/(Lbackground+0.05). 95th/99th foreground-percentile ratios show antialiasing sensitivity.",
+  "coordinates": "[x,y,width,height], native screenshot pixels",
+  "limitations": [
+    "Approximate rendered-pixel checks, not a complete WCAG determination. Small text often projects to 5–8 pixels high, leaving few fully covered glyph pixels; JPEG antialiasing, perspective and mip filtering limit interpretation.",
+    "Nearby blank-background samples can differ from the exact background under glyphs across gradients. These estimates cannot certify every pixel or other viewport/animation state.",
+    "The contact-hover capture highlights the main Contact display. contact-social-focus captures real keyboard focus on GitHub; its ROIs are shifted for the captured camera view. LinkedIn focus and other viewport sizes are not independently sampled.",
+    "Tiny passive COM /02 and COM /03 equipment indices still have limited pixel contrast at this projection; they are not the functional link labels. This audit does not claim every small decorative pixel reaches 4.5:1.",
+    "Hover subtitle glyph-core estimates are close to the 4.5:1 boundary: Case 4.62:1 and Contact 4.60:1; their 95th-percentile sensitivity estimates are 4.48:1 and 4.46:1. These small projected labels warrant checking again after camera, texture, lighting, or viewport changes.",
+    "Projects focus was verified as DOM focus-visible by the capturing agent. Its text ROI excludes the focus rim.",
+    "No font, geometry, lighting or animation changes were made by this audit."
+  ],
+  "sourceSha256": {
+    "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+    "features/spacecraft/rooms/contact-flight-console.ts": "909703dc005602ad9eed236fe019d1dee2084912be93facf16a5bf011bb61aca",
+    "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+    "features/spacecraft/rooms/case-study-archive.ts": "cbea5522cbf32cf44ba4f3df5ef1098068edb0a57204a2225113f82faeb10f2d"
+  },
+  "initialObservations": {
+    "stage": "Soft graphite before ivory secondary-label corrections",
+    "caseIdle": {
+      "subtitle": 4.3,
+      "footer": 3.93,
+      "count": 2.67
+    },
+    "contactSocialIdle": {
+      "githubDescription": 4.36,
+      "linkedinDescription": 4.14,
+      "leftCom": 3.45,
+      "rightCom": 3.53
+    },
+    "correction": "Available secondary labels were changed to ivory; dark standby remains unchanged.",
+    "inkOnlyFollowup": {
+      "caseCountIdle": 3.56,
+      "caseCountHover": 2.71,
+      "caseFooterHover": 4.3,
+      "contactOpenToConnectIdle": 3.61,
+      "contactOpenToConnectHover": 2.89
+    },
+    "finalCorrection": "Local 40% carbonDeep fields support the Case footer/count and Contact footer/social description regions. Approved Soft graphite upper wallpaper, text sizes, geometry, lighting and 0.65/1.15 feedback remain unchanged."
+  },
+  "images": {
+    "projects-idle.jpg": {
+      "sha256": "f8a2c04b1620a8bb930d71b105c9570eb164c1332e759d61fd274c984617daba",
+      "width": 1440,
+      "height": 900
+    },
+    "projects-focus.jpg": {
+      "sha256": "39f8ffdefa9f034b6cc1d81dd8bd864d169f327d9e236b257707bf3c9cbd525b",
+      "width": 1440,
+      "height": 900
+    },
+    "case-studies-idle.jpg": {
+      "sha256": "541998efa66f4e12337bdac5f13c484a74dd7cd63625a2a619590b7960429386",
+      "width": 1440,
+      "height": 900
+    },
+    "case-studies-hover.jpg": {
+      "sha256": "7dd8641cd4bbe1037b2bb3c5a13598e4c95bc201eb20dae075d913cd167bcb81",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-idle.jpg": {
+      "sha256": "dccd0663a65daad4cc95d52266b5c22d805ed7dd35d239f52e1e18cf91811316",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-hover.jpg": {
+      "sha256": "332e8f0a77d15a70d1ca62d13c2b1a79839cf8eb0577efcce70331a4cfc09f4d",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-social-focus.jpg": {
+      "sha256": "5f809dbbb259ddd2417fcca3f44ea1746932723660f96c90e0a49becffcbe04b",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "measurements": [
+    {
+      "file": "projects-idle.jpg",
+      "label": "All projects",
+      "foregroundROI": [
+        506,
+        320,
+        75,
+        14
+      ],
+      "backgroundROI": [
+        504,
+        336,
+        78,
+        6
+      ],
+      "foregroundRGB": [
+        165,
+        166,
+        161
+      ],
+      "backgroundRGB": [
+        46,
+        53,
+        59
+      ],
+      "ratio": 5.07,
+      "sensitivity95to99": [
+        4.82,
+        5.23
+      ]
+    },
+    {
+      "file": "projects-focus.jpg",
+      "label": "All projects focused",
+      "foregroundROI": [
+        506,
+        317,
+        75,
+        14
+      ],
+      "backgroundROI": [
+        504,
+        333,
+        78,
+        6
+      ],
+      "foregroundRGB": [
+        212,
+        213,
+        208
+      ],
+      "backgroundRGB": [
+        63,
+        72,
+        81
+      ],
+      "ratio": 6.3,
+      "sensitivity95to99": [
+        6.12,
+        6.73
+      ]
+    },
+    {
+      "file": "case-studies-idle.jpg",
+      "label": "All case studies",
+      "foregroundROI": [
+        626,
+        631,
+        190,
+        22
+      ],
+      "backgroundROI": [
+        626,
+        653,
+        190,
+        7
+      ],
+      "foregroundRGB": [
+        226,
+        219,
+        211
+      ],
+      "backgroundRGB": [
+        65,
+        69,
+        72
+      ],
+      "ratio": 7.06,
+      "sensitivity95to99": [
+        6.91,
+        7.25
+      ]
+    },
+    {
+      "file": "case-studies-idle.jpg",
+      "label": "Ideas. Systems. People. Progress.",
+      "foregroundROI": [
+        646,
+        663,
+        149,
+        13
+      ],
+      "backgroundROI": [
+        646,
+        678,
+        149,
+        5
+      ],
+      "foregroundRGB": [
+        196,
+        193,
+        186
+      ],
+      "backgroundRGB": [
+        63,
+        68,
+        71
+      ],
+      "ratio": 5.49,
+      "sensitivity95to99": [
+        5.3,
+        5.73
+      ]
+    },
+    {
+      "file": "case-studies-idle.jpg",
+      "label": "FLIGHT RECORDS",
+      "foregroundROI": [
+        550,
+        715,
+        61,
+        13
+      ],
+      "backgroundROI": [
+        550,
+        731,
+        61,
+        5
+      ],
+      "foregroundRGB": [
+        182,
+        178,
+        166
+      ],
+      "backgroundRGB": [
+        42,
+        47,
+        53
+      ],
+      "ratio": 6.37,
+      "sensitivity95to99": [
+        5.94,
+        6.78
+      ]
+    },
+    {
+      "file": "case-studies-idle.jpg",
+      "label": "Case count 06",
+      "foregroundROI": [
+        876,
+        715,
+        16,
+        13
+      ],
+      "backgroundROI": [
+        876,
+        731,
+        16,
+        5
+      ],
+      "foregroundRGB": [
+        198,
+        194,
+        185
+      ],
+      "backgroundRGB": [
+        60,
+        64,
+        63
+      ],
+      "ratio": 5.92,
+      "sensitivity95to99": [
+        5.43,
+        6.29
+      ]
+    },
+    {
+      "file": "case-studies-hover.jpg",
+      "label": "All case studies",
+      "foregroundROI": [
+        626,
+        631,
+        190,
+        22
+      ],
+      "backgroundROI": [
+        626,
+        653,
+        190,
+        7
+      ],
+      "foregroundRGB": [
+        240,
+        237,
+        232
+      ],
+      "backgroundRGB": [
+        93,
+        98,
+        104
+      ],
+      "ratio": 5.27,
+      "sensitivity95to99": [
+        5.17,
+        5.37
+      ]
+    },
+    {
+      "file": "case-studies-hover.jpg",
+      "label": "Ideas. Systems. People. Progress.",
+      "foregroundROI": [
+        646,
+        663,
+        149,
+        13
+      ],
+      "backgroundROI": [
+        646,
+        678,
+        149,
+        5
+      ],
+      "foregroundRGB": [
+        222,
+        219,
+        214
+      ],
+      "backgroundRGB": [
+        89,
+        96,
+        102
+      ],
+      "ratio": 4.62,
+      "sensitivity95to99": [
+        4.48,
+        4.81
+      ]
+    },
+    {
+      "file": "case-studies-hover.jpg",
+      "label": "FLIGHT RECORDS",
+      "foregroundROI": [
+        550,
+        715,
+        61,
+        13
+      ],
+      "backgroundROI": [
+        550,
+        731,
+        61,
+        5
+      ],
+      "foregroundRGB": [
+        210,
+        209,
+        204
+      ],
+      "backgroundRGB": [
+        63,
+        68,
+        72
+      ],
+      "ratio": 6.44,
+      "sensitivity95to99": [
+        6.06,
+        6.83
+      ]
+    },
+    {
+      "file": "case-studies-hover.jpg",
+      "label": "Case count 06",
+      "foregroundROI": [
+        876,
+        715,
+        16,
+        13
+      ],
+      "backgroundROI": [
+        876,
+        731,
+        16,
+        5
+      ],
+      "foregroundRGB": [
+        219,
+        216,
+        211
+      ],
+      "backgroundRGB": [
+        86,
+        92,
+        92
+      ],
+      "ratio": 4.8,
+      "sensitivity95to99": [
+        4.66,
+        5.08
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "LET’S CONNECT",
+      "foregroundROI": [
+        613,
+        360,
+        215,
+        26
+      ],
+      "backgroundROI": [
+        613,
+        349,
+        215,
+        7
+      ],
+      "foregroundRGB": [
+        209,
+        208,
+        204
+      ],
+      "backgroundRGB": [
+        57,
+        62,
+        66
+      ],
+      "ratio": 7.01,
+      "sensitivity95to99": [
+        6.84,
+        7.15
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "Start a conversation",
+      "foregroundROI": [
+        675,
+        391,
+        93,
+        11
+      ],
+      "backgroundROI": [
+        675,
+        402,
+        93,
+        4
+      ],
+      "foregroundRGB": [
+        182,
+        181,
+        177
+      ],
+      "backgroundRGB": [
+        59,
+        62,
+        67
+      ],
+      "ratio": 5.23,
+      "sensitivity95to99": [
+        4.89,
+        5.58
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "COM / 01",
+      "foregroundROI": [
+        593,
+        512,
+        36,
+        9
+      ],
+      "backgroundROI": [
+        593,
+        521,
+        36,
+        6
+      ],
+      "foregroundRGB": [
+        187,
+        187,
+        177
+      ],
+      "backgroundRGB": [
+        56,
+        56,
+        64
+      ],
+      "ratio": 6,
+      "sensitivity95to99": [
+        5.41,
+        6.44
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "OPEN TO CONNECT",
+      "foregroundROI": [
+        787,
+        512,
+        60,
+        9
+      ],
+      "backgroundROI": [
+        787,
+        521,
+        60,
+        6
+      ],
+      "foregroundRGB": [
+        192,
+        192,
+        184
+      ],
+      "backgroundRGB": [
+        67,
+        66,
+        72
+      ],
+      "ratio": 5.43,
+      "sensitivity95to99": [
+        5.15,
+        5.66
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "GitHub description",
+      "foregroundROI": [
+        425,
+        517,
+        68,
+        12
+      ],
+      "backgroundROI": [
+        425,
+        529,
+        68,
+        4
+      ],
+      "foregroundRGB": [
+        170,
+        170,
+        162
+      ],
+      "backgroundRGB": [
+        42,
+        42,
+        44
+      ],
+      "ratio": 6.13,
+      "sensitivity95to99": [
+        5.6,
+        6.49
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "LinkedIn description",
+      "foregroundROI": [
+        944,
+        517,
+        84,
+        12
+      ],
+      "backgroundROI": [
+        944,
+        529,
+        84,
+        4
+      ],
+      "foregroundRGB": [
+        200,
+        190,
+        180
+      ],
+      "backgroundRGB": [
+        60,
+        60,
+        58
+      ],
+      "ratio": 6.04,
+      "sensitivity95to99": [
+        5.76,
+        6.4
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "COM / 02",
+      "foregroundROI": [
+        400,
+        404,
+        34,
+        10
+      ],
+      "backgroundROI": [
+        400,
+        415,
+        34,
+        5
+      ],
+      "foregroundRGB": [
+        162,
+        162,
+        164
+      ],
+      "backgroundRGB": [
+        56,
+        61,
+        67
+      ],
+      "ratio": 4.3,
+      "sensitivity95to99": [
+        3.8,
+        4.88
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "COM / 03",
+      "foregroundROI": [
+        927,
+        404,
+        34,
+        10
+      ],
+      "backgroundROI": [
+        927,
+        415,
+        34,
+        5
+      ],
+      "foregroundRGB": [
+        161,
+        160,
+        158
+      ],
+      "backgroundRGB": [
+        56,
+        61,
+        67
+      ],
+      "ratio": 4.19,
+      "sensitivity95to99": [
+        3.8,
+        4.83
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "GitHub Open link",
+      "foregroundROI": [
+        435,
+        543,
+        45,
+        11
+      ],
+      "backgroundROI": [
+        435,
+        554,
+        45,
+        5
+      ],
+      "foregroundRGB": [
+        171,
+        172,
+        167
+      ],
+      "backgroundRGB": [
+        37,
+        40,
+        49
+      ],
+      "ratio": 6.44,
+      "sensitivity95to99": [
+        5.94,
+        6.96
+      ]
+    },
+    {
+      "file": "contact-idle.jpg",
+      "label": "LinkedIn Open link",
+      "foregroundROI": [
+        960,
+        543,
+        44,
+        11
+      ],
+      "backgroundROI": [
+        960,
+        554,
+        44,
+        5
+      ],
+      "foregroundRGB": [
+        198,
+        191,
+        183
+      ],
+      "backgroundRGB": [
+        56,
+        56,
+        54
+      ],
+      "ratio": 6.46,
+      "sensitivity95to99": [
+        6.18,
+        6.73
+      ]
+    },
+    {
+      "file": "contact-hover.jpg",
+      "label": "LET’S CONNECT",
+      "foregroundROI": [
+        613,
+        360,
+        215,
+        26
+      ],
+      "backgroundROI": [
+        613,
+        349,
+        215,
+        7
+      ],
+      "foregroundRGB": [
+        228,
+        231,
+        220
+      ],
+      "backgroundRGB": [
+        78,
+        85,
+        95
+      ],
+      "ratio": 6.01,
+      "sensitivity95to99": [
+        5.91,
+        6.14
+      ]
+    },
+    {
+      "file": "contact-hover.jpg",
+      "label": "Start a conversation",
+      "foregroundROI": [
+        675,
+        391,
+        93,
+        11
+      ],
+      "backgroundROI": [
+        675,
+        402,
+        93,
+        4
+      ],
+      "foregroundRGB": [
+        208,
+        210,
+        209
+      ],
+      "backgroundRGB": [
+        88,
+        89,
+        94
+      ],
+      "ratio": 4.6,
+      "sensitivity95to99": [
+        4.46,
+        4.75
+      ]
+    },
+    {
+      "file": "contact-hover.jpg",
+      "label": "COM / 01",
+      "foregroundROI": [
+        593,
+        512,
+        36,
+        9
+      ],
+      "backgroundROI": [
+        593,
+        521,
+        36,
+        6
+      ],
+      "foregroundRGB": [
+        214,
+        213,
+        211
+      ],
+      "backgroundRGB": [
+        69,
+        76,
+        82
+      ],
+      "ratio": 5.94,
+      "sensitivity95to99": [
+        5.67,
+        6.34
+      ]
+    },
+    {
+      "file": "contact-hover.jpg",
+      "label": "OPEN TO CONNECT",
+      "foregroundROI": [
+        787,
+        512,
+        60,
+        9
+      ],
+      "backgroundROI": [
+        787,
+        521,
+        60,
+        6
+      ],
+      "foregroundRGB": [
+        220,
+        217,
+        212
+      ],
+      "backgroundRGB": [
+        86,
+        91,
+        95
+      ],
+      "ratio": 4.88,
+      "sensitivity95to99": [
+        4.68,
+        5.13
+      ]
+    },
+    {
+      "file": "contact-social-focus.jpg",
+      "label": "GitHub focused description",
+      "foregroundROI": [
+        424,
+        500,
+        68,
+        13
+      ],
+      "backgroundROI": [
+        424,
+        513,
+        68,
+        4
+      ],
+      "foregroundRGB": [
+        201,
+        201,
+        193
+      ],
+      "backgroundRGB": [
+        52,
+        57,
+        63
+      ],
+      "ratio": 6.99,
+      "sensitivity95to99": [
+        6.67,
+        7.39
+      ]
+    },
+    {
+      "file": "contact-social-focus.jpg",
+      "label": "GitHub focused Open link",
+      "foregroundROI": [
+        434,
+        526,
+        46,
+        13
+      ],
+      "backgroundROI": [
+        434,
+        540,
+        46,
+        5
+      ],
+      "foregroundRGB": [
+        202,
+        203,
+        198
+      ],
+      "backgroundRGB": [
+        50,
+        57,
+        65
+      ],
+      "ratio": 7.16,
+      "sensitivity95to99": [
+        6.72,
+        7.83
+      ]
+    },
+    {
+      "file": "contact-social-focus.jpg",
+      "label": "GitHub focused COM / 02",
+      "foregroundROI": [
+        400,
+        388,
+        34,
+        10
+      ],
+      "backgroundROI": [
+        400,
+        399,
+        34,
+        5
+      ],
+      "foregroundRGB": [
+        192,
+        196,
+        195
+      ],
+      "backgroundRGB": [
+        76,
+        85,
+        94
+      ],
+      "ratio": 4.31,
+      "sensitivity95to99": [
+        3.86,
+        4.58
+      ]
+    }
+  ]
+}
