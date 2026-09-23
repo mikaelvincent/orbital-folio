@@ -1,0 +1,44 @@
+{
+  "status": "Preview-only; no selection applied to production",
+  "method": "Preview-only shared desktop gradients/folds and ivory secondary Contact labels differ in an isolated source copy. Model, current room refinements, lights, exposure, typography, dimming, framing and content are unchanged. All previews include the actual production renderer.",
+  "original_sha256": "15c79c505dc2bdde2854051b653d10e70c4ac72375b83fee13bfa705684bad1c",
+  "contact_original_sha256": "1e2cb164ce54cc72030be0a000f3f9c922e115650eb3451caf6d2057280e7325",
+  "variants": {
+    "current": {
+      "label": "Current carbon",
+      "base": [
+        "#303A44",
+        "#151C23",
+        "#1F2730"
+      ],
+      "fold": "#303A44"
+    },
+    "graphite": {
+      "label": "A \u00b7 Soft graphite",
+      "base": [
+        "#56616B",
+        "#303C47",
+        "#45515D"
+      ],
+      "fold": "#65717C"
+    },
+    "slate": {
+      "label": "B \u00b7 Orbital slate",
+      "base": [
+        "#4B7088",
+        "#263E53",
+        "#385B72"
+      ],
+      "fold": "#6F8797"
+    },
+    "alloy": {
+      "label": "C \u00b7 Warm alloy",
+      "base": [
+        "#6C675F",
+        "#3D3E3D",
+        "#53514B"
+      ],
+      "fold": "#858177"
+    }
+  }
+}

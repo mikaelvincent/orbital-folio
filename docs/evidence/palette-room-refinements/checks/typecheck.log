@@ -1,0 +1,6 @@
+Working directory: /private/tmp/orbital-room-refinements-_f0qjmzs
+Command: npm run typecheck
+
+
+> orbital-folio@0.1.0 typecheck
+> tsc --noEmit

@@ -61,6 +61,10 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
 - Primary room labels, door signs and interactive text must be immediately
   noticeable and legible. Passive decorations should not resemble selectable
   options. Do not use decorative signs on outboard walls as filler.
+- Case-study category cartridges show labels only when populated. Pack populated
+  categories above blank black disabled cartridges; use whole-face brightness
+  feedback without a 3D box rim. Desktop-background options remain proposals
+  until the owner selects one; preserve the current wallpaper in the meantime.
 - Keep chassis surfaces, ladder returns and openings smoothly rounded and
   continuous. Fix sharp hull junctions, bulges, clipping, seams, jagged edges and
   flicker. This is not a ban on purposeful tool jaws or functional object edges.

@@ -1,0 +1,164 @@
+{
+  "baseCommit": "d77d3c039be64daa4def8daaf16795dadace56f5",
+  "startedAtUTC": "2026-09-23T13:12:22.601588+00:00",
+  "source": "/Users/mikaelvincent/Documents/GitHub/orbital-folio",
+  "fixture": "/private/tmp/orbital-room-refinements-_f0qjmzs",
+  "testBaseUrl": "http://localhost:3003",
+  "copiedFiles": [
+    "tests/spacecraft/case-study-application.test.mjs",
+    "tests/spacecraft/object-interaction.test.mjs",
+    "tests/spacecraft/projects-worktop.test.mjs"
+  ],
+  "sourceHashes": {
+    "features/portfolio/about-notebook.css": "962a7fd3d00c39fd4a5fbb1c5b9c6bea57ffe518bf828b5a7ed5a75dc2a7bd47",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "03cdd165e1cf9d7b6ce15544592e39aafc189c1a8a5c6a4f076f5e0ed2a85532",
+    "features/spacecraft/rooms/case-study-archive.ts": "95a8e109fa62b56533d71656fc96bb82623a4b73318d49713bb15fa1cdceef0a",
+    "features/spacecraft/rooms/projects-workshop.ts": "44e925f4c2c37a4f5f8933cfe31c0071c0adbfb114cae8ffb4c8565d85318421",
+    "features/spacecraft/spacecraft-model.ts": "26b908efee83cd70288c4d76e53b2c65466dd3ec57fc555550689ab275c82f4d",
+    "tests/spacecraft/case-study-application.test.mjs": "10f6200f8bc337dc62089cca66522486e7c31fee72c5a33a5d371dad3bdd21cd",
+    "tests/spacecraft/object-interaction.test.mjs": "092c3621f06080a62b813570b1b8925beabf144321ee4e59cdfdc7b249d2eb5e",
+    "tests/spacecraft/projects-worktop.test.mjs": "9eaebb24830a8b65d57b4842d85fbef42945965e54255497b2e91eeed02de07b"
+  },
+  "fixtureOnlyConfig": "cacheDir: .vite-fixture-cache; config was not rewritten during resync",
+  "results": [
+    {
+      "check": "test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "testBaseUrl": "http://localhost:3003",
+      "exitCode": 0,
+      "durationSeconds": 275.943,
+      "log": "test.log"
+    },
+    {
+      "check": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "testBaseUrl": null,
+      "exitCode": 0,
+      "durationSeconds": 4.531,
+      "log": "typecheck.log"
+    },
+    {
+      "check": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "testBaseUrl": null,
+      "exitCode": 0,
+      "durationSeconds": 8.106,
+      "log": "build.log"
+    },
+    {
+      "check": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint",
+        "--",
+        "features/spacecraft/navigation/interactable-object-highlight.ts",
+        "features/spacecraft/rooms/case-study-archive.ts",
+        "features/spacecraft/rooms/projects-workshop.ts",
+        "features/spacecraft/spacecraft-model.ts",
+        "tests/spacecraft/case-study-application.test.mjs",
+        "tests/spacecraft/object-interaction.test.mjs",
+        "tests/spacecraft/projects-worktop.test.mjs"
+      ],
+      "testBaseUrl": null,
+      "exitCode": 1,
+      "durationSeconds": 0.7,
+      "log": "lint.log"
+    },
+    {
+      "check": "lint-signature-attempt",
+      "command": [
+        "npm",
+        "run",
+        "lint",
+        "--",
+        "tests/spacecraft/case-study-application.test.mjs"
+      ],
+      "exitCode": 1,
+      "log": "lint-signature-attempt.log",
+      "note": "Intermediate test-only signature repair failed; superseded by separate inferred canvasDocument fixture."
+    },
+    {
+      "check": "case-study-focused",
+      "command": [
+        "node",
+        "--test",
+        "tests/spacecraft/case-study-application.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 4.025,
+      "log": "case-study-focused.log"
+    },
+    {
+      "check": "lint-final",
+      "command": [
+        "npm",
+        "run",
+        "lint",
+        "--",
+        "features/spacecraft/navigation/interactable-object-highlight.ts",
+        "features/spacecraft/rooms/case-study-archive.ts",
+        "features/spacecraft/rooms/projects-workshop.ts",
+        "features/spacecraft/spacecraft-model.ts",
+        "tests/spacecraft/case-study-application.test.mjs",
+        "tests/spacecraft/object-interaction.test.mjs",
+        "tests/spacecraft/projects-worktop.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.426,
+      "log": "lint-final.log"
+    }
+  ],
+  "finishedAtUTC": "2026-09-23T13:19:20.734107+00:00",
+  "sourceChangedDuringChecks": [
+    "features/spacecraft/navigation/interactable-object-highlight.ts"
+  ],
+  "finalSourceHashes": {
+    "features/portfolio/about-notebook.css": "962a7fd3d00c39fd4a5fbb1c5b9c6bea57ffe518bf828b5a7ed5a75dc2a7bd47",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+    "features/spacecraft/rooms/case-study-archive.ts": "95a8e109fa62b56533d71656fc96bb82623a4b73318d49713bb15fa1cdceef0a",
+    "features/spacecraft/rooms/projects-workshop.ts": "44e925f4c2c37a4f5f8933cfe31c0071c0adbfb114cae8ffb4c8565d85318421",
+    "features/spacecraft/spacecraft-model.ts": "26b908efee83cd70288c4d76e53b2c65466dd3ec57fc555550689ab275c82f4d",
+    "tests/spacecraft/case-study-application.test.mjs": "3168c0deac733fd61be78f7cec40737b372f62dfcc19482456a77795eaab1010",
+    "tests/spacecraft/object-interaction.test.mjs": "092c3621f06080a62b813570b1b8925beabf144321ee4e59cdfdc7b249d2eb5e",
+    "tests/spacecraft/projects-worktop.test.mjs": "9eaebb24830a8b65d57b4842d85fbef42945965e54255497b2e91eeed02de07b"
+  },
+  "postCheckChanges": [
+    {
+      "path": "features/spacecraft/navigation/interactable-object-highlight.ts",
+      "change": "Comment-only header update describes per-object brightness profiles; comment-stripped source verified identical. Fixture resynced after full checks."
+    },
+    {
+      "path": "tests/spacecraft/case-study-application.test.mjs",
+      "change": "Infer canvasDocument stub independently before assigning to globalThis.document, avoiding contextual deprecated DOM overload. Assertions and implementation unchanged. Focused test file and all affected lint rerun after repair."
+    }
+  ],
+  "cleanup": {
+    "isolatedFixtureRemoved": true,
+    "reviewPortsClosed": [
+      3003,
+      3018
+    ],
+    "mainServerPreserved": {
+      "pid": 32334,
+      "url": "http://localhost:3000",
+      "httpStatus": 200
+    },
+    "previewSourcesRestoredBeforeRemoval": [
+      "features/spacecraft/rooms/computer-desktop.ts",
+      "features/spacecraft/rooms/contact-flight-console.ts"
+    ],
+    "browserViewportResetAndTemporaryTabClosed": true
+  }
+}

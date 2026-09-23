@@ -1,0 +1,112 @@
+{
+  "task": "Palette room refinements and desktop-background proposals",
+  "reviewer": "Independent critic agent /root/independent_critic",
+  "date": "2026-09-23",
+  "baseline": "d77d3c039be64daa4def8daaf16795dadace56f5",
+  "status": "approved",
+  "score": 95,
+  "unresolvedBlockers": [],
+  "rubric": [
+    {
+      "criterion": "Fulfillment and visual design",
+      "weight": 35,
+      "score": 33,
+      "assessment": "Empty categories lose all artwork and pack below populated rows while retaining installed black hardware. Whole-face cartridge feedback is clearer without a 3D box. The Projects top reads as a thin integrated carbon surface, with grounded clamp contacts and unchanged working plane. Notebook feedback is materially stronger while selected labels remain plain. Desktop variants are useful, distinct proposals; A has the most balanced relationship with the approved palette."
+    },
+    {
+      "criterion": "Correctness and scope preservation",
+      "weight": 25,
+      "score": 25,
+      "assessment": "Cartridge groups remain independent batching roots; local anchors and complete assemblies move together. Canonical available-first ordering is covered for all 16 subsets, and geometryRevision invalidates cached AO and picking after movement. Identical slot silhouettes do not introduce a changed shadow-caster arrangement. Other screen feedback defaults, easing, camera framing, material finish and production wallpaper remain unchanged. No persistence, authentication, navigation or held performance work enters the diff."
+    },
+    {
+      "criterion": "Readability and interaction states",
+      "weight": 20,
+      "score": 19,
+      "assessment": "Landscape idle, pointer hover and keyboard focus retain readable carbon cartridge print. Independent rendered samples remain above 6:1 in the three idle populated rows. Pointer feedback has no 3D rim; native focus indication remains. Notebook hover and focus clearly identify the exposed tab; selected-rest labels have no permanent keyline or underline. Portrait evidence confirms arrangement, but the preserved room-level notebook projection remains small."
+    },
+    {
+      "criterion": "Verification and evidence",
+      "weight": 15,
+      "score": 13,
+      "assessment": "Final source hashes match the checked files and capture inventory. All 19 image dimensions, encodings and hashes were independently verified. The isolated full suite passed 516 tests, followed by successful typecheck/build, affected lint and a focused test rerun after the test-stub lint repair. Actual Chromium captures replace rejected resize/transition frames. Evidence is explicit about proposal-only changes, bounded contrast sampling, scaled inline images and omitted browser/state coverage."
+    },
+    {
+      "criterion": "Organization and durable records",
+      "weight": 5,
+      "score": 5,
+      "assessment": "Changes stay in the affected builders, shared highlighter, notebook CSS and relevant tests. Project context and operations describe current behavior and superseded decisions. The new evidence folder preserves the historical room-refinements record. Exact proposal patches and colors are retained, and current production desktop/Contact source hashes match their unchanged originals."
+    }
+  ],
+  "reviewed": {
+    "source": "Full working diff from d77d3c0, related batching/material/interaction/runtime paths, and the new worktop test.",
+    "visual": "All 19 final JPEGs listed in captures.json were independently inspected: 11 implementation states and 8 current/proposal room views.",
+    "checks": "Reviewed recorded full-suite, typecheck, build, failed and repaired lint, and focused test logs. The critic did not rerun the mutation-bearing suite or control a native browser.",
+    "independentVerification": [
+      "Compared all 8 final implementation/test hashes against captures.json and checks/results.json.",
+      "Decoded all 19 captures with sharp and verified actual dimensions, JPEG encoding and SHA256.",
+      "Verified unchanged production computer-desktop.ts and contact-flight-console.ts against the original hashes in variants.json.",
+      "Verified the inline comparison artifact hash and reviewed its option/room state code; browser interaction claims come from options/comparison-check.json.",
+      "Recounted the actual Projects builder: 353 meshes and 146916 instance-expanded triangles before batching, matching the documented counts.",
+      "Ran git diff --check after the final source and documentation updates."
+    ],
+    "manifestHashes": {
+      "captures.json": "c9000541fd090f71ff0da45b190064f0b8023ebb426f1b3ea122582a26a93347",
+      "checks/results.json": "faf2d0fd6497bee6165693a68491faed6d97a5c07aaf344e5dee0c3abfd22832",
+      "options/variants.json": "02565923f38f59c80fc4bcbf87c70f5dc624e74f0430e9b08ebcdd073d17f222",
+      "options/contrast.json": "85f8e1244ac5de11c73da0c3c18facc0735ece1faf0400249d5ab2d047499e91",
+      "options/comparison-check.json": "32f4c43d6ca5a89976bce0f15e305de4a9fb4ecc0d2d37aacb8e6ecb68e51eb2"
+    }
+  },
+  "resolvedFindings": [
+    {
+      "finding": "Shared highlighter comment incorrectly claimed identical brightness across all objects.",
+      "resolution": "Comment now accurately describes shared easing with optional brightness profiles. This was the only production-file change after the complete checks, and it changes no executable code."
+    },
+    {
+      "finding": "An early notebook focus capture had no actual visible keyboard focus; a subsequent resize capture occupied only the upper-left half frame.",
+      "resolution": "Final notebook-marker-focus.jpg was recaptured after real keyboard navigation and fills the full 1440x900 frame with visible inset feedback and native focus outline."
+    },
+    {
+      "finding": "The initial portrait cartridge capture caught camera travel, and later attempts exposed a stale browser compositor size.",
+      "resolution": "Rejected frames were replaced. Final cartridges-portrait.jpg is a settled, full 390x844 room view showing three populated rows above the blank bottom cartridge."
+    },
+    {
+      "finding": "Affected lint failed on the canvas test stub because contextual DOM overload inference selected a deprecated createElement signature.",
+      "resolution": "The stub is now inferred separately before assignment. The six focused tests and all affected lint passed; original failures and final hashes remain recorded."
+    },
+    {
+      "finding": "Brighter desktop proposals initially reduced Contact secondary-text contrast; early metadata also described the previews as background-only.",
+      "resolution": "Candidate-only Contact secondary ink was raised to ivory, captures and bounded measurements were refreshed, and variants.json/patches/README now disclose the extra proposal treatment. Production Contact artwork remains unchanged."
+    }
+  ],
+  "renderedCartridgeSamples": {
+    "method": "Independent sharp JPEG decode at native 1440x900. Linearize sRGB using the standard 0.04045 breakpoint and weights 0.2126/0.7152/0.0722. For each label, foreground is the median luminance of the darkest 8% of pixels in x539..745, y(center-7)..(center+6); background is median luminance of adjacent blank face x785..847, y(center-5)..(center+4). Ratio is (background+0.05)/(foreground+0.05).",
+    "rowCenters": [
+      327,
+      388,
+      448
+    ],
+    "idleRatios": [
+      6.58,
+      6.29,
+      6.09
+    ],
+    "firstRowPointerHoverRatio": 8.55,
+    "firstRowKeyboardFocusRatio": 8.52,
+    "limitation": "Representative rendered text-core estimates from compressed screenshots, not a universal minimum contrast or WCAG conformance determination. They do not prove every scale, antialiased edge or intermediate animation frame."
+  },
+  "nonBlockingObservations": [
+    "The blank disabled cartridge retains the original normal material brightness, so its bronze latches appear brighter than populated idle latches. It reads as installed blank hardware, not an active option; no change is required.",
+    "A Soft graphite is the strongest proposal direction. B Orbital slate adds a conspicuous blue cast and its Projects label sample is borderline; C Warm alloy has limited contrast margin and less separation from the warm architecture. These are disclosed proposal limitations, not changes shipped in the application."
+  ],
+  "limitations": [
+    "Visual evidence is hidden built-in Chromium only; no native Safari or iOS validation was performed.",
+    "Portrait notebook text remains small in the preserved room-level view. This task does not redesign that projection; reading view remains the readable alternative.",
+    "All 16 availability subsets and anchor movements are tested through the production model, not all captured as live browser states.",
+    "Desktop proposals cover landscape idle Projects and Contact. Adoption remains a separate owner choice and requires checking the chosen treatment across remaining screens, responsive views and interaction states.",
+    "Inline comparison images are scaled to 1024x640 from 1440x900 captures. A later Current-button browser recheck timed out; A initial state, B/C selection and room switching were exercised, and the Current path shares the reviewed option handler.",
+    "No timing, memory, thermal or battery benefit is claimed. Geometry counts are structural evidence only.",
+    "Cleanup is recorded by the implementing agent: review tabs/servers and disposable state removed, main localhost:3000 server preserved with HTTP 200. Commit creation and final Git status are the parent agent’s remaining completion steps."
+  ]
+}

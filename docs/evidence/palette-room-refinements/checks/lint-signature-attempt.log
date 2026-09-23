@@ -1,0 +1,8 @@
+Working directory: /Users/mikaelvincent/Documents/GitHub/orbital-folio
+Command: npm run lint -- tests/spacecraft/case-study-application.test.mjs
+
+Intermediate test-only attempt added a tagName parameter to the directly assigned document stub.
+Exit code: 1
+tests/spacecraft/case-study-application.test.mjs:219:5: error typescript(no-deprecated): `createElement` is deprecated.
+
+Final repair uses an independently inferred canvasDocument object, matching existing notebook test fixtures, then assigns it to globalThis.document. No assertions or runtime behavior changed.

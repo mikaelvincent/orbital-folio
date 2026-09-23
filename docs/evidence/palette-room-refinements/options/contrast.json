@@ -1,0 +1,640 @@
+{
+  "status": "Independent approximate image-pixel comparison of preview-only candidates; no production wallpaper changed.",
+  "method": {
+    "tool": "sharp JPEG decode to raw RGB at native capture resolution; no resampling",
+    "luminance": "sRGB linearization c<=0.04045 ? c/12.92 : ((c+0.055)/1.055)^2.4; weights 0.2126/0.7152/0.0722",
+    "ratio": "(foreground_luminance+0.05)/(background_luminance+0.05)",
+    "representative_foreground": "97.5th percentile luminance within a tight text rectangle, intended to sample glyph cores rather than antialiased fringes",
+    "background": "Median luminance in nearby blank pixels on the same screen",
+    "sensitivity": "Ratios for foreground percentiles 95 and 99 also retained to expose antialiasing/JPEG sensitivity",
+    "regions": "[x,y,width,height] in native 1440×900 screenshots. sampleRegions applies to Projects and current Contact; candidateContactSampleRegions follows the refreshed Contact captures with small pixel-position differences.",
+    "state": "Candidate Contact captures now also use ivory secondary labels in the isolated preview only. Existing idle shading (0.65), lighting, exposure and typography retained according to variants.json. Projects and current Contact captures are unchanged."
+  },
+  "limitations": [
+    "Approximate representative rendered contrast, not a complete WCAG conformance determination; JPEG compression and small antialiased glyphs prevent recovery of ideal source colors.",
+    "Samples cover five text locations in these landscape idle views. They do not establish every gradient location, hover/focus state, portrait view or projected scale.",
+    "Measurement changes no production source or screenshot pixels. The isolated preview-only Contact text-color correction is recorded under revisions."
+  ],
+  "sourceImages": {
+    "projects-current.jpg": {
+      "sha256": "7acc49bde7849768784f7599ce23085066280c6546b8a3d1f74cbc21077f5b98",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-current.jpg": {
+      "sha256": "1dcf6b1430e672305be6a203e443c8aa3af066d5bb6cac7e1b86df4652c2d7f8",
+      "width": 1440,
+      "height": 900
+    },
+    "projects-graphite.jpg": {
+      "sha256": "b904d5b661114adc3d69600c6585bb96795b3e4db7e9e9c7c65049eaf6832250",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-graphite.jpg": {
+      "sha256": "709f69693d02d1921bd161bd4d4a5556f44939c7f803649ed1f757cedd485ec0",
+      "width": 1440,
+      "height": 900
+    },
+    "projects-slate.jpg": {
+      "sha256": "7c93220f3a888f8b3ec7b70df299d60bc6432be6b95bd18cdfc52963c0f91be8",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-slate.jpg": {
+      "sha256": "ce6015857ea60c290a603c8167043ea2f9993c91cdf52c924610b0f051c86571",
+      "width": 1440,
+      "height": 900
+    },
+    "projects-alloy.jpg": {
+      "sha256": "de63b7dbb7f457543577211e6bac65552d34f638c9470dda8946e89bee2bc166",
+      "width": 1440,
+      "height": 900
+    },
+    "contact-alloy.jpg": {
+      "sha256": "6f2eb97ee6a24459b752127bf89e565b050d544e222d6d261ca6ad6368a86a52",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "sampleRegions": [
+    {
+      "id": "Projects: All projects",
+      "file": "projects",
+      "foreground": [
+        506,
+        317,
+        75,
+        14
+      ],
+      "background": [
+        504,
+        333,
+        78,
+        6
+      ]
+    },
+    {
+      "id": "Contact: LET’S CONNECT",
+      "file": "contact",
+      "foreground": [
+        613,
+        357,
+        215,
+        26
+      ],
+      "background": [
+        613,
+        346,
+        215,
+        7
+      ]
+    },
+    {
+      "id": "Contact: Start a conversation",
+      "file": "contact",
+      "foreground": [
+        675,
+        388,
+        93,
+        11
+      ],
+      "background": [
+        675,
+        399,
+        93,
+        4
+      ]
+    },
+    {
+      "id": "Contact: GitHub Open link",
+      "file": "contact",
+      "foreground": [
+        435,
+        541,
+        45,
+        10
+      ],
+      "background": [
+        435,
+        552,
+        45,
+        6
+      ]
+    },
+    {
+      "id": "Contact: LinkedIn Open link",
+      "file": "contact",
+      "foreground": [
+        960,
+        541,
+        44,
+        10
+      ],
+      "background": [
+        960,
+        552,
+        44,
+        6
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "variant": "current",
+      "sample": "Projects: All projects",
+      "foregroundRGB": [
+        164,
+        163,
+        159
+      ],
+      "backgroundRGB": [
+        24,
+        31,
+        37
+      ],
+      "ratio": 6.59,
+      "ratio95": 6.36,
+      "ratio99": 6.91
+    },
+    {
+      "variant": "current",
+      "sample": "Contact: LET’S CONNECT",
+      "foregroundRGB": [
+        213,
+        206,
+        200
+      ],
+      "backgroundRGB": [
+        35,
+        36,
+        40
+      ],
+      "ratio": 9.96,
+      "ratio95": 9.77,
+      "ratio99": 10.15
+    },
+    {
+      "variant": "current",
+      "sample": "Contact: Start a conversation",
+      "foregroundRGB": [
+        150,
+        152,
+        149
+      ],
+      "backgroundRGB": [
+        32,
+        36,
+        39
+      ],
+      "ratio": 5.38,
+      "ratio95": 5.08,
+      "ratio99": 5.79
+    },
+    {
+      "variant": "current",
+      "sample": "Contact: GitHub Open link",
+      "foregroundRGB": [
+        175,
+        174,
+        169
+      ],
+      "backgroundRGB": [
+        33,
+        34,
+        36
+      ],
+      "ratio": 7.16,
+      "ratio95": 6.53,
+      "ratio99": 7.72
+    },
+    {
+      "variant": "current",
+      "sample": "Contact: LinkedIn Open link",
+      "foregroundRGB": [
+        196,
+        194,
+        181
+      ],
+      "backgroundRGB": [
+        47,
+        49,
+        48
+      ],
+      "ratio": 7.32,
+      "ratio95": 7.02,
+      "ratio99": 7.59
+    },
+    {
+      "variant": "graphite",
+      "sample": "Projects: All projects",
+      "foregroundRGB": [
+        165,
+        165,
+        163
+      ],
+      "backgroundRGB": [
+        46,
+        53,
+        61
+      ],
+      "ratio": 5.03,
+      "ratio95": 4.79,
+      "ratio99": 5.24
+    },
+    {
+      "variant": "graphite",
+      "sample": "Contact: LET’S CONNECT",
+      "foregroundRGB": [
+        211,
+        211,
+        211
+      ],
+      "backgroundRGB": [
+        57,
+        62,
+        65
+      ],
+      "ratio": 7.23,
+      "ratio95": 7.05,
+      "ratio99": 7.42
+    },
+    {
+      "variant": "graphite",
+      "sample": "Contact: Start a conversation",
+      "foregroundRGB": [
+        194,
+        195,
+        197
+      ],
+      "backgroundRGB": [
+        59,
+        62,
+        67
+      ],
+      "ratio": 6.09,
+      "ratio95": 5.71,
+      "ratio99": 6.35
+    },
+    {
+      "variant": "graphite",
+      "sample": "Contact: GitHub Open link",
+      "foregroundRGB": [
+        184,
+        186,
+        183
+      ],
+      "backgroundRGB": [
+        51,
+        54,
+        63
+      ],
+      "ratio": 6.17,
+      "ratio95": 5.88,
+      "ratio99": 6.44
+    },
+    {
+      "variant": "graphite",
+      "sample": "Contact: LinkedIn Open link",
+      "foregroundRGB": [
+        206,
+        206,
+        204
+      ],
+      "backgroundRGB": [
+        72,
+        73,
+        75
+      ],
+      "ratio": 5.72,
+      "ratio95": 5.47,
+      "ratio99": 5.99
+    },
+    {
+      "variant": "slate",
+      "sample": "Projects: All projects",
+      "foregroundRGB": [
+        158,
+        167,
+        166
+      ],
+      "backgroundRGB": [
+        44,
+        60,
+        75
+      ],
+      "ratio": 4.6,
+      "ratio95": 4.41,
+      "ratio99": 4.78
+    },
+    {
+      "variant": "slate",
+      "sample": "Contact: LET’S CONNECT",
+      "foregroundRGB": [
+        212,
+        211,
+        207
+      ],
+      "backgroundRGB": [
+        58,
+        70,
+        82
+      ],
+      "ratio": 6.44,
+      "ratio95": 6.28,
+      "ratio99": 6.58
+    },
+    {
+      "variant": "slate",
+      "sample": "Contact: Start a conversation",
+      "foregroundRGB": [
+        193,
+        197,
+        200
+      ],
+      "backgroundRGB": [
+        63,
+        72,
+        81
+      ],
+      "ratio": 5.36,
+      "ratio95": 5.01,
+      "ratio99": 5.57
+    },
+    {
+      "variant": "slate",
+      "sample": "Contact: GitHub Open link",
+      "foregroundRGB": [
+        184,
+        186,
+        183
+      ],
+      "backgroundRGB": [
+        48,
+        58,
+        68
+      ],
+      "ratio": 5.92,
+      "ratio95": 5.62,
+      "ratio99": 6.29
+    },
+    {
+      "variant": "slate",
+      "sample": "Contact: LinkedIn Open link",
+      "foregroundRGB": [
+        205,
+        207,
+        204
+      ],
+      "backgroundRGB": [
+        65,
+        77,
+        89
+      ],
+      "ratio": 5.51,
+      "ratio95": 5.31,
+      "ratio99": 5.74
+    },
+    {
+      "variant": "alloy",
+      "sample": "Projects: All projects",
+      "foregroundRGB": [
+        165,
+        165,
+        157
+      ],
+      "backgroundRGB": [
+        57,
+        56,
+        54
+      ],
+      "ratio": 4.72,
+      "ratio95": 4.56,
+      "ratio99": 4.94
+    },
+    {
+      "variant": "alloy",
+      "sample": "Contact: LET’S CONNECT",
+      "foregroundRGB": [
+        215,
+        210,
+        206
+      ],
+      "backgroundRGB": [
+        71,
+        67,
+        64
+      ],
+      "ratio": 6.53,
+      "ratio95": 6.37,
+      "ratio99": 6.69
+    },
+    {
+      "variant": "alloy",
+      "sample": "Contact: Start a conversation",
+      "foregroundRGB": [
+        200,
+        195,
+        191
+      ],
+      "backgroundRGB": [
+        73,
+        70,
+        65
+      ],
+      "ratio": 5.37,
+      "ratio95": 5.07,
+      "ratio99": 5.6
+    },
+    {
+      "variant": "alloy",
+      "sample": "Contact: GitHub Open link",
+      "foregroundRGB": [
+        188,
+        184,
+        181
+      ],
+      "backgroundRGB": [
+        57,
+        57,
+        55
+      ],
+      "ratio": 5.88,
+      "ratio95": 5.6,
+      "ratio99": 6.31
+    },
+    {
+      "variant": "alloy",
+      "sample": "Contact: LinkedIn Open link",
+      "foregroundRGB": [
+        210,
+        206,
+        197
+      ],
+      "backgroundRGB": [
+        78,
+        77,
+        72
+      ],
+      "ratio": 5.4,
+      "ratio95": 5.13,
+      "ratio99": 5.66
+    }
+  ],
+  "recommendation": {
+    "candidate": "A · Soft graphite",
+    "rationale": "Best balance of a visibly lighter screen, neutral carbon/ivory/bronze relationships, and the strongest measured text separation among the proposed wallpapers. B adds a pronounced blue cast and leaves the Projects label borderline; C gives a warm neutral alternative but softens the separation from the existing warm architecture/hardware.",
+    "readiness": "A is the recommended preview direction. The refreshed Contact subtitle samples now exceed approximately 4.5:1. These bounded landscape captures are not final implementation approval or a complete contrast guarantee; validate the chosen option at final source, responsive scales and interaction states before adoption.",
+    "concerns": [
+      "B Projects All projects is approximately 4.60:1 (4.41–4.78 percentile range): borderline.",
+      "C Projects All projects is approximately 4.72:1 (4.56–4.94 percentile range): limited margin.",
+      "A Projects All projects is approximately 5.03:1 (4.79–5.24 percentile range); strongest candidate margin, but still requires final selected-state and responsive validation."
+    ]
+  },
+  "candidateContactSampleRegions": [
+    {
+      "id": "Contact: LET’S CONNECT",
+      "file": "contact",
+      "foreground": [
+        613,
+        360,
+        215,
+        26
+      ],
+      "background": [
+        613,
+        349,
+        215,
+        7
+      ]
+    },
+    {
+      "id": "Contact: Start a conversation",
+      "file": "contact",
+      "foreground": [
+        675,
+        391,
+        93,
+        11
+      ],
+      "background": [
+        675,
+        402,
+        93,
+        4
+      ]
+    },
+    {
+      "id": "Contact: GitHub Open link",
+      "file": "contact",
+      "foreground": [
+        435,
+        543,
+        45,
+        11
+      ],
+      "background": [
+        435,
+        554,
+        45,
+        5
+      ]
+    },
+    {
+      "id": "Contact: LinkedIn Open link",
+      "file": "contact",
+      "foreground": [
+        960,
+        543,
+        44,
+        11
+      ],
+      "background": [
+        960,
+        554,
+        44,
+        5
+      ]
+    }
+  ],
+  "revisions": [
+    {
+      "stage": "Initial candidate contrast issue",
+      "finding": "The lighter wallpaper under existing muted Contact subtitle text yielded approximately 3.88:1 (A), 3.42:1 (B) and 3.48:1 (C). These initial candidate images were superseded by the corrected preview captures.",
+      "subtitleMeasurements": [
+        {
+          "variant": "graphite",
+          "sample": "Contact: Start a conversation",
+          "foregroundRGB": [
+            156,
+            156,
+            156
+          ],
+          "backgroundRGB": [
+            56,
+            63,
+            71
+          ],
+          "ratio": 3.88,
+          "ratio95": 3.74,
+          "ratio99": 4.08
+        },
+        {
+          "variant": "slate",
+          "sample": "Contact: Start a conversation",
+          "foregroundRGB": [
+            153,
+            159,
+            159
+          ],
+          "backgroundRGB": [
+            61,
+            73,
+            85
+          ],
+          "ratio": 3.42,
+          "ratio95": 3.28,
+          "ratio99": 3.6
+        },
+        {
+          "variant": "alloy",
+          "sample": "Contact: Start a conversation",
+          "foregroundRGB": [
+            160,
+            157,
+            152
+          ],
+          "backgroundRGB": [
+            73,
+            70,
+            65
+          ],
+          "ratio": 3.48,
+          "ratio95": 3.35,
+          "ratio99": 3.65
+        }
+      ],
+      "supersededSourceImages": {
+        "contact-graphite.jpg": {
+          "sha256": "56bdef276b27bea98573979319a3c25a1fe3402b9f29b1532528cb430a5b8411",
+          "width": 1440,
+          "height": 900
+        },
+        "contact-slate.jpg": {
+          "sha256": "323055d939a7ab90742be195c209c1c32086a8c601e24b0295efea5c3a338179",
+          "width": 1440,
+          "height": 900
+        },
+        "contact-alloy.jpg": {
+          "sha256": "78aff393dca60d62468c8b34b4ffc58fabd09f110f4b06aefdd24c53718a95f5",
+          "width": 1440,
+          "height": 900
+        }
+      }
+    },
+    {
+      "stage": "Preview-only secondary text correction",
+      "change": "Refreshed candidate Contact captures use ivory for subtitle, COMMUNICATIONS and footer labels. Production source remains unchanged. Rechecked four representative Contact text locations per candidate; Projects captures remain unchanged."
+    }
+  ]
+}

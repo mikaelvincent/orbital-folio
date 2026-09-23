@@ -294,8 +294,8 @@ node scripts/populate-demo-case-studies.mjs --apply  # populate eligible local c
 
 It refreshes the three exact untouched legacy case-study samples and adds three
 missing examples, for **All 6, Product 3, Systems 2, Interfaces 1, Research 0**.
-Research stays dark and disabled in the room. **Building the whole product** is
-the full Markdown/media showcase; the remaining stories vary in length. The
+The empty Research category leaves a blank dark cartridge at the bottom of the
+room rack. **Building the whole product** is the full Markdown/media showcase; the remaining stories vary in length. The
 tool reuses the same verified synthetic assets without changing the Relay project.
 Only public media with identical drafts and matching bytes/metadata is reused;
 otherwise it uploads a separate copy. Existing edited cases, private drafts and

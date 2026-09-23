@@ -1,0 +1,17 @@
+Working directory: /private/tmp/orbital-room-refinements-_f0qjmzs
+Command: TEST_BASE_URL=http://localhost:3003 node --test tests/spacecraft/case-study-application.test.mjs
+
+✔ Archive choices share fixed terminal glass while retaining distinct physical category anchors (666.194375ms)
+✔ Only populated archive categories are interactive, and emptied cartridges return to their dark face (719.032917ms)
+✔ Archive categories pack above blank bottom cartridges after live content changes (531.759666ms)
+✔ Empty cartridge artwork contains no category title, icon or identifier (15.218208ms)
+✔ The archive shelf closes directly below its fourth cartridge with its cable junction attached (10.402084ms)
+✔ Tilted archive terminal remains readable, clear of its hardware and beyond the camera near plane (1838.273792ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3962.7515

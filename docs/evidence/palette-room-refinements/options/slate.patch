@@ -1,0 +1,53 @@
+--- features/spacecraft/rooms/computer-desktop.ts
++++ features/spacecraft/rooms/computer-desktop.ts
+@@ -12,17 +12,17 @@
+     const ctx = canvas.getContext('2d');
+     if (ctx) {
+       const base = ctx.createLinearGradient(0, 0, 860, 768);
+-      base.addColorStop(0, PALETTE.carbonRaised);
+-      base.addColorStop(0.67, PALETTE.carbonDeep);
+-      base.addColorStop(1, PALETTE.carbon);
++      base.addColorStop(0, '#4B7088');
++      base.addColorStop(0.67, '#263E53');
++      base.addColorStop(1, '#385B72');
+       ctx.fillStyle = base;
+       ctx.fillRect(0, 0, 1024, 768);
+
+       // A broad folded sheet of alloy light, without distracting detail.
+       const fold = ctx.createLinearGradient(260, 0, 760, 768);
+       fold.addColorStop(0, `${PALETTE.alloy}4a`);
+-      fold.addColorStop(0.3, `${PALETTE.carbonRaised}80`);
+-      fold.addColorStop(1, `${PALETTE.carbonRaised}00`);
++      fold.addColorStop(0.3, '#6F879780');
++      fold.addColorStop(1, '#6F879700');
+       ctx.fillStyle = fold;
+       ctx.beginPath();
+       ctx.moveTo(670, 0);
+--- features/spacecraft/rooms/contact-flight-console.ts
++++ features/spacecraft/rooms/contact-flight-console.ts
+@@ -332,14 +332,14 @@
+       ctx.fillText('STANDBY', cw / 2, ch * 0.73);
+     } else if (kind === 'contact') {
+       ctx.font = '500 24px sans-serif';
+-      ctx.fillStyle = PALETTE.textMuted;
++      ctx.fillStyle = PALETTE.ivory;
+       ctx.fillText('COMMUNICATIONS', 67, 61);
+       ctx.fillStyle = PALETTE.ivory;
+       ctx.font = '600 92px sans-serif';
+       ctx.textAlign = 'center';
+       ctx.fillText('LET’S CONNECT', 512, 180, 870);
+       ctx.font = '400 34px sans-serif';
+-      ctx.fillStyle = PALETTE.textMuted;
++      ctx.fillStyle = PALETTE.ivory;
+       ctx.fillText('Start a conversation', 512, 257);
+       ctx.beginPath();
+       ctx.moveTo(68, 304);
+@@ -367,7 +367,7 @@
+       ctx.moveTo(68, ch - 125);
+       ctx.lineTo(955, ch - 125);
+       ctx.stroke();
+-      ctx.fillStyle = PALETTE.textMuted;
++      ctx.fillStyle = PALETTE.ivory;
+       ctx.font = '500 21px monospace';
+       ctx.textAlign = 'left';
+       ctx.fillText('COM / 01', 69, ch - 89);

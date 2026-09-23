@@ -106,8 +106,9 @@ references guide color relationships only; their geometry, framing, lighting,
 content and image quality are not design instructions. Principal hull/cabin
 architecture and suitable light surfaces use ivory; monitor housings, desks,
 supports and equipment use carbon. Bronze is restrained hardware/trim/accent.
-The Projects worktop remains ivory above its carbon body. Floors remain plain
-dark carbon with the existing light/shadow response.
+The later room refinement replaces the Projects ivory pad with a thinner,
+inset raised-carbon worktop over its carbon body. Floors remain plain dark
+carbon with the existing light/shadow response.
 
 `lib/palette.ts` and the semantic CSS tokens in `app/globals.css` supply matching
 sRGB anchors and tonal variants. The old material saturation/darkening transform
@@ -116,9 +117,12 @@ ordinary text. Light bronze `#D4B28C` on carbon and dark bronze `#775332` on ivo
 are accessible text derivatives; base bronze is not a normal text color.
 Screen emission tint is neutral so it does not recolor the authored canvas art;
 its intensity, roughness/metalness, scene lights and exposure are unchanged.
-The dim `0.65` / focus `1.15` behavior and all animation timing remain intact.
-This palette request supersedes earlier instructions to preserve the exact
-amber highlight color, but preserves those rims' shapes and behavior.
+The initial palette preserved dim `0.65` / focus `1.15`; the later cartridge
+refinement below changes only those cartridges to `0.48` at rest. All other
+object multipliers and animation timing remain intact.
+The initial palette request superseded the exact amber highlight color while
+preserving rim shapes and behavior; the later cartridge-only exception below
+removes those category rims.
 
 No persisted records are rewritten. The saved legacy default `#ffb547` (and
 older fallback `#e6a34c`) renders as bronze through `paletteAccent`; future seed
@@ -131,6 +135,19 @@ markers; satin alloy; blue solar cells, optical/instrument phosphors and the
 coolant vessel's blue enamel; warm lamp emitters; meaningful success/error
 colors; unchanged Earth, stars and atmosphere. Neutral white texture multipliers
 preserve image colors. See [palette verification and critic review](evidence/ivory-carbon-bronze/README.md).
+
+## Room refinements and pending desktop choice
+
+The follow-up to the palette implementation tightens the Projects worktop into
+a thin, inset carbon surface with a fine gasket. The working plane, grounded
+supports, monitor bank, camera framing and material finish remain unchanged.
+The broader ivory slab is superseded. Archive empty-category and hover behavior
+and notebook marker feedback are described below.
+
+The owner requested brighter screen-desktop **options only**. Comparison views
+are isolated previews; no new wallpaper has been selected or implemented in the
+application. The existing folded carbon artwork remains current until approval.
+See [room refinements and desktop options](evidence/palette-room-refinements/README.md).
 
 ## Interaction contract
 
@@ -207,8 +224,8 @@ remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
 The owner clarified on 22 September 2026 that the dim resting state is desired.
-Selectable screens in Projects, Case studies and Contact, the four archive
-cartridges, and configured About social cards stay at a **0.65** multiplier until hovered or keyboard-focused,
+Selectable screens in Projects, Case studies and Contact and configured About
+social cards stay at a **0.65** multiplier until hovered or keyboard-focused,
 then ease toward **1.15** and return to **0.65** on departure. Do not restore regular
 brightness merely because hover ended or idle time elapsed. The idle multiplier
 also applies in overview, neighboring-room previews and throughout camera travel:
@@ -217,9 +234,12 @@ preview/transit lighting still applies independently. Object hover and its rim
 are enabled only in the settled current room. Unavailable controls and an
 already-open application's own monitor retain their normal brightness. This
 supersedes the earlier removal of the dim resting state and its travel exception.
-The owner explicitly deferred any redesign of
-the cartridge highlight box: preserve its existing rim and dimensions. The
-23 September palette request updates its color to the shared bronze family.
+The later 23 September room-refinement request supersedes the earlier hold on
+the cartridge highlight box: category cartridges now omit the 3D rim and ease
+from **0.48** at rest to **1.15** on hover/focus. This stronger whole-face response
+keeps carbon print readable while making selection visible without a box.
+Native keyboard focus remains available. The terminal and other screens keep
+their existing rims and multipliers.
 
 ## Projects library and authoring
 
@@ -369,9 +389,12 @@ interfaces; the terminal selects All case studies. Every option approaches the
 same existing 16:9 raked monitor. The owner's latest correction restores
 content-based availability: only categories with published stories are selectable;
 All is selectable only when the archive has stories. Empty or unrecognized
-categories keep their installed cartridges with dark carbon faces and pale
-printed labels, without interaction targets or hover feedback. Populated
-cartridges retain ivory faces and the existing inset bronze rim. An empty terminal
+categories leave blank dark-carbon cartridges, without category names, icons,
+identifiers, interaction targets or hover feedback. Populated cartridges pack
+above them in canonical category order and use ivory faces with stronger
+dim-to-bright feedback and no 3D box rim. Empty hardware always occupies the
+bottom rows. Live content changes move each category and its interaction anchor
+together and invalidate cached shading when the row order changes. An empty terminal
 uses plain carbon with STANDBY and is inert. This supersedes the briefly approved
 always-interactive empty-category behavior. Availability updates when content
 changes. The shelf crossmember and backplane end directly beneath cartridge four;
@@ -462,7 +485,10 @@ Room-view flags and native reader labels share numbered titles, typography and
 placement. Marker titles stay unadorned when selected, including during page
 turns; selection semantics and keyboard focus outlines remain intact.
 Only each flag's exposed 125px region is interactive or highlighted;
-its 30px adhesive overlap remains covered by the page.
+its 30px adhesive overlap remains covered by the page. The later 23 September
+refinement strengthens marker hover/keyboard focus with an inset carbon keyline,
+a brighter translucent ivory wash and a subtle shadow. Marker colors, placement,
+page-turn timing and plain selected titles remain unchanged.
 
 The bottom arrows turn **pages within the current section** and stop at its ends.
 Pages never scroll. Each section is one continuous Markdown body that flows

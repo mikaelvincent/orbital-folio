@@ -1,0 +1,6 @@
+Working directory: /private/tmp/orbital-room-refinements-_f0qjmzs
+Command: TEST_BASE_URL=http://localhost:3003 npm run lint -- features/spacecraft/navigation/interactable-object-highlight.ts features/spacecraft/rooms/case-study-archive.ts features/spacecraft/rooms/projects-workshop.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/case-study-application.test.mjs tests/spacecraft/object-interaction.test.mjs tests/spacecraft/projects-worktop.test.mjs
+
+
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/navigation/interactable-object-highlight.ts features/spacecraft/rooms/case-study-archive.ts features/spacecraft/rooms/projects-workshop.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/case-study-application.test.mjs tests/spacecraft/object-interaction.test.mjs tests/spacecraft/projects-worktop.test.mjs

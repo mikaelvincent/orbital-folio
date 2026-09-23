@@ -1,0 +1,19 @@
+{
+  "fragment": "desktop-background-options.html",
+  "sha256": "0fca198048c0929c536305457b0fb0dd924cb2943356934749d1d51abe2fbe33",
+  "bytes": 868111,
+  "method": "Standalone sandboxed preview of inline comparison, inspected in hidden built-in Chromium.",
+  "checks": [
+    "JavaScript syntax check passed",
+    "Initial A Projects image loaded",
+    "B choice and Contact room select update image, alt text, caption and pressed state",
+    "C choice updates at 320px content width",
+    "No horizontal overflow at 992px and 320px content widths",
+    "All images downsampled from actual 1440x900 room renders to 1024x640 for inline comparison"
+  ],
+  "limitations": [
+    "Images are scaled room renders, not interactive 3D simulations",
+    "A later Current-button recheck was interrupted by the browser command timeout; A initial state, B, C and room switch were exercised successfully",
+    "No production desktop or Contact source changes applied"
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "baseline": "d77d3c039be64daa4def8daaf16795dadace56f5",
+  "engine": "Hidden built-in Chromium",
+  "nativeSafariTested": false,
+  "viewport": "1440x900 landscape; 390x844 portrait, each actual CSS pixels; adaptive application drawing buffer retained",
+  "sourceHashes": {
+    "features/portfolio/about-notebook.css": "962a7fd3d00c39fd4a5fbb1c5b9c6bea57ffe518bf828b5a7ed5a75dc2a7bd47",
+    "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+    "features/spacecraft/rooms/case-study-archive.ts": "95a8e109fa62b56533d71656fc96bb82623a4b73318d49713bb15fa1cdceef0a",
+    "features/spacecraft/rooms/projects-workshop.ts": "44e925f4c2c37a4f5f8933cfe31c0071c0adbfb114cae8ffb4c8565d85318421",
+    "features/spacecraft/spacecraft-model.ts": "26b908efee83cd70288c4d76e53b2c65466dd3ec57fc555550689ab275c82f4d",
+    "tests/spacecraft/case-study-application.test.mjs": "3168c0deac733fd61be78f7cec40737b372f62dfcc19482456a77795eaab1010",
+    "tests/spacecraft/object-interaction.test.mjs": "092c3621f06080a62b813570b1b8925beabf144321ee4e59cdfdc7b249d2eb5e",
+    "tests/spacecraft/projects-worktop.test.mjs": "9eaebb24830a8b65d57b4842d85fbef42945965e54255497b2e91eeed02de07b"
+  },
+  "images": [
+    {
+      "file": "cartridges-focus.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "895ac3ace3a08eb53933b79d91df356a3011b79c1852da48eb528bff25fb66c5",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "cartridges-hover.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "c2e063b6d47adb1201921d56643b6a10d02d16d09a6bca91801d291dcb8cf090",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "cartridges-idle.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "2b3547187c8c10b247ec362612daac552d2075870bf5ece319139f54b476e7da",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "cartridges-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "38f6c72eb219a590adb04f2b6414fe7856c989f99d2b6f319ba8b93a99348118",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "notebook-marker-focus-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "95b25a9ed75781737f92f08291da9421120ac84bf09a5610c602d36196d9f613",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "notebook-marker-focus.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "f29df71507b6bc40498387e6a2e728b867c36be86511bfc5ff0999aa3926f856",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "notebook-marker-hover.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "0281d24a8ce7fdd720f5dcd07eef2a06faf24967f628f1505699a20c0b4e76bd",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "notebook-markers-idle.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "c77aaa9d4ba267fb49da6204ec980d981139460b675c9d193145729083c28cd0",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "notebook-selected-rest.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "aedee595427e33901cd4eaca076d6e7ec5c1b3aef263c81e5455d100870f16e4",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "projects-desk-landscape.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "ea1db961f6b12fc15d716323f41ecbf115a7079ad139f611003cece27498f31b",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "projects-desk-portrait.jpg",
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "df388c70d8d63ebeabdfa7c4ae3e785c1456a032ffeb4d4fdaae736d944296f8",
+      "purpose": "Final implementation; actual live room render"
+    },
+    {
+      "file": "options/contact-alloy.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "6f2eb97ee6a24459b752127bf89e565b050d544e222d6d261ca6ad6368a86a52",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/contact-current.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "1dcf6b1430e672305be6a203e443c8aa3af066d5bb6cac7e1b86df4652c2d7f8",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/contact-graphite.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "709f69693d02d1921bd161bd4d4a5556f44939c7f803649ed1f757cedd485ec0",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/contact-slate.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "ce6015857ea60c290a603c8167043ea2f9993c91cdf52c924610b0f051c86571",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/projects-alloy.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "de63b7dbb7f457543577211e6bac65552d34f638c9470dda8946e89bee2bc166",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/projects-current.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7acc49bde7849768784f7599ce23085066280c6546b8a3d1f74cbc21077f5b98",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/projects-graphite.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "b904d5b661114adc3d69600c6585bb96795b3e4db7e9e9c7c65049eaf6832250",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    },
+    {
+      "file": "options/projects-slate.jpg",
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7c93220f3a888f8b3ec7b70df299d60bc6432be6b95bd18cdfc52963c0f91be8",
+      "purpose": "Isolated preview; wallpaper option not applied"
+    }
+  ]
+}
