@@ -1,0 +1,6338 @@
+[
+  {
+    "state": "projects-detail",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "project-library-back project-window-back",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 108.60143280029295,
+          "height": 64.56538391113281,
+          "left": 29.1163330078125,
+          "right": 229.28582763671875,
+          "top": 44.03604888916016,
+          "width": 200.16949462890625,
+          "x": 29.1163330078125,
+          "y": 44.03604888916016
+        },
+        "tag": "BUTTON",
+        "text": "Back to projects"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "project-window-close",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 113.5460968017578,
+          "height": 62.954837799072266,
+          "left": 1336.8416748046875,
+          "right": 1399.0189208984375,
+          "top": 50.59125900268555,
+          "width": 62.17724609375,
+          "x": 1336.8416748046875,
+          "y": 50.59125900268555
+        },
+        "tag": "BUTTON",
+        "text": "Close Projects application"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(212, 178, 140)",
+        "class": "project-library-eyebrow",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 171.05044555664062,
+          "height": 24.01824951171875,
+          "left": 75.81597137451172,
+          "right": 1353.8318405151367,
+          "top": 147.03219604492188,
+          "width": 1278.015869140625,
+          "x": 75.81597137451172,
+          "y": 147.03219604492188
+        },
+        "tag": "P",
+        "text": "BACKEND SERVICE"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 233.95718383789065,
+          "height": 55.80543518066406,
+          "left": 75.80126953125,
+          "right": 1353.8460693359375,
+          "top": 178.15174865722656,
+          "width": 1278.0447998046875,
+          "x": 75.80126953125,
+          "y": 178.15174865722656
+        },
+        "tag": "H1",
+        "text": "Relay"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(212, 178, 140)",
+        "class": "project-detail-subtitle",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 284.533935546875,
+          "height": 35.22978210449219,
+          "left": 75.7894515991211,
+          "right": 1353.857566833496,
+          "top": 249.3041534423828,
+          "width": 1278.068115234375,
+          "x": 75.7894515991211,
+          "y": 249.3041534423828
+        },
+        "tag": "P",
+        "text": "Background work, brought into focus."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "project-detail-summary",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 379.9936218261719,
+          "height": 74.95919799804688,
+          "left": 75.76714324951172,
+          "right": 1353.8792037963867,
+          "top": 305.034423828125,
+          "width": 1278.112060546875,
+          "x": 75.76714324951172,
+          "y": 305.034423828125
+        },
+        "tag": "P",
+        "text": "A concept for a dependable job queue with clear retries, useful visibi"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(31, 39, 48)",
+        "border": "rgb(170, 128, 84)",
+        "class": "project-live-link",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 474.41015625,
+          "height": 63.699249267578125,
+          "left": 75.74516296386719,
+          "right": 335.4548797607422,
+          "top": 410.7109069824219,
+          "width": 259.709716796875,
+          "x": 75.74516296386719,
+          "y": 410.7109069824219
+        },
+        "tag": "A",
+        "text": "Open live project"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(48, 58, 68)",
+        "border": "rgb(165, 170, 167)",
+        "class": "project-resource-link is-source",
+        "color": "rgb(228, 222, 210)",
+        "outline": "rgb(228, 222, 210)",
+        "rect": {
+          "bottom": 474.3288269042969,
+          "height": 63.481536865234375,
+          "left": 352.8400573730469,
+          "right": 614.834716796875,
+          "top": 410.8472900390625,
+          "width": 261.9946594238281,
+          "x": 352.8400573730469,
+          "y": 410.8472900390625
+        },
+        "tag": "A",
+        "text": "View source code"
+      }
+    ]
+  },
+  {
+    "state": "contact-selected",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(212, 178, 140)",
+        "class": "contact-app-eyebrow",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 201.1065368652344,
+          "height": 14.998062133789062,
+          "left": 441.6521911621094,
+          "right": 599.3379516601562,
+          "top": 186.1084747314453,
+          "width": 157.68576049804688,
+          "x": 441.6521911621094,
+          "y": 186.1084747314453
+        },
+        "tag": "P",
+        "text": "OPEN A CONVERSATION"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 239.5562438964844,
+          "height": 32.78839111328125,
+          "left": 442.16253662109375,
+          "right": 599.751220703125,
+          "top": 206.76785278320312,
+          "width": 157.58868408203125,
+          "x": 442.16253662109375,
+          "y": 206.76785278320312
+        },
+        "tag": "H2",
+        "text": "Let’s connect."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(228, 222, 210)",
+        "class": "",
+        "color": "rgb(228, 222, 210)",
+        "outline": "rgb(228, 222, 210)",
+        "rect": {
+          "bottom": 227.15513610839844,
+          "height": 32.02299499511719,
+          "left": 955.2369995117188,
+          "right": 987.5335693359376,
+          "top": 195.13214111328125,
+          "width": 32.29656982421875,
+          "x": 955.2369995117188,
+          "y": 195.13214111328125
+        },
+        "tag": "BUTTON",
+        "text": "Dismiss email alternative"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(228, 222, 210)",
+        "class": "",
+        "color": "rgb(228, 222, 210)",
+        "outline": "rgb(228, 222, 210)",
+        "rect": {
+          "bottom": 260.118408203125,
+          "height": 31.831207275390625,
+          "left": 954.5472412109376,
+          "right": 986.7466430664062,
+          "top": 228.2872009277344,
+          "width": 32.19940185546875,
+          "x": 954.5472412109376,
+          "y": 228.2872009277344
+        },
+        "tag": "BUTTON",
+        "text": "Copy email address"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(31, 39, 48)",
+        "border": "rgb(91, 101, 109)",
+        "class": "",
+        "color": "rgb(228, 222, 210)",
+        "outline": "rgb(228, 222, 210)",
+        "rect": {
+          "bottom": 343.31951904296875,
+          "height": 51.55419921875,
+          "left": 444.2622985839844,
+          "right": 715.62060546875,
+          "top": 291.76531982421875,
+          "width": 271.3583068847656,
+          "x": 444.2622985839844,
+          "y": 291.76531982421875
+        },
+        "tag": "BUTTON",
+        "text": "Schedule a call"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(31, 39, 48)",
+        "border": "rgb(170, 128, 84)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 343.3686218261719,
+          "height": 51.607330322265625,
+          "left": 724.521484375,
+          "right": 996.440185546875,
+          "top": 291.76129150390625,
+          "width": 271.918701171875,
+          "x": 724.521484375,
+          "y": 291.76129150390625
+        },
+        "tag": "BUTTON",
+        "text": "Send a message"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 377.22454833984375,
+          "height": 18.371917724609375,
+          "left": 445.92041015625,
+          "right": 662.690673828125,
+          "top": 358.8526306152344,
+          "width": 216.770263671875,
+          "x": 445.92041015625,
+          "y": 358.8526306152344
+        },
+        "tag": "P",
+        "text": "Your message goes to my private inbox."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "contact-app-field",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 468.4992370605469,
+          "height": 71.4373779296875,
+          "left": 446.8648376464844,
+          "right": 711.8226318359375,
+          "top": 397.0618591308594,
+          "width": 264.9577941894531,
+          "x": 446.8648376464844,
+          "y": 397.0618591308594
+        },
+        "tag": "LABEL",
+        "text": "NameOptional"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 468.4992370605469,
+          "height": 45.67266845703125,
+          "left": 447.5016784667969,
+          "right": 711.8226318359375,
+          "top": 422.8265686035156,
+          "width": 264.3209533691406,
+          "x": 447.5016784667969,
+          "y": 422.8265686035156
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "contact-app-field",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 468.6778259277344,
+          "height": 71.5106201171875,
+          "left": 728.32373046875,
+          "right": 993.830322265625,
+          "top": 397.1672058105469,
+          "width": 265.506591796875,
+          "x": 728.32373046875,
+          "y": 397.1672058105469
+        },
+        "tag": "LABEL",
+        "text": "CompanyOptional"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(165, 170, 167)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 468.6778259277344,
+          "height": 45.719451904296875,
+          "left": 728.32373046875,
+          "right": 993.1917114257812,
+          "top": 422.9583740234375,
+          "width": 264.86798095703125,
+          "x": 728.32373046875,
+          "y": 422.9583740234375
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "contact-app-field",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 553.9751586914062,
+          "height": 70.41146850585938,
+          "left": 449.0029602050781,
+          "right": 711.8881225585938,
+          "top": 483.5636901855469,
+          "width": 262.8851623535156,
+          "x": 449.0029602050781,
+          "y": 483.5636901855469
+        },
+        "tag": "LABEL",
+        "text": "Email address"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 553.9751586914062,
+          "height": 45.047760009765625,
+          "left": 449.6298828125,
+          "right": 711.8881225585938,
+          "top": 508.9273986816406,
+          "width": 262.25823974609375,
+          "x": 449.6298828125,
+          "y": 508.9273986816406
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "contact-app-field",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 554.239990234375,
+          "height": 70.48260498046875,
+          "left": 728.2608642578125,
+          "right": 991.686279296875,
+          "top": 483.75738525390625,
+          "width": 263.4254150390625,
+          "x": 728.2608642578125,
+          "y": 483.75738525390625
+        },
+        "tag": "LABEL",
+        "text": "SubjectOptional"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 554.239990234375,
+          "height": 45.093231201171875,
+          "left": 728.2608642578125,
+          "right": 991.0576782226562,
+          "top": 509.1467590332031,
+          "width": 262.79681396484375,
+          "x": 728.2608642578125,
+          "y": 509.1467590332031
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "contact-app-field contact-app-wide",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 705.4566040039062,
+          "height": 136.733642578125,
+          "left": 451.1078796386719,
+          "right": 989.575653076172,
+          "top": 568.7229614257812,
+          "width": 538.4677734375,
+          "x": 451.1078796386719,
+          "y": 568.7229614257812
+        },
+        "tag": "LABEL",
+        "text": "MessageAt least 10 characters · 0 / 5,000 including company and subjec"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 733.0313720703125,
+          "height": 41.49066162109375,
+          "left": -9894.1064453125,
+          "right": -9688.548828125,
+          "top": 691.5407104492188,
+          "width": 205.5576171875,
+          "x": -9894.1064453125,
+          "y": 691.5407104492188
+        },
+        "tag": "LABEL",
+        "text": "Website"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 735.7185668945312,
+          "height": 23.43359375,
+          "left": -9873.654296875,
+          "right": -9685.94140625,
+          "top": 712.2849731445312,
+          "width": 187.712890625,
+          "x": -9873.654296875,
+          "y": 712.2849731445312
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 754.8761596679688,
+          "height": 16.94427490234375,
+          "left": 455.290283203125,
+          "right": 681.5458984375,
+          "top": 737.931884765625,
+          "width": 226.255615234375,
+          "x": 455.290283203125,
+          "y": 737.931884765625
+        },
+        "tag": "P",
+        "text": "Only used to respond to your inquiry. Privacy ↗"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(170, 128, 84)",
+        "class": "contact-app-submit",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 768.8339233398438,
+          "height": 43.8016357421875,
+          "left": 830.287841796875,
+          "right": 985.7163696289062,
+          "top": 725.0322875976562,
+          "width": 155.42852783203125,
+          "x": 830.287841796875,
+          "y": 725.0322875976562
+        },
+        "tag": "BUTTON",
+        "text": "Send message"
+      }
+    ]
+  },
+  {
+    "state": "contact-native-invalid",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 306.87713623046875,
+          "height": 46.924224853515625,
+          "left": 443.6673278808594,
+          "right": 711.7568359375,
+          "top": 259.9529113769531,
+          "width": 268.0895080566406,
+          "x": 443.6673278808594,
+          "y": 259.9529113769531
+        },
+        "tag": "INPUT",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "state": "earth-playback",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 457,
+          "height": 26,
+          "left": 1087,
+          "right": 1212.6171875,
+          "top": 431,
+          "width": 125.6171875,
+          "x": 1087,
+          "y": 431
+        },
+        "tag": "H2",
+        "text": "Earth playback"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgba(0, 0, 0, 0)",
+        "class": "earth-playback-close",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 452,
+          "height": 40,
+          "left": 1355,
+          "right": 1395,
+          "top": 412,
+          "width": 40,
+          "x": 1355,
+          "y": 412
+        },
+        "tag": "BUTTON",
+        "text": "Close playback panel"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 513,
+          "height": 42,
+          "left": 1087,
+          "right": 1395,
+          "top": 471,
+          "width": 308,
+          "x": 1087,
+          "y": 471
+        },
+        "tag": "P",
+        "text": "Explore one seamless loop. Drag the timeline to pause at any point."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 552,
+          "height": 21,
+          "left": 1087,
+          "right": 1174.2734375,
+          "top": 531,
+          "width": 87.2734375,
+          "x": 1087,
+          "y": 531
+        },
+        "tag": "LABEL",
+        "text": "Loop position"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(170, 128, 84)",
+        "class": "",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 636,
+          "height": 40,
+          "left": 1087,
+          "right": 1185,
+          "top": 596,
+          "width": 98,
+          "x": 1087,
+          "y": 596
+        },
+        "tag": "BUTTON",
+        "text": "Pause"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(31, 39, 48)",
+        "border": "color(srgb 0.760784 0.764706 0.74902 / 0.239)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 636,
+          "height": 40,
+          "left": 1197,
+          "right": 1296.515625,
+          "top": 596,
+          "width": 99.515625,
+          "x": 1197,
+          "y": 596
+        },
+        "tag": "BUTTON",
+        "text": "Restart"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 679,
+          "height": 21,
+          "left": 1087,
+          "right": 1188.5546875,
+          "top": 658,
+          "width": 101.5546875,
+          "x": 1087,
+          "y": 658
+        },
+        "tag": "LABEL",
+        "text": "Playback speed"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "earth-playback-note",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 741,
+          "height": 18,
+          "left": 1087,
+          "right": 1395,
+          "top": 723,
+          "width": 308,
+          "x": 1087,
+          "y": 723
+        },
+        "tag": "P",
+        "text": "Full loop in 7:16 at 1×."
+      }
+    ]
+  },
+  {
+    "state": "diagnostics",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 54.09375,
+          "height": 18.1953125,
+          "left": 27,
+          "right": 307,
+          "top": 35.8984375,
+          "width": 280,
+          "x": 27,
+          "y": 35.8984375
+        },
+        "tag": "H2",
+        "text": "Performance check"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(48, 58, 68)",
+        "border": "rgb(170, 128, 84)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 65,
+          "height": 40,
+          "left": 315,
+          "right": 347,
+          "top": 25,
+          "width": 32,
+          "x": 315,
+          "y": 25
+        },
+        "tag": "BUTTON",
+        "text": "Collapse scene diagnostics"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(48, 58, 68)",
+        "border": "rgb(170, 128, 84)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 65,
+          "height": 40,
+          "left": 355,
+          "right": 387,
+          "top": 25,
+          "width": 32,
+          "x": 355,
+          "y": 25
+        },
+        "tag": "BUTTON",
+        "text": "Close diagnostics"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(194, 195, 191)",
+        "class": "scene-perf-muted",
+        "color": "rgb(194, 195, 191)",
+        "outline": "rgb(194, 195, 191)",
+        "rect": {
+          "bottom": 113,
+          "height": 36,
+          "left": 27,
+          "right": 387,
+          "top": 77,
+          "width": 360,
+          "x": 27,
+          "y": 77
+        },
+        "tag": "P",
+        "text": "Find what keeps the page busy, then compare one change at a time."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(194, 195, 191)",
+        "class": "scene-perf-muted",
+        "color": "rgb(194, 195, 191)",
+        "outline": "rgb(194, 195, 191)",
+        "rect": {
+          "bottom": 223.5,
+          "height": 18,
+          "left": 27,
+          "right": 387,
+          "top": 205.5,
+          "width": 360,
+          "x": 27,
+          "y": 205.5
+        },
+        "tag": "P",
+        "text": "12.0s live window · slower frames (p95): 33.40ms."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "scene-perf-status",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 280.5,
+          "height": 18,
+          "left": 27,
+          "right": 387,
+          "top": 262.5,
+          "width": 360,
+          "x": 27,
+          "y": 262.5
+        },
+        "tag": "P",
+        "text": "Ready · 3 second warmup before each capture."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(194, 195, 191)",
+        "class": "scene-perf-muted",
+        "color": "rgb(194, 195, 191)",
+        "outline": "rgb(194, 195, 191)",
+        "rect": {
+          "bottom": 362.6953125,
+          "height": 36,
+          "left": 27,
+          "right": 387,
+          "top": 326.6953125,
+          "width": 360,
+          "x": 27,
+          "y": 326.6953125
+        },
+        "tag": "P",
+        "text": "Keep the view still. This gives us a reference for the work your brows"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 390.6953125,
+          "height": 18,
+          "left": 27,
+          "right": 387,
+          "top": 372.6953125,
+          "width": 360,
+          "x": 27,
+          "y": 372.6953125
+        },
+        "tag": "LABEL",
+        "text": "Capture length"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(170, 128, 84)",
+        "class": "scene-perf-primary",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 514.6953125,
+          "height": 40,
+          "left": 27,
+          "right": 387,
+          "top": 474.6953125,
+          "width": 360,
+          "x": 27,
+          "y": 474.6953125
+        },
+        "tag": "BUTTON",
+        "text": "Record baseline"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(194, 195, 191)",
+        "class": "scene-perf-muted",
+        "color": "rgb(194, 195, 191)",
+        "outline": "rgb(194, 195, 191)",
+        "rect": {
+          "bottom": 599.890625,
+          "height": 36,
+          "left": 27,
+          "right": 387,
+          "top": 563.890625,
+          "width": 360,
+          "x": 27,
+          "y": 563.890625
+        },
+        "tag": "P",
+        "text": "Temporarily remove one source of work, then repeat the same view."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 627.890625,
+          "height": 18,
+          "left": 27,
+          "right": 387,
+          "top": 609.890625,
+          "width": 360,
+          "x": 27,
+          "y": 609.890625
+        },
+        "tag": "LABEL",
+        "text": "Change to compare"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(170, 128, 84)",
+        "class": "scene-perf-primary",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 721.890625,
+          "height": 40,
+          "left": 27,
+          "right": 387,
+          "top": 681.890625,
+          "width": 360,
+          "x": 27,
+          "y": 681.890625
+        },
+        "tag": "BUTTON",
+        "text": "Record this change"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(48, 58, 68)",
+        "border": "rgb(170, 128, 84)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 785.890625,
+          "height": 40,
+          "left": 27,
+          "right": 136.703125,
+          "top": 745.890625,
+          "width": 109.703125,
+          "x": 27,
+          "y": 745.890625
+        },
+        "tag": "BUTTON",
+        "text": "Restore normal"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(31, 39, 48, 0.96)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(21, 28, 35)",
+        "border": "rgb(238, 233, 222)",
+        "class": "scene-perf-help",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 900.0859375,
+          "height": 56,
+          "left": 27,
+          "right": 387,
+          "top": 844.0859375,
+          "width": 360,
+          "x": 27,
+          "y": 844.0859375
+        },
+        "tag": "P",
+        "text": "Your captures will appear here. Repeat the normal scene after a change"
+      }
+    ]
+  },
+  {
+    "state": "projects-reading-selected",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "color(srgb 0.666667 0.501961 0.329412 / 0.145)",
+        "border": "rgb(212, 178, 140)",
+        "class": "",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 341.390625,
+          "height": 37,
+          "left": 28,
+          "right": 158.03125,
+          "top": 304.390625,
+          "width": 130.03125,
+          "x": 28,
+          "y": 304.390625
+        },
+        "tag": "BUTTON",
+        "text": "All projects9"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "color(srgb 0.666667 0.501961 0.329412 / 0.145)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(212, 178, 140)",
+        "class": "",
+        "color": "rgb(212, 178, 140)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 334.0859375,
+          "height": 22.3984375,
+          "left": 61,
+          "right": 129.46875,
+          "top": 311.6875,
+          "width": 68.46875,
+          "x": 61,
+          "y": 311.6875
+        },
+        "tag": "SPAN",
+        "text": "All projects"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgba(0, 0, 0, 0)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 341.390625,
+          "height": 37,
+          "left": 163.03125,
+          "right": 278.2734375,
+          "top": 304.390625,
+          "width": 115.2421875,
+          "x": 163.03125,
+          "y": 304.390625
+        },
+        "tag": "BUTTON",
+        "text": "Systems6"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 334.0859375,
+          "height": 22.3984375,
+          "left": 196.03125,
+          "right": 249.7109375,
+          "top": 311.6875,
+          "width": 53.6796875,
+          "x": 196.03125,
+          "y": 311.6875
+        },
+        "tag": "SPAN",
+        "text": "Systems"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgba(0, 0, 0, 0)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 383.390625,
+          "height": 37,
+          "left": 28,
+          "right": 151.0390625,
+          "top": 346.390625,
+          "width": 123.0390625,
+          "x": 28,
+          "y": 346.390625
+        },
+        "tag": "BUTTON",
+        "text": "Interfaces3"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 376.0859375,
+          "height": 22.3984375,
+          "left": 61,
+          "right": 122.4765625,
+          "top": 353.6875,
+          "width": 61.4765625,
+          "x": 61,
+          "y": 353.6875
+        },
+        "tag": "SPAN",
+        "text": "Interfaces"
+      }
+    ]
+  },
+  {
+    "state": "reading-live-link-focus",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(170, 128, 84)",
+        "class": "project-live-link",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(119, 83, 50)",
+        "rect": {
+          "bottom": 405.21875,
+          "height": 44,
+          "left": 54,
+          "right": 232.5546875,
+          "top": 361.21875,
+          "width": 178.5546875,
+          "x": 54,
+          "y": 361.21875
+        },
+        "tag": "A",
+        "text": "Open live project"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(228, 222, 210)",
+        "border": "rgb(91, 101, 109)",
+        "class": "project-resource-link is-source",
+        "color": "rgb(65, 76, 86)",
+        "outline": "rgb(65, 76, 86)",
+        "rect": {
+          "bottom": 459.21875,
+          "height": 44,
+          "left": 54,
+          "right": 235.375,
+          "top": 415.21875,
+          "width": 181.375,
+          "x": 54,
+          "y": 415.21875
+        },
+        "tag": "A",
+        "text": "View source code"
+      }
+    ]
+  },
+  {
+    "state": "studio-identity",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 91,
+          "height": 71,
+          "left": 57.59375,
+          "right": 287.59375,
+          "top": 20,
+          "width": 230,
+          "x": 57.59375,
+          "y": 20
+        },
+        "tag": "LABEL",
+        "text": "CollectionIdentity & copyProjectsCase studiesJournalSocial linksMedia "
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(119, 83, 50)",
+        "class": "active",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 183.140625,
+          "height": 72.140625,
+          "left": 57.59375,
+          "right": 287.59375,
+          "top": 111,
+          "width": 230,
+          "x": 57.59375,
+          "y": 111
+        },
+        "tag": "BUTTON",
+        "text": "Mikael VincentPublished"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field field-search",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 71.765625,
+          "height": 71.3984375,
+          "left": 341.59375,
+          "right": 741.59375,
+          "top": 0.3671875,
+          "width": 400,
+          "x": 341.59375,
+          "y": 0.3671875
+        },
+        "tag": "LABEL",
+        "text": "Find a setting"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(48, 58, 68)",
+        "rect": {
+          "bottom": 71.765625,
+          "height": 44.3984375,
+          "left": 341.59375,
+          "right": 741.59375,
+          "top": 27.3671875,
+          "width": 400,
+          "x": 341.59375,
+          "y": 27.3671875
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 258.078125,
+          "height": 71,
+          "left": 364.59375,
+          "right": 1330.40625,
+          "top": 187.078125,
+          "width": 965.8125,
+          "x": 364.59375,
+          "y": 187.078125
+        },
+        "tag": "LABEL",
+        "text": "Choose from libraryKeep the room's landscape artwork"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 428.6484375,
+          "height": 96,
+          "left": 382.59375,
+          "right": 1312.40625,
+          "top": 332.6484375,
+          "width": 929.8125,
+          "x": 382.59375,
+          "y": 332.6484375
+        },
+        "tag": "LABEL",
+        "text": "Image filePNG, JPEG, WebP or GIF · up to 5 MiB."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(48, 58, 68)",
+        "rect": {
+          "bottom": 403.6484375,
+          "height": 44,
+          "left": 382.59375,
+          "right": 1312.40625,
+          "top": 359.6484375,
+          "width": 929.8125,
+          "x": 382.59375,
+          "y": 359.6484375
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 520.046875,
+          "height": 71.3984375,
+          "left": 382.59375,
+          "right": 1312.40625,
+          "top": 448.6484375,
+          "width": 929.8125,
+          "x": 382.59375,
+          "y": 448.6484375
+        },
+        "tag": "LABEL",
+        "text": "Description / alternative text"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(48, 58, 68)",
+        "rect": {
+          "bottom": 520.046875,
+          "height": 44.3984375,
+          "left": 382.59375,
+          "right": 1312.40625,
+          "top": 475.6484375,
+          "width": 929.8125,
+          "x": 382.59375,
+          "y": 475.6484375
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field ",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 487.4453125,
+          "height": 71.3984375,
+          "left": 341.59375,
+          "right": 835.5,
+          "top": 416.046875,
+          "width": 493.90625,
+          "x": 341.59375,
+          "y": 416.046875
+        },
+        "tag": "LABEL",
+        "text": "Owner name"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(48, 58, 68)",
+        "rect": {
+          "bottom": 487.4453125,
+          "height": 44.3984375,
+          "left": 341.59375,
+          "right": 835.5,
+          "top": 443.046875,
+          "width": 493.90625,
+          "x": 341.59375,
+          "y": 443.046875
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field ",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 487.4453125,
+          "height": 71.3984375,
+          "left": 859.5,
+          "right": 1353.40625,
+          "top": 416.046875,
+          "width": 493.90625,
+          "x": 859.5,
+          "y": 416.046875
+        },
+        "tag": "LABEL",
+        "text": "Brand initials"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(119, 83, 50)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(119, 83, 50)",
+        "rect": {
+          "bottom": 487.4453125,
+          "height": 44.3984375,
+          "left": 859.5,
+          "right": 1353.40625,
+          "top": 443.046875,
+          "width": 493.90625,
+          "x": 859.5,
+          "y": 443.046875
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field ",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 578.84375,
+          "height": 71.3984375,
+          "left": 341.59375,
+          "right": 835.5,
+          "top": 507.4453125,
+          "width": 493.90625,
+          "x": 341.59375,
+          "y": 507.4453125
+        },
+        "tag": "LABEL",
+        "text": "Title"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(123, 133, 140)",
+        "class": "",
+        "color": "rgb(48, 58, 68)",
+        "outline": "rgb(48, 58, 68)",
+        "rect": {
+          "bottom": 578.84375,
+          "height": 44.3984375,
+          "left": 341.59375,
+          "right": 835.5,
+          "top": 534.4453125,
+          "width": 493.90625,
+          "x": 341.59375,
+          "y": 534.4453125
+        },
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field wide-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 737.4375,
+          "height": 138.59375,
+          "left": 341.59375,
+          "right": 1353.40625,
+          "top": 598.84375,
+          "width": 1011.8125,
+          "x": 341.59375,
+          "y": 598.84375
+        },
+        "tag": "LABEL",
+        "text": "HeadlineGood products.\nThoughtful engineering."
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(238, 233, 222)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(91, 101, 109)",
+        "class": "studio-field wide-field",
+        "color": "rgb(91, 101, 109)",
+        "outline": "rgb(91, 101, 109)",
+        "rect": {
+          "bottom": 896.03125,
+          "height": 138.59375,
+          "left": 341.59375,
+          "right": 1353.40625,
+          "top": 757.4375,
+          "width": 1011.8125,
+          "x": 341.59375,
+          "y": 757.4375
+        },
+        "tag": "LABEL",
+        "text": "IntroFrom the first interaction to the background job. Explore a small"
+      }
+    ]
+  },
+  {
+    "state": "studio-selected",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgb(216, 210, 198)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(119, 83, 50)",
+        "class": "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 297.5078125,
+          "height": 42,
+          "left": 62.59375,
+          "right": 162.59375,
+          "top": 255.5078125,
+          "width": 100,
+          "x": 62.59375,
+          "y": 255.5078125
+        },
+        "tag": "BUTTON",
+        "text": "Content"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(119, 83, 50)",
+        "class": "active",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 509.6484375,
+          "height": 72.140625,
+          "left": 57.59375,
+          "right": 287.59375,
+          "top": 437.5078125,
+          "width": 230,
+          "x": 57.59375,
+          "y": 437.5078125
+        },
+        "tag": "BUTTON",
+        "text": "RelayPublished"
+      }
+    ]
+  },
+  {
+    "state": "studio-validation",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(88, 44, 49)",
+        "border": "rgb(193, 142, 137)",
+        "class": "form-error",
+        "color": "rgb(255, 213, 205)",
+        "outline": "rgb(255, 213, 205)",
+        "rect": {
+          "bottom": 361.3046875,
+          "height": 46.796875,
+          "left": 57.59375,
+          "right": 1382.40625,
+          "top": 314.5078125,
+          "width": 1324.8125,
+          "x": 57.59375,
+          "y": 314.5078125
+        },
+        "tag": "P",
+        "text": "A title is required."
+      }
+    ]
+  },
+  {
+    "state": "studio-dialog",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(238, 233, 222)",
+        "class": "text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2 cn-font-heading",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 403.45703125,
+          "height": 17.9140625,
+          "left": 544,
+          "right": 652.2890625,
+          "top": 385.54296875,
+          "width": 108.2890625,
+          "x": 544,
+          "y": 385.54296875
+        },
+        "tag": "H2",
+        "text": "Delete this item?"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(216, 210, 198)",
+        "class": "text-muted-foreground *:[a]:hover:text-foreground text-sm text-balance md:text-pretty *:[a]:underline *:[a]:underline-offset-3",
+        "color": "rgb(216, 210, 198)",
+        "outline": "rgb(216, 210, 198)",
+        "rect": {
+          "bottom": 449.45703125,
+          "height": 40,
+          "left": 544,
+          "right": 896,
+          "top": 409.45703125,
+          "width": 352,
+          "x": 544,
+          "y": 409.45703125
+        },
+        "tag": "P",
+        "text": "This cannot be undone in the studio. Export content first if you need "
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "oklab(0.269023 -0.00640826 -0.0192853 / 0.5)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "oklab(0.610761 -0.00834313 -0.0134753 / 0.3)",
+        "border": "rgb(123, 133, 140)",
+        "class": "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        "color": "rgb(238, 233, 222)",
+        "outline": "rgb(238, 233, 222)",
+        "rect": {
+          "bottom": 514.45703125,
+          "height": 32,
+          "left": 738.1875,
+          "right": 809.9921875,
+          "top": 482.45703125,
+          "width": 71.8046875,
+          "x": 738.1875,
+          "y": 482.45703125
+        },
+        "tag": "BUTTON",
+        "text": "Cancel"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "oklab(0.269023 -0.00640826 -0.0192853 / 0.5)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(31, 39, 48)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgba(0, 0, 0, 0)",
+        "class": "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(31, 39, 48)",
+        "rect": {
+          "bottom": 514.45703125,
+          "height": 32,
+          "left": 817.9921875,
+          "right": 896,
+          "top": 482.45703125,
+          "width": 78.0078125,
+          "x": 817.9921875,
+          "y": 482.45703125
+        },
+        "tag": "BUTTON",
+        "text": "Confirm"
+      }
+    ]
+  },
+  {
+    "state": "studio-saved",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(228, 222, 210)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(225, 240, 232)",
+        "border": "rgb(164, 202, 187)",
+        "class": "studio-success",
+        "color": "rgb(40, 83, 62)",
+        "outline": "rgb(40, 83, 62)",
+        "rect": {
+          "bottom": 394.1875,
+          "height": 46.796875,
+          "left": 19.5,
+          "right": 370.5,
+          "top": 347.390625,
+          "width": 351,
+          "x": 19.5,
+          "y": 347.390625
+        },
+        "tag": "P",
+        "text": "Draft saved. The published version is unchanged."
+      }
+    ]
+  },
+  {
+    "state": "immersive-live-link-focus-final",
+    "elements": [
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(238, 233, 222)",
+        "border": "rgb(170, 128, 84)",
+        "class": "project-live-link",
+        "color": "rgb(31, 39, 48)",
+        "outline": "rgb(212, 178, 140)",
+        "rect": {
+          "bottom": 364.765625,
+          "height": 44,
+          "left": 36,
+          "right": 214.5546875,
+          "top": 320.765625,
+          "width": 178.5546875,
+          "x": 36,
+          "y": 320.765625
+        },
+        "tag": "A",
+        "text": "Open live project"
+      },
+      {
+        "ancestors": [
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgb(21, 28, 35)",
+            "filter": "none",
+            "opacity": "1"
+          },
+          {
+            "bg": "rgba(0, 0, 0, 0)",
+            "filter": "none",
+            "opacity": "1"
+          }
+        ],
+        "background": "rgb(31, 39, 48)",
+        "border": "rgb(123, 133, 140)",
+        "class": "project-resource-link is-source",
+        "color": "rgb(228, 222, 210)",
+        "outline": "rgb(228, 222, 210)",
+        "rect": {
+          "bottom": 418.765625,
+          "height": 44,
+          "left": 36,
+          "right": 217.375,
+          "top": 374.765625,
+          "width": 181.375,
+          "x": 36,
+          "y": 374.765625
+        },
+        "tag": "A",
+        "text": "View source code"
+      }
+    ]
+  }
+]

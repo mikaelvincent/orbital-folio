@@ -1,0 +1,57 @@
+{
+  "fixture": "/tmp/orbital-ivory-palette-ilgofvy_",
+  "base_url": "http://localhost:3003",
+  "state": "/tmp/orbital-ivory-palette-ilgofvy_/.wrangler/state",
+  "vite_cache": "/tmp/orbital-ivory-palette-ilgofvy_/.vite-cache",
+  "coverage": "Complete test-file coverage in partitions: 379 non-content tests passed in test-worker-restart-failed.log; all 133 content tests passed after fixture recovery in test-content.log. Three CSS files changed between these partitions; prior and final hashes are preserved in full-suite-source.json and source.json.",
+  "checks": [
+    {
+      "name": "test-content",
+      "command": "node --test --test-concurrency=1 tests/content/about-photos-api.test.mjs tests/content/about-photos.test.mjs tests/content/case-study-api.test.mjs tests/content/case-study-content.test.mjs tests/content/case-study-demos.test.mjs tests/content/case-study-rendering.test.mjs tests/content/contact-clipboard.test.mjs tests/content/contact-form.test.mjs tests/content/contact-scroll-area.test.mjs tests/content/contact.test.mjs tests/content/journal-api.test.mjs tests/content/journal-content.test.mjs tests/content/notebook-samples.test.mjs tests/content/project-demos.test.mjs tests/content/project-editor.test.mjs tests/content/project-package-api.test.mjs tests/content/project-package.test.mjs tests/content/project-rendering.test.mjs tests/content/scene-tools.test.mjs tests/content/social-icon-upload.test.mjs tests/content/social-links.test.mjs tests/content/workflows.test.mjs",
+      "exit_code": 0,
+      "duration_seconds": 9.872,
+      "log": "test-content.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "duration_seconds": 3.028,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exit_code": 0,
+      "duration_seconds": 5.288,
+      "log": "build.log"
+    },
+    {
+      "name": "test-iris",
+      "command": "node --test tests/spacecraft/iris-integration.test.mjs",
+      "exit_code": 0,
+      "duration_seconds": 6.401,
+      "log": "test-iris.log"
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint -- app/icon.svg/route.ts components/ui/native-select.tsx features/diagnostics/performance-panel.ts features/portfolio/immersive-portfolio.tsx features/spacecraft/equipment/cabin-utility-fittings.ts features/spacecraft/equipment/docking-shoulder-equipment.ts features/spacecraft/equipment/ladder-service-spine.ts features/spacecraft/equipment/outboard-wall-equipment.ts features/spacecraft/geometry/model-primitives.ts features/spacecraft/navigation/interactable-object-highlight.ts features/spacecraft/navigation/iris-hatch.ts features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/about-photo-print.ts features/spacecraft/rooms/about-study-artwork.ts features/spacecraft/rooms/case-study-archive.ts features/spacecraft/rooms/computer-desktop.ts features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-keyboard.ts features/spacecraft/rooms/contact-social-display.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/projects-workshop.ts features/spacecraft/spacecraft-model.ts lib/content/seed.ts lib/palette.ts tests/spacecraft/case-study-application.test.mjs tests/spacecraft/iris-integration.test.mjs tests/spacecraft/palette.test.mjs",
+      "exit_code": 0,
+      "duration_seconds": 0.476,
+      "log": "lint.log"
+    }
+  ],
+  "test_coverage": {
+    "noncontent": {
+      "passed": 379,
+      "source": "full-suite-source.json",
+      "log": "test-worker-restart-failed.log"
+    },
+    "content": {
+      "passed": 133,
+      "source": "source.json",
+      "log": "test-content.log"
+    },
+    "distinct_passed": 512
+  }
+}

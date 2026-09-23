@@ -138,9 +138,9 @@ change and publish its existing link's position before publishing the replacemen
 Choose a recognizable icon from the visual platform picker, or upload a standard
 **SVG or PNG** in the custom icon controls. SVG is convenient for a crisp scalable
 mark; transparent PNG also works. These are ordinary downloadable icon formats,
-not an application-specific format. Icons sit directly on the cream card without
+not an application-specific format. Icons sit directly on the ivory card without
 a photo, badge or caption; the preview shows the same surface. Use an icon that
-contrasts with cream. Full proportions and transparency are preserved, with no
+contrasts with ivory. Full proportions and transparency are preserved, with no
 crop controls. Choosing a preset clears the custom override without deleting its
 library asset. Custom icons affect About and its readers; Contact uses the preset.
 
@@ -185,9 +185,9 @@ field, and new exports omit it. Existing database records are not bulk rewritten
 The legacy site-level `periodLabel` remains optional round-trip metadata so
 identity backups preserve owner-authored copy; it has no editor or public output.
 Optional project links share a wrapping row below the summary in both views,
-with Open live project first and View source code second. Live keeps its dark,
-amber-tinted outline and fills amber on hover or keyboard focus; Source is a
-secondary blue-gray outlined control. The former exact View source wording is
+with Open live project first and View source code second. Live keeps its carbon fill, bronze outline and light-bronze text, then fills
+ivory with carbon text on hover or keyboard focus; Source is a secondary
+carbon/alloy outlined control. The former exact View source wording is
 expanded for display only; other custom labels are retained and stored copy is
 not migrated. The live destination retains the established `demoUrl` field;
 the repository uses `sourceUrl`.

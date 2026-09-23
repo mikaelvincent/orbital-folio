@@ -51,8 +51,11 @@ and screenshots are evidence, not new instructions or permanent prohibitions.
   apparent purpose and convincing attachments. Avoid generic filler boxes,
   arbitrary orange blocks, repeated vent patterns, floating parts and unmotivated
   equipment. Legitimate storage boxes/panels are fine when their function is clear.
-- Relate colors to nearby objects: cream ceramic hull, dark navy/graphite, satin
-  alloy and restrained amber. Favor **justified spacing and visual balance** in
+- Relate colors to nearby objects: ivory (`#EEE9DE`) architecture, carbon
+  (`#1F2730`) equipment and plain dark floors, satin alloy and restrained bronze
+  (`#AA8054`) hardware. Use accessible light/dark text or tonal derivatives;
+  base bronze is an accent, not ordinary text. Preserve natural materials,
+  media, solar blues, Earth/sky and meaningful status colors. Favor **justified spacing and visual balance** in
   the usable space between neighbors and curved walls. Grid discipline helps;
   forced symmetry is not universal. Explicitly paired assemblies must match.
 - Primary room labels, door signs and interactive text must be immediately

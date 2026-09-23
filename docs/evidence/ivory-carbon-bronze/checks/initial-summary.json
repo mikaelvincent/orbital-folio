@@ -1,0 +1,15 @@
+{
+  "fixture": "/tmp/orbital-ivory-palette-ilgofvy_",
+  "base_url": "http://localhost:3003",
+  "state": "/tmp/orbital-ivory-palette-ilgofvy_/.wrangler/state",
+  "vite_cache": "/tmp/orbital-ivory-palette-ilgofvy_/.vite-cache",
+  "checks": [
+    {
+      "name": "test",
+      "command": "npm test",
+      "exit_code": 1,
+      "duration_seconds": 379.068,
+      "log": "test-initial-failed.log"
+    }
+  ]
+}

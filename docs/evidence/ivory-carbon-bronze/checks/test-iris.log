@@ -1,0 +1,18 @@
+✔ Integrated hatches open on hover, close on departure, and preserve room lighting (729.955667ms)
+✔ Actual C-route interlocks ladder entrances, reverses smoothly, and settles closed (621.579666ms)
+✔ Door opening takes about half the original duration across refresh rates, with unchanged closing (613.049125ms)
+✔ Travel seals ladder hatches at the opening rate while ordinary and hover closure stay unchanged (546.2515ms)
+✔ Hover opens both faces of the first route door and transfers smoothly into travel (704.053041ms)
+✔ Rapid ladder hover changes keep the two entrances interlocked in both layouts (694.899708ms)
+✔ Every physical passage has one centered blade stack and one continuous dark guide (636.452208ms)
+✔ Both wall faces use cabin paint and both blade faces share ivory non-emissive paint (459.091792ms)
+✔ Hover lights both mouths while preserving the dark guide and single-step opening speed (582.29575ms)
+✔ Resizing with a door open cannot change overview or room framing (593.133583ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6342.593542

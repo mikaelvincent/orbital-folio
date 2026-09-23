@@ -1,0 +1,141 @@
+{
+  "method": "WCAG relative sRGB luminance from settled live computed colors in rendered-colors.json. Opaque text/background pairs only except explicitly described alpha composite. Representative checks, not every pixel/pose. Pixel-rendered scene checks are separate.",
+  "samples": [
+    {
+      "state": "reading-live-link-focus",
+      "text": "Open live project",
+      "foreground": [
+        31,
+        39,
+        48
+      ],
+      "background": [
+        238,
+        233,
+        222
+      ],
+      "ratio": 12.47
+    },
+    {
+      "state": "reading-live-link-focus",
+      "text": "View source code",
+      "foreground": [
+        65,
+        76,
+        86
+      ],
+      "background": [
+        228,
+        222,
+        210
+      ],
+      "ratio": 6.55
+    },
+    {
+      "state": "immersive-live-link-focus-final",
+      "text": "Open live project",
+      "foreground": [
+        31,
+        39,
+        48
+      ],
+      "background": [
+        238,
+        233,
+        222
+      ],
+      "ratio": 12.47
+    },
+    {
+      "state": "immersive-live-link-focus-final",
+      "text": "View source code",
+      "foreground": [
+        228,
+        222,
+        210
+      ],
+      "background": [
+        31,
+        39,
+        48
+      ],
+      "ratio": 11.27
+    },
+    {
+      "state": "studio-selected",
+      "text": "Content",
+      "foreground": [
+        31,
+        39,
+        48
+      ],
+      "background": [
+        238,
+        233,
+        222
+      ],
+      "ratio": 12.47
+    },
+    {
+      "state": "studio-validation",
+      "text": "A title is required.",
+      "foreground": [
+        255,
+        213,
+        205
+      ],
+      "background": [
+        88,
+        44,
+        49
+      ],
+      "ratio": 8.6
+    },
+    {
+      "state": "studio-saved",
+      "text": "Draft saved. The published version is unchanged.",
+      "foreground": [
+        40,
+        83,
+        62
+      ],
+      "background": [
+        225,
+        240,
+        232
+      ],
+      "ratio": 7.44
+    },
+    {
+      "state": "contact-native-invalid",
+      "text": "",
+      "foreground": [
+        238,
+        233,
+        222
+      ],
+      "background": [
+        21,
+        28,
+        35
+      ],
+      "ratio": 14.19
+    },
+    {
+      "state": "projects-reading-selected",
+      "text": "All projects9",
+      "foreground": [
+        212,
+        178,
+        140
+      ],
+      "background": [
+        42.605,
+        42.5,
+        42.105000000000004
+      ],
+      "method": "Observed 14.5% bronze background composited over observed carbonDeep ancestor; all ancestor opacity=1 and filter=none.",
+      "ratio": 7.16
+    }
+  ]
+}

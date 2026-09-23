@@ -1,0 +1,312 @@
+[
+  {
+    "file": "about-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "3f528fd2d38f8b1f6c9f06f53a804115f78aef6775c40923060879b9eaea41b3"
+  },
+  {
+    "file": "about-notebook.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "e4d949372b71ba0d5c9308cb62ad854b68bd953ef5d9187cea0b2183c3920f22"
+  },
+  {
+    "file": "about-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "5303af4196aec133c6cb86abd0f8d2a38dc98ae272972a29dfdcf47089883593"
+  },
+  {
+    "file": "case-studies-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "318533f8c869146fd1eacafec164a0c94e8b248fd03cb4427aea939478df60de"
+  },
+  {
+    "file": "case-studies-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "171d7be40777196a518dda601ef12784fc7df997e05073febc860c4fba23f51e"
+  },
+  {
+    "file": "contact-form-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "e472a3f5c02d79d728ddac41342579eb0f474ef5279f8104313805462e2b4c19"
+  },
+  {
+    "file": "contact-form-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "99707bc512bbd8aeb557d23aa08c8fe5a337aedba3aa80d7bb0552973a8ed609"
+  },
+  {
+    "file": "contact-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "1821113689c30e4cfdbd45bcf5a49d565cbaf9e390287cb7a68ed3c0c4ddb04c"
+  },
+  {
+    "file": "contact-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "889d1a7f1e82ee8eaf64060b811eb4e319816afe3bf9e2c81a3570be7099ef30"
+  },
+  {
+    "file": "contact-validation.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "9f4894855e50be60e1a119991d430ccc5469bdc56a6852095771ed2564dcc95f"
+  },
+  {
+    "file": "diagnostics.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "772ef2aa6d1424a0606635178fff8d3892c0fdc0c9b718aa939437b0d2d552c6"
+  },
+  {
+    "file": "earth-playback.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "89d8ae7cf81330d817bd9552f86fd54c46fa35d401c1a217514ce11c574329da"
+  },
+  {
+    "file": "ladder-door-fixture.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "finite static geometry fixture",
+    "sha256": "e695200326abc08de54115c506743b89a24895ef11875632bb0b72104340c068"
+  },
+  {
+    "file": "ladder-landscape-fixture.png",
+    "actual_pixel_width": 1280,
+    "actual_pixel_height": 720,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "finite static geometry fixture",
+    "sha256": "94fee59f528046eb8693b9c1c50b4aeaaf450aa520ee3191a2349efcfbe11614"
+  },
+  {
+    "file": "ladder-portrait-fixture.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "finite static geometry fixture",
+    "sha256": "b0890c591f233b47ccb961d2d3fa05453a5dddcef8b285982c1cea5ad5f3c4a7"
+  },
+  {
+    "file": "overview-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "f5e708dfa4c6abe4176add8e4c99b29fe10dd951487fd6a3e21fc4ed2874aee3"
+  },
+  {
+    "file": "overview-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "dfaa9d4ae860f505b3195c8d3c5a9935ebc572ad530f324ca58c6a8373452156"
+  },
+  {
+    "file": "project-detail-focus.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "aa64d64a7c6a87f18c95c419aa83159b177fe4796c7046ed574d3c0093c8adb0"
+  },
+  {
+    "file": "projects-focus.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "b6900f0d6c8512842195908bcaebb397f3058f7b1db81e607ab7f3bd595a9436"
+  },
+  {
+    "file": "projects-landscape.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "a781024bcc28c2b46fb9ad1104d092ace5481eb570cfa983dc9c9e82b4d81799"
+  },
+  {
+    "file": "projects-library.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "0c6fda2e57754729c4c415f86f0bb00a22e564732a076893de9c1c6789947561"
+  },
+  {
+    "file": "projects-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "eb761398d4d82bc915420cee1b43aeaa373fb5684b54870d7eaad4ac62e861b7"
+  },
+  {
+    "file": "projects-reading-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "b2cf53ce4edc8d3bb0a4967639dd0cc4f231529c208cd9e7364d89c693a9b47d"
+  },
+  {
+    "file": "reading-detail-focus-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "adb0c316d28f1f7d7a6f66e0883a18e12d3edc6bbd4edc0a911faa7fb7bb9a70"
+  },
+  {
+    "file": "studio-dialog.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "c5dc1f5b9d928a3c305ab5bafdb431927507d8a63ca2ccf388ad331a88025cd9"
+  },
+  {
+    "file": "studio-identity-focus.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "44db21b8102a0c029a1bc711e59d03b18b9357256f6b30b4d29bd8d94b321dba"
+  },
+  {
+    "file": "studio-portrait.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "e7e8c7be2c07c13131343e6e5dc9f5bed033854fd6e16c1ed2a9bce4af6ebfa3"
+  },
+  {
+    "file": "studio-projects.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "212a8564755c4beebcd01c4d01bf39353a680107777ac38496285cf7548ccb76"
+  },
+  {
+    "file": "studio-saved.png",
+    "actual_pixel_width": 390,
+    "actual_pixel_height": 844,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "72db40a4531b690c5740efe5e86c376c7d142a74aab976aaa001ebe6196c92e9"
+  },
+  {
+    "file": "studio-validation.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "22084670c8b0a4144018aa9aa47aa5ef628f0cc891802dcb64c39d4ac62acfdc"
+  },
+  {
+    "file": "tools-menu.png",
+    "actual_pixel_width": 1440,
+    "actual_pixel_height": 900,
+    "format": "png",
+    "capture_encoding": "jpeg",
+    "encoding_note": "Browser JPEG bytes losslessly decoded to PNG without resizing or color edits.",
+    "source": "live hidden built-in Chromium",
+    "sha256": "efaafde27c866711ee097f7c9131300617db4569e4a3a4672f1565662ff38c3d"
+  }
+]

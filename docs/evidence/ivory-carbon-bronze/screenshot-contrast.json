@@ -1,0 +1,208 @@
+{
+  "method": "Unscaled hidden Chromium screenshots. Rectangles [x,y,width,height] in screenshot pixels. Most frequent 4-level RGB quantized interior foreground color after separating light ink (linear luminance >0.15) / dark ink (<0.1), versus adjacent unprinted surface modal color. Approximate local rendered contrast, including lighting/emission/shading/dimming; not WCAG certification or a minimum over every antialiased edge, pixel or camera pose.",
+  "results": [
+    {
+      "label": "Projects plaque",
+      "file": "projects-landscape.png",
+      "foregroundRectangle": [
+        622,
+        226,
+        194,
+        26
+      ],
+      "backgroundRectangle": [
+        839,
+        226,
+        27,
+        26
+      ],
+      "foreground": [
+        40,
+        36,
+        36
+      ],
+      "foregroundModePixels": 55,
+      "background": [
+        208,
+        200,
+        196
+      ],
+      "backgroundModePixels": 401,
+      "contrast": 9.313114463676579
+    },
+    {
+      "label": "Projects idle label",
+      "file": "projects-landscape.png",
+      "foregroundRectangle": [
+        504,
+        318,
+        78,
+        16
+      ],
+      "backgroundRectangle": [
+        510,
+        340,
+        70,
+        12
+      ],
+      "foreground": [
+        172,
+        172,
+        168
+      ],
+      "foregroundModePixels": 15,
+      "background": [
+        24,
+        28,
+        36
+      ],
+      "backgroundModePixels": 300,
+      "contrast": 7.49387379782058
+    },
+    {
+      "label": "Projects focused label",
+      "file": "projects-focus.png",
+      "foregroundRectangle": [
+        784,
+        318,
+        65,
+        17
+      ],
+      "backgroundRectangle": [
+        784,
+        340,
+        70,
+        12
+      ],
+      "foreground": [
+        220,
+        220,
+        220
+      ],
+      "foregroundModePixels": 8,
+      "background": [
+        36,
+        44,
+        52
+      ],
+      "backgroundModePixels": 381,
+      "contrast": 10.313251610677332
+    },
+    {
+      "label": "Archive active cartridge idle",
+      "file": "case-studies-landscape.png",
+      "foregroundRectangle": [
+        533,
+        320,
+        164,
+        20
+      ],
+      "backgroundRectangle": [
+        745,
+        320,
+        95,
+        17
+      ],
+      "foreground": [
+        36,
+        32,
+        28
+      ],
+      "foregroundModePixels": 31,
+      "background": [
+        192,
+        184,
+        172
+      ],
+      "backgroundModePixels": 948,
+      "contrast": 8.2357615993169
+    },
+    {
+      "label": "Archive unavailable cartridge",
+      "file": "case-studies-landscape.png",
+      "foregroundRectangle": [
+        532,
+        439,
+        245,
+        20
+      ],
+      "backgroundRectangle": [
+        778,
+        439,
+        110,
+        17
+      ],
+      "foreground": [
+        200,
+        196,
+        192
+      ],
+      "foregroundModePixels": 43,
+      "background": [
+        48,
+        48,
+        48
+      ],
+      "backgroundModePixels": 1278,
+      "contrast": 7.612794957875487
+    },
+    {
+      "label": "Contact idle title",
+      "file": "contact-landscape.png",
+      "foregroundRectangle": [
+        615,
+        361,
+        217,
+        24
+      ],
+      "backgroundRectangle": [
+        630,
+        410,
+        100,
+        12
+      ],
+      "foreground": [
+        204,
+        204,
+        200
+      ],
+      "foregroundModePixels": 116,
+      "background": [
+        36,
+        36,
+        40
+      ],
+      "backgroundModePixels": 494,
+      "contrast": 9.601328725097627
+    },
+    {
+      "label": "Notebook body",
+      "file": "about-notebook.png",
+      "foregroundRectangle": [
+        747,
+        312,
+        330,
+        49
+      ],
+      "backgroundRectangle": [
+        747,
+        366,
+        330,
+        10
+      ],
+      "foreground": [
+        84,
+        80,
+        72
+      ],
+      "foregroundModePixels": 55,
+      "background": [
+        228,
+        220,
+        208
+      ],
+      "backgroundModePixels": 1318,
+      "contrast": 5.90025473904104
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "fixture": "/tmp/orbital-ivory-palette-ilgofvy_",
+  "base_url": "http://localhost:3003",
+  "state": "/tmp/orbital-ivory-palette-ilgofvy_/.wrangler/state",
+  "vite_cache": "/tmp/orbital-ivory-palette-ilgofvy_/.vite-cache",
+  "checks": [
+    {
+      "name": "test",
+      "command": "npm test",
+      "exit_code": 1,
+      "duration_seconds": 219.404,
+      "log": "test-worker-restart-failed.log",
+      "runner_duration_seconds": 169.492606458,
+      "orchestration_note": "duration_seconds includes a temporary pause of only the wrapper while its test subprocess continued; runner_duration_seconds comes from the Node test result."
+    }
+  ]
+}

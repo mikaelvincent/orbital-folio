@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 22 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 23 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -57,8 +57,9 @@ transform; the spacecraft itself remains fixed. Rooms return visually upright
 when selected. Very short screens default to Reading view; explicit Interactive
 opt-in must still render at the available dimensions.
 
-The owner prefers rounded cream ceramic structure, plain dark floors, graphite
-equipment, alloy mounts and restrained amber. Useful fixtures should explain
+The owner selected **Ivory / Carbon / Bronze** on 23 September 2026: rounded
+ivory ceramic architecture, plain dark floors, carbon equipment, alloy mounts
+and restrained bronze hardware. Useful fixtures should explain
 their presence without a decorative label. The earlier grid request was refined
 to **justified space and visual balance** between objects and curved boundaries.
 Primary labels and interactive screens take priority over decorative density.
@@ -73,7 +74,7 @@ Window trim follows the aperture, sits flush and hides cream edge slivers.
 Recent approved arrangement:
 
 - Full upper/lower exterior access routes mirror rail endpoints, rung spacing,
-  mounting feet and amber tether details. Exterior decoration generally belongs
+  mounting feet and bronze tether details. Exterior decoration generally belongs
   on surfaces exposed by default, hover or bounded drag. The complete underside
   route is explicitly approved, even though elevated overview hides much of it.
 - Two matching open-jaw maintenance spanners sit in fitted wall clips, one per
@@ -96,6 +97,40 @@ Recent approved arrangement:
 Current evidence: [symmetric access refinement](evidence/spacecraft-access-symmetry/README.md).
 The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves
 rejected iterations; it does not authorize restoring those older objects.
+
+## Ivory / Carbon / Bronze palette
+
+The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**
+supersede the earlier cream/navy/bright amber treatment. The five cropped AI
+references guide color relationships only; their geometry, framing, lighting,
+content and image quality are not design instructions. Principal hull/cabin
+architecture and suitable light surfaces use ivory; monitor housings, desks,
+supports and equipment use carbon. Bronze is restrained hardware/trim/accent.
+The Projects worktop remains ivory above its carbon body. Floors remain plain
+dark carbon with the existing light/shadow response.
+
+`lib/palette.ts` and the semantic CSS tokens in `app/globals.css` supply matching
+sRGB anchors and tonal variants. The old material saturation/darkening transform
+is removed; authored bronze passes directly into Three.js. Carbon/ivory carry
+ordinary text. Light bronze `#D4B28C` on carbon and dark bronze `#775332` on ivory
+are accessible text derivatives; base bronze is not a normal text color.
+Screen emission tint is neutral so it does not recolor the authored canvas art;
+its intensity, roughness/metalness, scene lights and exposure are unchanged.
+The dim `0.65` / focus `1.15` behavior and all animation timing remain intact.
+This palette request supersedes earlier instructions to preserve the exact
+amber highlight color, but preserves those rims' shapes and behavior.
+
+No persisted records are rewritten. The saved legacy default `#ffb547` (and
+older fallback `#e6a34c`) renders as bronze through `paletteAccent`; future seed
+records use bronze. An explicitly saved nondefault custom accent remains an
+owner-controlled exception and does not drive functional text colors.
+
+Intentional exceptions: photographs and project media/custom brand icons;
+natural linen, quilt, wood, paper texture and six colored notebook section
+markers; satin alloy; blue solar cells, optical/instrument phosphors and the
+coolant vessel's blue enamel; warm lamp emitters; meaningful success/error
+colors; unchanged Earth, stars and atmosphere. Neutral white texture multipliers
+preserve image colors. See [palette verification and critic review](evidence/ivory-carbon-bronze/README.md).
 
 ## Interaction contract
 
@@ -162,7 +197,7 @@ request the exit while departing the center toward its landing. Approach its
 safe threshold during opening and cross only once clear. Ordinary cabin passage
 and ladder entry do not wait. Close doors after the camera clears their passage,
 not after final arrival. One six-leaf iris mechanism sits between wall faces;
-graphite reveals and recessed amber feedback replace border recoloring. Opening
+carbon reveals and recessed bronze feedback replace border recoloring. Opening
 is roughly twice the original speed; preserve the refresh-rate-aware motion
 implementation instead of introducing an arbitrary new duration.
 
@@ -183,14 +218,15 @@ are enabled only in the settled current room. Unavailable controls and an
 already-open application's own monitor retain their normal brightness. This
 supersedes the earlier removal of the dim resting state and its travel exception.
 The owner explicitly deferred any redesign of
-the cartridge highlight box: preserve its existing rim, color and dimensions.
+the cartridge highlight box: preserve its existing rim and dimensions. The
+23 September palette request updates its color to the shared bronze family.
 
 ## Projects library and authoring
 
 The four workshop monitors now open one library application, initialized to
 All projects, Systems, Interfaces or Experiments when that category has readable
 projects. They retain their physical
-enclosures and inset amber hover/focus rims. The camera approaches the selected
+enclosures and inset bronze hover/focus rims. The camera approaches the selected
 glass; landscape shows a two-column collection and portrait crops to a tall,
 readable application region inside the same monitor. Choose the category at the
 physical monitor; the application does not repeat the category switcher. Project
@@ -215,7 +251,7 @@ does not have the room's physical monitors, but omits empty categories.
 
 Populated room-view category monitors use the subdued folded desktop wallpaper
 behind their title and icon. An empty category retains its installed monitor
-with the plain navy gradient and a small STANDBY label. It has no category
+with the plain carbon gradient and a small STANDBY label. It has no category
 name/icon, interaction hotspot, tab stop, hover feedback or application activation.
 This swaps the earlier wallpaper-on-standby assignment while retaining the
 intentional passive label; do not restore the rejected black face.
@@ -225,7 +261,7 @@ supersedes the earlier selectable empty-category application. The overall Projec
 reading route can still explain that no projects are available when the whole
 collection is empty.
 
-The desktop uses a restrained blue folded wallpaper on the **entire physical
+The desktop uses a restrained carbon folded wallpaper on the **entire physical
 monitor glass**, behind the opaque application window. Contact shares this
 wallpaper. It is not restricted to the HTML app rectangle, so portrait framing
 and camera movement cannot reveal bare screen backing. Idle graphics and desktop
@@ -237,7 +273,7 @@ inset within the physical glass (0.01 per edge); portrait retains its 0.06-unit
 base inset and existing narrow crop. Camera fitting uses a separate `framing`
 rectangle with the original 0.06-unit inset in both orientations, so enlarging
 the window does not change the camera destination or physical monitor. The selected
-monitor's amber rim is hidden while its application is open; other monitors retain
+monitor's bronze rim is hidden while its application is open; other monitors retain
 hover feedback.
 Contact has its earlier 14px desktop padding again, replacing the later 6px
 wide-screen override.
@@ -254,9 +290,9 @@ but are removed from all four physical Projects room monitor graphics.
 
 Optional resource links share one row below the summary in both views, before
 role/stack metadata: **Open live project** first, then **View source code**. They
-wrap in that order on narrow screens. Live keeps its dark amber-tinted outline;
-hover and keyboard focus produce a stronger amber fill, and pressing darkens it
-without movement. Source remains a secondary blue-gray outlined control. The
+wrap in that order on narrow screens. Live keeps its dark carbon fill, bronze outline and light-bronze text;
+hover and keyboard focus use ivory fill with carbon text, and pressing shades
+the ivory without movement. Source remains a secondary carbon/alloy outlined control. The
 former title-side Live placement is superseded. Both use 44px minimum height,
 6px corners and external-link cues. Source has a code icon and defaults to **View source code**;
 the exact former **View source** label is expanded at presentation only, while
@@ -291,7 +327,7 @@ and [implementation evidence](evidence/projects-library/README.md) for checks.
 
 The explicit local demo population supplies nine stories: All projects (9),
 Systems (6), Interfaces (3) and Experiments (0). The Experiments monitor remains
-installed in plain navy standby and unavailable, demonstrating the dormant category state.
+installed in plain carbon standby and unavailable, demonstrating the dormant category state.
 The stories include varied Markdown, still covers, a native MP4/captions and a
 finite animated GIF. The tool only updates exact known untouched
 sample fingerprints; `sample: true` alone is not permission to overwrite an
@@ -333,10 +369,10 @@ interfaces; the terminal selects All case studies. Every option approaches the
 same existing 16:9 raked monitor. The owner's latest correction restores
 content-based availability: only categories with published stories are selectable;
 All is selectable only when the archive has stories. Empty or unrecognized
-categories keep their installed cartridges with dark graphite faces and pale
+categories keep their installed cartridges with dark carbon faces and pale
 printed labels, without interaction targets or hover feedback. Populated
-cartridges retain cream faces and the existing inset amber rim. An empty terminal
-uses plain navy with STANDBY and is inert. This supersedes the briefly approved
+cartridges retain ivory faces and the existing inset bronze rim. An empty terminal
+uses plain carbon with STANDBY and is inert. This supersedes the briefly approved
 always-interactive empty-category behavior. Availability updates when content
 changes. The shelf crossmember and backplane end directly beneath cartridge four;
 its floor uprights remain, with cable attachments raised to the shorter backplane.
@@ -491,7 +527,7 @@ assigned an existing social link to Left, Center or Right, independently of the
 two Contact monitor placements. Existing links default to Off; no owner content
 is reassigned automatically. The owner's later icon-only request supersedes the
 photo/badge/caption composition: each configured card shows one centered icon
-printed directly onto its cream paper. The owner's size refinement uses half
+printed directly onto its ivory paper. The owner's size refinement uses half
 of each card's width for the icon (0.19 local units), closely matching Contact's
 0.186-unit mark. This supersedes the initial 72% icon extent; the full card stays
 clickable and the studio preview uses the same 50% extent. The visual picker
@@ -503,7 +539,7 @@ transparency and full proportions. Contact continues using the shared preset.
 The full owner-authored name remains in the native link and focus label.
 
 Configured cards share the existing dim-at-rest, bright-on-hover/focus and inset
-amber rim behavior. A viewport-size label supplies the full destination name.
+bronze rim behavior. A viewport-size label supplies the full destination name.
 Native links open HTTPS destinations in a new tab and mailto destinations in the
 mail handler; normal context menus, keyboard activation and drag-click
 suppression remain. Targets are available only in settled About, outside reader
@@ -556,14 +592,14 @@ The old deployable Contact tablet is removed; Projects now uses its monitors as 
 Keep bounded hover and drag camera control active while this application is open.
 The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag
 release springs back to hover, and native form interaction never starts a drag.
-A static abstract navy/alloy-blue desktop fills the full monitor glass behind
+A static abstract carbon/alloy desktop fills the full monitor glass behind
 the application window, including the space around the compact chooser. Main and
 both social displays use a single seated rounded frame, with concentric corner
 radii for a consistent narrow dark border. The glass is recessed behind that
 frame; app and interaction anchors remain aligned to the visible face. This
 replaces the protruding stacked trim and mismatched corner gaps.
 The neighboring social displays remain independently hoverable and selectable,
-with their amber rims inset on the glass. The already-open main display does not
+with their bronze rims inset on the glass. The already-open main display does not
 advertise another selection. Its complete monitor/support assembly is raised
 slightly to leave real clearance above the keyboard's function row, since an
 HTML application plane cannot use WebGL depth to hide behind individual keys.
