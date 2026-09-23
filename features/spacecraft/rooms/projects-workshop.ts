@@ -37,7 +37,7 @@ export function buildProjectsWorkshop(
   };
   const m = {
     shell: material('bench-enamel', PALETTE.carbon, 0.46, 0.08),
-    top: material('worktop-enamel', PALETTE.ivory, 0.43, 0.1),
+    top: material('worktop-enamel', PALETTE.carbonRaised, 0.43, 0.1),
     graphite: material('structural-graphite', PALETTE.carbon, 0.63, 0.12),
     recess: material('service-recess', PALETTE.carbonDeep, 0.84),
     rubber: material('isolator', PALETTE.carbonDeep, 0.89),
@@ -262,41 +262,43 @@ export function buildProjectsWorkshop(
     'underbench-crossmember',
   );
 
-  // The worktop and apron have an intentional narrow gasket seam and solid edges.
+  // A thin inset carbon work surface meets the rounded apron through a fine
+  // seated gasket. Its upper plane stays fixed, preserving monitor clearance
+  // and the established working height without a separate light-colored slab.
   box(
     3.13,
-    0.188,
+    0.202,
     1.11,
     m.shell,
     0,
-    0.596,
+    0.603,
     -0.353,
     parent,
     0.062,
     'continuous-bench-apron',
   );
   box(
-    3.045,
-    0.016,
-    1.035,
+    3.025,
+    0.006,
+    1.005,
     m.rubber,
     0,
-    0.69,
+    0.707,
     -0.353,
     parent,
-    0.007,
+    0.003,
     'worktop-seal',
   );
   box(
-    3.1,
-    0.039,
-    1.08,
+    3.065,
+    0.025,
+    1.045,
     m.top,
     0,
-    0.715,
+    0.722,
     -0.353,
     parent,
-    0.018,
+    0.012,
     'solid-worktop',
   );
 
@@ -372,7 +374,7 @@ export function buildProjectsWorkshop(
       0.13,
       m.graphite,
       x,
-      0.748,
+      0.747,
       -0.645,
       parent,
       0.014,

@@ -94,6 +94,11 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
       },
     ]),
   });
+  const idleLevel = (screen) =>
+    screen.interactableId?.startsWith('case-study-screen-') &&
+    screen.category !== 'all'
+      ? 0.48
+      : 0.65;
   const rooms = [
     ['projects', model.group.userData.projectScreens],
     ['experience', model.group.userData.caseStudyScreens],
@@ -116,7 +121,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
       });
       const before = new Map();
       for (const screen of screens) {
-        assert.equal(screen.root.userData.highlightLevel, 0.65);
+        assert.equal(screen.root.userData.highlightLevel, idleLevel(screen));
         screen.root.traverse((object) => {
           for (const material of [object.material].flat())
             if (material?.color)
@@ -137,7 +142,8 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
             hoveredId === authored.screen.root.userData.interactableId;
           const level = authored.rim
             ? 1
-            : (hovered ? 1.15 / 0.65 : 1) * (authored.roomLit ? roomLevel : 1);
+            : (hovered ? 1.15 / idleLevel(authored.screen) : 1) *
+              (authored.roomLit ? roomLevel : 1);
           assert.ok(
             material.color
               .toArray()
@@ -247,7 +253,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
         for (const screen of screens) {
           assert.equal(
             screen.root.userData.highlightLevel,
-            0.65,
+            idleLevel(screen),
             `${room}: ${state.name}`,
           );
           assert.equal(
@@ -339,7 +345,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
           true,
         );
         assert.ok(screen.root.userData.highlightLevel < 1.15);
-        assert.ok(screen.root.userData.highlightLevel > 0.65);
+        assert.ok(screen.root.userData.highlightLevel > idleLevel(screen));
         for (let frame = 0; frame < 180; frame++)
           model.update(
             12 + (frame + 2) / 60,
@@ -348,7 +354,7 @@ test('Screens and cartridges retain dim idle through previews, room entry and ho
             { delta: 1 / 60 },
             true,
           );
-        assert.equal(screen.root.userData.highlightLevel, 0.65);
+        assert.equal(screen.root.userData.highlightLevel, idleLevel(screen));
         assertMaterials();
       }
     }

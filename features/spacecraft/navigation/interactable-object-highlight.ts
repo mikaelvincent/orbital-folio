@@ -1,6 +1,6 @@
 import { PALETTE } from '../../../lib/palette.ts';
-/** Shared scene-object feedback. All registered objects use the same easing and
- * brightness, on top of their room's existing lighting. Never mutate a shared
+/** Shared scene-object feedback. Objects share easing, with optional brightness
+ * profiles on top of their room's existing lighting. Never mutate a shared
  * room material: two identical consoles must respond independently.
  */
 export function createObjectHighlight(
@@ -8,7 +8,10 @@ export function createObjectHighlight(
   root: any,
   id: string,
   rim?: { width: number; height: number; radius: number; z: number },
+  appearance: { idle?: number; hover?: number } = {},
 ) {
+  const idleLevel = appearance.idle ?? 0.65;
+  const hoverLevel = appearance.hover ?? 1.15;
   const materials = new Map<any, any>();
   root.userData.batchRoot = true;
   root.userData.interactableId = id;
@@ -111,7 +114,9 @@ export function createObjectHighlight(
       // Idle appearance is independent of input availability: previews and
       // camera travel must not brighten screens before arrival enables input.
       // Disabled input also suppresses any departing or stale hover immediately.
-      const level = dimIdle ? 0.65 + (enabled ? progress * 0.5 : 0) : 1;
+      const level = dimIdle
+        ? idleLevel + (enabled ? progress * (hoverLevel - idleLevel) : 0)
+        : 1;
       for (const [source, material] of materials) {
         material.color.copy(source.color).multiplyScalar(level);
         if (material.emissive && source.emissive) {

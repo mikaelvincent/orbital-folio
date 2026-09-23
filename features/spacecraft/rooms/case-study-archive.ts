@@ -656,9 +656,9 @@ export function buildCaseStudyArchive(
       cartridge,
       'cartridge-print-' + index,
       (ctx, cw, ch) => {
-        ctx.strokeStyle = ctx.fillStyle = category.active
-          ? PALETTE.carbon
-          : PALETTE.textMuted;
+        // Empty categories leave a plain dark cassette, with no false option.
+        if (!category.active) return;
+        ctx.strokeStyle = ctx.fillStyle = PALETTE.carbon;
         icon(ctx, category.kind, 45, ch / 2, ch * 0.7);
         ctx.font = `600 ${ch * 0.53}px Arial, sans-serif`;
         ctx.textAlign = 'left';
@@ -699,6 +699,21 @@ export function buildCaseStudyArchive(
       },
     });
   });
+  // Preserve the four fitted slots while packing readable categories first.
+  // Category identity and the physical interaction anchor travel together.
+  function arrangeCartridges() {
+    const ordered = [
+      ...cartridgeControls.filter((control) => control.available),
+      ...cartridgeControls.filter((control) => !control.available),
+    ];
+    let changed = false;
+    ordered.forEach((control, index) => {
+      const y = ARCHIVE_GRID.topY - index * ARCHIVE_GRID.rowPitch;
+      if (control.root.position.y !== y) changed = true;
+      control.root.position.y = y;
+    });
+    return changed;
+  }
   fasteners(structuralScrews, floorRoot, 'structural');
 
   // A separate raked terminal on paired hinged struts; all components share the tilt.
@@ -1093,6 +1108,7 @@ export function buildCaseStudyArchive(
   return {
     computer,
     screens,
+    arrangeCartridges,
     setCaseCount: (count: number) => {
       caseCount = Math.max(0, Math.floor(Number.isFinite(count) ? count : 0));
       display.repaint();

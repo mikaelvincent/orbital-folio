@@ -1508,6 +1508,7 @@ export function createSpacecraft(
     screen.setAvailable(
       caseStudyCategoryCount(caseStudyData, screen.category) > 0,
     );
+  caseArchive.arrangeCartridges();
   readerSurfaces.experience = caseStudyComputer.anchor;
   const caseStudyScreensById = new Map(
     caseArchive.screens.map((screen) => [screen.interactableId, screen]),
@@ -1670,12 +1671,22 @@ export function createSpacecraft(
 
   for (const screen of caseArchive.screens)
     objectHighlights.push(
-      createObjectHighlight(THREE, screen.root, screen.interactableId, {
-        width: screen.width,
-        height: screen.height,
-        radius: screen.category === 'all' ? 0.031 : 0.025,
-        z: screen.interactionAnchor.position.z + 0.002,
-      }),
+      createObjectHighlight(
+        THREE,
+        screen.root,
+        screen.interactableId,
+        screen.category === 'all'
+          ? {
+              width: screen.width,
+              height: screen.height,
+              radius: 0.031,
+              z: screen.interactionAnchor.position.z + 0.002,
+            }
+          : undefined,
+        // Paper-faced cartridges communicate focus through the whole face,
+        // with a stronger brightness change instead of a floating box outline.
+        screen.category === 'all' ? undefined : { idle: 0.48 },
+      ),
     );
 
   const { docking, service, solarWings, dishAssembly } =
@@ -3406,6 +3417,7 @@ export function createSpacecraft(
       screen.setAvailable(
         caseStudyCategoryCount(caseStudyData, screen.category) > 0,
       );
+    if (caseArchive.arrangeCartridges()) geometryChanged();
     return setCaseStudyPage(currentCaseStudyPage);
   }
   function setReading(section: string, reading: boolean, instant = false) {

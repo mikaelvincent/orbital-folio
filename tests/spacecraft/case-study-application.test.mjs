@@ -120,7 +120,9 @@ test('Only populated archive categories are interactive, and emptied cartridges 
         (object) =>
           object.material?.name === `${screen.interactableId}-hover-rim`,
       );
-      assert.equal(rim.material.opacity, available ? 0.95 : 0);
+      if (screen.category === 'all')
+        assert.equal(rim.material.opacity, available ? 0.95 : 0);
+      else assert.equal(rim, undefined, 'Cartridges have no box hover rim');
       if (screen.category !== 'all') {
         const jacket = screen.root.children.find((object) =>
           object.userData.parts?.includes(
@@ -162,6 +164,115 @@ test('Only populated archive categories are interactive, and emptied cartridges 
   model.update(++time, 'experience', true, { reading: false });
   assert.equal(computer.desktopDisplay.visible, false);
   assert.equal(computer.idleDisplay.visible, true);
+});
+
+test('Archive categories pack above blank bottom cartridges after live content changes', () => {
+  const model = createSpacecraft(THREE, { caseStudies: [] });
+  const controls = model.group.userData.caseStudyScreens.filter(
+    (screen) => screen.category !== 'all',
+  );
+  // Exercise every populated/empty combination, including changes that move a
+  // formerly focused category while keeping its category identity and anchor.
+  for (let mask = 0; mask < 16; mask++) {
+    const available = controls.filter((_, index) => mask & (1 << index));
+    model.setCaseStudies(
+      available.map((screen) => ({
+        title: screen.label,
+        slug: screen.category,
+        categories: [screen.category],
+      })),
+    );
+    const ordered = [...controls].sort(
+      (left, right) => right.root.position.y - left.root.position.y,
+    );
+    assert.equal(
+      new Set(ordered.map((screen) => screen.root.position.y)).size,
+      4,
+    );
+    assert.deepEqual(
+      ordered.map((screen) => screen.category),
+      [
+        ...available,
+        ...controls.filter((screen) => !available.includes(screen)),
+      ].map((screen) => screen.category),
+    );
+    for (const screen of ordered) {
+      assert.equal(screen.root.userData.caseStudyCategory, screen.category);
+      assert.equal(screen.interactionAnchor.parent, screen.root);
+      assert.equal(screen.available, available.includes(screen));
+    }
+  }
+  const revision = model.group.userData.geometryRevision;
+  model.setCaseStudies([
+    { title: 'Design', slug: 'design', categories: ['interfaces'] },
+  ]);
+  assert.ok(
+    model.group.userData.geometryRevision > revision,
+    'Reordering invalidates cached shading',
+  );
+});
+
+test('Empty cartridge artwork contains no category title, icon or identifier', () => {
+  const previous = globalThis.document;
+  const canvases = [];
+  const canvasDocument = {
+    createElement() {
+      const canvas = { width: 0, height: 0, ink: [] };
+      const ctx = new Proxy(
+        {},
+        {
+          get(_, name) {
+            if (name === 'fillText' || name === 'stroke')
+              return (...args) => canvas.ink.push([name, ...args]);
+            if (name === 'clearRect')
+              return () => {
+                canvas.ink = [];
+              };
+            if (String(name).includes('Gradient'))
+              return () => ({ addColorStop() {} });
+            return () => {};
+          },
+          set() {
+            return true;
+          },
+        },
+      );
+      canvas.getContext = () => ctx;
+      canvases.push(canvas);
+      return canvas;
+    },
+  };
+  globalThis.document = canvasDocument;
+  try {
+    const root = new THREE.Group();
+    root.userData.section = 'experience';
+    const helpers = createModelPrimitives(THREE, root, undefined, {
+      experience: [],
+    });
+    const archive = buildCaseStudyArchive(THREE, helpers, root);
+    for (const screen of archive.screens.filter(
+      (screen) => screen.category !== 'all',
+    )) {
+      const canvas = screen.hitTarget.material.map.image;
+      assert.ok(canvases.includes(canvas));
+      assert.deepEqual(canvas.ink, []);
+      screen.setAvailable(true);
+      assert.ok(
+        canvas.ink.some(
+          ([kind, text]) => kind === 'fillText' && text === screen.label,
+        ),
+      );
+      screen.setAvailable(false);
+      assert.deepEqual(
+        canvas.ink,
+        [],
+        'Removing the final story clears all category artwork',
+      );
+    }
+  } finally {
+    if (previous === undefined) delete globalThis.document;
+    else globalThis.document = previous;
+  }
 });
 
 test('The archive shelf closes directly below its fourth cartridge with its cable junction attached', () => {
