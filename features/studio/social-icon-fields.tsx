@@ -91,7 +91,9 @@ export function SocialIconFields({
           )}
           <span className="social-icon-preview-label">
             <span>{title.trim() || preset.label}</span>
-            {!url.startsWith('mailto:') && <ArrowUpRight aria-hidden="true" />}
+            {!url.startsWith('mailto:') && (
+              <ArrowUpRight aria-hidden="true" strokeWidth={4} />
+            )}
           </span>
         </div>
         <div>

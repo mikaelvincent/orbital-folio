@@ -127,14 +127,14 @@
   padding: 4px 8px;
   line-height: 1.13;
   color: var(--carbon);
-  transition: color 160ms ease;
+  background: transparent;
+  transition: background-color 160ms ease;
 }
 .notebook-marker > span {
   font-size: 10px;
   letter-spacing: 0.1em;
   margin-bottom: 3px;
   opacity: 0.75;
-  transition: opacity 160ms ease;
 }
 .notebook-marker > strong {
   font-size: 13px;
@@ -144,27 +144,14 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   overflow-wrap: anywhere;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  transition: text-decoration-color 160ms ease;
 }
-/* Respond like ink on a paper index: underline the title without placing a
-   second rectangular surface over the flag or moving its registered label. */
+/* Brighten the entire exposed paper while keeping its ink dark and steady.
+   A stronger white wash makes the response obvious without a rim or shadow. */
 .notebook-marker:not(:disabled):is(:hover, :focus-visible) {
-  color: var(--carbon-deep);
-}
-.notebook-marker:not(:disabled):is(:hover, :focus-visible) > strong {
-  text-decoration-color: currentColor;
-}
-.notebook-marker:not(:disabled):is(:hover, :focus-visible) > span {
-  opacity: 1;
+  background: rgb(255 255 255 / 62%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .notebook-marker,
-  .notebook-marker > span,
-  .notebook-marker > strong {
+  .notebook-marker {
     transition: none;
   }
 }

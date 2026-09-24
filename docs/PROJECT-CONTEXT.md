@@ -492,11 +492,12 @@ placement. Marker titles stay unadorned when selected, including during page
 turns; selection semantics and keyboard focus outlines remain intact.
 Only each flag's exposed 125px region is interactive or highlighted;
 its 30px adhesive region is conceptually buried inside its indexed leaf. The
-September 24 polish supersedes the boxed ivory wash, inset keyline and shadow:
-hover/focus now gently darkens the ink and underlines the title, keeping the
-paper color and label position steady. Keyboard focus retains its outline;
-selected titles remain plain when neither hovered nor focused. Reduced motion
-removes this transition.
+owner's follow-up supersedes the September 24 underline treatment: hover/focus
+brightens the full exposed tab with a 62% white wash, substantially stronger than
+the earlier 30% ivory wash. Ink remains dark and steady, with no underline, hover
+rim or shadow. Keyboard focus retains its outline; selected tabs return to their
+original paper color on departure. The highlight eases over 160ms; reduced motion
+settles it immediately. See [brighter hover evidence](evidence/about-hover-brightness/README.md).
 
 The visible flag mesh and both printed faces stop at the page edge. This fixes
 the buried adhesive strip briefly appearing on top of a turning page. UV cropping
@@ -571,7 +572,9 @@ two Contact monitor placements. Existing links default to Off; no owner content
 is reassigned automatically. The September 24 refinement supersedes the earlier
 icon-only presentation:
 each configured card prints its icon above the owner-authored display name and a
-small outward arrow for web destinations. Email cards omit the new-tab arrow.
+small outward arrow for web destinations. The owner subsequently requested
+stronger arrow ink: its stroke is 1.4% of card width, up from 0.6%, with a matching
+bold arrow in the studio preview. Email cards omit the new-tab arrow.
 Long names ellipsize on the paper while the native link retains the full name.
 The icon remains half the card width (0.19 local units), shifted upward to make
 room for the label; the studio preview matches the composition. The visual picker

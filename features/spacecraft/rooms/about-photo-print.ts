@@ -138,7 +138,7 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
         if (external) {
           const ax = labelX + textWidth + gap;
           const ay = labelY - arrow / 2;
-          ctx.lineWidth = width * 0.006;
+          ctx.lineWidth = width * 0.014;
           ctx.lineCap = ctx.lineJoin = 'round';
           ctx.beginPath();
           ctx.moveTo(ax, ay + arrow);

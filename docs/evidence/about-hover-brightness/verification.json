@@ -1,0 +1,68 @@
+{
+  "baseline": "825a3a1",
+  "sources": {
+    "features/portfolio/about-notebook.css": "6db4c724e08bda29014b134f42d5ec6c17814a9d790d2e4e9dbe1f25c4ba395a",
+    "features/spacecraft/rooms/about-photo-print.ts": "dd734cca737167639c7a74b6f561f298068f012e555db0ed16480fa21b94bf78",
+    "features/studio/social-icon-fields.tsx": "50c5b7c7f0baa21c993afedb8bea9686f34246a2204564233c02c00430096e89",
+    "docs/PROJECT-CONTEXT.md": "0f8073006934c495d08d70512e694ed30bd2a857e319fd659c55a7bad77278cc"
+  },
+  "captures": {
+    "markers-focus.png": {
+      "sha256": "80e38732a9993f178d7a3ad28b463d7e88f9e399eafccc822370c787bebaa884",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    "markers-hover.png": {
+      "sha256": "288544a479303c1d423dcbc5612979bb435555bc6fc8acbe6533f1043946cba3",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    "markers-rest.png": {
+      "sha256": "0f5d819e60d8f6a66853a16021069b0228befda7ab3d05c06f4f56ce98260fe6",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    "portrait-focus.png": {
+      "sha256": "3b97ad77c8373de58b04bd72de2d06c4f26f18183bfd4d74359d3c2ccbe4e68a",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1
+    },
+    "posters.png": {
+      "sha256": "209e4a0a7a82f581291860f0ca57afb82c93596e9675b0a8df8dd590b42f86fe",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    }
+  },
+  "checks": {
+    "pureIconPrintTests": {
+      "command": "node --test tests/spacecraft/about-icon-prints.test.mjs",
+      "passed": 4,
+      "failed": 0
+    },
+    "typecheck": 0,
+    "affectedLint": 0,
+    "productionBuild": 0,
+    "browserWarningsAndErrors": []
+  },
+  "limitations": [
+    "No native Safari",
+    "No physical touch",
+    "No authenticated studio browser preview",
+    "Full suite not repeated for appearance-only change"
+  ]
+}

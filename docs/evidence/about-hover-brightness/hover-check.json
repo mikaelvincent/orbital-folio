@@ -1,0 +1,44 @@
+{
+  "markers": [
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "hover": false,
+      "label": "Section 1: My story",
+      "shadow": "none",
+      "underline": "none"
+    },
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "hover": false,
+      "label": "Section 2: How I work",
+      "shadow": "none",
+      "underline": "none"
+    },
+    {
+      "background": "rgba(255, 255, 255, 0.62)",
+      "hover": true,
+      "label": "Section 3: Learning notes",
+      "shadow": "none",
+      "underline": "none"
+    },
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "hover": false,
+      "label": "Section 4: Design details",
+      "shadow": "none",
+      "underline": "none"
+    },
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "hover": false,
+      "label": "Section 5: Beyond the screen",
+      "shadow": "none",
+      "underline": "none"
+    }
+  ],
+  "viewport": {
+    "dpr": 2,
+    "height": 900,
+    "width": 1440
+  }
+}
