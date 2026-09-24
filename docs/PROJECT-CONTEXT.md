@@ -235,12 +235,13 @@ grab bars and empty intervening spaces.
 
 ### Stage 06 — Ladder transfer and maintenance bay (24 September 2026)
 
-The ladder now stands on two narrow carbon carriers seated directly on the
-continuous ivory liner. The earlier five broad closeout panels, gasket and
-decorative rung rings are superseded. Exposing the real liner between the rails
-clarifies the transfer route and separates it from the adjacent recessed service
-strip. All 13 rungs keep their pitch and projection; carbon grip inserts have
-satin alloy ends, with bronze joint collars only at the four support stations.
+The ladder stands on two narrow carbon carriers seated directly on the continuous
+ivory liner. An owner-requested contrast correction adds a single seamless matte
+Carbon Deep backing behind the rails: the exposed ivory and thin dark rung
+centers made the pale ends difficult to read. Fuller brushed-alloy grasps now
+form clear steps across the dark field. All 13 rungs keep their centers, pitch
+and rail plane, with bronze collars only at four support stations. The earlier five
+broad closeout panels, their seams and decorative rung rings remain superseded.
 
 Service coupling barrels and retained-cap pegs reach their recess backs while
 their front faces remain fixed. The isolation cassette's sockets and guards
@@ -248,11 +249,13 @@ seat against its cover. The paired stowed spanners, two grab bars at each end,
 empty intervening spaces, existing lights, continuous liner and cabin apertures
 remain unchanged. The connector has no new landing slabs: its navigation
 landings remain waypoints. Automatic door sequencing and shared camera framing
-are preserved. See [design, comparisons and verification](evidence/ladder-bay-design/README.md).
+are preserved. See the [current contrast correction](evidence/ladder-rung-contrast/README.md)
+and [initial Stage 06 construction evidence](evidence/ladder-bay-design/README.md).
 
-Carry forward clear transfer space, actual liner-seated supports, carbon handling
-surfaces and small satin/bronze service joints. The docking shoulder/hatch and
-exterior access ladders are unchanged boundaries for Stages 07 and 09.
+Carry forward clear transfer space, actual liner-seated supports, legible alloy
+treads against carbon, and small satin/bronze service joints. The docking
+shoulder/hatch and exterior access ladders are unchanged boundaries for
+Stages 07 and 09.
 
 ## Ivory / Carbon / Bronze palette
 

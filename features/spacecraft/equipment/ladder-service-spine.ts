@@ -222,9 +222,21 @@ export function buildLadderServiceSpine(
     h.mesh(back, m.pocket, root, prefix + recess.id + '-closed-back');
   }
 
-  // Two narrow structural carriers seat directly on the continuous pressure
-  // liner. The open space between them distinguishes the transfer ladder from
-  // the adjacent recessed service equipment; no false cabinet back is needed.
+  // One matte scuff shield makes every alloy tread legible against the lining.
+  // It seats behind the existing carriers without introducing panel seams or
+  // bringing the backing into the clear hand opening behind the rungs.
+  box(
+    0.59,
+    4.82,
+    0.022,
+    m.rubber,
+    0.15,
+    0.01,
+    -0.977,
+    'continuous-tread-backing',
+    0.014,
+  );
+  // The two narrow structural carriers retain their actual liner attachment.
   const railXs = [-0.08, 0.38];
   for (const x of railXs) {
     box(
@@ -327,11 +339,11 @@ export function buildLadderServiceSpine(
         );
     }
     cylinder(0.019, 0.46, m.tread, 0.15, y, -0.69, 'x', 'satin-rung');
-    cylinder(0.022, 0.27, m.rubber, 0.15, y, -0.69, 'x', 'rung-grip-insert');
+    cylinder(0.029, 0.27, m.tread, 0.15, y, -0.69, 'x', 'rung-grip-insert');
     for (const x of [-0.061, 0.361])
       cylinder(0.026, 0.038, m.graphite, x, y, -0.69, 'x', 'rung-end-socket');
     for (const x of [0.012, 0.288])
-      cylinder(0.023, 0.018, m.alloy, x, y, -0.69, 'x', 'rung-grip-ferrule');
+      cylinder(0.03, 0.018, m.alloy, x, y, -0.69, 'x', 'rung-grip-ferrule');
   }
 
   // A matched pair of guarded worklights seats on the existing rear lining.

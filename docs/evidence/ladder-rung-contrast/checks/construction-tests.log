@@ -1,0 +1,16 @@
+✔ wide: fitted carriers connect the real liner to the transfer rails and rungs (239.935708ms)
+✔ wide: the continuous tread backing seats on the liner and preserves hand and transfer clearance (157.886625ms)
+✔ wide: service couplings, cap stowage and isolation controls have rigid attachments (5.255458ms)
+✔ wide: stowed tools and end grips retain complete attachment paths (12.5135ms)
+✔ compact: fitted carriers connect the real liner to the transfer rails and rungs (364.335375ms)
+✔ compact: the continuous tread backing seats on the liner and preserves hand and transfer clearance (233.034458ms)
+✔ compact: service couplings, cap stowage and isolation controls have rigid attachments (4.280292ms)
+✔ compact: stowed tools and end grips retain complete attachment paths (12.622084ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1871.852166

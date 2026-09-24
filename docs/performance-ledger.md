@@ -28,6 +28,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 54 · 24 September 2026 | Stage 04 communications console: aligned displays, thinner shell and underslung audio storage | Contact furniture −6,448 triangle inputs / −0.1808 MiB geometry arrays per layout; shared camera frame and protected rooms unchanged. [Evidence](evidence/contact-console-design/README.md). |
 | 55 · 24 September 2026 | Stage 05 personal study: open retained library, quieter handhold and fitted wall mounts | About +7 visible submission candidates; −2,620 wide / −2,628 compact triangle inputs. Protected rooms, notebook transforms and shared camera frame unchanged. [Evidence](evidence/about-study-design/README.md). |
 | 56 · 24 September 2026 | Stage 06 transfer bay: open liner between seated rail carriers and grounded service fittings | −7,584 triangle inputs / −1 visible submission candidate / −202,464 geometry-array bytes per layout. Protected rooms, liner/end fittings and camera/door routes unchanged. [Evidence](evidence/ladder-bay-design/README.md). |
+| 57 · 24 September 2026 | Owner-requested ladder contrast correction: seamless dark backing and fuller alloy treads | +972 triangle inputs / +25,032 geometry-array bytes per layout; unchanged visible submission candidates and protected framing/routes. [Evidence](evidence/ladder-rung-contrast/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3025,6 +3026,10 @@ rubric and limitations are retained with the evidence.
 
 ## 56 — Ladder transfer bay design baseline (24 September 2026)
 
+The later owner-requested contrast correction in entry 57 supersedes this pass's
+exposed ivory lane and thin dark rung centers; the source-matched results below
+remain historical.
+
 Baseline `cecd316` includes approved Stages 01–05. Stage 06 replaces the ladder's
 five broad closeouts with two narrow carbon carriers seated on the real ivory
 liner. The 13-rung route keeps its position and pitch; dark grip inserts with
@@ -3062,6 +3067,43 @@ comparison was performed. This is a new art baseline; no held candidate was
 implemented. The independent critic scored final source and matching evidence
 **95/100**, with no unresolved blockers; its rubric, resolved documentation
 finding and limitations are preserved with the evidence.
+
+## 57 — Ladder tread contrast correction (24 September 2026)
+
+Baseline `cf7bda4` is the initial Stage 06 design. The owner found its thin steps
+blended into the pale rear wall. One continuous matte Carbon Deep scuff backing
+now seats behind the retained rail carriers, with no panel seams or new trim.
+The rung centers use the existing brushed-alloy finish and increase from 0.044
+to 0.058 local units in diameter, with matching 0.060 ferrules. The complete
+tread silhouettes read against the dark field. All 13 rung positions, mounts,
+service fittings, end equipment and automatic connector behavior remain.
+
+[Structural inventory](evidence/ladder-rung-contrast/structural-costs.json) records
+**+972 triangle inputs / +25,032 geometry-array bytes** in both layouts, with
+visible submission candidates unchanged: 17 in the spine and 520 in the scene.
+Spine triangle inputs change **69,208→70,180**. Inventories use production
+batching/instancing and exclude frustum culling, canvas artwork, textures and
+driver storage. They are not measured process/GPU memory. Protected geometry,
+materials, transforms and bounds, including the real liner, cabins and end
+fittings, match exactly; framing, routes, apertures and door metadata also match.
+
+The finite front renderer keeps **772 wide / 598 compact calls**, with **1,944
+additional triangle inputs** including requested shadow work. This small geometry
+addition serves the requested design correction. No timing, heat, power, startup
+or battery improvement is claimed, and no held performance candidate is included.
+
+[Matching evidence](evidence/ladder-rung-contrast/README.md) includes paired fixed
+front/reverse/compact views, a paired live landscape overview and final portrait
+overview and both-orientation transfers. Hidden built-in Chromium 153 uses actual
+1440×900 and 390×844 at DPR 1 without scaling. Finite views omit GTAO, Earth/sky,
+navigation and live applications. Live portrait selects the wide model and
+disables GTAO under the existing policy; compact geometry is inspected separately.
+Native Safari, a physical phone and browser reduced-motion were not checked.
+All **560 isolated tests**, typecheck, build/geometry checks and affected
+lint/formatting pass. Focused attachment/coverage/clearance and related checks
+pass 62/62. The independent critic scored the correction **95/100**, with no
+unresolved blockers; its readability-weighted rubric and limitations are preserved
+with the evidence. The owner's feedback supersedes the initial Stage 06 judgment.
 
 ## Next candidates
 

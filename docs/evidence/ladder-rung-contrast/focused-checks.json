@@ -1,0 +1,189 @@
+{
+  "recordedAt": "2026-09-24T12:59:03.116281+00:00",
+  "baselineRevision": "cf7bda42d95e9fbcda2f87d353af506f4bed91d2",
+  "sourceManifest": "source-manifest.json",
+  "frozenAt": "2026-09-24T12:54:38.222Z",
+  "runtimeSourceTreeSha256": "f33a3f8b2168a06aa5d0ed35c237d62ca040dd97c9758136ef02fa50dd629fa4",
+  "all44RuntimeSourceHashesMatchFrozenManifest": true,
+  "changedRuntimeSource": {
+    "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+    "sha256": "f31857a42395663e784c4c576151e6263d48c0340c07a856846e252927ccace1"
+  },
+  "storageCheck": {
+    "command": "df -h . /tmp",
+    "availableGiB": 65,
+    "mainAndTemporaryPathsOnSameVolume": true,
+    "performedBeforeChecks": true
+  },
+  "environment": {
+    "workingDirectory": "Main source tree, limited to the explicitly listed pure geometry/navigation tests.",
+    "serverOrDatabase": "None. These commands do not run API/workflow tests and do not access D1/R2 or private environment files. Full-suite verification is recorded separately.",
+    "browser": "None; geometry checks are not visual approval."
+  },
+  "focusedRuns": [
+    {
+      "command": "node --test tests/spacecraft/ladder-bay-construction.test.mjs",
+      "exitCode": 0,
+      "files": ["tests/spacecraft/ladder-bay-construction.test.mjs"],
+      "finishedAt": "2026-09-24T12:56:04.011964+00:00",
+      "log": "checks/construction-tests.log",
+      "logSha256": "2bd457c37ac2afc366267db5b7bc62039e25334e853905ef953cbddece7455fe",
+      "result": {
+        "tests": 8,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "durationMs": 1871.852166
+    },
+    {
+      "command": "node --test --test-concurrency=1 tests/spacecraft/ladder-symmetry.test.mjs tests/spacecraft/ladder-endcap-equipment.test.mjs tests/spacecraft/docking-shoulder-equipment.test.mjs tests/spacecraft/solid-ladder-service.test.mjs tests/spacecraft/ladder-jamb-clearance.test.mjs tests/spacecraft/ladder-opening-outline.test.mjs tests/spacecraft/cabin-utilities.test.mjs tests/spacecraft/iris-navigation.test.mjs tests/spacecraft/iris-integration.test.mjs",
+      "startedAt": "2026-09-24T12:57:03.624963+00:00",
+      "finishedAt": "2026-09-24T12:57:40.390092+00:00",
+      "exitCode": 0,
+      "files": [
+        "tests/spacecraft/ladder-symmetry.test.mjs",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+        "tests/spacecraft/solid-ladder-service.test.mjs",
+        "tests/spacecraft/ladder-jamb-clearance.test.mjs",
+        "tests/spacecraft/ladder-opening-outline.test.mjs",
+        "tests/spacecraft/cabin-utilities.test.mjs",
+        "tests/spacecraft/iris-navigation.test.mjs",
+        "tests/spacecraft/iris-integration.test.mjs"
+      ],
+      "log": "checks/related-tests.log",
+      "logSha256": "2d1120ea626ace600a6d5fa20388893ce001998b625269d8d0c216145290a9e1",
+      "result": {
+        "tests": 54,
+        "pass": 54,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "durationMs": 36704.468458
+    }
+  ],
+  "total": {
+    "tests": 62,
+    "pass": 62,
+    "fail": 0
+  },
+  "files": [
+    {
+      "path": "tests/spacecraft/ladder-bay-construction.test.mjs",
+      "sha256": "a32bf13b4eafe595bc1b00c508a97b3d72bd09328e5c7a8a592eb419fc5f55cd",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/ladder-symmetry.test.mjs",
+      "sha256": "d36f6cb972cedbd77e822f038acc6b4ff38b9dde0ab3c775f5854abad41404d9",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+      "sha256": "1e9fc4c426f31841b6cb55a28daf20ac276d31557a20d181056a5cec69d7bbea",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+      "sha256": "6d1a161a5cc2b122dbad80f06984d9f68dff4f2e0fbbbe1e797a0154e4f44185",
+      "tests": 6,
+      "pass": 6,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/solid-ladder-service.test.mjs",
+      "sha256": "2b675ce08339b8acb26c8ed1dd0baa10d306f6dba7c664b7c6c6e63c808832fb",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/ladder-jamb-clearance.test.mjs",
+      "sha256": "8a12eac3ae5e11f1bfc505dba5b08013a693e8093506a527720fffd0857feed9",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/ladder-opening-outline.test.mjs",
+      "sha256": "e2a74c0ab25e290d7cdaf9b19a4fcb7ff09aa4d6aa164e1053abec8a0efd2d4e",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/cabin-utilities.test.mjs",
+      "sha256": "378130cb29e919db4b40fa2836d28908af0111aeb7b75213a04904548769b379",
+      "tests": 5,
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/iris-navigation.test.mjs",
+      "sha256": "17dad1911ef7ae03eb8b6281395fee268e9ab8194d84732f2629b7d6198a427f",
+      "tests": 22,
+      "pass": 22,
+      "fail": 0
+    },
+    {
+      "path": "tests/spacecraft/iris-integration.test.mjs",
+      "sha256": "e25d6ee6b43d5b29dbc7e2505eedb2a5604822cc6d4ccd14f5174377335da30c",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0
+    }
+  ],
+  "testFileChecks": [
+    {
+      "name": "test-format-write",
+      "command": "npm run format -- tests/spacecraft/ladder-bay-construction.test.mjs",
+      "startedAt": "2026-09-24T12:56:48.677641+00:00",
+      "finishedAt": "2026-09-24T12:56:48.898123+00:00",
+      "exitCode": 0,
+      "log": "checks/test-format-write.log",
+      "logSha256": "70d870102423e6ca781c6d309224144cbf1a98dbc32b9cc4c1009994d39f9ef2"
+    },
+    {
+      "name": "test-lint",
+      "command": "npm run lint -- tests/spacecraft/ladder-bay-construction.test.mjs",
+      "startedAt": "2026-09-24T12:56:48.898205+00:00",
+      "finishedAt": "2026-09-24T12:56:49.239538+00:00",
+      "exitCode": 0,
+      "log": "checks/test-lint.log",
+      "logSha256": "577d2fbe97f9595648372f39d00fcd446713014857bdf44c67a2ed86f34a9ddc"
+    },
+    {
+      "name": "test-format-check",
+      "command": "npm run format -- --check tests/spacecraft/ladder-bay-construction.test.mjs",
+      "startedAt": "2026-09-24T12:56:49.239620+00:00",
+      "finishedAt": "2026-09-24T12:56:49.432854+00:00",
+      "exitCode": 0,
+      "log": "checks/test-format-check.log",
+      "logSha256": "215619e041eaafdf063578a976664b113918af32947777cc6c0fa4f2a8666337"
+    }
+  ],
+  "formattingChangedTestSource": false,
+  "coverage": [
+    "Actual rounded backing rear faces seat against the actual production liner without deep penetration.",
+    "Both carriers contact the backing; existing rail, rung and terminal support paths remain intact.",
+    "Continuous backing coverage behind all rung rows and between them.",
+    "More than 0.2 units of clear space behind sampled positions across every thicker grasp, plus existing route corridor checks.",
+    "Preserved service coupling, cap, cassette, spanner and end-grip attachment; related symmetry, cove, opening, utility and iris navigation checks."
+  ],
+  "limitations": [
+    "No material-color assertions or aesthetic approval are inferred from these geometry tests.",
+    "Recorded test durations are verification elapsed time, not rendering performance.",
+    "Construction-run completion time is taken from its captured log modification time; its exact start time was not separately retained."
+  ]
+}

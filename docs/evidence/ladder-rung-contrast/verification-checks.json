@@ -1,0 +1,114 @@
+{
+  "verifiedAt": "2026-09-24T13:03:17.303846+00:00",
+  "baselineCommit": "cf7bda42d95e9fbcda2f87d353af506f4bed91d2",
+  "sourceSnapshot": "Final ladder rung contrast runtime and ladder construction tests synchronized before the full suite. All checks below used the same two-file snapshot; no runtime edits were made by the verification agent.",
+  "source": [
+    {
+      "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+      "sha256": "f31857a42395663e784c4c576151e6263d48c0340c07a856846e252927ccace1",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/ladder-bay-construction.test.mjs",
+      "sha256": "a32bf13b4eafe595bc1b00c508a97b3d72bd09328e5c7a8a592eb419fc5f55cd",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualManifest": {
+    "path": "source-manifest.json",
+    "capturedAt": "2026-09-24T12:54:37.719Z",
+    "version": "after",
+    "changedRuntimeHashMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-contrast-verify-omd5f6bt",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-contrast-verify-omd5f6bt/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-contrast-verify-omd5f6bt/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T13:03:51.302690+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 560,
+      "pass": 560,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 186157.614125,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "8a6eaebd71d26764ff1a500efe5a6274c509fc57afbcc60a61e59f19d2cf1a24",
+        "normalizedSha256": "9f6dbb716c134856f3f977980f4cd47c8dc4a142760e84025327fa75eca014dd"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "89f00ac536561302c8fa34c2d09580c16ef1762ea6a35e81e355b8b82e357aac",
+        "normalizedSha256": "06f83f60397dc3eeabc1efb5717ddbdde59c732ef1648499ba07f5f5fde8aa5c"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/ladder-service-spine.ts tests/spacecraft/ladder-bay-construction.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "9a720d3202d11db648dd4df275d31d2abfff7a53d9a555d1598ca6435f47d91f",
+        "normalizedSha256": "f7748b9c9ae5a040fd3c70de41112ef5e33cf516f4e0a84381032fde1516d2b5"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/equipment/ladder-service-spine.ts tests/spacecraft/ladder-bay-construction.test.mjs",
+      "exitCode": 0,
+      "files": 2,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "ccb310a506ab0a97fe175f15c16067ce84c8362ac00404ef5d3fec846071b5c4",
+        "normalizedSha256": "3f02f343273df5c36fd7e6ceab92a71f7b2dfa205e8639e2c2191622068017e7"
+      }
+    }
+  },
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp under orbital-ladder-contrast-*.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

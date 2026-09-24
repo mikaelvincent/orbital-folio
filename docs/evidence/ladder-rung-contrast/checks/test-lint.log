@@ -1,0 +1,4 @@
+
+> orbital-folio@0.1.0 lint
+> oxlint tests/spacecraft/ladder-bay-construction.test.mjs
+

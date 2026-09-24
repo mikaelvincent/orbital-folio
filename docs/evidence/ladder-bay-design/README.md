@@ -1,5 +1,10 @@
 # Stage 06 — Ladder transfer and maintenance bay
 
+The owner's later [tread-contrast correction](../ladder-rung-contrast/README.md)
+supersedes this pass's exposed ivory lane and thin dark rung centers. This record
+preserves the original Stage 06 source, evidence and review; its attachment,
+clearance and retained-equipment decisions otherwise carry forward.
+
 24 September 2026. Baseline `cecd316658e9315cd101ac98105a1f1fb852e8bc`
 contains approved Stages 01–05. This pass owns the connector interior and end
 equipment; docking and exterior access hardware remain separate stages.

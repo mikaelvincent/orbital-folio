@@ -237,16 +237,70 @@ for (const layout of ['wide', 'compact']) {
     );
   });
 
-  test(`${layout}: the center liner, space behind the rungs and sampled transfer route remain clear`, () => {
-    const { parts, spine } = partsForLayout(layout);
+  test(`${layout}: the continuous tread backing seats on the liner and preserves hand and transfer clearance`, () => {
+    const { parts, spine, joined } = partsForLayout(layout);
     const liner = parts.find(
       ({ name }) => name === 'walkway-continuous-rear-liner',
     );
-    const structure = model.group.getObjectByName('engineering-service-spine');
+    const backing = spine('continuous-tread-backing');
+    assert.ok(liner && backing.length, 'The backing and actual liner exist');
+    for (const panel of backing) {
+      const positions = panel.mesh.geometry.attributes.position;
+      let rearFaceSamples = 0;
+      for (let i = 0; i < positions.count; i++) {
+        const point = new THREE.Vector3()
+          .fromBufferAttribute(positions, i)
+          .applyMatrix4(panel.mesh.matrixWorld);
+        const hit = new THREE.Raycaster(
+          new THREE.Vector3(point.x, point.y, 0),
+          new THREE.Vector3(0, 0, -1),
+          0,
+          2,
+        ).intersectObject(liner.mesh, false)[0];
+        assert.ok(hit, 'Actual lining supports the entire backing footprint');
+        assert.ok(
+          point.z - hit.point.z >= -0.005,
+          'The backing does not penetrate deeply into the pressure lining',
+        );
+        if (Math.abs(point.z - panel.bounds.min.z) < 1e-6) {
+          rearFaceSamples++;
+          assert.ok(
+            point.z - hit.point.z <= 0.001,
+            'The complete backing rear face seats on the liner',
+          );
+        }
+      }
+      assert.ok(rearFaceSamples > 0, 'Actual backing rear faces were checked');
+    }
+    const carriers = spine('liner-seated-rail-carrier').sort(
+      (a, b) => a.bounds.min.x - b.bounds.min.x,
+    );
+    joined(carriers, backing, 'Both structural carriers capture the backing');
     const meshes = parts.map(({ mesh }) => mesh);
-    for (const x of [0.1, 0.15, 0.2])
-      for (const y of [-2, -1.3, -0.6, 0.1, 0.8, 1.5, 2.2]) {
-        const origin = structure.localToWorld(new THREE.Vector3(x, y, -0.8));
+    const rungs = spine('satin-rung').sort(
+      (a, b) => a.bounds.min.y - b.bounds.min.y,
+    );
+    assert.ok(rungs.length > 1, 'A sequence of actual rungs was inspected');
+    const rowCenters = rungs.map(
+      ({ bounds }) => bounds.getCenter(new THREE.Vector3()).y,
+    );
+    const sampleYs = [
+      rungs[0].bounds.min.y,
+      ...rowCenters,
+      ...rowCenters.slice(1).map((y, i) => (rowCenters[i] + y) / 2),
+      rungs.at(-1).bounds.max.y,
+    ];
+    // Inspect the real unobstructed lane between the two carriers, including
+    // every rung and every intervening space. A segmented or shortened shield
+    // must not expose gaps through the working part of the ladder.
+    for (const fraction of [0.1, 0.5, 0.9])
+      for (const y of sampleYs) {
+        const x = THREE.MathUtils.lerp(
+          carriers[0].bounds.max.x,
+          carriers.at(-1).bounds.min.x,
+          fraction,
+        );
+        const origin = new THREE.Vector3(x, y, backing[0].bounds.max.z + 0.08);
         const hit = new THREE.Raycaster(
           origin,
           new THREE.Vector3(0, 0, -1),
@@ -254,27 +308,29 @@ for (const layout of ['wide', 'compact']) {
           0.4,
         ).intersectObjects(meshes, false)[0];
         assert.ok(
-          hit?.object === liner.mesh,
-          'The center lane exposes the actual continuous liner between the carriers',
+          backing.some(({ mesh }) => hit?.object === mesh),
+          'The fitted backing continuously covers the working lane behind and between the rungs',
         );
       }
     for (const grip of spine('rung-grip-insert')) {
       const center = grip.bounds.getCenter(new THREE.Vector3());
-      const origin = new THREE.Vector3(
-        center.x,
-        center.y,
-        grip.bounds.min.z - 0.001,
-      );
-      const hit = new THREE.Raycaster(
-        origin,
-        new THREE.Vector3(0, 0, -1),
-        0,
-        0.5,
-      ).intersectObjects(meshes, false)[0];
-      assert.ok(
-        hit && hit.distance > 0.2,
-        'Every rung retains a substantial clear hand opening behind its grasp',
-      );
+      for (const fraction of [0.25, 0.5, 0.75]) {
+        const origin = new THREE.Vector3(
+          THREE.MathUtils.lerp(grip.bounds.min.x, grip.bounds.max.x, fraction),
+          center.y,
+          grip.bounds.min.z - 0.001,
+        );
+        const hit = new THREE.Raycaster(
+          origin,
+          new THREE.Vector3(0, 0, -1),
+          0,
+          0.5,
+        ).intersectObjects(meshes, false)[0];
+        assert.ok(
+          hit && hit.distance > 0.2,
+          'Every rung retains a substantial clear hand opening across its grasp',
+        );
+      }
     }
     const data = model.group.userData;
     const route = [
