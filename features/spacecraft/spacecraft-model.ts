@@ -12,6 +12,7 @@ import { buildDockingShoulderEquipment } from './equipment/docking-shoulder-equi
 import { buildLadderEndcapEquipment } from './equipment/ladder-endcap-equipment.ts';
 import {
   buildRoundedCabinInterior,
+  finishCabinDeck,
   trimCabinSideWall,
 } from './geometry/rounded-cabin-interior.ts';
 import { coalesceStaticInstances } from './geometry/coalesce-static-instances.ts';
@@ -515,6 +516,13 @@ export function createSpacecraft(
     CABIN_RETURN_RADIUS,
     12,
   );
+  const cabinFinishes = finishCabinDeck(
+    THREE,
+    cabinLining.geometry,
+    cabinFloorTop + CABIN_RETURN_RADIUS,
+  );
+  cabinLining.geometry.dispose();
+  const cabinDeckMaterial = mat('plain-carbon-deck', palette.navy, 0.68, 0.04);
   const unitBox = new THREE.BoxGeometry(1, 1, 1);
   const boltGeometry = new THREE.CylinderGeometry(0.021, 0.021, 0.013, 6);
   boltGeometry.rotateX(Math.PI / 2);
@@ -534,7 +542,7 @@ export function createSpacecraft(
     exteriorHardware.userData = { section, exterior: true };
     room.add(exteriorHardware);
     const skin = mesh(
-      cabinLining.geometry,
+      cabinFinishes.wall,
       m.wall,
       room,
       section + '-continuous-pressure-skin-interior',
@@ -543,36 +551,95 @@ export function createSpacecraft(
     if (section === 'contact') skin.material.userData.contactRoomWall = true;
     if (['contact', 'projects', 'experience', 'about'].includes(section))
       skin.material.userData.applicationRoomWall = section;
-    // The single pressure skin now supplies the floor at its unchanged datum;
-    // the former thick deck slab is no longer stacked on top of it.
+    // The carbon deck is a finish of the pressure lining itself. It reaches
+    // the opening and turns up the coves to the side-wall tangent, without a
+    // floating mat, perimeter rail or second coplanar surface.
+    const deck = mesh(
+      cabinFinishes.deck,
+      cabinDeckMaterial,
+      room,
+      section + '-continuous-pressure-skin-interior-deck',
+    );
+    deck.position.set(x, 0, 0);
 
-    // The pressure skin itself is the plain rear wall; no raised panels or cove trim.
-    // Two generous warm fixtures, sunk into individual rounded ceiling bezels.
+    // Two sealed light cassettes attach directly to the flat ceiling. A
+    // graphite seal and captive alloy end shoes explain their construction;
+    // the diffuser is seated into the carrier rather than suspended below it.
     for (const dx of [-0.66, 0.66]) {
       box(
-        1.015,
-        0.117,
-        0.213,
-        m.liner,
+        1.1,
+        0.018,
+        0.23,
+        m.gasket,
         x + dx,
-        cabinCeiling - 0.0585,
+        cabinCeiling - 0.009,
         0.548,
         room,
-        0.055,
+        0.008,
+        'ceiling-light-seal',
+      );
+      box(
+        1.075,
+        0.065,
+        0.212,
+        m.chalk,
+        x + dx,
+        cabinCeiling - 0.0395,
+        0.548,
+        room,
+        0.027,
         'ceiling-light-bezel',
       );
       box(
-        0.86,
-        0.035,
-        0.127,
+        0.88,
+        0.027,
+        0.139,
+        m.gasket,
+        x + dx,
+        cabinCeiling - 0.066,
+        0.548,
+        room,
+        0.012,
+        'ceiling-light-diffuser-seat',
+      );
+      box(
+        0.854,
+        0.025,
+        0.116,
         m.light,
         x + dx,
-        cabinCeiling - 0.1375,
-        0.58,
+        cabinCeiling - 0.074,
+        0.548,
         room,
-        0.017,
+        0.011,
         'warm-ceiling-light',
       );
+      for (const end of [-1, 1]) {
+        box(
+          0.048,
+          0.021,
+          0.164,
+          m.metal,
+          x + dx + end * 0.494,
+          cabinCeiling - 0.071,
+          0.548,
+          room,
+          0.009,
+          'ceiling-light-captive-end-shoe',
+        );
+        box(
+          0.018,
+          0.002,
+          0.003,
+          m.gasket,
+          x + dx + end * 0.494,
+          cabinCeiling - 0.082,
+          0.548,
+          room,
+          0.0008,
+          'ceiling-light-quarter-turn-slot',
+        );
+      }
     }
     roomLights[section] = [-0.66, 0.66].map((dx) => {
       const light = new THREE.PointLight(0xffc792, 0.35, 3.1, 2);
@@ -581,18 +648,6 @@ export function createSpacecraft(
       return light;
     });
     for (const sign of [-1, 1]) {
-      box(
-        0.077,
-        0.14,
-        0.23,
-        m.gasket,
-        x + sign * 1.319,
-        1.39,
-        0.5,
-        room,
-        0.033,
-        'roof-latch',
-      );
       if (sign > 0 || section === 'projects' || section === 'about') {
         const post = new THREE.Group();
         post.userData = {
@@ -681,7 +736,7 @@ export function createSpacecraft(
         'cabin-identification-rim',
       );
       box(
-        1.64,
+        1.69,
         wayfinding.enamelHeight,
         0.018,
         m.chalk,
@@ -694,22 +749,22 @@ export function createSpacecraft(
       );
       for (const side of [-1, 1]) {
         box(
-          0.024,
-          0.12,
-          0.01,
+          0.028,
+          0.074,
+          0.008,
           m.amber,
-          side * 0.765,
+          side * 0.812,
           0,
-          -0.998,
+          -0.995,
           header,
-          0.004,
-          'cabin-identification-index',
+          0.003,
+          'cabin-identification-retainer',
         );
         cylinder(
           0.018,
           0.009,
-          m.chalk,
-          side * 0.845,
+          m.metal,
+          side * 0.857,
           0,
           -1.0125,
           header,
@@ -722,7 +777,7 @@ export function createSpacecraft(
           0.003,
           0.003,
           m.gasket,
-          side * 0.845,
+          side * 0.857,
           0,
           -1.007,
           header,
@@ -775,25 +830,6 @@ export function createSpacecraft(
         'header',
       );
     }
-    // Preserve the dark deck finish as paint on the existing floor. The old
-    // thick backing block protruded through the rounded outer keel corners.
-    const floorFinish = mesh(
-      new THREE.ShapeGeometry(
-        roundedPath(
-          new THREE.Shape(),
-          2 * (CABIN_HALF_WIDTH - cabinLining.radius),
-          1.61,
-          0.12,
-        ),
-        32,
-      ),
-      m.navy,
-      room,
-      'flush-deck-finish-interior',
-    );
-    floorFinish.rotation.x = -Math.PI / 2;
-    floorFinish.position.set(x, cabinFloorTop + 0.003, -0.06);
-    floorFinish.castShadow = false;
   }
 
   const passageClear = 2 * PASSAGE_RADIUS;

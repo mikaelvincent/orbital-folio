@@ -1,0 +1,147 @@
+[
+  {
+    "file": "after-about-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-about-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "after-case-studies-drag-release.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-case-studies-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-case-studies-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "after-contact-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-contact-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "after-overview-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-overview-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "after-projects-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "after-projects-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "before-about-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "before-case-studies-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "before-contact-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "before-overview-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "before-overview-portrait.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "before-projects-landscape.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-after-about-oblique-compact.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "fixture-after-about-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-after-case-studies-oblique-compact.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "fixture-after-case-studies-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-after-contact-oblique-compact.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "fixture-after-contact-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-after-projects-oblique-compact.png",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "file": "fixture-after-projects-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-before-about-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-before-case-studies-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-before-contact-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "file": "fixture-before-projects-oblique-wide.png",
+    "width": 1440,
+    "height": 900
+  }
+]

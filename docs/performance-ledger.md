@@ -23,6 +23,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 28 · 18 September 2026 | Retarget the early Earth pass toward visible city lights | Land coverage proved misleading. At unchanged rotation speed, weighted warm-light coverage over the first five minutes improves across all three tested layouts; texture, geometry and shaders are unchanged. |
 | 29 · 18 September 2026 | Temporary Earth composition helper for the owner's final selection | The coastal opening remains unsatisfactory to the owner. Presets, direct angle controls, Earth-only preview and portable settings enable an explicit choice; no new opening or performance optimization is adopted. |
 | 30 · 20 September 2026 | Fixed Earth scene and compact coastal loop | Native Europe detail retained; 21.05% fewer download bytes and 68.75% less nominal map storage. New art/camera baseline; measured timing and limitations in entry 30. |
+| 51 · 24 September 2026 | Shared cabin architecture: continuous matte deck and seated light cassettes | New art baseline: +23,016 structural triangle inputs and +2.134 MiB geometry arrays per layout; furnishings/framing unchanged. [Evidence](evidence/shared-cabin-architecture/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -2830,6 +2831,41 @@ unchanged. Camera framing and orbital registration are unchanged.
 overview/travel continuity, depth masking, shared-reader focus checks and isolated
 verification. It also links the independent review and its testing limitations.
 All 509 isolated tests, typecheck, affected lint/format and production build passed.
+
+## 51 — Shared cabin architecture design baseline (24 September 2026)
+
+Baseline `9e67dae`. Stage 01 replaces the inset floor patch with a continuous
+matte carbon finish of the actual rounded lining, seats both ceiling light
+assemblies into shallow service cassettes, removes the isolated roof blocks and
+refines the header retainers. Pressure-wall/reveal/door geometry, room furnishings,
+lighting sources, camera framing and navigation remain unchanged. This is authored
+visual work; none of the held optimization candidates is implemented.
+
+The [source-identified structural inventory](evidence/shared-cabin-architecture/structural-costs.json)
+uses the existing hardware-inventory script with a fresh Git baseline archive and
+final source. In both wide and compact layouts the visible scene graph adds
+**23,016 triangle inputs, 8 mesh candidates and 2,237,552 bytes (2.134 MiB) of unique
+geometry attribute/index arrays**. It includes instance multiplicity and production
+batching, but omits browser text canvases and frustum culling. These are structural
+work/storage counts, not actual application draws, driver/GPU memory, timing or
+power measurements. Complete furniture inventories, actual cabin-lining bounds,
+whole-scene bounds and shared framing metadata are unchanged. Removing the old
+roof blocks lowers the containing structure assembly's maximum Y by about 0.005;
+that wrapper also contains fittings and is not the camera reference.
+
+[Finite renderer counts](evidence/shared-cabin-architecture/finite-views.json)
+are separate: the matched Chromium 153 oblique frames include requested PCF shadow
+generation, while omitting GTAO, orbital background and live screen interfaces.
+The actual live views retain the application's rendering policy. No rested timing,
+startup, heat, battery or native Safari comparison was performed, and no performance
+gain is claimed. The distinct matte deck material and additional lamp hardware
+are a deliberate visual tradeoff and form the new baseline.
+
+[Evidence and independent review](evidence/shared-cabin-architecture/README.md)
+cover all four cabins, landscape/portrait, oblique joins, physical and keyboard
+door entry, semantic reading view and isolated verification. All 523 tests,
+typecheck, production build/geometry check and affected lint passed. The initial
+fresh-test-store ownership bootstrap failure and corrected full rerun are retained.
 
 ## Next candidates
 

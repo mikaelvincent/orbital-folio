@@ -1,3 +1,5 @@
+import { clipGeometryPlane } from './clip-geometry-plane.ts';
+
 /**
  * A single cabin lining, including the returns onto both side walls. The
  * quarter-round replaces the old edge strips; adjoining side faces are cut
@@ -159,4 +161,15 @@ export function trimCabinSideWall(
     );
   geometry.computeBoundingSphere();
   return geometry;
+}
+
+/** Two complementary finishes on one manufactured lining. The floor turns up
+ * the existing coves to a level junction; no overlay, lip or extra thickness.
+ * Keep this datum at the side return's tangent so the flat walls meet it.
+ */
+export function finishCabinDeck(THREE: any, lining: any, junctionY: number) {
+  return {
+    wall: clipGeometryPlane(THREE, lining, 1, junctionY),
+    deck: clipGeometryPlane(THREE, lining, 1, junctionY, -1),
+  };
 }

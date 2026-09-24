@@ -1,0 +1,518 @@
+[
+  {
+    "browserDpr": 2,
+    "calls": 875,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1933056,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Projects oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-before-projects-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 891,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1979088,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Projects oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-after-projects-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 863,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1917632,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Case studies oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-before-case-studies-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 879,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1963664,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Case studies oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-after-case-studies-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 797,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1842048,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "About oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-before-about-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 810,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1882392,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "About oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-after-about-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 802,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 2,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1880820,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Contact oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-before-contact-oblique-wide.png"
+  },
+  {
+    "browserDpr": 2,
+    "calls": 815,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1921164,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact oblique",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    },
+    "filename": "fixture-after-contact-oblique-wide.png"
+  },
+  {
+    "browserDpr": 1,
+    "calls": 857,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -6.241009798264719,
+        2.7852804995179783,
+        13.287804995179778
+      ],
+      "target": [
+        -1.515,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1858392,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Projects oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    },
+    "filename": "fixture-after-projects-oblique-compact.png"
+  },
+  {
+    "browserDpr": 1,
+    "calls": 811,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.241009798264719,
+        2.7852804995179783,
+        13.287804995179778
+      ],
+      "target": [
+        1.515,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1832938,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Case studies oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    },
+    "filename": "fixture-after-case-studies-oblique-compact.png"
+  },
+  {
+    "browserDpr": 1,
+    "calls": 856,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -6.241009798264719,
+        -0.1597195004820222,
+        13.287804995179778
+      ],
+      "target": [
+        -1.515,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1858276,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "About oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    },
+    "filename": "fixture-after-about-oblique-compact.png"
+  },
+  {
+    "browserDpr": 1,
+    "calls": 807,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.241009798264719,
+        -0.1597195004820222,
+        13.287804995179778
+      ],
+      "target": [
+        1.515,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1832130,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    },
+    "filename": "fixture-after-contact-oblique-compact.png"
+  }
+]

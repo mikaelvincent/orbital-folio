@@ -98,6 +98,30 @@ Current evidence: [symmetric access refinement](evidence/spacecraft-access-symme
 The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves
 rejected iterations; it does not authorize restoring those older objects.
 
+### Stage 01 — shared cabin architecture (24 September 2026)
+
+The shared cabins now use a continuous **matte carbon deck** made from the
+actual pressure lining. Its finish reaches the front throat and follows the
+existing rear/side coves to the side-return tangent (`CABIN_FLOOR +
+CABIN_RETURN_RADIUS`, −1.24). It replaces the inset flat floor patch; no raised
+edge, floor rail, extra thickness or panel pattern is added. Ivory walls and
+ceilings, the exact rounded envelope, flush window reveals, centered door
+surrounds and shared camera reference are retained.
+
+The paired ceiling lights are shallow sealed cassettes: a graphite ceiling
+seal, ivory carrier, captured warm diffuser and satin-alloy captive end shoes.
+The former detached-looking diffuser gap and isolated black roof blocks are
+removed. Header faces retain their legible scale and alignment, with a finer
+perimeter, short bronze retainers and alloy fasteners. Door signs retain their
+existing fitted carriers; exactly two flush header-side vents remain per cabin.
+
+Later furniture should reference fitted mounting shoes, thin graphite joints,
+rounded ivory architecture, matte carbon grounding surfaces, satin alloy and
+small bronze retainers. Room-specific proportions, natural textiles, media and
+purposeful equipment remain variable. The ladder, exterior, furniture, visitor
+interfaces and navigation are outside this stage. See the
+[before/after views, verification and independent review](evidence/shared-cabin-architecture/README.md).
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

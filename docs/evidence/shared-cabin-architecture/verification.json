@@ -1,0 +1,156 @@
+{
+  "verifiedAt": "2026-09-24T06:38:45.934759+00:00",
+  "fixture": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cabin-verify-zyrc8ztr",
+  "baseUrl": "http://127.0.0.1:3003",
+  "isolation": {
+    "trackedSourceOnly": true,
+    "freshTestSecrets": true,
+    "freshD1R2": true,
+    "mainServerUntouched": true,
+    "privateEnvironmentCopied": false,
+    "dependencySharing": "node_modules symlink",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cabin-verify-zyrc8ztr/.vite-cache"
+  },
+  "source": [
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "ebee1b19ce8b72aef0b037f67fb974e87a22ca7725e08739dd600d9c09ea408a",
+      "matches_main": true
+    },
+    {
+      "path": "features/spacecraft/geometry/rounded-cabin-interior.ts",
+      "sha256": "47fa454709e28b54edb37cfa5a0e4581efc11960f61fc9e92b2e810d86996dd2",
+      "matches_main": true
+    },
+    {
+      "path": "tests/spacecraft/cabin-architecture.test.mjs",
+      "sha256": "57b138b169f299f019dd0ed01d2c59032035fd7f7f2c1b4a8411e75713fd9184",
+      "matches_main": true
+    }
+  ],
+  "checks": {
+    "npmTest": {
+      "exitCode": 0,
+      "tests": 523,
+      "pass": 523,
+      "fail": 0,
+      "skip": 0,
+      "cancel": 0,
+      "durationMs": 153618.49125,
+      "log": "checks/test-rerun.log"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "checks/typecheck.log"
+    },
+    "build": {
+      "exitCode": 0,
+      "includes": "geometry:check",
+      "warnings": [
+        "Node DEP0205 module.register() deprecation",
+        "Some minified chunks exceed 500 kB",
+        "Vinext cannot statically classify every route"
+      ],
+      "log": "checks/build.log"
+    },
+    "affectedLint": {
+      "exitCode": 0,
+      "paths": [
+        "features/spacecraft/spacecraft-model.ts",
+        "features/spacecraft/geometry/rounded-cabin-interior.ts",
+        "tests/spacecraft/cabin-architecture.test.mjs"
+      ],
+      "log": "checks/lint.log"
+    },
+    "previewFixture": {
+      "syntax": "pass",
+      "lint": "pass",
+      "format": "pass",
+      "manifestHashes": "43 runtime source hashes matched final source; fixture hash verified"
+    }
+  },
+  "supersededRuns": [
+    {
+      "location": "root pure subset before fixture handoff",
+      "result": "vent coplanarity failure during trial; utility edit reverted completely before final source",
+      "provenance": "reported by implementing parent agent"
+    },
+    {
+      "location": "isolated full suite initial run",
+      "tests": 523,
+      "pass": 521,
+      "fail": 2,
+      "durationMs": 285008.23475,
+      "cause": "Alphabetically earlier About photo and case study API tests require owner access before fresh fixture setup has claimed it. Later workflow test initialized fixture ownership. Subsequent owner access was HTTP 200; complete rerun passed with unchanged source.",
+      "log": "checks/test.log"
+    }
+  ],
+  "limitations": [
+    "No real-browser visual or runtime performance judgment by this verification agent.",
+    "Unit/full suite timings are verification durations, not rendering performance measurements."
+  ],
+  "visualReview": {
+    "engine": "Hidden Codex built-in Chromium 153 on macOS; no native Safari",
+    "liveViewports": [
+      {
+        "css": [
+          1440,
+          900
+        ],
+        "drawingBuffer": [
+          1440,
+          900
+        ]
+      },
+      {
+        "css": [
+          390,
+          844
+        ],
+        "drawingBuffer": [
+          390,
+          844
+        ]
+      }
+    ],
+    "browserDpr": 2,
+    "renderDpr": 1,
+    "screenshotsUnscaled": true,
+    "liveRooms": [
+      "projects",
+      "experience",
+      "about",
+      "contact"
+    ],
+    "overview": [
+      "landscape",
+      "portrait"
+    ],
+    "physicalDoorClick": "Projects to Case studies completed; DOM activeRoom experience, travelling false, URL /case-studies",
+    "keyboardDoorActivation": "Projects \u2192 Case studies button pressed Enter; settled DOM and URL confirmed",
+    "readingView": "Case studies Reading view button opened semantic case-study rack and categories",
+    "drag": "Case studies blank wall dragged; inspected settled return screenshot; no maximum-envelope trace",
+    "finiteFixture": "All four wide before/after obliques and all four compact after obliques; see finite-views.json",
+    "consoleErrors": "No errors observed in queried live-app or finite-fixture console samples",
+    "limitations": [
+      "No native Safari or physical-device run",
+      "No new reduced-motion browser run; unchanged behavior covered by full suite",
+      "Live orbital/hover timing not frozen",
+      "Finite fixture omits GTAO, orbital scene, live screen interfaces and navigation",
+      "About live baseline and portrait overview baseline used same-source isolated fresh sample content"
+    ],
+    "rejectedCaptures": [
+      "An About baseline captured during HMR loading was replaced with the isolated source-identical baseline",
+      "First Projects fixture lacked environment-map illumination; replaced after restoring original RoomEnvironment .24"
+    ]
+  },
+  "cleanup": {
+    "isolatedServer3003Stopped": true,
+    "isolatedFixtureRemoved": true,
+    "staticPreview3017Stopped": true,
+    "mainServer3000": "HTTP 200; preserved",
+    "reviewViewportOverride": "reset",
+    "reviewTabs": "successful review tab closed; unmarked failed-navigation tab left to documented end-of-turn browser cleanup"
+  },
+  "logNormalization": "ANSI color sequences and trailing whitespace removed from retained check logs; substantive output unchanged."
+}
