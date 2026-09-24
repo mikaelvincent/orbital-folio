@@ -1,0 +1,610 @@
+[
+  {
+    "file": "before-live-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "6611920f67911a7be54089a1c045cc6f156b7ce3a1ab46b1bf30758719079b7a",
+    "source": {
+      "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97"
+    }
+  },
+  {
+    "file": "before-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "fdd8bc75316f724f8985c2d67d3497c4f6443c4f33078ebb1078072c1a144b30",
+    "source": {
+      "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97"
+    }
+  },
+  {
+    "file": "reference-archive.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.5400,5.4484",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "1fb3fb8511400e9a92bd9c64b5dae31bda0c75a402c5e7ec1166dcc0e8b2495f",
+    "source": {
+      "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97"
+    }
+  },
+  {
+    "file": "before-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 892,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -4.5283826547398585,
+          2.15066184853885,
+          6.9416184853884975
+        ],
+        "target": [
+          -2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1983510,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Projects oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Projects+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "2903e40000249f1838e678d8f7b44e0d371462d8d6c3974adc05a287f43e43a3",
+    "source": {
+      "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97"
+    }
+  },
+  {
+    "file": "before-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 862,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -6.241009798264719,
+          2.7852804995179783,
+          13.287804995179778
+        ],
+        "target": [
+          -1.515,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1863070,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Projects oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Projects+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "e5b0f6a1f1c1f8d480b67da2b7eb4d8cf32535fd9d882c4175834810c62e4e1f",
+    "source": {
+      "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97"
+    }
+  },
+  {
+    "file": "reference-contact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,-1.4050,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "b5ae0293031b94b742d7dc895eb04bc7cdb1f91368be3efbe378ec7aefb6f209",
+    "source": {
+      "note": "Captured before final tip seating correction; Contact source and inventory unchanged from baseline through final."
+    }
+  },
+  {
+    "file": "after-live-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "a27f0ea79ea91f5af96f92483ba57fdac8b0adf8bdad4d6438e3ef5c122abcef",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-application-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.6969,1.9798,0.2908",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"projects-application\",\"screen\":\"all\",\"portrait\":false,\"width\":0.99,\"height\":0.5499999999999999,\"pixelsWidth\":960,\"pixelsHeight\":533.3333333333333,\"framing\":{\"width\":0.95,\"height\":0.51},\"distance\":0.775792487323582}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects?open=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "70ae0399510b438909702092dd48af35475acbeca2d8b49979b4991dc83c159c",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-drag-release.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "-0.01237,0.00650",
+      "cameraPosition": "-2.0527,1.6054,5.4478",
+      "cameraQuaternion": "-0.006183,0.003250,0.000020,0.999976",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "63d0365271cb9e7d7593959ea4d7cb76654b89f2a90cc25962545f510b71608a",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-overview-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "-0.00000,0.00000",
+      "cameraPosition": "-7.2530,4.2331,21.3142",
+      "cameraQuaternion": "-0.093595,-0.125018,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "18cc11f341492c5dcc93bf35535877dee3837bcfddb15f052f92617d4cf8cd10",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-overview-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "-0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "e9625462b93a322234dbde46371d90f7b84c327f6ffc93b33e90a2cdcfa16f08",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "12f34c0fb44b9edb8ec2dfd37ca58a0c48c8a22d57ff3e90b7c02b4bf8cbc801",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-application-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-1.4770,1.9712,-0.1058",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"projects-application\",\"screen\":\"systems\",\"portrait\":true,\"width\":0.28889240506329117,\"height\":0.51,\"pixelsWidth\":358,\"pixelsHeight\":632,\"framing\":{\"width\":0.28889240506329117,\"height\":0.51},\"distance\":0.3793097002870798}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects?open=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "71bbcefdac2228588661495393c56cc92af0ba90d501576bc6b096fecbc0bc97",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 854,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -6.241009798264719,
+          2.7852804995179783,
+          13.287804995179778
+        ],
+        "target": [
+          -1.515,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1829166,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Projects oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Projects+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "pngSha256": "35fdf390535ef517a4e583c9892fd87185abf4543d7cb5ce051a414860ea0439",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  },
+  {
+    "file": "after-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 884,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -4.5283826547398585,
+          2.15066184853885,
+          6.9416184853884975
+        ],
+        "target": [
+          -2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1949606,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Projects oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Projects+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pngSha256": "d9262177169515ea4012240102a6c9d107a8ba2de33ff25d5581bc7c26a7df19",
+    "source": {
+      "finalRuntimeSourceSetSha256": "9d3f47935fe752b7b3536680d59394d1daa6aaee08d6214738d0cdd810502b2d"
+    }
+  }
+]

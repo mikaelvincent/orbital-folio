@@ -1,6 +1,6 @@
 import { PALETTE } from '../../../lib/palette.ts';
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
-import { PROJECTS_GRID, PROJECTS_UNDERBENCH } from './cabin-composition.ts';
+import { PROJECTS_GRID } from './cabin-composition.ts';
 
 /** Static category workshop. Origin is the cabin floor; +Z faces the visitor. */
 export function buildProjectsWorkshop(
@@ -92,63 +92,89 @@ export function buildProjectsWorkshop(
   screwGeometry.rotateX(Math.PI / 2);
   const unitBox = new THREE.BoxGeometry(1, 1, 1);
 
-  // Narrow rails and shoes terminate on the existing pressure wall. No new wall sheet.
+  // A bench-borne instrument bridge gives all four removable monitors one
+  // load path. Nothing pretends to attach to the pressure wall behind it.
   for (const sign of [-1, 1]) {
     const x = sign * 1.245;
     box(
-      0.067,
-      2.08 - lowering,
-      0.084,
-      m.graphite,
+      0.22,
+      0.022,
+      0.19,
+      m.rubber,
       x,
-      1.09 + lowering / 2,
-      -0.943,
+      0.7455,
+      -0.77,
       parent,
-      0.021,
-      'wall-upright',
+      0.01,
+      'gantry-isolation-seat',
     );
-    for (const y of [0.15 + lowering, 0.72, 1.48, 2.08]) {
-      box(
-        0.127,
-        0.143,
-        0.049,
-        m.graphite,
-        x,
-        y,
-        -0.956,
-        parent,
-        0.023,
-        'wall-anchor-shoe',
-      );
-      screws.push([x, y, -0.897]);
-    }
     box(
-      0.031,
-      1.91 - lowering,
-      0.012,
+      0.19,
+      0.065,
+      0.16,
       m.metal,
       x,
-      1.085 + lowering / 2,
-      -0.897,
+      0.771,
+      -0.77,
       parent,
-      0.006,
-      'upright-insert',
+      0.02,
+      'gantry-foot',
     );
+    box(
+      0.105,
+      1.405,
+      0.16,
+      m.graphite,
+      x,
+      1.45,
+      -0.77,
+      parent,
+      0.033,
+      'gantry-upright',
+    );
+    for (const y of [0.8, 2.1]) {
+      box(
+        0.126,
+        0.067,
+        0.025,
+        m.metal,
+        x,
+        y,
+        -0.679,
+        parent,
+        0.012,
+        'gantry-captive-cap',
+      );
+      screws.push([x, y, -0.664]);
+    }
   }
-  for (const y of [0.875, 1.45, 2.025]) {
+  for (const y of [PROJECTS_GRID.bottomY, PROJECTS_GRID.topY]) {
     box(
       2.51,
-      0.065,
-      0.094,
+      0.15,
+      0.105,
       m.graphite,
       0,
       y,
-      -0.938,
+      -0.79,
       parent,
-      0.021,
+      0.035,
       'mounting-crossrail',
     );
-    for (const x of [-1.11, 0, 1.11]) screws.push([x, y, -0.888]);
+    // The middle union is an actual crossrail joint, visible between the modules.
+    box(
+      0.15,
+      0.112,
+      0.024,
+      m.metal,
+      0,
+      y,
+      -0.727,
+      parent,
+      0.012,
+      'crossrail-union',
+    );
+    screws.push([0, y, -0.712]);
   }
 
   // Two grounded stanchions, each with a broad sole, collar and continuous apron connection.
@@ -182,7 +208,7 @@ export function buildProjectsWorkshop(
       0.284,
       0.044,
       0.57,
-      m.amber,
+      m.metal,
       x,
       0.072,
       -0.34,
@@ -227,27 +253,6 @@ export function buildProjectsWorkshop(
       'leg-service-insert',
     );
     screws.push([x, 0.11 + lowering, -0.085], [x, 0.415, -0.085]);
-    // Braces run from stanchion to the wall shoe, leaving the knee space open.
-    rod(
-      [x, 0.13 + lowering, -0.51],
-      [x, 0.545, -0.913],
-      0.032,
-      m.graphite,
-      'wall-brace',
-    );
-    box(
-      0.13,
-      0.18,
-      0.064,
-      m.graphite,
-      x,
-      0.54,
-      -0.952,
-      parent,
-      0.022,
-      'brace-wall-shoe',
-    );
-    screws.push([x, 0.54, -0.916]);
   }
   box(
     2.55,
@@ -265,17 +270,34 @@ export function buildProjectsWorkshop(
   // A thin inset carbon work surface meets the rounded apron through a fine
   // seated gasket. Its upper plane stays fixed, preserving monitor clearance
   // and the established working height without a separate light-colored slab.
-  box(
-    3.13,
-    0.202,
-    1.11,
+  const apronProfile = new THREE.Shape();
+  apronProfile.moveTo(-0.15, 0.686);
+  apronProfile.lineTo(0.856, 0.686);
+  apronProfile.quadraticCurveTo(0.89, 0.686, 0.89, 0.652);
+  apronProfile.lineTo(0.89, 0.55);
+  apronProfile.quadraticCurveTo(0.89, 0.52, 0.856, 0.52);
+  apronProfile.lineTo(0.02, 0.52);
+  apronProfile.quadraticCurveTo(-0.09, 0.52, -0.15, 0.555);
+  apronProfile.quadraticCurveTo(-0.184, 0.57, -0.184, 0.602);
+  apronProfile.lineTo(-0.184, 0.652);
+  apronProfile.quadraticCurveTo(-0.184, 0.686, -0.15, 0.686);
+  apronProfile.closePath();
+  const apronGeometry = new THREE.ExtrudeGeometry(apronProfile, {
+    depth: 3.094,
+    bevelEnabled: true,
+    bevelSize: 0.018,
+    bevelThickness: 0.018,
+    bevelSegments: 4,
+    curveSegments: 20,
+    steps: 1,
+  });
+  apronGeometry.translate(0, 0, -1.547);
+  apronGeometry.rotateY(Math.PI / 2);
+  h.mesh(
+    apronGeometry,
     m.shell,
-    0,
-    0.603,
-    -0.353,
     parent,
-    0.062,
-    'continuous-bench-apron',
+    'projects-workshop-continuous-bench-apron',
   );
   box(
     3.025,
@@ -307,11 +329,11 @@ export function buildProjectsWorkshop(
     const x = sign * 1.3;
     box(
       0.3,
-      0.132,
+      0.09,
       0.022,
-      m.metal,
+      m.graphite,
       x,
-      0.592,
+      0.632,
       0.202,
       parent,
       0.024,
@@ -319,11 +341,11 @@ export function buildProjectsWorkshop(
     );
     box(
       0.28,
-      0.112,
+      0.073,
       0.024,
       m.shell,
       x,
-      0.594,
+      0.632,
       0.217,
       parent,
       0.022,
@@ -331,11 +353,11 @@ export function buildProjectsWorkshop(
     );
     box(
       0.16,
-      0.043,
+      0.03,
       0.006,
       m.recess,
       x,
-      0.589,
+      0.629,
       0.232,
       parent,
       0.013,
@@ -347,7 +369,7 @@ export function buildProjectsWorkshop(
       0.008,
       m.graphite,
       x,
-      0.6,
+      0.64,
       0.237,
       parent,
       0.005,
@@ -366,7 +388,8 @@ export function buildProjectsWorkshop(
       'captive-service-latch',
     );
     for (const dx of [-0.11, 0.11])
-      for (const dy of [-0.04, 0.04]) screws.push([x + dx, 0.594 + dy, 0.234]);
+      for (const dy of [-0.022, 0.022])
+        screws.push([x + dx, 0.632 + dy, 0.234]);
     // Two restrained tooling clamps sit on the top; no loose set dressing.
     box(
       0.22,
@@ -406,7 +429,7 @@ export function buildProjectsWorkshop(
     );
   }
 
-  // A continuous amber handhold curves into two fitted circular saddles.
+  // A carbon handhold curves into fitted satin-alloy collars.
   const handholdPoints = [
     new THREE.Vector3(-0.5, 0.611, 0.214),
     new THREE.Vector3(-0.5, 0.611, 0.263),
@@ -422,7 +445,7 @@ export function buildProjectsWorkshop(
   );
   h.mesh(
     new THREE.TubeGeometry(handhold, 36, 0.024, 12, false),
-    m.amber,
+    m.graphite,
     parent,
     'projects-workshop-front-handhold',
   );
@@ -460,21 +483,21 @@ export function buildProjectsWorkshop(
   );
   for (const x of [0.81, 1.01]) screws.push([x, 0.445, -0.722]);
   rod(
-    [1.313, 0.476, -0.797],
-    [1.313, 2.02, -0.797],
+    [1.245, 0.476, -0.664],
+    [1.245, 2.02, -0.664],
     0.018,
     m.rubber,
     'protected-power-trunk',
   );
-  for (const y of [0.59, 1.38, 1.96]) {
+  for (const y of [0.79, 1.45, 1.96]) {
     box(
       0.061,
       0.04,
       0.06,
       m.metal,
-      1.313,
+      1.245,
       y,
-      -0.797,
+      -0.681,
       parent,
       0.014,
       'trunk-retaining-clip',
@@ -482,41 +505,40 @@ export function buildProjectsWorkshop(
   }
   rod(
     [0.99, 0.49, -0.81],
-    [1.313, 0.49, -0.797],
+    [1.245, 0.49, -0.664],
     0.018,
     m.rubber,
     'junction-lead',
   );
-  // Luminous diffusers are static materials, not new sources of room lighting.
-  for (const x of [-PROJECTS_UNDERBENCH.columnX, PROJECTS_UNDERBENCH.columnX]) {
-    box(
-      0.39,
-      0.044,
-      0.075,
-      m.graphite,
-      x,
-      0.118 + PROJECTS_UNDERBENCH.lift,
-      -0.924,
-      floorRoot,
-      0.018,
-      'underbench-task-housing',
-    );
-    box(
-      0.315,
-      0.022,
-      0.009,
-      m.diffuser,
-      x,
-      0.118 + PROJECTS_UNDERBENCH.lift,
-      -0.882,
-      floorRoot,
-      0.01,
-      'underbench-task-diffuser',
-    );
-  }
+  // One captured downward diffuser serves the working plane. It is an emissive
+  // fitting, not an additional scene light or an interactive strip.
+  box(
+    2.57,
+    0.057,
+    0.12,
+    m.graphite,
+    0,
+    0.804,
+    -0.73,
+    parent,
+    0.018,
+    'bridge-task-hood',
+  );
+  box(
+    2.28,
+    0.009,
+    0.045,
+    m.diffuser,
+    0,
+    0.7775,
+    -0.714,
+    parent,
+    0.004,
+    'bridge-task-diffuser',
+  );
 
   // Uniformly smaller enclosures retain round hardware and graphic proportions.
-  const moduleScale = 0.78;
+  const moduleScale = 0.83;
   const configs = [
     {
       label: 'All projects',
@@ -554,7 +576,7 @@ export function buildProjectsWorkshop(
         m.graphite,
         config.x + dx,
         config.y,
-        -0.938,
+        -0.79,
         parent,
         0.018,
         'module-rear-rail',
@@ -563,11 +585,11 @@ export function buildProjectsWorkshop(
         box(
           0.113,
           0.092,
-          0.287,
+          0.108,
           m.graphite,
           config.x + dx,
           config.y + dy,
-          -0.795,
+          -0.709,
           parent,
           0.014,
           'module-stand-off',

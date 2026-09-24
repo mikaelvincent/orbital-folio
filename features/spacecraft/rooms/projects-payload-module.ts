@@ -47,11 +47,8 @@ export function buildProjectPayloadModule(
       0.47,
       0.15,
     ),
-    diffuser: material('diffused-task-strip', 0xffe4b8, 0.63),
     ink: material('hardware-index', PALETTE.ivoryShade, 0.78),
   };
-  m.diffuser.emissive.set(0xffd6a0);
-  m.diffuser.emissiveIntensity = 0.46;
   const group = new THREE.Group();
   group.name = prefix + options.kind + '-payload-module';
   parent.add(group);
@@ -373,12 +370,12 @@ export function buildProjectPayloadModule(
       0.048,
       0.216,
       0.053,
-      m.amber,
+      m.graphite,
       side * 0.604,
       0,
       0.108,
       0.012,
-      'amber-quick-release-latch',
+      'quick-release-lever',
     );
     box(
       0.023,
@@ -401,6 +398,17 @@ export function buildProjectPayloadModule(
       0.137,
       0.004,
       'latch-thumb-recess',
+    );
+    box(
+      0.033,
+      0.034,
+      0.008,
+      m.amber,
+      side * 0.604,
+      0.075,
+      0.1365,
+      0.005,
+      'captive-release-tip',
     );
     for (const y of [-0.08, 0.08])
       box(
@@ -455,53 +463,6 @@ export function buildProjectPayloadModule(
       'x',
       'connector-identification-ring',
     );
-  }
-  for (const row of [-1, 1]) {
-    box(
-      0.454,
-      0.051,
-      0.067,
-      m.dark,
-      0,
-      row * 0.376,
-      0.045,
-      0.015,
-      'task-strip-socket',
-    );
-    box(
-      0.403,
-      0.036,
-      0.037,
-      m.amber,
-      0,
-      row * 0.377,
-      0.083,
-      0.01,
-      'task-strip-amber-trim',
-    );
-    box(
-      0.358,
-      0.023,
-      0.024,
-      m.diffuser,
-      0,
-      row * 0.378,
-      0.105,
-      0.008,
-      'task-strip-diffuser',
-    ).castShadow = false;
-    for (const side of [-1, 1])
-      box(
-        0.021,
-        0.038,
-        0.035,
-        m.alloy,
-        side * 0.216,
-        row * 0.376,
-        0.081,
-        0.005,
-        'task-strip-end-cap',
-      );
   }
   // Smooth wear pads protect the removable display's lower docking edge.
   for (const side of [-1, 1])

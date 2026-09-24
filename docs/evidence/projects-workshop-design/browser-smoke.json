@@ -1,0 +1,76 @@
+{
+  "engine": "Hidden built-in Chromium 153",
+  "nativeAppsUsed": false,
+  "mainServer": "http://localhost:3000",
+  "sourceSha256": {
+    "features/spacecraft/rooms/projects-workshop.ts": "22fe454ea6055bc402d2c1ac64105230555d58812fbf8c16a736b6bf929563a0",
+    "features/spacecraft/rooms/projects-payload-module.ts": "ded8ce8782e9847e46b449290a23901d11d280b99a39607f8a720173376ab027",
+    "features/spacecraft/rooms/cabin-composition.ts": "879ce6342213b1bfec0fafdd050d876e3ccb797c819a1c41d201956cfe36cbe3"
+  },
+  "checks": [
+    {
+      "check": "Direct Projects route",
+      "result": "Settled in Projects through ordinary room entry in both orientations"
+    },
+    {
+      "check": "Keyboard room entry",
+      "result": "Enter on Projects in landscape overview returned to settled Projects room"
+    },
+    {
+      "check": "Physical monitor selection",
+      "result": "Click at observed All projects and Interfaces faces opened their matching application headings"
+    },
+    {
+      "check": "Keyboard monitor entry",
+      "result": "Enter on Open Systems opened Systems application in portrait"
+    },
+    {
+      "check": "Application registration",
+      "result": "Visually inspected 1440x900 All projects and 390x844 Systems applications; glass/bezel alignment and readable content retained"
+    },
+    {
+      "check": "Standby display",
+      "result": "Click at observed fourth display in portrait left /projects route unchanged with zero Projects application articles"
+    },
+    {
+      "check": "Close and Escape",
+      "result": "Both returned from native application to Projects room"
+    },
+    {
+      "check": "Drag and release",
+      "result": "125 CSS pixel mouse excursion returned dragging=false, dragged=true, activated=false; route remained /projects",
+      "limits": "Image shows settled hover response, not a maximum-angle capture or full motion trace"
+    },
+    {
+      "check": "Semantic Reading view",
+      "result": "Payload rack displayed All projects 9, Systems 6 and Interfaces 3 with all 9 project links; Interactive view restored scene"
+    },
+    {
+      "check": "Overview and surroundings",
+      "result": "Inspected live landscape and portrait overview; archive and Contact references inspected live"
+    },
+    {
+      "check": "Console",
+      "result": "Final live error sample returned zero entries",
+      "limits": "Not exhaustive historical logging"
+    }
+  ],
+  "limitations": [
+    "No native Safari",
+    "No physical phone",
+    "No reduced-motion browser override",
+    "No rested timing/startup/heat/power/battery measurements",
+    "Finite compact portrait oblique crops left edge equally before/after; complete wide view and geometric tests cover attachments",
+    "Finite fixture omits GTAO, orbital sky/Earth, navigation and live applications",
+    "Live orbital animation phases differ"
+  ],
+  "content": "Published main content read only. No persisted content, private environment or main D1/R2 state copied or modified.",
+  "cleanup": {
+    "hiddenAgentTabsRemaining": 0,
+    "viewportOverrideReset": true,
+    "finitePreviewServer3017Stopped": true,
+    "mainServerPreserved": true,
+    "mainHttpStatus": 200
+  },
+  "finalRefinement": "Release tips seated against levers; final affected captures refreshed. Interaction behavior unchanged."
+}

@@ -1,0 +1,2 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/rooms/projects-workshop.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/cabin-composition.ts tests/spacecraft/workshop-construction.test.mjs tests/spacecraft/tiny-hardware-detail.test.mjs

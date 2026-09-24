@@ -1,0 +1,7 @@
+> orbital-folio@0.1.0 format
+> oxfmt --check features/spacecraft/rooms/projects-workshop.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/cabin-composition.ts tests/spacecraft/workshop-construction.test.mjs tests/spacecraft/tiny-hardware-detail.test.mjs
+
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 31ms on 5 files using 10 threads.

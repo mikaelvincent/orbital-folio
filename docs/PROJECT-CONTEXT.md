@@ -147,6 +147,32 @@ handling surfaces and restrained functional bronze. Future furniture may vary
 its silhouette; it should meet the actual curved cabin rather than assume a
 flat deck beneath the rear cove.
 
+### Stage 03 — Projects workshop (24 September 2026)
+
+The four removable monitors now share a **bench-supported instrument bridge**.
+Two graphite uprights seat on isolators and alloy shoes on the worktop; paired
+crossrails and short standoffs connect each enclosure. The former rear-wall
+anchors and braces are superseded: they floated off the wall and entered the
+floor cove. The slightly larger, closer monitors retain independent category
+faces, existing artwork, availability and application registration. Their
+repeated perimeter task lights are replaced by one sheltered downward diffuser
+beneath the bank; it adds no scene light.
+
+The protected thin inset carbon worktop keeps its exact height and footprint.
+A closed, tapered carbon apron gives the leading edge a lighter silhouette
+while retaining its underbench clearance and grounded legs. Low service pulls,
+a carbon handhold with alloy collars, satin foot retainers and small bronze
+releases carry forward the archive's functional material hierarchy. The single
+power trunk is clipped to the right upright and feeds the underbench junction.
+Retained tool drivers, stowed test lead and two drawers keep the working plane
+clear. No loose payloads, extra screens or passive selectable-looking lights
+are added. Stage 01/02, other rooms, shared camera fit and navigation are unchanged.
+
+Carry forward actual attachment, smooth closed housings, restrained releases and
+purposeful working space. The monitor bank remains a workshop assembly, distinct
+from the archive magazine and the future communications console. See
+[design, comparisons and verification](evidence/projects-workshop-design/README.md).
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

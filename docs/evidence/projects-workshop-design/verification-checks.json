@@ -1,0 +1,132 @@
+{
+  "verifiedAt": "2026-09-24T07:46:00.042444+00:00",
+  "baselineCommit": "c8cfd5919291a2e10c8bf1c510fa09cfd2363c97",
+  "sourceSnapshot": "Final runtime and tests, including release-tip seating at z=0.1365 and solid-contact regression checks. No earlier full suite ran before this snapshot.",
+  "source": [
+    {
+      "path": "features/spacecraft/rooms/projects-workshop.ts",
+      "sha256": "22fe454ea6055bc402d2c1ac64105230555d58812fbf8c16a736b6bf929563a0",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/projects-payload-module.ts",
+      "sha256": "ded8ce8782e9847e46b449290a23901d11d280b99a39607f8a720173376ab027",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/cabin-composition.ts",
+      "sha256": "879ce6342213b1bfec0fafdd050d876e3ccb797c819a1c41d201956cfe36cbe3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/workshop-construction.test.mjs",
+      "sha256": "3e488d73cd00045830dba99adfd3d9fb34c4f66275a145a7984a4a6eff01916b",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/tiny-hardware-detail.test.mjs",
+      "sha256": "91d97830051cbb4408e050e272390937aa03022e9ddb4ab683924250b5afd3de",
+      "matchesCurrentSource": true
+    }
+  ],
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-workshop-verify-89hq8_kg",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-workshop-verify-89hq8_kg/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-workshop-verify-89hq8_kg/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T07:46:23.879296+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 537,
+      "pass": 537,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 153347.124792,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "d3797d9505ec17eb03ddc4096dcab38c9b39103c16b4d4235f4a0524efc835c0",
+        "normalizedSha256": "2040deac07e59354b5e4e246c2807a1349f555af4da1db55eda1a21bccb1a5d4"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "251e2033481b1d7ee557da81d171c61c57c6fca108f31a2ad52fa2d4024e6bed",
+        "normalizedSha256": "ad6e79b6e0401c7dc99560d831a8e3820467bf2a352a8a1762ecc8d7c8523d1f"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/rooms/projects-workshop.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/cabin-composition.ts tests/spacecraft/workshop-construction.test.mjs tests/spacecraft/tiny-hardware-detail.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "67e270feb3cb769a0c7584cc99aa26b7e328273b86f657191a0b84b9916e0f76",
+        "normalizedSha256": "5c2214dccef38a2afd59ac3c0d988ff85fa86235d3fab0c90cde769f27d8a06b"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/rooms/projects-workshop.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/cabin-composition.ts tests/spacecraft/workshop-construction.test.mjs tests/spacecraft/tiny-hardware-detail.test.mjs",
+      "exitCode": 0,
+      "files": 5,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "330e1f0f639db08b6072ee0ee7a68248487bb0867405fcf489b894cc9773e231",
+        "normalizedSha256": "153dafa1b8d1b9ebc1a4afca381d4c45776548e8ceca43d97669cc906053c7ac"
+      }
+    }
+  },
+  "preFullRefinementNotes": [
+    {
+      "provenance": "Reported by implementing root agent before synchronization, not observed in this isolated full suite.",
+      "note": "An initial focused worktop/application check exposed apron clearance underheight; the apron was corrected before final captures and full-suite synchronization."
+    },
+    {
+      "provenance": "Reported by implementing root agent before synchronization and covered by the final full suite.",
+      "note": "A newly introduced captive release tip stood 0.0025 units off its lever. Its z position was adjusted from 0.141 to 0.1365 and solid-contact assertions were added before final source synchronization."
+    }
+  ],
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

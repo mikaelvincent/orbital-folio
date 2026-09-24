@@ -19,13 +19,13 @@ const drawerWidth = 0.601; // Includes the slightly proud corner guards.
 const drawerGap = (2 * 1.165 - 2 * drawerWidth) / 3;
 export const PROJECTS_UNDERBENCH = {
   columnX: (drawerGap + drawerWidth) / 2,
-  // Center each drawer/light pair between the floor and the apron underside.
+  // Center the retained drawers between the floor and the apron underside.
   lift: (0.4985 - 0.345 - 0.096) / 2,
 };
 export const PROJECTS_GRID = {
-  columnX: 0.635,
-  topY: 1.81,
-  bottomY: 1.09,
+  columnX: 0.61,
+  topY: 1.845,
+  bottomY: 1.125,
   lowering: 0.7345 - 0.731,
 };
 

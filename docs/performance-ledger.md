@@ -2900,6 +2900,40 @@ typecheck, build/geometry check and affected lint passed. The independent critic
 scored the final source and matching evidence **95/100**, with no unresolved
 blockers; its rubric and limitations are preserved with the evidence.
 
+## 53 — Projects workshop design baseline (24 September 2026)
+
+Baseline `c8cfd59` includes approved Stages 01/02. Stage 03 unifies the four
+removable monitors on a bench-supported graphite bridge with fitted alloy shoes,
+short standoffs and an attached power trunk. Slightly larger, closer displays
+retain their existing screen artwork and native application registration. A
+closed tapered apron preserves the thin inset carbon worktop and underbench
+clearance. Repeated screen/rear floor lights give way to one sheltered downward
+emissive fitting; no scene light is added. Functional bronze release tips, a
+carbon handhold and satin feet calm the hardware hierarchy. The nominal rear-wall
+anchors and braces that floated or entered the cove are removed.
+
+[Measured structural inventory](evidence/projects-workshop-design/structural-costs.json)
+records Projects **146,940 → 129,988 triangle inputs**, **78 → 74 mesh/material
+submission candidates**, **74 → 70 unique geometries**, and **5,412,840 → 5,125,088
+geometry-array bytes** in both layouts (−16,952 triangles; −287,752 bytes /
+−0.2744 MiB). All four pressure structures/utilities, archive/About/Contact,
+ladder/docking/service/chassis, whole-scene bounds and shared camera metadata
+match exactly. The inventory includes production batching/instance multiplicity
+but omits canvas text and frustum culling. The finite renderer separately records
+eight fewer calls and 33,904 fewer triangle inputs per oblique frame, including
+requested PCF shadow work. Neither is a timing or GPU/process-memory measurement.
+
+[Source-matched evidence](evidence/projects-workshop-design/README.md) includes
+live landscape/portrait, applications and overview plus matched finite obliques.
+The finite fixture omits GTAO, orbital background, navigation and live apps;
+live views follow normal app policies. No native Safari, rested timing, startup,
+heat, power or battery comparison was performed. Counts do not establish a speed
+or power gain. This is a new art baseline; no held candidate is implemented.
+All **537 final-source isolated tests**, typecheck, build/geometry check, affected
+lint and formatting passed. The independent critic scored the final source and
+matching evidence **94/100**, with no unresolved blockers; its rubric and
+limitations are preserved with the evidence.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.
