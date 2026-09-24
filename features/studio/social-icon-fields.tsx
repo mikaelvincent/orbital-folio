@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { Upload } from 'lucide-react';
+import { ArrowUpRight, Upload } from 'lucide-react';
 import type { Content } from '@/lib/content/types';
 import { socialIcon } from '@/lib/content/social-links';
 import { projectContentUrl } from '@/features/portfolio/project-markdown-content';
@@ -32,6 +32,8 @@ export function SocialIconMark({ platform }: { platform: string }) {
 export function SocialIconFields({
   mediaId,
   platform,
+  title,
+  url,
   records,
   onSelect,
   busy,
@@ -41,6 +43,8 @@ export function SocialIconFields({
 }: PhotoMediaActions & {
   mediaId: string;
   platform: string;
+  title: string;
+  url: string;
   records: Content[];
   onSelect: (id: string) => void;
   onPreparingChange: (preparing: boolean) => void;
@@ -75,9 +79,8 @@ export function SocialIconFields({
     >
       <legend>About icon</legend>
       <p>
-        The card shows only your icon. Dark or colored icons read clearly on the
-        cream surface. Its name and destination remain available to keyboard and
-        screen-reader users.
+        The card prints your icon above its display name. Dark or colored icons
+        read clearly on ivory. Web links include an outward arrow.
       </p>
       <div className="social-icon-editor-grid">
         <div className="social-icon-preview" aria-label="About icon preview">
@@ -86,6 +89,10 @@ export function SocialIconFields({
           ) : (
             <SocialIconMark platform={platform} />
           )}
+          <span className="social-icon-preview-label">
+            <span>{title.trim() || preset.label}</span>
+            {!url.startsWith('mailto:') && <ArrowUpRight aria-hidden="true" />}
+          </span>
         </div>
         <div>
           <label className="studio-field">

@@ -103,9 +103,9 @@ test('native page and chapter targets remain registered to the retained paper ge
       `personal-study-flag-printed-adhesive-${flag.side === 'left' ? 'back' : 'face'}-${flag.slot}`,
     );
     const [[x, y], [endX, endY]] = pixelsOnSurface(printed, notebook);
-    close(Math.min(x, endX), flag.x, 'flag left');
+    close(Math.min(x, endX), flag.exposedX, 'exposed flag left');
     close(Math.min(y, endY), flag.y, 'flag top');
-    close(Math.abs(endX - x), flag.width, 'flag width');
+    close(Math.abs(endX - x), flag.exposedWidth, 'exposed flag width');
     close(Math.abs(endY - y), flag.height, 'flag height');
   }
   // Scaling the entire furniture assembly preserves its content registration.
@@ -264,6 +264,47 @@ test('a two-page jump completes two discrete paper turns and moves each crossed 
   );
 });
 
+test('carried marker adhesive stays concealed by both page faces throughout forward and reverse turns', () => {
+  const { root, notebook } = fixture([{ title: 'First' }, { title: 'Second' }]);
+  const leaf = notebook.turningLeaf;
+  const marker = root.getObjectByName('personal-study-paper-flag-mount-1');
+  const surfaces = [...leaf.children, ...marker.children].filter(
+    (object) => object.isMesh,
+  );
+  const ray = new THREE.Raycaster();
+  notebook.setActive(true);
+  for (const destination of [1, 0]) {
+    notebook.setChapter(destination);
+    for (let step = 0; step < 10; step++) {
+      notebook.update(notebook.turnDuration * 0.095);
+      root.updateMatrixWorld(true);
+      // Probe the middle of the buried adhesive on each face. Before the fix,
+      // the printed flag sat above the turning sheet and colored this region.
+      for (const face of [-1, 1]) {
+        const point = new THREE.Vector3(
+          0.475,
+          marker.position.y,
+          0,
+        ).applyMatrix4(leaf.matrixWorld);
+        const eye = new THREE.Vector3(
+          0.475,
+          marker.position.y,
+          face,
+        ).applyMatrix4(leaf.matrixWorld);
+        ray.set(eye, point.sub(eye).normalize());
+        const hit = ray.intersectObjects(surfaces, false)[0];
+        assert.ok(hit, 'both sides of the turning sheet have visible paper');
+        assert.ok(
+          hit.object.name.includes('turning-paper-'),
+          `buried adhesive cannot cover the ${face > 0 ? 'front' : 'reverse'} paper at step ${step}`,
+        );
+      }
+    }
+    notebook.update(notebook.turnDuration);
+    assert.equal(notebook.turning, false);
+  }
+});
+
 test('rapid retargeting preserves the in-flight angle and then follows the newest destination', () => {
   const { root, notebook } = fixture();
   const turn = root.getObjectByName('personal-study-turning-notebook-leaf');
@@ -420,9 +461,13 @@ test('left markers register to the same native plane with a readable reverse pri
     );
     const printed = flag.side === 'left' ? back : front;
     const [[x, y], [endX, endY]] = pixelsOnSurface(printed, notebook);
-    close(Math.min(x, endX), flag.x, 'registered marker left');
+    close(Math.min(x, endX), flag.exposedX, 'registered exposed marker left');
     close(Math.min(y, endY), flag.y, 'registered marker top');
-    close(Math.abs(endX - x), flag.width, 'registered marker width');
+    close(
+      Math.abs(endX - x),
+      flag.exposedWidth,
+      'registered exposed marker width',
+    );
     if (flag.side === 'left') {
       close(
         flag.x + flag.width - leftPaperEdge,

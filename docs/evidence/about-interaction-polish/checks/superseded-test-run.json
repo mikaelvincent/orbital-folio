@@ -1,0 +1,44 @@
+{
+  "status": "completed-tests-superseded-build-interrupted",
+  "time": "2026-09-24T03:20:42.076592+00:00",
+  "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+  "reason": "At the stop request the superseded source suite had just finished: 518/518 tests passed and typecheck passed. The orchestrator was stopped during build. Retained first-pass logs are not final verification; final runtime changes require refreshed checks.",
+  "baselineCommit": "4c0644f9dd88c17e6ddc180233f4ea475e2b2d74",
+  "files": {
+    "docs/OPERATIONS.md": "185178558abdb37a605efba9e68d4135b1c5be4fc3a87f30c6e45945659c1f27",
+    "docs/PROJECT-CONTEXT.md": "1fd84dd59553e0f22473a8fdf21122445cda5585176a226f4cac5b6341b2cd25",
+    "features/portfolio/about-notebook.css": "caceed3dfc719f550bd939338e49d7b154f1de8b288d4fee06e74d420b768e3f",
+    "features/portfolio/about-personal-content.css": "60d55cf5aaace3daef18e3163a517e0ce827060a52fdf8564dec6a947293de3f",
+    "features/spacecraft/rooms/about-personal-study.ts": "9406d6a44b448f5a31667b2b7f974ada7a70d689ee7f3b0501f5dd950cae0465",
+    "features/spacecraft/rooms/about-photo-print.ts": "6dbf08c49c3e1a2f2695b92ab440eebbb9ab374e1b3fe50d55f9613ef733b6f6",
+    "features/spacecraft/spacecraft-model.ts": "a80b5feddb8b14d17dabb403541798eba2e6146aa51297c270eea8b39e41e3d9",
+    "features/spacecraft/spacecraft-runtime.ts": "f6d92e78366381bcb3d63d96b9b4b5e6896934ed06abe60eafb14644de96e470",
+    "features/studio/social-icon-fields.css": "3a256ff029347a0dc6af658c35abf990ec02da48cee24cbe29bc77201242df7b",
+    "features/studio/social-icon-fields.tsx": "b30150f70e75d7a1a2ce14210c0d41a6e9113e27c66b75e83d64fe228934b304",
+    "features/studio/social-link-fields.tsx": "030d9df9d52db71d4868da68dfe7652c7877d63963494d958514d40d969b8b5a",
+    "tests/spacecraft/about-icon-prints.test.mjs": "e365b2d249a06b15f8a21a41f64e942f3527465bf3f81097f5d9eff680806c9b",
+    "tests/spacecraft/about-notebook.test.mjs": "6bab155d059558eec99272b227db8fd621c64cf18a589c6621eb4a12735867f0",
+    "tests/spacecraft/about-photo-cards.test.mjs": "f11f1963f17774f00b08e9eefbb94002fd2d71f4445f18a7f298137fe2b866f6"
+  },
+  "checks": [
+    {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 518,
+      "pass": 518,
+      "durationSeconds": 305.85,
+      "log": "superseded-test.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "durationSeconds": 4.75,
+      "log": "superseded-typecheck.log"
+    },
+    {
+      "command": "npm run build",
+      "status": "interrupted",
+      "log": null
+    }
+  ]
+}

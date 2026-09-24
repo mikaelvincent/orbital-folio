@@ -158,6 +158,7 @@ type Notebook = {
   anchor: Three.Object3D;
   pixelsWidth: number;
   pixelsHeight: number;
+  turningMarker?: Three.Object3D | null;
 };
 
 /** Project opaque scenery onto the native ink's physical plane. This supplies
@@ -204,6 +205,7 @@ export function createNotebookOcclusion(
   const cameraProjection = new THREE.Matrix4();
   const previousEye = new THREE.Vector3(Infinity, Infinity, Infinity);
   let previousRevision: unknown;
+  let previousTurningMarker: Three.Object3D | null = null;
   let previousSize = '';
   let previousLayers = -1;
   let result = {
@@ -247,9 +249,11 @@ export function createNotebookOcclusion(
       inverse.copy(anchor.matrixWorld).invert();
       eye.setFromMatrixPosition(camera.matrixWorld).applyMatrix4(inverse);
       const size = `${width}:${height}`;
+      const turningMarker = notebook.turningMarker ?? null;
       if (
         size === previousSize &&
         geometryRevision === previousRevision &&
+        turningMarker === previousTurningMarker &&
         previousAnchor.equals(anchor.matrixWorld) &&
         previousRoot.equals(root.matrixWorld) &&
         previousCamera.equals(camera.matrixWorldInverse) &&
@@ -266,14 +270,23 @@ export function createNotebookOcclusion(
       }
       previousSize = size;
       previousRevision = geometryRevision;
+      previousTurningMarker = turningMarker;
       previousAnchor.copy(anchor.matrixWorld);
       previousRoot.copy(root.matrixWorld);
       previousCamera.copy(camera.matrixWorldInverse);
       previousProjection.copy(camera.projectionMatrix);
       previousLayers = camera.layers.mask;
       previousEye.copy(eye);
+      // The notebook normally supplies its own page-turn cutout. Its carried
+      // tab extends beyond that rectangle, however, and must mask stationary
+      // native ink where it passes in front. Use its actual batched geometry so
+      // overlapping page/tab silhouettes retain ordinary physical depth.
+      const occluders = turningMarker ? [...meshes] : meshes;
+      turningMarker?.traverse((object) => {
+        if ((object as Three.Mesh).isMesh) occluders.push(object as Three.Mesh);
+      });
       const stats: NotebookOcclusionStats = {
-        meshes: meshes.length,
+        meshes: occluders.length,
         candidateMeshes: 0,
         chunks: 0,
         triangles: 0,
@@ -313,7 +326,7 @@ export function createNotebookOcclusion(
             projected[15] - projected[14],
           ],
         ];
-        for (const mesh of meshes) {
+        for (const mesh of occluders) {
           const irisProxy = mesh.name === 'iris-occlusion-silhouette';
           if (!visible(mesh, irisProxy) || !mesh.layers.test(camera.layers))
             continue;

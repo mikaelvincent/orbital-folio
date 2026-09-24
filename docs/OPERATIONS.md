@@ -138,8 +138,10 @@ change and publish its existing link's position before publishing the replacemen
 Choose a recognizable icon from the visual platform picker, or upload a standard
 **SVG or PNG** in the custom icon controls. SVG is convenient for a crisp scalable
 mark; transparent PNG also works. These are ordinary downloadable icon formats,
-not an application-specific format. Icons sit directly on the ivory card without
-a photo, badge or caption; the preview shows the same surface. Use an icon that
+not an application-specific format. Icons sit directly on the ivory card above
+the display name and an outward arrow for web links; email cards omit the arrow.
+The preview shows the same composition. Long names shorten on the card while
+the accessible link keeps the complete display name. Use an icon that
 contrasts with ivory. Full proportions and transparency are preserved, with no
 crop controls. Choosing a preset clears the custom override without deleting its
 library asset. Custom icons affect About and its readers; Contact uses the preset.

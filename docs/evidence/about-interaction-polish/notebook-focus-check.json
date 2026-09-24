@@ -1,0 +1,10 @@
+{
+  "active": "Section 1: My story",
+  "focusVisible": true,
+  "outline": "rgb(65, 76, 86) solid 2px",
+  "viewport": {
+    "dpr": 2,
+    "height": 900,
+    "width": 1440
+  }
+}

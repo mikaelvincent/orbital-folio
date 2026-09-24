@@ -1651,12 +1651,7 @@ export function createSpacecraft(
 
   for (const card of group.userData.aboutSocialCards)
     objectHighlights.push(
-      createObjectHighlight(THREE, card.root, card.interactableId, {
-        width: card.width,
-        height: card.height,
-        radius: 0.012,
-        z: 0.017,
-      }),
+      createObjectHighlight(THREE, card.root, card.interactableId),
     );
 
   for (const screen of projectWorkshop.screens)

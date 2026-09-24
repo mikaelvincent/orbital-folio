@@ -56,27 +56,12 @@
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
-.about-social-link-hint {
-  position: absolute;
-  z-index: 5;
-  pointer-events: none;
-  transform: translate(-50%, -100%);
-  max-width: min(320px, calc(100% - 24px));
-  padding: 9px 13px;
-  border: 1px solid var(--bronze);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--carbon) 96.1%, transparent);
-  color: var(--ivory);
-  font-size: 14px;
-  line-height: 1.35;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-.about-social-link-hint[hidden] {
-  display: none;
-}
 .world-about-social {
   border-radius: 8px;
+}
+.world-about-social.is-object-active:focus-visible {
+  outline: 10px solid var(--carbon);
+  outline-offset: -18px;
 }
 
 .about-social-links .about-social-custom-icon {

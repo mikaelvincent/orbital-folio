@@ -272,13 +272,6 @@ export function mountSpacecraftScene({
         contactReturnHint.textContent = 'Click wall to return';
         contactReturnHint.setAttribute('aria-hidden', 'true');
         el.appendChild(contactReturnHint);
-        const aboutLinkHint = document.createElement('span');
-        aboutLinkHint.className = 'about-social-link-hint';
-        aboutLinkHint.setAttribute('aria-hidden', 'true');
-        aboutLinkHint.hidden = true;
-        el.appendChild(aboutLinkHint);
-        let aboutHintHalfWidth = 0;
-        let aboutHintViewport = 0;
         const surfaceElement = document.createElement('div');
         surfaceElement.className = 'world-surface';
         const surface = new THREE.Object3D();
@@ -2200,7 +2193,6 @@ export function mountSpacecraftScene({
             h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
             h.button.dataset.destination = portal.to;
           }
-          let showAboutHint = false;
           for (const { screen, link, object } of socialControls) {
             screen.anchor.matrixWorld.decompose(
               object.position,
@@ -2223,42 +2215,7 @@ export function mountSpacecraftScene({
                 !down?.gesture.dragging &&
                 effectiveObject === screen.interactableId,
             );
-            if (
-              screen.section === 'about' &&
-              object.visible &&
-              !down?.gesture.dragging &&
-              effectiveObject === screen.interactableId
-            ) {
-              screenProjection
-                .set(0, screen.height / 2, 0)
-                .applyMatrix4(screen.anchor.matrixWorld)
-                .project(camera);
-              showAboutHint = true;
-              const text = screen.link.url.startsWith('mailto:')
-                ? `Email ${screen.link.title}`
-                : `Open ${screen.link.title} ↗`;
-              if (
-                aboutLinkHint.hidden ||
-                aboutLinkHint.textContent !== text ||
-                aboutHintViewport !== el.clientWidth
-              ) {
-                aboutLinkHint.textContent = text;
-                aboutLinkHint.hidden = false;
-                aboutHintHalfWidth = aboutLinkHint.offsetWidth / 2;
-                aboutHintViewport = el.clientWidth;
-              }
-              const halfWidth = aboutHintHalfWidth;
-              aboutLinkHint.style.left = `${Math.max(
-                halfWidth + 8,
-                Math.min(
-                  el.clientWidth - halfWidth - 8,
-                  ((screenProjection.x + 1) * el.clientWidth) / 2,
-                ),
-              )}px`;
-              aboutLinkHint.style.top = `${Math.max(48, ((1 - screenProjection.y) * el.clientHeight) / 2 - 12)}px`;
-            }
           }
-          if (!showAboutHint) aboutLinkHint.hidden = true;
           computer.anchor.matrixWorld.decompose(
             computerTarget.position,
             computerTarget.quaternion,
@@ -3779,7 +3736,6 @@ export function mountSpacecraftScene({
           cssRenderer.domElement.remove();
           surfaceLayer.remove();
           contactReturnHint.remove();
-          aboutLinkHint.remove();
           api.current = null;
         };
       },

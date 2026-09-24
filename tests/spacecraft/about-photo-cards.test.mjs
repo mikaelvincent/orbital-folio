@@ -41,7 +41,6 @@ const rimMaterial = (card) => {
     if (object.material?.name === `${card.interactableId}-hover-rim`)
       rim = object.material;
   });
-  assert.ok(rim, 'physical hover rim survives geometry batching');
   return rim;
 };
 const dispose = (model) => {
@@ -86,7 +85,11 @@ test('About cards register only safe configured destinations, independent of Con
       );
       assert.ok(card.width >= 0.38 && card.height >= 0.38);
       assert.equal(card.root.userData.interactableId, card.interactableId);
-      assert.equal(rimMaterial(card).depthWrite, false);
+      assert.equal(
+        rimMaterial(card),
+        undefined,
+        'paper feedback has no raised frame',
+      );
     }
     const postcard = model.group.getObjectByName(
       'personal-study-landscape-postcard-mount',
@@ -141,14 +144,12 @@ test('Social paper follows shared dim/hover states through arrival, reading and 
     update({ activeRoom: 'about' });
     assert.equal(first.root.userData.highlightLevel, 1.15);
     assert.equal(second.root.userData.highlightLevel, 0.65);
-    assert.equal(rimMaterial(first).opacity, 0.95);
     for (const state of [
       { activeRoom: 'about', reading: true },
       { activeRoom: 'contact' },
     ]) {
       update(state);
       assert.equal(first.root.userData.highlightLevel, 0.65);
-      assert.equal(rimMaterial(first).opacity, 0);
     }
   } finally {
     dispose(model);

@@ -1,0 +1,97 @@
+{
+  "baselineCommit": "4c0644f9dd88c17e6ddc180233f4ea475e2b2d74",
+  "testedAt": "2026-09-24T03:26:41.606964+00:00",
+  "baseUrl": "http://127.0.0.1:3003",
+  "node": "v26.0.0",
+  "npm": "11.12.1",
+  "isolation": "Disposable tracked-source copy with fresh migrated D1/R2 state, generated test-only secrets, claimed local fixture owner, shared installed dependencies and separate .cache/vite. Main localhost:3000 and store were preserved.",
+  "files": {
+    "docs/OPERATIONS.md": "185178558abdb37a605efba9e68d4135b1c5be4fc3a87f30c6e45945659c1f27",
+    "docs/PROJECT-CONTEXT.md": "0c898413ab08cc363d47929409fbbd561b05bb23c158fad2e6f59ad965fa3bba",
+    "features/portfolio/about-notebook.css": "caceed3dfc719f550bd939338e49d7b154f1de8b288d4fee06e74d420b768e3f",
+    "features/portfolio/about-personal-content.css": "60d55cf5aaace3daef18e3163a517e0ce827060a52fdf8564dec6a947293de3f",
+    "features/spacecraft/notebook-occlusion.ts": "2d6b8025058666656ed2f576411ab6def01e0280b0bae877885337816b05c3ac",
+    "features/spacecraft/rooms/about-personal-study.ts": "d6d5a8d1bfeddc7455f76654dbec4ba6eb3bbc113e3d8486767bbc1fdb80a431",
+    "features/spacecraft/rooms/about-photo-print.ts": "6dbf08c49c3e1a2f2695b92ab440eebbb9ab374e1b3fe50d55f9613ef733b6f6",
+    "features/spacecraft/spacecraft-model.ts": "a80b5feddb8b14d17dabb403541798eba2e6146aa51297c270eea8b39e41e3d9",
+    "features/spacecraft/spacecraft-runtime.ts": "f6d92e78366381bcb3d63d96b9b4b5e6896934ed06abe60eafb14644de96e470",
+    "features/studio/social-icon-fields.css": "3a256ff029347a0dc6af658c35abf990ec02da48cee24cbe29bc77201242df7b",
+    "features/studio/social-icon-fields.tsx": "b30150f70e75d7a1a2ce14210c0d41a6e9113e27c66b75e83d64fe228934b304",
+    "features/studio/social-link-fields.tsx": "030d9df9d52db71d4868da68dfe7652c7877d63963494d958514d40d969b8b5a",
+    "tests/spacecraft/about-icon-prints.test.mjs": "e365b2d249a06b15f8a21a41f64e942f3527465bf3f81097f5d9eff680806c9b",
+    "tests/spacecraft/about-notebook.test.mjs": "6bab155d059558eec99272b227db8fd621c64cf18a589c6621eb4a12735867f0",
+    "tests/spacecraft/about-photo-cards.test.mjs": "f11f1963f17774f00b08e9eefbb94002fd2d71f4445f18a7f298137fe2b866f6",
+    "tests/spacecraft/notebook-turn-ink.test.mjs": "9a716e19911074f761af2c99d2306deff20db6be1ad8401df4bd8d865304d585"
+  },
+  "checks": [
+    {
+      "check": "test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 312.35,
+      "log": "test.log"
+    },
+    {
+      "check": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 2.93,
+      "log": "typecheck.log"
+    },
+    {
+      "check": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 6.39,
+      "log": "build.log"
+    },
+    {
+      "check": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint",
+        "--",
+        "features/spacecraft/notebook-occlusion.ts",
+        "features/spacecraft/rooms/about-personal-study.ts",
+        "features/spacecraft/rooms/about-photo-print.ts",
+        "features/spacecraft/spacecraft-model.ts",
+        "features/spacecraft/spacecraft-runtime.ts",
+        "features/studio/social-icon-fields.tsx",
+        "features/studio/social-link-fields.tsx",
+        "tests/spacecraft/about-icon-prints.test.mjs",
+        "tests/spacecraft/about-notebook.test.mjs",
+        "tests/spacecraft/about-photo-cards.test.mjs",
+        "tests/spacecraft/notebook-turn-ink.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.8,
+      "log": "lint.log"
+    }
+  ],
+  "summary": {
+    "tests": 519,
+    "pass": 519,
+    "fail": 0,
+    "skipped": 0,
+    "allRequiredChecksPassed": true
+  },
+  "snapshotMatchesMainAtCompletion": true,
+  "cleanup": {
+    "fixtureServerStopped": true,
+    "fixtureSourceSecretsAndStateRemoved": true,
+    "mainServerStatus": 200,
+    "mainBaseUrl": "http://127.0.0.1:3000"
+  }
+}

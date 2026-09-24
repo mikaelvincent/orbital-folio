@@ -260,6 +260,8 @@ export function SocialLinkFields({
       <SocialIconFields
         mediaId={draft.iconMediaId || ''}
         platform={draft.platform}
+        title={draft.title}
+        url={draft.url}
         records={records}
         busy={busy}
         onUpload={onUpload}

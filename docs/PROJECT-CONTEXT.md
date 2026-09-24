@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 23 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 24 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -491,10 +491,21 @@ Room-view flags and native reader labels share numbered titles, typography and
 placement. Marker titles stay unadorned when selected, including during page
 turns; selection semantics and keyboard focus outlines remain intact.
 Only each flag's exposed 125px region is interactive or highlighted;
-its 30px adhesive overlap remains covered by the page. The later 23 September
-refinement strengthens marker hover/keyboard focus with an inset carbon keyline,
-a brighter translucent ivory wash and a subtle shadow. Marker colors, placement,
-page-turn timing and plain selected titles remain unchanged.
+its 30px adhesive region is conceptually buried inside its indexed leaf. The
+September 24 polish supersedes the boxed ivory wash, inset keyline and shadow:
+hover/focus now gently darkens the ink and underlines the title, keeping the
+paper color and label position steady. Keyboard focus retains its outline;
+selected titles remain plain when neither hovered nor focused. Reduced motion
+removes this transition.
+
+The visible flag mesh and both printed faces stop at the page edge. This fixes
+the buried adhesive strip briefly appearing on top of a turning page. UV cropping
+preserves the existing label placement and size. Perspective can still make a
+raised leaf briefly cover the inner edge of a different, stationary marker;
+that is correct physical occlusion and is preserved. The moving tab also
+participates in the native ink mask, preventing stationary lettering from showing
+through it when the two tabs overlap in projection. See the
+[interaction polish checks](evidence/about-interaction-polish/README.md).
 
 The bottom arrows turn **pages within the current section** and stop at its ends.
 Pages never scroll. Each section is one continuous Markdown body that flows
@@ -557,12 +568,13 @@ landscape artwork and Reading view its existing book symbol.
 Three equal square paper cards remain clipped above the notebook. Each can be
 assigned an existing social link to Left, Center or Right, independently of the
 two Contact monitor placements. Existing links default to Off; no owner content
-is reassigned automatically. The owner's later icon-only request supersedes the
-photo/badge/caption composition: each configured card shows one centered icon
-printed directly onto its ivory paper. The owner's size refinement uses half
-of each card's width for the icon (0.19 local units), closely matching Contact's
-0.186-unit mark. This supersedes the initial 72% icon extent; the full card stays
-clickable and the studio preview uses the same 50% extent. The visual picker
+is reassigned automatically. The September 24 refinement supersedes the earlier
+icon-only presentation:
+each configured card prints its icon above the owner-authored display name and a
+small outward arrow for web destinations. Email cards omit the new-tab arrow.
+Long names ellipsize on the paper while the native link retains the full name.
+The icon remains half the card width (0.19 local units), shifted upward to make
+room for the label; the studio preview matches the composition. The visual picker
 offers recognizable platform marks from Simple Icons, plus Website and Custom
 link symbols. An
 optional standard SVG or PNG upload replaces the preset in About and its readers;
@@ -570,8 +582,9 @@ choosing a preset clears that override. Uploaded icons preserve their colors,
 transparency and full proportions. Contact continues using the shared preset.
 The full owner-authored name remains in the native link and focus label.
 
-Configured cards share the existing dim-at-rest, bright-on-hover/focus and inset
-bronze rim behavior. A viewport-size label supplies the full destination name.
+Configured cards retain the existing dim-at-rest and bright-on-hover/focus easing.
+The floating tooltip and bronze hover rim are removed so the print itself carries
+the interaction. Keyboard focus has an inset carbon outline on the native link.
 Native links open HTTPS destinations in a new tab and mailto destinations in the
 mail handler; normal context menus, keyboard activation and drag-click
 suppression remain. Targets are available only in settled About, outside reader
@@ -593,8 +606,9 @@ About slots are rejected atomically. Crop/placement fields travel through conten
 backups without modifying uploaded originals. Slow or failed image loads keep
 fallback artwork visible without blocking scene entry. See
 [authoring instructions](OPERATIONS.md#authoring-about-photos-and-social-cards) and
-[current icon-only evidence](evidence/about-social-icons/README.md). Earlier
-[photo-card evidence](evidence/about-photos-socials/README.md) is historical.
+[current interaction polish](evidence/about-interaction-polish/README.md). The
+[icon-only evidence](evidence/about-social-icons/README.md) and earlier
+[photo-card evidence](evidence/about-photos-socials/README.md) are historical.
 
 ## Contact computer and submission boundary
 

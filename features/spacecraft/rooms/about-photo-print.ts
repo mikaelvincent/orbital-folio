@@ -81,18 +81,18 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
         ctx.fillRect(0, 0, width, height);
       }
       if (social) {
-        // A single mark is printed directly onto the same matte paper used by
-        // the room. Custom icons retain their complete aspect and transparency.
+        // The mark and destination are printed on the same matte paper.
+        // Custom icons retain their complete aspect and transparency.
         // Half a 0.38-unit card closely matches Contact's 0.186-unit mark.
         const size = Math.min(width, height) * 0.5;
         const x = (width - size) / 2;
-        const y = (height - size) / 2;
+        const y = height * 0.14;
         if (image) {
           const scale =
             size / Math.max(image.naturalWidth, image.naturalHeight);
           const iw = image.naturalWidth * scale;
           const ih = image.naturalHeight * scale;
-          ctx.drawImage(image, (width - iw) / 2, (height - ih) / 2, iw, ih);
+          ctx.drawImage(image, (width - iw) / 2, y + (size - ih) / 2, iw, ih);
         } else {
           const icon = socialIcon(social.link.platform);
           const [vx, vy, vw, vh] = icon.viewBox.split(' ').map(Number);
@@ -107,6 +107,46 @@ export function createAboutPhotoPrints(THREE: any, onChange = () => {}) {
           if (icon.filled) ctx.fill(path);
           else ctx.stroke(path);
           ctx.restore();
+        }
+        // Keep long owner-authored names legible instead of squeezing the type.
+        // The native anchor retains the complete accessible destination name.
+        ctx.fillStyle = ctx.strokeStyle = PALETTE.carbon;
+        const fontSize = width * 0.12;
+        ctx.font = `600 ${fontSize}px Arial, sans-serif`;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        const arrow = width * 0.07;
+        const gap = width * 0.028;
+        const external = !social.link.url.startsWith('mailto:');
+        const suffix = external ? arrow + gap : 0;
+        const available = width * 0.82 - suffix;
+        let label =
+          social.link.title.trim() || socialIcon(social.link.platform).label;
+        if (ctx.measureText(label).width > available) {
+          const characters = Array.from(label);
+          while (
+            characters.length &&
+            ctx.measureText(`${characters.join('')}…`).width > available
+          )
+            characters.pop();
+          label = `${characters.join('')}…`;
+        }
+        const textWidth = ctx.measureText(label).width;
+        const labelX = (width - textWidth - suffix) / 2;
+        const labelY = height * 0.81;
+        ctx.fillText(label, labelX, labelY);
+        if (external) {
+          const ax = labelX + textWidth + gap;
+          const ay = labelY - arrow / 2;
+          ctx.lineWidth = width * 0.006;
+          ctx.lineCap = ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(ax, ay + arrow);
+          ctx.lineTo(ax + arrow, ay);
+          ctx.moveTo(ax + arrow * 0.18, ay);
+          ctx.lineTo(ax + arrow, ay);
+          ctx.lineTo(ax + arrow, ay + arrow * 0.82);
+          ctx.stroke();
         }
       } else if (image && photo) {
         const crop = imageCropRect(

@@ -19,8 +19,18 @@ function canvasHarness(t) {
       frames.at(-1).push(['preset', path]);
     },
     stroke(path) {
-      frames.at(-1).push(['preset', path]);
+      if (path) frames.at(-1).push(['preset', path]);
+      else frames.at(-1).push(['arrow']);
     },
+    measureText(text) {
+      return { width: Array.from(text).length * 29 };
+    },
+    fillText(...args) {
+      frames.at(-1).push(['label', ...args]);
+    },
+    beginPath() {},
+    moveTo() {},
+    lineTo() {},
     drawImage(...args) {
       frames.at(-1).push(['image', ...args]);
     },
@@ -80,14 +90,14 @@ test('retired social photographs never load or cover a preset icon', async (t) =
     assert.equal(frames.length, 1);
     assert.deepEqual(
       frames[0].map(([type]) => type),
-      ['preset'],
+      ['preset', 'label', 'arrow'],
     );
   } finally {
     prints.dispose();
   }
 });
 
-test('custom PNG replaces the preset with its whole centered image, without cropping or caption', async (t) => {
+test('custom PNG replaces the preset with its whole image above its printed destination, without cropping', async (t) => {
   const { THREE, frames, loads } = canvasHarness(t);
   let changes = 0;
   const prints = createAboutPhotoPrints(THREE, () => changes++);
@@ -98,12 +108,13 @@ test('custom PNG replaces the preset with its whole centered image, without crop
     });
     assert.deepEqual(
       frames[0].map(([type]) => type),
-      ['preset'],
+      ['preset', 'label', 'arrow'],
     );
     loads[0].complete(800, 400);
     await prints.ready();
     const painted = frames.at(-1);
-    assert.equal(painted.length, 1);
+    assert.equal(painted.length, 3);
+    assert.deepEqual(painted[1].slice(0, 2), ['label', 'GitHub']);
     const [type, image, x, y, width, height] = painted[0];
     assert.equal(type, 'image');
     assert.equal(image.url, '/media/icon');
@@ -114,7 +125,7 @@ test('custom PNG replaces the preset with its whole centered image, without crop
     );
     assert.equal(width / height, 2);
     assert.equal(x + width / 2, 256);
-    assert.equal(y + height / 2, 256);
+    assert.equal(y + height / 2, 512 * 0.39);
     assert.equal(changes, 1);
   } finally {
     prints.dispose();
@@ -133,7 +144,7 @@ test('failed icons keep the preset, and disposed pending loads cannot repaint', 
   await prints.ready();
   assert.deepEqual(
     frames.at(-1).map(([type]) => type),
-    ['preset'],
+    ['preset', 'label', 'arrow'],
   );
   prints.texture('pending', 512, 512, null, {
     link,
@@ -146,4 +157,32 @@ test('failed icons keep the preset, and disposed pending loads cannot repaint', 
   assert.equal(changes, 1);
   assert.equal(loads[1].onload, null);
   assert.equal(loads[1].onerror, null);
+});
+
+test('long display names fit the paper and email cards do not promise a new tab', (t) => {
+  const { THREE, frames } = canvasHarness(t);
+  const prints = createAboutPhotoPrints(THREE);
+  try {
+    prints.texture('social', 512, 512, null, {
+      link: {
+        ...link,
+        title: 'A deliberately long owner-authored profile name',
+      },
+      icon: null,
+    });
+    const [, label, x] = frames[0].find(([kind]) => kind === 'label');
+    assert.ok(label.endsWith('…'));
+    assert.ok(x >= 512 * 0.09);
+    assert.ok(x + label.length * 29 <= 512 * 0.91);
+    prints.texture('email', 512, 512, null, {
+      link: { ...link, title: 'Email', url: 'mailto:hello@example.com' },
+      icon: null,
+    });
+    assert.deepEqual(
+      frames.at(-1).map(([kind]) => kind),
+      ['preset', 'label'],
+    );
+  } finally {
+    prints.dispose();
+  }
 });

@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createModelPrimitives } from '../../features/spacecraft/geometry/model-primitives.ts';
 import { buildAboutPersonalStudy } from '../../features/spacecraft/rooms/about-personal-study.ts';
+import { createSpacecraft } from '../../features/spacecraft/spacecraft-model.ts';
+import { fitAboutNotebook } from '../../features/spacecraft/navigation/about-notebook.ts';
+import { createNotebookOcclusion } from '../../features/spacecraft/notebook-occlusion.ts';
 import {
   notebookTurnPages,
   notebookPageLocation,
@@ -83,4 +86,102 @@ test('Each physical leaf carries its own adjacent Markdown pages through multi-s
     notebook.flags.map((flag) => flag.side),
     ['left', 'right', 'right'],
   );
+});
+
+test('carried tabs mask stationary native marker ink in forward and reverse turns after production batching', () => {
+  const model = createSpacecraft(THREE, {
+    journal: [
+      { title: 'My story' },
+      { title: 'How I work' },
+      { title: 'Learning notes' },
+    ],
+  });
+  const notebook = model.group.userData.aboutNotebook;
+  const fit = fitAboutNotebook(THREE, notebook, 1440, 900, 38);
+  const camera = new THREE.PerspectiveCamera(38, 1440 / 900, 0.08, 100);
+  camera.position
+    .fromArray(fit.target)
+    .addScaledVector(
+      new THREE.Vector3().fromArray(fit.direction),
+      fit.distance,
+    );
+  camera.lookAt(new THREE.Vector3().fromArray(fit.target));
+  camera.updateMatrixWorld(true);
+  // Isolate this real moving assembly; scenery masks have separate coverage.
+  const mask = createNotebookOcclusion(THREE, notebook.root, notebook);
+  const ray = new THREE.Raycaster();
+  const inPolygon = (polygon, x, y) => {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const [ax, ay] = polygon[i],
+        [bx, by] = polygon[j];
+      if (ay > y !== by > y && x < ((bx - ax) * (y - ay)) / (by - ay) + ax)
+        inside = !inside;
+    }
+    return inside;
+  };
+  notebook.setActive(true);
+  for (const destination of [1, 0]) {
+    notebook.setChapter(destination);
+    let hidden = 0,
+      clear = 0;
+    for (let step = 0; step < 10; step++) {
+      notebook.update(notebook.turnDuration * 0.095);
+      model.group.updateMatrixWorld(true);
+      assert.ok(
+        notebook.turningMarker?.parent,
+        'carried mount survives batching',
+      );
+      const meshes = [];
+      notebook.turningMarker.traverse((object) => {
+        if (object.isMesh) meshes.push(object);
+      });
+      assert.ok(
+        meshes.length,
+        'the retained mount owns live rendered geometry',
+      );
+      const result = mask.update(camera, `${destination}:${step}`);
+      const polygons = [...result.path.matchAll(/M([^Z]+)Z/g)].map((match) =>
+        match[1].split('L').map((point) => point.split(' ').map(Number)),
+      );
+      for (const flag of notebook.flags.filter(
+        (flag) => flag.index !== notebook.turningSection,
+      )) {
+        for (
+          let x = flag.exposedX + 6.371;
+          x < flag.exposedX + flag.exposedWidth;
+          x += 10
+        )
+          for (let y = flag.y + 4.613; y < flag.y + flag.height; y += 8) {
+            const target = new THREE.Vector3(
+              (x - notebook.pixelsWidth / 2) / 1000,
+              (notebook.pixelsHeight / 2 - y) / 1000,
+              0,
+            ).applyMatrix4(notebook.anchor.matrixWorld);
+            ray.set(
+              camera.position,
+              target.clone().sub(camera.position).normalize(),
+            );
+            ray.far = camera.position.distanceTo(target) - 0.000001;
+            const physical = ray.intersectObjects(meshes, false).length > 0;
+            const masked = polygons.some((polygon) => inPolygon(polygon, x, y));
+            assert.equal(
+              masked,
+              physical,
+              'native marker ink obeys carried-tab depth',
+            );
+            if (masked) hidden++;
+            else clear++;
+          }
+      }
+    }
+    assert.ok(
+      hidden > 0,
+      'the carried tab actually overlaps stationary marker ink',
+    );
+    assert.ok(clear > 0, 'uncovered stationary labels remain visible');
+    notebook.update(notebook.turnDuration);
+    assert.equal(notebook.turningMarker, null);
+    assert.equal(mask.update(camera, `settled:${destination}`).path, '');
+  }
 });

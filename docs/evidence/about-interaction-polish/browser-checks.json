@@ -1,0 +1,56 @@
+{
+  "engine": "Hidden built-in Chromium",
+  "desktop": {
+    "drawingBuffers": [
+      {
+        "height": 900,
+        "width": 1440
+      }
+    ],
+    "floatingSocialTooltip": false,
+    "posters": [
+      {
+        "active": true,
+        "focus": false,
+        "hover": true,
+        "href": "https://github.com",
+        "label": "Open GitHub (new tab)",
+        "target": "_blank"
+      },
+      {
+        "active": false,
+        "focus": false,
+        "hover": false,
+        "href": "https://www.linkedin.com",
+        "label": "Open LinkedIn (new tab)",
+        "target": "_blank"
+      },
+      {
+        "active": false,
+        "focus": false,
+        "hover": false,
+        "href": "https://example.com",
+        "label": "Open Website (new tab)",
+        "target": "_blank"
+      }
+    ],
+    "viewport": {
+      "dpr": 1,
+      "height": 900,
+      "width": 1440
+    }
+  },
+  "portrait": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1,
+    "postersWidthCssPixels": 26.316
+  },
+  "warningsAndErrors": [],
+  "omitted": [
+    "Native Safari",
+    "Physical touch",
+    "Live authenticated studio preview",
+    "Performance timing"
+  ]
+}

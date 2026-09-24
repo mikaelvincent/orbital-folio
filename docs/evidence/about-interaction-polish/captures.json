@@ -1,0 +1,488 @@
+{
+  "baseline": "4c0644f9dd88c17e6ddc180233f4ea475e2b2d74",
+  "finalSourceSha256": {
+    "features/portfolio/about-notebook.css": "caceed3dfc719f550bd939338e49d7b154f1de8b288d4fee06e74d420b768e3f",
+    "features/portfolio/about-personal-content.css": "60d55cf5aaace3daef18e3163a517e0ce827060a52fdf8564dec6a947293de3f",
+    "features/spacecraft/notebook-occlusion.ts": "2d6b8025058666656ed2f576411ab6def01e0280b0bae877885337816b05c3ac",
+    "features/spacecraft/rooms/about-personal-study.ts": "d6d5a8d1bfeddc7455f76654dbec4ba6eb3bbc113e3d8486767bbc1fdb80a431",
+    "features/spacecraft/rooms/about-photo-print.ts": "6dbf08c49c3e1a2f2695b92ab440eebbb9ab374e1b3fe50d55f9613ef733b6f6",
+    "features/spacecraft/spacecraft-model.ts": "a80b5feddb8b14d17dabb403541798eba2e6146aa51297c270eea8b39e41e3d9",
+    "features/spacecraft/spacecraft-runtime.ts": "f6d92e78366381bcb3d63d96b9b4b5e6896934ed06abe60eafb14644de96e470",
+    "features/studio/social-icon-fields.css": "3a256ff029347a0dc6af658c35abf990ec02da48cee24cbe29bc77201242df7b",
+    "features/studio/social-icon-fields.tsx": "b30150f70e75d7a1a2ce14210c0d41a6e9113e27c66b75e83d64fe228934b304",
+    "features/studio/social-link-fields.tsx": "030d9df9d52db71d4868da68dfe7652c7877d63963494d958514d40d969b8b5a",
+    "tests/spacecraft/about-icon-prints.test.mjs": "e365b2d249a06b15f8a21a41f64e942f3527465bf3f81097f5d9eff680806c9b",
+    "tests/spacecraft/about-notebook.test.mjs": "6bab155d059558eec99272b227db8fd621c64cf18a589c6621eb4a12735867f0",
+    "tests/spacecraft/about-photo-cards.test.mjs": "f11f1963f17774f00b08e9eefbb94002fd2d71f4445f18a7f298137fe2b866f6",
+    "tests/spacecraft/notebook-turn-ink.test.mjs": "9a716e19911074f761af2c99d2306deff20db6be1ad8401df4bd8d865304d585"
+  },
+  "captures": [
+    {
+      "file": "after-forward-0.png",
+      "sha256": "8327a778216da15fe420b465c513a6c8d6b499b120f050d7221d471ef4a2fc43",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-1.png",
+      "sha256": "d9d360b2edbd32e45e623dd765e8dc467f06a7ece700f23afe8d0712e744fb86",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-2.png",
+      "sha256": "13f95b6052ef7a313fecfe4abf5a5ee8b45e275ff58677887896253b52ce08ce",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-3.png",
+      "sha256": "088298567b39565a7611b2d08202abb3cc700d8202054ca9938dc681cc2c27ad",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-4.png",
+      "sha256": "f8eef683286a7f93fe8ac809f8f3eb30d81da8324020635023a88d5e76c69292",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-5.png",
+      "sha256": "548b50a06cff171fe1eb714f0ed94aba277fa34978a05bf010ecf5f326704485",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-6.png",
+      "sha256": "2ca0953645bbfb1357cf93e10c9a63a8096a0bbb15e904df80266c26444cf215",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-forward-7.png",
+      "sha256": "61e00d433a541d9a3f95c7dd8474281d4170068514ba76b2a9d22675d1e82b50",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-0.png",
+      "sha256": "0346aeb0ba7f968afff1093b16345f0ca4a7b7ee7e5749a8084475975514a051",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-1.png",
+      "sha256": "59604d7c9a11e38ed0779dcc846e02a14b4726e1772530beb07af491c4c2a841",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-2.png",
+      "sha256": "469f250cb460ee73f2a2bf6b77278648d6c37c641c6cc8fa3b60727db506497d",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-3.png",
+      "sha256": "cd7fe833965450bf606a0149d498ce5afdb18d160721f76414a75b27c1cfb30e",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-4.png",
+      "sha256": "ab33afc5a30638ec7428c4a793dc7d62cd2d511a46dabb9463708d92477ea9b1",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-5.png",
+      "sha256": "cfc674fa1e8b8a700ffa09b9679b7d9169f747c05dfece90856d3b9baa2e2dbf",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-6.png",
+      "sha256": "29fb4260e720807c6bb2daa6ec38d37d8d353d002cb90aa616e3d63c27dd62c1",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "after-reverse-7.png",
+      "sha256": "6fb5e5283bd001270f1eefbe5e4cb4ea03af411aa5af65cfc8de626669257952",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "before-notebook.png",
+      "sha256": "17d3b8815c98814724f2ebfc683bc33fff7de3556f5c4e22199648d93ac5b14f",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-0.png",
+      "sha256": "682ef55096622186ec485e5f842b7435fef52faa7f9d08d32ff1796411f4f35d",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-1.png",
+      "sha256": "260a9c6e2a8d96201971e3187aa368516e603d8a2d1bfb1851877abbeb088d9d",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-2.png",
+      "sha256": "3f4f5aa9a198d5a2c439fe8eb806c9a667f3f19dc0459c7b922eb39eb823ce3b",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-3.png",
+      "sha256": "bcdffbce161b2e8514009731af8759e72065b986e325c84eaf451533bdc13f0e",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-4.png",
+      "sha256": "753c2bfd39206066a8e5cf600e660c1e814037fe0b30bc5fabc070648c09e7f2",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-5.png",
+      "sha256": "076c59f483702469d532b2eced4a384dcd34109d404e47792142745115d3ad4e",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-6.png",
+      "sha256": "5860320d5633d8f186856073afb3267a69b733c3f9d263e3f432cb43a2cc4200",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-reverse-7.png",
+      "sha256": "afaa5f69c9f8fde242b3daca3360f9fc51d9b54dd54de473fce059f3094adb26",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-room.png",
+      "sha256": "799851de9093164d8d307e315b06bb770e156f053d7a4a917e7f4e3c0098ef0e",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-0.png",
+      "sha256": "4dd90e7ff7aeb60ca61af55e9c169b0f4df84e377e6050445c542da60fb6f65f",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-1.png",
+      "sha256": "d9f725856be8f9304a8bb1e68c83dcc7df3bc4f33694c023d7c5b0a55014f26b",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-2.png",
+      "sha256": "b8d28001917a8a3354a7b9d0e762a3313b81e107e565ac4908c5797247e442a2",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-3.png",
+      "sha256": "808af0c293d9f7ec385749db2a594b2a27db68cd27c99efc15a69582e9e5007f",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-4.png",
+      "sha256": "9d14ecd956117467819c7cc7eb36c62ffc55c4cb0fe5741450368e718877e8b3",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-5.png",
+      "sha256": "628087d63b1494a4d5996e616989d69ffd77699a02f0d522d15f35430934f768",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-6.png",
+      "sha256": "fc397cd69f446aa7f8ab8050fcca823d91491e29f013fc53523f5d0b39d00374",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "before-turn-7.png",
+      "sha256": "790fb59431c27c1c299da4f0b37ddb0d00956fcdb21d955e83640773aed85353",
+      "state": "investigation: original notebook, social revision varies",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2
+    },
+    {
+      "file": "final-overlap-0.png",
+      "sha256": "8eee2f5662af0e4a9fd16356bcb389275966bbd7143efae6f213d745a59f8e97",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "final-overlap-1.png",
+      "sha256": "2109515ab5342faaa8c3132fc1e5a4884c45d86ba29508ec2134e7313a58834b",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "final-overlap-2.png",
+      "sha256": "1365e9fbfa022388cfe8231d8e0ade992efa7dad46589487dd8b628788dda4d7",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "final-overlap-3.png",
+      "sha256": "e53ca6b9940ecb250c91174e12111a4828a6e3978caba21de66d1acedad3686d",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "notebook-hover.png",
+      "sha256": "9b5a0b9c3d1dc1b0f26395e54d8d0cf3742c25813f1b2195f624e5880b8755a3",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "notebook-idle.png",
+      "sha256": "bc7992a23463b16de656386cabdf4cbeaa1396c653925eda6a5962f0f806dfab",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "notebook-keyboard.png",
+      "sha256": "48e115c7952c040da52426c1facff42e9d4333e1bb660b3c6e26418d813232b4",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2,
+      "note": "Recaptured after critic detected mismatched pointer state; verified :focus-visible and native outline."
+    },
+    {
+      "file": "portrait-notebook.png",
+      "sha256": "38ab471e309178a4f7abb2e1e99b1879d628d9e7b8542393a4062d6f143be725",
+      "state": "final source",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "portrait-room.png",
+      "sha256": "b377202c42fbd640710490fb97d458d501cb0b28bf0ecd7b9b7831188f8c8fc3",
+      "state": "final source",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "social-hover.png",
+      "sha256": "0711726154b17a3c149742a5d7b94ae5f48cd760c3bfd99189bb0661621b63d0",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "social-idle.png",
+      "sha256": "bee7a282d353c4044dc3aa6d30df662128e62720e0ef4fe19e76845765b63764",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    },
+    {
+      "file": "social-keyboard.png",
+      "sha256": "5e73a62013d473222c7b2f73d48571ec0dde64b5e274d3c81445262a027ee760",
+      "state": "final source",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1
+    }
+  ],
+  "notes": [
+    "PNG dimensions are actual CSS viewport pixels, not DPR-scaled exports.",
+    "Final captures refreshed after application source freeze.",
+    "Before-turn investigation images isolate original notebook geometry; social-label revision varies.",
+    "No timing or performance comparison made."
+  ]
+}

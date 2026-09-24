@@ -1393,12 +1393,18 @@ export function buildAboutPersonalStudy(
         );
         const flagMount = group('paper-flag-mount-' + i, 0, 0, 0, flagRoot);
         flagMount.userData.animated = true;
-        const flagGeo = new THREE.PlaneGeometry(0.155, 0.056, 12, 1);
+        // The adhesive is sandwiched inside the indexed leaf. Model only the
+        // exposed paper beyond its edge: the buried 30 mm otherwise reappears
+        // above the moving page when its two printed faces rotate together.
+        const flagGeo = new THREE.PlaneGeometry(0.125, 0.056, 10, 1);
         const fp = flagGeo.attributes.position;
         for (let p = 0; p < fp.count; p++) {
           const x = fp.getX(p);
-          fp.setZ(p, Math.max(0, x + 0.0475) * 0.04);
+          fp.setZ(p, Math.max(0, x + 0.0625) * 0.04);
         }
+        const flagUv = flagGeo.attributes.uv;
+        for (let p = 0; p < flagUv.count; p++)
+          flagUv.setX(p, (30 + flagUv.getX(p) * 125) / 155);
         flagGeo.computeVertexNormals();
         flagMat.side = THREE.DoubleSide;
         const flag = mesh(
@@ -1407,7 +1413,7 @@ export function buildAboutPersonalStudy(
           'page-attached-flag-' + i,
           flagMount,
         );
-        flag.position.set(0.5375, 0, 0);
+        flag.position.set(0.5525, 0, 0);
         const labels = [false, true].map((back) => {
           const labelMat = material(
             'flag-print-' + i + (back ? '-back' : ''),
@@ -1459,8 +1465,9 @@ export function buildAboutPersonalStudy(
         });
         const flagAnchor = new THREE.Object3D();
         flagAnchor.name = prefix + 'paper-flag-control-anchor-' + i;
-        flagAnchor.position.copy(flag.position);
-        flagAnchor.position.z += 0.001;
+        // Keep the logical full-flag anchor; cropping buried geometry must not
+        // move the registered native label or its exposed interaction region.
+        flagAnchor.position.set(0.5375, 0, 0.001);
         flagMount.add(flagAnchor);
         notebookFlags.push({
           anchor: flagAnchor,
@@ -1582,6 +1589,7 @@ export function buildAboutPersonalStudy(
     settledSection: 0,
     windowStart: 0,
     turning: false,
+    turningMarker: null as any,
     turningSection: -1,
     turnProgress: 1,
     turnDirection: 1,
@@ -1720,6 +1728,9 @@ export function buildAboutPersonalStudy(
     const moving = notebook.flags.find(
       (flag) => flag.index === notebook.turningSection,
     );
+    // The carried paper tab also occludes native ink on stationary markers.
+    // Retain its mount because production batching replaces its child meshes.
+    notebook.turningMarker = moving ? notebookFlags[moving.slot].mount : null;
     if (moving) {
       const physical = notebookFlags[moving.slot];
       physical.root.rotation.y = turningLeaf.rotation.y;
@@ -1733,6 +1744,7 @@ export function buildAboutPersonalStudy(
     notebook.settledSection = sectionForPage(notebook.chapter);
     notebook.windowStart = notebookWindowStart(notebook.settledSection);
     notebook.turning = false;
+    notebook.turningMarker = null;
     notebook.turningSection = -1;
     notebook.turnProgress = 1;
     turningLeaf.visible = false;
