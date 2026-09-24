@@ -21,8 +21,9 @@ export const ABOUT_NOTEBOOK_LAYOUT = {
 } as const;
 
 export const NOTEBOOK_MARKER_LIMIT = 6;
+/** Muted paper hues leave room for a restrained hover lift without whitening. */
 export const NOTEBOOK_MARKER_COLORS = [
-  0xd9ae61, 0xb6bf8a, 0x9ab6c3, 0xc5a2a0, 0xaca6c5, 0xa8c1ae,
+  0xc1a062, 0xa3ae86, 0x8da7b2, 0xb09390, 0x9b97af, 0x98af9e,
 ] as const;
 
 /** Additional authored sections stay available through a separate marker bank. */

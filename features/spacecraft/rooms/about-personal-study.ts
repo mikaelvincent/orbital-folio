@@ -7,6 +7,7 @@ import {
   notebookWindowStart,
   notebookMarkers,
   NOTEBOOK_MARKER_LIMIT,
+  NOTEBOOK_MARKER_COLORS,
 } from './about-notebook-layout.ts';
 
 /** Floor-referenced crew study. +Z faces the visitor; the book stays retained. */
@@ -1229,14 +1230,9 @@ export function buildAboutPersonalStudy(
     { title: 'How I work' },
     { title: 'Beyond work' },
   ];
-  const flagColors = [
-    '#d9ae61',
-    '#b6bf8a',
-    '#9ab6c3',
-    '#c5a2a0',
-    '#aca6c5',
-    '#a8c1ae',
-  ];
+  const flagColors = NOTEBOOK_MARKER_COLORS.map(
+    (color) => `#${color.toString(16).padStart(6, '0')}`,
+  );
   function paintFlag(ctx: any, index: number, title: string, back = false) {
     // Use the same logical pixels as the native marker: only the exposed 125px
     // tab carries its number and two-line title, with 8px breathing room.
@@ -1388,7 +1384,7 @@ export function buildAboutPersonalStudy(
         );
         const flagMat = material(
           'adhesive-paper-flag-' + i,
-          Number.parseInt(flagColors[i].slice(1), 16),
+          NOTEBOOK_MARKER_COLORS[i],
           0.98,
         );
         const flagMount = group('paper-flag-mount-' + i, 0, 0, 0, flagRoot);

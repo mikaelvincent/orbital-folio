@@ -492,12 +492,14 @@ placement. Marker titles stay unadorned when selected, including during page
 turns; selection semantics and keyboard focus outlines remain intact.
 Only each flag's exposed 125px region is interactive or highlighted;
 its 30px adhesive region is conceptually buried inside its indexed leaf. The
-owner's follow-up supersedes the September 24 underline treatment: hover/focus
-brightens the full exposed tab with a 62% white wash, substantially stronger than
-the earlier 30% ivory wash. Ink remains dark and steady, with no underline, hover
-rim or shadow. Keyboard focus retains its outline; selected tabs return to their
-original paper color on departure. The highlight eases over 160ms; reduced motion
-settles it immediately. See [brighter hover evidence](evidence/about-hover-brightness/README.md).
+owner's latest follow-up supersedes both the September 24 underline treatment
+and the subsequent 62% white highlight, which felt too bright. The shared paper
+palette now uses slightly darker, muted hues; hover/focus adds a restrained 24%
+ivory wash across the exposed tab. Ink remains dark and steady, with no underline,
+hover rim or shadow. Keyboard focus retains its outline; selected tabs return to
+their resting paper color on departure. The highlight eases over 220ms; reduced
+motion settles it immediately. See
+[softened hover evidence](evidence/notebook-soft-hover/README.md).
 
 The visible flag mesh and both printed faces stop at the page edge. This fixes
 the buried adhesive strip briefly appearing on top of a turning page. UV cropping

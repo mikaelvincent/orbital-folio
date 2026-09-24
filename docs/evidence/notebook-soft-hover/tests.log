@@ -1,0 +1,29 @@
+✔ left artwork prints the current identity within its paper margin and reading paper leaves all text to native content (9.375375ms)
+✔ native page and chapter targets remain registered to the retained paper geometry (132.680333ms)
+✔ one to six section markers fit the book; later sections use another bank without losing records (1140.744541ms)
+✔ both printed pages overlap their attached markers and aligned indexed page stacks (76.961541ms)
+✔ a two-page jump completes two discrete paper turns and moves each crossed marker to the left (69.055917ms)
+✔ carried marker adhesive stays concealed by both page faces throughout forward and reverse turns (65.721792ms)
+✔ rapid retargeting preserves the in-flight angle and then follows the newest destination (55.051ms)
+✔ within-section pages flip individually while only section boundaries carry their page markers (34.690334ms)
+✔ long destinations preserve every crossed leaf within a bounded total turn time (37.78725ms)
+✔ left markers register to the same native plane with a readable reverse printed face (42.055875ms)
+✔ reduced motion and closure settle all pending leaves without moving the mounted book (47.896708ms)
+✔ settled frame updates leave shared paper artwork textures untouched (100.3305ms)
+✔ room markers preserve reader sections and print numbered titles only on exposed paper (134.249459ms)
+✔ the native ink mask preserves partial visibility and unions overlapping furniture and wall coverage (22.704334ms)
+✔ occluders crossing the eye and paper planes remain finite and match physical rays (8.435584ms)
+✔ instanced and mirrored opaque geometry respects side culling on a transformed notebook (8.831375ms)
+✔ unchanged camera and geometry reuse the mask, while geometry, visibility, and a turning plane invalidate it (2.729167ms)
+✔ iris masks use the actual moving aperture silhouette instead of shader-hidden leaf wings (3604.877125ms)
+✔ a wall already clipped by the camera near plane does not hide native ink during travel (0.676625ms)
+✔ Each physical leaf carries its own adjacent Markdown pages through multi-section jumps and reversal (216.501042ms)
+✔ carried tabs mask stationary native marker ink in forward and reverse turns after production batching (3612.928875ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4240.29775

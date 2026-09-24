@@ -128,7 +128,7 @@
   line-height: 1.13;
   color: var(--carbon);
   background: transparent;
-  transition: background-color 160ms ease;
+  transition: background-color 220ms ease;
 }
 .notebook-marker > span {
   font-size: 10px;
@@ -145,10 +145,10 @@
   overflow: hidden;
   overflow-wrap: anywhere;
 }
-/* Brighten the entire exposed paper while keeping its ink dark and steady.
-   A stronger white wash makes the response obvious without a rim or shadow. */
+/* A gentle warm lift over the muted paper keeps the section color visible.
+   Leave the ink steady so the whole tab responds without a white flash. */
 .notebook-marker:not(:disabled):is(:hover, :focus-visible) {
-  background: rgb(255 255 255 / 62%);
+  background: color-mix(in srgb, var(--ivory) 24%, transparent);
 }
 @media (prefers-reduced-motion: reduce) {
   .notebook-marker {

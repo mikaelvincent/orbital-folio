@@ -1,0 +1,62 @@
+{
+  "baseline": "67c89e751e433a109cf30c7328b80dfe2d57cf19",
+  "sources": {
+    "features/portfolio/about-notebook.css": "ad88007341de35569c21589a71fa067b69053f2c27aa98b23030121482f41a58",
+    "features/spacecraft/rooms/about-notebook-layout.ts": "4f5f3f301840d7d5ad30bc1e808aa082b0f2f0b134fade603691ab1ce6af1129",
+    "features/spacecraft/rooms/about-personal-study.ts": "8ad4b40c7ca92ec8ee77247ece0435cc124b196d62aaeb8000a3da42df1afc41",
+    "docs/PROJECT-CONTEXT.md": "2c87290572436e025819028cb5ae795419dd0a37493773c13b9c7d75c44887d0"
+  },
+  "images": {
+    "desktop-hover.png": "de7ef97549802181bb1a9344562cff1a1870843734434b0a5087bf0f66ca996d",
+    "desktop-idle.png": "4c22bd69561622d60216e85d369280269838ef70e14326050f98ef71362e2d7d",
+    "desktop-keyboard-focus.png": "bbd534f0b9c13c534bd9e48924babe350878d5b9b8429d283a32aafabcc590e4",
+    "portrait-idle.png": "74ab4e47e110d7f583b76fb86c6fd0b337977b159a7e202806807ed4437660d9"
+  },
+  "browser": "hidden built-in Chromium",
+  "rendering": "live local application; normal WebGL and camera motion; no image postprocessing",
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 2
+    },
+    "portrait": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    }
+  },
+  "hover": {
+    "section": "Learning notes",
+    "background": "color(srgb 0.933333 0.913725 0.870588 / 0.24)",
+    "transition": "background-color 0.22s"
+  },
+  "keyboard": {
+    "section": "My story",
+    "outline": "rgb(65, 76, 86) solid 2px"
+  },
+  "browserWarningsAndErrors": [],
+  "checks": {
+    "notebookOcclusionTurnInk": {
+      "passed": 21,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "typecheck": {
+      "exitCode": 0
+    },
+    "affectedLint": {
+      "exitCode": 0
+    },
+    "build": {
+      "exitCode": 0
+    }
+  },
+  "limitations": [
+    "Safari not tested",
+    "Sixth palette color not present in published five-section fixture",
+    "Reduced motion inspected in source, not emulated",
+    "Full API/workflow suite not rerun for color/CSS revision",
+    "Screenshots have natural camera differences and are not pixel-aligned"
+  ]
+}
