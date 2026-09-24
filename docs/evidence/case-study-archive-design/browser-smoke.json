@@ -1,0 +1,69 @@
+{
+  "engine": "Hidden built-in Chromium 153",
+  "nativeAppsUsed": false,
+  "mainServer": "http://localhost:3000",
+  "sourceArchiveSha256": "5b62e5d1c51b638e21c2061e5b903a60fec550cb59ff511166021d874676730a",
+  "checks": [
+    {
+      "check": "Direct case-studies route",
+      "result": "Settled in experience room after ordinary entry"
+    },
+    {
+      "check": "Physical populated cartridge",
+      "result": "Click at observed label opened Product engineering at ?open=1&category=product"
+    },
+    {
+      "check": "Blank fourth cartridge",
+      "result": "Click left route /case-studies unchanged with zero Case studies application articles"
+    },
+    {
+      "check": "Keyboard category entry",
+      "result": "Enter on Open Product engineering opened the same application"
+    },
+    {
+      "check": "Application registration",
+      "result": "Inspected landscape 1440x900 and portrait 390x844; existing screen crop and glass alignment retained"
+    },
+    {
+      "check": "Close and Escape",
+      "result": "Both returned to room"
+    },
+    {
+      "check": "Room drag and release",
+      "result": "Mouse excursion151.162 CSS pixels marked dragged=true, activated=false, dragging=false after release; settled image captured",
+      "limits": "No full motion trace or maximum-angle browser capture; geometric envelope covered by tests"
+    },
+    {
+      "check": "Reading view",
+      "result": "Semantic case-study rack showed all5category controls including empty Research; returned to interactive view"
+    },
+    {
+      "check": "Overview",
+      "result": "Inspected live landscape and portrait; keyboard Enter on Case studies returned to settled experience room"
+    },
+    {
+      "check": "Surroundings",
+      "result": "Projects and Contact inspected live, all4rooms seen in overview; no runtimechanges outside archivebuilder"
+    },
+    {
+      "check": "Console",
+      "result": "Queried final live error sample returned zero entries",
+      "limits": "Not an exhaustive historical log"
+    }
+  ],
+  "limitations": [
+    "No native Safari",
+    "No physical phone",
+    "No reduced-motion browser override",
+    "No rested timing, startup, heat, power or battery measurements",
+    "Initial live baseline and neighbor screenshots have PNGdimensions but no recorded camera/time metadata",
+    "Finite fixtures omit GTAO, orbital background, navigation and live applications; use source-manifest and browser-captures for actual settings"
+  ],
+  "content": "Main published content read only. No main persisted records or environment/state copied or modified.",
+  "cleanup": {
+    "hiddenAgentTabsRemaining": 0,
+    "viewportOverrideReset": true,
+    "finitePreviewServer3017Stopped": true,
+    "mainServerPreserved": true
+  }
+}

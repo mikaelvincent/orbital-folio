@@ -1,0 +1,466 @@
+[
+  {
+    "file": "after-live-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.5400,5.4484",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "after-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 880,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          2.15066184853885,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1968086,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Case studies oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Case+studies+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "before-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 879,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          2.15066184853885,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1963664,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Case studies oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Case+studies+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "before-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 811,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          6.241009798264719,
+          2.7852804995179783,
+          13.287804995179778
+        ],
+        "target": [
+          1.515,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1832938,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Case studies oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Case+studies+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "file": "after-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 812,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          6.241009798264719,
+          2.7852804995179783,
+          13.287804995179778
+        ],
+        "target": [
+          1.515,
+          1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1837360,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Case studies oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Case+studies+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "file": "after-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.5400,5.4484",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "after-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.5400,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "file": "after-application-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.0730,0.7504",
+      "cameraQuaternion": "-0.271462,0.000000,0.000000,0.962449",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"case-studies-application\",\"screen\":\"product\",\"portrait\":true,\"width\":0.5268037974683544,\"height\":0.9299999999999999,\"pixelsWidth\":358,\"pixelsHeight\":632.0000000000001,\"framing\":{\"width\":0.5268037974683544,\"height\":0.9299999999999999},\"distance\":0.7083494402951489}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies?open=1&category=product",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "file": "after-application-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,1.4584,1.3473",
+      "cameraQuaternion": "-0.271547,0.000000,0.000000,0.962425",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"case-studies-application\",\"screen\":\"product\",\"portrait\":false,\"width\":1.74,\"height\":0.97,\"pixelsWidth\":960,\"pixelsHeight\":535.1724137931034,\"framing\":{\"width\":1.7,\"height\":0.9299999999999999},\"distance\":1.4217122944610983}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies?open=1&category=product",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "after-drag-release.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "-0.01120,-0.01225",
+      "cameraPosition": "2.0222,1.6006,5.4488",
+      "cameraQuaternion": "-0.005736,-0.006125,-0.000035,0.999965",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "after-overview-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-7.2530,4.2331,21.3142",
+      "cameraQuaternion": "-0.093595,-0.125018,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "file": "after-overview-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ]
+  }
+]

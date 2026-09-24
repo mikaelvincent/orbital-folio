@@ -1,0 +1,92 @@
+[
+  {
+    "file": "after-application-landscape.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "2048353255a4396d14e0dd8335fadc3ae96683bc68a55c0a48156570db6c69da"
+  },
+  {
+    "file": "after-application-portrait.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "ebfa2c87ee730c1e183797628eaf20d420985f285c2b15163c90aa9a0632feca"
+  },
+  {
+    "file": "after-drag-release.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "11c96e101ba7fd09f5c31f5534fda902a4cdd492a9d12ca5e7120b5dbf116a9a"
+  },
+  {
+    "file": "after-live-landscape.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "64d507a8b6c24bcdd54febd078209f4306bd496daa447db91aa277af2610a358"
+  },
+  {
+    "file": "after-live-portrait.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "adceabcb3b770104178c435717d5d92d60c2598f0299f72377ff78e6c9ea168b"
+  },
+  {
+    "file": "after-oblique-compact.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "385b4aa637fe3ae71519514dac88fa7323afb8a801549aae93c02cc10712ad4d"
+  },
+  {
+    "file": "after-oblique-wide.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "7e9120756ed817d60b5351c1858029a360d739c07cca00fc51ae9443d759fc6a"
+  },
+  {
+    "file": "after-overview-landscape.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "b971929a7bbf3408eba90d663965b465fbb9d075f8b81dba44d4ca2771c5159c"
+  },
+  {
+    "file": "after-overview-portrait.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "1e9a9f6ea3e4e26cec4d60c18e3bff156b40870c4e3dc85ac14147422b6b9094"
+  },
+  {
+    "file": "before-live-landscape.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "b055faf4a367c8cae90cd9b1a249afdcb2ab431b4f9d7465d0e3bb67bfa506cf"
+  },
+  {
+    "file": "before-live-portrait.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "d79192a38b8d181b0abc1cca028c33021cca78814f666aeab96400e2a6a0aaba"
+  },
+  {
+    "file": "before-oblique-compact.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "e5266eb85276853b8fedf006cc5b158e620d54a89de8b9aec20deec98bc45d3b"
+  },
+  {
+    "file": "before-oblique-wide.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "8a16ee781269420a27ef8536eda47b776480c6bccc29fd43c25f2a24a23bce28"
+  },
+  {
+    "file": "reference-contact.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "490bc02e18a41d9733c5c7c18283b5394376b4abf608680dec02a738c33dd92e"
+  },
+  {
+    "file": "reference-projects.png",
+    "width": 65536,
+    "height": 4292542531,
+    "sha256": "f180dea72a6e94aefa82c62c1babbae028c4dcb309e7d6017460cbe0001716a1"
+  }
+]

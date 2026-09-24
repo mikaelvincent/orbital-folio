@@ -42,10 +42,7 @@ export function buildCaseStudyArchive(
       0.42,
       0.15,
     ),
-    diffuser: material('status-diffuser', 0xe5c993, 0.7, 0),
   };
-  m.diffuser.emissive.set(0xf0c97e);
-  m.diffuser.emissiveIntensity = 0.22;
   const box = (
     w: number,
     height: number,
@@ -295,107 +292,138 @@ export function buildCaseStudyArchive(
   const rackBackTop = 2.14;
   const rackBackBottom = rackBottom + 0.035;
   const loomRise = rackBottom - 0.665;
-  // Floor-bolted rack: grounded rails, captive splice plates and closed slot backs.
+  // The magazine and terminal share a swept, floor-bolted cradle. Its feet
+  // sit ahead of the cabin's rear cove; the rising legs carry the rear rack.
+  function beam(
+    a: number[],
+    b: number[],
+    width: number,
+    depth: number,
+    name: string,
+  ) {
+    const from = new THREE.Vector3(...a),
+      to = new THREE.Vector3(...b);
+    const middle = from.clone().add(to).multiplyScalar(0.5);
+    const part = box(
+      from.distanceTo(to),
+      depth,
+      width,
+      m.graphite,
+      middle.x,
+      middle.y,
+      middle.z,
+      floorRoot,
+      0.018,
+      name,
+    );
+    // Keep the flat tie section upright while it sweeps inward in plan.
+    part.rotation.y = -Math.atan2(to.z - from.z, to.x - from.x);
+    return part;
+  }
   const structuralScrews: number[][] = [];
   for (const side of [-1, 1]) {
     const x = side * 1.32;
     box(
-      0.19,
+      0.23,
       0.035,
-      0.43,
+      0.48,
       m.rubber,
       x,
-      0.017,
-      -0.8,
+      0.0175,
+      -0.35,
       floorRoot,
       0.014,
       'rack-isolator',
     );
     box(
-      0.17,
+      0.2,
       0.07,
-      0.38,
+      0.43,
       m.edge,
       x,
-      0.063,
-      -0.8,
+      0.068,
+      -0.35,
       floorRoot,
-      0.018,
+      0.025,
       'rack-anchored-foot',
     );
-    box(
-      0.115,
-      2.11,
-      0.19,
+    // One formed cheek flows from the forward foot into the rear magazine.
+    // Shape X maps to -Z; the extrusion supplies the side-to-side thickness.
+    const profile = new THREE.Shape();
+    profile.moveTo(0.25, 0.08);
+    profile.lineTo(0.69, 0.645);
+    profile.quadraticCurveTo(0.715, 0.677, 0.715, 0.718);
+    profile.lineTo(0.715, 2.11);
+    profile.quadraticCurveTo(0.715, 2.16, 0.765, 2.16);
+    profile.lineTo(0.895, 2.16);
+    profile.quadraticCurveTo(0.945, 2.16, 0.945, 2.11);
+    profile.lineTo(0.945, 0.686);
+    profile.quadraticCurveTo(0.945, 0.635, 0.91, 0.59);
+    profile.lineTo(0.5, 0.067);
+    profile.quadraticCurveTo(0.484, 0.047, 0.46, 0.047);
+    profile.lineTo(0.27, 0.047);
+    profile.quadraticCurveTo(0.24, 0.047, 0.25, 0.08);
+    profile.closePath();
+    const cheekGeometry = new THREE.ExtrudeGeometry(profile, {
+      depth: 0.126,
+      bevelEnabled: true,
+      bevelSize: 0.012,
+      bevelThickness: 0.012,
+      bevelSegments: 3,
+      curveSegments: 16,
+      steps: 1,
+    });
+    cheekGeometry.translate(0, 0, -0.063);
+    cheekGeometry.rotateY(Math.PI / 2);
+    const cheek = h.mesh(
+      cheekGeometry,
       m.graphite,
-      x,
-      1.1325,
-      -0.83,
       floorRoot,
-      0.018,
-      'rack-upright',
+      prefix + 'swept-rack-cheek',
     );
+    cheek.position.x = x;
+    // Replace punched shelving and splice blocks with fitted, quiet cheek covers.
     box(
-      0.021,
-      1.99,
-      0.021,
-      m.edge,
-      x - side * 0.032,
-      1.12,
-      -0.724,
+      0.073,
+      1.15,
+      0.047,
+      m.shell,
+      x + side * 0.039,
+      1.555,
+      -0.704,
       floorRoot,
-      0.004,
-      'upright-edge-insert',
+      0.022,
+      'magazine-cheek-cover',
     );
-    for (const y of [0.19, rackBackBottom, 1.42, 2.1]) {
-      box(
-        0.145,
-        0.095,
-        0.035,
-        m.graphite,
-        x,
-        y,
-        -0.719,
-        floorRoot,
-        0.008,
-        'upright-splice-plate',
-      );
-      structuralScrews.push([x, y, -0.699]);
-    }
-    for (const dx of [-0.052, 0.052])
-      for (const dz of [-0.12, 0.12])
+    for (const y of [1.01, 2.1])
+      structuralScrews.push([x + side * 0.039, y, -0.678]);
+    for (const dx of [-0.06, 0.06])
+      for (const dz of [-0.14, 0.14])
         cylinder(
-          0.011,
+          0.012,
           0.016,
           m.alloy,
           x + dx,
-          0.097,
-          -0.8 + dz,
+          0.106,
+          -0.35 + dz,
           floorRoot,
           'y',
           'floor-anchor-bolt',
         );
-    const slotStart = rackBackBottom + 0.018;
-    const slots = Array.from(
-      { length: Math.floor((2.06 - slotStart) / 0.077) + 1 },
-      (_, i) => ({
-        p: [x + side * 0.014, slotStart + i * 0.077, -0.728],
-        s: [0.029, 0.036, 0.014],
-      }),
-    );
-    h.instances(
-      unitBox,
-      m.recess,
-      slots,
-      floorRoot,
-      prefix + 'rack-index-perforations',
+    // Low side ties join the terminal shoes without putting a rail across the aisle.
+    beam(
+      [x, 0.075, -0.35],
+      [side * 0.795, 0.065, 0.015],
+      0.13,
+      0.11,
+      'terminal-base-tie',
     );
   }
   for (const y of [rackBottom, 2.16]) {
     box(
-      2.77,
+      2.79,
       0.105,
-      0.2,
+      0.24,
       m.graphite,
       0,
       y,
@@ -430,21 +458,19 @@ export function buildCaseStudyArchive(
     0.015,
     'closed-rack-backplane',
   );
-  // Compact identification strip is part of the rack, separate from the room title.
-  const rackMark = graphics(
-    1.7,
-    0.041,
+  // A fitted crown protects the magazine; the cabin header carries its identity.
+  box(
+    2.55,
+    0.042,
+    0.24,
+    m.shell,
+    0,
+    2.215,
+    -0.83,
     floorRoot,
-    'rack-mark',
-    (ctx, cw, ch) => {
-      ctx.fillStyle = PALETTE.ivoryShade;
-      ctx.font = `600 ${ch * 0.7}px monospace`;
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.fillText('FLIGHT RECORDER LIBRARY', cw / 2, ch / 2, cw * 0.94);
-    },
+    0.018,
+    'magazine-crown',
   );
-  if (rackMark.plane) rackMark.plane.position.set(0, 2.161, -0.727);
 
   const cartridgeControls: Array<{
     category: CaseStudyFilter;
@@ -546,14 +572,15 @@ export function buildCaseStudyArchive(
       'cartridge-label-jacket',
     );
     const jacketMaterial = jacket.material;
-    // End retainers are separate latch mechanisms, not orange paint on the label.
+    // Captive extraction bails sit outside the label. Bronze is confined to
+    // the release at each hinge; blank cartridges retain the same passive hardware.
     for (const side of [-1, 1]) {
       const xx = side * 1.171;
       box(
         0.126,
         0.204,
         0.063,
-        m.amber,
+        m.graphite,
         xx,
         0,
         0.081,
@@ -562,40 +589,57 @@ export function buildCaseStudyArchive(
         'end-lock-body',
       );
       box(
-        0.029,
-        0.14,
-        0.022,
-        m.edge,
-        xx - side * 0.042,
-        0,
-        0.125,
-        cartridge,
-        0.006,
-        'lock-captive-pin',
-      );
-      box(
-        0.067,
-        0.13,
-        0.023,
-        m.amber,
-        xx + side * 0.012,
-        0,
-        0.122,
-        cartridge,
-        0.011,
-        'lock-lever',
-      );
-      box(
-        0.026,
-        0.015,
-        0.007,
+        0.078,
+        0.152,
+        0.014,
         m.recess,
         xx,
-        0.061,
-        0.136,
+        0,
+        0.119,
         cartridge,
-        0.003,
-        'lock-witness-mark',
+        0.018,
+        'extraction-handle-recess',
+      );
+      for (const yy of [-0.063, 0.063]) {
+        cylinder(
+          0.022,
+          0.045,
+          m.alloy,
+          xx,
+          yy,
+          0.131,
+          cartridge,
+          'x',
+          'extraction-handle-hinge',
+        );
+        rod(
+          [xx, yy, 0.132],
+          [xx, yy * 0.76, 0.157],
+          0.01,
+          m.alloy,
+          cartridge,
+          'extraction-handle-return',
+        );
+      }
+      rod(
+        [xx, -0.048, 0.157],
+        [xx, 0.048, 0.157],
+        0.012,
+        m.alloy,
+        cartridge,
+        'extraction-handle-grip',
+      );
+      box(
+        0.055,
+        0.025,
+        0.018,
+        m.amber,
+        xx,
+        0.074,
+        0.144,
+        cartridge,
+        0.007,
+        'captive-release',
       );
       box(
         0.032,
@@ -618,38 +662,6 @@ export function buildCaseStudyArchive(
         'jacket-' + index + '-' + side,
       );
     }
-    // A recessed folding pull and metal hinge give the label end a serviceable construction.
-    box(
-      0.052,
-      0.111,
-      0.012,
-      m.recess,
-      0.973,
-      0,
-      0.124,
-      cartridge,
-      0.009,
-      'folding-pull-rebate',
-    );
-    rod(
-      [0.973, -0.039, 0.14],
-      [0.973, 0.039, 0.14],
-      0.008,
-      m.edge,
-      cartridge,
-      'folding-pull',
-    );
-    cylinder(
-      0.011,
-      0.024,
-      m.alloy,
-      0.973,
-      -0.042,
-      0.133,
-      cartridge,
-      'x',
-      'pull-pivot',
-    );
     const print = graphics(
       1.94,
       0.145,
@@ -895,14 +907,26 @@ export function buildCaseStudyArchive(
         'z',
         'handle-pin',
       );
+      box(
+        0.042,
+        0.018,
+        0.009,
+        m.amber,
+        side * handleX,
+        yy,
+        0.178,
+        terminal,
+        0.004,
+        'terminal-handle-lock-witness',
+      );
     }
     rod(
       [side * handleX, -handleY, 0.163],
       [side * handleX, handleY, 0.163],
       0.021,
-      m.amber,
+      m.edge,
       terminal,
-      'terminal-amber-handle',
+      'terminal-captive-handle',
     );
     // At the floor, solid feet overlap both the knee and the two support members.
     const x = side * (enclosureWidth / 2 - 0.08);

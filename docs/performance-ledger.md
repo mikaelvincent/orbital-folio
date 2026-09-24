@@ -24,6 +24,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 29 · 18 September 2026 | Temporary Earth composition helper for the owner's final selection | The coastal opening remains unsatisfactory to the owner. Presets, direct angle controls, Earth-only preview and portable settings enable an explicit choice; no new opening or performance optimization is adopted. |
 | 30 · 20 September 2026 | Fixed Earth scene and compact coastal loop | Native Europe detail retained; 21.05% fewer download bytes and 68.75% less nominal map storage. New art/camera baseline; measured timing and limitations in entry 30. |
 | 51 · 24 September 2026 | Shared cabin architecture: continuous matte deck and seated light cassettes | New art baseline: +23,016 structural triangle inputs and +2.134 MiB geometry arrays per layout; furnishings/framing unchanged. [Evidence](evidence/shared-cabin-architecture/README.md). |
+| 52 · 24 September 2026 | Stage 02 archive recorder dock: formed supports and quieter extraction fittings | +2,178 triangle inputs / +0.3164 MiB geometry arrays per layout; unchanged architecture and other rooms. [Evidence](evidence/case-study-archive-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -2866,6 +2867,38 @@ cover all four cabins, landscape/portrait, oblique joins, physical and keyboard
 door entry, semantic reading view and isolated verification. All 523 tests,
 typecheck, production build/geometry check and affected lint passed. The initial
 fresh-test-store ownership bootstrap failure and corrected full rerun are retained.
+
+## 52 — Case-study archive design baseline (24 September 2026)
+
+Baseline `57132c2` includes approved Stage 01. Stage 02 joins the four-cartridge
+magazine and unchanged 16:9 terminal into a recorder dock with continuous formed
+side cheeks, forward-seated floor shoes and low side ties. It removes punched
+shelving/peripheral splice blocks and a redundant rack title, replaces broad
+bronze latch blocks with alloy extraction bails and small captive releases, and
+makes terminal grips carbon with restrained locking witnesses. The rear feet
+now clear the actual deck cove. Architecture, other-room furniture, screen
+artwork/registration, lighting, camera and navigation remain unchanged.
+
+[Measured structural inventory](evidence/case-study-archive-design/structural-costs.json)
+records **+2,178 triangle inputs, +331,788 geometry attribute/index bytes
+(0.3164 MiB), no additional visible mesh candidates and no additional unique
+geometries** in either layout. The archive changes from 66,608 to 68,786 triangle
+inputs and 1,915,016 to 2,246,804 geometry-array bytes; mesh candidates remain 67.
+Pressure architecture inventories/bounds, other-room furniture, whole-scene
+bounds and shared framing metadata match the baseline exactly. The inventory
+uses production batching/instancing but omits browser canvas text and frustum
+culling. It does not measure GPU/process memory or timing.
+
+[Matching evidence](evidence/case-study-archive-design/README.md) contains live
+landscape/portrait views, source-hashed finite oblique comparisons and the
+application in both orientations. Finite frame counts include requested PCF
+shadow generation and omit GTAO/background/live applications. The live views
+retain application policies. Native Safari, rested CPU/GPU timing, startup,
+heat and battery comparisons were not performed. No speed or power claim is
+made, and no held ledger candidate is implemented. All **528 isolated tests**,
+typecheck, build/geometry check and affected lint passed. The independent critic
+scored the final source and matching evidence **95/100**, with no unresolved
+blockers; its rubric and limitations are preserved with the evidence.
 
 ## Next candidates
 

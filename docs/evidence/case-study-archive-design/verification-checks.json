@@ -1,0 +1,96 @@
+{
+  "verifiedAt": "2026-09-24T07:07:53.829944+00:00",
+  "baselineCommit": "57132c291d27bfd102a84ca5748ea1ea87cedc14",
+  "source": [
+    {
+      "path": "features/spacecraft/rooms/case-study-archive.ts",
+      "sha256": "5b62e5d1c51b638e21c2061e5b903a60fec550cb59ff511166021d874676730a",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/archive-construction.test.mjs",
+      "sha256": "04a200ffae9232cf32da1813b1fef2df2c78bc250b5a1da3f88571c0ca481165",
+      "matchesCurrentSource": true
+    }
+  ],
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-archive-verify-wxe5yg0u",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-archive-verify-wxe5yg0u/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-archive-verify-wxe5yg0u/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T07:10:36.676100+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 528,
+      "pass": 528,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 294265.7655,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "228f2478dbbee6078930b384872435a7113974ea532bb0a68714d21b00d42a7a",
+        "normalizedSha256": "9f5378f09c48e5461d873caa2e26fbe65162b3f13af481d23bdbc6644b90bdf7"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "86a635e6dc8e8f0ead9b1774a8bf85d748a36052d9f83e686ec84f5b5b334138",
+        "normalizedSha256": "cdf1bad1c1ddadd83fdd7b9bbb911cfd52f480d946ba8f014aa8308b678fce64"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/rooms/case-study-archive.ts tests/spacecraft/archive-construction.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "f4fa3692d43ec4650bf2989e3e54b0d5ff5a4d88790e2e2f3120ff2e2feff0ae",
+        "normalizedSha256": "a12df432a459caef9c1c1f6d73c01fd129a5c53de6766363a40bd8cc57d3743c"
+      }
+    }
+  },
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp until cleanup.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

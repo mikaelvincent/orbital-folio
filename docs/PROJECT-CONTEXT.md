@@ -122,6 +122,31 @@ purposeful equipment remain variable. The ladder, exterior, furniture, visitor
 interfaces and navigation are outside this stage. See the
 [before/after views, verification and independent review](evidence/shared-cabin-architecture/README.md).
 
+### Stage 02 — case-study archive (24 September 2026)
+
+The four-cartridge magazine and unchanged 16:9 raked terminal now form one
+floor-bolted recorder dock. Continuous carbon side cheeks sweep forward from
+the rear magazine into shoes on the flat deck, avoiding the rear floor cove.
+Low side ties connect those shoes to the terminal supports, leaving the center
+approach clear. Thin ivory cheek covers and a fitted crown echo Stage 01's
+captured fittings. The punched shelving rails, splice blocks and secondary
+rack title are superseded.
+
+Each cartridge has paired alloy extraction bails outside its label, with small
+bronze captive releases. Terminal grips are carbon with alloy pins and small
+bronze locking witnesses. Labels, cartridge seating/order, availability,
+whole-face feedback and the terminal's glass, tilt, scale, application anchor
+and artwork are unchanged. The dark fourth cartridge remains physical but inert
+when unpopulated. Existing recorder cores, transport case, conduit and thermal
+loop remain purposeful supporting equipment; no additional screens or filler
+are introduced. Stage 01, other rooms, camera framing and navigation remain
+unchanged. See [design, comparisons and verification](evidence/case-study-archive-design/README.md).
+
+Carry forward the clear load paths, fitted shoes, graphite joints, satin-alloy
+handling surfaces and restrained functional bronze. Future furniture may vary
+its silhouette; it should meet the actual curved cabin rather than assume a
+flat deck beneath the rear cove.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**
@@ -428,7 +453,8 @@ together and invalidate cached shading when the row order changes. An empty term
 uses plain carbon with STANDBY and is inert. This supersedes the briefly approved
 always-interactive empty-category behavior. Availability updates when content
 changes. The shelf crossmember and backplane end directly beneath cartridge four;
-its floor uprights remain, with cable attachments raised to the shorter backplane.
+its cable attachments remain on the shorter backplane. Stage 02 replaces the
+straight rear uprights with forward-seated formed cheeks and a shared terminal base.
 Published content drives the visitor collection;
 private preview uses drafts. No category is guessed from a title or older record.
 
