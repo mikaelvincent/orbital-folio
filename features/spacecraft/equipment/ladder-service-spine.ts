@@ -82,7 +82,6 @@ export function buildLadderServiceSpine(
   const m = {
     ivory: material('ivory-enamel', PALETTE.ivory, 0.68),
     graphite: material('graphite-casings', PALETTE.carbon, 0.67, 0.14),
-    panel: material('removable-closeouts', PALETTE.carbonRaised, 0.79, 0.08),
     rubber: material('retaining-rubber', PALETTE.carbonDeep, 0.92, 0),
     pocket: material('recess-interior', PALETTE.carbonDeep, 0.85, 0),
     hose: material('insulated-harness', PALETTE.carbonRaised, 0.72, 0.08),
@@ -223,27 +222,25 @@ export function buildLadderServiceSpine(
     h.mesh(back, m.pocket, root, prefix + recess.id + '-closed-back');
   }
 
-  // Closeouts seat on a continuous narrow gasket; seams do not expose space.
-  box(0.64, 4.82, 0.035, m.rubber, 0.15, 0.01, -0.976, 'backing-gasket', 0.022);
-  for (let i = 0; i < 5; i++) {
-    const y = 0.01 + (i - 2) * 0.96;
+  // Two narrow structural carriers seat directly on the continuous pressure
+  // liner. The open space between them distinguishes the transfer ladder from
+  // the adjacent recessed service equipment; no false cabinet back is needed.
+  const railXs = [-0.08, 0.38];
+  for (const x of railXs) {
     box(
-      0.616,
-      0.935,
-      0.031,
-      m.panel,
-      0.15,
-      y,
-      -0.9515,
-      'fitted-closeout-panel',
-      0.016,
+      0.13,
+      4.82,
+      0.044,
+      m.graphite,
+      x,
+      0.01,
+      -0.965,
+      'liner-seated-rail-carrier',
+      0.014,
     );
-    for (const x of [-0.12, 0.42])
-      for (const dy of [-0.403, 0.403]) screws.push([x, y + dy, -0.933]);
   }
   // One repeated ladder bay drives grips, rung joints and wall anchors.
   // Both rails use the same slim diameters and collar positions throughout.
-  const railXs = [-0.08, 0.38];
   const rungPitch = 0.38;
   const rungYs = Array.from(
     { length: 13 },
@@ -297,8 +294,7 @@ export function buildLadderServiceSpine(
     }
     for (const y of [-2.505, 2.525])
       cylinder(0.03, 0.1, m.graphite, x, y, -0.69, 'y', 'rail-end-cap');
-    // Graphite grips stay visually light; amber is a small joint marker,
-    // rather than a second set of unevenly placed oversized handles.
+    // Graphite grips and their collars share the transfer handholds' finish.
     for (let i = 0; i < rungYs.length - 1; i++) {
       const y = (rungYs[i] + rungYs[i + 1]) / 2;
       cylinder(0.0235, 0.276, m.hose, x, y, -0.69, 'y', 'uniform-grip-sleeve');
@@ -315,25 +311,23 @@ export function buildLadderServiceSpine(
         );
     }
   }
-  for (const y of rungYs) {
+  for (const [index, y] of rungYs.entries()) {
     for (const x of railXs) {
       cylinder(0.029, 0.064, m.graphite, x, y, -0.69, 'y', 'rung-rail-sleeve');
       for (const dy of [-0.036, 0.036])
         cylinder(
           0.0295,
           0.016,
-          m.amber,
+          index % 4 === 0 ? m.amber : m.graphite,
           x,
           y + dy,
           -0.69,
           'y',
-          'amber-joint-marker',
+          index % 4 === 0 ? 'amber-joint-marker' : 'rung-joint-collar',
         );
     }
     cylinder(0.019, 0.46, m.tread, 0.15, y, -0.69, 'x', 'satin-rung');
-    cylinder(0.0205, 0.27, m.tread, 0.15, y, -0.69, 'x', 'rung-grip-insert');
-    for (const x of [0.08, 0.15, 0.22])
-      cylinder(0.021, 0.004, m.alloy, x, y, -0.69, 'x', 'tread-machining-ring');
+    cylinder(0.022, 0.27, m.rubber, 0.15, y, -0.69, 'x', 'rung-grip-insert');
     for (const x of [-0.061, 0.361])
       cylinder(0.026, 0.038, m.graphite, x, y, -0.69, 'x', 'rung-end-socket');
     for (const x of [0.012, 0.288])
@@ -488,13 +482,15 @@ export function buildLadderServiceSpine(
     // cap. The connected line and retained cap explain the fitting at a glance.
     const junctionY = side > 0 ? 0.83 : -0.81;
     const couplingX = -0.414;
+    // The fitting's front stays fixed while its barrel reaches the pocket back.
+    // A flexible hose alone cannot support a coupling used with a spanner.
     cylinder(
       0.061,
-      0.058,
+      0.137,
       m.graphite,
       couplingX,
       junctionY,
-      -1.045,
+      -1.0845,
       'z',
       'recessed-service-coupling-body',
     );
@@ -531,11 +527,11 @@ export function buildLadderServiceSpine(
       capY = junctionY - side * 0.024;
     cylinder(
       0.032,
-      0.084,
+      0.128,
       m.graphite,
       capX,
       capY,
-      -1.067,
+      -1.089,
       'z',
       'dust-cap-retaining-peg',
     );
@@ -834,7 +830,7 @@ export function buildLadderServiceSpine(
   root.userData.serviceSpine = {
     static: true,
     recesses: recesses.map((r) => r.id),
-    backingFront: -0.936,
+    carrierFront: -0.943,
     railCenters: [-0.08, 0.38],
     railZ: -0.69,
     rungCount: rungYs.length,

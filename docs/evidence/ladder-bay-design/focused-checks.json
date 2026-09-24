@@ -1,0 +1,250 @@
+{
+  "recordedAt": "2026-09-24T11:24:43.616103+00:00",
+  "purpose": "Durable record of already completed focused Stage 06 construction and related regression checks. No tests or lint/format checks were rerun to create this record.",
+  "provenance": {
+    "focusedResults": "Recorded from the architecture audit agent's completed tool results and handoff: 8/8 new actual-geometry tests and 54/54 related existing tests passed; local test-file lint and formatting checks passed.",
+    "originalFocusedRawLog": "No separate raw focused-test or local single-file lint/format log was retained. This JSON is a retrospective result record, not a reconstructed raw transcript.",
+    "runTimestamp": "The exact focused-run timestamp was not retained; runs completed before the structural inventory and the later full isolated-suite verification.",
+    "independentCorroboration": "Every one of the 62 case names below is also present as passing in the separately retained isolated full-suite log checks/test.log. Those later checks were performed by the verification agent; their commands, source hashes, results and isolation are recorded in verification-checks.json.",
+    "fullSuiteLog": "checks/test.log",
+    "fullSuiteLogSha256": "99e323e6522a372d5fc317f2bc113d12a4eeca3455217f65f0262dcc11f37fe1",
+    "verificationRecord": "verification-checks.json",
+    "matchingVisualSourceManifest": "source-manifest.json"
+  },
+  "environment": {
+    "workingDirectory": "Main repository working tree; only pure source/geometry/navigation tests explicitly listed below.",
+    "serverOrDataFixture": "None. These focused commands do not run the API/workflow tests or access D1/R2. Full/mutating tests were run separately in the isolated fixture documented by verification-checks.json.",
+    "browser": "None; rendered review is separate."
+  },
+  "focusedRuns": [
+    {
+      "command": "node --test tests/spacecraft/ladder-bay-construction.test.mjs",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "exitCode": 0,
+      "files": [
+        "tests/spacecraft/ladder-bay-construction.test.mjs"
+      ]
+    },
+    {
+      "command": "node --test --test-concurrency=1 tests/spacecraft/ladder-symmetry.test.mjs tests/spacecraft/ladder-endcap-equipment.test.mjs tests/spacecraft/docking-shoulder-equipment.test.mjs tests/spacecraft/solid-ladder-service.test.mjs tests/spacecraft/ladder-jamb-clearance.test.mjs tests/spacecraft/ladder-opening-outline.test.mjs tests/spacecraft/cabin-utilities.test.mjs tests/spacecraft/iris-navigation.test.mjs tests/spacecraft/iris-integration.test.mjs",
+      "tests": 54,
+      "pass": 54,
+      "fail": 0,
+      "exitCode": 0,
+      "files": [
+        "tests/spacecraft/ladder-symmetry.test.mjs",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+        "tests/spacecraft/solid-ladder-service.test.mjs",
+        "tests/spacecraft/ladder-jamb-clearance.test.mjs",
+        "tests/spacecraft/ladder-opening-outline.test.mjs",
+        "tests/spacecraft/cabin-utilities.test.mjs",
+        "tests/spacecraft/iris-navigation.test.mjs",
+        "tests/spacecraft/iris-integration.test.mjs"
+      ]
+    }
+  ],
+  "total": {
+    "tests": 62,
+    "pass": 62,
+    "fail": 0
+  },
+  "files": [
+    {
+      "path": "tests/spacecraft/ladder-bay-construction.test.mjs",
+      "sha256": "e8c39cf09ebbc019e1c33358236796fc349d2349fb3f479e611d86ef19f6fa94",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "caseNames": [
+        "wide: fitted carriers connect the real liner to the transfer rails and rungs",
+        "compact: fitted carriers connect the real liner to the transfer rails and rungs",
+        "wide: the center liner, space behind the rungs and sampled transfer route remain clear",
+        "compact: the center liner, space behind the rungs and sampled transfer route remain clear",
+        "wide: service couplings, cap stowage and isolation controls have rigid attachments",
+        "compact: service couplings, cap stowage and isolation controls have rigid attachments",
+        "wide: stowed tools and end grips retain complete attachment paths",
+        "compact: stowed tools and end grips retain complete attachment paths"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/ladder-symmetry.test.mjs",
+      "sha256": "d36f6cb972cedbd77e822f038acc6b4ff38b9dde0ab3c775f5854abad41404d9",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "caseNames": [
+        "The actual bow outline meets the cabin roof and keel without either raised shoulder",
+        "Ladder lights, end anchors, rail grips and rungs are mirrored after fitting into the bow",
+        "The fitted ladder preserves the existing cabin anchors and usable room bounds in both layouts"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+      "sha256": "1e9fc4c426f31841b6cb55a28daf20ac276d31557a20d181056a5cec69d7bbea",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "caseNames": [
+        "Open ladder transfer equipment occupies both end gaps without covering the rear lamps or side doors",
+        "Transfer equipment is passive, shares existing materials and follows the ladder brightness state"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+      "sha256": "6d1a161a5cc2b122dbad80f06984d9f68dff4f2e0fbbbe1e797a0154e4f44185",
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "caseNames": [
+        "Both maintenance spanners have recognizable open jaws, substantial grasps and open retention clips",
+        "Spanners and open clips follow the curved wall and retain hatch, ladder and end-equipment clearance",
+        "Only bonded feet and post ends intersect the liner; tool bodies and open clips stand clear",
+        "The complete stowed tools and clips are true reflected copies with substantial forged head depth",
+        "Open jaw throats remain empty while both thick forged cheeks are visible from the room",
+        "Stowed tools remain passive, nonemissive and follow the walkway dimmer"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/solid-ladder-service.test.mjs",
+      "sha256": "2b675ce08339b8acb26c8ed1dd0baa10d306f6dba7c664b7c6c6e63c808832fb",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "caseNames": [
+        "Ladder grilles and generic covers give way to open transfer equipment and connected service fittings",
+        "Circular handhold mounting shoes seat on the actual pressure curve through their whole backing faces"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/ladder-jamb-clearance.test.mjs",
+      "sha256": "8a12eac3ae5e11f1bfc505dba5b08013a693e8093506a527720fffd0857feed9",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "caseNames": [
+        "wide: ladder partitions terminate at the reveal and both hatches clear its rounded corners",
+        "compact: ladder partitions terminate at the reveal and both hatches clear its rounded corners"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/ladder-opening-outline.test.mjs",
+      "sha256": "e2a74c0ab25e290d7cdaf9b19a4fcb7ff09aa4d6aa164e1053abec8a0efd2d4e",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "caseNames": [
+        "Rounded ladder openings retain their extents, symmetry and convex contour at both layout scales",
+        "All ladder aperture joins are tangent, including the enlarged right corners"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/cabin-utilities.test.mjs",
+      "sha256": "378130cb29e919db4b40fa2836d28908af0111aeb7b75213a04904548769b379",
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "caseNames": [
+        "Furniture remains centered and secondary fittings justify their available space across layout changes",
+        "Upper vents share the room heading centerline and justify its wall gaps",
+        "Cabin additions remain passive and inside the unchanged pressure shell in both layouts",
+        "New fittings do not obscure main signs, door labels, or screens through the normal camera range",
+        "Ladder web equipment is wall-mounted, centered, and clear of both iris apertures"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/iris-navigation.test.mjs",
+      "sha256": "17dad1911ef7ae03eb8b6281395fee268e9ab8194d84732f2629b7d6198a427f",
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "caseNames": [
+        "An adjacent cabin route opens both door faces and no other connection",
+        "Ladder route identifies both entrances without coupling their individual legs",
+        "A full nonadjacent itinerary identifies every C-route connection",
+        "Retargeting inside a threshold keeps both faces clear without stale route doors",
+        "Retargeting from within the ladder retains only the approached entrance",
+        "Live travel releases crossed doorways before arrival while retaining threshold clearance",
+        "Ladder interlock closes the entrance before opening the exit",
+        "A retarget through the current physical hatch does not close it",
+        "Ordinary cabin doors open immediately without waiting for any other door",
+        "Both ladder requests select only one physical hatch, preferring the hatch already open",
+        "An adjacent request remains open while the ladder exit waits",
+        "Only ladder exit legs hold the camera; entry and vertical travel proceed immediately",
+        "Near-threshold reversals preserve the requested ladder hatch without a closure pulse",
+        "Ladder exits pre-open on center departure in either direction, without opening distant cabin doors",
+        "Anticipation still waits for the entry seal, and a mid-bay reversal discards the old exit",
+        "A pending ladder exit permits approach up to the threshold margin without backing up a reversal",
+        "Mid-bay retargeting gates only the final exit in either direction",
+        "Empty immediate or overview door intent has no wait, even with a ladder hatch open",
+        "Plane crossing outside the circular aperture does not open a door",
+        "Coplanar movement through the opening and exact endpoints are recognized",
+        "No itinerary, invalid points, and stationary distant paths require no doors",
+        "Clear opening size overrides larger pick-box bounds"
+      ]
+    },
+    {
+      "path": "tests/spacecraft/iris-integration.test.mjs",
+      "sha256": "e25d6ee6b43d5b29dbc7e2505eedb2a5604822cc6d4ccd14f5174377335da30c",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "caseNames": [
+        "Integrated hatches open on hover, close on departure, and preserve room lighting",
+        "Actual C-route interlocks ladder entrances, reverses smoothly, and settles closed",
+        "Door opening takes about half the original duration across refresh rates, with unchanged closing",
+        "Travel seals ladder hatches at the opening rate while ordinary and hover closure stay unchanged",
+        "Hover opens both faces of the first route door and transfers smoothly into travel",
+        "Rapid ladder hover changes keep the two entrances interlocked in both layouts",
+        "Every physical passage has one centered blade stack and one continuous dark guide",
+        "Both wall faces use cabin paint and both blade faces share ivory non-emissive paint",
+        "Hover lights both mouths while preserving the dark guide and single-step opening speed",
+        "Resizing with a door open cannot change overview or room framing"
+      ]
+    }
+  ],
+  "localTestFileChecks": {
+    "scope": [
+      "tests/spacecraft/ladder-bay-construction.test.mjs"
+    ],
+    "lint": {
+      "result": "passed",
+      "command": null,
+      "rawLog": null
+    },
+    "format": {
+      "result": "passed",
+      "command": null,
+      "rawLog": null
+    },
+    "limitation": "The local single-file lint and format pass results were retained in the agent handoff, but their exact original invocation strings and raw output were not retained. Do not substitute the later three-file commands below for those earlier invocations."
+  },
+  "separateRetainedAffectedChecks": {
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/ladder-service-spine.ts features/spacecraft/equipment/cabin-utility-fittings.ts tests/spacecraft/ladder-bay-construction.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "fdc909966cf5b728b3adb422439e20c9610b068d661704013663f8701248f6e4",
+        "normalizedSha256": "57beeb27ffc2575f98db4e35d66cadc12f820606ea9b9cd5fa710d8685956b29"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/equipment/ladder-service-spine.ts features/spacecraft/equipment/cabin-utility-fittings.ts tests/spacecraft/ladder-bay-construction.test.mjs",
+      "exitCode": 0,
+      "files": 3,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "dee423eba3bc017e76b2b36d98d126d9ae94cfbd9e732b69b771cbbe72ee0fd8",
+        "normalizedSha256": "2f08db7f0e31787efd2ed672219e9a623461db580c3e950602ac059fd1ba2c13"
+      }
+    }
+  },
+  "limitations": [
+    "Focused geometry and navigation checks do not constitute visual aesthetic review or live browser navigation evidence.",
+    "No rendering timing, process/GPU memory, power, heat or battery result follows from these tests.",
+    "Commands and counts above identify completed runs; unavailable raw focused logs and exact local lint/format invocations are explicitly marked unavailable rather than recreated."
+  ]
+}

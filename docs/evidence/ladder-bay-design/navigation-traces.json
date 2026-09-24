@@ -1,0 +1,3198 @@
+{
+  "method": "DOM snapshots sampled at about 80 ms, plus tool latency; coarse smoke evidence, not an exhaustive frame-by-frame interlock proof. Baseline and final times/camera positions are not identical.",
+  "baseline": {
+    "landscape": [
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.301",
+        "cameraPosition": "-2.0892,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.517",
+        "cameraPosition": "-2.2375,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.20965952000001464
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.517",
+        "cameraPosition": "-2.2375,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.20965952000001464
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.717",
+        "cameraPosition": "-3.6670,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.9498534220099241
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.717",
+        "cameraPosition": "-3.6670,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.9498534220099241
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.717",
+        "cameraPosition": "-3.6670,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.9498534220099241
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.934",
+        "cameraPosition": "-4.8676,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.7922169714093832
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "113.934",
+        "cameraPosition": "-4.8676,-1.4050,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.7922169714093832
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.134",
+        "cameraPosition": "-5.1476,-0.8774,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.05050858613719291
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.134",
+        "cameraPosition": "-5.1476,-0.8774,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.05050858613719291
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.351",
+        "cameraPosition": "-5.2108,-0.1709,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.001273067938766617
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.567",
+        "cameraPosition": "-5.2225,0.9568,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.8031025737934752
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.567",
+        "cameraPosition": "-5.2225,0.9568,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.8031025737934752
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.784",
+        "cameraPosition": "-5.0439,1.4205,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9949204792319353
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.784",
+        "cameraPosition": "-5.0439,1.4205,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9949204792319353
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "114.784",
+        "cameraPosition": "-5.0439,1.4205,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9949204792319353
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.001",
+        "cameraPosition": "-4.2784,1.5178,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 1
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.001",
+        "cameraPosition": "-4.2784,1.5178,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 1
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.201",
+        "cameraPosition": "-2.8140,1.5354,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.5148324266666205
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.201",
+        "cameraPosition": "-2.8140,1.5354,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.5148324266666205
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.417",
+        "cameraPosition": "-2.2347,1.5392,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.016278976593515404
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.417",
+        "cameraPosition": "-2.2347,1.5392,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.016278976593515404
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.417",
+        "cameraPosition": "-2.2347,1.5392,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.016278976593515404
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.634",
+        "cameraPosition": "-2.1144,1.5399,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.634",
+        "cameraPosition": "-2.1144,1.5399,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.834",
+        "cameraPosition": "-2.0926,1.5400,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "115.834",
+        "cameraPosition": "-2.0926,1.5400,5.4511",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "false"
+      }
+    ],
+    "portrait": [
+      {
+        "activeRoom": "projects",
+        "activeTime": "167.867",
+        "cameraPosition": "-2.0892,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "167.867",
+        "cameraPosition": "-2.0892,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.084",
+        "cameraPosition": "-2.3795,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.3963665533334304
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.084",
+        "cameraPosition": "-2.3795,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.3963665533334304
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.301",
+        "cameraPosition": "-4.0854,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.9787833254787038
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.301",
+        "cameraPosition": "-4.0854,-1.4050,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.9787833254787038
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.515",
+        "cameraPosition": "-4.9785,-1.3985,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.5290918979946755
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.515",
+        "cameraPosition": "-4.9785,-1.3985,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.5290918979946755
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.515",
+        "cameraPosition": "-4.9785,-1.3985,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.5290918979946755
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.717",
+        "cameraPosition": "-5.1731,-0.6526,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.02178653195866084
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.717",
+        "cameraPosition": "-5.1731,-0.6526,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0.02178653195866084
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.917",
+        "cameraPosition": "-5.2143,-0.0352,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.01041189333334785
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "168.917",
+        "cameraPosition": "-5.2143,-0.0352,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.01041189333334785
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.134",
+        "cameraPosition": "-5.2231,1.0777,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.8829007261579013
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.134",
+        "cameraPosition": "-5.2231,1.0777,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.8829007261579013
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.351",
+        "cameraPosition": "-4.9510,1.4477,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9970603365212363
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.351",
+        "cameraPosition": "-4.9510,1.4477,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9970603365212363
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.351",
+        "cameraPosition": "-4.9510,1.4477,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.9970603365212363
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.565",
+        "cameraPosition": "-4.0429,1.5227,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 1
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.565",
+        "cameraPosition": "-4.0429,1.5227,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 1
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "true",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.767",
+        "cameraPosition": "-2.6623,1.5365,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.3272480837042328
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.767",
+        "cameraPosition": "-2.6623,1.5365,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.3272480837042328
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.767",
+        "cameraPosition": "-2.6623,1.5365,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.3272480837042328
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.984",
+        "cameraPosition": "-2.2009,1.5394,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.008918844108632485
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "169.984",
+        "cameraPosition": "-2.2009,1.5394,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0.008918844108632485
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "170.201",
+        "cameraPosition": "-2.1080,1.5399,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "170.201",
+        "cameraPosition": "-2.1080,1.5399,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "170.401",
+        "cameraPosition": "-2.0913,1.5400,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "true"
+      },
+      {
+        "activeRoom": "projects",
+        "activeTime": "170.401",
+        "cameraPosition": "-2.0913,1.5400,7.1286",
+        "portals": [
+          {
+            "id": "projects:about",
+            "physicalHatch": "projects:about",
+            "openProgress": 0
+          },
+          {
+            "id": "about:projects",
+            "physicalHatch": "about:projects",
+            "openProgress": 0
+          }
+        ],
+        "transitWalkway": "false",
+        "travelling": "false"
+      }
+    ]
+  },
+  "final": [
+    {
+      "destination": "about",
+      "file": null,
+      "samples": [
+        {
+          "activeRoom": "about",
+          "activeTime": "352.001",
+          "cameraPosition": "-2.0705,1.5400,5.4483",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.39236578500020447,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.201",
+          "cameraPosition": "-2.1469,1.5400,5.4489",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9675425515199428,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.201",
+          "cameraPosition": "-2.1469,1.5400,5.4489",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9675425515199428,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.418",
+          "cameraPosition": "-3.7249,1.5400,5.4500",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 1,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.418",
+          "cameraPosition": "-3.7249,1.5400,5.4500",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 1,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.634",
+          "cameraPosition": "-4.8763,1.5400,5.4509",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.7000699266667971,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.634",
+          "cameraPosition": "-4.8763,1.5400,5.4509",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.7000699266667971,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "352.851",
+          "cameraPosition": "-5.1553,0.8232,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.02899306975366152,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.051",
+          "cameraPosition": "-5.2097,0.1748,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.00095413023688198,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.051",
+          "cameraPosition": "-5.2097,0.1748,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.00095413023688198,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.268",
+          "cameraPosition": "-5.2221,-0.8892,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.8475965135852287,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.268",
+          "cameraPosition": "-5.2221,-0.8892,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.8475965135852287,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.484",
+          "cameraPosition": "-5.0001,-1.2998,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.996077890689781,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.484",
+          "cameraPosition": "-5.0001,-1.2998,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.996077890689781,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.701",
+          "cameraPosition": "-4.1589,-1.3854,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 1,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.701",
+          "cameraPosition": "-4.1589,-1.3854,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 1,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.918",
+          "cameraPosition": "-2.6623,-1.4014,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.41939140059613383,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "353.918",
+          "cameraPosition": "-2.6623,-1.4014,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.41939140059613383,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.133",
+          "cameraPosition": "-2.2023,-1.4044,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.012645440501775598,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.133",
+          "cameraPosition": "-2.2023,-1.4044,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.012645440501775598,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.334",
+          "cameraPosition": "-2.1112,-1.4049,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.334",
+          "cameraPosition": "-2.1112,-1.4049,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.551",
+          "cameraPosition": "-2.0914,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "354.551",
+          "cameraPosition": "-2.0914,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "destination": "projects",
+      "file": "after-live-transit-landscape.jpg",
+      "samples": [
+        {
+          "activeRoom": "projects",
+          "activeTime": "517.566",
+          "cameraPosition": "-2.0893,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "517.751",
+          "cameraPosition": "-2.5587,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.5817190633467095,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "517.967",
+          "cameraPosition": "-4.3072,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.98763755639078,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "517.967",
+          "cameraPosition": "-4.3072,-1.4050,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.98763755639078,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.184",
+          "cameraPosition": "-5.0346,-1.3492,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.33550206909883334,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.184",
+          "cameraPosition": "-5.0346,-1.3492,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.33550206909883334,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.400",
+          "cameraPosition": "-5.1895,-0.4715,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.009199562486726726,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.601",
+          "cameraPosition": "-5.2177,0.2500,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.13784479333347552,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.833",
+          "cameraPosition": "-5.2238,1.2521,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9611333248933932,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "518.833",
+          "cameraPosition": "-5.2238,1.2521,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9611333248933932,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.034",
+          "cameraPosition": "-4.8355,1.4775,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9987592001243414,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.034",
+          "cameraPosition": "-4.8355,1.4775,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9987592001243414,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.250",
+          "cameraPosition": "-3.6049,1.5285,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9895881066667248,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.250",
+          "cameraPosition": "-3.6049,1.5285,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9895881066667248,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.484",
+          "cameraPosition": "-2.4006,1.5382,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.08813941487952048,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.484",
+          "cameraPosition": "-2.4006,1.5382,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.08813941487952048,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.484",
+          "cameraPosition": "-2.4006,1.5382,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.08813941487952048,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.699",
+          "cameraPosition": "-2.1476,1.5397,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.002328303231443341,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.699",
+          "cameraPosition": "-2.1476,1.5397,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.002328303231443341,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.900",
+          "cameraPosition": "-2.0997,1.5399,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "519.900",
+          "cameraPosition": "-2.0997,1.5399,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "520.116",
+          "cameraPosition": "-2.0893,1.5400,5.4511",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "destination": "about",
+      "samples": [
+        {
+          "activeRoom": "about",
+          "activeTime": "541.300",
+          "cameraPosition": "-2.0870,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.500",
+          "cameraPosition": "-2.3726,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.4863969600001327,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.500",
+          "cameraPosition": "-2.3726,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.4863969600001327,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.500",
+          "cameraPosition": "-2.3726,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.4863969600001327,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.717",
+          "cameraPosition": "-4.0786,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9837652820616184,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.717",
+          "cameraPosition": "-4.0786,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9837652820616184,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.934",
+          "cameraPosition": "-4.9817,1.5316,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.5102077934923943,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.934",
+          "cameraPosition": "-4.9817,1.5316,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.5102077934923943,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "541.934",
+          "cameraPosition": "-4.9817,1.5316,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.5102077934923943,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.150",
+          "cameraPosition": "-5.1792,0.6657,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.016234508536481188,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.150",
+          "cameraPosition": "-5.1792,0.6657,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.016234508536481188,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.365",
+          "cameraPosition": "-5.2165,-0.0386,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.07606330666659979,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.365",
+          "cameraPosition": "-5.2165,-0.0386,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.07606330666659979,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.365",
+          "cameraPosition": "-5.2165,-0.0386,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.07606330666659979,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.567",
+          "cameraPosition": "-5.2233,-0.9966,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.9141038248139968,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.567",
+          "cameraPosition": "-5.2233,-0.9966,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.9141038248139968,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.784",
+          "cameraPosition": "-4.9144,-1.3235,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.997799234640762,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.784",
+          "cameraPosition": "-4.9144,-1.3235,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.997799234640762,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.984",
+          "cameraPosition": "-4.0235,-1.3878,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 1,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.984",
+          "cameraPosition": "-4.0235,-1.3878,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 1,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "542.984",
+          "cameraPosition": "-4.0235,-1.3878,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 1,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.200",
+          "cameraPosition": "-2.5953,-1.4019,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.2619394759304522,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.200",
+          "cameraPosition": "-2.5953,-1.4019,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.2619394759304522,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.400",
+          "cameraPosition": "-2.1998,-1.4044,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.009059874276268438,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.400",
+          "cameraPosition": "-2.1998,-1.4044,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.009059874276268438,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.617",
+          "cameraPosition": "-2.1077,-1.4049,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.617",
+          "cameraPosition": "-2.1077,-1.4049,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.617",
+          "cameraPosition": "-2.1077,-1.4049,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.834",
+          "cameraPosition": "-2.0907,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "about",
+          "activeTime": "543.834",
+          "cameraPosition": "-2.0907,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "false"
+        }
+      ]
+    },
+    {
+      "destination": "projects",
+      "file": "after-live-transit-portrait.jpg",
+      "samples": [
+        {
+          "activeRoom": "projects",
+          "activeTime": "543.834",
+          "cameraPosition": "-2.0907,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.034",
+          "cameraPosition": "-2.1465,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.0815615733331845,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.034",
+          "cameraPosition": "-2.1465,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.0815615733331845,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.250",
+          "cameraPosition": "-3.5274,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.9339971135778136,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.250",
+          "cameraPosition": "-3.5274,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.9339971135778136,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.250",
+          "cameraPosition": "-3.5274,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.9339971135778136,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.467",
+          "cameraPosition": "-4.8267,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.7945249979810153,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.467",
+          "cameraPosition": "-4.8267,-1.4050,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.7945249979810153,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.684",
+          "cameraPosition": "-5.1485,-0.8725,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.03867658920549813,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.684",
+          "cameraPosition": "-5.1485,-0.8725,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.03867658920549813,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.684",
+          "cameraPosition": "-5.1485,-0.8725,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.03867658920549813,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.900",
+          "cameraPosition": "-5.2111,-0.1692,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.0009423350667405726,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "544.900",
+          "cameraPosition": "-5.2111,-0.1692,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0.0009423350667405726,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.117",
+          "cameraPosition": "-5.2225,0.9573,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.8457978195778031,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.117",
+          "cameraPosition": "-5.2225,0.9573,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.8457978195778031,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.334",
+          "cameraPosition": "-5.0442,1.4208,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9961206186227086,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.334",
+          "cameraPosition": "-5.0442,1.4208,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9961206186227086,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.334",
+          "cameraPosition": "-5.0442,1.4208,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.9961206186227086,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.550",
+          "cameraPosition": "-4.1716,1.5178,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 1,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.550",
+          "cameraPosition": "-4.1716,1.5178,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 1,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "true",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.750",
+          "cameraPosition": "-2.7335,1.5354,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.42213034997493704,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.750",
+          "cameraPosition": "-2.7335,1.5354,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.42213034997493704,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.967",
+          "cameraPosition": "-2.2162,1.5392,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.012170839913902684,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.967",
+          "cameraPosition": "-2.2162,1.5392,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.012170839913902684,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "545.967",
+          "cameraPosition": "-2.2162,1.5392,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0.012170839913902684,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "546.167",
+          "cameraPosition": "-2.1140,1.5398,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "546.167",
+          "cameraPosition": "-2.1140,1.5398,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "546.384",
+          "cameraPosition": "-2.0919,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "true"
+        },
+        {
+          "activeRoom": "projects",
+          "activeTime": "546.384",
+          "cameraPosition": "-2.0919,1.5400,7.1286",
+          "portals": [
+            {
+              "id": "projects:about",
+              "openProgress": 0,
+              "physicalHatch": "projects:about"
+            },
+            {
+              "id": "about:projects",
+              "openProgress": 0,
+              "physicalHatch": "about:projects"
+            }
+          ],
+          "queuedRoom": "",
+          "transitWalkway": "false",
+          "travelling": "false"
+        }
+      ]
+    }
+  ]
+}

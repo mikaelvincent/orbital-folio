@@ -1,0 +1,1176 @@
+[
+  {
+    "file": "before-overview-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-7.2523,4.2326,21.3114",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "ca858248ea386c36bbde37c468a51a3ab74d7e44e906842e8f46485b6c16b9b5",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-ladder-front-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 774,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.607585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1726568,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Ladder+front&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "ea89824b920c6b36aa51d4f167e30ff36a3cd18ac9c25a613285dd26ed5a093f",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-upper-return-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 527,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.7917207823874683,
+          1.8784740267048008,
+          3.7935064886346623
+        ],
+        "target": [
+          -5.225,
+          2.44,
+          0.05
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1476597,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Upper ladder return",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Upper+ladder+return&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "258e98ee88380613f7a0b66f3c3d103a804ed61bed92545b58f6457d567e563b",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-ladder-reverse-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 878,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -7.538456701834464,
+          0.90875698248526,
+          10.265712281065747
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          -0.25
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1872224,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Ladder reverse",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Ladder+reverse&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "3741d2bf57e5913c605d0c739efb973faf2df6e66297c6fd3d8747ce50beaeaf",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-lower-return-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 493,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.7917207823874683,
+          -1.748474026704801,
+          3.7935064886346623
+        ],
+        "target": [
+          -5.225,
+          -2.31,
+          0.05
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1396624,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Lower ladder return",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Lower+ladder+return&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "e6b9e4639567b67ec591cadb65f81a58e15247e2a9ec87331ccf9cc32cb39ed7",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-ladder-front-compact.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 600,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -1.187585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -3.805,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1512334,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Ladder+front&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "0a6572cbd68623601f8cfadaf15dbe19b7558f96308893c405d955dd64aada9a",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-overview-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "bfad7b074c2d90b7ad13ef5135c36964577e8b729a634e7fa5d541c70016ed39",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-projects-entrance.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "1f6bb29a7506517420f2f7b9967858425e411be859a374cee6bf5425f5d0c205",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-about-entrance.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "about",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0892,-1.4050,5.4511",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/about",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "dfe1a00044e111cfc43570c576a20fb5643d8ce237cff52aeccbf5c1a7cdd278",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-live-transit-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-5.2108,-0.1709,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "true"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "0778a8140fd98d28687211fb1b2883f8319441edacbf72792b40c7bfd125fda0",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "before-live-transit-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-5.2143,-0.0352,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "true"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "before",
+    "sourceTreeSha256": "aea933402c344a804a98c55853042adf011bab8418d4f13eb393ae02f6c24521",
+    "imageSha256": "c223a595a514df58309e19d37eeb6bb0fb82feba95556116f61d6b0323358105",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-ladder-reverse-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 876,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -7.538456701834464,
+          0.90875698248526,
+          10.265712281065747
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          -0.25
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1857056,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Ladder reverse",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Ladder+reverse&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "c73cfd9d3b93d9e9d93495cdeb3e72d98f0959d599be89f85b62b92a36a672f1",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-ladder-front-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 772,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.607585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1711400,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Ladder+front&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "59bc19ed7af6e6988263b66ff306b918a011b739e3a790db5ba34d0a58079908",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-upper-return-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 525,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.7917207823874683,
+          1.8784740267048008,
+          3.7935064886346623
+        ],
+        "target": [
+          -5.225,
+          2.44,
+          0.05
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1461429,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Upper ladder return",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Upper+ladder+return&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "5397d81bae5863371dd4a732bc4b6ab8f1d1b50f2fb7a8480f89e96865590750",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-lower-return-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 491,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.7917207823874683,
+          -1.748474026704801,
+          3.7935064886346623
+        ],
+        "target": [
+          -5.225,
+          -2.31,
+          0.05
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1381456,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Lower ladder return",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Lower+ladder+return&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "8e208365a395b97d9b1982f10ba77b782a91e8c9637ba38beac526715db811ed",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-ladder-front-compact.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 598,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -1.187585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -3.805,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1497166,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Ladder+front&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "d01c897ecfb10b0799bf851626ec2fc15b7e6939fbdac6429ef5b9893dcbfc91",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-overview-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "d83c3d90add7b3509927fe1745e55805518727806546de3df9ca34e4298f784b",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-overview-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-7.2523,4.2326,21.3114",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "cec31807e8a853bfbe5a85bb7ebdeb2ab3f9ce6559b2c3b54d2da695c902f5b2",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-projects-entrance.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "0d0fe4007a39689890f11cb0f34112656876b9c36927c83d026da976f79131ec",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-about-entrance.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "about",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0893,-1.4050,5.4511",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/about",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "1208d4300705a28c37aecf604c735c04d4ef214830b9cea292b87104f9c7175a",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-live-transit-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-5.1895,-0.4715,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "true"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "8f94141a78a0129d1fd8148092797975b21f5c2a744072f760eecb9bf002b4d1",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-live-transit-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-5.2111,-0.1692,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "true"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      390,
+      844
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "12fcf28e9f706ec6b1fb56a0648fba3240ce9ae26facdbfc562027beff4e46a3",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      390,
+      844
+    ],
+    "imageScaling": "None"
+  },
+  {
+    "file": "after-overview-drag-release.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "-0.01167,0.00400",
+      "cameraPosition": "-7.1670,4.4810,21.2826",
+      "cameraQuaternion": "-0.099200,-0.123254,-0.012384,0.987327",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "engine": "Hidden built-in Chromium 153",
+    "sourceVersion": "after",
+    "sourceTreeSha256": "4e485b21584dc9cae6b7e5ff5d4c75cc6aba805e4c0afce948fc6a1b318874a2",
+    "imageSha256": "a31497d641d57f618ceec9a8cb34afa956c3d17b8cd8023fe2d80ad1c9d842cd",
+    "imageEncoding": "JPEG",
+    "imageDimensions": [
+      1440,
+      900
+    ],
+    "imageScaling": "None"
+  }
+]

@@ -1011,7 +1011,7 @@ export function buildLadderWebFittings(THREE: any, h: any, root: any) {
       dark,
       x,
       0,
-      0.07,
+      0.068,
       root,
       'z',
       0.081,
@@ -1033,6 +1033,6 @@ export function buildLadderWebFittings(THREE: any, h: any, root: any) {
     cap.name = 'ladder-web-valve-cap';
     box(0.087, 0.016, 0.016, amber, x, 0, 0.094, 'isolation-grip', 0.006);
     for (const y of [-0.119, 0.119])
-      box(0.104, 0.013, 0.014, dark, x, y, 0.073, 'captured-guard', 0.005);
+      box(0.104, 0.013, 0.014, dark, x, y, 0.071, 'captured-guard', 0.005);
   }
 }

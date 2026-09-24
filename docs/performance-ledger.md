@@ -27,6 +27,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 52 · 24 September 2026 | Stage 02 archive recorder dock: formed supports and quieter extraction fittings | +2,178 triangle inputs / +0.3164 MiB geometry arrays per layout; unchanged architecture and other rooms. [Evidence](evidence/case-study-archive-design/README.md). |
 | 54 · 24 September 2026 | Stage 04 communications console: aligned displays, thinner shell and underslung audio storage | Contact furniture −6,448 triangle inputs / −0.1808 MiB geometry arrays per layout; shared camera frame and protected rooms unchanged. [Evidence](evidence/contact-console-design/README.md). |
 | 55 · 24 September 2026 | Stage 05 personal study: open retained library, quieter handhold and fitted wall mounts | About +7 visible submission candidates; −2,620 wide / −2,628 compact triangle inputs. Protected rooms, notebook transforms and shared camera frame unchanged. [Evidence](evidence/about-study-design/README.md). |
+| 56 · 24 September 2026 | Stage 06 transfer bay: open liner between seated rail carriers and grounded service fittings | −7,584 triangle inputs / −1 visible submission candidate / −202,464 geometry-array bytes per layout. Protected rooms, liner/end fittings and camera/door routes unchanged. [Evidence](evidence/ladder-bay-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3021,6 +3022,46 @@ separate snapshots are retained. The initial obsolete grille assertion failure
 and recovery are preserved. The independent critic scored final source and
 matching evidence **94/100**, with no unresolved blockers; its design-weighted
 rubric and limitations are retained with the evidence.
+
+## 56 — Ladder transfer bay design baseline (24 September 2026)
+
+Baseline `cecd316` includes approved Stages 01–05. Stage 06 replaces the ladder's
+five broad closeouts with two narrow carbon carriers seated on the real ivory
+liner. The 13-rung route keeps its position and pitch; dark grip inserts with
+satin ends and bronze collars at four support stations establish a quieter
+handling hierarchy. Fine tread rings are removed. Recessed coupling barrels,
+cap pegs and isolation-cassette sockets/guards now meet their supporting solids.
+No equipment, lights, physical landings or interaction targets are added.
+
+[Structural inventory](evidence/ladder-bay-design/structural-costs.json) records
+the service spine **76,792→69,208 triangle inputs**, **18→17 visible mesh/material
+submission candidates**, and **3,024,200→2,821,736 geometry-array bytes** in both
+layouts. Whole-scene deltas are −7,584 triangles, −1 candidate and −202,464 array
+bytes. Counts use production batching/instancing, excluding frustum culling and
+canvas artwork. They do not measure total retained process/GPU memory.
+
+Actual protected geometry/material/transform fingerprints and bounds match for
+the remaining ladder, continuous liner, spanners/end grips, four cabin furniture
+groups, shared architecture/utilities and docking/service/exterior assemblies.
+Framing, aperture, route and door metadata match, with each layout deep-copied
+before switching. The separate isolation cassette retains its geometry counts;
+only socket/guard positions change. Finite front rendering records **774→772
+wide / 600→598 compact calls**, including requested shadow generation, with
+15,168 fewer triangle inputs. Counts do not establish a timing or power benefit.
+
+[Matching evidence](evidence/ladder-bay-design/README.md) contains fixed front,
+reverse and end obliques plus live overviews, cabin entrances and both-orientation
+transfers in hidden built-in Chromium 153, unscaled 1440×900 and 390×844 at DPR 1.
+Finite fixtures omit GTAO, orbital background, navigation and live applications;
+live transit camera positions/animation phases differ between captures. Both
+live orientations use the wide model; compact geometry is checked separately.
+All **560 isolated tests**, typecheck, build/geometry check, affected lint and
+formatting pass. The new attachment/clearance tests and focused checks pass
+62/62. No native Safari, physical-phone, startup, rested CPU/GPU, heat or battery
+comparison was performed. This is a new art baseline; no held candidate was
+implemented. The independent critic scored final source and matching evidence
+**95/100**, with no unresolved blockers; its rubric, resolved documentation
+finding and limitations are preserved with the evidence.
 
 ## Next candidates
 
