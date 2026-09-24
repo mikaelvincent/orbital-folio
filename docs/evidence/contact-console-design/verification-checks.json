@@ -1,0 +1,128 @@
+{
+  "verifiedAt": "2026-09-24T08:15:04.374965+00:00",
+  "baselineCommit": "a38ab355358d8bc569b9cb3f785f4697c2493807",
+  "sourceSnapshot": "Final Stage 04 runtime and Contact construction/fittings tests synchronized before the full suite. All checks below used the same six-file snapshot.",
+  "source": [
+    {
+      "path": "features/spacecraft/rooms/contact-flight-console.ts",
+      "sha256": "4936b1877bf07bb92c362f7bf9cbf0f30cc4f9a8284ad95fdedf93d714bb7004",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/contact-flight-audio.ts",
+      "sha256": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/cabin-composition.ts",
+      "sha256": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/equipment/outboard-wall-equipment.ts",
+      "sha256": "ae37804d32a42ce9f8e80bcb52307f798baf745b941b93adaf32f036c256a798",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/contact-construction.test.mjs",
+      "sha256": "93b0bae688c1150a013b48cbba2956227890279c6bd4d6d9d26e9747487a2075",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/contact-fittings.test.mjs",
+      "sha256": "bcd0f45619a2ea0e3389051e2fcbcf81173062eda926a4c8ce9f70982b3ab2e1",
+      "matchesCurrentSource": true
+    }
+  ],
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-contact-verify-_q34qnv4",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-contact-verify-_q34qnv4/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-contact-verify-_q34qnv4/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T08:15:34.975267+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 544,
+      "pass": 544,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 208254.550959,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "3344182efeb4ae7d99c265b67420c53b40439b3b94ee4088b5344468b59e1ef8",
+        "normalizedSha256": "d1e6a4cda81f6a307ced9981bf294e533248ac8c751e9550e3eb0a1a9b13ecd4"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "e2c553db43c75f4c5d62ba96384ad7440cfa8a849d1a893492b3b597f73e04d0",
+        "normalizedSha256": "8c0b6f71a78c559b8a917c21064787f20506a3deeb01c2bdc94adc07e361026f"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-flight-audio.ts features/spacecraft/rooms/cabin-composition.ts features/spacecraft/equipment/outboard-wall-equipment.ts tests/spacecraft/contact-construction.test.mjs tests/spacecraft/contact-fittings.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "e071a22386ddebaad95bf568eeda49e516244f11bdc03afda0bed9faeaf0132f",
+        "normalizedSha256": "8539572751d9a97cea4918973302ec7c66b51917248a0a2fab29e08a2f0f4646"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-flight-audio.ts features/spacecraft/rooms/cabin-composition.ts features/spacecraft/equipment/outboard-wall-equipment.ts tests/spacecraft/contact-construction.test.mjs tests/spacecraft/contact-fittings.test.mjs",
+      "exitCode": 0,
+      "files": 6,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "70c6a6b8e640fb6711e09a1176a346f73ec7bbcd9df5ac1272eb1525478dc016",
+        "normalizedSha256": "f309bf8dc0ba308bce9d7cc7ef6fc7e21ff904cde3b0b3816692b72e5eceafc2"
+      }
+    }
+  },
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

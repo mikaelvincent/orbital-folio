@@ -238,19 +238,19 @@ for (const [layout, propScale, cabinScale] of [
       );
     }
     const headset = bounds(
-      root.getObjectByName('contact-flight-audio-headset-assembly'),
+      root.getObjectByName('contact-flight-audio-headset-hardware'),
     );
     const desk = bounds(
       root.getObjectByName('contact-flight-continuous-console-shell'),
     );
     const anchor = vessel.group.userData.roomAnchors.contact;
     assert.ok(
-      Math.abs(headset.min.y - (anchor[1] + CABIN_FLOOR)) < 2e-6,
-      'The dock touches the unchanged floor',
+      headset.min.y > anchor[1] + CABIN_FLOOR + 0.06 * propScale,
+      'The hanging headset and its cord clear the floor',
     );
     assert.ok(
-      headset.max.y < desk.min.y - 0.025 * propScale,
-      'The headset clears the desk underside',
+      headset.max.y < desk.min.y - 0.02 * propScale,
+      'The removable headset clears the desk underside',
     );
     for (const support of matching(
       root,

@@ -201,51 +201,58 @@ export function buildContactFlightConsole(
   box(2.3, 0.08, 0.16, m.face, 0, 0.7, -0.63, parent, 0.018, 'crossmember');
   box(
     3.12,
-    0.2,
+    0.13,
     1.28,
     m.shell,
     0,
-    0.84,
+    0.875,
     -0.23,
     parent,
-    0.095,
+    0.038,
     'continuous-console-shell',
   );
   box(2.98, 0.025, 1.14, m.dark, 0, 0.938, -0.23, parent, 0.012, 'deck-seal');
   box(2.93, 0.026, 1.1, m.face, 0, 0.958, -0.23, parent, 0.012, 'working-deck');
-  // A restrained, attached handhold continues the vessel's amber hardware family.
-  h.rod(
-    [-1.0, 0.827, 0.478],
-    [1.0, 0.827, 0.478],
-    0.031,
-    m.accent,
+  // A captured carbon handhold leaves the keyboard as the foreground focus.
+  const handhold = new THREE.CatmullRomCurve3(
+    [
+      new THREE.Vector3(-1.03, 0.865, 0.402),
+      new THREE.Vector3(-1.03, 0.865, 0.455),
+      new THREE.Vector3(-0.99, 0.865, 0.478),
+      new THREE.Vector3(0.99, 0.865, 0.478),
+      new THREE.Vector3(1.03, 0.865, 0.455),
+      new THREE.Vector3(1.03, 0.865, 0.402),
+    ],
+    false,
+    'centripetal',
+  );
+  h.mesh(
+    new THREE.TubeGeometry(handhold, 40, 0.022, 12, false),
+    m.face,
     parent,
-  ).name = 'contact-flight-front-handhold';
+    'contact-flight-front-handhold',
+  );
   for (const side of [-1, 1]) {
-    box(
-      0.125,
-      0.2,
-      0.22,
-      m.face,
-      side * 1.02,
-      0.842,
-      0.397,
-      parent,
-      0.035,
-      'handhold-saddle',
-    );
-    box(
-      0.11,
-      0.028,
-      0.24,
+    h.cylinder(
+      0.037,
+      0.022,
       m.rubber,
-      side * 1.02,
-      0.735,
-      0.37,
+      side * 1.03,
+      0.865,
+      0.412,
       parent,
-      0.013,
-      'handhold-isolator',
-    );
+      'z',
+    ).name = 'contact-flight-handhold-saddle';
+    h.cylinder(
+      0.03,
+      0.015,
+      m.metal,
+      side * 1.03,
+      0.865,
+      0.428,
+      parent,
+      'z',
+    ).name = 'contact-flight-handhold-collar';
   }
   // Under-console service enclosure sits on the frame; its socket rail terminates wiring.
   box(
@@ -254,7 +261,7 @@ export function buildContactFlightConsole(
     0.24,
     m.face,
     0,
-    0.658,
+    0.688,
     -0.73,
     parent,
     0.035,
@@ -266,7 +273,7 @@ export function buildContactFlightConsole(
     0.021,
     m.shell,
     0,
-    0.658,
+    0.688,
     -0.601,
     parent,
     0.024,
@@ -274,8 +281,8 @@ export function buildContactFlightConsole(
   );
   fasteners(
     [
-      [-0.52, 0.6, -0.586],
-      [0.52, 0.6, -0.586],
+      [-0.52, 0.63, -0.586],
+      [0.52, 0.63, -0.586],
     ],
     parent,
     'service-cover',
@@ -494,33 +501,30 @@ export function buildContactFlightConsole(
     }
     // Screens have their own opaque, inset plane; bezel faces cannot z-fight with it.
     if (kind === 'contact') {
+      // Fitted extraction grips replace the passive button-like bezel rows.
       for (const side of [-1, 1]) {
-        for (let row = 0; row < 5; row++) {
-          const yy = (2 - row) * 0.165;
-          box(
-            0.075,
-            0.105,
-            0.028,
-            row === 2 && side === -1 ? m.accent : m.face,
-            side * (w / 2 - 0.083),
-            yy,
-            0.127,
-            mount,
-            0.012,
-            'display-function-key',
-          );
-          box(
-            0.026,
-            0.004,
-            0.002,
-            m.ink,
-            side * (w / 2 - 0.083),
-            yy,
-            0.143,
-            mount,
-            0.001,
-            'display-key-mark',
-          );
+        const x = side * (w / 2 - 0.083);
+        const path = new THREE.CatmullRomCurve3(
+          [
+            new THREE.Vector3(x, -0.315, 0.084),
+            new THREE.Vector3(x, -0.315, 0.145),
+            new THREE.Vector3(x, -0.285, 0.163),
+            new THREE.Vector3(x, 0.285, 0.163),
+            new THREE.Vector3(x, 0.315, 0.145),
+            new THREE.Vector3(x, 0.315, 0.084),
+          ],
+          false,
+          'centripetal',
+        );
+        h.mesh(
+          new THREE.TubeGeometry(path, 32, 0.014, 10, false),
+          m.face,
+          mount,
+          'contact-flight-main-display-grip',
+        );
+        for (const y of [-0.315, 0.315]) {
+          h.cylinder(0.026, 0.018, m.metal, x, y, 0.093, mount, 'z').name =
+            'contact-flight-main-display-grip-seat';
         }
       }
       fasteners(
@@ -603,8 +607,8 @@ export function buildContactFlightConsole(
   // WebGL depth occlusion; genuine clearance keeps every key visible as the
   // camera hovers without shrinking the application or covering the key caps.
   display('contact', 0, CONTACT_GRID.mainY + 0.1, 1.63, 1.16, 0);
-  display('link', -1.215, CONTACT_GRID.sideY, 0.72, 0.92, 0.16);
-  display('signal', 1.215, CONTACT_GRID.sideY, 0.72, 0.92, -0.16);
+  display('link', -1.215, CONTACT_GRID.sideY, 0.72, 0.92, 0.22);
+  display('signal', 1.215, CONTACT_GRID.sideY, 0.72, 0.92, -0.22);
 
   // A full compact keyboard replaces the old decorative keypad and toggles.
   // Its shallower slope and deeper cassette fit square keys on the original desk.
@@ -670,7 +674,7 @@ export function buildContactFlightConsole(
       0.006,
       m.metal,
       side * 1.235,
-      0.976,
+      0.973,
       -0.395,
       parent,
       'y',
@@ -683,7 +687,7 @@ export function buildContactFlightConsole(
       0.006,
       m.face,
       side * 1.235,
-      0.981,
+      0.978,
       -0.395,
       parent,
       'y',
@@ -697,10 +701,10 @@ export function buildContactFlightConsole(
   // bent neck keeps the capsule clear of the left screen without overhanging
   // the desk with an unsupported foot or connector.
   audio.microphone.position.set(-1.3, 0.977, 0.06);
-  // Reference the headset dock directly to the floor, independently of the
-  // lowered console. It clears the right support foot and the desk underside.
+  // Hang the headset from the console's right underside, above the deck and
+  // outside the knee space. Its ceiling shoe is captured by the console shell.
   floorRoot.add(audio.headset);
-  audio.headset.position.set(1.47, 0.0036, 0.035);
+  audio.headset.position.set(1.43, 0.1, 0.035);
   audio.headset.scale.setScalar(0.72);
   // Mounting necks bridge from the unchanged equipment shoes to the actual
   // rear pressure surface. Both fixed layout variants are batched once; only

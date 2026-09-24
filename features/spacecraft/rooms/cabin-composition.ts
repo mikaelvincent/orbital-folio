@@ -36,6 +36,6 @@ export const ARCHIVE_GRID = {
 
 export const CONTACT_GRID = {
   mainY: 1.605,
-  sideY: 1.49,
+  sideY: 1.585,
   lowering: 0.24,
 };

@@ -173,6 +173,36 @@ purposeful working space. The monitor bank remains a workshop assembly, distinct
 from the archive magazine and the future communications console. See
 [design, comparisons and verification](evidence/projects-workshop-design/README.md).
 
+### Stage 04 — Contact communications console (24 September 2026)
+
+The console now uses a thinner rounded carbon shell beneath the unchanged worktop
+and 82-key keyboard. A carbon front handhold with seated alloy collars replaces
+the broad bronze rail and large saddles. The main display's passive button-like
+bezel rows are replaced by fitted extraction grips, carrying forward the archive
+and workshop's functional handling details without adding selectable-looking
+decorations. Its glass, pose, keyboard clearance and application anchor are retained.
+
+Both social displays rise to the main display's lower edge and turn slightly
+farther inward. Their existing profile-fitted rear-wall supports and adjacent
+service raceways follow the new positions. Screen artwork, availability and
+independent link behavior are unchanged. The retained microphone bends farther
+outboard to clear the left social glass in oblique views. Its connector gasket,
+deck restraint sockets and radio selector/guard surfaces are seated against
+their actual supporting geometry.
+
+The headset is stowed on a padded **underslung console hanger**, replacing the
+floor pedestal. A captured shoe and short alloy neck carry the retained saddle
+and headband; its lead returns to a connector at the saddle. This keeps the floor
+and knee space clear. Existing console legs, drawers, radio modules and main
+display proportions retain the communications identity. Shared architecture,
+archive/workshop, camera fit, contact semantics and visitor interfaces are
+unchanged. See [design, comparisons and verification](evidence/contact-console-design/README.md).
+
+Later furniture should inherit seated joints, clear support paths, unobstructed
+working surfaces, carbon handling parts and small alloy/bronze retainers. About
+may keep warmer personal materials and a different furniture silhouette; the
+Contact screen arrangement is not a template for every room.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

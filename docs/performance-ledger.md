@@ -25,6 +25,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 30 · 20 September 2026 | Fixed Earth scene and compact coastal loop | Native Europe detail retained; 21.05% fewer download bytes and 68.75% less nominal map storage. New art/camera baseline; measured timing and limitations in entry 30. |
 | 51 · 24 September 2026 | Shared cabin architecture: continuous matte deck and seated light cassettes | New art baseline: +23,016 structural triangle inputs and +2.134 MiB geometry arrays per layout; furnishings/framing unchanged. [Evidence](evidence/shared-cabin-architecture/README.md). |
 | 52 · 24 September 2026 | Stage 02 archive recorder dock: formed supports and quieter extraction fittings | +2,178 triangle inputs / +0.3164 MiB geometry arrays per layout; unchanged architecture and other rooms. [Evidence](evidence/case-study-archive-design/README.md). |
+| 54 · 24 September 2026 | Stage 04 communications console: aligned displays, thinner shell and underslung audio storage | Contact furniture −6,448 triangle inputs / −0.1808 MiB geometry arrays per layout; shared camera frame and protected rooms unchanged. [Evidence](evidence/contact-console-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -2933,6 +2934,49 @@ All **537 final-source isolated tests**, typecheck, build/geometry check, affect
 lint and formatting passed. The independent critic scored the final source and
 matching evidence **94/100**, with no unresolved blockers; its rubric and
 limitations are preserved with the evidence.
+
+## 54 — Contact communications console design baseline (24 September 2026)
+
+Baseline `a38ab35` includes approved Stages 01–03. Stage 04 reduces the console's
+visual bulk while preserving its worktop, central display and keyboard. Social
+displays share a lower edge with the main screen and turn slightly farther inward;
+their fitted supports and local raceways follow them. Carbon extraction grips
+replace passive bezel buttons. A carbon front handhold with alloy collars replaces
+the broad bronze rail. The headset hangs from a fitted console saddle with a
+plugged return lead, replacing its floor stand. The microphone neck clears the
+social glass in oblique views; connector/selector surfaces are physically seated.
+
+[Structural inventory](evidence/contact-console-design/structural-costs.json)
+records Contact furniture **66,854 → 60,406 triangle inputs**, **35 → 32
+mesh/material submission candidates**, **25 → 22 unique geometries**, and
+**1,775,916 → 1,586,348 geometry-array bytes** in both layouts (−6,448 triangles;
+−189,568 bytes / −0.1808 MiB). Compact Contact utility raceway clipping contributes
+a further −8 triangles/−816 bytes. Outboard selector/guard seating changes small
+bounds, without count changes. Protected pressure structures, other furniture,
+other cabin utilities, archive outboard equipment, ladder/docking/service/chassis
+and whole-scene bounds are unchanged. Shared architectural camera and overview
+fitting metadata match exactly; Contact's diagnostic content-bounds points change
+with its furniture and are excluded from room camera fitting. Supplemental
+framing metadata was corrected after independent review caught mutable layout
+references in the evidence collection; no runtime source correction was needed.
+
+The fixed browser fixture separately records six fewer calls per oblique frame,
+with 12,896 fewer wide / 12,912 fewer compact triangle inputs including requested
+PCF shadow generation. Structural counts include production batching/instances
+but omit canvas text and frustum culling. Bytes count geometry arrays, not measured
+process/GPU memory. Neither inventory establishes a timing or power gain.
+
+[Matching source and evidence](evidence/contact-console-design/README.md) cover
+live landscape/portrait rooms and applications, overview, approved neighboring
+rooms and fixed obliques. Hidden built-in Chromium 153 was used at unscaled
+1440×900 and 390×844, DPR 1. The finite fixture omits GTAO, orbital background,
+navigation and live apps; portrait oblique has a documented side-screen crop.
+No native Safari, physical phone, rested timing, startup, heat or battery comparison
+was performed. No held ledger candidate is implemented; this is a new art baseline.
+All **544 final-source isolated tests**, typecheck, build/geometry check, affected
+lint and formatting pass. The independent review and limitations are retained
+with the evidence: **94/100**, with no unresolved blockers. No live messages
+were sent or stored inquiries altered.
 
 ## Next candidates
 

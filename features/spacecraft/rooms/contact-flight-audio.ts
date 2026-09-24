@@ -180,10 +180,10 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
   lead(
     [
       [-0.037, 0.078, -0.034],
-      [-0.068, 0.21, -0.019],
-      [-0.14, 0.38, 0.019],
-      [-0.187, 0.475, 0.042],
-      [-0.208, 0.53, 0.043],
+      [-0.15, 0.21, -0.019],
+      [-0.235, 0.38, 0.019],
+      [-0.26, 0.475, 0.042],
+      [-0.28, 0.53, 0.043],
     ],
     0.0085,
     m.dark,
@@ -195,14 +195,14 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.012,
     0.022,
     m.metal,
-    -0.208,
+    -0.28,
     0.535,
     0.043,
     microphone,
     'y',
     'microphone-capsule-collar',
   );
-  const capsule = group('microphone-capsule', microphone, -0.208, 0.586, 0.043);
+  const capsule = group('microphone-capsule', microphone, -0.28, 0.586, 0.043);
   capsule.rotation.x = -0.14;
   const capsuleBack = solid(
     new THREE.SphereGeometry(1, 24, 16),
@@ -250,7 +250,7 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.02,
     m.metal,
     -0.124,
-    0.008,
+    0.007,
     -0.112,
     microphone,
     'y',
@@ -261,7 +261,7 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.006,
     m.rubber,
     -0.124,
-    -0.002,
+    -0.003,
     -0.112,
     microphone,
     'y',
@@ -269,65 +269,31 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
   );
 
   const headset = group('headset-assembly', parent, 1.17, 0.965, 0.035);
+  // An underslung hanger replaces the floor stand. The ceiling shoe seats
+  // into the console shell; the padded saddle carries the retained headband.
   block(
-    0.294,
-    0.008,
-    0.172,
-    m.rubber,
-    0,
-    -0.001,
-    0.007,
-    headset,
-    0.004,
-    'headset-dock-foot',
-  );
-  block(
-    0.307,
-    0.04,
-    0.182,
-    m.shell,
-    0,
-    0.021,
-    0.007,
-    headset,
-    0.012,
-    'headset-dock-shell',
-  );
-  block(
-    0.264,
-    0.005,
-    0.145,
+    0.24,
+    0.03,
+    0.13,
     m.face,
     0,
-    0.044,
-    0.006,
+    0.667,
+    -0.025,
     headset,
-    0.006,
-    'headset-dock-inset',
-  );
-  block(
-    0.07,
     0.012,
-    0.104,
-    m.dark,
-    0,
-    0.052,
-    -0.007,
-    headset,
-    0.005,
-    'headset-dock-column-foot',
+    'headset-ceiling-shoe',
   );
   block(
     0.041,
-    0.486,
+    0.135,
     0.034,
     m.metal,
     0,
-    0.293,
+    0.6075,
     -0.027,
     headset,
-    0.005,
-    'headset-dock-column',
+    0.006,
+    'headset-hanger-neck',
   );
   block(
     0.054,
@@ -376,26 +342,6 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     headset,
     0.003,
     'headset-dock-release-tab',
-  );
-  block(
-    0.019,
-    0.004,
-    0.002,
-    m.led,
-    0,
-    0.021,
-    0.099,
-    headset,
-    0.001,
-    'headset-dock-indicator',
-  );
-  fasteners(
-    [
-      [-0.107, 0.048, -0.037],
-      [0.107, 0.048, -0.037],
-    ],
-    headset,
-    'headset-dock-captive-screws',
   );
   const phones = group('headset-hardware', headset, 0.015, 0.01, 0.022);
   phones.rotation.y = -0.23;
@@ -599,7 +545,9 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
       [0.233, -0.004, 0.161],
       [0.178, -0.004, 0.18],
       [0.131, 0.013, 0.145],
-      [0.128, 0.072, 0.108],
+      [0.23, 0.22, 0.108],
+      [0.128, 0.46, 0.018],
+      [0.058, 0.5, -0.033],
     ],
     0.005,
     m.rubber,
@@ -611,9 +559,9 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.009,
     0.022,
     m.dark,
-    0.128,
-    0.08,
-    0.108,
+    0.058,
+    0.51,
+    -0.033,
     phones,
     'y',
     'headset-plug-strain-relief',
@@ -622,24 +570,24 @@ export function buildContactAudio(THREE: any, h: any, parent: any, m: any) {
     0.012,
     0.015,
     m.metal,
-    0.128,
-    0.096,
-    0.108,
+    0.058,
+    0.526,
+    -0.033,
     phones,
     'y',
-    'headset-deck-plug',
+    'headset-dock-plug',
   );
   block(
-    0.035,
-    0.106,
-    0.036,
+    0.16,
+    0.048,
+    0.09,
     m.face,
-    0.128,
-    0.041,
-    0.108,
+    0.023,
+    0.55,
+    -0.033,
     phones,
     0.004,
-    'headset-connector-pedestal',
+    'headset-connector-housing',
   );
   // Record explicit design envelopes without depending on traversal or animation.
   microphone.userData.staticHardware = true;

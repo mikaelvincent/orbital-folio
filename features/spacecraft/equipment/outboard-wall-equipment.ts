@@ -154,7 +154,7 @@ export function buildOutboardWallEquipment(
         );
       }
       pin(0.067, 0.009, m.rubber, 0.378, y - 0.008, 0.127, 'selector-recess');
-      pin(0.046, 0.029, m.alloy, 0.378, y - 0.008, 0.147, 'selector');
+      pin(0.046, 0.029, m.alloy, 0.378, y - 0.008, 0.145, 'selector');
       box(
         0.01,
         0.04,
@@ -162,7 +162,7 @@ export function buildOutboardWallEquipment(
         m.amber,
         0.378,
         y + 0.006,
-        0.164,
+        0.16,
         'selector-index',
         0.002,
       );
@@ -238,7 +238,7 @@ export function buildOutboardWallEquipment(
       m.alloy,
       0,
       -0.636,
-      0.124,
+      0.123,
       'connector-bank-edge-guard',
       0.008,
     );

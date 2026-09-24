@@ -1,0 +1,625 @@
+[
+  {
+    "file": "before-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,-1.4050,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "before",
+    "sourceTreeSha256": "8c18c074f02872a27970d5f533e56f96794f6300598225a89a5814e51bf4955c",
+    "pngSha256": "2f335b7f20b6ea3d7291466ecae11e27baefbb5ece3c2056fff525a223cbaad2",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "reference-workshop.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,1.5400,5.4482",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "before",
+    "sourceTreeSha256": "8c18c074f02872a27970d5f533e56f96794f6300598225a89a5814e51bf4955c",
+    "pngSha256": "dcb00ddf7812abc11f3a835af2ca3955560c4f4a5bd4c5d4ca0e951cc1990028",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "before-live-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,-1.4050,5.4483",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "before",
+    "sourceTreeSha256": "8c18c074f02872a27970d5f533e56f96794f6300598225a89a5814e51bf4955c",
+    "pngSha256": "ee1f70007ebcdd2d2dcee47dac6ec92f72791cc6ad96499e44b4bc1ab6442096",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "before-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 815,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1893204,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Contact+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "before",
+    "sourceTreeSha256": "8c18c074f02872a27970d5f533e56f96794f6300598225a89a5814e51bf4955c",
+    "pngSha256": "ddada67b8d3b7b0af1b258928e463530312e6e6d29a6b819b2f11773b42e5bd5",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "before-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 802,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          6.241009798264719,
+          -0.1597195004820222,
+          13.287804995179778
+        ],
+        "target": [
+          1.515,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1812824,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/before?view=Contact+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "before",
+    "sourceTreeSha256": "8c18c074f02872a27970d5f533e56f96794f6300598225a89a5814e51bf4955c",
+    "pngSha256": "44934cb5fb80a70f912822599b7ee6036d94537d51a8bba1ca3ae5598b4251fe",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-application-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00163,0.00690",
+      "cameraPosition": "2.1056,-1.2373,2.1651",
+      "cameraQuaternion": "-0.058863,0.003443,0.000203,0.998260",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"contact-computer\",\"portrait\":false,\"width\":1.2899999999999998,\"height\":0.97,\"pixelsWidth\":560,\"pixelsHeight\":421.08527131782944,\"distance\":2.723238576253124}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact?open=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "319dce761e02597c9cde852f1750b43bada9169f2f2b03544e66d06c399cbafd",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-live-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,-1.4048,5.4479",
+      "cameraQuaternion": "-0.000023,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "fbefa84b81f5da737976e75cb2b33cce1fae8fe13444149288b991428a118c7a",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-oblique-wide.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 809,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          4.5283826547398585,
+          -0.7943381514611504,
+          6.9416184853884975
+        ],
+        "target": [
+          2.0869999999999997,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1880308,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": {
+      "layout": "wide"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Contact+oblique&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "62252bd2397f8bec7ddc9b2fecc50e29cf25fdc8c32e5bbe0d4db6574ee413ce",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-oblique-compact.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 796,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          6.241009798264719,
+          -0.1597195004820222,
+          13.287804995179778
+        ],
+        "target": [
+          1.515,
+          -1.4725,
+          0.16
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1799912,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Contact oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": {
+      "layout": "compact"
+    },
+    "url": "http://127.0.0.1:3017/after?view=Contact+oblique&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "2e325a71e4dbe3bdf4e1d9faf31690ac5909b1f88010437f732b1afa7a0ef510",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-live-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "2.0870,-1.4050,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "331696d79f95173cd329422089aff72900ac5489faa61b40421f910ca29bffd9",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-application-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "-0.00130,0.00483",
+      "cameraPosition": "2.0912,-1.3786,0.3082",
+      "cameraQuaternion": "-0.000648,0.002414,0.000002,0.999997",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"contact-computer\",\"portrait\":true,\"width\":0.5494620253164557,\"height\":0.97,\"pixelsWidth\":358,\"pixelsHeight\":632,\"distance\":0.8691953916335159}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact?open=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "82a99f656aeb989a2ef50a8a1d8405a548e55904622e4099227920b24de3390b",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-overview-portrait.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      390,
+      844
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "004f68f9404b06e53ff089c95daaa96fd85f206c7c64692994ca6a8048e05837",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-overview-landscape.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-7.2523,4.2326,21.3114",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "fa5ecbd3f89df8e6dc1f044acc4297c0c8c3f461e1a8cd9345f6e70319b9c197",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "after-drag-release.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "contact",
+      "cameraAngles": "-0.01563,0.00675",
+      "cameraPosition": "2.1227,-1.3223,5.4475",
+      "cameraQuaternion": "-0.007817,0.003375,0.000026,0.999964",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/contact",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "5e6078cd2a137dcffae573e06699bb9b74e1a3e3d54d6ac5cda5ac745dfa4ecc",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  },
+  {
+    "file": "reference-archive.png",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "experience",
+      "cameraAngles": "0.00000,-0.00000",
+      "cameraPosition": "2.0870,1.5400,5.4482",
+      "cameraQuaternion": "-0.000000,-0.000000,-0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://localhost:3000/case-studies",
+    "viewport": [
+      1440,
+      900
+    ],
+    "sourceVersion": "after",
+    "sourceTreeSha256": "1d471df5f5cfc36a23093e268eb335adf170bd068bf3a912d57887cd056abe92",
+    "pngSha256": "aee62faf8b8d281c5d2c1c765ccc19fb1bd091140a37bf13d839b8e8ba0fc178",
+    "engine": "Hidden built-in Chromium 153",
+    "scaling": "Unscaled CSS viewport; browser and renderer DPR 1"
+  }
+]

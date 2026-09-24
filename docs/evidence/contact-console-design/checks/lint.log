@@ -1,0 +1,2 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/contact-flight-audio.ts features/spacecraft/rooms/cabin-composition.ts features/spacecraft/equipment/outboard-wall-equipment.ts tests/spacecraft/contact-construction.test.mjs tests/spacecraft/contact-fittings.test.mjs

@@ -1,0 +1,73 @@
+{
+  "engine": "Hidden built-in Chromium 153",
+  "nativeAppsUsed": false,
+  "mainServer": "http://localhost:3000",
+  "sourceSha256": {
+    "features/spacecraft/rooms/contact-flight-console.ts": "4936b1877bf07bb92c362f7bf9cbf0f30cc4f9a8284ad95fdedf93d714bb7004",
+    "features/spacecraft/rooms/contact-flight-audio.ts": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+    "features/spacecraft/rooms/cabin-composition.ts": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+    "features/spacecraft/equipment/outboard-wall-equipment.ts": "ae37804d32a42ce9f8e80bcb52307f798baf745b941b93adaf32f036c256a798"
+  },
+  "checks": [
+    {
+      "check": "Direct Contact route",
+      "result": "Settled via ordinary overview-to-room entry in landscape and portrait"
+    },
+    {
+      "check": "Keyboard room entry",
+      "result": "Enter on Contact in overview returned to settled Contact room"
+    },
+    {
+      "check": "Physical main-screen selection",
+      "result": "Click at the observed main face opened the Contact application, including after a room drag"
+    },
+    {
+      "check": "Keyboard application entry",
+      "result": "Enter on Open Contact computer opened the portrait application"
+    },
+    {
+      "check": "Application and choices",
+      "result": "Inspected message mode in 1440x900 and 390x844; glass registration, physical keyboard clearance and scroll affordance retained. Schedule a call showed preferred date/time, Asia/Manila zone and the truthful notice that requests are not sent. No fields entered or submit actions invoked."
+    },
+    {
+      "check": "Supported social links",
+      "result": "GitHub and LinkedIn remained visible and their semantic link destinations matched configured URLs. External destinations were not opened. Missing-link behavior covered by automated tests and finite standby fixture."
+    },
+    {
+      "check": "Dismissal",
+      "result": "Close button, Escape, and clicking exposed pressure wall returned to Contact room; wall check left zero Contact computer articles and /contact URL"
+    },
+    {
+      "check": "Drag/release",
+      "result": "Mouse drag [720,740] to [855,785] returned dragging=false, then dragResponse=0,0; remained /contact. Screenshot records settled hover response, not maximum excursion or a full motion trace."
+    },
+    {
+      "check": "Reading view",
+      "result": "Contact heading, configured social/email links, message fields and retained choice appeared; Interactive view returned to scene"
+    },
+    {
+      "check": "Surroundings",
+      "result": "Inspected live landscape/portrait overview and current archive/workshop references"
+    },
+    {
+      "check": "Console",
+      "result": "Final live error sample returned zero entries; not exhaustive historical logging"
+    }
+  ],
+  "content": "Published content read only. No messages/call requests sent, inquiries altered, persisted content or private environment/main state copied. API tests used fresh isolated state.",
+  "limitations": [
+    "No native Safari or physical phone",
+    "No reduced-motion browser override",
+    "No rested timing/startup/heat/power/battery measurement",
+    "Compact finite oblique crops/hides the right social display at the unchanged angle; frontal live portrait and wide oblique provide complementary coverage",
+    "Finite fixture omits GTAO, orbital sky/Earth, navigation and live applications",
+    "Live orbital animation phases differ"
+  ],
+  "cleanup": {
+    "hiddenAgentTabsRemaining": 0,
+    "viewportOverrideReset": true,
+    "finitePreviewServer3017Stopped": true,
+    "mainServerPreserved": true,
+    "mainHttpStatus": 200
+  }
+}
