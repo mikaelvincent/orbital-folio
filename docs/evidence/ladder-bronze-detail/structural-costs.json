@@ -1,0 +1,334 @@
+{
+  "createdAt": "2026-09-24T13:23:59.381960+00:00",
+  "baselineRevision": "32302d204f3a6515e05cc2700be349adcda5cbed",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "49249df2fde43487ff434da366b859684fc7da19889edfdb5d22b280a4123fc7",
+    "frozenAt": "2026-09-24T13:18:32.995Z",
+    "beforeAndAfterTransitiveSourcesVerified": 44,
+    "sourceTreeSha256": {
+      "before": "f33a3f8b2168a06aa5d0ed35c237d62ca040dd97c9758136ef02fa50dd629fa4",
+      "after": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610"
+    },
+    "changedRuntimeSources": {
+      "features/spacecraft/equipment/ladder-service-spine.ts": {
+        "before": "f31857a42395663e784c4c576151e6263d48c0340c07a856846e252927ccace1",
+        "after": "ce1e93aea72a1dd1309fbf09faaa5cf8e7a6abc9922377c0c85747362c6269e4"
+      }
+    },
+    "allOther43RuntimeSourceHashesUnchanged": true,
+    "paletteFile": "lib/palette.ts",
+    "paletteSha256": "45be860992dd73b71237d0751da56806db32775b5143be17fb6b2f1f8cb5f75d"
+  },
+  "method": {
+    "primaryScript": "scripts/measure-hardware-geometry.mjs",
+    "primaryScriptSha256": "ab0d410c75f903b8cf2a79a10278155bc6a823b56d01f31d7d506cc17a1df247",
+    "productionInventory": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "state": "Production createSpacecraft; wide and compact layouts, home at time zero, immediate doors, world matrices updated. Every snapshot deep-cloned before switching layout.",
+    "rawParts": "Capture the real service-spine Mesh objects immediately before production batching removes them, plus retained unbatched service meshes. Compare all 429 parts after deterministic sorting by name, world matrix and geometry hash. Compare raw geometry signatures and local/world transforms independently of material descriptors.",
+    "geometrySignature": "SHA-256 over sorted geometry attributes and index (plus instanceMatrix where applicable), each name/itemSize/normalized flag/typed-array class and exact underlying bytes, then geometry groups/draw range/instance count. The combined source-part signature includes names, geometry hashes and local/world matrix arrays while excluding materials.",
+    "materialCheck": "Compare all source-part material descriptors. The 12 changed parts must use the same material object as existing bronze rung markers and its unchanged #AA8054 base color. Home-state dimming colors are reported separately from the base color.",
+    "protectedFingerprint": "Exact before/after comparison of named production subgroup fingerprints over mesh transforms, semantic parts, instance count, material descriptors and raw geometry/instance data. Equal maps are stored by canonical JSON SHA-256 to avoid copying unchanged scene metadata.",
+    "metadata": "Full exact comparisons of room/overview/camera/aperture/required-framing/walkway/docking/callout metadata, portals/adjacency/active route, iris transforms and passage linings. Shared canonical JSON SHA-256 uses sorted object keys and compact separators.",
+    "counts": "Meshes are visible scene-graph candidates after batching, not renderer draw calls. Triangles include instances. Geometry bytes count unique attributes/indices per inventory and exclude instance attributes, textures, transient arrays, caches and driver allocations.",
+    "visibility": "Whole-model visible inventory honors all ancestors; retained inventory includes hidden scene-graph variants. Named groups traverse from their own roots; exact effective ancestor visibility is separately compared.",
+    "baselineIsolation": "Fresh git archive of source paths and package metadata at the stated baseline; only installed node_modules shared by symlink. No private environment files, database/uploads, emulator state or secrets copied. Baseline removed after measurement; main server/store untouched.",
+    "nodeVersion": "v26.0.0",
+    "threeVersion": "0.185.1"
+  },
+  "materialChanges": {
+    "parts": {
+      "service-spine-rail-split-clamp": 8,
+      "service-spine-rail-end-cap": 4
+    },
+    "before": {
+      "name": "service-spine-graphite-casings",
+      "baseColorSrgb": "#1f2730",
+      "colorSrgb": "#141a20",
+      "roughness": 0.67,
+      "metalness": 0.14,
+      "emissive": [0, 0, 0],
+      "emissiveIntensity": 1,
+      "envMapIntensity": 0.1,
+      "opacity": 1,
+      "transparent": false,
+      "side": 0
+    },
+    "after": {
+      "name": "service-spine-anodized-grips",
+      "baseColorSrgb": "#aa8054",
+      "colorSrgb": "#7c5c3b",
+      "roughness": 0.46,
+      "metalness": 0.23,
+      "emissive": [0, 0, 0],
+      "emissiveIntensity": 1,
+      "envMapIntensity": 0.1,
+      "opacity": 1,
+      "transparent": false,
+      "side": 0
+    },
+    "all12ReuseExistingBronzeMarkerMaterialObject": true,
+    "sharedPaletteBronzeBaseColorSrgb": "#AA8054",
+    "other417SourcePartMaterialDescriptorsUnchanged": true,
+    "existingBronzeMarkerMaterialUnchanged": true
+  },
+  "framingFieldsCompared": [
+    "roomAnchors",
+    "roomBounds",
+    "innerApertureBounds",
+    "roomCameraFrame",
+    "requiredFramingPoints",
+    "overviewBounds",
+    "overviewSupportPoints",
+    "recommendedFraming",
+    "walkwayAnchor",
+    "walkwayBounds",
+    "walkwayProfile",
+    "dockingAnchors",
+    "communicationsAnchor",
+    "calloutAnchors",
+    "calloutEdges"
+  ],
+  "doorAndRouteFieldsCompared": [
+    "portals",
+    "adjacency",
+    "activeRoute",
+    "irisHatches",
+    "passageLinings"
+  ],
+  "comparison": {
+    "wide": {
+      "productionInventoryExactlyEqual": true,
+      "sharedServiceSpineInventory": {
+        "meshes": 17,
+        "triangles": 70180,
+        "uniqueGeometries": 17,
+        "attributeBytes": 2846768,
+        "bounds": {
+          "min": [-5.967050611972809, -2.303100065231323, -1.1763118505477905],
+          "max": [-4.310099971294402, 2.4381000480651855, -0.5979999899864197]
+        }
+      },
+      "sharedWholeLadderInventory": {
+        "meshes": 36,
+        "triangles": 119952,
+        "uniqueGeometries": 36,
+        "attributeBytes": 5621976,
+        "bounds": {
+          "min": [-6.326000000894069, -2.8524999618530273, -1.2699999809265137],
+          "max": [-4.08899999910593, 2.987499952316284, 1.121000051498413]
+        }
+      },
+      "sharedWholeModelVisibleInventory": {
+        "meshes": 520,
+        "triangles": 995492,
+        "uniqueGeometries": 455,
+        "attributeBytes": 37851352,
+        "bounds": {
+          "min": [-8.35600020980835, -3.7988064855903243, -1.5136147622980263],
+          "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+        }
+      },
+      "sharedWholeModelRetainedSceneGraphInventory": {
+        "meshes": 598,
+        "triangles": 1297190,
+        "uniqueGeometries": 533,
+        "attributeBytes": 50311404,
+        "bounds": {
+          "min": [-8.35600020980835, -3.7988064855903243, -1.5136147622980263],
+          "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+        }
+      },
+      "delta": {
+        "meshes": 0,
+        "triangles": 0,
+        "uniqueGeometries": 0,
+        "geometryArrayBytes": 0
+      },
+      "sourcePartComparison": {
+        "parts": 429,
+        "geometryBytesAndLocalWorldTransformsExactlyEqual": true,
+        "sharedGeometryAndTransformSha256": "e104e0832be37ee9171015445de6c92137118f73a391c3130ac0220e0329d7cc",
+        "sharedRawGeometrySignatureSha256": "18435180618debc031b1e47a596fb36a201d305bc26a0efa564720eee10b6322",
+        "sharedLocalTransformSignatureSha256": "35abb432998771376e0abb36357679585749fb484f24a918981297b9aa51efeb",
+        "sharedWorldTransformSignatureSha256": "2b53a8ac62821f5119fd2b1444c7217f4efede67448b238aa3a186143c5c3996",
+        "materialChanges": 12
+      },
+      "protectedGroupNames": [
+        "projects-pressure-structure",
+        "experience-pressure-structure",
+        "about-pressure-structure",
+        "contact-pressure-structure",
+        "projects-cabin-utilities",
+        "experience-cabin-utilities",
+        "about-cabin-utilities",
+        "contact-cabin-utilities",
+        "experience-outboard-equipment",
+        "contact-outboard-equipment",
+        "ladder-wall-isolation-cassette",
+        "central-docking-assembly",
+        "aft-service-assembly",
+        "continuous-spacecraft-chassis",
+        "docking-shoulder-maintenance-spanners",
+        "ladder-end-transfer-equipment",
+        "walkway-finished-inner-docking-hatch",
+        "wide-exterior-service-equipment",
+        "compact-exterior-service-equipment"
+      ],
+      "protectedGroupsExactFingerprintComparison": {
+        "equal": true,
+        "sharedCanonicalJsonSha256": "3f62f76e6295b637cde59198c3a6ba7a296659199f9d929bc3f59b6953a2e88b"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFourFurnitureFingerprintMapSha256": "deca487c5cb13535fa3a39488061d9f211186c0acf0d12088a109f9180cdedaa",
+      "allGroupInventoriesAndBoundsEqual": true,
+      "sharedAllGroupInventorySha256": "2a848d1222cc6a7955d5a645256cdb851d7c7fe140ec9835b6679fb2f72a6198",
+      "exactMetadataAndLinerComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "332e9d73d108515f981ad9b7531c11c7c32b90cd80b62e7fa45c7ef84313a0ba"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0ddc2d7f19b19f2d7c0ce0fa05d316859f105f4b28b5e6ab7f463fbe1d824dbe"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "29b00cda3297c0d1e1a4e9674a4bea6647b66fc06cb1c1e55cbfbaefb3ee701b"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "126727aed035b311c65fe8d78ab75cb4552a562d32e1e0c7b402c0c8e2c0d25d"
+        },
+        "ladderWithoutServiceSpine": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "9dadb95e51639b7acc372d4f8d78aa78b2b026f59169cc7fdf818eeae5060401"
+        }
+      }
+    },
+    "compact": {
+      "productionInventoryExactlyEqual": true,
+      "sharedServiceSpineInventory": {
+        "meshes": 17,
+        "triangles": 70180,
+        "uniqueGeometries": 17,
+        "attributeBytes": 2846768,
+        "bounds": {
+          "min": [-4.335036151409149, -2.303100065231323, -1.1763118505477905],
+          "max": [-3.151499979496002, 2.4381000480651855, -0.5979999899864197]
+        }
+      },
+      "sharedWholeLadderInventory": {
+        "meshes": 36,
+        "triangles": 119952,
+        "uniqueGeometries": 36,
+        "attributeBytes": 5621976,
+        "bounds": {
+          "min": [-4.640000000894069, -2.8524999618530273, -1.2699999809265137],
+          "max": [-2.94499999910593, 2.987499952316284, 1.121000051498413]
+        }
+      },
+      "sharedWholeModelVisibleInventory": {
+        "meshes": 520,
+        "triangles": 973812,
+        "uniqueGeometries": 455,
+        "attributeBytes": 37228856,
+        "bounds": {
+          "min": [-6.670000209808349, -3.7988064855903243, -1.5136147622980263],
+          "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+        }
+      },
+      "sharedWholeModelRetainedSceneGraphInventory": {
+        "meshes": 598,
+        "triangles": 1297190,
+        "uniqueGeometries": 533,
+        "attributeBytes": 50311404,
+        "bounds": {
+          "min": [-6.670000209808349, -3.7988064855903243, -1.5136147622980263],
+          "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+        }
+      },
+      "delta": {
+        "meshes": 0,
+        "triangles": 0,
+        "uniqueGeometries": 0,
+        "geometryArrayBytes": 0
+      },
+      "sourcePartComparison": {
+        "parts": 429,
+        "geometryBytesAndLocalWorldTransformsExactlyEqual": true,
+        "sharedGeometryAndTransformSha256": "1003b0b53b67a7715c159b8d0753d5d714221300e55350ca2e1ca0999f99bdb4",
+        "sharedRawGeometrySignatureSha256": "18435180618debc031b1e47a596fb36a201d305bc26a0efa564720eee10b6322",
+        "sharedLocalTransformSignatureSha256": "35abb432998771376e0abb36357679585749fb484f24a918981297b9aa51efeb",
+        "sharedWorldTransformSignatureSha256": "be55f637933bfbd0fc9f2c5ccb592b7046fc303974cc14434383a80cbfb39e67",
+        "materialChanges": 12
+      },
+      "protectedGroupNames": [
+        "projects-pressure-structure",
+        "experience-pressure-structure",
+        "about-pressure-structure",
+        "contact-pressure-structure",
+        "projects-cabin-utilities",
+        "experience-cabin-utilities",
+        "about-cabin-utilities",
+        "contact-cabin-utilities",
+        "experience-outboard-equipment",
+        "contact-outboard-equipment",
+        "ladder-wall-isolation-cassette",
+        "central-docking-assembly",
+        "aft-service-assembly",
+        "continuous-spacecraft-chassis",
+        "docking-shoulder-maintenance-spanners",
+        "ladder-end-transfer-equipment",
+        "walkway-finished-inner-docking-hatch",
+        "wide-exterior-service-equipment",
+        "compact-exterior-service-equipment"
+      ],
+      "protectedGroupsExactFingerprintComparison": {
+        "equal": true,
+        "sharedCanonicalJsonSha256": "ce8c8d2e524555c9e4e54325a0f18f1830bbadbb153c4a42e573136a3a4dd87d"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFourFurnitureFingerprintMapSha256": "82b3f6cb2d4f406bbeccdb1ad81da54a58de5bddc2a0000ac4631a71a1b0263e",
+      "allGroupInventoriesAndBoundsEqual": true,
+      "sharedAllGroupInventorySha256": "87ce532b57485bcd0d443118076b8598ccf1c131f13e5dbbc4409ae375918188",
+      "exactMetadataAndLinerComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0cb7cce16e3edcc1d6ea68de6e6eec77d679680be6c28c65a2c3690f8c58c43e"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "486a8067ab78542e744c343c2dfb83f6b7ba3053a0647940685b19c3805605d1"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "c2f59b680185aa79d1cc75030e134d2f44a3fe7e022791e4b7769cf5d028af9d"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8506571000f80e652d58089017b52d7d56808222310c329c21ce92d268eaeed0"
+        },
+        "ladderWithoutServiceSpine": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "e533ddb3a317451945209762685403653747fbc0751ff0b272e1e64cbc5fdce5"
+        }
+      }
+    }
+  },
+  "interpretation": "Only the eight load-bearing rail clamps and four rail caps change to the existing bronze finish. Geometry, transforms, counts, measured bounds, protected assemblies and framing/navigation metadata are unchanged in both layouts. Material batching necessarily regroups the affected vertices; unchanged raw source geometry does not mean every post-batch buffer remains byte-identical.",
+  "limitations": [
+    "No browser, WebGL, rendered timing, GPU/process memory, power, thermal or battery measurement was performed.",
+    "Raw source geometry checks and material descriptors do not constitute visual approval; matching browser evidence is separate.",
+    "Visible scene-graph candidates exclude frustum culling and additional render passes. Nested inventories overlap and must not be added.",
+    "Retained scene-graph inventory excludes detached sources and caches, so it is not complete application resource usage."
+  ]
+}

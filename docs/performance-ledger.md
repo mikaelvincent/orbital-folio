@@ -29,6 +29,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 55 · 24 September 2026 | Stage 05 personal study: open retained library, quieter handhold and fitted wall mounts | About +7 visible submission candidates; −2,620 wide / −2,628 compact triangle inputs. Protected rooms, notebook transforms and shared camera frame unchanged. [Evidence](evidence/about-study-design/README.md). |
 | 56 · 24 September 2026 | Stage 06 transfer bay: open liner between seated rail carriers and grounded service fittings | −7,584 triangle inputs / −1 visible submission candidate / −202,464 geometry-array bytes per layout. Protected rooms, liner/end fittings and camera/door routes unchanged. [Evidence](evidence/ladder-bay-design/README.md). |
 | 57 · 24 September 2026 | Owner-requested ladder contrast correction: seamless dark backing and fuller alloy treads | +972 triangle inputs / +25,032 geometry-array bytes per layout; unchanged visible submission candidates and protected framing/routes. [Evidence](evidence/ladder-rung-contrast/README.md). |
+| 58 · 24 September 2026 | Restrained bronze on ladder clamps and terminal caps | Material-only change on 12 existing fittings; geometry, counts and protected framing/routes unchanged. [Evidence](evidence/ladder-bronze-detail/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3104,6 +3105,31 @@ lint/formatting pass. Focused attachment/coverage/clearance and related checks
 pass 62/62. The independent critic scored the correction **95/100**, with no
 unresolved blockers; its readability-weighted rubric and limitations are preserved
 with the evidence. The owner's feedback supersedes the initial Stage 06 judgment.
+
+## 58 — Restrained bronze ladder fittings (24 September 2026)
+
+Baseline `32302d2`. Eight rail clamps and four terminal caps now reuse the existing
+`#AA8054` bronze material at structural support points. Carbon backing and rails,
+alloy treads and their dimensions retain the recent contrast correction.
+Geometry, fixture placement, content, interaction and camera behavior are unchanged.
+
+The [source-matched audit](evidence/ladder-bronze-detail/structural-costs.json)
+confirms identical geometry/transforms on all 429 service-spine source parts,
+exactly 12 material reassignments, and unchanged protected assemblies/metadata.
+Both layouts retain **70,180 spine triangle inputs, 17 mesh submission candidates
+and 2,846,768 geometry-array bytes**; whole-scene inventories also match. Finite
+front renders retain **772 wide / 598 compact calls** and unchanged triangle
+inputs including shadows. Counts do not establish equal timing or power.
+
+[Evidence](evidence/ladder-bronze-detail/README.md) contains paired front views,
+final reverse, overviews and portrait transfer in hidden Chromium 153 at actual
+1440×900 and 390×844, DPR 1. Finite fixtures omit GTAO, Earth/sky, navigation and
+live applications. All **560 isolated tests**, typecheck, build/geometry checks,
+affected lint and format pass. Native Safari, physical-phone, reduced-motion
+browser and timing checks were not performed. This is an authored material
+baseline, with no held optimization candidate included. The independent critic
+scored **96/100**, with no unresolved findings or blockers; its rubric and limits
+are preserved with the evidence.
 
 ## Next candidates
 

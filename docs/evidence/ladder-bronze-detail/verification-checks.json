@@ -1,0 +1,109 @@
+{
+  "verifiedAt": "2026-09-24T13:24:23.049569+00:00",
+  "baselineCommit": "32302d204f3a6515e05cc2700be349adcda5cbed",
+  "sourceSnapshot": "Final ladder bronze material runtime synchronized before the full suite. All checks below used the same one-file snapshot; baseline tests were unchanged. No runtime edits were made by the verification agent.",
+  "source": [
+    {
+      "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+      "sha256": "ce1e93aea72a1dd1309fbf09faaa5cf8e7a6abc9922377c0c85747362c6269e4",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualManifest": {
+    "path": "source-manifest.json",
+    "capturedAt": "2026-09-24T13:18:32.486Z",
+    "version": "after",
+    "changedRuntimeHashMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-bronze-verify-in9pqqgh",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-bronze-verify-in9pqqgh/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-ladder-bronze-verify-in9pqqgh/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T13:24:58.251984+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 560,
+      "pass": 560,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 197834.8495,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "e8c0eb1ec4876039c2fe571224e7df5492f4f89387cab0a910265b3bca893598",
+        "normalizedSha256": "97b9d0e704e4fcc2054ea716db281dee0e4ab65379982924293549fc4a1e2086"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "de5106e3dd1b235891e22468bf7d2f08b40abc6a75651f7209d3de6d173a28b4",
+        "normalizedSha256": "900410099478d80ea77ef4778a53fe5c7d4263e3a7f02a238c2ace83c3f7130f"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/ladder-service-spine.ts",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "a5d99b84b37708529a58a8e044be5f9f86ee2bec1a3fe3e1a9f7a7a10eca4a28",
+        "normalizedSha256": "08c945cff3a2e67b383b9a58b23411a168cc1477b1414cabfc551cda1e8e4fe9"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/equipment/ladder-service-spine.ts",
+      "exitCode": 0,
+      "files": 1,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "052cbb2224c5e06689190f49a2c0fd175555d3d6015444062e336cef8471956f",
+        "normalizedSha256": "4d5f3e500f2387e4045e43bbbeae83f813a6909b53fa206b30108adb7216db9c"
+      }
+    }
+  },
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp under orbital-ladder-bronze-*.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

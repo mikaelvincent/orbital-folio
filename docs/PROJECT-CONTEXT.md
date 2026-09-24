@@ -240,7 +240,9 @@ ivory liner. An owner-requested contrast correction adds a single seamless matte
 Carbon Deep backing behind the rails: the exposed ivory and thin dark rung
 centers made the pale ends difficult to read. Fuller brushed-alloy grasps now
 form clear steps across the dark field. All 13 rungs keep their centers, pitch
-and rail plane, with bronze collars only at four support stations. The earlier five
+and rail plane. A subsequent restrained bronze pass gives the eight rail clamps
+and four small terminal caps the existing spacecraft bronze, reinforcing the
+four support stations while keeping the treads alloy. The earlier five
 broad closeout panels, their seams and decorative rung rings remain superseded.
 
 Service coupling barrels and retained-cap pegs reach their recess backs while
@@ -250,6 +252,7 @@ empty intervening spaces, existing lights, continuous liner and cabin apertures
 remain unchanged. The connector has no new landing slabs: its navigation
 landings remain waypoints. Automatic door sequencing and shared camera framing
 are preserved. See the [current contrast correction](evidence/ladder-rung-contrast/README.md)
+with its [bronze fitting refinement](evidence/ladder-bronze-detail/README.md),
 and [initial Stage 06 construction evidence](evidence/ladder-bay-design/README.md).
 
 Carry forward clear transfer space, actual liner-seated supports, legible alloy

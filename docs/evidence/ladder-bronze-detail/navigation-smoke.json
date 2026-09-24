@@ -1,0 +1,254 @@
+{
+  "method": "Keyboard Projects to About in portrait; DOM sampled at approximately 80 ms plus tool latency, not exhaustive frame coverage.",
+  "trace": [
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.0870,1.5400,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.1443,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.1443,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-3.5117,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-3.5117,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-3.5117,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-4.8214,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-4.8214,1.5400,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.1485,0.9946,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.1485,0.9946,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.2111,0.2279,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.2111,0.2279,7.1286",
+      "openHatches": [
+        "projects:about"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.2225,-0.8278,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.2225,-0.8278,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.0418,-1.2859,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.0418,-1.2859,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-5.0418,-1.2859,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-4.2779,-1.3829,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-4.2779,-1.3829,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.7334,-1.4010,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.7334,-1.4010,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.7334,-1.4010,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.2163,-1.4043,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.2163,-1.4043,7.1286",
+      "openHatches": [
+        "about:projects"
+      ],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.1108,-1.4049,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.1108,-1.4049,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.1108,-1.4049,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.0913,-1.4050,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "true"
+    },
+    {
+      "activeRoom": "about",
+      "cameraPosition": "-2.0913,-1.4050,7.1286",
+      "openHatches": [],
+      "transitWalkway": "false",
+      "travelling": "false"
+    }
+  ]
+}

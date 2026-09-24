@@ -289,23 +289,15 @@ export function buildLadderServiceSpine(
         'z',
         'rail-rigid-stand-off',
       );
-      box(
-        0.07,
-        0.076,
-        0.068,
-        m.graphite,
-        x,
-        y,
-        -0.69,
-        'rail-split-clamp',
-        0.014,
-      );
+      box(0.07, 0.076, 0.068, m.amber, x, y, -0.69, 'rail-split-clamp', 0.014);
       for (const dx of [-0.035, 0.035])
         for (const dy of [-0.034, 0.034]) screws.push([x + dx, y + dy, -0.929]);
       cylinder(0.009, 0.012, m.alloy, x, y, -0.653, 'z', 'rail-clamp-bolt');
     }
+    // Bronze marks the load-bearing clamps and terminal caps; long handling
+    // surfaces stay carbon or alloy so the support accents remain restrained.
     for (const y of [-2.505, 2.525])
-      cylinder(0.03, 0.1, m.graphite, x, y, -0.69, 'y', 'rail-end-cap');
+      cylinder(0.03, 0.1, m.amber, x, y, -0.69, 'y', 'rail-end-cap');
     // Graphite grips and their collars share the transfer handholds' finish.
     for (let i = 0; i < rungYs.length - 1; i++) {
       const y = (rungYs[i] + rungYs[i + 1]) / 2;
