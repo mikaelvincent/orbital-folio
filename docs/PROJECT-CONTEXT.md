@@ -203,6 +203,36 @@ working surfaces, carbon handling parts and small alloy/bronze retainers. About
 may keep warmer personal materials and a different furniture silhouette; the
 Contact screen arrangement is not a template for every room.
 
+### Stage 05 — About personal study (24 September 2026)
+
+The rest-left/study-right arrangement, clear floor, wood writing insert, paper,
+fabric bedding, photograph and retained personal objects remain the room's warmer
+identity. The library now uses an open carbon cradle with formed side cheeks,
+a supporting shelf and low captive webbing. Its three existing book covers are
+visible; the dense grille and library zipper are superseded. Folded blanket
+storage retains its fabric pouch, zipper and broad straps. The folded perch and
+bedding roll keep their existing purposeful placements.
+
+The desk's front grip is carbon with fitted alloy collars, allowing the wood and
+notebook to lead. The square photograph and three equal social prints keep their
+sizes, content and targets; thin seated graphite carriers and satin corner clips
+give them a common mounting detail. Notebook paper, cover, tilt, content anchors,
+page/section behavior and portrait full-spread policy are unchanged. Its rear
+cradle stays now meet the writing surface.
+
+Study wall mounts follow the actual cabin lining in both furniture scales,
+replacing the earlier approximate curve. The locker stands slightly farther
+forward to clear the lower cove; the berth receives only a small clearance margin.
+Brace and foot-loop ends meet their mounts, the berth buckle has a supported
+latch, the locker handle returns meet its door, and the lamp cable cuff reaches
+its arm. Shared architecture, approved rooms and camera fitting are unchanged.
+See [design, comparisons and verification](evidence/about-study-design/README.md).
+
+Carry forward visible support paths and restrained handling hardware while
+allowing room-specific natural materials. The next ladder-bay stage should use
+the actual lining for attachment, preserving the approved paired maintenance
+spanners, grab bars and empty intervening spaces until its own design review.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

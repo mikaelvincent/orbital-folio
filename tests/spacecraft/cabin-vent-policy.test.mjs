@@ -55,7 +55,10 @@ test('Only the two label-side air returns remain vent-shaped in each cabin', () 
 
 test('Retention and audio functions remain recognizable after grille replacement', () => {
   const about = namesIn(vessel.group.getObjectByName(furniture.about));
-  assert.ok(about.includes('personal-study-personal-library-captive-mesh'));
+  assert.ok(
+    about.includes('personal-study-personal-library-retaining-webbing'),
+  );
+  assert.ok(about.includes('personal-study-personal-library-webbing-keeper'));
   assert.ok(!about.includes('personal-study-blanket-stowage-captive-mesh'));
   assert.ok(about.includes('personal-study-blanket-stowage-textile-restraint'));
   assert.ok(about.includes('personal-study-locker-captive-seal-keeper'));

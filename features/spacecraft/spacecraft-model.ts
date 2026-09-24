@@ -1566,6 +1566,10 @@ export function createSpacecraft(
       journal: options.journal,
       notebookName: options.notebookName,
       onPhotoChange: options.onAboutPhotoChange,
+      rearWallProfile: interiorPoints.map((point: any) => ({
+        y: point.y,
+        z: -point.x,
+      })),
     },
   );
   const aboutNotebook = personalStudy.userData.aboutNotebook;
@@ -2930,6 +2934,7 @@ export function createSpacecraft(
     const lockerCenter =
       (CABIN_HALF_WIDTH * layoutScale + studyRightEdge * propScale) / 2;
     personalStudy.userData.setLockerX(lockerCenter / propScale);
+    personalStudy.userData.setPropScale(propScale);
     contactConsole.userData.setPropScale(propScale);
     for (const { section, root } of outboardEquipment) {
       // Each complete wall rack is centered in its own floor-to-ceiling area.

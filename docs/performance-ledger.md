@@ -26,6 +26,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 51 · 24 September 2026 | Shared cabin architecture: continuous matte deck and seated light cassettes | New art baseline: +23,016 structural triangle inputs and +2.134 MiB geometry arrays per layout; furnishings/framing unchanged. [Evidence](evidence/shared-cabin-architecture/README.md). |
 | 52 · 24 September 2026 | Stage 02 archive recorder dock: formed supports and quieter extraction fittings | +2,178 triangle inputs / +0.3164 MiB geometry arrays per layout; unchanged architecture and other rooms. [Evidence](evidence/case-study-archive-design/README.md). |
 | 54 · 24 September 2026 | Stage 04 communications console: aligned displays, thinner shell and underslung audio storage | Contact furniture −6,448 triangle inputs / −0.1808 MiB geometry arrays per layout; shared camera frame and protected rooms unchanged. [Evidence](evidence/contact-console-design/README.md). |
+| 55 · 24 September 2026 | Stage 05 personal study: open retained library, quieter handhold and fitted wall mounts | About +7 visible submission candidates; −2,620 wide / −2,628 compact triangle inputs. Protected rooms, notebook transforms and shared camera frame unchanged. [Evidence](evidence/about-study-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -2977,6 +2978,49 @@ All **544 final-source isolated tests**, typecheck, build/geometry check, affect
 lint and formatting pass. The independent review and limitations are retained
 with the evidence: **94/100**, with no unresolved blockers. No live messages
 were sent or stored inquiries altered.
+
+## 55 — About personal study design baseline (24 September 2026)
+
+Baseline `f62b0e7` includes approved Stages 01–04. Stage 05 preserves the study's
+rest/study arrangement, warm materials and clear floor. An open carbon shelf with
+side cheeks and low captive webbing replaces the book grille/zipper. The desk
+handhold becomes carbon with small alloy collars; paper prints gain thin graphite
+carriers and satin retainers. Wall shoes use the actual cabin lining in both
+furniture scales. Locker/berth clearances and small cradle, lamp cuff, handle,
+brace, foot-loop and buckle connections are corrected. Notebook geometry,
+artwork, content registration, animation and interaction policy remain unchanged.
+
+[Structural inventory](evidence/about-study-design/structural-costs.json)
+records About **66→73 visible mesh/material submission candidates**, **59→67
+unique geometries**, and **69,230→66,610 wide / 66,602 compact triangle inputs**.
+Visible geometry-array bytes change **1,923,020→1,889,204 wide / 1,888,388 compact**
+(−33,816 / −34,632 bytes). The increased submission count supports the clearer
+library and correct attachments. This inventory excludes hidden layout variants,
+canvas text and frustum culling; it is not retained process/GPU memory. Both mount
+variants are created once and selected by the existing furniture scale.
+
+Protected architecture, utilities, other furniture, ladder/exterior assemblies,
+whole-scene bounds and shared framing match exactly. Notebook local/world
+transforms and photo mounts match. About's diagnostic content-bound points change
+with the furniture but do not drive room camera fitting. The fixture separately
+records **802→816 wide / 849→863 compact calls**, including requested shadow
+work, with **5,240 / 5,256 fewer triangle inputs**. Counts do not establish faster
+rendering or lower power consumption.
+
+[Matching evidence](evidence/about-study-design/README.md) contains live room and
+notebook views, overviews, Contact integration and finite obliques in hidden
+built-in Chromium 153 at unscaled 1440×900 and 390×844, DPR 1. Finite fixtures omit
+GTAO, orbital background, navigation and native notebook content. Compact oblique
+crops part of the berth at the unchanged angle; frontal portrait supplements it.
+No native Safari, physical phone, startup, rested CPU/GPU, heat or battery
+comparison was performed. This is a new art baseline; no held candidate was
+implemented. All **552 isolated tests**, typecheck, build/geometry check and
+affected lint pass. A later formatting-only assertion wrap/trailing comma has
+identical parsed AST and passes the focused 2/2 checks, lint and format; the
+separate snapshots are retained. The initial obsolete grille assertion failure
+and recovery are preserved. The independent critic scored final source and
+matching evidence **94/100**, with no unresolved blockers; its design-weighted
+rubric and limitations are retained with the evidence.
 
 ## Next candidates
 

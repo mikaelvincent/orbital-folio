@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-24",
+  "engine": "Hidden built-in Chromium 153",
+  "server": "http://localhost:3000 (existing development server preserved)",
+  "sourceManifest": "source-manifest.json",
+  "captureMetadata": "browser-captures.json",
+  "viewports": [
+    {
+      "css": [1440, 900],
+      "drawingBuffer": [1440, 900],
+      "dpr": 1,
+      "modelLayout": "wide",
+      "gtao": true,
+      "shadows": true
+    },
+    {
+      "css": [390, 844],
+      "drawingBuffer": [390, 844],
+      "dpr": 1,
+      "modelLayout": "wide",
+      "gtao": false,
+      "shadows": true
+    }
+  ],
+  "checks": [
+    {
+      "check": "Direct /about entry",
+      "result": "Overview-to-room transition settled at the shared architectural room frame, in landscape and portrait."
+    },
+    {
+      "check": "Keyboard notebook entry",
+      "result": "Read notebook + Enter opened the native full spread; URL changed to /about?open=1."
+    },
+    {
+      "check": "Physical notebook picking",
+      "result": "Click at the observed notebook position [820,505] in landscape set readerAttached=true and /about?open=1."
+    },
+    {
+      "check": "Page and section controls",
+      "result": "Next page reached Page 2 of 3; Learning notes selection reached its heading and Page 1 of 4. Escape/reopen retained that section. My story restored its prior Page 2 of 3; Previous page returned Page 1."
+    },
+    {
+      "check": "Notebook registration",
+      "result": "Landscape Learning notes and portrait My story remain attached to the physical pages. Section flags and cradle/pen/lamp stay clear. Portrait retains the existing full-spread policy."
+    },
+    {
+      "check": "Dismissal",
+      "result": "Escape closed the notebook in both orientations; exposed-wall click [1350,350] in landscape restored /about and readerAttached=false."
+    },
+    {
+      "check": "Semantic reading view",
+      "result": "Portrait Reading view displayed About, biography, notebook sections, three social destinations and the existing fictional-portrait alt text; Interactive view restored the scene."
+    },
+    {
+      "check": "Social availability",
+      "result": "GitHub, LinkedIn and Website targets remained available. DOM destinations were https://github.com, https://www.linkedin.com and https://example.com. External pages were not opened. Missing-content rendering was inspected in the finite fixture and covered by existing pure tests."
+    },
+    {
+      "check": "Overview and keyboard navigation",
+      "result": "Portrait and landscape overviews inspected; About button + Enter from landscape overview settled in About with no reading view open."
+    },
+    {
+      "check": "Drag release",
+      "result": "Landscape exposed-deck drag [720,754] to [890,670] released with dragging=false and dragResponse=0,0; room remained About and readerAttached=false. Settled hover view captured. This is a smoke check, not a quantitative motion benchmark."
+    },
+    {
+      "check": "Construction and surrounding rooms",
+      "result": "Final wide and compact oblique fixtures inspected for lining contact, library restraint, paper carriers, desk support and floor clearance. Approved Contact inspected live and retained as a current reference. Structural comparison separately checks every protected assembly."
+    },
+    {
+      "check": "Console errors",
+      "result": "Final live error sample returned zero entries (levels:error, limit:20). This is sampled, not exhaustive historical logging."
+    }
+  ],
+  "finiteFixture": {
+    "server": "http://127.0.0.1:3017",
+    "timeSeconds": 0,
+    "wideViewport": [1440, 900],
+    "compactViewport": [390, 844],
+    "renderDpr": 1,
+    "omitted": ["GTAO", "Earth/sky", "navigation", "native notebook content"],
+    "limitations": "Compact oblique crops part of the berth at the unchanged pose. Live frontal portrait and wide oblique supplement it. Photo/social content uses default fallback artwork; the right notebook page is blank."
+  },
+  "boundaries": "Public content was inspected read-only. No uploads, messages, inquiries, authentication or stored owner data were changed by browser inspection. Mutating tests use the separate disposable fixture recorded in verification-checks.json.",
+  "notPerformed": [
+    "Native Safari",
+    "physical phone",
+    "reduced-motion browser override",
+    "rested CPU/GPU or startup measurement",
+    "power, heat or battery measurement"
+  ],
+  "cleanup": {
+    "hiddenReviewTabClosed": true,
+    "remainingHiddenTabs": 0,
+    "viewportOverrideReset": true,
+    "finitePreviewStopped": true,
+    "mainServerHttpStatusAfterCleanup": 200,
+    "isolatedTestFixture": "Cleanup is recorded separately in verification-checks.json."
+  }
+}

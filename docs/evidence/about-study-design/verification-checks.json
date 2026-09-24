@@ -1,0 +1,251 @@
+{
+  "verifiedAt": "2026-09-24T09:19:09.135974+00:00",
+  "baselineCommit": "f62b0e73379f2fd7404d03b18896e40cd070414b",
+  "sourceSnapshot": "Final Stage 05 runtime and tests. Successful full-suite/typecheck/build used the recovery snapshot below. The only later change was formatting of the cabin-vent-policy assertion; final focused/lint/format checks cover its exact final bytes. Runtime and rendered source stayed unchanged throughout recovery.",
+  "source": [
+    {
+      "path": "features/spacecraft/rooms/about-personal-study.ts",
+      "sha256": "b7c6edf13d0f70181c766493fd1179c1218e8630b58d2bc82937f98a26c4a40b",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/about-study-mounts.ts",
+      "sha256": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "7515ccc99a29c39052293f6b8d5332e6bd4ea4e2702551dfa83b2a6aaef588da",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/about-study-construction.test.mjs",
+      "sha256": "a454b42affd89e42ac26e9bf6a8db5dbf1b11403495f0bf1bbac282f8a9d2db3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sha256": "18a7d60726300f3914ad1f80f8583d4386590508f6709f6b5e775edafa63231e",
+      "matchesCurrentSource": true
+    }
+  ],
+  "fullSuiteSource": [
+    {
+      "path": "features/spacecraft/rooms/about-personal-study.ts",
+      "sha256": "b7c6edf13d0f70181c766493fd1179c1218e8630b58d2bc82937f98a26c4a40b"
+    },
+    {
+      "path": "features/spacecraft/rooms/about-study-mounts.ts",
+      "sha256": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "7515ccc99a29c39052293f6b8d5332e6bd4ea4e2702551dfa83b2a6aaef588da"
+    },
+    {
+      "path": "tests/spacecraft/about-study-construction.test.mjs",
+      "sha256": "a454b42affd89e42ac26e9bf6a8db5dbf1b11403495f0bf1bbac282f8a9d2db3"
+    },
+    {
+      "path": "tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sha256": "df167b68900ea08f4b4762b309984ae244d5445965b3de1204be2e5689a7bc09"
+    }
+  ],
+  "initialFullSuiteSource": [
+    {
+      "path": "features/spacecraft/rooms/about-personal-study.ts",
+      "sha256": "b7c6edf13d0f70181c766493fd1179c1218e8630b58d2bc82937f98a26c4a40b"
+    },
+    {
+      "path": "features/spacecraft/rooms/about-study-mounts.ts",
+      "sha256": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e"
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "7515ccc99a29c39052293f6b8d5332e6bd4ea4e2702551dfa83b2a6aaef588da"
+    },
+    {
+      "path": "tests/spacecraft/about-study-construction.test.mjs",
+      "sha256": "a454b42affd89e42ac26e9bf6a8db5dbf1b11403495f0bf1bbac282f8a9d2db3"
+    },
+    {
+      "path": "tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sha256": "cc59e41d362eabf66d774d9d80ec00367d42e54ccc598e3545c9392782338759"
+    }
+  ],
+  "postFullChange": {
+    "path": "tests/spacecraft/cabin-vent-policy.test.mjs",
+    "kind": "Formatting only: assertion wrapping and formatter-added trailing comma.",
+    "fullSuiteSha256": "df167b68900ea08f4b4762b309984ae244d5445965b3de1204be2e5689a7bc09",
+    "finalSha256": "18a7d60726300f3914ad1f80f8583d4386590508f6709f6b5e775edafa63231e",
+    "verification": "Inspected unified diff; TypeScript AST structures matched before and after formatting. Focused retention tests, affected lint and format were rerun on final bytes.",
+    "runtimeChanged": false,
+    "fullSuiteRepeatedAfterFormatting": false
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-about-verify-n027685o",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-about-verify-n027685o/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-about-verify-n027685o/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-24T09:19:36.180506+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 0,
+      "tests": 552,
+      "pass": 552,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 214958.913333,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "d30fcb629fc18f40a32079ed852d009908ba0951840bbbd38750f60fe2b07bdd",
+        "normalizedSha256": "f6624fa35e926937cbace4294fb13dbd86bc7b5df2f1cf88700fa47e9fc043be"
+      }
+    },
+    "focusedFinalRetention": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 node --test tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sourceSnapshot": "source",
+      "exitCode": 0,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "durationMs": 955.491709,
+      "log": {
+        "path": "checks/retention-final.log",
+        "rawSha256": "f1be4526c79062565e9a277d5dd6dfadd12ed9797e78a086bf5e92d3926b2a7e",
+        "normalizedSha256": "f1be4526c79062565e9a277d5dd6dfadd12ed9797e78a086bf5e92d3926b2a7e"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "5aff587776bf28377dc4539b7c6952b4466b567545a714c6b9baed515475d4e8",
+        "normalizedSha256": "1c4e687c67d6a3d6cff5d420d61b73f739fcfa382186d0dd2665baeba75fcd4a"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/about-study-mounts.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/about-study-construction.test.mjs tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sourceSnapshot": "source",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "ed5cfc61b7a4e3849d0710a05396a4ed0b3faf5fc61fbee9d112b9976faf8e13",
+        "normalizedSha256": "b0e831e4e2bbf05dc165360882cc80c6e9bffd627648d7111b874ab8440974a0"
+      }
+    },
+    "affectedFormat": {
+      "command": "npm run format -- --check features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/about-study-mounts.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/about-study-construction.test.mjs tests/spacecraft/cabin-vent-policy.test.mjs",
+      "sourceSnapshot": "source",
+      "exitCode": 0,
+      "files": 5,
+      "log": {
+        "path": "checks/format.log",
+        "rawSha256": "c6371b7091f5c8ae0d28eb1d89c7303136d24b2b4060fa5964cc4958774b5fff",
+        "normalizedSha256": "65925e6be9c10f5236e03e8e5778456e97ff32327981386b5b3068a8f096136a"
+      }
+    }
+  },
+  "supersededRuns": [
+    {
+      "check": "Initial full suite",
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "sourceSnapshot": "initialFullSuiteSource",
+      "exitCode": 1,
+      "tests": 552,
+      "pass": 551,
+      "fail": 1,
+      "durationMs": 372822.591042,
+      "failure": "cabin-vent-policy.test.mjs required the retired personal-library-captive-mesh name.",
+      "resolution": "Updated only the stale retention assertion to the open library retaining-webbing and webbing-keeper; runtime unchanged.",
+      "log": {
+        "path": "checks/test-initial.log",
+        "rawSha256": "fa2f02dd4d70b65e92a9f4e40c50f51f308883fc986022c6a932c404711b2abb",
+        "normalizedSha256": "b62fedc9998f21f4bfc14acb9b7726b944f9bd6e19163805e342145944ec780b"
+      }
+    },
+    {
+      "check": "Focused retention recovery before full-suite rerun",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 0,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "durationMs": 1051.43175,
+      "log": {
+        "path": "checks/retention-recovery.log",
+        "rawSha256": "b387a62e7f0e58ce1814a6a30217b6c7a42d7372c952941ac0c23f2aa74287f1",
+        "normalizedSha256": "b387a62e7f0e58ce1814a6a30217b6c7a42d7372c952941ac0c23f2aa74287f1"
+      }
+    },
+    {
+      "check": "Affected lint before final formatting",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint-initial.log",
+        "rawSha256": "ed5cfc61b7a4e3849d0710a05396a4ed0b3faf5fc61fbee9d112b9976faf8e13",
+        "normalizedSha256": "b0e831e4e2bbf05dc165360882cc80c6e9bffd627648d7111b874ab8440974a0"
+      }
+    },
+    {
+      "check": "Affected format before final formatting",
+      "sourceSnapshot": "fullSuiteSource",
+      "exitCode": 1,
+      "failure": "Assertion wrapping in tests/spacecraft/cabin-vent-policy.test.mjs did not match oxfmt.",
+      "resolution": "Formatted that assertion only; AST equivalence and final focused/lint/format checks passed.",
+      "log": {
+        "path": "checks/format-initial.log",
+        "rawSha256": "a67596648f20b9aee180db63d56752107ab67cb83ea75e5f78072135c6f0dbd1",
+        "normalizedSha256": "5487b9bd1059656dd8a28cceacc6c082d377217da70b5f94c1f15c5217d122a7"
+      }
+    }
+  ],
+  "unresolvedFailures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, failures, warnings, and substantive output are preserved. Raw logs remain in /tmp.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance.",
+    "The full 552-test run preceded formatting-only assertion wrapping; both hashes and final focused checks are explicitly retained above."
+  ]
+}

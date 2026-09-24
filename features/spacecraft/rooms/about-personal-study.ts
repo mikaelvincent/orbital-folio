@@ -1,5 +1,6 @@
 import { PALETTE } from '../../../lib/palette.ts';
 import { drawStudyArtwork } from './about-study-artwork.ts';
+import { buildStudyWallMounts } from './about-study-mounts.ts';
 import { createAboutPhotoPrints } from './about-photo-print.ts';
 import type { AboutPhotos } from '../../../lib/content/about-photos.ts';
 import {
@@ -21,6 +22,7 @@ export function buildAboutPersonalStudy(
     onPhotoChange?: () => void;
     journal?: ReadonlyArray<{ title?: string; pageCount?: number }>;
     notebookName?: string;
+    rearWallProfile?: Array<{ y: number; z: number }>;
   } = {},
 ) {
   const photoPrints = createAboutPhotoPrints(THREE, options.onPhotoChange);
@@ -299,33 +301,24 @@ export function buildAboutPersonalStudy(
     part.position.set(x, y, z);
     return part;
   }
-  // The pressure lining is curved below q=.71. Standoffs meet it instead of
-  // covering it with another sheet or placing the furniture on a false floor.
-  function rearWall(q: number) {
-    if (q >= 0.71) return -1.1;
-    const t = 1 - Math.sqrt(Math.max(0, 1 - (0.71 - q) / 0.795));
-    return -1.1 + 0.43 * t * t;
-  }
+  const wallAnchors: Array<{
+    carrier: any;
+    x: number;
+    y: number;
+    front: number;
+    name: string;
+  }> = [];
   function wallAnchor(x: number, y: number, front: number, name: string) {
-    const rear = rearWall(y) - 0.006;
-    box(
-      0.092,
-      0.105,
-      front - rear,
-      m.graphite,
-      x,
-      y,
-      (front + rear) / 2,
-      name + '-wall-anchor',
-      root,
-      0.012,
-    );
+    const carrier = group(name + '-mount-carrier');
+    wallAnchors.push({ carrier, x, y, front, name });
     screwPoints.push([x, y, front + 0.003]);
   }
 
   // Berth: fixed backing, quilted sleep restraint, captive headpad and lower stowage.
   // Opening the former divider gap lets the complete berth move inward as one
   // assembly. The retained bedding roll uses this frame's left edge for spacing.
+  const beforeBerth = new Set(root.children);
+  const berthScrewStart = screwPoints.length;
   const bx = -0.9,
     berthFrameWidth = 0.79;
   box(
@@ -469,8 +462,20 @@ export function buildAboutPersonalStudy(
     m.metal,
     bx + 0.045,
     1.32,
-    -0.612,
+    -0.616,
     'berth-restraint-buckle',
+  );
+  box(
+    0.022,
+    0.076,
+    0.016,
+    m.metal,
+    bx + 0.045,
+    1.32,
+    -0.613,
+    'berth-buckle-latch',
+    root,
+    0.003,
   );
   box(
     0.042,
@@ -479,14 +484,13 @@ export function buildAboutPersonalStudy(
     m.amber,
     bx + 0.045,
     1.32,
-    -0.596,
+    -0.6,
     'berth-buckle-release',
     root,
     0.004,
   );
 
-  // The library retains its books behind a physical lattice; folded bedding
-  // uses broad captive webbing. Neither needs transparent coplanar overlays.
+  // Folded bedding remains in a zipped fabric pouch with broad captive webbing.
   function stowage(
     x: number,
     y: number,
@@ -494,7 +498,6 @@ export function buildAboutPersonalStudy(
     height: number,
     depth: number,
     name: string,
-    fill: 'books' | 'quilt',
   ) {
     const front = -0.695;
     const back = front - depth;
@@ -525,93 +528,47 @@ export function buildAboutPersonalStudy(
       root,
       0.018,
     );
-    if (fill === 'books') {
-      for (let i = 0; i < 3; i++) {
-        const xx = x + ((i - 1) * (w - 0.13)) / 3;
-        box(
-          (w - 0.17) / 3,
-          height - 0.105,
-          0.06,
-          i === 1 ? m.linen : m.navy,
-          xx,
-          y - 0.006,
-          front + 0.034,
-          name + '-retained-book-' + i,
-          root,
-          0.008,
-        );
-        artwork(
-          ['book-one', 'book-two', 'book-three'][i],
-          (w - 0.185) / 3,
-          height - 0.12,
-          xx,
-          y - 0.006,
-          front + 0.065,
-        );
-      }
-    } else
-      box(
-        w - 0.092,
-        height - 0.105,
-        0.06,
-        m.rust,
-        x,
-        y,
-        front + 0.034,
-        name + '-enclosed-folded-textile',
-        root,
-        0.025,
-      );
+    box(
+      w - 0.092,
+      height - 0.105,
+      0.06,
+      m.rust,
+      x,
+      y,
+      front + 0.034,
+      name + '-enclosed-folded-textile',
+      root,
+      0.025,
+    );
     const innerW = w - 0.072,
       innerH = height - 0.072;
-    if (fill === 'books') {
-      const lattice = [];
-      for (let xx = -innerW / 2; xx <= innerW / 2 + 0.001; xx += 0.023)
-        lattice.push({
-          p: [x + xx, y, front + 0.079],
-          s: [0.0024, innerH, 0.0026],
-        });
-      for (let yy = -innerH / 2; yy <= innerH / 2 + 0.001; yy += 0.023)
-        lattice.push({
-          p: [x, y + yy, front + 0.08],
-          s: [innerW, 0.0024, 0.0026],
-        });
-      h.instances(
-        unitBox,
-        m.graphite,
-        lattice,
+    // Broad retained webbing makes the folded textile read as secured luggage,
+    // rather than the fine lattice resembling a heater below the berth.
+    for (const side of [-1, 1]) {
+      box(
+        0.044,
+        innerH,
+        0.014,
+        m.rubber,
+        x + side * innerW * 0.27,
+        y,
+        front + 0.079,
+        name + '-textile-restraint',
         root,
-        prefix + name + '-captive-mesh',
+        0.006,
       );
-    } else {
-      // Broad retained webbing makes the folded textile read as secured luggage,
-      // rather than the fine lattice resembling a heater below the berth.
-      for (const side of [-1, 1]) {
-        box(
-          0.044,
-          innerH,
-          0.014,
-          m.rubber,
-          x + side * innerW * 0.27,
-          y,
-          front + 0.079,
-          name + '-textile-restraint',
-          root,
-          0.006,
-        );
-        box(
-          0.065,
-          0.043,
-          0.008,
-          m.metal,
-          x + side * innerW * 0.27,
-          y,
-          front + 0.09,
-          name + '-captured-webbing-buckle',
-          root,
-          0.007,
-        );
-      }
+      box(
+        0.065,
+        0.043,
+        0.008,
+        m.metal,
+        x + side * innerW * 0.27,
+        y,
+        front + 0.09,
+        name + '-captured-webbing-buckle',
+        root,
+        0.007,
+      );
     }
     ring(
       w - 0.023,
@@ -653,7 +610,13 @@ export function buildAboutPersonalStudy(
       for (const yy of [y - height / 2 + 0.025, y + height / 2 - 0.025])
         screwPoints.push([xx, yy, front + 0.095]);
   }
-  stowage(bx, 0.328, 0.72, 0.325, 0.19, 'blanket-stowage', 'quilt');
+  stowage(bx, 0.328, 0.72, 0.325, 0.19, 'blanket-stowage');
+  const berth = group('retained-berth', 0, 0, 0.004);
+  berth.userData.batchRoot = true;
+  // oxlint-disable-next-line unicorn/no-useless-spread
+  for (const part of [...root.children])
+    if (part !== berth && !beforeBerth.has(part)) berth.add(part);
+  screwSet(screwPoints.splice(berthScrewStart), berth, 'berth-fasteners');
   // Keep the reading station rigid while giving its desk and library a clear
   // gap beside the berth access rail. Mounts, retained props and fasteners move with it.
   const readingStation = group('reading-station', 0.085);
@@ -675,14 +638,96 @@ export function buildAboutPersonalStudy(
     libraryWidth = 0.85,
     journalCenterX = 0.394,
     journalCradleWidth = 1.09;
-  stowage(
-    libraryCenterX,
-    1.98,
+  // A small captured shelf lets the retained book covers read as books.
+  // Formed side cheeks and a low webbing strap replace the dense grille/zipper.
+  const libraryY = 1.98;
+  box(
     libraryWidth,
     0.38,
-    0.16,
-    'personal-library',
-    'books',
+    0.028,
+    m.graphite,
+    libraryCenterX,
+    libraryY,
+    -0.896,
+    'personal-library-back',
+    root,
+    0.016,
+  );
+  for (const side of [-1, 1]) {
+    const x = libraryCenterX + side * (libraryWidth / 2 - 0.012);
+    box(
+      0.024,
+      0.38,
+      0.274,
+      m.graphite,
+      x,
+      libraryY,
+      -0.759,
+      'personal-library-cheek',
+      root,
+      0.009,
+    );
+    for (const y of [1.84, 2.12])
+      wallAnchor(libraryCenterX + side * 0.34, y, -0.883, 'library');
+  }
+  box(
+    libraryWidth,
+    0.038,
+    0.286,
+    m.graphite,
+    libraryCenterX,
+    1.809,
+    -0.753,
+    'personal-library-shelf',
+    root,
+    0.012,
+  );
+  for (let i = 0; i < 3; i++) {
+    const x = libraryCenterX + ((i - 1) * (libraryWidth - 0.13)) / 3;
+    box(
+      (libraryWidth - 0.17) / 3,
+      0.275,
+      0.246,
+      i === 1 ? m.linen : m.navy,
+      x,
+      1.9655,
+      -0.753,
+      'personal-library-retained-book-' + i,
+      root,
+      0.008,
+    );
+    artwork(
+      ['book-one', 'book-two', 'book-three'][i],
+      (libraryWidth - 0.185) / 3,
+      0.26,
+      x,
+      1.9655,
+      -0.629,
+    );
+  }
+  box(
+    libraryWidth - 0.025,
+    0.027,
+    0.018,
+    m.rubber,
+    libraryCenterX,
+    1.865,
+    -0.627,
+    'personal-library-retaining-webbing',
+    root,
+    0.005,
+  );
+  box(
+    0.041,
+    0.036,
+    0.013,
+    m.metal,
+    libraryCenterX - 0.382,
+    1.865,
+    -0.613,
+    'personal-library-webbing-keeper',
+    root,
+    0.004,
   );
   attachReadingStation(beforeLibrary, libraryScrewStart, 'library-fasteners');
 
@@ -925,7 +970,7 @@ export function buildAboutPersonalStudy(
     box(
       0.033,
       0.036,
-      0.045,
+      0.049,
       m.graphite,
       lx + 0.082,
       y,
@@ -937,7 +982,7 @@ export function buildAboutPersonalStudy(
 
   // Keep the complete locker and its mounting hardware together so each layout
   // can center it in the wall gap without stretching or displacing its parts.
-  const locker = group('personal-locker');
+  const locker = group('personal-locker', 0, 0, 0.105);
   locker.userData.batchRoot = true;
   // Reparenting removes children from root; iterate a stable snapshot.
   // oxlint-disable-next-line unicorn/no-useless-spread
@@ -961,6 +1006,18 @@ export function buildAboutPersonalStudy(
   ) {
     const mounted = group(kind + '-mount', x, y, -1.085);
     const social = slot ? options.photos?.socials[slot] : null;
+    box(
+      w + 0.028,
+      height + 0.029,
+      0.013,
+      m.graphite,
+      0,
+      0,
+      -0.012,
+      kind + '-mounting-carrier',
+      mounted,
+      0.006,
+    );
     box(
       w + 0.024,
       height + 0.025,
@@ -993,7 +1050,7 @@ export function buildAboutPersonalStudy(
           0.034,
           0.035,
           0.041,
-          m.amber,
+          m.metal,
           xx - x,
           yy - y,
           0.011,
@@ -1068,7 +1125,7 @@ export function buildAboutPersonalStudy(
     0.009,
   );
   for (const x of [dx - 0.54, dx + 0.54]) {
-    wallAnchor(x, 0.43, -0.972, 'desk-stay');
+    wallAnchor(x, 0.43, -0.968, 'desk-stay');
     wallAnchor(x, 0.74, -0.972, 'desk-hinge');
     rod(
       [x, 0.436, -0.963],
@@ -1131,7 +1188,7 @@ export function buildAboutPersonalStudy(
     [dx - 0.57, railY, railZ],
     [dx + 0.57, railY, railZ],
     0.019,
-    m.amber,
+    m.graphite,
     'desk-retaining-rail',
   );
   for (const x of [dx - 0.57, dx + 0.57]) {
@@ -1154,10 +1211,11 @@ export function buildAboutPersonalStudy(
       m.graphite,
       'desk-rail-return',
     );
+    cylinder(0.025, 0.015, m.metal, x, railY, -0.187, 'desk-rail-collar');
   }
   // Fabric foot loop is anchored to the bulkhead, not resting on the deck.
   for (const x of [dx - 0.11, dx + 0.11])
-    wallAnchor(x, 0.275, -0.966, 'desk-foot-loop');
+    wallAnchor(x, 0.275, -0.962, 'desk-foot-loop');
   curve(
     [
       [dx - 0.11, 0.275, -0.957],
@@ -1845,7 +1903,7 @@ export function buildAboutPersonalStudy(
       0.014,
     );
     rod(
-      [x, 0.8, -0.8],
+      [x, 0.793, -0.8],
       [x, 1.108, -0.706],
       0.018,
       m.graphite,
@@ -1974,26 +2032,46 @@ export function buildAboutPersonalStudy(
     m.rubber,
     'lamp-retained-power-cable',
   );
-  for (const [x, y, z] of [
-    [1.105, 1.33, -0.927],
-    [1.118, 1.456, -0.862],
-  ])
-    box(
-      0.021,
-      0.032,
-      0.014,
-      m.graphite,
-      x,
-      y,
-      z,
-      'lamp-cable-clip',
-      root,
-      0.004,
-    );
+  box(
+    0.021,
+    0.032,
+    0.014,
+    m.graphite,
+    1.105,
+    1.33,
+    -0.927,
+    'lamp-cable-clip',
+    root,
+    0.004,
+  );
+  // The upper cuff bridges from the cable to its arm instead of hanging free.
+  box(
+    0.049,
+    0.032,
+    0.052,
+    m.graphite,
+    1.107,
+    1.456,
+    -0.848,
+    'lamp-cable-clip',
+    root,
+    0.004,
+  );
   attachReadingStation(
     beforeWritingStation,
     writingScrewStart,
     'writing-station-fasteners',
+  );
+  root.userData.setPropScale = buildStudyWallMounts(
+    THREE,
+    h,
+    root,
+    wallAnchors,
+    m.graphite,
+    options.rearWallProfile || [
+      { y: -1.32, z: -1.1 },
+      { y: 1.455, z: -1.1 },
+    ],
   );
   root.userData.aboutPhotosReady = photoPrints.ready();
   screwSet(screwPoints);

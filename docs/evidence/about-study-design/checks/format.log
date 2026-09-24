@@ -1,0 +1,7 @@
+> orbital-folio@0.1.0 format
+> oxfmt --check features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/about-study-mounts.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/about-study-construction.test.mjs tests/spacecraft/cabin-vent-policy.test.mjs
+
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 45ms on 5 files using 10 threads.

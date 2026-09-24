@@ -1,0 +1,2 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/about-study-mounts.ts features/spacecraft/spacecraft-model.ts tests/spacecraft/about-study-construction.test.mjs tests/spacecraft/cabin-vent-policy.test.mjs
