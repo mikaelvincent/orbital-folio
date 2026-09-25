@@ -1,0 +1,41 @@
+✔ physical category collections show assigned studies, accessible native links and one close control (27.789208ms)
+✔ reading and monitor collections retain empty category selections without falling back to All (15.341291ms)
+✔ legacy case studies and optional metadata survive in both semantic and monitor detail (40.345458ms)
+✔ case studies reuse safe Markdown and managed image/video rendering without executable HTML (6.763417ms)
+✔ private case links retain the preview boundary and selected category (9.887334ms)
+✔ case detail metadata uses the canonical public URL and authored title, summary and overrides (0.8485ms)
+✔ journal Markdown preserves authored whitespace, ordering and sample metadata without changing existing drafts (119.587667ms)
+✔ legacy page markers become paragraph breaks while code and authored whitespace are preserved (1.203917ms)
+✔ journal publication resolves only authored media and transitive video dependencies without publishing unrelated private files (72.801667ms)
+✔ journal soft line breaks remain visible while code and default project/case-study Markdown keep their original semantics (160.794334ms)
+✔ Studio journal editing uses shared Markdown preview and managed media controls while retaining only journal fields (479.896209ms)
+✔ journal editor keeps one continuous Markdown field without manual page controls or fit-gated saving (306.247417ms)
+✔ journal paper preview includes the biography from the prospective published notebook, ignoring unrelated private drafts (284.731042ms)
+✔ notebook Markdown accepts natural heading links and existing canonical anchors without changing other room readers (108.060542ms)
+✔ mounted notebook shows page controls only for sections with multiple pages and has no Back button (237.62725ms)
+✔ About Reading view exposes complete Markdown chapters and media safely with distinct per-chapter heading anchors (253.574541ms)
+✔ project content accepts only safe navigation and asset URLs (2.129583ms)
+✔ raw HTML and unsafe links cannot become executable elements (32.095333ms)
+✔ story headings stay accessible and receive unique, stable anchors including nested content (10.339584ms)
+✔ managed video links render accessible native players with published poster/caption references (2.107334ms)
+✔ unknown media references do not expose unpublished asset metadata (0.758125ms)
+✔ the populated Relay story renders its complete media and Markdown showcase (64.651417ms)
+✔ reference-style links and images resolve without displaying their definitions (1.258583ms)
+✔ character references render as text while code and raw HTML remain literal (1.119208ms)
+✔ ordered and unordered lists retain mixed nesting, authored starts and inline formatting (3.872584ms)
+✔ task markers preserve checked state and loose paragraphs remain inside their list items (1.701792ms)
+✔ shipped Relay tight nested tasks render one checkbox while intentional bracket text stays literal (8.46375ms)
+✔ library categories rely on explicit authored assignment and keep ordinary project links (213.844458ms)
+✔ immersive gallery omits cover assets and placeholders while project details retain their media (139.308375ms)
+✔ project resource links share safe source/live destinations and retired dates stay out of both public views (420.295208ms)
+✔ optional resource controls share the intro row in live-before-source order in both views (347.601333ms)
+✔ the shared resource row retains configured live and source labels with native safe navigation (132.300291ms)
+✔ source control clarifies only its legacy default label and preserves authored alternatives (143.173542ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5352.366916

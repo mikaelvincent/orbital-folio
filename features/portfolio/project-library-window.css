@@ -57,8 +57,9 @@
   min-width: 0;
   padding-left: 14px;
   color: var(--ivory-soft);
-  font-size: 11px;
-  letter-spacing: 0.07em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 .project-window-label > svg {
   flex: 0 0 auto;
@@ -122,7 +123,7 @@
 }
 .project-window-gallery,
 .project-window-detail {
-  padding: 26px 32px 30px;
+  padding: 28px 32px 34px;
 }
 .project-gallery-heading {
   display: flex;
@@ -133,9 +134,9 @@
 .project-library-eyebrow {
   margin: 0 0 8px;
   color: var(--bronze-light);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 .project-library-window h1 {
   margin: 0;
@@ -155,13 +156,14 @@
 .project-gallery-count > span {
   display: block;
   margin-top: 5px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 .project-gallery-intro {
   margin: 12px 0 23px;
   color: var(--ivory-shade);
-  font-size: 12px;
+  font-size: 14px;
+  max-width: 64ch;
 }
 .project-app-grid {
   display: grid;
@@ -182,12 +184,14 @@
     border-color 0.18s,
     background 0.18s;
 }
-.project-app-card:hover {
+.project-app-card:is(:hover, :focus-visible) {
   border-color: var(--bronze);
   background: var(--carbon);
 }
 .project-app-card-content {
-  padding: 17px 18px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -198,8 +202,8 @@
   justify-content: space-between;
   gap: 8px;
   color: var(--bronze-light);
-  font-size: 8px;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  letter-spacing: 0.055em;
 }
 .project-card-kicker > span {
   overflow: hidden;
@@ -207,14 +211,15 @@
   white-space: nowrap;
 }
 .project-app-card h2 {
-  font-size: 19px;
+  font-size: 22px;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.015em;
   margin: 9px 0;
   color: var(--ivory);
 }
 .project-app-card p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.65;
   color: var(--ivory-shade);
   margin: 0 0 14px;
@@ -223,7 +228,7 @@
   margin-top: auto;
   padding-top: 3px;
   color: var(--text-muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .project-app-empty {
   display: flex;
@@ -247,20 +252,21 @@
   margin: 16px 0 5px;
 }
 .project-app-empty p {
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 0 15px;
 }
 .project-app-empty button {
   display: flex;
   gap: 8px;
   align-items: center;
+  min-height: 44px;
   padding: 9px 13px;
   border: 1px solid var(--bronze);
   border-radius: 5px;
   color: var(--bronze-light);
   background: transparent;
   font: inherit;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 }
 .project-window-status {
@@ -275,8 +281,8 @@
   background: var(--carbon);
   color: var(--text-muted);
   font-family: monospace;
-  font-size: 8px;
-  letter-spacing: 0.07em;
+  font-size: 11px;
+  letter-spacing: 0.02em;
 }
 .project-window-status > span:first-child {
   display: flex;
@@ -308,7 +314,7 @@
   border: 0;
   border-radius: 0;
   font: inherit;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
 }
@@ -316,6 +322,12 @@
   align-self: stretch;
   min-height: 44px;
   padding: 8px 14px;
+}
+/* Bound long prose within the fixed glass without changing its registered plane. */
+.project-window-detail {
+  width: 100%;
+  max-width: 80ch;
+  margin-inline: auto;
 }
 .project-detail-heading {
   margin-top: 0;
@@ -376,7 +388,7 @@
 .project-detail-summary {
   margin: 16px 0 22px;
   color: var(--ivory-shade);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
 }
 .project-library-meta {
@@ -391,12 +403,12 @@
 .project-library-meta dt {
   margin-bottom: 5px;
   color: var(--alloy);
-  font-size: 10px;
+  font-size: 12px;
 }
 .project-library-meta dd {
   margin: 0;
   color: var(--ivory-soft);
-  font-size: 12px;
+  font-size: 14px;
   overflow-wrap: anywhere;
 }
 .project-library-links {
@@ -466,7 +478,7 @@
 .project-window-detail .project-markdown {
   margin-top: 28px;
   color: var(--ivory-shade);
-  font-size: 14px;
+  font-size: 16px;
 }
 .project-window-detail .project-markdown :is(h2, h3, h4) {
   color: var(--ivory);
@@ -504,7 +516,7 @@
 @container (max-width: 540px) {
   .project-window-gallery,
   .project-window-detail {
-    padding: 23px 24px 26px 17px;
+    padding: 24px 26px 30px 20px;
   }
   .project-library-window h1 {
     font-size: 29px;
@@ -523,7 +535,7 @@
     font-size: 12px;
   }
   .project-card-kicker {
-    font-size: 10px;
+    font-size: 11px;
   }
   .project-library-meta {
     grid-template-columns: 1fr;
@@ -533,13 +545,13 @@
     font-size: 14px;
   }
   .project-library-meta dt {
-    font-size: 11px;
+    font-size: 12px;
   }
   .project-window-detail .project-markdown {
     font-size: 15px;
   }
   .project-gallery-intro {
-    font-size: 13px;
+    font-size: 14px;
   }
   .project-library-back {
     min-height: 40px;
@@ -547,7 +559,7 @@
   }
   .project-window-back {
     min-height: 44px;
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

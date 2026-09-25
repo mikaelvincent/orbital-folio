@@ -1,0 +1,824 @@
+{
+  "recordedAt": "2026-09-25T10:39:50.071075+00:00",
+  "baselineRevision": "3773f5ad8c76d05300604cd3cf75f1e65e949183",
+  "finalSourceManifestSha256": "693c382089b321d95a28cb4a7d77464061b4e849dca81112886dc58db3e8c4b7",
+  "method": "SHA-256 of saved JPEG bytes. File timestamps record local writes, not frozen scene times. See captures.json for state. Status explicitly distinguishes baseline, partial baseline, unaffected output, refreshed final and rejected candidate.",
+  "images": [
+    {
+      "file": "before-projects-room-desktop.jpg",
+      "sha256": "df086b4c5cbeb8bf9c14ec55576997ef2dc3759b3839d6a0ebb5d2fbdff1950c",
+      "bytes": 105311,
+      "fileWrittenAtUtc": "2026-09-25T10:03:47.560579+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-projects-app-desktop.jpg",
+      "sha256": "b0c096bb6ccc0a378e7ad3aad3aa1f06b8130f5dd9e1f990799e2b47fe13ac59",
+      "bytes": 75796,
+      "fileWrittenAtUtc": "2026-09-25T10:03:57.402994+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-project-detail-desktop.jpg",
+      "sha256": "91ec1bd2393294b0380f76f6e35c9137b997c89a884b446a87c3e646ab3cc91a",
+      "bytes": 63304,
+      "fileWrittenAtUtc": "2026-09-25T10:04:06.300414+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-project-reading-desktop.jpg",
+      "sha256": "a9d66d592d39d6f092db76fdc8015b27f827be780bfde16f559f07539553c1b6",
+      "bytes": 45750,
+      "fileWrittenAtUtc": "2026-09-25T10:04:13.479205+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-archive-reading-desktop.jpg",
+      "sha256": "4b22da177f9505a3eed11a9795b1dd7601b217ef670b89deedc74078a16708f3",
+      "bytes": 61948,
+      "fileWrittenAtUtc": "2026-09-25T10:04:23.183038+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-archive-empty-desktop.jpg",
+      "sha256": "a35b5b192f6c41d8b9d460eb85fbb2c7f84462cb65e06ea38cda30596e18c3cc",
+      "bytes": 45022,
+      "fileWrittenAtUtc": "2026-09-25T10:04:23.488654+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-reading-desktop.jpg",
+      "sha256": "44af605a511176bd33d26ab37bd7bd4f8c3fbfe8de5212b394109851ad12fa23",
+      "bytes": 57463,
+      "fileWrittenAtUtc": "2026-09-25T10:04:33.559537+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-form-reading-desktop.jpg",
+      "sha256": "fa31606f64151e30809906e5ca390c451a12dd1b42253c355313e0f749478c5d",
+      "bytes": 60148,
+      "fileWrittenAtUtc": "2026-09-25T10:04:48.490661+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-app-desktop.jpg",
+      "sha256": "8d877974b874da9fa346c39f9e0a76039644f75d490213af868d9a0a78f57ca2",
+      "bytes": 93380,
+      "fileWrittenAtUtc": "2026-09-25T10:05:08.557789+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-chooser-desktop.jpg",
+      "sha256": "f59f6d6361afa38647eff365cc04cb175105196fccd403465001b16a68e56e66",
+      "bytes": 87585,
+      "fileWrittenAtUtc": "2026-09-25T10:05:08.942685+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-chooser-portrait.jpg",
+      "sha256": "de0e1b398962cbe7182c935ba920718fb1f9914a118a00d870d5fed9ca15a223",
+      "bytes": 22927,
+      "fileWrittenAtUtc": "2026-09-25T10:05:36.598414+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-app-portrait.jpg",
+      "sha256": "2eaf15e76aff3d700c749b15d7e5fec5e16e7f4a30f28880e5047b10ce6813f6",
+      "bytes": 30182,
+      "fileWrittenAtUtc": "2026-09-25T10:05:49.028355+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-contact-reading-portrait.jpg",
+      "sha256": "095ee8c8cddcc741ff6896b27e1b271aff0d2eab90d31fe5993a8e40b3dee4e5",
+      "bytes": 37825,
+      "fileWrittenAtUtc": "2026-09-25T10:05:49.532977+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-about-reading-portrait.jpg",
+      "sha256": "f1c392fe98b29a0e4dbe286cd0e22962964b21a3bb71e0092c845488131ce42c",
+      "bytes": 39266,
+      "fileWrittenAtUtc": "2026-09-25T10:06:08.057684+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-projects-reading-portrait.jpg",
+      "sha256": "61c60e2932589c6aa4a99831aa8edefa19ee3fa7c0ea207d2f1349633042b71b",
+      "bytes": 40439,
+      "fileWrittenAtUtc": "2026-09-25T10:06:08.215787+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-project-reading-portrait.jpg",
+      "sha256": "10fc43a798c49384c121f1a6220964bb319c9e6a8d5e618e3ad75e967b23042b",
+      "bytes": 37217,
+      "fileWrittenAtUtc": "2026-09-25T10:06:13.956277+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "baseline",
+      "sourceBinding": "Live baseline target before its Stage 13 edits; 3773f5a starting revision."
+    },
+    {
+      "file": "before-project-detail-portrait.jpg",
+      "sha256": "259c2609645824bbaa82d5e392b1aec731c41e4badf77cea9563c74a21a60be7",
+      "bytes": 38924,
+      "fileWrittenAtUtc": "2026-09-25T10:07:11.209185+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "partial-baseline",
+      "sourceBinding": "Relevant target implementation from 3773f5a; unrelated Contact work was in progress."
+    },
+    {
+      "file": "before-projects-app-portrait.jpg",
+      "sha256": "5f3c63e889599ad18de2dfc2ef35f57a81b697751316f4416965733c0b42593f",
+      "bytes": 41241,
+      "fileWrittenAtUtc": "2026-09-25T10:07:11.609855+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "partial-baseline",
+      "sourceBinding": "Relevant target implementation from 3773f5a; unrelated Contact work was in progress."
+    },
+    {
+      "file": "before-archive-app-portrait.jpg",
+      "sha256": "5594ef5a953a2cf1fd52b54d6d6b0f653da93bdef0a46e4b2e1fe9d36a4ad895",
+      "bytes": 41211,
+      "fileWrittenAtUtc": "2026-09-25T10:08:03.362146+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "partial-baseline",
+      "sourceBinding": "Relevant target implementation from 3773f5a; unrelated Contact work was in progress."
+    },
+    {
+      "file": "before-archive-detail-portrait.jpg",
+      "sha256": "45c486900cf2a99d4a14359073036914060a6d567c1038079fd40085e923e6e6",
+      "bytes": 36359,
+      "fileWrittenAtUtc": "2026-09-25T10:08:04.292529+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "partial-baseline",
+      "sourceBinding": "Relevant target implementation from 3773f5a; unrelated Contact work was in progress."
+    },
+    {
+      "file": "after-archive-detail-portrait.jpg",
+      "sha256": "1f3f2f0afabf53e20831e559e1fa36480464d834b567be3ac95439a9ff2f37c6",
+      "bytes": 38440,
+      "fileWrittenAtUtc": "2026-09-25T10:17:51.752382+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-reading-portrait.jpg",
+      "sha256": "923aa1e8f59cc2ead722cac45931959989bb34227f97ea9d3f753f58da59e29e",
+      "bytes": 37147,
+      "fileWrittenAtUtc": "2026-09-25T10:17:58.957955+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-reading-anchor-portrait.jpg",
+      "sha256": "ef4c2846f41dd8a9fb3c94cf93b9a11570f02cbeecf580d754cf81f703204ea8",
+      "bytes": 41275,
+      "fileWrittenAtUtc": "2026-09-25T10:18:38.083153+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-chooser-desktop.jpg",
+      "sha256": "bd7da714b4ebe5caea1600d823ff8a3d1989e44ecce8eb643117b021c1bfcf91",
+      "bytes": 88550,
+      "fileWrittenAtUtc": "2026-09-25T10:18:44.735998+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-app-desktop.jpg",
+      "sha256": "0e96d1711a889ed4ca2754f95ee19ce2c46dbfe8d17c9e4817542777df8c9ed4",
+      "bytes": 94215,
+      "fileWrittenAtUtc": "2026-09-25T10:18:52.191535+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-scroll-focus-desktop.jpg",
+      "sha256": "27236ce9ed376e511dc433fc9d76cb9ed65ca8deeedcecf4964e09b6b91f2c35",
+      "bytes": 90685,
+      "fileWrittenAtUtc": "2026-09-25T10:19:24.768204+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-form-reading-desktop.jpg",
+      "sha256": "e48bfa0f1cbef89fc61a644442ccdef04e2ddd9d47569e291dc94ae7e370a5dd",
+      "bytes": 68419,
+      "fileWrittenAtUtc": "2026-09-25T10:19:37.309408+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-reading-desktop.jpg",
+      "sha256": "5edcc7b8b0b5bc9590879357011e54d57c9b12fe1984b3793e59c965ef1d8057",
+      "bytes": 52128,
+      "fileWrittenAtUtc": "2026-09-25T10:19:50.238540+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-reading-portrait.jpg",
+      "sha256": "46ea5862ca5aca7377499c1e248f43fbc046312310c6a1cd66e2f5488bcc6a21",
+      "bytes": 30667,
+      "fileWrittenAtUtc": "2026-09-25T10:19:50.512077+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-app-portrait.jpg",
+      "sha256": "3b1ada441edc6741120fa5967544b3e58772ed0ca82df3df1229dcc8cd2903a7",
+      "bytes": 30744,
+      "fileWrittenAtUtc": "2026-09-25T10:20:21.858424+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-about-reading-desktop.jpg",
+      "sha256": "fd71d9eb52bdbd7cb8ae176bb29c4e07384be3fae8fa5d97fb051a76d2d06a1b",
+      "bytes": 76445,
+      "fileWrittenAtUtc": "2026-09-25T10:20:23.036197+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-chooser-portrait.jpg",
+      "sha256": "869601d28cf41b30da791e88349d7378303958b45b7428618eacdfb5a7e123d8",
+      "bytes": 24932,
+      "fileWrittenAtUtc": "2026-09-25T10:20:42.235910+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-contact-call-portrait.jpg",
+      "sha256": "56e7ca0f8114434c1eef905f1ceaf0851eb4696e5c9aee9be287fb7fcc99984f",
+      "bytes": 33728,
+      "fileWrittenAtUtc": "2026-09-25T10:20:52.054909+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-projects-reading-desktop.jpg",
+      "sha256": "efe534de4ea624ddba053f2f3d2180b96d74736b04698950b57802a1f1fdbcf5",
+      "bytes": 59844,
+      "fileWrittenAtUtc": "2026-09-25T10:20:52.524786+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-project-reading-desktop.jpg",
+      "sha256": "f5dde3c12694294a16da915ecaf15fd3df28d9f2262f549f51959a73dfd803be",
+      "bytes": 62656,
+      "fileWrittenAtUtc": "2026-09-25T10:21:04.470843+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-about-reading-portrait.jpg",
+      "sha256": "400aca8a5ff8a710267cdbeefb26cbdfc583741a81d51e5cb4c9e856205efc33",
+      "bytes": 41451,
+      "fileWrittenAtUtc": "2026-09-25T10:21:22.849550+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "retained-notebook-portrait.jpg",
+      "sha256": "4d931a7e3044888565bd72941e6c8dcae39a942785733900c7e03b225e733ee6",
+      "bytes": 36719,
+      "fileWrittenAtUtc": "2026-09-25T10:22:04.286626+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-project-detail-desktop.jpg",
+      "sha256": "a19e148bc49f53a350619a0de5d1746314c904d80e3ea0c2d43daabf4d9f41a1",
+      "bytes": 65404,
+      "fileWrittenAtUtc": "2026-09-25T10:22:12.051172+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "retained-notebook-section-portrait.jpg",
+      "sha256": "e243907a2d632d7bfbd1cfea43d6843e78a035a6a934c6fed785e5b24aeb18d2",
+      "bytes": 37094,
+      "fileWrittenAtUtc": "2026-09-25T10:23:18.927980+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "retained-projects-room-desktop.jpg",
+      "sha256": "62751c0ca35c2fd3f8a90781dc528b97062986f35fa8377485c98cfaf0b83174",
+      "bytes": 105733,
+      "fileWrittenAtUtc": "2026-09-25T10:23:19.433004+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-detail-desktop.jpg",
+      "sha256": "43353f6e740a3b11ba1d4c3b41ee6114278d4722696442ddcdb157c2194b570d",
+      "bytes": 69811,
+      "fileWrittenAtUtc": "2026-09-25T10:23:42.052725+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-app-desktop.jpg",
+      "sha256": "89c65ca17aa2bb3cc4a82e3916d487028225e7bb1d6fbcb85cb3dddf3683b4ca",
+      "bytes": 73751,
+      "fileWrittenAtUtc": "2026-09-25T10:24:04.025609+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-projects-reading-portrait.jpg",
+      "sha256": "015b3dccdbd55f7bee5eb03985b85289ddc99508e4e03408a2f7557a86d13ee7",
+      "bytes": 38081,
+      "fileWrittenAtUtc": "2026-09-25T10:24:04.438197+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-project-reading-portrait.jpg",
+      "sha256": "2a420513b0074e22fa338a21b81e57d9a0c3cbb5d704cce93293b526e1c28c83",
+      "bytes": 39547,
+      "fileWrittenAtUtc": "2026-09-25T10:24:16.773605+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-reading-desktop.jpg",
+      "sha256": "f4abaab5721857c3bb9c0407a169b6f8851afff612e61bf71a640044452442f4",
+      "bytes": 58374,
+      "fileWrittenAtUtc": "2026-09-25T10:24:17.095736+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-project-detail-portrait.jpg",
+      "sha256": "4ea6a95a38de8d1575ed03a2d6163b465bfe44d3cf83f3686e8f7cf55fd0ff90",
+      "bytes": 39965,
+      "fileWrittenAtUtc": "2026-09-25T10:25:24.387670+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-empty-desktop.jpg",
+      "sha256": "9882be3af534881c04c58f24a5f85548d7addcad96ad25303dcbf1967bf93038",
+      "bytes": 50823,
+      "fileWrittenAtUtc": "2026-09-25T10:25:54.562239+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "after-archive-story-reading-desktop.jpg",
+      "sha256": "9beefcaa50f29a28587be009471b354be4bed7410436d7133a7c20245f9a6e85",
+      "bytes": 67375,
+      "fileWrittenAtUtc": "2026-09-25T10:26:02.351794+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "retained-overview-desktop.jpg",
+      "sha256": "8af6ea39f107652f626081daa2ad3d6a342bb75e97e81e87c310433feec09a11",
+      "bytes": 90471,
+      "fileWrittenAtUtc": "2026-09-25T10:26:14.427982+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "fixture-contact-error-desktop.jpg",
+      "sha256": "0f8cd5ca46d7b003cd5dbc350666ab4ade05a1a11a65b75704211976c7aac13f",
+      "bytes": 78323,
+      "fileWrittenAtUtc": "2026-09-25T10:26:50.199622+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-long-project-reading-portrait.jpg",
+      "sha256": "8e1265302e3c34fd5c55bbe03526f5ff62d7d2f7203ac875f01be1efbee1201f",
+      "bytes": 53506,
+      "fileWrittenAtUtc": "2026-09-25T10:27:27.933287+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-contact-error-detail-desktop.jpg",
+      "sha256": "cc01b6af989fd607e5631ca87aded1a9a45902fb61fb5af0701cff2e8272ff2c",
+      "bytes": 60715,
+      "fileWrittenAtUtc": "2026-09-25T10:27:35.317825+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-long-project-title-portrait.jpg",
+      "sha256": "1512e604ad13cb30fccbfbdd9c99b760afc1e24f6d1e43a16057f2b601363433",
+      "bytes": 48713,
+      "fileWrittenAtUtc": "2026-09-25T10:27:46.710378+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-no-headings-desktop.jpg",
+      "sha256": "a33350322724cf2068945b9c1d7197fa3e5c37e1b4225483830df78bdd670ef7",
+      "bytes": 68945,
+      "fileWrittenAtUtc": "2026-09-25T10:27:57.345068+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-call-unsent-portrait.jpg",
+      "sha256": "eee0177204b7b4b85ef47ff6d15760abdadcd229ff55665e74ca025ef2cb3679",
+      "bytes": 33803,
+      "fileWrittenAtUtc": "2026-09-25T10:28:07.353822+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-empty-projects-desktop.jpg",
+      "sha256": "f14530b208a9fabb4b17a86f3888862b4db0d314920dbc5e9bb145edcd0543ae",
+      "bytes": 51398,
+      "fileWrittenAtUtc": "2026-09-25T10:28:18.392795+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-contact-error-portrait.jpg",
+      "sha256": "48e19943112c7ad46fd4b416c0512a777641bc6105a7e42b1514fd0a90972190",
+      "bytes": 43812,
+      "fileWrittenAtUtc": "2026-09-25T10:28:27.772645+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-empty-projects-native.jpg",
+      "sha256": "8fb99c026c3eed0548af982d537d8ca0c9b2df7e8937577edf44dd9032991a07",
+      "bytes": 29395,
+      "fileWrittenAtUtc": "2026-09-25T10:28:50.159334+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-empty-archive-native.jpg",
+      "sha256": "603f0a7c17edcc62ce7047222047629872c4c9fe4c9f8539798ddc64d82a9188",
+      "bytes": 54585,
+      "fileWrittenAtUtc": "2026-09-25T10:28:59.730668+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "fixture-no-headings-portrait.jpg",
+      "sha256": "89c4678b1707d707f99438e20121dcb77f9d40b38831faec1f5a37b6c0569455",
+      "bytes": 52181,
+      "fileWrittenAtUtc": "2026-09-25T10:29:00.022543+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture. Captured with SSR tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; the later CSS edit affects populated native project cards only."
+    },
+    {
+      "file": "after-archive-app-portrait.jpg",
+      "sha256": "f45a0be0c06d4fa582b5bfeb4ad9dc3b089920e06d6c8ea25bafbccae8dbbbde",
+      "bytes": 41704,
+      "fileWrittenAtUtc": "2026-09-25T10:31:10.433075+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "retained-notebook-desktop.jpg",
+      "sha256": "af40b23c3bf457da3664fb90c8eeb1cbd0b985167b9bcf88d5a3237ac45d61f5",
+      "bytes": 104436,
+      "fileWrittenAtUtc": "2026-09-25T10:31:26.268630+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-relevant-output-unaffected",
+      "sourceBinding": "Captured after the visible target was final. Later bounded edits only omitted a project aside when it has zero headings and wrapped unbroken native project-card text; neither affects the displayed state. Final relevant source is source-manifest.json; this is not a claim that the entire tree was final at capture."
+    },
+    {
+      "file": "revision-unbroken-title-clipped.jpg",
+      "sha256": "dc79f640a2d88509f04586dbdaec4fcad743c03c0e353bc5ff47c841342ff394",
+      "bytes": 83616,
+      "fileWrittenAtUtc": "2026-09-25T10:31:36.536430+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "rejected-candidate",
+      "sourceBinding": "SSR prior source tree a508df43c362ffebc1bdd2ce701870e03db067f05819de6bdf1a5db4ff9b5409; before native-card wrapping correction. Superseded by final fixture-long-projects-native images."
+    },
+    {
+      "file": "retained-overview-portrait.jpg",
+      "sha256": "085223db2a24b55ddb1f0d9694b106a6a276de293beff7d9cadae68053f16713",
+      "bytes": 56281,
+      "fileWrittenAtUtc": "2026-09-25T10:34:19.338060+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-refreshed",
+      "sourceBinding": "Final production source in source-manifest.json; final SSR images additionally bind fixture-manifest.json tree 95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96."
+    },
+    {
+      "file": "fixture-long-projects-native-desktop.jpg",
+      "sha256": "054f731d6032dc341c7e43df970f3f64020aa62140f69369e0b5d3a383df7926",
+      "bytes": 89617,
+      "fileWrittenAtUtc": "2026-09-25T10:34:30.043441+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-refreshed",
+      "sourceBinding": "Final production source in source-manifest.json; final SSR images additionally bind fixture-manifest.json tree 95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96."
+    },
+    {
+      "file": "fixture-long-projects-native-portrait.jpg",
+      "sha256": "7b4e486e399dfb9568990cf9477c46234455d219c44af1a485e08b111a29503c",
+      "bytes": 57866,
+      "fileWrittenAtUtc": "2026-09-25T10:34:50.749652+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-refreshed",
+      "sourceBinding": "Final production source in source-manifest.json; final SSR images additionally bind fixture-manifest.json tree 95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96."
+    },
+    {
+      "file": "after-projects-app-desktop.jpg",
+      "sha256": "80cdaaad96cc91a00f2dc3712611085b3062760b4252f07a0c2c2bf05209c070",
+      "bytes": 73717,
+      "fileWrittenAtUtc": "2026-09-25T10:35:10.696490+00:00",
+      "viewport": [
+        1280,
+        720
+      ],
+      "status": "final-refreshed",
+      "sourceBinding": "Final production source in source-manifest.json; final SSR images additionally bind fixture-manifest.json tree 95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96."
+    },
+    {
+      "file": "after-projects-app-portrait.jpg",
+      "sha256": "98f6772f81b5133f427f4362b8588a16c11b6ac7417e3284805cbf4778ef9869",
+      "bytes": 43946,
+      "fileWrittenAtUtc": "2026-09-25T10:36:12.388215+00:00",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "final-refreshed",
+      "sourceBinding": "Final production source in source-manifest.json; final SSR images additionally bind fixture-manifest.json tree 95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96."
+    }
+  ]
+}

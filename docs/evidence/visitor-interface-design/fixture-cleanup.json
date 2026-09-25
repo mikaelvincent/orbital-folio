@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-09-25T10:37:53.360Z",
+  "server": {
+    "sessionId": 72140,
+    "pid": 91790,
+    "url": "http://127.0.0.1:3002",
+    "stopped": true,
+    "connectionRefused": true
+  },
+  "temporarySourceDirectories": [
+    {
+      "path": "/private/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/visitor-interface-preview-V6MSHW",
+      "removed": true
+    }
+  ],
+  "method": "Sent SIGINT through owned exec session; fixture shutdown removed its own source-only temporary directory. Bundles were in memory.",
+  "evidencePreserved": true,
+  "productionSourceEdited": false,
+  "mainServer": {
+    "url": "http://localhost:3000",
+    "status": 200,
+    "modified": false
+  },
+  "mainStoreTouched": false
+}

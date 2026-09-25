@@ -1,0 +1,372 @@
+{
+  "checkedAt": "2026-09-25T10:33:01.488Z",
+  "fixtureFrozenAt": "2026-09-25T10:32:16.733Z",
+  "baseUrl": "http://127.0.0.1:3002",
+  "method": "Node fetch against static SSR fixture only; no browser or main application mutations.",
+  "warnings": [
+    "Fixture startup emitted Node DEP0205 module.register deprecation warning."
+  ],
+  "sourceValidation": {
+    "before": {
+      "files": 35,
+      "sourceTreeSha256": "817160a9162a9fe17f62eb483d09b305883c64525f70001ee7d5aeacb76a802d",
+      "allHashesMatch": true
+    },
+    "after": {
+      "files": 37,
+      "sourceTreeSha256": "95274ca7e7dd2060f2ad2445a67ea6d3a4a2fc6a20f43ce802c5acc24ffb1a96",
+      "allHashesMatch": true
+    }
+  },
+  "responses": [
+    {
+      "path": "/before?state=contact-chooser&surface=reading",
+      "status": 200,
+      "bytes": 7861,
+      "sha256": "4f0dd329e9d51d5d1a29e013606724dab7d463ff3c902241ff8d879cba6c6040",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=contact-chooser&surface=native",
+      "status": 200,
+      "bytes": 7253,
+      "sha256": "9d125080b97921bddb40ec9b9c1aade61e7a328660bcf0198191444efb95be6a",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=contact-error&surface=reading",
+      "status": 200,
+      "bytes": 10449,
+      "sha256": "930e3f0a091ac7098983bdec0319167cf0e1312a071a97a92892d98026171908",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=contact-error&surface=native",
+      "status": 200,
+      "bytes": 9841,
+      "sha256": "0c232334a9ed988400734ef18b68059792b2a3529ce487439f2c64d90846a69e",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=contact-call-ack&surface=reading",
+      "status": 200,
+      "bytes": 8820,
+      "sha256": "13e5ab8e44da6a9ded35ad98e47e3ef59f2e3386124e67cf8ba699e8a3c873ad",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=contact-call-ack&surface=native",
+      "status": 200,
+      "bytes": 8212,
+      "sha256": "10168d6ffae0f42b53dd839a34392504561b852563fdadae0d4c76b1bc461cf1",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=empty-projects&surface=reading",
+      "status": 200,
+      "bytes": 3920,
+      "sha256": "6c236623db3e81dacda1d5342ee51666ac0274bafadb6bcd0f1da8127737a44f",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=empty-projects&surface=native",
+      "status": 200,
+      "bytes": 5231,
+      "sha256": "5b076d93c32c310bf9b2a9c189b2b0f6ade4dcfc67fc1bc1bf1a548ccb8d0864",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=empty-case-studies&surface=reading",
+      "status": 200,
+      "bytes": 6514,
+      "sha256": "5a472570f0999faf51056dd691b2b54ee85070e43a81062e5e7c1ce7d0fa0bbc",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=empty-case-studies&surface=native",
+      "status": 200,
+      "bytes": 4823,
+      "sha256": "e52d62608f0d5b08f6b3649c44a2534c9ab3b9aad7a1b31f663088eb6c1cea51",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-projects&surface=reading",
+      "status": 200,
+      "bytes": 8113,
+      "sha256": "f4a067cf6d57cca0a15a34dd8a402c7291e742f8e562d6346d4649fe8459efe4",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-projects&surface=native",
+      "status": 200,
+      "bytes": 7120,
+      "sha256": "c0f8f9b9fe2a1a7341fe75dbd42a2708b9588eb4795c43da9aafa95723a14de9",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-case-studies&surface=reading",
+      "status": 200,
+      "bytes": 9633,
+      "sha256": "68d9bec0cfc64a4f9fefffcf767353234178ae4cc97010ae32c41af4fbe3cf3d",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-case-studies&surface=native",
+      "status": 200,
+      "bytes": 7942,
+      "sha256": "e3fa686b1659f07355b35e6e14480217b45de29d7f95d12daffb4fdc82706402",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-project-detail&surface=reading",
+      "status": 200,
+      "bytes": 5980,
+      "sha256": "194ce4b8129f11e681a4496e6c785dbae60c029e660fa75e60a3fd164b1772fc",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-project-detail&surface=native",
+      "status": 200,
+      "bytes": 5697,
+      "sha256": "990726d08042a61067552265958ef3ef352b8da3eda0dad19a95128d569f4328",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-case-detail&surface=reading",
+      "status": 200,
+      "bytes": 5790,
+      "sha256": "8327792751e9809fb214ad14c716902f174f39e430b88969c0e644dd781eb9bd",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=long-case-detail&surface=native",
+      "status": 200,
+      "bytes": 5908,
+      "sha256": "59675cce7b043ef6d452d89d8ad620b23e94a87a9638bdf9505eff9b588d28cc",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=project-no-headings&surface=reading",
+      "status": 200,
+      "bytes": 5287,
+      "sha256": "108ae29e616dbb6caadda8f158a075b220b43f8077bd77a23ffd2fcd18af2231",
+      "checksPassed": true
+    },
+    {
+      "path": "/before?state=project-no-headings&surface=native",
+      "status": 200,
+      "bytes": 5226,
+      "sha256": "9e692d9799c65c1878c3218418f1d87338215b411a24efdae9a823fcdc338cc6",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-chooser&surface=reading",
+      "status": 200,
+      "bytes": 7211,
+      "sha256": "3d8338980b99fe6fee5d7b2ba51d0cef24d6bc8a3b131d09a8d19dd31b5526c9",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-chooser&surface=native",
+      "status": 200,
+      "bytes": 7237,
+      "sha256": "016ecbde07e13cb6298b6ff80b9195386984c0ba889efa6852bb79db37236158",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-error&surface=reading",
+      "status": 200,
+      "bytes": 9799,
+      "sha256": "e3a457c9edb360221242b90c579377af517cd5cc43b1e728e02a0378a98098da",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-error&surface=native",
+      "status": 200,
+      "bytes": 9825,
+      "sha256": "98c18be3639d6c7b3e3d2826354093b2327312a9200815efcf9370cfcc089c89",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-call-ack&surface=reading",
+      "status": 200,
+      "bytes": 8170,
+      "sha256": "6f383faa88b4c9f534e020c2a1e11875f00c510cdd6b0a9b04fb05d10336af09",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=contact-call-ack&surface=native",
+      "status": 200,
+      "bytes": 8196,
+      "sha256": "7f7324198b96a45af20f93c90a639f8a550f7d197623887bee4dd6ebc8ef6144",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=empty-projects&surface=reading",
+      "status": 200,
+      "bytes": 3904,
+      "sha256": "c19407d1d012a1981ba10088756e5474ed53cd5c7fe8e361888f39f28c9e54b9",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=empty-projects&surface=native",
+      "status": 200,
+      "bytes": 5215,
+      "sha256": "5fa65f6913766b986a96410ac1c4c15486704d9788aedf9fccac8fa550045238",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=empty-case-studies&surface=reading",
+      "status": 200,
+      "bytes": 6498,
+      "sha256": "40c9ccf73fe48d324b575ae75ba7e990ba1f584310321b4a255eb262eb7dc771",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=empty-case-studies&surface=native",
+      "status": 200,
+      "bytes": 4807,
+      "sha256": "0631d71fe48dd79f535d040b1a8da2326126240c17af649e31794f32c7ca59ff",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-projects&surface=reading",
+      "status": 200,
+      "bytes": 8097,
+      "sha256": "b6d86c61daf21d25cabac01aa1ee4807348c90104c7af6b098682b57a482f8fc",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-projects&surface=native",
+      "status": 200,
+      "bytes": 7104,
+      "sha256": "e14197ad8ef16a9fddd2fd7bb3391d154cee25c886418170717dea2e14927853",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-case-studies&surface=reading",
+      "status": 200,
+      "bytes": 9617,
+      "sha256": "a47249dc8bd19694ebabadb9543ca854f8ced13283f9491b4e5454782a0cc3f1",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-case-studies&surface=native",
+      "status": 200,
+      "bytes": 7926,
+      "sha256": "59bd27a3a848114d714d6e68a90caaa409e22eca2a981bf20f4801efa155e395",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-project-detail&surface=reading",
+      "status": 200,
+      "bytes": 6213,
+      "sha256": "6f802230d7b3e44683c090c667e74a844d13a72b62b7ab252f80a17f77b62e64",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-project-detail&surface=native",
+      "status": 200,
+      "bytes": 5681,
+      "sha256": "9967986b1e30b2fab9a6743803cbddeaa1c98e359acdb60a4ca4b065fa33d459",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-case-detail&surface=reading",
+      "status": 200,
+      "bytes": 6071,
+      "sha256": "afaa8a9edcf77d473c1b17be16d3843641a491e5e830df7b60cac0f78e8cf89d",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=long-case-detail&surface=native",
+      "status": 200,
+      "bytes": 5892,
+      "sha256": "3a09119fe758da2394ad402316e8f145445624b3e3f9f9cc624d52bd4bcfbc4f",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=project-no-headings&surface=reading",
+      "status": 200,
+      "bytes": 4623,
+      "sha256": "40fcba9f331b2896e5960af81d1f148bc7a58f8d6b0fb35a8ef0531d79f94cab",
+      "checksPassed": true
+    },
+    {
+      "path": "/after?state=project-no-headings&surface=native",
+      "status": 200,
+      "bytes": 5210,
+      "sha256": "234991e0f7135f9243e7db5b2d0cbc7a7f52c5546b7bfaa699e1a32dba043330",
+      "checksPassed": true
+    }
+  ],
+  "assets": [
+    {
+      "path": "/before.css",
+      "status": 200,
+      "sha256": "3f423bd816e07a14813d9f02da97cd0e1bf56ea03c6a758bbe9818beea1fbe76",
+      "bytes": 175946,
+      "resolvedTailwind": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "/after.css",
+      "status": 200,
+      "sha256": "5e4f754732ff9118423069a2682d6d11d298485b06b6cd82cedeacd3f51e790a",
+      "bytes": 188262,
+      "resolvedTailwind": true,
+      "manifestHashMatches": true
+    }
+  ],
+  "transport": [
+    {
+      "path": "/api/contact",
+      "method": "POST",
+      "status": 405,
+      "rejected": true
+    },
+    {
+      "path": "/api/contact",
+      "method": "GET",
+      "status": 404,
+      "rejected": true
+    }
+  ],
+  "noHeadingsState": {
+    "before-reading": {
+      "titleAndPlainBodyRendered": true,
+      "dossierAsideRendered": true
+    },
+    "before-native": {
+      "titleAndPlainBodyRendered": true,
+      "dossierAsideRendered": false
+    },
+    "after-reading": {
+      "titleAndPlainBodyRendered": true,
+      "dossierAsideRendered": false
+    },
+    "after-native": {
+      "titleAndPlainBodyRendered": true,
+      "dossierAsideRendered": false
+    }
+  },
+  "limitations": [
+    "No hydration: Contact retains its intentional pre-hydration disabled controls and the custom scroll indicator has no measured thumb.",
+    "All component content is inert; navigation, focus, keyboard and submission behavior are not tested.",
+    "No WebGL, CSS3D projection, camera, physical monitor, orbital background, media assets, header or tools.",
+    "No store, authentication, transport, API routes, main-server proxy or private content.",
+    "Synthetic acknowledgment is the production unsent call preview branch, not evidence of message delivery or booking.",
+    "Browser engine, viewport, DPR, zoom and screenshot scaling must be recorded by the capture caller."
+  ],
+  "longProjectCardWrap": {
+    "finalCompiledRuleContainsMinWidthZeroAndAnywhere": true,
+    "visualOverflowVerification": "Root browser review; HTTP checks do not judge layout."
+  },
+  "summary": {
+    "stateResponsesPassed": 40,
+    "compiledCssChecksPassed": 2,
+    "localTransportRejectionsPassed": 2,
+    "productionSourceEdits": false,
+    "mainServerOrStoreMutated": false
+  }
+}

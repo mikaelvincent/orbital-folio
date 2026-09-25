@@ -3422,6 +3422,37 @@ Temporary servers and test state are removed; one inert hidden error tab remains
 unclosed because of the browser URL policy. This is a new authored-art baseline,
 not an optimization gain.
 
+## 66 — Visitor interface presentation baseline (25 September 2026)
+
+**Design scope.** Stage 13 improves native Projects/Case studies type and reading
+measure, Contact surface hierarchy, and semantic readers. Flat carbon collection
+cards and ivory articles replace extra simulated hardware; desktop contents and
+compact mobile disclosures expose the existing heading anchors. The mounted
+notebook and all spacecraft/world geometry, camera framing, screen artwork,
+renderer and availability contracts remain unchanged. Source and matched evidence
+are in [the visitor interface record](evidence/visitor-interface-design/README.md).
+
+**Observed result.** Hidden built-in Chromium checks at actual 1280×720 and
+390×844 CSS viewports covered populated/empty collections, native/reading detail,
+Contact choices/error/unsent states, notebook pagination, and overview cohesion.
+DPR was 2, with live drawing buffers recorded separately; the static SSR fixture
+omits WebGL, hydration and transport. Typography controls are logical CSS pixels,
+not guaranteed projected target sizes. Browser checks caught and corrected a
+mobile contents list that displaced the intro and an unbroken title that clipped.
+Independent review also removed an empty contents column for heading-free prose.
+
+**Costs and verification.** This adds scoped CSS and semantic markup, with no
+new geometry, shader, render pass or runtime image asset by source inspection.
+No timing, memory, thermal or battery comparison was performed; no performance
+gain is claimed. The initial isolated full suite returned 587/588, with one stale
+resource-order assertion. Its corrected test and all 33 affected rendering tests
+passed on the final source, along with typecheck, build/geometry precheck, affected
+lint and CSS parsing. All 40 source-hashed SSR state responses passed. Keep raw
+initial/final logs and the independent critic's rubric in the evidence folder.
+The independent critic scored **95/100** with 55% visual-design weight and no
+unresolved blockers. This is a new authored interface baseline; held performance
+candidates remain held. Safari and hardware keyboard/screen-reader checks remain unperformed.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

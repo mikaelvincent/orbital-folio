@@ -1,0 +1,15 @@
+{
+  "baseline": "3773f5a",
+  "recordedAt": "2026-09-25T10:39:50.071075+00:00",
+  "files": {
+    "app/globals.css": "bb25cc4e91ebc9e546f5324d6fb6543086e2aa55c78df7114021cce3f6b96f0f",
+    "features/portfolio/project-library-window.css": "0d73816be4307e611d645db27cb5d626b4dcaa5c0f3b19be59d3dbd2f90fa42f",
+    "features/portfolio/case-study-library-window.css": "9dcb8fd8625107c0203818c13115f268d3c503d93fa5d3fa4ddafead9e4f2e44",
+    "features/portfolio/contact-computer-window.css": "f43f481a0351390948f8042818c188ecd1e093532ed0bff86de6bac02c2d5f23",
+    "features/portfolio/contact-form.css": "02dc21b2616a1e2c91b57a321dd039cce40468b058614089f9f41d3df611fba4",
+    "features/portfolio/room-views.tsx": "7e6caeeb3b944a1f98a60dd6cb7e7b3a0fe36857cf4e0225ff546c53f14b82e4",
+    "features/portfolio/reading-views.css": "24c37bf1efd4516be00a7d0f0f5e20c162a9edc98a95b172cd87c32d60fe0269",
+    "tests/content/project-rendering.test.mjs": "e737a37e8b934329f80286bf3a705a2c032210dd8b130d04707452720be01095",
+    "scripts/benchmarks/visitor-interface-preview.mjs": "af024230e8ead27d2c775d813eaea728956f18cc7cbc4c2863d75990fd190cb0"
+  }
+}

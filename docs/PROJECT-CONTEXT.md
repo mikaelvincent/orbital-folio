@@ -405,6 +405,38 @@ See [matched renders, motion audit and verification](evidence/orbital-environmen
 Stage 13 inherits this environment and the completed physical displays; its
 scope is visitor interfaces and reading views, not camera or Earth changes.
 
+### Stage 13 — Visitor interfaces and reading views (25 September 2026)
+
+Visitor applications keep the approved Soft graphite desktop and their existing
+physical registration. Projects and Case studies now use larger supporting type,
+clearer card/list hierarchy, and a centered detail column capped at 80ch within
+the existing screen. Contact uses quieter window/email surfaces and larger
+supporting labels; its chooser, draft retention, disclosure, scroll container,
+submission semantics and email alternative are unchanged. Control dimensions
+are logical CSS pixels, not a promise of screen-pixel size after 3D projection.
+
+Semantic Reading view is an editorial counterpart: flat carbon collection cards,
+ivory articles with 17px body type and a 70ch prose measure, reduced ornamental
+frames, and metadata beside the introduction. A bounded desktop contents rail
+and collapsed native mobile disclosure share the existing heading anchors.
+Heading-free articles omit the rail. About retains its personal paper character
+with simpler gutters and a quieter profile column; Contact uses one form surface
+without an extra simulated monitor housing. These scoped styles do not restyle
+Content studio or the physical notebook.
+
+The mounted notebook's fixed 14px body, page measurements, whole-spread portrait
+scaling and page/section behavior remain deliberate exceptions; Reading view
+provides its comfortable narrow-screen alternative. Populated screens retain
+ivory ink; Projects' unavailable monitors remain plain-carbon STANDBY, Case
+studies' unavailable cartridges remain blank/disabled and its unavailable
+terminal remains STANDBY. Content, availability, cameras, geometry, navigation,
+backend and the Stage 12 environment are unchanged.
+
+See [interface comparisons, controlled states and verification](evidence/visitor-interface-design/README.md).
+Stage 14 owns Content studio. Carry forward the same type hierarchy, restrained
+borders, clear focus and truthful state presentation without changing publication
+or authentication behavior.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

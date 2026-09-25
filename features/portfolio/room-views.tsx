@@ -28,6 +28,39 @@ import {
   type ContactDraft,
   type ContactSubmission,
 } from './contact-form';
+import './reading-views.css';
+function ReadingContents({
+  headings,
+  label,
+}: {
+  headings: { id: string; text: string }[];
+  label: string;
+}) {
+  const links = (
+    <nav aria-label={label}>
+      {headings.map((heading, index) => (
+        <a href={'#' + heading.id} key={heading.id}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          {heading.text}
+        </a>
+      ))}
+    </nav>
+  );
+  return (
+    <>
+      <div className="reading-contents-wide">
+        <h2 className="reading-contents-title">Contents</h2>
+        {links}
+      </div>
+      <details className="reading-contents-compact">
+        <summary>
+          Contents <span>{headings.length} sections</span>
+        </summary>
+        {links}
+      </details>
+    </>
+  );
+}
 export function ProjectsView({ data }: { data: Portfolio }) {
   return (
     <>
@@ -72,8 +105,16 @@ export function DossierView({
         {s.backLabel}
       </a>
       <div className="dossier-layout">
+        {!!headings.length && (
+          <aside className="dossier-index">
+            <p className="eyebrow">
+              <FileText size={16} />
+              {s.dossierLabel}
+            </p>
+            <ReadingContents headings={headings} label={s.dossierLabel} />
+          </aside>
+        )}
         <article className="dossier-paper">
-          <div className="clipboard-clip" aria-hidden="true" />
           <div className="paper-top">
             <p className="eyebrow">{p.category}</p>
           </div>
@@ -81,6 +122,22 @@ export function DossierView({
           {p.subtitle && <p className="dossier-subtitle">{p.subtitle}</p>}
           <p className="dossier-summary">{p.summary}</p>
           <ProjectLinks project={p} site={s} />
+          {(p.role || p.stack) && (
+            <dl className="dossier-meta">
+              {p.role && (
+                <div>
+                  <dt>{s.roleLabel}</dt>
+                  <dd>{p.role}</dd>
+                </div>
+              )}
+              {p.stack && (
+                <div>
+                  <dt>{s.stackLabel}</dt>
+                  <dd>{p.stack}</dd>
+                </div>
+              )}
+            </dl>
+          )}
           {media && <ProjectMedia item={media} media={data.media} />}
           {isMarkdown ? (
             <ProjectMarkdown body={body} media={data.media} />
@@ -109,37 +166,6 @@ export function DossierView({
             <ArrowUpRight size={20} />
           </a>
         </article>
-        <aside className="dossier-index">
-          <p className="eyebrow">
-            <FileText size={16} />
-            {s.dossierLabel}
-          </p>
-          <h2>{p.title}</h2>
-          {!!headings.length && (
-            <nav aria-label={s.dossierLabel}>
-              {headings.map((heading, index) => (
-                <a href={'#' + heading.id} key={heading.id}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  {heading.text}
-                </a>
-              ))}
-            </nav>
-          )}
-          <div className="dossier-meta">
-            {p.role && (
-              <>
-                <p>{s.roleLabel}</p>
-                <strong>{p.role}</strong>
-              </>
-            )}
-            {p.stack && (
-              <>
-                <p>{s.stackLabel}</p>
-                <strong>{p.stack}</strong>
-              </>
-            )}
-          </div>
-        </aside>
       </div>
     </>
   );
@@ -188,26 +214,18 @@ export function CaseStudyView({
         Back to case studies
       </a>
       <div className="dossier-layout">
+        {!!headings.length && (
+          <aside className="dossier-index">
+            <p className="eyebrow">
+              <FileText size={16} />
+              Case study
+            </p>
+            <ReadingContents headings={headings} label="Case study contents" />
+          </aside>
+        )}
         <article className="dossier-paper case-study-reading-paper">
           <CaseStudyStory data={data} caseStudy={caseStudy} />
         </article>
-        <aside className="dossier-index">
-          <p className="eyebrow">
-            <FileText size={16} />
-            Case study
-          </p>
-          <h2>{caseStudy.title}</h2>
-          {!!headings.length && (
-            <nav aria-label="Case study contents">
-              {headings.map((heading, index) => (
-                <a href={'#' + heading.id} key={heading.id}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  {heading.text}
-                </a>
-              ))}
-            </nav>
-          )}
-        </aside>
       </div>
     </>
   );
@@ -226,16 +244,17 @@ export function AboutView({ data }: { data: Portfolio }) {
             <p>{s.biography}</p>
             <AboutSocialLinks data={data} />
           </div>
-          <nav aria-label={s.aboutLabel}>
-            {data.journal.map((j, i) => (
-              <a href={'#' + j.slug} key={j.id}>
-                <span>{String(i + 1).padStart(2, '0')}</span>
-                {j.title}
-                <ArrowUpRight size={15} />
-              </a>
-            ))}
-          </nav>
-          <span className="journal-strap" aria-hidden="true" />
+          {!!data.journal.length && (
+            <nav aria-label={s.aboutLabel}>
+              {data.journal.map((j, i) => (
+                <a href={'#' + j.slug} key={j.id}>
+                  <span>{String(i + 1).padStart(2, '0')}</span>
+                  {j.title}
+                  <ArrowUpRight size={15} />
+                </a>
+              ))}
+            </nav>
+          )}
         </aside>
         <div className="journal-pages">
           {data.journal.map((j, i) => (
@@ -255,7 +274,11 @@ export function AboutView({ data }: { data: Portfolio }) {
               />
             </article>
           ))}
-          {!data.journal.length && <p>{s.emptyLabel}</p>}
+          {!data.journal.length && (
+            <p className="reading-empty" role="status">
+              {s.emptyLabel}
+            </p>
+          )}
           <a className="paper-cta" href={pathFor('/contact', s)}>
             {s.inviteLabel}
             <ArrowUpRight size={20} />
@@ -314,12 +337,7 @@ export function ContactView({
           </div>
         </div>
       </div>
-      <div className="comms-housing">
-        <div className="comms-nameplate">
-          <Radio size={18} />
-          <span>{s.contactRoom}</span>
-          <span className="status-dot" />
-        </div>
+      <div className="reading-contact-form">
         <ContactForm
           site={s}
           initialSent={sent}
@@ -330,11 +348,6 @@ export function ContactView({
           submission={submission}
           onSubmissionChange={onSubmissionChange}
         />
-        <div className="comms-bottom">
-          <span />
-          COMMUNICATIONS
-          <span />
-        </div>
       </div>
     </div>
   );

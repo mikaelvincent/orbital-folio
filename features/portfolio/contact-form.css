@@ -7,7 +7,7 @@
   color: var(--contact-ink);
   background: var(--carbon-deep);
   border: 1px solid var(--line-strong);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 22px;
   font-family: var(--font-sans, Arial, sans-serif);
   text-align: left;
@@ -47,26 +47,25 @@
 .contact-app-eyebrow {
   margin: 0 0 5px;
   color: var(--bronze-light);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 .contact-app-toolbar h2 {
   margin: 0;
   font-size: 25px;
   font-weight: 500;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
   line-height: 1.15;
 }
 .contact-email-callout {
   flex: 0 1 auto;
   min-width: 0;
   max-width: 56%;
-  border: 1px solid var(--ink-muted);
-  border-radius: 8px;
-  background: var(--carbon);
-  padding: 7px 9px;
-  box-shadow: 0 4px 15px #0002;
+  border: 1px solid color-mix(in srgb, var(--alloy) 28%, transparent);
+  border-radius: 6px;
+  background: transparent;
+  padding: 4px 8px 4px 12px;
 }
 .contact-email-callout-top,
 .contact-email-callout-top > span,
@@ -77,8 +76,8 @@
 }
 .contact-email-callout-top {
   justify-content: space-between;
-  font-size: 11px;
-  color: var(--bronze-light);
+  font-size: 12px;
+  color: var(--ivory-shade);
 }
 .contact-email-callout button,
 .contact-email-reopen {
@@ -91,21 +90,25 @@
   justify-content: center;
 }
 .contact-email-callout button {
-  min-width: 28px;
-  min-height: 28px;
-  border-radius: 4px;
+  flex: 0 0 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 5px;
 }
 .contact-email-callout button:hover {
   background: color-mix(in srgb, var(--ivory) 8.2%, transparent);
 }
 .contact-email-callout-actions {
-  margin-top: 1px;
+  margin-top: 0;
   justify-content: space-between;
 }
 .contact-email-callout-actions a {
+  display: inline-flex;
+  align-items: center;
   min-width: 0;
+  min-height: 44px;
   color: var(--ivory);
-  font-size: 12px;
+  font-size: 13px;
   overflow-wrap: anywhere;
   text-decoration: none;
 }
@@ -118,13 +121,13 @@
 }
 .contact-email-callout p {
   margin: 4px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 .contact-email-reopen {
   gap: 7px;
-  min-height: 36px;
-  font-size: 12px !important;
+  min-height: 44px;
+  font-size: 13px !important;
 }
 .contact-app-options {
   display: grid;
@@ -145,9 +148,9 @@
   justify-content: center;
   border: 1px solid var(--ink-muted);
   border-radius: 7px;
-  min-height: 46px;
+  min-height: 48px;
   padding: 9px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   background: var(--carbon);
   color: var(--ivory-soft);
@@ -173,7 +176,7 @@
   margin: 14px 0 18px;
 }
 .contact-app-context p {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--contact-muted);
   margin: 0;
   line-height: 1.5;
@@ -203,18 +206,18 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ivory);
 }
 .contact-app-field > span small {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 400;
 }
 .contact-app-field :is(input, textarea) {
   width: 100%;
   min-width: 0;
-  min-height: 40px;
+  min-height: 44px;
   color: var(--ivory);
   background: var(--carbon-deep);
   border: 1px solid var(--contact-edge);
@@ -234,7 +237,7 @@
   cursor: pointer;
 }
 .contact-app-limit {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 .contact-app-limit.exceeded {
@@ -242,7 +245,7 @@
 }
 .contact-app-timezone {
   margin: -5px 0 0;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 .contact-app-timezone strong {
@@ -260,12 +263,13 @@
   margin: 0;
   max-width: 62%;
   color: var(--ivory-shade);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.6;
 }
 .contact-app-submit-row a {
   color: var(--bronze-light);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .contact-app-submit {
   display: flex;
@@ -276,18 +280,17 @@
   border-radius: 6px;
   background: var(--ivory);
   color: var(--carbon);
-  min-height: 42px;
+  min-height: 44px;
   padding: 10px 15px;
-  font-size: 12px !important;
-  font-weight: 650 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
   white-space: nowrap;
-  box-shadow: 0 2px 0 var(--bronze);
 }
 .contact-app-submit:hover {
   background: var(--ivory-soft);
 }
 .contact-app-error {
-  font-size: 12px;
+  font-size: 13px;
   color: #ffd1bf;
   border-left: 2px solid #d2957f;
   padding: 8px 11px;
@@ -312,7 +315,7 @@
   margin: 15px 0 8px;
 }
 .contact-app-result p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--ivory-shade);
   margin: 0 auto 20px;
   max-width: 360px;
@@ -322,12 +325,13 @@
   display: inline-flex;
   gap: 8px;
   align-items: center;
+  min-height: 44px;
   background: var(--carbon);
   border: 1px solid var(--line-strong);
   border-radius: 5px;
   padding: 9px 13px;
   color: var(--ivory);
-  font-size: 13px;
+  font-size: 14px;
 }
 @container (max-width: 400px) {
   .contact-app-toolbar {
@@ -346,7 +350,7 @@
     gap: 6px;
   }
   .contact-app-options button {
-    font-size: 12px;
+    font-size: 14px;
     gap: 6px;
     padding: 8px 5px;
   }

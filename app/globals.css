@@ -1216,30 +1216,6 @@ svg {
     0 8px 0 var(--carbon),
     0 30px 80px #0005;
 }
-.clipboard-clip {
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 155px;
-  height: 35px;
-  background: linear-gradient(var(--ivory), var(--text-muted));
-  border: 3px solid var(--line-strong);
-  border-radius: 7px;
-  box-shadow: 0 3px 5px #0005;
-}
-.clipboard-clip:after {
-  content: '';
-  position: absolute;
-  width: 68px;
-  height: 25px;
-  left: 40px;
-  top: -8px;
-  background: linear-gradient(var(--bronze), var(--bronze));
-  border: 2px solid var(--bronze);
-  border-radius: 5px;
-  box-shadow: 0 2px 2px #0005;
-}
 .paper-top {
   display: flex;
   align-items: center;
@@ -1494,14 +1470,6 @@ svg {
   flex-direction: column;
   justify-content: space-between;
 }
-.journal-cover > .journal-strap {
-  position: absolute;
-  right: 12px;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: var(--bronze);
-}
 .journal-cover .eyebrow {
   color: var(--ivory-shade);
   font-size: 11px;
@@ -1612,31 +1580,6 @@ svg {
   align-items: center;
   gap: 8px;
 }
-.comms-housing {
-  background: linear-gradient(115deg, var(--ivory), var(--ivory-shade));
-  border: 1px solid var(--ivory);
-  box-shadow:
-    0 6px 0 var(--line-strong),
-    0 22px 70px #0006;
-  border-radius: 22px;
-  padding: 16px;
-  margin-top: 40px;
-}
-.comms-nameplate {
-  color: var(--carbon-raised);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 8px 18px;
-  font:
-    11px ui-monospace,
-    monospace;
-  letter-spacing: 0.1em;
-}
-.comms-nameplate > .status-dot {
-  margin-left: auto;
-  background: #286c5a;
-}
 .comms-screen {
   background: linear-gradient(130deg, var(--carbon), var(--carbon-deep));
   border: 6px solid var(--carbon-muted);
@@ -1729,23 +1672,6 @@ svg {
   width: 1px;
   height: 1px;
   overflow: hidden;
-}
-.comms-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 12px 2px;
-  font:
-    9px ui-monospace,
-    monospace;
-  letter-spacing: 0.12em;
-  color: var(--carbon-muted);
-}
-.comms-bottom span {
-  width: 38px;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--ink-muted);
 }
 .form-error {
   background: #582c31;
@@ -1985,11 +1911,6 @@ svg {
   }
   .contact-layout .room-intro h1 {
     font-size: 44px;
-  }
-  .comms-housing {
-    margin: 10px 0 20px;
-    padding: 12px;
-    border-radius: 17px;
   }
   .comms-screen {
     padding: 21px 18px;
@@ -3321,9 +3242,6 @@ svg {
 .room-reader .contact-email {
   font-size: 1.1rem;
   overflow-wrap: anywhere;
-}
-.room-reader .comms-housing {
-  padding: 14px;
 }
 .room-reader .contact-form {
   padding: 20px;

@@ -545,7 +545,8 @@ await test('project resource links share safe source/live destinations and retir
       /href="https:\/\/demo.example\/" target="_blank" rel="noopener noreferrer"/,
     );
     assert.ok(
-      markup.indexOf('Project resources') < markup.indexOf('project-overview'),
+      markup.indexOf('Project resources') <
+        markup.indexOf('id="project-overview"'),
     );
   }
   const relay = {
@@ -576,7 +577,7 @@ await test('project resource links share safe source/live destinations and retir
       explanation >= 0 && explanation < resources,
       'clarify the actual destinations in the introduction immediately before the resource links',
     );
-    assert.ok(resources < markup.indexOf('project-overview'));
+    assert.ok(resources < markup.indexOf('id="project-overview"'));
     const links = markup.match(
       /<nav[^>]*aria-label="Project resources"[^>]*>([\s\S]*?)<\/nav>/,
     )?.[1];

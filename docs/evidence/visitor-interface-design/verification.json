@@ -1,0 +1,283 @@
+{
+  "verifiedAt": "2026-09-25T10:35:32.693505+00:00",
+  "baselineRevision": "3773f5ad8c76d05300604cd3cf75f1e65e949183",
+  "result": "Final affected checks pass. The initial full suite had one diagnosed assertion mismatch, corrected and covered by the final focused rendering suite.",
+  "finalSourceFrozenAt": "2026-09-25T10:32:46.062387+00:00",
+  "sourceFiles": [
+    {
+      "path": "app/globals.css",
+      "sha256": "bb25cc4e91ebc9e546f5324d6fb6543086e2aa55c78df7114021cce3f6b96f0f",
+      "fixtureSha256AfterChecks": "bb25cc4e91ebc9e546f5324d6fb6543086e2aa55c78df7114021cce3f6b96f0f",
+      "currentSha256AfterChecks": "bb25cc4e91ebc9e546f5324d6fb6543086e2aa55c78df7114021cce3f6b96f0f",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/case-study-library-window.css",
+      "sha256": "9dcb8fd8625107c0203818c13115f268d3c503d93fa5d3fa4ddafead9e4f2e44",
+      "fixtureSha256AfterChecks": "9dcb8fd8625107c0203818c13115f268d3c503d93fa5d3fa4ddafead9e4f2e44",
+      "currentSha256AfterChecks": "9dcb8fd8625107c0203818c13115f268d3c503d93fa5d3fa4ddafead9e4f2e44",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/contact-computer-window.css",
+      "sha256": "f43f481a0351390948f8042818c188ecd1e093532ed0bff86de6bac02c2d5f23",
+      "fixtureSha256AfterChecks": "f43f481a0351390948f8042818c188ecd1e093532ed0bff86de6bac02c2d5f23",
+      "currentSha256AfterChecks": "f43f481a0351390948f8042818c188ecd1e093532ed0bff86de6bac02c2d5f23",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/contact-form.css",
+      "sha256": "02dc21b2616a1e2c91b57a321dd039cce40468b058614089f9f41d3df611fba4",
+      "fixtureSha256AfterChecks": "02dc21b2616a1e2c91b57a321dd039cce40468b058614089f9f41d3df611fba4",
+      "currentSha256AfterChecks": "02dc21b2616a1e2c91b57a321dd039cce40468b058614089f9f41d3df611fba4",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/project-library-window.css",
+      "sha256": "0d73816be4307e611d645db27cb5d626b4dcaa5c0f3b19be59d3dbd2f90fa42f",
+      "fixtureSha256AfterChecks": "0d73816be4307e611d645db27cb5d626b4dcaa5c0f3b19be59d3dbd2f90fa42f",
+      "currentSha256AfterChecks": "0d73816be4307e611d645db27cb5d626b4dcaa5c0f3b19be59d3dbd2f90fa42f",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/room-views.tsx",
+      "sha256": "7e6caeeb3b944a1f98a60dd6cb7e7b3a0fe36857cf4e0225ff546c53f14b82e4",
+      "fixtureSha256AfterChecks": "7e6caeeb3b944a1f98a60dd6cb7e7b3a0fe36857cf4e0225ff546c53f14b82e4",
+      "currentSha256AfterChecks": "7e6caeeb3b944a1f98a60dd6cb7e7b3a0fe36857cf4e0225ff546c53f14b82e4",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/reading-views.css",
+      "sha256": "24c37bf1efd4516be00a7d0f0f5e20c162a9edc98a95b172cd87c32d60fe0269",
+      "fixtureSha256AfterChecks": "24c37bf1efd4516be00a7d0f0f5e20c162a9edc98a95b172cd87c32d60fe0269",
+      "currentSha256AfterChecks": "24c37bf1efd4516be00a7d0f0f5e20c162a9edc98a95b172cd87c32d60fe0269",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "scripts/benchmarks/visitor-interface-preview.mjs",
+      "sha256": "af024230e8ead27d2c775d813eaea728956f18cc7cbc4c2863d75990fd190cb0",
+      "fixtureSha256AfterChecks": "af024230e8ead27d2c775d813eaea728956f18cc7cbc4c2863d75990fd190cb0",
+      "currentSha256AfterChecks": "af024230e8ead27d2c775d813eaea728956f18cc7cbc4c2863d75990fd190cb0",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/content/project-rendering.test.mjs",
+      "sha256": "2464be946cefb68529dd3f4d840efa8caed919d150238413295ed10acc483e83",
+      "fixtureSha256AfterChecks": "2464be946cefb68529dd3f4d840efa8caed919d150238413295ed10acc483e83",
+      "currentSha256AfterChecks": "2464be946cefb68529dd3f4d840efa8caed919d150238413295ed10acc483e83",
+      "matchesCurrentSource": true
+    }
+  ],
+  "initialFullSuiteSource": {
+    "frozenAt": "2026-09-25T10:19:37.435791+00:00",
+    "sourceFiles": [
+      {
+        "path": "app/globals.css",
+        "sha256": "bb25cc4e91ebc9e546f5324d6fb6543086e2aa55c78df7114021cce3f6b96f0f"
+      },
+      {
+        "path": "features/portfolio/case-study-library-window.css",
+        "sha256": "9dcb8fd8625107c0203818c13115f268d3c503d93fa5d3fa4ddafead9e4f2e44"
+      },
+      {
+        "path": "features/portfolio/contact-computer-window.css",
+        "sha256": "f43f481a0351390948f8042818c188ecd1e093532ed0bff86de6bac02c2d5f23"
+      },
+      {
+        "path": "features/portfolio/contact-form.css",
+        "sha256": "02dc21b2616a1e2c91b57a321dd039cce40468b058614089f9f41d3df611fba4"
+      },
+      {
+        "path": "features/portfolio/project-library-window.css",
+        "sha256": "7d83c1387b7c107705087fd94bfdd5be588cfdc1bce672b373253d970919e874"
+      },
+      {
+        "path": "features/portfolio/room-views.tsx",
+        "sha256": "a6dda9dd306149b0171a476b0a557f47a7baf10b4ad602da01b0ff643484f0cd"
+      },
+      {
+        "path": "features/portfolio/reading-views.css",
+        "sha256": "24c37bf1efd4516be00a7d0f0f5e20c162a9edc98a95b172cd87c32d60fe0269"
+      },
+      {
+        "path": "scripts/benchmarks/visitor-interface-preview.mjs",
+        "sha256": "388b4f12d3b5a2d822fa991fc157d5fb3d5013e7d410f84f8465aa8031ff6181"
+      }
+    ],
+    "projectRenderingTestRevision": "3773f5ad8c76d05300604cd3cf75f1e65e949183"
+  },
+  "matchingVisualFixture": {
+    "manifest": "docs/evidence/visitor-interface-design/fixture-manifest.json",
+    "frozenAt": "2026-09-25T10:32:16.733Z",
+    "sourceMatches": {
+      "app/globals.css": true,
+      "features/portfolio/case-study-library-window.css": true,
+      "features/portfolio/contact-computer-window.css": true,
+      "features/portfolio/contact-form.css": true,
+      "features/portfolio/project-library-window.css": true,
+      "features/portfolio/room-views.tsx": true,
+      "features/portfolio/reading-views.css": true
+    },
+    "fixtureScriptMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage13-verify-nwgup3gn",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyGitArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "secretFileMode": "0600",
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage13-verify-nwgup3gn/.vite-stage13-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage13-verify-nwgup3gn/.wrangler/state",
+    "fixtureOnlyConfigChange": "vite.config.ts adds cacheDir: '.vite-stage13-cache'",
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "mainServerAndStoreUntouched": true
+  },
+  "checks": {
+    "initialFullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 1,
+      "tests": 588,
+      "passed": 587,
+      "failed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 736996.952125,
+      "log": "docs/evidence/visitor-interface-design/checks/test-initial.log",
+      "failure": "tests/content/project-rendering.test.mjs:547: the first project-overview string is now an earlier Contents href, not the story heading id. Resource order and destination safety remained intact."
+    },
+    "finalTargetedRendering": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 node --test --test-concurrency=1 tests/content/project-rendering.test.mjs tests/content/case-study-rendering.test.mjs tests/content/journal-content.test.mjs",
+      "exitCode": 0,
+      "tests": 33,
+      "passed": 33,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 5352.366916,
+      "log": "docs/evidence/visitor-interface-design/checks/rendering-final.log"
+    },
+    "finalTypecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/evidence/visitor-interface-design/checks/typecheck.log"
+    },
+    "finalAffectedLint": {
+      "command": "npm run lint -- features/portfolio/room-views.tsx scripts/benchmarks/visitor-interface-preview.mjs tests/content/project-rendering.test.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/visitor-interface-design/checks/lint.log"
+    },
+    "finalCssParse": {
+      "method": "postcss.parse for all six affected CSS files",
+      "exitCode": 0,
+      "filesPassed": 6,
+      "log": "docs/evidence/visitor-interface-design/checks/css-parse.log"
+    },
+    "finalProductionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryPrecheckPassed": true,
+      "log": "docs/evidence/visitor-interface-design/checks/build.log"
+    },
+    "initialStaticChecks": {
+      "typecheckExitCode": 0,
+      "lintExitCode": 0,
+      "cssParseExitCode": 0,
+      "logs": [
+        "docs/evidence/visitor-interface-design/checks/typecheck-initial.log",
+        "docs/evidence/visitor-interface-design/checks/lint-initial.log",
+        "docs/evidence/visitor-interface-design/checks/css-parse-initial.log"
+      ]
+    }
+  },
+  "resolution": [
+    "The two resource-order assertions now target id=\"project-overview\" rather than the first occurrence of project-overview; this distinguishes native Contents navigation from the actual section heading.",
+    "After the initial full suite, final source adds conditional omission of empty project Contents rails, native project-card long-token wrapping, and final synthetic preview coverage. Complete project, case-study and journal rendering files then passed on the corrected source.",
+    "Per the final verification plan, the full suite was not repeated after the bounded presentation/test corrections. Final typecheck, affected lint, CSS parsing and production build were rerun."
+  ],
+  "unresolvedFailures": [],
+  "warnings": [
+    "Node DEP0205: module.register() is deprecated in favor of module.registerHooks().",
+    "Rolldown reported plugin-hook timing diagnostics during build; no rendering-performance conclusion is drawn.",
+    "Some minified production chunks exceed 500 kB.",
+    "Vinext static analysis reports /experience as unknown; remaining route classification completed."
+  ],
+  "logs": {
+    "test-initial": {
+      "path": "docs/evidence/visitor-interface-design/checks/test-initial.log",
+      "rawSha256": "008800794b133f798816195176c8c997e0e7e79ce14b41dccf2f82b70d5a502b",
+      "normalizedSha256": "e2a15fdeca01c223fabeb7628d2b565efa54872fd0c545f1596c1607009b32c6"
+    },
+    "rendering-final": {
+      "path": "docs/evidence/visitor-interface-design/checks/rendering-final.log",
+      "rawSha256": "2cabc951e0651adc520292dc036103aa07d7d89c9b128dd23c57753eb99ccdd2",
+      "normalizedSha256": "2cabc951e0651adc520292dc036103aa07d7d89c9b128dd23c57753eb99ccdd2"
+    },
+    "typecheck": {
+      "path": "docs/evidence/visitor-interface-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "lint": {
+      "path": "docs/evidence/visitor-interface-design/checks/lint.log",
+      "rawSha256": "870e95b65dc370ab64f1a36f81b237f5f4f96b9d87dae7cd2915ff6b931507f4",
+      "normalizedSha256": "739f6a297ebf157357a6857635a419cc3d34e933fba5e22ad597190b6502c3fa"
+    },
+    "css-parse": {
+      "path": "docs/evidence/visitor-interface-design/checks/css-parse.log",
+      "rawSha256": "adea701cc3a5a828bade17650b2ab950ce8745b154bb82153bb67874f05c1b89",
+      "normalizedSha256": "adea701cc3a5a828bade17650b2ab950ce8745b154bb82153bb67874f05c1b89"
+    },
+    "build": {
+      "path": "docs/evidence/visitor-interface-design/checks/build.log",
+      "rawSha256": "ba5161f687181bf28b11cf859479ae7cc4bb4503f624bc47932d9870860d68ca",
+      "normalizedSha256": "16f850130c64e8596f5436bb538ab76c3737fee56d41a1a090f78bf513ba1e9e"
+    },
+    "typecheck-initial": {
+      "path": "docs/evidence/visitor-interface-design/checks/typecheck-initial.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "lint-initial": {
+      "path": "docs/evidence/visitor-interface-design/checks/lint-initial.log",
+      "rawSha256": "5dff2edc96b1423dd4a6c70d88b98140a369ad60ebfe74e118fc35e43112bf68",
+      "normalizedSha256": "c381053a04ebec73dd865bf1d47e20cf7d767ce6d93fc6c0e283dc8ee0b4496e"
+    },
+    "css-parse-initial": {
+      "path": "docs/evidence/visitor-interface-design/checks/css-parse-initial.log",
+      "rawSha256": "9cf25ca51a5481025020c753fbd38c01c20ed72e93a375ebadf36c5b4039d789",
+      "normalizedSha256": "9cf25ca51a5481025020c753fbd38c01c20ed72e93a375ebadf36c5b4039d789"
+    }
+  },
+  "logNormalization": "Removed ANSI control sequences, trailing whitespace and outer blank lines; retained substantive results, warning text, commands and elapsed times. Test-only secret values were checked absent before copying.",
+  "limitations": [
+    "This record covers automated source/workflow verification; browser evidence and independent design review are recorded separately.",
+    "Initial full-suite source differs from final source as listed above; the final targeted pass, static checks and build bind to the listed final hashes.",
+    "Elapsed check/build times are not controlled rendering speed, thermal, battery or memory measurements."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T10:36:06.070748+00:00",
+    "status": "complete",
+    "fixtureRemoved": true,
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage13-verify-nwgup3gn",
+    "port3003HasListener": false,
+    "temporaryServerSession": 42695,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "mainServerPreserved": true,
+    "durableLogsRetained": true,
+    "temporarySecretsAndStateRemoved": true
+  },
+  "postCheckFormatting": {
+    "at": "2026-09-25T10:39:50.071075+00:00",
+    "path": "tests/content/project-rendering.test.mjs",
+    "sha256": "e737a37e8b934329f80286bf3a705a2c032210dd8b130d04707452720be01095",
+    "change": "oxfmt line wrapping only; assertion expression and production source unchanged. No tests rerun solely for whitespace."
+  }
+}
