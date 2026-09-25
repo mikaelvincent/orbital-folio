@@ -105,6 +105,7 @@ for (const version of ['before', 'after']) {
             'Lower ladder door':{target:[ladderX+.65,-1.5,0],direction:[-.22,.20,1],distance:4.7},
             'Docking shoulder':{target:[ladderX-.45,.0675,0],direction:[1.3,.12,1],distance:8.8},
             'Docking exterior':{target:model.group.userData.dockingAnchors.sleeve,direction:[-1.1,.42,1],distance:innerWidth<innerHeight?10.5:6.4},
+            'Docking service box':{target:[model.group.userData.dockingAnchor[0],.0675,1],direction:[-.14,.1,1],distance:3.1},
             'Docking face':{target:model.group.userData.dockingAnchors.hatch,direction:[-1,.12,.22],distance:innerWidth<innerHeight?8.5:5.5},
             'Docking inner hatch':{target:model.group.userData.dockingAnchors.innerHatch,direction:[1,0,.08],distance:1.18,fov:90},
             'About corner':{room:'about',direction:[-.32,.06,1]},

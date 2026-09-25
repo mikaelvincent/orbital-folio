@@ -234,7 +234,7 @@ for (const layout of ['wide', 'compact']) {
     );
   });
 
-  test(`${layout}: the service saddle follows the actual curved sleeve and its cassette fittings attach`, () => {
+  test(`${layout}: the service saddle follows the actual curved sleeve and its folding pull has continuous support`, () => {
     const { named, joined } = partsForLayout(layout);
     const saddles = named('docking-service-saddle'),
       sleeves = named('rounded-docking-pressure-sleeve');
@@ -281,32 +281,37 @@ for (const layout of ['wide', 'compact']) {
     joined(
       named('docking-service-cassette'),
       saddles,
-      'The removable cassette seats on its saddle',
+      'The removable service hatch seats on its saddle',
     );
     joined(
-      named('docking-service-coupling-seat'),
+      named('docking-service-grip-well'),
       named('docking-service-cassette'),
-      'Every coupling seat reaches the cassette',
+      'The grip well seats against the service hatch',
     );
     joined(
-      named('docking-service-coupling-cap'),
-      named('docking-service-coupling-seat'),
-      'Every coupling cap reaches its seat',
-    );
-    joined(
-      named('docking-service-cap-grip'),
-      named('docking-service-coupling-cap'),
-      'Every cap grip reaches its cap',
-    );
-    joined(
-      named('docking-service-cover-latch'),
+      named('docking-service-pull-foot'),
       named('docking-service-cassette'),
-      'The cover latch reaches the cassette',
+      'Every folding-pull foot reaches the hatch',
     );
     joined(
-      named('docking-service-cover-fastener'),
-      named('docking-service-cassette'),
-      'Every cover fastener reaches the cassette',
+      named('docking-service-pull-return'),
+      named('docking-service-pull-foot'),
+      'Every pull return reaches a fitted foot',
+    );
+    joined(
+      named('docking-service-pull-return'),
+      named('docking-service-folded-pull'),
+      'Every pull return reaches the continuous grasp',
+    );
+    joined(
+      named('docking-service-pull-keeper'),
+      named('docking-service-pull-foot'),
+      'The captive keeper is supported by a fitted foot',
+    );
+    joined(
+      named('docking-service-pull-keeper'),
+      named('docking-service-folded-pull'),
+      'The captive keeper engages the folded pull',
     );
   });
 

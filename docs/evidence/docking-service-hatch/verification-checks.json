@@ -1,0 +1,117 @@
+{
+  "verifiedAt": "2026-09-25T00:44:35.773137+00:00",
+  "baselineCommit": "56b312e8841dfa2e5e861308b11fa59a1f456408",
+  "sourceSnapshot": "Accepted box-only docking service-hatch correction, its construction test and the added close-box diagnostic preview. All completed checks used the same three-file snapshot; no runtime edits were made by the verification agent.",
+  "source": [
+    {
+      "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+      "sha256": "926a90432d9657f966d0d2e5fcbfec8c7a62f6ce12a059dfe927f9ba4cb8e21c",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/docking-construction.test.mjs",
+      "sha256": "16c1dc530a899ed191a14378c8070d3a7e544e5e3bb286bfeaf4b89376cbb04d",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "scripts/benchmarks/spacecraft-polish-preview.mjs",
+      "sha256": "7d50510aa20c7476b4e09552c44b4911248523a3c924b1d184f4063b0ac1a87c",
+      "matchesCurrentSource": true
+    }
+  ],
+  "unchangedModel": {
+    "path": "features/spacecraft/spacecraft-model.ts",
+    "sha256": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+    "copiedFromMainAfterFixtureCreation": false,
+    "matchesCurrentSource": true
+  },
+  "matchingVisualManifest": {
+    "path": "source-manifest.json",
+    "capturedAt": "2026-09-25T00:29:57.317Z",
+    "version": "after",
+    "changedRuntimeHashMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-hatch-verify-wuu3fbo7",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-hatch-verify-wuu3fbo7/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-hatch-verify-wuu3fbo7/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed after evidence review: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-25T00:47:06.402402+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsRetained": true,
+      "evidenceLogsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 568,
+      "pass": 568,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 649116.046209,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "217b1759827389e6893216d02e5c14bd12dddc33fef27a5a85fab8ec6197eeea",
+        "normalizedSha256": "4f5873c25f10b9bdff01202d56296b5740c7384fc2118b8c87d767a8454e2074"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "98d22cf051787f8fbf4876cc37e7d253e63a56f3de4a16295ce23368647f0c09",
+        "normalizedSha256": "c01d22f34d68d495a7fa39b5dcfad625483dfe89f24801c46667f6729346b49d"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/docking-service-assemblies.ts tests/spacecraft/docking-construction.test.mjs scripts/benchmarks/spacecraft-polish-preview.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "1ec01ed5f1df62b4dcdcbe3595d62a162a4f55caace84894c9928beb30ca1143",
+        "normalizedSha256": "966c9ee2ce9ed38cef38a2b7e6e2e9f90f41c33393b1836bb355ce3a7b362815"
+      }
+    }
+  },
+  "executionNotes": "Typecheck and affected lint ran while the full suite was active, without changing source; production build ran after the full suite completed. This was functional verification, not a controlled performance run.",
+  "failures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, warnings, and substantive output are preserved. Raw logs remain in /tmp under orbital-docking-hatch-*.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "viewport": [1440, 900],
+  "point": [410, 475],
+  "action": "Click the visible passive service cover",
+  "result": {
+    "room": "home",
+    "travelling": "false",
+    "url": "http://127.0.0.1:3000/"
+  },
+  "errorLogSample": []
+}

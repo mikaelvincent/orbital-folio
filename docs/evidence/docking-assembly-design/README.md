@@ -2,6 +2,10 @@
 
 25 September 2026. Baseline `f60ebf56421e115bbae07b0c5b6e627d738a44f7`.
 
+The owner later rejected the service cassette's face-like port/latch arrangement.
+Only that box is superseded by the [current access-cover correction](../docking-service-hatch/README.md).
+The collar, main hatch, barrel and surrounding fittings below remain current.
+
 The pressure barrel and its coaxial shoulder mount already provided a coherent
 silhouette. The weak points were the thick bronze bumper around a stack of discs,
 disconnected wheel/handle details and two separate side panels. The final assembly

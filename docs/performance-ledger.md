@@ -31,6 +31,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 57 · 24 September 2026 | Owner-requested ladder contrast correction: seamless dark backing and fuller alloy treads | +972 triangle inputs / +25,032 geometry-array bytes per layout; unchanged visible submission candidates and protected framing/routes. [Evidence](evidence/ladder-rung-contrast/README.md). |
 | 58 · 24 September 2026 | Restrained bronze on ladder clamps and terminal caps | Material-only change on 12 existing fittings; geometry, counts and protected framing/routes unchanged. [Evidence](evidence/ladder-bronze-detail/README.md). |
 | 59 · 25 September 2026 | Stage 07 docking: satin mating flange, connected wheels and fitted service cassette | +3,872 triangle inputs / +290,528 geometry-array bytes per layout; −2 visible mesh candidates. Protected assemblies, bounds and framing unchanged. [Evidence](evidence/docking-assembly-design/README.md). |
+| 60 · 25 September 2026 | Owner-requested service-box correction: elongated access cover and one connected pull | +76 triangle inputs / −376 geometry-array bytes per layout; mesh candidates, docking bounds and framing unchanged. Only the box changes. [Evidence](evidence/docking-service-hatch/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3170,6 +3171,36 @@ reduced-motion overrides and timed rendering were not tested. All **568 isolated
 tests**, typecheck, build/geometry check, affected lint and formatting pass. The
 independent critic scored **95/100**, with 45% visual-design weight and no
 unresolved blockers; its rubric and limitations are preserved with the evidence.
+
+## 60 — Docking service-box correction (25 September 2026)
+
+The owner rejected the two round ports and separate latch on the Stage 07 box as
+face-like, including after their vertical rearrangement. This correction changes
+only that service box: its carbon cover and fitted saddle are lower and elongated,
+with one continuous alloy pull, attached feet and a small bronze keeper. Authored
+depth and the front extent remain unchanged. Collar, main hatch, barrel, ladder,
+AFT and other assemblies are preserved.
+
+Baseline is `56b312e8841dfa2e5e861308b11fa59a1f456408`. The
+[construction audit](evidence/docking-service-hatch/construction-audit.json)
+compares actual source solids and both layouts. Docking changes from **18,268 to
+18,344 triangle inputs** (**+76**), and **1,025,048 to 1,024,672 geometry-array
+bytes** (**−376**), retaining **8 mesh candidates**. The continuous pull and its
+feet replace separate capped-port geometry. These counts are not measured CPU/GPU
+timing, actual process/GPU memory, heat or battery results. No held optimization
+candidate is included.
+
+All non-service docking source solids remain exact. Docking/scene bounds,
+overview support points, shared framing and protected assemblies remain unchanged.
+[Evidence](evidence/docking-service-hatch/README.md) identifies the matching runtime,
+landscape/portrait checks, isolated verification and independent review. The
+previous Stage 07 critic approval did not settle the owner's visual concern;
+this correction explicitly supersedes that box design only.
+
+The matching isolated snapshot passes **568/568 tests**, typecheck, production
+build/geometry check and affected lint. Hidden built-in Chromium 153 evidence
+covers close/oblique comparisons plus live landscape and rolled portrait at
+actual 1440×900 and 390×844, DPR 1. Safari and rendering timing were not tested.
 
 ## Next candidates
 

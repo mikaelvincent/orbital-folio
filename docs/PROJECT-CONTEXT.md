@@ -269,12 +269,15 @@ seal; its carbon wheel now has connected alloy spokes and a bronze hub. Both
 feet of each leaf handle and all twelve flange fasteners seat into their support.
 These are static authored fittings, not a simulated docking or latch mechanism.
 
-One low carbon service cassette replaces the separate luminous side panel and
-lower latch panel. Its saddle follows the barrel's actual curved surface, with
-extra transverse geometry to avoid a flat chord. Two vertically stacked capped
-couplings and a side latch give it a maintenance purpose without suggesting a
-selectable screen. The inner hatch retains its leaf, gasket and locking tabs;
-its bronze spokes now reach a carbon rim in the same plane.
+The owner subsequently rejected the small cassette's two circular ports and
+separate latch because they still resembled a face. Only that box is redesigned:
+a lower, elongated carbon access cover now has one continuous alloy pull, attached
+feet and a small bronze keeper at one end. The curved saddle remains fitted to
+the barrel; cover/saddle height is reduced while depth and the front extent are
+preserved. There are no paired circular face details or separate status marks.
+See the [current box correction](evidence/docking-service-hatch/README.md).
+The inner hatch retains its Stage 07 leaf, gasket, locking tabs and connected
+bronze-spoke/carbon-rim wheel.
 
 The completed ladder's dark backing, alloy treads, bronze support stations,
 spanners, end grips and open spaces are unchanged. All cabin furniture,

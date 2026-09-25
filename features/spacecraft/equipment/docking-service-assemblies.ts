@@ -178,14 +178,14 @@ export function buildDockingAndServiceAssemblies(
     docking,
     'docking-collar-fasteners',
   );
-  // One removable service cassette, seated on a curved saddle between the two
-  // existing barrel bands. Warp only the saddle's back onto the barrel; the
-  // cover has a flat service face, two capped couplings and a captive latch.
+  // A shallow access hatch with one continuous folding pull. No paired ports
+  // or separate status marks: those read as facial features when the craft rolls.
+  // Only this service box changes; its saddle still seats between the bands.
   // The ordinary rounded-box helper has no samples across its flat core.
   // This back needs a continuous curve, so retain transverse samples there.
-  const saddleGeometry = new THREE.BoxGeometry(0.59, 0.51, 0.085, 9, 32, 9);
+  const saddleGeometry = new THREE.BoxGeometry(0.59, 0.31, 0.085, 9, 32, 9);
   const positions = saddleGeometry.getAttribute('position');
-  const half = [0.295, 0.255, 0.0425];
+  const half = [0.295, 0.155, 0.0425];
   const core = half.map((value) => value - 0.035);
   const bevelSteps = [-1, -0.8, -0.45, -0.18, 0, 0, 0.18, 0.45, 0.8, 1];
   for (let i = 0; i < positions.count; i++) {
@@ -221,7 +221,7 @@ export function buildDockingAndServiceAssemblies(
   saddle.position.set(-5.137, 0.03, 0);
   box(
     0.53,
-    0.45,
+    0.25,
     0.04,
     m.navy,
     -5.137,
@@ -231,45 +231,55 @@ export function buildDockingAndServiceAssemblies(
     0.018,
     'docking-service-cassette',
   );
-  // Flush caps are passive maintenance hardware, without luminous screen art.
-  for (const [y, radius] of [
-    [0.13, 0.076],
-    [-0.075, 0.057],
-  ]) {
-    const x = -5.205;
-    cylinder(radius, 0.02, m.metal, x, y, 1.039, docking, 'z').name =
-      'docking-service-coupling-seat';
-    cylinder(radius - 0.016, 0.02, m.deep, x, y, 1.049, docking, 'z').name =
-      'docking-service-coupling-cap';
+  // The dark grip well, returned alloy bail and small captive keeper form one
+  // handling assembly. The pull's front extent retains the existing camera fit.
+  box(
+    0.38,
+    0.078,
+    0.012,
+    m.deep,
+    -5.137,
+    0.03,
+    1.035,
+    docking,
+    0.005,
+    'docking-service-grip-well',
+  );
+  for (const x of [-5.287, -4.987]) {
     box(
-      radius,
-      0.022,
-      0.013,
+      0.044,
+      0.06,
+      0.016,
       m.metal,
       x,
-      y,
-      1.0645,
+      0.03,
+      1.039,
       docking,
       0.006,
-      'docking-service-cap-grip',
+      'docking-service-pull-foot',
     );
+    rod([x, 0.03, 1.039], [x, 0.03, 1.055], 0.016, m.metal, docking).name =
+      'docking-service-pull-return';
   }
-  box(
-    0.032,
-    0.15,
-    0.025,
-    m.amber,
-    -4.96,
-    0.03,
-    1.039,
+  rod(
+    [-5.287, 0.03, 1.055],
+    [-4.987, 0.03, 1.055],
+    0.016,
+    m.metal,
     docking,
-    0.01,
-    'docking-service-cover-latch',
+  ).name = 'docking-service-folded-pull';
+  box(
+    0.035,
+    0.052,
+    0.028,
+    m.amber,
+    -5.28,
+    0.03,
+    1.052,
+    docking,
+    0.008,
+    'docking-service-pull-keeper',
   );
-  for (const y of [-0.12, 0.18]) {
-    cylinder(0.013, 0.016, m.metal, -5.347, y, 1.037, docking, 'z').name =
-      'docking-service-cover-fastener';
-  }
   for (const yy of [-0.37, 0.43]) {
     for (const z of [-0.38, -0.167]) {
       cylinder(0.043, 0.028, m.metal, -6.432, yy, z, docking, 'x').name =

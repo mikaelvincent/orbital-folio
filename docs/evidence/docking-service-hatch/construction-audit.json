@@ -1,0 +1,491 @@
+{
+  "recordedAt": "2026-09-25T00:35:03.437421+00:00",
+  "baselineRevision": "56b312e8841dfa2e5e861308b11fa59a1f456408",
+  "scope": "User-requested correction of only the docking barrel service box: replace face-like capped ports and side latch with a low access hatch, continuous folding pull and captive keeper.",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "a9025ef3331f7d48bfd4df3df8067390f76c8e1d0cc6f14bc8db5aa8715e06be",
+    "frozenAt": "2026-09-25T00:29:58.372Z",
+    "transitiveSourcesVerifiedPerVersion": 44,
+    "changedRuntimeSources": [
+      "features/spacecraft/equipment/docking-service-assemblies.ts"
+    ],
+    "allOther43RuntimeSourcesUnchanged": true,
+    "changedRuntimeSha256": {
+      "before": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+      "after": "926a90432d9657f966d0d2e5fcbfec8c7a62f6ce12a059dfe927f9ba4cb8e21c"
+    },
+    "sourceTreeSha256": {
+      "before": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+      "after": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+    },
+    "sourceOutsideServiceBoxBlockByteIdentical": true,
+    "sharedModulePrefixSha256": "379060e8bf4159155315c4de669715866c796f9aca8f653f804c4166cf5e94ff",
+    "sharedModuleSuffixSha256": "e64ca5775b04fac7b4e2e334b0288e9da0ce5153b316705c4eb6bc87d0fec0ef",
+    "testFile": {
+      "path": "tests/spacecraft/docking-construction.test.mjs",
+      "sha256": "16c1dc530a899ed191a14378c8070d3a7e544e5e3bb286bfeaf4b89376cbb04d"
+    }
+  },
+  "constructionChecks": {
+    "startedAt": "2026-09-25T00:30:25.975611+00:00",
+    "command": "node --test tests/spacecraft/docking-construction.test.mjs",
+    "sourceHashesBefore": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "926a90432d9657f966d0d2e5fcbfec8c7a62f6ce12a059dfe927f9ba4cb8e21c",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/docking-construction.test.mjs": "16c1dc530a899ed191a14378c8070d3a7e544e5e3bb286bfeaf4b89376cbb04d"
+    },
+    "finishedAt": "2026-09-25T00:30:29.880019+00:00",
+    "sourceHashesAfter": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "926a90432d9657f966d0d2e5fcbfec8c7a62f6ce12a059dfe927f9ba4cb8e21c",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/docking-construction.test.mjs": "16c1dc530a899ed191a14378c8070d3a7e544e5e3bb286bfeaf4b89376cbb04d"
+    },
+    "exitCode": 0,
+    "result": {
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "output": "\u2714 wide: the docking pressure stack and both hatch wheels have continuous solid support (31.154375ms)\n\u2714 wide: every collar fastener, captive shoe and exterior handle foot reaches its support (18.847083ms)\n\u2714 wide: the service saddle follows the actual curved sleeve and its folding pull has continuous support (41.585875ms)\n\u2714 wide: pressure faces remain coaxial with the wall and close the center of the docking passage (11.587791ms)\n\u2714 compact: the docking pressure stack and both hatch wheels have continuous solid support (28.816666ms)\n\u2714 compact: every collar fastener, captive shoe and exterior handle foot reaches its support (24.693417ms)\n\u2714 compact: the service saddle follows the actual curved sleeve and its folding pull has continuous support (38.056792ms)\n\u2714 compact: pressure faces remain coaxial with the wall and close the center of the docking passage (9.814791ms)\n\u2139 tests 8\n\u2139 suites 0\n\u2139 pass 8\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 3695.27575\n",
+    "coverage": [
+      "The existing real pressure-stack, inner/exterior wheel, fastener, clamp, handle and coaxial sealed-passage checks are preserved in both layouts.",
+      "The real curved saddle is sampled at 25 footprint locations per layout against the actual sleeve, retaining shallow attachment after the reduced hatch height.",
+      "Actual source solids connect saddle to hatch; grip well and every pull foot to hatch; each return to a foot and the continuous grasp; keeper to a foot and the folded pull. No proxy boxes or exact decorative-part count assertions."
+    ],
+    "sampledContactMargins": {
+      "wide": {
+        "saddleSamples": 25,
+        "saddleRearToActualSleeve": {
+          "minimum": -0.0053626761775531495,
+          "maximum": -0.0017864899297577175
+        }
+      },
+      "compact": {
+        "saddleSamples": 25,
+        "saddleRearToActualSleeve": {
+          "minimum": -0.0053626761775531495,
+          "maximum": -0.0017864899297577175
+        }
+      }
+    }
+  },
+  "testFileChecks": {
+    "lint": {
+      "command": "npm run lint -- tests/spacecraft/docking-construction.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npm run format -- --check tests/spacecraft/docking-construction.test.mjs",
+      "exitCode": 0
+    },
+    "testFileUnchangedSinceTheseChecks": true
+  },
+  "inventoryMethod": {
+    "script": "scripts/measure-hardware-geometry.mjs",
+    "scriptSha256": "ab0d410c75f903b8cf2a79a10278155bc6a823b56d01f31d7d506cc17a1df247",
+    "production": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "state": "Production createSpacecraft; home at time zero; immediate doors; wide and compact; world matrices updated. Layout snapshots deep-cloned before switching layouts.",
+    "nonServiceDocking": "Capture production source meshes before material batching, rebuild their actual world transforms from retained parents, and include retained original instanced meshes. Exclude only names starting docking-service-. Compare exact raw geometry/index/instance arrays, transforms, material descriptors and count metadata. This directly verifies the collar, sleeve, pressure leaf, wheel, clamp shoes, fasteners, handles and wall mount.",
+    "fingerprints": "Production subgroup fingerprints compare world transforms, semantic parts, instance counts, material descriptors and raw geometry/index/instance arrays; no texture-pixel or shader-output comparison. Equal metadata maps use canonical JSON SHA-256 with sorted keys and compact separators.",
+    "counts": "Mesh counts are scene-graph candidates after batching, not measured renderer draws. Triangles include instances. Bytes sum unique geometry attributes/indices per inventory, excluding instance attributes, textures, caches and driver allocations. Nested inventories overlap and must not be added.",
+    "visibility": "Whole-model visible inventory honors ancestors; retained inventory includes hidden scene-graph variants. Named subgroup traversal starts at that root and can inventory a variant behind a hidden ancestor; effective visibility is compared separately.",
+    "baselineIsolation": "Fresh source-only git archive of baseline source/package files; only installed node_modules shared by symlink. No private environment, main database, uploads, emulator state or secrets copied. Baseline removed after measurement; main server and store untouched."
+  },
+  "framingFieldsCompared": [
+    "roomAnchors",
+    "roomBounds",
+    "innerApertureBounds",
+    "roomCameraFrame",
+    "requiredFramingPoints",
+    "overviewBounds",
+    "overviewSupportPoints",
+    "recommendedFraming",
+    "walkwayAnchor",
+    "walkwayBounds",
+    "walkwayProfile",
+    "dockingAnchors",
+    "communicationsAnchor",
+    "calloutAnchors",
+    "calloutEdges"
+  ],
+  "doorAndRouteFieldsCompared": [
+    "portals",
+    "adjacency",
+    "activeRoute",
+    "irisHatches",
+    "passageLinings"
+  ],
+  "comparison": {
+    "wide": {
+      "dockingAssembly": {
+        "before": {
+          "meshes": 8,
+          "triangles": 18268,
+          "uniqueGeometries": 8,
+          "attributeBytes": 1025048,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -1.0005042791366576, -1.0680042505264282
+            ],
+            "max": [-6.247999931335449, 1.1355042219161988, 1.0709999799728394]
+          }
+        },
+        "after": {
+          "meshes": 8,
+          "triangles": 18344,
+          "uniqueGeometries": 8,
+          "attributeBytes": 1024672,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -1.0005042791366576, -1.0680042505264282
+            ],
+            "max": [-6.247999931335449, 1.1355042219161988, 1.0709999799728394]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 518,
+          "triangles": 999364,
+          "uniqueGeometries": 453,
+          "attributeBytes": 38141880,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 518,
+          "triangles": 999440,
+          "uniqueGeometries": 453,
+          "attributeBytes": 38141504,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 596,
+          "triangles": 1301062,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601932,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 596,
+          "triangles": 1301138,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601556,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "nonServiceDocking": {
+        "exactEquality": true,
+        "sourceMeshObjectsCompared": 33,
+        "actualTriangles": 13352,
+        "sharedGeometryMaterialsAndTransformsSha256": "297d84fe599bd478bf886f30d3fe1ba5239b1ffed82be3cb74cb8df954705fe0",
+        "sourcePartNames": [
+          "coaxial-docking-load-bearing-mount",
+          "docking-captive-clamp-shoe",
+          "docking-clamp-seat",
+          "docking-collar-fasteners",
+          "docking-collar-mating-flange",
+          "docking-collar-neck",
+          "docking-exterior-handle-foot",
+          "docking-exterior-handle-grasp",
+          "docking-exterior-handle-return",
+          "docking-exterior-pressure-leaf",
+          "docking-exterior-wheel-boss",
+          "docking-exterior-wheel-hub",
+          "docking-exterior-wheel-rim",
+          "docking-exterior-wheel-spoke",
+          "docking-hatch-pressure-seal",
+          "docking-mount-pressure-diaphragm",
+          "docking-mount-seated-retaining-ring",
+          "raised-docking-expansion-band",
+          "raised-docking-metal-band",
+          "rounded-docking-pressure-sleeve"
+        ]
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "aft-service-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "8f11d9e2020ddfedf81adc49c0808fec6d9829b404e379f568b34f024db4c0ee",
+        "sharedInventoryMapSha256": "0c439162887e7aa68983321945d790bfe3972f6d202ce31ad4894de422375e86"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "deca487c5cb13535fa3a39488061d9f211186c0acf0d12088a109f9180cdedaa",
+      "wholeModelAndDockingBoundsEqual": true,
+      "exactMetadataComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "332e9d73d108515f981ad9b7531c11c7c32b90cd80b62e7fa45c7ef84313a0ba"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0ddc2d7f19b19f2d7c0ce0fa05d316859f105f4b28b5e6ab7f463fbe1d824dbe"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "126727aed035b311c65fe8d78ab75cb4552a562d32e1e0c7b402c0c8e2c0d25d"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "29b00cda3297c0d1e1a4e9674a4bea6647b66fc06cb1c1e55cbfbaefb3ee701b"
+        }
+      }
+    },
+    "compact": {
+      "dockingAssembly": {
+        "before": {
+          "meshes": 8,
+          "triangles": 18268,
+          "uniqueGeometries": 8,
+          "attributeBytes": 1025048,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -1.0005042791366576, -1.0680042505264282
+            ],
+            "max": [-4.561999931335449, 1.1355042219161988, 1.0709999799728394]
+          }
+        },
+        "after": {
+          "meshes": 8,
+          "triangles": 18344,
+          "uniqueGeometries": 8,
+          "attributeBytes": 1024672,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -1.0005042791366576, -1.0680042505264282
+            ],
+            "max": [-4.561999931335449, 1.1355042219161988, 1.0709999799728394]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 518,
+          "triangles": 977684,
+          "uniqueGeometries": 453,
+          "attributeBytes": 37519384,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 518,
+          "triangles": 977760,
+          "uniqueGeometries": 453,
+          "attributeBytes": 37519008,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 596,
+          "triangles": 1301062,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601932,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 596,
+          "triangles": 1301138,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601556,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 76,
+          "uniqueGeometries": 0,
+          "attributeBytes": -376
+        }
+      },
+      "nonServiceDocking": {
+        "exactEquality": true,
+        "sourceMeshObjectsCompared": 33,
+        "actualTriangles": 13352,
+        "sharedGeometryMaterialsAndTransformsSha256": "3b5eb66de97c0eec6e294837b823cb705fe9bb43fe51693bc1e2218bc964f812",
+        "sourcePartNames": [
+          "coaxial-docking-load-bearing-mount",
+          "docking-captive-clamp-shoe",
+          "docking-clamp-seat",
+          "docking-collar-fasteners",
+          "docking-collar-mating-flange",
+          "docking-collar-neck",
+          "docking-exterior-handle-foot",
+          "docking-exterior-handle-grasp",
+          "docking-exterior-handle-return",
+          "docking-exterior-pressure-leaf",
+          "docking-exterior-wheel-boss",
+          "docking-exterior-wheel-hub",
+          "docking-exterior-wheel-rim",
+          "docking-exterior-wheel-spoke",
+          "docking-hatch-pressure-seal",
+          "docking-mount-pressure-diaphragm",
+          "docking-mount-seated-retaining-ring",
+          "raised-docking-expansion-band",
+          "raised-docking-metal-band",
+          "rounded-docking-pressure-sleeve"
+        ]
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "aft-service-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "3805d79ca4e0bb87dc3c8f5c76ba2a1b961d105e9adbd2df0ab3f1314cf7520a",
+        "sharedInventoryMapSha256": "549c2a7c4dd1e6f4a4589fd60a7ea4d4610ccf995669b9fffff3c0db12affbf8"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "82b3f6cb2d4f406bbeccdb1ad81da54a58de5bddc2a0000ac4631a71a1b0263e",
+      "wholeModelAndDockingBoundsEqual": true,
+      "exactMetadataComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0cb7cce16e3edcc1d6ea68de6e6eec77d679680be6c28c65a2c3690f8c58c43e"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "486a8067ab78542e744c343c2dfb83f6b7ba3053a0647940685b19c3805605d1"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8506571000f80e652d58089017b52d7d56808222310c329c21ce92d268eaeed0"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "c2f59b680185aa79d1cc75030e134d2f44a3fe7e022791e4b7769cf5d028af9d"
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "In each layout the service-box correction adds 76 submitted-geometry triangles and reduces unique geometry-array storage by 376 bytes. Exterior docking remains 8 visible mesh candidates; whole-model visible candidates remain 518. These counts establish no rendering-speed, heat, battery or process/GPU-memory gain.",
+    "Docking and whole-model bounds are exactly equal. Every captured framing field, including overview bounds/support points and room camera frame, is exactly equal in both layouts.",
+    "All non-service docking solids, inner hatch, completed cabins/furniture, ladder/end gear/liner, opposite service/dish/solar, exterior access equipment, door and route snapshots compare exactly. Only the service-box source block changes."
+  ],
+  "limitations": [
+    "This audit provides geometry/source evidence, not browser or visual approval. The parent task records matching rendered inspection and independent design criticism separately.",
+    "Solid contact uses real rounded source geometry and actual per-instance transforms, with 1e-7 contact tolerance. Saddle and sealed-passage probes use finite samples rather than an exhaustive continuous proof.",
+    "No full suite, typecheck or build is claimed here. Final isolated full-suite verification is the parent task's separate record.",
+    "No CPU/GPU timing, frame pacing, heat, battery or process/GPU-memory measurement was performed."
+  ]
+}
