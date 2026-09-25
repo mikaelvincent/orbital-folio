@@ -1686,6 +1686,7 @@ export function createSpacecraft(
       z: contactComputer.anchor.position.z,
     }),
   );
+  contactComputer.bindIdleSignalMaterials?.();
 
   objectHighlights.push(
     createObjectHighlight(THREE, aboutNotebook.root, 'about-notebook', {
@@ -2533,7 +2534,28 @@ export function createSpacecraft(
   const serviceOverviewParts = new Map<string, any>();
   const serviceInverse = vesselMatrix(service).invert();
   for (const child of service.children) {
-    const bounds = vesselBounds(child).applyMatrix4(serviceInverse);
+    const bounds = new THREE.Box3();
+    if (child === dishAssembly) {
+      // Layout may be recalculated at any point in the ambient scan. Capture
+      // the full supported arc once, before batching, so overview fitting does
+      // not grow and shrink with the dish's current pose.
+      const initialX = child.rotation.x;
+      const initialY = child.rotation.y;
+      for (let degrees = -18; degrees <= 18; degrees++) {
+        const trim = THREE.MathUtils.degToRad(degrees);
+        child.rotation.x = trim * 0.6;
+        child.rotation.y = trim;
+        child.updateMatrixWorld(true);
+        bounds.union(vesselBounds(child).applyMatrix4(serviceInverse));
+      }
+      child.rotation.x = initialX;
+      child.rotation.y = initialY;
+      child.updateMatrixWorld(true);
+      // One-degree samples bound the supported poses to screen precision.
+      bounds.expandByScalar(0.002);
+    } else {
+      bounds.copy(vesselBounds(child).applyMatrix4(serviceInverse));
+    }
     if (bounds.isEmpty()) continue;
     const wingIndex = solarWings.indexOf(child);
     const center = bounds.getCenter(new THREE.Vector3());
@@ -2858,12 +2880,7 @@ export function createSpacecraft(
     // appendages determine overview silhouette, regardless of current selection.
     for (const section of Object.keys(rooms))
       box.union(vesselBounds(structures[section]));
-    for (const part of [
-      docking,
-      service,
-      walkway,
-      chassisVariants[currentLayout],
-    ])
+    for (const part of [docking, walkway, chassisVariants[currentLayout]])
       box.union(vesselBounds(part));
     const passageBounds = new THREE.Box3();
     for (const hatch of physicalHatches.values())
@@ -2883,11 +2900,14 @@ export function createSpacecraft(
       supportBounds.push({ name, bounds: vesselBounds(part) });
     supportBounds.push({ name: 'passage-couplings', bounds: passageBounds });
     const serviceMatrix = vesselMatrix(service);
-    for (const [name, bounds] of serviceOverviewParts)
+    for (const [name, bounds] of serviceOverviewParts) {
+      const transformed = bounds.clone().applyMatrix4(serviceMatrix);
+      box.union(transformed);
       supportBounds.push({
         name,
-        bounds: bounds.clone().applyMatrix4(serviceMatrix),
+        bounds: transformed,
       });
+    }
     const supportPoints: number[][] = [];
     group.userData.overviewSupportBounds = supportBounds.map(
       ({ name, bounds }) => {
@@ -3724,6 +3744,7 @@ export function createSpacecraft(
       };
     }
     contactRadio?.userData.updateRadioMeters?.(ambientTime);
+    contactComputer.updateIdleSignal?.(ambientTime);
     for (const highlight of objectHighlights) {
       const objectRoom = highlight.id.startsWith('contact-')
         ? 'contact'

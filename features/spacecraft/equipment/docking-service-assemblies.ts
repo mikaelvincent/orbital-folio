@@ -6,21 +6,19 @@ import type {
   Transform,
 } from '../geometry/model-primitives.ts';
 
-// Each change takes four seconds or less, with much longer periods at rest.
-// The cycle closes at zero so a reload starts from the approved static pose.
+// A short two-axis scan reads from overview without a hard reversal. The
+// home hold gives the dish a clear resting pose between deliberate sweeps.
 const DISH_TRIM_KEYFRAMES = [
   [0, 0],
-  [12, 0],
-  [16, 3.2],
-  [55, 3.2],
-  [59, -2.4],
-  [106, -2.4],
-  [110, 1.4],
-  [150, 1.4],
-  [154, 0],
-  [198, 0],
+  [0.75, 0],
+  [3.25, 18],
+  [4.5, 18],
+  [9, -18],
+  [10.25, -18],
+  [12.75, 0],
+  [18, 0],
 ] as const;
-const DISH_TRIM_PERIOD = 198;
+const DISH_TRIM_PERIOD = 18;
 
 function dishTrimAt(time: number) {
   const phase =
@@ -388,6 +386,7 @@ export function buildDockingAndServiceAssemblies(
     const trim = dishTrimAt(time);
     if (trim === previousDishTrim) return false;
     dishAssembly.rotation.y = trim;
+    dishAssembly.rotation.x = trim * 0.6;
     previousDishTrim = trim;
     return true;
   };

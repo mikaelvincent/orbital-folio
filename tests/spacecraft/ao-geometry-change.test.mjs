@@ -28,6 +28,8 @@ const update = (state = {}, instant = false, hoveredRoom = '') =>
     openPortalIds: [],
     immediateDoors: false,
     delta: 1 / 60,
+    // Isolate the geometry action under test from the ambient dish scan.
+    reducedMotion: true,
     ...state,
   });
 const revision = () => model.group.userData.geometryRevision;

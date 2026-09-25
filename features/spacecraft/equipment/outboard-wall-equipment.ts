@@ -156,8 +156,8 @@ export function buildOutboardWallEquipment(
         source.name = prefix + `meter-channel-${index}-${band}`;
         return source;
       });
-      // Passive bars vary like a quiet received signal. They do not indicate
-      // that a visitor message has been sent or that a call is in progress.
+      // The two trays fill and fall at different rates, making the existing
+      // meters readable from the room view without changing their function.
       for (let j = 0; j < 12; j++) {
         const band = j < 3 || j >= 9 ? -1 : Math.floor((j - 3) / 2);
         const segment = box(
@@ -432,21 +432,21 @@ export function buildOutboardWallEquipment(
     // Absolute time lets reduced motion hold the original all-lit pose at 0.
     root.userData.updateRadioMeters = (time: number) => {
       const seconds = Number.isFinite(time) ? Math.max(0, time) : 0;
+      const entrance = Math.min(1, seconds / 0.75);
       for (const channel of meterChannels) {
-        const t = seconds;
-        const level =
-          5.8 +
-          1.45 * Math.cos(t * (channel.row === 0 ? 0.35 : 0.41)) +
-          0.72 * Math.cos(t * (channel.row === 0 ? 0.17 : 0.14)) +
-          0.36 * Math.cos(t * (channel.row === 0 ? 0.78 : 0.69));
+        const period = channel.row === 0 ? 5.2 : 6.4;
+        const level = 6 + 3 * Math.cos((seconds * Math.PI * 2) / period);
         const progress = Math.max(
           0,
-          Math.min(1, (level - channel.threshold + 0.85) / 0.9),
+          Math.min(1, level - channel.threshold + 0.5),
         );
         const eased = progress * progress * (3 - 2 * progress);
-        const brightness = 0.48 + 0.52 * eased;
-        channel.material.color.multiplyScalar(brightness);
-        channel.material.emissive.multiplyScalar(brightness);
+        channel.material.color.multiplyScalar(
+          1 - entrance + entrance * (0.1 + 0.9 * eased),
+        );
+        channel.material.emissive.multiplyScalar(
+          1 - entrance + entrance * (0.08 + 1.92 * eased),
+        );
       }
     };
   }

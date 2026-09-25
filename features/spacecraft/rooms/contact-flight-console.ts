@@ -440,6 +440,51 @@ export function buildContactFlightConsole(
     face.position.z = surface.glassZ;
     face.castShadow = false;
     if (kind === 'contact') {
+      // The existing printed signal arcs are large enough to read from the
+      // cabin. Trace them in sequence on the idle glass so radio activity has
+      // a visible counterpart at the normal Contact camera distance. These
+      // coplanar, transparent strokes never cast a shadow or alter the screen's
+      // physical bounds; polygon offset keeps them clear of the printed arcs.
+      const signalArcs: any[] = [];
+      const canvasHeight = Math.round((1024 * sh) / sw);
+      const signalCenterY = Math.round(
+        (304 + (canvasHeight - 125) + 157 - 13) / 2,
+      );
+      for (const [index, pixels] of [58, 107, 157].entries()) {
+        const radius = (pixels * sw) / 1024;
+        const ink = material(`idle-signal-arc-${index}`, 0xd5fdff, 0.85);
+        ink.emissive.set(0xa5e7ef);
+        ink.emissiveIntensity = 2.2;
+        ink.toneMapped = false;
+        ink.transparent = true;
+        ink.opacity = 0;
+        ink.depthWrite = false;
+        ink.polygonOffset = true;
+        ink.polygonOffsetFactor = -2;
+        ink.polygonOffsetUnits = -2;
+        const arc = h.mesh(
+          new THREE.RingGeometry(
+            radius - 0.009,
+            radius + 0.009,
+            48,
+            1,
+            0.66,
+            2.48 - 0.66,
+          ),
+          ink,
+          idleDisplay,
+          `contact-flight-idle-signal-arc-${index}`,
+        );
+        arc.position.set(
+          0,
+          (0.5 - signalCenterY / canvasHeight) * sh,
+          surface.glassZ,
+        );
+        arc.castShadow = false;
+        arc.receiveShadow = false;
+        arc.material.visible = false;
+        signalArcs.push(arc.material);
+      }
       const desktopDisplay = attachComputerDesktop(
         THREE,
         face,
@@ -464,6 +509,32 @@ export function buildContactFlightConsole(
         height: sh,
         idleDisplay,
         desktopDisplay,
+        bindIdleSignalMaterials() {
+          // The contact-object highlight gives the display independent material
+          // copies. Bind to those visible copies before the model batches meshes.
+          const rendered: any[] = [];
+          idleDisplay.traverse((part: any) => {
+            if (!part.isMesh) return;
+            const match = /idle-signal-arc-(\d+)$/.exec(part.name);
+            if (match) rendered[Number(match[1])] = part.material;
+          });
+          if (rendered.length !== 3 || rendered.some((arc) => !arc))
+            throw new Error('Contact idle signal arcs lost their display');
+          signalArcs.splice(0, signalArcs.length, ...rendered);
+        },
+        updateIdleSignal(time: number) {
+          const seconds = Number.isFinite(time) ? Math.max(0, time) : 0;
+          const phase = seconds % 3.7;
+          for (const [index, arc] of signalArcs.entries()) {
+            const progress = (phase - (0.35 + index * 0.85)) / 1.1;
+            const strength =
+              progress > 0 && progress < 1
+                ? Math.sin(Math.PI * progress) ** 2
+                : 0;
+            arc.opacity = 0.8 * strength;
+            arc.visible = strength > 0.002;
+          }
+        },
         setActive(active: boolean) {
           idleDisplay.visible = !active;
           desktopDisplay.visible = active;
