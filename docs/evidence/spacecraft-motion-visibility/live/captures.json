@@ -1,0 +1,104 @@
+{
+  "browser": "Codex hidden built-in Chromium",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "sourceTreeSha256": "3836c6d66ed2f09e2b13e4b6bf9d3a13ebaf0a7956601c24b685e00e75c44b48",
+  "fixture": "Live http://localhost:3000, ordinary navigation and environment",
+  "captures": [
+    {
+      "activeRoom": "home",
+      "activeTime": 3.217,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "image": "overview-wide-positive.jpg",
+      "name": "overview-wide-positive",
+      "travelling": "false",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    {
+      "activeRoom": "home",
+      "activeTime": 8.916,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "image": "overview-wide-negative.jpg",
+      "name": "overview-wide-negative",
+      "travelling": "false",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    {
+      "activeRoom": "contact",
+      "activeTime": 2.583,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "image": "contact-wide-outer-arc.jpg",
+      "name": "contact-wide-outer-arc",
+      "travelling": "false",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    {
+      "name": "overview-portrait-positive",
+      "image": "overview-portrait-positive.jpg",
+      "activeRoom": "home",
+      "activeTime": 3.233,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "travelling": "false",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "name": "overview-portrait-negative",
+      "image": "overview-portrait-negative.jpg",
+      "activeRoom": "home",
+      "activeTime": 9.033,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "travelling": "false",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "name": "contact-portrait-outer-arc",
+      "image": "contact-portrait-outer-arc.jpg",
+      "activeRoom": "contact",
+      "activeTime": 10.05,
+      "browserDpr": 1,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "travelling": "false",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    }
+  ]
+}

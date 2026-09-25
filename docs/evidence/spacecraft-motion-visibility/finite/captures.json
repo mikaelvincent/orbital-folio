@@ -1,0 +1,838 @@
+[
+  {
+    "name": "service-before-early",
+    "image": "service-before-early.jpg",
+    "browserDpr": 1,
+    "calls": 875,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587585
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 3.25,
+    "triangles": 1922176,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Service front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "service-after-home",
+    "image": "service-after-home.jpg",
+    "browserDpr": 1,
+    "calls": 875,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587585
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1922176,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "service-after-positive",
+    "image": "service-after-positive.jpg",
+    "browserDpr": 1,
+    "calls": 875,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587585
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 3.25,
+    "triangles": 1922176,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "service-after-negative",
+    "image": "service-after-negative.jpg",
+    "browserDpr": 1,
+    "calls": 876,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587585
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 9,
+    "triangles": 1922272,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "dish-after-positive-close",
+    "image": "dish-after-positive-close.jpg",
+    "browserDpr": 1,
+    "calls": 725,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        7.919610982771013,
+        2.864549884493913,
+        2.032274942246956
+      ],
+      "target": [
+        4.959,
+        0.2,
+        0.7
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 3.25,
+    "triangles": 1735110,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Dish support",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "dish-after-negative-close",
+    "image": "dish-after-negative-close.jpg",
+    "browserDpr": 1,
+    "calls": 726,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        7.919610982771013,
+        2.864549884493913,
+        2.032274942246956
+      ],
+      "target": [
+        4.959,
+        0.2,
+        0.7
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 9,
+    "triangles": 1735206,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Dish support",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "service-after-portrait-positive",
+    "image": "service-after-portrait-positive.jpg",
+    "browserDpr": 1,
+    "calls": 884,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        13.66696058819607,
+        2.1603921176392142,
+        10.801960588196067
+      ],
+      "target": [
+        3.865,
+        0.2,
+        1
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 3.25,
+    "triangles": 1887200,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  {
+    "name": "service-after-portrait-negative",
+    "image": "service-after-portrait-negative.jpg",
+    "browserDpr": 1,
+    "calls": 885,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        13.66696058819607,
+        2.1603921176392142,
+        10.801960588196067
+      ],
+      "target": [
+        3.865,
+        0.2,
+        1
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 9,
+    "triangles": 1887296,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service oblique",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  {
+    "name": "radio-before-low",
+    "image": "radio-before-low.jpg",
+    "browserDpr": 1,
+    "calls": 488,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.5,
+    "triangles": 1385738,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Contact radio detail",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "radio-after-home",
+    "image": "radio-after-home.jpg",
+    "browserDpr": 1,
+    "calls": 488,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1385738,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact radio detail",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "radio-after-low",
+    "image": "radio-after-low.jpg",
+    "browserDpr": 1,
+    "calls": 489,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.5,
+    "triangles": 1385898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact radio detail",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "radio-after-recovery",
+    "image": "radio-after-recovery.jpg",
+    "browserDpr": 1,
+    "calls": 489,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 5.2,
+    "triangles": 1385898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact radio detail",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-before-wide",
+    "image": "contact-before-wide.jpg",
+    "browserDpr": 1,
+    "calls": 736,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.5,
+    "triangles": 1796856,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-wide",
+    "image": "contact-after-wide.jpg",
+    "browserDpr": 1,
+    "calls": 737,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.5,
+    "triangles": 1796952,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-home",
+    "image": "contact-after-home.jpg",
+    "browserDpr": 1,
+    "calls": 736,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1796856,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-arc-inner",
+    "image": "contact-after-arc-inner.jpg",
+    "browserDpr": 1,
+    "calls": 737,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0.9,
+    "triangles": 1796952,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-arc-middle",
+    "image": "contact-after-arc-middle.jpg",
+    "browserDpr": 1,
+    "calls": 737,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 1.75,
+    "triangles": 1796952,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-arc-outer",
+    "image": "contact-after-arc-outer.jpg",
+    "browserDpr": 1,
+    "calls": 737,
+    "drawingBuffer": {
+      "height": 900,
+      "width": 1440
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.6,
+    "triangles": 1796952,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "contact-after-portrait-arc",
+    "image": "contact-after-portrait-arc.jpg",
+    "browserDpr": 1,
+    "calls": 737,
+    "drawingBuffer": {
+      "height": 844,
+      "width": 390
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "compact",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        1.515,
+        -1.0413848869604254,
+        12.477574658273564
+      ],
+      "target": [
+        1.515,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 2.6,
+    "triangles": 1676890,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Contact front",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  }
+]

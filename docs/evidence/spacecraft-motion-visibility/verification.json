@@ -1,0 +1,98 @@
+{
+  "status": "complete",
+  "baselineCommit": "21e0a9b73007d415c7e1aa49a74394a7f86bec84",
+  "finiteCaptureSource": {
+    "fixtureSha256": "4057f132112dff555e4adff116f054adcf44d5d8abb9c10c3f3c2c51ace0beb7",
+    "beforeModelTreeSha256": "5b0015365af1317743b1e11aa5fe7a97fe90b53803f96993f8eed723525606ea",
+    "afterModelTreeSha256": "3836c6d66ed2f09e2b13e4b6bf9d3a13ebaf0a7956601c24b685e00e75c44b48",
+    "contactFlightConsoleSha256": "7bc897adf7188870e8cdc42b5d87660eea54ac31914ed90b8c8c9a46817f98d9",
+    "manifest": "finite/manifest.json"
+  },
+  "finalSource": {
+    "modelTreeSha256": "3836c6d66ed2f09e2b13e4b6bf9d3a13ebaf0a7956601c24b685e00e75c44b48",
+    "fixtureSha256": "4057f132112dff555e4adff116f054adcf44d5d8abb9c10c3f3c2c51ace0beb7",
+    "capturedAt": "2026-09-25T14:05:01.541Z",
+    "finalCommit": "26f4ea1078e8823db2d25dd5b03abe82e65dabfe"
+  },
+  "visualReview": {
+    "browser": "Hidden built-in Chromium 153, not native Safari",
+    "finiteFixture": {
+      "captures": "finite/captures.json",
+      "count": 19,
+      "cssViewportsAndDrawingBuffers": ["1440x900", "390x844"],
+      "browserDpr": 1,
+      "rendererDpr": 1,
+      "matchedServiceFront": {
+        "baselineDraws": 875,
+        "revisedDraws": 875,
+        "baselineTriangles": 1922176,
+        "revisedTriangles": 1922176
+      },
+      "matchedContactFront": {
+        "baselineDraws": 736,
+        "revisedDraws": 737,
+        "baselineTriangles": 1796856,
+        "revisedTriangles": 1796952
+      },
+      "omitted": ["GTAO", "orbital sky and Earth", "live screen interfaces", "navigation"]
+    },
+    "liveIntegration": {
+      "captures": "live/captures.json",
+      "count": 6,
+      "sourceTreeSha256": "3836c6d66ed2f09e2b13e4b6bf9d3a13ebaf0a7956601c24b685e00e75c44b48",
+      "cssViewportsAndDrawingBuffers": ["1440x900", "390x844"],
+      "browserDpr": 1,
+      "rendererDpr": 1,
+      "views": ["wide overview at two dish phases", "wide Contact with active signal arc", "portrait overview at two dish phases", "portrait Contact with active signal arc"],
+      "baselinePixelMatch": false
+    }
+  },
+  "automatedChecks": {
+    "focused": {
+      "passed": 18,
+      "failed": 0,
+      "sourcePhase": "Final dish, physical radio, Contact display and stable overview-bound source"
+    },
+    "typecheck": "passed: npm run typecheck on final source",
+    "affectedLint": "passed on final affected files",
+    "formatCheck": "passed: oxfmt on final affected files",
+    "initialIsolatedFullSuite": {
+      "passed": 589,
+      "failed": 1,
+      "failure": "The door-framing test exposed real overview-bound drift when setLayout sampled the dish at different animated phases.",
+      "resolution": "The model now uses a stable sampled envelope for the full supported dish sweep; the original iris test remains unchanged. The fresh final isolated suite passes."
+    },
+    "isolatedFullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "passed": 591,
+      "failed": 0,
+      "durationSeconds": 271.9,
+      "sourcePhase": "Final source matched against the disposable fixture before the run"
+    },
+    "productionBuild": "passed: npm run build on final source"
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "freshDisposableD1AndR2": true,
+    "ownerSetup": {
+      "signInHttpStatus": 302,
+      "setupHttpStatus": 200,
+      "authenticatedAdminHttpStatus": 200
+    },
+    "sourceFilesMatchedFinal": true
+  },
+  "independentCritic": {
+    "review": "critic-review.md",
+    "score": 91,
+    "outOf": 100,
+    "blockers": 0,
+    "outcome": "No required follow-up; portrait salience and continuous playback remain the practical limits."
+  },
+  "limitations": [
+    "No controlled CPU/GPU timing, frame-pacing, memory, thermal or battery measurement is available.",
+    "Finite draw and triangle counts include one-shot shadow-map rendering and are not steady full-application costs.",
+    "Finite captures show selected poses, not the temporal feel or room-scale salience of the animations.",
+    "Native Safari and physical-device behavior have not been tested."
+  ]
+}

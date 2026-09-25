@@ -307,8 +307,8 @@ cap. The first draft's exposed dark central disc was moved behind the bowl after
 rendered review. The nozzle retains its satin silhouette, with a seated dark
 throat; the extra bronze inner stripe and alternating bronze jacket panels are
 superseded so the dish and power joints lead. These were passive static fittings
-at the Stage 08 baseline; the later ambient-motion request below narrowly adds
-dish trim. Solar wings remain fixed and undeployed.
+at the Stage 08 baseline; the later ambient-motion requests below add a moving
+dish scan. Solar wings remain fixed and undeployed.
 
 Completed docking hardware, cabins, ladder, hull/access equipment and navigation
 remain unchanged. Room camera references stay exact; changed service-part bounds
@@ -465,23 +465,43 @@ See [Stage 14 comparisons, verification and review](evidence/content-studio-desi
 
 ## Ambient spacecraft motion (25 September 2026)
 
-The owner approved two restrained idle cues. The Contact wall's existing UPLINK
-and VOICE meter bars vary gently on six shared brightness channels; their labels,
-selectors, display status and interaction behavior do not change. This passive
-meter does not claim that a visitor message or call was sent. The exterior
-communications reflector makes occasional trims of at most 3.2° around its
-visible captive axle, with 16 seconds of movement in a 198-second cycle and long
-holds between corrections. Its feed, stays and rim move together. The cradle,
-solar wings, hull, doors and main lights remain steady.
+The initial [idle-motion implementation](evidence/spacecraft-idle-motion/README.md)
+gave the Contact UPLINK/VOICE meters quiet brightness changes and the exterior
+communications dish occasional trims of at most 3.2° during a 198-second cycle.
+The owner found both too subtle to notice. That calibration is historical: the
+current instruction is to make ambient animation easy to see, deliberate and
+smooth. Communicating that the motion was thoughtfully authored matters more
+than strict mechanical realism; it should not feel jarring.
+
+The dish now makes an eased two-axis scan around its visible captive axle. It
+begins moving after a 0.75-second hold, reaches ±18° horizontally and ±10.8° on
+the coupled second axis, and returns home within an 18-second repeating cycle.
+Three sweeps occupy 9.5 seconds of that cycle, with holds at the endpoints and
+home. Its reflector, feed, stays and rim move together. The cradle, solar wings,
+hull, doors and main lights remain steady. Overview fitting uses the dish's
+whole supported sweep so its frame does not shift with the current dish pose.
+
+The Contact wall's existing meters show high-contrast fill changes between 3
+and 9 lit bars; UPLINK and VOICE follow separate 5.2- and 6.4-second rhythms.
+Because the physical trays are small in a normal room view, the idle central
+display also traces its three existing signal arcs in sequence on a 3.7-second
+loop. The glow uses small transparent overlays on the idle glass, leaves the
+printed arcs in place, and disappears when the reading-view application takes
+over. The meters' labels, selectors, display status and interaction behavior
+do not change. This passive artwork does not claim that a visitor message or
+call was sent.
 
 The spacecraft stays fixed in the shared world while the camera moves. Reduced
-motion holds both cues at their original resting appearance; hidden-page timing
-remains governed by the existing scene loop. The dish retains its feed shadows:
+motion holds the dish and meters at their original resting appearance and keeps
+the screen glow off; hidden-page timing remains governed by the existing scene
+loop. The dish retains its feed shadows:
 its motion invalidates the cached key-light shadow map and, where enabled on
 desktop, contact shading while its pose changes; settled frames reuse them. The
-meter changes materials only and does not refresh contact shading. These are
-authored visual costs, not performance optimizations. See the
-[source-matched views and checks](evidence/spacecraft-idle-motion/README.md).
+meter changes materials only, while the screen glow toggles small transparent
+overlays; neither asks for shadow or contact-shading refresh. The more frequent
+dish refresh and display overlays are authored visual costs, not performance
+optimizations. See
+the [visibility revision and checks](evidence/spacecraft-motion-visibility/README.md).
 
 ## Ivory / Carbon / Bronze palette
 

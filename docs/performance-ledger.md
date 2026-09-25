@@ -34,6 +34,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 60 · 25 September 2026 | Owner-requested service-box correction: elongated access cover and one connected pull | +76 triangle inputs / −376 geometry-array bytes per layout; mesh candidates, docking bounds and framing unchanged. Only the box changes. [Evidence](evidence/docking-service-hatch/README.md). |
 | 61 · 25 September 2026 | Stage 08 service end: supported solar booms, bonded panels and connected radio cradle | +16,244 triangle inputs / +444,248 geometry-array bytes per layout; +1 mesh candidate. Protected rooms/docking unchanged; geometry-derived overview refit below one pixel in the sampled harness. [Evidence](evidence/service-assembly-design/README.md). |
 | 68 · 25 September 2026 | Quiet equipment motion: Contact radio meters and occasional dish trim | New authored motion baseline. Matched finite Contact front submissions 719→736 and service front 857→875; service front triangles stay 1,922,176. These are still-frame fixture counts, not timed live performance. [Evidence](evidence/spacecraft-idle-motion/README.md). |
+| 69 · 25 September 2026 | Visible Contact signal and two-axis dish scan | Owner-requested authored motion revision against commit `21e0a9b`: the quiet baseline was too hard to notice. Matched finite front views retain 875 service draws; Contact changes 736→737 draws with one active arc. Live timing remains unmeasured. [Evidence](evidence/spacecraft-motion-visibility/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3507,6 +3508,44 @@ and reduced-motion rules can suspend motion. No CPU/GPU timing, frame pacing,
 process/GPU memory, thermal or battery comparison was performed. The extra
 submissions are a measured still-frame cost, while live refresh frequency is a
 behavioral consequence of the update logic rather than a timing measurement.
+
+## 69 — Visible equipment motion revision (25 September 2026)
+
+The owner found entry 68's quiet motion imperceptible and asked for clearly
+authored, easy-to-notice movement that remains smooth. This supersedes entry
+68's 3.2° / 198-second dish calibration and subtle meter modulation. The
+revision animates the same exterior dish, strengthens the physical Contact
+meters and gives the ordinary Contact room a larger cue on its idle central
+display. Camera/navigation behavior is retained, with a fixed supported bound
+for every dish pose so automatic overview fitting does not breathe with the
+scan. This work does not authorize any held optimization candidate or add a
+performance target.
+
+The dish follows an eased two-axis scan: ±18° on its first rotation axis and
+±10.8° on the coupled second axis, with 9.5 seconds of motion in an 18-second
+cycle (about 52.8%). It starts after a 0.75-second home hold and pauses at the
+endpoints and home. The Contact radio trays now show 3–9 lit bars through
+contrasting six-channel fills on separate 5.2- and 6.4-second rhythms.
+The center screen traces its three existing printed signal arcs in sequence
+through small transparent overlays on a 3.7-second loop. They are visible in
+the ordinary room display and hidden when reading view takes over. Reduced
+motion still holds the original rest appearance. The dish and meter changes
+reuse existing geometry and materials; the arc overlays add three small
+meshes and materials. During moving dish frames,
+the existing shadow and desktop contact-shading invalidation paths refresh
+more often than in entry 68; the Contact indicators do not trigger them.
+That frequency follows the authored time curve and is not a measured CPU/GPU,
+heat or battery cost. Matched 3.25-second finite service-front frames both
+report 875 draws / 1,922,176 triangles. At 2.5 seconds, matched Contact-front
+frames report 736→737 draws and 1,796,856→1,796,952 triangles; the displayed
+signal arc adds one submission. The Contact home frame at 0 seconds retains
+736 draws / 1,796,856 triangles. The fixture generates a shadow map for each
+still and omits live GTAO, Earth, sky, interfaces and navigation; equal or
+nearly equal still counts do not imply equal frame time when the dish moves
+more often. The
+[revision evidence](evidence/spacecraft-motion-visibility/README.md) records
+source-identified visual and verification results separately from entry 68's
+retained baseline.
 
 ## Next candidates
 
