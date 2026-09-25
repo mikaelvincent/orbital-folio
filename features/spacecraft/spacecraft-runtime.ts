@@ -2056,9 +2056,12 @@ export function mountSpacecraftScene({
               reading,
               notebookChapter: latest.current.notebookChapter || 0,
               delta,
+              reducedMotion: stop,
             },
             true,
           );
+          if (model.group.userData.shadowCasterChanged)
+            invalidateShadow('dish-trim');
           diagnostics?.mark('model-update');
           updateRenderSceneMatrices(scene);
           // Small workshop displays require closer portrait framing than cabin views.

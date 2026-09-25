@@ -33,6 +33,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 59 · 25 September 2026 | Stage 07 docking: satin mating flange, connected wheels and fitted service cassette | +3,872 triangle inputs / +290,528 geometry-array bytes per layout; −2 visible mesh candidates. Protected assemblies, bounds and framing unchanged. [Evidence](evidence/docking-assembly-design/README.md). |
 | 60 · 25 September 2026 | Owner-requested service-box correction: elongated access cover and one connected pull | +76 triangle inputs / −376 geometry-array bytes per layout; mesh candidates, docking bounds and framing unchanged. Only the box changes. [Evidence](evidence/docking-service-hatch/README.md). |
 | 61 · 25 September 2026 | Stage 08 service end: supported solar booms, bonded panels and connected radio cradle | +16,244 triangle inputs / +444,248 geometry-array bytes per layout; +1 mesh candidate. Protected rooms/docking unchanged; geometry-derived overview refit below one pixel in the sampled harness. [Evidence](evidence/service-assembly-design/README.md). |
+| 68 · 25 September 2026 | Quiet equipment motion: Contact radio meters and occasional dish trim | New authored motion baseline. Matched finite Contact front submissions 719→736 and service front 857→875; service front triangles stay 1,922,176. These are still-frame fixture counts, not timed live performance. [Evidence](evidence/spacecraft-idle-motion/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3473,6 +3474,39 @@ identities and review revisions remain in the evidence folder. The notebook
 layout proof intentionally remains full-size and pans horizontally on narrow
 screens. This is an authored UI baseline, not adoption of any held optimization.
 Safari, physical-device and controlled performance checks remain unperformed.
+
+## 68 — Ambient equipment motion baseline (25 September 2026)
+
+The owner authorized two existing-equipment cues: six shared brightness channels
+on the Contact UPLINK/VOICE meter bars and a small communications-dish trim around
+its visible axle. The dish moves for four four-second intervals in each
+198-second cycle, with long holds; its maximum displacement from the approved
+resting pose is 3.2°. The reflector, feed and stays move together, while the
+cradle, solar wings, hull, camera, navigation and lighting stay as designed.
+Reduced motion holds both cues at the original appearance. This is an authored
+motion baseline, not adoption of a held performance candidate.
+
+[Source-matched evidence](evidence/spacecraft-idle-motion/README.md) uses the
+finite spacecraft preview at 1440×900 CSS pixels and drawing buffer, DPR 1,
+with fixed lights, RoomEnvironment and PCF shadows. Its matched Contact front
+counts are 719→736 draws and 1,796,920→1,796,856 triangles; matched service
+front counts are 857→875 draws and 1,922,176 triangles on both sides. Moving
+the dish changes static batching; the radio cue uses shared
+materials and adds no geometry. These counts include the fixture's shadow map
+generation for each still. The fixture omits GTAO, orbital sky/Earth, live
+interfaces and navigation, so its draw deltas do not establish full-application
+frame cost. The compact portrait visual is a separate composition check, not a
+matched draw comparison.
+
+The moving dish invalidates the cached key-light shadow map so its feed-stay
+shadows remain attached. On desktop, it also triggers contact-shading refresh
+when that effect is enabled; settled frames reuse the caches. Meter-only
+material changes trigger neither geometry revisions nor those refreshes. The
+four dish trims total 16 seconds per 198-second cycle (about 8.1%); visibility
+and reduced-motion rules can suspend motion. No CPU/GPU timing, frame pacing,
+process/GPU memory, thermal or battery comparison was performed. The extra
+submissions are a measured still-frame cost, while live refresh frequency is a
+behavioral consequence of the update logic rather than a timing measurement.
 
 ## Next candidates
 

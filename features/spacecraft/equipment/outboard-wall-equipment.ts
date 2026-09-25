@@ -1,7 +1,7 @@
 import { PALETTE } from '../../../lib/palette.ts';
 import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
-/** Static wall-mounted equipment. Local XY follows the wall; +Z faces the cabin. */
+/** Wall-mounted equipment. Local XY follows the wall; +Z faces the cabin. */
 export function buildOutboardWallEquipment(
   THREE: any,
   h: any,
@@ -41,6 +41,14 @@ export function buildOutboardWallEquipment(
   m.light.emissiveIntensity = 0.27;
   m.cyan.emissive.set(0x72a9b5);
   m.cyan.emissiveIntensity = 0.15;
+  // The first three meter bars stay steady. The remaining bars share three
+  // brightness channels per tray, so static batching keeps each channel apart
+  // without turning every tiny bar into its own draw call.
+  const meterChannels: {
+    material: any;
+    row: number;
+    threshold: number;
+  }[] = [];
   const box = (
     w: number,
     ht: number,
@@ -143,19 +151,34 @@ export function buildOutboardWallEquipment(
         0.141,
         true,
       );
-      // Static meter segments convey equipment function without competing CTAs.
+      const bandMaterials = Array.from({ length: 3 }, (_, band) => {
+        const source = m.cyan.clone();
+        source.name = prefix + `meter-channel-${index}-${band}`;
+        return source;
+      });
+      // Passive bars vary like a quiet received signal. They do not indicate
+      // that a visitor message has been sent or that a call is in progress.
       for (let j = 0; j < 12; j++) {
-        box(
+        const band = j < 3 || j >= 9 ? -1 : Math.floor((j - 3) / 2);
+        const segment = box(
           0.024,
           0.024 + (j % 4) * 0.008,
           0.003,
-          j < 9 ? m.cyan : m.dark,
+          j >= 9 ? m.dark : band < 0 ? m.cyan : bandMaterials[band],
           -0.348 + j * 0.043,
           y - 0.042,
           0.142,
           'meter-segment',
           0.001,
         );
+        if (band >= 0 && j === 3 + band * 2) {
+          const material = segment.material;
+          meterChannels.push({
+            material,
+            row: index,
+            threshold: 4 + band * 2,
+          });
+        }
       }
       pin(0.067, 0.009, m.rubber, 0.378, y - 0.008, 0.127, 'selector-recess');
       pin(0.046, 0.029, m.alloy, 0.378, y - 0.008, 0.145, 'selector');
@@ -403,6 +426,30 @@ export function buildOutboardWallEquipment(
     prefix + 'fastener-slots',
   );
   root.userData.equipmentKind = kind;
+  if (kind === 'communications') {
+    // Call after the model applies room dimming. That loop restores each
+    // material's base color on the next frame, so the modulation cannot stack.
+    // Absolute time lets reduced motion hold the original all-lit pose at 0.
+    root.userData.updateRadioMeters = (time: number) => {
+      const seconds = Number.isFinite(time) ? Math.max(0, time) : 0;
+      for (const channel of meterChannels) {
+        const t = seconds;
+        const level =
+          5.8 +
+          1.45 * Math.cos(t * (channel.row === 0 ? 0.35 : 0.41)) +
+          0.72 * Math.cos(t * (channel.row === 0 ? 0.17 : 0.14)) +
+          0.36 * Math.cos(t * (channel.row === 0 ? 0.78 : 0.69));
+        const progress = Math.max(
+          0,
+          Math.min(1, (level - channel.threshold + 0.85) / 0.9),
+        );
+        const eased = progress * progress * (3 - 2 * progress);
+        const brightness = 0.48 + 0.52 * eased;
+        channel.material.color.multiplyScalar(brightness);
+        channel.material.emissive.multiplyScalar(brightness);
+      }
+    };
+  }
   // Instanced fittings bypass mesh()'s inherited flags and static batching.
   root.traverse((part: any) => {
     part.userData.excludePick = true;

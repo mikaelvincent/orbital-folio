@@ -6,6 +6,37 @@ import type {
   Transform,
 } from '../geometry/model-primitives.ts';
 
+// Each change takes four seconds or less, with much longer periods at rest.
+// The cycle closes at zero so a reload starts from the approved static pose.
+const DISH_TRIM_KEYFRAMES = [
+  [0, 0],
+  [12, 0],
+  [16, 3.2],
+  [55, 3.2],
+  [59, -2.4],
+  [106, -2.4],
+  [110, 1.4],
+  [150, 1.4],
+  [154, 0],
+  [198, 0],
+] as const;
+const DISH_TRIM_PERIOD = 198;
+
+function dishTrimAt(time: number) {
+  const phase =
+    Math.max(0, Number.isFinite(time) ? time : 0) % DISH_TRIM_PERIOD;
+  for (let i = 1; i < DISH_TRIM_KEYFRAMES.length; i++) {
+    const [end, target] = DISH_TRIM_KEYFRAMES[i];
+    if (phase > end) continue;
+    const [start, from] = DISH_TRIM_KEYFRAMES[i - 1];
+    if (from === target) return (target * Math.PI) / 180;
+    const t = (phase - start) / (end - start);
+    const eased = t * t * (3 - 2 * t);
+    return ((from + (target - from) * eased) * Math.PI) / 180;
+  }
+  return 0;
+}
+
 /** Docking collar and the opposite service bus, communications and solar wings. */
 export function buildDockingAndServiceAssemblies(
   THREE: any,
@@ -338,11 +369,28 @@ export function buildDockingAndServiceAssemblies(
     'communications-elevation-axle';
   cylinder(0.059, 0.025, m.amber, 5.63, 0.3375, 1.065, service).name =
     'communications-elevation-retainer';
+  // The moving root sits on the existing captive axle. The offset carriage
+  // preserves the reflector's approved pose at zero trim, while the cradle,
+  // axle and their fixed shadows remain stationary.
   const dishAssembly = new THREE.Group();
   dishAssembly.name = 'service-mounted-communications-dish';
-  dishAssembly.position.set(5.64, 0.23, 1.16);
-  dishAssembly.rotation.set(-0.1, 0.18, -0.03);
+  dishAssembly.userData.animated = true;
+  dishAssembly.userData.animatedShadowCaster = true;
+  dishAssembly.position.set(5.63, 0.18, 1.065);
   service.add(dishAssembly);
+  const dishCarriage = new THREE.Group();
+  dishCarriage.name = 'communications-reflector-carriage';
+  dishCarriage.position.set(0.01, 0.05, 0.095);
+  dishCarriage.rotation.set(-0.1, 0.18, -0.03);
+  dishAssembly.add(dishCarriage);
+  let previousDishTrim = 0;
+  const updateDishTrim = (time: number): boolean => {
+    const trim = dishTrimAt(time);
+    if (trim === previousDishTrim) return false;
+    dishAssembly.rotation.y = trim;
+    previousDishTrim = trim;
+    return true;
+  };
   const dishProfile = [
     [0.025, -0.016],
     [0.115, -0.004],
@@ -363,18 +411,18 @@ export function buildDockingAndServiceAssemblies(
   dishGeometry.rotateX(Math.PI / 2);
   const dishMat = m.chalk.clone();
   dishMat.side = THREE.DoubleSide;
-  mesh(dishGeometry, dishMat, dishAssembly, 'double-skin-communications-dish');
-  torus(0.5, 0.02, m.metal, 0, 0, 0.243, dishAssembly).name =
+  mesh(dishGeometry, dishMat, dishCarriage, 'double-skin-communications-dish');
+  torus(0.5, 0.02, m.metal, 0, 0, 0.243, dishCarriage).name =
     'communications-reflector-rim';
-  cylinder(0.105, 0.1, m.navy, 0, 0, -0.06, dishAssembly, 'z').name =
+  cylinder(0.105, 0.1, m.navy, 0, 0, -0.06, dishCarriage, 'z').name =
     'communications-reflector-back-hub';
-  cylinder(0.058, 0.09, m.metal, 0, 0, 0.005, dishAssembly, 'z').name =
+  cylinder(0.058, 0.09, m.metal, 0, 0, 0.005, dishCarriage, 'z').name =
     'communications-feed-seat';
-  rod([0, 0, 0.041], [0, 0, 0.463], 0.02, m.navy, dishAssembly).name =
+  rod([0, 0, 0.041], [0, 0, 0.463], 0.02, m.navy, dishCarriage).name =
     'communications-feed-stem';
-  cylinder(0.063, 0.078, m.metal, 0, 0, 0.466, dishAssembly, 'z').name =
+  cylinder(0.063, 0.078, m.metal, 0, 0, 0.466, dishCarriage, 'z').name =
     'communications-feed-horn';
-  cylinder(0.049, 0.016, m.amber, 0, 0, 0.513, dishAssembly, 'z').name =
+  cylinder(0.049, 0.016, m.amber, 0, 0, 0.513, dishCarriage, 'z').name =
     'communications-feed-cap';
   for (const a of [Math.PI / 6, (Math.PI * 5) / 6, (Math.PI * 3) / 2])
     rod(
@@ -382,7 +430,7 @@ export function buildDockingAndServiceAssemblies(
       [0, 0, 0.429],
       0.008,
       m.metal,
-      dishAssembly,
+      dishCarriage,
     ).name = 'communications-feed-stay';
 
   const servicePressureHull = axialHull(
@@ -713,5 +761,5 @@ export function buildDockingAndServiceAssemblies(
   rod([5.04, 0.985, -0.25], [5.04, 1.62, -0.25], 0.018, m.metal, service);
   sphere(0.038, m.amber, 5.04, 1.642, -0.25, service);
 
-  return { docking, service, solarWings, dishAssembly };
+  return { docking, service, solarWings, dishAssembly, updateDishTrim };
 }

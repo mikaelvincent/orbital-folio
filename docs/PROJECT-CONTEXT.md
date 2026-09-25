@@ -306,8 +306,9 @@ satin seat joins the feed stem to the hub; its cylindrical feed horn has a bronz
 cap. The first draft's exposed dark central disc was moved behind the bowl after
 rendered review. The nozzle retains its satin silhouette, with a seated dark
 throat; the extra bronze inner stripe and alternating bronze jacket panels are
-superseded so the dish and power joints lead. These are passive static fittings,
-not animated tracking or deployment mechanisms.
+superseded so the dish and power joints lead. These were passive static fittings
+at the Stage 08 baseline; the later ambient-motion request below narrowly adds
+dish trim. Solar wings remain fixed and undeployed.
 
 Completed docking hardware, cabins, ladder, hull/access equipment and navigation
 remain unchanged. Room camera references stay exact; changed service-part bounds
@@ -461,6 +462,26 @@ scroll hint. No content reflow or paper geometry change is introduced. Scoped
 studio/confirmation styles preserve all visitor surfaces and prior stages.
 Authentication, schema, handlers, publication behavior and owner data are unchanged.
 See [Stage 14 comparisons, verification and review](evidence/content-studio-design/README.md).
+
+## Ambient spacecraft motion (25 September 2026)
+
+The owner approved two restrained idle cues. The Contact wall's existing UPLINK
+and VOICE meter bars vary gently on six shared brightness channels; their labels,
+selectors, display status and interaction behavior do not change. This passive
+meter does not claim that a visitor message or call was sent. The exterior
+communications reflector makes occasional trims of at most 3.2° around its
+visible captive axle, with 16 seconds of movement in a 198-second cycle and long
+holds between corrections. Its feed, stays and rim move together. The cradle,
+solar wings, hull, doors and main lights remain steady.
+
+The spacecraft stays fixed in the shared world while the camera moves. Reduced
+motion holds both cues at their original resting appearance; hidden-page timing
+remains governed by the existing scene loop. The dish retains its feed shadows:
+its motion invalidates the cached key-light shadow map and, where enabled on
+desktop, contact shading while its pose changes; settled frames reuse them. The
+meter changes materials only and does not refresh contact shading. These are
+authored visual costs, not performance optimizations. See the
+[source-matched views and checks](evidence/spacecraft-idle-motion/README.md).
 
 ## Ivory / Carbon / Bronze palette
 

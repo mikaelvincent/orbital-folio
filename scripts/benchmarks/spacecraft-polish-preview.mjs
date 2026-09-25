@@ -2,6 +2,7 @@
  * node scripts/benchmarks/spacecraft-polish-preview.mjs <baseline revision>
  * Current source is frozen at startup. Restart after changing the model.
  * Repeat views with /before?view=Projects+front&layout=wide&dpr=1 and /after.
+ * Use &time=<seconds> to inspect a finite ambient-motion pose.
  * These finite frames omit GTAO and orbital sky/Earth; RoomEnvironment illuminates surfaces.
  */
 import { build } from 'esbuild';
@@ -29,7 +30,8 @@ const manifest = {
   currentIncludesWorkingTree: true,
   rendering: {
     finite: true,
-    timeSeconds: 0,
+    timeSeconds:
+      'Query time in seconds (default 0), held for one finite frame.',
     fovDegrees: 38,
     lighting:
       'RoomEnvironment PMREM at intensity 0.24, fixed hemisphere and three directional lights; PCF shadows',
@@ -63,6 +65,8 @@ for (const version of ['before', 'after']) {
         import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
         import {createSpacecraft} from './${snapshot.entry}';
         const params=new URLSearchParams(location.search);
+        const requestedTime=Number(params.get('time')??0);
+        const timeSeconds=Number.isFinite(requestedTime)?Math.max(0,Math.min(requestedTime,3600)):0;
         const requestedDpr=Number(params.get('dpr'));
         const dpr=params.has('dpr')&&Number.isFinite(requestedDpr)?Math.max(.5,Math.min(requestedDpr,2)):Math.min(devicePixelRatio,2);
         const renderer=new THREE.WebGLRenderer({antialias:true});
@@ -98,10 +102,13 @@ for (const version of ['before', 'after']) {
         const views=()=>{
           const ladderX=model.group.userData.walkwayAnchor[0];
           const serviceX=model.group.getObjectByName('aft-service-assembly').position.x;
+          const radio=model.group.getObjectByName('contact-outboard-equipment');
+          const radioTarget=radio.localToWorld(new THREE.Vector3(0,.32,.14)).toArray();
           return {
             ...roomViews,
+            'Contact radio detail':{target:radioTarget,direction:[-1,.05,0],distance:1.8},
             'Service front':{target:[serviceX+5.5,.03,0],direction:[.12,.04,1],distance:12.6},
-            'Service oblique':{target:[serviceX+5.5,.03,0],direction:[1,.2,1],distance:innerWidth<innerHeight?14:12.6},
+            'Service oblique':{target:[serviceX+5.5,innerWidth<innerHeight?.2:.03,innerWidth<innerHeight?1:0],direction:[1,.2,1],distance:innerWidth<innerHeight?14:12.6},
             'Service rear':{target:[serviceX+5.5,.03,0],direction:[1,.15,-1],distance:13},
             'Service core':{target:[serviceX+5.45,.2,.5],direction:[.7,.18,1],distance:4.8},
             'Dish support':{target:[serviceX+5.45,.2,.7],direction:[1,.9,.45],distance:4.2},
@@ -135,7 +142,7 @@ for (const version of ['before', 'after']) {
         const draw=()=>{
           const v=views()[selected];
           camera.fov=v.fov??38;
-          model.update(0,'',true,{activeRoom:'home',transitWalkway:true,delta:0,layout});
+          model.update(timeSeconds,'',true,{activeRoom:'home',transitWalkway:true,delta:0,layout,reducedMotion:false});
           camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
           const target=new THREE.Vector3(...(v.room?model.group.userData.roomAnchors[v.room]:v.target));
           const direction=new THREE.Vector3(...v.direction).normalize();
@@ -158,7 +165,7 @@ for (const version of ['before', 'after']) {
           renderer.setSize(innerWidth,innerHeight);scene.updateMatrixWorld(true);
           renderer.shadowMap.needsUpdate=true;renderer.render(scene,camera);
           const buffer=renderer.getDrawingBufferSize(new THREE.Vector2());
-          const measurements={version:'${version}',view:selected,layout,frame:++frame,timeSeconds:0,
+          const measurements={version:'${version}',view:selected,layout,frame:++frame,timeSeconds,
             viewport:{width:innerWidth,height:innerHeight},drawingBuffer:{width:buffer.x,height:buffer.y},
             browserDpr:devicePixelRatio,renderDpr:dpr,userAgent:navigator.userAgent,
             pose:{position:camera.position.toArray(),target:target.toArray(),fov:camera.fov},
@@ -171,7 +178,7 @@ for (const version of ['before', 'after']) {
             viewport:JSON.stringify(measurements.viewport),drawingBuffer:JSON.stringify(measurements.drawingBuffer),
             dpr:String(dpr),measurements:JSON.stringify(measurements),ready:'true'});
           document.getElementById('status').textContent='${version} · '+selected+' · '+layout+' · '+innerWidth+'×'+innerHeight+' CSS px / '+buffer.x+'×'+buffer.y+' buffer · DPR '+dpr+' · '+measurements.calls+' draws / '+measurements.triangles.toLocaleString()+' triangles';
-          const query=new URLSearchParams({view:selected,layout,dpr:String(dpr)});
+          const query=new URLSearchParams({view:selected,layout,dpr:String(dpr),time:String(timeSeconds)});
           history.replaceState(null,'',location.pathname+'?'+query);
           for(const link of document.querySelectorAll('[data-version]'))link.href='/'+link.dataset.version+'?'+query;
         };
@@ -235,7 +242,7 @@ const server = createServer((req, res) => {
   }
   res.setHeader('Content-Type', 'text/html');
   res.end(
-    `<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft geometry ${version}</title><style>body{margin:0;background:#07101f;color:#eae7dc;font:12px system-ui}canvas{display:block}aside{position:fixed;z-index:2;top:8px;left:8px;right:8px;padding:8px;background:#101826ed;border:1px solid #465a72;border-radius:8px}a{color:#bdd7ec;margin-right:12px}select,button{margin:4px;padding:4px}p{margin:5px 0}small{color:#c4cbd2}</style></head><body><aside id="controls"><a data-version="before" href="/before">Before</a><a data-version="after" href="/after">After</a><label>View <select id="view"></select></label><label>Layout <select id="layout"><option value="wide">Wide</option><option value="compact">Compact</option></select></label><button id="hide">Hide controls</button><a href="/manifest.json">Source manifest</a><p id="status">Preparing…</p><small>Finite geometry frame at t=0. RoomEnvironment illumination at 0.24. No GTAO, orbital sky/Earth, live screen interfaces or navigation. Draw counts include this fixture's shadow work; they are not application performance measurements.</small></aside><script type="module" src="/${version}.js"></script></body></html>`,
+    `<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft geometry ${version}</title><style>body{margin:0;background:#07101f;color:#eae7dc;font:12px system-ui}canvas{display:block}aside{position:fixed;z-index:2;top:8px;left:8px;right:8px;padding:8px;background:#101826ed;border:1px solid #465a72;border-radius:8px}a{color:#bdd7ec;margin-right:12px}select,button{margin:4px;padding:4px}p{margin:5px 0}small{color:#c4cbd2}</style></head><body><aside id="controls"><a data-version="before" href="/before">Before</a><a data-version="after" href="/after">After</a><label>View <select id="view"></select></label><label>Layout <select id="layout"><option value="wide">Wide</option><option value="compact">Compact</option></select></label><button id="hide">Hide controls</button><a href="/manifest.json">Source manifest</a><p id="status">Preparing…</p><small>Finite geometry frame at the selected query time. RoomEnvironment illumination at 0.24. No GTAO, orbital sky/Earth, live screen interfaces or navigation. Draw counts include this fixture's shadow work; they are not application performance measurements.</small></aside><script type="module" src="/${version}.js"></script></body></html>`,
   );
 });
 server.listen(3017, '127.0.0.1', () =>

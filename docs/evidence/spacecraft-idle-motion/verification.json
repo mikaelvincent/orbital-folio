@@ -1,0 +1,90 @@
+{
+  "recordedAt": "2026-09-25T13:17:24Z",
+  "baselineCommit": "b0dce50a3108f88deb6300cc6ee08725f800033f",
+  "finalSource": {
+    "modelTreeSha256": "5b0015365af1317743b1e11aa5fe7a97fe90b53803f96993f8eed723525606ea",
+    "fixtureSha256": "4057f132112dff555e4adff116f054adcf44d5d8abb9c10c3f3c2c51ace0beb7",
+    "files": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "c2fd5e0ab553fa4985efe6b40487a72b79756870aadd04ad8d53e30c7285af2b",
+      "features/spacecraft/equipment/outboard-wall-equipment.ts": "97dad8c9146577eee16f61d8b9222d81e88cbe222483a86e8b7fd84e0f996189",
+      "features/spacecraft/spacecraft-model.ts": "b152f60575334c420d0195568dd6b735bf073e952b9b1b6f33697659f1185230",
+      "features/spacecraft/spacecraft-runtime.ts": "806998e324b7e4832f28e9e99d79730db285096b56f75ad5968f52f33dfa53bf",
+      "scripts/benchmarks/spacecraft-polish-preview.mjs": "4057f132112dff555e4adff116f054adcf44d5d8abb9c10c3f3c2c51ace0beb7",
+      "tests/spacecraft/ambient-equipment-motion.test.mjs": "a95f4c17536398d5ab1342ed86243355bdfb33ba88d6eb27d2915c220f31cc20"
+    }
+  },
+  "automatedChecks": {
+    "focused": {
+      "command": "node --test tests/spacecraft/ambient-equipment-motion.test.mjs tests/spacecraft/service-construction.test.mjs tests/spacecraft/outboard-equipment.test.mjs tests/spacecraft/ao-geometry-change.test.mjs",
+      "passed": 17,
+      "failed": 0,
+      "sourcePhase": "After the dish self-shadow correction, before the final boolean castShadow correction; the final full suite covers the final source."
+    },
+    "initialIsolatedFullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "passed": 587,
+      "failed": 3,
+      "resolvedFailures": [
+        "Two owner-protected content API tests ran before the isolated fixture had claimed an owner and received HTTP 403.",
+        "The desktop shadow assertion exposed an undefined castShadow value on a moving non-dish batch; the expression now coerces the dish flag to a boolean."
+      ]
+    },
+    "finalIsolatedFullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "passed": 590,
+      "failed": 0,
+      "durationMs": 188515.474458,
+      "sourcePhase": "Final model/runtime/equipment source, including the boolean castShadow correction."
+    },
+    "typecheck": "passed: npm run typecheck",
+    "productionBuild": "passed: npm run build",
+    "affectedLint": "passed: npm run lint -- <six changed source/test/preview paths>",
+    "formatCheck": "passed after formatting the preview script",
+    "diffCheck": "passed: git diff --check"
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "fixture": "/tmp/orbital-folio-motion.KQdcQe",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "freshTestOnlySecretAndD1R2AtSetup": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "dependencySharing": "node_modules symlink only",
+    "finalRerunUsedSameFixture": true,
+    "ownerClaimedByWorkflowInInitialRun": true,
+    "authenticatedAdminGetBeforeFinalRerun": 200,
+    "testServerStopped": true,
+    "fixtureAndTestStateDeleted": true,
+    "mainServerHttpStatusAfterCleanup": 200
+  },
+  "visualReview": {
+    "browser": "Hidden built-in Chromium 153, not native Safari",
+    "finiteFixture": {
+      "viewportsAndDrawingBuffers": ["1440x900", "390x844"],
+      "browserDpr": 1,
+      "rendererDpr": 1,
+      "captures": "finite/captures.json",
+      "manifest": "finite/manifest.json",
+      "omitted": ["GTAO", "orbital sky and Earth", "live screen interfaces", "navigation"]
+    },
+    "liveIntegration": {
+      "viewportsAndDrawingBuffers": ["1440x900", "390x844"],
+      "browserDpr": 1,
+      "rendererDpr": 1,
+      "views": ["wide overview", "portrait overview", "wide Contact", "portrait Contact"],
+      "baselinePixelMatch": false
+    }
+  },
+  "independentCritic": {
+    "review": "critic-review.md",
+    "initialScore": 86,
+    "finalScore": 92,
+    "unresolvedBlockers": 0,
+    "resolvedFinding": "Restored the moving dish's feed-stay shadows, then refreshed the finite evidence on final source."
+  },
+  "limitations": [
+    "No controlled CPU/GPU time, frame-pacing, memory, thermal or battery measurement was made.",
+    "Finite draw/triangle counts include its one-shot shadow rendering and are not steady live costs.",
+    "Live screenshots are integration checks at actual viewport and drawing-buffer sizes, not matched before/after comparisons.",
+    "Native Safari and physical-device behavior were not tested."
+  ]
+}

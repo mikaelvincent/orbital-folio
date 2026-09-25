@@ -1,0 +1,442 @@
+[
+  {
+    "name": "contact-before-wide",
+    "image": "contact-before-wide.jpg",
+    "version": "before",
+    "view": "Contact front",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 0,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725000000000001,
+        0.16
+      ],
+      "fov": 38
+    },
+    "calls": 719,
+    "triangles": 1796920,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "contact-after-wide-rest",
+    "image": "contact-after-wide-rest.jpg",
+    "version": "after",
+    "view": "Contact front",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 0,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725000000000001,
+        0.16
+      ],
+      "fov": 38
+    },
+    "calls": 736,
+    "triangles": 1796856,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "contact-after-wide-active",
+    "image": "contact-after-wide-active.jpg",
+    "version": "after",
+    "view": "Contact front",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 30,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        2.0869999999999997,
+        -1.2509726029396822,
+        6.489354201723369
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725000000000001,
+        0.16
+      ],
+      "fov": 38
+    },
+    "calls": 736,
+    "triangles": 1796856,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "contact-after-oblique",
+    "image": "contact-after-oblique.jpg",
+    "version": "after",
+    "view": "Contact oblique",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 30,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        2.0869999999999997,
+        -1.4725000000000001,
+        0.16
+      ],
+      "fov": 38
+    },
+    "calls": 839,
+    "triangles": 1908488,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "service-before-wide",
+    "image": "service-before-wide.jpg",
+    "version": "before",
+    "view": "Service front",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 14,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587583
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ],
+      "fov": 38
+    },
+    "calls": 857,
+    "triangles": 1922176,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "service-after-wide-trim",
+    "image": "service-after-wide-trim.jpg",
+    "version": "after",
+    "view": "Service front",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 14,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        6.509047243350509,
+        0.5300157477835034,
+        12.500393694587583
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ],
+      "fov": 38
+    },
+    "calls": 875,
+    "triangles": 1922176,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "dish-support-wide-trim",
+    "image": "dish-support-wide-trim.jpg",
+    "version": "after",
+    "view": "Dish support",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 14,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        7.9196109827710135,
+        2.864549884493913,
+        2.032274942246956
+      ],
+      "target": [
+        4.959,
+        0.2,
+        0.7
+      ],
+      "fov": 38
+    },
+    "calls": 725,
+    "triangles": 1735110,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "service-after-portrait-trim",
+    "image": "service-after-portrait-trim.jpg",
+    "version": "after",
+    "view": "Service oblique",
+    "layout": "compact",
+    "frame": 1,
+    "timeSeconds": 57,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "drawingBuffer": {
+      "width": 390,
+      "height": 844
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        13.66696058819607,
+        2.1603921176392142,
+        10.801960588196069
+      ],
+      "target": [
+        3.8649999999999998,
+        0.2,
+        1
+      ],
+      "fov": 38
+    },
+    "calls": 884,
+    "triangles": 1887200,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "radio-after-detail-rest",
+    "image": "radio-after-detail-rest.jpg",
+    "version": "after",
+    "view": "Contact radio detail",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 0,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ],
+      "fov": 38
+    },
+    "calls": 488,
+    "triangles": 1385738,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  },
+  {
+    "name": "radio-after-detail-active",
+    "image": "radio-after-detail-active.jpg",
+    "version": "after",
+    "view": "Contact radio detail",
+    "layout": "wide",
+    "frame": 1,
+    "timeSeconds": 30,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "drawingBuffer": {
+      "width": 1440,
+      "height": 900
+    },
+    "browserDpr": 1,
+    "renderDpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "pose": {
+      "position": [
+        2.151245790019879,
+        -1.005112289500994,
+        0.18000000000000002
+      ],
+      "target": [
+        3.9489999999999994,
+        -1.0950000000000002,
+        0.18000000000000002
+      ],
+      "fov": 38
+    },
+    "calls": 488,
+    "triangles": 1385738,
+    "lines": 0,
+    "points": 0,
+    "finite": true,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ]
+  }
+]

@@ -105,6 +105,8 @@ export type SpacecraftState = {
   projectScreen?: string;
   notebookChapter?: number;
   delta?: number;
+  /** Keep ambient equipment at its resting pose when motion is reduced. */
+  reducedMotion?: boolean;
   /** Use the fixed side collar plaques for a +PI/2 portrait overview. */
   labelPortrait?: boolean;
   layout?: 'wide' | 'compact';
@@ -1633,6 +1635,9 @@ export function createSpacecraft(
     );
     return { section, root };
   });
+  const contactRadio = outboardEquipment.find(
+    ({ section }) => section === 'contact',
+  )?.root;
   // These additions are mounted to the pressure shell rather than the legacy
   // furniture transform. Neither layout changes nor furniture scale detach them.
   const cabinUtilities = (
@@ -1728,7 +1733,7 @@ export function createSpacecraft(
       ),
     );
 
-  const { docking, service, solarWings, dishAssembly } =
+  const { docking, service, solarWings, dishAssembly, updateDishTrim } =
     buildDockingAndServiceAssemblies(
       THREE,
       primitives,
@@ -2657,7 +2662,9 @@ export function createSpacecraft(
     merged.computeBoundingSphere();
     const result = new THREE.Mesh(merged, bucket.material);
     result.name = bucket.section + '-' + bucket.material.name;
-    result.castShadow = !bucket.moving && !bucket.material.transparent;
+    result.castShadow =
+      (!bucket.moving || !!bucket.parent.userData.animatedShadowCaster) &&
+      !bucket.material.transparent;
     result.receiveShadow = true;
     result.userData.section = bucket.section;
     result.userData.openReader = bucket.openReader;
@@ -3474,6 +3481,7 @@ export function createSpacecraft(
     deferWorldMatrices = false,
   ) {
     group.userData.geometryChanged = false;
+    group.userData.shadowCasterChanged = false;
     const seconds = Number.isFinite(time) ? time : 0;
     if (state) {
       if (state.layout && state.layout !== currentLayout)
@@ -3510,6 +3518,12 @@ export function createSpacecraft(
     previousTime = seconds;
     lastActive = active;
     let motionActive = false;
+    const ambientTime = currentState.reducedMotion ? 0 : seconds;
+    if (updateDishTrim(ambientTime)) {
+      geometryChanged();
+      group.userData.shadowCasterChanged = true;
+      motionActive = true;
+    }
     for (const [section, slots] of Object.entries(rackSlots))
       for (const slot of slots) {
         const previousProgress = slot.progress;
@@ -3709,6 +3723,7 @@ export function createSpacecraft(
           'constant room emitters; medium default, high hover/selected/transit; no pathway emitters',
       };
     }
+    contactRadio?.userData.updateRadioMeters?.(ambientTime);
     for (const highlight of objectHighlights) {
       const objectRoom = highlight.id.startsWith('contact-')
         ? 'contact'
