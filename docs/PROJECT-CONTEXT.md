@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 24 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 25 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -318,6 +318,29 @@ Carry forward visible support paths, quiet carbon bodies, satin contact surfaces
 and bronze confined to small handling or captive parts. Stage 09 owns the general
 exterior hull and access ladders; retain the finished service assembly as its
 boundary reference.
+
+### Stage 09 — Exterior hull and access routes (25 September 2026)
+
+The continuous ivory roof, keel, rounded returns and rear pressure envelope
+remain intact. Both full exterior routes retain their carbon rail paths,
+rounded endpoints, spacing and stand-off distance. Broad rounded carbon tread
+sleeves now surround the alloy rungs. Elongated carbon pads, satin-alloy shoes
+with captive fasteners and tapered support webs replace the small disc feet and
+thin posts. These fittings carry forward the completed equipment's visible
+support paths without filling the shell with decoration.
+
+Three open tether eyes per route now coincide with supported rail stations.
+Their necks terminate at the near rims instead of obstructing the center holes;
+the rings stand far enough out to clear their small bronze retainers. Bronze is
+confined to these purposeful nodes. Upper and lower constructions remain exact
+reflections; retain the complete underside route even when overview hides part
+of it. The rear shell stays intentionally quiet.
+
+Cabin interiors, ladder contents, docking/service assemblies, openings and
+camera/navigation source are preserved. See the [matched renders, construction
+checks and independent review](evidence/exterior-hull-design/README.md).
+Stage 10 owns overview presentation and wayfinding against this finished
+silhouette; no further access-route changes are required for that handoff.
 
 ## Ivory / Carbon / Bronze palette
 

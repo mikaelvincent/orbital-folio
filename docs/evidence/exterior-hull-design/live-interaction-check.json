@@ -1,0 +1,41 @@
+{
+  "engine": "Hidden built-in Chromium 153",
+  "liveBase": "http://localhost:3000",
+  "viewportCssPixels": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "dpr": 1,
+  "actions": [
+    "Overview entry into Projects",
+    "Projects to About through ladder connector",
+    "About to Contact",
+    "Contact to Case studies",
+    "Case studies to Overview",
+    "Repeated all four rooms and ladder transit at portrait viewport",
+    "Clicked passive roof/access rail at [700,260] in landscape: remained home, travelling false",
+    "Landscape drag [900,755]→[1320,855] and portrait drag [193,650]→[60,770], inspected release and settled states"
+  ],
+  "endState": {
+    "dragResponse": "0.00000,0.00000",
+    "dragging": "false",
+    "hoverOffset": "0.00000,0.00000",
+    "hoverVelocity": "0.00000,0.00000",
+    "pointerResponse": "0.00000,0.00000",
+    "room": "home",
+    "travelledRoute": "[]",
+    "travelling": "false"
+  },
+  "errors": [],
+  "limitations": [
+    "Drag screenshots capture post-release states, not a held maximum endpoint",
+    "No native Safari or device validation",
+    "No messages/forms submitted or stored content changed"
+  ]
+}

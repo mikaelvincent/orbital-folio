@@ -3247,6 +3247,60 @@ front/oblique/rear/hinge comparisons and live overview plus both outboard cabins
 The independent critic scores **95/100**, with 50% visual-design weight and no
 unresolved blockers. Safari and rendering timing were not tested.
 
+## 62 — Exterior access construction (25 September 2026)
+
+This authored pass retains the continuous ivory pressure envelope and both full
+carbon rail paths. Broad rounded carbon tread sleeves replace the narrow round
+grips. Elongated bonded pads, satin-alloy shoes, captive fasteners and tapered
+webs replace the small disc feet and thin support posts. Three bronze tether
+retainers per route now sit on real support stations; their ring necks terminate
+at the near rims, leaving usable bores instead of obstructing the center holes.
+The quiet rear shell is deliberate and receives no filler detail.
+
+Baseline is `60cfce84a208ae71f1bfde8a14d21e19a42c5ba4`. Only
+`exterior-service-equipment.ts` changes at runtime. This is design work with an
+added geometry cost, not a ledger optimization. Wide access geometry changes
+**100,272→105,376 triangles (+5,104)** and **2,803,744→5,726,400 geometry-array
+bytes (+2,922,656)**; compact changes **80,064→83,648 triangles (+3,584)** and
+**2,226,944→4,487,360 bytes (+2,260,416)**. Both retain three material batches and
+the visible model retains 519 mesh candidates. Both layouts remain in the scene
+graph: combined retained growth is **8,688 triangles and 5,183,072 array bytes**.
+Array bytes are deterministic
+retained vertex/index buffers, not measured process/GPU memory. No CPU/GPU timing,
+heat or battery claim is made; held performance candidates remain held.
+
+Protected pressure structure and retained rail/rung-spar/socket/clamp solids
+remain exact. Full visible scene bounds, shared room references and door/route
+metadata are unchanged. The shoulder tether expands the chassis subgroup's
+coarse minimum-X bound by about 0.047 units; unchanged overview fitting therefore
+makes a small automatic refit. The construction audit preserves the actual fit
+comparison rather than claiming every overview support point is unchanged:
+landscape fit-distance growth is 0.0387–0.2815% over the nine-viewport-per-layout
+harness, with exact portrait targets/distances at all three portrait sizes.
+Finite envelope coverage stays within the existing 0.5 px tolerance (worst
+0.1224 px). The harness and live browser use different safe-area recipes; their
+absolute distances are not interchangeable.
+
+[Evidence](evidence/exterior-hull-design/README.md) contains source-identified
+finite roof, underside, shoulder and rear comparisons, live landscape/rolled
+portrait, all four cabins in both orientations and ordinary ladder navigation.
+The actual browser is hidden built-in Chromium 153, with actual 1440×900 and
+390×844 viewports and DPR 1. Finite views omit GTAO, orbital sky/Earth, live
+applications and navigation; live views retain those production behaviors as
+applicable. Drag captures are released states, not held maximum endpoints.
+Safari and physical-device testing are not claimed.
+
+Final isolated verification passes **582/582 tests**, typecheck, production
+build/geometry check and affected lint. The initial run's single failure is
+retained: only the outward-shifted eye rims exceeded an old 0.16 throat reserve. They
+actually retain 0.143 behind the throat and 0.042 behind the original access
+limit. The corrected test permits a minimum 0.12 only for these eyes, preserves
+0.16 for all other parts and checks the overall authored envelope. The runtime
+and rendered evidence did not change for that justified test correction.
+The independent critic scores **96/100**, with 50% visual-design weight and no
+unresolved blockers. Final source, logs, image bytes and evidence identities were
+independently cross-checked; temporary review servers and fixture state are removed.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

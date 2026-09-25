@@ -85,6 +85,39 @@ export function buildExteriorServiceEquipment(
     geometry.translate(...center.toArray());
     return mesh(geometry, material, name);
   };
+  // Rounded rectangular sections give gloves/boots a broad bearing surface.
+  // Geometry is authored in the route frame: tangent, outward normal, span.
+  const roundedSection = (w: number, h: number, depth: number, r: number) => {
+    const shape = new THREE.Shape();
+    shape.moveTo(-w / 2 + r, -h / 2);
+    shape.lineTo(w / 2 - r, -h / 2);
+    shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
+    shape.lineTo(w / 2, h / 2 - r);
+    shape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
+    shape.lineTo(-w / 2 + r, h / 2);
+    shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
+    shape.lineTo(-w / 2, -h / 2 + r);
+    shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+      depth: depth - 0.012,
+      bevelEnabled: true,
+      bevelSize: 0.006,
+      bevelThickness: 0.006,
+      bevelSegments: 2,
+      curveSegments: 4,
+      steps: 1,
+    });
+    geometry.translate(0, 0, -(depth - 0.012) / 2);
+    return geometry;
+  };
+  const inFrame = (geometry: any, center: any, q: any) => {
+    const span = new THREE.Vector3().crossVectors(q.tangent, q.normal);
+    geometry.applyMatrix4(
+      new THREE.Matrix4().makeBasis(q.tangent, q.normal, span),
+    );
+    geometry.translate(...center.toArray());
+    return geometry;
+  };
   const bowX = (y: number) => {
     let x = Infinity;
     for (let i = 0; i < bowContour.length; i++) {
@@ -211,30 +244,59 @@ export function buildExteriorServiceEquipment(
         const foot = surface(q.p, z, side),
           rail = q.p.clone().addScaledVector(q.normal, clearance);
         rail.z = z;
-        // Circular bonded feet and a short rigid strut meet the actual hull.
-        // These small mounts support the rails rather than decorating empty space.
-        cylinder(
-          foot.clone().addScaledVector(q.normal, -0.005),
-          foot.clone().addScaledVector(q.normal, 0.023),
-          0.074,
+        // A long bonded shoe spreads load along the pressure shell. A tapered
+        // web transfers it into the split rail saddle without a spindly post.
+        mesh(
+          inFrame(
+            roundedSection(0.23, 0.026, 0.15, 0.011),
+            foot.clone().addScaledVector(q.normal, 0.004),
+            q,
+          ),
           materials.navy,
           name + '-bonded-mount-foot',
         );
-        cylinder(
-          foot.clone().addScaledVector(q.normal, 0.016),
-          rail.clone().addScaledVector(q.normal, -0.006),
-          0.024,
+        mesh(
+          inFrame(
+            roundedSection(0.2, 0.024, 0.12, 0.01),
+            foot.clone().addScaledVector(q.normal, 0.022),
+            q,
+          ),
           materials.metal,
-          name + '-rigid-standoff',
+          name + '-load-spreading-shoe',
         );
-        ring(
-          foot.clone().addScaledVector(q.normal, 0.024),
-          q.normal,
-          0.051,
-          0.006,
+        const webTop = rail.clone().sub(foot),
+          webHeight = webTop.dot(q.normal),
+          webOffset = webTop.dot(q.tangent),
+          webShape = new THREE.Shape();
+        webShape.moveTo(-0.063, 0.026);
+        webShape.lineTo(0.063, 0.026);
+        webShape.lineTo(webOffset + 0.031, webHeight);
+        webShape.lineTo(webOffset - 0.031, webHeight);
+        webShape.closePath();
+        const web = new THREE.ExtrudeGeometry(webShape, {
+          depth: 0.038,
+          bevelEnabled: true,
+          bevelSize: 0.006,
+          bevelThickness: 0.006,
+          bevelSegments: 2,
+          steps: 1,
+        });
+        web.translate(0, 0, -0.019);
+        mesh(
+          inFrame(web, foot, q),
           materials.metal,
-          name + '-mount-edge',
+          name + '-tapered-support-web',
         );
+        for (const offset of [-0.082, 0.082]) {
+          const fastener = foot.clone().addScaledVector(q.tangent, offset);
+          cylinder(
+            fastener.clone().addScaledVector(q.normal, 0.03),
+            fastener.clone().addScaledVector(q.normal, 0.043),
+            0.014,
+            materials.metal,
+            name + '-shoe-captive-fastener',
+          );
+        }
         cylinder(
           rail.clone().addScaledVector(q.tangent, -0.045),
           rail.clone().addScaledVector(q.tangent, 0.045),
@@ -269,11 +331,11 @@ export function buildExteriorServiceEquipment(
       a.z = zCenter - halfWidth;
       b.z = zCenter + halfWidth;
       cylinder(a, b, rungRadius, materials.metal, name + '-open-rung');
-      const gripA = p.clone(),
-        gripB = p.clone();
-      gripA.z = zCenter - 0.175;
-      gripB.z = zCenter + 0.175;
-      cylinder(gripA, gripB, 0.033, materials.navy, name + '-rung-grip-sleeve');
+      mesh(
+        inFrame(roundedSection(0.115, 0.068, 0.5, 0.026), p, q),
+        materials.navy,
+        name + '-rung-grip-sleeve',
+      );
       for (const z of [zCenter - halfWidth, zCenter + halfWidth]) {
         const socket = p.clone();
         socket.z = z;
@@ -287,7 +349,11 @@ export function buildExteriorServiceEquipment(
       }
       actualRungs.push({ center: p.toArray(), t });
     }
-    const tetherPositions = [0.06, 0.53, 0.95],
+    const tetherPositions = [
+        0,
+        Math.round((anchorCount - 1) / 2) / (anchorCount - 1),
+        1,
+      ],
       tetherEyes: any[] = [];
     for (const t of tetherPositions) {
       const q = station(path, t, side),
@@ -295,9 +361,16 @@ export function buildExteriorServiceEquipment(
       rail.z = zCenter + halfWidth;
       const eye = rail
         .clone()
-        .addScaledVector(zAxis, 0.086)
+        .addScaledVector(zAxis, 0.12)
         .addScaledVector(q.normal, 0.016);
-      cylinder(rail, eye, 0.027, materials.metal, name + '-tether-eye-neck');
+      // Join the near rim, leaving the entire central opening free for a clip.
+      cylinder(
+        rail,
+        eye.clone().addScaledVector(zAxis, -0.075),
+        0.018,
+        materials.metal,
+        name + '-tether-eye-neck',
+      );
       ring(
         eye,
         q.tangent,
@@ -309,7 +382,7 @@ export function buildExteriorServiceEquipment(
       ring(
         rail,
         q.tangent,
-        0.041,
+        0.052,
         0.008,
         materials.amber,
         name + '-tether-anchor-marker',

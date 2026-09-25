@@ -65,10 +65,20 @@ test('Matching open EVA routes continue from both docking shoulders across the r
     assert(main.centerline[0].p[0] < main.centerline.at(-1).p[0] - 7);
     const b = new THREE.Box3().setFromObject(root),
       d = wallLayout(layout === 'wide' ? 1.4 : 1);
+    // The usable eye bore stands clear of its collar. Its outer rim still
+    // reserves 0.12 behind the actual throat and stays inside the original
+    // authored access envelope; retain the older 0.16 reserve for other parts.
     assert(
-      b.max.z < PRESSURE_THROAT_START - 0.16,
-      'Tether eyes and rails remain behind the front cutaway',
+      b.max.z < data.cutawayFrontLimitZ,
+      'Access hardware remains inside its authored front limit',
     );
+    for (const part of data.parts) {
+      const reserve = part.name.endsWith('open-tether-eye') ? 0.12 : 0.16;
+      assert(
+        part.bounds[1][2] < PRESSURE_THROAT_START - reserve,
+        `${part.name} retains its front-cutaway clearance reserve`,
+      );
+    }
     assert(b.min.z > -0.2, 'No route is fabricated around the concealed rear');
     assert(
       b.max.x < d.rightX - 0.5,

@@ -1,0 +1,208 @@
+{
+  "verifiedAt": "2026-09-25T02:22:21.181274Z",
+  "baselineRevision": "60cfce84a208ae71f1bfde8a14d21e19a42c5ba4",
+  "sourceSnapshot": "Final exterior runtime and new construction test remained unchanged throughout verification. The existing exterior regression test received a part-specific clearance correction after the initial full-suite failure; the recovery suite tested all three final files.",
+  "sourceFiles": [
+    {
+      "path": "features/spacecraft/equipment/exterior-service-equipment.ts",
+      "sha256": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+      "fixtureSha256AfterChecks": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+      "currentSha256AfterChecks": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/exterior-access-construction.test.mjs",
+      "sha256": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce",
+      "fixtureSha256AfterChecks": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce",
+      "currentSha256AfterChecks": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/exterior-service-equipment.test.mjs",
+      "sha256": "cd0890726a4212185c9a8d367b64f5aa63af12be7f6141b198528f6998046dd6",
+      "fixtureSha256AfterChecks": "cd0890726a4212185c9a8d367b64f5aa63af12be7f6141b198528f6998046dd6",
+      "currentSha256AfterChecks": "cd0890726a4212185c9a8d367b64f5aa63af12be7f6141b198528f6998046dd6",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualEvidence": {
+    "manifest": "docs/evidence/exterior-hull-design/source-manifest.json",
+    "capturedAt": "2026-09-25T02:04:20.536Z",
+    "version": "after",
+    "runtimeHashMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-exterior-verify-e4mq672b",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-exterior-verify-e4mq672b/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-exterior-verify-e4mq672b/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "recoveryState": "Recovery suite reused only the same disposable test-only state; no main state or private environment was copied.",
+    "cleanupStatus": "Completed: isolated server stopped and disposable fixture/state removed; port 3003 has no listener and main localhost:3000 remains HTTP 200.",
+    "mainServerReadOnlyCheck": {
+      "url": "http://localhost:3000",
+      "status": 200,
+      "verifiedAt": "2026-09-25T02:22:21.181274Z"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 582,
+      "passed": 582,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 177328.559375,
+      "log": "docs/evidence/exterior-hull-design/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "sourceNote": "Completed against the final unchanged runtime before the construction test was synchronized; subsequent changes were JavaScript tests only.",
+      "log": "docs/evidence/exterior-hull-design/checks/typecheck.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryCheckIncluded": true,
+      "geometryCheckResult": "Indexed cylinder artifact matches its installed source and generator.",
+      "sourceNote": "Completed after the initial full suite against the final unchanged runtime, before the existing test-only assertion correction.",
+      "log": "docs/evidence/exterior-hull-design/checks/build.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/exterior-service-equipment.ts tests/spacecraft/exterior-access-construction.test.mjs tests/spacecraft/exterior-service-equipment.test.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/exterior-hull-design/checks/lint.log"
+    },
+    "correctedTestFormat": {
+      "command": "npm run format -- --check tests/spacecraft/exterior-service-equipment.test.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/exterior-hull-design/checks/format.log"
+    }
+  },
+  "initialFullSuite": {
+    "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+    "exitCode": 1,
+    "tests": 582,
+    "passed": 581,
+    "failed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 180836.9845,
+    "sourceFiles": [
+      {
+        "path": "features/spacecraft/equipment/exterior-service-equipment.ts",
+        "sha256": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788"
+      },
+      {
+        "path": "tests/spacecraft/exterior-access-construction.test.mjs",
+        "sha256": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce"
+      },
+      {
+        "path": "tests/spacecraft/exterior-service-equipment.test.mjs",
+        "sha256": "3bc667e2e8ca78227b4d9794989268d0484d2d3c522ad6c45b5cca2312b18826",
+        "origin": "Inherited unchanged from baseline in initial suite."
+      }
+    ],
+    "log": "docs/evidence/exterior-hull-design/checks/test-initial-failure.log",
+    "failure": {
+      "file": "tests/spacecraft/exterior-service-equipment.test.mjs",
+      "line": 68,
+      "test": "Matching open EVA routes continue from both docking shoulders across the roof and keel, with wide-spaced rungs and capped rails",
+      "assertion": "Tether eyes and rails remain behind the front cutaway",
+      "observedMaxZ": 0.9779999852180481,
+      "oldMaxZThreshold": 0.961,
+      "actualMinimumThroatGapApproximately": 0.143
+    },
+    "resolution": "After the root agent, construction auditor and critic assessed the actual boundary, the existing test was updated to allow only open-tether-eye parts a minimum throat gap of 0.12; all other parts retain 0.16 and the whole assembly must remain behind the authored cutawayFrontLimitZ of 1.02. Runtime geometry was unchanged. The full recovery suite passed."
+  },
+  "warnings": [
+    "Production build: Node DEP0205 reports module.register() deprecated in favor of module.registerHooks().",
+    "Production build: some minified chunks exceed 500 kB.",
+    "Production build: Vinext static analysis cannot classify all routes; /experience is reported unknown."
+  ],
+  "unresolvedFailures": [],
+  "executionNotes": [
+    "Typecheck ran before the first full suite; two-file lint overlapped its start. Production build and geometry precheck ran after the initial full suite completed.",
+    "Following the assertion correction, final three-file lint and its one-file format check overlapped the start of the recovery full suite.",
+    "Both full suites ran to completion; the initial failing run is not represented as a pass.",
+    "The fixture-only Vite cache directory setting is an isolation configuration change, not a product source change."
+  ],
+  "logNormalization": "Removed ANSI terminal control sequences, trailing line whitespace, and outer blank lines; retained substantive results, durations, warnings and commands. Raw-log hashes were recorded before deletion; all six normalized durable logs remain in checks/. Known owned raw logs and temporary preparation/source-snapshot helpers were removed after evidence hashes were verified.",
+  "logs": {
+    "test-initial-failure": {
+      "path": "docs/evidence/exterior-hull-design/checks/test-initial-failure.log",
+      "rawSha256": "eed0af9964fd40534cdda496fc2b854e3d290577fcfbbf4f4c0c684e0e067366",
+      "normalizedSha256": "3d5c06f00f8b2feef48262240c38dd30001a0abd55fe927c5b1fcf9dfbb681c2"
+    },
+    "test": {
+      "path": "docs/evidence/exterior-hull-design/checks/test.log",
+      "rawSha256": "8680259ef18a418a34d236dde363a944a62e0b11d9314489b18a137489ccfea4",
+      "normalizedSha256": "45f04ec41786d66b976a1bf569b84a4385be7344125e770e33893c804a29755b"
+    },
+    "typecheck": {
+      "path": "docs/evidence/exterior-hull-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "build": {
+      "path": "docs/evidence/exterior-hull-design/checks/build.log",
+      "rawSha256": "0652b14e0a977c90316e479a913e73b9d94842420c2144e7484c8a3895365fbd",
+      "normalizedSha256": "79c2ee2074abbd36a604fa4804cfc19651bf0881da5e31427c6f9b768b0be1dd"
+    },
+    "lint": {
+      "path": "docs/evidence/exterior-hull-design/checks/lint.log",
+      "rawSha256": "0338c6050fdcf04595a8eb7fe1829f383557ac6f91164b9c1f31f4080fd51840",
+      "normalizedSha256": "29de93ee7bc4fd19d42ff6072d3f4fe3f77e4bf1a8622be8177926442f1034ee"
+    },
+    "format": {
+      "path": "docs/evidence/exterior-hull-design/checks/format.log",
+      "rawSha256": "37f11bf4df1e6ec35218c28680de88d53c4dd8b7e464509a368a1fcf83ef90b1",
+      "normalizedSha256": "17b8b68003823691a655c9d394ca3c1c105d73e887ffc5965f2c9a9ec75ed41c"
+    }
+  },
+  "limitations": [
+    "This record covers automated source and workflow verification. Rendered visual checks and independent design review are recorded separately.",
+    "Suite duration is elapsed verification time, not controlled rendering performance or a speed, thermal, battery, or memory measurement."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T02:22:45.909800Z",
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-exterior-verify-e4mq672b",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "rawTemporaryLogsRetained": false,
+    "evidenceLogsRetained": true,
+    "temporarySourceCheckHelpersRetained": false,
+    "temporaryFilesRemoved": [
+      "/tmp/orbital-exterior-setup.log",
+      "/tmp/orbital-exterior-server.log",
+      "/tmp/orbital-exterior-test.log",
+      "/tmp/orbital-exterior-test-initial-failure.log",
+      "/tmp/orbital-exterior-typecheck.log",
+      "/tmp/orbital-exterior-build.log",
+      "/tmp/orbital-exterior-lint.log",
+      "/tmp/orbital-exterior-format.log",
+      "/tmp/orbital-exterior-verification-path.txt",
+      "/tmp/orbital-exterior-preparation.json",
+      "/tmp/orbital-exterior-tested-source.json",
+      "/tmp/orbital-exterior-tested-source-initial.json",
+      "/tmp/orbital-exterior-tested-source-initial-complete.json"
+    ],
+    "temporaryFilesAlreadyAbsent": [],
+    "temporaryFilesCleanupAt": "2026-09-25T02:23:58.011220Z"
+  }
+}

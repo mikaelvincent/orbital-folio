@@ -1,0 +1,2 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/spacecraft/equipment/exterior-service-equipment.ts tests/spacecraft/exterior-access-construction.test.mjs tests/spacecraft/exterior-service-equipment.test.mjs

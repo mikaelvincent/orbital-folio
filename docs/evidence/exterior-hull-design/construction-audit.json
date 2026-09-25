@@ -1,0 +1,1172 @@
+{
+  "recordedAt": "2026-09-25T02:16:46.865425+00:00",
+  "baselineRevision": "60cfce84a208ae71f1bfde8a14d21e19a42c5ba4",
+  "scope": "Stage 09 matching exterior access ladders, fitted support shoes/webs, broad carbon treads and functional tether eyes. Continuous pressure shell, completed interiors/docking/service, camera and renderer are preserved.",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "b47fd85b4598f6e7ee4c09b80230aacfcae2c0c03bfd4cf11c8cd9623c7847ca",
+    "frozenAt": "2026-09-25T02:04:21.109Z",
+    "transitiveSourcesVerifiedPerVersion": 44,
+    "changedRuntimeSources": [
+      "features/spacecraft/equipment/exterior-service-equipment.ts"
+    ],
+    "allOther43RuntimeSourcesUnchanged": true,
+    "changedRuntimeSha256": {
+      "before": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+      "after": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788"
+    },
+    "sourceTreeSha256": {
+      "before": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3",
+      "after": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac"
+    },
+    "spacecraftModelUnchanged": true,
+    "sceneControlsUnchanged": true,
+    "sceneControlsSha256": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984",
+    "testFile": {
+      "path": "tests/spacecraft/exterior-access-construction.test.mjs",
+      "sha256": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce"
+    }
+  },
+  "baselineConstructionFindings": [
+    {
+      "area": "Tether eye usable bore",
+      "actualSourceObservation": "Every old eye-center axial ray intersects the support neck: 6/6 in wide and 6/6 in compact. The neck ran through the center of the torus instead of terminating at its rim. The existing eye was attached; the defect was its obstructed bore.",
+      "resolution": "Short rim necks at structurally supported tether stations leave all 9 finite bore rays clear for each eye.",
+      "sourceRayEvidence": {
+        "wide": [
+          {
+            "route": "main",
+            "t": 0.06,
+            "center": [
+              -6.369501016777899, 2.0649635948794813, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -6.359645343073172, 2.0898170828321794, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "main",
+            "t": 0.53,
+            "center": [
+              -1.5188664127629123, 3.3185000000000002, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -1.4918664758755, 3.3185000000000002, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "main",
+            "t": 0.95,
+            "center": [
+              3.072418466727344, 3.3185000000000002, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              3.099418395226465, 3.3185000000000002, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.06,
+            "center": [
+              -6.369501016777899, -1.929963594879481, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -6.365001371600431, -1.9413105489853146, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.53,
+            "center": [
+              -1.5188664127629123, -3.1835000000000004, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -1.4918664773604322, -3.1835000000000004, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.95,
+            "center": [
+              3.072418466727344, -3.1835000000000004, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              3.099418393741667, -3.1835000000000004, 0.8609999999999999
+            ]
+          }
+        ],
+        "compact": [
+          {
+            "route": "main",
+            "t": 0.06,
+            "center": [
+              -4.774017651156241, 1.885412241977926, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -4.76789244079815, 1.9114240622922098, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "main",
+            "t": 0.53,
+            "center": [
+              -1.3886754035952873, 3.3185000000000002, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -1.3616753881533075, 3.3185000000000002, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "main",
+            "t": 0.95,
+            "center": [
+              2.063970701745176, 3.3185000000000002, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-main-tether-eye-neck"],
+            "firstBlockerPoint": [
+              2.0909707481305673, 3.3185000000000002, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.06,
+            "center": [
+              -4.774017651156241, -1.750412241977926, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -4.767868887943639, -1.7765240837745144, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.53,
+            "center": [
+              -1.3886754035952873, -3.1835000000000004, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              -1.3616753896383735, -3.1835000000000004, 0.8609999999999999
+            ]
+          },
+          {
+            "route": "lower",
+            "t": 0.95,
+            "center": [
+              2.063970701745176, -3.1835000000000004, 0.8609999999999999
+            ],
+            "centerAxisBlockers": ["exterior-eva-lower-tether-eye-neck"],
+            "firstBlockerPoint": [
+              2.090970746645501, -3.1835000000000004, 0.8609999999999999
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "area": "Pressure skin and existing access route",
+      "actualSourceObservation": "No new pressure-skin continuity failure was established. Thin previous sleeves and pin standoffs were design/construction-readability weaknesses, not a claim that every replaced part floated.",
+      "resolution": "The continuous shell, existing rail centerlines, spar/socket/clamp geometry, endpoints and rung cadence remain exact."
+    }
+  ],
+  "constructionChecks": {
+    "startedAt": "2026-09-25T02:09:09.931274+00:00",
+    "command": "node --test tests/spacecraft/exterior-access-construction.test.mjs",
+    "sourceHashesBefore": {
+      "features/spacecraft/equipment/exterior-service-equipment.ts": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+      "tests/spacecraft/exterior-access-construction.test.mjs": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce"
+    },
+    "finishedAt": "2026-09-25T02:09:15.125506+00:00",
+    "exitCode": 0,
+    "sourceHashesAfter": {
+      "features/spacecraft/equipment/exterior-service-equipment.ts": "ffa56d871a880dfba3efab63a6b6da659b4eda4aabbdba3ceb5ba05fc323c788",
+      "tests/spacecraft/exterior-access-construction.test.mjs": "0c79eb0db37a8d5b1b3881be42b195c5295e5225bd76010a6245a70d9bbcf0ce"
+    },
+    "result": {
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "output": "✔ wide: both access routes have connected shoes, webs, rails and broad treads (76.420208ms)\n✔ wide: shoulder shoes are seated across their footprint and treads leave usable hull clearance (2272.72725ms)\nℹ {\"shoeBackingSamples\":320,\"shoeBackingSeparation\":[-0.015121221542358398,-0.008227621900701365],\"treadSamples\":44,\"minimumTreadHullClearance\":0.16499853134194795}\n✔ wide: every tether eye retains a clear usable bore through its actual hardware (8.305458ms)\n✔ compact: both access routes have connected shoes, webs, rails and broad treads (54.901542ms)\n✔ compact: shoulder shoes are seated across their footprint and treads leave usable hull clearance (1795.346375ms)\nℹ {\"shoeBackingSamples\":256,\"shoeBackingSeparation\":[-0.015000581741583002,-0.01036935622429977],\"treadSamples\":32,\"minimumTreadHullClearance\":0.16499996185302734}\n✔ compact: every tether eye retains a clear usable bore through its actual hardware (7.5985ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 5132.082958\n",
+    "coverage": [
+      "Actual pre-batch rounded solids, matrix transforms, containment and overlap tests verify every shoe/web/clamp/rail/rung spar/socket/tread and tether support chain in both layouts.",
+      "Eight actual back-face vertices per bonded foot, spanning its footprint including ends, raycast the real visible pressure skin. Broad tread back surfaces raycast that skin along the actual route normal.",
+      "Each of six real tether eyes per layout has nine axial rays: one at its center and eight at radius 0.035, with a 0.26-length hardware search interval. This verifies a finite central 0.07-wide clip passage."
+    ],
+    "measuredClearances": {
+      "wide": {
+        "shoeBackingSamples": 320,
+        "shoeBackingSeparation": [-0.015121221542358398, -0.008227621900701365],
+        "treadSamples": 44,
+        "minimumTreadHullClearance": 0.16499853134194795
+      },
+      "compact": {
+        "shoeBackingSamples": 256,
+        "shoeBackingSeparation": [-0.015000581741583002, -0.01036935622429977],
+        "treadSamples": 32,
+        "minimumTreadHullClearance": 0.16499996185302734
+      }
+    },
+    "limitations": "Finite source-solid contact and ray tests, not a mathematical continuous surface proof or a physical load/ergonomics simulation. Signed shoe separation is negative for intentional shallow seating into the skin. Appearance is judged separately in matching browser evidence."
+  },
+  "testFileChecks": {
+    "lint": {
+      "command": "npm run lint -- tests/spacecraft/exterior-access-construction.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npm run format -- --check tests/spacecraft/exterior-access-construction.test.mjs",
+      "exitCode": 0
+    }
+  },
+  "measurement": {
+    "all44SourceHashesMatchFinalManifest": true,
+    "primaryCommand": {
+      "command": "node scripts/measure-hardware-geometry.mjs <fresh source-only baseline archive>",
+      "exitCode": 0
+    },
+    "supplementalMethod": "Independent subgroup and source-solid geometry/material/transform comparison, immediate deep copies per layout, and the existing overview-composition fit harness using unchanged scene-controls. All measurement commands exited zero."
+  },
+  "inventoryMethod": {
+    "script": "scripts/measure-hardware-geometry.mjs",
+    "scriptSha256": "ab0d410c75f903b8cf2a79a10278155bc6a823b56d01f31d7d506cc17a1df247",
+    "production": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "state": "Production createSpacecraft; home at time zero, immediate doors, wide and compact; matrices updated. Every supplemental snapshot deep-cloned immediately before layout change.",
+    "fingerprints": "SHA-256 of world transforms, semantic part names, instance counts, material descriptors and raw geometry/index/instance arrays. Pressure-structure selection excludes access-equipment descendants; unchanged access solids are captured before production batching. No texture pixels or shader output compared. Equal metadata maps use canonical JSON SHA-256, sorted keys and compact separators.",
+    "counts": "Meshes are potential scene-graph candidates after batching, not measured renderer draws. Triangles include instance multiplicity. Geometry bytes count unique attribute/index arrays, excluding instance attributes, textures, caches and driver allocations. Nested inventories overlap and cannot be added.",
+    "visibility": "Whole visible-model traversal honors ancestor visibility. Retained totals include both layout variants. Named subgroup traversal can inventory a variant behind a hidden ancestor; effective visibility is independently compared.",
+    "baselineIsolation": "Fresh source-only git archive of baseline features/lib/scripts/package files. Only installed node_modules shared via symlink; no private environment, database, uploads, emulator state or secrets copied. Main development server/store untouched.",
+    "cleanupStatus": {
+      "removedSourceOnlyBaseline": true,
+      "removedOwnedTemporaryFiles": 12,
+      "finishedAt": "2026-09-25T02:18:16.555183+00:00",
+      "preserved": "Durable audit and test; main development server, installed dependencies and store untouched."
+    }
+  },
+  "doorAndRouteFieldsCompared": [
+    "portals",
+    "adjacency",
+    "activeRoute",
+    "irisHatches",
+    "passageLinings"
+  ],
+  "comparison": {
+    "wide": {
+      "exteriorAccessAssembly": {
+        "before": {
+          "meshes": 3,
+          "triangles": 100272,
+          "uniqueGeometries": 3,
+          "attributeBytes": 2803744,
+          "bounds": {
+            "min": [
+              -6.570790767669678, -3.2664999961853027, -0.14900000393390656
+            ],
+            "max": [3.693000078201294, 3.4014999866485596, 0.9440000057220459]
+          }
+        },
+        "after": {
+          "meshes": 3,
+          "triangles": 105376,
+          "uniqueGeometries": 3,
+          "attributeBytes": 5726400,
+          "bounds": {
+            "min": [
+              -6.617456912994385, -3.2664999961853027, -0.15000000596046448
+            ],
+            "max": [3.740000009536743, 3.4014999866485596, 0.9779999852180481]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 5104,
+          "uniqueGeometries": 0,
+          "attributeBytes": 2922656
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 519,
+          "triangles": 1015684,
+          "uniqueGeometries": 454,
+          "attributeBytes": 38585752,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "after": {
+          "meshes": 519,
+          "triangles": 1020788,
+          "uniqueGeometries": 454,
+          "attributeBytes": 41508408,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 5104,
+          "uniqueGeometries": 0,
+          "attributeBytes": 2922656
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 597,
+          "triangles": 1317382,
+          "uniqueGeometries": 532,
+          "attributeBytes": 51045804,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "after": {
+          "meshes": 597,
+          "triangles": 1326070,
+          "uniqueGeometries": 532,
+          "attributeBytes": 56228876,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 8688,
+          "uniqueGeometries": 0,
+          "attributeBytes": 5183072
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "central-docking-assembly",
+          "aft-service-assembly",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch"
+        ],
+        "exactInventoriesBoundsMaterialsAndWorldTransformsEqual": true,
+        "sharedInventoryMapSha256": "61d1cfdc7fd1713bad5d94426d0d8684af0f9b86112ed0c49a0127c5f437064f",
+        "sharedFingerprintMapSha256": "c66d970713f7aa5c24de3cf328e41218f70a4e619aabddd6e03fca288d0387ef"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "deca487c5cb13535fa3a39488061d9f211186c0acf0d12088a109f9180cdedaa",
+      "pressureStructureExcludingAccessEquipment": {
+        "exactGeometryMaterialsWorldTransformsAndBoundsEqual": true,
+        "inventory": {
+          "meshes": 11,
+          "triangles": 141534,
+          "uniqueGeometries": 11,
+          "attributeBytes": 7903012,
+          "bounds": {
+            "min": [
+              -6.326000213623047, -2.9625000953674316, -1.2699999809265137
+            ],
+            "max": [4.434000015258789, 3.0975000858306885, 1.284999966621399]
+          }
+        },
+        "fingerprint": "bfb5873e77b586d8362991885d10701685ab2044fce776ed4f6329096e1e7d7e"
+      },
+      "preservedAccessRailSparSocketClampGeometry": {
+        "exactGeometryMaterialsWorldTransformsAndBoundsEqual": true,
+        "sourceSolidCount": 224,
+        "names": [
+          "exterior-eva-main-continuous-rail",
+          "exterior-eva-main-rounded-rail-end",
+          "exterior-eva-main-clamp-separation",
+          "exterior-eva-main-rung-socket",
+          "exterior-eva-lower-continuous-rail",
+          "exterior-eva-lower-rounded-rail-end",
+          "exterior-eva-lower-clamp-separation",
+          "exterior-eva-lower-rung-socket",
+          "exterior-eva-main-split-rail-clamp",
+          "exterior-eva-main-open-rung",
+          "exterior-eva-lower-split-rail-clamp",
+          "exterior-eva-lower-open-rung"
+        ],
+        "inventory": {
+          "meshes": 224,
+          "triangles": 60752,
+          "uniqueGeometries": 224,
+          "attributeBytes": 1678048,
+          "bounds": {
+            "min": [
+              -6.570790767669678, -3.2195000648498535, -0.12700000405311584
+            ],
+            "max": [3.6640000343322754, 3.3545000553131104, 0.8270000219345093]
+          }
+        },
+        "fingerprint": "ca01505a1d75e0a3ab8f2003ad1789d27487ab8c75a78459846b9de055e26c63"
+      },
+      "preservedExteriorRouteAndMountMetadata": {
+        "exactEqual": true,
+        "stationFields": [
+          "variant",
+          "evaAccessRoute",
+          "symmetryCenterY",
+          "mirroredUpperLower",
+          "exposedSurfacesOnly",
+          "hiddenRearGeometry",
+          "zCenter",
+          "railSeparation",
+          "railRadius",
+          "rungRadius",
+          "nominalRailClearance",
+          "cutawayFrontLimitZ",
+          "mounts"
+        ],
+        "routeFields": [
+          "name",
+          "side",
+          "length",
+          "rungCount",
+          "rungSpacing",
+          "rungs",
+          "anchorCount",
+          "centerline"
+        ],
+        "sharedStationDataSha256": "fd008e9d5d7c508c35e5278e3f9779b29c1103b33adbc05eb4734410e693e3ea",
+        "sharedRouteDataSha256": "60aaced658c96f7f7527e9b4977899a56dd133d27f5a65fa89532a849f32e6b1",
+        "intentionalExceptions": "Tether locations and replacement shoe/web/tread construction parts change; real route centerlines, rung/anchor counts, stations, cadence, stand-off and cutaway limits do not."
+      },
+      "exactMetadataComparisons": {
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0ddc2d7f19b19f2d7c0ce0fa05d316859f105f4b28b5e6ab7f463fbe1d824dbe"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "126727aed035b311c65fe8d78ab75cb4552a562d32e1e0c7b402c0c8e2c0d25d"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "29b00cda3297c0d1e1a4e9674a4bea6647b66fc06cb1c1e55cbfbaefb3ee701b"
+        }
+      },
+      "unchangedFramingFields": [
+        "roomAnchors",
+        "roomBounds",
+        "innerApertureBounds",
+        "roomCameraFrame",
+        "requiredFramingPoints",
+        "overviewBounds",
+        "recommendedFraming",
+        "walkwayAnchor",
+        "walkwayBounds",
+        "walkwayProfile",
+        "dockingAnchors",
+        "communicationsAnchor",
+        "calloutAnchors",
+        "calloutEdges"
+      ],
+      "unchangedFramingDataSha256": "878734d2db75235095c55cff50bae07d7de167d358d4a176bd486102fb675510",
+      "changedFramingFields": [
+        "overviewSupportPoints",
+        "overviewSupportBounds"
+      ],
+      "overviewSupportBoundsChanges": [
+        {
+          "name": "chassis",
+          "before": {
+            "name": "chassis",
+            "min": [
+              -6.570790767669678, -3.2664999961853027, -1.2699999809265137
+            ],
+            "max": [4.434000015258789, 3.4014999866485596, 1.284999966621399]
+          },
+          "after": {
+            "name": "chassis",
+            "min": [
+              -6.617456912994385, -3.2664999961853027, -1.2699999809265137
+            ],
+            "max": [4.434000015258789, 3.4014999866485596, 1.284999966621399]
+          }
+        }
+      ],
+      "wholeSceneBoundsExactlyEqual": true
+    },
+    "compact": {
+      "exteriorAccessAssembly": {
+        "before": {
+          "meshes": 3,
+          "triangles": 80064,
+          "uniqueGeometries": 3,
+          "attributeBytes": 2226944,
+          "bounds": {
+            "min": [
+              -4.888167858123779, -3.2664999961853027, -0.14900000393390656
+            ],
+            "max": [2.5490000247955322, 3.4014999866485596, 0.9440000057220459]
+          }
+        },
+        "after": {
+          "meshes": 3,
+          "triangles": 83648,
+          "uniqueGeometries": 3,
+          "attributeBytes": 4487360,
+          "bounds": {
+            "min": [
+              -4.934982776641846, -3.2664999961853027, -0.15000000596046448
+            ],
+            "max": [2.5959999561309814, 3.4014999866485596, 0.9779999852180481]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 3584,
+          "uniqueGeometries": 0,
+          "attributeBytes": 2260416
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 519,
+          "triangles": 994004,
+          "uniqueGeometries": 454,
+          "attributeBytes": 37963256,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "after": {
+          "meshes": 519,
+          "triangles": 997588,
+          "uniqueGeometries": 454,
+          "attributeBytes": 40223672,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 3584,
+          "uniqueGeometries": 0,
+          "attributeBytes": 2260416
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 597,
+          "triangles": 1317382,
+          "uniqueGeometries": 532,
+          "attributeBytes": 51045804,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "after": {
+          "meshes": 597,
+          "triangles": 1326070,
+          "uniqueGeometries": 532,
+          "attributeBytes": 56228876,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 0,
+          "triangles": 8688,
+          "uniqueGeometries": 0,
+          "attributeBytes": 5183072
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "central-docking-assembly",
+          "aft-service-assembly",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch"
+        ],
+        "exactInventoriesBoundsMaterialsAndWorldTransformsEqual": true,
+        "sharedInventoryMapSha256": "98e12cf7217c161f58178be705c346b3e925f13d4383fdc51d869148839c96c2",
+        "sharedFingerprintMapSha256": "71256e4f99151ac73a01c9a6a41b3041c3e17c5728a03d42ff88527831a028ed"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "82b3f6cb2d4f406bbeccdb1ad81da54a58de5bddc2a0000ac4631a71a1b0263e",
+      "pressureStructureExcludingAccessEquipment": {
+        "exactGeometryMaterialsWorldTransformsAndBoundsEqual": true,
+        "inventory": {
+          "meshes": 11,
+          "triangles": 141534,
+          "uniqueGeometries": 11,
+          "attributeBytes": 7903012,
+          "bounds": {
+            "min": [
+              -4.639999866485596, -2.9625000953674316, -1.2699999809265137
+            ],
+            "max": [3.2899999618530273, 3.0975000858306885, 1.284999966621399]
+          }
+        },
+        "fingerprint": "5928b3105e932f69820967f5ccd88ecce84e8ca7e98686afb5f5811e169334d5"
+      },
+      "preservedAccessRailSparSocketClampGeometry": {
+        "exactGeometryMaterialsWorldTransformsAndBoundsEqual": true,
+        "sourceSolidCount": 172,
+        "names": [
+          "exterior-eva-main-continuous-rail",
+          "exterior-eva-main-rounded-rail-end",
+          "exterior-eva-main-clamp-separation",
+          "exterior-eva-main-rung-socket",
+          "exterior-eva-lower-continuous-rail",
+          "exterior-eva-lower-rounded-rail-end",
+          "exterior-eva-lower-clamp-separation",
+          "exterior-eva-lower-rung-socket",
+          "exterior-eva-main-split-rail-clamp",
+          "exterior-eva-main-open-rung",
+          "exterior-eva-lower-split-rail-clamp",
+          "exterior-eva-lower-open-rung"
+        ],
+        "inventory": {
+          "meshes": 172,
+          "triangles": 47264,
+          "uniqueGeometries": 172,
+          "attributeBytes": 1300288,
+          "bounds": {
+            "min": [
+              -4.888167858123779, -3.2195000648498535, -0.12700000405311584
+            ],
+            "max": [2.5199999809265137, 3.3545000553131104, 0.8270000219345093]
+          }
+        },
+        "fingerprint": "3a4301321a4c57771ba1663b154202c3a84bed69dc78366c56bc6ffc4ce4413f"
+      },
+      "preservedExteriorRouteAndMountMetadata": {
+        "exactEqual": true,
+        "stationFields": [
+          "variant",
+          "evaAccessRoute",
+          "symmetryCenterY",
+          "mirroredUpperLower",
+          "exposedSurfacesOnly",
+          "hiddenRearGeometry",
+          "zCenter",
+          "railSeparation",
+          "railRadius",
+          "rungRadius",
+          "nominalRailClearance",
+          "cutawayFrontLimitZ",
+          "mounts"
+        ],
+        "routeFields": [
+          "name",
+          "side",
+          "length",
+          "rungCount",
+          "rungSpacing",
+          "rungs",
+          "anchorCount",
+          "centerline"
+        ],
+        "sharedStationDataSha256": "c9e7d7455e68407efa152e68fc44adcbf19bbcdcd2853dad24dcd9d732458e77",
+        "sharedRouteDataSha256": "e8a661092e77ea1bd19407c1ee52dc61abf5b51f96eeee1c481a78f521f4d2aa",
+        "intentionalExceptions": "Tether locations and replacement shoe/web/tread construction parts change; real route centerlines, rung/anchor counts, stations, cadence, stand-off and cutaway limits do not."
+      },
+      "exactMetadataComparisons": {
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "486a8067ab78542e744c343c2dfb83f6b7ba3053a0647940685b19c3805605d1"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8506571000f80e652d58089017b52d7d56808222310c329c21ce92d268eaeed0"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "c2f59b680185aa79d1cc75030e134d2f44a3fe7e022791e4b7769cf5d028af9d"
+        }
+      },
+      "unchangedFramingFields": [
+        "roomAnchors",
+        "roomBounds",
+        "innerApertureBounds",
+        "roomCameraFrame",
+        "requiredFramingPoints",
+        "overviewBounds",
+        "recommendedFraming",
+        "walkwayAnchor",
+        "walkwayBounds",
+        "walkwayProfile",
+        "dockingAnchors",
+        "communicationsAnchor",
+        "calloutAnchors",
+        "calloutEdges"
+      ],
+      "unchangedFramingDataSha256": "d1c8ed4743dab93e363844a15ceaa565b01b837f0f0bcaad98a1d1b18c7a7eff",
+      "changedFramingFields": [
+        "overviewSupportPoints",
+        "overviewSupportBounds"
+      ],
+      "overviewSupportBoundsChanges": [
+        {
+          "name": "chassis",
+          "before": {
+            "name": "chassis",
+            "min": [
+              -4.888167858123779, -3.2664999961853027, -1.2699999809265137
+            ],
+            "max": [3.2899999618530273, 3.4014999866485596, 1.284999966621399]
+          },
+          "after": {
+            "name": "chassis",
+            "min": [
+              -4.934982776641846, -3.2664999961853027, -1.2699999809265137
+            ],
+            "max": [3.2899999618530273, 3.4014999866485596, 1.284999966621399]
+          }
+        }
+      ],
+      "wholeSceneBoundsExactlyEqual": true
+    }
+  },
+  "overviewFraming": {
+    "method": "Finite source geometry fitting, adapted from tests/spacecraft/overview-composition.test.mjs and unchanged production scene-controls. Nine viewport sizes × two layouts per version; 12-step independent angular grid and four hover-offset combinations, testing the existing 0.5px safe-area tolerance. This is the existing test safe-area recipe, not a browser-rendered camera measurement.",
+    "testSourceSha256": "f07f28c94a622d947f1811153f541e4ddcb00cfb4718b3f11aa54ae733957b93",
+    "samples": {
+      "wide": [
+        {
+          "viewport": [2560, 1080],
+          "beforeDistance": 20.264036286157346,
+          "afterDistance": 20.31744848819276,
+          "distanceDeltaPercent": 0.2635812593362763,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -2.2400111504714078, -0.06347052412632151, -0.11818820564523058
+          ],
+          "afterTarget": [
+            -2.2401464650762137, -0.06607629680173034, -0.11770493919949454
+          ],
+          "beforeCoveragePixels": [1128.6036703191512, 613.0410506979126],
+          "afterCoveragePixels": [1125.428616576228, 611.7603437036057],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1920, 1080],
+          "beforeDistance": 20.515543681775494,
+          "afterDistance": 20.568940822108907,
+          "distanceDeltaPercent": 0.2602765062514445,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.9236772642409299, -0.06312914080142426, -0.029399318710213673
+          ],
+          "afterTarget": [
+            -1.9238122710705883, -0.06573202743835829, -0.028916593225823933
+          ],
+          "beforeCoveragePixels": [1118.4343015468914, 605.2841933364421],
+          "afterCoveragePixels": [1115.3176905462744, 604.050283859745],
+          "afterOutsideSafeAreaPixels": 1.199040866595169e-13,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1440, 900],
+          "beforeDistance": 22.28917834058291,
+          "afterDistance": 22.34388933854896,
+          "distanceDeltaPercent": 0.24545991391002886,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.7770466282630049, 0.014478196919381963, 0.012618327108603028
+          ],
+          "afterTarget": [
+            -1.7771551979502787, 0.012199858489244009, 0.013040311017872674
+          ],
+          "beforeCoveragePixels": [858.4389616268404, 461.43970040795483],
+          "afterCoveragePixels": [856.1963328761973, 460.5396969210256],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1280, 720],
+          "beforeDistance": 25.66346962409005,
+          "afterDistance": 25.724583992472322,
+          "distanceDeltaPercent": 0.23813759120436817,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.9068111380979893, 0.09113270205190374, -0.0555290832145065
+          ],
+          "afterTarget": [
+            -1.9069286315746359, 0.08886746701850586, -0.0551089778348724
+          ],
+          "beforeCoveragePixels": [589.7161639309651, 322.28312676509705],
+          "afterCoveragePixels": [588.2972115193597, 321.68338578055966],
+          "afterOutsideSafeAreaPixels": 3.9968028886505635e-14,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1024, 768],
+          "beforeDistance": 24.25808001139729,
+          "afterDistance": 24.31190286294218,
+          "distanceDeltaPercent": 0.2218759750136856,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.5258855051441613, 0.1406649702442334, 0.08852778249322643
+          ],
+          "afterTarget": [
+            -1.5259381095968547, 0.13911266065003225, 0.08881212737221864
+          ],
+          "beforeCoveragePixels": [679.0764864284877, 354.63706713373415],
+          "afterCoveragePixels": [677.4824251355094, 353.97401359701786],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [844, 390],
+          "beforeDistance": 45.578016455246335,
+          "afterDistance": 45.59567678856597,
+          "distanceDeltaPercent": 0.03874748111729609,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -2.065140317634345, 0.584050310187122, -0.19872853931354167
+          ],
+          "afterTarget": [
+            -2.065227351394324, 0.5823742886378065, -0.19841770445647278
+          ],
+          "beforeCoveragePixels": [178.8077263255339, 98.17242851637539],
+          "afterCoveragePixels": [178.7380150667451, 98.17893349477242],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [768, 1024],
+          "beforeDistance": 24.85238015349845,
+          "afterDistance": 24.85238015349845,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.1033496148089427, -0.624034489480525, 0.16130068730561245
+          ],
+          "afterTarget": [
+            0.1033496148089427, -0.624034489480525, 0.16130068730561245
+          ],
+          "beforeCoveragePixels": [346.77327313673067, 673.895490322609],
+          "afterCoveragePixels": [346.77327313673067, 673.895490322609],
+          "afterOutsideSafeAreaPixels": 0.12231844065678388,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [390, 844],
+          "beforeDistance": 17.84918992846007,
+          "afterDistance": 17.84918992846007,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.10425582229759686, -0.4572916970793931, 0.14787064316465648
+          ],
+          "afterTarget": [
+            0.10425582229759686, -0.4572916970793931, 0.14787064316465648
+          ],
+          "beforeCoveragePixels": [247.37303048168405, 481.2947944284596],
+          "afterCoveragePixels": [247.37303048168405, 481.2947944284596],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [360, 800],
+          "beforeDistance": 17.90814851745075,
+          "afterDistance": 17.90814851745075,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.1019269286968723, -0.41402066779171964, 0.14464185018171505
+          ],
+          "afterTarget": [
+            0.1019269286968723, -0.41402066779171964, 0.14464185018171505
+          ],
+          "beforeCoveragePixels": [227.57134475500956, 442.71433406980714],
+          "afterCoveragePixels": [227.57134475500956, 442.71433406980714],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        }
+      ],
+      "compact": [
+        {
+          "viewport": [2560, 1080],
+          "beforeDistance": 18.890807529667782,
+          "afterDistance": 18.943979355783824,
+          "distanceDeltaPercent": 0.2814693126936829,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.674183265797855, 0.02351295329137245, -0.05303309342017476
+          ],
+          "afterTarget": [
+            -1.6743190117900344, 0.020898873327684878, -0.05254828630524755
+          ],
+          "beforeCoveragePixels": [977.8799248279779, 646.6858275131217],
+          "afterCoveragePixels": [975.0863134186898, 645.2381781668906],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1920, 1080],
+          "beforeDistance": 19.083760619487784,
+          "afterDistance": 19.13691779436052,
+          "distanceDeltaPercent": 0.2785466446191709,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.4316858448936707, 0.023761812799155863, 0.015031657345667943
+          ],
+          "afterTarget": [
+            -1.4318212821295055, 0.02115062807472722, 0.015515921774646557
+          ],
+          "beforeCoveragePixels": [968.9872135037846, 639.913580598467],
+          "afterCoveragePixels": [966.0882418263375, 638.4979766651873],
+          "afterOutsideSafeAreaPixels": 5.995204332975845e-14,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1440, 900],
+          "beforeDistance": 20.776636730901778,
+          "afterDistance": 20.831522149313788,
+          "distanceDeltaPercent": 0.26416892744904885,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.3224226732691529, 0.08743004190810773, 0.045455585536682275
+          ],
+          "afterTarget": [
+            -1.3225315890801306, 0.08514444006074431, 0.0458789147444181
+          ],
+          "beforeCoveragePixels": [741.4929155558926, 487.1267295276444],
+          "afterCoveragePixels": [739.4016455525374, 486.09875753822405],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1280, 720],
+          "beforeDistance": 24.289272116118042,
+          "afterDistance": 24.30223476372834,
+          "distanceDeltaPercent": 0.053367789484704,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.417948846709327, 0.15757170378546176, -0.007883595218734413
+          ],
+          "afterTarget": [
+            -1.4180667147590094, 0.15529924710889428, -0.007462150529447875
+          ],
+          "beforeCoveragePixels": [505.2372243937788, 334.4014515836414],
+          "afterCoveragePixels": [504.9639066409131, 334.41324450505687],
+          "afterOutsideSafeAreaPixels": 1.199040866595169e-13,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [1024, 768],
+          "beforeDistance": 22.704755195485337,
+          "afterDistance": 22.758749636036434,
+          "distanceDeltaPercent": 0.2378111549153905,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.143045155180097, 0.18834703197142805, 0.10018538912373542
+          ],
+          "afterTarget": [
+            -1.1430979273375013, 0.18678977356361054, 0.10047064050347602
+          ],
+          "beforeCoveragePixels": [583.2388606713789, 374.5350014971905],
+          "afterCoveragePixels": [581.7666836094942, 373.7806807793712],
+          "afterOutsideSafeAreaPixels": 0,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [844, 390],
+          "beforeDistance": 42.89963648740345,
+          "afterDistance": 42.91735312244173,
+          "distanceDeltaPercent": 0.04129786750870501,
+          "targetExactlyEqual": false,
+          "beforeTarget": [
+            -1.5351857182977415, 0.614717676323179, -0.13235472472650434
+          ],
+          "afterTarget": [
+            -1.5352730295241863, 0.6130363115624992, -0.132042898917773
+          ],
+          "beforeCoveragePixels": [153.98009736694036, 102.3379698511421],
+          "afterCoveragePixels": [153.9160360475247, 102.34393679297963],
+          "afterOutsideSafeAreaPixels": 1.0824674490095276e-14,
+          "supportPoints": 112,
+          "angleSamples": 169,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [768, 1024],
+          "beforeDistance": 20.073601819158903,
+          "afterDistance": 20.073601819158903,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.10421874623326398, -0.4627622487383514, 0.1699919949038065
+          ],
+          "afterTarget": [
+            0.10421874623326398, -0.4627622487383514, 0.1699919949038065
+          ],
+          "beforeCoveragePixels": [429.1721486336926, 677.9262163960819],
+          "afterCoveragePixels": [429.1721486336926, 677.9262163960819],
+          "afterOutsideSafeAreaPixels": 0.00019199642957801188,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [390, 844],
+          "beforeDistance": 16.999915353060516,
+          "afterDistance": 16.999915353060516,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.10516406991360475, -0.30095795860045776, 0.15695311932474096
+          ],
+          "afterTarget": [
+            0.10516406991360475, -0.30095795860045776, 0.15695311932474096
+          ],
+          "beforeCoveragePixels": [258.38110835604857, 408.8392357329459],
+          "afterCoveragePixels": [258.38110835604857, 408.8392357329459],
+          "afterOutsideSafeAreaPixels": 0.04938856317678708,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        },
+        {
+          "viewport": [360, 800],
+          "beforeDistance": 17.242312123693107,
+          "afterDistance": 17.242312123693107,
+          "distanceDeltaPercent": 0.0,
+          "targetExactlyEqual": true,
+          "beforeTarget": [
+            0.10281324515910713, -0.2549181211489352, 0.15350501480406892
+          ],
+          "afterTarget": [
+            0.10281324515910713, -0.2549181211489352, 0.15350501480406892
+          ],
+          "beforeCoveragePixels": [235.06795025254226, 371.85266057271883],
+          "afterCoveragePixels": [235.06795025254226, 371.85266057271883],
+          "afterOutsideSafeAreaPixels": 0.0349018731442885,
+          "supportPoints": 112,
+          "angleSamples": 182,
+          "hoverOffsetSamples": 4
+        }
+      ]
+    },
+    "result": "Whole-model bounds, overviewBounds and all cabin architectural/camera references remain exactly equal. Only the chassis support box minimum X moves because tethers now occupy the first structural mount. Landscape automatic fit grows 0.0387–0.2815% across these finite viewports. All three tested portrait distances and targets are exact in both layouts. Maximum sampled safe-area excess is 0.122319px, below the existing 0.5px tolerance. No camera adjustment or artificial support box was introduced."
+  },
+  "interpretation": [
+    "Both visible access assemblies retain 3 material-batched meshes. Wide submitted triangle potential rises 5,104 and geometry arrays rise 2,922,656 bytes; compact rises 3,584 triangles and 2,260,416 bytes. Whole visible-model deltas match the active access assembly.",
+    "The retained scene graph contains both variants, so its combined increase is 8,688 triangles and 5,183,072 geometry-array bytes. Design adds broad rounded treads and shoe/web construction; it is not an optimization claim.",
+    "The complete physical pressure structure and all named protected assemblies compare exactly. New tether stations enlarge the chassis support box slightly while docking and solar assemblies still define unchanged whole-scene extrema."
+  ],
+  "limitations": [
+    "Finite geometry/contact/clearance and responsive-fit checks do not replace visual review; matching hidden-browser evidence and independent critic are recorded separately.",
+    "No frame-time, GPU-time, heat, battery, process-memory or GPU-memory measurement was performed. Geometry arrays are measured typed-array byte lengths, not total runtime memory.",
+    "Whole-model visible inventories are not frustum-culling-, occlusion-, material-pass- or shadow-pass-aware renderer counts. Retained variants and overlapping semantic group totals must not be treated as additive per-frame work."
+  ],
+  "verificationIntegration": {
+    "isolatedFirstRun": {
+      "reportedBy": "isolated_verification agent",
+      "tests": 582,
+      "pass": 581,
+      "fail": 1,
+      "failingFile": "tests/spacecraft/exterior-service-equipment.test.mjs",
+      "failure": "The prior blanket test required every access part to remain at least 0.16 behind PRESSURE_THROAT_START. New tether-eye maxZ 0.977999985 exceeds that obsolete 0.961 blanket threshold."
+    },
+    "resolution": {
+      "runtimeUnchanged": true,
+      "testChangedBy": "root agent",
+      "existingTestSha256": "cd0890726a4212185c9a8d367b64f5aa63af12be7f6141b198528f6998046dd6",
+      "reason": "The untouched authored cutawayFrontLimitZ is 1.02 and the actual pressure throat is 1.121. The new eye remains 0.042000015 behind the existing authored front limit and 0.143000015 behind the real throat. The old 0.16 margin is not a runtime structural boundary. The revised assertion retains that 0.16 reserve for every non-eye part, requires at least 0.12 for open tether eyes, and checks the entire assembly against the unchanged authored cutaway limit. Clear bores and runtime geometry are preserved.",
+      "pickability": "Exterior/excludePick scope propagates through the existing primitives and batching. No new interactive surface is introduced.",
+      "visualLimitation": "Positive axial clearance alone does not prove arbitrary oblique projected non-occlusion; matching final room/shoulder browser evidence is separate."
+    },
+    "isolatedRecoveryRun": "Pending here; final full-suite result is recorded by the isolated verification owner, not inferred by this audit."
+  }
+}
