@@ -65,212 +65,244 @@ export function SocialLinkFields({
   ];
   return (
     <>
-      <div className="social-channel-preview wide-field">
-        <svg
-          viewBox={icon.viewBox}
-          aria-hidden="true"
-          fill={icon.filled ? 'currentColor' : 'none'}
-          stroke={icon.filled ? 'none' : 'currentColor'}
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d={icon.path} />
-        </svg>
-        <div>
-          <strong>
-            {draft.title ||
-              (draft.platform === 'custom'
-                ? 'Your social channel'
-                : icon.label)}
-          </strong>
-          <span>{draft.description || 'Contact console preview'}</span>
-        </div>
-      </div>
-      <fieldset
-        className="social-preset-fields wide-field"
-        disabled={busy || preparingIcon}
+      <section
+        className="studio-field-group social-link-group wide-field"
+        aria-label="Identity and destination"
       >
-        <legend>Popular icons</legend>
-        <p>
-          Choose a platform, or upload your own icon below. Choosing a preset
-          replaces any custom icon.
-        </p>
-        <div className="social-preset-grid">
-          {socialPlatforms.map((platform) => (
-            <button
-              key={platform.id}
-              type="button"
-              aria-label={`Use ${platform.label} icon`}
-              aria-pressed={
-                draft.platform === platform.id && !draft.iconMediaId
-              }
-              onClick={() =>
-                onChange({
-                  ...draft,
-                  platform: platform.id,
-                  iconMediaId: '',
-                  title:
-                    !draft.title || draft.title === icon.label
-                      ? platform.id === 'custom'
-                        ? ''
-                        : platform.label
-                      : draft.title,
-                })
-              }
+        <h3>Identity and destination</h3>
+        <p>Set the name visitors see and where the link takes them.</p>
+        <div className="editor-fields">
+          <label className="studio-field">
+            Display name
+            <input
+              required
+              value={draft.title}
+              maxLength={60}
+              placeholder="GitHub, LinkedIn, or your own name"
+              onChange={(e) => set('title', e.target.value)}
+            />
+          </label>
+          <label className="studio-field">
+            Contact caption (optional)
+            <input
+              value={draft.description}
+              maxLength={64}
+              placeholder="Code & projects"
+              onChange={(e) => set('description', e.target.value)}
+            />
+          </label>
+          <label className="studio-field wide-field">
+            Destination URL
+            <input
+              required
+              type="url"
+              value={draft.url}
+              maxLength={2000}
+              placeholder="https://…"
+              onChange={(e) => set('url', e.target.value)}
+            />
+            <small>
+              Enter the full HTTPS profile URL, or a mailto: link. HTTPS links
+              open in a new tab; mailto: links open the visitor’s email
+              application.
+            </small>
+          </label>
+        </div>
+      </section>
+      <section
+        className="studio-field-group social-link-group wide-field"
+        aria-label="Room placement"
+      >
+        <h3>Room placement</h3>
+        <p>Choose Contact and About placements independently.</p>
+        <div className="editor-fields">
+          <label className="studio-field">
+            Contact console placement
+            <NativeSelect
+              value={draft.screen}
+              onChange={(e) => set('screen', e.target.value)}
             >
-              <SocialIconMark platform={platform.id} />
-              <span>{platform.label}</span>
-            </button>
-          ))}
+              {socialScreens.map((s) => (
+                <NativeSelectOption key={s.id} value={s.id}>
+                  {s.id === 'list'
+                    ? 'Off — Contact reading view only'
+                    : s.label}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+            <small>
+              Two Contact screens are available. About placement is independent;
+              all published links remain in Contact’s Reading view.
+            </small>
+          </label>
+          <label className="studio-field">
+            Display order (smaller numbers first)
+            <input
+              type="number"
+              value={draft.order}
+              step={1}
+              onChange={(e) => set('order', Number(e.target.value))}
+            />
+          </label>
         </div>
-      </fieldset>
-      <label className="studio-field">
-        Contact console placement
-        <NativeSelect
-          value={draft.screen}
-          onChange={(e) => set('screen', e.target.value)}
-        >
-          {socialScreens.map((s) => (
-            <NativeSelectOption key={s.id} value={s.id}>
-              {s.id === 'list' ? 'Off — Contact reading view only' : s.label}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
-        <small>
-          Two Contact screens are available. About placement is independent; all
-          published links remain in Contact’s Reading view.
-        </small>
-      </label>
-      <label className="studio-field">
-        Display name
-        <input
-          required
-          value={draft.title}
-          maxLength={60}
-          placeholder="GitHub, LinkedIn, or your own name"
-          onChange={(e) => set('title', e.target.value)}
-        />
-      </label>
-      <label className="studio-field">
-        Contact caption (optional)
-        <input
-          value={draft.description}
-          maxLength={64}
-          placeholder="Code & projects"
-          onChange={(e) => set('description', e.target.value)}
-        />
-      </label>
-      <label className="studio-field wide-field">
-        Destination URL
-        <input
-          required
-          type="url"
-          value={draft.url}
-          maxLength={2000}
-          placeholder="https://…"
-          onChange={(e) => set('url', e.target.value)}
-        />
-        <small>
-          Enter the full HTTPS profile URL, or a mailto: link. Visitors open it
-          directly in a new tab.
-        </small>
-      </label>
-      <label className="studio-field">
-        Display order (smaller numbers first)
-        <input
-          type="number"
-          value={draft.order}
-          step={1}
-          onChange={(e) => set('order', Number(e.target.value))}
-        />
-      </label>
-      {conflicts.length > 0 && (
-        <p role="status" className="wide-field form-error">
-          Also assigned to this screen:{' '}
-          {conflicts.map((r) => r.draft.title).join(', ')}. The first published
-          link by display order is shown. Change the other link’s placement to
-          use this one.
-        </p>
-      )}
-      <div className="about-slot-preview wide-field">
-        <h3>About social icons</h3>
-        <p>
-          Choose one of the three cards above the notebook. This does not change
-          your Contact console placement.
-        </p>
-        <div className="about-slot-row" aria-label="About icon positions">
-          {aboutSlots
-            .filter((slot) => slot.id !== 'off')
-            .map((slot) => {
-              const saved = draftLinks.filter(
-                (link) => link.aboutSlot === slot.id,
-              );
-              const live = records.filter(
-                (record) =>
-                  record.kind === 'link' &&
-                  record.published?.aboutSlot === slot.id,
-              );
-              return (
-                <div
-                  key={slot.id}
-                  className={draft.aboutSlot === slot.id ? 'is-selected' : ''}
-                >
-                  <strong>{slot.label}</strong>
-                  <span>
-                    Draft:{' '}
-                    {saved.length
-                      ? saved
-                          .map((link) => link.title || 'Untitled link')
-                          .join(', ')
-                      : 'No link'}
-                  </span>
-                  <span>
-                    Live:{' '}
-                    {live.length
-                      ? live.map((record) => record.published!.title).join(', ')
-                      : 'No link'}
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-        <label className="studio-field">
-          About position
-          <NativeSelect
-            value={draft.aboutSlot}
-            onChange={(event) => set('aboutSlot', event.target.value)}
-          >
-            {aboutSlots.map((slot) => (
-              <NativeSelectOption key={slot.id} value={slot.id}>
-                {slot.label}
-              </NativeSelectOption>
-            ))}
-          </NativeSelect>
-        </label>
-        {aboutConflicts.length > 0 && (
-          <p role="status" className="form-error">
-            {occupied.length
-              ? `This position is live for ${occupied.map((record) => record.published!.title).join(', ')}. Change and publish that link’s About position before publishing this one.`
-              : `Another draft uses this position: ${aboutConflicts.map((record) => record.draft.title || 'Untitled link').join(', ')}. Choose different positions before publishing both links.`}{' '}
-            You can save your draft while arranging the cards.
+        {conflicts.length > 0 && (
+          <p role="status" className="wide-field form-error">
+            Also assigned to this screen:{' '}
+            {conflicts.map((r) => r.draft.title).join(', ')}. The first
+            published link by display order is shown. Change the other link’s
+            placement to use this one.
           </p>
         )}
-      </div>
-      <SocialIconFields
-        mediaId={draft.iconMediaId || ''}
-        platform={draft.platform}
-        title={draft.title}
-        url={draft.url}
-        records={records}
-        busy={busy}
-        onUpload={onUpload}
-        onPublishAssets={onPublishAssets}
-        onPreparingChange={setPreparingIcon}
-        onSelect={(iconMediaId) =>
-          onChange({ ...draftRef.current, iconMediaId })
-        }
-      />
+        <div className="about-slot-preview wide-field">
+          <h4>About social icons</h4>
+          <p>
+            Choose one of the three cards above the notebook. This does not
+            change your Contact console placement.
+          </p>
+          <div className="about-slot-row" aria-label="About icon positions">
+            {aboutSlots
+              .filter((slot) => slot.id !== 'off')
+              .map((slot) => {
+                const saved = draftLinks.filter(
+                  (link) => link.aboutSlot === slot.id,
+                );
+                const live = records.filter(
+                  (record) =>
+                    record.kind === 'link' &&
+                    record.published?.aboutSlot === slot.id,
+                );
+                return (
+                  <div
+                    key={slot.id}
+                    className={draft.aboutSlot === slot.id ? 'is-selected' : ''}
+                  >
+                    <strong>{slot.label}</strong>
+                    <span>
+                      Draft:{' '}
+                      {saved.length
+                        ? saved
+                            .map((link) => link.title || 'Untitled link')
+                            .join(', ')
+                        : 'No link'}
+                    </span>
+                    <span>
+                      Live:{' '}
+                      {live.length
+                        ? live
+                            .map((record) => record.published!.title)
+                            .join(', ')
+                        : 'No link'}
+                    </span>
+                  </div>
+                );
+              })}
+          </div>
+          <label className="studio-field">
+            About position
+            <NativeSelect
+              value={draft.aboutSlot}
+              onChange={(event) => set('aboutSlot', event.target.value)}
+            >
+              {aboutSlots.map((slot) => (
+                <NativeSelectOption key={slot.id} value={slot.id}>
+                  {slot.label}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+          </label>
+          {aboutConflicts.length > 0 && (
+            <p role="status" className="form-error">
+              {occupied.length
+                ? `This position is live for ${occupied.map((record) => record.published!.title).join(', ')}. Change and publish that link’s About position before publishing this one.`
+                : `Another draft uses this position: ${aboutConflicts.map((record) => record.draft.title || 'Untitled link').join(', ')}. Choose different positions before publishing both links.`}{' '}
+              You can save your draft while arranging the cards.
+            </p>
+          )}
+        </div>
+      </section>
+      <section
+        className="studio-field-group social-link-group wide-field"
+        aria-label="Icon appearance"
+      >
+        <h3>Icon appearance</h3>
+        <p>
+          Choose a shared platform mark, with an optional custom icon for About.
+        </p>
+        <div className="social-channel-preview wide-field">
+          <svg
+            viewBox={icon.viewBox}
+            aria-hidden="true"
+            fill={icon.filled ? 'currentColor' : 'none'}
+            stroke={icon.filled ? 'none' : 'currentColor'}
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d={icon.path} />
+          </svg>
+          <div>
+            <strong>
+              {draft.title ||
+                (draft.platform === 'custom'
+                  ? 'Your social channel'
+                  : icon.label)}
+            </strong>
+            <span>{draft.description || 'Contact console preview'}</span>
+          </div>
+        </div>
+        <fieldset
+          className="social-preset-fields wide-field"
+          disabled={busy || preparingIcon}
+        >
+          <legend>Popular icons</legend>
+          <p>
+            Choose a platform, or upload your own icon below. Choosing a preset
+            replaces any custom icon.
+          </p>
+          <div className="social-preset-grid">
+            {socialPlatforms.map((platform) => (
+              <button
+                key={platform.id}
+                type="button"
+                aria-label={`Use ${platform.label} icon`}
+                aria-pressed={
+                  draft.platform === platform.id && !draft.iconMediaId
+                }
+                onClick={() =>
+                  onChange({
+                    ...draft,
+                    platform: platform.id,
+                    iconMediaId: '',
+                    title:
+                      !draft.title || draft.title === icon.label
+                        ? platform.id === 'custom'
+                          ? ''
+                          : platform.label
+                        : draft.title,
+                  })
+                }
+              >
+                <SocialIconMark platform={platform.id} />
+                <span>{platform.label}</span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+        <SocialIconFields
+          mediaId={draft.iconMediaId || ''}
+          platform={draft.platform}
+          title={draft.title}
+          url={draft.url}
+          records={records}
+          busy={busy}
+          onUpload={onUpload}
+          onPublishAssets={onPublishAssets}
+          onPreparingChange={setPreparingIcon}
+          onSelect={(iconMediaId) =>
+            onChange({ ...draftRef.current, iconMediaId })
+          }
+        />
+      </section>
       <p className="wide-field setup-help">
         Save a draft to preview it privately, then publish to update the
         selected rooms and Reading view. Changing the platform never changes

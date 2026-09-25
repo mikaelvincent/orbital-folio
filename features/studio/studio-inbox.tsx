@@ -16,20 +16,22 @@ export function StudioInbox({
 }) {
   return (
     <section className="studio-panel">
-      <h2>Incoming transmissions</h2>
-      <button
-        className="quiet-button"
-        onClick={async () => {
-          const r = await fetch('/api/admin/inbox');
-          const b: any = await r.json();
-          if (r.ok) {
-            setInbox(b.inquiries);
-            setMoreInbox(b.hasMore);
-          }
-        }}
-      >
-        Refresh inbox
-      </button>
+      <div className="studio-panel-header">
+        <h2>Incoming transmissions</h2>
+        <button
+          className="quiet-button"
+          onClick={async () => {
+            const r = await fetch('/api/admin/inbox');
+            const b: any = await r.json();
+            if (r.ok) {
+              setInbox(b.inquiries);
+              setMoreInbox(b.hasMore);
+            }
+          }}
+        >
+          Refresh inbox
+        </button>
+      </div>
       <p>
         Messages are stored here. Email delivery is not configured. Reply using
         your own email application.

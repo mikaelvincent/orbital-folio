@@ -1,0 +1,2 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/studio/admin-studio.tsx features/studio/studio-content-fields.tsx features/studio/social-link-fields.tsx features/studio/studio-inbox.tsx features/studio/journal-page-preview.tsx

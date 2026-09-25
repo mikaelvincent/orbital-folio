@@ -1,5 +1,6 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import './studio-presentation.css';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Orbit,
   ArrowUpRight,
@@ -75,6 +76,23 @@ export function AdminStudio({
   const [members, setMembers] = useState(admins);
   const [search, setSearch] = useState('');
   const [moreInbox, setMoreInbox] = useState(inquiries.length === 100);
+  const commandBar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const bar = commandBar.current;
+    const studio = bar?.closest<HTMLElement>('.studio');
+    if (!bar || !studio) return;
+    // Feedback and wrapping change the sticky bar's height. Keep keyboard and
+    // native validation targets clear without assuming a fixed toolbar size.
+    const measure = () =>
+      studio.style.setProperty(
+        '--studio-command-height',
+        `${bar.offsetHeight}px`,
+      );
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(bar);
+    return () => observer.disconnect();
+  }, [tab]);
   const current = records.find((r) => r.id === selected);
   const storyNoun =
     kind === 'journal'
@@ -280,6 +298,28 @@ export function AdminStudio({
       setBusy(false);
     }
   };
+  const draftState = dirty
+    ? 'Unsaved changes'
+    : current?.published
+      ? JSON.stringify(current.draft) === JSON.stringify(current.published)
+        ? 'Draft matches published'
+        : 'Saved draft · unpublished changes'
+      : 'Private draft';
+  const feedback = (
+    <div className="studio-feedback" aria-live="polite">
+      {message && (
+        <p className="studio-success">
+          <Check size={16} />
+          {message}
+        </p>
+      )}
+      {error && (
+        <p role="alert" className="form-error">
+          {error}
+        </p>
+      )}
+    </div>
+  );
   const preview =
     kind === 'project'
       ? '/admin/preview?section=projects&id=' + selected
@@ -320,10 +360,6 @@ export function AdminStudio({
             <h1>Content studio</h1>
             <p>Edit privately. Preview the result. Publish when it’s ready.</p>
           </div>
-          <a className="button" href="/api/admin/export">
-            <Download size={16} />
-            Export content
-          </a>
         </div>
         <Tabs
           value={tab}
@@ -335,19 +371,7 @@ export function AdminStudio({
             <TabsTrigger value="inbox">Inbox · {inbox.length}</TabsTrigger>
             <TabsTrigger value="settings">Access & portability</TabsTrigger>
           </TabsList>
-          <div className="studio-feedback" aria-live="polite">
-            {message && (
-              <p className="studio-success">
-                <Check size={16} />
-                {message}
-              </p>
-            )}
-            {error && (
-              <p role="alert" className="form-error">
-                {error}
-              </p>
-            )}
-          </div>
+          {tab !== 'content' && feedback}
           <TabsContent value="content">
             <div className="studio-workspace">
               <aside className="studio-sidebar">
@@ -375,11 +399,39 @@ export function AdminStudio({
                     ))}
                   </NativeSelect>
                 </label>
-                <div className="record-list">
+                <label className="studio-field studio-record-select">
+                  Entry · {visible.length}
+                  <NativeSelect
+                    value={selected}
+                    onChange={(event) => choose(event.target.value)}
+                  >
+                    {selected === 'new' && (
+                      <NativeSelectOption value="new">
+                        New entry
+                      </NativeSelectOption>
+                    )}
+                    {visible.map((record) => (
+                      <NativeSelectOption key={record.id} value={record.id}>
+                        {record.kind === 'site'
+                          ? record.draft.name
+                          : record.draft.title}{' '}
+                        ·{' '}
+                        {record.published
+                          ? JSON.stringify(record.draft) ===
+                            JSON.stringify(record.published)
+                            ? 'Published'
+                            : 'Unpublished changes'
+                          : 'Draft'}
+                      </NativeSelectOption>
+                    ))}
+                  </NativeSelect>
+                </label>
+                <div className="record-list" aria-label="Entries">
                   {visible.map((r) => (
                     <button
                       key={r.id}
                       className={selected === r.id ? 'active' : ''}
+                      aria-current={selected === r.id ? 'true' : undefined}
                       onClick={() => choose(r.id)}
                     >
                       <span>
@@ -416,24 +468,27 @@ export function AdminStudio({
                   </button>
                 )}
                 {kind === 'project' && (
-                  <label className="studio-field project-zip-import">
-                    Import project ZIP
-                    <input
-                      type="file"
-                      accept="application/zip,.zip"
-                      disabled={busy}
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        e.target.value = '';
-                        if (file) void importProject(file);
-                      }}
-                    />
-                    <small>
-                      One Markdown project with metadata and media. Up to 16 MiB
-                      compressed, 24 MiB expanded, 100 files. Always imported
-                      privately.
-                    </small>
-                  </label>
+                  <details className="studio-import-details">
+                    <summary>Import project ZIP</summary>
+                    <label className="studio-field project-zip-import">
+                      Import project ZIP
+                      <input
+                        type="file"
+                        accept="application/zip,.zip"
+                        disabled={busy}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          e.target.value = '';
+                          if (file) void importProject(file);
+                        }}
+                      />
+                      <small>
+                        One Markdown project with metadata and media. Up to 16
+                        MiB compressed, 24 MiB expanded, 100 files. Always
+                        imported privately.
+                      </small>
+                    </label>
+                  </details>
                 )}
                 <div className="studio-note">
                   <Shield size={17} />
@@ -455,12 +510,8 @@ export function AdminStudio({
                           : current?.draft.title}
                     </h2>
                   </div>
-                  <span className="editor-status">
-                    {dirty
-                      ? 'Unsaved changes'
-                      : current?.published
-                        ? 'Published snapshot available'
-                        : 'Private draft'}
+                  <span className={`editor-status ${dirty ? 'is-dirty' : ''}`}>
+                    {draftState}
                   </span>
                 </div>
                 {kind === 'site' && (
@@ -561,6 +612,91 @@ export function AdminStudio({
                     });
                   }}
                 >
+                  <div
+                    className="editor-command-bar"
+                    ref={commandBar}
+                    id="draft-actions"
+                    tabIndex={-1}
+                  >
+                    <div className="editor-actions" aria-label="Draft actions">
+                      <button
+                        className="button amber"
+                        type="submit"
+                        disabled={busy}
+                      >
+                        <Save size={16} />
+                        Save draft
+                      </button>
+                      {current && (
+                        <>
+                          <a
+                            className={`button ${dirty ? 'disabled-link' : ''}`}
+                            href={preview}
+                            target="_blank"
+                            rel="noopener"
+                            aria-disabled={dirty}
+                            onClick={(e) => {
+                              if (dirty) e.preventDefault();
+                            }}
+                          >
+                            <Eye size={16} />
+                            Preview saved draft
+                          </a>
+                          {(kind === 'site' || kind === 'link') && (
+                            <a
+                              className={`button ${dirty ? 'disabled-link' : ''}`}
+                              href="/admin/preview?section=about"
+                              target="_blank"
+                              rel="noopener"
+                              aria-disabled={dirty}
+                              onClick={(event) => {
+                                if (dirty) event.preventDefault();
+                              }}
+                            >
+                              <Eye size={15} /> Preview About
+                            </a>
+                          )}
+                          <button
+                            className="button publish-button"
+                            type="button"
+                            disabled={busy || dirty}
+                            onClick={() =>
+                              act({
+                                action: 'publish',
+                                id: selected,
+                                revision: current.revision,
+                              })
+                            }
+                          >
+                            Publish
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    {dirty && (
+                      <button
+                        type="button"
+                        className="button"
+                        onClick={() => {
+                          setEditorReset((value) => value + 1);
+                          setData(
+                            current
+                              ? { ...current.draft }
+                              : { ...templates[kind] },
+                          );
+                          setError('');
+                        }}
+                      >
+                        Discard unsaved edits
+                      </button>
+                    )}
+                    {dirty && current && (
+                      <p className="editor-hint">
+                        Save the draft to enable preview and publishing.
+                      </p>
+                    )}
+                    {feedback}
+                  </div>
                   {kind === 'project' || kind === 'experience' ? (
                     <ProjectEditor
                       key={`${selected}:${editorReset}`}
@@ -587,58 +723,16 @@ export function AdminStudio({
                       onPublishAssets={publishProjectAssets}
                     />
                   )}
-                  <div className="editor-actions">
-                    <button
-                      className="button amber"
-                      type="submit"
-                      disabled={busy}
+                  <a className="studio-return-actions" href="#draft-actions">
+                    Back to draft actions ↑
+                  </a>
+                  {current && kind !== 'site' && (
+                    <div
+                      className="editor-record-actions"
+                      aria-label="Record management"
                     >
-                      <Save size={16} />
-                      Save draft
-                    </button>
-                    {current && (
-                      <>
-                        <a
-                          className={`button ${dirty ? 'disabled-link' : ''}`}
-                          href={preview}
-                          target="_blank"
-                          rel="noopener"
-                          aria-disabled={dirty}
-                          onClick={(e) => {
-                            if (dirty) e.preventDefault();
-                          }}
-                        >
-                          <Eye size={16} />
-                          Preview saved draft
-                        </a>
-                        {(kind === 'site' || kind === 'link') && (
-                          <a
-                            className={`button ${dirty ? 'disabled-link' : ''}`}
-                            href="/admin/preview?section=about"
-                            target="_blank"
-                            rel="noopener"
-                            aria-disabled={dirty}
-                            onClick={(event) => {
-                              if (dirty) event.preventDefault();
-                            }}
-                          >
-                            <Eye size={15} /> Preview About
-                          </a>
-                        )}
-                        <button
-                          className="button publish-button"
-                          type="button"
-                          disabled={busy || dirty}
-                          onClick={() =>
-                            act({
-                              action: 'publish',
-                              id: selected,
-                              revision: current.revision,
-                            })
-                          }
-                        >
-                          Publish
-                        </button>
+                      <p className="eyebrow">Record management</p>
+                      <div>
                         {kind === 'project' && (
                           <a
                             className={`button ${dirty || busy ? 'disabled-link' : ''}`}
@@ -652,7 +746,7 @@ export function AdminStudio({
                             Export project ZIP
                           </a>
                         )}
-                        {current.published && kind !== 'site' && (
+                        {current.published && (
                           <button
                             className="quiet-button"
                             type="button"
@@ -668,47 +762,23 @@ export function AdminStudio({
                             Unpublish
                           </button>
                         )}
-                        {kind !== 'site' && (
-                          <button
-                            className="quiet-button delete-button"
-                            type="button"
-                            disabled={busy}
-                            onClick={() =>
-                              setPending({
-                                action: 'delete',
-                                id: selected,
-                                revision: current.revision,
-                              })
-                            }
-                          >
-                            <Trash2 size={15} />
-                            Delete
-                          </button>
-                        )}
-                      </>
-                    )}
-                  </div>
-                  {dirty && (
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={() => {
-                        setEditorReset((value) => value + 1);
-                        setData(
-                          current
-                            ? { ...current.draft }
-                            : { ...templates[kind] },
-                        );
-                        setError('');
-                      }}
-                    >
-                      Discard unsaved edits
-                    </button>
-                  )}
-                  {dirty && current && (
-                    <p className="editor-hint">
-                      Save the draft to enable preview and publishing.
-                    </p>
+                        <button
+                          className="quiet-button delete-button"
+                          type="button"
+                          disabled={busy}
+                          onClick={() =>
+                            setPending({
+                              action: 'delete',
+                              id: selected,
+                              revision: current.revision,
+                            })
+                          }
+                        >
+                          <Trash2 size={15} />
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   )}
                   {kind !== 'site' && (
                     <p className="editor-hint">
@@ -751,7 +821,7 @@ export function AdminStudio({
           if (!open) setPending(null);
         }}
       >
-        <AlertDialogContent>
+        <AlertDialogContent className="studio-dialog">
           <AlertDialogHeader>
             <AlertDialogTitle>
               {pending?.action === 'unpublish'

@@ -1,0 +1,63 @@
+{
+  "seededAt": "2026-09-25T11:07:29.788Z",
+  "baseUrl": "http://127.0.0.1:3003",
+  "method": "Supported fixture APIs only: local sign-in, /api/contact, /api/admin/upload and /api/admin save.",
+  "baselineEmptyInboxInspected": true,
+  "noExternalMessageDelivery": true,
+  "mainStoreOrPrivateFilesUsed": false,
+  "inquiries": [
+    {
+      "id": "05df7a5c-4c42-4ca2-aba9-13f7c2d673da",
+      "name": "Synthetic — Northstar Research Collective",
+      "email": "studio.review.long-address-for-layout-checks@example.test",
+      "intent": "project",
+      "message": "Synthetic studio review fixture — no real inquiry.\r\n\r\nWe are exploring an editorial archive for a small research team. It needs accessible long-form articles, searchable project collections, and a straightforward publishing workflow for people who do not write code.\r\n\r\nThe first phase would cover content structure, a reusable visual system, and a working prototype. Please let us know what information would help you estimate the scope. This longer message exercises line wrapping and paragraph spacing in the studio inbox.",
+      "created_at": "2026-09-25T11:06:05.340Z"
+    },
+    {
+      "id": "fa9e14a7-30e0-49b6-8b92-8362da04fb7a",
+      "name": "Synthetic — Avery Morgan",
+      "email": "avery.morgan@example.test",
+      "intent": "interview",
+      "message": "Synthetic studio review fixture — no real inquiry.\r\n\r\nI would like to discuss a front-end engineering role focused on accessible interactive experiences. Are you available for a short introduction next week?",
+      "created_at": "2026-09-25T11:06:05.332Z"
+    }
+  ],
+  "media": {
+    "id": "9ff5ac61-ef6b-4898-a990-25b898362c5f",
+    "status": "private draft",
+    "source": "scripts/assets/about-demos/fictional-portrait.webp",
+    "sourceSha256": "d80eeabb625612426c134ca3ea844b110b15e4472b72194f70faad1a81bf7807",
+    "bytes": 164618,
+    "title": "synthetic-studio-review-portrait.webp",
+    "provenance": "Exact committed fictional portrait demo image, no transformation; not a real owner photo.",
+    "transformed": false
+  },
+  "project": {
+    "id": "f21c5dbb-9671-41a1-a73a-171f3e3222b0",
+    "status": "private draft",
+    "data": {
+      "slug": "synthetic-studio-layout-review",
+      "title": "Synthetic studio review — an accessible research archive and publishing workspace for an interdisciplinary team with a deliberately long descriptive project title",
+      "subtitle": "Private draft used only to inspect studio composition and responsive controls.",
+      "summary": "Synthetic studio review content. This draft tests long titles, media selection and Markdown editing; it does not describe a real shipped project.",
+      "categories": ["systems", "interfaces"],
+      "body": "## Review fixture\n\nThis synthetic draft exists only in the disposable Stage 14 studio checkout. It is not a published portfolio project.\n\n## Content structure\n\n- Long collection titles and descriptive summaries\n- A private managed image from a committed sample asset\n- Draft and published state controls\n\n## Reading sample\n\nA comfortable authoring interface keeps the current document, its publication state, and its next action understandable. This paragraph supplies enough text to inspect the editor and draft preview without introducing private content.",
+      "role": "Synthetic review fixture",
+      "stack": "React · TypeScript · Three.js",
+      "mediaId": "9ff5ac61-ef6b-4898-a990-25b898362c5f",
+      "order": 999,
+      "sample": true
+    }
+  },
+  "recordCount": 25,
+  "inquiryCount": 2,
+  "rejectedPreparationAttempts": [
+    {
+      "source": "public/textures/earth-europe-loop.webp",
+      "bytes": 2862376,
+      "status": 413,
+      "note": "Initial larger image upload rejected; no media record created. Switched to the smaller committed fictional portrait sample. Response body was not captured; no cause is asserted."
+    }
+  ]
+}

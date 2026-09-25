@@ -3453,6 +3453,27 @@ The independent critic scored **95/100** with 55% visual-design weight and no
 unresolved blockers. This is a new authored interface baseline; held performance
 candidates remain held. Safari and hardware keyboard/screen-reader checks remain unperformed.
 
+## 67 — Content studio presentation baseline (25 September 2026)
+
+Stage 14 improves authenticated editing hierarchy, responsive record selection,
+draft/live state, form grouping, error contrast and confirmation presentation.
+See [source-identified evidence](evidence/content-studio-design/README.md).
+The six studio sources introduce scoped CSS/markup and one ResizeObserver for
+keyboard clearance while the Content tab is mounted. Source inspection finds no
+new spacecraft geometry, shader, pass or runtime image asset. No CPU/GPU timing,
+memory, heat or battery comparison was made, and no speedup is claimed.
+
+Actual hidden Chromium checks used 1280×800, 390×844 and 320×740 CSS viewports at
+DPR 2; screenshots are scaled to CSS-pixel dimensions. The authenticated 3003
+fixture used fresh test-only state; main 3000 public checks were read-only.
+A separate fresh 3004 suite passed 588/588. Final typecheck, build, affected lint,
+CSS parsing and 15/15 focused tests passed after critic refinements. The critic
+scored the final work **94/100**, with no unresolved blockers; exact snapshot
+identities and review revisions remain in the evidence folder. The notebook
+layout proof intentionally remains full-size and pans horizontally on narrow
+screens. This is an authored UI baseline, not adoption of any held optimization.
+Safari, physical-device and controlled performance checks remain unperformed.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

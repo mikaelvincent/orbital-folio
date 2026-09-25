@@ -92,11 +92,12 @@ const labels: Record<string, string> = {
   initials: 'Brand initials',
   domain: 'Canonical domain (HTTPS)',
   email: 'Public contact email',
-  sampleMode: 'Show sample notice & keep search indexing off',
+  sampleMode: 'Sample mode · keep search indexing off',
+  sampleNotice: 'Sample notice text (retained metadata)',
   accent: 'Accent color',
   seoTitle: 'Search & social title',
   seoDescription: 'Search & social description',
-  sample: 'Clearly label as sample content',
+  sample: 'Sample content metadata',
   order: 'Display order (smaller numbers first)',
   demoUrl: 'Independent demo URL (optional)',
   sourceUrl: 'Source repository URL (optional)',
@@ -187,6 +188,8 @@ export function StudioContentFields({
         journalRecordId={selected}
       />
     );
+  const siteFieldOrder =
+    siteGroup === 'profile' ? profileKeys : siteGroup === 'seo' ? seoKeys : [];
   const filteredKeys = [
     ...new Set([
       ...Object.keys(data),
@@ -214,6 +217,11 @@ export function StudioContentFields({
     )
     .filter(
       (k) => !search || label(k).toLowerCase().includes(search.toLowerCase()),
+    )
+    .sort((a, b) =>
+      kind === 'site' && siteFieldOrder.length
+        ? siteFieldOrder.indexOf(a) - siteFieldOrder.indexOf(b)
+        : 0,
     );
   return (
     <fieldset
@@ -231,6 +239,11 @@ export function StudioContentFields({
           onUpload={onUpload}
           onPublishAssets={onPublishAssets}
         />
+      ) : kind === 'site' && search && !filteredKeys.length ? (
+        <p className="studio-fields-empty wide-field" role="status">
+          No settings match “{search}” in this section. Try another field name
+          or clear the search.
+        </p>
       ) : (
         filteredKeys.map((key) => {
           const value = data[key];

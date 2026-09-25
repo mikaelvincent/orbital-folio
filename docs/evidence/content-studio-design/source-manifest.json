@@ -1,0 +1,29 @@
+{
+  "baselineRevision": "496e91b55288792adf9abe1e9b6b7884965202ea",
+  "finalSources": [
+    {
+      "path": "features/studio/admin-studio.tsx",
+      "sha256": "24fe113241894441a5b602afd77bad996c91bbec494ac0dd02ef43b8ea1c6068"
+    },
+    {
+      "path": "features/studio/studio-presentation.css",
+      "sha256": "acef72f15bce057d6e4981745daf2f456956478b783f90f23a4c245522216fec"
+    },
+    {
+      "path": "features/studio/studio-content-fields.tsx",
+      "sha256": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9"
+    },
+    {
+      "path": "features/studio/social-link-fields.tsx",
+      "sha256": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399"
+    },
+    {
+      "path": "features/studio/studio-inbox.tsx",
+      "sha256": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe"
+    },
+    {
+      "path": "features/studio/journal-page-preview.tsx",
+      "sha256": "6e57f7c8dd2decbb567dea79ecece1a50e1a5e76b87b14e0b33228b1d96be0f4"
+    }
+  ]
+}

@@ -1,0 +1,370 @@
+{
+  "verifiedAt": "2026-09-25T11:14:23.582014+00:00",
+  "baselineRevision": "496e91b55288792adf9abe1e9b6b7884965202ea",
+  "result": "Initial full suite 588/588 and post-critic focused suite 15/15 passed. Final typecheck, build, CSS parse and affected lint pass; the documented comment-only lint adjustment is source-identified below.",
+  "sourceFiles": [
+    {
+      "path": "features/studio/admin-studio.tsx",
+      "sha256": "24fe113241894441a5b602afd77bad996c91bbec494ac0dd02ef43b8ea1c6068",
+      "fixtureSha256AfterChecks": "24fe113241894441a5b602afd77bad996c91bbec494ac0dd02ef43b8ea1c6068",
+      "currentSha256AfterChecks": "24fe113241894441a5b602afd77bad996c91bbec494ac0dd02ef43b8ea1c6068",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-presentation.css",
+      "sha256": "acef72f15bce057d6e4981745daf2f456956478b783f90f23a4c245522216fec",
+      "fixtureSha256AfterChecks": "acef72f15bce057d6e4981745daf2f456956478b783f90f23a4c245522216fec",
+      "currentSha256AfterChecks": "acef72f15bce057d6e4981745daf2f456956478b783f90f23a4c245522216fec",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-content-fields.tsx",
+      "sha256": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "fixtureSha256AfterChecks": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "currentSha256AfterChecks": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/social-link-fields.tsx",
+      "sha256": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "fixtureSha256AfterChecks": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "currentSha256AfterChecks": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-inbox.tsx",
+      "sha256": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "fixtureSha256AfterChecks": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "currentSha256AfterChecks": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/journal-page-preview.tsx",
+      "sha256": "6e57f7c8dd2decbb567dea79ecece1a50e1a5e76b87b14e0b33228b1d96be0f4",
+      "fixtureSha256AfterChecks": "6e57f7c8dd2decbb567dea79ecece1a50e1a5e76b87b14e0b33228b1d96be0f4",
+      "currentSha256AfterChecks": "6e57f7c8dd2decbb567dea79ecece1a50e1a5e76b87b14e0b33228b1d96be0f4",
+      "matchesCurrentSource": true
+    }
+  ],
+  "finalSourceFrozenAt": "2026-09-25T11:23:43.762319+00:00",
+  "fullSuiteSnapshot": {
+    "frozenAt": "2026-09-25T11:08:14.628495+00:00",
+    "fullSuiteRepeated": false,
+    "onlyDifferenceFromPreCriticStaticSource": {
+      "path": "features/studio/studio-presentation.css",
+      "suiteSha256": "aaa63ed33f7ccc8dae0e51cdd4d9f035886086d8ff4838fb3f9227275128c3ec",
+      "finalSha256": "13d864ebaaec574eb8ec50d00dbd027e149c8fa5a891d3c02c1d53c0ace1565e",
+      "reason": "Dialog surface/target refinements, inbox spacing and final-owner divider adjustment followed rendered review. All four TSX files stayed identical."
+    },
+    "preCriticStylesVerifiedBy": ["PostCSS syntax parsing", "production build"]
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-verify-_5m6aqfa",
+    "testBaseUrl": "http://127.0.0.1:3004",
+    "sourceOnlyGitArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "secretFileMode": "0600",
+    "testOwnerBootstrappedBeforeSuite": true,
+    "ownerAccessHttpStatus": 200,
+    "initialStockRecords": 23,
+    "initialInquiries": 0,
+    "visualFixture3003DataCopied": false,
+    "visualFixture3003Untouched": true,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-verify-_5m6aqfa/.vite-stage14-verification-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-verify-_5m6aqfa/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolated3004": true
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3004 npm test",
+      "exitCode": 0,
+      "tests": 588,
+      "passed": 588,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 184708.67675,
+      "log": "docs/evidence/content-studio-design/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/evidence/content-studio-design/checks/typecheck.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/studio/admin-studio.tsx features/studio/studio-content-fields.tsx features/studio/social-link-fields.tsx features/studio/studio-inbox.tsx",
+      "exitCode": 0,
+      "log": "docs/evidence/content-studio-design/checks/lint.log"
+    },
+    "cssParse": {
+      "method": "postcss.parse of final features/studio/studio-presentation.css",
+      "exitCode": 0,
+      "log": "docs/evidence/content-studio-design/checks/css-parse.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryPrecheckPassed": true,
+      "log": "docs/evidence/content-studio-design/checks/build.log"
+    }
+  },
+  "warnings": [
+    "Node DEP0205: module.register() is deprecated in favor of module.registerHooks().",
+    "Some minified production chunks exceed 500 kB.",
+    "Vinext static analysis reports /experience as unknown."
+  ],
+  "failures": [],
+  "logs": {
+    "test": {
+      "path": "docs/evidence/content-studio-design/checks/test.log",
+      "rawSha256": "37c53498b1fbdddc9cd59b6d25b5540f4da61911d966001dfa9b73c73bf63342",
+      "normalizedSha256": "fff837c80d17c59344883e304b63b62c52e605d85951ce6a4d93efc18786b190"
+    },
+    "typecheck": {
+      "path": "docs/evidence/content-studio-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "lint": {
+      "path": "docs/evidence/content-studio-design/checks/lint.log",
+      "rawSha256": "b8ee47ccb3500e0939811c5e28b8f8ad26094aba3c4f32892e12c67216880a4e",
+      "normalizedSha256": "c17496374f2d918c87e8b9b01dfb0ee6b314cb8de7edcb8f3f2edd5ec6e1c8f7"
+    },
+    "css-parse": {
+      "path": "docs/evidence/content-studio-design/checks/css-parse.log",
+      "rawSha256": "89176030466463130898f44d35e539c216e4120a27d78c2c55e000bb46208da8",
+      "normalizedSha256": "89176030466463130898f44d35e539c216e4120a27d78c2c55e000bb46208da8"
+    },
+    "build": {
+      "path": "docs/evidence/content-studio-design/checks/build.log",
+      "rawSha256": "74ed48cd8cca643c953e8d6da2584075b9926918ca9f1b6a816e286963b8594e",
+      "normalizedSha256": "a723e2cdf9c6da84685ccc7d210e94c942436d9eb4c6e499f3f36a4d012e91d0"
+    }
+  },
+  "logNormalization": "Removed ANSI control sequences, trailing whitespace and outer blank lines; retained commands, results, durations and warnings. Test-only secret values were checked absent before copying.",
+  "limitations": [
+    "The full suite used the earlier CSS snapshot recorded above; the pre-critic final CSS was then parsed and built. TSX source stayed unchanged within that phase. Post-critic source and checks are explicitly recorded separately.",
+    "Automated checks do not judge rendered design. Matching browser evidence and independent criticism are recorded separately.",
+    "Check/build durations are elapsed verification times, not controlled rendering performance, heat, battery or memory measurements.",
+    "Post-critic verification is separate from the initial 588-test snapshot. Final lint follows a comment-only exemption; removing that exact comment reproduces the source used by the 15 pure tests, typecheck and build."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T11:14:53.077867+00:00",
+    "status": "complete: verification3004 and visual3003 fixtures removed; main3000 preserved",
+    "fixtureRemoved": true,
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-verify-_5m6aqfa",
+    "port3004HasListener": false,
+    "stoppedServerSession": 14942,
+    "temporaryTestSecretsAndStateRemoved": true,
+    "durableLogsRetained": true,
+    "main3000HttpStatus": 200,
+    "visual3003HttpStatus": 200,
+    "visual3003SessionRetained": false
+  },
+  "preCriticSourceFiles": [
+    {
+      "path": "features/studio/admin-studio.tsx",
+      "sha256": "ad425cd60e336f7ddc0fdbd3c89ad41f92a0b03b2c838ef23ee37bf756126038",
+      "fixtureSha256AfterChecks": "ad425cd60e336f7ddc0fdbd3c89ad41f92a0b03b2c838ef23ee37bf756126038",
+      "currentSha256AfterChecks": "ad425cd60e336f7ddc0fdbd3c89ad41f92a0b03b2c838ef23ee37bf756126038",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-presentation.css",
+      "sha256": "13d864ebaaec574eb8ec50d00dbd027e149c8fa5a891d3c02c1d53c0ace1565e",
+      "fixtureSha256AfterChecks": "13d864ebaaec574eb8ec50d00dbd027e149c8fa5a891d3c02c1d53c0ace1565e",
+      "currentSha256AfterChecks": "13d864ebaaec574eb8ec50d00dbd027e149c8fa5a891d3c02c1d53c0ace1565e",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-content-fields.tsx",
+      "sha256": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "fixtureSha256AfterChecks": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "currentSha256AfterChecks": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/social-link-fields.tsx",
+      "sha256": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "fixtureSha256AfterChecks": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "currentSha256AfterChecks": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/studio/studio-inbox.tsx",
+      "sha256": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "fixtureSha256AfterChecks": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "currentSha256AfterChecks": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe",
+      "matchesCurrentSource": true
+    }
+  ],
+  "preCriticStaticSourceFrozenAt": "2026-09-25T11:12:56.624484+00:00",
+  "postCriticVerification": {
+    "verifiedAt": "2026-09-25T11:23:43.762413+00:00",
+    "sourceUsedForBuildAndPureTests": {
+      "frozenAt": "2026-09-25T11:18:36.274735+00:00",
+      "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7",
+      "sourceFiles": [
+        {
+          "path": "features/studio/admin-studio.tsx",
+          "sha256": "24fe113241894441a5b602afd77bad996c91bbec494ac0dd02ef43b8ea1c6068"
+        },
+        {
+          "path": "features/studio/studio-presentation.css",
+          "sha256": "acef72f15bce057d6e4981745daf2f456956478b783f90f23a4c245522216fec"
+        },
+        {
+          "path": "features/studio/studio-content-fields.tsx",
+          "sha256": "531c4af1451e011a3b931257c90aef9c95d1f7278f93fea97bc2fc99d75c21e9"
+        },
+        {
+          "path": "features/studio/social-link-fields.tsx",
+          "sha256": "6ab9ba1bdcbadbb887118f77b4131dd622c80b957bc9fb4ab0671a84dcefc399"
+        },
+        {
+          "path": "features/studio/studio-inbox.tsx",
+          "sha256": "e1d840d2cb4e7ae39c857c5ea9831e1b012a8b1788d4fcda3f6a0bc1194280fe"
+        },
+        {
+          "path": "features/studio/journal-page-preview.tsx",
+          "sha256": "fef6e506ac464ef691cf0d3d1cd6a71ad6a387dc2da00853b606523e78ed7d18"
+        }
+      ],
+      "testsInspectedForDataMutations": [
+        "tests/content/journal-content.test.mjs",
+        "tests/content/project-editor.test.mjs"
+      ],
+      "mutationInspection": "Both files use in-memory helpers, esbuild write:false, and React static rendering. No fetch, API, emulator, environment-secret, or persisted-storage calls."
+    },
+    "commentOnlyFinalAdjustment": {
+      "path": "features/studio/journal-page-preview.tsx",
+      "testedRuntimeSourceSha256": "fef6e506ac464ef691cf0d3d1cd6a71ad6a387dc2da00853b606523e78ed7d18",
+      "finalCommentedSourceSha256": "6e57f7c8dd2decbb567dea79ecece1a50e1a5e76b87b14e0b33228b1d96be0f4",
+      "removingOnlyTheDocumentedLintCommentMatchesTestedSource": true,
+      "reason": "Named, focusable fixed-width paper region needs keyboard scrolling. Only the noninteractive tabindex lint rule is documented as an exception.",
+      "lintRerunPassed": true,
+      "buildOrPureTestsRepeated": false
+    },
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7",
+    "baseUrl": "http://127.0.0.1:3003",
+    "purpose": "Final critic refinements: measured command-bar scroll clearance, field-group error presentation and keyboard-accessible full-size notebook preview.",
+    "dataMutatingTestsRun": false,
+    "fullSuiteRepeated": false,
+    "reasonForFocusedTests": "No backend, workflow or shared model implementation changed after the prior full pass. The two inspected files exercise in-memory journal rendering and authoring helpers without network or persisted-storage calls.",
+    "checks": {
+      "pureTests": {
+        "command": "TEST_BASE_URL=http://127.0.0.1:3003 node --test --test-concurrency=1 tests/content/journal-content.test.mjs tests/content/project-editor.test.mjs",
+        "exitCode": 0,
+        "tests": 15,
+        "passed": 15,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 853.576041,
+        "log": "docs/evidence/content-studio-design/checks/post-critic-test.log"
+      },
+      "typecheck": {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "log": "docs/evidence/content-studio-design/checks/post-critic-typecheck.log"
+      },
+      "affectedLint": {
+        "command": "npm run lint -- features/studio/admin-studio.tsx features/studio/studio-content-fields.tsx features/studio/social-link-fields.tsx features/studio/studio-inbox.tsx features/studio/journal-page-preview.tsx",
+        "initialExitCode": 1,
+        "initialLog": "docs/evidence/content-studio-design/checks/post-critic-lint-initial.log",
+        "initialFailure": "jsx-a11y/no-noninteractive-tabindex rejected the intentionally focusable named scroll region.",
+        "finalExitCode": 0,
+        "log": "docs/evidence/content-studio-design/checks/post-critic-lint.log"
+      },
+      "cssParse": {
+        "method": "postcss.parse of final studio-presentation.css",
+        "exitCode": 0,
+        "log": "docs/evidence/content-studio-design/checks/post-critic-css-parse.log"
+      },
+      "productionBuild": {
+        "command": "npm run build",
+        "exitCode": 0,
+        "geometryPrecheckPassed": true,
+        "log": "docs/evidence/content-studio-design/checks/post-critic-build.log"
+      }
+    },
+    "fixtureDataIntegrity": {
+      "unchanged": true,
+      "before": {
+        "/api/admin": {
+          "sha256": "3c3da0b4260245180542d81c110b9953aa4c34ac881013dfdee392f829ac24cb",
+          "count": 25
+        },
+        "/api/admin/inbox": {
+          "sha256": "10154676d3c7b3c8d32cbf6b0d3e37db8347360b53787193b21522e2913fc27f",
+          "count": 2
+        }
+      },
+      "after": {
+        "/api/admin": {
+          "sha256": "3c3da0b4260245180542d81c110b9953aa4c34ac881013dfdee392f829ac24cb",
+          "count": 25
+        },
+        "/api/admin/inbox": {
+          "sha256": "10154676d3c7b3c8d32cbf6b0d3e37db8347360b53787193b21522e2913fc27f",
+          "count": 2
+        }
+      },
+      "method": "Read-only hashes of parsed content records and inquiries immediately before/after the pure checks. No secret or content payload is stored in this integrity record."
+    },
+    "logs": {
+      "post-critic-test": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-test.log",
+        "rawSha256": "805070197aeb2c2aaf4f192b177d91679fa3e008f31ac07c2de0c812b73258c5",
+        "normalizedSha256": "805070197aeb2c2aaf4f192b177d91679fa3e008f31ac07c2de0c812b73258c5"
+      },
+      "post-critic-typecheck": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      },
+      "post-critic-lint-initial": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-lint-initial.log",
+        "rawSha256": "6b9e3d3b13e04284d1c11cb5226aa705279181527d43af99ce9537a447fc6c4a",
+        "normalizedSha256": "9cb0b935137934cde16255e613d884ae3e2b4edaa04c6addd3ff3c1d856a91bd"
+      },
+      "post-critic-lint": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-lint.log",
+        "rawSha256": "d81e5e294bbf479e6b72dd0ed9395727a2548d009f2302c6914ef31f2f88321e",
+        "normalizedSha256": "3c201282319fc6b4475744e5fb8dcc3c12db525ee55c4a4985612f3a557d587c"
+      },
+      "post-critic-css-parse": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-css-parse.log",
+        "rawSha256": "6ecb35bee3c65e1d60b51a5d1a560ffdf9f6a7c99bf0d277ba7337dfacb41347",
+        "normalizedSha256": "6ecb35bee3c65e1d60b51a5d1a560ffdf9f6a7c99bf0d277ba7337dfacb41347"
+      },
+      "post-critic-build": {
+        "path": "docs/evidence/content-studio-design/checks/post-critic-build.log",
+        "rawSha256": "28b13fbd96525a991515cd86219c337cecbb7c7a359df70f386a72f4636dd5e5",
+        "normalizedSha256": "b247f28be9e6017b6259ac8770ae0de595e02968c74d606fbadd05a048db2e7b"
+      }
+    },
+    "unresolvedFailures": [],
+    "cleanup": "Complete: visual3003 session8068 stopped and its disposable source, test secrets, emulator state and synthetic uploads removed. Evidence retained; main3000 HTTP200."
+  },
+  "checksScope": "Pre-critic full-suite/static phase. Post-critic checks and final source bindings are recorded in postCriticVerification.",
+  "visualFixtureCleanup": {
+    "verifiedAt": "2026-09-25T11:28:36.514573+00:00",
+    "status": "complete",
+    "stoppedServerSession": 8068,
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "testSecretsStateAndSyntheticUploadsRemoved": true,
+    "evidenceAndLogsPreserved": true,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "mainServerAndStorePreserved": true
+  }
+}

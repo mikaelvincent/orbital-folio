@@ -1,0 +1,23 @@
+✔ journal Markdown preserves authored whitespace, ordering and sample metadata without changing existing drafts (16.582333ms)
+✔ legacy page markers become paragraph breaks while code and authored whitespace are preserved (0.483417ms)
+✔ journal publication resolves only authored media and transitive video dependencies without publishing unrelated private files (11.51675ms)
+✔ journal soft line breaks remain visible while code and default project/case-study Markdown keep their original semantics (27.789042ms)
+✔ Studio journal editing uses shared Markdown preview and managed media controls while retaining only journal fields (108.445625ms)
+✔ journal editor keeps one continuous Markdown field without manual page controls or fit-gated saving (104.704417ms)
+✔ journal paper preview includes the biography from the prospective published notebook, ignoring unrelated private drafts (109.12375ms)
+✔ notebook Markdown accepts natural heading links and existing canonical anchors without changing other room readers (34.119417ms)
+✔ mounted notebook shows page controls only for sections with multiple pages and has no Back button (78.479958ms)
+✔ About Reading view exposes complete Markdown chapters and media safely with distinct per-chapter heading anchors (78.513333ms)
+✔ first save derives a URL while subsequent title edits preserve authored slugs and legacy story (0.781542ms)
+✔ media insertion replaces only the selected text and produces safe managed image/video references (0.127333ms)
+✔ explicit media publication includes referenced dependencies in order and excludes unrelated private files (9.847917ms)
+✔ missing references remain actionable instead of crashing the editor or reporting ready (0.131458ms)
+✔ upload limits distinguish images, video and captions before submitting (0.106667ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 853.576041

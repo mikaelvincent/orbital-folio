@@ -1,0 +1,4 @@
+> orbital-folio@0.1.0 lint
+> oxlint features/studio/admin-studio.tsx features/studio/studio-content-fields.tsx features/studio/social-link-fields.tsx features/studio/studio-inbox.tsx features/studio/journal-page-preview.tsx
+
+features/studio/journal-page-preview.tsx:102:9: error jsx-a11y(no-noninteractive-tabindex): `tabIndex` should only be declared on interactive elements. help: The `tabIndex` attribute should be removed.

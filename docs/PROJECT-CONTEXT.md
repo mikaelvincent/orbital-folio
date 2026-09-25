@@ -437,6 +437,31 @@ Stage 14 owns Content studio. Carry forward the same type hierarchy, restrained
 borders, clear focus and truthful state presentation without changing publication
 or authentication behavior.
 
+
+## Content studio interface — Stage 14
+
+The studio uses an ivory authoring surface, carbon frame/primary save action,
+restrained bronze selection accents and visible tonal section boundaries. The
+identity editor begins with name/brand content; portrait tooling follows.
+Desktop keeps a bounded collection rail; below 700px a labeled native Entry
+selector uses the same unsaved/busy guard. Project ZIP import is a disclosure.
+
+Save/private Preview/Publish precede the form. Export, Unpublish and Delete are
+separate record-management controls; whole-content export remains in Access &
+portability. Draft state distinguishes private, matching published, saved
+unpublished and unsaved edits. Desktop action-bar height is observed for keyboard
+and native-validation clearance; mobile remains ordinary document flow with a
+focusable return anchor. Social identity/destination, room placement and icon
+appearance are separate groups, preserving all slot/availability/publication
+rules. Sample settings describe metadata and indexing rather than visitor notices.
+
+The full-size notebook authoring proof retains its 438×428 ink and pagination.
+Narrow screens use a named keyboard-scrollable region with an explicit sideways
+scroll hint. No content reflow or paper geometry change is introduced. Scoped
+studio/confirmation styles preserve all visitor surfaces and prior stages.
+Authentication, schema, handlers, publication behavior and owner data are unchanged.
+See [Stage 14 comparisons, verification and review](evidence/content-studio-design/README.md).
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

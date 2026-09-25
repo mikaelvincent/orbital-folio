@@ -1,4 +1,5 @@
 'use client';
+/* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- The named paper overflow region needs focus for keyboard scrolling at its fixed preview size. */
 import { useCallback, useMemo, useState } from 'react';
 import type { Content } from '@/lib/content/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -92,7 +93,15 @@ export function JournalPagePreview({
 
   return (
     <div className="journal-page-review">
-      <div className="journal-paper-stage">
+      <p className="journal-paper-scroll-hint">
+        Full-size paper preview. Scroll sideways to inspect the whole page.
+      </p>
+      <div
+        className="journal-paper-stage"
+        role="region"
+        aria-label="Full-size notebook paper"
+        tabIndex={0}
+      >
         <article
           className="journal-paper-preview"
           aria-label={`Notebook page ${page + 1} preview`}

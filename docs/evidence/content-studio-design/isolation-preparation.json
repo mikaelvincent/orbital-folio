@@ -1,0 +1,86 @@
+{
+  "preparedAt": "2026-09-25T10:57:15.267821+00:00",
+  "baselineRevision": "496e91b55288792adf9abe1e9b6b7884965202ea",
+  "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7",
+  "baseUrl": "http://127.0.0.1:3003",
+  "procedure": "docs/OPERATIONS.md#isolated-verification",
+  "sourceOnlyGitArchive": true,
+  "privateEnvironmentOrMainStoreCopied": false,
+  "freshTestOnlySecrets": true,
+  "secretFileMode": "0600",
+  "dependencySharing": "node_modules symlink only",
+  "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7/.vite-stage14-cache",
+  "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7/.wrangler/state",
+  "fixtureOnlyConfigChange": "vite.config.ts adds cacheDir: '.vite-stage14-cache'",
+  "mainServer": "http://localhost:3000",
+  "mainServerAndStorePreserved": true,
+  "fullSuiteRun": false,
+  "purpose": "Authenticated studio inspection, synthetic fixtures and later explicitly authorized final verification",
+  "cleanup": {
+    "verifiedAt": "2026-09-25T11:28:36.514573+00:00",
+    "status": "complete",
+    "stoppedServerSession": 8068,
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-stage14-studio-2bm3uxw7",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "testSecretsStateAndSyntheticUploadsRemoved": true,
+    "evidenceAndLogsPreserved": true,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "mainServerAndStorePreserved": true
+  },
+  "serverSession": 8068,
+  "setupMigrationExitCode": 0,
+  "owner": {
+    "displayName": "Seedy",
+    "email": "seedy@sites.test",
+    "source": "Installed local Sites development adapter",
+    "signInUrl": "http://127.0.0.1:3003/signin-with-chatgpt?return_to=/admin",
+    "signInHttpStatus": 302,
+    "ownerClaimHttpStatus": 200,
+    "authenticatedAdminHttpStatus": 200,
+    "loginInstructions": "Open the signInUrl in the hidden browser. The loopback development adapter signs in the test identity and returns to /admin. No password or setup key is needed after bootstrap."
+  },
+  "initialData": {
+    "recordCount": 23,
+    "recordKinds": {
+      "experience": 6,
+      "journal": 5,
+      "link": 2,
+      "project": 9,
+      "site": 1
+    },
+    "inquiryCount": 0,
+    "syntheticAdditionalData": [
+      {
+        "kind": "inquiries",
+        "count": 2
+      },
+      {
+        "kind": "media",
+        "id": "9ff5ac61-ef6b-4898-a990-25b898362c5f",
+        "status": "private draft"
+      },
+      {
+        "kind": "project",
+        "id": "f21c5dbb-9671-41a1-a73a-171f3e3222b0",
+        "status": "private draft"
+      }
+    ]
+  },
+  "mainServerReadOnlyCheck": {
+    "url": "http://localhost:3000",
+    "status": 200,
+    "verifiedAt": "2026-09-25T10:58:32.539168+00:00"
+  },
+  "isolationChecks": {
+    "secretFileModeIs0600": true,
+    "freshStateExists": true,
+    "separateViteCacheExists": true,
+    "stateIsNotSymlink": true,
+    "viteCacheIsNotSymlink": true,
+    "sharedDependenciesAreSymlink": true
+  },
+  "setupLogSha256": "da8f26bb8475ab0c1caebc51086a011715b6120615eab3b733e5f5ba51884f43",
+  "syntheticFixtureRecord": "docs/evidence/content-studio-design/synthetic-fixtures.json"
+}
