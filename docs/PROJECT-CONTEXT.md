@@ -257,8 +257,35 @@ and [initial Stage 06 construction evidence](evidence/ladder-bay-design/README.m
 
 Carry forward clear transfer space, actual liner-seated supports, legible alloy
 treads against carbon, and small satin/bronze service joints. The docking
-shoulder/hatch and exterior access ladders are unchanged boundaries for
-Stages 07 and 09.
+shoulder/hatch refinement is recorded below; exterior access ladders remain
+the unchanged boundary for Stage 09.
+
+### Stage 07 — Docking assembly and shoulder (25 September 2026)
+
+The ivory pressure barrel, coaxial wall mount, rounded return and existing bands
+remain. A broad satin mating flange with three small bronze contact shoes
+replaces the thick bronze bumper. The closed ivory hatch leaf sits within a dark
+seal; its carbon wheel now has connected alloy spokes and a bronze hub. Both
+feet of each leaf handle and all twelve flange fasteners seat into their support.
+These are static authored fittings, not a simulated docking or latch mechanism.
+
+One low carbon service cassette replaces the separate luminous side panel and
+lower latch panel. Its saddle follows the barrel's actual curved surface, with
+extra transverse geometry to avoid a flat chord. Two vertically stacked capped
+couplings and a side latch give it a maintenance purpose without suggesting a
+selectable screen. The inner hatch retains its leaf, gasket and locking tabs;
+its bronze spokes now reach a carbon rim in the same plane.
+
+The completed ladder's dark backing, alloy treads, bronze support stations,
+spanners, end grips and open spaces are unchanged. All cabin furniture,
+architecture, exterior access ladders, opposite service/dish/solar assembly,
+door sequencing and shared framing remain unchanged, including exact overview
+support points in both layouts. See the [design and verification evidence](evidence/docking-assembly-design/README.md).
+
+Carry forward a clear pressure-shell / dark-seal / satin-contact hierarchy,
+small bronze handling or mating parts, curved seats and visible support paths.
+Stage 08 owns the opposite service bus, dish and solar assembly; preserve these
+completed docking forms and the existing shared camera frame.
 
 ## Ivory / Carbon / Bronze palette
 

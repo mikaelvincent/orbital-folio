@@ -1,7 +1,10 @@
 import { buildSmoothDockingRing } from '../geometry/smooth-docking-ring.ts';
 import { clipGeometryPlane } from '../geometry/clip-geometry-plane.ts';
 import { PRESSURE_WALL } from '../geometry/spacecraft-wall-layout.ts';
-import type { ModelPrimitives, Transform } from '../geometry/model-primitives.ts';
+import type {
+  ModelPrimitives,
+  Transform,
+} from '../geometry/model-primitives.ts';
 
 /** Docking collar and the opposite service bus, communications and solar wings. */
 export function buildDockingAndServiceAssemblies(
@@ -23,7 +26,7 @@ export function buildDockingAndServiceAssemblies(
     axialHull,
     m,
   } = helpers;
-  // DOCKING — rounded docking sleeve, pressure hatch and articulated dish.
+  // DOCKING — pressure barrel, mating flange and captive service hardware.
   const docking = new THREE.Group();
   docking.name = 'central-docking-assembly';
   docking.userData = { section: 'contact', batchRoot: true, exterior: true };
@@ -99,29 +102,72 @@ export function buildDockingAndServiceAssemblies(
     docking,
     'raised-docking-expansion-band',
   );
-  cylinder(0.808, 0.273, m.navy, -6.103, 0.03, 0, docking, 'x');
-  torus(0.796, 0.067, m.amber, -6.215, 0.03, 0, docking, 'x');
-  cylinder(0.726, 0.11, m.metal, -6.292, 0.03, 0, docking, 'x');
-  cylinder(0.629, 0.045, m.gasket, -6.36, 0.03, 0, docking, 'x');
-  cylinder(0.575, 0.058, m.chalk, -6.396, 0.03, 0, docking, 'x');
-  torus(0.543, 0.023, m.shell, -6.428, 0.03, 0, docking, 'x');
-  cylinder(0.173, 0.035, m.navy, -6.437, 0.03, 0, docking, 'x');
-  cylinder(0.088, 0.055, m.amber, -6.479, 0.03, 0, docking, 'x');
+  cylinder(0.808, 0.273, m.navy, -6.103, 0.03, 0, docking, 'x').name =
+    'docking-collar-neck';
+  // A broad satin mating face replaces the inflated bronze bumper. Its bore
+  // exposes the dark seal around the pressure leaf; three captive shoes bridge
+  // its outer edge. The mounting envelope and hatch reach remain unchanged.
+  const flange = mesh(
+    buildSmoothDockingRing(THREE, 0.826, 0.618, 0.19),
+    m.metal,
+    docking,
+    'docking-collar-mating-flange',
+  );
+  flange.position.set(-6.244, 0.03, 0);
+  cylinder(0.629, 0.045, m.gasket, -6.36, 0.03, 0, docking, 'x').name =
+    'docking-hatch-pressure-seal';
+  cylinder(0.575, 0.058, m.chalk, -6.396, 0.03, 0, docking, 'x').name =
+    'docking-exterior-pressure-leaf';
+  cylinder(0.133, 0.058, m.navy, -6.439, 0.03, 0, docking, 'x').name =
+    'docking-exterior-wheel-boss';
+  cylinder(0.074, 0.055, m.amber, -6.479, 0.03, 0, docking, 'x').name =
+    'docking-exterior-wheel-hub';
+  torus(0.245, 0.025, m.navy, -6.493, 0.03, 0, docking, 'x').name =
+    'docking-exterior-wheel-rim';
   for (let i = 0; i < 3; i++) {
     const a = (i * Math.PI * 2) / 3;
     rod(
-      [-6.5, 0.03 + Math.sin(a) * 0.07, Math.cos(a) * 0.07],
-      [-6.5, 0.03 + Math.sin(a) * 0.26, Math.cos(a) * 0.26],
+      [-6.493, 0.03 + Math.sin(a) * 0.06, Math.cos(a) * 0.06],
+      [-6.493, 0.03 + Math.sin(a) * 0.245, Math.cos(a) * 0.245],
       0.019,
       m.metal,
       docking,
+    ).name = 'docking-exterior-wheel-spoke';
+    const clamp = new THREE.Group();
+    clamp.name = 'docking-captive-flange-clamp';
+    clamp.position.y = 0.03;
+    clamp.rotation.x = a;
+    docking.add(clamp);
+    box(
+      0.06,
+      0.1,
+      0.18,
+      m.navy,
+      -6.36,
+      0.772,
+      0,
+      clamp,
+      0.018,
+      'docking-clamp-seat',
+    );
+    box(
+      0.05,
+      0.074,
+      0.11,
+      m.amber,
+      -6.402,
+      0.772,
+      0,
+      clamp,
+      0.015,
+      'docking-captive-clamp-shoe',
     );
   }
   const dockingBolts: Transform[] = [];
   for (let i = 0; i < 12; i++) {
     const a = (i * Math.PI) / 6;
     dockingBolts.push({
-      p: [-6.361, 0.03 + Math.sin(a) * 0.688, Math.cos(a) * 0.688],
+      p: [-6.351, 0.03 + Math.sin(a) * 0.688, Math.cos(a) * 0.688],
       r: [0, Math.PI / 2, 0],
     });
   }
@@ -132,70 +178,112 @@ export function buildDockingAndServiceAssemblies(
     docking,
     'docking-collar-fasteners',
   );
-  box(
-    0.657,
-    0.295,
-    0.084,
-    m.gasket,
-    -5.137,
-    0.208,
-    0.971,
+  // One removable service cassette, seated on a curved saddle between the two
+  // existing barrel bands. Warp only the saddle's back onto the barrel; the
+  // cover has a flat service face, two capped couplings and a captive latch.
+  // The ordinary rounded-box helper has no samples across its flat core.
+  // This back needs a continuous curve, so retain transverse samples there.
+  const saddleGeometry = new THREE.BoxGeometry(0.59, 0.51, 0.085, 9, 32, 9);
+  const positions = saddleGeometry.getAttribute('position');
+  const half = [0.295, 0.255, 0.0425];
+  const core = half.map((value) => value - 0.035);
+  const bevelSteps = [-1, -0.8, -0.45, -0.18, 0, 0, 0.18, 0.45, 0.8, 1];
+  for (let i = 0; i < positions.count; i++) {
+    const point = [positions.getX(i), positions.getY(i), positions.getZ(i)];
+    for (const axis of [0, 2]) {
+      const step = Math.round(((point[axis] / half[axis] + 1) * 9) / 2);
+      point[axis] =
+        Math.sign(step - 4.5) *
+        (core[axis] + Math.abs(bevelSteps[step]) * 0.035);
+    }
+    const center = point.map((value, axis) =>
+      Math.max(-core[axis], Math.min(core[axis], value)),
+    );
+    const normal = new THREE.Vector3(...point)
+      .sub(new THREE.Vector3(...center))
+      .normalize();
+    const x = center[0] + normal.x * 0.035;
+    const y = center[1] + normal.y * 0.035;
+    const z = center[2] + normal.z * 0.035;
+    const back = Math.sqrt(0.989 ** 2 - y ** 2) - 0.006;
+    const depthFraction = (z + 0.0425) / 0.085;
+    positions.setXYZ(i, x, y, back + depthFraction * (1.005 - back));
+  }
+  saddleGeometry.computeVertexNormals();
+  saddleGeometry.computeBoundingBox();
+  saddleGeometry.computeBoundingSphere();
+  const saddle = mesh(
+    saddleGeometry,
+    m.metal,
     docking,
-    0.089,
-    'docking-control-bezel',
+    'docking-service-saddle',
   );
+  saddle.position.set(-5.137, 0.03, 0);
   box(
-    0.521,
-    0.191,
-    0.049,
-    m.glass,
-    -5.137,
-    0.208,
-    1.031,
-    docking,
-    0.067,
-    'docking-control-display',
-  );
-  box(
-    0.3,
-    0.024,
-    0.014,
-    m.display,
-    -5.143,
-    0.212,
-    1.064,
-    docking,
-    0.007,
-    'comms-status',
-  );
-  box(
-    0.48,
-    0.142,
-    0.05,
+    0.53,
+    0.45,
+    0.04,
     m.navy,
-    -5.18,
-    -0.219,
-    0.964,
+    -5.137,
+    0.03,
+    1.015,
     docking,
-    0.034,
-    'docking-access-panel',
+    0.018,
+    'docking-service-cassette',
   );
+  // Flush caps are passive maintenance hardware, without luminous screen art.
+  for (const [y, radius] of [
+    [0.13, 0.076],
+    [-0.075, 0.057],
+  ]) {
+    const x = -5.205;
+    cylinder(radius, 0.02, m.metal, x, y, 1.039, docking, 'z').name =
+      'docking-service-coupling-seat';
+    cylinder(radius - 0.016, 0.02, m.deep, x, y, 1.049, docking, 'z').name =
+      'docking-service-coupling-cap';
+    box(
+      radius,
+      0.022,
+      0.013,
+      m.metal,
+      x,
+      y,
+      1.0645,
+      docking,
+      0.006,
+      'docking-service-cap-grip',
+    );
+  }
   box(
-    0.26,
-    0.056,
-    0.024,
+    0.032,
+    0.15,
+    0.025,
     m.amber,
-    -5.18,
-    -0.219,
-    1.002,
+    -4.96,
+    0.03,
+    1.039,
     docking,
-    0.017,
-    'docking-panel-latch',
+    0.01,
+    'docking-service-cover-latch',
   );
+  for (const y of [-0.12, 0.18]) {
+    cylinder(0.013, 0.016, m.metal, -5.347, y, 1.037, docking, 'z').name =
+      'docking-service-cover-fastener';
+  }
   for (const yy of [-0.37, 0.43]) {
-    rod([-6.435, yy, -0.407], [-6.505, yy, -0.407], 0.025, m.navy, docking);
-    rod([-6.505, yy, -0.407], [-6.505, yy, -0.167], 0.025, m.amber, docking);
-    rod([-6.505, yy, -0.167], [-6.435, yy, -0.167], 0.025, m.navy, docking);
+    for (const z of [-0.38, -0.167]) {
+      cylinder(0.043, 0.028, m.metal, -6.432, yy, z, docking, 'x').name =
+        'docking-exterior-handle-foot';
+      rod([-6.43, yy, z], [-6.505, yy, z], 0.022, m.navy, docking).name =
+        'docking-exterior-handle-return';
+    }
+    rod(
+      [-6.505, yy, -0.38],
+      [-6.505, yy, -0.167],
+      0.025,
+      m.amber,
+      docking,
+    ).name = 'docking-exterior-handle-grasp';
   }
   // AFT — a shared service bus to the right of both cabins.
   const service = new THREE.Group();

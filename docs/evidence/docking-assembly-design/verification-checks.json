@@ -1,0 +1,182 @@
+{
+  "verifiedAt": "2026-09-25T00:02:21.389608+00:00",
+  "baselineCommit": "f60ebf56421e115bbae07b0c5b6e627d738a44f7",
+  "sourceSnapshot": "Visually accepted final Stage 07 runtime with vertical service-port pair and side latch, unchanged model integration, current preview script and construction tests. All completed checks below used this same four-file snapshot; both earlier runs were interrupted and are recorded separately.",
+  "source": [
+    {
+      "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+      "sha256": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "scripts/benchmarks/spacecraft-polish-preview.mjs",
+      "sha256": "fadc32b898ee3aac00319134a5aaf385e197f5df370c6280b38194dda56eebf4",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/docking-construction.test.mjs",
+      "sha256": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualManifest": {
+    "path": "source-manifest.json",
+    "capturedAt": "2026-09-24T23:50:22.781Z",
+    "version": "after",
+    "bothChangedRuntimeHashesMatch": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-verify-5fb4afqh",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-verify-5fb4afqh/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-docking-verify-5fb4afqh/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed after final critic review: stopped only the isolated server, removed its disposable fixture and emulator state, and verified main localhost:3000 remained HTTP 200.",
+    "cleanup": {
+      "verifiedAt": "2026-09-25T00:07:55.519585+00:00",
+      "fixtureRemoved": true,
+      "port3003HasListener": false,
+      "mainUrl": "http://localhost:3000",
+      "mainHttpStatus": 200,
+      "rawTemporaryLogsAndSnapshotsRetained": true,
+      "evidenceLogsAndSnapshotsRetained": true
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 568,
+      "pass": 568,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 563366.589,
+      "log": {
+        "path": "checks/test.log",
+        "rawSha256": "3f73ba04423e84206db5722190a9eb63aea658eeaadba63e0582a83f6561f808",
+        "normalizedSha256": "9a28e919c9ddc9b7dde66364cc7868dfcd0adcdf4827f896c289840c9c2a646b"
+      }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/typecheck.log",
+        "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+        "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includes": "npm run geometry:check",
+      "warnings": [
+        "Node DEP0205: module.register() is deprecated; use module.registerHooks().",
+        "Some chunks exceed 500 kB after minification.",
+        "Vinext cannot classify some routes using its current static analysis."
+      ],
+      "log": {
+        "path": "checks/build.log",
+        "rawSha256": "96092734c6379e3a5e31ad530ff6b39e3b13797791680fc564947495dccc1106",
+        "normalizedSha256": "e614c2f20d10cd0e6018fe3d23fb0e6dc8f5ca51a488211e9ab4cd697cac0ed1"
+      }
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/docking-service-assemblies.ts features/spacecraft/spacecraft-model.ts scripts/benchmarks/spacecraft-polish-preview.mjs tests/spacecraft/docking-construction.test.mjs",
+      "exitCode": 0,
+      "log": {
+        "path": "checks/lint.log",
+        "rawSha256": "7951a289d20e5c557967ea2f25e206e33ec1dcc0eb49e0830d9779cdbe76cd64",
+        "normalizedSha256": "93b376cee1a2ed8a2eba0178ae5ec95cdb9784274cfc1a65ef15076bdb6ef013"
+      }
+    }
+  },
+  "interruptedRuns": [
+    {
+      "status": "incomplete; not passed",
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 1,
+      "source": [
+        {
+          "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+          "sha256": "8ec960e1b79814c51e014d393a485df5b8cb062580a1c26946f6065d4b91b303"
+        },
+        {
+          "path": "features/spacecraft/spacecraft-model.ts",
+          "sha256": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096"
+        },
+        {
+          "path": "scripts/benchmarks/spacecraft-polish-preview.mjs",
+          "sha256": "b28e3c6464d22e8938ae61d63644de49d87b0009125cd951353aa4f2b58562e8"
+        },
+        {
+          "path": "tests/spacecraft/docking-construction.test.mjs",
+          "sha256": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+        }
+      ],
+      "reason": "Root requested final cap-grip Z adjustment from 1.061 to 1.0645 to preserve the baseline overview support-point maximum. Verification agent intentionally interrupted the superseded run before syncing the correction.",
+      "interruptedWhile": "tests/spacecraft/cabin-utilities.test.mjs",
+      "reportedFailuresBeforeInterruption": 0,
+      "finalCountsAvailable": false,
+      "log": {
+        "path": "checks/test-interrupted-cap-grip.log",
+        "rawSha256": "6cb39b5cacffef3ae7d0a063b2679931e6c0b51fe80656b8167b4f3eca21886f",
+        "normalizedSha256": "da7a913248c45b015484d6d3fd3526910ee41eec1cf8a877701fdc948397a992"
+      }
+    },
+    {
+      "status": "incomplete; not passed",
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 1,
+      "source": [
+        {
+          "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+          "sha256": "165f3df13b5d5ce7c5f69891f7ed821d5499978eeb809ef4ae92f2a666bdf715"
+        },
+        {
+          "path": "features/spacecraft/spacecraft-model.ts",
+          "sha256": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096"
+        },
+        {
+          "path": "scripts/benchmarks/spacecraft-polish-preview.mjs",
+          "sha256": "b28e3c6464d22e8938ae61d63644de49d87b0009125cd951353aa4f2b58562e8"
+        },
+        {
+          "path": "tests/spacecraft/docking-construction.test.mjs",
+          "sha256": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+        }
+      ],
+      "reason": "Root paused verification after live visual review found a face-like arrangement in the service caps/latch. Verification agent intentionally interrupted the run before the accepted vertical port-pair and side-latch refinement.",
+      "interruptedWhile": "tests/spacecraft/about-notebook-application.test.mjs",
+      "reportedFailuresBeforeInterruption": 0,
+      "finalCountsAvailable": false,
+      "log": {
+        "path": "checks/test-interrupted-service-layout.log",
+        "rawSha256": "8975f5934b92ac2b5e724a423cfd0cf4ecb9769312f823374ddfe733c34517bb",
+        "normalizedSha256": "50f960e3d9a00b16ea0197b42d715e51fa419ebba6a8d6717202f155bca6ca88"
+      }
+    }
+  ],
+  "unresolvedFailures": [],
+  "logNormalization": "Removed ANSI control sequences, trimmed trailing whitespace per line, and normalized leading/trailing blank lines. Test names, measured durations, results, interruption messages, warnings, and substantive output are preserved. Raw logs remain in /tmp under orbital-docking-*.",
+  "limitations": [
+    "This record covers automated source verification. Browser visual evidence and independent design review are maintained separately.",
+    "Test durations are verification elapsed time, not measured rendering performance.",
+    "The first two runs were interrupted and provide no completed-suite result. Only the accepted final snapshot has a full 568/568 result."
+  ]
+}

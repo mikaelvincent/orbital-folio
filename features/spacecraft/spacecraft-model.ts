@@ -1429,17 +1429,21 @@ export function createSpacecraft(
     'inner-docking-closed-pressure-leaf',
   );
   entryLeaf.position.z = -0.014;
-  torus(0.39, 0.032, m.metal, 0, 0, 0.07, dockingInterior);
-  cylinder(0.1, 0.1, m.navy, 0, 0, 0.075, dockingInterior, 'z');
+  // Wheel floats clear of the leaf on its boss, with every spoke meeting the
+  // rim in the same plane. Its carbon grip echoes the exterior hatch wheel.
+  torus(0.39, 0.032, m.navy, 0, 0, 0.111, dockingInterior).name =
+    'inner-docking-wheel-rim';
+  cylinder(0.1, 0.1, m.navy, 0, 0, 0.075, dockingInterior, 'z').name =
+    'inner-docking-wheel-boss';
   for (let i = 0; i < 3; i++) {
     const a = (i * Math.PI * 2) / 3;
     rod(
       [Math.cos(a) * 0.095, Math.sin(a) * 0.095, 0.111],
-      [Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0.111],
+      [Math.cos(a) * 0.39, Math.sin(a) * 0.39, 0.111],
       0.025,
       m.amber,
       dockingInterior,
-    );
+    ).name = 'inner-docking-wheel-spoke';
   }
   for (const side of [-1, 1]) {
     box(

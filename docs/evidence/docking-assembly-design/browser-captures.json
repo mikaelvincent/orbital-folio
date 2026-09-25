@@ -1,0 +1,1169 @@
+[
+  {
+    "file": "before-live-overview-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-7.2523,4.2326,21.3114",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "shadowsEnabled": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 125312,
+      "sha256": "7e1a9519c41eeaa7be3535dfcdf60cc639d1a2773c006e762c912f6f91675011",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "before-exterior-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 926,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -11.448230958162444,
+          1.8075336385711152,
+          4.1429372346931315
+        ],
+        "target": [
+          -6.891,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1940442,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Docking exterior",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Docking+exterior&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 90030,
+      "sha256": "69ef9e60b2b09aefeffcb38c80de31610fdc7e81b8bab6b40ad2e91fc3cccf32",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "before-face-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 930,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -13.557030623163666,
+          0.7077036747796399,
+          1.1737067370960066
+        ],
+        "target": [
+          -8.222,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1943306,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Docking face",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Docking+face&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 51461,
+      "sha256": "821881287e7a01c24f6b6444f9dfbf386570936aa4c7abe3990817ebdfc679f9",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "before-shoulder-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 695,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          1.2814963376448594,
+          0.70963812347491,
+          5.351151028957584
+        ],
+        "target": [
+          -5.675,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1637248,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Docking shoulder",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Docking+shoulder&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 90714,
+      "sha256": "3e05e889c7b146085488d807cbaa44d6c076efc700bd4dbc6182738d1c41d9ec",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "before-inner-hatch-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 450,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 90,
+        "position": [
+          -4.9877579713273725,
+          0.0675,
+          0.0940993622938102
+        ],
+        "target": [
+          -6.164,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1325400,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Docking inner hatch",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Docking+inner+hatch&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 65580,
+      "sha256": "285aea24c8d2858c80e0b20999d075bef3adce94b43597cd6213bbf8a286740b",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-exterior-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 922,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -11.448230958162444,
+          1.8075336385711152,
+          4.1429372346931315
+        ],
+        "target": [
+          -6.891,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1948186,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Docking exterior",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Docking+exterior&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 88561,
+      "sha256": "563cecf0e80096e0d1cc47b9cd883e5e93a879e8637359e6a217f6b3fade41d9",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-face-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 926,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -13.557030623163666,
+          0.7077036747796399,
+          1.1737067370960066
+        ],
+        "target": [
+          -8.222,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1951050,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Docking face",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Docking+face&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 48931,
+      "sha256": "51dd982b1017e798f88da81840c0347585ed0813a48df5decdb706d50dea121c",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-inner-hatch-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 446,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 90,
+        "position": [
+          -4.9877579713273725,
+          0.0675,
+          0.0940993622938102
+        ],
+        "target": [
+          -6.164,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1333144,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Docking inner hatch",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Docking+inner+hatch&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 66218,
+      "sha256": "63fe3cb24b46738d89d59833e595f8bbe9e3370e470c47351469c279b53902cc",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-shoulder-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 691,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          1.2814963376448594,
+          0.70963812347491,
+          5.351151028957584
+        ],
+        "target": [
+          -5.675,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1644992,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Docking shoulder",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Docking+shoulder&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 90849,
+      "sha256": "0fb7d94bb7f97eb18bc3f5b960592abb07ee1ba75d7d84f6f5073fa811309146",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-ladder-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 768,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -2.607585267560741,
+          0.4862863571902814,
+          10.469658929757037
+        ],
+        "target": [
+          -5.225,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1721088,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Ladder front",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Ladder+front&layout=wide&dpr=1",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 116611,
+      "sha256": "81e2b779637607e642631d5adad5166872310c0823718aeddac7d8cb53abdf74",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "before-exterior-compact-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 700,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -12.681707040735262,
+          2.9222426882807357,
+          6.797006400668419
+        ],
+        "target": [
+          -5.205,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1618044,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Docking exterior",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Docking+exterior&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 29967,
+      "sha256": "470aa02d51739c7092eeaa173a42861c006ef97866e32133c55106d30ee55f58",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+    "sourceVersion": "before",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-exterior-compact-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 696,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [
+          -12.681707040735262,
+          2.9222426882807357,
+          6.797006400668419
+        ],
+        "target": [
+          -5.205,
+          0.0675,
+          0
+        ]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1625788,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Docking exterior",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Docking+exterior&layout=compact&dpr=1",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 29460,
+      "sha256": "1378cc52bcbe22fad94b9e905e486099f4df7f557ae97adfd945e1af336b46eb",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-overview-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "0.8987,-1.8641,17.7460",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738729269725873,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 51211,
+      "sha256": "f8406b3a5be34ad5ac6e8e791c10d0242a89c0e7ea042e6ea7409a62b802b108",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-projects-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0861,1.5390,7.1317",
+      "cameraQuaternion": "0.000037,0.000029,-0.000229,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/projects",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 42530,
+      "sha256": "81368dd6a547bc7eb0c274ed960c74186cdca44e556016e4896e844b44671b67",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-ladder-transit-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "about",
+      "cameraAngles": "0.00000,0.00906",
+      "cameraPosition": "-4.8860,1.5400,7.1283",
+      "cameraQuaternion": "0.000000,0.004530,0.000000,0.999990",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":false,\"open\":false,\"openProgress\":0.6080494293334676,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    "url": "http://127.0.0.1:3000/about",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 43788,
+      "sha256": "85940b5c9089329bf547f71fa65ddfcb6da7d759a689628eac1ed4d3917f133b",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-about-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        390,
+        844
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "about",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0892,-1.4050,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "false",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/about",
+    "viewport": [
+      390,
+      844
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "bytes": 43084,
+      "sha256": "358afaeb54684a60baf28471e4eb9e3c99ea5353a8338828bc484dc10c2b0b28",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-about-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "about",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0870,-1.4050,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/about",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 124730,
+      "sha256": "5cf8b3ab2eee78a5625e9771902e75526901faaf29c5dceca9ff5f991c285036",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-ladder-transit-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.01116",
+      "cameraPosition": "-4.8077,-1.4050,5.4508",
+      "cameraQuaternion": "0.000000,0.005579,0.000000,0.999984",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":false,\"open\":false,\"openProgress\":0.792433423999884,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "true",
+      "travelling": "true"
+    },
+    "url": "http://127.0.0.1:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 121852,
+      "sha256": "38004ec77c5b082aa4600b992a203546c2ce83b9e06bece922f838e21a023075",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-projects-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "projects",
+      "cameraAngles": "0.00000,0.00000",
+      "cameraPosition": "-2.0891,1.5400,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/projects",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 122767,
+      "sha256": "c2952fb60f253cd1157605626f3837ea5c49ccb86b5dfc39f8f24186bb5fce9c",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-overview-drag-release.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "0.06483,-0.29391",
+      "cameraPosition": "-13.1893,3.0062,19.0456",
+      "cameraQuaternion": "-0.064261,-0.266272,-0.017794,0.961589",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 108296,
+      "sha256": "2513703c97d5e0a7466e259bca3f1de5cd2e0bcd0a279611a6582ff48c8f4a7e",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  },
+  {
+    "file": "after-live-overview-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [
+      [
+        1440,
+        900
+      ]
+    ],
+    "finite": null,
+    "live": {
+      "activeRoom": "home",
+      "cameraAngles": "-0.00840,-0.02150",
+      "cameraPosition": "-7.7096,4.4108,21.1550",
+      "cameraQuaternion": "-0.097447,-0.135794,-0.013423,0.985842",
+      "contactShading": "true",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "portals": "[{\"id\":\"experience:projects\",\"from\":\"experience\",\"to\":\"projects\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Projects\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"projects:experience\",\"from\":\"projects\",\"to\":\"experience\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,1.54,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,2.70125,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"experience:projects\",\"label\":\"Case studies\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"projects:about\",\"from\":\"projects\",\"to\":\"about\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,1.54,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,2.70125,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-down\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"projects:about\",\"label\":\"About\",\"waypoints\":[[-5.225,1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,-1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:projects\",\"from\":\"about\",\"to\":\"projects\",\"edge\":\"left\",\"via\":\"walkway\",\"position\":[-4.146999999999999,-1.4050000000000002,0.07300000000000001],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-4.0569999999999995,-0.24375000000000013,0.07300000000000001],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"ladder-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:projects\",\"label\":\"Projects\",\"waypoints\":[[-5.225,-1.4725000000000001,0.16],[-5.225,0,0.16],[-5.225,1.4725000000000001,0.16]],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]},{\"id\":\"about:contact\",\"from\":\"about\",\"to\":\"contact\",\"edge\":\"right\",\"via\":null,\"position\":[-0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[-0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"Contact\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,-1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,1],\"labelUp\":[0,1,0],\"labelNormal\":[-1,0,2.220446049250313e-16]},{\"id\":\"contact:about\",\"from\":\"contact\",\"to\":\"about\",\"edge\":\"left\",\"via\":null,\"position\":[0.027000000000000135,-1.4050000000000002,0.05049999999999999],\"size\":[0.28,1.74,1.74],\"openingSize\":[1.74,1.74],\"labelPosition\":[0.11699999999999999,-0.24375000000000013,0.05049999999999999],\"labelSize\":[0.96,0.18],\"plateSize\":[1.52,0.25],\"directionSymbol\":\"door-forward-up\",\"symbolSides\":[\"left\",\"right\"],\"iconInset\":0.095,\"iconCenter\":0.5860000000000001,\"enamelWidth\":1.48,\"backingFront\":-0.018,\"enamelFront\":-0.003,\"inkFront\":0,\"sealed\":true,\"open\":false,\"openProgress\":0,\"doorType\":\"integrated-iris\",\"raisedDoorFrame\":false,\"bladeSetCount\":1,\"physicalHatch\":\"about:contact\",\"label\":\"About\",\"waypoints\":[],\"highlight\":0,\"labelRotation\":[0,1.5707963267948966,0],\"labelRight\":[2.220446049250313e-16,0,-1],\"labelUp\":[0,1,0],\"labelNormal\":[1,0,2.220446049250313e-16]}]",
+      "shadowsEnabled": "true",
+      "transitWalkway": "false",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [
+      1440,
+      900
+    ],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 120068,
+      "sha256": "47cf700668afe5c6313e0cb40c021b36055ae53606812ebb2d1f18cbb7718d49",
+      "scaled": false
+    },
+    "sourceTreeSha256": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea",
+    "sourceVersion": "after",
+    "engine": "Hidden built-in Chromium 153"
+  }
+]

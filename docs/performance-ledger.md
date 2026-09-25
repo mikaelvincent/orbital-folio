@@ -30,6 +30,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 56 · 24 September 2026 | Stage 06 transfer bay: open liner between seated rail carriers and grounded service fittings | −7,584 triangle inputs / −1 visible submission candidate / −202,464 geometry-array bytes per layout. Protected rooms, liner/end fittings and camera/door routes unchanged. [Evidence](evidence/ladder-bay-design/README.md). |
 | 57 · 24 September 2026 | Owner-requested ladder contrast correction: seamless dark backing and fuller alloy treads | +972 triangle inputs / +25,032 geometry-array bytes per layout; unchanged visible submission candidates and protected framing/routes. [Evidence](evidence/ladder-rung-contrast/README.md). |
 | 58 · 24 September 2026 | Restrained bronze on ladder clamps and terminal caps | Material-only change on 12 existing fittings; geometry, counts and protected framing/routes unchanged. [Evidence](evidence/ladder-bronze-detail/README.md). |
+| 59 · 25 September 2026 | Stage 07 docking: satin mating flange, connected wheels and fitted service cassette | +3,872 triangle inputs / +290,528 geometry-array bytes per layout; −2 visible mesh candidates. Protected assemblies, bounds and framing unchanged. [Evidence](evidence/docking-assembly-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3130,6 +3131,45 @@ browser and timing checks were not performed. This is an authored material
 baseline, with no held optimization candidate included. The independent critic
 scored **96/100**, with no unresolved findings or blockers; its rubric and limits
 are preserved with the evidence.
+
+## 59 — Docking assembly design baseline (25 September 2026)
+
+Stage 07 retains the ivory sleeve and coaxial shoulder mount while replacing the
+thick bronze bumper with a satin mating flange and three restrained bronze shoes.
+The exterior hatch gains a connected carbon wheel, seated handle feet and flange
+fasteners. A fitted carbon service cassette consolidates the separate side panels;
+its two capped couplings are vertical, with a side latch. The inner wheel's bronze
+spokes now meet its carbon rim. These are static visual fittings, not a docking
+mechanism simulation. No held performance candidate is included.
+
+Baseline is `f60ebf56421e115bbae07b0c5b6e627d738a44f7`. The
+[construction audit](evidence/docking-assembly-design/construction-audit.json)
+compares all 44 transitive runtime sources and actual geometry in both layouts.
+The exterior docking assembly changes from **14,396 to 18,268 triangle inputs**
+and **9 to 8 mesh candidates**. The inner hatch retains **6,684 triangles** while
+its batches change from **5 to 4**. Overall this adds **3,872 triangle inputs and
+290,528 geometry-array bytes**, with visible mesh candidates **520 → 518**.
+Nested assembly inventories overlap and must not be added. These are counted
+source/geometry quantities, not measured CPU/GPU timing, process/GPU memory,
+heat or battery results.
+
+The extra geometry gives the saddle a continuous curved back and the contact
+flange a rounded, smooth annular surface. Protected cabin/ladder/exterior/AFT
+geometry, materials and transforms remain exact. Whole-scene/docking bounds,
+overview support points, camera references and door/route metadata match the
+baseline. The inner wheel's own bound extends about 0.000434 model units, entirely
+inside the unchanged ladder envelope.
+
+[Evidence](evidence/docking-assembly-design/README.md) includes matched exterior,
+face, inner-hatch and shoulder views, compact portrait docking and live overview,
+room and transfer states in hidden Chromium 153. Actual viewports and drawing
+buffers are 1440×900 and 390×844, DPR 1, without image scaling. Finite frames omit
+GTAO, Earth/sky, navigation and live applications; a 90° inspection lens is used
+only for the inner hatch fixture. Native Safari, physical-phone, browser
+reduced-motion overrides and timed rendering were not tested. All **568 isolated
+tests**, typecheck, build/geometry check, affected lint and formatting pass. The
+independent critic scored **95/100**, with 45% visual-design weight and no
+unresolved blockers; its rubric and limitations are preserved with the evidence.
 
 ## Next candidates
 

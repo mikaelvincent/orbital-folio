@@ -1,0 +1,778 @@
+{
+  "recordedAt": "2026-09-24T23:55:26.955390+00:00",
+  "baselineRevision": "f60ebf56421e115bbae07b0c5b6e627d738a44f7",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "e094a281ca7935b5fb926e302f47458d497c60d2adc6d69cdefc47d6b5219b85",
+    "frozenAt": "2026-09-24T23:50:23.943Z",
+    "beforeAndAfterTransitiveSourcesVerified": 44,
+    "changedRuntimeSources": [
+      "features/spacecraft/equipment/docking-service-assemblies.ts",
+      "features/spacecraft/spacecraft-model.ts"
+    ],
+    "allOther42RuntimeSourcesUnchanged": true,
+    "sourceTreeSha256": {
+      "before": "c3419aa86ce3b6a4b4c965a2af5c72187fc50d5ff3cc13ce5d1b9cfc3ae74610",
+      "after": "c3dad7383925ea8c3db493d63f2eaf724b02516eb40db39a30e569f19aac83ea"
+    },
+    "sourceHashes": {
+      "before": {
+        "features/spacecraft/equipment/cabin-utility-fittings.ts": "129124969d838ef0867eb1b749b96392476870da1ccbd4b16066d1e040a1cce5",
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "2b51269f8a917e353a2193ceafbe7e2a12f70fda94e299361a780dd4aca0ab49",
+        "features/spacecraft/equipment/docking-shoulder-equipment.ts": "90aebd92dd8c86aa5de8f4653f21ca1121af9b51ae081458fd53ab76b4cd8db2",
+        "features/spacecraft/equipment/exterior-service-equipment.ts": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+        "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+        "features/spacecraft/equipment/ladder-service-spine.ts": "ce1e93aea72a1dd1309fbf09faaa5cf8e7a6abc9922377c0c85747362c6269e4",
+        "features/spacecraft/equipment/outboard-wall-equipment.ts": "ae37804d32a42ce9f8e80bcb52307f798baf745b941b93adaf32f036c256a798",
+        "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+        "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+        "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+        "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+        "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+        "features/spacecraft/geometry/model-primitives.ts": "884c20ebdb34335696aa6b855d1d089abb7444090f8f25010db045bdb954fa82",
+        "features/spacecraft/geometry/rounded-cabin-interior.ts": "47fa454709e28b54edb37cfa5a0e4581efc11960f61fc9e92b2e810d86996dd2",
+        "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+        "features/spacecraft/geometry/spacecraft-wall-layout.ts": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772",
+        "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+        "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+        "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+        "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+        "features/spacecraft/navigation/iris-hatch.ts": "a75b8beb515db0bc8b1a9decda70c0bf948fc6eba995ec22f5cb53d98d5065ac",
+        "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+        "features/spacecraft/rooms/about-notebook-layout.ts": "4f5f3f301840d7d5ad30bc1e808aa082b0f2f0b134fade603691ab1ce6af1129",
+        "features/spacecraft/rooms/about-personal-study.ts": "b7c6edf13d0f70181c766493fd1179c1218e8630b58d2bc82937f98a26c4a40b",
+        "features/spacecraft/rooms/about-photo-print.ts": "dd734cca737167639c7a74b6f561f298068f012e555db0ed16480fa21b94bf78",
+        "features/spacecraft/rooms/about-study-artwork.ts": "1f208d24a89f739f4b0e2d978d5ad42e9f14fbb415c14b93076ca28becfa9281",
+        "features/spacecraft/rooms/about-study-mounts.ts": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e",
+        "features/spacecraft/rooms/cabin-composition.ts": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+        "features/spacecraft/rooms/case-study-archive.ts": "5b62e5d1c51b638e21c2061e5b903a60fec550cb59ff511166021d874676730a",
+        "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+        "features/spacecraft/rooms/contact-display-surface.ts": "b0ffc873c59db25cc4ab3f8d5b3e87e12d0f7d715932f40f0a7b6d40c27c8a53",
+        "features/spacecraft/rooms/contact-flight-audio.ts": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+        "features/spacecraft/rooms/contact-flight-console.ts": "4936b1877bf07bb92c362f7bf9cbf0f30cc4f9a8284ad95fdedf93d714bb7004",
+        "features/spacecraft/rooms/contact-keyboard.ts": "1fe03dd175b717a5130cb92e5d2869c2ad98b15ac4f9aa8c41c72ba3640d0e8c",
+        "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+        "features/spacecraft/rooms/projects-payload-module.ts": "ded8ce8782e9847e46b449290a23901d11d280b99a39607f8a720173376ab027",
+        "features/spacecraft/rooms/projects-workshop.ts": "22fe454ea6055bc402d2c1ac64105230555d58812fbf8c16a736b6bf929563a0",
+        "features/spacecraft/spacecraft-model.ts": "7515ccc99a29c39052293f6b8d5332e6bd4ea4e2702551dfa83b2a6aaef588da",
+        "lib/content/about-photos.ts": "6ea3d52dc85b22efef0fffcd1d43ac426b437828a1bf5252c6dd84ec14b70712",
+        "lib/content/case-study-content.ts": "fcee14d3beec20d2240a5da2a8e7c5b63197d429e4332306503311d774625f54",
+        "lib/content/project-content.ts": "1eda895468877331ac50e249cfc36d9d057dafab0c409cbd904db0951d395089",
+        "lib/content/social-links.ts": "dd94c1577e0030eab4ba29430d8fdd96dbe92efaeffe87dbb7563b67fe7a642b",
+        "lib/content/social-platforms.ts": "f07a2e534fbe1925b619e225d90e78e49bd7eaacdfb82dc6507f67acb24dff3c",
+        "lib/palette.ts": "45be860992dd73b71237d0751da56806db32775b5143be17fb6b2f1f8cb5f75d"
+      },
+      "after": {
+        "features/spacecraft/equipment/cabin-utility-fittings.ts": "129124969d838ef0867eb1b749b96392476870da1ccbd4b16066d1e040a1cce5",
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+        "features/spacecraft/equipment/docking-shoulder-equipment.ts": "90aebd92dd8c86aa5de8f4653f21ca1121af9b51ae081458fd53ab76b4cd8db2",
+        "features/spacecraft/equipment/exterior-service-equipment.ts": "1af4ba8779efc8f7f38434b6eb7744a136f8998600e93c34256263b6dd9d8bb4",
+        "features/spacecraft/equipment/ladder-endcap-equipment.ts": "15bfadb599d471a6fa2293d05c267e5b84196800915360de1d45e8af5e4884db",
+        "features/spacecraft/equipment/ladder-service-spine.ts": "ce1e93aea72a1dd1309fbf09faaa5cf8e7a6abc9922377c0c85747362c6269e4",
+        "features/spacecraft/equipment/outboard-wall-equipment.ts": "ae37804d32a42ce9f8e80bcb52307f798baf745b941b93adaf32f036c256a798",
+        "features/spacecraft/geometry/clip-geometry-plane.ts": "6ccbbab3a66aa905f39ff95d663cf72ecfb160da78133e8728c31b5201c323be",
+        "features/spacecraft/geometry/coalesce-static-instances.ts": "08b56ff0a016ad72ad53ffe7bbc27a50dbad83bd483f4a36419c7d4b083778d5",
+        "features/spacecraft/geometry/continuous-exterior-skin.ts": "afd3e73b025c5da4a6f7734fe8de2d28a95e1d6a23aa2a2b13fe931b9188a9c2",
+        "features/spacecraft/geometry/flush-window-reveals.ts": "767c0d8aac9d4c1dd0b9c95e44c1bade20b7b7ca83c12ad672700bbe7454b489",
+        "features/spacecraft/geometry/ladder-opening-outline.ts": "7d552ce887c4aad82f6e916ad3f772105ae9e2722a0191548a740c699438485d",
+        "features/spacecraft/geometry/model-primitives.ts": "884c20ebdb34335696aa6b855d1d089abb7444090f8f25010db045bdb954fa82",
+        "features/spacecraft/geometry/rounded-cabin-interior.ts": "47fa454709e28b54edb37cfa5a0e4581efc11960f61fc9e92b2e810d86996dd2",
+        "features/spacecraft/geometry/smooth-docking-ring.ts": "e62d5a1fc19ae0b4bdac211f7b912bcf7c77c4a25785d7681834750f593043e2",
+        "features/spacecraft/geometry/spacecraft-wall-layout.ts": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772",
+        "features/spacecraft/geometry/thin-chassis-outline.ts": "8829a55c49689155dd325ce6be814c976799c17d6fa9d5959ba6a063084969cc",
+        "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+        "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+        "features/spacecraft/navigation/interactable-object-highlight.ts": "27ae38fb47f2834692d7135ca9ef4e06d5826364f748fd4755e1154e8cee8494",
+        "features/spacecraft/navigation/iris-hatch.ts": "a75b8beb515db0bc8b1a9decda70c0bf948fc6eba995ec22f5cb53d98d5065ac",
+        "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+        "features/spacecraft/rooms/about-notebook-layout.ts": "4f5f3f301840d7d5ad30bc1e808aa082b0f2f0b134fade603691ab1ce6af1129",
+        "features/spacecraft/rooms/about-personal-study.ts": "b7c6edf13d0f70181c766493fd1179c1218e8630b58d2bc82937f98a26c4a40b",
+        "features/spacecraft/rooms/about-photo-print.ts": "dd734cca737167639c7a74b6f561f298068f012e555db0ed16480fa21b94bf78",
+        "features/spacecraft/rooms/about-study-artwork.ts": "1f208d24a89f739f4b0e2d978d5ad42e9f14fbb415c14b93076ca28becfa9281",
+        "features/spacecraft/rooms/about-study-mounts.ts": "564aabdb27a683046521ceac687afa7cf61992fde18685b735aab854fea0ab0e",
+        "features/spacecraft/rooms/cabin-composition.ts": "bdcfb3c44f4ecbb395e8128e4a96dd83937e06ebb1f5e262c7e4cb460fbd58bb",
+        "features/spacecraft/rooms/case-study-archive.ts": "5b62e5d1c51b638e21c2061e5b903a60fec550cb59ff511166021d874676730a",
+        "features/spacecraft/rooms/computer-desktop.ts": "8cf86055fa92dbb92f5d90339f180857e2624293cba2801dafc5e0ca530a4e84",
+        "features/spacecraft/rooms/contact-display-surface.ts": "b0ffc873c59db25cc4ab3f8d5b3e87e12d0f7d715932f40f0a7b6d40c27c8a53",
+        "features/spacecraft/rooms/contact-flight-audio.ts": "62a8de0514efe8d73de956b9f38349bbe37e709d2ee77481578d27e7d48552c8",
+        "features/spacecraft/rooms/contact-flight-console.ts": "4936b1877bf07bb92c362f7bf9cbf0f30cc4f9a8284ad95fdedf93d714bb7004",
+        "features/spacecraft/rooms/contact-keyboard.ts": "1fe03dd175b717a5130cb92e5d2869c2ad98b15ac4f9aa8c41c72ba3640d0e8c",
+        "features/spacecraft/rooms/contact-social-display.ts": "d2d5c3f39d69dda08ac430bd9a1b017b11304c98be138525c8ef8e2c7be31332",
+        "features/spacecraft/rooms/projects-payload-module.ts": "ded8ce8782e9847e46b449290a23901d11d280b99a39607f8a720173376ab027",
+        "features/spacecraft/rooms/projects-workshop.ts": "22fe454ea6055bc402d2c1ac64105230555d58812fbf8c16a736b6bf929563a0",
+        "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+        "lib/content/about-photos.ts": "6ea3d52dc85b22efef0fffcd1d43ac426b437828a1bf5252c6dd84ec14b70712",
+        "lib/content/case-study-content.ts": "fcee14d3beec20d2240a5da2a8e7c5b63197d429e4332306503311d774625f54",
+        "lib/content/project-content.ts": "1eda895468877331ac50e249cfc36d9d057dafab0c409cbd904db0951d395089",
+        "lib/content/social-links.ts": "dd94c1577e0030eab4ba29430d8fdd96dbe92efaeffe87dbb7563b67fe7a642b",
+        "lib/content/social-platforms.ts": "f07a2e534fbe1925b619e225d90e78e49bd7eaacdfb82dc6507f67acb24dff3c",
+        "lib/palette.ts": "45be860992dd73b71237d0751da56806db32775b5143be17fb6b2f1f8cb5f75d"
+      }
+    },
+    "aftBranchBytesUnchanged": true,
+    "aftBranchSha256": "6cdcb1aadf78597dd10cf663d60855334ed26480463033826904f2b105098ff9",
+    "testFile": {
+      "path": "tests/spacecraft/docking-construction.test.mjs",
+      "sha256": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+    }
+  },
+  "baselineConstructionFindings": [
+    {
+      "area": "Inner hatch wheel",
+      "observation": "The original rim had no actual solid support: its sampled rear surface was 0.000566 model units ahead of the leaf, and the three spokes stopped short of the rim.",
+      "resolution": "The wheel now uses a supported boss and spokes that reach the rim in the same plane."
+    },
+    {
+      "area": "Outer hatch handles and collar bolts",
+      "observation": "Each original handle had one unsupported inner foot, 0.010 model units ahead of the leaf. All 12 actual collar bolt instances stopped about 0.00750006 ahead of their metal flange.",
+      "resolution": "Both feet of every handle and every actual bolt instance now contact their structural support."
+    },
+    {
+      "area": "Old external control faces",
+      "observation": "The status strip and access latch had face gaps of 0.0015 and 0.001; flat panel backs penetrated the curved sleeve unevenly.",
+      "resolution": "The old decorative display/panel stack is replaced by a fitted service cassette with attached caps, grips, latch and cover fasteners."
+    }
+  ],
+  "refinement": {
+    "saddleFinding": "The first rounded-box saddle had a constant rear plane at z=0.9582204: remapping sparse bevel-focused vertices left a broad planar chord, producing penetration up to 0.03014 instead of the intended shallow seat.",
+    "saddleCorrection": "Dense transverse sampling now curves the broad rear face; final bounds are regenerated.",
+    "testFixtureCorrection": "Pre-batch source raycasts explicitly regenerate geometry bounds after authored deformation. A 1e-6 Y bias avoids an exact shared-meridian triangle-edge tie on the lathed sleeve. These are source-solid probe corrections, not runtime behavior changes.",
+    "framingCorrection": "The cap-grip front extent was restored to the previous docking maximum, preserving the exact overview support points.",
+    "finalContactMargins": {
+      "wide": {
+        "saddleSamples": 25,
+        "saddleRearToActualSleeve": {
+          "minimum": -0.005362679335717324,
+          "maximum": -0.002482999746135306
+        },
+        "capGripAxialOverlap": [0.0009999999105929636, 0.0009999999105929636]
+      },
+      "compact": {
+        "saddleSamples": 25,
+        "saddleRearToActualSleeve": {
+          "minimum": -0.005362679335717324,
+          "maximum": -0.002482999746135306
+        },
+        "capGripAxialOverlap": [0.0009999999105929636, 0.0009999999105929636]
+      }
+    }
+  },
+  "finalConstructionChecks": {
+    "startedAt": "2026-09-24T23:49:48.729191+00:00",
+    "sourceHashesBefore": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/docking-construction.test.mjs": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+    },
+    "command": "node --test tests/spacecraft/docking-construction.test.mjs",
+    "finishedAt": "2026-09-24T23:49:51.276930+00:00",
+    "exitCode": 0,
+    "sourceHashesAfter": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/docking-construction.test.mjs": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+    },
+    "result": {
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "output": "\u2714 wide: the docking pressure stack and both hatch wheels have continuous solid support (27.169042ms)\n\u2714 wide: every collar fastener, captive shoe and exterior handle foot reaches its support (19.382084ms)\n\u2714 wide: the service saddle follows the actual curved sleeve and its cassette fittings attach (34.140958ms)\n\u2714 wide: pressure faces remain coaxial with the wall and close the center of the docking passage (12.064083ms)\n\u2714 compact: the docking pressure stack and both hatch wheels have continuous solid support (20.290875ms)\n\u2714 compact: every collar fastener, captive shoe and exterior handle foot reaches its support (15.872042ms)\n\u2714 compact: the service saddle follows the actual curved sleeve and its cassette fittings attach (29.775542ms)\n\u2714 compact: pressure faces remain coaxial with the wall and close the center of the docking passage (10.390083ms)\n\u2139 tests 8\n\u2139 suites 0\n\u2139 pass 8\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 2459.313084\n",
+    "coverage": [
+      "Real annular flange/neck/seal/leaf support chain and inner/exterior wheel boss/spoke/rim connections.",
+      "Actual per-instance collar fasteners, captive clamp seats/shoes, both feet and returns of every exterior handle.",
+      "Twenty-five rays across each real saddle footprint against the actual sleeve, plus all cassette cap/seat/grip/latch/fastener contacts.",
+      "Unchanged coaxial pressure faces and real closed surfaces through the passage center in both layouts."
+    ]
+  },
+  "relatedDevelopmentChecks": [
+    {
+      "command": "node --test --test-concurrency=1 tests/spacecraft/smooth-docking-ring.test.mjs tests/spacecraft/wall-layout.test.mjs tests/spacecraft/docking-shoulder-equipment.test.mjs tests/spacecraft/ladder-endcap-equipment.test.mjs tests/spacecraft/ladder-bay-construction.test.mjs tests/spacecraft/exterior-joins.test.mjs tests/spacecraft/iris-integration.test.mjs",
+      "files": [
+        "tests/spacecraft/smooth-docking-ring.test.mjs",
+        "tests/spacecraft/wall-layout.test.mjs",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+        "tests/spacecraft/ladder-bay-construction.test.mjs",
+        "tests/spacecraft/exterior-joins.test.mjs",
+        "tests/spacecraft/iris-integration.test.mjs"
+      ],
+      "startedAt": "2026-09-24T23:44:55.271498+00:00",
+      "exitCode": 0,
+      "finishedAt": "2026-09-24T23:45:39.910794+00:00",
+      "logSha256": "0513a7ea37407f818aec300b803d5b66e0d031f6f711d1f13670498300d4267d",
+      "result": {
+        "tests": 45,
+        "pass": 45,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sourceNote": "Passed after the saddle correction and before the final small cap-grip extent/cassette placement refinements; this is supporting development evidence."
+    },
+    {
+      "command": "node --test --test-concurrency=1 tests/spacecraft/docking-construction.test.mjs tests/spacecraft/smooth-docking-ring.test.mjs tests/spacecraft/wall-layout.test.mjs tests/spacecraft/docking-shoulder-equipment.test.mjs tests/spacecraft/ladder-endcap-equipment.test.mjs tests/spacecraft/ladder-bay-construction.test.mjs tests/spacecraft/exterior-joins.test.mjs tests/spacecraft/iris-integration.test.mjs",
+      "files": [
+        "tests/spacecraft/docking-construction.test.mjs",
+        "tests/spacecraft/smooth-docking-ring.test.mjs",
+        "tests/spacecraft/wall-layout.test.mjs",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs",
+        "tests/spacecraft/ladder-bay-construction.test.mjs",
+        "tests/spacecraft/exterior-joins.test.mjs",
+        "tests/spacecraft/iris-integration.test.mjs"
+      ],
+      "startedAt": "2026-09-24T23:47:53.529854+00:00",
+      "sourceHashesBefore": {
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "165f3df13b5d5ce7c5f69891f7ed821d5499978eeb809ef4ae92f2a666bdf715",
+        "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+        "tests/spacecraft/docking-construction.test.mjs": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670",
+        "tests/spacecraft/smooth-docking-ring.test.mjs": "807bd9f3b03cca16bc716203ef06d51a34a74c664e5c362a8488ccf671b03977",
+        "tests/spacecraft/wall-layout.test.mjs": "59d22b93fc3a25177b64c36623f5093c46dac1105821fe0751ceb61f019615c3",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs": "6d1a161a5cc2b122dbad80f06984d9f68dff4f2e0fbbbe1e797a0154e4f44185",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs": "1e9fc4c426f31841b6cb55a28daf20ac276d31557a20d181056a5cec69d7bbea",
+        "tests/spacecraft/ladder-bay-construction.test.mjs": "a32bf13b4eafe595bc1b00c508a97b3d72bd09328e5c7a8a592eb419fc5f55cd",
+        "tests/spacecraft/exterior-joins.test.mjs": "1e2a315296dbf63e31e2a74fcf80486ae5077285cbb2a160983f1c9c30b46899",
+        "tests/spacecraft/iris-integration.test.mjs": "e25d6ee6b43d5b29dbc7e2505eedb2a5604822cc6d4ccd14f5174377335da30c"
+      },
+      "exitCode": 0,
+      "finishedAt": "2026-09-24T23:49:36.048556+00:00",
+      "logSha256": "a31cac2ab8bb82aa0aa77c62c19b1a6f5efbb943fda78c9e747bdc7172232490",
+      "sourceHashesAfter": {
+        "features/spacecraft/equipment/docking-service-assemblies.ts": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+        "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+        "tests/spacecraft/docking-construction.test.mjs": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670",
+        "tests/spacecraft/smooth-docking-ring.test.mjs": "807bd9f3b03cca16bc716203ef06d51a34a74c664e5c362a8488ccf671b03977",
+        "tests/spacecraft/wall-layout.test.mjs": "59d22b93fc3a25177b64c36623f5093c46dac1105821fe0751ceb61f019615c3",
+        "tests/spacecraft/docking-shoulder-equipment.test.mjs": "6d1a161a5cc2b122dbad80f06984d9f68dff4f2e0fbbbe1e797a0154e4f44185",
+        "tests/spacecraft/ladder-endcap-equipment.test.mjs": "1e9fc4c426f31841b6cb55a28daf20ac276d31557a20d181056a5cec69d7bbea",
+        "tests/spacecraft/ladder-bay-construction.test.mjs": "a32bf13b4eafe595bc1b00c508a97b3d72bd09328e5c7a8a592eb419fc5f55cd",
+        "tests/spacecraft/exterior-joins.test.mjs": "1e2a315296dbf63e31e2a74fcf80486ae5077285cbb2a160983f1c9c30b46899",
+        "tests/spacecraft/iris-integration.test.mjs": "e25d6ee6b43d5b29dbc7e2505eedb2a5604822cc6d4ccd14f5174377335da30c"
+      },
+      "result": {
+        "tests": 53,
+        "pass": 53,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sourceStableDuringRun": false,
+      "excludedFromFinalSourceProof": true,
+      "sourceNote": "All 53 cases passed, but the final cassette position edit occurred during this run. The later stable 8-case construction run above validates the affected contacts; final isolated full-suite verification is separate."
+    }
+  ],
+  "testFileChecks": {
+    "lint": {
+      "command": "npm run lint -- tests/spacecraft/docking-construction.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npm run format -- --check tests/spacecraft/docking-construction.test.mjs",
+      "exitCode": 0
+    },
+    "testFileUnchangedSinceTheseChecks": true
+  },
+  "inventoryMethod": {
+    "script": "scripts/measure-hardware-geometry.mjs",
+    "scriptSha256": "ab0d410c75f903b8cf2a79a10278155bc6a823b56d01f31d7d506cc17a1df247",
+    "production": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "state": "Production createSpacecraft, home at time zero, immediate doors, wide and compact, updated world matrices. Deep-copy all layout snapshots before switching layouts.",
+    "fingerprints": "Exact production subgroup comparison of world transforms, semantic parts, instance counts, material descriptors and raw geometry/index/instance buffers; no texture-pixel or shader-output comparison. Equal maps are retained by canonical JSON SHA-256 using sorted keys and compact separators.",
+    "counts": "Meshes are scene-graph candidates after batching, not measured renderer draws. Triangles include instances. Bytes sum unique geometry attributes/indices per inventory and exclude instance attributes, textures, temporary buffers, caches and driver allocations.",
+    "visibility": "Whole-model visible inventory honors all ancestors. Retained inventory includes hidden scene-graph variants. Named subgroup traversal starts at that root and can inventory a variant behind a hidden ancestor; exact effective visibility is compared separately.",
+    "baselineIsolation": "Fresh source-only git archive of baseline source/package files, sharing only installed node_modules by symlink. No private environment, main store, uploads, emulator state or secrets copied. Baseline removed after measurement; main server/store untouched."
+  },
+  "framingFieldsCompared": [
+    "roomAnchors",
+    "roomBounds",
+    "innerApertureBounds",
+    "roomCameraFrame",
+    "requiredFramingPoints",
+    "overviewBounds",
+    "overviewSupportPoints",
+    "recommendedFraming",
+    "walkwayAnchor",
+    "walkwayBounds",
+    "walkwayProfile",
+    "dockingAnchors",
+    "communicationsAnchor",
+    "calloutAnchors",
+    "calloutEdges"
+  ],
+  "doorAndRouteFieldsCompared": [
+    "portals",
+    "adjacency",
+    "activeRoute",
+    "irisHatches",
+    "passageLinings"
+  ],
+  "comparison": {
+    "wide": {
+      "changedAssemblies": {
+        "central-docking-assembly": {
+          "before": {
+            "meshes": 9,
+            "triangles": 14396,
+            "uniqueGeometries": 9,
+            "attributeBytes": 734520,
+            "bounds": {
+              "min": [
+                -8.35600020980835, -1.0005042791366576, -1.0680042505264282
+              ],
+              "max": [
+                -6.247999931335449, 1.1355042219161988, 1.0709999799728394
+              ]
+            }
+          },
+          "after": {
+            "meshes": 8,
+            "triangles": 18268,
+            "uniqueGeometries": 8,
+            "attributeBytes": 1025048,
+            "bounds": {
+              "min": [
+                -8.35600020980835, -1.0005042791366576, -1.0680042505264282
+              ],
+              "max": [
+                -6.247999931335449, 1.1355042219161988, 1.0709999799728394
+              ]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 3872,
+            "uniqueGeometries": -1,
+            "attributeBytes": 290528
+          }
+        },
+        "walkway-finished-inner-docking-hatch": {
+          "before": {
+            "meshes": 5,
+            "triangles": 6684,
+            "uniqueGeometries": 5,
+            "attributeBytes": 489096,
+            "bounds": {
+              "min": [
+                -6.23100000166893, -0.9305000257492065, -0.9580000042915344
+              ],
+              "max": [
+                -6.022999997377395, 1.0655000257492064, 0.9580000042915344
+              ]
+            }
+          },
+          "after": {
+            "meshes": 4,
+            "triangles": 6684,
+            "uniqueGeometries": 4,
+            "attributeBytes": 489096,
+            "bounds": {
+              "min": [
+                -6.23100000166893, -0.9305000257492065, -0.9580000042915344
+              ],
+              "max": [-6.02256619477272, 1.0655000257492064, 0.9580000042915344]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 0,
+            "uniqueGeometries": -1,
+            "attributeBytes": 0
+          }
+        },
+        "left-vertical-walkway": {
+          "before": {
+            "meshes": 36,
+            "triangles": 119952,
+            "uniqueGeometries": 36,
+            "attributeBytes": 5621976,
+            "bounds": {
+              "min": [
+                -6.326000000894069, -2.8524999618530273, -1.2699999809265137
+              ],
+              "max": [-4.08899999910593, 2.987499952316284, 1.121000051498413]
+            }
+          },
+          "after": {
+            "meshes": 35,
+            "triangles": 119952,
+            "uniqueGeometries": 35,
+            "attributeBytes": 5621976,
+            "bounds": {
+              "min": [
+                -6.326000000894069, -2.8524999618530273, -1.2699999809265137
+              ],
+              "max": [-4.08899999910593, 2.987499952316284, 1.121000051498413]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 0,
+            "uniqueGeometries": -1,
+            "attributeBytes": 0
+          }
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 520,
+          "triangles": 995492,
+          "uniqueGeometries": 455,
+          "attributeBytes": 37851352,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 518,
+          "triangles": 999364,
+          "uniqueGeometries": 453,
+          "attributeBytes": 38141880,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": -2,
+          "triangles": 3872,
+          "uniqueGeometries": -2,
+          "attributeBytes": 290528
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 598,
+          "triangles": 1297190,
+          "uniqueGeometries": 533,
+          "attributeBytes": 50311404,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 596,
+          "triangles": 1301062,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601932,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": -2,
+          "triangles": 3872,
+          "uniqueGeometries": -2,
+          "attributeBytes": 290528
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "ladder-wall-isolation-cassette",
+          "aft-service-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "2619bc302ce815e5a03396f8e41bb2942a02dd828e0ddc868c2d69d14b834ac3",
+        "sharedInventoryMapSha256": "9e2fd9e4df5f865d654688b84798c313f29407482f12f3659cabf9131fa134ab"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "deca487c5cb13535fa3a39488061d9f211186c0acf0d12088a109f9180cdedaa",
+      "wholeModelDockingAndWalkwayBoundsEqual": true,
+      "innerHatchBoundChange": {
+        "axis": "max.x",
+        "difference": 0.00043380260467529297,
+        "interpretation": "The connected wheel rim extends the inner hatch assembly by about 0.000434 model units inside unchanged walkway bounds. No shared framing field changes."
+      },
+      "exactMetadataComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "332e9d73d108515f981ad9b7531c11c7c32b90cd80b62e7fa45c7ef84313a0ba"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0ddc2d7f19b19f2d7c0ce0fa05d316859f105f4b28b5e6ab7f463fbe1d824dbe"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "126727aed035b311c65fe8d78ab75cb4552a562d32e1e0c7b402c0c8e2c0d25d"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "29b00cda3297c0d1e1a4e9674a4bea6647b66fc06cb1c1e55cbfbaefb3ee701b"
+        }
+      }
+    },
+    "compact": {
+      "changedAssemblies": {
+        "central-docking-assembly": {
+          "before": {
+            "meshes": 9,
+            "triangles": 14396,
+            "uniqueGeometries": 9,
+            "attributeBytes": 734520,
+            "bounds": {
+              "min": [
+                -6.670000209808349, -1.0005042791366576, -1.0680042505264282
+              ],
+              "max": [
+                -4.561999931335449, 1.1355042219161988, 1.0709999799728394
+              ]
+            }
+          },
+          "after": {
+            "meshes": 8,
+            "triangles": 18268,
+            "uniqueGeometries": 8,
+            "attributeBytes": 1025048,
+            "bounds": {
+              "min": [
+                -6.670000209808349, -1.0005042791366576, -1.0680042505264282
+              ],
+              "max": [
+                -4.561999931335449, 1.1355042219161988, 1.0709999799728394
+              ]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 3872,
+            "uniqueGeometries": -1,
+            "attributeBytes": 290528
+          }
+        },
+        "walkway-finished-inner-docking-hatch": {
+          "before": {
+            "meshes": 5,
+            "triangles": 6684,
+            "uniqueGeometries": 5,
+            "attributeBytes": 489096,
+            "bounds": {
+              "min": [
+                -4.54500000166893, -0.9305000257492065, -0.9580000042915344
+              ],
+              "max": [
+                -4.336999997377395, 1.0655000257492064, 0.9580000042915344
+              ]
+            }
+          },
+          "after": {
+            "meshes": 4,
+            "triangles": 6684,
+            "uniqueGeometries": 4,
+            "attributeBytes": 489096,
+            "bounds": {
+              "min": [
+                -4.54500000166893, -0.9305000257492065, -0.9580000042915344
+              ],
+              "max": [-4.33656619477272, 1.0655000257492064, 0.9580000042915344]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 0,
+            "uniqueGeometries": -1,
+            "attributeBytes": 0
+          }
+        },
+        "left-vertical-walkway": {
+          "before": {
+            "meshes": 36,
+            "triangles": 119952,
+            "uniqueGeometries": 36,
+            "attributeBytes": 5621976,
+            "bounds": {
+              "min": [
+                -4.640000000894069, -2.8524999618530273, -1.2699999809265137
+              ],
+              "max": [-2.94499999910593, 2.987499952316284, 1.121000051498413]
+            }
+          },
+          "after": {
+            "meshes": 35,
+            "triangles": 119952,
+            "uniqueGeometries": 35,
+            "attributeBytes": 5621976,
+            "bounds": {
+              "min": [
+                -4.640000000894069, -2.8524999618530273, -1.2699999809265137
+              ],
+              "max": [-2.94499999910593, 2.987499952316284, 1.121000051498413]
+            }
+          },
+          "delta": {
+            "meshes": -1,
+            "triangles": 0,
+            "uniqueGeometries": -1,
+            "attributeBytes": 0
+          }
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 520,
+          "triangles": 973812,
+          "uniqueGeometries": 455,
+          "attributeBytes": 37228856,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 518,
+          "triangles": 977684,
+          "uniqueGeometries": 453,
+          "attributeBytes": 37519384,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": -2,
+          "triangles": 3872,
+          "uniqueGeometries": -2,
+          "attributeBytes": 290528
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 598,
+          "triangles": 1297190,
+          "uniqueGeometries": 533,
+          "attributeBytes": 50311404,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 596,
+          "triangles": 1301062,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601932,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "delta": {
+          "meshes": -2,
+          "triangles": 3872,
+          "uniqueGeometries": -2,
+          "attributeBytes": 290528
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "ladder-wall-isolation-cassette",
+          "aft-service-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "612e6861aaaef9af20c9ee4ffc792b8cab6d3f64e22a19840e7a3cae23f4983d",
+        "sharedInventoryMapSha256": "716d84bca9ca316c9407745846b16bcc6f08ed8c1b6a6b4f93ba038482acf838"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "82b3f6cb2d4f406bbeccdb1ad81da54a58de5bddc2a0000ac4631a71a1b0263e",
+      "wholeModelDockingAndWalkwayBoundsEqual": true,
+      "innerHatchBoundChange": {
+        "axis": "max.x",
+        "difference": 0.00043380260467529297,
+        "interpretation": "The connected wheel rim extends the inner hatch assembly by about 0.000434 model units inside unchanged walkway bounds. No shared framing field changes."
+      },
+      "exactMetadataComparisons": {
+        "framing": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0cb7cce16e3edcc1d6ea68de6e6eec77d679680be6c28c65a2c3690f8c58c43e"
+        },
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "486a8067ab78542e744c343c2dfb83f6b7ba3053a0647940685b19c3805605d1"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8506571000f80e652d58089017b52d7d56808222310c329c21ce92d268eaeed0"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "c2f59b680185aa79d1cc75030e134d2f44a3fe7e022791e4b7769cf5d028af9d"
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "Each layout adds 3,872 triangles and 290,528 geometry-array bytes, while visible whole-model mesh candidates change from 520 to 518. This authored construction change does not establish a performance improvement.",
+    "Exterior docking changes from 14,396 to 18,268 triangles and 9 to 8 mesh candidates; inner hatch triangles remain 6,684 while its material batches change from 5 to 4.",
+    "Protected four-cabin furniture/architecture/utilities, Stage06 ladder/spanners/end grips/liner, AFT service/dish/solar and exterior groups remain exact. Shared framing, overview support points, aperture/route/iris snapshots, whole-model bounds and docking bounds are unchanged."
+  ],
+  "limitations": [
+    "No browser, WebGL, visual approval, CPU/GPU timing, frame pacing, heat, battery or process/GPU memory measurement is claimed by this audit. Matching rendered evidence and independent design review are separate.",
+    "Contact checks use the actual rounded source solids and per-instance geometry, with 1e-7 contact tolerance; the saddle footprint and sealed passage probes are finite sampling rather than a proof over all continuous surfaces.",
+    "The broad development run that overlapped a source edit is explicitly excluded from final-source proof. Final isolated full-suite verification remains the root task's separate record.",
+    "Nested inventories overlap and must not be added. Retained scene-graph inventory is not complete application resource usage."
+  ]
+}

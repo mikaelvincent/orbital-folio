@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-09-25T00:06:04.505243+00:00",
+  "sourceHashes": {
+    "features/spacecraft/equipment/docking-service-assemblies.ts": "36e94f454991551d45aa13bf950cbb3f86a2855254c50cd3de1c984dcdd364d3",
+    "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+    "scripts/benchmarks/spacecraft-polish-preview.mjs": "fadc32b898ee3aac00319134a5aaf385e197f5df370c6280b38194dda56eebf4",
+    "tests/spacecraft/docking-construction.test.mjs": "d032e958aa83f545749be57a3d0ea8ae54a3e37b2a8b3258cf6c7355f8c3e670"
+  },
+  "format": {
+    "command": "npm run format -- --check features/spacecraft/equipment/docking-service-assemblies.ts features/spacecraft/spacecraft-model.ts scripts/benchmarks/spacecraft-polish-preview.mjs tests/spacecraft/docking-construction.test.mjs",
+    "exitCode": 0
+  },
+  "evidenceIntegrity": {
+    "originalJpegCount": 21,
+    "allImageHashesMatch": true,
+    "allImageDimensionsMatchRecordedViewport": true,
+    "allCompletedVerificationSourceHashesMatch": true,
+    "missingReadmeAndCriticEvidenceLinks": []
+  },
+  "gitDiffCheck": {
+    "command": "git diff --check",
+    "exitCode": 0
+  },
+  "browserCleanup": {
+    "reviewTabsClosed": true,
+    "viewportOverrideReset": true
+  },
+  "note": "No runtime source changed after the completed isolated verification snapshot.",
+  "finitePreviewStopped": true,
+  "mainServerHttpStatus": 200
+}

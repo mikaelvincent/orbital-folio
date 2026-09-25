@@ -1,0 +1,40 @@
+{
+  "engine": "Hidden built-in Chromium 153",
+  "mainServer": "http://127.0.0.1:3000",
+  "viewportSizes": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "finalPassiveCassetteClick": {
+    "point": [
+      410,
+      475
+    ],
+    "result": {
+      "activeRoom": "home",
+      "hoverObject": "",
+      "hoverPortal": "",
+      "hoverRoom": "",
+      "travelling": "false"
+    }
+  },
+  "observedRoutes": [
+    "Overview to Projects in portrait",
+    "Projects to About via ladder in portrait",
+    "About to Projects via ladder in landscape",
+    "Projects to Overview via navigation menu"
+  ],
+  "drag": "Landscape overview drag and release completed; final capture records release state",
+  "browserErrors": [],
+  "dataWrites": "No forms submitted or persisted content edited",
+  "limits": [
+    "Finite captured transit states are not an exhaustive frame-by-frame interlock trace",
+    "Native Safari, physical phone and browser reduced-motion override not tested"
+  ]
+}
