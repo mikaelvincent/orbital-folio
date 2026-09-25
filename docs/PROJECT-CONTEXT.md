@@ -1,6 +1,6 @@
 # Orbital Folio — current project context
 
-Decision snapshot: 25 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
+Decision snapshot: 26 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
 using the owner's conversation and current source. New explicit requests can
 revise these decisions; update this guide when they do. Dated evidence describes
 its own revision, not automatically today's app.
@@ -634,6 +634,12 @@ and [visible-room navigation evidence](evidence/room-access-and-hardware/README.
 remain with the measured design baselines. Superseded door reports are available
 in Git history; the interaction contract here and current source govern.
 
+Each face of the Projects / Case studies and About / Contact partitions follows
+the cabin it faces. Hover, selection, transit and reader-wall feedback must not
+brighten or dim the opposite cabin's wall. The single physical partition and
+shared iris/tunnel lighting remain. See the
+[wall isolation and email spacing checks](evidence/room-hover-email-spacing/README.md).
+
 The owner clarified on 22 September 2026 that the dim resting state is desired.
 Selectable screens in Projects, Case studies and Contact and configured About
 social cards stay at a **0.65** multiplier until hovered or keyboard-focused,
@@ -1095,6 +1101,9 @@ state this plainly without sample badges or a booking/delivery claim.
 The secondary email callout can be dismissed/reopened, copied or opened as a mail
 draft. Plain-text copying tries the synchronous compatibility path, then starts
 the modern API within the same click if needed, restoring focus and selection.
+Its label and address use compact, aligned rows in both the room application and
+Reading view. The callout's dismiss/copy buttons remain 44px wide with 28px minimum
+height; the email link uses the same row height and still wraps longer addresses.
 Keyboard key caps and legends follow physical `code` presses/releases,
 including held combinations; blur, visibility loss and closing clear their state.
 On macOS, Caps Lock reports toggle events rather than physical release. The owner

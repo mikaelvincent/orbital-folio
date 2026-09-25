@@ -1,0 +1,6 @@
+{
+  "features/spacecraft/spacecraft-model.ts": "033ac00541f9917f1519e7a97547d45eedcd555e1ecfff1d831d4e4512e278f6",
+  "features/spacecraft/spacecraft-runtime.ts": "ba2097913addc698e1c8c8fbf1ae69bfb64efdade2ba4654d275c1a6471a7e2b",
+  "features/portfolio/contact-form.css": "29614f669d9de185925b31d62633f59555f306b88fd9724d3681100e60e651c8",
+  "tests/spacecraft/room-wall-lighting.test.mjs": "ca5315f119a118689fe2885328ad0b3f121b3c2d240fe79ff265a8d9fc062d0c"
+}

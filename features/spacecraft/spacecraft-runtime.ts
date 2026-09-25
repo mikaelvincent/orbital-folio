@@ -751,10 +751,7 @@ export function mountSpacecraftScene({
           model.group.traverse((object: any) => {
             if (
               object.isMesh &&
-              (object.material?.userData.applicationRoomWall === 'experience' ||
-                object.material?.userData.applicationRoomWalls?.includes(
-                  'experience',
-                ))
+              object.material?.userData.applicationRoomWall === 'experience'
             )
               caseWalls.push(object);
           });
@@ -771,10 +768,7 @@ export function mountSpacecraftScene({
           model.group.traverse((object: any) => {
             if (
               object.isMesh &&
-              (object.material?.userData.applicationRoomWall === 'about' ||
-                object.material?.userData.applicationRoomWalls?.includes(
-                  'about',
-                ))
+              object.material?.userData.applicationRoomWall === 'about'
             )
               notebookWalls.push(object);
           });

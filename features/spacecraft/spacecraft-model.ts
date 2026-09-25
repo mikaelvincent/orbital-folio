@@ -869,13 +869,7 @@ export function createSpacecraft(
     // faces are created from that same contour for each layout below.
     if (!leftColumn) continue;
     const finish = m.wall.clone();
-    if (leftColumn) {
-      finish.userData.cabinPartitionPaint = true;
-      finish.userData.linkedRooms = [
-        section,
-        section === 'projects' ? 'experience' : 'contact',
-      ];
-    }
+    finish.userData.cabinPartitionPaint = true;
     const wall = pressureMesh(
       openWallGeometry,
       finish,
@@ -886,13 +880,17 @@ export function createSpacecraft(
     wall.userData.batchRoot = true;
     wall.traverse((part: any) => {
       if (!part.isMesh) return;
-      if (section === 'about') part.material.userData.contactRoomWall = true;
-      part.material.userData.applicationRoomWall =
-        section === 'about' ? 'contact' : 'projects';
-      part.material.userData.applicationRoomWalls =
-        section === 'projects'
-          ? ['projects', 'experience']
-          : ['about', 'contact'];
+      // Each side belongs to the cabin it faces, even though both surfaces
+      // share one physical partition and its layout transform.
+      const faceRoom = part.name.endsWith('-other-room-interior')
+        ? section === 'projects'
+          ? 'experience'
+          : 'contact'
+        : section;
+      part.userData.section = faceRoom;
+      part.material = roomMat(finish, faceRoom);
+      part.material.userData.applicationRoomWall = faceRoom;
+      if (faceRoom === 'contact') part.material.userData.contactRoomWall = true;
     });
     roomWallMounts.push({ group: wall, origin, sign: 1 });
   }
@@ -3693,10 +3691,7 @@ export function createSpacecraft(
         if (
           (material.userData.contactRoomWall &&
             currentState.activeRoom === 'contact') ||
-          material.userData.applicationRoomWall === currentState.activeRoom ||
-          material.userData.applicationRoomWalls?.includes(
-            currentState.activeRoom,
-          )
+          material.userData.applicationRoomWall === currentState.activeRoom
         )
           material.color
             .multiplyScalar(
