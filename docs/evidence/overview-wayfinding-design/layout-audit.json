@@ -1,0 +1,772 @@
+{
+  "recordedAt": "2026-09-25T03:11:56.488311+00:00",
+  "baselineRevision": "3388035724be9366930e20931f75a6757d955473",
+  "scope": "Stage 10 native overview identity, room destination tabs, leader routing and responsive readability. Read-only source/layout audit; physical architecture, rendering, camera and navigation semantics preserved.",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "currentHashesVerified": {
+      "app/globals.css": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "features/portfolio/immersive-portfolio.tsx": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "features/spacecraft/overview-annotations.ts": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "tests/spacecraft/overview-annotations.test.mjs": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67"
+    },
+    "baselineHashesVerified": {
+      "app/globals.css": "d23db4bb1fab43cce46bbe525179e99f9452d0e023a8b89f1920f2e5e635a7eb",
+      "features/portfolio/immersive-portfolio.tsx": "be105fc0e0810eab28b897077d80f3d0783e7fd1b15b7bb89493492c8371adf0",
+      "features/spacecraft/overview-annotations.ts": "7a3f35de18a7e04c8bf91d8084d3b2a58cc9a73591b990824bd9b99a85716806",
+      "tests/spacecraft/overview-annotations.test.mjs": "33357711322563a64ed79b48579941ef4054c6a8a5919cda76a952f34d5e0389"
+    },
+    "changedRuntimeSources": [
+      "app/globals.css",
+      "features/portfolio/immersive-portfolio.tsx",
+      "features/spacecraft/overview-annotations.ts"
+    ],
+    "allOtherTrackedTypeScriptTsxCssUnchanged": true,
+    "protectedSourceHashes": {
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "features/spacecraft/spacecraft-runtime.ts": "f6d92e78366381bcb3d63d96b9b4b5e6896934ed06abe60eafb14644de96e470",
+      "features/spacecraft/navigation/scene-controls.ts": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984",
+      "features/spacecraft/navigation/vessel-camera.ts": "9159c32a4d5cc5a7eaa74d851f28a23be90bbbac66cac2fc64ba510821ff5871",
+      "features/spacecraft/navigation/flight.ts": "c8e646dc926c6d2f9b5be704ceae08a757805879b0a06be9e33a99d9a4766d5e",
+      "features/spacecraft/navigation/door-navigation.ts": "992c5ee8c86ef9f6b2c988712bd5b742e2754f1beeaabb6d7fcbeef34cda8c82",
+      "features/spacecraft/navigation/iris-navigation.ts": "ded404dbff8deaa70603bab003082ea538fa4fcc697f0d14c9437e412fe3d614",
+      "features/spacecraft/geometry/spacecraft-wall-layout.ts": "9089f7ac9978bec744d2a44ee710143c50704ce3759c1bf62023304173e57772",
+      "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8"
+    },
+    "fixtureSourceBindingsMatchCurrent": true,
+    "compiledFixtureCssSha256": "e8d7c68353a539068a910406fb28ed189cb3cc00be3ba8450b5dc9afdf79eeab",
+    "temporaryFixtureBundleSha256": "30dcf9659dc782bf57af18b257047a1ee9f7f391fabe68e252130bae84ee421d",
+    "temporaryFixtureImplementationSha256": "9ae87ed18d4fb56252821bf395fb4ff4d7ed70cfb08e5baf3c2b357967d50ac0",
+    "all20ImageHashesMatchManifest": true
+  },
+  "observedDesignAndRegressionFindings": [
+    {
+      "finding": "The prior pill targets were unequal and default small-phone labels could be shortened. Desktop baseline type was 18.88px; portrait was 14px.",
+      "resolution": "Equal carbon tabs use full-size 48px targets; all default labels fit in the real captured states, including 136px tabs and 15px type at 320px width. Desktop final text is 17px, so this audit does not claim all typography increased in size."
+    },
+    {
+      "finding": "Portrait leader endpoints assumed a pill arc through a height-derived circular-cap formula.",
+      "resolution": "New straight tab-border attachment is checked against both source projection and actual DOM rectangles; the border form change is integrated into routing."
+    },
+    {
+      "finding": "A first draft removed scale compensation while guide rails could move inward during drag, reducing an explicit 16px paired-target separation to 5.167595px in an actual-model projection fixture. This was a source-level measured-size fixture, not an observed live-browser overlap.",
+      "resolution": "Portrait tab width now derives from viewport allowance; guide rails are constrained by the real tab width. Final source tests and actual long-label DOM camera-grid measurements retain the 16px gap."
+    }
+  ],
+  "focusedChecks": {
+    "startedAt": "2026-09-25T03:01:36.300529+00:00",
+    "command": "node --test tests/spacecraft/overview-annotations.test.mjs tests/spacecraft/overview-composition.test.mjs tests/spacecraft/overview-flight.test.mjs tests/spacecraft/vessel-camera.test.mjs",
+    "sourceHashesBefore": {
+      "features/spacecraft/overview-annotations.ts": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "features/portfolio/immersive-portfolio.tsx": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "app/globals.css": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "tests/spacecraft/overview-annotations.test.mjs": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67"
+    },
+    "finishedAt": "2026-09-25T03:01:37.763118+00:00",
+    "exitCode": 0,
+    "sourceHashesAfter": {
+      "features/spacecraft/overview-annotations.ts": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "features/portfolio/immersive-portfolio.tsx": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "app/globals.css": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "tests/spacecraft/overview-annotations.test.mjs": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67"
+    },
+    "result": {
+      "tests": 17,
+      "pass": 17,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "output": "✔ Overview identity remains at its measured layout position when the responsive lens changes (3.056125ms)\n✔ Real opening-edge leaders stay attached to the stationary vessel and native label borders across orientation and drag (51.345833ms)\n✔ Overview preserves full accessible labels, native navigation, hover feedback and travel interaction boundaries (5.9985ms)\n✔ Responsive overview keeps the whole spacecraft inside the safe area across the drag and room-hover envelope (49.864958ms)\n✔ Short landscape overviews recover useful vessel size without reducing callout space below42px (7.949792ms)\n✔ Portrait overview reveals the ceiling side across tall and nearly square screens (0.09375ms)\n✔ Portrait drag favors the left physical roof while allowing a modest right underside view (0.230958ms)\n✔ Asymmetric drag clamps both ends, preserves neutral hover and includes neutral in fit samples (0.513416ms)\n✔ Roof-biased drag crosses neutral with continuous velocity and monotonic control (0.969209ms)\n✔ Portrait overview flights preserve endpoints, clamp completion and reverse the same path (1.105459ms)\n✔ The camera eases only at the endpoints while advancing and rotating continuously (1.0615ms)\n✔ Portrait entry never retreats, and its eye and complete near plane remain ahead of the actual vessel (31.28825ms)\n✔ An interrupted flight carries its incoming velocity, then rests exactly at its new destination (0.29075ms)\n✔ Entry from the signed portrait drag extremes bakes the displayed angle and still travels only inward (14.409291ms)\n✔ Stationary hull camera preserves the prior model-view matrix through travel, tilt, dolly and every roll (16.603709ms)\n✔ Transferred lighting preserves the rectangular shadow projection and light direction relative to the hull (0.59875ms)\n✔ Orbital camera shares the physical pose under a fixed world registration, without resetting on updates (24.486583ms)\nℹ tests 17\nℹ suites 0\nℹ pass 17\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1396.84525\n",
+    "files": {
+      "tests/spacecraft/overview-annotations.test.mjs": 3,
+      "tests/spacecraft/overview-composition.test.mjs": 6,
+      "tests/spacecraft/overview-flight.test.mjs": 5,
+      "tests/spacecraft/vessel-camera.test.mjs": 3
+    }
+  },
+  "testFileChecks": {
+    "lint": {
+      "command": "npm run lint -- tests/spacecraft/overview-annotations.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npm run format -- --check tests/spacecraft/overview-annotations.test.mjs",
+      "exitCode": 0
+    }
+  },
+  "testCoverage": {
+    "actualSource": "Real spacecraft callout edge data with production stationary-vessel/virtual-camera adapter; no synthetic anchor boxes. Both wide and compact, four viewport shapes, 460 camera-grid states and 1,840 leader/button pairs. DOM dimensions in these unit tests are explicit fixtures, not browser font measurements.",
+    "behavior": [
+      "Opening-midpoint/physical-camera registration, matching dots, finite leaders and native tab-border attachment.",
+      "Unscaled native targets and 16px paired separation during permitted drag samples.",
+      "Valid 32–39-character full accessible names, decorative arrow exclusion, unchanged button room identities and one navigation callback per click.",
+      "Shared hover feedback, immediate inert/aria-hidden on departure, hidden portrait return, arrival gating, reduced-motion availability and disposal restoration."
+    ],
+    "additionalProtectedChecks": "Existing complete overview composition, inward flight and vessel-camera tests pass. Actual keyboard/room actions and visuals are recorded in the separate browser interaction evidence; the unit click test does not emulate a browser keyboard or screen reader."
+  },
+  "browserEvidence": {
+    "engine": "Hidden Codex built-in Chromium 153",
+    "measurementOwner": "Parent agent captured live hidden-browser DOM metrics and screenshots; this audit independently computes layout/framing invariants from those retained exports.",
+    "mainData": "browser-captures.json",
+    "mainDataSha256": "c9f1a863d2edfbe56b8f4368072478ecbcd287599d9c71370b86970fa94f49ea",
+    "screenshots": {
+      "count": 20,
+      "encoding": "JPEG",
+      "metadata": {
+        "after-desktop-drag-release.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "after-desktop-focus.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "after-desktop.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "after-portrait-drag-release.jpg": {
+          "width": 390,
+          "height": 844,
+          "format": "jpeg"
+        },
+        "after-portrait-return-transit.jpg": {
+          "width": 390,
+          "height": 844,
+          "format": "jpeg"
+        },
+        "after-portrait-return.jpg": {
+          "width": 390,
+          "height": 844,
+          "format": "jpeg"
+        },
+        "after-portrait.jpg": {
+          "width": 390,
+          "height": 844,
+          "format": "jpeg"
+        },
+        "after-projects-entry.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "after-short-interactive.jpg": {
+          "width": 844,
+          "height": 390,
+          "format": "jpeg"
+        },
+        "after-short-landscape.jpg": {
+          "width": 844,
+          "height": 390,
+          "format": "jpeg"
+        },
+        "after-small-portrait.jpg": {
+          "width": 320,
+          "height": 568,
+          "format": "jpeg"
+        },
+        "after-tablet.jpg": {
+          "width": 768,
+          "height": 1024,
+          "format": "jpeg"
+        },
+        "before-desktop.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "before-portrait.jpg": {
+          "width": 390,
+          "height": 844,
+          "format": "jpeg"
+        },
+        "before-short-interactive.jpg": {
+          "width": 844,
+          "height": 390,
+          "format": "jpeg"
+        },
+        "before-short-landscape.jpg": {
+          "width": 844,
+          "height": 390,
+          "format": "jpeg"
+        },
+        "before-small-portrait.jpg": {
+          "width": 320,
+          "height": 568,
+          "format": "jpeg"
+        },
+        "before-tablet.jpg": {
+          "width": 768,
+          "height": 1024,
+          "format": "jpeg"
+        },
+        "long-label-desktop.jpg": {
+          "width": 1440,
+          "height": 900,
+          "format": "jpeg"
+        },
+        "long-label-small-portrait.jpg": {
+          "width": 320,
+          "height": 568,
+          "format": "jpeg"
+        }
+      },
+      "actualCssPixelDimensions": true,
+      "browserDpr": 1,
+      "scaledWrapper": false
+    },
+    "productionEffects": "Live main application at localhost:3000, animated Earth/sky and shadows on. Active desktop/tablet/short interactive landscape exports report GTAO true; portrait/small-portrait exports report false. Reading-fallback exports contain no canvas and their retained scene dataset is excluded from effects/pose claims.",
+    "stationaryOverviewChecks": [
+      {
+        "file": "after-small-portrait.jpg",
+        "viewport": [320, 568],
+        "browserDpr": 1,
+        "drawingBuffers": [[320, 568]],
+        "gtaoReported": "false",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [16, 16],
+        "minimumGapPx": 16,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 6.899745301325311e-6,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 16,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.0, 15.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-portrait.jpg",
+        "viewport": [390, 844],
+        "browserDpr": 1,
+        "drawingBuffers": [[390, 844]],
+        "gtaoReported": "false",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [26.480651855468807, 26.480651855468807],
+        "minimumGapPx": 26.480651855468807,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 2.644858602707245e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 45.759674072265625,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.0, 15.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-desktop.jpg",
+        "viewport": [1440, 900],
+        "browserDpr": 1,
+        "drawingBuffers": [[1440, 900]],
+        "gtaoReported": "true",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [876.170166015625, 876.170166015625],
+        "minimumGapPx": 876.170166015625,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 4.616329238160688e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 115.763427734375,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [17.0, 17.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-desktop-focus.jpg",
+        "viewport": [1440, 900],
+        "browserDpr": 1,
+        "drawingBuffers": [[1440, 900]],
+        "gtaoReported": "true",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [899.1300659179688, 899.1300659179688],
+        "minimumGapPx": 899.1300659179688,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 5.52220424197003e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 104.164306640625,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [17.0, 17.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-portrait-return.jpg",
+        "viewport": [390, 844],
+        "browserDpr": 1,
+        "drawingBuffers": [[390, 844]],
+        "gtaoReported": "false",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [26.480651855468807, 26.480651855468807],
+        "minimumGapPx": 26.480651855468807,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 2.644858602707245e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 45.759674072265625,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.0, 15.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-portrait-drag-release.jpg",
+        "viewport": [390, 844],
+        "browserDpr": 1,
+        "drawingBuffers": [[390, 844]],
+        "gtaoReported": "false",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [29.77606201171872, 29.77606201171872],
+        "minimumGapPx": 29.77606201171872,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 3.036634768704971e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 44.111968994140625,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.0, 15.0],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-tablet.jpg",
+        "viewport": [768, 1024],
+        "browserDpr": 1,
+        "drawingBuffers": [[768, 1024]],
+        "gtaoReported": "true",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [139.052490234375, 139.052490234375],
+        "minimumGapPx": 139.052490234375,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 7.26385911775651e-6,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 97.526123046875,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.104, 15.104],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-short-interactive.jpg",
+        "viewport": [844, 390],
+        "browserDpr": 1,
+        "drawingBuffers": [[844, 390]],
+        "gtaoReported": "true",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [214.47628784179688, 214.47628784179688],
+        "minimumGapPx": 214.47628784179688,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 2.9601198889395164e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 89.55361938476562,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [15.332, 15.332],
+        "scaleValues": ["1"]
+      },
+      {
+        "file": "after-desktop-drag-release.jpg",
+        "viewport": [1440, 900],
+        "browserDpr": 1,
+        "drawingBuffers": [[1440, 900]],
+        "gtaoReported": "true",
+        "shadowsReported": "true",
+        "allDefaultLabelsUntruncated": true,
+        "identityOverlap": false,
+        "rowGapsPx": [901.9697265625, 901.9697265625],
+        "minimumGapPx": 901.9697265625,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "maximumBorderEndpointErrorPx": 1.759756787578226e-5,
+        "maximumLeaderToDotErrorPx": 0.0,
+        "minimumViewportClearancePx": 93.0968017578125,
+        "labelHeightRangePx": [48, 48],
+        "fontSizeRangePx": [17.0, 17.0],
+        "scaleValues": ["1"]
+      }
+    ],
+    "excludedFromStationaryLabelChecks": [
+      {
+        "file": "after-projects-entry.jpg",
+        "reason": "Room or in-progress travel deliberately hides/inerts overview controls"
+      },
+      {
+        "file": "after-portrait-return-transit.jpg",
+        "reason": "Room or in-progress travel deliberately hides/inerts overview controls"
+      },
+      {
+        "file": "after-short-landscape.jpg",
+        "reason": "Reading fallback has no canvas/callouts"
+      }
+    ],
+    "identityAndFramePreservation": [
+      {
+        "before": "before-desktop.jpg",
+        "after": "after-desktop.jpg",
+        "viewport": [1440, 900],
+        "cameraPositionQuaternionAndFramingExactlyEqual": true,
+        "identityWrapperExactlyEqual": true,
+        "identityWrapperHeightPx": 62.1953125,
+        "framing": {
+          "mode": "overview",
+          "distance": 22.442836658804115,
+          "safe": {
+            "left": -0.975,
+            "right": 0.975,
+            "top": 0.6173437500000001,
+            "bottom": -0.6606770833333333
+          },
+          "fullCraft": true,
+          "supportPoints": 112,
+          "roll": 0
+        }
+      },
+      {
+        "before": "before-portrait.jpg",
+        "after": "after-portrait.jpg",
+        "viewport": [390, 844],
+        "cameraPositionQuaternionAndFramingExactlyEqual": true,
+        "identityWrapperExactlyEqual": true,
+        "identityWrapperHeightPx": 44.265625,
+        "framing": {
+          "mode": "overview",
+          "distance": 17.738379202080203,
+          "safe": {
+            "left": -0.8153846153846154,
+            "right": 0.8153846153846154,
+            "top": 0.6154843009478673,
+            "bottom": -0.6966824644549763
+          },
+          "fullCraft": true,
+          "supportPoints": 112,
+          "roll": 1.5707963267948966
+        }
+      },
+      {
+        "before": "before-short-interactive.jpg",
+        "after": "after-short-interactive.jpg",
+        "viewport": [844, 390],
+        "cameraPositionQuaternionAndFramingExactlyEqual": true,
+        "identityWrapperExactlyEqual": true,
+        "identityWrapperHeightPx": 54.1484375,
+        "framing": {
+          "mode": "overview",
+          "distance": 42.804162712934264,
+          "safe": {
+            "left": -0.957345971563981,
+            "right": 0.957345971563981,
+            "top": 0.31205929487179485,
+            "bottom": -0.37435897435897436
+          },
+          "fullCraft": true,
+          "supportPoints": 112,
+          "roll": 0
+        }
+      },
+      {
+        "before": "before-tablet.jpg",
+        "after": "after-tablet.jpg",
+        "viewport": [768, 1024],
+        "cameraPositionQuaternionAndFramingExactlyEqual": true,
+        "identityWrapperExactlyEqual": true,
+        "identityWrapperHeightPx": 53.125,
+        "framing": {
+          "mode": "overview",
+          "distance": 24.026071775963825,
+          "safe": {
+            "left": -0.90625,
+            "right": 0.90625,
+            "top": 0.728271484375,
+            "bottom": -0.75
+          },
+          "fullCraft": true,
+          "supportPoints": 112,
+          "roll": 1.5707963267948966
+        }
+      },
+      {
+        "before": "before-small-portrait.jpg",
+        "after": "after-small-portrait.jpg",
+        "viewport": [320, 568],
+        "cameraPositionQuaternionAndFramingExactlyEqual": true,
+        "identityWrapperExactlyEqual": true,
+        "identityWrapperHeightPx": 43.296875,
+        "framing": {
+          "mode": "overview",
+          "distance": 26.94612603862374,
+          "safe": {
+            "left": -0.775,
+            "right": 0.775,
+            "top": 0.4320532570422535,
+            "bottom": -0.5492957746478873
+          },
+          "fullCraft": true,
+          "supportPoints": 112,
+          "roll": 1.5707963267948966
+        }
+      }
+    ],
+    "interactionEvidence": "interaction-checks.json",
+    "interactionEvidenceSha256": "ff56e28460f51970113d5f02f3ce195b5b469653d99a2083502b3cfdc375d545"
+  },
+  "longLabelBrowserFixture": {
+    "method": "Read-only separate loopback fixture. Actual Vite-compiled current CSS, bundled actual annotation and unchanged camera/fit functions, real model metadata generated without document. No spacecraft WebGL/sky/Earth/application rendering or persisted content. DOM measurements are real browser values; fitting uses current identity rectangle and fixed 80px bottom reservation without live navigation dock.",
+    "fixtures": [
+      {
+        "data": "long-label-small-portrait.json",
+        "image": "long-label-small-portrait.jpg",
+        "dataSha256": "ee519bee10465b69017e028a69ce0b7da9eaabc336bab884484db56441188b90",
+        "viewport": [320, 568],
+        "browserDpr": 1,
+        "layout": "wide",
+        "cameraGridSamples": 90,
+        "additionalNeutralSnapshot": true,
+        "labelCharacterCounts": {
+          "aboutLabel": 32,
+          "contactLabel": 35,
+          "experienceLabel": 40,
+          "projectsLabel": 38
+        },
+        "allFullNamesAndTitlesPreserved": true,
+        "nativeTargetsNeverShrunk": true,
+        "minimumGapAcrossSamplesPx": 16,
+        "minimumViewportClearanceAcrossSamplesPx": 16,
+        "maximumBorderEndpointErrorPx": 1.5213836206839915e-5,
+        "maximumLeaderToDotErrorPx": 5.684341886080802e-14,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "neutralLabels": [
+          {
+            "section": "projects",
+            "font": "15px",
+            "rect": {
+              "bottom": 488.5236206054687,
+              "height": 48,
+              "left": 16,
+              "right": 152,
+              "top": 440.5236206054687,
+              "width": 136,
+              "x": 16,
+              "y": 440.5236206054687
+            },
+            "textWidthPx": 271,
+            "availableTextWidthPx": 90,
+            "visuallyEllipsized": true
+          },
+          {
+            "section": "experience",
+            "font": "15px",
+            "rect": {
+              "bottom": 180.9710235595703,
+              "height": 48,
+              "left": 16,
+              "right": 152,
+              "top": 132.9710235595703,
+              "width": 136,
+              "x": 16,
+              "y": 132.9710235595703
+            },
+            "textWidthPx": 289,
+            "availableTextWidthPx": 90,
+            "visuallyEllipsized": true
+          },
+          {
+            "section": "about",
+            "font": "15px",
+            "rect": {
+              "bottom": 488.5236206054687,
+              "height": 48,
+              "left": 168,
+              "right": 304,
+              "top": 440.5236206054687,
+              "width": 136,
+              "x": 168,
+              "y": 440.5236206054687
+            },
+            "textWidthPx": 231,
+            "availableTextWidthPx": 90,
+            "visuallyEllipsized": true
+          },
+          {
+            "section": "contact",
+            "font": "15px",
+            "rect": {
+              "bottom": 180.9710235595703,
+              "height": 48,
+              "left": 168,
+              "right": 304,
+              "top": 132.9710235595703,
+              "width": 136,
+              "x": 168,
+              "y": 132.9710235595703
+            },
+            "textWidthPx": 241,
+            "availableTextWidthPx": 90,
+            "visuallyEllipsized": true
+          }
+        ],
+        "longIdentityReservationExactlyEqual": true,
+        "longIdentityRect": {
+          "bottom": 121.59375,
+          "height": 67.59375,
+          "left": 18,
+          "right": 302,
+          "top": 54,
+          "width": 284,
+          "x": 18,
+          "y": 54
+        },
+        "visibleRoleInsideReservation": true
+      },
+      {
+        "data": "long-label-desktop.json",
+        "image": "long-label-desktop.jpg",
+        "dataSha256": "c4638294df9aab31966fd2e32bc5cafc7be9d52d9b64cdae6f852afabc1c4349",
+        "viewport": [1440, 900],
+        "browserDpr": 1,
+        "layout": "wide",
+        "cameraGridSamples": 25,
+        "additionalNeutralSnapshot": true,
+        "labelCharacterCounts": {
+          "aboutLabel": 32,
+          "contactLabel": 35,
+          "experienceLabel": 40,
+          "projectsLabel": 38
+        },
+        "allFullNamesAndTitlesPreserved": true,
+        "nativeTargetsNeverShrunk": true,
+        "minimumGapAcrossSamplesPx": 749.19287109375,
+        "minimumViewportClearanceAcrossSamplesPx": 12.1015625,
+        "maximumBorderEndpointErrorPx": 0.10161407988039173,
+        "maximumLeaderToDotErrorPx": 1.1368683772161603e-13,
+        "maximumPairwiseOverlapAreaPx2": 0,
+        "neutralLabels": [
+          {
+            "section": "projects",
+            "font": "17px",
+            "rect": {
+              "bottom": 262.47332763671875,
+              "height": 48,
+              "left": 15.51055908203125,
+              "right": 332.30743408203125,
+              "top": 214.47332763671875,
+              "width": 316.796875,
+              "x": 15.51055908203125,
+              "y": 214.47332763671875
+            },
+            "textWidthPx": 307,
+            "availableTextWidthPx": 271,
+            "visuallyEllipsized": true
+          },
+          {
+            "section": "experience",
+            "font": "17px",
+            "rect": {
+              "bottom": 257.31707763671875,
+              "height": 48,
+              "left": 1111.1015625,
+              "right": 1427.8984375,
+              "top": 209.31707763671875,
+              "width": 316.796875,
+              "x": 1111.1015625,
+              "y": 209.31707763671875
+            },
+            "textWidthPx": 328,
+            "availableTextWidthPx": 271,
+            "visuallyEllipsized": true
+          },
+          {
+            "section": "about",
+            "font": "17px",
+            "rect": {
+              "bottom": 741.3954467773438,
+              "height": 48,
+              "left": 15.51055908203125,
+              "right": 332.30743408203125,
+              "top": 693.3954467773438,
+              "width": 316.796875,
+              "x": 15.51055908203125,
+              "y": 693.3954467773438
+            },
+            "textWidthPx": 262,
+            "availableTextWidthPx": 262,
+            "visuallyEllipsized": false
+          },
+          {
+            "section": "contact",
+            "font": "17px",
+            "rect": {
+              "bottom": 723.0252685546875,
+              "height": 48,
+              "left": 1111.1015625,
+              "right": 1427.8984375,
+              "top": 675.0252685546875,
+              "width": 316.796875,
+              "x": 1111.1015625,
+              "y": 675.0252685546875
+            },
+            "textWidthPx": 274,
+            "availableTextWidthPx": 271,
+            "visuallyEllipsized": true
+          }
+        ],
+        "longIdentityReservationExactlyEqual": true,
+        "longIdentityRect": {
+          "bottom": 127.390625,
+          "height": 105.390625,
+          "left": 304,
+          "right": 1136,
+          "top": 22,
+          "width": 832,
+          "x": 304,
+          "y": 22
+        },
+        "visibleRoleInsideReservation": true
+      }
+    ],
+    "purpose": "Stress valid published navigation-label lengths and long identity at real browser font metrics without mutating persisted content. CSS and annotation source are the production versions; model is metadata-only. Hidden baseline identity uses original wrapper/inline-link typography and divider rules under unchanged wrapper/media styling.",
+    "fittingLimit": "Fixture distance reflects the long identity reservation and a fixed 80px bottom reserve, not the live dock. It is not a full-scene screenshot or proof of spacecraft occlusion.",
+    "rounding": "Desktop max-width can be fractional while native offsetWidth rounds to an integer. The measured leader endpoint discrepancy stays below 0.102px; portrait endpoints are effectively exact.",
+    "actualBrowserSampleTotal": 117
+  },
+  "renderingImplications": {
+    "physicalModelRendererCameraAndOrbitalSourcesChanged": false,
+    "authoredDomDelta": {
+      "overviewAnnotationElements": {
+        "before": 14,
+        "after": 26,
+        "delta": 12
+      },
+      "homeIdentityElements": {
+        "before": 6,
+        "after": 9,
+        "delta": 3
+      },
+      "method": "Source-identified native element count for the four-tab annotation layer and home identity only; excludes text nodes, unrelated controls and the temporary audit fixture."
+    },
+    "measured": "DOM rectangles, text overflow, computed font/height/radius, projection attachment and source equality. No CPU/GPU timing, draw, process-memory or GPU-memory comparison was performed.",
+    "estimate": "Additional labels/arrows and visible identity text add layout/paint work. Its speed, heat, battery and memory effect is unmeasured; removing callout blur is an authored appearance choice, not a claimed optimization gain."
+  },
+  "limitations": [
+    "Main browser views are live and animation phases differ; no pixel-equivalence or timing experiment is claimed.",
+    "Finite source and DOM camera grids supplement final browser views. Main-browser drag captures are released states, not every held endpoint.",
+    "Native Safari, physical touch hardware, screen-reader/assistive-technology interaction and an OS-level reduced-motion change were not performed. Reduced motion is covered in unit behavior tests.",
+    "Long-label browser fixture covers wide-layout source metadata at 320×568 and 1440×900 only; unit tests cover both wide and compact. Long fixture omits spacecraft WebGL, Earth, dock, applications and navigation.",
+    "Full isolated suite/build/typecheck and independent visual review are recorded by their owners in separate verification and critic artifacts; this audit does not infer those outcomes."
+  ],
+  "cleanup": {
+    "fixtureServerStopped": true,
+    "removedOwnedTemporaryFiles": 6,
+    "finishedAt": "2026-09-25T03:12:43.375729+00:00",
+    "durableEvidenceRetained": "Layout audit including focused logs/provenance; raw browser/long-label JSON, screenshots and test file.",
+    "mainServerAndStoreUntouched": true
+  }
+}

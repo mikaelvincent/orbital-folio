@@ -3301,6 +3301,43 @@ The independent critic scores **96/100**, with 50% visual-design weight and no
 unresolved blockers. Final source, logs, image bytes and evidence identities were
 independently cross-checked; temporary review servers and fixture state are removed.
 
+## 63 — Overview wayfinding design baseline (25 September 2026)
+
+Stage 10 refines presentation only: equal carbon destination tabs with small
+entry arrows, full-size ivory type, quieter leaders and a visible published role
+beneath the domain. All four default destinations fit at 320 px width in
+136 × 48 px tabs. Portrait rails reserve a 16 px gap instead of scaling labels
+when hover/drag narrows the vessel projection. Longer labels retain their full
+accessible names and use visual ellipsis within bounded tabs.
+
+No model geometry, texture, renderer, camera or navigation source changed. The
+identity's original measured reservation is retained; source-identified live
+captures show identical before/after framing JSON, camera pose and wrapper
+rectangles at five interactive viewports. A separate actual-DOM fixture confirms
+that a long two-line identity also retains the baseline reservation. Added
+spans/SVG arrows and role/sizing markup have an expected small DOM layout/paint
+cost; CPU/GPU time, memory, heat and battery effects were not measured. This is
+an art baseline, not an optimization claim. No held candidate was implemented.
+
+[Evidence](evidence/overview-wayfinding-design/README.md) contains live hidden
+Chromium 153 comparisons at 1440×900, 390×844, 320×568, 768×1024 and 844×390,
+DPR 1 with actual, unscaled viewports. Live backgrounds were not frozen. Shadows
+are on; GTAO reports on for desktop/tablet/short interactive landscape and off
+for phone/small-phone portrait. Reading fallback has no canvas and its retained
+scene dataset is excluded from effects claims. Short landscape's default
+reading fallback and explicit interactive option are both recorded. Keyboard
+entry, all four callouts, ordinary returns, portrait arrival gating and released
+drag states were checked without modifying published content or inquiries.
+The long-label fixture uses actual CSS and model anchor metadata but omits WebGL,
+Earth, the dock and applications. Safari, physical touch and OS reduced-motion
+preferences were not tested; reduced-motion logic is covered by unit tests.
+
+Final isolated verification passes **584/584 tests**, typecheck, production
+build/geometry check and affected lint. The independent critic scores **96/100**,
+with 50% visual-design weight and no unresolved blockers. All source/image/log
+identities were checked; temporary review tabs, servers and test state are removed,
+and the main server remains available at port 3000.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

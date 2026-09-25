@@ -1,0 +1,58 @@
+[
+  {
+    "action": "Case studies callout click: arrived",
+    "annotationsHidden": "true",
+    "presence": "0.0000",
+    "room": "experience",
+    "travelling": "false",
+    "url": "http://localhost:3000/case-studies"
+  },
+  {
+    "action": "Archive return: overview arrived",
+    "annotationsHidden": "false",
+    "presence": "1.0000",
+    "room": "home",
+    "travelling": "false",
+    "url": "http://localhost:3000/"
+  },
+  {
+    "action": "Contact callout click: arrived, no submission",
+    "annotationsHidden": "true",
+    "presence": "0.0000",
+    "room": "contact",
+    "travelling": "false",
+    "url": "http://localhost:3000/contact"
+  },
+  {
+    "action": "Contact return: overview arrived",
+    "annotationsHidden": "false",
+    "presence": "1.0000",
+    "room": "home",
+    "travelling": "false",
+    "url": "http://localhost:3000/"
+  },
+  {
+    "action": "About callout click: arrived",
+    "annotationsHidden": "true",
+    "presence": "0.0000",
+    "room": "about",
+    "travelling": "false",
+    "url": "http://localhost:3000/about"
+  },
+  {
+    "action": "Portrait return during travel: callouts hidden",
+    "annotationsHidden": "true",
+    "presence": "0.0000",
+    "room": "home",
+    "travelling": "true",
+    "url": "http://localhost:3000/"
+  },
+  {
+    "action": "Portrait return: arrived",
+    "annotationsHidden": "false",
+    "presence": "1.0000",
+    "room": "home",
+    "travelling": "false",
+    "url": "http://localhost:3000/"
+  }
+]

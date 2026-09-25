@@ -1,0 +1,44 @@
+{
+  "baselineCommit": "3388035724be9366930e20931f75a6757d955473",
+  "engine": "Hidden Codex built-in Chromium 153",
+  "screenshots": {
+    "encoding": "JPEG",
+    "scaling": "Actual CSS viewports, browser DPR 1, no scaled wrapper",
+    "production": "Live localhost:3000; shadows on; GTAO on for desktop/tablet/short interactive landscape, off for phone/small-phone portrait; reading fallback has no canvas and stale scene dataset is excluded; animation/time not frozen",
+    "fixture": "Read-only loopback CSS/annotation/model metadata fixture; no spacecraft rendering, Earth, dock or live applications"
+  },
+  "sourceHashes": {
+    "app/globals.css": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+    "features/portfolio/immersive-portfolio.tsx": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+    "features/spacecraft/overview-annotations.ts": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+    "tests/spacecraft/overview-annotations.test.mjs": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67"
+  },
+  "baselineSourceHashes": {
+    "app/globals.css": "d23db4bb1fab43cce46bbe525179e99f9452d0e023a8b89f1920f2e5e635a7eb",
+    "features/portfolio/immersive-portfolio.tsx": "be105fc0e0810eab28b897077d80f3d0783e7fd1b15b7bb89493492c8371adf0",
+    "features/spacecraft/overview-annotations.ts": "7a3f35de18a7e04c8bf91d8084d3b2a58cc9a73591b990824bd9b99a85716806",
+    "tests/spacecraft/overview-annotations.test.mjs": "33357711322563a64ed79b48579941ef4054c6a8a5919cda76a952f34d5e0389"
+  },
+  "imageSha256": {
+    "after-desktop-drag-release.jpg": "be074fd17b5fe1c274d0cdaa472a2cdfa4c3affcc50b870201472739ce7d518c",
+    "after-desktop-focus.jpg": "59b68162e4b8d321d900976e25472c54650f15fd5cfb6f04257460071593a475",
+    "after-desktop.jpg": "4130bfb1e7d9554a86d59909121dbfa620aa249c91b16cba56a094021556b5ae",
+    "after-portrait-drag-release.jpg": "22ab125affeb53ade9c0f980823ea428160f2713c79b2442fa50d1c10842d4c7",
+    "after-portrait-return-transit.jpg": "37738bef1e2e583ba2d522bab1b963b48a026ef2e10e2f9969781dc155f89ce2",
+    "after-portrait-return.jpg": "093a10da0a8f05d3bf1b184b4d3c7fae23f678e9dc12d404d423308bd7cf10d3",
+    "after-portrait.jpg": "15add169b2501d04a159a69ca569b2c3918280a146c21e9ca2bb7fe41460d11c",
+    "after-projects-entry.jpg": "8558b8824e87169c7d27f0a8fad306a353e514bdd1e65620c08036874792852a",
+    "after-short-interactive.jpg": "ccf9ed17c10bdcfbd08f373a8fc83159a29c9de1faf3267bd2d7dc0fd923e007",
+    "after-short-landscape.jpg": "534776689aa922db2c8313da62af8c9bdee3cd29248b6e7e51ec62e7be58d878",
+    "after-small-portrait.jpg": "bd7a40439b047116c94d08acb429bde07296491472430e495f9a521dbeede157",
+    "after-tablet.jpg": "e19eb9307b92a7fa16c523065c1583afd41f801949abb9ca7a93727d3c0745d9",
+    "before-desktop.jpg": "66c96b1f80bb8c8d89744607832f22aba61482eeacef89f9e83e7505f102c8a4",
+    "before-portrait.jpg": "dbbdb7a1a2382e08789bab709dad2faf839a7534d0bcda6ef5140e655a0bd924",
+    "before-short-interactive.jpg": "a562fc1a2d96a93327f7620ecd5bc6a1bdcee575437357761c4b09553a7d0cd6",
+    "before-short-landscape.jpg": "e559d98e9ab62f9cad33e58149dd41f7ec25d9688bec4390272da4c51dc25f41",
+    "before-small-portrait.jpg": "a36dd1900e222affa149ae489c160b16d7b245c95845947cd0222f1e91db4de5",
+    "before-tablet.jpg": "7500b402cacf3389c307e0071d9d98b93c031517700043ae2427f49801d76487",
+    "long-label-desktop.jpg": "db202b15d6d5186210b6bfd24aa47bd9d6c9b3747dd27c2ffe176ae26bdf6741",
+    "long-label-small-portrait.jpg": "4dee0ba0fcecf11fde4cf3ebc3ef207fec0aa922b3718d63ce92e9c96571929f"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "verifiedAt": "2026-09-25T03:09:50.331291Z",
+  "baselineRevision": "3388035724be9366930e20931f75a6757d955473",
+  "sourceSnapshot": "All four FINAL working files synchronized before all checks; no source synchronization or edits during verification.",
+  "sourceFiles": [
+    {
+      "path": "app/globals.css",
+      "sha256": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "fixtureSha256AfterChecks": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "currentSha256AfterChecks": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/portfolio/immersive-portfolio.tsx",
+      "sha256": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "fixtureSha256AfterChecks": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "currentSha256AfterChecks": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/overview-annotations.ts",
+      "sha256": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "fixtureSha256AfterChecks": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "currentSha256AfterChecks": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/overview-annotations.test.mjs",
+      "sha256": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67",
+      "fixtureSha256AfterChecks": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67",
+      "currentSha256AfterChecks": "6c77243159a01fe910a2563ea9e906cdb3917448896f7f3ef16d2a4a501c4f67",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualEvidence": {
+    "manifest": "docs/evidence/overview-wayfinding-design/source-manifest.json",
+    "allFourSourceHashesMatch": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-wayfinding-verify-8809u1mo",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-wayfinding-verify-8809u1mo/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-wayfinding-verify-8809u1mo/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: isolated server stopped and disposable fixture/state removed; port 3003 has no listener and main localhost:3000 remains HTTP 200.",
+    "mainServerReadOnlyCheck": {
+      "url": "http://localhost:3000",
+      "status": 200,
+      "verifiedAt": "2026-09-25T03:09:50.331291Z"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 584,
+      "passed": 584,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 281860.755458,
+      "log": "docs/evidence/overview-wayfinding-design/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/evidence/overview-wayfinding-design/checks/typecheck.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryCheckIncluded": true,
+      "geometryCheckResult": "Indexed cylinder artifact matches its installed source and generator.",
+      "log": "docs/evidence/overview-wayfinding-design/checks/build.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- app/globals.css features/portfolio/immersive-portfolio.tsx features/spacecraft/overview-annotations.ts tests/spacecraft/overview-annotations.test.mjs",
+      "exitCode": 0,
+      "coverageNote": "Oxlint covers JavaScript/TypeScript/TSX. CSS was parsed by the production build; no separate CSS linter was run.",
+      "log": "docs/evidence/overview-wayfinding-design/checks/lint.log"
+    }
+  },
+  "warnings": [
+    "Production build: Node DEP0205 reports module.register() deprecated in favor of module.registerHooks().",
+    "Production build: some minified chunks exceed 500 kB.",
+    "Production build: Rolldown PLUGIN_TIMINGS reports overlapping plugin-hook work (2.9 s of a 3.3 s client build); its listed hook calls are not individually attributable timings.",
+    "Production build: Vinext static analysis cannot classify all routes; /experience is reported unknown."
+  ],
+  "failures": [],
+  "executionNotes": [
+    "Typecheck and affected lint overlapped the early full suite. Production build and its geometry precheck ran after the full suite completed.",
+    "No interrupted, superseded, or failed full-suite runs occurred for this final Stage 10 verification.",
+    "The fixture-only Vite cache directory setting is an isolation configuration change, not a product source change."
+  ],
+  "logNormalization": "Removed ANSI terminal control sequences, trailing line whitespace, and outer blank lines; retained substantive results, durations, warnings and commands. Raw logs remain outside the repository in /tmp; normalized durable logs remain in checks/.",
+  "logs": {
+    "test": {
+      "path": "docs/evidence/overview-wayfinding-design/checks/test.log",
+      "rawSha256": "bdfc6d0499d8e0215527f8fe0fe6ecea0b42cb0c461d1be465e45411c55cb8b9",
+      "normalizedSha256": "c5645dbf3465fab64146e02c72855ef793f3453aaf2a6f8741f73baa45bb8be7"
+    },
+    "typecheck": {
+      "path": "docs/evidence/overview-wayfinding-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "build": {
+      "path": "docs/evidence/overview-wayfinding-design/checks/build.log",
+      "rawSha256": "b5448f877233add50187c49b380e5f804468d00fb535b7f053ad867a786403f5",
+      "normalizedSha256": "eb795d538d35727c2a5d35a6de6fc7f7705ace22ee7c95fe607cfb7e02526ca8"
+    },
+    "lint": {
+      "path": "docs/evidence/overview-wayfinding-design/checks/lint.log",
+      "rawSha256": "0a16aaa7cc7c9625d9a5375afab095d433029ef07032b512f81c6500a45e5496",
+      "normalizedSha256": "b410c2133c3fcd3e5a9733da99f6c8bf3fa831b1aaa41a79bcb85bc03b85d6f6"
+    }
+  },
+  "limitations": [
+    "This record covers automated source and workflow verification. Rendered visual checks and independent design review are recorded separately.",
+    "Suite and build durations are elapsed verification times, not controlled rendering performance or speed, thermal, battery, or memory measurements."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T03:10:39.587569Z",
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-wayfinding-verify-8809u1mo",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "rawTemporaryLogsRetained": true,
+    "evidenceLogsRetained": true
+  }
+}

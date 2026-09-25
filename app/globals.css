@@ -2821,10 +2821,21 @@ svg {
   font: inherit;
   letter-spacing: inherit;
 }
-.orbital-identity a {
-  display: inline-block;
-  max-width: 100%;
+.orbital-identity-sizing {
+  /* Retain the established identity reservation exactly, including long names.
+     The visible two-line identity must not resize the shared camera fit. */
+  visibility: hidden;
   padding: 6px 4px 12px;
+  overflow-wrap: anywhere;
+}
+.orbital-identity-sizing::after {
+  content: '';
+  display: block;
+  height: 1px;
+}
+.orbital-identity a {
+  display: block;
+  max-width: 100%;
   color: inherit;
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -2837,23 +2848,31 @@ svg {
   overflow: hidden;
 }
 .orbital-identity-flight {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
   transform-origin: center;
   opacity: 0;
   will-change: transform, opacity;
 }
-.orbital-identity-flight::after {
-  content: '';
-  display: block;
-  height: 1px;
-  width: min(13rem, 60%);
-  margin: 0 auto;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--bronze) 61.2%, transparent),
-    var(--bronze),
-    transparent
-  );
+.orbital-identity-flight .orbital-identity-text {
+  font-size: 0.9em;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.065em;
+}
+.orbital-identity-role {
+  margin: 0;
+  color: var(--ivory-soft);
+  font: 400 clamp(0.6875rem, 0.6rem + 0.3vw, 0.8125rem) / 1.25 var(--font-sans);
+  letter-spacing: 0.035em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 1px 6px #000;
 }
 .overview-annotations {
   position: absolute;
@@ -2869,15 +2888,15 @@ svg {
   height: 100%;
   overflow: visible;
 }
-.overview-annotations path {
+.overview-annotations > svg > path {
   fill: none;
-  stroke: color-mix(in srgb, var(--ivory-soft) 61.2%, transparent);
+  stroke: color-mix(in srgb, var(--ivory-soft) 52%, transparent);
   stroke-width: 1;
 }
-.overview-annotations circle {
-  fill: var(--bronze);
-  stroke: color-mix(in srgb, var(--text-muted) 42%, transparent);
-  stroke-width: 3;
+.overview-annotations > svg > circle {
+  fill: var(--carbon-deep);
+  stroke: var(--bronze-light);
+  stroke-width: 1.25;
 }
 .overview-callout {
   /* Projection already eases with the camera; a CSS transform transition
@@ -2890,29 +2909,38 @@ svg {
   top: 0;
   left: 0;
   max-width: calc(50% - 24px);
-  min-height: 44px;
-  padding: 9px 18px;
-  border: 1px solid var(--orbital-edge);
-  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--ivory-soft) 35%, transparent);
+  border-radius: 8px;
   color: var(--orbital-ink);
-  background: var(--orbital-glass);
-  backdrop-filter: blur(18px) saturate(125%);
-  box-shadow:
-    inset 0 1px color-mix(in srgb, var(--bronze) 7.1%, transparent),
-    0 6px 24px #0002;
-  font: 400
-    min(
-      calc(var(--orbital-name-size) * 0.78),
-      clamp(0.875rem, 0.55rem + 0.7vw, 1.5rem)
-    )
-    / 1.3 var(--font-sans);
-  letter-spacing: 0.045em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background: color-mix(in srgb, var(--carbon-deep) 94%, transparent);
+  box-shadow: 0 4px 16px #0003;
+  font: 500 clamp(0.9375rem, 0.8rem + 0.3vw, 1.0625rem) / 1.3 var(--font-sans);
+  letter-spacing: 0.012em;
   cursor: pointer;
   pointer-events: auto;
   will-change: transform;
+}
+.overview-callout-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.overview-callout > svg {
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: var(--ivory-soft);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .overview-callout.is-highlighted {
   border-color: color-mix(in srgb, var(--bronze) 61.2%, transparent);
@@ -2926,8 +2954,11 @@ svg {
     inset 0 1px color-mix(in srgb, var(--bronze) 34.9%, transparent),
     0 0 24px color-mix(in srgb, var(--bronze) 14.1%, transparent);
 }
-.overview-annotations .is-highlighted {
-  stroke: var(--bronze);
+.overview-annotations > svg > .is-highlighted {
+  stroke: var(--bronze-light);
+}
+.overview-callout:is(.is-highlighted, :focus-visible) > svg {
+  stroke: var(--ivory);
 }
 .overview-annotations[inert] .overview-callout {
   pointer-events: none;

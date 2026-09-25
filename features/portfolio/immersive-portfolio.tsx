@@ -530,6 +530,9 @@ export function ImmersivePortfolio({
       <main id="main" tabIndex={-1}>
         {immersive && (
           <div className="orbital-identity">
+            <div className="orbital-identity-sizing" aria-hidden="true">
+              <span className="orbital-identity-text">{portfolioName}</span>
+            </div>
             <div className="orbital-identity-flight">
               {destination.section === 'home' ? (
                 <h1>
@@ -537,10 +540,7 @@ export function ImmersivePortfolio({
                     <span className="orbital-identity-text">
                       {portfolioName}
                     </span>
-                    <span className="sr-only">
-                      {' '}
-                      — {s.name} · {s.title}
-                    </span>
+                    <span className="sr-only"> — {s.name}</span>
                   </a>
                 </h1>
               ) : (
@@ -551,6 +551,9 @@ export function ImmersivePortfolio({
                   <span className="orbital-identity-text">{portfolioName}</span>
                 </a>
               )}
+              <p className="orbital-identity-role" title={s.title}>
+                {s.title}
+              </p>
             </div>
           </div>
         )}

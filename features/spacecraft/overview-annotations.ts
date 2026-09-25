@@ -30,14 +30,26 @@ export function createOverviewAnnotations(
     (section) => {
       const path = document.createElementNS(ns, 'path');
       const dot = document.createElementNS(ns, 'circle');
-      dot.setAttribute('r', '2.5');
+      dot.setAttribute('r', '3');
       dot.dataset.section = section;
       svg.appendChild(path);
       svg.appendChild(dot);
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'overview-callout';
-      button.textContent = String(site[section + 'Label'] || '');
+      const label = document.createElement('span');
+      label.className = 'overview-callout-label';
+      label.textContent = String(site[section + 'Label'] || '');
+      button.title = label.textContent;
+      button.appendChild(label);
+      const arrow = document.createElementNS(ns, 'svg');
+      arrow.setAttribute('viewBox', '0 0 16 16');
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.setAttribute('focusable', 'false');
+      const arrowPath = document.createElementNS(ns, 'path');
+      arrowPath.setAttribute('d', 'M 3 8 H 13 M 8 3 L 13 8 L 8 13');
+      arrow.appendChild(arrowPath);
+      button.appendChild(arrow);
       button.dataset.section = section;
       button.dataset.sceneRoom = section;
       button.dataset.targetKey = `room:${section}`;
@@ -102,7 +114,12 @@ export function createOverviewAnnotations(
     supports: Point[],
     view: Three.PerspectiveCamera,
   ) {
-    const rail = railPosition(supports);
+    // Keep full-size paired tabs at least 16px apart even when hover/drag
+    // narrows the projected vessel. Leaders may extend farther outboard.
+    const rail = Math.min(
+      railPosition(supports),
+      width / 2 + 4 - Math.max(...entries.map((e) => e.width)),
+    );
     const top = Math.min(...supports.map((p) => p.y)) - 12;
     const bottom = Math.max(...supports.map((p) => p.y)) + 12;
     // Landscape labels sit at the outer corners of the projected vessel.
@@ -130,12 +147,6 @@ export function createOverviewAnnotations(
           : a.x - leftCorner;
         diagonalRun = Math.min(diagonalRun, Math.max(0, available) * 0.45);
       }
-    const labelScale = portrait
-      ? Math.min(
-          1,
-          (width / 2 - rail + 4) / Math.max(...entries.map((e) => e.width)),
-        )
-      : 1;
     for (const [i, a] of anchors.entries()) {
       const e = entries[i],
         sx = e.lane ? 1 : -1,
@@ -147,14 +158,11 @@ export function createOverviewAnnotations(
         // A diagonal from the midpoint cuts across the solar panels or ladder.
         knee = { x, y: a.y };
         end = { x, y: e.upper ? top : bottom };
-        // Meet the rounded pill 12px from its outer end; the pill extends inward.
-        const radius = (e.height * labelScale) / 2;
-        const cap = Math.sqrt(
-          Math.max(0, radius * radius - (radius - 12) ** 2),
-        );
+        // The formed tab has an 8px corner. Meet its straight top/bottom
+        // edge 12px inward, so the leader terminates on the actual border.
         label = {
-          x: x - sx * ((e.width * labelScale) / 2 - 12),
-          y: end.y + sy * cap,
+          x: x - sx * (e.width / 2 - 12),
+          y: end.y + (sy * e.height) / 2,
         };
       } else {
         knee = {
@@ -167,7 +175,7 @@ export function createOverviewAnnotations(
       e.knee.copy(pointAtDepth(knee.x, knee.y, view));
       e.end.copy(pointAtDepth(end.x, end.y, view));
       e.world.copy(pointAtDepth(label.x, label.y, view));
-      e.button.dataset.labelScale = String(labelScale);
+      e.button.dataset.labelScale = '1';
     }
     layer.dataset.connectorLayout = portrait
       ? 'mirrored-rails'
@@ -197,10 +205,7 @@ export function createOverviewAnnotations(
     portrait = Math.abs(frame.roll) > Math.PI / 4;
     supportPoints = support;
     const projected = support.map((p) => project(rotated(p), reference));
-    const rail = railPosition(projected);
-    const maxWidth = portrait
-      ? Math.min((width - 48) / 2, width / 2 - rail + 4)
-      : width * 0.22;
+    const maxWidth = portrait ? (width - 48) / 2 : width * 0.22;
     const sorted = entries
       .map((entry) => ({
         entry,
@@ -229,10 +234,22 @@ export function createOverviewAnnotations(
             : 'bottom';
         entry.anchor.set(...(edges[edge] as [number, number, number]));
         entry.dot.dataset.localAnchor = JSON.stringify(entry.anchor.toArray());
+        entry.button.style.width = 'max-content';
         entry.button.style.maxWidth = `${Math.max(64, maxWidth)}px`;
         entry.width = entry.button.offsetWidth;
         entry.height = entry.button.offsetHeight;
       }
+    }
+    // Equal tabs establish a legible destination set. Constrain the text
+    // within them instead of shrinking their type or physical touch target.
+    const tabWidth = Math.min(
+      Math.max(64, maxWidth),
+      Math.max(136, ...entries.map((e) => e.width)),
+    );
+    for (const entry of entries) {
+      entry.button.style.width = `${tabWidth}px`;
+      entry.width = entry.button.offsetWidth;
+      entry.height = entry.button.offsetHeight;
     }
     route(
       entries.map((e) => project(rotated(e.anchor.toArray()), reference)),

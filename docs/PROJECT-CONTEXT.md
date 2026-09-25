@@ -342,6 +342,29 @@ checks and independent review](evidence/exterior-hull-design/README.md).
 Stage 10 owns overview presentation and wayfinding against this finished
 silhouette; no further access-route changes are required for that handoff.
 
+### Stage 10 — Overview identity and wayfinding (25 September 2026)
+
+Four equal carbon destination tabs now distinguish room navigation from the
+rounded utility controls. Ivory labels, small entry arrows and restrained bronze
+focus feedback carry forward the equipment palette. All four default room names
+remain visible at 320 px viewport width; tabs keep 48 px height and at least 15 px
+type instead of shrinking during portrait hover/drag. Longer published labels
+remain complete in the accessible button name and native title, with visual
+ellipsis when space is limited.
+
+Leaders still begin at the actual opening-edge midpoints. Portrait rails may
+extend farther outboard to retain a 16 px minimum gap between paired tabs;
+leaders meet the new tab's straight border instead of its former pill arc.
+The visible identity adds the published professional title beneath the domain.
+An aria-hidden sizing copy retains the established identity reservation, so
+this typography change does not alter shared camera fitting.
+
+The completed model, portrait roll, drag envelope, navigation semantics and
+travel behavior remain intact. Portrait return callouts remain hidden/inert
+until arrival. See [responsive before/after evidence and review](evidence/overview-wayfinding-design/README.md).
+Stage 11 should retain this destination/utility hierarchy and the existing
+physical header signs; it owns material and lighting cohesion, not camera changes.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

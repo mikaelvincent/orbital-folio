@@ -1,0 +1,4389 @@
+{
+  "compiledCssSha256": "e8d7c68353a539068a910406fb28ed189cb3cc00be3ba8450b5dc9afdf79eeab",
+  "createdAt": "2026-09-25T03:05:23.459Z",
+  "frame": {
+    "direction": [
+      -0.24473375223705768,
+      0.187843202026268,
+      0.95122043815747
+    ],
+    "distance": 24.079718307572183,
+    "fov": 38,
+    "roll": 0,
+    "safe": {
+      "bottom": -0.6622222222222223,
+      "left": -0.975,
+      "right": 0.975,
+      "top": 0.5213541666666667
+    },
+    "target": [
+      -1.7600075520189036,
+      0.3720437678975568,
+      -0.053608408772980565
+    ]
+  },
+  "identityReservation": {
+    "baseline": {
+      "bottom": 127.390625,
+      "height": 105.390625,
+      "left": 304,
+      "right": 1136,
+      "top": 22,
+      "width": 832,
+      "x": 304,
+      "y": 22
+    },
+    "baselineSource": "3388035724be9366930e20931f75a6757d955473 identity markup and flight/name/anchor rules",
+    "current": {
+      "bottom": 127.390625,
+      "height": 105.390625,
+      "left": 304,
+      "right": 1136,
+      "top": 22,
+      "width": 832,
+      "x": 304,
+      "y": 22
+    }
+  },
+  "labels": {
+    "aboutLabel": "About the designer and developer",
+    "contactLabel": "Contact and collaboration enquiries",
+    "experienceLabel": "Case studies: systems and product design",
+    "projectsLabel": "Projects: engineering experiments 2026"
+  },
+  "layout": "wide",
+  "method": "Read-only separate loopback fixture. Actual Vite-compiled current CSS, bundled actual annotation and unchanged camera/fit functions, real model metadata generated without document. No spacecraft WebGL/sky/Earth/application rendering or persisted content. DOM measurements are real browser values; fitting uses current identity rectangle and fixed 80px bottom reservation without live navigation dock.",
+  "neutral": {
+    "dots": [
+      {
+        "cx": 720.623906126278,
+        "cy": 317.62755448029935,
+        "localAnchor": [
+          -2.0869999999999997,
+          2.9275,
+          1.26
+        ],
+        "section": "projects"
+      },
+      {
+        "cx": 947.4129345892516,
+        "cy": 312.47128836001264,
+        "localAnchor": [
+          2.0869999999999997,
+          2.9275,
+          1.26
+        ],
+        "section": "experience"
+      },
+      {
+        "cx": 720.5951901000237,
+        "cy": 638.2412436663849,
+        "localAnchor": [
+          -2.0869999999999997,
+          -2.7925000000000004,
+          1.26
+        ],
+        "section": "about"
+      },
+      {
+        "cx": 937.3847958212032,
+        "cy": 619.8710278126666,
+        "localAnchor": [
+          2.0869999999999997,
+          -2.7925000000000004,
+          1.26
+        ],
+        "section": "contact"
+      }
+    ],
+    "dpr": 1,
+    "identity": [
+      {
+        "class": "orbital-identity",
+        "rect": {
+          "bottom": 127.390625,
+          "height": 105.390625,
+          "left": 304,
+          "right": 1136,
+          "top": 22,
+          "width": 832,
+          "x": 304,
+          "y": 22
+        },
+        "text": "alexandra-spacecraft-interface-design.example.comalexandra-spacecraft-interface-design.example.com — Fixture PersonInterface engineer and spacecraft systems designer"
+      },
+      {
+        "class": "orbital-identity-flight",
+        "rect": {
+          "bottom": 127.390625,
+          "height": 105.390625,
+          "left": 304,
+          "right": 1136,
+          "top": 22,
+          "width": 832,
+          "x": 304,
+          "y": 22
+        },
+        "text": "alexandra-spacecraft-interface-design.example.com — Fixture PersonInterface engineer and spacecraft systems designer"
+      },
+      {
+        "class": "orbital-identity-role",
+        "rect": {
+          "bottom": 101.375,
+          "height": 16.25,
+          "left": 304,
+          "right": 1136,
+          "top": 85.125,
+          "width": 832,
+          "x": 304,
+          "y": 85.125
+        },
+        "text": "Interface engineer and spacecraft systems designer"
+      },
+      {
+        "class": "orbital-identity",
+        "rect": {
+          "bottom": 127.390625,
+          "height": 105.390625,
+          "left": 304,
+          "right": 1136,
+          "top": 22,
+          "width": 832,
+          "x": 304,
+          "y": 22
+        },
+        "text": "alexandra-spacecraft-interface-design.example.com — Fixture Person · Interface engineer and spacecraft systems designer"
+      },
+      {
+        "class": "orbital-identity-flight",
+        "rect": {
+          "bottom": 127.390625,
+          "height": 105.390625,
+          "left": 304,
+          "right": 1136,
+          "top": 22,
+          "width": 832,
+          "x": 304,
+          "y": 22
+        },
+        "text": "alexandra-spacecraft-interface-design.example.com — Fixture Person · Interface engineer and spacecraft systems designer"
+      }
+    ],
+    "labels": [
+      {
+        "accessibleText": "Projects: engineering experiments 2026",
+        "ariaHidden": "false",
+        "borderRadius": "8px",
+        "font": "17px",
+        "inert": false,
+        "labelClientWidth": 271,
+        "labelOverflow": "ellipsis",
+        "labelScrollWidth": 307,
+        "rect": {
+          "bottom": 262.47332763671875,
+          "height": 48,
+          "left": 15.51055908203125,
+          "right": 332.30743408203125,
+          "top": 214.47332763671875,
+          "width": 316.796875,
+          "x": 15.51055908203125,
+          "y": 214.47332763671875
+        },
+        "scale": "1",
+        "section": "projects",
+        "text": "Projects: engineering experiments 2026",
+        "title": "Projects: engineering experiments 2026"
+      },
+      {
+        "accessibleText": "Case studies: systems and product design",
+        "ariaHidden": "false",
+        "borderRadius": "8px",
+        "font": "17px",
+        "inert": false,
+        "labelClientWidth": 271,
+        "labelOverflow": "ellipsis",
+        "labelScrollWidth": 328,
+        "rect": {
+          "bottom": 257.31707763671875,
+          "height": 48,
+          "left": 1111.1015625,
+          "right": 1427.8984375,
+          "top": 209.31707763671875,
+          "width": 316.796875,
+          "x": 1111.1015625,
+          "y": 209.31707763671875
+        },
+        "scale": "1",
+        "section": "experience",
+        "text": "Case studies: systems and product design",
+        "title": "Case studies: systems and product design"
+      },
+      {
+        "accessibleText": "About the designer and developer",
+        "ariaHidden": "false",
+        "borderRadius": "8px",
+        "font": "17px",
+        "inert": false,
+        "labelClientWidth": 262,
+        "labelOverflow": "ellipsis",
+        "labelScrollWidth": 262,
+        "rect": {
+          "bottom": 741.3954467773438,
+          "height": 48,
+          "left": 15.51055908203125,
+          "right": 332.30743408203125,
+          "top": 693.3954467773438,
+          "width": 316.796875,
+          "x": 15.51055908203125,
+          "y": 693.3954467773438
+        },
+        "scale": "1",
+        "section": "about",
+        "text": "About the designer and developer",
+        "title": "About the designer and developer"
+      },
+      {
+        "accessibleText": "Contact and collaboration enquiries",
+        "ariaHidden": "false",
+        "borderRadius": "8px",
+        "font": "17px",
+        "inert": false,
+        "labelClientWidth": 271,
+        "labelOverflow": "ellipsis",
+        "labelScrollWidth": 274,
+        "rect": {
+          "bottom": 723.0252685546875,
+          "height": 48,
+          "left": 1111.1015625,
+          "right": 1427.8984375,
+          "top": 675.0252685546875,
+          "width": 316.796875,
+          "x": 1111.1015625,
+          "y": 675.0252685546875
+        },
+        "scale": "1",
+        "section": "contact",
+        "text": "Contact and collaboration enquiries",
+        "title": "Contact and collaboration enquiries"
+      }
+    ],
+    "leaders": [
+      "M 720.623906126278 317.62755448029935 L 647.0097266914415 238.47332609079152 L 332.40901589439744 238.47332609079152",
+      "M 947.4129345892516 312.47128836001264 L 1021.0271140240883 233.31705997050528 L 1111 233.3170599705054",
+      "M 720.5951901000237 638.2412436663849 L 646.9810106651867 717.3954720558921 L 332.4090158943972 717.3954720558926",
+      "M 937.3847958212033 619.8710278126666 L 1010.99897525604 699.0252562021742 L 1111.0000000000005 699.0252562021742"
+    ],
+    "presence": "1.0000",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  "samples": [
+    {
+      "dots": [
+        {
+          "cx": 747.896292061821,
+          "cy": 332.1017643871489,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 931.1475232674688,
+          "cy": 300.70992756552437,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 745.6784803244885,
+          "cy": 636.0026061073531,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 915.7848591019772,
+          "cy": 581.1152344865768,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        749.19287109375,
+        749.19287109375
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 191.10597229003903,
+            "height": 48,
+            "left": 18.3975830078125,
+            "right": 335.1944580078125,
+            "top": 143.10597229003906,
+            "width": 316.796875,
+            "x": 18.3975830078125,
+            "y": 143.10597229003906
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 159.71412658691406,
+            "height": 48,
+            "left": 1084.3873291015625,
+            "right": 1401.1842041015625,
+            "top": 111.71412658691406,
+            "width": 316.796875,
+            "x": 1084.3873291015625,
+            "y": 111.71412658691406
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 824.9984130859375,
+            "height": 48,
+            "left": 18.3975830078125,
+            "right": 335.1944580078125,
+            "top": 776.9984130859375,
+            "width": 316.796875,
+            "x": 18.3975830078125,
+            "y": 776.9984130859375
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 770.1110229492188,
+            "height": 48,
+            "left": 1084.3873291015625,
+            "right": 1401.1842041015625,
+            "top": 722.1110229492188,
+            "width": 316.796875,
+            "x": 1084.3873291015625,
+            "y": 722.1110229492188
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 747.896292061821 332.1017643871489 L 678.9840561331087 167.1059694250383 L 335.29599970362017 167.10596942503827",
+        "M 931.1475232674687 300.70992756552437 L 1000.0597591961812 135.7141326034145 L 1084.2858253312734 135.7141326034144",
+        "M 745.6784803244885 636.0026061073531 L 676.7662443957765 800.9984010694632 L 335.2959997036206 800.9984010694637",
+        "M 915.7848591019772 581.1152344865768 L 984.697095030689 746.1110294486868 L 1084.2858253312743 746.1110294486873"
+      ],
+      "view": {
+        "direction": [
+          -0.5315320872425798,
+          0.3326773021627628,
+          0.7789733325713097
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 735.0969527854227,
+          "cy": 334.6231264668587,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 944.0159086767372,
+          "cy": 309.126935338051,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 733.8483848904006,
+          "cy": 637.3024791794902,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 926.6781644579872,
+          "cy": 594.3526571576233,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 224.857666015625,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 176.857666015625,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 176.857666015625
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 199.36146545410156,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 151.36146545410156,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 151.36146545410156
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 795.0679321289062,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 747.0679321289062,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 747.0679321289062
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 752.1181030273438,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 704.1181030273438,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 704.1181030273438
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 735.0969527854227 334.6231264668587 L 659.9541116899547 200.85765860689938 L 328.99999999999955 200.85765860689932",
+        "M 944.0159086767371 309.126935338051 L 1019.1587497722048 175.36146747809204 L 1111 175.36146747809218",
+        "M 733.8483848904006 637.3024791794902 L 658.7055437949324 771.0679470394501 L 329.0000000000007 771.0679470394499",
+        "M 926.6781644579871 594.3526571576233 L 1001.8210055534562 728.1181250175828 L 1111 728.1181250175817"
+      ],
+      "view": {
+        "direction": [
+          -0.3931545716733797,
+          0.3459493285547892,
+          0.8519087655640196
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 721.6888289620866,
+          "cy": 336.1573137845326,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 951.2276955223078,
+          "cy": 319.11178745861673,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 721.545529140688,
+          "cy": 637.7444870533265,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 932.4106390289965,
+          "cy": 609.7431766755145,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        778.2292175292969,
+        778.2292175292969
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 254.8492126464844,
+            "height": 48,
+            "left": 16.075469970703125,
+            "right": 332.8723449707031,
+            "top": 206.8492126464844,
+            "width": 316.796875,
+            "x": 16.075469970703125,
+            "y": 206.8492126464844
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 237.80368041992188,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 189.80368041992188,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 189.80368041992188
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 767.0526123046875,
+            "height": 48,
+            "left": 16.075469970703125,
+            "right": 332.8723449707031,
+            "top": 719.0526123046875,
+            "width": 316.796875,
+            "x": 16.075469970703125,
+            "y": 719.0526123046875
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 739.05126953125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 691.05126953125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 691.05126953125
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 721.6888289620866 336.1573137845326 L 649.791291947125 230.84921091686942 L 332.97391440870075 230.8492109168693",
+        "M 951.2276955223078 319.11178745861673 L 1023.125232537269 213.8036845909539 L 1111 213.8036845909539",
+        "M 721.545529140688 637.7444870533265 L 649.6479921257264 743.0525899209891 L 332.97391440870047 743.05258992099",
+        "M 932.4106390289965 609.7431766755145 L 1004.3081760439584 715.0512795431777 L 1111.0000000000005 715.0512795431775"
+      ],
+      "view": {
+        "direction": [
+          -0.24473375223705768,
+          0.355104938823926,
+          0.9022227402026765
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 708.1504518867539,
+          "cy": 336.53606998690964,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 951.972351280746,
+          "cy": 329.94625287232367,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 709.1681887602412,
+          "cy": 637.2563223482739,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 932.3562949678044,
+          "cy": 626.5803374009233,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 270.16180419921875,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 222.16180419921875,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 222.16180419921875
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 263.572021484375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 215.572021484375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 215.572021484375
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 751.6305541992188,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 703.6305541992188,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 703.6305541992188
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 740.95458984375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 692.95458984375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 692.95458984375
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 708.1504518867539 336.53606998690964 L 636.5880099630896 246.1618177755765 L 328.9999999999997 246.1618177755768",
+        "M 951.9723512807459 329.94625287232367 L 1023.5347932044102 239.5720006609909 L 1111 239.5720006609909",
+        "M 709.1681887602412 637.2563223482739 L 637.6057468365767 727.6305745596062 L 329.0000000000003 727.6305745596061",
+        "M 932.3562949678044 626.5803374009233 L 1003.9187368914684 716.9545896122553 L 1111 716.9545896122559"
+      ],
+      "view": {
+        "direction": [
+          -0.09006110306924883,
+          0.3599102489391916,
+          0.928629964206669
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 694.9811402962667,
+          "cy": 335.7098581800746,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 945.6303222135008,
+          "cy": 340.7392140245262,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 697.1274742949706,
+          "cy": 635.8442856059811,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 926.0460821796864,
+          "cy": 643.9680559305845,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        778.3592529296875,
+        778.3592529296875
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 275.8066101074219,
+            "height": 48,
+            "left": 15.9454345703125,
+            "right": 332.7423095703125,
+            "top": 227.80661010742188,
+            "width": 316.796875,
+            "x": 15.9454345703125,
+            "y": 227.80661010742188
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 280.8359680175781,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 232.83596801757812,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 232.83596801757812
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 743.74755859375,
+            "height": 48,
+            "left": 15.9454345703125,
+            "right": 332.7423095703125,
+            "top": 695.74755859375,
+            "width": 316.796875,
+            "x": 15.9454345703125,
+            "y": 695.74755859375
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 751.8712768554688,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 703.8712768554688,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 703.8712768554688
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 694.9811402962667 335.7098581800746 L 620.564785292342 251.8066156906521 L 332.843886496378 251.8066156906521",
+        "M 945.6303222135008 340.7392140245262 L 1020.0466772174256 256.8359715351043 L 1111.0000000000005 256.8359715351043",
+        "M 697.1274742949706 635.8442856059811 L 622.7111192910459 719.7475280954038 L 332.84388649637776 719.7475280954038",
+        "M 926.0460821796864 643.9680559305845 L 1000.462437183611 727.8712984200066 L 1111 727.871298420007"
+      ],
+      "view": {
+        "direction": [
+          0.06691219599532394,
+          0.3602425051717968,
+          0.9304558535979184
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 746.5395367032297,
+          "cy": 324.31310287749045,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 930.7541177031655,
+          "cy": 303.569279742945,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 744.8639057169488,
+          "cy": 637.0364726451348,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 918.5878443604504,
+          "cy": 590.694835184188,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        752.7965698242188,
+        752.7965698242188
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 201.6204071044922,
+            "height": 48,
+            "left": 17.10430908203125,
+            "right": 333.90118408203125,
+            "top": 153.6204071044922,
+            "width": 316.796875,
+            "x": 17.10430908203125,
+            "y": 153.6204071044922
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 180.8765869140625,
+            "height": 48,
+            "left": 1086.69775390625,
+            "right": 1403.49462890625,
+            "top": 132.8765869140625,
+            "width": 316.796875,
+            "x": 1086.69775390625,
+            "y": 132.8765869140625
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 807.7291870117188,
+            "height": 48,
+            "left": 17.10430908203125,
+            "right": 333.90118408203125,
+            "top": 759.7291870117188,
+            "width": 316.796875,
+            "x": 17.10430908203125,
+            "y": 759.7291870117188
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 761.3875122070312,
+            "height": 48,
+            "left": 1086.69775390625,
+            "right": 1403.49462890625,
+            "top": 713.3875122070312,
+            "width": 316.796875,
+            "x": 1086.69775390625,
+            "y": 713.3875122070312
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 746.5395367032297 324.31310287749045 L 676.4106216295081 177.6204024422299 L 334.002744929779 177.6204024422299",
+        "M 930.7541177031657 303.569279742945 L 1000.8830327768862 156.87657930768472 L 1086.5961512003234 156.87657930768478",
+        "M 744.8639057169488 637.0364726451348 L 674.7349906432282 783.7291730803953 L 334.00274492978 783.7291730803955",
+        "M 918.5878443604505 590.694835184188 L 988.7167594341709 737.387535619449 L 1086.596151200324 737.3875356194488"
+      ],
+      "view": {
+        "direction": [
+          -0.5315320872425798,
+          0.26131787530461154,
+          0.8057211727873546
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 734.039583516,
+          "cy": 325.5901505088507,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 942.7405561365364,
+          "cy": 309.07008740867155,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 733.1293839641037,
+          "cy": 638.2606368041675,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 929.2372849996112,
+          "cy": 602.4492476358033,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 230.4082946777344,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 182.4082946777344,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 182.4082946777344
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 213.8882293701172,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 165.8882293701172,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 165.8882293701172
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 781.4425048828125,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 733.4425048828125,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 733.4425048828125
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 745.631103515625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 697.631103515625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 697.631103515625
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 734.039583516 325.5901505088507 L 658.3228337774417 206.40828789293676 L 329.0000000000005 206.40828789293664",
+        "M 942.7405561365363 309.07008740867155 L 1018.4573058750949 189.8882247927576 L 1111.0000000000007 189.88822479275754",
+        "M 733.1293839641037 638.2606368041675 L 657.4126342255446 757.4424994200816 L 328.9999999999997 757.4424994200817",
+        "M 929.2372849996112 602.4492476358033 L 1004.9540347381707 721.6311102517177 L 1110.9999999999993 721.6311102517171"
+      ],
+      "view": {
+        "direction": [
+          -0.3931545716733797,
+          0.267980855359844,
+          0.8795542870868902
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 721.0594275307603,
+          "cy": 326.3150907533824,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 949.368296622481,
+          "cy": 315.41271366269984,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 720.9895544599858,
+          "cy": 638.7187310674727,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 934.8672414996696,
+          "cy": 615.5653621925353,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        778.6173095703125,
+        778.6173095703125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 261.890380859375,
+            "height": 48,
+            "left": 15.6873779296875,
+            "right": 332.4842529296875,
+            "top": 213.890380859375,
+            "width": 316.796875,
+            "x": 15.6873779296875,
+            "y": 213.890380859375
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 250.9879913330078,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 202.9879913330078,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 202.9879913330078
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 751.1434326171875,
+            "height": 48,
+            "left": 15.6873779296875,
+            "right": 332.4842529296875,
+            "top": 703.1434326171875,
+            "width": 316.796875,
+            "x": 15.6873779296875,
+            "y": 703.1434326171875
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 727.9900512695312,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 679.9900512695312,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 679.9900512695312
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 721.0594275307603 326.3150907533824 L 648.325161010877 237.89037149359933 L 332.5858363587929 237.8903714935994",
+        "M 949.368296622481 315.41271366269984 L 1022.1025631423652 226.98799440291728 L 1111 226.98799440291714",
+        "M 720.9895544599858 638.7187310674727 L 648.2552879401021 727.1434503272552 L 332.58583635879296 727.1434503272552",
+        "M 934.8672414996697 615.5653621925353 L 1007.6015080195534 703.9900814523186 L 1111 703.9900814523181"
+      ],
+      "view": {
+        "direction": [
+          -0.24473375223705768,
+          0.2725772633848756,
+          0.930487520604969
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 708.0193672566049,
+          "cy": 326.4182579986009,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 949.9621346681712,
+          "cy": 322.2315702765554,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 708.8157484985239,
+          "cy": 638.365316539759,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 934.915043221062,
+          "cy": 629.5744343746669,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 270.7550048828125,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 222.7550048828125,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 222.7550048828125
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 266.5683288574219,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 218.56832885742188,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 218.56832885742188
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 742.028564453125,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 694.028564453125,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 694.028564453125
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 733.2376708984375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 685.2376708984375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 685.2376708984375
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 708.0193672566049 326.4182579986009 L 635.5523278572819 246.75501788661143 L 328.9999999999997 246.75501788661143",
+        "M 949.9621346681712 322.2315702765554 L 1022.429174067494 242.56833016456613 L 1111.0000000000005 242.56833016456622",
+        "M 708.8157484985239 638.365316539759 L 636.3487090992008 718.0285566517477 L 328.9999999999994 718.0285566517487",
+        "M 934.915043221062 629.5744343746669 L 1007.3820826203852 709.2376744866559 L 1111 709.2376744866556"
+      ],
+      "view": {
+        "direction": [
+          -0.09006110306924883,
+          0.2749896821453187,
+          0.957219761824612
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 695.3465981273526,
+          "cy": 325.88411266659267,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 943.9758680720096,
+          "cy": 329.07731958782,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 696.9829445101623,
+          "cy": 637.2062956460836,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 928.9324958756612,
+          "cy": 643.8955606766217,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        777.7511291503906,
+        777.7511291503906
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 277.0338439941406,
+            "height": 48,
+            "left": 16.553558349609375,
+            "right": 333.3504333496094,
+            "top": 229.03384399414065,
+            "width": 316.796875,
+            "x": 16.553558349609375,
+            "y": 229.03384399414065
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 280.22705078125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 232.22705078125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 232.22705078125
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 734.0565795898438,
+            "height": 48,
+            "left": 16.553558349609375,
+            "right": 333.3504333496094,
+            "top": 686.0565795898438,
+            "width": 316.796875,
+            "x": 16.553558349609375,
+            "y": 686.0565795898438
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 740.745849609375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 692.745849609375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 692.745849609375
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 695.3465981273526 325.88411266659267 L 622.4963339157986 253.03384845503894 L 333.45199124094484 253.03384845503894",
+        "M 943.9758680720097 329.07731958782 L 1016.8261322835639 256.2270553762661 L 1111 256.22705537626604",
+        "M 696.9829445101623 637.2062956460836 L 624.1326802986082 710.0565598576374 L 333.45199124094484 710.0565598576377",
+        "M 928.9324958756611 643.8955606766217 L 1001.7827600872153 716.7458248881759 L 1110.9999999999998 716.7458248881753"
+      ],
+      "view": {
+        "direction": [
+          0.06691219599532394,
+          0.2751564853587606,
+          0.959068124062153
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 745.4995586070338,
+          "cy": 317.2550818503688,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 929.9740470004256,
+          "cy": 306.6680763712109,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 744.3294585646815,
+          "cy": 636.9167219626568,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 921.17286778735,
+          "cy": 599.106851372558,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        754.8861999511719,
+        754.8861999511719
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 213.02273559570312,
+            "height": 48,
+            "left": 16.534576416015625,
+            "right": 333.3314514160156,
+            "top": 165.02273559570312,
+            "width": 316.796875,
+            "x": 16.534576416015625,
+            "y": 165.02273559570312
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 202.43572998046875,
+            "height": 48,
+            "left": 1088.2176513671875,
+            "right": 1405.0145263671875,
+            "top": 154.43572998046875,
+            "width": 316.796875,
+            "x": 1088.2176513671875,
+            "y": 154.43572998046875
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 789.1490478515625,
+            "height": 48,
+            "left": 16.534576416015625,
+            "right": 333.3314514160156,
+            "top": 741.1490478515625,
+            "width": 316.796875,
+            "x": 16.534576416015625,
+            "y": 741.1490478515625
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 751.3392333984375,
+            "height": 48,
+            "left": 1088.2176513671875,
+            "right": 1405.0145263671875,
+            "top": 703.3392333984375,
+            "width": 316.796875,
+            "x": 1088.2176513671875,
+            "y": 703.3392333984375
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 745.4995586070338 317.2550818503688 L 674.3356173259065 189.02272836177002 L 333.43301828290123 189.02272836177002",
+        "M 929.9740470004257 306.6680763712109 L 1001.1379882815518 178.4357228826119 L 1088.116138736262 178.43572288261203",
+        "M 744.3294585646815 636.9167219626568 L 673.1655172835541 765.1490754512555 L 333.43301828290123 765.149075451256",
+        "M 921.1728677873499 599.106851372558 L 992.3368090684771 727.3392048611574 L 1088.116138736263 727.3392048611568"
+      ],
+      "view": {
+        "direction": [
+          -0.5315320872425798,
+          0.187843202026268,
+          0.8259470755950802
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 733.2606679277991,
+          "cy": 317.5292026844351,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 941.24992766334,
+          "cy": 309.47351843815017,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 732.6508169121877,
+          "cy": 637.8915398291748,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 931.7425568165602,
+          "cy": 609.1566785236378,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        781.9850463867188,
+        781.9850463867188
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 236.98345947265625,
+            "height": 48,
+            "left": 12.31964111328125,
+            "right": 329.11651611328125,
+            "top": 188.98345947265625,
+            "width": 316.796875,
+            "x": 12.31964111328125,
+            "y": 188.98345947265625
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 228.9277801513672,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 180.9277801513672,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 180.9277801513672
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 766.437255859375,
+            "height": 48,
+            "left": 12.31964111328125,
+            "right": 329.11651611328125,
+            "top": 718.437255859375,
+            "width": 316.796875,
+            "x": 12.31964111328125,
+            "y": 718.437255859375
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 737.702392578125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 689.702392578125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 689.702392578125
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 733.2606679277991 317.5292026844351 L 656.873135376303 212.9834595462823 L 329.2180937782505 212.98345954628223",
+        "M 941.2499276633399 309.47351843815017 L 1017.6374602148372 204.92777529999685 L 1110.9999999999998 204.92777529999688",
+        "M 732.6508169121877 637.8915398291748 L 656.2632843606914 742.4372829673281 L 329.2180937782503 742.4372829673283",
+        "M 931.7425568165602 609.1566785236378 L 1008.1300893680574 713.702421661791 L 1110.9999999999998 713.702421661791"
+      ],
+      "view": {
+        "direction": [
+          -0.3931545716733797,
+          0.187843202026268,
+          0.9000802265491893
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 720.623906126278,
+          "cy": 317.62755448029935,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 947.4129345892516,
+          "cy": 312.47128836001264,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 720.5951901000237,
+          "cy": 638.2412436663849,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 937.3847958212032,
+          "cy": 619.8710278126666,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        778.7941284179688,
+        778.7941284179688
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 262.47332763671875,
+            "height": 48,
+            "left": 15.51055908203125,
+            "right": 332.30743408203125,
+            "top": 214.47332763671875,
+            "width": 316.796875,
+            "x": 15.51055908203125,
+            "y": 214.47332763671875
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 257.31707763671875,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 209.31707763671875,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 209.31707763671875
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 741.3954467773438,
+            "height": 48,
+            "left": 15.51055908203125,
+            "right": 332.30743408203125,
+            "top": 693.3954467773438,
+            "width": 316.796875,
+            "x": 15.51055908203125,
+            "y": 693.3954467773438
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 723.0252685546875,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 675.0252685546875,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 675.0252685546875
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 720.623906126278 317.62755448029935 L 647.0097266914415 238.47332609079152 L 332.40901589439744 238.47332609079152",
+        "M 947.4129345892516 312.47128836001264 L 1021.0271140240883 233.31705997050528 L 1111 233.3170599705054",
+        "M 720.5951901000237 638.2412436663849 L 646.9810106651867 717.3954720558921 L 332.4090158943972 717.3954720558926",
+        "M 937.3847958212033 619.8710278126666 L 1010.99897525604 699.0252562021742 L 1111.0000000000005 699.0252562021742"
+      ],
+      "view": {
+        "direction": [
+          -0.24473375223705768,
+          0.187843202026268,
+          0.95122043815747
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 707.9683797305097,
+          "cy": 317.54674152012325,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 947.8710012679346,
+          "cy": 315.5978203005841,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 708.5217863173453,
+          "cy": 637.9539036338776,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 937.5558380755682,
+          "cy": 631.0187731278365,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 272.6275634765625,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 224.6275634765625,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 224.6275634765625
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 270.67864990234375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 222.67864990234375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 222.67864990234375
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 730.8731079101562,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 682.8731079101562,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 682.8731079101562
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 723.9379272460938,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 675.9379272460938,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 675.9379272460938
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 707.9683797305097 317.54674152012325 L 639.0491979205557 248.62755971016907 L 328.9999999999997 248.62755971016907",
+        "M 947.8710012679346 315.5978203005841 L 1016.790183077889 246.6786384906298 L 1110.9999999999998 246.6786384906297",
+        "M 708.5217863173453 637.9539036338776 L 639.6026045073912 706.8730854438312 L 328.9999999999998 706.8730854438314",
+        "M 937.5558380755682 631.0187731278365 L 1006.4750198855223 699.9379549377906 L 1110.9999999999998 699.9379549377901"
+      ],
+      "view": {
+        "direction": [
+          -0.09006110306924883,
+          0.187843202026268,
+          0.9780613115579558
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 695.6740030021911,
+          "cy": 317.28955504538095,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 942.1260060140394,
+          "cy": 318.7740837220031,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 696.7905650148925,
+          "cy": 637.0393257031831,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 931.807321072254,
+          "cy": 642.3159060290704,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        777.0003662109375,
+        777.0003662109375
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 274.2415771484375,
+            "height": 48,
+            "left": 17.3043212890625,
+            "right": 334.1011962890625,
+            "top": 226.2415771484375,
+            "width": 316.796875,
+            "x": 17.3043212890625,
+            "y": 226.2415771484375
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 275.72613525390625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 227.72613525390625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 227.72613525390625
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 728.0872802734375,
+            "height": 48,
+            "left": 17.3043212890625,
+            "right": 334.1011962890625,
+            "top": 680.0872802734375,
+            "width": 316.796875,
+            "x": 17.3043212890625,
+            "y": 680.0872802734375
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 733.3638916015625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 685.3638916015625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 685.3638916015625
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 695.6740030021911 317.28955504538095 L 628.6260440659343 250.2415961091242 L 334.2027610082405 250.24159610912426",
+        "M 942.1260060140394 318.7740837220031 L 1009.1739649502963 251.72612478574612 L 1111 251.72612478574615",
+        "M 696.7905650148925 637.0393257031831 L 629.7426060786355 704.08728463944 L 334.2027610082403 704.0872846394401",
+        "M 931.8073210722539 642.3159060290704 L 998.855280008511 709.3638649653277 L 1111.0000000000002 709.3638649653277"
+      ],
+      "view": {
+        "direction": [
+          0.06691219599532394,
+          0.187843202026268,
+          0.9799171850108568
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 744.7533533968799,
+          "cy": 311.02900524657554,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 928.8731886598424,
+          "cy": 310.180643784471,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 744.0634623826644,
+          "cy": 635.610426154544,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 923.560673062838,
+          "cy": 606.4088219787184,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        755.6744689941406,
+        755.6744689941406
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 225.65281677246097,
+            "height": 48,
+            "left": 16.563934326171875,
+            "right": 333.3608093261719,
+            "top": 177.65281677246094,
+            "width": 316.796875,
+            "x": 16.563934326171875,
+            "y": 177.65281677246094
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 224.8044586181641,
+            "height": 48,
+            "left": 1089.0352783203125,
+            "right": 1405.8321533203125,
+            "top": 176.80445861816406,
+            "width": 316.796875,
+            "x": 1089.0352783203125,
+            "y": 176.80445861816406
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 768.9866333007812,
+            "height": 48,
+            "left": 16.563934326171875,
+            "right": 333.3608093261719,
+            "top": 720.9866333007812,
+            "width": 316.796875,
+            "x": 16.563934326171875,
+            "y": 720.9866333007812
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 739.7850341796875,
+            "height": 48,
+            "left": 1089.0352783203125,
+            "right": 1405.8321533203125,
+            "top": 691.7850341796875,
+            "width": 316.796875,
+            "x": 1089.0352783203125,
+            "y": 691.7850341796875
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 744.7533533968799 311.02900524657554 L 672.7261393495718 201.65281954205403 L 333.4623674673349 201.6528195420539",
+        "M 928.8731886598424 310.180643784471 L 1000.9004027071499 200.80445807994954 L 1088.9336643205263 200.80445807994954",
+        "M 744.0634623826644 635.610426154544 L 672.0362483353562 744.9866118590656 L 333.4623674673345 744.9866118590656",
+        "M 923.560673062838 606.4088219787184 L 995.5878871101467 715.7850076832399 L 1088.933664320528 715.78500768324"
+      ],
+      "view": {
+        "direction": [
+          -0.5315320872425798,
+          0.11284802556696004,
+          0.8394873217370142
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 732.7340875095717,
+          "cy": 310.5230396669933,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 939.5893454556416,
+          "cy": 310.5172730901693,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 732.3990824182487,
+          "cy": 636.1498892822685,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 934.1958113882544,
+          "cy": 614.5350609098656,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        781.22802734375,
+        781.22802734375
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 244.93211364746097,
+            "height": 48,
+            "left": 13.07666015625,
+            "right": 329.87353515625,
+            "top": 196.93211364746097,
+            "width": 316.796875,
+            "x": 13.07666015625,
+            "y": 196.93211364746097
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 244.9263458251953,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 196.9263458251953,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 196.9263458251953
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 749.7408447265625,
+            "height": 48,
+            "left": 13.07666015625,
+            "right": 329.87353515625,
+            "top": 701.7408447265625,
+            "width": 316.796875,
+            "x": 13.07666015625,
+            "y": 701.7408447265625
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 728.1259765625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 680.1259765625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 680.1259765625
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 732.7340875095717 310.5230396669933 L 655.5992929646103 220.9321066332624 L 329.97510860606 220.9321066332624",
+        "M 939.5893454556415 310.5172730901693 L 1016.7241400006033 220.9263400564384 L 1111.0000000000007 220.9263400564384",
+        "M 732.3990824182487 636.1498892822685 L 655.2642878732871 725.7408223159993 L 329.97510860606025 725.7408223159991",
+        "M 934.1958113882545 614.5350609098656 L 1011.3306059332155 704.1259939435965 L 1110.9999999999995 704.1259939435967"
+      ],
+      "view": {
+        "direction": [
+          -0.3931545716733797,
+          0.10618504551172755,
+          0.91332043603655
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 720.3612915430809,
+          "cy": 310.15879333136246,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 945.3870077774322,
+          "cy": 310.43640603179387,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 720.3521852246078,
+          "cy": 636.2563981520337,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 939.9471822517964,
+          "cy": 622.691364776519,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        778.436767578125,
+        778.436767578125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 264.4657287597656,
+            "height": 48,
+            "left": 15.867919921875,
+            "right": 332.664794921875,
+            "top": 216.4657287597656,
+            "width": 316.796875,
+            "x": 15.867919921875,
+            "y": 216.4657287597656
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 264.74334716796875,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 216.74334716796875,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 216.74334716796875
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 729.949462890625,
+            "height": 48,
+            "left": 15.867919921875,
+            "right": 332.664794921875,
+            "top": 681.949462890625,
+            "width": 316.796875,
+            "x": 15.867919921875,
+            "y": 681.949462890625
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 716.3844604492188,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 668.3844604492188,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 668.3844604492188
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 720.3612915430809 310.15879333136246 L 650.6682223108611 240.46572409914324 L 332.76636411856975 240.46572409914324",
+        "M 945.3870077774322 310.43640603179387 L 1015.0800770096515 240.7433367995747 L 1111 240.74333679957465",
+        "M 720.3521852246078 636.2563981520337 L 650.6591159923879 705.9494673842529 L 332.76636411856975 705.9494673842535",
+        "M 939.9471822517964 622.691364776519 L 1009.6402514840156 692.3844340087381 L 1111.0000000000005 692.3844340087383"
+      ],
+      "view": {
+        "direction": [
+          -0.24473375223705768,
+          0.101588637486696,
+          0.9642536695546288
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 707.9879149816137,
+          "cy": 309.9759385962418,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 945.7174463025774,
+          "cy": 310.1365050802387,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 708.2833884097225,
+          "cy": 635.9625922637771,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 940.254294613825,
+          "cy": 630.890929339439,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        782.203125,
+        782.203125
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 275.03765869140625,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 227.03765869140625,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 227.03765869140625
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 275.1982421875,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 227.1982421875,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 227.1982421875
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 718.90087890625,
+            "height": 48,
+            "left": 12.1015625,
+            "right": 328.8984375,
+            "top": 670.90087890625,
+            "width": 316.796875,
+            "x": 12.1015625,
+            "y": 670.90087890625
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 713.8292236328125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 665.8292236328125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 665.8292236328125
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 707.9879149816137 309.9759385962418 L 649.0496330680429 251.03765668267084 L 329.00000000000017 251.03765668267084",
+        "M 945.7174463025774 310.1365050802387 L 1004.6557282161481 251.19822316666787 L 1111 251.19822316666787",
+        "M 708.2833884097225 635.9625922637771 L 649.345106496152 694.900874177348 L 328.9999999999998 694.900874177348",
+        "M 940.254294613825 630.890929339439 L 999.1925765273959 689.8292112530098 L 1110.9999999999998 689.8292112530095"
+      ],
+      "view": {
+        "direction": [
+          -0.09006110306924883,
+          0.09917621872625286,
+          0.9909859107742716
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 695.9666965695817,
+          "cy": 309.98473100855585,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 940.1120743956252,
+          "cy": 309.859524566996,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 696.5556385015127,
+          "cy": 635.2884365560593,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 934.6521923016334,
+          "cy": 639.1456993450038,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        776.1129760742188,
+        776.1129760742188
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 272.3831787109375,
+            "height": 48,
+            "left": 18.19171142578125,
+            "right": 334.98858642578125,
+            "top": 224.3831787109375,
+            "width": 316.796875,
+            "x": 18.19171142578125,
+            "y": 224.3831787109375
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 272.2579345703125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 224.2579345703125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 224.2579345703125
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 720.8900146484375,
+            "height": 48,
+            "left": 18.19171142578125,
+            "right": 334.98858642578125,
+            "top": 672.8900146484375,
+            "width": 316.796875,
+            "x": 18.19171142578125,
+            "y": 672.8900146484375
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 724.7472534179688,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 676.7472534179688,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 676.7472534179688
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 695.9666965695817 309.98473100855585 L 634.3651222476868 248.38315668666095 L 335.09016096156313 248.38315668666095",
+        "M 940.1120743956253 309.859524566996 L 1001.7136487175203 248.25795024510103 L 1111 248.25795024510114",
+        "M 696.5556385015127 635.2884365560593 L 634.9540641796181 696.8900108779541 L 335.0901609615631 696.8900108779541",
+        "M 934.6521923016334 639.1456993450038 L 996.2537666235281 700.7472736668983 L 1111.0000000000002 700.7472736668988"
+      ],
+      "view": {
+        "direction": [
+          0.06691219599532394,
+          0.09900941551281102,
+          0.9928342730118128
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 744.2842514633746,
+          "cy": 305.7114148364012,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 927.4996494839304,
+          "cy": 314.2569497004668,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 744.060295357138,
+          "cy": 633.0983448056413,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 925.7549763104088,
+          "cy": 612.6682806089842,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        755.2987060546875,
+        755.2987060546875
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 239.8172607421875,
+            "height": 48,
+            "left": 17.1112060546875,
+            "right": 333.9080810546875,
+            "top": 191.8172607421875,
+            "width": 316.796875,
+            "x": 17.1112060546875,
+            "y": 191.8172607421875
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 248.36279296875,
+            "height": 48,
+            "left": 1089.206787109375,
+            "right": 1406.003662109375,
+            "top": 200.36279296875,
+            "width": 316.796875,
+            "x": 1089.206787109375,
+            "y": 200.36279296875
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 746.9924926757812,
+            "height": 48,
+            "left": 17.1112060546875,
+            "right": 333.9080810546875,
+            "top": 698.9924926757812,
+            "width": 316.796875,
+            "x": 17.1112060546875,
+            "y": 698.9924926757812
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 726.5624389648438,
+            "height": 48,
+            "left": 1089.206787109375,
+            "right": 1406.003662109375,
+            "top": 678.5624389648438,
+            "width": 316.796875,
+            "x": 1089.206787109375,
+            "y": 678.5624389648438
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 744.2842514633746 305.7114148364012 L 671.5617658678707 215.8172552738783 L 334.00966154257503 215.8172552738783",
+        "M 927.4996494839304 314.2569497004668 L 1000.2221350794351 224.362790137944 L 1089.1051730294955 224.3627901379439",
+        "M 744.060295357138 633.0983448056413 L 671.3378097616345 722.9925043681643 L 334.0096615425752 722.9925043681641",
+        "M 925.7549763104088 612.6682806089842 L 998.4774619059127 702.562440171507 L 1089.1051730294946 702.5624401715071"
+      ],
+      "view": {
+        "direction": [
+          -0.5315320872425798,
+          0.036939396930574464,
+          0.8462323092307171
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 732.441994842944,
+          "cy": 304.63096094889784,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 937.7935338048804,
+          "cy": 312.35090575462823,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 732.3681795248617,
+          "cy": 633.0040763724177,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 936.5881075114196,
+          "cy": 618.65035444824,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        780.2899169921875,
+        780.2899169921875
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 254.56288146972656,
+            "height": 48,
+            "left": 14.0147705078125,
+            "right": 330.8116455078125,
+            "top": 206.56288146972656,
+            "width": 316.796875,
+            "x": 14.0147705078125,
+            "y": 206.56288146972656
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 262.2828369140625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 214.2828369140625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 214.2828369140625
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 731.0721435546875,
+            "height": 48,
+            "left": 14.0147705078125,
+            "right": 330.8116455078125,
+            "top": 683.0721435546875,
+            "width": 316.796875,
+            "x": 14.0147705078125,
+            "y": 683.0721435546875
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 716.7184448242188,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 668.7184448242188,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 668.7184448242188
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 732.441994842944 304.63096094889784 L 658.3739199701553 230.56288607610844 L 330.913190709791 230.56288607610844",
+        "M 937.7935338048803 312.35090575462823 L 1011.8616086776694 238.28283088183878 L 1111.000000000001 238.28283088183872",
+        "M 732.3681795248617 633.0040763724177 L 658.300104652072 707.0721512452067 L 330.9131907097915 707.072151245207",
+        "M 936.5881075114195 618.65035444824 L 1010.6561823842089 692.7184293210292 L 1110.9999999999993 692.7184293210292"
+      ],
+      "view": {
+        "direction": [
+          -0.3931545716733797,
+          0.023667370538548088,
+          0.919167742223427
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 720.2575640116439,
+          "cy": 303.95235964960716,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 943.3137024729828,
+          "cy": 309.4273310821863,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 720.2566251571288,
+          "cy": 632.7220367117192,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 942.5346421757088,
+          "cy": 624.0630131927203,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        777.5855102539062,
+        777.5855102539062
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 268.179443359375,
+            "height": 48,
+            "left": 16.71917724609375,
+            "right": 333.51605224609375,
+            "top": 220.179443359375,
+            "width": 316.796875,
+            "x": 16.71917724609375,
+            "y": 220.179443359375
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 273.6544189453125,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 225.6544189453125,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 225.6544189453125
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 716.4949340820312,
+            "height": 48,
+            "left": 16.71917724609375,
+            "right": 333.51605224609375,
+            "top": 668.4949340820312,
+            "width": 316.796875,
+            "x": 16.71917724609375,
+            "y": 668.4949340820312
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 707.8359375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 659.8359375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 659.8359375
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 720.2575640116439 303.95235964960716 L 660.4846446771891 244.17944031515188 L 333.6175943260752 244.17944031515214",
+        "M 943.3137024729828 309.4273310821863 L 1003.0866218074384 249.65441174773105 L 1110.9999999999998 249.65441174773116",
+        "M 720.2566251571288 632.7220367117192 L 660.4837058226733 692.4949560461741 L 333.61759432607556 692.4949560461741",
+        "M 942.5346421757088 624.0630131927203 L 1002.3075615101641 683.8359325271754 L 1111.0000000000007 683.8359325271756"
+      ],
+      "view": {
+        "direction": [
+          -0.24473375223705768,
+          0.014511760269411228,
+          0.9694817168620838
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 708.0712507048286,
+          "cy": 303.7417590647985,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 943.5215293667308,
+          "cy": 305.9160749401859,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 708.1003334479594,
+          "cy": 632.3449371411195,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 942.985424990113,
+          "cy": 629.177802373398,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        781.2671813964844,
+        781.2671813964844
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 272.66839599609375,
+            "height": 48,
+            "left": 13.037506103515623,
+            "right": 329.8343811035156,
+            "top": 224.66839599609375,
+            "width": 316.796875,
+            "x": 13.037506103515623,
+            "y": 224.66839599609375
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 274.84271240234375,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 226.84271240234375,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 226.84271240234375
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 711.4182739257812,
+            "height": 48,
+            "left": 13.037506103515623,
+            "right": 329.8343811035156,
+            "top": 663.4182739257812,
+            "width": 316.796875,
+            "x": 13.037506103515623,
+            "y": 663.4182739257812
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 708.2511596679688,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 660.2511596679688,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 660.2511596679688
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 708.0712507048286 303.7417590647985 L 652.9978940627458 248.66840242271562 L 329.93594942343213 248.66840242271553",
+        "M 943.5215293667309 305.9160749401859 L 998.5948860088134 250.84271829810322 L 1111 250.84271829810314",
+        "M 708.1003334479594 632.3449371411195 L 653.0269768058766 687.4182937832022 L 329.93594942343225 687.4182937832023",
+        "M 942.985424990113 629.177802373398 L 998.0587816321956 684.2511590154805 L 1110.9999999999998 684.2511590154808"
+      ],
+      "view": {
+        "direction": [
+          -0.09006110306924883,
+          0.009706450154145674,
+          0.9958889408660764
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    },
+    {
+      "dots": [
+        {
+          "cx": 696.2260062653141,
+          "cy": 304.0092376810128,
+          "localAnchor": [
+            -2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "projects"
+        },
+        {
+          "cx": 937.9626986402384,
+          "cy": 302.34823495252056,
+          "localAnchor": [
+            2.0869999999999997,
+            2.9275,
+            1.26
+          ],
+          "section": "experience"
+        },
+        {
+          "cx": 696.2818666563168,
+          "cy": 631.911215614908,
+          "localAnchor": [
+            -2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "about"
+        },
+        {
+          "cx": 937.44421873816,
+          "cy": 634.3169276001361,
+          "localAnchor": [
+            2.0869999999999997,
+            -2.7925000000000004,
+            1.26
+          ],
+          "section": "contact"
+        }
+      ],
+      "gaps": [
+        775.0970458984375,
+        775.0970458984375
+      ],
+      "labels": [
+        {
+          "accessibleText": "Projects: engineering experiments 2026",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 307,
+          "rect": {
+            "bottom": 264.1866455078125,
+            "height": 48,
+            "left": 19.2076416015625,
+            "right": 336.0045166015625,
+            "top": 216.1866455078125,
+            "width": 316.796875,
+            "x": 19.2076416015625,
+            "y": 216.1866455078125
+          },
+          "scale": "1",
+          "section": "projects",
+          "text": "Projects: engineering experiments 2026",
+          "title": "Projects: engineering experiments 2026"
+        },
+        {
+          "accessibleText": "Case studies: systems and product design",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 328,
+          "rect": {
+            "bottom": 262.525634765625,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 214.525634765625,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 214.525634765625
+          },
+          "scale": "1",
+          "section": "experience",
+          "text": "Case studies: systems and product design",
+          "title": "Case studies: systems and product design"
+        },
+        {
+          "accessibleText": "About the designer and developer",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 262,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 262,
+          "rect": {
+            "bottom": 719.7338256835938,
+            "height": 48,
+            "left": 19.2076416015625,
+            "right": 336.0045166015625,
+            "top": 671.7338256835938,
+            "width": 316.796875,
+            "x": 19.2076416015625,
+            "y": 671.7338256835938
+          },
+          "scale": "1",
+          "section": "about",
+          "text": "About the designer and developer",
+          "title": "About the designer and developer"
+        },
+        {
+          "accessibleText": "Contact and collaboration enquiries",
+          "ariaHidden": "false",
+          "borderRadius": "8px",
+          "font": "17px",
+          "inert": false,
+          "labelClientWidth": 271,
+          "labelOverflow": "ellipsis",
+          "labelScrollWidth": 274,
+          "rect": {
+            "bottom": 722.1395263671875,
+            "height": 48,
+            "left": 1111.1015625,
+            "right": 1427.8984375,
+            "top": 674.1395263671875,
+            "width": 316.796875,
+            "x": 1111.1015625,
+            "y": 674.1395263671875
+          },
+          "scale": "1",
+          "section": "contact",
+          "text": "Contact and collaboration enquiries",
+          "title": "Contact and collaboration enquiries"
+        }
+      ],
+      "leaders": [
+        "M 696.2260062653141 304.0092376810128 L 632.4034063429128 240.18663775861154 L 336.10607034057875 240.18663775861154",
+        "M 937.9626986402383 302.34823495252056 L 1001.7852985626398 238.5256350301191 L 1111 238.52563503011922",
+        "M 696.2818666563168 631.911215614908 L 632.4592667339153 695.7338155373093 L 336.1060703405783 695.7338155373095",
+        "M 937.44421873816 634.3169276001361 L 1001.2668186605615 698.1395275225377 L 1111 698.1395275225376"
+      ],
+      "view": {
+        "direction": [
+          0.06691219599532394,
+          0.009374193921540512,
+          0.997714830257326
+        ],
+        "target": [
+          -1.7600075520189036,
+          0.3720437678975568,
+          -0.053608408772980565
+        ]
+      }
+    }
+  ],
+  "sourceHashes": {
+    "app/globals.css": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb",
+    "features/portfolio/immersive-portfolio.tsx": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5",
+    "features/spacecraft/overview-annotations.ts": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8"
+  }
+}

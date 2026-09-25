@@ -1,0 +1,42 @@
+[
+  {
+    "before": "before-desktop.jpg",
+    "after": "after-desktop.jpg",
+    "framingExact": true,
+    "cameraPositionExact": true,
+    "cameraQuaternionExact": true,
+    "identityWrapperExact": true
+  },
+  {
+    "before": "before-portrait.jpg",
+    "after": "after-portrait.jpg",
+    "framingExact": true,
+    "cameraPositionExact": true,
+    "cameraQuaternionExact": true,
+    "identityWrapperExact": true
+  },
+  {
+    "before": "before-short-interactive.jpg",
+    "after": "after-short-interactive.jpg",
+    "framingExact": true,
+    "cameraPositionExact": true,
+    "cameraQuaternionExact": true,
+    "identityWrapperExact": true
+  },
+  {
+    "before": "before-tablet.jpg",
+    "after": "after-tablet.jpg",
+    "framingExact": true,
+    "cameraPositionExact": true,
+    "cameraQuaternionExact": true,
+    "identityWrapperExact": true
+  },
+  {
+    "before": "before-small-portrait.jpg",
+    "after": "after-small-portrait.jpg",
+    "framingExact": true,
+    "cameraPositionExact": true,
+    "cameraQuaternionExact": true,
+    "identityWrapperExact": true
+  }
+]
