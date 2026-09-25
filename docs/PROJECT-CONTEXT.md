@@ -388,6 +388,23 @@ changed. See the [source-matched comparisons and verification](evidence/spacecra
 Stage 12 can refine the orbital environment against this material baseline;
 retain the physical camera/world relationship and the approved Earth registration.
 
+### Stage 12 — Orbital environment (25 September 2026)
+
+The completed spacecraft remains the focal point above Europe at Night. A
+broader, quieter blue atmospheric crest blends into a slightly longer cobalt
+shoulder; the shorter inward falloff preserves the photographic surface. This
+is a restrained profile/color adjustment to the existing shell, without new
+lights, passes, geometry or assets.
+
+Meteor groups now use an 18-second bank cycle (three staggered groups, ten
+per minute), preserving their individual speed, opacity and single/pair/triple
+pattern. Longer quiet intervals let the independent star twinkle read. The
+star field, source core, regional loop, shared world registration, portrait
+anchor, spacecraft, camera and temporary Earth-only playback are unchanged.
+See [matched renders, motion audit and verification](evidence/orbital-environment-design/README.md).
+Stage 13 inherits this environment and the completed physical displays; its
+scope is visitor interfaces and reading views, not camera or Earth changes.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**
@@ -1091,8 +1108,12 @@ electric blue. Stars surround the world on a uniform sphere, eliminating the old
 rectangular patch's exposed drag edges. A hierarchy of small, medium and a few
 larger luminous stars replaces the dust-like field. Independent brightness and
 halo-size modulation make twinkle noticeable without pulsing the entire sky.
-Meteors are quieter,
-slower and less frequent than the early implementation, occasionally grouped.
+Meteors retain their quieter, slower individual strokes and occasional groups.
+Stage 12 extends the timing bank to 18 seconds: ten groups per minute, with
+longer quiet intervals. The same pass softens and broadens the atmospheric
+crest while retaining the blue shoulder and protected surface. See the
+[current environment evidence](evidence/orbital-environment-design/README.md);
+the earlier horizon-softening record below is historical.
 
 Earlier cloud requests favored scattered formations with varied volume and
 visible ocean rather than repetitive rough bits or a continuous thick blanket.

@@ -1,0 +1,20 @@
+{
+  "reason": "Original temporary review server stopped during capture; root restarted identical frozen sources. Failed navigation page excluded.",
+  "originalFrozenAt": "2026-09-25T04:34:54.892Z",
+  "restartFrozenAt": "2026-09-25T04:39:23.230Z",
+  "allFieldsExceptFrozenAtExact": true,
+  "checks": {
+    "fixture": true,
+    "schemaVersion": true,
+    "fixtureSha256": true,
+    "baselineRevision": true,
+    "currentHead": true,
+    "candidateRevision": true,
+    "currentIncludesWorkingTree": true,
+    "node": true,
+    "threeRevision": true,
+    "poses": true,
+    "rendering": true,
+    "versions": true
+  }
+}

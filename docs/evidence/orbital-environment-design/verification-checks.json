@@ -1,0 +1,143 @@
+{
+  "verifiedAt": "2026-09-25T04:42:43.370639Z",
+  "baselineRevision": "939b611190491cffcd59b52b6692965e1e427df9",
+  "sourceSnapshot": "All four FINAL working files synchronized before all checks; no source synchronization or edits occurred during verification.",
+  "sourceFiles": [
+    {
+      "path": "features/orbit/orbital-environment.ts",
+      "sha256": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b",
+      "fixtureSha256AfterChecks": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b",
+      "currentSha256AfterChecks": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/orbit/night-atmosphere.ts",
+      "sha256": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+      "fixtureSha256AfterChecks": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+      "currentSha256AfterChecks": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/orbit/sky-motion.test.mjs",
+      "sha256": "61bef5d77078593f85f2f289d4ceebd9d0dc1541a23ec4f1b46a52dc70562480",
+      "fixtureSha256AfterChecks": "61bef5d77078593f85f2f289d4ceebd9d0dc1541a23ec4f1b46a52dc70562480",
+      "currentSha256AfterChecks": "61bef5d77078593f85f2f289d4ceebd9d0dc1541a23ec4f1b46a52dc70562480",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "scripts/benchmarks/orbital-art-preview.mjs",
+      "sha256": "57e638dcb7c95e80926692892cf84b526e2e936c09528077e025bac0824c95b2",
+      "fixtureSha256AfterChecks": "57e638dcb7c95e80926692892cf84b526e2e936c09528077e025bac0824c95b2",
+      "currentSha256AfterChecks": "57e638dcb7c95e80926692892cf84b526e2e936c09528077e025bac0824c95b2",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualEvidence": {
+    "manifest": "docs/evidence/orbital-environment-design/fixture-manifest.json",
+    "frozenAt": "2026-09-25T04:34:54.892Z",
+    "version": "after",
+    "bothRuntimeHashesMatch": true,
+    "previewFixtureHashMatches": true,
+    "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d"
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-environment-verify-tfes58cw",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-environment-verify-tfes58cw/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-environment-verify-tfes58cw/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: isolated server stopped and disposable fixture/state removed; port 3003 has no listener and main localhost:3000 remains HTTP 200.",
+    "mainServerReadOnlyCheck": {
+      "url": "http://localhost:3000",
+      "status": 200,
+      "verifiedAt": "2026-09-25T04:42:43.370639Z"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 588,
+      "passed": 588,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 198619.778333,
+      "log": "docs/evidence/orbital-environment-design/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/evidence/orbital-environment-design/checks/typecheck.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryCheckIncluded": true,
+      "geometryCheckResult": "Indexed cylinder artifact matches its installed source and generator.",
+      "log": "docs/evidence/orbital-environment-design/checks/build.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/orbit/orbital-environment.ts features/orbit/night-atmosphere.ts tests/orbit/sky-motion.test.mjs scripts/benchmarks/orbital-art-preview.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/orbital-environment-design/checks/lint.log"
+    }
+  },
+  "warnings": [
+    "Production build: Node DEP0205 reports module.register() deprecated in favor of module.registerHooks().",
+    "Production build: some minified chunks exceed 500 kB.",
+    "Production build: Vinext static analysis cannot classify all routes; /experience is reported unknown."
+  ],
+  "failures": [],
+  "executionNotes": [
+    "Typecheck and affected lint overlapped the early full suite. Production build and its geometry precheck ran after the full suite completed.",
+    "No interrupted, superseded, or failed full-suite runs occurred for this final Stage 12 verification.",
+    "The fixture-only Vite cache directory setting is an isolation configuration change, not a product source change."
+  ],
+  "logNormalization": "Removed ANSI terminal control sequences, trailing line whitespace, and outer blank lines; retained substantive results, durations, warnings and commands. Raw logs remain outside the repository in /tmp; normalized durable logs remain in checks/.",
+  "logs": {
+    "test": {
+      "path": "docs/evidence/orbital-environment-design/checks/test.log",
+      "rawSha256": "9fa54e51ebbcf17589fc6ceb20d630bf6c2ace66a5a5f85fe4d12181b90d4786",
+      "normalizedSha256": "99d7d88eb9fc37f9ce7861e13f76dbc61b41b3fac428c5ccc555b4f304e6027e"
+    },
+    "typecheck": {
+      "path": "docs/evidence/orbital-environment-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "build": {
+      "path": "docs/evidence/orbital-environment-design/checks/build.log",
+      "rawSha256": "51f76adc0e9aaa426efdb956d06527ac11eea18d3229594ac65259ac41962657",
+      "normalizedSha256": "35baca35fd050e44e185ee74c364601f272d47b6c22c1f77b564dab866d34696"
+    },
+    "lint": {
+      "path": "docs/evidence/orbital-environment-design/checks/lint.log",
+      "rawSha256": "34e497e381c2c22faa45fc083cb8c1b5fed8f08df7336a7ea81d8d55b5bd38de",
+      "normalizedSha256": "ad03adb05fe070a5304d8135eea2c96d908c12dcd60d1b19ae2bf61527c5e217"
+    }
+  },
+  "limitations": [
+    "This record covers automated source and workflow verification. Rendered visual checks and independent design review are recorded separately.",
+    "Suite and build durations are elapsed verification times, not controlled rendering performance or speed, thermal, battery, or memory measurements."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T04:43:10.355629Z",
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-environment-verify-tfes58cw",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "rawTemporaryLogsRetained": true,
+    "evidenceLogsRetained": true
+  }
+}

@@ -317,8 +317,8 @@ export function createOrbitalEnvironment(
   const stars = new THREE.Points(starsGeometry, starsMaterial);
   scene.add(stars);
 
-  // Nine reusable slots form three staggered single/pair/triple events per nine
-  // seconds: half the previous creation rate, without the synchronized showers.
+  // Nine reusable slots form three staggered single/pair/triple events per
+  // eighteen seconds, leaving quiet intervals between each passing group.
   // Each small group shares a direction; its members drift past in loose succession.
   // Tight screen-space quads shade only each streak, not the whole viewport.
   const meteorVertex = `
@@ -521,16 +521,16 @@ export function createOrbitalEnvironment(
     const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
     return n - Math.floor(n);
   };
-  const meteorBankPeriod = 9;
+  const meteorBankPeriod = 18;
   const meteorGroupSize = (cycle: number, bank = 0) => {
     const group = cycle * 3 + bank;
     return group % 7 === 3 ? 3 : group % 2 === 1 ? 2 : 1;
   };
   const meteorGroupStart = (cycle: number, bank: number) =>
     cycle * meteorBankPeriod +
-    0.8 +
-    bank * 2.55 +
-    phaseHash(cycle + bank * 5.19 + 0.17) * 0.45;
+    1.6 +
+    bank * 5.1 +
+    phaseHash(cycle + bank * 5.19 + 0.17) * 0.9;
   const meteorStart = (cycle: number, index: number) =>
     meteorGroupStart(cycle, Math.floor(index / 3)) +
     (index % 3) *
@@ -858,10 +858,9 @@ export function createOrbitalEnvironment(
         starTwinkleAmplitudeRange: [0.58, 0.94],
         meteorCapacity: 9,
         meteorTimingBanks: 3,
-        meteorCreationFrequencyMultiplier: 1.5,
-        meteorCreationRateComparedWithPrevious: 0.5,
+        meteorGroupsPerMinute: 10,
         meteorBankPeriod,
-        meteorGroupInterval: [2.1, 4.35],
+        meteorGroupInterval: [4.2, 8.7],
         meteorDurationRange: [2.15, 2.65],
         meteorPeakOpacityRange: [0.168, 0.35],
         meteorTailLengthRange: [0.055, 0.105],

@@ -1,0 +1,2119 @@
+{
+  "recordedAt": "2026-09-25T04:49:26.894Z",
+  "baselineRevision": "939b611190491cffcd59b52b6692965e1e427df9",
+  "browser": "Hidden built-in Chromium 153; not Safari.",
+  "restartValidation": {
+    "originalFrozenAt": "2026-09-25T04:34:54.892Z",
+    "restartFrozenAt": "2026-09-25T04:39:23.230Z",
+    "fieldsCompared": [
+      "fixture",
+      "schemaVersion",
+      "fixtureSha256",
+      "baselineRevision",
+      "currentHead",
+      "candidateRevision",
+      "currentIncludesWorkingTree",
+      "node",
+      "threeRevision",
+      "poses",
+      "rendering",
+      "versions"
+    ],
+    "allExceptFrozenAtExact": true,
+    "originalManifestSha256": "68253a47b4554fa702aaa3bc6531294d30f48343679ebb18a22d7db13aee2014",
+    "restartRecordSha256": "4df359ad3347f8feeef48afa97cc4d862e0ccfebce104c1a1b4f314f9aee7520",
+    "currentSourceAndAssetsStillMatch": true,
+    "fixtureScriptAndPosesStillMatch": true
+  },
+  "metadataFiles": {
+    "finiteCapturesSha256": "69e8468fd3466afcf4e70b6f04c6803fd15fd97fdfa876526310186ead3362b5",
+    "liveCapturesSha256": "ab0ade72e93b16b4d4573c87d5f0e309f6331cc447071f0f707918703ceb5f76"
+  },
+  "finitePairs": [
+    {
+      "before": "before-finite-opening-desktop.jpg",
+      "after": "after-finite-opening-desktop.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-opening-portrait.jpg",
+      "after": "after-finite-opening-portrait.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 9000,
+        "triangles": 24194
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 9000,
+        "triangles": 24194
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-room-portrait.jpg",
+      "after": "after-finite-room-portrait.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 9000,
+        "triangles": 24194
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 9000,
+        "triangles": 24194
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-quarter-desktop.jpg",
+      "after": "after-finite-quarter-desktop.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-midpoint-desktop.jpg",
+      "after": "after-finite-midpoint-desktop.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-threequarter-desktop.jpg",
+      "after": "after-finite-threequarter-desktop.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-oblique-desktop.jpg",
+      "after": "after-finite-oblique-desktop.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    },
+    {
+      "before": "before-finite-meteor-11.jpg",
+      "after": "after-finite-meteor-11.jpg",
+      "matchedFields": [
+        "viewport",
+        "drawingBuffer",
+        "browserDpr",
+        "renderDpr",
+        "poseId",
+        "capturedPose",
+        "worldPose",
+        "worldReference",
+        "environmentPose",
+        "environmentMobile",
+        "phase",
+        "skyTime",
+        "omitted",
+        "poseViewportMatches",
+        "userAgent"
+      ],
+      "matched": true,
+      "beforeRender": {
+        "calls": 7,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48648
+      },
+      "afterRender": {
+        "calls": 4,
+        "frame": 1,
+        "lines": 0,
+        "points": 12000,
+        "triangles": 48642
+      },
+      "countsInterpretation": "Descriptive finite environment submissions, including visible meteor differences at the selected sky time; no performance interpretation."
+    }
+  ],
+  "loopWrap": {
+    "start": "after-finite-opening-desktop.jpg",
+    "end": "after-finite-wrap-desktop.jpg",
+    "phases": [
+      0,
+      1
+    ],
+    "skyTime": 0,
+    "decodedPixelComparison": {
+      "pixels": [
+        1280,
+        720
+      ],
+      "channels": 3,
+      "changedChannels": 0,
+      "maxChannelDifference": 0,
+      "exact": true
+    },
+    "encodedJpegExact": true
+  },
+  "images": [
+    {
+      "file": "after-about-desktop.jpg",
+      "sha256": "d3efcf0652c0334167822fc8229cc09456fe577fab11450cd4f4f3128297e853",
+      "encodedBytes": 107428,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "about",
+      "phase": 0.16119204996910505,
+      "skyTime": 71.29980000000268,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-archive-desktop.jpg",
+      "sha256": "45a5be15ede8ec59e58f3139100c4bd1ac98cb33abb8c9f93f085ce313c88486",
+      "encodedBytes": 104449,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "experience",
+      "phase": 0.098166692504709,
+      "skyTime": 43.79980000000028,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-contact-desktop.jpg",
+      "sha256": "48857e8374bad125062c224651cf7621da7c26564b7a064baf5b6a96cdc0d090",
+      "encodedBytes": 109424,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "contact",
+      "phase": 0.13972515485049444,
+      "skyTime": 61.93310000000134,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-contact-portrait.jpg",
+      "sha256": "28e01306da831d0d1418d3636428e5dc0ef5a18159c1ce2d889102813b985454",
+      "encodedBytes": 44978,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "drawingBuffer": [
+        682,
+        1477
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "contact",
+      "phase": 0.07123744695044,
+      "skyTime": 31.783599999999296,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": false,
+        "shadows": true,
+        "quality": "procedural-mobile"
+      }
+    },
+    {
+      "file": "after-drag-desktop.jpg",
+      "sha256": "52814054e0977d8c8f7136e0f33b4d0169f0babb20761441527fb7d48cb4dbc4",
+      "encodedBytes": 94675,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.18273526306602753,
+      "skyTime": 80.69980000000422,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-drag-portrait.jpg",
+      "sha256": "6d14183e87cb6d6e2767cd7af512d7d81da97e3648dcdfbf4af05f1aed217ee8",
+      "encodedBytes": 55063,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "drawingBuffer": [
+        682,
+        1477
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.09339189142320585,
+      "skyTime": 41.45029999999988,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": false,
+        "shadows": true,
+        "quality": "procedural-mobile"
+      }
+    },
+    {
+      "file": "after-finite-meteor-11.jpg",
+      "sha256": "2bea4dc18ef69c8e5c12f2abb78ee483bcfa9beb4cf34b83eb2a004422af7b19",
+      "encodedBytes": 54456,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 11,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-meteor-22.jpg",
+      "sha256": "6afbec416a3915318130a04ecb5204f92b9e68fb86e56bac31117fe7bba277b5",
+      "encodedBytes": 54049,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 22,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-midpoint-desktop.jpg",
+      "sha256": "f91b7cd8f643e076911c71a127803c785663ad3706d4a1061b556b7d237a121c",
+      "encodedBytes": 45494,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.5,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-oblique-desktop.jpg",
+      "sha256": "b4134afd1ada92868bcb0fb3bd1f9cc5fc8fc0a361f00aa44d622e53104acb1d",
+      "encodedBytes": 43992,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "drag-desktop",
+      "phase": 0.5,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-opening-desktop.jpg",
+      "sha256": "397eeb862da70bea52b8b4b5f8a4c955800e33e73d8afe25af00ae5a927ea901",
+      "encodedBytes": 54414,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-opening-portrait.jpg",
+      "sha256": "06f75675544d2eb467410734e608caa326dd7731f767d14c937edc5c0f95a5f1",
+      "encodedBytes": 32203,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-portrait",
+      "phase": 0,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-quarter-desktop.jpg",
+      "sha256": "40254e1df570999ac62bdeabac0fadb50a9fd7be39a1868603ac7dcb1441c280",
+      "encodedBytes": 34921,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.25,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-room-portrait.jpg",
+      "sha256": "ccba70d63714e9695368b59d77be4688ef926d86621d72019eee041c9db88381",
+      "encodedBytes": 13429,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "contact-portrait",
+      "phase": 0.5,
+      "skyTime": 10,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-threequarter-desktop.jpg",
+      "sha256": "a4714887688b652bace8e6af43e5f0c2f6adc0d676bde6e01c4b9890909e3560",
+      "encodedBytes": 39782,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.75,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-finite-wrap-desktop.jpg",
+      "sha256": "397eeb862da70bea52b8b4b5f8a4c955800e33e73d8afe25af00ae5a927ea901",
+      "encodedBytes": 54414,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 1,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-overview-desktop.jpg",
+      "sha256": "6cb423d25d6f07e5b3b885f2ef9b9fb671bf9386914bbb1bb16cc1d263a7247b",
+      "encodedBytes": 107708,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.022765675848610077,
+      "skyTime": 10.8999,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-overview-portrait.jpg",
+      "sha256": "57ad91011ec3172dad47aede3cacaa93f4c1dae4ebd9d2fb34cab387885cf347",
+      "encodedBytes": 58956,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "drawingBuffer": [
+        682,
+        1477
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.008708958485988514,
+      "skyTime": 4.500400000000001,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": false,
+        "shadows": true,
+        "quality": "procedural-mobile"
+      }
+    },
+    {
+      "file": "after-playback-fast-desktop.jpg",
+      "sha256": "e8e4d1f839367d61bdad92618c5077200a94477f344b53f49d2b093e41a93ec3",
+      "encodedBytes": 119270,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.013750987083142882,
+      "skyTime": 106.86640000000936,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "after-playing-sky-1.jpg",
+      "sha256": "7cb6df1c20bb0f26dac3a4da90dbd6c09453a3b38aac7503aa0cd2a0a6ba11e9",
+      "encodedBytes": 54241,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 22.27700000000297,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-playing-sky-2.jpg",
+      "sha256": "98495922556931194ba10c8fce43bc2bf9dc3232db858497a1259ac68012d35f",
+      "encodedBytes": 54189,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 29.74220000000274,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-playing-sky-3.jpg",
+      "sha256": "2e77d12f5ffb64979c23d5e31c8904342497c93ea01ee3796952cb4137f39f02",
+      "encodedBytes": 54069,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 43.610300000002894,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "after-projects-desktop.jpg",
+      "sha256": "5c29973e82451e20de02940d897a5b9d9b11ac884e57a7ccd64603b096ee910d",
+      "encodedBytes": 105322,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "after",
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "projects",
+      "phase": 0.06138326042354505,
+      "skyTime": 27.749999999999755,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "before-contact-desktop.jpg",
+      "sha256": "d872d245ccd197382074e280e8718f39214c3fb44141ed55cb159014d74db74e",
+      "encodedBytes": 109358,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "contact",
+      "phase": 0.20290268990530896,
+      "skyTime": 230.7836000000324,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "before-contact-portrait.jpg",
+      "sha256": "2069e0a59a418240d60db4159665ca8937def5f8a013d80deaa3bef9a03a5bee",
+      "encodedBytes": 45090,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "drawingBuffer": [
+        682,
+        1477
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "contact",
+      "phase": 0.07830224574752206,
+      "skyTime": 34.34989999999972,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": false,
+        "shadows": true,
+        "quality": "procedural-mobile"
+      }
+    },
+    {
+      "file": "before-drag-desktop.jpg",
+      "sha256": "47f0fe61a7753038e1134b0c6fd575d50e66985c7142ba19dd2e2bb0813df63d",
+      "encodedBytes": 96135,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.09484330810985195,
+      "skyTime": 183.63380000002374,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "before-finite-meteor-11.jpg",
+      "sha256": "d2c12e355bf5f19a41715ee2a20c3c98e9fc1ce87e176e3345f183d992e1dff4",
+      "encodedBytes": 54800,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 11,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-midpoint-desktop.jpg",
+      "sha256": "0e35b40afd6708c0421052e9bdfe874ecb0831f5091d64f302dd368e4b4ea4ca",
+      "encodedBytes": 45722,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.5,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-oblique-desktop.jpg",
+      "sha256": "4fac9ecb579233bebb313a0d2521c72703714a5d22014df22423b7a9b0503133",
+      "encodedBytes": 44192,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "drag-desktop",
+      "phase": 0.5,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-opening-desktop.jpg",
+      "sha256": "eae4791be20f1fc80b59ab8a45e76d71625e00618649a8684496288bc19ee31b",
+      "encodedBytes": 54638,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-opening-portrait.jpg",
+      "sha256": "ab9a907e0aa940dcc3a11c1cef8e93f9b161af1ba46621303d271b90f0c01889",
+      "encodedBytes": 32250,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-portrait",
+      "phase": 0,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-quarter-desktop.jpg",
+      "sha256": "19f068276229187e88c500ece6f89a1320bd188d23447bbe97a427ac8ce445ba",
+      "encodedBytes": 35154,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.25,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-room-portrait.jpg",
+      "sha256": "1b3bc9b99f41ad53618edcff2524c181ea04e6218cd84f673a879405782914b6",
+      "encodedBytes": 13450,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        390,
+        844
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "contact-portrait",
+      "phase": 0.5,
+      "skyTime": 10,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-finite-threequarter-desktop.jpg",
+      "sha256": "665bbf20b136b6783dce508985916613a1be520fa52299392880c29cc78cbac8",
+      "encodedBytes": 39954,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "drawingBuffer": [
+        1280,
+        720
+      ],
+      "scope": "orbital fixture",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Fixture snapshot source hash and asset inventory verified against frozen manifest.",
+      "pose": "overview-desktop",
+      "phase": 0.75,
+      "skyTime": 0,
+      "playingSky": false,
+      "finite": true,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [
+        "spacecraft",
+        "spacecraft shadows and lights",
+        "GTAO",
+        "portfolio interfaces",
+        "navigation animation"
+      ],
+      "effects": {
+        "spacecraft": false,
+        "gtao": false,
+        "spacecraftLighting": false,
+        "atmosphere": true,
+        "stars": true,
+        "meteors": true
+      }
+    },
+    {
+      "file": "before-overview-desktop.jpg",
+      "sha256": "b271f9c8f71fc6f5de5eccb02d0cf9311a8cb49c61e0905727d2805203b8c711",
+      "encodedBytes": 101128,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.09381221326173429,
+      "skyTime": 183.18390000002364,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    },
+    {
+      "file": "before-overview-portrait.jpg",
+      "sha256": "8eab5c4d18741894de5aa6d87b9c434172fc3a08dac792c6dd6543119cbfb76a",
+      "encodedBytes": 58948,
+      "codec": "jpeg",
+      "pixels": [
+        390,
+        844
+      ],
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "drawingBuffer": [
+        682,
+        1477
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "home",
+      "phase": 0.025171869405041482,
+      "skyTime": 11.1674,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": false,
+        "shadows": true,
+        "quality": "procedural-mobile"
+      }
+    },
+    {
+      "file": "before-projects-desktop.jpg",
+      "sha256": "ebcad436b136eaa6759b97e10f7d5fe59d781a1e7c2efd3bf6ead0c02e99019c",
+      "encodedBytes": 105182,
+      "codec": "jpeg",
+      "pixels": [
+        1280,
+        720
+      ],
+      "viewport": [
+        1280,
+        720
+      ],
+      "screenshotCssScale": 1,
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "drawingBuffer": [
+        2560,
+        1440
+      ],
+      "scope": "live application",
+      "sourceVersion": "before",
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "sourceBinding": "Before/after capture-run identity; final source verified independently. Live application is not a source-frozen fixture.",
+      "pose": "projects",
+      "phase": 0.12165750373886121,
+      "skyTime": 195.33370000002583,
+      "playingSky": true,
+      "finite": false,
+      "ready": true,
+      "earthTextureSamples": 1,
+      "earthTextureDimensions": [
+        2560,
+        1536
+      ],
+      "omitted": [],
+      "effects": {
+        "spacecraft": true,
+        "gtao": true,
+        "shadows": true,
+        "quality": "procedural-desktop"
+      }
+    }
+  ],
+  "limitations": [
+    "Environment-only fixture omits spacecraft, GTAO, vessel lighting, portfolio interfaces and navigation animation.",
+    "Captured application camera positions have four-decimal and quaternion six-decimal DOM precision; fixture normalizes the captured quaternion.",
+    "Playing-sky and live screenshots are moving-scene observations. Metadata and screenshot operations occur sequentially; timestamps are not exact simultaneous raster boundaries.",
+    "Live orbital animation phases are not frozen for strict before/after pixel comparisons; use matched finite pairs.",
+    "JPEG screenshot files retain their native CSS pixel dimensions; browser DPR and drawing buffers are reported separately.",
+    "No timing, energy, battery, thermal, process-memory or GPU-memory improvement is measured."
+  ]
+}

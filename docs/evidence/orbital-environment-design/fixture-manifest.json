@@ -1,0 +1,278 @@
+{
+  "fixture": "orbital-art-preview",
+  "schemaVersion": 1,
+  "frozenAt": "2026-09-25T04:34:54.892Z",
+  "fixtureSha256": "57e638dcb7c95e80926692892cf84b526e2e936c09528077e025bac0824c95b2",
+  "baselineRevision": "939b611190491cffcd59b52b6692965e1e427df9",
+  "currentHead": "939b611190491cffcd59b52b6692965e1e427df9",
+  "candidateRevision": null,
+  "currentIncludesWorkingTree": true,
+  "node": "v26.0.0",
+  "threeRevision": "0.185.1",
+  "poses": {
+    "sha256": "f593fc6a246802dbc36182f299344071e105cb2a5f720807893c4ffe33de911b",
+    "entries": [
+      {
+        "id": "overview-desktop",
+        "label": "Overview Desktop",
+        "viewport": [
+          1280,
+          720
+        ],
+        "camera": {
+          "position": [
+            -8.711,
+            4.9541,
+            24.2734
+          ],
+          "quaternion": [
+            -0.094098,
+            -0.135318,
+            -0.012911,
+            0.986239
+          ],
+          "fov": 38,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": false,
+        "source": {
+          "url": "http://localhost:3000/",
+          "room": "home",
+          "capture": "before-overview-desktop.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      },
+      {
+        "id": "drag-desktop",
+        "label": "Drag Desktop",
+        "viewport": [
+          1280,
+          720
+        ],
+        "camera": {
+          "position": [
+            -8.0756,
+            4.6397,
+            24.5026
+          ],
+          "quaternion": [
+            -0.088121,
+            -0.122254,
+            -0.010898,
+            0.988519
+          ],
+          "fov": 38,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": false,
+        "source": {
+          "url": "http://localhost:3000/",
+          "room": "home",
+          "capture": "before-drag-desktop.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      },
+      {
+        "id": "projects-desktop",
+        "label": "Projects Desktop",
+        "viewport": [
+          1280,
+          720
+        ],
+        "camera": {
+          "position": [
+            -2.087,
+            1.54,
+            5.5102
+          ],
+          "quaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "fov": 38,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": false,
+        "source": {
+          "url": "http://localhost:3000/projects",
+          "room": "projects",
+          "capture": "before-projects-desktop.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      },
+      {
+        "id": "contact-desktop",
+        "label": "Contact Desktop",
+        "viewport": [
+          1280,
+          720
+        ],
+        "camera": {
+          "position": [
+            2.0849,
+            -1.405,
+            5.5127
+          ],
+          "quaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "fov": 38,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": false,
+        "source": {
+          "url": "http://localhost:3000/contact",
+          "room": "contact",
+          "capture": "before-contact-desktop.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      },
+      {
+        "id": "overview-portrait",
+        "label": "Overview Portrait",
+        "viewport": [
+          390,
+          844
+        ],
+        "camera": {
+          "position": [
+            0.8987,
+            -1.8641,
+            17.7466
+          ],
+          "quaternion": [
+            0.007153,
+            0.063238,
+            -0.704273,
+            0.707071
+          ],
+          "fov": 73.3840310144462,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": true,
+        "source": {
+          "url": "http://localhost:3000/",
+          "room": "home",
+          "capture": "before-overview-portrait.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      },
+      {
+        "id": "contact-portrait",
+        "label": "Contact Portrait",
+        "viewport": [
+          390,
+          844
+        ],
+        "camera": {
+          "position": [
+            2.087,
+            -1.405,
+            7.1286
+          ],
+          "quaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "fov": 73.3840310144462,
+          "near": 0.5,
+          "far": 80
+        },
+        "portraitComposition": true,
+        "source": {
+          "url": "http://localhost:3000/contact",
+          "room": "contact",
+          "capture": "before-contact-portrait.jpg",
+          "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+          "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+        }
+      }
+    ]
+  },
+  "rendering": {
+    "scope": "Orbital environment only, at supplied application world-camera poses.",
+    "renderer": "WebGLRenderer; antialias; sRGB; ACESFilmic tone mapping; exposure 0.95.",
+    "registration": "Version-specific production createOrbitalWorldReference, followCamera and setViewportComposition. Captured quaternion is normalized; capture precision is retained in pose source metadata.",
+    "time": "Earth phase and sky seconds are independent. Earth is paused; sky playback starts only on explicit Play. No automatic frame loop for finite stills.",
+    "dpr": "Explicit dpr query in 0.5–2, otherwise production pixel-ratio cap.",
+    "omitted": [
+      "spacecraft",
+      "spacecraft shadows and lights",
+      "GTAO",
+      "portfolio interfaces",
+      "navigation animation"
+    ],
+    "interpretation": "Renderer draw/point/triangle counts describe this fixture, not whole-app rendering cost. No timing, power or memory benchmark."
+  },
+  "versions": {
+    "before": {
+      "sourceTreeSha256": "8e699a582fc550e1b742efb2ea094d2401f942987159d0b706ef80f5f07fdffb",
+      "transitiveSources": {
+        "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8"
+      },
+      "compiledSources": {
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8",
+        "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+        "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+        "features/orbit/earth-satellite.ts": "7d666162daf06fe9c7320db1509b8529148476efa97034430f31f3052eec6f91"
+      },
+      "bundleSha256": "efadcc42d13bfdf9b3eae21b76ee660537fd9163837d6851936a4540799e809b",
+      "assets": {
+        "public/textures/earth-europe-loop.webp": {
+          "servedUrl": "/before/textures/earth-europe-loop.webp",
+          "bytes": 2862376,
+          "sha256": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+        }
+      },
+      "rewrite": "Only local /textures URLs gain a before/after namespace. Original and compiled source hashes are recorded."
+    },
+    "after": {
+      "sourceTreeSha256": "7f98d391308e51d77745c957c5f13b2a721fa8f5ef456e4b22acfdc9d4f8007d",
+      "transitiveSources": {
+        "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+        "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/night-atmosphere.ts": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+        "features/orbit/orbital-environment.ts": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b"
+      },
+      "compiledSources": {
+        "features/orbit/orbital-environment.ts": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b",
+        "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+        "features/orbit/night-atmosphere.ts": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+        "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+        "features/orbit/earth-satellite.ts": "0753c593e7d7a6d9c5a7046f283d25c5e1803d13706c09c33313592b1a3f2bb7"
+      },
+      "bundleSha256": "3ab6ea583adc7c6d18606444624e0109e3c9fa3e306b4a27b1386076ea06e5c2",
+      "assets": {
+        "public/textures/earth-europe-loop.webp": {
+          "servedUrl": "/after/textures/earth-europe-loop.webp",
+          "bytes": 2862376,
+          "sha256": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+        }
+      },
+      "rewrite": "Only local /textures URLs gain a before/after namespace. Original and compiled source hashes are recorded."
+    }
+  }
+}

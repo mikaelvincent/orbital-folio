@@ -1,0 +1,55 @@
+{
+  "verifiedAt": "2026-09-25T04:49:52.205524+00:00",
+  "engine": "Hidden built-in Chromium 153; no Safari/native screen or physical device test",
+  "mainServer": "http://localhost:3000",
+  "liveChecks": [
+    "Desktop 1280x720 overview -> Projects -> Case studies -> Contact -> About -> overview completed ordinary navigation.",
+    "All four desktop cabin close views retained their completed composition; environment outside the crop is intentional.",
+    "Desktop and portrait bounded drag/release snapshots retained continuous sky/horizon without an exposed star-field edge. These are released poses, not held maximum-envelope captures.",
+    "Portrait 390x844 overview -> Contact -> overview retained the viewport-selected anchor; Earth naturally leaves most of the room crop.",
+    "Earth helper: Loop position Home set 0:00 and Play (paused); Playback speed End set60x; Play advanced Earth. Pause, close and reopen showed normal1x at the continuing late-loop phase; Restart restored opening1x.",
+    "Main scene desktop/portrait warn/error logs returned empty at completion. No contact message was sent or inquiry altered."
+  ],
+  "motionObservation": {
+    "method": "Three screenshots during explicit fixture Play sky, not continuous video",
+    "times": [
+      22.27700000000297,
+      29.74220000000274,
+      43.610300000002894
+    ],
+    "observations": [
+      "paired streak",
+      "quiet sky",
+      "single visible streak"
+    ],
+    "earthPhase": 0,
+    "independentStarBrightness": "Differing glints across sampled frames; unchanged independent twinkle also covered by source/automated audit."
+  },
+  "limitations": [
+    "No timed CPU/GPU benchmark, physical-device or Safari run.",
+    "Reduced-motion/visibility/Earth-only clock behavior is covered by automated tests and unchanged source, not a new manual reduced-motion browser session.",
+    "The existing camera/UV-envelope audit remains bounded inherited evidence; no camera, sphere mapping or pose implementation changes.",
+    "Finite capture metadata is read immediately before screenshot; live Play-sky/image time can advance between the two calls.",
+    "Playback phase preservation is supported by unchanged source/full tests and UI continuation; no precise timed close-phase equality measurement."
+  ],
+  "rejectedCaptures": [
+    {
+      "case": "Fixture server stopped; navigation reached browser ERR_CONNECTION_REFUSED page",
+      "resolution": "Restarted from byte-identical inputs and recaptured affected candidate. No error-page screenshot retained."
+    },
+    {
+      "case": "First after-overview-portrait capture was1280x720 because override was applied before creating tab",
+      "resolution": "Replaced JPEG and metadata using override on newly created tab before navigation; final390x844."
+    }
+  ],
+  "cleanup": {
+    "testFixture": "Removed with isolated server3003 stopped (verification-checks.json).",
+    "reviewServer3021Stopped": true,
+    "validReviewTabsClosed": true,
+    "viewportOverrideReset": true,
+    "remainingTab": "One hidden browser-generated connection-error tab(id22) remains: close rejected by browser URL policy for its data:error-page URL. It has no running application. Unused blank tab and all valid review tabs closed.",
+    "mainStatus": 200,
+    "port3003Listening": false,
+    "port3021Listening": false
+  }
+}

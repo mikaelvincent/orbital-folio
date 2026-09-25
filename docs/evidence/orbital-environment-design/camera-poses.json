@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "poses": [
+    {
+      "id": "overview-desktop",
+      "label": "Overview Desktop",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": {
+        "position": [
+          -8.711,
+          4.9541,
+          24.2734
+        ],
+        "quaternion": [
+          -0.094098,
+          -0.135318,
+          -0.012911,
+          0.986239
+        ],
+        "fov": 38.0,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": false,
+      "source": {
+        "url": "http://localhost:3000/",
+        "room": "home",
+        "capture": "before-overview-desktop.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    },
+    {
+      "id": "drag-desktop",
+      "label": "Drag Desktop",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": {
+        "position": [
+          -8.0756,
+          4.6397,
+          24.5026
+        ],
+        "quaternion": [
+          -0.088121,
+          -0.122254,
+          -0.010898,
+          0.988519
+        ],
+        "fov": 38.0,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": false,
+      "source": {
+        "url": "http://localhost:3000/",
+        "room": "home",
+        "capture": "before-drag-desktop.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    },
+    {
+      "id": "projects-desktop",
+      "label": "Projects Desktop",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": {
+        "position": [
+          -2.087,
+          1.54,
+          5.5102
+        ],
+        "quaternion": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "fov": 38.0,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": false,
+      "source": {
+        "url": "http://localhost:3000/projects",
+        "room": "projects",
+        "capture": "before-projects-desktop.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    },
+    {
+      "id": "contact-desktop",
+      "label": "Contact Desktop",
+      "viewport": [
+        1280,
+        720
+      ],
+      "camera": {
+        "position": [
+          2.0849,
+          -1.405,
+          5.5127
+        ],
+        "quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "fov": 38.0,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": false,
+      "source": {
+        "url": "http://localhost:3000/contact",
+        "room": "contact",
+        "capture": "before-contact-desktop.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    },
+    {
+      "id": "overview-portrait",
+      "label": "Overview Portrait",
+      "viewport": [
+        390,
+        844
+      ],
+      "camera": {
+        "position": [
+          0.8987,
+          -1.8641,
+          17.7466
+        ],
+        "quaternion": [
+          0.007153,
+          0.063238,
+          -0.704273,
+          0.707071
+        ],
+        "fov": 73.3840310144462,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": true,
+      "source": {
+        "url": "http://localhost:3000/",
+        "room": "home",
+        "capture": "before-overview-portrait.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    },
+    {
+      "id": "contact-portrait",
+      "label": "Contact Portrait",
+      "viewport": [
+        390,
+        844
+      ],
+      "camera": {
+        "position": [
+          2.087,
+          -1.405,
+          7.1286
+        ],
+        "quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "fov": 73.3840310144462,
+        "near": 0.5,
+        "far": 80.0
+      },
+      "portraitComposition": true,
+      "source": {
+        "url": "http://localhost:3000/contact",
+        "room": "contact",
+        "capture": "before-contact-portrait.jpg",
+        "baseline": "939b611190491cffcd59b52b6692965e1e427df9",
+        "precision": "Position rounded to4decimals, quaternion6decimals by app DOM; fixture normalizes quaternion. FOV reconstructed from unchanged production responsiveCameraFov."
+      }
+    }
+  ]
+}

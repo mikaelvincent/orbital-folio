@@ -6,7 +6,8 @@ import { build } from 'esbuild';
 import * as THREE from 'three';
 
 const source =
-  process.env.ORBITAL_SKY_AUDIT_ARTIFACT ?? 'features/orbit/orbital-environment.ts';
+  process.env.ORBITAL_SKY_AUDIT_ARTIFACT ??
+  'features/orbit/orbital-environment.ts';
 const bundled = await build({
   stdin: {
     contents: await readFile(source, 'utf8'),
@@ -42,15 +43,25 @@ void test('Stars cover the edges through wide, portrait and rotated camera views
   const moving = reference.clone();
   // Include the actual overview drag envelope, portrait roll, and additional
   // world directions so this cannot regress to an oversized rectangular patch.
-  for (const [width, height] of [[1440, 900], [2560, 1080], [390, 844]]) {
+  for (const [width, height] of [
+    [1440, 900],
+    [2560, 1080],
+    [390, 844],
+  ]) {
     const env = await environment(t, { mobile: width < 700, cameraFov: 38 });
     const points = starObject(env).geometry.getAttribute('position');
     env.resize(width, height, 2);
     const densities = [];
     for (const [pitch, yaw, roll] of [
-      [0, 0, 0], [-0.18, -0.32, 0], [0.18, 0.32, 0],
-      [-0.18, 0.32, 0], [0.18, -0.32, 0], [0.18, 0.32, Math.PI / 2],
-      [0, Math.PI / 2, 0], [0, Math.PI, 0], [0, -Math.PI / 2, 0],
+      [0, 0, 0],
+      [-0.18, -0.32, 0],
+      [0.18, 0.32, 0],
+      [-0.18, 0.32, 0],
+      [0.18, -0.32, 0],
+      [0.18, 0.32, Math.PI / 2],
+      [0, Math.PI / 2, 0],
+      [0, Math.PI, 0],
+      [0, -Math.PI / 2, 0],
     ]) {
       moving.rotation.set(pitch, yaw, roll);
       moving.updateMatrixWorld(true);
@@ -59,20 +70,35 @@ void test('Stars cover the edges through wide, portrait and rotated camera views
       let visible = 0;
       for (let i = 0; i < points.count; i++) {
         point.fromBufferAttribute(points, i).project(env.camera);
-        if (Math.abs(point.x) > 1 || Math.abs(point.y) > 1 || Math.abs(point.z) > 1) continue;
+        if (
+          Math.abs(point.x) > 1 ||
+          Math.abs(point.y) > 1 ||
+          Math.abs(point.z) > 1
+        )
+          continue;
         visible++;
         if (point.x < -0.8) edges.left++;
         if (point.x > 0.8) edges.right++;
         if (point.y < -0.8) edges.bottom++;
         if (point.y > 0.8) edges.top++;
       }
-      const context = JSON.stringify({ width, height, pitch, yaw, roll, visible, edges });
+      const context = JSON.stringify({
+        width,
+        height,
+        pitch,
+        yaw,
+        roll,
+        visible,
+        edges,
+      });
       assert.ok(visible > 100, context);
       for (const count of Object.values(edges)) assert.ok(count >= 6, context);
       densities.push(visible);
     }
-    assert.ok(Math.max(...densities) / Math.min(...densities) < 1.5,
-      `Angular density stays comparable: ${densities.join(', ')}`);
+    assert.ok(
+      Math.max(...densities) / Math.min(...densities) < 1.5,
+      `Angular density stays comparable: ${densities.join(', ')}`,
+    );
   }
 });
 
@@ -90,7 +116,11 @@ void test('Star sizes form a readable hierarchy and remain CSS-sized across DPR 
   for (const ratio of [1, 1.5, 2]) {
     env.resize(1440, 900, ratio);
     assert.equal(stars.material.uniforms.pixelRatio.value, ratio);
-    assert.deepEqual(size.array, original, 'DPR changes the shader scale, not the authored sizes');
+    assert.deepEqual(
+      size.array,
+      original,
+      'DPR changes the shader scale, not the authored sizes',
+    );
   }
 });
 
@@ -133,12 +163,24 @@ void test('Shooting stars have quiet event spacing, small coherent groups and va
   const env = await environment(t);
   const events = new Map();
   const groups = new Map();
-  let maxVisible = 0;
+  let maxVisible = 0,
+    quietFrames = 0,
+    quietRun = 0,
+    sawEvent = false;
+  const completeQuietIntervals = [];
   // Observe three complete minutes, including events spanning bank boundaries.
   for (let frame = 0; frame < 180 * 30; frame++) {
     env.update(frame / 30, true, 0, 0);
     const d = env.getDiagnostics();
     maxVisible = Math.max(maxVisible, d.meteorCount);
+    if (d.meteorCount === 0) {
+      quietFrames++;
+      if (sawEvent) quietRun++;
+    } else {
+      if (quietRun) completeQuietIntervals.push(quietRun / 30);
+      quietRun = 0;
+      sawEvent = true;
+    }
     for (const stream of d.meteorStreams) {
       if (!stream.visible) continue;
       const key = `${stream.cycle}:${stream.bank}:${stream.member}`;
@@ -168,23 +210,40 @@ void test('Shooting stars have quiet event spacing, small coherent groups and va
     }
   }
   assert.ok(
-    events.size >= 95 && events.size <= 110,
-    'Approximately 34 individual starts per minute',
+    events.size >= 45 && events.size <= 56,
+    'Occasional singles and small groups produce about 17 starts per minute',
   );
-  assert.equal(groups.size, 60, '20 separately timed groups per minute');
-  assert.ok(maxVisible <= 4, 'No synchronized nine-star shower');
+  assert.equal(groups.size, 30, 'Ten separately timed groups per minute');
+  assert.ok(
+    maxVisible <= 3,
+    'Independent groups do not accumulate into a shower',
+  );
+  const activeFraction = 1 - quietFrames / (180 * 30);
+  assert.ok(
+    activeFraction >= 0.25 && activeFraction <= 0.5,
+    'Most sky time is calm, while occasional meteor motion remains present',
+  );
+  assert.ok(
+    completeQuietIntervals.length >= 25 &&
+      Math.min(...completeQuietIntervals) >= 1 &&
+      Math.max(...completeQuietIntervals) >= 4,
+    'Groups leave perceptible quiet intervals, including longer pauses',
+  );
   const starts = [...groups.values()]
     .map((group) => group.startAt)
     .sort((a, b) => a - b);
-  for (let i = 1; i < starts.length; i++)
-    assert.ok(starts[i] - starts[i - 1] >= 2.1);
+  for (let i = 1; i < starts.length; i++) {
+    const gap = starts[i] - starts[i - 1];
+    assert.ok(gap >= 4.2 && gap <= 8.7);
+  }
   assert.deepEqual(
     new Set([...groups.values()].map((group) => group.groupSize)),
     new Set([1, 2, 3]),
   );
   assert.ok(
     new Set([...events.values()].map((event) => event.peakOpacity.toFixed(3)))
-      .size > 60,
+      .size >
+      events.size * 0.75,
     'Brightness varies per star, beyond a repeating bright/dim alternation',
   );
 });
@@ -208,7 +267,7 @@ void test('Sky animation stays deterministic across seeks and pauses, with no re
     };
   };
   for (const time of [
-    0, 8.98, 9.02, 22.7, 54.1, 126.5, 900.8, 1.6, 100000.25,
+    0, 8.98, 9.02, 17.98, 18.02, 22.7, 54.1, 126.5, 900.8, 1.6, 100000.25,
   ]) {
     env.update(time, true, 0, 0);
     comparison.update(0, true, 0, 0);

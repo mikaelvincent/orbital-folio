@@ -3380,6 +3380,48 @@ the main server remains available at port 3000. The independent critic scores
 **95/100**, with 50% visual-design weight and no unresolved blockers. The evidence
 records build warnings, the review rubric and limitations.
 
+## 65 — Quieter orbital environment design baseline (25 September 2026)
+
+Stage 12 adjusts the existing atmosphere shader to a broader, quieter blue crest
+and cobalt shoulder with a shorter inward falloff. Meteor timing banks extend
+from 9 to 18 seconds while individual duration, strength, tails and grouped
+pattern remain. The star field, approved regional Earth asset/core/loop,
+world registration, portrait anchor, playback semantics, spacecraft, cameras
+and global renderer are unchanged. No held optimization is implemented.
+
+[Source-matched evidence](evidence/orbital-environment-design/README.md) compares
+Stage 11 commit `939b611` with orbital source tree `7f98d391…007d`.
+At 30 Hz over 180 seconds, the deterministic descriptor audit records 60→30
+groups, 103→51 individual starts, active descriptor fraction 84.04%→44.28%, and
+longest quiet interval 2.13→5.57 seconds. These are motion descriptors before
+projection/occlusion, not visible-pixel rates or rendering performance.
+
+Resource capacity is unchanged: wide 48,660 triangles / 12,000 points /
+1,074,476 geometry-array bytes; compact 24,212 / 9,000 / 670,476. Both paths
+retain 13 potential submissions, three geometries, 13 materials and two textures
+(procedural sky plus the regional Earth map). Hidden meteor slots are included;
+actual draws vary with the active events. The unchanged 2,862,376-byte WebP has
+SHA-256 `19ac5ed0…3cf1`. Array payload and nominal texture storage do not measure
+process/GPU memory. No CPU/GPU timings, heat or battery benefits are claimed.
+
+The comparison uses hidden Chromium 153 at actual 1280×720 and 390×844 CSS
+viewports, browser DPR 2 and finite renderer DPR 1. Captured live camera poses
+are rounded DOM telemetry, not full-precision matrix exports. The finite fixture
+omits the spacecraft, vessel lights/shadows, GTAO, live interfaces and travel;
+live integration captures include normal application effects and published
+content. Fixed phase/time comparisons, sampled Play sky frames and live room
+checks are distinct evidence. The unchanged camera/UV envelope retains its
+existing bounded coverage audit; no new exhaustive camera audit is claimed.
+Safari/physical-device tests and timed performance runs were not performed.
+
+Final isolated verification passes **588/588 tests**, typecheck, production
+build/geometry precheck and affected lint. The evidence preserves source hashes,
+raw findings, build warnings and rejected browser captures. The independent
+critic scores **95/100**, with 55% visual-design weight and no unresolved blockers.
+Temporary servers and test state are removed; one inert hidden error tab remains
+unclosed because of the browser URL policy. This is a new authored-art baseline,
+not an optimization gain.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

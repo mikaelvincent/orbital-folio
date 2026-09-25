@@ -38,18 +38,18 @@ export function createNightAtmosphere(
         float tangentDistance = length(tangent);
         float altitude = tangentDistance - 180.0;
         float footprint = max(fwidth(altitude), 0.025);
-        float rimWidth = max(0.40, footprint * 0.85);
-        float rim = exp(-pow((altitude - 0.08) / rimWidth, 2.0));
-        float halo = exp(-max(altitude, 0.0) / 1.08)
-                   * exp(min(altitude, 0.0) / 0.42);
+        float rimWidth = max(0.48, footprint * 0.85);
+        float rim = exp(-pow((altitude - 0.04) / rimWidth, 2.0));
+        float halo = exp(-max(altitude, 0.0) / 1.22)
+                   * exp(min(altitude, 0.0) / 0.36);
         float illumination = smoothstep(-0.35, 0.8,
           dot(tangent / max(tangentDistance, 0.0001), normalize(vLightDirection)));
-        // A softer blue crest gives the planet definition without a sharp bright
-        // stripe. Saturated cobalt fades into indigo outside it, preserving
-        // the dark surface and city lights beneath the atmospheric edge.
-        vec3 haloColor = mix(vec3(0.0008, 0.026, 0.24), vec3(0.009, 0.004, 0.085),
+        // Spread a quieter blue crest into the outer cobalt shoulder. The
+        // shorter inward falloff leaves the photographic city lights clear;
+        // the existing shell extent and world-fixed illumination stay intact.
+        vec3 haloColor = mix(vec3(0.001, 0.024, 0.205), vec3(0.007, 0.004, 0.070),
           smoothstep(0.5, 2.8, altitude));
-        vec3 light = vec3(0.005, 0.15, 0.46) * rim * mix(0.28, 0.74, illumination)
+        vec3 light = vec3(0.006, 0.122, 0.38) * rim * mix(0.28, 0.74, illumination)
                    + haloColor * halo * mix(0.40, 0.85, illumination);
         float edge = 1.0 - smoothstep(3.0, 3.65, altitude);
         gl_FragColor = vec4(light * edge, 1.0);

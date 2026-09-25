@@ -1,0 +1,731 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-25T04:38:23.554Z",
+  "baselineRevision": "939b611190491cffcd59b52b6692965e1e427df9",
+  "fixtureManifest": {
+    "path": "fixture-manifest.json",
+    "frozenAt": "2026-09-25T04:34:54.892Z",
+    "allFiveBeforeAndAfterSourceHashesMatch": true
+  },
+  "sourceHashes": {
+    "before": {
+      "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+      "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+      "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+      "features/orbit/night-atmosphere.ts": "b5a29490f6a6272a2e72b64e7ebade19705ed47005780da2ef593285ed6c88df",
+      "features/orbit/orbital-environment.ts": "ff7e4a6c2a1417bd66942c8375c0c0778c401ca58eb60f250ff1f1ddb48d4db8"
+    },
+    "after": {
+      "features/orbit/earth-playback.ts": "9c57b5a8aa97cae300973c554393e93f1cee48023bd49c0f345d388f927b70b3",
+      "features/orbit/earth-satellite.ts": "2d74bdfd63479bc02e376b4a7e1a0aaab098c6e2c470be0e84ea1e779efb5a3e",
+      "features/orbit/earth-view-transform.ts": "afcae147c96aeb0d3a529f1ce8fc34b82375283e054e4f1f4f8cc76e11383cde",
+      "features/orbit/night-atmosphere.ts": "31859c97e16d0ed218f91c61941bea9cf455425e10dd2ffd3c2fb78c42a215e3",
+      "features/orbit/orbital-environment.ts": "89de2e1f4a9478e61398f2ea0455229990b14316639671a3dfdaf7bb53ffec5b"
+    }
+  },
+  "method": {
+    "isolation": "Fresh temporary git archive containing tracked features/orbit source only; no environment files, content stores, uploads or private data; bundles compiled in memory with installed esbuild and explicit installed Three injection.",
+    "sampling": "180 seconds at 30 Hz for each wide/compact construction path. Active descriptor visibility, not projected pixels: Earth/spacecraft occlusion and viewport clipping are not included.",
+    "geometry": "Actual emitted BufferGeometry attributes/index bytes and shared resource identities. Capacity includes hidden meteor slots; geometry arrays are nominal typed-array payload, not measured process/GPU memory.",
+    "registration": "Before/after exact state equality at the six captured camera poses, with the source camera precision and quaternion normalization documented in camera-poses.json. Both desktop and compact geometry paths; Earth seek73s and progressing sky clock. This is finite-state evidence, not new UV-envelope coverage.",
+    "atmosphere": "Root-owned atmosphere color/profile shader change is included in source identity and separately identified by a changed shader hash; geometry/world transform/resource inventory is unchanged. This audit does not judge its rendered aesthetics."
+  },
+  "asset": {
+    "path": "public/textures/earth-europe-loop.webp",
+    "bytes": 2862376,
+    "sha256": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1",
+    "exactlyMatchesBaseline": true
+  },
+  "results": {
+    "before": {
+      "wide": {
+        "inventory": {
+          "capacity": {
+            "meshObjects": 12,
+            "pointObjects": 1,
+            "potentialSubmissions": 13,
+            "triangleCapacity": 48660,
+            "pointCapacity": 12000,
+            "uniqueGeometries": 3,
+            "uniqueMaterials": 13,
+            "uniqueTextures": 2,
+            "uniqueGeometryArrayBytes": 1074476
+          },
+          "geometrySha256": "8144a1cbbcbef9e0aedb88cde01ccbd7a38fa87e9aa6dca865342a826293fd71",
+          "starAttributes": {
+            "position": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "188cc400fb2555e8467fc9de482d68c5512a4612b8ba78f7b7dbc9e2f7c79a51"
+            },
+            "color": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "4713ebe618346385cbc116bab979accae5957352d7a77b5f3e7656a31cdad236"
+            },
+            "size": {
+              "itemSize": 1,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "ac0210c12334caee16a751dece9c7bbda5e8018ebef71835b576f0a7ff3b63f7"
+            },
+            "twinkle": {
+              "itemSize": 4,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "affb7ecb5dfa0b88eec3c56c8d38e2fda8bb0d6f8f2ae972924c5043d0814f50"
+            }
+          },
+          "skyDataSha256": "fe385f9caaddb5247a1a3bc3fb7d747a8e7ef7a6c72ba7be4a1cccec966abbd1",
+          "shaders": {
+            "sky": "1da3423cc7cae98cd6cb591bdda8471414caacf092b3facf8d4d55546cb72af5",
+            "stars": "ef8480d0d96dca0dca802e715e0144c3e17a57d09c86e3a7d276f8fc75bee483",
+            "meteor": "31024c703166cee8ecfa918d309bd0be5783984b8687fe1b6cea254e1de09be1",
+            "atmosphere": "0d6f2a4d8f704e1aca30a3fb3807f5d1f0c090cabdc936205a424c3acd64f29a"
+          },
+          "earthTextureSettings": {
+            "repeat": [
+              3.2,
+              2.6666666666666665
+            ],
+            "offset": [
+              -1.45,
+              -1.4166666666666667
+            ],
+            "colorSpace": "srgb",
+            "wrapS": 1000,
+            "wrapT": 1001,
+            "anisotropy": 4,
+            "flipY": false,
+            "minFilter": 1008,
+            "magFilter": 1006
+          },
+          "diagnosticCapacity": {
+            "starBufferBytes": 528000,
+            "nebulaDimensions": [
+              256,
+              128
+            ],
+            "earthTextureSamples": 1,
+            "earthTextureBytes": 15728640,
+            "earthTextureGpuBytes": 20971512,
+            "earthAtmosphereLayers": 1,
+            "drawCallBudget": 13
+          }
+        },
+        "motion": {
+          "sampleSeconds": 180,
+          "sampleHz": 30,
+          "groups": 60,
+          "individualStarts": 103,
+          "activeDescriptorFraction": 0.8403703703703704,
+          "simultaneousActiveFrameHistogram": {
+            "0": 862,
+            "1": 2232,
+            "2": 1765,
+            "3": 519,
+            "4": 22
+          },
+          "completeQuietIntervalsSeconds": [
+            0.36666666666666664,
+            1.1666666666666667,
+            0.16666666666666666,
+            1,
+            0.06666666666666667,
+            1.5,
+            1.4,
+            0.2,
+            1.3,
+            0.5,
+            1.0333333333333334,
+            1.5333333333333334,
+            0.36666666666666664,
+            1.2,
+            1.1666666666666667,
+            0.36666666666666664,
+            0.7,
+            0.23333333333333334,
+            1.3666666666666667,
+            0.13333333333333333,
+            1.4666666666666666,
+            0.1,
+            0.9,
+            0.26666666666666666,
+            1.2,
+            0.03333333333333333,
+            2.1333333333333333,
+            0.3333333333333333,
+            1.3666666666666667,
+            0.1,
+            1.2,
+            0.23333333333333334,
+            1.1333333333333333,
+            1.3333333333333333,
+            0.16666666666666666
+          ],
+          "minimumCompleteQuietSeconds": 0.03333333333333333,
+          "maximumCompleteQuietSeconds": 2.1333333333333333,
+          "minimumGroupGapSeconds": 2.171388238095034,
+          "maximumGroupGapSeconds": 4.305635693369538
+        }
+      },
+      "compact": {
+        "inventory": {
+          "capacity": {
+            "meshObjects": 12,
+            "pointObjects": 1,
+            "potentialSubmissions": 13,
+            "triangleCapacity": 24212,
+            "pointCapacity": 9000,
+            "uniqueGeometries": 3,
+            "uniqueMaterials": 13,
+            "uniqueTextures": 2,
+            "uniqueGeometryArrayBytes": 670476
+          },
+          "geometrySha256": "9f7cd000416660b9ef230c1791240aa987860319d2c4370f78afd51c979779cc",
+          "starAttributes": {
+            "position": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "f2a1ff15f4e2905a5a87a44523cfc0162c3551da0f727be9fc605fc7f989d3af"
+            },
+            "color": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "f982427be4b3d414b78d51b01c82c48a2a4aa4d7a0175789512feffdc6fc2935"
+            },
+            "size": {
+              "itemSize": 1,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "6356616f21abc1f2140f635cadc518806f93989bf4e2397f1c10bea0c4a1becb"
+            },
+            "twinkle": {
+              "itemSize": 4,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "6fab1c6c20a8b4161d52447b0468a050abdf2e8214627a02bde07ec2f71df17e"
+            }
+          },
+          "skyDataSha256": "912537fedf10ce725c815b10706efaac9250692b97207d9fabd6e9d0d9f673e4",
+          "shaders": {
+            "sky": "1da3423cc7cae98cd6cb591bdda8471414caacf092b3facf8d4d55546cb72af5",
+            "stars": "ef8480d0d96dca0dca802e715e0144c3e17a57d09c86e3a7d276f8fc75bee483",
+            "meteor": "31024c703166cee8ecfa918d309bd0be5783984b8687fe1b6cea254e1de09be1",
+            "atmosphere": "0d6f2a4d8f704e1aca30a3fb3807f5d1f0c090cabdc936205a424c3acd64f29a"
+          },
+          "earthTextureSettings": {
+            "repeat": [
+              3.2,
+              2.6666666666666665
+            ],
+            "offset": [
+              -1.45,
+              -1.4166666666666667
+            ],
+            "colorSpace": "srgb",
+            "wrapS": 1000,
+            "wrapT": 1001,
+            "anisotropy": 4,
+            "flipY": false,
+            "minFilter": 1008,
+            "magFilter": 1006
+          },
+          "diagnosticCapacity": {
+            "starBufferBytes": 396000,
+            "nebulaDimensions": [
+              128,
+              64
+            ],
+            "earthTextureSamples": 1,
+            "earthTextureBytes": 15728640,
+            "earthTextureGpuBytes": 20971512,
+            "earthAtmosphereLayers": 1,
+            "drawCallBudget": 13
+          }
+        },
+        "motion": {
+          "sampleSeconds": 180,
+          "sampleHz": 30,
+          "groups": 60,
+          "individualStarts": 103,
+          "activeDescriptorFraction": 0.8403703703703704,
+          "simultaneousActiveFrameHistogram": {
+            "0": 862,
+            "1": 2232,
+            "2": 1765,
+            "3": 519,
+            "4": 22
+          },
+          "completeQuietIntervalsSeconds": [
+            0.36666666666666664,
+            1.1666666666666667,
+            0.16666666666666666,
+            1,
+            0.06666666666666667,
+            1.5,
+            1.4,
+            0.2,
+            1.3,
+            0.5,
+            1.0333333333333334,
+            1.5333333333333334,
+            0.36666666666666664,
+            1.2,
+            1.1666666666666667,
+            0.36666666666666664,
+            0.7,
+            0.23333333333333334,
+            1.3666666666666667,
+            0.13333333333333333,
+            1.4666666666666666,
+            0.1,
+            0.9,
+            0.26666666666666666,
+            1.2,
+            0.03333333333333333,
+            2.1333333333333333,
+            0.3333333333333333,
+            1.3666666666666667,
+            0.1,
+            1.2,
+            0.23333333333333334,
+            1.1333333333333333,
+            1.3333333333333333,
+            0.16666666666666666
+          ],
+          "minimumCompleteQuietSeconds": 0.03333333333333333,
+          "maximumCompleteQuietSeconds": 2.1333333333333333,
+          "minimumGroupGapSeconds": 2.171388238095034,
+          "maximumGroupGapSeconds": 4.305635693369538
+        }
+      }
+    },
+    "after": {
+      "wide": {
+        "inventory": {
+          "capacity": {
+            "meshObjects": 12,
+            "pointObjects": 1,
+            "potentialSubmissions": 13,
+            "triangleCapacity": 48660,
+            "pointCapacity": 12000,
+            "uniqueGeometries": 3,
+            "uniqueMaterials": 13,
+            "uniqueTextures": 2,
+            "uniqueGeometryArrayBytes": 1074476
+          },
+          "geometrySha256": "8144a1cbbcbef9e0aedb88cde01ccbd7a38fa87e9aa6dca865342a826293fd71",
+          "starAttributes": {
+            "position": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "188cc400fb2555e8467fc9de482d68c5512a4612b8ba78f7b7dbc9e2f7c79a51"
+            },
+            "color": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "4713ebe618346385cbc116bab979accae5957352d7a77b5f3e7656a31cdad236"
+            },
+            "size": {
+              "itemSize": 1,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "ac0210c12334caee16a751dece9c7bbda5e8018ebef71835b576f0a7ff3b63f7"
+            },
+            "twinkle": {
+              "itemSize": 4,
+              "normalized": false,
+              "count": 12000,
+              "type": "Float32Array",
+              "sha256": "affb7ecb5dfa0b88eec3c56c8d38e2fda8bb0d6f8f2ae972924c5043d0814f50"
+            }
+          },
+          "skyDataSha256": "fe385f9caaddb5247a1a3bc3fb7d747a8e7ef7a6c72ba7be4a1cccec966abbd1",
+          "shaders": {
+            "sky": "1da3423cc7cae98cd6cb591bdda8471414caacf092b3facf8d4d55546cb72af5",
+            "stars": "ef8480d0d96dca0dca802e715e0144c3e17a57d09c86e3a7d276f8fc75bee483",
+            "meteor": "31024c703166cee8ecfa918d309bd0be5783984b8687fe1b6cea254e1de09be1",
+            "atmosphere": "5c29a7e7a729071c1668019ee879ee0a6a132fc3b5251d21be8e40761e8b7bbd"
+          },
+          "earthTextureSettings": {
+            "repeat": [
+              3.2,
+              2.6666666666666665
+            ],
+            "offset": [
+              -1.45,
+              -1.4166666666666667
+            ],
+            "colorSpace": "srgb",
+            "wrapS": 1000,
+            "wrapT": 1001,
+            "anisotropy": 4,
+            "flipY": false,
+            "minFilter": 1008,
+            "magFilter": 1006
+          },
+          "diagnosticCapacity": {
+            "starBufferBytes": 528000,
+            "nebulaDimensions": [
+              256,
+              128
+            ],
+            "earthTextureSamples": 1,
+            "earthTextureBytes": 15728640,
+            "earthTextureGpuBytes": 20971512,
+            "earthAtmosphereLayers": 1,
+            "drawCallBudget": 13
+          }
+        },
+        "motion": {
+          "sampleSeconds": 180,
+          "sampleHz": 30,
+          "groups": 30,
+          "individualStarts": 51,
+          "activeDescriptorFraction": 0.4427777777777778,
+          "simultaneousActiveFrameHistogram": {
+            "0": 3009,
+            "1": 1300,
+            "2": 875,
+            "3": 216
+          },
+          "completeQuietIntervalsSeconds": [
+            2.8666666666666667,
+            2.7666666666666666,
+            5.033333333333333,
+            2.1,
+            2.566666666666667,
+            5,
+            2.6333333333333333,
+            2.5,
+            5.533333333333333,
+            1.8333333333333333,
+            2.066666666666667,
+            5.4,
+            2.7,
+            2.433333333333333,
+            5.1,
+            2.1,
+            3.3,
+            4.9,
+            2.533333333333333,
+            2.433333333333333,
+            5.566666666666666,
+            1.6333333333333333,
+            3.1333333333333333,
+            5.133333333333334,
+            2.3333333333333335,
+            2.1,
+            4.966666666666667,
+            2.2666666666666666,
+            2.933333333333333
+          ],
+          "minimumCompleteQuietSeconds": 1.6333333333333333,
+          "maximumCompleteQuietSeconds": 5.566666666666666,
+          "minimumGroupGapSeconds": 4.415741427335149,
+          "maximumGroupGapSeconds": 8.106921462476478
+        },
+        "protectedStateComparison": {
+          "matchedPoseCount": 6,
+          "poses": [
+            {
+              "pose": "overview-desktop",
+              "sha256": "9fbfd360b455c4488e92b2db811551e576d06b801238a50018a2659abdc05f60",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "drag-desktop",
+              "sha256": "e64b89d22f1048fc948129f79ceb81924fa8d97eb3abeafcfb6e6770dd3696dd",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "projects-desktop",
+              "sha256": "a167b8952d8cb083d0cc7238241de49a92ded9565fae062c8e9823705cb83151",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "contact-desktop",
+              "sha256": "09a7a1f50cd0338f3603ecd3c9ab2391fe13748944aa37e5762fcac581803c29",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "overview-portrait",
+              "sha256": "0747bdedaf29e2679a14d1e185b45337f80592b8212a202b0c5c15c0d10c9096",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "contact-portrait",
+              "sha256": "6425abf656c6650d3b38af83ff414e47a556fbfa90761e5f2dadf6e43e4535d4",
+              "exactlyEqual": true
+            }
+          ]
+        }
+      },
+      "compact": {
+        "inventory": {
+          "capacity": {
+            "meshObjects": 12,
+            "pointObjects": 1,
+            "potentialSubmissions": 13,
+            "triangleCapacity": 24212,
+            "pointCapacity": 9000,
+            "uniqueGeometries": 3,
+            "uniqueMaterials": 13,
+            "uniqueTextures": 2,
+            "uniqueGeometryArrayBytes": 670476
+          },
+          "geometrySha256": "9f7cd000416660b9ef230c1791240aa987860319d2c4370f78afd51c979779cc",
+          "starAttributes": {
+            "position": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "f2a1ff15f4e2905a5a87a44523cfc0162c3551da0f727be9fc605fc7f989d3af"
+            },
+            "color": {
+              "itemSize": 3,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "f982427be4b3d414b78d51b01c82c48a2a4aa4d7a0175789512feffdc6fc2935"
+            },
+            "size": {
+              "itemSize": 1,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "6356616f21abc1f2140f635cadc518806f93989bf4e2397f1c10bea0c4a1becb"
+            },
+            "twinkle": {
+              "itemSize": 4,
+              "normalized": false,
+              "count": 9000,
+              "type": "Float32Array",
+              "sha256": "6fab1c6c20a8b4161d52447b0468a050abdf2e8214627a02bde07ec2f71df17e"
+            }
+          },
+          "skyDataSha256": "912537fedf10ce725c815b10706efaac9250692b97207d9fabd6e9d0d9f673e4",
+          "shaders": {
+            "sky": "1da3423cc7cae98cd6cb591bdda8471414caacf092b3facf8d4d55546cb72af5",
+            "stars": "ef8480d0d96dca0dca802e715e0144c3e17a57d09c86e3a7d276f8fc75bee483",
+            "meteor": "31024c703166cee8ecfa918d309bd0be5783984b8687fe1b6cea254e1de09be1",
+            "atmosphere": "5c29a7e7a729071c1668019ee879ee0a6a132fc3b5251d21be8e40761e8b7bbd"
+          },
+          "earthTextureSettings": {
+            "repeat": [
+              3.2,
+              2.6666666666666665
+            ],
+            "offset": [
+              -1.45,
+              -1.4166666666666667
+            ],
+            "colorSpace": "srgb",
+            "wrapS": 1000,
+            "wrapT": 1001,
+            "anisotropy": 4,
+            "flipY": false,
+            "minFilter": 1008,
+            "magFilter": 1006
+          },
+          "diagnosticCapacity": {
+            "starBufferBytes": 396000,
+            "nebulaDimensions": [
+              128,
+              64
+            ],
+            "earthTextureSamples": 1,
+            "earthTextureBytes": 15728640,
+            "earthTextureGpuBytes": 20971512,
+            "earthAtmosphereLayers": 1,
+            "drawCallBudget": 13
+          }
+        },
+        "motion": {
+          "sampleSeconds": 180,
+          "sampleHz": 30,
+          "groups": 30,
+          "individualStarts": 51,
+          "activeDescriptorFraction": 0.4427777777777778,
+          "simultaneousActiveFrameHistogram": {
+            "0": 3009,
+            "1": 1300,
+            "2": 875,
+            "3": 216
+          },
+          "completeQuietIntervalsSeconds": [
+            2.8666666666666667,
+            2.7666666666666666,
+            5.033333333333333,
+            2.1,
+            2.566666666666667,
+            5,
+            2.6333333333333333,
+            2.5,
+            5.533333333333333,
+            1.8333333333333333,
+            2.066666666666667,
+            5.4,
+            2.7,
+            2.433333333333333,
+            5.1,
+            2.1,
+            3.3,
+            4.9,
+            2.533333333333333,
+            2.433333333333333,
+            5.566666666666666,
+            1.6333333333333333,
+            3.1333333333333333,
+            5.133333333333334,
+            2.3333333333333335,
+            2.1,
+            4.966666666666667,
+            2.2666666666666666,
+            2.933333333333333
+          ],
+          "minimumCompleteQuietSeconds": 1.6333333333333333,
+          "maximumCompleteQuietSeconds": 5.566666666666666,
+          "minimumGroupGapSeconds": 4.415741427335149,
+          "maximumGroupGapSeconds": 8.106921462476478
+        },
+        "protectedStateComparison": {
+          "matchedPoseCount": 6,
+          "poses": [
+            {
+              "pose": "overview-desktop",
+              "sha256": "9fbfd360b455c4488e92b2db811551e576d06b801238a50018a2659abdc05f60",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "drag-desktop",
+              "sha256": "e64b89d22f1048fc948129f79ceb81924fa8d97eb3abeafcfb6e6770dd3696dd",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "projects-desktop",
+              "sha256": "a167b8952d8cb083d0cc7238241de49a92ded9565fae062c8e9823705cb83151",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "contact-desktop",
+              "sha256": "09a7a1f50cd0338f3603ecd3c9ab2391fe13748944aa37e5762fcac581803c29",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "overview-portrait",
+              "sha256": "0747bdedaf29e2679a14d1e185b45337f80592b8212a202b0c5c15c0d10c9096",
+              "exactlyEqual": true
+            },
+            {
+              "pose": "contact-portrait",
+              "sha256": "6425abf656c6650d3b38af83ff414e47a556fbfa90761e5f2dadf6e43e4535d4",
+              "exactlyEqual": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "perEventChecks": {
+    "wide": {
+      "comparedIndividualEvents": 51,
+      "identicalFields": [
+        "duration",
+        "peakOpacity",
+        "tailLength",
+        "travel",
+        "groupSize",
+        "cycle",
+        "bank",
+        "member",
+        "groupId",
+        "parallel",
+        "origin",
+        "direction"
+      ],
+      "equal": true
+    },
+    "compact": {
+      "comparedIndividualEvents": 51,
+      "identicalFields": [
+        "duration",
+        "peakOpacity",
+        "tailLength",
+        "travel",
+        "groupSize",
+        "cycle",
+        "bank",
+        "member",
+        "groupId",
+        "parallel",
+        "origin",
+        "direction"
+      ],
+      "equal": true
+    }
+  },
+  "invariants": {
+    "starAttributesAndShadersExactlyEqual": true,
+    "skyTextureAndShadersExactlyEqual": true,
+    "earthTextureSettingsAndAssetExactlyEqual": true,
+    "allGeometryBytesAndResourceCapacityExactlyEqual": true,
+    "earthAtmosphereAndCameraMatricesExactlyEqualAtAllRecordedPoses": true,
+    "earthLoaderPlaybackAndWorldRegistrationSourcesExactlyEqual": true,
+    "meteorShadersAndNonTimingEventDescriptorsExactlyEqual": true
+  },
+  "checks": {
+    "focused": {
+      "command": "node --test tests/orbit/sky-motion.test.mjs tests/orbit/earth-environment.test.mjs tests/orbit/earth-views.test.mjs tests/orbit/earth-playback.test.mjs tests/orbit/earth-satellite.test.mjs",
+      "passed": 35,
+      "failed": 0,
+      "testSourceHashes": {
+        "tests/orbit/sky-motion.test.mjs": "61bef5d77078593f85f2f289d4ceebd9d0dc1541a23ec4f1b46a52dc70562480",
+        "tests/orbit/earth-environment.test.mjs": "e4d2ed09174716869f701931f8df6c911cf30c247b37dbd4e2e64298d4658cb5",
+        "tests/orbit/earth-views.test.mjs": "eefd54fa3fc5bb41db5d0ab2ab7cad9b62edbcdc41aa8978d61cc58b8025fcb2",
+        "tests/orbit/earth-playback.test.mjs": "4b748d341c1bb35cf4647356852edbe1474fb9d47b65f0ef0ccb4cc997d9d97d",
+        "tests/orbit/earth-satellite.test.mjs": "bd4cc9b35ea1216fdb186425279cfc7552cdd43078f6ec7378a1c622ea1478eb"
+      }
+    },
+    "lint": {
+      "command": "npm run lint -- features/orbit/orbital-environment.ts tests/orbit/sky-motion.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npx oxfmt --check features/orbit/orbital-environment.ts tests/orbit/sky-motion.test.mjs",
+      "exitCode": 0
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  },
+  "limitations": [
+    "CPU source/geometry/clock audit; no WebGL pixel capture, shader compile, rendered visibility duty, timings, heat, power, battery or measured memory claims.",
+    "Quiet periods reduce event overlap; unchanged resource/geometry capacity is not a performance equivalence or speedup claim.",
+    "Captured poses are finite, rounded app-derived values; navigation camera implementation and Earth mapping were not changed."
+  ],
+  "cleanup": {
+    "temporarySourceArchiveRemoved": true,
+    "mainServerAndStoreUntouched": true
+  }
+}
