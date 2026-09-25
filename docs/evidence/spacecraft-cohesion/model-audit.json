@@ -1,0 +1,3956 @@
+{
+  "recordedAt": "2026-09-25T04:04:47.334Z",
+  "baselineRevision": "60c723f85f5b1ad1d4e7d452599960731fb9c6f9",
+  "method": "Node CPU construction of full pre/post source snapshots; source tree hashes must match the finite browser manifest. Real Three.js geometry, attributes, material values and layout transforms. Deterministic canvas command stub for non-image drawing; screenLabels=false matching the finite fixture; no renderer, frustum culling, GTAO or timing measurement.",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "baa62b12f2daeb4710fdf2dd1e2313bd43ce3ec7009791e9356dfdf4cabf4395",
+    "beforeSourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+    "afterSourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+    "changedRuntimeSources": [
+      "features/spacecraft/equipment/cabin-utility-fittings.ts",
+      "features/spacecraft/equipment/docking-shoulder-equipment.ts",
+      "features/spacecraft/equipment/ladder-service-spine.ts",
+      "features/spacecraft/equipment/outboard-wall-equipment.ts",
+      "features/spacecraft/geometry/model-primitives.ts",
+      "features/spacecraft/materials/hardware-finish.ts",
+      "features/spacecraft/rooms/about-personal-study.ts",
+      "features/spacecraft/rooms/case-study-archive.ts",
+      "features/spacecraft/rooms/contact-flight-console.ts",
+      "features/spacecraft/rooms/projects-payload-module.ts",
+      "features/spacecraft/rooms/projects-workshop.ts",
+      "features/spacecraft/spacecraft-model.ts"
+    ],
+    "protectedFiles": {
+      "features/spacecraft/spacecraft-runtime.ts": {
+        "exact": true,
+        "sha256": "f6d92e78366381bcb3d63d96b9b4b5e6896934ed06abe60eafb14644de96e470"
+      },
+      "features/spacecraft/navigation/scene-controls.ts": {
+        "exact": true,
+        "sha256": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984"
+      },
+      "features/spacecraft/overview-annotations.ts": {
+        "exact": true,
+        "sha256": "05339f1767ec40fbe339d108d4ad5d8a55f9f212e78252544301ef12ab8c3dc8"
+      },
+      "features/portfolio/immersive-portfolio.tsx": {
+        "exact": true,
+        "sha256": "a28d8993b28b0a58538061c39d17fe88005f099b7eadb1f9b37dc56da3323aa5"
+      },
+      "app/globals.css": {
+        "exact": true,
+        "sha256": "f56de1469f17ee225a30352d068835dea95c2a56fb35def5e495ce0893f171bb"
+      }
+    }
+  },
+  "layouts": {
+    "wide": {
+      "before": {
+        "sceneObjects": 915,
+        "meshes": 610,
+        "materialInstances": 351,
+        "uniqueGeometry": 545,
+        "retainedGeometryArrayBytes": 56231352,
+        "retainedTrianglePotential": 1326258,
+        "visibleMeshes": 532,
+        "visibleTrianglePotential": 1020976,
+        "textures": 50
+      },
+      "after": {
+        "sceneObjects": 915,
+        "meshes": 610,
+        "materialInstances": 351,
+        "uniqueGeometry": 545,
+        "retainedGeometryArrayBytes": 56231352,
+        "retainedTrianglePotential": 1326258,
+        "visibleMeshes": 532,
+        "visibleTrianglePotential": 1020976,
+        "textures": 50
+      },
+      "geometryHierarchyTransformsAndUserDataExact": true,
+      "geometryAndHierarchySha256": "3a4c77f9ba7563f9ef9112767bc1045b20f4978e73bb79aefd51ba2d7e460bd7",
+      "targetsPortalTargetsInteractionTargetsReaderSurfacesExact": true,
+      "targetMetadataSha256": "bf05284a769c40b7ff7d61c4ca809e4b9b29ef808a79c480f01a6ad41601f098",
+      "texturesExact": true,
+      "textureDataSha256": "064e27b7a5503a5b837d2e01994f6c60db66f02b7339747d32eead94e4802610",
+      "materialObjectReferencesChanged": 152
+    },
+    "compact": {
+      "before": {
+        "sceneObjects": 915,
+        "meshes": 610,
+        "materialInstances": 351,
+        "uniqueGeometry": 545,
+        "retainedGeometryArrayBytes": 56231352,
+        "retainedTrianglePotential": 1326258,
+        "visibleMeshes": 532,
+        "visibleTrianglePotential": 997776,
+        "textures": 50
+      },
+      "after": {
+        "sceneObjects": 915,
+        "meshes": 610,
+        "materialInstances": 351,
+        "uniqueGeometry": 545,
+        "retainedGeometryArrayBytes": 56231352,
+        "retainedTrianglePotential": 1326258,
+        "visibleMeshes": 532,
+        "visibleTrianglePotential": 997776,
+        "textures": 50
+      },
+      "geometryHierarchyTransformsAndUserDataExact": true,
+      "geometryAndHierarchySha256": "8ca46bae3ee7ae42ddc28da07fa52bcb8fb4e36e4b1642bc436cfa921a874d7a",
+      "targetsPortalTargetsInteractionTargetsReaderSurfacesExact": true,
+      "targetMetadataSha256": "bf05284a769c40b7ff7d61c4ca809e4b9b29ef808a79c480f01a6ad41601f098",
+      "texturesExact": true,
+      "textureDataSha256": "064e27b7a5503a5b837d2e01994f6c60db66f02b7339747d32eead94e4802610",
+      "materialObjectReferencesChanged": 152
+    }
+  },
+  "materialChanges": [
+    {
+      "name": "about-utility-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.48,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "about-utility-captive-fasteners",
+        "about-about-utility-alloy"
+      ]
+    },
+    {
+      "name": "brushed-titanium",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.34,
+        "metalness": 0.63,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-brushed-titanium",
+        "experience-brushed-titanium",
+        "about-brushed-titanium",
+        "contact-brushed-titanium",
+        "walkway-brushed-titanium",
+        "satin-solar-panel-frame"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers-case-study-screen-all",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers-case-study-screen-all"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers-case-study-screen-interfaces",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers-case-study-screen-interfaces"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers-case-study-screen-product",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers-case-study-screen-product"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers-case-study-screen-research",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers-case-study-screen-research"
+      ]
+    },
+    {
+      "name": "case-archive-amber-retainers-case-study-screen-systems",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.15,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-case-archive-amber-retainers-case-study-screen-systems"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-structural-screws",
+        "experience-case-archive-fasteners"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners-case-study-screen-all",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-terminal-bezel-screws",
+        "experience-case-archive-fasteners-case-study-screen-all"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners-case-study-screen-interfaces",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-jacket-3--1-screws",
+        "case-archive-jacket-3-1-screws",
+        "experience-case-archive-fasteners-case-study-screen-interfaces"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners-case-study-screen-product",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-jacket-0--1-screws",
+        "case-archive-jacket-0-1-screws",
+        "experience-case-archive-fasteners-case-study-screen-product"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners-case-study-screen-research",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-jacket-2--1-screws",
+        "case-archive-jacket-2-1-screws",
+        "experience-case-archive-fasteners-case-study-screen-research"
+      ]
+    },
+    {
+      "name": "case-archive-fasteners-case-study-screen-systems",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.45,
+        "metalness": 0.5,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "case-archive-jacket-1--1-screws",
+        "case-archive-jacket-1-1-screws",
+        "experience-case-archive-fasteners-case-study-screen-systems"
+      ]
+    },
+    {
+      "name": "contact-flight-amber",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.37,
+        "metalness": 0.15,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-contact-flight-amber"
+      ]
+    },
+    {
+      "name": "contact-flight-satin-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.4,
+        "metalness": 0.65,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-flight-structural-fasteners",
+        "contact-flight-link-bezel-fasteners",
+        "contact-flight-signal-bezel-fasteners",
+        "contact-flight-control-panel-fasteners",
+        "contact-flight-deck-fasteners",
+        "contact-flight-audio-microphone-base-captive-screws",
+        "contact-contact-flight-satin-alloy"
+      ]
+    },
+    {
+      "name": "contact-flight-satin-alloy-contact-computer",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.4,
+        "metalness": 0.65,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-flight-display-bezel-fasteners",
+        "contact-contact-flight-satin-alloy-contact-computer"
+      ]
+    },
+    {
+      "name": "contact-utility-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.48,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-utility-captive-fasteners",
+        "contact-contact-utility-alloy"
+      ]
+    },
+    {
+      "name": "contact-utility-retainers",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.54,
+        "metalness": 0.14,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-contact-utility-retainers"
+      ]
+    },
+    {
+      "name": "docking-shoulder-tool-retention-markers",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.5,
+        "metalness": 0.2,
+        "envMapIntensity": 0.17
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "walkway-docking-shoulder-tool-retention-markers"
+      ]
+    },
+    {
+      "name": "docking-shoulder-tool-satin-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.36,
+        "metalness": 0.56,
+        "envMapIntensity": 0.17
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "walkway-docking-shoulder-tool-satin-alloy"
+      ]
+    },
+    {
+      "name": "experience-utility-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.48,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-utility-captive-fasteners",
+        "experience-experience-utility-alloy"
+      ]
+    },
+    {
+      "name": "experience-utility-retainers",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.54,
+        "metalness": 0.14,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-experience-utility-retainers"
+      ]
+    },
+    {
+      "name": "ladder-web-captive-handles",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.68,
+        "metalness": 0.12,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "walkway-ladder-web-captive-handles"
+      ]
+    },
+    {
+      "name": "ladder-web-satin-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.68,
+        "metalness": 0.12,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "walkway-ladder-web-satin-alloy"
+      ]
+    },
+    {
+      "name": "outboard-communications-bronze",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.43,
+        "metalness": 0.1,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "contact-outboard-communications-bronze"
+      ]
+    },
+    {
+      "name": "outboard-communications-brushed-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.44,
+        "metalness": 0.55,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "outboard-communications-captive-fasteners",
+        "contact-outboard-communications-brushed-alloy"
+      ]
+    },
+    {
+      "name": "outboard-recorder-bronze",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.43,
+        "metalness": 0.1,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "experience-outboard-recorder-bronze"
+      ]
+    },
+    {
+      "name": "outboard-recorder-brushed-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.44,
+        "metalness": 0.55,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "outboard-recorder-captive-fasteners",
+        "experience-outboard-recorder-brushed-alloy"
+      ]
+    },
+    {
+      "name": "personal-study-amber-hardware",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.12,
+        "envMapIntensity": 0.07
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "about-personal-study-amber-hardware"
+      ]
+    },
+    {
+      "name": "personal-study-amber-hardware-about-notebook",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.12,
+        "envMapIntensity": 0.07
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "about-personal-study-amber-hardware-about-notebook"
+      ]
+    },
+    {
+      "name": "personal-study-satin-fixings",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.55,
+        "envMapIntensity": 0.07
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "personal-study-blanket-stowage-closed-zipper-teeth",
+        "personal-study-berth-fasteners",
+        "about-personal-study-satin-fixings",
+        "personal-study-library-fasteners",
+        "personal-study-locker-fasteners",
+        "personal-study-fasteners"
+      ]
+    },
+    {
+      "name": "personal-study-satin-fixings-about-notebook",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.55,
+        "envMapIntensity": 0.07
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "personal-study-journal-clips"
+      ]
+    },
+    {
+      "name": "projects-utility-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.48,
+        "metalness": 0.48,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-utility-captive-fasteners",
+        "projects-projects-utility-alloy"
+      ]
+    },
+    {
+      "name": "projects-utility-retainers",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.54,
+        "metalness": 0.14,
+        "envMapIntensity": 0.08
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-utility-retainers"
+      ]
+    },
+    {
+      "name": "projects-workshop-amber-latches-projects-screen-all",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.15,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-workshop-amber-latches-projects-screen-all"
+      ]
+    },
+    {
+      "name": "projects-workshop-amber-latches-projects-screen-experiments",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.15,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-workshop-amber-latches-projects-screen-experiments"
+      ]
+    },
+    {
+      "name": "projects-workshop-amber-latches-projects-screen-interfaces",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.15,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-workshop-amber-latches-projects-screen-interfaces"
+      ]
+    },
+    {
+      "name": "projects-workshop-amber-latches-projects-screen-systems",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.15,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-workshop-amber-latches-projects-screen-systems"
+      ]
+    },
+    {
+      "name": "projects-workshop-bench-amber",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.38,
+        "metalness": 0.16,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-projects-workshop-bench-amber"
+      ]
+    },
+    {
+      "name": "projects-workshop-satin-fasteners",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.42,
+        "metalness": 0.65,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-workshop-structural-fasteners",
+        "projects-projects-workshop-satin-fasteners"
+      ]
+    },
+    {
+      "name": "projects-workshop-satin-fasteners-projects-screen-all",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.6,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-workshop-satin-captive-heads",
+        "projects-workshop-corner-fasteners",
+        "projects-projects-workshop-satin-fasteners-projects-screen-all"
+      ]
+    },
+    {
+      "name": "projects-workshop-satin-fasteners-projects-screen-experiments",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.6,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-workshop-satin-captive-heads",
+        "projects-workshop-corner-fasteners",
+        "projects-projects-workshop-satin-fasteners-projects-screen-experiments"
+      ]
+    },
+    {
+      "name": "projects-workshop-satin-fasteners-projects-screen-interfaces",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.6,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-workshop-satin-captive-heads",
+        "projects-workshop-corner-fasteners",
+        "projects-projects-workshop-satin-fasteners-projects-screen-interfaces"
+      ]
+    },
+    {
+      "name": "projects-workshop-satin-fasteners-projects-screen-systems",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.6,
+        "envMapIntensity": 0.06
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-workshop-satin-captive-heads",
+        "projects-workshop-corner-fasteners",
+        "projects-projects-workshop-satin-fasteners-projects-screen-systems"
+      ]
+    },
+    {
+      "name": "service-spine-anodized-grips",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.46,
+        "metalness": 0.23,
+        "envMapIntensity": 0.1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "walkway-service-spine-anodized-grips"
+      ]
+    },
+    {
+      "name": "service-spine-satin-alloy",
+      "finish": "alloy",
+      "before": {
+        "roughness": 0.47,
+        "metalness": 0.55,
+        "envMapIntensity": 0.1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.6,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "service-spine-captive-fasteners",
+        "walkway-service-spine-satin-alloy"
+      ]
+    },
+    {
+      "name": "signal-amber",
+      "finish": "bronze",
+      "before": {
+        "roughness": 0.25,
+        "metalness": 0.055,
+        "envMapIntensity": 1
+      },
+      "after": {
+        "roughness": 0.46,
+        "metalness": 0.2,
+        "envMapIntensity": 0.35
+      },
+      "changedFields": [
+        "envMapIntensity",
+        "metalness",
+        "roughness",
+        "userData.hardwareFinish"
+      ],
+      "objects": [
+        "projects-signal-amber",
+        "experience-signal-amber",
+        "about-signal-amber",
+        "contact-signal-amber",
+        "walkway-signal-amber"
+      ]
+    }
+  ],
+  "protectedMaterials": [
+    {
+      "name": "",
+      "materialSha256": "57e27ec8db70d8f1a97fa03c62da6895fb26b0ecdd68e673e95262902caea75a",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "",
+      "materialSha256": "3e2fa41e6aed82ff7033caa880d6086005ecad754360c8978038f87b43d36efe",
+      "color": {
+        "color": "ffffff"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "about-notebook-hover-rim",
+      "materialSha256": "7312cb0e8ba1afdc71f94ab0f3f9cfadfa24e5b2daee4c01b3040c80b67c3950",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-enamel",
+      "materialSha256": "e7e7e413afdcc9e501bbaeb32017f5e1ba345f33deba52e893591b94be4c0349",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-frame",
+      "materialSha256": "10837dcb3a7a7be6683bcca53f5e6206bf80e268c2ddf411e6bc5cf5a10154f9",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-recess",
+      "materialSha256": "02ad3bdcf704591ecc713d6969408164aa9e310ec67e9099f8469c303023e987",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-retained-textile",
+      "materialSha256": "1756864cfb518ec8aa17b1fc9abf4d8aa69a2931b8e9472ecc6b6c8e34071d40",
+      "color": {
+        "color": "485158"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-rolled-linen",
+      "materialSha256": "810ee76a094d3b1a2eacf328cac1ba3bd01d103ec2b2499d7d2ce28a34f347d3",
+      "color": {
+        "color": "78715f"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "about-utility-textile-binding",
+      "materialSha256": "e2acaac5a3740eda836b36953fd56372fb8e36eba532b3a34999e87bb3512024",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.96,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-cartridge-interfaces-jacket-case-study-screen-interfaces",
+      "materialSha256": "6ac77dcdb46c4460ff127532099220db005b7291b9d96373af1373e7a67d4145",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.53,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-cartridge-print-0-ink-case-study-screen-product",
+      "materialSha256": "d7e451a7aed1ac470bafea379597a5c6d3fc0f7dbe61936616b06123145b3491",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 1
+    },
+    {
+      "name": "case-archive-cartridge-print-1-ink-case-study-screen-systems",
+      "materialSha256": "73c7d82af5ef009aa3c9bb456e1f24d43534ddcbed4a3c36bc7269745df2ec45",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 1
+    },
+    {
+      "name": "case-archive-cartridge-print-2-ink-case-study-screen-research",
+      "materialSha256": "8236b7508457132e15ba38b5c478617b1637e3eb1989a8c292f128e6da826c67",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 1
+    },
+    {
+      "name": "case-archive-cartridge-print-3-ink-case-study-screen-interfaces",
+      "materialSha256": "417c19827a00e176b37adc43fef7079c62285c081dfab81ba1186ec14b3f16a8",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 1
+    },
+    {
+      "name": "case-archive-cartridge-product-jacket-case-study-screen-product",
+      "materialSha256": "89a169f7e33e6fc9c9b109cb0e9f2d5a6b10477550cfafee6123ab86091ad47e",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.53,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-cartridge-research-jacket-case-study-screen-research",
+      "materialSha256": "04a950d2a4a25aa629881405c984ec3324d9f7db5dca5e7289b070e42c33cb3a",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.53,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-cartridge-systems-jacket-case-study-screen-systems",
+      "materialSha256": "5ca251c82e4b1ec8a9d968f9ba3dfe0294ccb0ac236af444fc7596f0e6a9eeb6",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.53,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators",
+      "materialSha256": "ccb6721542c9e20fa8e7af3991884da28b873e59c66c4a2957cdbc43adfee926",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators-case-study-screen-all",
+      "materialSha256": "93cb203fd6703a5836bf5e35087d65c0bdb3c30cf3fc7a9a5c74cac898c1fd12",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators-case-study-screen-interfaces",
+      "materialSha256": "feac1b435b3757de44b53bd7ae3e7c57fe067837377f7039311bea336009b333",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators-case-study-screen-product",
+      "materialSha256": "d8e84a45bc1cd5bde72601236e846103d8334d835cda8fbe5c0e5db37dfa3d31",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators-case-study-screen-research",
+      "materialSha256": "207ec9d8f2c172a6c44a393c9f79413434dd637ecc2b3130d192a0947261060d",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-isolators-case-study-screen-systems",
+      "materialSha256": "c17f8aa593a91feccda759d084cba4372832b3706c903d0a32fec318484cea5c",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-ivory-enamel",
+      "materialSha256": "d9d29a1ba5b6d0dd853fe08286f10c6cf83eb969a47dda57580be254b2f33528",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.53,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite",
+      "materialSha256": "78874634490f12c7a510db5b2d7b398811f9afd08d9d3918f2cf222c66ca9f64",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite-case-study-screen-all",
+      "materialSha256": "0ff26f76df0c681bd0cdde44e9bc6f29d14990a66cbc10d2b4d09c74133d9b0b",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite-case-study-screen-interfaces",
+      "materialSha256": "55918509fa533a2d4f6eb9f60351ea4399143254f778193c9f2b09d6e7035797",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite-case-study-screen-product",
+      "materialSha256": "6b2bd64de12d4822ff3f9cf19d96c095053625c8152968c4d7daf580059dc979",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite-case-study-screen-research",
+      "materialSha256": "f0fb9b620bf39995c3423b9a92c4eeffb5edb0a57aa21335778a653648d7c764",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-rack-graphite-case-study-screen-systems",
+      "materialSha256": "b8d2b988934ef367ad11e1f1a561d8138b62dc3bc16ba5d4d0a2d2114d024184",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.17,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge",
+      "materialSha256": "bdb753ce1186e93825a2168edecf3a0168004b6a80a2085fb42adb19664a79c5",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge-case-study-screen-all",
+      "materialSha256": "56e8d2e4fa25e1887712b73d72860589387cfb445c6eef479061c641548b616d",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge-case-study-screen-interfaces",
+      "materialSha256": "390cf71f7ac528b6fea1f2c8afd0765b30edbb2e41a46e815568fbf6f7a416f2",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge-case-study-screen-product",
+      "materialSha256": "f1a62776bbf3601881cbd662844535b4ef53bb30936fc55f7b324baee59d8bb3",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge-case-study-screen-research",
+      "materialSha256": "4385aeaf870d2911afab9caaaaaceee260a4cdd7a729a720dcd0aa10f885e092",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-satin-edge-case-study-screen-systems",
+      "materialSha256": "f6b8bde693d9ede230838c3947a0d5d3b99a6f72d85a404ef01ead63420892a0",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.49,
+      "metalness": 0.42,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior",
+      "materialSha256": "098ac174f6c76995499fea3721e9b4eafbc9e8df476b1f9c323bb1dd0ef3df97",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior-case-study-screen-all",
+      "materialSha256": "c22cc67fb8eb8a955c7803af6b7f96ebaa602cc36450d72c503544267ded314e",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior-case-study-screen-interfaces",
+      "materialSha256": "8b9ac9eab4189bd201fccc1a879621b5bd5e7625001cb73b89929d4b4870d804",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior-case-study-screen-product",
+      "materialSha256": "166d56d8f42a670e22acdf5f3ca27feb1ee0c0489f26f809005c5e055e5fe45a",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior-case-study-screen-research",
+      "materialSha256": "99cd763f674c7a689eca035a3439fd3931f45d554c419bdfb16a4512ec5baac0",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-slot-interior-case-study-screen-systems",
+      "materialSha256": "7ef5dd18e1c98c2f884cd92b6764eca3d800a4f17369f766366d41fb0281c5e8",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.91,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "case-archive-terminal-screen-ink-case-study-screen-all",
+      "materialSha256": "183095755e9c4c2d02478f33575335c7a33bde43f4d7af6b13fc4e29fe6ec548",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "case-study-screen-all-hover-rim",
+      "materialSha256": "7d095d6001fe23aa5658bb3bd835e49b93e68829d3565696cf713226111a7508",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "ceramic-hull",
+      "materialSha256": "d22e0b1c5917e06178b58532f4f3811de47d84778dee0674298992cb88e5dc65",
+      "color": {
+        "color": "eee9de"
+      },
+      "roughness": 0.38,
+      "metalness": 0.07,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "computer-desktop-wallpaper-case-study-screen-all",
+      "materialSha256": "a1c8cd328146a0c752199add400ca22697b53fedc2600a4af955a1470a74b18a",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "computer-desktop-wallpaper-contact-computer",
+      "materialSha256": "fd60f92e2a17f2cd18cd42ae1dd55d241c86e8ee3ef270ee51440222862c82b5",
+      "color": {
+        "color": "d3d3d3"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "computer-desktop-wallpaper-projects-screen-all",
+      "materialSha256": "3f044dc21f2750758cfe6f9f1a6dd227707f6b5275162ff365aeeb282c64871c",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "computer-desktop-wallpaper-projects-screen-experiments",
+      "materialSha256": "f7f1ed2c3e58fc35d84d6ee12c303f8914c4062abf8f4e0e9f20fe40dc7c9c0c",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "computer-desktop-wallpaper-projects-screen-interfaces",
+      "materialSha256": "1998197b23f25654d101d985c7b3efbf7c8819c5a23a574cdbc0844cd476f12f",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "computer-desktop-wallpaper-projects-screen-systems",
+      "materialSha256": "73ad338edb2b76a0b7dc20b789182216fd2a1adb9cdc4120627e24764da6810b",
+      "color": {
+        "color": "ffffff"
+      },
+      "textureCount": 1
+    },
+    {
+      "name": "contact-computer-hover-rim",
+      "materialSha256": "79de6da2f777d350c64f73c52bc91e23e45be6e225800da1a4a1a51c283837c7",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-elastomer",
+      "materialSha256": "3a781adad8303028421e6680b49437b0b77b2e46ee71140dea8f8a5eaddd93ab",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-elastomer-contact-computer",
+      "materialSha256": "d0957ee7ed541f2c7f60113736ce954734de63887491ddcc473a9e8e7ebc85d9",
+      "color": {
+        "color": "080c11"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-enamel",
+      "materialSha256": "f2ca3ddc3e96a2eff9f3fb7b163220ba6e0825732184203bf00f8e818c0f332e",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.46,
+      "metalness": 0.08,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-enamel-contact-computer",
+      "materialSha256": "58ced372f19c24b7c56638b56f6e16df00726f0bd65c24dd65c543a0427f3a49",
+      "color": {
+        "color": "0e1319"
+      },
+      "roughness": 0.46,
+      "metalness": 0.08,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-graphite",
+      "materialSha256": "dc4371dba1e84799deebfd7fb91e261f5ca9aa1e5d4eec7273d670e70575c3da",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-graphite-contact-computer",
+      "materialSha256": "48a91d83bb986c307ad4e3dce922102f14156aac67739716ecef8b8e50c90369",
+      "color": {
+        "color": "0e1319"
+      },
+      "roughness": 0.63,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-markings",
+      "materialSha256": "cccc14177e0abb54b31280d9211e1cbff4d157b05c4a4eaef212be31efc821a6",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.85,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-recess",
+      "materialSha256": "1c89681aa4b186b3a919226e05b0693cc71496e116be86683c5dcee8e4304fcc",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.75,
+      "metalness": 0.05,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-recess-contact-computer",
+      "materialSha256": "2d157b85f0b97eb67c94c4b6505fa30efd06bdb9d7211042c4f991a764e0c47a",
+      "color": {
+        "color": "080c11"
+      },
+      "roughness": 0.75,
+      "metalness": 0.05,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-flight-screen-contact-contact-computer",
+      "materialSha256": "007a6e8156b7865c056a04eb05f9561c4d78402ebd710ebee867531fada415fe",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 0.76,
+      "metalness": 0.02,
+      "envMapIntensity": 0.06,
+      "textureCount": 2
+    },
+    {
+      "name": "contact-flight-screen-link",
+      "materialSha256": "17aa130246680d5da751baabd40f5e78e41d8efcbbc5241dbf469b1e26eff203",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 0.76,
+      "metalness": 0.02,
+      "envMapIntensity": 0.06,
+      "textureCount": 2
+    },
+    {
+      "name": "contact-flight-screen-signal",
+      "materialSha256": "cd4fa31b4b72333b36f36786b4791a871da9063ce7ad9283406a17def12cd0ed",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 0.76,
+      "metalness": 0.02,
+      "envMapIntensity": 0.06,
+      "textureCount": 2
+    },
+    {
+      "name": "contact-keyboard-keycaps",
+      "materialSha256": "b5b09407963a2290b28aaf1afda4c7d5c33d46c9b5432d52b667bc5c65b415a5",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 0.65,
+      "metalness": 0.08,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-keyboard-printed-legends",
+      "materialSha256": "67e3545d9bc37b23cfdfeeadd637d0e33adda842ba5e4cfe011c72ba5e3752fb",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 0.85,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "contact-utility-enamel",
+      "materialSha256": "6c526ae129a3c09bdc0ee458a44bcce26bcacd900a674228478ba6a563c82e7b",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-utility-equipment-enamel",
+      "materialSha256": "9d205a139190094fad47c6f215bc236ba322f5969528a482431b59e7f3fb6187",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-utility-frame",
+      "materialSha256": "abf1e9366f4ac240c0674247a8f0f9f73798f28bf4f2d1e4eb95dd70a21e460a",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "contact-utility-recess",
+      "materialSha256": "77104f110b56a407365e6646bebe2ab2e2489442590f67b62a636365dc7574a4",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "docking-shoulder-tool-graphite",
+      "materialSha256": "4d01cb81784e7b0b0a95a84fc682c4038dc45beeadf2515daa0866e14e636603",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.64,
+      "metalness": 0.12,
+      "envMapIntensity": 0.17,
+      "textureCount": 0
+    },
+    {
+      "name": "experience-utility-enamel",
+      "materialSha256": "7758f304a4c3cb22dc00ed268e09da3dbe60f8d281e415a5470f746c3bd93a7c",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "experience-utility-frame",
+      "materialSha256": "294ed56a7b379bb7b3fa41de2ba0442f1980f9b4220d68115e44467f9a523770",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "experience-utility-recess",
+      "materialSha256": "d27b472acb4d3bf1cd5927348aa0616a9a5968b87ba7b3a79d25e07cd43a8774",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "graphite-enamel",
+      "materialSha256": "6f1bed5b519f666c44ef77f08de399e968bdf80b01ded0e4feb9f6735f5184fb",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.37,
+      "metalness": 0.28,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "graphite-enamel",
+      "materialSha256": "3b12093598a6503ef15dc21276e78cf1657c989d50a21cd9021307e22b556705",
+      "color": {
+        "color": "1f2730"
+      },
+      "roughness": 0.37,
+      "metalness": 0.28,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "graphite-gasket",
+      "materialSha256": "8de4e4a22602238590103b69e5567d6281c6c4475dcebb05de257505515befbe",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "graphite-gasket",
+      "materialSha256": "349668b3845fa94b77542fdeb7b41b3cb952377c6f901ee415c404da76d9b097",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "graphite-gasket",
+      "materialSha256": "fee29a8285bea067879c2895e2f901b2ebb5173d5787bd57d64d1f62b1497cb2",
+      "color": {
+        "color": "1f2730"
+      },
+      "roughness": 0.63,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "identification-label",
+      "materialSha256": "706709e6e1bff316f65faf045b01b70c4158602607c696c94c766d44cc193f58",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "identification-label",
+      "materialSha256": "53c96a9c2553a46403dc2289642d5f5bdaf0683175e553faf16dbc4da2fa1792",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "identification-label",
+      "materialSha256": "3b6e114a61c448440019eb397b4742b66158ab6afa4117280214f03ff7792e03",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "identification-label",
+      "materialSha256": "aea5c69acae54bbaba4c25ea057b1fcfd7d9b0060c5c243d6c2f4e06f0760b55",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "interior-enamel",
+      "materialSha256": "8f074a53bfd061ed990469e91b9033cbb72360070374e4f998a0456568c41c4e",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.54,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "interior-enamel",
+      "materialSha256": "6ea327e2cc008f49e096978365e550e5b4159e126743c4890ddf830b384dcc30",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.54,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "interior-enamel",
+      "materialSha256": "73fbb840e2b63f30e2a2ed7824ceb70f1f3ea5167ad7094f11e3ccdc5ab9c0f4",
+      "color": {
+        "color": "eee9de"
+      },
+      "roughness": 0.54,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "interior-enamel",
+      "materialSha256": "a791e9db29b01178eff868957d582a5c988a58b0210e391c488403521a4db087",
+      "color": {
+        "color": "eee9de"
+      },
+      "roughness": 0.54,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-enamel-about:contact",
+      "materialSha256": "59aa1bd0c296a6c4cdad391f4674c4a937d73c83a0d260b4340af363458a981c",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.72,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-enamel-about:projects",
+      "materialSha256": "8ea3b973af95ffe99a2d5a07bc30e70f5440841f50b4c330da369d31cdd99fcd",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.72,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-enamel-experience:projects",
+      "materialSha256": "68a36a86224eb92283629197bf2c4f64d246c63dbdaa2e530b260d59641fc28e",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.72,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-enamel-projects:about",
+      "materialSha256": "16071b40bfb81b7519d7f87946ac07aaaa3bd368484c38f2ce920f81ea34870a",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.72,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-guide-about:contact",
+      "materialSha256": "4aedf61cb72b630c9401a13192a6ffa3dc0fe38d2684625ebb2647e944547130",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-guide-about:projects",
+      "materialSha256": "e94e082cb72b216618dd7fa8e0977279250deac7fd173cbe64f4e102fe211bb4",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-guide-experience:projects",
+      "materialSha256": "c0b1bd2464c33723b1e925039ad01b10ea7c50cd81c03f54f44fa54ea0034e36",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-guide-projects:about",
+      "materialSha256": "9e66c19b523d85e3b45df3a54b6a788e1cfef2d1dc84d2872c9d80d58b278468",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-recessed-amber-indicator",
+      "materialSha256": "15ead6c3b341a206353c8babb16c98a7dc1708f0cc39ee697fd685e9db1bf504",
+      "color": {
+        "color": "674d31"
+      },
+      "roughness": 0.4,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-recessed-amber-indicator",
+      "materialSha256": "f4f4844d4dcc3796074fa1d6cb95b7d821d92326d04f594d9d19af0daa4f4528",
+      "color": {
+        "color": "674d31"
+      },
+      "roughness": 0.4,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-recessed-amber-indicator",
+      "materialSha256": "b968f515122b367e5ff73e3b0432aaf0c021149e28123de7226ebdafbb7889a6",
+      "color": {
+        "color": "674d31"
+      },
+      "roughness": 0.4,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "iris-recessed-amber-indicator",
+      "materialSha256": "e43d9ce56b1131aa4bcf06dc4fa19b119591abe95e649c3ebd06ee056dfd994a",
+      "color": {
+        "color": "674d31"
+      },
+      "roughness": 0.4,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "ladder-web-enamel",
+      "materialSha256": "ec8d10e3025db3b66dc585c95ab73034f8dd4b6d9a1a031b24fdaf0392596fa2",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.68,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "ladder-web-graphite",
+      "materialSha256": "337173f9b04a9455f3370617939d3a89719ffc8f7a3b6076d0b08647c764c6f0",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-diffuser",
+      "materialSha256": "b007945ee658bd24c47f679245933484fd018679f9f02501eefe6e3cef74d217",
+      "color": {
+        "color": "b19e79"
+      },
+      "roughness": 0.65,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-elastomer",
+      "materialSha256": "511520dd4a81d461177726046f663fa6c47729e2fd64b4bda76fac8f59dd4c1e",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-enamel",
+      "materialSha256": "94f9bf10a0af9d89ef563cb23fd41cdaf1922899879027c95ab12a49f140b5c8",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.5,
+      "metalness": 0.1,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-graphite",
+      "materialSha256": "0f526b71692f831a13cf0666b684e77cd97b35f9b60d64b78cc267efe99f4fd0",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.64,
+      "metalness": 0.1,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-instrument-glass",
+      "materialSha256": "a4fcf9de331d49faeed507fff4201b9cff0080764629e3000054dfc3d09d25f1",
+      "color": {
+        "color": "071823"
+      },
+      "roughness": 0.4,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-instrument-phosphor",
+      "materialSha256": "03d216387a581a55d6afe7dfe8384c814fdc8856a3c831019902cdcb1a742633",
+      "color": {
+        "color": "6c8f95"
+      },
+      "roughness": 0.8,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-communications-stencil-UPLINK",
+      "materialSha256": "10cde10effd8f828b07117c07b80ef82b8f3d4a1f28719d401569116ed0b9ff6",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "outboard-communications-stencil-VOICE",
+      "materialSha256": "9dfef73e6034dd5b83b156090b48a1d26b56c02347c8bfe600f755b2ad478299",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "outboard-recorder-coolant-blue-enamel",
+      "materialSha256": "a4689178ccbbc8498619fb520a5c446f9025ce30bcae3f9fc1aef628d715249c",
+      "color": {
+        "color": "3b5059"
+      },
+      "roughness": 0.47,
+      "metalness": 0.16,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-recorder-elastomer",
+      "materialSha256": "e8b2aec7962c604afdb026600e47985b4b26348d258e31afdcfeb0ed37606b93",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "outboard-recorder-graphite",
+      "materialSha256": "0133c0e18571db49f38b95c6f45bdc9478c16eab95d1db81afc232f8660c44fb",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.64,
+      "metalness": 0.1,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "painted-navigation-symbol",
+      "materialSha256": "1f887929a3b7c31d18abf8921a4cc7e2ca8d2403b2ce6e6edfa545f434d272d8",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "passage-borrowed-light-liner",
+      "materialSha256": "57e7329cc1d8cba52207ca03762636cda591730a984b27a3f44bb3d3024ca586",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-0-about-notebook",
+      "materialSha256": "f6eb2e900d68e82fac607c04af6b2df243c179ce6fce78dccc06cf92997a4912",
+      "color": {
+        "color": "745f38"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-1-about-notebook",
+      "materialSha256": "433e0ab0cc60b7a4344d80bd66e3887a87770269e9ed178b965f7b6275d99296",
+      "color": {
+        "color": "61684f"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-2-about-notebook",
+      "materialSha256": "30bd85826161aed0cf6dd0d3ba26ad9b3d78e9e6265d0a639495e53f46a984b2",
+      "color": {
+        "color": "53636a"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-3-about-notebook",
+      "materialSha256": "28c50fc4a18861100ab08efa0c11a5dc34cd13599e156113729c9730fbc4eb5a",
+      "color": {
+        "color": "695755"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-4-about-notebook",
+      "materialSha256": "e1ac5701928293cba2d19ff31a42cfc76e43a3c529cdbd57dd5fc06c153f1070",
+      "color": {
+        "color": "5c5968"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-adhesive-paper-flag-5-about-notebook",
+      "materialSha256": "0d28c4f176f5d867deb6458d54744df94d50fa6056c1880146df98b8b8a92c6e",
+      "color": {
+        "color": "5a685e"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-book-one-print",
+      "materialSha256": "02a476b60f56775c1579f6986612fde548a6b3ff5f3e417ea514427bc8716d69",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-book-three-print",
+      "materialSha256": "ac7251f09d25fc1104a50f17b3ccdf6d052ad492a4e20ef4bd6c413eb0f1716e",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-book-two-print",
+      "materialSha256": "2017dbc9feacb1044510c99fef78093eb566197e76ae72d923403c49a0e7fe02",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-cream-enamel",
+      "materialSha256": "5ddf8c52bfebaf695e04d70b455e2708c50965d9da178d52619df65e56154d54",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.52,
+      "metalness": 0.08,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-curiosity-note-print",
+      "materialSha256": "4f36fdefee680657506bccd7da35143b72fc4f25cb55b505db1fcf48448a56fd",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-0-about-notebook",
+      "materialSha256": "370dd6d3e211bbe52b49d88571bd4445d8ecf60829cf8d4c8c61b70ebcde15fa",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-0-back-about-notebook",
+      "materialSha256": "379468ea46eb61b978462009d3c7ed6183170b6cbe1776cc95cf22211eaa6b16",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-1-about-notebook",
+      "materialSha256": "570330d4973ca92868b5c560e92e6239bf19590a09c4d4009c68857e8f78c165",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-1-back-about-notebook",
+      "materialSha256": "9bcf6543b26bdbf6e29a2fbb68a834912dff9e67f0c4c2da9097e613eff6ba17",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-2-about-notebook",
+      "materialSha256": "1c8598c912e03f9ea7fc60eb24f61af3e32ab5a9d8c1f84a0119cf4df96d8e84",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-2-back-about-notebook",
+      "materialSha256": "b79d8d6655be6e98ad954ac30611a2b361e0f8c437706a7557f9cc42322ba3b0",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-3-about-notebook",
+      "materialSha256": "d8d5d285e757c107ecb4ab3c064e776ce54d7e473868dc5cd581e2b4ba5be652",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-3-back-about-notebook",
+      "materialSha256": "f2646a7cba4107e8bf5f496e8a53d80e652f8cb241641bbed5c6018779cef7c5",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-4-about-notebook",
+      "materialSha256": "7f976aedf11cecd849604fae638b458dcbf74d6d187f637f69c0b0bccb98603a",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-4-back-about-notebook",
+      "materialSha256": "fa493be3a3c2882ccf429eab23d80aad88ef488813b226363f351438407fcd8e",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-5-about-notebook",
+      "materialSha256": "5a78c3773ba0b748d620a3f117974b21980648d3c8ae3b21bed6a1192997f2ed",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-flag-print-5-back-about-notebook",
+      "materialSha256": "35f2e584046d0f71fee48c0e2a5ed28b42b387017a88c75ebbacc18c7312ab56",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-graphite-frame",
+      "materialSha256": "1c41fb47787322e447ce105d8e6500c9b4058a143d0a110fabb1b99cc09cc1e8",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.62,
+      "metalness": 0.12,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-graphite-frame-about-notebook",
+      "materialSha256": "385b230a3c8bdbb6f212fac14cca584e40eb56ac47b1cc209e77f268d375f9a4",
+      "color": {
+        "color": "0e1319"
+      },
+      "roughness": 0.62,
+      "metalness": 0.12,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-landscape-postcard-print",
+      "materialSha256": "99db1a4cb865d21328b0dd0c0755699e9e06ad6bbc5c53b18eff6ebdb19f5439",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-left-page-ink-about-notebook",
+      "materialSha256": "758a8e598831c1efc0369cbc2c7b521e8474fdb0082caa95774832eda162bda7",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-mountain-note-print",
+      "materialSha256": "3e6bcafba1bda64e76faa70c20bb1ac349793fe1f6663f5ee6d83262b0f1f791",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-navy-cloth",
+      "materialSha256": "c3ce7f2e28bea41d683eb4a1b99b5e216ba6324a4cdcd440659301f18d28cd5b",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.97,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-navy-cloth-about-notebook",
+      "materialSha256": "2d4af1f790f923ea2ea00548b760ad4140f70034dbae24bc1d9404278fa32520",
+      "color": {
+        "color": "0e1319"
+      },
+      "roughness": 0.97,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-navy-stitch",
+      "materialSha256": "ae40b03caf742c347798cea02c4d1c90eb924710d163fb4566f6bdc3fff900dc",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-navy-stitch-about-notebook",
+      "materialSha256": "ad4adbab81fbb57c1243a29e6be740d9c7b8a08bc1244f62800f60e47c4ef4ee",
+      "color": {
+        "color": "191f25"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-oatmeal-weave",
+      "materialSha256": "8b53ac59cf4fbd568b349d032a0bdda3038bc247136ceea17f2a79b96fa74e5d",
+      "color": {
+        "color": "8a806e"
+      },
+      "roughness": 0.99,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-page-edge-shadow-about-notebook",
+      "materialSha256": "a244c7238738b4751db3d7f9c86eabea01abe9e5b809eb675fc257f81ae1c64e",
+      "color": {
+        "color": "665c4a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-page-edges",
+      "materialSha256": "fa262f8a6c2305a9f53ce4f2ae88fbde203b35d26d91e3e106dc68b571f0a2c2",
+      "color": {
+        "color": "a59d8b"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-page-edges-about-notebook",
+      "materialSha256": "92299493614e5df326aa1798847ab2f1597203d9645f51ca3d267ed69fbe709d",
+      "color": {
+        "color": "888172"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-personal-note-print",
+      "materialSha256": "af656143140bf78ced3765a2f50e9ffb905d69d4f9f8795248dd57802408fc9e",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-reading-lamp-lens",
+      "materialSha256": "8df834f6c77c68548a7527d8fb130d4ebce9a435226d521d7ce01a32254e769f",
+      "color": {
+        "color": "bca883"
+      },
+      "roughness": 0.68,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-right-page-ink-about-notebook",
+      "materialSha256": "ef9e8499172915f66badff9b474b2246043ca68af99783cbc4b6eed86e766c26",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-stored-quilt",
+      "materialSha256": "8e88fe761434beb366807ee99a2959f853bea5bfb536a6dbf8ccaef6067e92a0",
+      "color": {
+        "color": "71472c"
+      },
+      "roughness": 0.99,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-turning-notebook-artwork-about-notebook",
+      "materialSha256": "db8efeceaa29fd498829187001f7e320f55b9e02a802552585750cc553d4bbc5",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-turning-notebook-paper-about-notebook",
+      "materialSha256": "2fffe44612b2cbe4e3134f187506d743d9133a042ce892dec9673c58f42cf17b",
+      "color": {
+        "color": "9a9a9a"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-warm-composite-writing-insert",
+      "materialSha256": "dfc30172c686996835349651ea1ebec8e197474e59aca9ccc6958f5285a72cc0",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "roughness": 0.7,
+      "metalness": 0.02,
+      "envMapIntensity": 0.07,
+      "textureCount": 1
+    },
+    {
+      "name": "personal-study-warm-edge",
+      "materialSha256": "4ea2552a7ab5c689885cac92e538c45be680fa720ca83cb4a218990bba0455b2",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.48,
+      "metalness": 0.06,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-webbing-and-seals",
+      "materialSha256": "3adb2cfd1a70331f5a934eb195c121e2c62dbebfefc48fbf34017eedfbb7acd6",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "personal-study-webbing-and-seals-about-notebook",
+      "materialSha256": "8bba7cf3c432c737060f58e76a53f71332729e9221f3c55b6527b82e2340a175",
+      "color": {
+        "color": "080c11"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.07,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "b17dab7be9d7dead23636d974ac495fad7cba40968d8a49a99961ec70c6e926d",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "09aa4db298435c0acff65974827222cc6b910f53b63f14774ebab2b857d5f31c",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "4499b7d4c248edc43a21da4afa0d67c39ee364c1f04e91d727181434669f29a9",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "f328a0188b8ce2f5e7bd952ce933e1b70bd06e79fd6fde0983c7b2ae74e6df46",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "78d6b2cf0e17e58d517e781cc00fe6844df5c07b12a8fbe5a7f7a037bbac4664",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "b42d3211e115ef4cf065efab84ea8b121f3bf4ce06b05d8bb7af456f5fe1cd8d",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "d7dbdbe06ba51ca63dd5a93e98e9599c6fdec4192439dd50e798ccc4bc5085e5",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "27a8c5b330a67addab978cdc2ac17cd58956b8f2d07ad549d87808c3ed7f1cf2",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "143afc87808a63960b486fd9101f41f0dafa06f603edf5869ab6a60a26289839",
+      "color": {
+        "color": "eee9de"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "9b0d50f75d42072aff2854135a998c11e7774ae09f26f8962af4722619877e80",
+      "color": {
+        "color": "eee9de"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "74af83f03773e193725c60a67d09bed1d48976b154e2c06a401574140d2a8525",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "1b68740d6d733d1868d765f8cd23303f6b362b43ba52eb94f7aeb823c03d5c46",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-cabin-enamel",
+      "materialSha256": "73c269810b204bebafc51241edb8fee5e657c3c0bd016b19359140dab40d6f44",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.82,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "plain-carbon-deck",
+      "materialSha256": "7845a3842a09cd728059924a41e928b34faf641087818406f3d84631c7c953a0",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "portal-destination-label",
+      "materialSha256": "ea5cc7044d4e3f4fc309c00af4c0ae98b6fe212d91ae9ed0b6efc815c3a3eefd",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "portal-destination-label",
+      "materialSha256": "50c3f6e0d52af55ef94e054e767610fb28d6e769600b4dfa766f33a69b831e68",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "portal-destination-label",
+      "materialSha256": "4d24204b0fc73c7a1abd9f08a4d3700674572d7d8da785562128b7e827de4c72",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "portal-destination-label",
+      "materialSha256": "87d78191ff0765ff6b72aad354924299db1c17f48b55a4cbc2342cb144e1c24a",
+      "color": {
+        "color": "bcbcbc"
+      },
+      "envMapIntensity": 1,
+      "textureCount": 1
+    },
+    {
+      "name": "projects-screen-all-hover-rim",
+      "materialSha256": "8883b8abe65ea3876c8cedff8ebf9cc4d791c46788c052a61270340688efc20c",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "projects-screen-experiments-hover-rim",
+      "materialSha256": "677992c0bb7888f75ccce500e1632ec156b134643f18193464fd5b05418ce2fb",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "projects-screen-interfaces-hover-rim",
+      "materialSha256": "ec07f29f33cdf8685897b2a192768b3acac51393b0af3421f3e6c42f0fd66da8",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "projects-screen-systems-hover-rim",
+      "materialSha256": "bda97ff81f47a68120953566119d65c25b1a45df76c6815117225c9bde5b8dc4",
+      "color": {
+        "color": "d4b28c"
+      },
+      "textureCount": 0
+    },
+    {
+      "name": "projects-utility-enamel",
+      "materialSha256": "4a8a24062300327034ba09f3b877ac035c8fe576559cf4159327af3ec6563831",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-utility-equipment-enamel",
+      "materialSha256": "543b4bdd40ae374507a56a8f2b8b4c0fefef452070891b7703c7e377571ad9aa",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.59,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-utility-frame",
+      "materialSha256": "937fa630c1cc0a222d8523fb7313fa8ab311ff9316564f65ceaa85b4ba5d8f63",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.68,
+      "metalness": 0.08,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-utility-recess",
+      "materialSha256": "ff65d8da4d37e5eb2eb1040afe4bf5ab007f5216e7c0d75969bfc8f7031a955d",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.9,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-utility-retained-textile",
+      "materialSha256": "e7ecd611c85d539bc5f5db48d978fb54723341c912802afedd4a5f82587bb3b3",
+      "color": {
+        "color": "485158"
+      },
+      "roughness": 0.98,
+      "metalness": 0,
+      "envMapIntensity": 0.08,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-all-screen-projects-screen-all",
+      "materialSha256": "9c890ac8f1dfd9dd279af559cf5dec51d20d73a6df66491740dd349b78be48e6",
+      "color": {
+        "color": "000000"
+      },
+      "roughness": 1,
+      "metalness": 1,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "projects-workshop-bench-enamel",
+      "materialSha256": "b9920273c0ddbd0b2e069d054dbdc5e33afcb1f0f5d6ff48a7b446fe8cd3e9ed",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.46,
+      "metalness": 0.08,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-enamel-edge-projects-screen-all",
+      "materialSha256": "729376981114ea714fbe044366fdef320834f8139ef9d335db2b98b24231cddb",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.62,
+      "metalness": 0.14,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-enamel-edge-projects-screen-experiments",
+      "materialSha256": "78c2934ac58d1c4ffdb832c6d5b55a2f9f809c07df71c4055e9be9a24f3fb69c",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.62,
+      "metalness": 0.14,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-enamel-edge-projects-screen-interfaces",
+      "materialSha256": "15d16bca9966ac6bd57f2323092a94c28807efedd023968f3bf3d5d4fea301e6",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.62,
+      "metalness": 0.14,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-enamel-edge-projects-screen-systems",
+      "materialSha256": "7a990cf74534c7b7474584b861a0284fc3caf19d0408b6d4f5c6c67f53822404",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.62,
+      "metalness": 0.14,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-experiments-screen-projects-screen-experiments",
+      "materialSha256": "cad3bc95dd1e61fa44fb3dad811ed0bbef964a8b505b366d3a8d8bc042b23831",
+      "color": {
+        "color": "000000"
+      },
+      "roughness": 1,
+      "metalness": 1,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "projects-workshop-gasket-projects-screen-all",
+      "materialSha256": "5000bbb3514174fed3e66cba6ead0106978fcc380569b855f911e53aac5bfe8f",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-gasket-projects-screen-experiments",
+      "materialSha256": "29d41e2d63c2696bb6a159990934123afcbf69ed92df07bdef030aacc5ec6b69",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-gasket-projects-screen-interfaces",
+      "materialSha256": "68733f57c42779a54c31ee0d5e95c90388d575020da0bc5c0435c2d04211322e",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-gasket-projects-screen-systems",
+      "materialSha256": "b06231c9b42f1e886850d08bcb1924f36db72673c76caa69a01d4a8e2b0460d2",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.88,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-graphite-enclosure-projects-screen-all",
+      "materialSha256": "d8a271c5ef4ff0e8da69001ae497f8d72c8910a15635f0869f81e8ddcbe83558",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.69,
+      "metalness": 0.12,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-graphite-enclosure-projects-screen-experiments",
+      "materialSha256": "eccd99683a366b9f0400f62c46933d4041275db42b54076acf5830f1f2e14fd5",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.69,
+      "metalness": 0.12,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-graphite-enclosure-projects-screen-interfaces",
+      "materialSha256": "0c8273b91b921ab15a9402d3f244fe7cd210c6e475845d5ced85288041553618",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.69,
+      "metalness": 0.12,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-graphite-enclosure-projects-screen-systems",
+      "materialSha256": "db02cd8e5eb9793b0ad8c0e7220de819b19d85cfff5235d80928648ca32bb0c5",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.69,
+      "metalness": 0.12,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-hardware-index-projects-screen-all",
+      "materialSha256": "ef3b56a86009fe5de083cbe5b19616ebbb1a2b1f17a8ccc7648ef308117683e7",
+      "color": {
+        "color": "9e9a91"
+      },
+      "roughness": 0.78,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-hardware-index-projects-screen-experiments",
+      "materialSha256": "e9c15a2120473d4d58017894c21f965fe8183c5061fccd7f4aa89c1e64979090",
+      "color": {
+        "color": "9e9a91"
+      },
+      "roughness": 0.78,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-hardware-index-projects-screen-interfaces",
+      "materialSha256": "02307915b75426ed6c4a9b0444fc7c243e578645ae012bfd58469b7514773cc0",
+      "color": {
+        "color": "9e9a91"
+      },
+      "roughness": 0.78,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-hardware-index-projects-screen-systems",
+      "materialSha256": "060369842f45255ef103eeedf60682c99934423a1cb77a3574951c7abd277ba8",
+      "color": {
+        "color": "9e9a91"
+      },
+      "roughness": 0.78,
+      "metalness": 0,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-interfaces-screen-projects-screen-interfaces",
+      "materialSha256": "a012723698553788c74024fcb00a3ec17cd4f2e8091f52e50435269f7989149d",
+      "color": {
+        "color": "000000"
+      },
+      "roughness": 1,
+      "metalness": 1,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "projects-workshop-isolator",
+      "materialSha256": "715b4493664b48b2aeb09f8bf61711f65cddc1215feea4dc251e3fec508e91d4",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.89,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-ivory-enamel-projects-screen-all",
+      "materialSha256": "193e03b90c40a1f8a97f2888c0c0380d43a15cc1db0339673072a66511a5ca18",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.54,
+      "metalness": 0.08,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-ivory-enamel-projects-screen-experiments",
+      "materialSha256": "4340713489bc251a5bc76097704187cb99650b4e0543817e554385fc0f5e8641",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.54,
+      "metalness": 0.08,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-ivory-enamel-projects-screen-interfaces",
+      "materialSha256": "5733064da1eeb71ca63218bc4c41ed6e552324a00ab58cb002ad4904bddd5356",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.54,
+      "metalness": 0.08,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-ivory-enamel-projects-screen-systems",
+      "materialSha256": "16c7f9f232bb699e6b415263f64b3f99281bbcb877440204bf9513583a2078e4",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.54,
+      "metalness": 0.08,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-recess-projects-screen-all",
+      "materialSha256": "975b6f9189d68726f5630137acddb9014f92460665775af6029152ed6f18da1b",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.8,
+      "metalness": 0.04,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-recess-projects-screen-experiments",
+      "materialSha256": "d8008f3f571739655a382ead98a2159280358108a97b47a00564338e7f3d70d8",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.8,
+      "metalness": 0.04,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-recess-projects-screen-interfaces",
+      "materialSha256": "9377d3ec9f7975c9e4c8820df7cf999eee334c22db3fc53c8f42f8f02da3503a",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.8,
+      "metalness": 0.04,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-recess-projects-screen-systems",
+      "materialSha256": "649da0506cfe8db4c62e23efdb80127798d3d557c704e0af229a8f2634c76298",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.8,
+      "metalness": 0.04,
+      "envMapIntensity": 0.06,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-service-recess",
+      "materialSha256": "d2f9883080c3df6bd76f1a56573b7703a7497bdc0637bd1447b3fb6de13e908d",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.84,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-structural-graphite",
+      "materialSha256": "29473c4dd87f44a80fcc49b14d505562a4225c2d127d4b17f99e6ed78c59d226",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.63,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-systems-screen-projects-screen-systems",
+      "materialSha256": "af4a9ae05a13c70ca46b8773e2c772f6d1014fed4ae8c55bca4eb3f55c3f5806",
+      "color": {
+        "color": "000000"
+      },
+      "roughness": 1,
+      "metalness": 1,
+      "envMapIntensity": 0,
+      "textureCount": 2
+    },
+    {
+      "name": "projects-workshop-task-diffuser",
+      "materialSha256": "963f2ea69f07566bbaf58826fe8acad371efe555abc4b38057c3b2fa28f0fe39",
+      "color": {
+        "color": "bca678"
+      },
+      "roughness": 0.55,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "projects-workshop-worktop-enamel",
+      "materialSha256": "0767502489208e07da075c64633bb5ca14ca350cc4d52bf22da53524217cc765",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.43,
+      "metalness": 0.1,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "recess",
+      "materialSha256": "309facd3708ab82bba55aa66c806298cf52050a6de40d16321c13fb3b4bdb1eb",
+      "color": {
+        "color": "151c23"
+      },
+      "roughness": 0.69,
+      "metalness": 0.12,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "sage-utility",
+      "materialSha256": "968a5688f1b6468250c68ad5a1fca3e84dfeabd0e9dbe8c3cfb3805041f83c67",
+      "color": {
+        "color": "303a44"
+      },
+      "roughness": 0.44,
+      "metalness": 0.25,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-brushed-tread-alloy",
+      "materialSha256": "a27b8dc3c391d40ee2126c71e77f26b3ddc84e35bc097eaee840b56d1ab2be1b",
+      "color": {
+        "color": "9ea2a1"
+      },
+      "roughness": 0.5,
+      "metalness": 0.25,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-control-index-paint",
+      "materialSha256": "d08e767a39cf72344e282d6ffd80ee3442dccad90351d1fdc72778218fe67ba7",
+      "color": {
+        "color": "8e8f8c"
+      },
+      "roughness": 1,
+      "metalness": 0,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-graphite-casings",
+      "materialSha256": "aac5e5935972a07a2e9a4f8c3e862e30c8f1fb33fc199950526cbe6387d2d6b5",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.67,
+      "metalness": 0.14,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-graphite-casings",
+      "materialSha256": "13a1438747091cedef2bd9e074c407dcd9ab881febe3a63b6e713dddf943f717",
+      "color": {
+        "color": "141a20"
+      },
+      "roughness": 0.67,
+      "metalness": 0.14,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-insulated-harness",
+      "materialSha256": "67780086b296a1c79995d4380c9baa6cda75de7f10a0a28093970fa4ad08e021",
+      "color": {
+        "color": "20282f"
+      },
+      "roughness": 0.72,
+      "metalness": 0.08,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-ivory-enamel",
+      "materialSha256": "370f1a9cd27a1d2ef919a904356f09470f6b107f6a68d6224385330b0538c29d",
+      "color": {
+        "color": "afaba3"
+      },
+      "roughness": 0.68,
+      "metalness": 0.08,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-protected-diffuser",
+      "materialSha256": "44ae1a4ba12c46a4b4b33ff3bd5cf748e4243f0d71086743e0ffb8b0facd8b80",
+      "color": {
+        "color": "bcad8f"
+      },
+      "roughness": 0.6,
+      "metalness": 0,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-recess-interior",
+      "materialSha256": "9a0a192b4c95d08b02bd1876dab5a28e51c7c9ccf394d5adfa81f857d9ce316e",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.85,
+      "metalness": 0,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "service-spine-retaining-rubber",
+      "materialSha256": "9afbb83e4009426dd7e0a39eeee22a41943e0ab95872d4c6641c564f76971c51",
+      "color": {
+        "color": "0c1117"
+      },
+      "roughness": 0.92,
+      "metalness": 0,
+      "envMapIntensity": 0.1,
+      "textureCount": 0
+    },
+    {
+      "name": "solar-cells",
+      "materialSha256": "324e6e1215ba9c188a64e9005cfffa2aa94401e10ac66758ebd1b197705dfcad",
+      "color": {
+        "color": "143966"
+      },
+      "roughness": 0.49,
+      "metalness": 0.16,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "solar-cells-alt",
+      "materialSha256": "fc8b32c21e005699ae008c5f9c4eca223b4e74fa2ef34ce84f63c87bde8ff3d1",
+      "color": {
+        "color": "204d7c"
+      },
+      "roughness": 0.52,
+      "metalness": 0.16,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "solar-conductors",
+      "materialSha256": "7bfea1228ce70b603ca13bd6555c7cbab5a53c5febcb406003706bd013fb300d",
+      "color": {
+        "color": "405c6b"
+      },
+      "roughness": 0.56,
+      "metalness": 0.3,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "warm-insulation",
+      "materialSha256": "b587d305548a755da73e020ccbaeb43cf05c9607303b2b29c4ca9ddb3b307462",
+      "color": {
+        "color": "9e9a91"
+      },
+      "roughness": 0.67,
+      "metalness": 0.01,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "warm-light",
+      "materialSha256": "ee55bc1b598f2ac05ff57dff8ba9937f7b2cfeefb9f6e8858fcaefef15cb4cb8",
+      "color": {
+        "color": "baa881"
+      },
+      "roughness": 0.3,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "window-perimeter-signal",
+      "materialSha256": "2e8208d7c89078c1ef0e4580482ed53906f1c86c19f6213b7f18f939c8db9078",
+      "color": {
+        "color": "aa8054"
+      },
+      "roughness": 0.55,
+      "metalness": 0,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    },
+    {
+      "name": "window-reveal-graphite",
+      "materialSha256": "c0886e111d623d8deeec8222ac1c83e53dae9ede563ab1231e73cdf1d444b8d1",
+      "color": {
+        "color": "1f2730"
+      },
+      "roughness": 0.63,
+      "metalness": 0.04,
+      "envMapIntensity": 1,
+      "textureCount": 0
+    }
+  ],
+  "limitations": [
+    "Inventories are source geometry and typed-array byte counts, not GPU memory or process memory.",
+    "Visible triangle potential does not account for view frustum, occlusion, shadow passes or renderer passes.",
+    "No frame-time, CPU/GPU-time, heat, battery or performance gain is measured or inferred.",
+    "CPU canvas command comparisons verify generated drawing instructions, not rasterized browser text; live artwork/content is reviewed separately."
+  ],
+  "summary": {
+    "passed": true,
+    "changedMaterialSignatures": 48,
+    "protectedMaterialSignatures": 239,
+    "routePaintProtected": [
+      {
+        "name": "iris-recessed-amber-indicator",
+        "materialSha256": "15ead6c3b341a206353c8babb16c98a7dc1708f0cc39ee697fd685e9db1bf504",
+        "roughness": 0.4,
+        "metalness": 0,
+        "envMapIntensity": 1
+      },
+      {
+        "name": "iris-recessed-amber-indicator",
+        "materialSha256": "f4f4844d4dcc3796074fa1d6cb95b7d821d92326d04f594d9d19af0daa4f4528",
+        "roughness": 0.4,
+        "metalness": 0,
+        "envMapIntensity": 1
+      },
+      {
+        "name": "iris-recessed-amber-indicator",
+        "materialSha256": "b968f515122b367e5ff73e3b0432aaf0c021149e28123de7226ebdafbb7889a6",
+        "roughness": 0.4,
+        "metalness": 0,
+        "envMapIntensity": 1
+      },
+      {
+        "name": "iris-recessed-amber-indicator",
+        "materialSha256": "e43d9ce56b1131aa4bcf06dc4fa19b119591abe95e649c3ebd06ee056dfd994a",
+        "roughness": 0.4,
+        "metalness": 0,
+        "envMapIntensity": 1
+      }
+    ],
+    "newGeometry": false,
+    "countsChanged": false,
+    "geometryArrayBytesDelta": 0,
+    "unapprovedMaterialFieldsChanged": false
+  },
+  "feedbackStates": [
+    {
+      "layout": "wide",
+      "state": "overview hovered Projects",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "wide",
+      "state": "Projects to archive door preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "wide",
+      "state": "Projects to ladder preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "wide",
+      "state": "About to Contact door preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "wide",
+      "state": "Ladder transit",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "compact",
+      "state": "overview hovered Projects",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "compact",
+      "state": "Projects to archive door preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "compact",
+      "state": "Projects to ladder preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "compact",
+      "state": "About to Contact door preview",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    },
+    {
+      "layout": "compact",
+      "state": "Ladder transit",
+      "exactGeometryTransformsMetadataAndFeedback": true,
+      "materialReferencesCompared": 610,
+      "irisSignalReferencesExact": 32
+    }
+  ]
+}

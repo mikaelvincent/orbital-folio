@@ -1,0 +1,209 @@
+{
+  "verifiedAt": "2026-09-25T04:20:28.981700Z",
+  "baselineRevision": "60c723f85f5b1ad1d4e7d452599960731fb9c6f9",
+  "sourceSnapshot": "Twelve FINAL runtime files synchronized first; the stable hardware-finish regression test was then added before the full suite. No source synchronization or edits occurred during the suite.",
+  "sourceFiles": [
+    {
+      "path": "features/spacecraft/equipment/cabin-utility-fittings.ts",
+      "sha256": "b8d109d1ae4f2d39f058f3f69434ed7789af495dc2029e1385b0ea80d7fd9c61",
+      "fixtureSha256AfterChecks": "b8d109d1ae4f2d39f058f3f69434ed7789af495dc2029e1385b0ea80d7fd9c61",
+      "currentSha256AfterChecks": "b8d109d1ae4f2d39f058f3f69434ed7789af495dc2029e1385b0ea80d7fd9c61",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/equipment/docking-shoulder-equipment.ts",
+      "sha256": "787fa6735f02b071c32d4c2260ffd0a7ef16cf26a7f38f85c1c27d3aff59f122",
+      "fixtureSha256AfterChecks": "787fa6735f02b071c32d4c2260ffd0a7ef16cf26a7f38f85c1c27d3aff59f122",
+      "currentSha256AfterChecks": "787fa6735f02b071c32d4c2260ffd0a7ef16cf26a7f38f85c1c27d3aff59f122",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/equipment/ladder-service-spine.ts",
+      "sha256": "4e3921350848b8a5b255a8a25cc20d5a8b601cf5ea384def69cebdb179a0dae3",
+      "fixtureSha256AfterChecks": "4e3921350848b8a5b255a8a25cc20d5a8b601cf5ea384def69cebdb179a0dae3",
+      "currentSha256AfterChecks": "4e3921350848b8a5b255a8a25cc20d5a8b601cf5ea384def69cebdb179a0dae3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/equipment/outboard-wall-equipment.ts",
+      "sha256": "2f0edf84594e6fd7b79b82b59252cb265baed07bbe8f505414b456e05a803db3",
+      "fixtureSha256AfterChecks": "2f0edf84594e6fd7b79b82b59252cb265baed07bbe8f505414b456e05a803db3",
+      "currentSha256AfterChecks": "2f0edf84594e6fd7b79b82b59252cb265baed07bbe8f505414b456e05a803db3",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/geometry/model-primitives.ts",
+      "sha256": "269629c385b32e1d8aa5825e5b79b4884f7ebf9a4516b065e07799ba46ddb176",
+      "fixtureSha256AfterChecks": "269629c385b32e1d8aa5825e5b79b4884f7ebf9a4516b065e07799ba46ddb176",
+      "currentSha256AfterChecks": "269629c385b32e1d8aa5825e5b79b4884f7ebf9a4516b065e07799ba46ddb176",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/about-personal-study.ts",
+      "sha256": "58ae729abf0cc1f526774ef78aa7bdb4419df91fc676300b9e21c08c839d2854",
+      "fixtureSha256AfterChecks": "58ae729abf0cc1f526774ef78aa7bdb4419df91fc676300b9e21c08c839d2854",
+      "currentSha256AfterChecks": "58ae729abf0cc1f526774ef78aa7bdb4419df91fc676300b9e21c08c839d2854",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/case-study-archive.ts",
+      "sha256": "e0ae0138676404e5676583394dc22ade6ed384e3143d60c57c886cb9c9bc9e23",
+      "fixtureSha256AfterChecks": "e0ae0138676404e5676583394dc22ade6ed384e3143d60c57c886cb9c9bc9e23",
+      "currentSha256AfterChecks": "e0ae0138676404e5676583394dc22ade6ed384e3143d60c57c886cb9c9bc9e23",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/contact-flight-console.ts",
+      "sha256": "6bb3e08e9949aecd7111566c15e7960232111771df45bbfbf732bf5f820d9217",
+      "fixtureSha256AfterChecks": "6bb3e08e9949aecd7111566c15e7960232111771df45bbfbf732bf5f820d9217",
+      "currentSha256AfterChecks": "6bb3e08e9949aecd7111566c15e7960232111771df45bbfbf732bf5f820d9217",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/projects-payload-module.ts",
+      "sha256": "34ec40af851e036400a2397b137850348cc97abc0f3efaf8b6a240077b259dd0",
+      "fixtureSha256AfterChecks": "34ec40af851e036400a2397b137850348cc97abc0f3efaf8b6a240077b259dd0",
+      "currentSha256AfterChecks": "34ec40af851e036400a2397b137850348cc97abc0f3efaf8b6a240077b259dd0",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/rooms/projects-workshop.ts",
+      "sha256": "2bc768f152d81c7b2c03c925dd3ba1df77154ae8146587a535da0fdda725fbde",
+      "fixtureSha256AfterChecks": "2bc768f152d81c7b2c03c925dd3ba1df77154ae8146587a535da0fdda725fbde",
+      "currentSha256AfterChecks": "2bc768f152d81c7b2c03c925dd3ba1df77154ae8146587a535da0fdda725fbde",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/spacecraft-model.ts",
+      "sha256": "0c98a46f5c9f582f53e82e16f87a4193879bc04a7cc96357c4625e39d161ee80",
+      "fixtureSha256AfterChecks": "0c98a46f5c9f582f53e82e16f87a4193879bc04a7cc96357c4625e39d161ee80",
+      "currentSha256AfterChecks": "0c98a46f5c9f582f53e82e16f87a4193879bc04a7cc96357c4625e39d161ee80",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "features/spacecraft/materials/hardware-finish.ts",
+      "sha256": "93d8d5fef530f8a4f3cf370d23f5c9937ec752855a8b2786a5e2c52deebbccc2",
+      "fixtureSha256AfterChecks": "93d8d5fef530f8a4f3cf370d23f5c9937ec752855a8b2786a5e2c52deebbccc2",
+      "currentSha256AfterChecks": "93d8d5fef530f8a4f3cf370d23f5c9937ec752855a8b2786a5e2c52deebbccc2",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/hardware-finish.test.mjs",
+      "sha256": "f3132915baf163bb08d2996d77483f12977c8bea208650c954790b490074f624",
+      "fixtureSha256AfterChecks": "f3132915baf163bb08d2996d77483f12977c8bea208650c954790b490074f624",
+      "currentSha256AfterChecks": "f3132915baf163bb08d2996d77483f12977c8bea208650c954790b490074f624",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualEvidence": {
+    "manifest": "docs/evidence/spacecraft-cohesion/source-manifest.json",
+    "capturedAt": "2026-09-25T04:00:44.299Z",
+    "version": "after",
+    "allTwelveRuntimeHashesMatch": true,
+    "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+    "bundleSha256": "83a103fe2c58820576110b19b5822dbca06ed72cb191695875b96fb0b53d26d8"
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cohesion-verify-15yrf5h3",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cohesion-verify-15yrf5h3/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cohesion-verify-15yrf5h3/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: isolated server stopped and disposable fixture/state removed; port 3003 has no listener and main localhost:3000 remains HTTP 200.",
+    "mainServerReadOnlyCheck": {
+      "url": "http://localhost:3000",
+      "status": 200,
+      "verifiedAt": "2026-09-25T04:20:28.981700Z"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 588,
+      "passed": 588,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 330758.051792,
+      "log": "docs/evidence/spacecraft-cohesion/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "sourceNote": "Ran against the final unchanged runtime while the new JavaScript regression test was being finalized.",
+      "log": "docs/evidence/spacecraft-cohesion/checks/typecheck.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryCheckIncluded": true,
+      "geometryCheckResult": "Indexed cylinder artifact matches its installed source and generator.",
+      "sourceNote": "Ran against the final unchanged runtime before the full suite and before the new JavaScript regression test was synchronized.",
+      "log": "docs/evidence/spacecraft-cohesion/checks/build.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/cabin-utility-fittings.ts features/spacecraft/equipment/docking-shoulder-equipment.ts features/spacecraft/equipment/ladder-service-spine.ts features/spacecraft/equipment/outboard-wall-equipment.ts features/spacecraft/geometry/model-primitives.ts features/spacecraft/rooms/about-personal-study.ts features/spacecraft/rooms/case-study-archive.ts features/spacecraft/rooms/contact-flight-console.ts features/spacecraft/rooms/projects-payload-module.ts features/spacecraft/rooms/projects-workshop.ts features/spacecraft/spacecraft-model.ts features/spacecraft/materials/hardware-finish.ts tests/spacecraft/hardware-finish.test.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/spacecraft-cohesion/checks/lint.log"
+    }
+  },
+  "warnings": [
+    "Production build: Node DEP0205 reports module.register() deprecated in favor of module.registerHooks().",
+    "Production build: some minified chunks exceed 500 kB.",
+    "Production build: Vinext static analysis cannot classify all routes; /experience is reported unknown."
+  ],
+  "failures": [],
+  "executionNotes": [
+    "Typecheck and production build/geometry precheck completed before the full suite while the auditor finalized the new JavaScript regression test.",
+    "Affected lint covered all thirteen runtime/test paths and overlapped the start of the full suite.",
+    "No interrupted, superseded, or failed full-suite runs occurred for this final Stage 11 verification.",
+    "The fixture-only Vite cache directory setting is an isolation configuration change, not a product source change."
+  ],
+  "logNormalization": "Removed ANSI terminal control sequences, trailing line whitespace, and outer blank lines; retained substantive results, durations, warnings and commands. Raw logs remain outside the repository in /tmp; normalized durable logs remain in checks/.",
+  "logs": {
+    "test": {
+      "path": "docs/evidence/spacecraft-cohesion/checks/test.log",
+      "rawSha256": "7d010066ad0646535d1055e1fbccf227b8061e406cea2e3eed7d55ac8ba97aea",
+      "normalizedSha256": "25ed39590a38835da77075c9172f41d0970c5c74572c21058514359e60bef92a"
+    },
+    "typecheck": {
+      "path": "docs/evidence/spacecraft-cohesion/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "build": {
+      "path": "docs/evidence/spacecraft-cohesion/checks/build.log",
+      "rawSha256": "bae12c65179d9a7c973e74cdd4234544159e6b7fe35318eab89eb40f06254c06",
+      "normalizedSha256": "5f519951f80b2b44a3a27fc0484a87ef4b053d207149becf87d19a07641b1b04"
+    },
+    "lint": {
+      "path": "docs/evidence/spacecraft-cohesion/checks/lint.log",
+      "rawSha256": "4b163ae7b686937caa8a1e9285e63f3734759f224b20f1a92836784d252dc2fd",
+      "normalizedSha256": "a7901d70866ecf71fb77920d3ea3e02bf80f4ee8f61c01ed02e3adcf74346073"
+    }
+  },
+  "limitations": [
+    "This record covers automated source and workflow verification. Rendered visual checks and independent design review are recorded separately.",
+    "Suite and build durations are elapsed verification times, not controlled rendering performance or speed, thermal, battery, or memory measurements."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T04:20:55.030322Z",
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-cohesion-verify-15yrf5h3",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "rawTemporaryLogsRetained": true,
+    "evidenceLogsRetained": true
+  }
+}

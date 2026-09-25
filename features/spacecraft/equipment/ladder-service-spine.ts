@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
 /** Shared apertures keep the service inserts flush with the pressure lining. */
 export function getServiceSpineRecesses(THREE: any) {
@@ -86,12 +87,10 @@ export function buildLadderServiceSpine(
     pocket: material('recess-interior', PALETTE.carbonDeep, 0.85, 0),
     hose: material('insulated-harness', PALETTE.carbonRaised, 0.72, 0.08),
     tread: material('brushed-tread-alloy', 0xd8dddc, 0.5, 0.25),
-    alloy: material('satin-alloy', PALETTE.alloy, 0.47, 0.55),
-    amber: material(
-      'anodized-grips',
-      accent?.color?.getHex() ?? PALETTE.bronze,
-      0.46,
-      0.23,
+    alloy: applyHardwareFinish(material('satin-alloy', PALETTE.alloy), 'alloy'),
+    amber: applyHardwareFinish(
+      material('anodized-grips', accent?.color?.getHex() ?? PALETTE.bronze),
+      'bronze',
     ),
     lamp: material('protected-diffuser', 0xffebc4, 0.6, 0),
     ink: material('control-index-paint', PALETTE.textMuted, 1, 0),

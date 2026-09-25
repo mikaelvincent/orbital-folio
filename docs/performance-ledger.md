@@ -3338,6 +3338,48 @@ with 50% visual-design weight and no unresolved blockers. All source/image/log
 identities were checked; temporary review tabs, servers and test state are removed,
 and the main server remains available at port 3000.
 
+## 64 — Whole spacecraft finish cohesion baseline (25 September 2026)
+
+Stage 11 integrates exposed alloy and bronze across cabin fittings, all four
+rooms, the ladder connector, docking/service hardware and exterior access
+routes. A shared surface profile replaces inconsistent nominal hardware
+finishes, notably workshop display fasteners versus their gantry and ladder
+cassette alloy versus its graphite casing. Satin alloy uses roughness 0.46,
+metalness 0.60 and environment intensity 0.35; bronze uses 0.46, 0.20 and 0.35.
+These are authored material coefficients, not a global lighting replacement.
+Iris route paint has a separate source to preserve signal feedback. Color,
+emission, media, painted surfaces, bright ladder treads and natural materials
+remain intentional exceptions. No held optimization is implemented.
+
+[Source-matched evidence](evidence/spacecraft-cohesion/README.md) compares the
+Stage 10 commit `60c723f` with final model tree `7e5d92ef…bbe41a`. A CPU model
+comparison preserves geometry, transforms, bounds/anchors/targets/readers,
+50 texture signatures and feedback across both layouts and ten additional
+state cases. Only 48 named hardware finish signatures change; 239 protected
+material signatures remain exact. Both layouts retain 610 mesh nodes,
+545 geometries and 56,231,352 geometry typed-array bytes. Visible triangle
+potential remains 1,020,976 wide / 997,776 compact. These traversal counts are
+not camera-culled draws or measured process/GPU memory. One additional
+construction-time route-paint template is not a rendered object or texture.
+There is no measured CPU/GPU timing, heat, battery or memory benefit claim.
+
+Seven finite before/after pairs use hidden Chromium 153, 1280×720 actual CSS
+viewport/JPEG/drawing buffer, browser DPR 2 and forced renderer DPR 1 at t=0.
+The fixture includes fixed lighting, RoomEnvironment and PCF shadows but omits
+GTAO, Earth/sky, live interfaces and navigation. Live overview/all-room checks
+cover desktop and 390×844 portrait with normal published content and effects.
+Live baseline/current desktop viewport and DPR differ; portrait DPR also differs.
+They are integration checks, not pixel-matched comparisons. Browser compositor
+failures were rejected and captures replaced. Safari and physical-device tests
+are not claimed. Camera/navigation/global renderer/Stage 10 sources are exact.
+
+Final isolated verification passes **588/588 tests**, typecheck, production
+build/geometry precheck and affected lint. Final source and image hashes are
+verified. Temporary tabs, review/test servers and fixture state are cleaned up;
+the main server remains available at port 3000. The independent critic scores
+**95/100**, with 50% visual-design weight and no unresolved blockers. The evidence
+records build warnings, the review rubric and limitations.
+
 ## Next candidates
 
 **Status update, 15 September 2026 — candidates 1–5 were authorized and audited in entries 19–23. The owner approved retaining GTAO after candidate 4. Candidate 5 recommends retaining current illumination; its visibly different probes remain developer-only and unapproved. Candidates 3 and 4 retain the existing cached shadows and GTAO; their bakes also remain developer-only.** The user selected **8K night Earth detail as the intended quality level**, having found its visual improvement worthwhile. Entry 30 now preserves that source texel density in a 2560×1536 AI-assisted atlas with fixed Earth placement and a responsive camera lens; use its exact source/asset hashes in new baselines. Historical full-world comparisons retain their matching assets. Entry 13's observations remain historical evidence; this decision supersedes its general recommendation of 4K for this portfolio. The bounded candidate 5 experiment does not authorize production adoption, automatic resolution reduction or other deferred optimizations.

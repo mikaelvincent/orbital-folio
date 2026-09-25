@@ -1,0 +1,1712 @@
+{
+  "recordedAt": "2026-09-25T04:18:38.523Z",
+  "baselineRevision": "60c723f85f5b1ad1d4e7d452599960731fb9c6f9",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "baa62b12f2daeb4710fdf2dd1e2313bd43ce3ec7009791e9356dfdf4cabf4395",
+    "audit": "model-audit.json",
+    "auditSha256": "ec71483d2251583f392b4ce82335d7a09987edc87226b7e1e1b2d1fd8d4944ce",
+    "finalModelSourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+    "allFinalModelSourcesStillMatchFrozenFixture": true,
+    "protectedRendererCameraOverviewSourcesStillExact": true
+  },
+  "browser": "Hidden built-in Chromium 153; user-agent Safari token does not indicate Safari testing",
+  "captureScaling": "Files are native CSS-sized JPEG screenshots at scale 1, with actual browser DPR and renderer drawing buffers recorded separately. No resizing or image editing is applied.",
+  "comparisonPolicy": "Seven finite before/after pairs have matched viewport, camera, light setup, time=0, rendering DPR, source fixture, and omitted effects. Live images document integration and responsiveness, not strict matched before/after render quality or performance.",
+  "strictPairs": [
+    {
+      "before": "before-projects-oblique.jpg",
+      "after": "after-projects-oblique.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 903,
+        "after": 903
+      },
+      "triangles": {
+        "before": 1975514,
+        "after": 1975514
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-ladder-detail.jpg",
+      "after": "after-ladder-detail.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 810,
+        "after": 810
+      },
+      "triangles": {
+        "before": 1849596,
+        "after": 1849596
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-docking-detail.jpg",
+      "after": "after-docking-detail.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 928,
+        "after": 928
+      },
+      "triangles": {
+        "before": 1993898,
+        "after": 1993898
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-service-detail.jpg",
+      "after": "after-service-detail.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 928,
+        "after": 928
+      },
+      "triangles": {
+        "before": 1993898,
+        "after": 1993898
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-roof-detail.jpg",
+      "after": "after-roof-detail.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 922,
+        "after": 922
+      },
+      "triangles": {
+        "before": 1992430,
+        "after": 1992430
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-underside-detail.jpg",
+      "after": "after-underside-detail.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 920,
+        "after": 920
+      },
+      "triangles": {
+        "before": 1992394,
+        "after": 1992394
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    },
+    {
+      "before": "before-about-oblique.jpg",
+      "after": "after-about-oblique.jpg",
+      "matched": true,
+      "matchFields": [
+        "browserDpr",
+        "calls",
+        "drawingBuffer",
+        "layout",
+        "lines",
+        "omitted",
+        "points",
+        "pose",
+        "renderDpr",
+        "timeSeconds",
+        "triangles",
+        "userAgent",
+        "view",
+        "viewport"
+      ],
+      "drawCalls": {
+        "before": 829,
+        "after": 829
+      },
+      "triangles": {
+        "before": 1896950,
+        "after": 1896950
+      },
+      "interpretation": "Matched finite geometry/art comparison. Draw counts include fixture shadow work; these are not application performance measurements."
+    }
+  ],
+  "livePairs": [
+    {
+      "before": "before-overview-desktop.jpg",
+      "after": "after-overview-desktop.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": false,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": false,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-projects-desktop.jpg",
+      "after": "after-projects-desktop.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": false,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-archive-desktop.jpg",
+      "after": "after-archive-desktop.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": false,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-contact-desktop.jpg",
+      "after": "after-contact-desktop.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": false,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-about-desktop.jpg",
+      "after": "after-about-desktop.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": false,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-about-portrait.jpg",
+      "after": "after-about-portrait.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": true,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-projects-portrait.jpg",
+      "after": "after-projects-portrait.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": true,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-archive-portrait.jpg",
+      "after": "after-archive-portrait.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": true,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": true,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-contact-portrait.jpg",
+      "after": "after-contact-portrait.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": true,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": false,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    },
+    {
+      "before": "before-overview-portrait.jpg",
+      "after": "after-overview-portrait.jpg",
+      "strictComparison": false,
+      "matchingFields": {
+        "viewport": true,
+        "drawingBuffer": false,
+        "browserDpr": false,
+        "renderDpr": false,
+        "cameraPosition": true,
+        "cameraQuaternion": true,
+        "shadows": true,
+        "gtao": true,
+        "quality": true,
+        "animationTime": false
+      },
+      "interpretation": "Live scene coverage only. Desktop viewport/framing and drawing-buffer resolution differ; portrait CSS size may match but drawing buffer differs. Orbital animation phase is not matched. Use finite pairs to compare the finish change."
+    }
+  ],
+  "images": [
+    {
+      "file": "after-about-desktop.jpg",
+      "sha256": "279d55a0f0289834178577ec7331f89edef77bc8096755faf4571a676a4b8a4e",
+      "encodedBytes": 107572,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "about",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-about-oblique.jpg",
+      "sha256": "75fd831da237116702b19076d7558f07972c52a2261ca676749097580b34276e",
+      "encodedBytes": 104565,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "About oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-about-portrait.jpg",
+      "sha256": "a1c6bb2d9958ca680a27ea77b6bb063286256eeb0f13d9ce422f28f748f4a20f",
+      "encodedBytes": 44275,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "about",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-archive-desktop.jpg",
+      "sha256": "d486a7fd57f12f82920195e45dae5351ddfced58662833172cd89bf0ad814623",
+      "encodedBytes": 104520,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "experience",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-archive-portrait.jpg",
+      "sha256": "50ff7eb608913f9d5b7c1ba23ab503c200fa366262654fefa61260301e985fa6",
+      "encodedBytes": 44546,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "experience",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-contact-desktop.jpg",
+      "sha256": "19d0fe16f05939a735fa25f6cb388e643fecf14547a0b3d6fcaa1aba415a9450",
+      "encodedBytes": 109377,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "contact",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-contact-keyboard-portrait.jpg",
+      "sha256": "7871c0351f563532b80fefc3e98778ef251bac730b4ea4727b41506dc36d0402",
+      "encodedBytes": 44954,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "contact",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-contact-portrait.jpg",
+      "sha256": "fff91f8e774ee943b8c479c28bf3dcdf88f0c47278fcb6d8a3f2e2b09d367d58",
+      "encodedBytes": 45027,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "contact",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-docking-detail.jpg",
+      "sha256": "aa70da9e4e7ab1c8df3fb95715ad5a7d537f9020ef6dbcd7085f482218d4db3b",
+      "encodedBytes": 70368,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Docking exterior",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-ladder-detail.jpg",
+      "sha256": "71a4132eaadc1eec1f38e7fb957670d63f8cc80d5fa6cc9b06864728a065b5a4",
+      "encodedBytes": 91147,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Ladder front",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-overview-desktop.jpg",
+      "sha256": "65ec2211a31bf0100b328ad289e102c3712c02c86b56c4b8984683ace129c8f9",
+      "encodedBytes": 88475,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "home",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-overview-drag-desktop.jpg",
+      "sha256": "0a1fa244456b4c3c3361696534393eb7b6cdc80d513a7ff817e3f1e4b1359f45",
+      "encodedBytes": 87380,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "home",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-overview-portrait.jpg",
+      "sha256": "d157523f51f4adde8559d4fa0ba9ac3c7c648d0c94ff4c808fd14a11e070654b",
+      "encodedBytes": 57204,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "home",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-projects-desktop.jpg",
+      "sha256": "46cc86587640191ff03dffb5d4b31378cf10447dbdc8e4cb2707f0aaf35136ae",
+      "encodedBytes": 105244,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "drawingBuffer": {
+        "width": 2560,
+        "height": 1440
+      },
+      "browserDpr": 2,
+      "renderDpr": 2,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "projects",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-projects-oblique.jpg",
+      "sha256": "fa9c4bd6279619ca35077c88c11f4b4a47cb753f08fcfb5aac8a597bf8b07a3c",
+      "encodedBytes": 109674,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Projects oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-projects-portrait.jpg",
+      "sha256": "33d1fcdace65a1f1b624fb3ad4d05f52d92659f1f790df9a7f0ed3b3c21c0ee4",
+      "encodedBytes": 43948,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 682,
+        "height": 1477
+      },
+      "browserDpr": 2,
+      "renderDpr": 1.75,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "projects",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "after-roof-detail.jpg",
+      "sha256": "f5af8e1445cf78c4cb0a2563caaecd1cf61af24ee17aaf32a03758bd58126407",
+      "encodedBytes": 81951,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Roof access detail",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-service-detail.jpg",
+      "sha256": "5e81dc0c61eb8160dfaed0e5199532cd51f99f5f8c40a29d956251ed6a6e370c",
+      "encodedBytes": 48327,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Service oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "after-underside-detail.jpg",
+      "sha256": "c432786b86b0c910be77b637b58e2a2762306523d9175fcc99f33fc2e0fe388b",
+      "encodedBytes": 87114,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "after",
+      "sourceTreeSha256": "7e5d92efb9225990c99c7f2be29642222737bacfce82e54fc9a33a025cbbe41a",
+      "view": "Underside access detail",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-about-desktop.jpg",
+      "sha256": "2647a872441001d38d395052b043cacabad674cb3afa9636981bded5c06a63b5",
+      "encodedBytes": 123907,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "drawingBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "about",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-about-oblique.jpg",
+      "sha256": "bbf4c7265737c9b331a5991d36be5bab5a9d881ccf6eac20ff14313c5f09aa4c",
+      "encodedBytes": 104662,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "About oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-about-portrait.jpg",
+      "sha256": "55eb37f5c3d15ee13a9ebfca29e520a554a8d89d065f044ea7338ecbfb527588",
+      "encodedBytes": 43079,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 390,
+        "height": 844
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "about",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-archive-desktop.jpg",
+      "sha256": "1286516f056ef3b74910097be9180a105d1343e615d62960f30f299fd8d18cad",
+      "encodedBytes": 122095,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "drawingBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "experience",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-archive-portrait.jpg",
+      "sha256": "6147892a4a8dc1146f57d0ba5b0004099c34c565de3f1afc69fe03815d8183aa",
+      "encodedBytes": 42589,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 390,
+        "height": 844
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "experience",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-contact-desktop.jpg",
+      "sha256": "1ce4213fa67bd49e41aa2aeb297e432d79465da68cc2825033f1b433e62d9d61",
+      "encodedBytes": 124541,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "drawingBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "contact",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-contact-portrait.jpg",
+      "sha256": "9114dacb5516d43b1f1b5e82c84751591542969d949ff27857702390b37b03e0",
+      "encodedBytes": 43152,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 390,
+        "height": 844
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "contact",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-docking-detail.jpg",
+      "sha256": "6c27c4660b53c8336f36bdfffb11fe9c522b6255763f531e8e098aafef90b1db",
+      "encodedBytes": 70429,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Docking exterior",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-ladder-detail.jpg",
+      "sha256": "fef721c0b924f4d04846f94b6608b77a22e52f0a29a81314af133336e262a0a5",
+      "encodedBytes": 91178,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Ladder front",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-overview-desktop.jpg",
+      "sha256": "5aa4f5da75064786ba9771db6cfa41f91a2c4735a84a05fff7d14371bdac11b9",
+      "encodedBytes": 129595,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "drawingBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "home",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-overview-portrait.jpg",
+      "sha256": "91c6b2a5931041b34a86599854bac5a761e106eb85e5701627cf9ba6a2302261",
+      "encodedBytes": 53751,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 390,
+        "height": 844
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "home",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-projects-desktop.jpg",
+      "sha256": "86b87376ce09af0154808e75a63ef13f94c05e9183b96513b8fedb379f4d810e",
+      "encodedBytes": 123099,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "drawingBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "projects",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": true,
+        "quality": "procedural-desktop",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-projects-oblique.jpg",
+      "sha256": "7b8a85181c8c31f3b7f569c06023bfae186bd788395b631ca83bc0735a41a7d4",
+      "encodedBytes": 109728,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Projects oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-projects-portrait.jpg",
+      "sha256": "c9b482b88ceb2ef3449ca066f9aa9260cfb11489e94901b77a9e3b6c777c58f1",
+      "encodedBytes": 42447,
+      "format": "jpeg",
+      "pixels": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "drawingBuffer": {
+        "width": 390,
+        "height": 844
+      },
+      "browserDpr": 1,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "live",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "projects",
+      "layout": "wide",
+      "omitted": [],
+      "effects": {
+        "shadows": true,
+        "gtao": false,
+        "quality": "procedural-mobile",
+        "earthAndSky": true,
+        "animationTimeMatched": false
+      }
+    },
+    {
+      "file": "before-roof-detail.jpg",
+      "sha256": "150f7f9e4d519f3960e09ac715873c6582ba2876fbcc0360bf35c137fabb48b8",
+      "encodedBytes": 81933,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Roof access detail",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-service-detail.jpg",
+      "sha256": "b4d39c87b1965dd1bbdda7c28fdae224cf6512bfdfa8836200e2b83415dc323e",
+      "encodedBytes": 48186,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Service oblique",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    },
+    {
+      "file": "before-underside-detail.jpg",
+      "sha256": "17e5a459182e491e7df13777b7a1db684f09ac8fcc1bc46160eea50d949dd052",
+      "encodedBytes": 87061,
+      "format": "jpeg",
+      "pixels": {
+        "width": 1280,
+        "height": 720
+      },
+      "viewport": {
+        "height": 720,
+        "width": 1280
+      },
+      "drawingBuffer": {
+        "height": 720,
+        "width": 1280
+      },
+      "browserDpr": 2,
+      "renderDpr": 1,
+      "screenshotCssScale": 1,
+      "fixture": "finite",
+      "version": "before",
+      "sourceTreeSha256": "922956c9d1fcc8c8f4192c4b7df074ebdebc5c8bcdeead227725ebc8930d23ac",
+      "view": "Underside access detail",
+      "layout": "wide",
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "effects": {
+        "lighting": "RoomEnvironment PMREM intensity 0.24 and fixed hemisphere/directional lights",
+        "shadow": "PCF enabled",
+        "gtao": false,
+        "earthAndSky": false,
+        "timeSeconds": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Finite fixture omits GTAO, Earth/sky, live screen interfaces and navigation.",
+    "Live screenshots differ in desktop viewport/framing, drawing-buffer resolution and animation phase; they must not support direct shading or performance deltas.",
+    "Safari and physical devices were not used for these captures.",
+    "No CPU/GPU timing, heat, battery, process-memory or GPU-memory measurement."
+  ]
+}

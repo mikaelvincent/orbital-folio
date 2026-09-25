@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import {
   attachComputerDesktop,
   createComputerDesktopMaterial,
@@ -22,7 +23,7 @@ export function buildProjectPayloadModule(
   const material = (
     name: string,
     color: string | number,
-    roughness: number,
+    roughness = 0.5,
     metalness = 0,
   ) => {
     const shared = options.sharedMaterials?.get(name);
@@ -40,12 +41,16 @@ export function buildProjectPayloadModule(
     graphite: material('graphite-enclosure', PALETTE.carbon, 0.69, 0.12),
     dark: material('recess', PALETTE.carbonDeep, 0.8, 0.04),
     gasket: material('gasket', PALETTE.carbonDeep, 0.88),
-    alloy: material('satin-fasteners', PALETTE.alloy, 0.47, 0.6),
-    amber: material(
-      'amber-latches',
-      options.accent?.color?.getHex() ?? PALETTE.bronze,
-      0.47,
-      0.15,
+    alloy: applyHardwareFinish(
+      material('satin-fasteners', PALETTE.alloy),
+      'alloy',
+    ),
+    amber: applyHardwareFinish(
+      material(
+        'amber-latches',
+        options.accent?.color?.getHex() ?? PALETTE.bronze,
+      ),
+      'bronze',
     ),
     ink: material('hardware-index', PALETTE.ivoryShade, 0.78),
   };

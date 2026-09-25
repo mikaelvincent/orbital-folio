@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
 /** Matched maintenance spanners stow in open spring clips on the docking liner.
  * Their open alloy jaws and substantial dark grasps explain the tools without
@@ -25,8 +26,8 @@ export function buildDockingShoulderEquipment(
   const material = (
     name: string,
     color: number | string,
-    roughness: number,
-    metalness: number,
+    roughness = 0.5,
+    metalness = 0,
   ) => {
     const m = new THREE.MeshStandardMaterial({ color, roughness, metalness });
     m.name = prefix + name;
@@ -36,8 +37,14 @@ export function buildDockingShoulderEquipment(
   };
   const m = {
     navy: material('tool-graphite', PALETTE.carbon, 0.64, 0.12),
-    alloy: material('tool-satin-alloy', PALETTE.alloy, 0.36, 0.56),
-    amber: material('tool-retention-markers', PALETTE.bronze, 0.5, 0.2),
+    alloy: applyHardwareFinish(
+      material('tool-satin-alloy', PALETTE.alloy),
+      'alloy',
+    ),
+    amber: applyHardwareFinish(
+      material('tool-retention-markers', PALETTE.bronze),
+      'bronze',
+    ),
   };
   const mounts: any[] = [],
     tools: any[] = [],

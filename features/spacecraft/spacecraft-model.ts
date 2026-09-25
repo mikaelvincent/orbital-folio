@@ -1906,7 +1906,7 @@ export function createSpacecraft(
     const physicalId = viaWalkway ? id : [from, to].sort().join(':');
     let hatch = physicalHatches.get(physicalId);
     if (!hatch) {
-      const signalSource = m.amber.clone();
+      const signalSource = m.routePaint.clone();
       signalSource.userData.surfaceOnly = true;
       signalSource.name = 'route-paint-' + id;
       signalSource.userData.highlightScale = 0;

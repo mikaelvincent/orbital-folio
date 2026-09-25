@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import { drawStudyArtwork } from './about-study-artwork.ts';
 import { buildStudyWallMounts } from './about-study-mounts.ts';
 import { createAboutPhotoPrints } from './about-photo-print.ts';
@@ -50,12 +51,16 @@ export function buildAboutPersonalStudy(
     rust: material('stored-quilt', 0x9b6340, 0.99),
     graphite: material('graphite-frame', PALETTE.carbon, 0.62, 0.12),
     rubber: material('webbing-and-seals', PALETTE.carbonDeep, 0.98),
-    metal: material('satin-fixings', PALETTE.alloy, 0.47, 0.55),
-    amber: material(
-      'amber-hardware',
-      options.accent?.color?.getHex() ?? PALETTE.bronze,
-      0.48,
-      0.12,
+    metal: applyHardwareFinish(
+      material('satin-fixings', PALETTE.alloy),
+      'alloy',
+    ),
+    amber: applyHardwareFinish(
+      material(
+        'amber-hardware',
+        options.accent?.color?.getHex() ?? PALETTE.bronze,
+      ),
+      'bronze',
     ),
     paper: material('page-edges', 0xe1d6be, 0.98),
     paperLine: material('page-edge-shadow', 0xab9c7e, 1),

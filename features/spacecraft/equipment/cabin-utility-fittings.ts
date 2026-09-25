@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
 import {
   CABIN_FLOOR,
@@ -43,8 +44,8 @@ export function buildCabinUtilityFittings(
     equipmentEnamel: material('equipment-enamel', PALETTE.carbon, 0.59),
     frame: material('frame', PALETTE.carbon),
     recess: material('recess', PALETTE.carbonDeep, 0.9, 0),
-    metal: material('alloy', PALETTE.alloy, 0.48, 0.48),
-    amber: material('retainers', PALETTE.bronze, 0.54, 0.14),
+    metal: applyHardwareFinish(material('alloy', PALETTE.alloy), 'alloy'),
+    amber: applyHardwareFinish(material('retainers', PALETTE.bronze), 'bronze'),
     cloth: material('retained-textile', 0x65717a, 0.98, 0),
     bedding: material('rolled-linen', 0xa59b83, 0.98, 0),
     seam: material('textile-binding', PALETTE.carbonRaised, 0.96, 0),
@@ -971,8 +972,14 @@ export function buildLadderWebFittings(THREE: any, h: any, root: any) {
   };
   const dark = material('graphite', PALETTE.carbon),
     cream = material('enamel', PALETTE.ivory),
-    metal = material('satin-alloy', PALETTE.alloy),
-    amber = material('captive-handles', PALETTE.bronze);
+    metal = applyHardwareFinish(
+      material('satin-alloy', PALETTE.alloy),
+      'alloy',
+    ),
+    amber = applyHardwareFinish(
+      material('captive-handles', PALETTE.bronze),
+      'bronze',
+    );
   root.userData.equipmentKind = 'ladder-isolation-cassette';
   const box = (
     w: number,

@@ -1,0 +1,604 @@
+[
+  {
+    "name": "after-projects-oblique",
+    "browserDpr": 2,
+    "calls": 903,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1975514,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Projects oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-projects-oblique",
+    "browserDpr": 2,
+    "calls": 903,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        2.15066184853885,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1975514,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Projects oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-ladder-detail",
+    "browserDpr": 2,
+    "calls": 810,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -2.607585267560741,
+        0.4862863571902814,
+        10.469658929757037
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1849596,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Ladder front",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-ladder-detail",
+    "browserDpr": 2,
+    "calls": 810,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -2.607585267560741,
+        0.4862863571902814,
+        10.469658929757037
+      ],
+      "target": [
+        -5.225,
+        0.0675,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1849596,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Ladder front",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-docking-detail",
+    "browserDpr": 2,
+    "calls": 928,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -11.448230958162444,
+        1.8075336385711152,
+        4.1429372346931315
+      ],
+      "target": [
+        -6.891,
+        0.0675,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1993898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Docking exterior",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-docking-detail",
+    "browserDpr": 2,
+    "calls": 928,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -11.448230958162444,
+        1.8075336385711152,
+        4.1429372346931315
+      ],
+      "target": [
+        -6.891,
+        0.0675,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1993898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Docking exterior",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-service-detail",
+    "browserDpr": 2,
+    "calls": 928,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        13.830764529376465,
+        1.7943529058752925,
+        8.821764529376463
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1993898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Service oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-service-detail",
+    "browserDpr": 2,
+    "calls": 928,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        13.830764529376465,
+        1.7943529058752925,
+        8.821764529376463
+      ],
+      "target": [
+        5.0089999999999995,
+        0.03,
+        0
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1993898,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Service oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-roof-detail",
+    "browserDpr": 2,
+    "calls": 922,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -3.5614842924397228,
+        8.588894912370835,
+        7.668526549827781
+      ],
+      "target": [
+        -1,
+        3.1,
+        0.35
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1992430,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Roof access detail",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-roof-detail",
+    "browserDpr": 2,
+    "calls": 922,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -3.5614842924397228,
+        8.588894912370835,
+        7.668526549827781
+      ],
+      "target": [
+        -1,
+        3.1,
+        0.35
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1992430,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Roof access detail",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-underside-detail",
+    "browserDpr": 2,
+    "calls": 920,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -3.5614842924397228,
+        -8.188894912370834,
+        7.668526549827781
+      ],
+      "target": [
+        -1,
+        -2.7,
+        0.35
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1992394,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "Underside access detail",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-underside-detail",
+    "browserDpr": 2,
+    "calls": 920,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -3.5614842924397228,
+        -8.188894912370834,
+        7.668526549827781
+      ],
+      "target": [
+        -1,
+        -2.7,
+        0.35
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1992394,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "Underside access detail",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "before-about-oblique",
+    "browserDpr": 2,
+    "calls": 829,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 2,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1896950,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "before",
+    "view": "About oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  {
+    "name": "after-about-oblique",
+    "browserDpr": 2,
+    "calls": 829,
+    "drawingBuffer": {
+      "height": 720,
+      "width": 1280
+    },
+    "finite": true,
+    "frame": 1,
+    "layout": "wide",
+    "lines": 0,
+    "omitted": [
+      "GTAO",
+      "orbital sky/Earth",
+      "live screen interfaces",
+      "navigation"
+    ],
+    "points": 0,
+    "pose": {
+      "fov": 38,
+      "position": [
+        -4.5283826547398585,
+        -0.7943381514611504,
+        6.9416184853884975
+      ],
+      "target": [
+        -2.0869999999999997,
+        -1.4725,
+        0.16
+      ]
+    },
+    "renderDpr": 1,
+    "timeSeconds": 0,
+    "triangles": 1896950,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "version": "after",
+    "view": "About oblique",
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  }
+]

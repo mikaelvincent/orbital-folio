@@ -365,6 +365,29 @@ until arrival. See [responsive before/after evidence and review](evidence/overvi
 Stage 11 should retain this destination/utility hierarchy and the existing
 physical header signs; it owns material and lighting cohesion, not camera changes.
 
+### Stage 11 — Whole spacecraft finish cohesion (25 September 2026)
+
+Completed room layouts, attachments and detail density remain the baseline.
+This pass resolves inconsistent exposed hardware finishes: workshop monitor
+fasteners and their gantry now respond as the same alloy, and the ladder's
+alloy cassette parts no longer inherit the graphite casing's finish. Cabin
+fittings, all four rooms, the connector, docking/service hardware and exterior
+access hardware use the explicit `materials/hardware-finish.ts` profiles.
+
+Satin alloy uses roughness 0.46, metalness 0.60 and environment intensity 0.35;
+bronze uses 0.46, 0.20 and 0.35. These are authored surface coefficients, not
+changes to the shared environment or lights. The visible change is restrained:
+broader, quieter highlights and more consistent response between assemblies.
+Colors, emission and feedback are preserved. Bright ladder treads, carbon paint,
+floors, glass, lamps, solar cells, paper, fabric, wood and media retain their
+purposeful exceptions. Iris route paint has a separate source material so
+hardware styling cannot change door signals.
+
+No geometry, camera, navigation, global renderer or overview presentation is
+changed. See the [source-matched comparisons and verification](evidence/spacecraft-cohesion/README.md).
+Stage 12 can refine the orbital environment against this material baseline;
+retain the physical camera/world relationship and the approved Earth registration.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

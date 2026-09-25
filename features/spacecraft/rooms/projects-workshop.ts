@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import { buildProjectPayloadModule } from './projects-payload-module.ts';
 import { PROJECTS_GRID } from './cabin-composition.ts';
 
@@ -23,7 +24,7 @@ export function buildProjectsWorkshop(
   const material = (
     name: string,
     color: string | number,
-    roughness: number,
+    roughness = 0.5,
     metalness = 0,
   ) => {
     const value = new THREE.MeshStandardMaterial({
@@ -41,12 +42,16 @@ export function buildProjectsWorkshop(
     graphite: material('structural-graphite', PALETTE.carbon, 0.63, 0.12),
     recess: material('service-recess', PALETTE.carbonDeep, 0.84),
     rubber: material('isolator', PALETTE.carbonDeep, 0.89),
-    metal: material('satin-fasteners', PALETTE.alloy, 0.42, 0.65),
-    amber: material(
-      'bench-amber',
-      options.accent?.color?.getHex() ?? PALETTE.bronze,
-      0.38,
-      0.16,
+    metal: applyHardwareFinish(
+      material('satin-fasteners', PALETTE.alloy),
+      'alloy',
+    ),
+    amber: applyHardwareFinish(
+      material(
+        'bench-amber',
+        options.accent?.color?.getHex() ?? PALETTE.bronze,
+      ),
+      'bronze',
     ),
     diffuser: material('task-diffuser', 0xffe2a5, 0.55),
   };

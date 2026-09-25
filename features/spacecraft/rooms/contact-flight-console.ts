@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import type { SocialScreenLinks } from '../../../lib/content/social-links.ts';
 import { createContactDisplaySurface } from './contact-display-surface.ts';
 import { drawSocialChannel } from './contact-social-display.ts';
@@ -43,7 +44,7 @@ export function buildContactFlightConsole(
   const material = (
     name: string,
     color: string | number,
-    roughness: number,
+    roughness = 0.5,
     metalness = 0,
   ) => {
     const value = new THREE.MeshStandardMaterial({
@@ -60,12 +61,10 @@ export function buildContactFlightConsole(
     face: material('graphite', PALETTE.carbon, 0.63, 0.12),
     dark: material('recess', PALETTE.carbonDeep, 0.75, 0.05),
     rubber: material('elastomer', PALETTE.carbonDeep, 0.88),
-    metal: material('satin-alloy', PALETTE.alloy, 0.4, 0.65),
-    accent: material(
-      'amber',
-      options.accent?.color?.getHex() ?? PALETTE.bronze,
-      0.37,
-      0.15,
+    metal: applyHardwareFinish(material('satin-alloy', PALETTE.alloy), 'alloy'),
+    accent: applyHardwareFinish(
+      material('amber', options.accent?.color?.getHex() ?? PALETTE.bronze),
+      'bronze',
     ),
     ink: material('markings', PALETTE.ivory, 0.85),
     led: material('indicator', PALETTE.bronze, 0.4),

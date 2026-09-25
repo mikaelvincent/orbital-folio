@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import {
   CASE_STUDY_CATEGORIES,
   type CaseStudyFilter,
@@ -35,12 +36,13 @@ export function buildCaseStudyArchive(
     edge: material('satin-edge', PALETTE.carbonRaised, 0.49, 0.42),
     recess: material('slot-interior', PALETTE.carbonDeep, 0.91, 0),
     rubber: material('isolators', PALETTE.carbonDeep, 0.88, 0),
-    alloy: material('fasteners', PALETTE.alloy, 0.45, 0.5),
-    amber: material(
-      'amber-retainers',
-      options.accent?.color?.getHex() ?? PALETTE.bronze,
-      0.42,
-      0.15,
+    alloy: applyHardwareFinish(material('fasteners', PALETTE.alloy), 'alloy'),
+    amber: applyHardwareFinish(
+      material(
+        'amber-retainers',
+        options.accent?.color?.getHex() ?? PALETTE.bronze,
+      ),
+      'bronze',
     ),
   };
   const box = (

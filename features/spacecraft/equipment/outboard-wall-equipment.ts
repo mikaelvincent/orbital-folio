@@ -1,4 +1,5 @@
 import { PALETTE } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 
 /** Static wall-mounted equipment. Local XY follows the wall; +Z faces the cabin. */
 export function buildOutboardWallEquipment(
@@ -27,8 +28,11 @@ export function buildOutboardWallEquipment(
     enclosure: material('enamel', PALETTE.carbon, 0.5),
     dark: material('graphite', PALETTE.carbon),
     rubber: material('elastomer', PALETTE.carbonDeep, 0.9, 0),
-    alloy: material('brushed-alloy', PALETTE.alloy, 0.44, 0.55),
-    amber: material('bronze', PALETTE.bronze, 0.43),
+    alloy: applyHardwareFinish(
+      material('brushed-alloy', PALETTE.alloy),
+      'alloy',
+    ),
+    amber: applyHardwareFinish(material('bronze', PALETTE.bronze), 'bronze'),
     light: material('diffuser', 0xf1d8a6, 0.65, 0),
     glass: material('instrument-glass', 0x0e2533, 0.4, 0),
     cyan: material('instrument-phosphor', 0x95c4cc, 0.8, 0),

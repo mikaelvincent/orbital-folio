@@ -1,4 +1,5 @@
 import { PALETTE, paletteAccent } from '../../../lib/palette.ts';
+import { applyHardwareFinish } from '../materials/hardware-finish.ts';
 import { clipGeometryPlane } from './clip-geometry-plane.ts';
 import {
   LADDER_CENTER_Y,
@@ -62,9 +63,10 @@ export function createModelPrimitives(
     gasket: mat('graphite-gasket', palette.navy, 0.63, 0.04),
     navy: mat('graphite-enamel', palette.navy, 0.37, 0.28),
     deep: mat('recess', palette.deep, 0.69, 0.12),
-    metal: mat('brushed-titanium', palette.edge, 0.34, 0.63),
+    metal: applyHardwareFinish(mat('brushed-titanium', palette.edge), 'alloy'),
     slate: mat('sage-utility', palette.slate, 0.44, 0.25),
-    amber: mat('signal-amber', palette.amber, 0.25, 0.055),
+    amber: applyHardwareFinish(mat('signal-amber', palette.amber), 'bronze'),
+    routePaint: mat('route-paint', palette.amber, 0.25, 0.055),
     linen: mat('woven-linen', palette.linen, 0.94, 0.0),
     blanket: mat('woven-ochre', palette.amber, 0.96, 0.0, {
       side: THREE.DoubleSide,
