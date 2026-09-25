@@ -301,27 +301,43 @@ export function buildDockingAndServiceAssemblies(
   service.userData = { section: 'contact', batchRoot: true, exterior: true };
   service.position.set(-1.5, 0, 0);
   group.add(service);
-  // Placement follows the service-module organization documented for ESA ATV:
-  // solar drives, communications and the KURS antenna share the service bus.
-  // This toybox uses a small forward-offset dish with a triangulated bracket,
-  // leaving both solar hinge envelopes and the left docking approach clear.
-  // https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_Service_Module
-  // https://www.esa.int/ESA_Multimedia/Images/2013/06/ATV-4_docking
+  // A single structural bus carries the radio cradle and two matched power
+  // booms. Broad seated feet transfer loads into the pressure housing; the
+  // dish keeps its approved position, leaving the two solar roots clear.
   box(
-    0.44,
-    0.32,
+    0.34,
+    0.38,
     0.16,
     m.navy,
-    5.26,
-    0.2,
-    0.8,
+    5.085,
+    0.18,
+    0.85,
     service,
-    0.06,
-    'communications-mast-service-foot',
+    0.035,
+    'communications-hull-saddle',
   );
-  rod([5.18, 0.11, 0.68], [5.63, 0.22, 1.04], 0.052, m.metal, service);
-  rod([5.49, 0.36, 0.6], [5.63, 0.22, 1.04], 0.043, m.navy, service);
-  sphere(0.1, m.amber, 5.63, 0.22, 1.04, service);
+  box(
+    0.28,
+    0.3,
+    0.026,
+    m.metal,
+    5.085,
+    0.18,
+    0.938,
+    service,
+    0.018,
+    'communications-saddle-face',
+  );
+  for (const y of [0.055, 0.305]) {
+    rod([5.085, y, 0.94], [5.63, y, 1.065], 0.042, m.navy, service).name =
+      'communications-clevis-arm';
+    rod([5.085, y, 0.94], [5.44, y, 0.984], 0.022, m.metal, service).name =
+      'communications-clevis-inset';
+  }
+  cylinder(0.091, 0.29, m.metal, 5.63, 0.18, 1.065, service).name =
+    'communications-elevation-axle';
+  cylinder(0.059, 0.025, m.amber, 5.63, 0.3375, 1.065, service).name =
+    'communications-elevation-retainer';
   const dishAssembly = new THREE.Group();
   dishAssembly.name = 'service-mounted-communications-dish';
   dishAssembly.position.set(5.64, 0.23, 1.16);
@@ -348,10 +364,18 @@ export function buildDockingAndServiceAssemblies(
   const dishMat = m.chalk.clone();
   dishMat.side = THREE.DoubleSide;
   mesh(dishGeometry, dishMat, dishAssembly, 'double-skin-communications-dish');
-  torus(0.5, 0.02, m.metal, 0, 0, 0.243, dishAssembly);
-  cylinder(0.081, 0.083, m.navy, 0, 0, -0.047, dishAssembly, 'z');
-  rod([0, 0, 0.024], [0, 0, 0.463], 0.02, m.navy, dishAssembly);
-  sphere(0.063, m.amber, 0, 0, 0.466, dishAssembly);
+  torus(0.5, 0.02, m.metal, 0, 0, 0.243, dishAssembly).name =
+    'communications-reflector-rim';
+  cylinder(0.105, 0.1, m.navy, 0, 0, -0.06, dishAssembly, 'z').name =
+    'communications-reflector-back-hub';
+  cylinder(0.058, 0.09, m.metal, 0, 0, 0.005, dishAssembly, 'z').name =
+    'communications-feed-seat';
+  rod([0, 0, 0.041], [0, 0, 0.463], 0.02, m.navy, dishAssembly).name =
+    'communications-feed-stem';
+  cylinder(0.063, 0.078, m.metal, 0, 0, 0.466, dishAssembly, 'z').name =
+    'communications-feed-horn';
+  cylinder(0.049, 0.016, m.amber, 0, 0, 0.513, dishAssembly, 'z').name =
+    'communications-feed-cap';
   for (const a of [Math.PI / 6, (Math.PI * 5) / 6, (Math.PI * 3) / 2])
     rod(
       [Math.cos(a) * 0.44, Math.sin(a) * 0.44, 0.204],
@@ -359,7 +383,7 @@ export function buildDockingAndServiceAssemblies(
       0.008,
       m.metal,
       dishAssembly,
-    );
+    ).name = 'communications-feed-stay';
 
   const servicePressureHull = axialHull(
     [
@@ -410,16 +434,18 @@ export function buildDockingAndServiceAssemblies(
     service,
     'radiused-main-engine-nozzle',
   );
-  cylinder(0.419, 0.031, m.deep, 5.674, 0.03, 0, service, 'x');
+  cylinder(0.45, 0.031, m.deep, 5.674, 0.03, 0, service, 'x').name =
+    'engine-nozzle-seated-throat';
   torus(0.574, 0.022, m.navy, 6.011, 0.03, 0, service, 'x');
-  torus(0.465, 0.019, m.amber, 5.82, 0.03, 0, service, 'x');
+  // Keep the bell a clean satin surface. Bronze identifies the drive pins and
+  // radio hardware instead of competing as another concentric nozzle stripe.
   for (let i = 0; i < 8; i++) {
     const a = (i * Math.PI) / 4;
     const p = box(
       0.27,
       0.113,
       0.211,
-      i % 2 ? m.navy : m.amber,
+      m.navy,
       5.411,
       0.03 + Math.cos(a) * 0.619,
       Math.sin(a) * 0.619,
@@ -430,34 +456,187 @@ export function buildDockingAndServiceAssemblies(
     p.rotation.x = a;
   }
   const solarWings: any[] = [];
-  // Paired upright solar wings read clearly above and below the service module.
-  // Their broad blue cells face +Z, with only a few structural grid divisions.
-  for (const sign of [-1, 1]) {
-    rod(
-      [4.98, 0.03 + sign * 0.63, 0.02],
-      [6.1, sign * 1.66, 0.055],
-      0.073,
-      m.navy,
+  // Closed-section booms meet visible transverse pivots. Both wings use the
+  // same joints and panel construction, mirrored about the service center.
+  const boom = (
+    from: number[],
+    to: number[],
+    width: number,
+    depth: number,
+    material: any,
+    name: string,
+  ) => {
+    const start = new THREE.Vector3(...from),
+      end = new THREE.Vector3(...to);
+    const center = start.clone().add(end).multiplyScalar(0.5);
+    const beam = box(
+      width,
+      start.distanceTo(end),
+      depth,
+      material,
+      center.x,
+      center.y,
+      center.z,
       service,
+      0.022,
+      name,
     );
-    cylinder(0.143, 0.223, m.metal, 5.61, sign * 1.242, 0.046, service);
-    cylinder(0.126, 0.106, m.amber, 6.094, sign * 1.598, 0.057, service);
+    beam.quaternion.setFromUnitVectors(
+      new THREE.Vector3(0, 1, 0),
+      end.sub(start).normalize(),
+    );
+    return beam;
+  };
+  for (const sign of [-1, 1]) {
+    box(
+      0.29,
+      0.16,
+      0.25,
+      m.navy,
+      5.03,
+      sign * 0.87,
+      0.02,
+      service,
+      0.04,
+      'solar-boom-hull-saddle',
+    );
+    box(
+      0.24,
+      0.035,
+      0.22,
+      m.metal,
+      5.03,
+      sign * 0.953,
+      0.02,
+      service,
+      0.016,
+      'solar-boom-root-flange',
+    );
+    boom(
+      [5.03, sign * 0.943, 0.046],
+      [5.61, sign * 1.242, 0.046],
+      0.13,
+      0.14,
+      m.navy,
+      'solar-inner-box-boom',
+    );
+    boom(
+      [5.61, sign * 1.242, 0.046],
+      [6.094, sign * 1.598, 0.046],
+      0.115,
+      0.13,
+      m.navy,
+      'solar-outer-box-boom',
+    );
+    // A secondary tie into the hull resists out-of-plane bending.
+    rod(
+      [5.1, sign * 0.85, -0.06],
+      [5.56, sign * 1.2, -0.018],
+      0.028,
+      m.metal,
+      service,
+    ).name = 'solar-boom-root-tie';
+    for (const [x, y, radius] of [
+      [5.61, 1.242, 0.132],
+      [6.094, 1.598, 0.126],
+    ]) {
+      cylinder(radius, 0.172, m.metal, x, sign * y, 0.046, service, 'z').name =
+        'solar-drive-bearing';
+      cylinder(
+        radius * 0.73,
+        0.02,
+        m.navy,
+        x,
+        sign * y,
+        0.141,
+        service,
+        'z',
+      ).name = 'solar-drive-cover';
+      cylinder(0.034, 0.023, m.amber, x, sign * y, 0.159, service, 'z').name =
+        'solar-drive-captive-pin';
+    }
     const wing = new THREE.Group();
     solarWings.push(wing);
+    wing.name = sign > 0 ? 'upper-solar-wing' : 'lower-solar-wing';
     wing.position.set(6.1, sign * 2.685, 0.069);
     wing.rotation.z = sign * -0.035;
     service.add(wing);
     box(
       1.227,
       2.1,
-      0.097,
+      0.067,
       m.navy,
       0,
       0,
-      0,
+      0.015,
       wing,
-      0.046,
+      0.031,
       'upright-solar-panel-chassis',
+    );
+    // Rear rails and a root tang make the photovoltaic laminate a supported
+    // panel instead of an unarticulated black slab. All stay in the old envelope.
+    for (const x of [-0.42, 0.42])
+      box(
+        0.09,
+        1.98,
+        0.03,
+        m.slate,
+        x,
+        0,
+        -0.0335,
+        wing,
+        0.01,
+        'solar-panel-rear-longeron',
+      );
+    for (const y of [-0.72, 0.72])
+      box(
+        0.92,
+        0.07,
+        0.03,
+        m.slate,
+        0,
+        y,
+        -0.0335,
+        wing,
+        0.01,
+        'solar-panel-rear-crossmember',
+      );
+    box(
+      0.27,
+      0.3,
+      0.058,
+      m.metal,
+      0,
+      sign * -0.99,
+      -0.015,
+      wing,
+      0.024,
+      'solar-panel-root-tang',
+    );
+    box(
+      0.15,
+      1.94,
+      0.03,
+      m.navy,
+      0,
+      0,
+      -0.0335,
+      wing,
+      0.012,
+      'solar-panel-power-raceway',
+    );
+    // A continuous thin dielectric sheet seats the cells and conductors.
+    box(
+      1.09,
+      1.82,
+      0.012,
+      m.deep,
+      0,
+      0,
+      0.051,
+      wing,
+      0.006,
+      'solar-cell-bonding-sheet',
     );
     const cells: Transform[] = [],
       alternateCells: Transform[] = [],
@@ -474,13 +653,13 @@ export function buildDockingAndServiceAssemblies(
       }
     for (let col = 1; col < 4; col++)
       conductors.push({
-        p: [-0.55 + col * 0.275, 0, 0.075],
-        s: [0.007, 1.799, 0.005],
+        p: [-0.55 + col * 0.275, 0, 0.058],
+        s: [0.007, 1.799, 0.006],
       });
     for (let row = 1; row < 6; row++)
       conductors.push({
-        p: [0, -0.906 + row * 0.302, 0.075],
-        s: [1.06, 0.007, 0.005],
+        p: [0, -0.906 + row * 0.302, 0.058],
+        s: [1.06, 0.007, 0.006],
       });
     for (const xx of [-0.588, 0.588])
       rails.push({ p: [xx, 0, 0.035], s: [0.045, 2.03, 0.088] });
@@ -506,17 +685,17 @@ export function buildDockingAndServiceAssemblies(
     );
     instances(
       roundedGeometry(1, 1, 1, 0.18),
-      m.shell,
+      m.metal,
       rails,
       wing,
-      'cream-solar-panel-frame',
+      'satin-solar-panel-frame',
     );
     instances(
       roundedGeometry(1, 1, 1, 0.22),
-      m.amber,
+      m.navy,
       bumpers,
       wing,
-      'solar-panel-amber-corner-caps',
+      'solar-panel-carbon-corner-shoes',
     );
   }
   box(
@@ -524,15 +703,15 @@ export function buildDockingAndServiceAssemblies(
     0.12,
     0.39,
     m.navy,
-    5.16,
-    0.995,
-    -0.35,
+    5.04,
+    0.94,
+    -0.25,
     service,
     0.052,
     'service-antenna-base',
   );
-  rod([5.16, 1.045, -0.35], [5.16, 1.62, -0.35], 0.018, m.metal, service);
-  sphere(0.038, m.amber, 5.16, 1.642, -0.35, service);
+  rod([5.04, 0.985, -0.25], [5.04, 1.62, -0.25], 0.018, m.metal, service);
+  sphere(0.038, m.amber, 5.04, 1.642, -0.25, service);
 
   return { docking, service, solarWings, dishAssembly };
 }

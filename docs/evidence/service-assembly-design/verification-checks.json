@@ -1,0 +1,135 @@
+{
+  "verifiedAt": "2026-09-25T01:33:18.918205Z",
+  "baselineRevision": "45d7894291421ddc80daaa71b5741067740a267a",
+  "sourceSnapshot": "Final Stage 08 source synchronized before all checks; no source synchronization or edits during the suite.",
+  "sourceFiles": [
+    {
+      "path": "features/spacecraft/equipment/docking-service-assemblies.ts",
+      "sha256": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814",
+      "fixtureSha256AfterChecks": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814",
+      "currentSha256AfterChecks": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "scripts/benchmarks/spacecraft-polish-preview.mjs",
+      "sha256": "db34885677c24b9c08da5f11aa8432e8ca8032e13a1bc16a3a4f9f29ed1ec63c",
+      "fixtureSha256AfterChecks": "db34885677c24b9c08da5f11aa8432e8ca8032e13a1bc16a3a4f9f29ed1ec63c",
+      "currentSha256AfterChecks": "db34885677c24b9c08da5f11aa8432e8ca8032e13a1bc16a3a4f9f29ed1ec63c",
+      "matchesCurrentSource": true
+    },
+    {
+      "path": "tests/spacecraft/service-construction.test.mjs",
+      "sha256": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542",
+      "fixtureSha256AfterChecks": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542",
+      "currentSha256AfterChecks": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542",
+      "matchesCurrentSource": true
+    }
+  ],
+  "matchingVisualEvidence": {
+    "manifest": "docs/evidence/service-assembly-design/source-manifest.json",
+    "capturedAt": "2026-09-25T01:21:49.464Z",
+    "version": "after",
+    "runtimeHashMatches": true,
+    "previewScriptHashMatches": true
+  },
+  "isolation": {
+    "procedure": "docs/OPERATIONS.md#isolated-verification",
+    "workingDirectory": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-service-verify-a6i0y06s",
+    "testBaseUrl": "http://127.0.0.1:3003",
+    "sourceOnlyArchive": true,
+    "privateEnvironmentOrMainStateCopied": false,
+    "freshTestOnlySecretsAndD1R2": true,
+    "testOwnerBootstrappedBeforeSuite": true,
+    "testOwnerAccessVerifiedHttpStatus": 200,
+    "dependencySharing": "node_modules symlink only",
+    "viteCache": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-service-verify-a6i0y06s/.vite-cache",
+    "emulatorState": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-service-verify-a6i0y06s/.wrangler/state",
+    "mainServerAndStoreUntouched": true,
+    "mutatingTestsTargetedOnlyIsolatedFixture": true,
+    "cleanupStatus": "Completed: isolated server stopped and disposable fixture/state removed; port 3003 has no listener and main localhost:3000 remains HTTP 200.",
+    "mainServerReadOnlyCheck": {
+      "url": "http://localhost:3000",
+      "status": 200,
+      "verifiedAt": "2026-09-25T01:33:18.918205Z"
+    }
+  },
+  "checks": {
+    "fullSuite": {
+      "command": "TEST_BASE_URL=http://127.0.0.1:3003 npm test",
+      "exitCode": 0,
+      "tests": 576,
+      "passed": 576,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 392608.55775,
+      "log": "docs/evidence/service-assembly-design/checks/test.log"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/evidence/service-assembly-design/checks/typecheck.log"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "geometryCheckIncluded": true,
+      "geometryCheckResult": "Indexed cylinder artifact matches its installed source and generator.",
+      "log": "docs/evidence/service-assembly-design/checks/build.log"
+    },
+    "affectedLint": {
+      "command": "npm run lint -- features/spacecraft/equipment/docking-service-assemblies.ts scripts/benchmarks/spacecraft-polish-preview.mjs tests/spacecraft/service-construction.test.mjs",
+      "exitCode": 0,
+      "log": "docs/evidence/service-assembly-design/checks/lint.log"
+    }
+  },
+  "warnings": [
+    "Production build: Node DEP0205 reports module.register() deprecated in favor of module.registerHooks().",
+    "Production build: some minified chunks exceed 500 kB.",
+    "Production build: Vinext static analysis cannot classify all routes; /experience is reported unknown."
+  ],
+  "failures": [],
+  "executionNotes": [
+    "Typecheck and affected lint overlapped the early full suite. Production build and its geometry precheck ran after the full suite completed.",
+    "No interrupted, superseded, or failed full-suite runs occurred for this final Stage 08 verification.",
+    "The fixture-only Vite cache directory setting is an isolation configuration change, not a product source change."
+  ],
+  "logNormalization": "Removed ANSI terminal control sequences, trailing line whitespace, and outer blank lines; retained substantive results, durations, warnings and commands. Raw logs remain outside the repository in /tmp.",
+  "logs": {
+    "test": {
+      "path": "docs/evidence/service-assembly-design/checks/test.log",
+      "rawSha256": "dc22d2bb854b434bcd9afca8855e522a60ad6abc7fa8badea4bf3a365ec76a1d",
+      "normalizedSha256": "5da3c1113bcaf3e4983ebe325fb6872009856803d9d8dc85d0b3552eaad649ef"
+    },
+    "typecheck": {
+      "path": "docs/evidence/service-assembly-design/checks/typecheck.log",
+      "rawSha256": "d379226267f49f665b9ec8a33f0e86d356da2f396fb1e14a363d0d30ff09c625",
+      "normalizedSha256": "e8ea848a2f3616515eebc4e238d67e3b2e2c06f017192ddd4fc5ac477011b272"
+    },
+    "build": {
+      "path": "docs/evidence/service-assembly-design/checks/build.log",
+      "rawSha256": "006bcd638a936bffc13d50ea010ec43627afa9f80caa23ed4e894e0a05ab0035",
+      "normalizedSha256": "c748574fa940fa08fa165bca967a3afee3943ec183a4948f49de3c44671c8f11"
+    },
+    "lint": {
+      "path": "docs/evidence/service-assembly-design/checks/lint.log",
+      "rawSha256": "ac6cd31105b8b0d174687244ae1ec8075204ac69ef97a67420e1f9c81d9c3d64",
+      "normalizedSha256": "ff1adcb7acf630083f23da035e3520c05197d9e90f0ea611306552133cc5471c"
+    }
+  },
+  "limitations": [
+    "This record covers automated source and workflow verification. Rendered visual checks and independent design review are recorded separately.",
+    "Suite duration is elapsed verification time, not controlled rendering performance or a speed, thermal, battery, or memory measurement."
+  ],
+  "cleanup": {
+    "verifiedAt": "2026-09-25T01:34:55.298658Z",
+    "fixturePath": "/var/folders/pn/9z02hcls0s77ssyb1s04hyk00000gn/T/orbital-service-verify-a6i0y06s",
+    "fixtureRemoved": true,
+    "port3003HasListener": false,
+    "mainUrl": "http://localhost:3000",
+    "mainHttpStatus": 200,
+    "rawTemporaryLogsRetained": true,
+    "evidenceLogsRetained": true
+  }
+}

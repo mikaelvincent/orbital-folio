@@ -290,6 +290,35 @@ small bronze handling or mating parts, curved seats and visible support paths.
 Stage 08 owns the opposite service bus, dish and solar assembly; preserve these
 completed docking forms and the existing shared camera frame.
 
+### Stage 08 — Service, communications and solar wings (25 September 2026)
+
+The paired blue wings retain their size, spacing and pose. Carbon box-section
+booms now meet visible transverse alloy bearings, with small bronze captive pins
+and hull-seated roots. Their panel tangs, sparse rear rails and enclosed power
+raceways explain the support path. Satin perimeter rails and carbon corner shoes
+replace the conspicuous ivory/bronze picture-frame treatment. A thin continuous
+bonding sheet seats the photovoltaic tiles and the recessed conductor grid;
+the former small gaps behind those parts are closed.
+
+The offset ivory reflector keeps its profile and thin feed stays. A two-arm
+cradle, elevation axle and rear hub connect it to a seated hull saddle. A small
+satin seat joins the feed stem to the hub; its cylindrical feed horn has a bronze
+cap. The first draft's exposed dark central disc was moved behind the bowl after
+rendered review. The nozzle retains its satin silhouette, with a seated dark
+throat; the extra bronze inner stripe and alternating bronze jacket panels are
+superseded so the dish and power joints lead. These are passive static fittings,
+not animated tracking or deployment mechanisms.
+
+Completed docking hardware, cabins, ladder, hull/access equipment and navigation
+remain unchanged. Room camera references stay exact; changed service-part bounds
+produce a subpixel automatic overview refit without changing camera code. Solar
+blue remains an intentional functional material exception. See the
+[Stage 08 source, renders and verification](evidence/service-assembly-design/README.md).
+Carry forward visible support paths, quiet carbon bodies, satin contact surfaces
+and bronze confined to small handling or captive parts. Stage 09 owns the general
+exterior hull and access ladders; retain the finished service assembly as its
+boundary reference.
+
 ## Ivory / Carbon / Bronze palette
 
 The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**

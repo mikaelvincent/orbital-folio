@@ -32,6 +32,7 @@ This is the running record of implemented optimizations, measured results, visua
 | 58 · 24 September 2026 | Restrained bronze on ladder clamps and terminal caps | Material-only change on 12 existing fittings; geometry, counts and protected framing/routes unchanged. [Evidence](evidence/ladder-bronze-detail/README.md). |
 | 59 · 25 September 2026 | Stage 07 docking: satin mating flange, connected wheels and fitted service cassette | +3,872 triangle inputs / +290,528 geometry-array bytes per layout; −2 visible mesh candidates. Protected assemblies, bounds and framing unchanged. [Evidence](evidence/docking-assembly-design/README.md). |
 | 60 · 25 September 2026 | Owner-requested service-box correction: elongated access cover and one connected pull | +76 triangle inputs / −376 geometry-array bytes per layout; mesh candidates, docking bounds and framing unchanged. Only the box changes. [Evidence](evidence/docking-service-hatch/README.md). |
+| 61 · 25 September 2026 | Stage 08 service end: supported solar booms, bonded panels and connected radio cradle | +16,244 triangle inputs / +444,248 geometry-array bytes per layout; +1 mesh candidate. Protected rooms/docking unchanged; geometry-derived overview refit below one pixel in the sampled harness. [Evidence](evidence/service-assembly-design/README.md). |
 
 ## 02 — Targeted tiny hardware detail
 
@@ -3201,6 +3202,50 @@ The matching isolated snapshot passes **568/568 tests**, typecheck, production
 build/geometry check and affected lint. Hidden built-in Chromium 153 evidence
 covers close/oblique comparisons plus live landscape and rolled portrait at
 actual 1440×900 and 390×844, DPR 1. Safari and rendering timing were not tested.
+
+## 61 — Service, communications and solar construction (25 September 2026)
+
+This authored pass preserves the wing arrangement, blue photovoltaic fields,
+reflector silhouette and service pressure housing. Box-section booms meet visible
+transverse bearings, with seated root saddles and small bronze captive pins.
+Bonding sheets support the cells and recessed conductor grid; rear rails, panel
+tangs and power raceways explain how the panels carry loads. Carbon corner shoes
+and satin frames replace the conspicuous bronze/ivory perimeter treatment.
+The radio has a connected cradle, elevation axle, rear hub and feed seat. The
+nozzle throat now reaches the bell; its extra bronze stripe and alternating
+bronze jacket panels are removed for a quieter material hierarchy.
+
+Baseline is `45d7894291421ddc80daaa71b5741067740a267a`. Deterministic service inventory
+changes from **31,952 to 48,196 triangle inputs (+16,244)** and **517,336 to 961,584
+geometry-array bytes (+444,248)**. Mesh candidates change **17→18** for the service
+assembly and **518→519** scene-wide. These counts reflect the authored support
+geometry, not an optimization or measured renderer timing. Geometry-array bytes
+exclude textures, instance attributes, driver allocations and actual process/GPU
+memory. No CPU/GPU, heat or battery gain is claimed; held candidates remain held.
+
+All completed docking/room groups, furniture inventories, room camera references
+and route/door metadata remain exact. Panel perimeters, poses and outermost X/Y
+extents remain; each new root tang changes its solar subgroup's inward Y bound.
+Service/dish coarse support bounds naturally change; the actual scene max-Z
+extends by about 0.002065 local units. With unchanged camera code, the existing
+nine-size framing harness measures at most **0.03225% distance change** and
+**0.632 px movement** of unchanged cabin-aperture corners across both layouts.
+Bounded coverage remains within the established half-pixel tolerance. This is a
+small geometry-derived overview refit, not exact equality of all overview data.
+
+[Evidence](evidence/service-assembly-design/README.md) records controlled finite
+views, live landscape/rolled portrait, actual rendering conditions, construction
+tests, final isolated checks and independent critique. The first rendered draft's
+large exposed dish hub was moved behind the bowl; final evidence uses the smaller
+visible satin feed seat. No camera, renderer, Earth, global lighting or main-store
+change is included.
+
+The final isolated snapshot passes **576/576 tests**, typecheck, production
+build/geometry check and affected lint. Hidden built-in Chromium 153 checks
+cover actual 1440×900 landscape and 390×844 portrait at DPR 1, with finite
+front/oblique/rear/hinge comparisons and live overview plus both outboard cabins.
+The independent critic scores **95/100**, with 50% visual-design weight and no
+unresolved blockers. Safari and rendering timing were not tested.
 
 ## Next candidates
 

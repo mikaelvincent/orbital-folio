@@ -1,0 +1,1079 @@
+{
+  "recordedAt": "2026-09-25T01:29:29.864075+00:00",
+  "baselineRevision": "45d7894291421ddc80daaa71b5741067740a267a",
+  "scope": "Stage 08 service bus/housing, communications dish supports/feed, paired solar wings, booms and hinges. The completed docking block, cabins, ladder, hull/access equipment, camera and renderer are preserved.",
+  "sourceIdentity": {
+    "manifest": "source-manifest.json",
+    "manifestSha256": "ed35ca620dfa77803198906cdb0ba903b06bbaa1525c2c69b27f6972c911b230",
+    "frozenAt": "2026-09-25T01:21:51.270Z",
+    "transitiveSourcesVerifiedPerVersion": 44,
+    "changedRuntimeSources": [
+      "features/spacecraft/equipment/docking-service-assemblies.ts"
+    ],
+    "allOther43RuntimeSourcesUnchanged": true,
+    "changedRuntimeSha256": {
+      "before": "926a90432d9657f966d0d2e5fcbfec8c7a62f6ce12a059dfe927f9ba4cb8e21c",
+      "after": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814"
+    },
+    "sourceTreeSha256": {
+      "before": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d",
+      "after": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+    },
+    "modulePrefixThroughCompletedDockingByteIdentical": true,
+    "sharedDockingPrefixSha256": "b54146ec455251684a433d9b7b7f7d98bc0fdd1fbed1fb2b60d2b20f3cfcb9da",
+    "spacecraftModelUnchanged": true,
+    "testFile": {
+      "path": "tests/spacecraft/service-construction.test.mjs",
+      "sha256": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542"
+    }
+  },
+  "baselineConstructionFindings": [
+    {
+      "area": "Photovoltaic laminate",
+      "actualSourceObservation": "All 24 cell instances on each wing had no contact with a supporting part; their rear faces were 0.003999999 model units ahead of the chassis. The eight conductor bars on each wing joined one another but had no supporting contact outside that grid; their rear faces were 0.003000002 ahead of cell fronts.",
+      "resolution": "A seated continuous bonding sheet supports the cells and lowered conductor grid."
+    },
+    {
+      "area": "Dish brace",
+      "actualSourceObservation": "The secondary brace contacted the first brace and upper gimbal, but its housing end at service-local [5.49,0.36,0.6] did not contact the foot, hull or engine jacket. The nearest structural surface was 0.054954 from the endpoint center against rod radius 0.043.",
+      "resolution": "Two clevis arms now start on a hull-seated mounting face and carry an axle connected to the reflector hub."
+    },
+    {
+      "area": "Engine throat closure",
+      "actualSourceObservation": "The radius-0.419 dark closure cylinder had no supporting contact. Rays into the actual nozzle gave radial clearances from 0.016908 to 0.022949 over the cylinder depth.",
+      "resolution": "The revised closure reaches the nozzle wall; finite radial probes verify that no detached annular gap remains."
+    },
+    {
+      "area": "Existing connected components",
+      "actualSourceObservation": "Original solar root rods, bearing collars, tip hinges, chassis/frame/corners and dish rim/back hub/feed stays had real contacts. The old inner bronze nozzle ring also contacted the nozzle.",
+      "interpretation": "Those revisions are design/assembly-clarity choices; this audit does not describe every replaced component as floating."
+    }
+  ],
+  "constructionChecks": {
+    "startedAt": "2026-09-25T01:24:58.466232+00:00",
+    "command": "node --test tests/spacecraft/service-construction.test.mjs",
+    "sourceHashesBefore": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/service-construction.test.mjs": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542"
+    },
+    "finishedAt": "2026-09-25T01:25:02.032222+00:00",
+    "sourceHashesAfter": {
+      "features/spacecraft/equipment/docking-service-assemblies.ts": "c519fc19c63247150bb45d823c668e0290c8f0d741dc04edf906940e25e6d814",
+      "features/spacecraft/spacecraft-model.ts": "adc2c5dbc468b73a9a7ddba8c75e2fe1ad1ce17af5960268bc8007bd3b8ea096",
+      "tests/spacecraft/service-construction.test.mjs": "fc78fad6534e7075a5d397330502167b8ca87e942494cb65da7586463d735542"
+    },
+    "exitCode": 0,
+    "result": {
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "output": "\u2714 wide: the dish has seated support from the hull to its reflector and feed (45.241375ms)\n\u2714 wide: both solar booms have continuous hull, bearing and panel load paths (21.751958ms)\n\u2714 wide: real photovoltaic instances, wiring and rear structure are seated on each panel (65.980334ms)\n\u2714 wide: the nozzle closure reaches the actual bell and the dish front faces its feed (18.264292ms)\n\u2714 compact: the dish has seated support from the hull to its reflector and feed (36.778458ms)\n\u2714 compact: both solar booms have continuous hull, bearing and panel load paths (23.048458ms)\n\u2714 compact: real photovoltaic instances, wiring and rear structure are seated on each panel (58.933375ms)\n\u2714 compact: the nozzle closure reaches the actual bell and the dish front faces its feed (12.203666ms)\n\u2139 tests 8\n\u2139 suites 0\n\u2139 pass 8\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 3414.78375\n",
+    "coverage": [
+      "Real hull/saddle/face/clevis/axle/reflector/feed support chain, including both arm ends and every feed stay.",
+      "Both real solar saddle/flange/inner-boom/bearing/outer-boom/root-tang paths, bearing covers/pins and root ties.",
+      "Every actual photovoltaic, conductor, perimeter-frame and corner-shoe instance; bonding sheets, chassis, rear crossmembers/longerons and power raceways; paired panel inventories.",
+      "The engine closure contacts the nozzle, finite radial rays find no annular gap, and bowl-front rays confirm geometric winding toward the feed in both layouts."
+    ],
+    "developmentFixtureCorrection": "Initial throat rays exactly on polygon meridians could miss shared triangle edges. Final finite ray directions avoid those ties; no runtime workaround was introduced."
+  },
+  "testFileChecks": {
+    "lint": {
+      "command": "npm run lint -- tests/spacecraft/service-construction.test.mjs",
+      "exitCode": 0
+    },
+    "format": {
+      "command": "npm run format -- --check tests/spacecraft/service-construction.test.mjs",
+      "exitCode": 0
+    }
+  },
+  "measurement": {
+    "startedAt": "2026-09-25T01:25:31.346701+00:00",
+    "finishedAt": "2026-09-25T01:25:42.823850+00:00",
+    "all44SourceHashesStableAndMatchFinalManifest": true,
+    "primaryCommand": {
+      "command": "node scripts/measure-hardware-geometry.mjs <fresh source-only baseline archive>",
+      "exitCode": 0
+    },
+    "supplementalMethod": "Independent geometry/material/transform inventories and metadata snapshots plus the existing overview-composition fitting harness, using the unchanged production scene-controls functions. All commands returned exit code zero."
+  },
+  "inventoryMethod": {
+    "script": "scripts/measure-hardware-geometry.mjs",
+    "scriptSha256": "ab0d410c75f903b8cf2a79a10278155bc6a823b56d01f31d7d506cc17a1df247",
+    "production": "Visible scene-graph inventory after real material batching and instancing. Triangles include instance counts; bytes count unique geometry attributes and indices, excluding textures/driver storage. This is deterministic submitted-geometry potential, not frustum-culling-aware renderer timings or GPU-memory telemetry.",
+    "state": "Production createSpacecraft; home at time zero; immediate doors; wide and compact; world matrices updated. Every layout snapshot deep-cloned before switching layouts.",
+    "fingerprints": "Production subgroup comparison of world transforms, semantic part names, instance counts, material descriptors and raw geometry/index/instance arrays. Separate pre-batch source captures verify unchanged pressure hull, bell and bowl and retained instance geometry verifies the paired wing pose/perimeter/cells. No texture-pixel or shader-output comparison. Equal metadata maps use canonical JSON SHA-256 with sorted keys and compact separators.",
+    "counts": "Mesh counts are scene-graph candidates after batching, not measured renderer draws. Triangles include instances. Bytes sum unique geometry attributes/indices per inventory, excluding instance attributes, textures, caches and driver allocations. Nested inventories overlap and must not be added.",
+    "visibility": "Whole-model visible inventory honors ancestors; retained inventory includes hidden scene-graph variants. Named subgroup traversal starts at its root and can inventory a variant behind a hidden ancestor; effective visibility is compared separately.",
+    "baselineIsolation": "Fresh source-only git archive of baseline source/package files; only installed node_modules shared by symlink. No private environment, main database, uploads, emulator state or secrets copied. The baseline archive and 20 owned temporary helper/probe files were removed after final measurements; durable audit/test evidence retained and main server/store untouched."
+  },
+  "doorAndRouteFieldsCompared": [
+    "portals",
+    "adjacency",
+    "activeRoute",
+    "irisHatches",
+    "passageLinings"
+  ],
+  "comparison": {
+    "wide": {
+      "serviceAssembly": {
+        "before": {
+          "meshes": 17,
+          "triangles": 31952,
+          "uniqueGeometries": 10,
+          "attributeBytes": 517336,
+          "bounds": {
+            "min": [
+              4.094000038146972, -3.7988064855903243, -0.9440000057220459
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 18,
+          "triangles": 48196,
+          "uniqueGeometries": 11,
+          "attributeBytes": 961584,
+          "bounds": {
+            "min": [
+              4.094000038146972, -3.7988064855903243, -0.9440000057220459
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 518,
+          "triangles": 999440,
+          "uniqueGeometries": 453,
+          "attributeBytes": 38141504,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 519,
+          "triangles": 1015684,
+          "uniqueGeometries": 454,
+          "attributeBytes": 38585752,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 596,
+          "triangles": 1301138,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601556,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 597,
+          "triangles": 1317382,
+          "uniqueGeometries": 532,
+          "attributeBytes": 51045804,
+          "bounds": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "central-docking-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "29146c8e6678c6bec4f3a84586385f1ca1cbddb1a1a65d59bf20b3ac2def25eb",
+        "sharedInventoryMapSha256": "fd3ab0d01901a4acce2c163c9cee15afb1e750935c8cfe049498cb9504ee59d0"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "deca487c5cb13535fa3a39488061d9f211186c0acf0d12088a109f9180cdedaa",
+      "preservedServiceGeometry": {
+        "pressureHullNozzleBellAndReflectorBowlGeometryMaterialsWorldTransformsExact": true,
+        "dishWorldTransformExact": true,
+        "pairedWingPosesAndCellPerimeterCornerGeometryInstanceMatricesExact": true,
+        "sharedDataSha256": "1c816a7345f497caa781fc6c28030a8d1893bf96030d53b2c3fa5c1468de7599",
+        "intentionalExceptions": "Frame/corner materials change to satin alloy/carbon; chassis, added supports, feed, laminate backing, conductor depth and throat closure are part of this stage."
+      },
+      "exactMetadataComparisons": {
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "0ddc2d7f19b19f2d7c0ce0fa05d316859f105f4b28b5e6ab7f463fbe1d824dbe"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "126727aed035b311c65fe8d78ab75cb4552a562d32e1e0c7b402c0c8e2c0d25d"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "29b00cda3297c0d1e1a4e9674a4bea6647b66fc06cb1c1e55cbfbaefb3ee701b"
+        }
+      },
+      "unchangedFramingFields": [
+        "roomAnchors",
+        "roomBounds",
+        "innerApertureBounds",
+        "roomCameraFrame",
+        "requiredFramingPoints",
+        "recommendedFraming",
+        "walkwayAnchor",
+        "walkwayBounds",
+        "walkwayProfile",
+        "dockingAnchors",
+        "communicationsAnchor",
+        "calloutAnchors",
+        "calloutEdges"
+      ],
+      "unchangedFramingDataSha256": "49a9d7f70e076aef7e8d5ae1ce2188ced33e9c4163bad9decca0fbf7a3b6eeeb"
+    },
+    "compact": {
+      "serviceAssembly": {
+        "before": {
+          "meshes": 17,
+          "triangles": 31952,
+          "uniqueGeometries": 10,
+          "attributeBytes": 517336,
+          "bounds": {
+            "min": [
+              2.9500000381469724, -3.7988064855903243, -0.9440000057220459
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 18,
+          "triangles": 48196,
+          "uniqueGeometries": 11,
+          "attributeBytes": 961584,
+          "bounds": {
+            "min": [
+              2.9500000381469724, -3.7988064855903243, -0.9440000057220459
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "wholeModelVisible": {
+        "before": {
+          "meshes": 518,
+          "triangles": 977760,
+          "uniqueGeometries": 453,
+          "attributeBytes": 37519008,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 519,
+          "triangles": 994004,
+          "uniqueGeometries": 454,
+          "attributeBytes": 37963256,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "wholeModelRetainedSceneGraph": {
+        "before": {
+          "meshes": 596,
+          "triangles": 1301138,
+          "uniqueGeometries": 531,
+          "attributeBytes": 50601556,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821]
+          }
+        },
+        "after": {
+          "meshes": 597,
+          "triangles": 1317382,
+          "uniqueGeometries": 532,
+          "attributeBytes": 51045804,
+          "bounds": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.5136147622980263
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808]
+          }
+        },
+        "delta": {
+          "meshes": 1,
+          "triangles": 16244,
+          "uniqueGeometries": 1,
+          "attributeBytes": 444248
+        }
+      },
+      "protectedAssemblies": {
+        "names": [
+          "projects-pressure-structure",
+          "experience-pressure-structure",
+          "about-pressure-structure",
+          "contact-pressure-structure",
+          "projects-cabin-utilities",
+          "experience-cabin-utilities",
+          "about-cabin-utilities",
+          "contact-cabin-utilities",
+          "experience-outboard-equipment",
+          "contact-outboard-equipment",
+          "left-vertical-walkway",
+          "ladder-wall-isolation-cassette",
+          "central-docking-assembly",
+          "continuous-spacecraft-chassis",
+          "engineering-service-spine",
+          "docking-shoulder-maintenance-spanners",
+          "ladder-end-transfer-equipment",
+          "walkway-finished-inner-docking-hatch",
+          "wide-exterior-service-equipment",
+          "compact-exterior-service-equipment"
+        ],
+        "exactInventoriesBoundsMaterialsAndTransformsEqual": true,
+        "sharedFingerprintMapSha256": "73fbdcf57a1017ca5e7ae97fc50ee542375ca19059c72c55248fb298a71eef11",
+        "sharedInventoryMapSha256": "89cfc7ba21e264059c31c602a295d3e84c80d1f8b1c5e728883c4cc4ae541583"
+      },
+      "allFourFurnitureInventoriesBoundsAndFingerprintsEqual": true,
+      "sharedFurnitureFingerprintMapSha256": "82b3f6cb2d4f406bbeccdb1ad81da54a58de5bddc2a0000ac4631a71a1b0263e",
+      "preservedServiceGeometry": {
+        "pressureHullNozzleBellAndReflectorBowlGeometryMaterialsWorldTransformsExact": true,
+        "dishWorldTransformExact": true,
+        "pairedWingPosesAndCellPerimeterCornerGeometryInstanceMatricesExact": true,
+        "sharedDataSha256": "838e470939bcdafb9fcc2c3e662c09d051aff1faa2ba83bf43c7f49af86141a2",
+        "intentionalExceptions": "Frame/corner materials change to satin alloy/carbon; chassis, added supports, feed, laminate backing, conductor depth and throat closure are part of this stage."
+      },
+      "exactMetadataComparisons": {
+        "doors": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "486a8067ab78542e744c343c2dfb83f6b7ba3053a0647940685b19c3805605d1"
+        },
+        "integratedRearLiner": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8506571000f80e652d58089017b52d7d56808222310c329c21ce92d268eaeed0"
+        },
+        "serviceMetadata": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "8a783fbbd70dd3e788753779064323b4a4ea582743d6cb392dec286beb579209"
+        },
+        "groupEffectiveVisibility": {
+          "equal": true,
+          "sharedCanonicalJsonSha256": "c2f59b680185aa79d1cc75030e134d2f44a3fe7e022791e4b7769cf5d028af9d"
+        }
+      },
+      "unchangedFramingFields": [
+        "roomAnchors",
+        "roomBounds",
+        "innerApertureBounds",
+        "roomCameraFrame",
+        "requiredFramingPoints",
+        "recommendedFraming",
+        "walkwayAnchor",
+        "walkwayBounds",
+        "walkwayProfile",
+        "dockingAnchors",
+        "communicationsAnchor",
+        "calloutAnchors",
+        "calloutEdges"
+      ],
+      "unchangedFramingDataSha256": "06ec24bb52d1fd302438934fed6911377cf3f8529efd8ed73a4b286fb0894f67"
+    }
+  },
+  "overviewFraming": {
+    "method": "Same finite geometry-fitting harness and safe areas as tests/spacecraft/overview-composition.test.mjs, using the real unchanged scene-controls functions. Both layouts, nine viewport sizes, twelve-step bounded view sample grid and four hover offsets; not a browser capture.",
+    "harnessSource": "tests/spacecraft/overview-composition.test.mjs",
+    "harnessSha256": "f07f28c94a622d947f1811153f541e4ddcb00cfb4718b3f11aa54ae733957b93",
+    "cameraSource": "features/spacecraft/navigation/scene-controls.ts",
+    "cameraSourceSha256": "c7d11bd26601cfdeb96e2a7fbb042a6bb9d9d067faf47253984e6179bbfbc984",
+    "unchangedCameraImplementation": true,
+    "cameraFitExact": false,
+    "roomFramingInputsExact": true,
+    "reason": "New service child shapes change automatically derived coarse support boxes. The feed cap increases the whole-scene maximum Z by about 0.002065 model units; wing outer X/Y extrema and protected architecture stay unchanged. No phantom fit boxes or camera-code changes are used.",
+    "layouts": {
+      "wide": {
+        "changedFramingFields": [
+          "overviewBounds",
+          "overviewSupportPoints",
+          "overviewSupportBounds"
+        ],
+        "overviewBounds": {
+          "before": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.2699999809265137
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6778532266616821],
+            "center": [-1.040577561203985, 0, 0.20392662286758423],
+            "size": [14.63084529720873, 7.597612971180649, 2.947853207588196]
+          },
+          "after": {
+            "min": [
+              -8.35600020980835, -3.7988064855903243, -1.2699999809265137
+            ],
+            "max": [6.27484508740038, 3.7988064855903243, 1.6799181699752808],
+            "center": [-1.040577561203985, 0, 0.20495909452438354],
+            "size": [14.63084529720873, 7.597612971180649, 2.9499181509017944]
+          }
+        },
+        "serviceAndWholeSceneBoundDifference": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 0.0, 0.002064943313598633]
+        },
+        "changedSupportBounds": {
+          "service-bus": {
+            "before": {
+              "name": "service-bus",
+              "min": [
+                4.093999999761581, -0.9140000057220459, -0.9440000057220459
+              ],
+              "max": [5.540923243835568, 0.9740000057220459, 1.1400000014901162]
+            },
+            "after": {
+              "name": "service-bus",
+              "min": [
+                4.093999999761581, -0.9705000000745058, -0.9440000057220459
+              ],
+              "max": [5.540923243835568, 0.9999999986588954, 1.155999998152256]
+            }
+          },
+          "communications-dish": {
+            "before": {
+              "name": "communications-dish",
+              "min": [
+                4.628537578701497, -0.30389608252449574, 1.0011589281863273
+              ],
+              "max": [5.722623689617813, 0.7974359785032162, 1.6955053253648595]
+            },
+            "after": {
+              "name": "communications-dish",
+              "min": [
+                4.628537578701497, -0.30389608252449574, 1.0011589281863273
+              ],
+              "max": [5.722623689617813, 0.7974359785032162, 1.6837512045592993]
+            }
+          },
+          "service-lower-support": {
+            "before": {
+              "name": "service-lower-support",
+              "min": [
+                4.435108798426943, -1.7146622005399008, -0.09700000667572022
+              ],
+              "max": [
+                5.729000002026558, -0.5453377994600989, 0.1890000066757202
+              ]
+            },
+            "after": {
+              "name": "service-lower-support",
+              "min": [
+                4.509216118681289, -1.724000002026558, -0.0916952845545499
+              ],
+              "max": [
+                5.729000002026558, -0.8257461857463732, 0.17050000002235174
+              ]
+            }
+          },
+          "solar-lower": {
+            "before": {
+              "name": "solar-lower",
+              "min": [
+                4.943154912599618, -3.7988064855903243, 0.02049999856948853
+              ],
+              "max": [
+                6.27484508740038, -1.5711935144096756, 0.16850000047683716
+              ]
+            },
+            "after": {
+              "name": "solar-lower",
+              "min": [
+                4.943154912599618, -3.7988064855903243, 0.02050000033527613
+              ],
+              "max": [
+                6.27484508740038, -1.5409741372071075, 0.16850000047683716
+              ]
+            }
+          },
+          "service-upper-support": {
+            "before": {
+              "name": "service-upper-support",
+              "min": [
+                4.439608676143274, 0.6038601247873006, -0.5449999928474426
+              ],
+              "max": [5.729000002026558, 1.7161398752126993, 0.1890000066757202]
+            },
+            "after": {
+              "name": "service-upper-support",
+              "min": [
+                4.509216118681289, 0.8257461857463733, -0.2879999987781048
+              ],
+              "max": [5.729000002026558, 1.724000002026558, 0.17050000002235174]
+            }
+          },
+          "solar-upper": {
+            "before": {
+              "name": "solar-upper",
+              "min": [
+                4.943154912599618, 1.5711935144096756, 0.02049999856948853
+              ],
+              "max": [6.27484508740038, 3.7988064855903243, 0.16850000047683716]
+            },
+            "after": {
+              "name": "solar-upper",
+              "min": [
+                4.943154912599618, 1.5409741372071075, 0.02050000033527613
+              ],
+              "max": [6.27484508740038, 3.7988064855903243, 0.16850000047683716]
+            }
+          }
+        },
+        "unchangedSupportBoundNames": [
+          "projects-body",
+          "experience-body",
+          "about-body",
+          "contact-body",
+          "chassis",
+          "ladder-bay",
+          "docking-sleeve",
+          "passage-couplings"
+        ],
+        "fitSamples": [
+          {
+            "viewport": [2560, 1080],
+            "distanceBefore": 20.27015854775809,
+            "distanceAfter": 20.264036286157346,
+            "distanceDelta": -0.006122261600744139,
+            "distanceChangePercent": -0.030203323700303618,
+            "targetDelta": [
+              -0.006090777769900413, 0.00018463370114468747,
+              -0.0007098728590016479
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.6004290803123921,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1920, 1080],
+            "distanceBefore": 20.520792116711384,
+            "distanceAfter": 20.515543681775494,
+            "distanceDelta": -0.00524843493588989,
+            "distanceChangePercent": -0.025576181007241704,
+            "targetDelta": [
+              -0.004997624500814091, 0.00018463278066373212,
+              -0.0004021648916966991
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.4775190572897107,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1440, 900],
+            "distanceBefore": 22.294280588291752,
+            "distanceAfter": 22.28917834058291,
+            "distanceDelta": -0.005102247708840935,
+            "distanceChangePercent": -0.022885904250799075,
+            "targetDelta": [
+              -0.004566718542230008, 0.0001844823380854517,
+              -0.0001789025642863762
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.3306545768505874,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1280, 720],
+            "distanceBefore": 25.669324032790243,
+            "distanceAfter": 25.66346962409005,
+            "distanceDelta": -0.0058544087001912715,
+            "distanceChangePercent": -0.022807023249668722,
+            "targetDelta": [
+              -0.004966908355898747, 0.000184632771369167,
+              -0.0003935743151151083
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.2477547965477567,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1024, 768],
+            "distanceBefore": 24.262746281684898,
+            "distanceAfter": 24.25808001139729,
+            "distanceDelta": -0.004666270287607688,
+            "distanceChangePercent": -0.019232242852615957,
+            "targetDelta": [
+              -0.003704381547786628, 0.00018278059476717345,
+              0.00031252578670318276
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.2100087019871565,
+            "boundedOutsidePixelsBefore": 1.2789769243681803e-13,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [844, 390],
+            "distanceBefore": 45.572609461598226,
+            "distanceAfter": 45.578016455246335,
+            "distanceDelta": 0.005406993648108482,
+            "distanceChangePercent": 0.01186456889782598,
+            "targetDelta": [
+              -0.005602028582702534, 0.00018463361186871197,
+              -0.0005730230687311377
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.07506947391753434,
+            "boundedOutsidePixelsBefore": 1.0824674490095276e-14,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [768, 1024],
+            "distanceBefore": 24.85266846910151,
+            "distanceAfter": 24.85238015349845,
+            "distanceDelta": -0.00028831560305775383,
+            "distanceChangePercent": -0.0011600991797569222,
+            "targetDelta": [
+              0.00010158123345142822, 8.126498676086502e-5, 0.001015812334513283
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.007769134534959783,
+            "boundedOutsidePixelsBefore": 0.12101577531484509,
+            "boundedOutsidePixelsAfter": 0.12231844065678388,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [390, 844],
+            "distanceBefore": 17.849539996105744,
+            "distanceAfter": 17.84918992846007,
+            "distanceDelta": -0.00035006764567313553,
+            "distanceChangePercent": -0.001961213822594365,
+            "targetDelta": [
+              0.00010158123345120618, 8.1264986760754e-5, 0.0010158123345133108
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.007081902090723971,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [360, 800],
+            "distanceBefore": 17.908499870127237,
+            "distanceAfter": 17.90814851745075,
+            "distanceDelta": -0.00035135267648556123,
+            "distanceChangePercent": -0.001961932484761857,
+            "targetDelta": [
+              0.00010158123345098413, 8.126498676042093e-5,
+              0.0010158123345133663
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.006434427697065876,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          }
+        ],
+        "maxima": {
+          "absoluteDistanceChangePercent": 0.030203323700303618,
+          "unchangedApertureCornerPixelShift": 0.6004290803123921,
+          "boundedOutsidePixels": 0.12231844065678388
+        }
+      },
+      "compact": {
+        "changedFramingFields": [
+          "overviewBounds",
+          "overviewSupportPoints",
+          "overviewSupportBounds"
+        ],
+        "overviewBounds": {
+          "before": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.2699999809265137
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6778532266616821],
+            "center": [-0.7695775612039841, 0, 0.20392662286758423],
+            "size": [11.800845297208731, 7.597612971180649, 2.947853207588196]
+          },
+          "after": {
+            "min": [
+              -6.670000209808349, -3.7988064855903243, -1.2699999809265137
+            ],
+            "max": [5.130845087400381, 3.7988064855903243, 1.6799181699752808],
+            "center": [-0.7695775612039841, 0, 0.20495909452438354],
+            "size": [11.800845297208731, 7.597612971180649, 2.9499181509017944]
+          }
+        },
+        "serviceAndWholeSceneBoundDifference": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 0.0, 0.002064943313598633]
+        },
+        "changedSupportBounds": {
+          "service-bus": {
+            "before": {
+              "name": "service-bus",
+              "min": [
+                2.9499999997615816, -0.9140000057220459, -0.9440000057220459
+              ],
+              "max": [4.396923243835568, 0.9740000057220459, 1.1400000014901162]
+            },
+            "after": {
+              "name": "service-bus",
+              "min": [
+                2.9499999997615816, -0.9705000000745058, -0.9440000057220459
+              ],
+              "max": [4.396923243835568, 0.9999999986588954, 1.155999998152256]
+            }
+          },
+          "communications-dish": {
+            "before": {
+              "name": "communications-dish",
+              "min": [
+                3.4845375787014974, -0.30389608252449574, 1.0011589281863273
+              ],
+              "max": [4.578623689617814, 0.7974359785032162, 1.6955053253648595]
+            },
+            "after": {
+              "name": "communications-dish",
+              "min": [
+                3.4845375787014974, -0.30389608252449574, 1.0011589281863273
+              ],
+              "max": [4.578623689617814, 0.7974359785032162, 1.6837512045592993]
+            }
+          },
+          "service-lower-support": {
+            "before": {
+              "name": "service-lower-support",
+              "min": [
+                3.291108798426943, -1.7146622005399008, -0.09700000667572022
+              ],
+              "max": [
+                4.5850000020265576, -0.5453377994600989, 0.1890000066757202
+              ]
+            },
+            "after": {
+              "name": "service-lower-support",
+              "min": [
+                3.3652161186812894, -1.724000002026558, -0.0916952845545499
+              ],
+              "max": [
+                4.5850000020265576, -0.8257461857463732, 0.17050000002235174
+              ]
+            }
+          },
+          "solar-lower": {
+            "before": {
+              "name": "solar-lower",
+              "min": [
+                3.7991549125996182, -3.7988064855903243, 0.02049999856948853
+              ],
+              "max": [
+                5.130845087400381, -1.5711935144096756, 0.16850000047683716
+              ]
+            },
+            "after": {
+              "name": "solar-lower",
+              "min": [
+                3.7991549125996182, -3.7988064855903243, 0.02050000033527613
+              ],
+              "max": [
+                5.130845087400381, -1.5409741372071075, 0.16850000047683716
+              ]
+            }
+          },
+          "service-upper-support": {
+            "before": {
+              "name": "service-upper-support",
+              "min": [
+                3.295608676143274, 0.6038601247873006, -0.5449999928474426
+              ],
+              "max": [
+                4.5850000020265576, 1.7161398752126993, 0.1890000066757202
+              ]
+            },
+            "after": {
+              "name": "service-upper-support",
+              "min": [
+                3.3652161186812894, 0.8257461857463733, -0.2879999987781048
+              ],
+              "max": [
+                4.5850000020265576, 1.724000002026558, 0.17050000002235174
+              ]
+            }
+          },
+          "solar-upper": {
+            "before": {
+              "name": "solar-upper",
+              "min": [
+                3.7991549125996182, 1.5711935144096756, 0.02049999856948853
+              ],
+              "max": [
+                5.130845087400381, 3.7988064855903243, 0.16850000047683716
+              ]
+            },
+            "after": {
+              "name": "solar-upper",
+              "min": [
+                3.7991549125996182, 1.5409741372071075, 0.02050000033527613
+              ],
+              "max": [
+                5.130845087400381, 3.7988064855903243, 0.16850000047683716
+              ]
+            }
+          }
+        },
+        "unchangedSupportBoundNames": [
+          "projects-body",
+          "experience-body",
+          "about-body",
+          "contact-body",
+          "chassis",
+          "ladder-bay",
+          "docking-sleeve",
+          "passage-couplings"
+        ],
+        "fitSamples": [
+          {
+            "viewport": [2560, 1080],
+            "distanceBefore": 18.896900786458346,
+            "distanceAfter": 18.890807529667782,
+            "distanceDelta": -0.006093256790563828,
+            "distanceChangePercent": -0.03224474139659081,
+            "targetDelta": [
+              -0.006090777769899303, 0.00018463370114447236,
+              -0.0007098728590013703
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.6314058266326087,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1920, 1080],
+            "distanceBefore": 19.08898005001629,
+            "distanceAfter": 19.083760619487784,
+            "distanceDelta": -0.0052194305285055975,
+            "distanceChangePercent": -0.02734263703366982,
+            "targetDelta": [
+              -0.004997624500814757, 0.00018463278066394376,
+              -0.00040216489169686565
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.5038219953247746,
+            "boundedOutsidePixelsBefore": 1.199040866595169e-13,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1440, 900],
+            "distanceBefore": 20.781738978610615,
+            "distanceAfter": 20.776636730901778,
+            "distanceDelta": -0.005102247708837382,
+            "distanceChangePercent": -0.024551591731995174,
+            "targetDelta": [
+              -0.00456671854223023, 0.00018448233808525394,
+              -0.00017890256428634843
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.3477846196125396,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1280, 720],
+            "distanceBefore": 24.2879122777677,
+            "distanceAfter": 24.289272116118042,
+            "distanceDelta": 0.0013598383503428124,
+            "distanceChangePercent": 0.0055988276587591295,
+            "targetDelta": [
+              -0.004966908355898969, 0.00018463277136915313,
+              -0.0003935743151151361
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.23446503637706387,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 1.5987211554602254e-13,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [1024, 768],
+            "distanceBefore": 22.709421465772945,
+            "distanceAfter": 22.704755195485337,
+            "distanceDelta": -0.004666270287607688,
+            "distanceChangePercent": -0.020547728592032036,
+            "targetDelta": [
+              -0.003704381547786628, 0.0001827805947669514,
+              0.0003125257867032383
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.21871873814911288,
+            "boundedOutsidePixelsBefore": 0,
+            "boundedOutsidePixelsAfter": 1.2789769243681803e-13,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [844, 390],
+            "distanceBefore": 42.894229493755354,
+            "distanceAfter": 42.89963648740345,
+            "distanceDelta": 0.0054069936480942715,
+            "distanceChangePercent": 0.012605410359175317,
+            "targetDelta": [
+              -0.00560202858270209, 0.000184633611868934, -0.0005730230687310267
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.07871273790335759,
+            "boundedOutsidePixelsBefore": 2.1649348980190553e-14,
+            "boundedOutsidePixelsAfter": 0,
+            "verificationAngleSamples": 169,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [768, 1024],
+            "distanceBefore": 20.073890134761967,
+            "distanceAfter": 20.073601819158903,
+            "distanceDelta": -0.00028831560306485926,
+            "distanceChangePercent": -0.001436271699851455,
+            "targetDelta": [
+              0.00010158123345076209, 8.126498676042093e-5, 0.001015812334513394
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.009941276207299819,
+            "boundedOutsidePixelsBefore": 0.001798454715810749,
+            "boundedOutsidePixelsAfter": 0.00019199642957801188,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [390, 844],
+            "distanceBefore": 16.999545782852145,
+            "distanceAfter": 16.999915353060516,
+            "distanceDelta": 0.00036957020837036225,
+            "distanceChangePercent": 0.002174000488549269,
+            "targetDelta": [
+              0.00010158123345120618, 8.126498676114258e-5,
+              0.0010158123345133108
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.013238860053264738,
+            "boundedOutsidePixelsBefore": 0.050365117794656244,
+            "boundedOutsidePixelsAfter": 0.04938856317678708,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          },
+          {
+            "viewport": [360, 800],
+            "distanceBefore": 17.241917379807532,
+            "distanceAfter": 17.242312123693107,
+            "distanceDelta": 0.000394743885575366,
+            "distanceChangePercent": 0.002289443087331233,
+            "targetDelta": [
+              0.00010158123345098413, 8.126498676142013e-5,
+              0.0010158123345133108
+            ],
+            "unchangedApertureCornerMaxPixelShift": 0.01198030093861335,
+            "boundedOutsidePixelsBefore": 0.03578469459425193,
+            "boundedOutsidePixelsAfter": 0.0349018731442885,
+            "verificationAngleSamples": 182,
+            "hoverOffsetSamples": 4
+          }
+        ],
+        "maxima": {
+          "absoluteDistanceChangePercent": 0.03224474139659081,
+          "unchangedApertureCornerPixelShift": 0.6314058266326087,
+          "boundedOutsidePixels": 0.04938856317678708
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "Each layout adds 16,244 triangles and 444,248 unique geometry-array bytes. The service group changes from 17 to 18 visible mesh candidates; the whole model changes from 518 to 519. These counts establish no rendering-speed, heat, battery or process/GPU-memory gain.",
+    "Only the AFT service subgroup changes. Completed docking, all four cabin architecture/furniture/utilities, ladder/end gear/liner, chassis and exterior access equipment compare exactly. Camera and spacecraft-model source, all room framing references and route/door snapshots remain exact.",
+    "Overview fitting is not bit-for-bit unchanged: maximum sampled distance change is about 0.03225%, and unchanged cabin-aperture corners shift by at most 0.632 pixels across the nine tested viewport sizes and two layouts. The finite bounded coverage checks remain within the existing 0.5-pixel tolerance; worst observed overshoot is 0.123 pixels."
+  ],
+  "limitations": [
+    "Geometry and source audit only: matching browser captures and independent design review are separate parent-task evidence. No browser or visual approval is claimed here.",
+    "Contact checks use real source geometry and real per-instance transforms at 1e-7 tolerance. Nozzle and dish checks are finite ray samples; overview coverage uses the existing finite regression harness rather than a proof over every continuous camera state.",
+    "Full suite, typecheck and build are separate isolated parent-task verification. This record claims only the explicit focused eight-case run and affected test-file checks above.",
+    "No CPU/GPU timing, frame pacing, heat, battery or process/GPU-memory measurement was performed. Retained scene-graph inventory is not full application resource usage."
+  ]
+}

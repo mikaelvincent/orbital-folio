@@ -1,0 +1,881 @@
+[
+  {
+    "file": "before-live-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "-7.2523,4.2326,21.3114",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.39312515454519,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "gtao": "true",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "home",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "a957a5b26b5158ce53c341b9f87059fd7b1507b738bbd6ed5551ea3b0c331357",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-core-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 859,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 2,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [7.682170851236412, 0.9002439331750773, 4.390244073194875],
+        "target": [4.959, 0.2, 0.5]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1897200,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service core",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Service+core&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "97a9af3003db0c344993dfa7724a545f1908c4e5609d5ad58697b8023c16e8b5",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-hinge-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 550,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [6.03731006565368, 1.73915503282684, 4.411550328268398],
+        "target": [5.159, 1.3, 0.02]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1451272,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Solar hinge",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Solar+hinge&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "ede18630a745e7e271cdbebd67cf60ee0e8ac28db4bbcd20ba6b9a99d461c8a0",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-rear-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 926,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [14.150113201150193, 1.4011669801725284, -9.14111320115019],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1951202,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service rear",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Service+rear&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "87eb92b01ac526897a1f5ad0f7b637594221ec68832eca928f6fafc5d4958784",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-front-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 855,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [6.509047243350509, 0.5300157477835034, 12.500393694587585],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1879480,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service front",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Service+front&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "d790ea4d5a75b3003870add7065411408d846d27df868fe8de60e9cae6f050f0",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-oblique-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 926,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [13.830764529376465, 1.7943529058752925, 8.821764529376463],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1951202,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Service+oblique&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "2cb312aa21853e36622379c04521729d838c257063f8d9d1642fecee033052c0",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "before-oblique-compact-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [[390, 844]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 774,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [13.66696058819607, 1.990392117639214, 9.801960588196067],
+        "target": [3.865, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1758068,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "before",
+      "view": "Service oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/before?view=Service+oblique&layout=compact&dpr=1",
+    "viewport": [390, 844],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "6af59ca56d7ba26f1fc5e82e751d3031d496c489c165cbff76c68f28e4deb90c",
+      "rescaled": false
+    },
+    "sourceVersion": "before",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "61342ea2eccdfe0bbbe3eab3d74831384eb7ea4d7bb61cb70e475540ef66677d"
+  },
+  {
+    "file": "after-core-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 861,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [7.682170851236412, 0.9002439331750773, 4.390244073194875],
+        "target": [4.959, 0.2, 0.5]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1929688,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service core",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Service+core&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "ec0e1be8c4c8db817e958ea38e62593daf38e3dd5eb250b47631854b6aa82c94",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-dish-support-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 707,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [7.919610982771013, 2.864549884493913, 2.032274942246956],
+        "target": [4.959, 0.2, 0.7]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1724902,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Dish support",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Dish+support&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "bdb0da27f6a52e8813c77bc3608e0eb0e2cbe1d38ebb7e5a62c06954d070e56c",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-front-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 857,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [6.509047243350509, 0.5300157477835034, 12.500393694587585],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1911968,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service front",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Service+front&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "11abee448c3162f4b7eacf730035b181c6a8b5dcb31b3eb53533d238f0d02bca",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-oblique-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 928,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [13.830764529376465, 1.7943529058752925, 8.821764529376463],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1983690,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service oblique",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Service+oblique&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "1a9abb9dd574a47759baa12b47f4e4966bbc9d5985a7bd7d1bcc9dfcc73e708f",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-hinge-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 552,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [6.03731006565368, 1.73915503282684, 4.411550328268398],
+        "target": [5.159, 1.3, 0.02]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1483760,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Solar hinge",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Solar+hinge&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7e5f228e7324e6f2c1e95726c8ea6c849257cf60bae653772b4cbe4c6a4491bb",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-rear-wide.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 928,
+      "drawingBuffer": {
+        "height": 900,
+        "width": 1440
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "wide",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [14.150113201150193, 1.4011669801725284, -9.14111320115019],
+        "target": [5.0089999999999995, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1983690,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service rear",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Service+rear&layout=wide&dpr=1",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "fcf3cae061f3dfa649bb1ef790ff2a625af630135a727b00af67a4c53cffbd28",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-oblique-compact-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [[390, 844]],
+    "finite": {
+      "browserDpr": 1,
+      "calls": 776,
+      "drawingBuffer": {
+        "height": 844,
+        "width": 390
+      },
+      "finite": true,
+      "frame": 1,
+      "layout": "compact",
+      "lines": 0,
+      "omitted": [
+        "GTAO",
+        "orbital sky/Earth",
+        "live screen interfaces",
+        "navigation"
+      ],
+      "points": 0,
+      "pose": {
+        "fov": 38,
+        "position": [13.66696058819607, 1.990392117639214, 9.801960588196067],
+        "target": [3.865, 0.03, 0]
+      },
+      "renderDpr": 1,
+      "timeSeconds": 0,
+      "triangles": 1790556,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "version": "after",
+      "view": "Service oblique",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "live": null,
+    "url": "http://127.0.0.1:3017/after?view=Service+oblique&layout=compact&dpr=1",
+    "viewport": [390, 844],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "aeaf39eba5a2aaf8a003a3fea8ceca59fe89e3b9a53efb6a500994fe088a121c",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "-7.2556,4.2318,21.3064",
+      "cameraQuaternion": "-0.093596,-0.125019,-0.011847,0.987659",
+      "framing": "{\"mode\":\"overview\",\"distance\":22.388016484655367,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.6173437500000001,\"bottom\":-0.6606770833333333},\"fullCraft\":true,\"supportPoints\":112,\"roll\":0}",
+      "gtao": "true",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "home",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "3e88028ccef5dd9dd082c2f860c18ec21d967b5b489e85c28fe668160d8e9918",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [[390, 844]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "0.8987,-1.8641,17.7466",
+      "cameraQuaternion": "0.007153,0.063238,-0.704273,0.707071",
+      "framing": "{\"mode\":\"overview\",\"distance\":17.738379202080203,\"safe\":{\"left\":-0.8153846153846154,\"right\":0.8153846153846154,\"top\":0.6154843009478673,\"bottom\":-0.6966824644549763},\"fullCraft\":true,\"supportPoints\":112,\"roll\":1.5707963267948966}",
+      "gtao": "false",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "home",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/",
+    "viewport": [390, 844],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "08c03982f8d15f9c721cf5e78644ec97fbc29b784bc2e8f660af41fbb9edea4c",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-archive-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [[390, 844]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "2.0870,1.5400,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "gtao": "false",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "experience",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/case-studies",
+    "viewport": [390, 844],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "a5b61896181adc8c30d234372c8ff1af3954f9ee2efca0eb19283b8e36aa3853",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-archive-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "2.0870,1.5400,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "gtao": "true",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "experience",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/case-studies",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "34dcd4ace8ed0a127c956d86bf8938fc3fc7c5b01d35d6dac4a624bad87c9f26",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-contact-landscape.jpg",
+    "browserDpr": 1,
+    "canvas": [[1440, 900]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "2.0846,-1.4050,5.4511",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":5.241129171785008,\"maximumDistance\":3.8549719690602315,\"distance\":null,\"chosenDistance\":5.291129171785008,\"safe\":{\"left\":-0.975,\"right\":0.975,\"top\":0.9466666666666667,\"bottom\":-0.8206770833333333}}",
+      "gtao": "true",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "contact",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/contact",
+    "viewport": [1440, 900],
+    "image": {
+      "format": "jpeg",
+      "width": 1440,
+      "height": 900,
+      "sha256": "62ac5ffcb12ef8563821629c2c3a6cdf71f10e7a93268dd2332d21d5ef3e4667",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  },
+  {
+    "file": "after-live-contact-portrait.jpg",
+    "browserDpr": 1,
+    "canvas": [[390, 844]],
+    "finite": null,
+    "live": {
+      "cameraPosition": "2.0870,-1.4050,7.1286",
+      "cameraQuaternion": "0.000000,0.000000,0.000000,1.000000",
+      "framing": "{\"mode\":\"room\",\"reference\":\"shared-cabin-architecture\",\"feasible\":false,\"minimumDistance\":6.918602380954846,\"maximumDistance\":2.7128627926988087,\"distance\":null,\"chosenDistance\":6.968602380954846,\"safe\":{\"left\":-0.9384615384615385,\"right\":0.9384615384615385,\"top\":0.943127962085308,\"bottom\":-0.8104265402843602}}",
+      "gtao": "false",
+      "layout": "wide",
+      "pixelRatio": "1",
+      "room": "contact",
+      "shadows": "true",
+      "travelling": "false"
+    },
+    "url": "http://127.0.0.1:3000/contact",
+    "viewport": [390, 844],
+    "image": {
+      "format": "jpeg",
+      "width": 390,
+      "height": 844,
+      "sha256": "fb01b3de17d30db3ed2df8bc9af9b1f9094185301b5ad3513c94396e813ebc8c",
+      "rescaled": false
+    },
+    "sourceVersion": "after",
+    "sourceManifest": "source-manifest.json",
+    "sourceTreeSha256": "9b63c1065791ac1d5ffedc251ab0533c6523f48437752919fb362e32846c95e3"
+  }
+]

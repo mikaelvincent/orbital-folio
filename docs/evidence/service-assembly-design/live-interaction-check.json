@@ -1,0 +1,24 @@
+{
+  "dishClick": {
+    "viewport": [1440, 900],
+    "point": [1130, 437],
+    "result": {
+      "room": "home",
+      "travelling": "false",
+      "url": "http://127.0.0.1:3000/"
+    }
+  },
+  "navigation": {
+    "route": ["overview", "experience", "contact", "overview"],
+    "final": {
+      "room": "home",
+      "travelling": "false"
+    },
+    "viewports": [
+      [1440, 900],
+      [390, 844]
+    ],
+    "formsSubmitted": false
+  },
+  "browserErrors": []
+}

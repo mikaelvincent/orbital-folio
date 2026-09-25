@@ -97,8 +97,15 @@ for (const version of ['before', 'after']) {
         }
         const views=()=>{
           const ladderX=model.group.userData.walkwayAnchor[0];
+          const serviceX=model.group.getObjectByName('aft-service-assembly').position.x;
           return {
             ...roomViews,
+            'Service front':{target:[serviceX+5.5,.03,0],direction:[.12,.04,1],distance:12.6},
+            'Service oblique':{target:[serviceX+5.5,.03,0],direction:[1,.2,1],distance:innerWidth<innerHeight?14:12.6},
+            'Service rear':{target:[serviceX+5.5,.03,0],direction:[1,.15,-1],distance:13},
+            'Service core':{target:[serviceX+5.45,.2,.5],direction:[.7,.18,1],distance:4.8},
+            'Dish support':{target:[serviceX+5.45,.2,.7],direction:[1,.9,.45],distance:4.2},
+            'Solar hinge':{target:[serviceX+5.65,1.3,.02],direction:[.2,.1,1],distance:4.5},
             'Ladder front':{target:[ladderX,.0675,0],direction:[.25,.04,1],distance:10.8},
             'Ladder reverse':{target:[ladderX,.0675,-.25],direction:[-.22,.08,1],distance:10.8},
             'Upper rear seam':{target:[-3.4,2.6,-.35],direction:[-.42,.7,1],distance:5.4},
