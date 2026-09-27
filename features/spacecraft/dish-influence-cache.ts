@@ -85,6 +85,30 @@ export function createDishInfluenceCache({
     return o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld);
   }
   function supported() {
+    // A full sweep uses the current world scale only when the parent preserves
+    // angles and has uniform scale. Nonuniform ancestry can shear as the dish
+    // rotates, making a pose-specific maximum column length underestimate it.
+    const e = dish?.parent?.matrixWorld.elements;
+    if (e) {
+      const lengths = [0, 4, 8].map(
+        (i) => e[i] * e[i] + e[i + 1] * e[i + 1] + e[i + 2] * e[i + 2],
+      );
+      const tolerance = Math.max(...lengths) * 1e-10;
+      if (
+        Math.min(...lengths) <= 0 ||
+        Math.max(...lengths) - Math.min(...lengths) > tolerance ||
+        [
+          [0, 4],
+          [0, 8],
+          [4, 8],
+        ].some(
+          ([a, b]) =>
+            Math.abs(e[a] * e[b] + e[a + 1] * e[b + 1] + e[a + 2] * e[b + 2]) >
+            tolerance,
+        )
+      )
+        return false;
+    }
     return (
       !!dish &&
       key.castShadow &&

@@ -2645,6 +2645,7 @@ export function mountSpacecraftScene({
           model,
           key,
           ao,
+          eligible: () => !mobile() && contactShading && experiment === 'normal',
         });
         const renderLoop = createSceneRenderLoop({
           draw,

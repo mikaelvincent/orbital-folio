@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { createStationaryPixelCache } from '../../features/spacecraft/stationary-pixel-cache.ts';
 
-function fixture(withDish = false) {
+function fixture(withDish = false, eligible = () => true) {
   const scene = new THREE.Scene(),
     camera = new THREE.PerspectiveCamera();
   const group = new THREE.Group();
@@ -103,6 +103,7 @@ function fixture(withDish = false) {
     model: { group },
     key: withDish ? light : undefined,
     ao,
+    eligible,
   });
   const frames = (n = 6) => {
     for (let i = 0; i < n; i++) renderer.render(scene, camera);
@@ -141,6 +142,29 @@ test('capture preserves complete shadow casters and live children of cached mesh
   assert.equal(f.ink.layers.mask, 1);
   f.cache.dispose();
   assert.equal(f.renderer.render, f.original);
+});
+
+test('an ineligible quality path draws normally, releases storage and rebuilds on return', () => {
+  let eligible = false;
+  const f = fixture(false, () => eligible);
+  f.frames();
+  assert.equal(f.cache.stats().width, 1);
+  assert.equal(f.cache.stats().builds, 0);
+  assert.equal(f.cache.requiresOcclusion(), false);
+  assert.ok(f.passes.every((p) => !p.target && p.root === f.scene));
+  eligible = true;
+  f.frames();
+  assert.ok(f.cache.stats().hits > 0);
+  const builds = f.cache.stats().builds;
+  eligible = false;
+  f.frames(1);
+  assert.equal(f.cache.stats().width, 1);
+  assert.equal(f.cache.stats().valid, false);
+  assert.deepEqual(f.passes.at(-1).meshes, [f.hull, f.ink, f.meter]);
+  eligible = true;
+  f.frames();
+  assert.equal(f.cache.stats().builds, builds + 1);
+  f.cache.dispose();
 });
 
 test('camera, material, geometry, texture replacement and light changes invalidate the very next frame', () => {

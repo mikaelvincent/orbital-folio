@@ -75,6 +75,7 @@ function fixture() {
   cache.prepare();
   return {
     cache,
+    group,
     key,
     ao,
     renderer,
@@ -112,6 +113,25 @@ test('a full rotation envelope keeps receivers and intervening static casters li
   assert.ok(r.aoRect[0] < r.normalRect[0]);
   assert.ok(r.denoiseRect[0] < r.aoRect[0]);
   assert.ok(r.denoiseRect[2] > r.aoRect[2]);
+  f.ao.dispose();
+  f.key.shadow.map.dispose();
+});
+
+test('nonuniform or sheared ancestry disables regional repairs, uniform rotated scale remains supported', () => {
+  const f = fixture();
+  f.group.scale.set(2, 1, 1);
+  f.group.updateMatrixWorld(true);
+  assert.equal(f.cache.supported(), false);
+  f.cache.prepare();
+  assert.equal(f.cache.canRepairShadow(), false);
+  f.group.scale.setScalar(2);
+  f.group.rotation.set(0.3, 0.7, -0.2);
+  f.group.updateMatrixWorld(true);
+  assert.equal(f.cache.supported(), true);
+  f.cache.prepare();
+  assert.equal(f.cache.canRepairShadow(), true);
+  f.group.matrixWorld.elements[4] += 0.5;
+  assert.equal(f.cache.supported(), false);
   f.ao.dispose();
   f.key.shadow.map.dispose();
 });

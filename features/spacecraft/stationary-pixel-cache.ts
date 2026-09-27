@@ -33,6 +33,7 @@ export function createStationaryPixelCache({
   model,
   key,
   ao,
+  eligible = () => true,
 }: {
   three: typeof Three;
   renderer: Three.WebGLRenderer;
@@ -41,6 +42,7 @@ export function createStationaryPixelCache({
   model: { group: Three.Group };
   key?: Three.DirectionalLight;
   ao?: any;
+  eligible?: () => boolean;
 }) {
   // Preserve the exact method for disposal; calls use the bound copy below.
   // eslint-disable-next-line typescript/unbound-method
@@ -204,6 +206,10 @@ export function createStationaryPixelCache({
     repairShadow = false;
     influence?.invalidate();
   }
+  function release() {
+    invalidate();
+    target.setSize(1, 1);
+  }
   function changed() {
     values.length = 0;
     values.push(
@@ -348,6 +354,14 @@ export function createStationaryPixelCache({
       render(renderScene, renderCamera);
       return;
     }
+    // Limit adoption to the AO-enabled quality path measured in the browser.
+    // Resizing into the mobile path releases storage before its next ship draw.
+    if (!eligible()) {
+      if (valid || target.width !== 1 || target.height !== 1) release();
+      fallbacks++;
+      render(scene, camera);
+      return;
+    }
     const cameraChanged =
       !cameraMatrix.equals(camera.matrixWorld) ||
       !projection.equals(camera.projectionMatrix);
@@ -440,20 +454,18 @@ export function createStationaryPixelCache({
       invalidate();
     },
     invalidate,
-    requiresOcclusion: () => enabled && aoNeedsFull,
+    requiresOcclusion: () => enabled && eligible() && aoNeedsFull,
     occlusion(render: () => void, allowPartial: boolean) {
       if (partialAo && allowPartial && !aoNeedsFull)
         influence!.occlusion(render);
       else render();
       aoNeedsFull = false;
     },
-    release() {
-      invalidate();
-      target.setSize(1, 1);
-    },
+    release,
     stats() {
       return {
         enabled,
+        eligible: eligible(),
         valid,
         equalFrames,
         hits,
