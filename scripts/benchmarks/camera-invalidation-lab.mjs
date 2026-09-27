@@ -28,20 +28,20 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535)
   throw new Error('Choose an unprivileged local port.');
 const sampler = argument('--thermal-sampler', null);
 const experiment = argument('--experiment', 'camera');
-if (!['camera', 'geometry', 'shadow', 'contact', 'diffuse', 'pixels'].includes(experiment)) throw new Error('Unknown experiment.');
+if (!['camera', 'geometry', 'shadow', 'contact', 'diffuse'].includes(experiment)) throw new Error('Unknown experiment.');
 if (sampler && !sampler.startsWith('/'))
   throw new Error('The optional compiled sampler requires an absolute path.');
 if (sampler) await fs.access(sampler, 1);
 const execute = promisify(execFile);
 const snapshot = await fs.mkdtemp(join(tmpdir(), 'orbital-camera-lab-'));
 const bundle = join(snapshot, 'bundle');
-const evidence = join(root, 'docs/evidence/performance', experiment === 'pixels' ? 'stationary-pixel-cache' : experiment === 'diffuse' ? 'baked-diffuse-probe' : experiment === 'contact' ? 'static-contact-bake' : experiment === 'shadow' ? 'static-shadow-bake' : experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
+const evidence = join(root, 'docs/evidence/performance', experiment === 'diffuse' ? 'baked-diffuse-probe' : experiment === 'contact' ? 'static-contact-bake' : experiment === 'shadow' ? 'static-shadow-bake' : experiment === 'geometry' ? 'offline-geometry-compaction' : 'camera-invalidation');
 const hash = (data) => createHash('sha256').update(data).digest('hex');
 const contactBakerHash = hash(await fs.readFile(join(root, 'scripts/benchmarks/contact-geometry-bake.mjs')));
 const diffuseBakerHash = hash(await fs.readFile(join(root, 'scripts/benchmarks/diffuse-probe-fit.mjs')));
 const result = await build({
   absWorkingDir: root,
-  entryPoints: ['scripts/benchmarks/stationary-pixel-cache-lab.tsx', 'scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx', 'scripts/benchmarks/shadow-bake-lab.tsx', 'scripts/benchmarks/contact-shading-lab.tsx', 'scripts/benchmarks/diffuse-lighting-lab.tsx'],
+  entryPoints: ['scripts/benchmarks/camera-invalidation-lab.tsx', 'scripts/benchmarks/geometry-startup-lab.tsx', 'scripts/benchmarks/shadow-bake-lab.tsx', 'scripts/benchmarks/contact-shading-lab.tsx', 'scripts/benchmarks/diffuse-lighting-lab.tsx'],
   outdir: bundle,
   entryNames: '[name]',
   chunkNames: 'chunks/[name]-[hash]',
@@ -105,7 +105,7 @@ const manifest = {
 };
 await fs.writeFile(join(snapshot, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spacecraft ${experiment} measurement lab</title><link rel="stylesheet" href="/lab/portfolio.css"><link rel="stylesheet" href="/lab/camera-invalidation-lab.css"></head><body data-experiment="${experiment}"><div id="portfolio-root"></div><div id="camera-lab-controls"></div><script type="module" src="/lab/camera-invalidation-lab.js"></script></body></html>`;
-const page = ['shadow', 'contact', 'diffuse', 'pixels'].includes(experiment) ? html.replace('src="/lab/camera-invalidation-lab.js"', `src="/lab/${experiment === 'pixels' ? 'stationary-pixel-cache' : experiment === 'diffuse' ? 'diffuse-lighting' : experiment === 'contact' ? 'contact-shading' : 'shadow-bake'}-lab.js"`) : html;
+const page = ['shadow', 'contact', 'diffuse'].includes(experiment) ? html.replace('src="/lab/camera-invalidation-lab.js"', `src="/lab/${experiment === 'diffuse' ? 'diffuse-lighting' : experiment === 'contact' ? 'contact-shading' : 'shadow-bake'}-lab.js"`) : html;
 const bakedAssets = new Map();
 const status = { builtAt: manifest.builtAt, snapshotId: manifest.snapshotId, phase: 'ready', progress: null, saved: [] };
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.gz': 'application/gzip', '.woff2': 'font/woff2' };
