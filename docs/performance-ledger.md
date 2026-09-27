@@ -80,3 +80,16 @@ candidate **9** above. The remaining proposals are still deferred.
    most during movement and ambient scanning while automatic rest is not engaged.
    [Evidence](evidence/performance/idle-lighting/README.md) and
    [diagnostic scope](performance-diagnostics.md#interpret-the-work-correctly).
+3. **Cache the stationary spacecraft while ambient motion continues.** The
+   current drawing pass clears the canvas and renders the entire spacecraft on
+   every active frame, even with a settled camera and unchanged hull. Investigate
+   caching the stationary portion's rendered color and depth while drawing Earth,
+   sky, the dish and Contact animations separately. Preserve their motion and
+   correct occlusion, shadows and contact shading; invalidate affected caches on
+   camera, viewport, lighting, material or geometry changes, including hover and
+   room transitions. Extra render targets and compositing cost memory and GPU
+   work, and incomplete invalidation risks stale pixels or lighting. Compare net
+   cost against the current automatic-rest behavior: any benefit is confined to
+   active frames with reusable spacecraft pixels, since a resting scene already
+   submits no frames. Check navigation, hover, moving-part boundaries and wake-up
+   before retaining an implementation. No performance gain is established.
