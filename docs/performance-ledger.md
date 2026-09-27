@@ -1,6 +1,6 @@
 # Performance case-study candidates
 
-Nine candidates remain available for the owner's final topic choice. Entries
+Ten candidates remain available for the owner's final topic choice. Entries
 combine related investigations, not their numerical gains. Historical counts and
 timings describe their identified sources, not today's authored scene. Read only
 the relevant evidence when investigating that system; ordinary changes do not
@@ -18,6 +18,7 @@ require this ledger or its archive. For measurement, use the
 | **7. Native-detail regional Earth loop** | A protected original Europe core plus fictional coastal continuation reduces 4096×3072→2560×1536 footprint: 21.05% fewer download bytes, 68.75% less nominal mip storage. Drift prevents a desktop GPU ranking. | Current asset; later camera/atmosphere behavior supersedes original captures. Regional-loop portion of **29** plus **30**. [Provenance, visual tradeoffs, raw timings and coverage](evidence/earth-consistent-loop/README.md). |
 | **8. Idle scene, sustained lighting work** | Stationary hull geometry concealed continued animation and expensive fragment lighting. Skip proven zero-contribution Standard-material lighting and back-facing directional shadow samples. Exploratory quiet-idle GPU means 14.13→11.00 ms; strict readiness and moving-camera timing failed stability gates. | Specialization adopted with unchanged authored quality; 152 image comparisons differed by at most 1/255. Thermal/energy benefit unverified. [Cause, necessary updates, raw/excluded measurements and limits](evidence/performance/idle-lighting/README.md). |
 | **9. Let the visible scene rest** | Default inactivity scheduling stops ambient motion and all recurring scene submissions after 15 seconds, then resumes on interaction. Four ten-second idle windows fell from 587–603 frames to zero; active rendering quality stays unchanged. | Adopted. Stillness is the deliberate tradeoff; frame counts do not quantify energy savings. [Source, alternating comparisons, wake-up checks and limits](evidence/performance/scene-rest/README.md). |
+| **10. Stationary pixels, moving costs** | Color/depth reuse cut quiet-hold drawing, but preserving moving shadows required full rendering for over half the cycle. A 140.625 MiB nominal cache showed worse frame pacing in an excluded comparison; failed reference stability prevented a net performance ranking. | Implemented, tested and reverted. No qualified improvement established. [Cache design, memory/edge tradeoffs, raw failures and rollback](evidence/performance/stationary-pixel-cache/README.md). |
 
 Routine art, interface and interaction revisions are current requirements in
 [project context](PROJECT-CONTEXT.md), not additional performance stories. Their
@@ -60,7 +61,9 @@ implementation needs a concrete visual/interaction tradeoff and the recommended
 experience. Preserve the existing reduced-motion and hidden-page behavior.
 
 Automatic inactivity rest is now the default, with the outcome retained in
-candidate **9** above. The remaining proposals are still deferred.
+candidate **9** above. Stationary spacecraft image caching was investigated and
+reverted without a qualified net improvement; its outcome is candidate **10**.
+The remaining proposals are still deferred.
 
 1. **Lower the 3D drawing resolution in low-heat mode.** Start with an effective
    desktop DPR cap around 1.25–1.5 instead of 2, leaving HTML text at native
@@ -80,16 +83,3 @@ candidate **9** above. The remaining proposals are still deferred.
    most during movement and ambient scanning while automatic rest is not engaged.
    [Evidence](evidence/performance/idle-lighting/README.md) and
    [diagnostic scope](performance-diagnostics.md#interpret-the-work-correctly).
-3. **Cache the stationary spacecraft while ambient motion continues.** The
-   current drawing pass clears the canvas and renders the entire spacecraft on
-   every active frame, even with a settled camera and unchanged hull. Investigate
-   caching the stationary portion's rendered color and depth while drawing Earth,
-   sky, the dish and Contact animations separately. Preserve their motion and
-   correct occlusion, shadows and contact shading; invalidate affected caches on
-   camera, viewport, lighting, material or geometry changes, including hover and
-   room transitions. Extra render targets and compositing cost memory and GPU
-   work, and incomplete invalidation risks stale pixels or lighting. Compare net
-   cost against the current automatic-rest behavior: any benefit is confined to
-   active frames with reusable spacecraft pixels, since a resting scene already
-   submits no frames. Check navigation, hover, moving-part boundaries and wake-up
-   before retaining an implementation. No performance gain is established.
