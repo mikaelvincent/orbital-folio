@@ -1,0 +1,23 @@
+diff --git a/features/spacecraft/spacecraft-runtime.ts b/features/spacecraft/spacecraft-runtime.ts
+index c2d1ae9..4a633b1 100644
+--- a/features/spacecraft/spacecraft-runtime.ts
++++ b/features/spacecraft/spacecraft-runtime.ts
+@@ -1624,8 +1624,10 @@ export function mountSpacecraftScene({
+           el.dataset.activeRoom = active;
+           kick();
+         };
++        let renderedFrames = 0;
+         const draw = (now: number, delta: number, rawDelta: number) => {
+           if (destroyed) return;
++          renderedFrames++;
+           const wasTravelling = travelling;
+           const started = performance.now();
+           diagnostics?.beginFrame(now, {
+@@ -2501,6 +2503,7 @@ export function mountSpacecraftScene({
+               travelling: String(travelling),
+               motion: stop ? 'reduced' : 'active',
+               activeTime: elapsed.toFixed(3),
++              renderedFrames: String(renderedFrames),
+               readerAttached: String(
+                 surface.visible || (isNotebook && reading),
+               ),

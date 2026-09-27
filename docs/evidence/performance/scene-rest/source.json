@@ -1,0 +1,38 @@
+{
+  "baselineCommit": "895ba0e8cce9b821aa4d271bd2e1985bd19e0551",
+  "baselineInstrumentation": "baseline-instrumentation.patch",
+  "candidateSourceSha256": {
+    "features/spacecraft/scene-render-loop.ts": "8d0bb205129ff239634eab8d911588893aca8f1c92c904c9c86d57b9cd609596",
+    "features/spacecraft/spacecraft-runtime.ts": "818c101bed922214750c426bc2232dc223feaa761ccd90d8b3b83f68719a37d8",
+    "features/spacecraft/spacecraft-model.ts": "8d9b0931e8277cf58d1f46e6af4b256adbef581e0c637e6d84255b2d04c8d1ce",
+    "features/orbit/earth-playback.ts": "52bc3e43b9971a2e6dcb6ef3234d3fd6243ef2feb27dcaeef657673f3bfbed17",
+    "features/orbit/earth-playback-controls.tsx": "c7dedc310cd6fca5dfa1464e00658c08c01bb6a7f209ec09eb2dd3f992e6a7fb",
+    "package-lock.json": "3d5ccb3561102f4b28ccdc1ab60109b377eaa520641ea5f8d430d4c2e9aaadc4",
+    "public/textures/earth-europe-loop.webp": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+  },
+  "method": {
+    "kind": "render-callback counts, not per-frame timing or energy",
+    "order": [
+      "ABBA",
+      "BAAB"
+    ],
+    "settleMs": 24000,
+    "captureMs": 10000,
+    "viewport": [
+      1280,
+      720
+    ],
+    "earthPlayback": "normal default, panel closed",
+    "diagnostics": "closed",
+    "reducedMotion": false,
+    "room": "projects",
+    "sourceState": "disposable checkout, generated test-only secrets and isolated D1/R2",
+    "nonrenderingRecoveryMs": 60002
+  },
+  "device": {
+    "model": "Mac16,12",
+    "cpu": "Apple M4",
+    "os": "macOS 27.0 (26A428)"
+  },
+  "candidateCommit": "85b5907996aa5d4293a5ded8b3eb34c0b7060c2e"
+}

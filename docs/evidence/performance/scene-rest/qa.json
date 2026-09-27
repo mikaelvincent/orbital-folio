@@ -1,0 +1,343 @@
+[
+  {
+    "test": "Reduced motion remains on demand",
+    "before": {
+      "activeTime": 15.167,
+      "buffer": "2560,1440",
+      "camera": "-2.0870,1.5400,5.5099",
+      "dpr": 2,
+      "draws": 388,
+      "frames": 815,
+      "hover": "",
+      "motion": "reduced",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "projects",
+      "rotation": "-0.000000,-0.000000,-0.000000,1.000000",
+      "travelling": "false",
+      "triangles": 919295,
+      "earthTime": 15.033199999999937,
+      "earthReady": true
+    },
+    "after": {
+      "activeTime": 15.167,
+      "buffer": "2560,1440",
+      "camera": "-2.0870,1.5400,5.5099",
+      "dpr": 2,
+      "draws": 388,
+      "frames": 815,
+      "hover": "",
+      "motion": "reduced",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "projects",
+      "rotation": "-0.000000,-0.000000,-0.000000,1.000000",
+      "travelling": "false",
+      "triangles": 919295,
+      "earthTime": 15.033199999999937,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Reduced motion navigation completes",
+    "after": {
+      "activeTime": 15.167,
+      "buffer": "2560,1440",
+      "camera": "-8.6962,4.9570,24.2935",
+      "dpr": 2,
+      "draws": 1066,
+      "frames": 817,
+      "hover": "",
+      "motion": "reduced",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "home",
+      "rotation": "-0.094098,-0.135318,-0.012911,0.986239",
+      "travelling": "false",
+      "triangles": 2082791,
+      "earthTime": 15.033199999999937,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Context loss returns semantic content",
+    "canvasCount": 0
+  },
+  {
+    "test": "Resting Projects pixels remain unchanged",
+    "firstSha256": "19e10e2dab952ce2a1efeef6d80c09b6a865ef833c2c6b8bc7da1af799ea3c74",
+    "secondSha256": "19e10e2dab952ce2a1efeef6d80c09b6a865ef833c2c6b8bc7da1af799ea3c74"
+  },
+  {
+    "test": "Portrait resize wakes then rests",
+    "wake": {
+      "activeTime": 17.05,
+      "buffer": "900,1200",
+      "camera": "-2.0870,1.5400,6.9918",
+      "dpr": 1,
+      "draws": 1114,
+      "frames": 865,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "projects",
+      "rotation": "0.000000,0.000000,0.000000,1.000000",
+      "travelling": "false",
+      "triangles": 2621951,
+      "earthTime": 16.89999999999993,
+      "earthReady": true
+    },
+    "rest": {
+      "activeTime": 32.066,
+      "buffer": "900,1200",
+      "camera": "-2.0870,1.5400,6.9918",
+      "dpr": 1,
+      "draws": 380,
+      "frames": 1766,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "true",
+      "room": "projects",
+      "rotation": "0.000000,0.000000,0.000000,1.000000",
+      "travelling": "false",
+      "triangles": 854887,
+      "earthTime": 31.866699999999927,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Portrait keyboard navigation wakes and rests",
+    "before": {
+      "activeTime": 32.066,
+      "buffer": "900,1200",
+      "camera": "-2.0870,1.5400,6.9918",
+      "dpr": 1,
+      "draws": 380,
+      "frames": 1766,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "true",
+      "room": "projects",
+      "rotation": "0.000000,0.000000,0.000000,1.000000",
+      "travelling": "false",
+      "triangles": 854887,
+      "earthTime": 31.866699999999927,
+      "earthReady": true
+    },
+    "wake": {
+      "activeTime": 32.066,
+      "buffer": "900,1200",
+      "camera": "-2.0870,1.5400,6.9918",
+      "dpr": 1,
+      "draws": 380,
+      "frames": 1767,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "home",
+      "rotation": "0.000000,0.000000,0.000000,1.000000",
+      "travelling": "true",
+      "triangles": 854887,
+      "earthTime": 31.916599999999935,
+      "earthReady": true
+    },
+    "rest": {
+      "activeTime": 47.101,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 1476,
+      "frames": 2669,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "true",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 3055903,
+      "earthTime": 46.8160000000009,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Explicit Earth playback remains active beyond idle delay",
+    "before": {
+      "activeTime": 47.518,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 1476,
+      "frames": 2695,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 3055903,
+      "earthTime": 47.367934000000936,
+      "earthReady": true
+    },
+    "after": {
+      "activeTime": 64.584,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 1476,
+      "frames": 3719,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 3055903,
+      "earthTime": 64.43453400000203,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Paused Earth playback allows rest and seeking wakes",
+    "rest": {
+      "activeTime": 139.951,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 563,
+      "frames": 8241,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "true",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 1072055,
+      "earthTime": 124.78443400001112,
+      "earthReady": true
+    },
+    "wake": {
+      "activeTime": 140.168,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 562,
+      "frames": 8256,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "false",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 1071959,
+      "earthTime": 124.9,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Closing Earth inspection restores automatic rest",
+    "after": {
+      "activeTime": 155.285,
+      "buffer": "900,1200",
+      "camera": "0.9318,-2.3878,23.0118",
+      "dpr": 1,
+      "draws": 1474,
+      "frames": 9163,
+      "hover": "",
+      "motion": "active",
+      "object": "",
+      "reader": "false",
+      "resting": "true",
+      "room": "home",
+      "rotation": "0.007153,0.063238,-0.704273,0.707071",
+      "travelling": "false",
+      "triangles": 3055711,
+      "earthTime": 139.76660000000314,
+      "earthReady": true
+    }
+  },
+  {
+    "test": "Semantic reading view removes renderer",
+    "canvasCount": 0
+  },
+  {
+    "test": "Desktop doorway navigation wakes and rests after arrival",
+    "observationOrigin": "Transcribed from earlier hidden-browser tool output in this task, before the alternating count captures",
+    "before": {
+      "room": "projects",
+      "frames": 1010,
+      "activeTime": 17.066,
+      "resting": "true",
+      "travelling": "false"
+    },
+    "wake": {
+      "room": "about",
+      "frames": 1011,
+      "activeTime": 17.066,
+      "resting": "false",
+      "travelling": "true"
+    },
+    "rest": {
+      "room": "about",
+      "frames": 2054,
+      "activeTime": 34.633,
+      "resting": "true",
+      "travelling": "false",
+      "reader": "false"
+    }
+  },
+  {
+    "test": "Notebook opening rests; page turn wakes",
+    "observationOrigin": "Transcribed from earlier hidden-browser tool output in this task, before the alternating count captures",
+    "openRest": {
+      "room": "about",
+      "frames": 3021,
+      "activeTime": 51,
+      "resting": "true",
+      "reader": "true",
+      "travelling": "false"
+    },
+    "pageTurnWake": {
+      "room": "about",
+      "frames": 3034,
+      "activeTime": 51.216,
+      "resting": "false",
+      "reader": "true",
+      "travelling": "false"
+    },
+    "scope": "The post-turn return to idle was not separately sampled before opening diagnostics."
+  },
+  {
+    "test": "Scene diagnostics keeps rendering active",
+    "observationOrigin": "Transcribed from earlier hidden-browser tool output in this task, before the alternating count captures",
+    "observed": {
+      "room": "about",
+      "frames": 6256,
+      "activeTime": 106.981,
+      "resting": "false",
+      "reader": "true",
+      "travelling": "false"
+    },
+    "scope": "Diagnostics stayed open while inspecting its controls and View JSON. This was a functional smoke check, not a timed performance capture; exact panel-open duration was not recorded."
+  }
+]

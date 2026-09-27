@@ -131,6 +131,20 @@ A repeats, leave both variants Normal. The [frozen labs](#frozen-browser-labs) a
 
 ## Interpret the work correctly
 
+Automatic scene rest needs a **wall-time scheduling comparison**, separate from
+the per-frame timing protocol above: a resting renderer has no frame samples to
+time. Keep Scene diagnostics closed (it deliberately keeps rendering active),
+and close Earth playback or pause its explicit playback. After the inactivity
+delay and all transitions finish, compare the scene host's `data-rendered-frames`
+counter across fixed wall-time windows; record `data-scene-resting`, active time,
+room, camera, buffer and motion setting alongside it. The counter publishes about
+every 200 ms while active and flushes at rest, so active-window endpoints have
+that granularity. Use an instrumented reference with the same counter and repeat
+both variants in alternating order. Retain source, device/power, isolation and
+recovery records from the procedure above. Count checks establish removed
+submissions; they do not establish per-frame speedups or energy savings. Check
+wake-up and active navigation separately.
+
 | Diagnostic | Scope and limitation |
 | --- | --- |
 | Skip background | Omits Earth/space update and rendering, retaining clearing. |

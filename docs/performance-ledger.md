@@ -1,6 +1,6 @@
 # Performance case-study candidates
 
-Eight candidates remain available for the owner's final topic choice. Entries
+Nine candidates remain available for the owner's final topic choice. Entries
 combine related investigations, not their numerical gains. Historical counts and
 timings describe their identified sources, not today's authored scene. Read only
 the relevant evidence when investigating that system; ordinary changes do not
@@ -17,6 +17,7 @@ require this ledger or its archive. For measurement, use the
 | **6. Limits of offline lighting bakes** | Native shadow transport fails changing portrait lighting; static contact shading adds 313,812 triangles and visible artifacts; fitted irradiance changes appearance with ~5.3% held-out error. None establishes a qualified net speedup. | Existing cached shadows/GTAO/illumination retained. Merges **21–23**, preserving separate sources/protocols: [shadow](evidence/performance/static-shadow-bake/README.md), [contact](evidence/performance/static-contact-bake/README.md), [diffuse](evidence/performance/baked-diffuse-probe/README.md). |
 | **7. Native-detail regional Earth loop** | A protected original Europe core plus fictional coastal continuation reduces 4096×3072→2560×1536 footprint: 21.05% fewer download bytes, 68.75% less nominal mip storage. Drift prevents a desktop GPU ranking. | Current asset; later camera/atmosphere behavior supersedes original captures. Regional-loop portion of **29** plus **30**. [Provenance, visual tradeoffs, raw timings and coverage](evidence/earth-consistent-loop/README.md). |
 | **8. Idle scene, sustained lighting work** | Stationary hull geometry concealed continued animation and expensive fragment lighting. Skip proven zero-contribution Standard-material lighting and back-facing directional shadow samples. Exploratory quiet-idle GPU means 14.13→11.00 ms; strict readiness and moving-camera timing failed stability gates. | Specialization adopted with unchanged authored quality; 152 image comparisons differed by at most 1/255. Thermal/energy benefit unverified. [Cause, necessary updates, raw/excluded measurements and limits](evidence/performance/idle-lighting/README.md). |
+| **9. Let the visible scene rest** | Default inactivity scheduling stops ambient motion and all recurring scene submissions after 15 seconds, then resumes on interaction. Four ten-second idle windows fell from 587–603 frames to zero; active rendering quality stays unchanged. | Adopted. Stillness is the deliberate tradeoff; frame counts do not quantify energy savings. [Source, alternating comparisons, wake-up checks and limits](evidence/performance/scene-rest/README.md). |
 
 Routine art, interface and interaction revisions are current requirements in
 [project context](PROJECT-CONTEXT.md), not additional performance stories. Their
@@ -58,17 +59,10 @@ not be added. All proposals remain **held pending explicit authorization**;
 implementation needs a concrete visual/interaction tradeoff and the recommended
 experience. Preserve the existing reduced-motion and hidden-page behavior.
 
-1. **Let a visible, inactive scene rest.** After a deliberate inactivity period,
-   offer an owner-controlled low-heat mode that pauses ambient dish, Earth, sky and
-   signal motion and renders on demand; resume promptly on interaction. If a still
-   scene is unacceptable, try a 15–30 fps ambient cadence instead. This addresses
-   the whole recurring frame: even while shadows and GTAO were cached, a settled
-   Projects frame still submitted 382 spacecraft draws / 870,650 triangles. A
-   60→15 fps limit would submit 75% fewer frames, **not** necessarily use 75% less
-   energy. The cost is visibly less motion or stillness, plus possible wake-up
-   latency; neither should be inferred from the existing reduced-motion setting.
-   [Evidence](evidence/performance/idle-lighting/README.md).
-2. **Lower the 3D drawing resolution in low-heat mode.** Start with an effective
+Automatic inactivity rest is now the default, with the outcome retained in
+candidate **9** above. The remaining proposals are still deferred.
+
+1. **Lower the 3D drawing resolution in low-heat mode.** Start with an effective
    desktop DPR cap around 1.25–1.5 instead of 2, leaving HTML text at native
    resolution. At DPR 2, the exploratory half-width/half-height main-buffer
    setting changed whole-frame GPU mean from 15.99 to 10.65 ms (about 33%); it
@@ -76,13 +70,13 @@ experience. Preserve the existing reduced-motion and hidden-page behavior.
    2→1.5 DPR change draws about 44% fewer main-buffer pixels. Expect softer
    spacecraft edges and fine detail; check room labels and resolution changes
    during navigation before choosing a default. [Evidence](evidence/performance/idle-lighting/README.md).
-3. **Disable GTAO contact shading in low-heat mode.** The existing diagnostic
+2. **Disable GTAO contact shading in low-heat mode.** The existing diagnostic
    that skipped both GTAO refresh and composite changed the exploratory
    pre-specialization whole-frame GPU mean from 15.99 to 13.79 ms (about 14%).
    That is not an expected current-site or thermal saving. Scanning refreshed
    GTAO on 239/240 measured frames and camera movement on 238–239/240; even when
    a quiet hold reused the cache, its composite remained in the main frame.
    Expect flatter contact depth around objects and room surfaces. This helps
-   most during movement and ambient scanning when proposal 1 is not engaged.
+   most during movement and ambient scanning while automatic rest is not engaged.
    [Evidence](evidence/performance/idle-lighting/README.md) and
    [diagnostic scope](performance-diagnostics.md#interpret-the-work-correctly).

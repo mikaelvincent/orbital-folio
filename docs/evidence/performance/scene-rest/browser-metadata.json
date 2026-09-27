@@ -1,0 +1,32 @@
+{
+  "build": "production",
+  "threeRevision": "185",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "hardwareConcurrency": 10,
+  "viewport": [
+    1280,
+    720
+  ],
+  "drawingBuffer": [
+    2560,
+    1440
+  ],
+  "pixelRatio": 2,
+  "nativePixelRatio": 2,
+  "aoEnabled": true,
+  "aoBuffer": [
+    832,
+    468
+  ],
+  "aoSamples": 32,
+  "denoiseSamples": 32,
+  "shadowsEnabled": true,
+  "shadowMap": [
+    2048,
+    2048
+  ],
+  "automaticRest": {
+    "idleDelayMs": 15000,
+    "suspendedByDiagnostics": true
+  }
+}

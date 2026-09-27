@@ -1,0 +1,143 @@
+[
+  {
+    "lowPowerMode": false,
+    "osVersion": "Version 27.0 (Build 26A428)",
+    "pmset": {
+      "battery": {
+        "arguments": [
+          "-g",
+          "batt"
+        ],
+        "durationMs": 88.02495832787827,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=24117347)\t80%; AC attached; not charging present: true\n",
+        "timedOut": false
+      },
+      "settings": {
+        "arguments": [
+          "-g",
+          "custom"
+        ],
+        "durationMs": 88.56216666754335,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         5\n womp                 0\n networkoversleep     0\n sleep                1\n lessbright           0\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         10\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "timedOut": false
+      },
+      "therm": {
+        "arguments": [
+          "-g",
+          "therm"
+        ],
+        "durationMs": 81.12820833775913,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "timedOut": false
+      }
+    },
+    "sampleDurationMs": 262.6206250060932,
+    "schemaVersion": 1,
+    "thermalSource": "ProcessInfo.thermalState",
+    "thermalState": "nominal",
+    "thermalStateDoesNotMeasureTemperature": true,
+    "thermalStateRaw": 0,
+    "timestamp": "2026-09-27T08:04:21Z",
+    "uptimeSeconds": 56746.86637658333
+  },
+  {
+    "lowPowerMode": false,
+    "osVersion": "Version 27.0 (Build 26A428)",
+    "pmset": {
+      "battery": {
+        "arguments": [
+          "-g",
+          "batt"
+        ],
+        "durationMs": 82.73683333391091,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=24117347)\t80%; AC attached; not charging present: true\n",
+        "timedOut": false
+      },
+      "settings": {
+        "arguments": [
+          "-g",
+          "custom"
+        ],
+        "durationMs": 78.30962499429006,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         5\n womp                 0\n networkoversleep     0\n sleep                1\n lessbright           0\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         10\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "timedOut": false
+      },
+      "therm": {
+        "arguments": [
+          "-g",
+          "therm"
+        ],
+        "durationMs": 85.14375000231666,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "timedOut": false
+      }
+    },
+    "sampleDurationMs": 250.19375000556465,
+    "schemaVersion": 1,
+    "thermalSource": "ProcessInfo.thermalState",
+    "thermalState": "nominal",
+    "thermalStateDoesNotMeasureTemperature": true,
+    "thermalStateRaw": 0,
+    "timestamp": "2026-09-27T08:07:56Z",
+    "uptimeSeconds": 56961.712888875
+  },
+  {
+    "lowPowerMode": false,
+    "osVersion": "Version 27.0 (Build 26A428)",
+    "pmset": {
+      "battery": {
+        "arguments": [
+          "-g",
+          "batt"
+        ],
+        "durationMs": 83.80283333099214,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=24117347)\t80%; AC attached; not charging present: true\n",
+        "timedOut": false
+      },
+      "settings": {
+        "arguments": [
+          "-g",
+          "custom"
+        ],
+        "durationMs": 85.28025000123307,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         5\n womp                 0\n networkoversleep     0\n sleep                1\n lessbright           0\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n displaysleep         10\n womp                 1\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "timedOut": false
+      },
+      "therm": {
+        "arguments": [
+          "-g",
+          "therm"
+        ],
+        "durationMs": 84.5746249979129,
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+        "timedOut": false
+      }
+    },
+    "sampleDurationMs": 257.16179166920483,
+    "schemaVersion": 1,
+    "thermalSource": "ProcessInfo.thermalState",
+    "thermalState": "nominal",
+    "thermalStateDoesNotMeasureTemperature": true,
+    "thermalStateRaw": 0,
+    "timestamp": "2026-09-27T08:13:16Z",
+    "uptimeSeconds": 57281.778421875
+  }
+]
