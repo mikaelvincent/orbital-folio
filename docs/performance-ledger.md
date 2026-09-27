@@ -1,6 +1,6 @@
 # Performance case-study candidates
 
-Seven candidates remain available for the owner's final topic choice. Entries
+Eight candidates remain available for the owner's final topic choice. Entries
 combine related investigations, not their numerical gains. Historical counts and
 timings describe their identified sources, not today's authored scene. Read only
 the relevant evidence when investigating that system; ordinary changes do not
@@ -16,6 +16,7 @@ require this ledger or its archive. For measurement, use the
 | **5. Invalidate AO for geometry, not color** | Material feedback needlessly refreshed contact shading. Three accepted Contact blocks reduced refreshes 75→0 per 180 frames and callback mean 4.559→4.082 ms; failed fourth block retained. | Production policy retained; measured source historical. Former **19**. [Source, GPU sampling limits, raw/excluded runs and motion checks](evidence/performance/camera-invalidation/README.md). |
 | **6. Limits of offline lighting bakes** | Native shadow transport fails changing portrait lighting; static contact shading adds 313,812 triangles and visible artifacts; fitted irradiance changes appearance with ~5.3% held-out error. None establishes a qualified net speedup. | Existing cached shadows/GTAO/illumination retained. Merges **21–23**, preserving separate sources/protocols: [shadow](evidence/performance/static-shadow-bake/README.md), [contact](evidence/performance/static-contact-bake/README.md), [diffuse](evidence/performance/baked-diffuse-probe/README.md). |
 | **7. Native-detail regional Earth loop** | A protected original Europe core plus fictional coastal continuation reduces 4096×3072→2560×1536 footprint: 21.05% fewer download bytes, 68.75% less nominal mip storage. Drift prevents a desktop GPU ranking. | Current asset; later camera/atmosphere behavior supersedes original captures. Regional-loop portion of **29** plus **30**. [Provenance, visual tradeoffs, raw timings and coverage](evidence/earth-consistent-loop/README.md). |
+| **8. Idle scene, sustained lighting work** | Stationary hull geometry concealed continued animation and expensive fragment lighting. Skip proven zero-contribution Standard-material lighting and back-facing directional shadow samples. Exploratory quiet-idle GPU means 14.13→11.00 ms; strict readiness and moving-camera timing failed stability gates. | Specialization adopted with unchanged authored quality; 152 image comparisons differed by at most 1/255. Thermal/energy benefit unverified. [Cause, necessary updates, raw/excluded measurements and limits](evidence/performance/idle-lighting/README.md). |
 
 Routine art, interface and interaction revisions are current requirements in
 [project context](PROJECT-CONTEXT.md), not additional performance stories. Their

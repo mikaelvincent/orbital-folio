@@ -155,6 +155,11 @@ A repeats, leave both variants Normal. The [frozen labs](#frozen-browser-labs) a
 - **Shadow generation versus reuse:** main ship timing includes generation when
   requested; it is not all shadow cost. `shadow-refresh` counts actual generation,
   with reasons/map/draw deltas. Nested generation CPU is a subset of ship CPU.
+- **Fragment work versus draws:** identical submissions can have different shader
+  cost. The spacecraft's Standard materials skip exactly zero direct-light
+  contributions; their shadow/AO invalidation and draw counts stay unchanged.
+  Faster frames can increase rendered cadence, so a per-frame reduction is not
+  the same percentage reduction in sustained GPU work, temperature or energy.
 - **AO refresh versus reuse:** camera/projection, geometry, reader stretch and dirty
   state refresh GTAO; material-only feedback reuses it. Reasons overlap. The
   legacy broad motion signal remains diagnostic context, not production policy.

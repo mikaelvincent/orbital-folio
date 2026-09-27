@@ -1,0 +1,286 @@
+{
+  "baselineCommit": "216c8dd9f28a9e7c4b40c5bf8ac746bca747a778",
+  "measuredSource": {
+    "features/spacecraft/materials/direct-light-work.ts": "e802eb92c96877500f1c5fc67c20e4fda40fda69e6d9570b7c5750e4cb0ac4c9",
+    "features/spacecraft/spacecraft-runtime.ts": "faf268eb17fd38d1117146181067ca0966104fab13aaf2ceecf503474c02c5c5",
+    "package-lock.json": "3d5ccb3561102f4b28ccdc1ab60109b377eaa520641ea5f8d430d4c2e9aaadc4",
+    "public/textures/earth-europe-loop.webp": "19ac5ed0c9796d81a36c2619a67396e1630f36b9915e1bd716c0057b65bf3cf1"
+  },
+  "summary": {
+    "idle-hold": {
+      "before": [
+        {
+          "name": "idle-hold-0",
+          "cpuMean": 4.107500000080715,
+          "cpuP95": 4.5,
+          "gpuMean": 14.126280624999998,
+          "gpuP95": 14.682916,
+          "gpuSamples": 16,
+          "fps": 55.27800906649959,
+          "intervalP95": 18.799999997019768,
+          "counts": {
+            "ao-cached": 240
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 41
+          }
+        },
+        {
+          "name": "idle-hold-3",
+          "cpuMean": 4.11333333319053,
+          "cpuP95": 4.600000001490116,
+          "gpuMean": 14.142876999999999,
+          "gpuP95": 14.642624,
+          "gpuSamples": 16,
+          "fps": 55.2307443439912,
+          "intervalP95": 18.80000000447035,
+          "counts": {
+            "ao-cached": 240
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 41
+          }
+        }
+      ],
+      "after": [
+        {
+          "name": "idle-hold-1",
+          "cpuMean": 3.9800000000124176,
+          "cpuP95": 4.399999998509884,
+          "gpuMean": 11.0283095625,
+          "gpuP95": 11.903708,
+          "gpuSamples": 16,
+          "fps": 60.011048059034444,
+          "intervalP95": 17.5,
+          "counts": {
+            "ao-cached": 240
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 41
+          }
+        },
+        {
+          "name": "idle-hold-2",
+          "cpuMean": 3.961249999826153,
+          "cpuP95": 4.5,
+          "gpuMean": 10.9744475625,
+          "gpuP95": 11.70575,
+          "gpuSamples": 16,
+          "fps": 59.98845410515739,
+          "intervalP95": 17.5,
+          "counts": {
+            "ao-cached": 240
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 41
+          }
+        }
+      ]
+    },
+    "idle-scan": {
+      "before": [
+        {
+          "name": "idle-scan-0",
+          "cpuMean": 7.395000000266979,
+          "cpuP95": 7.799999997019768,
+          "gpuMean": 17.378309374999997,
+          "gpuP95": 18.174333,
+          "gpuSamples": 16,
+          "fps": 44.94339764560515,
+          "intervalP95": 22.899999998509884,
+          "counts": {
+            "ao-cached": 1,
+            "shadow-refresh": 239,
+            "ao-refresh": 239,
+            "ao-legacy-model-motion": 239,
+            "ao-geometry-change": 239
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        },
+        {
+          "name": "idle-scan-3",
+          "cpuMean": 7.551250000298023,
+          "cpuP95": 7.9000000059604645,
+          "gpuMean": 18.498187125,
+          "gpuP95": 20.127499,
+          "gpuSamples": 16,
+          "fps": 43.09179092370201,
+          "intervalP95": 24.899999998509884,
+          "counts": {
+            "ao-cached": 1,
+            "shadow-refresh": 239,
+            "ao-refresh": 239,
+            "ao-legacy-model-motion": 239,
+            "ao-geometry-change": 239
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        }
+      ],
+      "after": [
+        {
+          "name": "idle-scan-1",
+          "cpuMean": 6.733749999975164,
+          "cpuP95": 7.199999995529652,
+          "gpuMean": 13.979681875,
+          "gpuP95": 14.752124,
+          "gpuSamples": 16,
+          "fps": 54.73115324726645,
+          "intervalP95": 19.099999994039536,
+          "counts": {
+            "ao-cached": 1,
+            "shadow-refresh": 239,
+            "ao-refresh": 239,
+            "ao-legacy-model-motion": 239,
+            "ao-geometry-change": 239
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        },
+        {
+          "name": "idle-scan-2",
+          "cpuMean": 6.760833333215365,
+          "cpuP95": 7.200000002980232,
+          "gpuMean": 14.100364187499999,
+          "gpuP95": 14.803583,
+          "gpuSamples": 16,
+          "fps": 54.64605816716631,
+          "intervalP95": 19.299999997019768,
+          "counts": {
+            "ao-cached": 1,
+            "shadow-refresh": 239,
+            "ao-refresh": 239,
+            "ao-legacy-model-motion": 239,
+            "ao-geometry-change": 239
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        }
+      ]
+    },
+    "camera": {
+      "before": [
+        {
+          "name": "camera-0",
+          "cpuMean": 7.102916666989525,
+          "cpuP95": 7.700000002980232,
+          "gpuMean": 19.879957937500006,
+          "gpuP95": 21.586833,
+          "gpuSamples": 16,
+          "fps": 40.546959826286034,
+          "intervalP95": 26.5,
+          "counts": {
+            "ao-cached": 2,
+            "ao-refresh": 238,
+            "ao-camera-position": 238,
+            "ao-camera-angle": 238,
+            "material-only-model-motion": 82,
+            "ao-legacy-model-motion": 82,
+            "ao-legacy-settling": 3
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        },
+        {
+          "name": "camera-3",
+          "cpuMean": 8.328750000117967,
+          "cpuP95": 9.5,
+          "gpuMean": 27.32351525,
+          "gpuP95": 34.044708,
+          "gpuSamples": 16,
+          "fps": 30.10378879482949,
+          "intervalP95": 40.20000000298023,
+          "counts": {
+            "ao-cached": 1,
+            "ao-refresh": 239,
+            "ao-camera-angle": 239,
+            "ao-camera-position": 237,
+            "material-only-model-motion": 82,
+            "ao-legacy-model-motion": 82,
+            "ao-legacy-settling": 3
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        }
+      ],
+      "after": [
+        {
+          "name": "camera-1",
+          "cpuMean": 6.9466666667101284,
+          "cpuP95": 7.799999997019768,
+          "gpuMean": 18.4664605,
+          "gpuP95": 24.18575,
+          "gpuSamples": 16,
+          "fps": 43.35364968802227,
+          "intervalP95": 29.200000002980232,
+          "counts": {
+            "ao-cached": 1,
+            "ao-refresh": 239,
+            "ao-camera-angle": 239,
+            "ao-camera-position": 237,
+            "material-only-model-motion": 82,
+            "ao-legacy-model-motion": 82,
+            "ao-legacy-settling": 3
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        },
+        {
+          "name": "camera-2",
+          "cpuMean": 10.103333333414048,
+          "cpuP95": 13.400000005960464,
+          "gpuMean": 20.4796480625,
+          "gpuP95": 37.988083,
+          "gpuSamples": 16,
+          "fps": 37.09394546102726,
+          "intervalP95": 56.600000001490116,
+          "counts": {
+            "ao-cached": 1,
+            "ao-refresh": 239,
+            "ao-camera-angle": 239,
+            "ao-camera-position": 237,
+            "material-only-model-motion": 82,
+            "ao-legacy-model-motion": 82,
+            "ao-legacy-settling": 3
+          },
+          "resources": {
+            "geometries": 501,
+            "textures": 58,
+            "programs": 43
+          }
+        }
+      ]
+    }
+  },
+  "qualification": "Exploratory observations only. Both rested-readiness attempts failed. No accepted ranked blocks. Motion/scan cohorts also drifted; no power/temperature/frequency measurement."
+}
