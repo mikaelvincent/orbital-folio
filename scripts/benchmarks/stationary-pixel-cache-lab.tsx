@@ -13,7 +13,8 @@ import './camera-invalidation-lab.css';
 const panel = document.getElementById('camera-lab-controls')!;
 panel.innerHTML = `<section class="camera-lab-panel"><h2>Dish and receiver cache investigation</h2>
 <p id="pixel-status">Preparing…</p><button id="pixel-probe" disabled>Probe cache</button>
-<button id="pixel-verify" disabled>Verify rooms</button><button id="pixel-timing" disabled>Rested comparison</button>
+<button id="pixel-verify" disabled>Verify rooms</button><button id="pixel-decision" disabled>Decision comparison</button>
+<button id="pixel-timing" disabled>Historical strict comparison</button>
 <button id="pixel-stop">Stop</button><label>Room <select id="pixel-room"><option>projects</option><option>home</option><option>contact</option><option>about</option><option>experience</option></select></label>
 <textarea id="pixel-output" readonly aria-label="Pixel cache results"></textarea></section>`;
 const data = toPortfolio(
@@ -61,7 +62,8 @@ const audit: SceneAudit = {
     controller = value;
     controller.freezeBackground(0);
     controller.setGpuScope('frame');
-    for (const id of ['probe', 'verify', 'timing']) button(id).disabled = false;
+    for (const id of ['probe', 'verify', 'decision', 'timing'])
+      button(id).disabled = false;
     void status('Ready; scene advances only during replay.');
   },
 };
@@ -411,7 +413,7 @@ function qualitySignature(r: any) {
     ].map((k) => s[k]),
   );
 }
-function validCapture(r: any) {
+function validCapture(r: any, metric = 'gpu') {
   const s = r.snapshot.scene,
     settings = r.snapshot.settings;
   const unchanged = (key: string) =>
@@ -421,10 +423,13 @@ function validCapture(r: any) {
     s.window.frames === 1080 &&
     s.frames.length === 1080 &&
     s.activity.idle?.frames === 1080 &&
-    s.gpu.phases.frame?.samples >= 10 &&
-    s.gpu.discardedSamples === 0 &&
-    s.gpu.pending === 0 &&
-    [s.cpuTotal.mean, s.frameInterval.mean, s.gpu.phases.frame?.mean].every(
+    (metric === 'cpu' ||
+      (s.gpu.phases.frame?.samples >= 10 &&
+        s.gpu.discardedSamples === 0 &&
+        s.gpu.pending === 0 &&
+        Number.isFinite(s.gpu.phases.frame?.mean) &&
+        s.gpu.phases.frame.mean > 0)) &&
+    [s.cpuTotal.mean, s.frameInterval.mean].every(
       (v) => Number.isFinite(v) && v > 0,
     ) &&
     [
@@ -479,7 +484,7 @@ function stability(rows: any[]) {
   const cpu = metric(rows.map((r) => r.snapshot.scene.cpuTotal.mean));
   const gpu = metric(rows.map((r) => r.snapshot.scene.gpu.phases.frame?.mean));
   const cadence = metric(rows.map((r) => r.snapshot.scene.frameInterval.mean));
-  const coverage = rows.every(validCapture);
+  const coverage = rows.every((r) => validCapture(r));
   return {
     cpu,
     gpu,
@@ -487,6 +492,132 @@ function stability(rows: any[]) {
     coverage,
     pass: coverage && cpu.pass && gpu.pass && cadence.pass,
   };
+}
+/** The default decision schedule retains valid noisy samples. Historical strict
+ * timing remains below for reproducibility, not as an implementation veto. */
+async function decisionComparison(room: string) {
+  const started = performance.now();
+  let waitMs = 0;
+  report.method.decision = {
+    profile: 'engineering-decision-v1',
+    orders: ['ABBA', 'BAAB'],
+    controls: 2,
+    frames: 1080,
+    initialRestMs: 30000,
+    controlRestMs: 5000,
+    sampleRestMs: 1000,
+    blockRestMs: 10000,
+    maxWaitMs: 120000,
+    maxWallMs: 600000,
+    stability: '5% spread / 2.5% monotonic drift are warnings, not exclusions',
+    validity:
+      'CPU/GPU assessed separately; identical complete cycles and quality',
+  };
+  const budget = () => {
+    check();
+    if (performance.now() - started > 600000)
+      throw new Error('Decision comparison wall-time budget reached');
+  };
+  const wait = async (ms: number) => {
+    budget();
+    if (waitMs + ms > 120000) throw new Error('Decision wait budget reached');
+    report.waitMs = waitMs += ms;
+    await pause(ms);
+    budget();
+  };
+  const conditions = async () => {
+    const value: any = await native();
+    report.contexts.push(value);
+    const n = value.native;
+    if (['serious', 'critical'].includes(n?.thermalState))
+      throw new Error('OS pressure stop; retain available evidence');
+    const battery = n?.pmset?.battery?.stdout || '';
+    return {
+      availability: value.availability,
+      pressure: n?.thermalState || 'unknown',
+      power: JSON.stringify([
+        n?.lowPowerMode,
+        battery.match(/Now drawing from '([^']+)'/)?.[1],
+        battery.match(
+          /;\s*(discharging|charging|charged|finishing charge);/,
+        )?.[1],
+        n?.pmset?.settings?.stdout,
+      ]),
+    };
+  };
+  await status('Decision comparison: 30-second initial rest');
+  await wait(30000);
+  const startContext = await conditions();
+  const controls: any[] = [];
+  for (let i = 0; i < 2; i++) {
+    await status('Decision readiness ' + (i + 1));
+    controls.push(await sample('A', 'cycle', 1080, room));
+    if (!i) await wait(5000);
+  }
+  const signature = qualitySignature(controls[0]);
+  const references = [...controls];
+  const assess = (rows: any[], before: any, after: any) => {
+    const validity = rows.map((r) => ({
+      cpu: validCapture(r, 'cpu') && qualitySignature(r) === signature,
+      gpu: validCapture(r) && qualitySignature(r) === signature,
+    }));
+    const warnings: string[] = [];
+    const reference = stability(references);
+    for (const metric of ['cpu', 'gpu', 'cadence'] as const)
+      if (!reference[metric].pass)
+        warnings.push(metric + '-reference-variation');
+    if (
+      before.availability !== 'available' ||
+      after.availability !== 'available'
+    )
+      warnings.push('conditions-partly-unknown');
+    if (before.pressure !== 'nominal' || after.pressure !== 'nominal')
+      warnings.push('OS-pressure-' + before.pressure + '-to-' + after.pressure);
+    // Missing telemetry limits confidence; a known power change splits cohorts.
+    const samePower =
+      before.availability !== 'available' ||
+      after.availability !== 'available' ||
+      (before.power === after.power && before.power === startContext.power);
+    return {
+      validity,
+      usable: {
+        cpu: samePower && validity.every((v) => v.cpu),
+        gpu: samePower && validity.every((v) => v.gpu),
+      },
+      exclusions: samePower ? [] : ['changed-power-configuration'],
+      warnings,
+      reference,
+      conditions: { before, after },
+      rows: rows.map((r) => r.startedAt),
+    };
+  };
+  const controlContext = await conditions();
+  report.controls.push({
+    label: 'decision-readiness',
+    ...assess(controls, startContext, controlContext),
+  });
+  for (const [block, order] of ['ABBA', 'BAAB'].entries()) {
+    const before = await conditions();
+    const rows: any[] = [];
+    for (const [index, variant] of order.split('').entries()) {
+      budget();
+      await status(
+        'Decision block ' +
+          (block + 1) +
+          ' ' +
+          order +
+          ' capture ' +
+          (index + 1),
+      );
+      const row = await sample(variant as 'A' | 'B', 'cycle', 1080, room);
+      rows.push(row);
+      if (variant === 'A') references.push(row);
+      if (index < 3) await wait(1000);
+    }
+    const after = await conditions();
+    report.controls.push({ block, order, ...assess(rows, before, after) });
+    if (!block) await wait(10000);
+  }
 }
 async function run(mode: string) {
   if (busy) return;
@@ -567,6 +698,8 @@ async function run(mode: string) {
         }
       }
       await interactions();
+    } else if (mode === 'decision') {
+      await decisionComparison(room);
     } else {
       const started = performance.now();
       let waitMs = 0,
@@ -699,7 +832,7 @@ async function run(mode: string) {
             gate,
             drift,
             referenceDelta,
-            captureValidity: rows.map(validCapture),
+            captureValidity: rows.map((r) => validCapture(r)),
             conditions: before && after,
             pass,
             rows: rows.map((r) => r.startedAt),
@@ -740,7 +873,7 @@ async function run(mode: string) {
     busy = false;
   }
 }
-for (const mode of ['probe', 'verify', 'timing'])
+for (const mode of ['probe', 'verify', 'decision', 'timing'])
   button(mode).onclick = () => void run(mode);
 button('stop').onclick = () => {
   stopped = true;

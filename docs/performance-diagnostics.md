@@ -5,129 +5,157 @@ need neither benchmarks nor thermal monitoring. Candidate maintenance follows
 [screening before shortlist review](performance-ledger.md#candidate-selection);
 deferred proposals still need explicit authorization.
 
+## Decide with the available evidence
+
+The goal is a useful reduction in rendering work with acceptable appearance,
+responsiveness, memory and maintenance costs. Benchmark qualification and the
+choice to implement, retain, narrow, defer or revert a change are separate.
+The bounded procedure below is a default, not a mandatory certification. Declare
+the workload, order, intended checks and stopping budget before timing.
+
+If testing requirements cannot be completed or diagnostic thresholds are missed,
+**use the available valid statistics and general engineering analysis to make
+the implementation decision**. Reference drift, incomplete schedules, unavailable
+telemetry and exhausted wait budgets do not automatically require reverting.
+Explain the missing checks, plausible confounders, confidence limits and why the
+remaining evidence supports the decision. Do not call an unrun check passed or
+retroactively relabel an excluded historical run as qualified.
+
+- Separate measurement validity from stability. Wrong workloads, changed quality,
+  hidden/context-lost frames or broken queries cannot establish the corresponding
+  speedup. Usable CPU results can survive unavailable GPU timing.
+- Compare the effect with observed variation, direction across alternating orders,
+  expected removed work and regressions. A small effect near the variation needs
+  stronger evidence than a large, consistent difference. Reference spread is a
+  diagnostic, not a confidence interval or a bound on systematic bias.
+- Start with two short opposing-order blocks. Add repeats or affected states only
+  to resolve a material uncertainty, not until a desired result appears. One block
+  or partial data may inform a provisional decision, explicitly limited to it.
+- Assess net costs: cache creation/invalidation, active navigation, rest/wake,
+  memory, startup, appearance and code complexity. Counts and architectural
+  reasoning support timing evidence but do not manufacture a measured speedup.
+- Required correctness and data-boundary checks still apply. If a check is
+  unavailable, assess its actual risk and report the gap; performance cannot
+  excuse known stale rendering, broken interaction or a privacy/data regression.
+
+Report the decision separately from the claim: for example, "retain because the
+tested active workload consistently costs less, with an acceptable memory cost;
+the exact gain and other devices remain uncertain." Precise or broad published
+claims warrant stronger repetition and device/workload coverage. Per-frame time
+does not establish power, energy or battery savings. Automatic rest already
+submits no frames.
+
 ## Thermal-aware comparison procedure
 
-Expect thermal drift and possible throttling during diagnostics/sustained rendering,
-especially on the owner's passively cooled M4 Air. These are practical project
-measurement rules, not hardware guarantees. Degrading timings do not confirm
-throttling; stable timings can occur under throttling. Fixed rests and nominal OS
-thermal pressure do not establish equal clocks or operating conditions.
+Expect operating-condition drift during sustained rendering, especially on the
+owner's passively cooled M4 Air. These are practical measurement heuristics, not
+hardware guarantees or statistical confidence bounds. Stable timings, fixed rests
+and nominal OS pressure do not establish equal clocks; timing changes do not
+identify a thermal cause.
 
-Use this panel protocol for a **still-view diagnostic A/B**. A is Normal rendering
-with all groups visible; B changes one declared diagnostic or group. For identical
-A repeats, leave both variants Normal. The [frozen labs](#frozen-browser-labs) and
-[CPU runner](#rested-cpu-candidate-comparisons) have explicit adjustments below.
+For a still-view panel A/B, A is Normal rendering with all groups visible; B changes
+one declared intervention. Frozen labs and the CPU runner have adjustments below.
 
-| Default | Rested comparison | Sustained-use comparison |
-| --- | --- | --- |
-| View | 1280×720 CSS, Projects room settled, reader closed, pointer resting over the Earth playback panel; browser native DPR, logged numerically along with actual buffer/effective DPR. Repeat affected portrait work separately at 900×1200; never pool viewports. | Same view and controls. |
-| State/quality | Reduced motion off; normal shipped quality, shadows/AO and all groups, except the declared B change. Seek Earth playback to **0.0 s**, leaving its panel open and paused in every capture. Other authored animation stays on. | Same; this isolates thermal exposure from Earth texture phase, not all animation. |
-| Before controls | **60 s** without scene rendering. | **10 min** continuous A rendering, diagnostics open; no cooldown. |
-| Readiness controls | Three A captures, **10 s** each, **10 s** nonrendering rest between them. | Three A captures, **60 s** each, continuously rendered. Judge within this sustained cohort, not against rested A. |
-| Warmup / capture | Panel automatically warms **3 s** before every **10 s** capture. | Automatic **3 s** warmup before every **60 s** capture. |
-| Blocks / rechecks | Four blocks: **ABBA, BAAB, ABBA, BAAB**. Add an A capture before and after each four-capture block: six captures/block. | Two blocks: **ABBA, BAAB**, also bracketed by A captures. |
-| Between captures/blocks | **1 s** nonrendering rest within comparison blocks; **20 s** instead at block boundaries. | No inserted rest; render continuously through export, settings changes and telemetry. Log these gaps. |
-| Limits | At most one initial-readiness retry and one failed-block retry (with fresh controls); **5 min total nonrendering waits**, **20 min wall time** from initial rest. | No automatic retry or conditioning extension; **30 min wall time** from the start of the 10-minute conditioning. |
+| Default                 | Rested comparison                                                                                                                                                                             | Sustained-use comparison, when relevant                                     |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| View                    | 1280×720 CSS, Projects settled, reader closed, neutral pointer over Earth playback; log native/effective DPR and actual drawing buffer. Repeat affected portrait work separately at 900×1200. | Same view and controls.                                                     |
+| State/quality           | Reduced motion off; shipped quality/shadows/AO/groups except the declared B intervention. Seek Earth to **0.0 s**, keeping playback open and paused. Other animation stays on.                | Same; Earth phase is controlled, not every animation.                       |
+| Before controls         | **30 s** without scene rendering.                                                                                                                                                             | **10 min** continuous A rendering, diagnostics open; no cooldown.           |
+| Readiness controls      | Two **10 s** A captures, with **5 s** nonrendering rest between.                                                                                                                              | Two **60 s** A captures, continuously rendered; compare within this cohort. |
+| Warmup / capture        | Automatic **3 s** warmup, then **10 s** capture.                                                                                                                                              | Automatic **3 s** warmup, then **60 s** capture.                            |
+| Blocks                  | **ABBA, BAAB**. Their A captures check reference variation.                                                                                                                                   | **ABBA, BAAB**, with an extra A before/after each block.                    |
+| Between captures/blocks | **1 s** nonrendering within blocks; **10 s** at block boundaries.                                                                                                                             | No inserted rest; log gaps while rendering continues.                       |
+| Limits                  | No automatic retries. At most one declared **30 s** recovery if useful; **2 min** total inserted waits and **10 min** wall time per workload.                                                 | No retries/conditioning extension; **30 min** from conditioning start.      |
 
-1. **Prepare and identify.** For release conclusions use a disposable source
-   checkout with fresh state per [operations](OPERATIONS.md#isolated-verification),
-   then `npm run build` and `npm start -- --ip 127.0.0.1 --port 3019` (choose another
-   unused loopback port if occupied). Finish compilation/tests before recovery.
-   Leave the main server/store alone. Use the hidden built-in browser only; native
-   Safari requires new authorization. Record commit plus any patch, lockfile and
-   changed asset SHA-256s (`git rev-parse HEAD`, `shasum -a 256 package-lock.json
-   public/textures/earth-europe-loop.webp`), browser/version, device/OS, viewport,
-   buffers/DPR, camera, quality and exact B intervention. Keep one agent rendering
-   tab. Stop only your competing builds/tests/renderers; do not close user apps or
-   change their power settings. Record power source, charging/discharging state,
-   battery percentage and Low Power Mode; hold source, charging state and LPM
-   fixed within a cohort. Prefer already-configured AC/LPM-off; other configurations
-   are separate named cohorts. Unavoidable competing load is a limitation.
-2. **Observe conditions.** On macOS compile the optional sampler before recovery:
+For greater precision, predeclare three controls, 60 s initial recovery and four
+alternating blocks, with a 20-minute wall-time limit. Extra bracketing controls are
+also optional. These are additional evidence, not prerequisites for every decision.
+A complete animation cycle can replace capture seconds: retain its frame count,
+actual wall duration and query coverage; do not compare different phase windows.
+
+1. **Prepare and identify.** Use a disposable source checkout with fresh state per
+   [operations](OPERATIONS.md#isolated-verification). For the app, build and run
+   `npm start -- --ip 127.0.0.1 --port 3019` on an unused loopback port. Finish
+   builds/tests before recovery. Preserve the main server/store. Use the hidden
+   built-in browser; native Safari needs new authorization. Record source/patch,
+   lockfile and changed-asset hashes, engine/device/OS, camera, viewport/buffers/DPR,
+   quality and exact intervention. Keep one agent rendering tab; stop only your
+   competing work, not user apps. Log power source, charging state, battery level
+   and Low Power Mode. Separate changed power configurations; do not pool them.
+2. **Observe conditions.** On macOS optionally compile before recovery:
    `swiftc -O scripts/benchmarks/mac-thermal-snapshot.swift -o /tmp/orbital-thermal-snapshot`.
-   Run `/tmp/orbital-thermal-snapshot --pmset --settings` at session start, before
-   and after each readiness set and block, and at finish. Save timestamped JSON
-   beside temporary raw exports, outside measured windows. It reports OS pressure/LPM and
-   bounded read-only `pmset -g therm`, `batt`, `custom` results. It provides no
-   reliable CPU/GPU frequency, temperature, utilization or energy measurement. Any
-   reported `pmset` limit fields are OS limits, not measured clocks. Keep unavailable fields. On other devices, or if collection fails, mark
-   telemetry **unknown**, record observable power configuration and apply the same
-   timing gates; do not install tools, seek privileged access or wait indefinitely.
-   Rested gates require nominal pressure when available. Sustained nominal or fair
-   pressure may qualify only if unchanged across a block; report it. Serious or
-   critical pressure ends measurement. Never infer a thermal cause from timing.
-3. **Set the scene and qualify readiness.** Open **Tools → Earth playback**, seek
-   **Loop position** to 0.0 s, and keep it open (closing resumes Earth). Open
-   **Tools → Scene diagnostics → Advanced: parts, render settings and data**.
-   Move over the Earth playback panel to clear scene hover, clear object focus,
-   and wait **5 s** for camera settling. Return to that neutral position during
-   captures; the scene host fills the viewport, so diagnostics alone is not a
-   reliable hover reset. Verify matching camera/room state in the export. Use **Temporary diagnostic → Render one frame, then pause** for each
-   rested wait; avoid input because it can request frames. Restore the intended
-   A/B setting before recording. Follow the table's rest/conditioning and three A
-   controls; apply step 5. If initial readiness fails, rested mode gets one new **60 s**
-   rest then all three controls again, within the total wait budget; sustained
-   mode is inconclusive without restarting its clock or extending the soak.
-4. **Run and preserve.** Set **Capture length**, select each A/B via **Temporary
-   diagnostic**, enter a unique **Optional capture name**, then **Record current
-   settings**. Every A also requires **Spacecraft visibility → Show all groups**;
-   Normal rendering alone does not clear the filter. For group B, use **Hide
-   selected group** and the same **Spacecraft group** each time. **Change to compare**
-   alone does not activate B; the simple baseline buttons restore A. Use the exact
-   bracketing/order above. **Download report** after readiness and after every
-   six-capture block: only six captures survive; closing/reloading loses them.
-   Downloads include raw frames/GPU samples; the on-screen JSON is only a summary.
-   Deduplicate exports by name + `startedAt`. Sustained runs measure interventions
-   in a continuously warm session, **not each variant's thermal equilibrium**.
-   Record animation/activity and shadow/AO refresh counts: neither the panel nor
-   Earth pause resets every animation clock. Use a supported replay lab for motion;
-   where phases still cannot be matched, phase-sensitive conclusions remain
-   inconclusive.
-5. **Gate and calculate from exports.** The panel's automatic drift warnings are
-   looser than these rules; calculate them explicitly. For each same-workload A
-   sequence use capture means for CPU callback, frame interval and each GPU metric
-   being claimed: `spread = (max − min) / median`; require **≤5%**. For ≥3
-   chronological controls with monotonic values also require
-   `abs(last − first) / median ≤2.5%`. Use the conventional median (average the two
-   middle values for even counts). Within an idle capture compare disjoint first/
-   last **min(5 s, retained span/2)** windows in rested mode, **10 s** windows in
-   sustained mode: `abs(lateMean − earlyMean) / earlyMean ≤5%`. Require positive,
-   finite values. Apply gates to readiness, all A captures within each bracketed
-   block, and the chronological A sequence across accepted blocks. Mean A in a
-   block must also stay within **5%** of that regime's readiness median.
-   CPU/frame windows need ≥30 frames; GPU windows need ≥3 resolved samples and
-   each capture ≥10 per claimed phase, joined to frames by `frameId`. Missing GPU
-   coverage makes that GPU comparison unavailable, not a CPU failure or zero.
-   For each accepted block average its two scheduled A and two B capture means
-   (bracketing A is control only); report `B − A` and `B/A − 1`, then the median and
-   range of block effects. Report nearest-rank p95 and frame pacing separately.
-   Use the largest measured A spread as the variation bound. An effect no larger
-   than that bound, or with differing block directions, is inconclusive. Do not
-   pool unmatched modes/viewports; these rules are not statistical confidence bounds.
-6. **Exclude, finish, report.** Reject a block for failed gates, unexpected
-   camera/activity/quality changes, resize, hiding, context loss, asset/readiness
-   errors, power/LPM/charging or telemetry-availability changes, or competing agent work. Require actual
-   duration within **±5%** of requested and retained span ≥**95%** of requested.
-   Disjoint/discarded GPU queries invalidate GPU results; unsupported/pending/
-   insufficient samples stay unavailable. Keep valid CPU results separately.
-   Log every exclusion by capture/block name, conditions and reason beside the
-   raw exports; never remove slow samples to pass. Export surviving captures from
-   failed/interrupted blocks **before recovery controls can evict them**. Panel
-   Stop/cancellation discards partial captures; record the interruption/time.
-   Rested mode may retry one failed block once, after **60 s** paused and a passing three-control
-   readiness set; if those controls fail, stop as inconclusive. Keep the same order
-   and retain the failure. Include new controls
-   in the A drift review. Remaining budgets can prevent a retry; never relax gates
-   or rerun until favorable. Incomplete order sets or unsuitable conditions
-   within those limits are **inconclusive**. Export before **Restore normal** and
-   closing both panels; stop only temporary servers/tabs. Report source/assets,
-   engine/device, actual view/buffers, settings/power, mode/order/durations,
-   accepted/excluded counts, raw windows/sample counts, mean/p95/pacing, block
-   effects and A variation, thermal observations and unknowns. Separate delivery,
-   startup, counts and nominal storage from timing; claim no unmeasured heat or
-   battery benefit. Keep temporary results only as needed for the task; durable
-   evidence follows [candidate selection](performance-ledger.md#candidate-selection)
-   or a demonstrated technical dependency, not an automatic dossier rule.
+   Run `/tmp/orbital-thermal-snapshot --pmset --settings` before/after controls and
+   blocks, outside measured windows. Save the timestamped JSON. It reports OS
+   pressure/LPM and read-only pmset observations, not reliable clocks, utilization,
+   temperature or energy. Preserve unknown fields; do not install tools, request
+   privileged access or wait indefinitely for telemetry. Prefer nominal pressure
+   for rested runs. Fair pressure, changed pressure or unavailable telemetry are
+   confidence warnings: consider which variant ran under each condition. Serious
+   or critical pressure ends measurement. Uncontrolled competing load is a limitation.
+3. **Set the scene.** Open **Tools → Earth playback**, seek **Loop position** to
+   0.0 s and keep it paused/open. Open **Scene diagnostics → Advanced: parts,
+   render settings and data**. Clear object focus/hover by returning the pointer
+   to Earth playback, then allow **5 s** camera settling. Verify exported state.
+   Use **Temporary diagnostic → Render one frame, then pause** during rested
+   waits; input can request frames. Restore the intended setting for each capture.
+   Follow the declared controls. Valid but variable controls can continue with a
+   warning; a bounded recovery must answer a specific concern, not erase failures.
+4. **Run and preserve.** Set **Capture length**, **Temporary diagnostic**, a unique
+   **Optional capture name**, then **Record current settings**. Every A also needs
+   **Spacecraft visibility → Show all groups**. For group B use **Hide selected
+   group** with the same group; **Change to compare** alone does not activate B.
+   Follow the declared order. **Download report** after controls and each block:
+   only six captures survive and closing/reloading loses them. Downloads contain
+   raw frames/GPU samples; on-screen JSON is a summary. Deduplicate by name and
+   `startedAt`. Record animation and shading-refresh activity. Earth pause does
+   not reset every clock; use a replay lab for matched motion. Unmatched phases
+   cannot establish a phase-sensitive speedup. Sustained runs are a continuously
+   warm session, not each variant's equilibrium.
+5. **Calculate and assess uncertainty.** Use positive, finite capture means for
+   CPU callback, frame interval and each claimed GPU metric. Calculate reference
+   `spread = (max − min) / median`; **5%** is a warning threshold. For three or
+   more monotonic chronological controls, flag `abs(last − first) / median >2.5%`.
+   Use the conventional median. Review readiness, each block's A captures and all
+   chronological A captures. Flag block A means changing more than **5%** from
+   the readiness median. Within idle captures compare disjoint first/last
+   `min(5 s, retained span/2)` windows (10 s in sustained mode); flag a change
+   above **5%**. Full-cycle replays replace idle-window drift with matched cycles.
+   These warnings inform each metric's confidence; they do not automatically
+   exclude a block or veto a change. Cadence variation alone does not invalidate
+   CPU/GPU timing.
+
+   CPU/frame windows need at least 30 frames. GPU windows need at least 3 resolved
+   samples and captures at least 10 per claimed phase, joined by `frameId`.
+   Missing coverage makes that comparison unavailable, never zero. For each valid
+   block average its two scheduled A and two B means (bracketing A is control only)
+   and report `B − A`, `B/A − 1`, then median/range across blocks. Report nearest-rank
+   p95 and pacing separately. Compare effects with the largest A spread without
+   treating it as a confidence bound. Similar-sized effects or opposing directions
+   weaken the timing conclusion; assess whether other evidence supports a bounded
+   implementation decision. Do not pool unmatched modes/views or cherry-pick blocks.
+
+6. **Finish and decide.** Exclude affected comparisons for wrong camera/activity/
+   quality, resize, hiding, context loss or asset/readiness errors. Separate changed
+   power/LPM/charging regimes. Telemetry loss or competing load needs a limitation;
+   exclude comparisons if load is tied to one variant or prevents fair comparison.
+   Seconds-based captures require actual duration within **±5%** and retained span
+   at least **95%** of requested; frame replays require all requested frames.
+   Disjoint/discarded queries invalidate affected GPU results. Unsupported, pending
+   or insufficient samples remain unavailable; preserve usable CPU evidence.
+
+   Record exclusions/warnings by name and reason. Never remove slow valid samples.
+   Export partial results before recovery can evict them. Stop discards partial
+   panel captures: record the interruption. On reaching a budget, preserve the
+   results and apply [the decision rules](#decide-with-the-available-evidence).
+   An incomplete order set limits claims, not automatically implementation. Never
+   change workload validity rules after seeing results or rerun until favorable.
+   Export before **Restore normal**, then close temporary panels/tabs/servers.
+   Report source, conditions, engine/device, settings, method/order, valid/excluded
+   counts, warnings, samples, means/p95/pacing, effects and reference variation.
+   State the implementation decision, tradeoffs, missing checks and remaining risk.
+   Separate delivery, startup, counts, nominal storage and timing; claim no unmeasured
+   energy benefit. Durable evidence follows [candidate selection](performance-ledger.md#candidate-selection),
+   not an automatic dossier requirement.
 
 ## Interpret the work correctly
 
@@ -145,13 +173,13 @@ recovery records from the procedure above. Count checks establish removed
 submissions; they do not establish per-frame speedups or energy savings. Check
 wake-up and active navigation separately.
 
-| Diagnostic | Scope and limitation |
-| --- | --- |
-| Skip background | Omits Earth/space update and rendering, retaining clearing. |
-| Skip contact shading | Omits GTAO refresh **and** composite; key shadows remain. |
-| Half drawing resolution | Halves both main buffer dimensions; CSS text and CSS-sized AO buffer retain their resolution. |
-| Skip spacecraft | Omits ship rendering and AO, retaining simulation and HTML. |
-| One frame then pause | Pauses automatic scheduling; input may request frames. |
+| Diagnostic               | Scope and limitation                                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| Skip background          | Omits Earth/space update and rendering, retaining clearing.                                          |
+| Skip contact shading     | Omits GTAO refresh **and** composite; key shadows remain.                                            |
+| Half drawing resolution  | Halves both main buffer dimensions; CSS text and CSS-sized AO buffer retain their resolution.        |
+| Skip spacecraft          | Omits ship rendering and AO, retaining simulation and HTML.                                          |
+| One frame then pause     | Pauses automatic scheduling; input may request frames.                                               |
 | Hide/show semantic group | Changes occlusion/shadows as well as submissions. Differences are not additive per-object GPU costs. |
 
 - **FPS/frame intervals** describe delivered cadence, including p95/long frames;
@@ -190,6 +218,11 @@ when claiming exact rendering. Record actual/scaled capture sizes and omitted
 HTML/effects. Any authored appearance change needs visual judgment, not just counts.
 
 ## Rested CPU candidate comparisons
+
+This historical runner still has strict automatic qualification gates. Its
+accepted/excluded labels describe that protocol, not the implementation decision.
+Preserve the labels and use valid partial results under
+[the decision rules](#decide-with-the-available-evidence) when it stops early.
 
 For an authorized CPU-kernel question, select only the affected names from
 `local-matrix`, `lighting-settled`, `lighting-changing`, `iris-settled`,
@@ -236,6 +269,11 @@ improvements.
 
 ## Frozen browser labs
 
+Older labs retain their original automatic qualification schedules. Follow their
+recorded protocol when reproducing a historical claim; their failure/partial status
+is not an automatic implementation veto. For a new decision, declare a bounded
+schedule before timing and apply the uncertainty rules above.
+
 The reusable lab compiles actual portfolio modules/CSS with public seed content,
 freezes source/assets, listens only on loopback and has no studio/contact write
 APIs. It is a standalone production-React fixture, not the deployed Vinext server.
@@ -253,13 +291,13 @@ Outputs go to the corresponding evidence folder with no overwrites. Source/asset
 hashes identify the snapshot; today's build is not automatically the historical
 baseline. Restore retained source snapshots/original revisions for exact repeats.
 
-| Experiment | Command option | Specialized method and original outcomes |
-| --- | --- | --- |
-| Camera/AO | default `camera` | [Camera invalidation](evidence/performance/camera-invalidation/README.md): survey, paired runs and same-state cached/fresh images; separate pass versus whole-frame GPU queries. |
-| Direct geometry | `--experiment geometry` | [Geometry](evidence/performance/offline-geometry-compaction/README.md): exact geometry swaps; `/startup` uses fresh iframe/context samples, still sharing driver caches. |
-| Native shadow bake | `--experiment shadow` | [Shadows](evidence/performance/static-shadow-bake/README.md): resize with retained bake reveals stale maps; a fresh page bakes the new initial pose. |
-| Static/hybrid contact | `--experiment contact` | [Contact](evidence/performance/static-contact-bake/README.md): subdivision-only controls and original restoration distinguish geometry artifacts from shading. |
-| Irradiance probe | `--experiment diffuse` | [Diffuse](evidence/performance/baked-diffuse-probe/README.md): held-out actual GPU fit validation and same-state B/C comparisons. |
+| Experiment            | Command option          | Specialized method and original outcomes                                                                                                                                         |
+| --------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Camera/AO             | default `camera`        | [Camera invalidation](evidence/performance/camera-invalidation/README.md): survey, paired runs and same-state cached/fresh images; separate pass versus whole-frame GPU queries. |
+| Direct geometry       | `--experiment geometry` | [Geometry](evidence/performance/offline-geometry-compaction/README.md): exact geometry swaps; `/startup` uses fresh iframe/context samples, still sharing driver caches.         |
+| Native shadow bake    | `--experiment shadow`   | [Shadows](evidence/performance/static-shadow-bake/README.md): resize with retained bake reveals stale maps; a fresh page bakes the new initial pose.                             |
+| Static/hybrid contact | `--experiment contact`  | [Contact](evidence/performance/static-contact-bake/README.md): subdivision-only controls and original restoration distinguish geometry artifacts from shading.                   |
+| Irradiance probe      | `--experiment diffuse`  | [Diffuse](evidence/performance/baked-diffuse-probe/README.md): held-out actual GPU fit validation and same-state B/C comparisons.                                                |
 
 For the camera/geometry lab, use **Check setup**, **Frames per sample → 180**,
 **Paired blocks → 4**, and **Paired workload → Both workloads** (camera) or
@@ -289,7 +327,8 @@ recording their changed schedule and controls.
 Use an AO-enabled portrait fixture (at least 700 CSS pixels wide and taller than
 wide) for roll/shadow checks; phone width disables AO under existing quality rules.
 Verify overview entry/return **inside recorded windows**, not only preparation.
-The labs' unranked surveys cannot rescue failed timing gates. Comparison residency
+The labs' unranked surveys do not retroactively qualify failed timing gates;
+valid observations can still inform a clearly limited implementation decision. Comparison residency
 (extra geometries/maps) is not normal production memory. Preserve raw/excluded
 reports, source/asset identities and images that substantiate claims; routine
 check logs and duplicate screenshots need not become permanent evidence.
