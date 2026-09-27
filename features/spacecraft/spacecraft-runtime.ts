@@ -52,6 +52,7 @@ import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
 import { instrumentShadowUpdates } from '../diagnostics/shadow-diagnostics';
+import { avoidZeroContributionLighting } from './materials/direct-light-work';
 import {
   planCabinItinerary,
   type CabinRouteNode,
@@ -364,6 +365,7 @@ export function mountSpacecraftScene({
         };
         const modelStart = audit ? performance.now() : 0;
         const model = createSpacecraft(THREE, modelOptions);
+        avoidZeroContributionLighting(THREE, model.group);
         audit?.modelReady?.(
           model,
           modelOptions,
