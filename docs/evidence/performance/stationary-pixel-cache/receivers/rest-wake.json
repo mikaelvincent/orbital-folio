@@ -1,0 +1,38 @@
+{
+  "source": "14d1972",
+  "engine": "Hidden built-in Chromium 154",
+  "fixture": "Isolated Vinext development server, fresh public seed/test-only state",
+  "action": "Click Scene tools after the resting interval",
+  "observations": [
+    {
+      "activeTime": "6.633",
+      "at": "2026-09-27T17:00:08.962Z",
+      "canvas": true,
+      "frames": "393",
+      "renderer": "627cfa86-c20e-4326-9463-19dabc860ea3",
+      "resting": "false",
+      "url": "/projects"
+    },
+    {
+      "activeTime": "17.050",
+      "at": "2026-09-27T17:00:39.861Z",
+      "frames": "1018",
+      "renderer": "627cfa86-c20e-4326-9463-19dabc860ea3",
+      "resting": "true"
+    },
+    {
+      "activeTime": "17.050",
+      "at": "2026-09-27T17:01:05.109Z",
+      "frames": "1018",
+      "renderer": "627cfa86-c20e-4326-9463-19dabc860ea3",
+      "resting": "true"
+    },
+    {
+      "activeTime": "31.016",
+      "at": "2026-09-27T17:01:29.782Z",
+      "frames": "1857",
+      "renderer": "627cfa86-c20e-4326-9463-19dabc860ea3",
+      "resting": "false"
+    }
+  ]
+}

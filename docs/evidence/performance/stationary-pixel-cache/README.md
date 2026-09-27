@@ -1,6 +1,13 @@
 # Stationary spacecraft image caching
 
-**Rejected after implementation and measurement, 2026-09-27.** Reusing rendered
+**Both implementations were reverted after measurement.** The later
+[Option B follow-up](receivers/README.md) kept the dish and affected receiving
+surfaces live, preserving moving shadows/contact shading while reaching 99.72%
+full-cycle reuse. Its faster samples failed the reference/operating-condition
+gates, so no qualified gain was established. The current renderer remains the
+original implementation. This page preserves the separate first investigation.
+
+**Initial fallback prototype, 2026-09-27 UTC.** Reusing rendered
 spacecraft color and depth removed substantial drawing during stationary holds,
 but the complete-cycle comparison failed stability controls and showed worse
 frame pacing. No qualified net performance improvement was established. The
