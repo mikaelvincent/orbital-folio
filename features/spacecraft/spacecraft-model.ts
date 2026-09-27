@@ -190,6 +190,7 @@ export function createSpacecraft(
   // motionActive. A revision survives standalone setters and catches immediate
   // changes and final animation snaps even when no motion remains afterward.
   group.userData.geometryRevision = 0;
+  group.userData.dishGeometryRevision = 0;
   group.userData.geometryChanged = false;
   const geometryChanged = () => {
     group.userData.geometryRevision++;
@@ -3540,6 +3541,7 @@ export function createSpacecraft(
     const dishChanged = updateDishTrim(ambientTime);
     if (dishChanged) {
       geometryChanged();
+      group.userData.dishGeometryRevision++;
       group.userData.shadowCasterChanged = true;
     }
     for (const [section, slots] of Object.entries(rackSlots))
