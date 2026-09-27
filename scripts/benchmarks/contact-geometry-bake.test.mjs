@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { bakeContactGeometry } from '../../scripts/benchmarks/contact-geometry-bake.mjs';
+import { bakeContactGeometry } from './contact-geometry-bake.mjs';
 
 const identity = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 const bounds = { min: [-0.4, -0.4, -0.05], max: [0.4, 0.4, 0.15] };

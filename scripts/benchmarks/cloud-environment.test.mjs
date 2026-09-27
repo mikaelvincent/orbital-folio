@@ -13,18 +13,18 @@ import {
   CLOUD_FIELD_HEIGHT,
   CLOUD_STEPS,
   CLOUD_ASSET,
-} from '../../scripts/benchmarks/clouds/cloud-volume.ts';
+} from './clouds/cloud-volume.ts';
 import {
   createCloudFieldData,
   CLOUD_FIELD_VERSION,
-} from '../../scripts/benchmarks/clouds/cloud-field.ts';
-import { encodeCloudField } from '../../scripts/benchmarks/clouds/cloud-field-codec.ts';
+} from './clouds/cloud-field.ts';
+import { encodeCloudField } from './clouds/cloud-field-codec.ts';
 
 // Bundle the retained satellite-volume reference/dependencies in memory to resolve
 // extensionless application imports without a browser or emitted fixture files.
 const artifact = resolve(
   process.env.ORBITAL_ENVIRONMENT_AUDIT_ARTIFACT ??
-    new URL('../../scripts/benchmarks/satellite-volume-reference.ts', import.meta.url).pathname,
+    new URL('./satellite-volume-reference.ts', import.meta.url).pathname,
 );
 const bundled = await build({
   entryPoints: [artifact],

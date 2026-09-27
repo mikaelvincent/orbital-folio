@@ -10,7 +10,6 @@ import { parseProjectMarkdown } from './project-markdown-content';
 import './notebook-section-pages.css';
 
 export const NOTEBOOK_INK_WIDTH = 438;
-export const NOTEBOOK_INK_HEIGHT = 428;
 const COLUMN_GAP = NOTEBOOK_COLUMN_STRIDE - NOTEBOOK_INK_WIDTH;
 
 /** A single Markdown story flows through fixed paper columns without scrolling. */

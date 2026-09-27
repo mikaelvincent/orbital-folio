@@ -14,7 +14,6 @@ export const CABIN_HALF_WIDTH = 1.43;
 export const PASSAGE_RADIUS = 0.87;
 export const PASSAGE_GUIDE_WIDTH = 0.065;
 export const PASSAGE_WALL_RADIUS = PASSAGE_RADIUS + 0.05;
-export const PORTAL_SIGN_HEIGHT = 0.25;
 export const PORTAL_SIGN_STANDOFF = 0.032;
 export const PASSAGE_CENTER_Y = (CABIN_FLOOR + CABIN_CEILING) / 2;
 export const PORTAL_SIGN_CENTER_Y =
@@ -28,9 +27,6 @@ export const PASSAGE_CABIN_Z =
   (PRESSURE_THROAT_START + CABIN_VISIBLE_REAR_Z) / 2;
 export const PASSAGE_LADDER_Z =
   (PRESSURE_THROAT_START + LADDER_VISIBLE_REAR_Z) / 2;
-// A door caption is always directly above that door, even when the rear cove
-// narrows the available wall near the ceiling.
-export const PORTAL_SIGN_CABIN_Z = PASSAGE_CABIN_Z;
 export const DECK_HALF_PITCH =
   (CABIN_CEILING - CABIN_FLOOR + PRESSURE_WALL) / 2;
 

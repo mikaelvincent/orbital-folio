@@ -19,7 +19,8 @@
     "test": "node --test --test-concurrency=1 tests/*/*.test.mjs",
     "db:migrate": "wrangler d1 migrations apply DB --local --config wrangler.local.json",
     "setup": "node scripts/setup.mjs",
-    "check": "npm run typecheck && npm test"
+    "check": "npm run typecheck && npm test",
+    "test:benchmarks": "node --test --test-concurrency=1 scripts/benchmarks/*.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
@@ -40,11 +41,9 @@
     "yaml": "2.9.1"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
     "@cloudflare/vite-plugin": "1.54.5",
     "@cloudflare/workers-types": "5.20260907.1",
     "@openai/sites-vite-plugin": "0.2.0",
-    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
@@ -52,6 +51,7 @@
     "@types/three": "^0.185.4",
     "@vitejs/plugin-react": "6.0.2",
     "@vitejs/plugin-rsc": "0.5.34",
+    "axe-core": "4.13.0",
     "drizzle-kit": "0.31.10",
     "oxfmt": "0.61.0",
     "oxlint": "1.76.0",

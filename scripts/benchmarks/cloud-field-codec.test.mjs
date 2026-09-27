@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   encodeCloudField,
   decodeCloudField,
-} from '../../scripts/benchmarks/clouds/cloud-field-codec.ts';
+} from './clouds/cloud-field-codec.ts';
 
 test('CFD1 defines channel order, little-endian dimensions, row resets and wraparound', () => {
   const data = Uint8Array.from([

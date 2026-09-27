@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { evaluateDiffuseProbe, fitDiffuseProbe } from '../../scripts/benchmarks/diffuse-probe-fit.mjs';
+import { evaluateDiffuseProbe, fitDiffuseProbe } from './diffuse-probe-fit.mjs';
 
 function directions(count, phase = 0) {
   const result = [];

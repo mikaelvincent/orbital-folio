@@ -6,13 +6,13 @@ import { gunzipSync } from 'node:zlib';
 import {
   createSatelliteCloudField,
   SATELLITE_CLOUD_FIELD_VERSION,
-} from '../../scripts/benchmarks/clouds/satellite-cloud-field.ts';
+} from './clouds/satellite-cloud-field.ts';
 import {
   CLOUD_ASSET,
   CLOUD_FIELD_WIDTH,
   CLOUD_FIELD_HEIGHT,
-} from '../../scripts/benchmarks/clouds/cloud-volume.ts';
-import { decodeCloudField } from '../../scripts/benchmarks/clouds/cloud-field-codec.ts';
+} from './clouds/cloud-volume.ts';
+import { decodeCloudField } from './clouds/cloud-field-codec.ts';
 
 test('Satellite conversion rejects malformed dimensions and mask payloads', () => {
   for (const [width, height] of [
