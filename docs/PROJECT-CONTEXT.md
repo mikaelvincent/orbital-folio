@@ -271,6 +271,14 @@ a real transmission. Reduced motion holds resting appearances; hidden-page timin
 uses the shared scene loop. Moving dish shadows/contact shading refresh when
 necessary; material-only meters do not. These are authored visual costs.
 
+Visible scenes now rest by default after **15 seconds without interaction**.
+Finish camera travel, door/feedback transitions and notebook turns first, then
+hold the current dish, Earth, sky and signal poses with no recurring render
+callback. Pointer, keyboard, focus, scrolling, content/asset updates and viewport
+changes request rendering again. Resume from the held animation time; never catch
+up across the idle gap. There is no toggle or saved preference, and this does not
+change reduced motion or the semantic reading view.
+
 The approved Earth is **Europe at Night: 12° longitude, 48° latitude, −10° roll,
 0.0045 rad/s**. Keep Earth in the physical world with the shared camera. The
 portrait composition exception selects an anchor from viewport orientation, putting
@@ -297,6 +305,8 @@ relative to 0.0045 rad/s. Seeking pauses; closing preserves phase and resumes 1�
 reload restores Europe. State is temporary, with no storage/backend writes. Only
 Earth time changes; preserve readiness, sky/camera timing, reduced motion and
 visibility rules. Manual seeking remains available under reduced motion.
+An open, playing Earth playback panel keeps the scene awake for inspection;
+pausing it allows automatic rest, and closing it restores the normal idle policy.
 
 Favor a gradual blue horizon with a restrained peak, not gray haze or glaring
 electric blue. Stars surround the world without exposed edges during drag/roll,
@@ -316,6 +326,9 @@ and technical investigators, with guided room/part breakdowns, advanced controls
 and named exports. A URL parameter is an optional shortcut. Closing restores
 normal rendering. The owner uses a passively cooled MacBook Air M4; that does not
 authorize M4-only quality rules or timing-based claims of thermal throttling.
+While Scene diagnostics is open, automatic rest is suspended so capture windows
+retain continuous samples. Its explicit one-frame pause and reduced motion still
+apply. Closing diagnostics starts a fresh inactivity period.
 
 [The performance index](performance-ledger.md) owns retained case-study candidates
 and proposal status. [Diagnostics](performance-diagnostics.md) owns comparison

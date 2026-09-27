@@ -14,6 +14,7 @@ export type EarthPlaybackState = {
 };
 
 export type EarthPlaybackCommand =
+  | { type: 'open' }
   | { type: 'seek'; time: number }
   | { type: 'speed'; speed: number }
   | { type: 'playing'; playing: boolean }

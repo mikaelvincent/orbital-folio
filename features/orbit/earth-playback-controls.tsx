@@ -33,6 +33,7 @@ export function EarthPlaybackControls({
 
   useEffect(() => {
     if (!controller) return;
+    controller.setEarthPlayback({ type: 'open' });
     const sync = () => setState(controller.getEarthPlayback());
     sync();
     // Only the visible helper subscribes. Rendering keeps its existing clock.

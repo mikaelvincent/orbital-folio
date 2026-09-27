@@ -58,6 +58,12 @@ test('the existing dish moves briefly around its supported axle and holds betwee
   assert.ok(dish.rotation.x > 0);
   assert.ok(model.group.userData.geometryRevision > idleRevision);
   assert.equal(model.group.userData.shadowCasterChanged, true);
+  assert.equal(model.group.userData.motionActive, true);
+  assert.equal(
+    model.group.userData.transitionActive,
+    false,
+    'an ambient dish scan alone must allow an inactive scene to rest',
+  );
   update(4);
   const heldAngle = dish.rotation.y;
   const heldRevision = model.group.userData.geometryRevision;

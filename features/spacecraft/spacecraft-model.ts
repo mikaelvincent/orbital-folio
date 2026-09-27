@@ -3537,10 +3537,10 @@ export function createSpacecraft(
     lastActive = active;
     let motionActive = false;
     const ambientTime = currentState.reducedMotion ? 0 : seconds;
-    if (updateDishTrim(ambientTime)) {
+    const dishChanged = updateDishTrim(ambientTime);
+    if (dishChanged) {
       geometryChanged();
       group.userData.shadowCasterChanged = true;
-      motionActive = true;
     }
     for (const [section, slots] of Object.entries(rackSlots))
       for (const slot of slots) {
@@ -3889,6 +3889,10 @@ export function createSpacecraft(
       ...portals.filter((p) => p.metadata.via).map((p) => p.strength),
     );
     group.userData.walkwayRouteStrength = walkwayRouteStrength;
+    // Ambient dish movement must not keep an otherwise inactive scene awake.
+    // Retain the broad signal for diagnostics and the historical AO policy.
+    group.userData.transitionActive = group.userData.motionActive;
+    group.userData.motionActive ||= dishChanged;
     // The browser render loop adds reader scaling before its one scene sync.
     // Standalone model consumers retain the immediate world-matrix contract.
     if (!deferWorldMatrices) group.updateMatrixWorld(true);

@@ -48,6 +48,7 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
+import { createSceneRenderLoop, SCENE_IDLE_DELAY_MS } from './scene-render-loop';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
@@ -827,9 +828,9 @@ export function mountSpacecraftScene({
         };
         let stop = latest.current.paused,
           visible = !document.hidden,
-          inViewport = true,
-          frame = 0,
-          lastFrame = 0;
+          inViewport = true;
+        let earthPlaybackOpen = false;
+        let renderedFrames = 0;
         let active = 'home',
           hovered = '',
           highlightedObject = '',
@@ -1626,6 +1627,7 @@ export function mountSpacecraftScene({
         };
         const draw = (now: number, delta: number, rawDelta: number) => {
           if (destroyed) return;
+          renderedFrames++;
           const wasTravelling = travelling;
           const started = performance.now();
           diagnostics?.beginFrame(now, {
@@ -2501,6 +2503,7 @@ export function mountSpacecraftScene({
               travelling: String(travelling),
               motion: stop ? 'reduced' : 'active',
               activeTime: elapsed.toFixed(3),
+              renderedFrames: String(renderedFrames),
               readerAttached: String(
                 surface.visible || (isNotebook && reading),
               ),
@@ -2602,18 +2605,39 @@ export function mountSpacecraftScene({
           diagnostics?.mark('legacy-metrics');
           diagnostics?.endFrame();
         };
-        const loop = (now: number) => {
-          frame = 0;
-          if (!visible || destroyed || audit?.manual) return;
-          const rawDelta = lastFrame ? (now - lastFrame) / 1000 : 0;
-          lastFrame = now;
-          draw(now, Math.min(0.05, rawDelta), rawDelta);
-          if ((!stop || travelling) && experiment !== 'render-once')
-            frame = requestAnimationFrame(loop);
-        };
+        // Flight axes retain small arrival velocities after integration stops;
+        // travelling covers them. Only these axes continue settling afterward.
+        const cameraMotion = [
+          ...rangeMotion,
+          ...pointerMotion,
+          ...dragMotion,
+          ...hoverMotion,
+          dollyMotion,
+        ];
+        el.dataset.sceneResting = 'false';
+        const renderLoop = createSceneRenderLoop({
+          draw,
+          canRender: () => visible && !destroyed && !audit?.manual,
+          ambientMotion: () => !stop,
+          renderOnce: () => experiment === 'render-once',
+          keepAwake: () =>
+            travelling ||
+            (!stop &&
+              (firstFrame ||
+                !!down ||
+                !!model.group.userData.transitionActive ||
+                cameraMotion.some((axis) => Math.abs(axis.velocity) > 0.001) ||
+                !!diagnostics ||
+                (earthPlaybackOpen && background.getEarthPlayback().playing))),
+          onRest: (resting) => {
+            el.dataset.sceneResting = String(resting);
+            // Publish the final sample even if rest falls between metrics ticks.
+            el.dataset.renderedFrames = String(renderedFrames);
+            el.dataset.activeTime = elapsed.toFixed(3);
+          },
+        });
         function kick() {
-          if (!destroyed && visible && !frame && !audit?.manual)
-            frame = requestAnimationFrame(loop);
+          renderLoop.wake();
         }
         const setDrawingSize = () => {
           // Ignore hidden/transient panels, but honor short-screen Interactive
@@ -2871,6 +2895,7 @@ export function mountSpacecraftScene({
           feedbackChanged();
         };
         const trackKeyboard = (event: KeyboardEvent) => {
+          kick();
           if (
             earthPlaybackInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
@@ -3089,6 +3114,10 @@ export function mountSpacecraftScene({
         document.addEventListener('pointermove', trackPointer, true);
         document.addEventListener('pointerdown', trackPress, true);
         document.addEventListener('keydown', trackKeyboard, true);
+        document.addEventListener('pointerup', kick, true);
+        document.addEventListener('wheel', kick, { passive: true });
+        document.addEventListener('scroll', kick, true);
+        document.addEventListener('input', kick, true);
         const unbindContactKeyboard = bindContactKeyboard({
           document,
           window,
@@ -3155,12 +3184,8 @@ export function mountSpacecraftScene({
             resetDiagnostics('scene visibility changed');
           visible = nextVisible;
           if (!visible) cancelPointer(new Event('visibilitychange'));
-          lastFrame = 0;
+          renderLoop.suspend();
           if (visible) kick();
-          else {
-            cancelAnimationFrame(frame);
-            frame = 0;
-          }
         };
         const intersection = new IntersectionObserver(([entry]) => {
           inViewport = entry.isIntersecting;
@@ -3170,8 +3195,7 @@ export function mountSpacecraftScene({
         document.addEventListener('visibilitychange', syncVisibility);
         const lost = (event: Event) => {
           event.preventDefault();
-          cancelAnimationFrame(frame);
-          frame = 0;
+          renderLoop.dispose();
           diagnostics?.dispose();
           unavailable();
         };
@@ -3227,7 +3251,7 @@ export function mountSpacecraftScene({
           diagnostics: setDiagnosticsEnabled,
           pause(value) {
             stop = value;
-            lastFrame = 0;
+            renderLoop.resetClock();
             if (value && travelling) flightImmediate = true;
             kick();
           },
@@ -3248,6 +3272,7 @@ export function mountSpacecraftScene({
           getEarthPlayback: () => background.getEarthPlayback(),
           setEarthPlayback(command) {
             if (destroyed) return;
+            earthPlaybackOpen = command.type !== 'close';
             background.setEarthPlayback(command);
             kick();
           },
@@ -3270,7 +3295,7 @@ export function mountSpacecraftScene({
             if (resized) setDrawingSize();
             invalidateAo('diagnostics-disabled');
             invalidateShadow('diagnostics-disabled');
-            lastFrame = 0;
+            renderLoop.resetClock();
             kick();
             return;
           }
@@ -3306,7 +3331,7 @@ export function mountSpacecraftScene({
               resetDiagnostics('spacecraft filter changed');
               invalidateAo('spacecraft-filter');
               invalidateShadow('spacecraft-filter');
-              lastFrame = 0;
+              renderLoop.resetClock();
               kick();
             },
             onClose: () => latest.current.onDiagnosticsClose?.(),
@@ -3327,6 +3352,10 @@ export function mountSpacecraftScene({
               room: active,
               visible,
               reducedMotion: stop,
+              automaticRest: {
+                idleDelayMs: SCENE_IDLE_DELAY_MS,
+                suspendedByDiagnostics: true,
+              },
               travelling,
               cameraPosition: camera.position.toArray(),
               cameraQuaternion: camera.quaternion.toArray(),
@@ -3362,11 +3391,11 @@ export function mountSpacecraftScene({
               if (resizeBuffer) setDrawingSize();
               invalidateAo('experiment');
               resetDiagnostics('experiment changed');
-              lastFrame = 0;
+              renderLoop.resetClock();
               kick();
             },
           });
-          lastFrame = 0;
+          renderLoop.resetClock();
           kick();
         }
         setDiagnosticsEnabled(!!audit || !!latest.current.diagnosticsEnabled);
@@ -3650,7 +3679,7 @@ export function mountSpacecraftScene({
           spacecraftPerformance?.dispose();
           latest.current.onNavigationReady(null);
           latest.current.onEarthPlaybackReady?.(null);
-          cancelAnimationFrame(frame);
+          renderLoop.dispose();
           annotations.dispose();
           notebookTurnInk.dispose();
           notebookMasks.forEach(({ mask }) => mask.dispose());
@@ -3669,6 +3698,10 @@ export function mountSpacecraftScene({
           document.removeEventListener('pointermove', trackPointer, true);
           document.removeEventListener('pointerdown', trackPress, true);
           document.removeEventListener('keydown', trackKeyboard, true);
+          document.removeEventListener('pointerup', kick, true);
+          document.removeEventListener('wheel', kick);
+          document.removeEventListener('scroll', kick, true);
+          document.removeEventListener('input', kick, true);
           unbindContactKeyboard();
           cancelAnimationFrame(contactViewportFrame);
           window.visualViewport?.removeEventListener(
