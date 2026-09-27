@@ -14,7 +14,7 @@ implementation. Current owner decisions take precedence over historical evidence
 | Visual, camera/navigation or product behavior changes | Relevant section of [project context](docs/PROJECT-CONTEXT.md) |
 | Model/assets or Earth rebuilding | [asset guide](docs/ASSETS.md), then the linked provenance if needed |
 | Integration tests, data, auth, deployment or recovery | Relevant section of [operations](docs/OPERATIONS.md) |
-| Performance investigation | [candidate/status index](docs/performance-ledger.md), then the relevant [diagnostics procedure](docs/performance-diagnostics.md) |
+| Performance measurement | [Thermal-aware comparison procedure](docs/performance-diagnostics.md#thermal-aware-comparison-procedure); consult a candidate only when that investigation needs it |
 
 ## Boundaries
 
@@ -45,7 +45,8 @@ full tests, typecheck/build and affected lint. Inspect useful camera/responsive
 states for visual changes, including paired or analogous objects where relevant.
 Use independent review when a substantial behavior, design or data-boundary
 change benefits from it; routine edits do not require a critic, numeric score,
-exhaustive screen sweep or permanent report. Report actual checks and limitations.
+exhaustive screen sweep or permanent report. Ordinary functional work needs no
+benchmarking or thermal monitoring. Report actual checks and limitations.
 
 Preserve unrelated work and give parallel agents bounded file ownership. Commit
 completed changes in logical groups, stage explicit paths and report remaining
@@ -56,8 +57,10 @@ push or deployment.
 
 Document durable owner decisions and non-obvious failure modes once, in the
 relevant guide. Add tests for meaningful regressions, scripts for reusable work
-and dependencies for demonstrated needs. Keep at most ten coherent performance
-case-study candidates with the evidence needed to substantiate them; routine art
-and verification logs need no permanent dossier. Remove superseded material after
-checking consumers and Git recoverability, retaining rebuild inputs, licenses and
+and dependencies for demonstrated needs. After a task, briefly screen case-study
+potential using what it already established. Only promising work warrants reading
+the [candidate summaries and selection rules](docs/performance-ledger.md#candidate-selection);
+routine work needs no ledger review, rejection record or evidence dossier. Keep
+at most ten coherent candidates, merging related work where useful. Remove
+superseded material after checking consumers and Git recoverability, retaining rebuild inputs, licenses and
 useful procedures. Update current guidance rather than appending a chronology.

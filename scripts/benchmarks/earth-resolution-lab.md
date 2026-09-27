@@ -27,7 +27,7 @@ Historical native Safari access does not authorize controlling the user's browse
 
 The optional `--thermal-sampler /absolute/path/to/compiled-sampler` captures native
 context outside timed work. Compile it before recovery, following the
-[diagnostics guide](../../docs/performance-diagnostics.md#rested-cpu-candidate-comparisons).
+[diagnostics guide](../../docs/performance-diagnostics.md#thermal-aware-comparison-procedure).
 Without it telemetry is unknown; the fixture remains usable on other devices.
 
 ## Cohorts and protocol

@@ -63,6 +63,6 @@ Visual edits need rendered inspection of affected camera/layout states: geometry
 checks cannot judge aesthetics. Finite preview helpers in `scripts/benchmarks/`
 are useful for construction but omit parts of the live app; disclose their limits
 when using captures. General scope-based verification is in [AGENTS](../AGENTS.md).
-For comparisons, use the [diagnostics guide](performance-diagnostics.md) and
-[performance index](performance-ledger.md); workload counts alone do not establish
-rendering speed.
+For performance measurements, use the
+[diagnostics procedure](performance-diagnostics.md#thermal-aware-comparison-procedure);
+workload counts alone do not establish rendering speed.

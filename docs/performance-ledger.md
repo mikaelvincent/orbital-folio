@@ -23,6 +23,29 @@ count changes alone did not justify retaining case-study entries. The retained
 raw reports preserve distinct baselines, failed/excluded attempts and measurement
 scopes; nominal texture/geometry bytes are not measured process or GPU memory.
 
+## Candidate selection
+
+After a change or investigation, briefly screen **only the information already
+gathered**: is there a meaningful technical problem, engineering insight, credible
+result, or instructive failure/tradeoff? Routine work that fails this screen needs
+no shortlist reading, ledger update, rejection record or permanent evidence dossier.
+Screening does not authorize extra benchmarking.
+
+For promising work, read the candidate summaries above first; open deeper evidence
+only to resolve a selection or support question. Judge significance, engineering
+insight, evidence quality, project relevance and distinctiveness. Prefer extending
+or merging an existing candidate when it strengthens the same coherent story.
+Otherwise add it only when worthwhile. Keep **at most ten** final candidates: if a
+new entry would exceed ten, replace the least promising only when the newcomer is
+stronger; otherwise keep the shortlist. Ten is a ceiling, not a target, and the
+owner's final topic choice stays open.
+
+Keep each retained claim's source/asset identities, method, raw/excluded results
+and necessary comparisons traceable. Separate incompatible baselines and never
+add independent gains. Before consolidating or removing support, check its other
+consumers and preserve technical dependencies, rebuild inputs and provenance;
+case-study value is not the only reason to retain a file.
+
 ## Deferred backlog
 
 These proposals remain **held pending explicit authorization**. Cleanup and design
