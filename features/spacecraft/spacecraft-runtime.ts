@@ -48,10 +48,7 @@ import {
   type MotionAxis,
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
-import {
-  createSceneRenderLoop,
-  SCENE_IDLE_DELAY_MS,
-} from './scene-render-loop';
+import { createSceneRenderLoop, SCENE_IDLE_DELAY_MS } from './scene-render-loop';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
@@ -181,7 +178,6 @@ export function mountSpacecraftScene({
         import('three/addons/renderers/CSS3DRenderer.js'),
         import('three/addons/postprocessing/GTAOPass.js'),
         import('three/addons/postprocessing/Pass.js'),
-        import('./stationary-pixel-cache'),
       ]),
     )
     .then(
@@ -193,7 +189,6 @@ export function mountSpacecraftScene({
         { CSS3DRenderer, CSS3DObject },
         { GTAOPass },
         { FullScreenQuad },
-        { createStationaryPixelCache },
       ]) => {
         if (destroyed || !host.current) return;
         let renderer: Three.WebGLRenderer;
@@ -451,11 +446,7 @@ export function mountSpacecraftScene({
           aoDirtyReasons.add(reason);
           aoDirty = true;
         };
-        function refreshOcclusion(
-          delta: number,
-          profile = true,
-          allowPartial = false,
-        ) {
+        function refreshOcclusion(delta: number, profile = true) {
           if (profile) {
             diagnostics?.beginPass('ao-refresh', renderer.info.render);
             spacecraftPerformance?.beginPass(
@@ -467,16 +458,12 @@ export function mountSpacecraftScene({
             hatch.userData.setOcclusionPass(true);
           const restore = spacecraftPerformance?.applyFilter();
           try {
-            pixelCache.occlusion(
-              () =>
-                ao.render(
-                  renderer,
-                  ao.pdRenderTarget,
-                  ao.pdRenderTarget,
-                  delta,
-                  false,
-                ),
-              allowPartial,
+            ao.render(
+              renderer,
+              ao.pdRenderTarget,
+              ao.pdRenderTarget,
+              delta,
+              false,
             );
           } finally {
             restore?.();
@@ -2342,7 +2329,6 @@ export function mountSpacecraftScene({
             );
             const refresh =
               aoDirty ||
-              pixelCache.requiresOcclusion() ||
               changedPosition ||
               changedAngle ||
               aoRoll !== roll ||
@@ -2371,15 +2357,7 @@ export function mountSpacecraftScene({
               if (changedAngle) diagnostics?.count('ao-camera-angle');
               if (aoRoll !== roll) diagnostics?.count('ao-roll');
               if (changedProjection) diagnostics?.count('ao-projection');
-              refreshOcclusion(
-                delta,
-                true,
-                !aoDirty &&
-                  !changedPosition &&
-                  !changedAngle &&
-                  aoRoll === roll &&
-                  !changedProjection,
-              );
+              refreshOcclusion(delta);
               aoCameraPosition.copy(camera.position);
               aoCameraQuaternion.copy(camera.quaternion);
               aoProjection.copy(camera.projectionMatrix);
@@ -2637,15 +2615,6 @@ export function mountSpacecraftScene({
           dollyMotion,
         ];
         el.dataset.sceneResting = 'false';
-        const pixelCache = createStationaryPixelCache({
-          three: THREE,
-          renderer,
-          scene,
-          camera,
-          model,
-          key,
-          ao,
-        });
         const renderLoop = createSceneRenderLoop({
           draw,
           canRender: () => visible && !destroyed && !audit?.manual,
@@ -2661,7 +2630,6 @@ export function mountSpacecraftScene({
                 !!diagnostics ||
                 (earthPlaybackOpen && background.getEarthPlayback().playing))),
           onRest: (resting) => {
-            if (resting) pixelCache.release();
             el.dataset.sceneResting = String(resting);
             // Publish the final sample even if rest falls between metrics ticks.
             el.dataset.renderedFrames = String(renderedFrames);
@@ -2669,7 +2637,6 @@ export function mountSpacecraftScene({
           },
         });
         function kick() {
-          pixelCache.invalidate();
           renderLoop.wake();
         }
         const setDrawingSize = () => {
@@ -3216,10 +3183,7 @@ export function mountSpacecraftScene({
           if (nextVisible !== visible)
             resetDiagnostics('scene visibility changed');
           visible = nextVisible;
-          if (!visible) {
-            pixelCache.release();
-            cancelPointer(new Event('visibilitychange'));
-          }
+          if (!visible) cancelPointer(new Event('visibilitychange'));
           renderLoop.suspend();
           if (visible) kick();
         };
@@ -3452,7 +3416,6 @@ export function mountSpacecraftScene({
           camera,
           model,
           ao,
-          pixelCache,
           invalidate: () => invalidateAo('shading-lab-variant'),
           enabled: () =>
             !mobile() &&
@@ -3527,9 +3490,8 @@ export function mountSpacecraftScene({
               manualPrevious = 0;
             },
             state,
-            freezeBackground(seconds, resetEarth = false) {
+            freezeBackground(seconds) {
               frozenBackgroundTime = seconds;
-              if (resetEarth) background.setEarthPlayback({ type: 'reset' });
             },
             snapshot: () => ({
               scene: diagnostics?.snapshot(true),
@@ -3541,7 +3503,6 @@ export function mountSpacecraftScene({
                 visible,
                 contactShading,
                 policy: aoPolicy,
-                pixelCache: pixelCache.stats(),
                 build: process.env.NODE_ENV,
                 threeRevision: THREE.REVISION,
                 userAgent: navigator.userAgent,
@@ -3574,15 +3535,14 @@ export function mountSpacecraftScene({
                 },
               },
             }),
-            compareGeometry(change, includeImages = false, warmFrames = 0) {
+            compareGeometry(change, includeImages = false) {
               // Only the explicit lab calls this. Reuse the same camera, lights,
               // materials and GTAO noise, and regenerate shading on both sides.
               const width = renderer.domElement.width,
                 height = renderer.domElement.height;
-              const render = (fresh = true) => {
-                if (fresh && !mobile() && contactShading)
-                  refreshOcclusion(0, false);
-                if (fresh) renderer.shadowMap.needsUpdate = true;
+              const render = () => {
+                if (!mobile() && contactShading) refreshOcclusion(0, false);
+                renderer.shadowMap.needsUpdate = true;
                 renderer.setRenderTarget(null);
                 renderer.clear();
                 renderer.render(background.scene, background.camera);
@@ -3610,8 +3570,7 @@ export function mountSpacecraftScene({
               const restore = change();
               let after: ReturnType<typeof render>;
               try {
-                for (let i = 0; i < warmFrames; i++) render(i === 0);
-                after = render(warmFrames === 0);
+                after = render();
               } finally {
                 restore();
                 render();
@@ -3796,7 +3755,6 @@ export function mountSpacecraftScene({
           materials.forEach((m) => m.dispose());
           geometries.forEach((g) => g.dispose());
           textures.forEach((t) => t.dispose());
-          pixelCache.dispose();
           ao.dispose();
           aoQuad.dispose();
           aoMaterial.dispose();

@@ -154,7 +154,6 @@ export function buildOutboardWallEquipment(
       const bandMaterials = Array.from({ length: 3 }, (_, band) => {
         const source = m.cyan.clone();
         source.name = prefix + `meter-channel-${index}-${band}`;
-        source.userData.ambientColorAnimation = true;
         return source;
       });
       // The two trays fill and fall at different rates, making the existing
