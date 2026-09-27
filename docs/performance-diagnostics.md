@@ -298,6 +298,7 @@ baseline. Restore retained source snapshots/original revisions for exact repeats
 | Native shadow bake    | `--experiment shadow`   | [Shadows](evidence/performance/static-shadow-bake/README.md): resize with retained bake reveals stale maps; a fresh page bakes the new initial pose.                             |
 | Static/hybrid contact | `--experiment contact`  | [Contact](evidence/performance/static-contact-bake/README.md): subdivision-only controls and original restoration distinguish geometry artifacts from shading.                   |
 | Irradiance probe      | `--experiment diffuse`  | [Diffuse](evidence/performance/baked-diffuse-probe/README.md): held-out actual GPU fit validation and same-state B/C comparisons.                                                |
+| Stationary pixels / live receivers | `--experiment receivers` | **Decision comparison** uses two A controls and ABBA/BAAB with complete 1,080-frame dish cycles, 30 s initial rest and the default bounded waits. Stability warnings retain usable CPU/GPU results separately. **Historical strict comparison** reproduces the earlier gates. [Evidence and tradeoffs](evidence/performance/stationary-pixel-cache/receivers/README.md). |
 
 For the camera/geometry lab, use **Check setup**, **Frames per sample → 180**,
 **Paired blocks → 4**, and **Paired workload → Both workloads** (camera) or

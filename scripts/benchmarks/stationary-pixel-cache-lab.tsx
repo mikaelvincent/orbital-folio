@@ -9,6 +9,10 @@ import { seeds } from '../../lib/content/seed';
 import { toPortfolio, type Content, type Kind } from '../../lib/content/types';
 import { createStationaryPixelCache } from '../../features/spacecraft/stationary-pixel-cache';
 import './camera-invalidation-lab.css';
+import {
+  completeFrameGpuCoverage,
+  sameKnownPower,
+} from './comparison-coverage.mjs';
 
 const panel = document.getElementById('camera-lab-controls')!;
 panel.innerHTML = `<section class="camera-lab-panel"><h2>Dish and receiver cache investigation</h2>
@@ -413,13 +417,16 @@ function qualitySignature(r: any) {
     ].map((k) => s[k]),
   );
 }
-function validCapture(r: any, metric = 'gpu') {
+function validCapture(r: any, metric = 'gpu', completeCycle = false) {
   const s = r.snapshot.scene,
     settings = r.snapshot.settings;
   const unchanged = (key: string) =>
     JSON.stringify(r.stateBefore[key]) === JSON.stringify(r.stateAfter[key]);
   return (
     r.glError === 0 &&
+    (!completeCycle ||
+      metric === 'cpu' ||
+      completeFrameGpuCoverage(s.gpu, 1080)) &&
     s.window.frames === 1080 &&
     s.frames.length === 1080 &&
     s.activity.idle?.frames === 1080 &&
@@ -525,6 +532,7 @@ async function decisionComparison(room: string) {
     await pause(ms);
     budget();
   };
+  const powerContexts: any[] = [];
   const conditions = async () => {
     const value: any = await native();
     report.contexts.push(value);
@@ -532,7 +540,7 @@ async function decisionComparison(room: string) {
     if (['serious', 'critical'].includes(n?.thermalState))
       throw new Error('OS pressure stop; retain available evidence');
     const battery = n?.pmset?.battery?.stdout || '';
-    return {
+    const observed = {
       availability: value.availability,
       pressure: n?.thermalState || 'unknown',
       power: JSON.stringify([
@@ -544,6 +552,8 @@ async function decisionComparison(room: string) {
         n?.pmset?.settings?.stdout,
       ]),
     };
+    powerContexts.push(observed);
+    return observed;
   };
   await status('Decision comparison: 30-second initial rest');
   await wait(30000);
@@ -558,8 +568,8 @@ async function decisionComparison(room: string) {
   const references = [...controls];
   const assess = (rows: any[], before: any, after: any) => {
     const validity = rows.map((r) => ({
-      cpu: validCapture(r, 'cpu') && qualitySignature(r) === signature,
-      gpu: validCapture(r) && qualitySignature(r) === signature,
+      cpu: validCapture(r, 'cpu', true) && qualitySignature(r) === signature,
+      gpu: validCapture(r, 'gpu', true) && qualitySignature(r) === signature,
     }));
     const warnings: string[] = [];
     const reference = stability(references);
@@ -574,10 +584,7 @@ async function decisionComparison(room: string) {
     if (before.pressure !== 'nominal' || after.pressure !== 'nominal')
       warnings.push('OS-pressure-' + before.pressure + '-to-' + after.pressure);
     // Missing telemetry limits confidence; a known power change splits cohorts.
-    const samePower =
-      before.availability !== 'available' ||
-      after.availability !== 'available' ||
-      (before.power === after.power && before.power === startContext.power);
+    const samePower = sameKnownPower(powerContexts);
     return {
       validity,
       usable: {
