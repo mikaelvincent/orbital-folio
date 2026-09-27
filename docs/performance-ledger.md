@@ -49,20 +49,40 @@ case-study value is not the only reason to retain a file.
 
 ## Deferred backlog
 
-These proposals remain **held pending explicit authorization**. Cleanup and design
-work do not authorize them; a visible/feel change needs a concrete benefit,
-tradeoff and recommended experience before implementation.
+Ranked for **likely reduction of sustained foreground rendering work** when the
+owner leaves the portfolio open on a MacBook Air M4. These are the highest-leverage
+proposals, not an exhaustive optimization list. None has a measured temperature,
+power or throttling benefit; the exploratory GPU timings below precede the current
+lighting specialization and do not predict its gains. Effects overlap and must
+not be added. All proposals remain **held pending explicit authorization**;
+implementation needs a concrete visual/interaction tradeoff and the recommended
+experience. Preserve the existing reduced-motion and hidden-page behavior.
 
-- **Exact partial Earth mesh/coverage:** low priority; prove surface/atmosphere
-  visibility through navigation, drag and resize and measure net benefit. Fewer
-  vertices do not imply a smaller texture or less fragment work. The retained
-  crop has bounded evidence, not a universal certificate.
-- **Distance-dependent hardware detail, adaptive drawing resolution, optional
-  slower idle rendering:** only after profiling identifies a worthwhile target.
-  Inspect transition pops, legibility, motion and wake-up latency respectively.
-- **Proven room visibility or movement-only AO quality changes:** adjacent rooms,
-  doors, reflections and contact shading prevent assuming simple equivalence.
-- **Revisit broader geometry or lighting precomputation only with new evidence.**
-  Current reports explain why runtime caches/welding and the three lighting bakes
-  were not adopted. Preserve smooth authored hull/detail; global simplification
-  is not an approved fallback.
+1. **Let a visible, inactive scene rest.** After a deliberate inactivity period,
+   offer an owner-controlled low-heat mode that pauses ambient dish, Earth, sky and
+   signal motion and renders on demand; resume promptly on interaction. If a still
+   scene is unacceptable, try a 15–30 fps ambient cadence instead. This addresses
+   the whole recurring frame: even while shadows and GTAO were cached, a settled
+   Projects frame still submitted 382 spacecraft draws / 870,650 triangles. A
+   60→15 fps limit would submit 75% fewer frames, **not** necessarily use 75% less
+   energy. The cost is visibly less motion or stillness, plus possible wake-up
+   latency; neither should be inferred from the existing reduced-motion setting.
+   [Evidence](evidence/performance/idle-lighting/README.md).
+2. **Lower the 3D drawing resolution in low-heat mode.** Start with an effective
+   desktop DPR cap around 1.25–1.5 instead of 2, leaving HTML text at native
+   resolution. At DPR 2, the exploratory half-width/half-height main-buffer
+   setting changed whole-frame GPU mean from 15.99 to 10.65 ms (about 33%); it
+   does not establish a current-site or thermal gain at the proposed cap. A
+   2→1.5 DPR change draws about 44% fewer main-buffer pixels. Expect softer
+   spacecraft edges and fine detail; check room labels and resolution changes
+   during navigation before choosing a default. [Evidence](evidence/performance/idle-lighting/README.md).
+3. **Disable GTAO contact shading in low-heat mode.** The existing diagnostic
+   that skipped both GTAO refresh and composite changed the exploratory
+   pre-specialization whole-frame GPU mean from 15.99 to 13.79 ms (about 14%).
+   That is not an expected current-site or thermal saving. Scanning refreshed
+   GTAO on 239/240 measured frames and camera movement on 238–239/240; even when
+   a quiet hold reused the cache, its composite remained in the main frame.
+   Expect flatter contact depth around objects and room surfaces. This helps
+   most during movement and ambient scanning when proposal 1 is not engaged.
+   [Evidence](evidence/performance/idle-lighting/README.md) and
+   [diagnostic scope](performance-diagnostics.md#interpret-the-work-correctly).
