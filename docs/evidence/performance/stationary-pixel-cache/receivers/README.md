@@ -1,16 +1,170 @@
 # Live dish and receiving surfaces: Option B
 
-**Implemented, verified and reverted. No qualified net performance gain was
-established.** This follow-up preserved the dish's motion, moving shadows and
-contact shading while caching the unaffected spacecraft. It achieved much more
-reuse than the [earlier fallback prototype](../README.md), and its sampled costs
-were lower. The controlled comparison nevertheless had **zero accepted blocks**:
-reference drift and changed operating conditions excluded its first block, and
-the remaining prescribed recovery/order set could not fit the wait budget.
+**Restored, retested and retained for the AO-enabled non-phone rendering path.**
+Keeping the dish and affected receiving surfaces live preserves their motion,
+shadows and contact shading while reusing the rest of the spacecraft. Six new
+opposing-order desktop blocks favor B. The decision weighs that evidence against
+memory, edge coverage and maintenance costs; it does not require the old strict
+qualification gates to pass or establish a universal percentage gain.
 
-This extends candidate **10**, not a new candidate. The two investigations have
-separate implementations, source snapshots and measurements. Their timings must
-not be pooled. Neither establishes energy or battery-life savings.
+This extends candidate **10**. The [first fallback prototype](../README.md),
+original B trial and current retest have separate sources and measurements.
+Historical exclusions remain intact. No energy or battery-life gain is claimed.
+
+## Restoration and decision retest
+
+The implementation decision follows the revised diagnostics guide: valid statistics,
+reference variation, removed work and product costs are assessed together. The
+original excluded trial below remains excluded under its historical protocol.
+
+The current renderer is the restored B implementation plus two guards: phone and
+AO-disabled draws use normal rendering and release cache attachments; nonuniform
+or sheared dish ancestry falls back to full rendering because its current pose
+cannot establish a conservative whole-sweep bound. Diagnostic interventions bypass
+reuse, although skipping the spacecraft draw can leave existing attachments resident.
+Normal desktop and portrait authored scenes are unchanged by these guards.
+
+Current main source: `163fc86` (runtime guards in `a881e8e`, restoration `69b860d`).
+The disposable checkout used equivalent commits through `6e7a605`; its only local
+app configuration difference was a checkout-local Vite cache directory. Frozen
+snapshot `d4b13357-eaf3-4e0a-8010-d7945f281241` identifies the timing and portrait
+source/assets. Desktop visual checks used `57cf09c0-e8d8-42f6-ba7a-b2228c4f4ca3`,
+with the same renderer and before the final comparison-validity helper changes.
+
+Each room had two A controls followed by ABBA and BAAB, 1,080 simulated frames per
+capture (a complete 18-second dish cycle), actual RAF, a 30-second initial pause
+and 51 seconds of inserted waits in total. No retries. Each report retained ten
+captures, including controls. Earth/sky time stayed at zero; dish and Contact
+animations replayed identically. A disabled B in the same warmed runtime; target
+and program residency persisted between samples. This is not cold startup or
+independent-process memory measurement. No builds/tests/other agent rendering ran
+within the timing cohorts. Uncontrolled user-app load and clocks remain unknown.
+
+GPU queries covered all 72 declared phases (frames 1, 16, …, 1066), with no pending,
+discarded or skipped queries. CPU timing covers every frame. Each B cycle had
+1,077 cache hits, one rebuild and two fallback frames. The rebuild occurs at frame
+3 and is missed by periodic GPU sampling; CPU includes it. GPU percentages therefore
+describe sampled whole-frame cost, not integrated cycle GPU time or energy. The
+single rebuild's CPU cost, frame pacing, visual checks and removed work also inform
+the adoption decision; the sampled percentage alone is not the entire net-cost test.
+
+Desktop was 1280×720 CSS at native/effective DPR 2, 2560×1440 drawing buffer, GTAO
+832×468, 32 AO/denoise samples and 2048² shadows. Hidden built-in Chromium 154,
+ANGLE Metal Apple M4; no Safari or physical phone test. Portrait visual checks
+were separately 900×1200 CSS/drawing pixels at effective DPR 1. Resizing the hidden
+browser changed DPR; a fresh tab with the override reset restored native desktop
+DPR before timing. Portrait timings are not pooled with desktop.
+
+### Measured active-frame cost
+
+These ranges are the two within-block `B/A − 1` reductions, not confidence
+intervals. Means/p95 pool only the scheduled captures within each room/variant.
+Raw controls and every valid scheduled capture are retained.
+
+| Room / raw report | CPU mean A → B, ms | CPU reduction by block | Sampled GPU mean A → B, ms | GPU reduction by block |
+| --- | ---: | ---: | ---: | ---: |
+| [Projects](receivers-decision-1790531613311.json.gz) | 7.382 → 6.492 | 5.03–19.16% | 15.516 → 9.849 | 32.18–40.73% |
+| [Overview](receivers-decision-1790532060945.json.gz) | 7.706 → 6.242 | 16.76–21.20% | 14.860 → 7.800 | 43.55–51.26% |
+| [Contact](receivers-decision-1790532564692.json.gz) | 7.336 → 6.723 | 8.22–8.47% | 15.755 → 13.583 | 8.80–17.59% |
+
+CPU p95 A → B: Projects **9.1 → 8.5 ms**, Overview **9.7 → 7.5 ms**, Contact
+**9.2 → 8.1 ms**. Sampled GPU p95: **22.453 → 14.337**, **21.752 → 11.392**,
+**19.206 → 18.869 ms** respectively. B's warmed rebuild-frame CPU callbacks were
+**5.2–7.5 ms**; their GPU cost was not sampled. Cold allocation/program compilation
+is not characterized by these warmed comparisons.
+
+All **six blocks** have usable CPU/GPU coverage and no exclusions, GL errors or
+retries. All had confidence warnings. Full reference spreads (CPU/GPU) were
+**35.12%/38.66%** in Projects, **5.07%/35.26%** in Overview and **5.82%/37.63%**
+in Contact. Contact's GPU signal is smaller than its reference variation and is
+less certain; its consistent CPU improvement and both paired GPU directions
+support retaining the same mechanism there, not a precise standalone GPU claim.
+
+Each run used 51 seconds of inserted waits and finished within its declared
+10-minute budget: about **7:00, 7:49 and 7:49**. Retained capture spans were
+**17.982–35.965 s** in Projects, **35.965–35.967 s** in Overview and approximately
+**35.965 s** in Contact. The authored cycle is 18 simulated seconds regardless of
+RAF cadence. Power remained battery/discharging, Low Power Mode off, reported
+OS pressure nominal; charge was 20→19%, 19%, then 19→18% across the separate runs.
+These observations do not establish constant clocks or an energy comparison.
+
+### Interpretation
+
+All reported block effects include the scheduled A/B captures, with controls kept
+for uncertainty assessment. Reference variation is substantial; it does not vanish
+because the effects favor B. The Projects cadence transition began within the first
+scheduled A, before any B, so it cannot be attributed to enabling the cache. The
+reversed Projects block and subsequent rooms run at approximately 33.33 ms cadence.
+No FPS gain is claimed. Percentages are observations of these cohorts, not stable
+cross-device estimates. Automatic rest remains a separate zero-submission state.
+
+### Correctness and visual checks
+
+Desktop and portrait each completed 54 paired image comparisons plus a release/wake
+record: all five rooms, six moving dish checkpoints per room, hover, moving doors,
+travel, arrival and reconstruction after release. Zero WebGL errors were recorded.
+Inspection of the current Overview/Contact desktop pairs and portrait Overview
+found the edge-coverage differences acceptable for this implementation; these are
+not pixel-identical renders or proof for every possible content/geometry edit.
+
+A bounded [phone-layout fallback probe](receivers-probe-1790533099855.json.gz)
+at 390×844 CSS/drawing pixels retained four complete A/B/B/A scan captures and
+one A cycle before an explicit Stop during the next cycle. All five captures had
+zero GL errors, cache eligibility false, no builds/hits and 1×1 placeholder targets.
+The held A/B image comparison was identical. Its interrupted label is preserved;
+this is a functional fallback check on Chromium, not a phone performance claim.
+
+The [ordinary final-source lifecycle check](rest-wake-retest.json), with no audit
+controller or Scene diagnostics, held **455 frames / 15.133 active seconds**
+unchanged across **45.125 seconds** at rest. Opening Scene tools woke the same
+renderer; the later observation showed **909 frames / 30.182 active seconds** and
+rest again. Earth rotation advanced during the resumed activity. No console
+errors were recorded. This checks zero idle submissions and wake-up, not energy.
+
+Current representative PNG pairs have mean absolute RGB differences of
+**0.06665/255** (desktop Overview), **0.21698/255** (desktop Contact) and
+**0.14260/255** (portrait Overview). Pixels with a channel difference above 8
+occupy **0.195%, 0.346% and 0.462%** respectively; maxima reach 161, 168 and 156.
+These localized edge differences remain visible under close comparison; small
+whole-image averages are not proof of visual equivalence.
+
+The final guarded renderer passed 581 full-suite tests in the disposable checkout,
+fresh isolated D1/R2, generated test-only secrets and explicit separate TEST_BASE_URL.
+The 12-test owner workflow, 56 benchmark tests, typecheck, production build and
+affected lint passed. Independent review informed the quality/transform guards
+and the phase-coverage/power checks. Reduced-motion behavior has model/scheduler
+coverage but no separate browser preference emulation in this retest.
+
+### Why retain it
+
+Both orders in each tested room reduced CPU callback means and sampled GPU means.
+Projects and Overview have particularly strong directional evidence; the original
+B trial separately supports Projects. Reuse remains **99.72%** across the full
+cycle, with motion/shading preserved. Navigation uses complete rendering while
+needed. The rare warmed rebuild showed no large CPU stall, and its additional GPU
+work is an amortization uncertainty rather than evidence that the repeated savings
+are absent. This is an engineering retention judgment, not a passed historical
+qualification protocol or an integrated GPU/energy measurement.
+
+The accepted costs remain **140.625 MiB** of nominal cache attachments at the
+measured desktop resolution (**41.199 MiB** in the portrait check), slight edge
+coverage changes and additional renderer complexity. The drawing-buffer cap can
+reach about **152.6 MiB** of extra attachments; these are not measured physical
+GPU/process memory. Rest/hiding releases them, and the phone/AO-disabled path does
+not build the cache. No speedup is claimed during rest or camera transitions, and
+other hardware/engines remain unmeasured.
+
+Current paired renders, after restoration, supersede the earlier copies:
+
+- Desktop Overview: [cached B](receivers-verify-1790531159243-verify-3-before.png), [fresh A](receivers-verify-1790531159243-verify-3-after.png).
+- Desktop Contact: [cached B](receivers-verify-1790531159243-verify-19-before.png), [fresh A](receivers-verify-1790531159243-verify-19-after.png).
+- Portrait Overview: [cached B](receivers-verify-1790531352887-verify-3-before.png), [fresh A](receivers-verify-1790531352887-verify-3-after.png).
+
+The complete [desktop](receivers-verify-1790531159243.json.gz) and
+[portrait](receivers-verify-1790531352887.json.gz) numerical reports remain.
+Other temporary PNGs are omitted. The six superseded historical PNGs are
+recoverable in `3cc4a55`; historical raw reports still identify their original
+filenames and have not been rewritten.
 
 ## What B changed and retained
 
@@ -51,10 +205,10 @@ four multisamples and resolved attachments required **147,456,000 nominal bytes
 These are attachment arithmetic, not measured GPU/process memory. Resolving and
 reconstructing depth also changed edge coverage; the result was not pixel-identical.
 
-## Source and comparison method
+## Historical strict trial: source and method
 
 - Production reference: `4161a44`. Final prototype/harness: `14d1972`.
-  Rollback: `ad80c03`. Final source was checked against the reference; runtime,
+  Original rollback: `ad80c03`. That rollback was checked against the reference; runtime,
   model, diagnostics, scripts, tests and dependencies were restored exactly.
 - Reproduction uses a disposable checkout at `14d1972` and
   `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment receivers --port 3021`.
@@ -102,7 +256,7 @@ Formal snapshot **8c12cef3-204b-4ffe-ac29-c2d046aeb0b5**, built at
 | Runtime | `da5a5326297f6e62c2222793375421ca0226d609bdf06fae518eecb87069938c` |
 | Dependency lock | `3d5ccb3561102f4b28ccdc1ab60109b377eaa520641ea5f8d430d4c2e9aaadc4` |
 
-## Controlled result: promising samples, excluded block
+## Historical strict result: promising samples, excluded block
 
 [Raw run](receivers-timing-1790528565661.json.gz), 17:02:45.661–17:10:45.594 UTC.
 All twelve complete captures retained 1,080 frames and 72 whole-frame GPU samples,
@@ -146,9 +300,10 @@ capture row; all twelve completed captures survive. The raw stop error says
 
 There were **zero accepted blocks, one excluded block, three unrun blocks and no
 completed recovery controls/retried block**. No qualified block-effect median,
-range or sustained-use result is available. No replacement timing cohort was run.
+range or sustained-use result is available. No replacement strict-protocol cohort
+was run at that stage.
 
-## Appearance, invalidation and automatic rest
+## Historical appearance, invalidation and automatic rest
 
 Each [desktop](receivers-verify-1790527875878.json.gz) and
 [portrait](receivers-verify-1790528205245.json.gz) replay produced **54 image
@@ -165,14 +320,8 @@ Desktop held-room mean absolute RGB differences ranged **0.0665–0.2169 / 255**
 portrait at 900×1200 CSS and drawing resolution ranged **0.1346–0.3993 / 255**.
 Desktop Contact had 12,768 of 3,686,400 pixels with a channel difference above 8,
 with a maximum of 168. Small global averages do not establish visual equivalence.
-Representative moving frames preserve the actual edge/occlusion tradeoff:
-
-- Desktop overview: [cached B](receivers-verify-1790527875878-verify-3-before.png),
-  [fresh A](receivers-verify-1790527875878-verify-3-after.png).
-- Desktop Contact: [cached B](receivers-verify-1790527875878-verify-19-before.png),
-  [fresh A](receivers-verify-1790527875878-verify-19-after.png).
-- Portrait overview: [cached B](receivers-verify-1790528205245-verify-3-before.png),
-  [fresh A](receivers-verify-1790528205245-verify-3-after.png).
+The current paired renders above illustrate this edge/occlusion tradeoff; the
+historical copies are recoverable in `3cc4a55`.
 
 Visual replays used snapshot `baa422d9-bce6-4418-a03f-ae5ed2e9e1e8`, before the
 final exception-reset/unsupported-scene guards and formal validity-gate edits.
@@ -196,11 +345,11 @@ The owner setup/workflow check passed 12 tests; final focused cache tests passed
 read-only. No native Safari, phone browser or reduced-motion browser sweep was
 completed; existing reduced-motion model/scheduler tests passed in the full suite.
 
-## Retained failures and exploratory records
+## Historical failures and exploratory records
 
 All five original JSON reports are preserved losslessly as gzip, including raw
-frames, query samples, manifests and conditions. Only the six linked PNGs remain;
-other image filenames in the raw reports identify omitted temporary comparisons.
+frames, query samples, manifests and conditions. Current paired renders supersede
+the historical PNGs; other image filenames identify omitted temporary comparisons.
 
 | Record | Scope and limitation |
 | --- | --- |
@@ -212,5 +361,6 @@ other image filenames in the raw reports identify omitted temporary comparisons.
 
 The useful case-study extension is that preserving moving receivers made a much
 larger reusable region possible, while adding coupled shadow/AO invalidation,
-edge and memory costs. Successful cache reuse and attractive samples still did
-not meet the evidence required to retain this implementation.
+edge and memory costs. The former protocol caused a rollback despite lower sampled costs. The revised
+evidence-based decision and new retest above supersede that retention decision
+without changing the original run's qualification status.

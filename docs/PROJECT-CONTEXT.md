@@ -279,6 +279,15 @@ changes request rendering again. Resume from the held animation time; never catc
 up across the idle gap. There is no toggle or saved preference, and this does not
 change reduced motion or the semantic reading view.
 
+During eligible active holds, cache the stationary spacecraft's color/depth while
+keeping Earth, sky, the scanning dish, its affected receiving surfaces and Contact
+effects live. Preserve moving shadows and contact shading. Camera, viewport,
+lighting, material, geometry, hover and room changes reconstruct affected caches;
+rest/hiding releases the extra attachments. The phone/AO-disabled quality paths
+use normal rendering, as do unsupported dish transforms. Small edge-coverage
+differences are accepted; [candidate 10](performance-ledger.md) records the
+measured scope, memory cost and appearance comparisons.
+
 The approved Earth is **Europe at Night: 12° longitude, 48° latitude, −10° roll,
 0.0045 rad/s**. Keep Earth in the physical world with the shared camera. The
 portrait composition exception selects an anchor from viewport orientation, putting

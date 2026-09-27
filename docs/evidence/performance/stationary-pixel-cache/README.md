@@ -1,18 +1,17 @@
 # Stationary spacecraft image caching
 
-**Both implementations were reverted after measurement.** The later
-[Option B follow-up](receivers/README.md) kept the dish and affected receiving
-surfaces live, preserving moving shadows/contact shading while reaching 99.72%
-full-cycle reuse. Its faster samples failed the reference/operating-condition
-gates, so no qualified gain was established. The current renderer remains the
-original implementation. This page preserves the separate first investigation.
+**The first fallback prototype remains reverted.** The later
+[Option B follow-up](receivers/README.md) keeps the dish and affected receiving
+surfaces live. It was restored, retested and retained under the revised
+performance decision rules. This page preserves the separate initial investigation;
+its failure labels and measurements have not been reclassified or pooled with B.
 
 **Initial fallback prototype, 2026-09-27 UTC.** Reusing rendered
 spacecraft color and depth removed substantial drawing during stationary holds,
 but the complete-cycle comparison failed stability controls and showed worse
 frame pacing. No qualified net performance improvement was established. The
 cache, integration, experimental harness and candidate tests were reverted;
-production rendering remains identical to `c5efb26`.
+that initial rollback restored rendering identical to `c5efb26`.
 
 This is candidate **10** in the [shortlist](../../../performance-ledger.md).
 Its useful lesson is the gap between a cheap cache hit and a worthwhile cache
@@ -175,7 +174,7 @@ lint; five focused cache tests were rerun after review fixes. An isolated owner
 workflow check also passed 12 tests. Unit tests covered complete shadow casters,
 live child meshes, material/light/geometry/texture invalidation, unsupported-state
 fallbacks, release and recapture. Those checks establish specific behavior, not
-a performance gain. Final delivery changes only documentation/evidence; the
+a performance gain. The initial investigation delivered only documentation/evidence; its
 rollback was checked against the original production source.
 
 ## Raw and excluded records

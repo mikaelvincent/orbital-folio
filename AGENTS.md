@@ -14,7 +14,7 @@ implementation. Current owner decisions take precedence over historical evidence
 | Visual, camera/navigation or product behavior changes | Relevant section of [project context](docs/PROJECT-CONTEXT.md) |
 | Model/assets or Earth rebuilding | [asset guide](docs/ASSETS.md), then the linked provenance if needed |
 | Integration tests, data, auth, deployment or recovery | Relevant section of [operations](docs/OPERATIONS.md) |
-| Performance measurement | [Thermal-aware comparison procedure](docs/performance-diagnostics.md#thermal-aware-comparison-procedure); consult a candidate only when that investigation needs it |
+| Performance optimization or measurement | [Evidence-based decisions and comparisons](docs/performance-diagnostics.md#decide-with-the-available-evidence); consult a candidate only when that investigation needs it |
 
 ## Boundaries
 

@@ -1,0 +1,44 @@
+{
+  "source": "163fc86",
+  "url": "http://127.0.0.1:3023",
+  "method": "Final guarded renderer in isolated Vinext development server, ordinary scheduling, no audit or diagnostics. Two rest observations, then Scene tools click, then observation after it returned to rest.",
+  "observations": [
+    {
+      "activeTime": 15.133,
+      "at": "2026-09-27T18:22:40.346Z",
+      "buffer": "2560,1440",
+      "earthRotation": 0.06667245000000004,
+      "frames": 455,
+      "meteorPhase": 0.886822419107104,
+      "motion": "active",
+      "renderer": "f5fa86aa-89e2-4284-8e2f-baa5ca677652",
+      "resting": "true",
+      "room": "home"
+    },
+    {
+      "activeTime": 15.133,
+      "at": "2026-09-27T18:23:25.471Z",
+      "buffer": "2560,1440",
+      "earthRotation": 0.06667245000000004,
+      "frames": 455,
+      "meteorPhase": 0.886822419107104,
+      "motion": "active",
+      "renderer": "f5fa86aa-89e2-4284-8e2f-baa5ca677652",
+      "resting": "true",
+      "room": "home"
+    },
+    {
+      "activeTime": 30.182,
+      "at": "2026-09-27T18:24:15.874Z",
+      "buffer": "2560,1440",
+      "earthRotation": 0.1345446000000006,
+      "frames": 909,
+      "meteorPhase": 0,
+      "motion": "active",
+      "renderer": "f5fa86aa-89e2-4284-8e2f-baa5ca677652",
+      "resting": "true",
+      "room": "home"
+    }
+  ],
+  "consoleErrors": []
+}
