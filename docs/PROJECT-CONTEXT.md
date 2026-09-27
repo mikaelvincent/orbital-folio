@@ -1,1369 +1,322 @@
-# Orbital Folio — current project context
+# Current product decisions
 
-Decision snapshot: 26 September 2026. Complements the root [AGENTS.md](../AGENTS.md)
-using the owner's conversation and current source. New explicit requests can
-revise these decisions; update this guide when they do. Dated evidence describes
-its own revision, not automatically today's app.
+This is the owner-intent reference for changes that affect behavior or appearance.
+Read the relevant section, then inspect its source. Historical comparisons show
+what was tested at a particular revision, not requirements for today's app.
+Setup and source entry points are in [README](../README.md); content operations,
+security and compatibility formats are in [operations](OPERATIONS.md).
 
-## Product and source map
+## Spacecraft design
 
-An editable developer portfolio presented as a cutaway spacecraft in orbit.
-Visitors explore four cabins, doorways and physical reader objects; semantic HTML
-and reading views remain available. The authenticated studio manages persisted
-identity/copy, media and separate draft/published content. Samples are not claims
-about the owner's real career. Contact submissions enter the private inbox; the
-application does not send email on their behalf.
+Projects / Case studies sit above About / Contact, joined by side doors and the
+tall left ladder bay. Keep the ship stationary and fit cameras to the shared
+architectural reference. Furniture changes must not independently change room
+scale or camera fit. Very short screens default to Reading view; explicit
+Interactive opt-in must still work at the available dimensions.
 
-TypeScript, React, Three.js, Vinext/Vite, Cloudflare D1/R2 and Drizzle form the
-current stack. Extend the existing modular geometry builders; keep batching
-metadata, passive/interactive distinctions, dimming and disposal intact. Use
-[README](../README.md) and [operations](OPERATIONS.md) for setup/content workflows;
-inspect source and `package.json` for exact current constants and versions.
+Aim for an artistic, futuristic, believable spacecraft. Fixtures need a purpose
+and convincing attachment to the actual curved lining. Favor justified spacing
+and visual balance; paired assemblies must match, but symmetry is not universal.
+Avoid generic filler boxes, random orange blocks/rails, repeated vent patterns,
+floating parts and decorative outboard signs. Purposeful storage and tool edges
+are fine. Preserve continuous rounded hull/ladder returns and openings; eliminate
+bulges, sharp junctions, clipping, visible seams, jagged edges and flicker.
 
-| Concern | Starting points |
+The palette is ivory **#EEE9DE** architecture, carbon **#1F2730** equipment and
+plain dark floors, satin alloy and restrained bronze **#AA8054** hardware. Base
+bronze is an accent, not ordinary text; use ivory/carbon or accessible tonal
+derivatives for text. Natural paper, wood, fabric, media/custom icons, solar blue,
+Earth/sky and meaningful status colors are intentional exceptions. Legacy default
+accent colors map to bronze without rewriting stored records; owner-selected
+custom accents remain exceptions. See `lib/palette.ts` and `app/globals.css`.
+
+Primary room labels, door signs and interactive text must be immediately legible.
+Passive decoration must not look selectable. Keep exactly two header-side vents
+per cabin, flush and aligned with the header, centered between it and the wall.
+Center doors horizontally and vertically in the *visible* wall after curved
+returns; center signs on doors. Window edges are flush and continuous without
+protruding trim or cream slivers. Floors are continuous matte dark surfaces,
+including the coves and front throat, without inset patches or extra rails.
+
+The current arrangements matter more than the old numbered design stages:
+
+| Area | Preserve |
 | --- | --- |
-| Scene assembly, room metadata and animation | `features/spacecraft/spacecraft-model.ts` |
-| Offline cylinder specialization and source check | `scripts/generate-indexed-cylinder.mjs`, `features/spacecraft/geometry/indexed-cylinder.generated.js`; exact triangle inputs with shared cap centers, checked before builds |
-| Shared model materials, geometry cache and builders | `features/spacecraft/geometry/model-primitives.ts` |
-| React host and renderer lifecycle | `features/spacecraft/spacecraft.tsx` delegates to `features/spacecraft/spacecraft-runtime.ts` for input, camera, lights, render loop, shadow/AO caching and cleanup |
-| Camera, routes, queue and iris sequencing | `features/spacecraft/navigation/vessel-camera.ts`, `features/spacecraft/navigation/scene-controls.ts`, `features/spacecraft/navigation/flight.ts`, `features/spacecraft/navigation/door-navigation.ts`, `features/spacecraft/navigation/iris-navigation.ts`, `features/portfolio/immersive-portfolio.tsx` |
-| Visible-room selection and door geometry | `features/spacecraft/navigation/room-navigation.ts`, `features/spacecraft/navigation/room-navigation-targets.ts`, `features/spacecraft/navigation/iris-hatch.ts`, `features/spacecraft/geometry/spacecraft-wall-layout.ts` |
-| Hull/window returns | `features/spacecraft/geometry/continuous-exterior-skin.ts`, `features/spacecraft/geometry/rounded-cabin-interior.ts`, `features/spacecraft/geometry/flush-window-reveals.ts`, `features/spacecraft/geometry/ladder-opening-outline.ts` |
-| Overview identity/callouts | `features/spacecraft/overview-annotations.ts` and model framing/label data |
-| Room furniture | `features/spacecraft/rooms/about-personal-study.ts`, `features/spacecraft/rooms/projects-workshop.ts`, `features/spacecraft/rooms/case-study-archive.ts`, `features/spacecraft/rooms/contact-flight-console.ts` |
-| About photos and social cards | `lib/content/about-photos.ts`, `about-photo-publication.ts`, `social-links.ts`; `features/spacecraft/rooms/about-photo-print.ts`; `features/studio/about-photo-fields.tsx`, `social-link-fields.tsx`, `social-icon-upload.ts`; `features/portfolio/about-personal-content.tsx` |
-| Docking collar, service bus and solar/communications assembly | `features/spacecraft/equipment/docking-service-assemblies.ts` |
-| Exterior/ladder fittings | `features/spacecraft/equipment/exterior-service-equipment.ts`, `features/spacecraft/equipment/docking-shoulder-equipment.ts`, `features/spacecraft/equipment/ladder-endcap-equipment.ts`, `features/spacecraft/equipment/ladder-service-spine.ts` |
-| Earth/atmosphere/sky | `features/orbit/orbital-environment.ts`, `features/orbit/earth-satellite.ts`, `features/orbit/earth-view-transform.ts`; `scripts/build-regional-earth.mjs` authors the regional atlas offline |
-| Temporary Earth playback inspection | `features/orbit/earth-playback.ts`, `earth-playback-controls.tsx`, `earth-playback-controls.css`; the orbital environment owns Earth-only playback state |
-| Bottom scene tools menu | `features/portfolio/scene-tools-menu.tsx`, `scene-tools-menu.css`; Earth playback, Scene diagnostics and Content studio beside Reading view |
-| Diagnostics/capture/attribution | `features/diagnostics/performance-panel.ts`, `features/diagnostics/performance-review.ts`, `features/diagnostics/scene-performance.ts`, `features/diagnostics/spacecraft-performance.ts` |
-| Public/semantic readers | `features/portfolio/public-shell.tsx`, `features/portfolio/room-views.tsx`, `features/portfolio/about-notebook.tsx`; `features/spacecraft/navigation/about-notebook.ts` and `rooms/about-notebook-layout.ts` register the mounted paper and flags |
-| Contact application and keyboard | `features/portfolio/contact-form.tsx`, `contact-flow.ts`, `contact-computer-window.tsx`; `features/spacecraft/navigation/contact-computer.ts`, `features/spacecraft/rooms/contact-keyboard.ts` |
-| Studio coordination and workflows | `features/studio/admin-studio.tsx`, with setup, content-fields, inbox, access and model-tools modules beside it |
-| Content and persistence | `lib/content/repository.ts`, `lib/content/types.ts`, `lib/content/validation.ts`, `db/schema.ts`, `drizzle/` |
-
-## Room composition and macro design
-
-Projects / Case studies sit above About / Contact, with the tall left ladder
-connector and original docking assembly. Case studies uses `/case-studies` while
-retaining its internal/persisted experience identity and `/experience`
-compatibility. Do not rename persisted keys as cosmetic cleanup.
-
-Room dimensions and neutral framing are shared. Responsive composition fits the
-architecture rather than resizing objects independently. Portrait overview
-visually turns the vessel upright with its satellite end above, using the camera
-transform; the spacecraft itself remains fixed. Rooms return visually upright
-when selected. Very short screens default to Reading view; explicit Interactive
-opt-in must still render at the available dimensions.
-
-The owner selected **Ivory / Carbon / Bronze** on 23 September 2026: rounded
-ivory ceramic architecture, plain dark floors, carbon equipment, alloy mounts
-and restrained bronze hardware. Useful fixtures should explain
-their presence without a decorative label. The earlier grid request was refined
-to **justified space and visual balance** between objects and curved boundaries.
-Primary labels and interactive screens take priority over decorative density.
-
-Avoid generic filler plates, random orange strips/blocks, repeated vents,
-floating fixtures, curtain-like berth objects and decorative outboard-wall signs.
-These are contextual judgments, not a ban on legitimate boxes, signs or mounted
-equipment. The two header-side vents per room remain, flush and aligned. Doors
-are visually centered in their usable curved wall, with signs centered on doors.
-Window trim follows the aperture, sits flush and hides cream edge slivers.
-
-Recent approved arrangement:
-
-- Full upper/lower exterior access routes mirror rail endpoints, rung spacing,
-  mounting feet and bronze tether details. Exterior decoration generally belongs
-  on surfaces exposed by default, hover or bounded drag. The complete underside
-  route is explicitly approved, even though elevated overview hides much of it.
-- Two matching open-jaw maintenance spanners sit in fitted wall clips, one per
-  ladder deck. Both end pairs of grab bars remain with empty intervening spaces.
-  The earlier angled lights, reels, hooks, leads and related mounts are removed.
-- Hull, roof/keel and ladder returns read as continuous rounded pressure
-  structure. Preserve curves while eliminating bulges, clipping, exposed seams,
-  raised reveal trim and flicker. Functional tool edges are not chassis defects.
-- Case studies has four recorder cartridges: Product engineering, Systems &
-  reliability, Research & experiments, and Design & interfaces. The owner removed
-  the bottom Field notes cartridge and its runners. The remaining rows retain
-  their upper alignment, making room below for taller **16:9** terminal glass
-  (**1.76 × 0.99** local units before the existing 0.85 rig scale). Its narrower
-  casing, handles, paired floor supports and centered screen artwork fit the new
-  proportions. The raked screen and shared room camera remain. This new request
-  supersedes the earlier restoration of the wide 2.37 × 0.49 display; it does not
-  restore the earlier rejected implementation. See the
-  [four-option room evidence](evidence/case-study-four-options/README.md).
-
-Current evidence: [symmetric access refinement](evidence/spacecraft-access-symmetry/README.md).
-The earlier [access redesign](evidence/spacecraft-access-design/README.md) preserves
-rejected iterations; it does not authorize restoring those older objects.
-
-### Stage 01 — shared cabin architecture (24 September 2026)
-
-The shared cabins now use a continuous **matte carbon deck** made from the
-actual pressure lining. Its finish reaches the front throat and follows the
-existing rear/side coves to the side-return tangent (`CABIN_FLOOR +
-CABIN_RETURN_RADIUS`, −1.24). It replaces the inset flat floor patch; no raised
-edge, floor rail, extra thickness or panel pattern is added. Ivory walls and
-ceilings, the exact rounded envelope, flush window reveals, centered door
-surrounds and shared camera reference are retained.
-
-The paired ceiling lights are shallow sealed cassettes: a graphite ceiling
-seal, ivory carrier, captured warm diffuser and satin-alloy captive end shoes.
-The former detached-looking diffuser gap and isolated black roof blocks are
-removed. Header faces retain their legible scale and alignment, with a finer
-perimeter, short bronze retainers and alloy fasteners. Door signs retain their
-existing fitted carriers; exactly two flush header-side vents remain per cabin.
-
-Later furniture should reference fitted mounting shoes, thin graphite joints,
-rounded ivory architecture, matte carbon grounding surfaces, satin alloy and
-small bronze retainers. Room-specific proportions, natural textiles, media and
-purposeful equipment remain variable. The ladder, exterior, furniture, visitor
-interfaces and navigation are outside this stage. See the
-[before/after views, verification and independent review](evidence/shared-cabin-architecture/README.md).
-
-### Stage 02 — case-study archive (24 September 2026)
-
-The four-cartridge magazine and unchanged 16:9 raked terminal now form one
-floor-bolted recorder dock. Continuous carbon side cheeks sweep forward from
-the rear magazine into shoes on the flat deck, avoiding the rear floor cove.
-Low side ties connect those shoes to the terminal supports, leaving the center
-approach clear. Thin ivory cheek covers and a fitted crown echo Stage 01's
-captured fittings. The punched shelving rails, splice blocks and secondary
-rack title are superseded.
-
-Each cartridge has paired alloy extraction bails outside its label, with small
-bronze captive releases. Terminal grips are carbon with alloy pins and small
-bronze locking witnesses. Labels, cartridge seating/order, availability,
-whole-face feedback and the terminal's glass, tilt, scale, application anchor
-and artwork are unchanged. The dark fourth cartridge remains physical but inert
-when unpopulated. Existing recorder cores, transport case, conduit and thermal
-loop remain purposeful supporting equipment; no additional screens or filler
-are introduced. Stage 01, other rooms, camera framing and navigation remain
-unchanged. See [design, comparisons and verification](evidence/case-study-archive-design/README.md).
-
-Carry forward the clear load paths, fitted shoes, graphite joints, satin-alloy
-handling surfaces and restrained functional bronze. Future furniture may vary
-its silhouette; it should meet the actual curved cabin rather than assume a
-flat deck beneath the rear cove.
-
-### Stage 03 — Projects workshop (24 September 2026)
-
-The four removable monitors now share a **bench-supported instrument bridge**.
-Two graphite uprights seat on isolators and alloy shoes on the worktop; paired
-crossrails and short standoffs connect each enclosure. The former rear-wall
-anchors and braces are superseded: they floated off the wall and entered the
-floor cove. The slightly larger, closer monitors retain independent category
-faces, existing artwork, availability and application registration. Their
-repeated perimeter task lights are replaced by one sheltered downward diffuser
-beneath the bank; it adds no scene light.
-
-The protected thin inset carbon worktop keeps its exact height and footprint.
-A closed, tapered carbon apron gives the leading edge a lighter silhouette
-while retaining its underbench clearance and grounded legs. Low service pulls,
-a carbon handhold with alloy collars, satin foot retainers and small bronze
-releases carry forward the archive's functional material hierarchy. The single
-power trunk is clipped to the right upright and feeds the underbench junction.
-Retained tool drivers, stowed test lead and two drawers keep the working plane
-clear. No loose payloads, extra screens or passive selectable-looking lights
-are added. Stage 01/02, other rooms, shared camera fit and navigation are unchanged.
-
-Carry forward actual attachment, smooth closed housings, restrained releases and
-purposeful working space. The monitor bank remains a workshop assembly, distinct
-from the archive magazine and the future communications console. See
-[design, comparisons and verification](evidence/projects-workshop-design/README.md).
-
-### Stage 04 — Contact communications console (24 September 2026)
-
-The console now uses a thinner rounded carbon shell beneath the unchanged worktop
-and 82-key keyboard. A carbon front handhold with seated alloy collars replaces
-the broad bronze rail and large saddles. The main display's passive button-like
-bezel rows are replaced by fitted extraction grips, carrying forward the archive
-and workshop's functional handling details without adding selectable-looking
-decorations. Its glass, pose, keyboard clearance and application anchor are retained.
-
-Both social displays rise to the main display's lower edge and turn slightly
-farther inward. Their existing profile-fitted rear-wall supports and adjacent
-service raceways follow the new positions. Screen artwork, availability and
-independent link behavior are unchanged. The retained microphone bends farther
-outboard to clear the left social glass in oblique views. Its connector gasket,
-deck restraint sockets and radio selector/guard surfaces are seated against
-their actual supporting geometry.
-
-The headset is stowed on a padded **underslung console hanger**, replacing the
-floor pedestal. A captured shoe and short alloy neck carry the retained saddle
-and headband; its lead returns to a connector at the saddle. This keeps the floor
-and knee space clear. Existing console legs, drawers, radio modules and main
-display proportions retain the communications identity. Shared architecture,
-archive/workshop, camera fit, contact semantics and visitor interfaces are
-unchanged. See [design, comparisons and verification](evidence/contact-console-design/README.md).
-
-Later furniture should inherit seated joints, clear support paths, unobstructed
-working surfaces, carbon handling parts and small alloy/bronze retainers. About
-may keep warmer personal materials and a different furniture silhouette; the
-Contact screen arrangement is not a template for every room.
-
-### Stage 05 — About personal study (24 September 2026)
-
-The rest-left/study-right arrangement, clear floor, wood writing insert, paper,
-fabric bedding, photograph and retained personal objects remain the room's warmer
-identity. The library now uses an open carbon cradle with formed side cheeks,
-a supporting shelf and low captive webbing. Its three existing book covers are
-visible; the dense grille and library zipper are superseded. Folded blanket
-storage retains its fabric pouch, zipper and broad straps. The folded perch and
-bedding roll keep their existing purposeful placements.
-
-The desk's front grip is carbon with fitted alloy collars, allowing the wood and
-notebook to lead. The square photograph and three equal social prints keep their
-sizes, content and targets; thin seated graphite carriers and satin corner clips
-give them a common mounting detail. Notebook paper, cover, tilt, content anchors,
-page/section behavior and portrait full-spread policy are unchanged. Its rear
-cradle stays now meet the writing surface.
-
-Study wall mounts follow the actual cabin lining in both furniture scales,
-replacing the earlier approximate curve. The locker stands slightly farther
-forward to clear the lower cove; the berth receives only a small clearance margin.
-Brace and foot-loop ends meet their mounts, the berth buckle has a supported
-latch, the locker handle returns meet its door, and the lamp cable cuff reaches
-its arm. Shared architecture, approved rooms and camera fitting are unchanged.
-See [design, comparisons and verification](evidence/about-study-design/README.md).
-
-Carry forward visible support paths and restrained handling hardware while
-allowing room-specific natural materials. Stage 06 below carries actual-lining
-attachment into the ladder bay while retaining its paired maintenance spanners,
-grab bars and empty intervening spaces.
-
-### Stage 06 — Ladder transfer and maintenance bay (24 September 2026)
-
-The ladder stands on two narrow carbon carriers seated directly on the continuous
-ivory liner. An owner-requested contrast correction adds a single seamless matte
-Carbon Deep backing behind the rails: the exposed ivory and thin dark rung
-centers made the pale ends difficult to read. Fuller brushed-alloy grasps now
-form clear steps across the dark field. All 13 rungs keep their centers, pitch
-and rail plane. A subsequent restrained bronze pass gives the eight rail clamps
-and four small terminal caps the existing spacecraft bronze, reinforcing the
-four support stations while keeping the treads alloy. The earlier five
-broad closeout panels, their seams and decorative rung rings remain superseded.
-
-Service coupling barrels and retained-cap pegs reach their recess backs while
-their front faces remain fixed. The isolation cassette's sockets and guards
-seat against its cover. The paired stowed spanners, two grab bars at each end,
-empty intervening spaces, existing lights, continuous liner and cabin apertures
-remain unchanged. The connector has no new landing slabs: its navigation
-landings remain waypoints. Automatic door sequencing and shared camera framing
-are preserved. See the [current contrast correction](evidence/ladder-rung-contrast/README.md)
-with its [bronze fitting refinement](evidence/ladder-bronze-detail/README.md),
-and [initial Stage 06 construction evidence](evidence/ladder-bay-design/README.md).
-
-Carry forward clear transfer space, actual liner-seated supports, legible alloy
-treads against carbon, and small satin/bronze service joints. The docking
-shoulder/hatch refinement is recorded below; exterior access ladders remain
-the unchanged boundary for Stage 09.
-
-### Stage 07 — Docking assembly and shoulder (25 September 2026)
-
-The ivory pressure barrel, coaxial wall mount, rounded return and existing bands
-remain. A broad satin mating flange with three small bronze contact shoes
-replaces the thick bronze bumper. The closed ivory hatch leaf sits within a dark
-seal; its carbon wheel now has connected alloy spokes and a bronze hub. Both
-feet of each leaf handle and all twelve flange fasteners seat into their support.
-These are static authored fittings, not a simulated docking or latch mechanism.
-
-The owner subsequently rejected the small cassette's two circular ports and
-separate latch because they still resembled a face. Only that box is redesigned:
-a lower, elongated carbon access cover now has one continuous alloy pull, attached
-feet and a small bronze keeper at one end. The curved saddle remains fitted to
-the barrel; cover/saddle height is reduced while depth and the front extent are
-preserved. There are no paired circular face details or separate status marks.
-See the [current box correction](evidence/docking-service-hatch/README.md).
-The inner hatch retains its Stage 07 leaf, gasket, locking tabs and connected
-bronze-spoke/carbon-rim wheel.
-
-The completed ladder's dark backing, alloy treads, bronze support stations,
-spanners, end grips and open spaces are unchanged. All cabin furniture,
-architecture, exterior access ladders, opposite service/dish/solar assembly,
-door sequencing and shared framing remain unchanged, including exact overview
-support points in both layouts. See the [design and verification evidence](evidence/docking-assembly-design/README.md).
-
-Carry forward a clear pressure-shell / dark-seal / satin-contact hierarchy,
-small bronze handling or mating parts, curved seats and visible support paths.
-Stage 08 owns the opposite service bus, dish and solar assembly; preserve these
-completed docking forms and the existing shared camera frame.
-
-### Stage 08 — Service, communications and solar wings (25 September 2026)
-
-The paired blue wings retain their size, spacing and pose. Carbon box-section
-booms now meet visible transverse alloy bearings, with small bronze captive pins
-and hull-seated roots. Their panel tangs, sparse rear rails and enclosed power
-raceways explain the support path. Satin perimeter rails and carbon corner shoes
-replace the conspicuous ivory/bronze picture-frame treatment. A thin continuous
-bonding sheet seats the photovoltaic tiles and the recessed conductor grid;
-the former small gaps behind those parts are closed.
-
-The offset ivory reflector keeps its profile and thin feed stays. A two-arm
-cradle, elevation axle and rear hub connect it to a seated hull saddle. A small
-satin seat joins the feed stem to the hub; its cylindrical feed horn has a bronze
-cap. The first draft's exposed dark central disc was moved behind the bowl after
-rendered review. The nozzle retains its satin silhouette, with a seated dark
-throat; the extra bronze inner stripe and alternating bronze jacket panels are
-superseded so the dish and power joints lead. These were passive static fittings
-at the Stage 08 baseline; the later ambient-motion requests below add a moving
-dish scan. Solar wings remain fixed and undeployed.
-
-Completed docking hardware, cabins, ladder, hull/access equipment and navigation
-remain unchanged. Room camera references stay exact; changed service-part bounds
-produce a subpixel automatic overview refit without changing camera code. Solar
-blue remains an intentional functional material exception. See the
-[Stage 08 source, renders and verification](evidence/service-assembly-design/README.md).
-Carry forward visible support paths, quiet carbon bodies, satin contact surfaces
-and bronze confined to small handling or captive parts. Stage 09 owns the general
-exterior hull and access ladders; retain the finished service assembly as its
-boundary reference.
-
-### Stage 09 — Exterior hull and access routes (25 September 2026)
-
-The continuous ivory roof, keel, rounded returns and rear pressure envelope
-remain intact. Both full exterior routes retain their carbon rail paths,
-rounded endpoints, spacing and stand-off distance. Broad rounded carbon tread
-sleeves now surround the alloy rungs. Elongated carbon pads, satin-alloy shoes
-with captive fasteners and tapered support webs replace the small disc feet and
-thin posts. These fittings carry forward the completed equipment's visible
-support paths without filling the shell with decoration.
-
-Three open tether eyes per route now coincide with supported rail stations.
-Their necks terminate at the near rims instead of obstructing the center holes;
-the rings stand far enough out to clear their small bronze retainers. Bronze is
-confined to these purposeful nodes. Upper and lower constructions remain exact
-reflections; retain the complete underside route even when overview hides part
-of it. The rear shell stays intentionally quiet.
-
-Cabin interiors, ladder contents, docking/service assemblies, openings and
-camera/navigation source are preserved. See the [matched renders, construction
-checks and independent review](evidence/exterior-hull-design/README.md).
-Stage 10 owns overview presentation and wayfinding against this finished
-silhouette; no further access-route changes are required for that handoff.
-
-### Stage 10 — Overview identity and wayfinding (25 September 2026)
-
-Four equal carbon destination tabs now distinguish room navigation from the
-rounded utility controls. Ivory labels, small entry arrows and restrained bronze
-focus feedback carry forward the equipment palette. All four default room names
-remain visible at 320 px viewport width; tabs keep 48 px height and at least 15 px
-type instead of shrinking during portrait hover/drag. Longer published labels
-remain complete in the accessible button name and native title, with visual
-ellipsis when space is limited.
-
-Leaders still begin at the actual opening-edge midpoints. Portrait rails may
-extend farther outboard to retain a 16 px minimum gap between paired tabs;
-leaders meet the new tab's straight border instead of its former pill arc.
-The visible identity adds the published professional title beneath the domain.
-An aria-hidden sizing copy retains the established identity reservation, so
-this typography change does not alter shared camera fitting.
-
-The completed model, portrait roll, drag envelope, navigation semantics and
-travel behavior remain intact. Portrait return callouts remain hidden/inert
-until arrival. See [responsive before/after evidence and review](evidence/overview-wayfinding-design/README.md).
-Stage 11 should retain this destination/utility hierarchy and the existing
-physical header signs; it owns material and lighting cohesion, not camera changes.
-
-### Stage 11 — Whole spacecraft finish cohesion (25 September 2026)
-
-Completed room layouts, attachments and detail density remain the baseline.
-This pass resolves inconsistent exposed hardware finishes: workshop monitor
-fasteners and their gantry now respond as the same alloy, and the ladder's
-alloy cassette parts no longer inherit the graphite casing's finish. Cabin
-fittings, all four rooms, the connector, docking/service hardware and exterior
-access hardware use the explicit `materials/hardware-finish.ts` profiles.
-
-Satin alloy uses roughness 0.46, metalness 0.60 and environment intensity 0.35;
-bronze uses 0.46, 0.20 and 0.35. These are authored surface coefficients, not
-changes to the shared environment or lights. The visible change is restrained:
-broader, quieter highlights and more consistent response between assemblies.
-Colors, emission and feedback are preserved. Bright ladder treads, carbon paint,
-floors, glass, lamps, solar cells, paper, fabric, wood and media retain their
-purposeful exceptions. Iris route paint has a separate source material so
-hardware styling cannot change door signals.
-
-No geometry, camera, navigation, global renderer or overview presentation is
-changed. See the [source-matched comparisons and verification](evidence/spacecraft-cohesion/README.md).
-Stage 12 can refine the orbital environment against this material baseline;
-retain the physical camera/world relationship and the approved Earth registration.
-
-### Stage 12 — Orbital environment (25 September 2026)
-
-The completed spacecraft remains the focal point above Europe at Night. A
-broader, quieter blue atmospheric crest blends into a slightly longer cobalt
-shoulder; the shorter inward falloff preserves the photographic surface. This
-is a restrained profile/color adjustment to the existing shell, without new
-lights, passes, geometry or assets.
-
-Meteor groups now use an 18-second bank cycle (three staggered groups, ten
-per minute), preserving their individual speed, opacity and single/pair/triple
-pattern. Longer quiet intervals let the independent star twinkle read. The
-star field, source core, regional loop, shared world registration, portrait
-anchor, spacecraft, camera and temporary Earth-only playback are unchanged.
-See [matched renders, motion audit and verification](evidence/orbital-environment-design/README.md).
-Stage 13 inherits this environment and the completed physical displays; its
-scope is visitor interfaces and reading views, not camera or Earth changes.
-
-### Stage 13 — Visitor interfaces and reading views (25 September 2026)
-
-Visitor applications keep the approved Soft graphite desktop and their existing
-physical registration. Projects and Case studies now use larger supporting type,
-clearer card/list hierarchy, and a centered detail column capped at 80ch within
-the existing screen. Contact uses quieter window/email surfaces and larger
-supporting labels; its chooser, draft retention, disclosure, scroll container,
-submission semantics and email alternative are unchanged. Control dimensions
-are logical CSS pixels, not a promise of screen-pixel size after 3D projection.
-
-Semantic Reading view is an editorial counterpart: flat carbon collection cards,
-ivory articles with 17px body type and a 70ch prose measure, reduced ornamental
-frames, and metadata beside the introduction. A bounded desktop contents rail
-and collapsed native mobile disclosure share the existing heading anchors.
-Heading-free articles omit the rail. About retains its personal paper character
-with simpler gutters and a quieter profile column; Contact uses one form surface
-without an extra simulated monitor housing. These scoped styles do not restyle
-Content studio or the physical notebook.
-
-The mounted notebook's fixed 14px body, page measurements, whole-spread portrait
-scaling and page/section behavior remain deliberate exceptions; Reading view
-provides its comfortable narrow-screen alternative. Populated screens retain
-ivory ink; Projects' unavailable monitors remain plain-carbon STANDBY, Case
-studies' unavailable cartridges remain blank/disabled and its unavailable
-terminal remains STANDBY. Content, availability, cameras, geometry, navigation,
-backend and the Stage 12 environment are unchanged.
-
-See [interface comparisons, controlled states and verification](evidence/visitor-interface-design/README.md).
-Stage 14 owns Content studio. Carry forward the same type hierarchy, restrained
-borders, clear focus and truthful state presentation without changing publication
-or authentication behavior.
-
-
-## Content studio interface — Stage 14
-
-The studio uses an ivory authoring surface, carbon frame/primary save action,
-restrained bronze selection accents and visible tonal section boundaries. The
-identity editor begins with name/brand content; portrait tooling follows.
-Desktop keeps a bounded collection rail; below 700px a labeled native Entry
-selector uses the same unsaved/busy guard. Project ZIP import is a disclosure.
-
-Save/private Preview/Publish precede the form. Export, Unpublish and Delete are
-separate record-management controls; whole-content export remains in Access &
-portability. Draft state distinguishes private, matching published, saved
-unpublished and unsaved edits. Desktop action-bar height is observed for keyboard
-and native-validation clearance; mobile remains ordinary document flow with a
-focusable return anchor. Social identity/destination, room placement and icon
-appearance are separate groups, preserving all slot/availability/publication
-rules. Sample settings describe metadata and indexing rather than visitor notices.
-
-The full-size notebook authoring proof retains its 438×428 ink and pagination.
-Narrow screens use a named keyboard-scrollable region with an explicit sideways
-scroll hint. No content reflow or paper geometry change is introduced. Scoped
-studio/confirmation styles preserve all visitor surfaces and prior stages.
-Authentication, schema, handlers, publication behavior and owner data are unchanged.
-See [Stage 14 comparisons, verification and review](evidence/content-studio-design/README.md).
-
-## Ambient spacecraft motion (25 September 2026)
-
-The initial [idle-motion implementation](evidence/spacecraft-idle-motion/README.md)
-gave the Contact UPLINK/VOICE meters quiet brightness changes and the exterior
-communications dish occasional trims of at most 3.2° during a 198-second cycle.
-The owner found both too subtle to notice. That calibration is historical: the
-current instruction is to make ambient animation easy to see, deliberate and
-smooth. Communicating that the motion was thoughtfully authored matters more
-than strict mechanical realism; it should not feel jarring.
-
-The dish now makes an eased two-axis scan around its visible captive axle. It
-begins moving after a 0.75-second hold, reaches ±18° horizontally and ±10.8° on
-the coupled second axis, and returns home within an 18-second repeating cycle.
-Three sweeps occupy 9.5 seconds of that cycle, with holds at the endpoints and
-home. Its reflector, feed, stays and rim move together. The cradle, solar wings,
-hull, doors and main lights remain steady. Overview fitting uses the dish's
-whole supported sweep so its frame does not shift with the current dish pose.
-
-The Contact wall's existing meters show high-contrast fill changes between 3
-and 9 lit bars; UPLINK and VOICE follow separate 5.2- and 6.4-second rhythms.
-Because the physical trays are small in a normal room view, the idle central
-display also traces its three existing signal arcs in sequence on a 3.7-second
-loop. The glow uses small transparent overlays on the idle glass, leaves the
-printed arcs in place, and disappears when the reading-view application takes
-over. The meters' labels, selectors, display status and interaction behavior
-do not change. This passive artwork does not claim that a visitor message or
-call was sent.
-
-The spacecraft stays fixed in the shared world while the camera moves. Reduced
-motion holds the dish and meters at their original resting appearance and keeps
-the screen glow off; hidden-page timing remains governed by the existing scene
-loop. The dish retains its feed shadows:
-its motion invalidates the cached key-light shadow map and, where enabled on
-desktop, contact shading while its pose changes; settled frames reuse them. The
-meter changes materials only, while the screen glow toggles small transparent
-overlays; neither asks for shadow or contact-shading refresh. The more frequent
-dish refresh and display overlays are authored visual costs, not performance
-optimizations. See
-the [visibility revision and checks](evidence/spacecraft-motion-visibility/README.md).
-
-## Ivory / Carbon / Bronze palette
-
-The written anchors **ivory `#EEE9DE`, carbon `#1F2730`, bronze `#AA8054`**
-supersede the earlier cream/navy/bright amber treatment. The five cropped AI
-references guide color relationships only; their geometry, framing, lighting,
-content and image quality are not design instructions. Principal hull/cabin
-architecture and suitable light surfaces use ivory; monitor housings, desks,
-supports and equipment use carbon. Bronze is restrained hardware/trim/accent.
-The later room refinement replaces the Projects ivory pad with a thinner,
-inset raised-carbon worktop over its carbon body. Floors remain plain dark
-carbon with the existing light/shadow response.
-
-`lib/palette.ts` and the semantic CSS tokens in `app/globals.css` supply matching
-sRGB anchors and tonal variants. The old material saturation/darkening transform
-is removed; authored bronze passes directly into Three.js. Carbon/ivory carry
-ordinary text. Light bronze `#D4B28C` on carbon and dark bronze `#775332` on ivory
-are accessible text derivatives; base bronze is not a normal text color.
-Screen emission tint is neutral so it does not recolor the authored canvas art;
-its intensity, roughness/metalness, scene lights and exposure are unchanged.
-The initial palette preserved dim `0.65` / focus `1.15`; the later cartridge
-refinement below changes only those cartridges to `0.48` at rest. All other
-object multipliers and animation timing remain intact.
-The initial palette request superseded the exact amber highlight color while
-preserving rim shapes and behavior; the later cartridge-only exception below
-removes those category rims.
-
-No persisted records are rewritten. The saved legacy default `#ffb547` (and
-older fallback `#e6a34c`) renders as bronze through `paletteAccent`; future seed
-records use bronze. An explicitly saved nondefault custom accent remains an
-owner-controlled exception and does not drive functional text colors.
-
-Intentional exceptions: photographs and project media/custom brand icons;
-natural linen, quilt, wood, paper texture and six colored notebook section
-markers; satin alloy; blue solar cells, optical/instrument phosphors and the
-coolant vessel's blue enamel; warm lamp emitters; meaningful success/error
-colors; unchanged Earth, stars and atmosphere. Neutral white texture multipliers
-preserve image colors. See [palette verification and critic review](evidence/ivory-carbon-bronze/README.md).
-
-## Room refinements and Soft graphite desktop
-
-The follow-up to the palette implementation tightens the Projects worktop into
-a thin, inset carbon surface with a fine gasket. The working plane, grounded
-supports, monitor bank, camera framing and material finish remain unchanged.
-The broader ivory slab is superseded. Archive empty-category and hover behavior
-and notebook marker feedback are described below.
-
-The owner initially requested brighter screen-desktop options, then selected
-**A · Soft graphite**. The shared folded desktop uses base tones `#56616B`,
-`#303C47`, `#45515D` and fold tone `#65717C`; its existing alloy glow remains.
-This artwork appears on populated Projects, Case studies and Contact displays
-and behind their open applications. Ivory secondary ink and quiet carbon fields beneath Case
-and Contact footer text maintain readability over the lower glow; empty standby
-displays retain their plain dark artwork. Lighting, emission,
-material finish, typography, hover/focus dimming and timing are unchanged.
-The [earlier comparison](evidence/palette-room-refinements/README.md) is historical;
-see [implemented desktop verification](evidence/soft-graphite-desktop/README.md).
-
-## Interaction contract
-
-The real camera moves around a fixed spacecraft and shares its viewpoint with
-the orbital background. Removing the background should leave the approved ship
-view essentially unchanged. The annotation-only virtual frame preserves portrait
-ordering. Light/reflection transforms compensate for the old vessel roll; a
-stationary hull therefore does not imply all lighting is invariant or bakeable.
-
-Portrait overview uses the owner's nearly frontal reference orientation:
-`[+0.10, +0.08, 1]` in the virtual frame, with a slight ceiling view. The owner
-clarified that “behind the top ceiling” means the **outer left hull** in this
-orientation, and “behind the bottom floor” means the **outer right hull**.
-Portrait drag therefore uses yaw −0.40…+0.10 radians and pitch ±0.32: more access
-to the left-side roof, modest access to the right-side underside. The original
-+0.03 right limit felt unresponsive because hover alone could exhaust it; the
-owner requested slightly more travel. A smooth asymmetric response retains neutral and blends velocity through the center.
-The same limits drive input, containment and departure; portrait fit samples are
-denser to cover the larger envelope. Landscape direction, limits and fit density
-remain unchanged. See [reference/drag evidence](evidence/portrait-roof-biased-overview/README.md)
-and the [right-drag follow-up](evidence/portrait-right-drag/README.md).
-The orientation boundary already changes overview roll.
-Overview↔room travel interpolates physical world eye and focus directly, with one
-shared ease and no whole-vessel clearance detour. Entry advances inward while
-rolling; cropping the hull during travel is intentional. The displayed hover,
-drag and dolly are folded into departure so returning them to neutral cannot
-cause a small initial retreat. History interruptions preserve physical momentum.
-Ordinary cabin springs, room fits, lens and door interlocks remain unchanged.
-See [direct inward flight evidence](evidence/portrait-inward-flight/README.md).
-The previous clearance curve in ledger entry 31 and its evidence remains historical; the owner
-rejected its residual pullback despite its earlier positive critic score.
-
-Direct room URLs begin at overview and animate inward using normal room entry.
-Keep the shared architectural fit independent of furniture extents. Hover adds
-restrained depth; dragging gives a bounded larger view and springs back to current
-hover on release. Preserve velocity and re-grab continuity. Touch/outside release
-returns to neutral. Navigation clears stale pointer/drag goals. Preserve
-reduced-motion, reading-view, focus, history and accidental-click safeguards.
-
-Selecting a visible room previews its first connecting door and retains the
-final destination. A nonadjacent room must be reached through all required
-connections, not replaced by its first neighbor. Rounded opening masks exclude
-solid frame/corner/divider surfaces and sky. Two rooms sharing a first door retain
-distinct press/release identities. Selecting the visible ladder bay from a cabin
-previews the current cabin's first connecting door and navigates through the
-ladder: Projects → About, About → Projects, Case studies → Projects → About,
-and Contact → About → Projects. The ladder is not a fifth destination; queue the
-exit cabin. Its opening stays inert from overview and while physically inside
-the bay, preserving automatic exit sequencing. Rounded masks still gate picking.
-Solid current-room walls around a door do not preview the ladder or neighboring
-cabin behind them. Picking uses the visible opening and flat door/guide/sign
-faces; the old broad ladder volume and thick doorway targets are retired because
-they could select through the wall at oblique viewing angles.
-
-Hover/focus opens selectable doors during travel. Exactly one pending destination,
-including Home, is retained; later choices replace it. Consume it at final
-arrival, immediately starting the next movement. Preserve it through intermediate
-waypoints and resize. Selecting the arrival cancels it; history/reader changes
-supersede it. Ladder entry participates, but hovering/clicking an exit while
-already inside the ladder bay retains its automatic restrictions.
-
-Only one physical ladder hatch opens at a time. Seal the entrance first, then
-request the exit while departing the center toward its landing. Approach its
-safe threshold during opening and cross only once clear. Ordinary cabin passage
-and ladder entry do not wait. Close doors after the camera clears their passage,
-not after final arrival. One six-leaf iris mechanism sits between wall faces;
-carbon reveals and recessed bronze feedback replace border recoloring. Opening
-is roughly twice the original speed; preserve the refresh-rate-aware motion
-implementation instead of introducing an arbitrary new duration.
-
-The current implementation is mapped above. [World-camera evidence](evidence/world-camera/README.md)
-and [visible-room navigation evidence](evidence/room-access-and-hardware/README.md)
-remain with the measured design baselines. Superseded door reports are available
-in Git history; the interaction contract here and current source govern.
-
-Each face of the Projects / Case studies and About / Contact partitions follows
-the cabin it faces. Hover, selection, transit and reader-wall feedback must not
-brighten or dim the opposite cabin's wall. The single physical partition and
-shared iris/tunnel lighting remain. See the
-[wall isolation and email spacing checks](evidence/room-hover-email-spacing/README.md).
-
-The owner clarified on 22 September 2026 that the dim resting state is desired.
-Selectable screens in Projects, Case studies and Contact and configured About
-social cards stay at a **0.65** multiplier until hovered or keyboard-focused,
-then ease toward **1.15** and return to **0.65** on departure. Do not restore regular
-brightness merely because hover ended or idle time elapsed. The idle multiplier
-also applies in overview, neighboring-room previews and throughout camera travel:
-input becoming available at arrival must not suddenly dim the screens. Room
-preview/transit lighting still applies independently. Object hover and its rim
-are enabled only in the settled current room. Unavailable controls and an
-already-open application's own monitor retain their normal brightness. This
-supersedes the earlier removal of the dim resting state and its travel exception.
-The later 23 September room-refinement request supersedes the earlier hold on
-the cartridge highlight box: category cartridges now omit the 3D rim and ease
-from **0.48** at rest to **1.15** on hover/focus. This stronger whole-face response
-keeps carbon print readable while making selection visible without a box.
-Native keyboard focus remains available. The terminal and other screens keep
-their existing rims and multipliers.
-
-## Projects library and authoring
-
-The four workshop monitors now open one library application, initialized to
-All projects, Systems, Interfaces or Experiments when that category has readable
-projects. They retain their physical
-enclosures and inset bronze hover/focus rims. The camera approaches the selected
-glass; landscape shows a two-column collection and portrait crops to a tall,
-readable application region inside the same monitor. Choose the category at the
-physical monitor; the application does not repeat the category switcher. Project
-details and Back inside that window do not initiate camera travel. Selecting another
-visible physical monitor changes the camera anchor. Bounded hover/drag and spring
-return remain available outside the native app controls.
-
-An X or the exposed Projects pressure wall returns to the room. Workshop
-furnishings block through-wall dismissal. Back restores the collection category
-and scroll position; each detail also retains its scroll position during that
-visit. A persistent scrollbar supplements ordinary native scrolling. Public
-`/projects`, `/projects?open=1` and `/projects/<slug>` URLs, browser history, private
-previews and semantic reading views remain available. The superseded Projects
-clipboard and old gallery-page transport UI are removed. About uses its mounted
-notebook; Case studies uses its fixed archive terminal.
-
-The HTML application stays within the glass and clear of its inset feedback rim,
-including close portrait and bounded hover/drag views. Its plane is registered to
-the real display surface; shrinking physical margins must not shrink readable
-text. The standalone reading collection retains category controls because it
-does not have the room's physical monitors, but omits empty categories.
-
-Populated room-view category monitors use the subdued folded desktop wallpaper
-behind their title and icon. An empty category retains its installed monitor
-with the plain carbon gradient and a small STANDBY label. It has no category
-name/icon, interaction hotspot, tab stop, hover feedback or application activation.
-This swaps the earlier wallpaper-on-standby assignment while retaining the
-intentional passive label; do not restore the rejected black face.
-Availability follows the current published or private-preview project collection;
-adding readable content restores that category's display and controls. This
-supersedes the earlier selectable empty-category application. The overall Projects
-reading route can still explain that no projects are available when the whole
-collection is empty.
-
-The desktop uses a restrained carbon folded wallpaper on the **entire physical
-monitor glass**, behind the opaque application window. Contact shares this
-wallpaper. It is not restricted to the HTML app rectangle, so portrait framing
-and camera movement cannot reveal bare screen backing. Idle graphics and desktop
-are mutually exclusive; closing restores the idle display.
-
-The Projects desktop uses 2px padding, without an exterior window shadow or the
-dark backing behind its scrollbar. Landscape rendering leaves a total 0.02-unit
-inset within the physical glass (0.01 per edge); portrait retains its 0.06-unit
-base inset and existing narrow crop. Camera fitting uses a separate `framing`
-rectangle with the original 0.06-unit inset in both orientations, so enlarging
-the window does not change the camera destination or physical monitor. The selected
-monitor's bronze rim is hidden while its application is open; other monitors retain
-hover feedback.
-Contact has its earlier 14px desktop padding again, replacing the later 6px
-wide-screen override.
-
-Project collection cards are text-only, with no repeated footer action; detail
-covers and story media remain.
-The collection title bar shows its category name and small category icon, with
-an X at right and no bottom status bar. Detail has a left-aligned, borderless
-**Back to projects** action and the X at right. Back uses the same hover/focus
-treatment as X and restores the originating collection and scroll position.
-There is no repeated Back action below the story. The detail status bar shows
-only the original-case project title. Counts remain in the application collection,
-but are removed from all four physical Projects room monitor graphics.
-
-Optional resource links share one row below the summary in both views, before
-role/stack metadata: **Open live project** first, then **View source code**. They
-wrap in that order on narrow screens. Live keeps its dark carbon fill, bronze outline and light-bronze text;
-hover and keyboard focus use ivory fill with carbon text, and pressing shades
-the ivory without movement. Source remains a secondary carbon/alloy outlined control. The
-former title-side Live placement is superseded. Both use 44px minimum height,
-6px corners and external-link cues. Source has a code icon and defaults to **View source code**;
-the exact former **View source** label is expanded at presentation only, while
-other configured copy is preserved. Absent links leave no placeholder or empty
-row. The solid amber resting state and text-like source underline are superseded.
-
-Native application/reader HTML uses one viewport-relative projective transform
-in `features/spacecraft/projected-surface.ts`, derived from the same camera and
-physical plane as WebGL. It has an explicit top-left origin and invertible depth
-mapping for native input. Only scene hotspots retain the nested CSS3D renderer.
-This removes the native window's dependence on its nested camera wrappers and
-percentage centering. The reported Safari desktop offset was not reproduced in
-Chromium, so Safari confirmation remains outstanding. See the
-[projection and desktop follow-up](evidence/projects-screen-projection/README.md).
-
-Studio is the primary authoring surface: title, summary and explicit multi-select
-categories, optional cover/role/stack/links, followed by a flexible Markdown
-story. The optional section starter is guidance, not a required essay structure.
-Older section-based projects remain readable/editable; their custom category text
-is retained but is not guessed into the new filters. Until an owner assigns new
-categories they appear in All projects. Owner records are not bulk-migrated.
-Project periods are no longer authored or displayed; new saves and exports omit
-them. Older v1 ZIP packages may still contain `period`, which imports accept and
-discard. Experience/Case studies periods remain supported.
-Managed images, videos, posters and captions are reusable; uploads insert local
-references into the story. Preview offers portrait/landscape content widths and
-the existing complete private scene preview. ZIP import produces a new private
-draft and media records; export uses the saved draft. Explicit media publication
-precedes project publication. JSON whole-content portability remains separate.
-See [operations](OPERATIONS.md#authoring-projects) for limits and package syntax,
-and [implementation evidence](evidence/projects-library/README.md) for checks.
-
-The explicit local demo population supplies nine stories: All projects (9),
-Systems (6), Interfaces (3) and Experiments (0). The Experiments monitor remains
-installed in plain carbon standby and unavailable, demonstrating the dormant category state.
-The stories include varied Markdown, still covers, a native MP4/captions and a
-finite animated GIF. The tool only updates exact known untouched
-sample fingerprints; `sample: true` alone is not permission to overwrite an
-owner's edits. It preserves divergent drafts, publication boundaries and other
-content. Fresh seeds contain the story/category text; managed media is populated
-explicitly through the loopback-only tool. GIF is accepted by the normal image
-upload/package paths; executable embeds remain unsupported. Covers are now used
-in detail only. Shared Markdown restores ordered, unordered and nested markers
-after the global reset; task lists use one aligned checkbox per item, including
-tight nested task lists. Relay, Fieldnotes and Meter have browsable mixed nested
-examples under Design principles; exact-known prior sample fingerprints can be
-updated by the guarded local tool, without overwriting edited samples.
-
-Relay is the ongoing presentation reference: it exercises supported heading
-levels, emphasis, strikethrough, quotations, inline and fenced code, tables,
-ordered/unordered/mixed nested task lists, non-default numbering, separators,
-line breaks, links, still images, native video with poster/captions, and a finite
-GIF. Its optional repository and live links point to BullMQ's public source and
-documentation as explicitly attributed queue-design references, not a Relay
-deployment or owner-authored code. Extend this known sample as supported features
-change without overwriting owner edits. Fresh seeds omit managed media references
-until the explicit population step supplies those assets. See the
-[demo/fit follow-up](evidence/projects-demo-fit/README.md) and current
-[monitor/list finishing evidence](evidence/monitor-finishing/README.md). The earlier
-[screen refinement evidence](evidence/project-screen-refinement/README.md) records
-the reduced wallpaper margin, resource examples and the now-superseded selectable
-empty-category trial. The current [category/action evidence](evidence/project-category-actions/README.md)
-records the first dormant-monitor treatment and narrow reading fit. The earlier
-[standby/resource refinement](evidence/project-standby-resources/README.md) replaces
-its black face and solid resting button with intentional passive art and clearer
-resource action states. The subsequent [screen/resource hierarchy correction](evidence/project-screen-hierarchy/README.md)
-assigns wallpaper to populated monitors and groups the resource actions below the introduction.
-
-## Case studies archive and authoring
-
-Approved on 22 September 2026: the four recorder cartridges select Product
-engineering, Systems & reliability, Research & experiments, or Design &
-interfaces; the terminal selects All case studies. Every option approaches the
-same existing 16:9 raked monitor. The owner's latest correction restores
-content-based availability: only categories with published stories are selectable;
-All is selectable only when the archive has stories. Empty or unrecognized
-categories leave blank dark-carbon cartridges, without category names, icons,
-identifiers, interaction targets or hover feedback. Populated cartridges pack
-above them in canonical category order and use ivory faces with stronger
-dim-to-bright feedback and no 3D box rim. Empty hardware always occupies the
-bottom rows. Live content changes move each category and its interaction anchor
-together and invalidate cached shading when the row order changes. An empty terminal
-uses plain carbon with STANDBY and is inert. This supersedes the briefly approved
-always-interactive empty-category behavior. Availability updates when content
-changes. The shelf crossmember and backplane end directly beneath cartridge four;
-its cable attachments remain on the shorter backplane. Stage 02 replaces the
-straight rear uprights with forward-seated formed cheeks and a shared terminal base.
-Published content drives the visitor collection;
-private preview uses drafts. No category is guessed from a title or older record.
-
-The monitor displays a numbered archive list with summaries and optional
-organization/period metadata. A story opens in the same window without camera
-travel. Back to case studies restores its category and scroll position, with
-separate retained scroll for each story during the visit. X, Escape or an
-exposed pressure-wall click returns to the room; hardware blocks through-wall
-dismissal. Responsive framing approaches the fixed glass and crops its width in
-portrait, keeping text readable. The former Case studies deployable reader and
-legacy chapter pager are removed. About subsequently moved to its mounted notebook.
-
-Public `/case-studies/<slug>` URLs, category query state, browser history,
-`/experience` compatibility and authenticated preview by ID/slug share the
-existing `experience` storage identity. Reading view offers all five category
-controls, including empty categories, and the same story renderer. Details use record titles/summaries for
-metadata and appear in the sitemap only when published.
-
-Content studio labels this collection Case studies and shares Projects' Markdown
-editor, safe preview and managed image/video insertion. Categories are explicit
-and may overlap. Cover, subtitle, role, organization, period and SEO fields are
-optional. Old context/decisions/impact sections provide a fallback story until an
-owner authors Markdown; existing records are not rewritten or recategorized.
-Save, private preview and Publish remain separate. Publishing checks all media
-and poster/caption dependencies, and live case-study references prevent deleting
-or unpublishing their assets. Project ZIP packaging remains project-specific;
-whole-content JSON backups include case studies as before. See
-[authoring instructions](OPERATIONS.md#authoring-case-studies) and
-[verification evidence](evidence/case-study-flow/README.md).
-
-The guarded local case-study demo tool supplies **All 6, Product engineering 3,
-Systems & reliability 2, Design & interfaces 1, Research & experiments 0**.
-Research demonstrates the disabled cartridge. **Building the whole product** is
-the complete Markdown/media reference, with mixed nested lists and tasks,
-headings, code, tables, quotations, links, still images, video/poster/captions and
-a finite GIF. The other studies vary in length. These are editable fictional
-concepts; the tool preserves owner edits and divergent drafts, reuses only
-verified public media, and does not change Relay or other collections. Fresh
-seeds include the text; explicit population supplies managed media. See
-[current standby/demo evidence](evidence/archive-standby-demo/README.md).
-
-## About mounted notebook
-
-The September 22 implementation approval replaces the old deployable About
-reader with native content on the existing notebook in its desk cradle. Opening
-**Read notebook** moves the camera to the stationary complete spread, like the
-other rooms' screen applications. The original left-page mountain artwork stays,
-with the current editable owner name; the right physical paper holds the reader.
-There is no detached dialog, backdrop or replacement notebook.
-The real first Markdown page is already mounted in overview and every room. Opening the
-notebook retains the same native content and measured pagination while the camera
-zooms; the former hardcoded right-page artwork is removed. Closing preserves the
-selected page on the physical book, so reopening also requires no content swap.
-The room preview is passive and excluded from keyboard/accessibility navigation;
-Read notebook remains the entry control. Ink follows the book's dim/bright feedback.
-The notebook has its own persistent native surface, independent of the other
-rooms' applications. Native ink stays attached throughout overview, room travel
-and reading zooms; only actual opaque scenery masks covered parts of the paper.
-Projected geometry masks respect partial coverage, furniture, the iris aperture
-and camera clipping planes. They also apply to moving page faces without replacing
-the page-turn cutout. Hidden/occluded ink retains layout and measured pagination.
-Only the active reader owns the shared accessibility/focus ID. This supersedes
-the earlier hide-until-arrival rule, which left the book blank during travel.
-The notebook and its cradle are centered on the table, and the close camera centers
-the spread. Like the other room controls, the notebook dims at rest in the room
-and brightens on hover or keyboard focus; the open reader keeps normal brightness.
-Its physical hover/focus rim follows the rounded cloth cover, behind its retaining
-clips, without a second rectangular HTML outline.
-
-Published Journal entries are **sections**, each with its own colored paper marker.
-The marker count follows the collection, up to six visible at once; separate
-Earlier/More sections controls expose additional groups without discarding records.
-Markers start near the top with a fixed, even gap regardless of section count;
-they do not stretch to justify the full height of the paper.
-Each marker sits behind its section's first page. The current section's marker
-and all earlier markers rest on the left, including the first section on initial
-entry; only future sections remain on the right. Crossing into a section carries
-that section's marker left, and crossing back before it carries the same marker
-right. Within-section turns leave markers in place. Their reverse labels remain
-readable. Both paper stacks align with the reading leaves,
-which overlap each flag's adhesive region by 30 logical pixels. The fixed left
-artwork remains visible above the resting stack.
-Room-view flags and native reader labels share numbered titles, typography and
-placement. Marker titles stay unadorned when selected, including during page
-turns; selection semantics and keyboard focus outlines remain intact.
-Only each flag's exposed 125px region is interactive or highlighted;
-its 30px adhesive region is conceptually buried inside its indexed leaf. The
-owner's latest follow-up supersedes both the September 24 underline treatment
-and the subsequent 62% white highlight, which felt too bright. The shared paper
-palette now uses slightly darker, muted hues; hover/focus adds a restrained 24%
-ivory wash across the exposed tab. Ink remains dark and steady, with no underline,
-hover rim or shadow. Keyboard focus retains its outline; selected tabs return to
-their resting paper color on departure. The highlight eases over 220ms; reduced
-motion settles it immediately. See
-[softened hover evidence](evidence/notebook-soft-hover/README.md).
-
-The visible flag mesh and both printed faces stop at the page edge. This fixes
-the buried adhesive strip briefly appearing on top of a turning page. UV cropping
-preserves the existing label placement and size. Perspective can still make a
-raised leaf briefly cover the inner edge of a different, stationary marker;
-that is correct physical occlusion and is preserved. The moving tab also
-participates in the native ink mask, preventing stationary lettering from showing
-through it when the two tabs overlap in projection. See the
-[interaction polish checks](evidence/about-interaction-polish/README.md).
-
-The bottom arrows turn **pages within the current section** and stop at its ends.
-Pages never scroll. Each section is one continuous Markdown body that flows
-automatically into fixed pages. Pagination is hidden for a one-page section.
-Each crossed physical leaf turns, including multi-section jumps; long routes use a
-2.4-second animation budget. Reduced motion settles immediately. The 14px body is
-smaller than the 16px subtitle and 17–32px headings. During turns, native Markdown
-ink follows the physical front of each crossed leaf and reveals the adjacent
-page beneath it. The reverse face carries the retained left artwork and links.
-Projection masks keep stationary text from showing through the moving paper;
-inert display copies preserve the original semantic reader and keyboard focus.
-Selection and per-section page positions survive closing during a visit. Escape or exposed pressure wall returns
-to the room; there is no Back to About button on the paper. Furniture blocks wall
-dismissal and focus returns to the
-notebook. The first section includes the editable biography; configured social links
-and the Contact invitation sit on the left paper. An empty journal retains the
-introduction. This supersedes the earlier three-marker/chapter-pager/scroll design.
-
-Journal authoring reuses the Markdown Write/Preview editor and managed media
-workflow from Projects and Case studies. The notebook and semantic Reading view
-share safe Markdown rendering, preserve legacy single line breaks, and support
-headings, lists, links, images, video/captions, code and tables. Raw HTML is escaped;
-private media must publish before the section, and published section dependencies
-prevent deleting or unpublishing referenced media. Journal Write has one Markdown
-input per section. Preview uses the same 438×428px ink area as the physical reader
-and offers automatic page navigation. The later automatic-pagination request
-supersedes manual Add/Remove page controls, per-page character limits and overflow
-Save/Publish gates. The existing whole-body size guard remains. Old page-break
-comments become ordinary paragraph breaks, preserving fenced/indented code examples.
-Preview uses prospective published section ordering and published biography/media,
-not unrelated drafts. Later biography edits can change the automatic page count.
-The requested sample population refreshes only exact untouched notebook samples,
-adds absent sample sections, and preserves owner-edited records and identity.
-
-The owner's latest instruction explicitly defers a dedicated mobile design:
-**portrait uses exactly the same full spread, page dimensions, typography and
-attached flag layout as desktop, scaled down to fit**. Earlier proposals to crop
-to the right page or relocate markers are superseded. No paper stretch or mobile
-reflow is implemented. Semantic Reading view remains the readable alternative.
-Room, overview, doorway and orbital world framing keep their existing rules;
-only the close notebook camera is new. See [initial implementation](evidence/about-notebook/README.md),
-the [page/section refinements](evidence/about-notebook-refinements/README.md), and the
-current [automatic pages and room interaction](evidence/about-notebook-automatic-pages/README.md),
-[printed page turns and fitted feedback](evidence/about-notebook-turn-realism/README.md),
-[persistent real content in the room](evidence/about-notebook-room-content/README.md),
-[continuous content across all camera views](evidence/about-notebook-all-views/README.md),
-[markers behind each section's first page](evidence/about-notebook-section-markers/README.md),
-and [plain marker lettering](evidence/about-notebook-marker-ink/README.md).
-
-## About photos and social cards
-
-The mounted photo can display the owner's selected portrait. The owner's later
-request makes the physical frame and corner retainers square, slightly larger
-than the social prints. Its lower edge preserves clearance above that row; it
-remains passive beside the library. Identity & copy uses one
-library image with independent, nondestructive crops for the square room
-frame and square Reading view portrait. Without an image, the room retains its
-landscape artwork and Reading view its existing book symbol.
-
-Three equal square paper cards remain clipped above the notebook. Each can be
-assigned an existing social link to Left, Center or Right, independently of the
-two Contact monitor placements. Existing links default to Off; no owner content
-is reassigned automatically. The September 24 refinement supersedes the earlier
-icon-only presentation:
-each configured card prints its icon above the owner-authored display name and a
-small outward arrow for web destinations. The owner subsequently requested
-stronger arrow ink: its stroke is 1.4% of card width, up from 0.6%, with a matching
-bold arrow in the studio preview. Email cards omit the new-tab arrow.
-Long names ellipsize on the paper while the native link retains the full name.
-The icon remains half the card width (0.19 local units), shifted upward to make
-room for the label; the studio preview matches the composition. The visual picker
-offers recognizable platform marks from Simple Icons, plus Website and Custom
-link symbols. An
-optional standard SVG or PNG upload replaces the preset in About and its readers;
-choosing a preset clears that override. Uploaded icons preserve their colors,
-transparency and full proportions. Contact continues using the shared preset.
-The full owner-authored name remains in the native link and focus label.
-
-Configured cards retain the existing dim-at-rest and bright-on-hover/focus easing.
-The floating tooltip and bronze hover rim are removed so the print itself carries
-the interaction. Keyboard focus has an inset carbon outline on the native link.
-Native links open HTTPS destinations in a new tab and mailto destinations in the
-mail handler; normal context menus, keyboard activation and drag-click
-suppression remain. Targets are available only in settled About, outside reader
-mode. Empty slots keep passive paper artwork with no target or platform mark.
-Reading view and the notebook reader expose the same selected links as wrapping,
-44-pixel-high logical controls. The notebook reader now uses the mounted spread
-described above; other furniture and the room camera fit remain unchanged.
-The three prints are 0.38 × 0.38 local units; live neutral-room checks
-measured 24.19-pixel targets at 360 × 800 and 26.31 at 390 × 844.
-
-Save draft, private preview and Publish remain separate. Images require explicit
-publication before their parent can publish; live portrait and active custom-icon
-dependencies prevent unpublishing/deleting those assets or changing them to an
-incompatible media type. SVG uploads are converted locally to a bounded PNG in
-an isolated image context; raw SVG is never served as an uploaded asset. Retired
-social-photo fields remain round-trippable but are neither rendered nor treated
-as active dependencies. Duplicate live
-About slots are rejected atomically. Crop/placement fields travel through content
-backups without modifying uploaded originals. Slow or failed image loads keep
-fallback artwork visible without blocking scene entry. See
-[authoring instructions](OPERATIONS.md#authoring-about-photos-and-social-cards) and
-[current interaction polish](evidence/about-interaction-polish/README.md). The
-[icon-only evidence](evidence/about-social-icons/README.md) and earlier
-[photo-card evidence](evidence/about-photos-socials/README.md) are historical.
-
-## Contact computer and submission boundary
-
-The idle center monitor keeps its small `COMMUNICATIONS` label and uses
-`LET’S CONNECT` as its main heading, with `Start a conversation` underneath.
-The room sign still uses the configured Contact room name.
-Its footer reads `COM / 01` and `OPEN TO CONNECT`; the left and right social
-screens are `COM / 02` and `COM / 03`, respectively. There is no fourth channel.
-
-The main Contact screen and configured social screens use the shared folded
-desktop wallpaper behind their graphics, consistent with Projects. A missing or
-invalid social destination leaves a plain dark STANDBY display, without social
-graphics, native link target or hover feedback. It remains installed as passive
-hardware. This rule applies to both social slots.
-
-The main Contact monitor is selectable with the shared screen hover/focus feedback.
-Its application replaces the idle display on the existing glass. Landscape frames
-the monitor and conventional 82-key keyboard; portrait frames a tall application
-window inside that glass, with single-column fields and internal scrolling. The
-monitor itself is not stretched. A conventional, accessibly named X closes the
-application. Clicking exposed Contact-room pressure walls also returns to the
-room; those walls dim during screen use, brighten on hover and show a secondary
-return cue. Main/social screens, keyboard and desk block that wall action using
-their actual rendered silhouettes.
-The old deployable Contact tablet is removed; Projects now uses its monitors as described above.
-
-Keep bounded hover and drag camera control active while this application is open.
-The closer computer orbit uses 0.04-radian pitch / 0.12-radian yaw limits; drag
-release springs back to hover, and native form interaction never starts a drag.
-A static abstract carbon/alloy desktop fills the full monitor glass behind
-the application window, including the space around the compact chooser. Main and
-both social displays use a single seated rounded frame, with concentric corner
-radii for a consistent narrow dark border. The glass is recessed behind that
-frame; app and interaction anchors remain aligned to the visible face. This
-replaces the protruding stacked trim and mismatched corner gaps.
-The neighboring social displays remain independently hoverable and selectable,
-with their bronze rims inset on the glass. The already-open main display does not
-advertise another selection. Its complete monitor/support assembly is raised
-slightly to leave real clearance above the keyboard's function row, since an
-HTML application plane cannot use WebGL depth to hide behind individual keys.
-
-Both views share `ContactForm` and the in-memory draft/submission state. **Schedule
-a call** comes first. Initially neither option is selected and no fields appear;
-the choice and entered draft persist across view changes within that visit.
-Clicking the selected option again returns to the chooser without discarding
-entered fields. The two choices use accessible toggle buttons; Enter and Space
-also select/deselect them. An explicit cleared choice survives view remounts,
-including visits carrying an earlier submission-success flag.
-The computer window shows a persistent themed scrollbar whenever its content
-overflows, independent of native scrollbar auto-hide settings. The thumb supports
-dragging and keyboard scrolling; wheel/touch still scroll the native content pane.
-Reading view uses its ordinary page flow rather than a nested Contact scroller.
-Call requests show required date/time and the device time zone first, then name,
-company, email, subject and message. Message mode uses those five shared fields
-in the same order; only email/message are required. Duration is omitted because
-this is a preferred-time inquiry, not a booking. No call backend, availability
-calendar, reservation or automatic confirmation exists.
-The call branch validates but returns before any transport or persistence.
-
-**Send a message is working**: it reuses `/api/contact` and the private D1 inbox.
-The unchanged backend requires a name and legacy intent: the frontend supplies
-`Name not provided` when omitted and `project` as an internal storage category.
-Company/subject are preserved in the message body and count toward its existing
-5,000-character limit. The old interview/project categories are not visitor choices.
-No new schema, mail delivery or backend integration is introduced. Failed sends
-retain the draft. Controls fail closed before hydration; without JavaScript the
-configured email alternative remains available. The owner requested removal of
-visitor-facing sample/demo badges and sample notices, including private preview
-presentation; sample metadata and studio controls remain intact. Call requests
-still do not send or save anything: the action-adjacent notice and acknowledgment
-state this plainly without sample badges or a booking/delivery claim.
-
-The secondary email callout can be dismissed/reopened, copied or opened as a mail
-draft. Plain-text copying tries the synchronous compatibility path, then starts
-the modern API within the same click if needed, restoring focus and selection.
-Its label and address use compact, aligned rows in both the room application and
-Reading view. The callout's dismiss/copy buttons remain 44px wide with 28px minimum
-height; the email link uses the same row height and still wraps longer addresses.
-Keyboard key caps and legends follow physical `code` presses/releases,
-including held combinations; blur, visibility loss and closing clear their state.
-On macOS, Caps Lock reports toggle events rather than physical release. The owner
-approved a status fallback: its modeled cap stays down while Caps Lock is enabled
-and rises when disabled. Read the modifier state from in-app keyboard events,
-including ordinary typing, so returning to the form restores the current status
-on the next key event. Blur, visibility loss and closing still clear all caps.
-Other platforms retain physical down/up tracking, including Caps Lock. The former
-140 ms Mac pulse is superseded; do not approximate hold duration with a timer.
-Native editing shortcuts remain
-intact. Mobile visual-viewport changes resize the inner scroll area without
-changing the camera; device Safari keyboard behavior
-still needs a native-device check. Design costs and checked states are in
-[Contact evidence](evidence/contact-computer/README.md) and ledger entry 24. The
-[interaction refinements](evidence/contact-computer-refinement/README.md) and
-entry 25 record the subsequent clearance, social-screen and wall-close work.
-[Desktop and input polish](evidence/contact-desktop-polish/README.md) and entry 26
-record the chooser, wallpaper, drag, copy and earlier Caps Lock pulse. The
-[Caps Lock fallback review](evidence/contact-capslock-status/review.json) records
-the subsequently approved status behavior and its verification limits.
-
-## Earth and atmospheric art
-
-The owner selected **Europe at Night**, then approved a shorter seamless regional
-loop with believable fictional geography, native source detail and a fixed
-physical Earth across screen sizes. Production uses **`earth-europe-loop.webp`
-(2560×1536)**. The original **8192×4096 NASA Black Marble night map** supplies the
-protected European core; an offline AI-assisted coastal continuation joins it
-back to itself. The cinematic blue atmosphere and opening **12° longitude /
-48° latitude / −10° roll** remain. Normal rotation is **0.0045 rad/s** (1.5× the
-original 0.003 rate), after readiness and subject to visibility/reduced motion.
-
-Earth's authored position, radius, geography and spacecraft-world registration
-are fixed. A later owner correction keeps the horizon **bottom-left in vertical
-overview** using a viewport-selected anchor. That anchor stays fixed during room
-entry and return: Earth, stars and spacecraft respond to the same physical camera.
-Earth may naturally move out of the frame in a room. Only a viewport-orientation
-change eases between the portrait and original landscape anchors; initial setup
-and reduced motion apply the chosen anchor immediately. Same-orientation resize,
-hover, drag and room selection do not retarget Earth or reset its texture phase.
-This supersedes the rejected live-roll compensation in `e238e60`, which kept
-Earth steady while the rest of the world appeared to turn. Its regression test
-encoded the wrong motion rule; the corrected tests assert fixed Earth/atmosphere
-world matrices and moving projections throughout both navigation directions.
-See [stable navigation evidence](evidence/earth-stable-navigation/README.md);
-the [previous review](evidence/earth-portrait-placement/README.md) remains historical.
-Landscape uses 38° vertical FOV; portrait preserves 38° horizontal FOV,
-with a 78° vertical cap for very tall windows. Different responsive camera poses can still reveal
-different Earth pixels; only a same-eye lens/crop comparison shares the identical
-physical viewpoint. This is not a screen-space photograph or Earth attached to
-each room's camera.
-
-A fixed sphere with scrolling longitude UVs repeats every **112.5° / 436.33 seconds
-(7 minutes 16 seconds)**. One map and the existing sampling shader remain. The
-sphere's geometric U boundary stays outside the audited camera envelope; changing
-camera limits requires rerunning the reusable triangle/frustum UV audit. It bounds
-all fragments at each audited pose plus explicitly described pose neighborhoods,
-not every conceivable browser dimension or future camera change.
-
-The **1536×1536 protected core** retains decoded NASA pixels exactly. The authored
-bridge is generated offline at native resolution, stitched with minimum-error
-cuts, then losslessly encoded. The rest is a fictional satellite-style map, not a
-factual view of Earth. No runtime image generation, crossfade or second texture
-sample is introduced. Texture width describes a regional crop, not downsampling
-the original full 8K world. Smaller storage does not by itself prove faster frames.
-See the [current evidence](evidence/earth-consistent-loop/README.md) for the asset
-identity, generated/source proportions, bounded crop proof, measured comparison,
-rejected portrait framing and recommendation. The [original regional-loop
-record](evidence/europe-regional-loop/README.md) remains historical evidence.
-
-The opening is the former **Europe at night** preset, distinct from Mediterranean
-classic (18° / 38° / −12°). It supersedes the provisional East Asian default and
-earlier route recommendations. The regional-loop request also supersedes the
-decision to accept darker regions later in a full-world rotation. CPU light
-scores remain comparison aids, not substitutes for rendered visual review.
-
-The former angle/preset/model controls, copy/paste settings, daytime rendering
-and their dedicated tests remain removed. The owner subsequently requested a
-**temporary playback helper** to inspect the regional loop. This supersedes the
-earlier no-controls rule only for playback, not angles, presets or Earth models.
-**Tools → Earth playback** at the bottom-right opens a video-style timeline
-covering the full **7m16s** loop, Play/Pause/Restart controls and a **1–60× speed slider**. Here
-**1× means the approved 0.0045 rad/s site speed**, already 1.5× the original rate;
-60× traverses the loop in approximately **7.27 seconds**.
-
-Seeking works backward or forward and pauses at the selected phase. Restart
-returns to the original opening at normal speed. Closing keeps the chosen Earth
-phase and restores normal 1× playback; reloading returns to the original Europe
-opening. State lives only in the current React/environment instance, without
-browser storage, backend writes or portable settings. The helper changes only
-Earth time, leaving stars, meteors and camera timing alone. Readiness and global
-reduced-motion/visibility rules still gate automatic playback; the timeline can
-preview still frames under reduced motion. Only an open panel polls its displayed
-state, at 10 Hz. The helper does not change texture or geometry quality. See
-[playback-control evidence](evidence/earth-playback-controls/README.md).
-
-Only the regional night WebP is fetched by normal application visits. The full
-8K night JPEG remains in `public/textures/` for rebuilding, regression tests and
-historical comparisons; it is not an additional runtime request. Daytime and
-lower-resolution maps remain removed. Their small provenance manifests and raw
-performance results remain in historical evidence. Reproducing those old implementations requires
-checkpoint `56c67bb`, as described by the [historical resolution guide](../scripts/benchmarks/earth-resolution-lab.md).
-Independently used cloud benchmark fixtures remain for their retained tests and
-case-study evidence; the production renderer does not load them.
-
-Atmosphere art takes priority over strict realism: preserve the gradual blue
-horizon with a restrained peak, without gray pollution-like haze or glaring
-electric blue. Stars surround the world on a uniform sphere, eliminating the old
-rectangular patch's exposed drag edges. A hierarchy of small, medium and a few
-larger luminous stars replaces the dust-like field. Independent brightness and
-halo-size modulation make twinkle noticeable without pulsing the entire sky.
-Meteors retain their quieter, slower individual strokes and occasional groups.
-Stage 12 extends the timing bank to 18 seconds: ten groups per minute, with
-longer quiet intervals. The same pass softens and broadens the atmospheric
-crest while retaining the blue shoulder and protected surface. See the
-[current environment evidence](evidence/orbital-environment-design/README.md);
-the earlier horizon-softening record below is historical.
-
-Earlier cloud requests favored scattered formations with varied volume and
-visible ocean rather than repetitive rough bits or a continuous thick blanket.
-Those experiments were superseded by the satellite Earth. Do not resurrect them
-because an old asset document calls procedural clouds current. These preferences
-matter if the owner later reopens cloud design.
-
-Historical comparison evidence: [2K/4K/8K night Earth](evidence/performance/night-earth-resolution/README.md).
-The [sky review](evidence/sky-land-composition/review.json) records star composition
-and resource costs. Its land-based Earth acceptance was superseded by the
-[city-light composition review](evidence/earth-light-composition/review.json),
-which records early light coverage, distribution and the remaining dark intervals.
-Both CPU audits use image-color proxies requiring rendered review, not authoritative
-land or settlement masks.
-The [retired helper review](evidence/earth-composer/review.json) records its
-historical source, checked interaction states and verification limitations.
-Earlier day-map/procedural comparison: [four-way audit](evidence/performance/earth-fourway/audit-summary.md).
-Atmosphere: [horizon softening](evidence/horizon-softening/README.md).
-Asset provenance: [texture records](../public/textures/README.md).
-Historical native Safari captures do not authorize native screen capture today.
-
-## Performance ledger and comparison discipline
-
-[performance-ledger.md](performance-ledger.md) is the running record of implemented,
-rejected, inconclusive and held work. The owner may use it for a case study.
-Retain hypotheses, baselines, source/asset hashes, setup, raw runs, exclusions,
-visual changes, decisions and limitations. New art costs must remain distinct
-from optimization savings. No benchmark is needed just to edit these instructions.
-
-The bottom-right **Tools** launcher sits beside Reading view and opens an upward
-popover containing **Earth playback**, **Scene diagnostics** and **Content studio**.
-Opening the menu alone starts neither playback polling nor instrumentation.
-Escape, outside interaction or focus leaving the menu closes it; closing an
-inspection panel returns focus to Tools. On narrow screens, Reading view keeps
-its accessible label while displaying only its icon to leave room for navigation.
-The launcher records its intended Open/Close action on primary pointerdown, so a
-focus dismissal between press and click cannot reopen a menu the visitor meant
-to close. Keyboard activation still uses current state. A pure event-ordering
-regression covers that race; it does not establish a native Safari reproduction.
-
-**Tools → Scene diagnostics** opens guided diagnostics with advanced
-room/assembly/pass inspection and named exports. Instrumentation is opt-in and
-normal rendering is restored on close. The owner has an Air M4 with passive
-cooling; diagnostics must remain useful across devices/browsers. Unsupported GPU
-queries are unavailable, never inferred zero cost. Use the authorized built-in
-engine and report that scope; do not automate native Safari without permission.
-
-Resolution comparisons include actual transfer bytes, decoded/nominal texture
-storage with mipmaps, decode/upload/first-frame preparation and steady CPU/GPU/
-frame pacing. Verify decoded dimensions and loading success. Preparation records
-are not cold-network benchmarks; multi-version lab residency is not single-map
-production memory. Historical full-globe night data do not reliably rank steady rendering at
-2K/4K/8K; delivery/storage differences are clear. Keep day/procedural comparisons
-separate and identify preserved historical source explicitly.
-
-Geometry/render experiments should first rank current costly passes/groups,
-then compare the affected rooms and activities. Keep the approved regional Earth
-with its original 8K texel density in unrelated baselines; source-identify older
-full-globe comparisons separately. Match production build, viewport, drawing buffer, camera,
-time, quality, power and motion state. Repeat balanced orders and reference
-controls. Stop builds/tests/other rendering during timed work. CPU microbenchmarks
-and sustained browser captures answer different questions.
-
-Use the documented rested protocol and record thermal/power observations when
-available. A pause or nominal OS pressure does not prove stable clocks or absence
-of throttling. Keep drifting/small signals inconclusive and preserve interrupted
-or rejected runs. Compare mean/p95 and block variation, refresh frequency,
-startup/preparation and disposal where relevant. Neither geometry counts nor
-CPU submission establishes GPU time; group hiding also changes occlusion/shading.
-
-**Candidate 1 was authorized on 15 September 2026.** The delivered-camera audit
-separates actual geometry revisions from material feedback so color-only changes
-can reuse GTAO. Camera/door/reader motion, projection and explicit invalidation
-remain covered. Shadow diagnostics count actual generation, and the full-scene
-lab supports balanced comparisons with mutually exclusive frame/pass GPU timers.
-Entry 19 records the narrow measured benefit, exclusions and image checks.
-Candidate 2 was subsequently authorized: entry 20 records offline-specialized
-indexed cylinder generation and its exactness/storage/timing evidence. No runtime
-vertex-welding pass or downloaded baked model is introduced. Candidate 3 was then
-authorized: entry 21 retains the existing cached shadows after testing an offline
-native-depth bake. The bake adds delivery/restore work, does not reduce steady
-sampling and cannot preserve portrait-roll shadows as one fixed map. The reusable
-experiment remains developer-only. Candidate 4 was then authorized: entry 22
-audits baked contact shading on 31 static Projects receivers and a hybrid with
-live hatch/reader contact zones. The owner approved retaining production GTAO: the bake
-and its subdivision visibly introduce coarse/patchy shading, add geometry and
-asset costs, and do not preserve all moving-object contacts. The hybrid improves
-local contacts but remains an approximation requiring art review. No contact bake
-or asset is imported by production. Entry 22 owns source-matched verification and
-timing status; stale-error runs are rejected, not evidence of thermal throttling.
-
-**Candidate 5, baked diffuse illumination, was audited in entry 23. The
-recommendation is to retain the delivered lighting; both visible alternatives
-remain developer-only and unapproved for production.** It fits
-nine RGB coefficients to the existing `RoomEnvironment` PMREM's roughness-1
-directional field, rather than calculating new scene bounces or local contacts.
-One variant replaces the shared irradiance lookup, affecting diffuse and
-specular multiscattering energy; the other changes only its diffuse contribution
-while retaining the original lookup and specular energy. Current fragment normals
-and environment rotation drive evaluation, including portrait roll. Direct
-lights, shadows, GTAO, dynamic readers, emission, room dimming and paint treatment
-remain live. No candidate geometry or texture is added; 108 bytes describes only
-the Float32 coefficients, not total memory. Final held-out GPU error is about
-5.3%, and wide, portrait and compact comparisons show brightness changes. The
-rested timing attempt fails its unchanged-baseline GPU stability gate, so it
-establishes no speedup. Production illumination remains unchanged. Entry 23
-preserves before/after images, qualified measurements and the reusable lab.
-
-The ledger owns order and status. Key-light shadows, settled GTAO, the reflection
-environment and the DFG reflectance approximation already have reuse or
-precomputation paths. "Precompute everything" is a hypothesis to investigate in
-parts, not permission to replace the renderer.
-LOD, optional lower-power idle, adaptive resolution, aggressive room hiding and
-broad hull simplification also remain deferred. The previously approved tiny
-hardware reduction is not blanket approval for further visual simplification.
-
-Practical entry points:
-
-- [Diagnostics and rested workflow](performance-diagnostics.md).
-- [Thermal research/limits](evidence/performance/rested-retests/research.md) and
-  [power/exclusion audit](evidence/performance/rested-retests/final-audit.md).
-- `scripts/benchmarks/spacecraft-geometry-inventory.mjs <baseline-commit>`:
-  source-hashed static counts, not GPU timing or process memory.
-- `scripts/benchmark-controlled-performance.mjs`: isolated CPU candidates;
-  read the protocol before comparing results with browser rendering.
-- [Earth resolution lab](../scripts/benchmarks/earth-resolution-lab.md).
-- [Historical optimization investigation](performance-optimization-review.md):
-  later ledger decisions supersede its next-step suggestions.
-
-## Maintaining the record
-
-Durable workflow rules belong in `AGENTS.md`, current decisions here, changing
-cost/candidate status in the ledger. Keep reproducible performance evidence with
-its comparison; retain necessary current maintenance documentation. Remove stale
-one-off reports, plans and screenshots once their useful decisions are captured.
-Git history preserves removed revisions. Do not create a report for routine
-organizational cleanup. The temporary playback helper above does not authorize
-permanent Earth controls or restoring 2K/4K defaults, old procedural
-clouds, ordinary-door waits, duplicate iris blades, generic exterior filler,
-angled rescue lights, end-gap reels or the short lower ladder stub.
-
-Official support checked on 15 September 2026: Codex still loads project
-`AGENTS.md` guidance, and Astra documentation explicitly discusses those files.
-No model/effort override or global configuration change is needed.
-[Codex project instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md),
-[Astra guidance](https://developers.openai.com/api/docs/guides/latest-model).
+| Projects workshop | Four removable monitors on a bench-supported instrument bridge; thin inset carbon worktop, grounded supports, clear working plane and one sheltered diffuser. No floating rear-wall braces. |
+| Case-study archive | Four cartridges above the fixed 16:9 raked terminal in a shared floor-mounted dock. Formed cheeks and shoes meet the flat deck ahead of the rear cove. No fifth Field notes cartridge or lower runners. |
+| Contact console | Thin rounded carbon console, conventional 82-key keyboard, fitted main/social glass, independently mounted social screens, outboard microphone and headset on an underslung hanger. Keep knee space and keyboard/display clearance. |
+| About study | Rest-left/study-right layout, wood writing insert, real notebook/paper, bedding, photo and personal objects. Open book cradle with visible covers; square photograph and three equal clipped social prints. |
+| Ladder bay | Dark seamless backing, legible alloy treads, small bronze rail clamps/end caps. Paired stowed maintenance spanners and two grab bars at each end, with intervening spaces empty. No restored angled lights, reels or decorative landing slabs. |
+| Exterior access | Full matching upper/lower ladders, including the underside route. Match rail ends, rung spacing, mounting feet and supported tether eyes. Keep the rear shell quiet. |
+| Docking assembly | Ivory pressure barrel, dark seal, satin flange, connected wheel spokes and seated handles. The small service cover uses one continuous pull; paired circular ports and a separate latch were rejected as face-like. |
+| Service assembly | Fixed blue solar wings with supported booms/bearings and enclosed raceways; connected dish cradle/feed supports. Keep dark central fittings behind the reflector and bronze limited to small functional joints. |
+
+Use the existing hardware-finish profiles rather than independently restyling
+matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
+retain purposeful exceptions. Construction entry points are in
+[the asset guide](ASSETS.md).
+
+Overview destination tabs must remain distinct from utility controls. Preserve
+readable room labels at compact widths, accessible full names when ellipsized,
+and leader endpoints at each opening's top/bottom midpoint. Portrait return
+callouts stay hidden/inert until arrival. Identity uses published content.
+
+## Camera, doors and navigation
+
+The camera moves around a stationary ship, including portrait roll, hover and
+drag. The orbital environment shares the same physical viewpoint throughout
+travel. Light/reflection transforms compensate for the former vessel roll: fixed
+geometry does not imply all illumination is static or bakeable.
+
+Portrait overview is nearly frontal with a gentle ceiling view, showing ceilings
+rather than floors. The physical roof is screen-left and underside screen-right.
+The approved asymmetric drag envelope favors the roof: yaw −0.40…+0.10 radians,
+pitch ±0.32. Share the envelope across input, fitting, departure and coverage
+checks. Overview→room travel moves directly inward while rolling; hull cropping
+is intentional. Do not restore the rejected pullback/whole-hull clearance detour.
+Fold displayed hover/drag/dolly into departure and preserve momentum when history
+interrupts a flight.
+
+Direct room URLs start at overview and use normal room entry. Drag release springs
+back to hover without discarding velocity; preserve re-grab continuity and click
+suppression. Touch/outside release returns to neutral. Navigation clears stale
+pointer goals. Keep reading view, reduced motion, keyboard/focus and history
+behavior.
+
+Visible neighboring rooms are navigation targets. Preview the first connecting
+door but retain the chosen final room, including nonadjacent routes. Solid chassis,
+rounded corners and sky stay inert. Current-room walls around doors retain normal
+room hover; invisible door/sign targets belong on visible faces, so oblique views
+cannot select a room or ladder through the wall.
+
+Hover/focus can open doors during travel. A click queues one destination, including
+Home; later choices replace it. Start it immediately after final arrival, retain
+it through intermediate waypoints/resize, and cancel it when selecting the arrival.
+History and reading-view changes supersede the queue.
+
+The ladder is a connector, not a queued destination. Clicking its visible bay from
+a cabin crosses to the next cabin on the other deck (Case studies goes through
+Projects to About; Contact through About to Projects). Preview the first door.
+Bay selection is inert from overview and while physically inside the ladder;
+inside exits retain their automatic sequencing and preview restriction.
+
+Only one physical ladder door opens at a time. Seal the entrance, request the
+exit while departing the center waypoint, approach its safe boundary while
+opening, and cross only when clear. Ordinary cabin passages and ladder entry do
+not wait. Close after camera passage, not final arrival. Keep opening near twice
+the original speed, one six-blade iris between wall faces, dark frames and themed
+perimeter-light feedback instead of cream border recoloring.
+
+Each side of a shared partition follows its facing cabin's feedback independently.
+Selectable screens/social cards ease from dim rest (0.65) to hover/focus (1.15),
+including dim states in overview, neighboring views and travel. Object hover/rims
+activate only in the settled current room. Unavailable objects and the monitor
+of an already-open app keep their normal brightness. Archive cartridges are the
+exception: whole-face 0.48→1.15 feedback, with no 3D box rim.
+
+Source: `features/spacecraft/navigation/`, `spacecraft-runtime.ts`,
+`features/portfolio/immersive-portfolio.tsx`.
+
+## Displays and visitor applications
+
+The owner chose **Soft graphite** folded artwork for populated Projects, Case
+studies and Contact screens, with ivory ink and readable carbon fields beneath
+small text. Empty displays retain plain dark standby art. The desktop fills the
+physical glass behind the native app, so portrait crops and camera movement do
+not expose bare backing. Preserve hover/focus timing and physical registration.
+
+Projects' four monitors select All projects, Systems, Interfaces or Experiments.
+Only categories with readable content are interactive. Empty monitors keep a
+plain-carbon STANDBY face without category labels/icons, hotspots, tab stops or
+feedback. The app does not repeat the physical category switcher; the standalone
+reading collection has one and omits empty categories.
+
+Case-study cartridges select Product engineering, Systems & reliability,
+Research & experiments or Design & interfaces; the terminal selects All. Populated
+categories pack above blank disabled cartridges in canonical order; their targets
+move with them. Labels appear only on populated cartridges. An empty terminal is
+STANDBY and inert. Reading view retains all five category controls, including
+empty categories. Availability follows published content or authenticated drafts.
+
+Collection→detail and Back stay within the same window, preserving category and
+collection/detail scroll positions for that visit. X, Escape or exposed pressure
+walls return to the room; furnishings block through-wall dismissal. Physical
+monitor selection can change the camera anchor. Keep bounded hover/drag outside
+native controls. Native application planes must remain registered inside the
+actual glass with readable text and clearance from feedback rims. The projected
+HTML surface deliberately has an invertible input transform; its former nested
+CSS3D positioning caused a reported Safari offset that Chromium did not reproduce.
+
+Projects use text-only collection cards; covers/media belong in details. Optional
+resource actions share one row after the summary, before role/stack: **Open live
+project**, then **View source code**, wrapping in that order. No absent-link
+placeholders. Live has carbon fill/bronze outline and ivory hover/focus; Source is
+secondary. Preserve owner-authored labels except the exact legacy “View source”
+presentation alias. Detail Back appears once; physical monitor art omits counts.
+
+`/projects` and `/projects/<slug>` retain deep links/history. Case studies uses
+`/case-studies` and `/case-studies/<slug>` while keeping `/experience` compatibility
+and persisted `experience` identity. Do not rename storage keys for presentation.
+Old unclassified records are not guessed into categories. Owner records are not
+bulk migrated. See [operations](OPERATIONS.md) for Markdown, media dependencies,
+legacy data and package contracts.
+
+Semantic Reading view is the readable alternative to projected displays: carbon
+collection cards, ivory articles, bounded prose and heading-based contents (omit
+when there are no headings). About keeps its paper character; Contact uses one
+form surface. Visitor-facing sample/demo badges and notices are intentionally
+absent, including private preview. Keep sample metadata, indexing protection and
+studio controls. Nonfunctional actions must still say nothing was sent/booked.
+
+## Content studio
+
+Keep an ivory authoring surface with carbon framing, restrained bronze selection
+and visible section boundaries. Identity/copy leads before portrait tooling.
+Desktop uses a bounded collection rail; mobile uses the native Entry selector
+with the same unsaved/busy guard. Save, private Preview and Publish are primary;
+Export, Unpublish and Delete stay separate. Distinguish unsaved edits, saved
+unpublished changes and published state truthfully. Action bars must not obscure
+keyboard focus or validation. The notebook authoring proof keeps full-size paper
+metrics with a named keyboard-scrollable region and sideways hint on narrow
+screens. These editor styles do not restyle visitor applications.
+
+## About notebook, photos and social cards
+
+The notebook stays in its cradle. Opening it moves the camera to the complete
+spread; there is no detached dialog. The left keeps mountain art and editable
+identity, social links and Contact invitation. Real Markdown ink stays mounted
+on the right in overview, rooms, travel and close reading, masked by opaque
+scenery and moving leaves. Passive previews are excluded from keyboard/accessibility
+navigation; only the active reader owns focus IDs. Closing preserves page/section
+positions. Notebook feedback follows its rounded cloth cover without a second
+rectangular HTML outline.
+
+Journal entries are sections with automatic fixed-page pagination, not manually
+authored pages or scrolling paper. Bottom arrows turn within the current section
+and stop at its ends; hide them for one page. Each crossed leaf turns, including
+section jumps within a bounded animation budget; reduced motion settles immediately.
+Native ink follows the turning front; the reverse retains the left artwork.
+Selection survives closing. Empty journals retain the biography introduction.
+
+Colored section markers sit behind their section's first page: current/earlier
+markers rest left, future markers right. Crossing a section carries its marker;
+within-section turns do not. Use fixed top spacing and show at most six markers
+with Earlier/More controls for additional groups. Only the exposed tab interacts;
+its adhesive region stays hidden. Lettering remains plain dark, including selected
+states. Muted paper and a restrained ivory hover wash replace the rejected strong
+white highlight/underline; retain keyboard focus outlines. Moving tabs also mask
+ink behind them.
+
+**Dedicated mobile notebook design is deferred.** Portrait uses the same full
+spread, page dimensions, typography and attached flags, scaled to fit. Do not
+crop to one page, stretch paper or reflow mobile text. Reading view is the narrow
+screen alternative. Studio preview uses the same measured ink area and pagination;
+old page-break comments become paragraph breaks without corrupting code examples.
+
+The square portrait is passive and has independent nondestructive room/Reading
+view crops. Failed/absent images leave fallback art and never block scene entry.
+Three equal clipped social cards independently select Left/Center/Right links;
+empty slots are passive paper. Configured cards show an icon, owner name and a
+strong small outward arrow for web destinations (none for email). No floating
+tooltip or bronze hover rim; retain native focus and dim/bright feedback. Targets
+work only in settled About outside reader mode, with normal native context menus,
+HTTPS new tabs, mail handlers and drag-click suppression.
+
+Custom SVG/PNG icons replace About presets with full proportions/colors; Contact
+continues to use presets. SVG is converted locally in an isolated image context;
+raw uploaded SVG is never served. Retired social-photo fields remain round-trippable
+without becoming active dependencies. Publication and duplicate-slot guards are
+specified in [operations](OPERATIONS.md#authoring-about-photos-and-social-cards).
+
+## Contact behavior
+
+The center monitor leads with **LET’S CONNECT** / **Start a conversation** beneath
+COMMUNICATIONS. Keep its two independently selectable social displays; unavailable
+links leave inert plain-dark STANDBY hardware. Landscape frames glass and keyboard;
+portrait crops to a tall app inside the same glass. Native inputs never start a
+drag. Keyboard clearance matters because HTML cannot be depth-clipped by WebGL keys.
+
+Both views share an in-memory draft. **Schedule a call** comes first; initially
+neither choice is selected. Clicking the selected choice returns to the chooser
+without losing fields, including across view remounts after a prior success. Call
+mode asks date/time/device zone, then name/company/email/subject/message. Message
+mode uses the shared fields; only email/message are required. Failed sends retain
+the draft. Contact's app has a persistent draggable/keyboard scrollbar on overflow;
+Reading view uses page flow. Mobile viewport changes resize the inner scroll area
+without altering the camera.
+
+**Send a message** stores through `/api/contact` in the private inbox. Optional
+name is adapted to the legacy backend and company/subject count toward the total
+message limit. **Schedule a call** validates locally but sends and saves nothing;
+no booking, availability or confirmation service exists. Keep explicit disclosure
+and truthful acknowledgment. Without hydration, controls fail closed and the
+configured email alternative remains available.
+
+The email callout supports dismissal, copy and a mail draft. Clipboard fallbacks
+must remain within the original user gesture and restore focus/selection. Physical
+keyboard animation uses `code`, including held combinations; blur, visibility loss
+and close clear it. On macOS Caps Lock reflects toggle status from keyboard events
+rather than a timed pulse; other platforms retain physical down/up tracking.
+Native shortcuts remain intact. Safari virtual-keyboard behavior and the reported
+projected-app offset still require native-device confirmation; built-in Chromium
+checks cannot resolve those historical limitations.
+
+## Motion, Earth and sky
+
+Ambient motion should be noticeable, deliberate and smooth, rather than barely
+perceptible or jarring. The dish scans on two axes around its actual axle, moving
+reflector/feed/stays together; solar wings and hull stay fixed. Overview fit covers
+the full sweep. Contact meters and idle signal arcs vary visibly without claiming
+a real transmission. Reduced motion holds resting appearances; hidden-page timing
+uses the shared scene loop. Moving dish shadows/contact shading refresh when
+necessary; material-only meters do not. These are authored visual costs.
+
+The approved Earth is **Europe at Night: 12° longitude, 48° latitude, −10° roll,
+0.0045 rad/s**. Keep Earth in the physical world with the shared camera. The
+portrait composition exception selects an anchor from viewport orientation, putting
+the horizon bottom-left in vertical overview. That anchor stays fixed during room
+navigation; Earth can leave the frame. Only an actual orientation change may ease
+between anchors, preserving geographic phase and canonical registration. Never
+cancel Earth's motion with animated navigation roll.
+
+Production fetches only **earth-europe-loop.webp**, a **2560×1536 lossless regional
+WebP** with the unchanged **1536×1536** European core at original 8K-source density
+and an offline AI-assisted fictional coastal continuation. Its **112.5° / 436.332s**
+loop scrolls UVs on a fixed sphere using one texture sample. Keep native detail,
+naturally connected lights and cinematic atmosphere; avoid broad unlit blocks or
+oversized glowing cities. The sphere's UV seam must stay outside the verified
+camera envelope: rerun coverage after camera changes. Crop bounds include filtering
+margins and are bounded evidence, not a universal optimum. Rebuild sources, exact
+core checks and prompt/input hashes are documented in
+[texture provenance](../public/textures/README.md) and
+[current comparison evidence](evidence/earth-consistent-loop/README.md).
+
+The angle/preset/day-model helper is retired. The authorized temporary **Tools →
+Earth playback** offers a seekable timeline, Play/Pause/Restart and 1–60× speed
+relative to 0.0045 rad/s. Seeking pauses; closing preserves phase and resumes 1×;
+reload restores Europe. State is temporary, with no storage/backend writes. Only
+Earth time changes; preserve readiness, sky/camera timing, reduced motion and
+visibility rules. Manual seeking remains available under reduced motion.
+
+Favor a gradual blue horizon with a restrained peak, not gray haze or glaring
+electric blue. Stars surround the world without exposed edges during drag/roll,
+with varied readable sizes and independent visible twinkle. Meteors are slower,
+dimmer and less frequent, with occasional groups and quiet intervals. Procedural
+cloud/day-map experiments are historical, not authorization to restore them.
+
+## Tools and performance
+
+Bottom-right **Tools** contains Earth playback, Scene diagnostics and Content
+studio beside Reading view. Opening the menu alone starts neither instrumentation
+nor playback polling. Escape/outside/focus dismissal and return focus to Tools
+must work; preserve the pointerdown/click intent guard against accidental reopen.
+
+Diagnostics remain opt-in, device-agnostic and useful to nontechnical visitors
+and technical investigators, with guided room/part breakdowns, advanced controls
+and named exports. A URL parameter is an optional shortcut. Closing restores
+normal rendering. The owner uses a passively cooled MacBook Air M4; that does not
+authorize M4-only quality rules or timing-based claims of thermal throttling.
+
+[The performance index](performance-ledger.md) owns retained case-study candidates
+and proposal status. [Diagnostics](performance-diagnostics.md) owns comparison
+methods and interpretation; do not read historical evidence for routine edits.

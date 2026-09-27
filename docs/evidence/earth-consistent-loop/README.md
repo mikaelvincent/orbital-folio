@@ -1,5 +1,11 @@
 # Fixed Earth scene and compact coastal loop
 
+Historical comparison approved 20 September 2026. The **asset remains current**;
+the original camera/atmosphere captures below describe that date. Later owner
+decisions restore an orientation-selected Earth anchor fixed through navigation;
+see [current requirements](../../PROJECT-CONTEXT.md) and the coverage follow-ups
+below. Do not restore the original viewport-independent placement from this record.
+
 Approved 20 September 2026. Baseline Git `4e215f2556fe17003df041c457bfedc7649347a6`.
 Delivered runtime and asset commit: `319fdd0`.
 This is an authorized visual/camera change, not evidence that unrelated held
@@ -175,3 +181,27 @@ asset footprint.** The evidence does not support a frame-time speedup or claim
 that whole-app performance is unchanged. Further performance-ledger candidates
 remain held. The narrower repeat and more intricate fictional settlement patterns
 are aesthetic tradeoffs; the protected opening retains original satellite detail.
+
+## Coverage follow-ups
+
+These are technical dependencies of the retained crop/seam decision, not extra
+case-study candidates or requirements to read every historical audit. Their
+source hashes and finite scopes matter; subsequent art is not automatically
+certified by an older report. Recheck affected camera envelopes after changing
+fitting, navigation, viewport composition or drag limits.
+
+- [Fixed-anchor method and resize limitations](../earth-stable-navigation/README.md):
+  ordinary navigation passes; stronger independent ultrawide neighborhoods remain
+  inconclusive despite passing exact perturbation samples.
+- [17-viewport roof-biased overview](../portrait-roof-biased-overview/README.md):
+  expanded direct-flight and recorded-frame evidence, with resize exceptions.
+- [Positive drag-bound follow-up](../portrait-right-drag/README.md): scoped phone
+  and tablet checks at the final +0.10 portrait yaw bound.
+- [Projects monitors](../monitor-finishing/README.md),
+  [Case studies terminal](../case-study-flow/README.md) and
+  [About notebook](../about-notebook-automatic-pages/README.md): specialized camera
+  extensions, each retaining source manifests, assumptions and raw poses.
+
+The [first regional loop](../europe-regional-loop/README.md) is the separate
+4096×3072 predecessor: different geography, period and camera baseline. Its raw
+inconclusive timing remains separate from the compact-loop comparison above.

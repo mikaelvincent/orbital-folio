@@ -1,422 +1,171 @@
 # Measuring spacecraft performance
 
-See the [performance ledger](performance-ledger.md) for the current optimization status, repeatable geometry checks and measured before/after results.
+Use this guide for performance investigations or diagnostic changes. Candidate
+status and historical comparisons live in the [ledger](performance-ledger.md);
+read the relevant entry before repeating or proposing that experiment. An ordinary
+edit does not require a benchmark. Deferred candidates need explicit authorization.
 
-Open **Tools** at the bottom-right, then choose **Scene diagnostics**. It opens **Performance check** without reloading the page or resetting the camera. Opening Tools alone does not start instrumentation. The optional `?perf=1` URL shortcut also works, including in a production build. Normal visits do not instantiate the collector, request GPU queries, mount the panel, or start diagnostic timers. No measurements are sent to a server or stored in browser storage.
+## Record a useful comparison
 
-The opening summary shows **Smoothness · FPS**, **CPU preparing · ms**, and **GPU drawing ship · ms**. These describe the page's work, not a device rating. The workflow is the same on every machine. When Safari or another browser does not expose usable GPU timing, that value stays unavailable; CPU, frame timing, draw counts and comparisons remain usable. Missing GPU timing never means zero GPU work.
+Open **Tools → Scene diagnostics** at the bottom-right; `?perf=1` is an optional
+shortcut. Opening Tools alone must not instrument the scene. Normal visits have
+no collector, GPU queries or diagnostic timers. The session is local and temporary.
 
-See the [performance optimization review](performance-optimization-review.md) for the current investigation and optimization evidence. The dated measurements later in this document are historical records, not current benchmarks.
+1. Keep one rendering tab, browser/build, viewport, actual drawing buffer/DPR,
+   camera, animation time, quality, motion and power settings matched. Finish
+   builds/tests before timed work. Use a production build for release conclusions.
+2. Choose **10, 30 or 60 seconds**, then **Record baseline**. It restores normal
+   rendering, warms for three seconds and collapses the panel while recording.
+3. Choose one experiment under **Compare one change**, then **Record this change**.
+   Repeat the same pointer position or navigation route. **Record baseline again**
+   restores normal settings and exposes drift.
+4. Inspect the named comparison and retained duration, mean/p95, early/late trends
+   and baseline variation. Repeat promising results in balanced ABBA/BAAB order;
+   a single A/B and a passing capture are not an optimization verdict.
+5. **Download report** preserves raw frames. Advanced retains semantic part
+   rankings, manual controls, custom names and JSON. Only six captures are kept;
+   closing diagnostics or reloading discards them and restores normal rendering.
 
-## Repeatable comparisons
+Resize, hidden scene, context loss or changed settings/filter invalidate a capture.
+Navigation is allowed and recorded as activity. Check shortened windows and missing
+GPU samples rather than treating requested capture length as actual retention.
+Report the engine tested: built-in Chromium is not Safari. Use only the hidden
+built-in browser unless the owner newly authorizes native-browser interaction.
+Keep the main development server available; stop temporary labs after use.
 
-1. Use one browser tab, a fixed window size, and the same browser/power settings. Keep other rendering tabs and heavy applications closed. Wait for the room or overview to settle.
-2. Under **Record the normal scene**, choose a **Capture length** of **10**, **30**, or **60 seconds**, then press **Record baseline**. This restores normal rendering and all spacecraft groups. After a three-second warmup, recording begins. The panel collapses automatically to avoid live table work, while a visible progress strip and **Stop** control remain available. It reopens when recording finishes. Longer captures help reveal timing changes during a sustained run; they do not identify a thermal cause.
-3. Under **Compare one change**, choose an experiment and press **Record this change**. **Hide one room or part** also exposes **Group to compare**. The guided controls apply one change to the normal scene; **Use my Advanced settings** records the current manual configuration. Keep the same capture length and pointer position. For a navigation test, repeat the same route and inspect the recorded activity.
-4. Press **Record baseline again** to restore the normal scene and check the reference for drift. **Review the result** names the baseline, change and confirmation captures beside its assessment. If a newer standalone capture is not part of that pair, the panel explicitly labels the displayed comparison as earlier. Expand **Saved captures** to inspect FPS, frame p95, mean CPU time, spacecraft GPU mean/p95, retained duration, and first/last timing trends.
-5. Use **Download report** for JSON with raw frames. **Advanced: parts, render settings and data** retains component rankings, manual isolation, rendering experiments, custom capture names, **Record current settings**, timing breakdowns and **View JSON** for a smaller copyable summary. Up to six captures remain in the session. Export before closing diagnostics or reloading: both discard the captures.
-6. Repeat promising comparisons, including in Safari and a production build, before making release decisions. Browser backends, development tools, warmup and scheduling can change results. A single A/B run is not an optimization verdict, and these timings cannot establish temperature, power draw or thermal throttling.
+## Interpret the work correctly
 
-Resize, scene visibility changes, context loss, or a changed experiment or spacecraft filter invalidate an in-progress capture. Navigation is allowed and each frame records its room/activity; movement is called out during review rather than silently treated as a still-view comparison.
+| Diagnostic | Scope and limitation |
+| --- | --- |
+| Skip background | Omits Earth/space update and rendering, retaining clearing. |
+| Skip contact shading | Omits GTAO refresh **and** composite; key shadows remain. |
+| Half drawing resolution | Halves both main buffer dimensions; CSS text and CSS-sized AO buffer retain their resolution. |
+| Skip spacecraft | Omits ship rendering and AO, retaining simulation and HTML. |
+| One frame then pause | Pauses automatic scheduling; input may request frames. |
+| Hide/show semantic group | Changes occlusion/shadows as well as submissions. Differences are not additive per-object GPU costs. |
 
-Outside recording, retention is bounded to **1,800 scene frames** and **1,800 samples per spacecraft pass**. During recording, the limit becomes `captureSeconds × 240`: **2,400**, **7,200**, or **14,400**, respectively. After copying the completed report, or when recording is cancelled, retention returns to 1,800. The exported requested duration, actual duration and `report.window.durationMs` distinguish the recording length from the interval actually retained. Very high refresh rates or sparse rendering can still shorten the measured interval; review warns when it is substantially shorter. AO attribution is sampled only when that pass runs, so its per-pass window can differ from the main scene window.
+- **FPS/frame intervals** describe delivered cadence, including p95/long frames;
+  display-paced 60 FPS does not establish spare GPU capacity.
+- **CPU callback** includes preparation and WebGL submission, not page/OS work or
+  input handling outside the callback. Amortized cost per frame differs from
+  per-execution cost of an occasional pass.
+- **GPU queries** are asynchronous sampled elapsed measurements. Unsupported,
+  pending or disjoint results are unavailable, never zero. CPU and GPU overlap;
+  do not add them. Pass-query boundaries can perturb tiled-GPU scheduling; use
+  independent whole-frame queries when pass attribution is suspect.
+- **Draws/triangles** are actual per-pass submissions. Inventory counts include
+  hidden variants and are not rendered counts. Room/part breakdowns are alternate
+  views of the same work; unassigned shadow/fullscreen work stays unassigned.
+- **Shadow generation versus reuse:** main ship timing includes generation when
+  requested; it is not all shadow cost. `shadow-refresh` counts actual generation,
+  with reasons/map/draw deltas. Nested generation CPU is a subset of ship CPU.
+- **AO refresh versus reuse:** camera/projection, geometry, reader stretch and dirty
+  state refresh GTAO; material-only feedback reuses it. Reasons overlap. The
+  legacy broad motion signal remains diagnostic context, not production policy.
+- **Footprint versus time:** report download, decode/upload/first-ready submission,
+  steady CPU/GPU, pacing, geometry arrays and nominal texture storage separately.
+  Array/texture arithmetic is not measured physical GPU/process memory. First
+  submission is not presentation. Counts do not establish heat or battery savings.
 
-Review checks viewport, camera, room, browser/build, display scaling, actual drawing buffer and pixel ratio, motion settings, and captured shading/shadow quality. Buffer changes are allowed only for the intended half-resolution comparison with the expected scaling; AO may turn off for the explicit no-AO/no-spacecraft controls. Confirmation must restore the full normal scene and its render settings. Different capture lengths, movement, empty or shortened windows, multiple simultaneous changes, and a drifting repeated baseline make a result inconclusive or a reason to repeat. GPU mean/p95 and early/late CPU/frame trends describe variability; they are not confidence estimates or evidence of thermal throttling.
+Choose affected rooms and motion states according to the hypothesis. Material
+feedback, camera movement, doors and portrait roll exercise different invalidation
+boundaries. Group isolation, AO noise and camera settling tolerances can produce
+image differences without identifying the cause; compare identical states/noise
+when claiming exact rendering. Record actual/scaled capture sizes and omitted
+HTML/effects. Any authored appearance change needs visual judgment, not just counts.
 
-## What each diagnostic isolates
+## Rested CPU candidate comparisons
 
-| Mode | Temporary change | Interpretation |
-| --- | --- | --- |
-| Normal rendering | Existing visual quality and continuous animation | Baseline; no optimization is applied |
-| Skip background | Skip Earth/space update and draw; retain clearing | Tests background/shader workload |
-| Skip contact shading | Skip GTAO refresh and its composite | Tests ambient-occlusion workload; shadows remain |
-| Half drawing resolution | Halve each main drawing-buffer dimension, quartering its pixel count | Tests pixel cost; CSS text and the CSS-sized AO buffer retain their resolution |
-| Skip spacecraft rendering | Skip spacecraft draw and AO, retain model updates and HTML | Separates spacecraft rendering from its CPU simulation |
-| Render one frame, then pause | Stop automatic frame scheduling | Control for sustained redraw; navigation/input can still request individual frames |
+`node --expose-gc scripts/benchmark-controlled-performance.mjs` tests unactivated
+local-transform, lighting-write and iris-inverse caches plus exact indexing.
+These are CPU-only named kernels; they do not measure browser startup or rendering.
+Finish heavy work and blank rendering tabs first. Keep power source/LPM stable.
 
-Changes are confined to the diagnostic session. Restore normal before judging the design. Closing diagnostics restores full rendering and removes the collectors and object callbacks. Export first: closing or reloading discards the session captures. Opening the panel again starts a fresh session.
-
-## Pinpointing spacecraft parts
-
-Open **Advanced: parts, render settings and data**, then **Which spacecraft parts create the most work?** The **Spacecraft workload** uses actual submitted draw counters, grouped by room and component. Choose **Rank by: Draw calls / Triangles** and the main or AO render pass. Zero-draw groups stay out of the ranking but remain available for isolation. Use these counts to locate geometry-heavy assemblies, then test the timing impact of hiding a group. Room totals and component totals are alternative views of the same draws; do not add them together.
-
-1. Select the normal view, wait for it to settle and use **Record baseline**. The panel names the capture and collapses automatically; an optional custom name remains available under Advanced.
-2. In the guided comparison, choose **Hide one room or part**, select its group, and use **Record this change**. Repeat at the same viewport/camera, then use **Record baseline again**.
-3. Compare frame time, CPU and the spacecraft GPU pass across the named saved captures. Advanced **Show only selected group** is useful for inspecting a component, but **Hide selected group** is generally more representative of its contribution to the full scene.
-4. Export the report so future changes can use the same named group and camera settings.
-
-These controls affect rendering only. They preserve camera/navigation state and room/model updates. Hiding an object also changes occlusion, shadows and shading, so a timing difference is an experiment, not an additive invoice for that object's GPU time. Batched meshes remain batched; a combined draw cannot be honestly split into its original tiny props. The breakdown identifies semantic assemblies and retained batches without altering normal rendering to obtain nicer numbers.
-
-The main spacecraft pass and AO refresh are separate. Shadow draws or fullscreen AO work that object callbacks cannot attribute remain explicitly unassigned; unavailable reconciliation is labelled as unavailable. Cached AO does not produce new geometry samples. No per-object GPU timers are inserted: hundreds of tiny queries would change the workload being measured.
-
-## Reading the metrics
-
-- **Smoothness · FPS / frame interval:** actual application render cadence, with median, p95 and maximum in the export. A steady 60 FPS can still represent sustained GPU load. A paused or empty window has no fabricated FPS value.
-- **CPU:** elapsed time inside the render callback, including scene preparation and WebGL command submission. The phases cover navigation, pointer feedback, camera positioning, model update, matrices, callouts, HTML synchronization, background update, individual render passes, CSS3D and the existing metadata publication. Phase totals partition the callback. The panel ranks *amortized milliseconds per rendered frame*, so an infrequent AO refresh does not outrank continuous work merely because one refresh is expensive. Per-execution p95 and sample counts remain visible.
-- **GPU:** asynchronous elapsed queries for background, spacecraft, AO refresh and AO composite. They sample once every 15 frames. Unsupported, unavailable and disjoint results are explicitly identified; CPU submission time is never substituted for GPU time. Timings are per sampled execution, not averaged over frames where a pass did not run. CPU and GPU overlap: **do not add their times**. Driver scheduling and query boundaries can perturb a tiled GPU, so corroborate rankings using the isolation modes.
-- **Draw workload:** actual `renderer.info` deltas per pass: draw calls, triangles, points and lines. The spacecraft pass includes any requested shadow-map refresh. The `shadow-refresh` counter now identifies actual eligible generation, rather than a pending request. Raw frame context includes generation reasons, map count, draw deltas and nested `shadowGenerationCpuMs`; this is a subset of spacecraft CPU time, not another additive phase. Geometry inventory includes hidden layout variants and is not a substitute for these rendered counts.
-- **AO refresh counters:** dirty state, camera position/angle, geometry revision, projection, reader stretch and roll. The legacy broad model-motion flag remains separately visible because it also includes color/emission transitions. Raw context retains dirty reasons and revisions; `material-only-model-motion` identifies the distinction. Reasons overlap, so their sum is not the number of refreshes. `ao-refresh / (ao-refresh + ao-cached)` is the observed refresh fraction where AO is enabled. The old ambiguous geometry-motion/settling names are replaced by explicit geometry-change and legacy-motion counters in new captures; historical exports retain their original names.
-- **Resources/settings:** browser/build/Three version, viewport, drawing buffer, pixel ratio, camera pose, AO settings, shadow size, geometry/texture/program counts and largest mesh inventories. Geometry attribute bytes describe CPU-side arrays, not total GPU memory.
-
-Browser layout, compositing, other pages, operating-system work and most input-event work outside the render callback are outside CPU phase totals. Small timings are limited by browser timer resolution. Instrumentation adds overhead: GPU queries are sampled and bounded, the panel refreshes once per second, and collapsing it stops live aggregation/table updates while recording continues.
-
-## Delivered camera and invalidation replay
-
-Normal application visits now use geometry-based AO invalidation: material-only
-brightness/highlight changes can reuse contact shading, while camera, projection,
-real geometry, reader stretch and explicit dirty state continue to refresh it.
-The lab keeps **Delivered baseline** as its explicit legacy policy for comparison.
-Its dropdown does not change the normal application's default or quality.
-
-For repeatable full-scene camera/AO/shadow measurements, use the dedicated local
-lab. It compiles the real portfolio modules and application CSS with public seed
-content, freezes source/assets and serves only on loopback. It does not touch the
-studio database or send contact messages. Normal visitors do not receive its
-manual-step controls or rendering pauses.
+On macOS the optional sampler is compiled **before** recovery:
 
 ```sh
 swiftc -O scripts/benchmarks/mac-thermal-snapshot.swift \
-  -o /tmp/orbital-camera-thermal-snapshot
-node scripts/benchmarks/camera-invalidation-lab.mjs \
-  --thermal-sampler /tmp/orbital-camera-thermal-snapshot
+  -o /tmp/orbital-thermal-snapshot
+node --expose-gc scripts/benchmark-controlled-performance.mjs \
+  --cases=all --blocks=4 --burst-ms=120 --prelude-ms=100 \
+  --telemetry-argv='["/tmp/orbital-thermal-snapshot"]' \
+  --context-telemetry-argv='["/tmp/orbital-thermal-snapshot","--pmset","--settings"]' \
+  --out=/tmp/orbital-new-cpu-comparison.json
 ```
 
-Open `http://127.0.0.1:3019/` in the hidden built-in browser. On other operating
-systems, omit the optional native sampler; thermal context then stays unknown.
-Compile before recovery periods. Keep the main application server at port 3000.
+Use a new output path. Other platforms can supply a JSON sampler or omit both
+telemetry options; thermal state is then unknown. Configured strict telemetry
+rejects warm/unavailable readings. `--allow-unknown-thermal` permits unavailable
+readings, not known warm pressure or a claim of cooling.
 
-- **Check setup** checks mounting, the configured Earth texture and same-frame image comparison.
-- **Start survey** records all rooms, hover/focus, doors, ordinary/ladder travel,
-  drag release, readers and both Home↔Projects transitions. Those overview
-  transitions occur inside recorded windows, not only during room preparation.
-  Pass GPU timings are observations; tiled-driver query
-  boundaries can alter their attribution. Never sum them into whole-frame cost.
-- **Start paired runs** compares the original and geometry-based AO rules in
-  balanced order, with no scene rendering during rests and unchanged acceptance
-  gates. Select a workload and two/four blocks to continue a targeted control
-  without repeating completed work. It uses a single whole-frame GPU query,
-  mutually exclusive with pass queries. The saved row includes scope at
-  `row.report.scene.gpu.scope`.
-- **Verify motion** checks cached shading against a forced-fresh reference in the
-  same scene/noise instance. Choose either policy, including the legacy reference
-  when existing camera tolerances produce small differences. **Verify scope** can
-  select the full sweep or only overview transitions for a bounded roll recheck.
-  Early-motion checkpoints at frames 7, 14 and 21 complement the regular/settled
-  checkpoints. Selected PNGs show WebGL output; CSS overlays are not captured,
-  and these runs are excluded from timing comparisons.
-- **Stop** preserves partial data. Results, exclusions and source/asset hashes go
-  to `docs/evidence/performance/camera-invalidation/`. The server refuses overwrites.
-  `/status` exposes progress and the last completed block outside timed windows.
+The runner records seeded ABBA/BAAB orders, shared iteration counts, initial
+60-second rest, three controls ten seconds apart and inter-sample/block rests.
+Its default 5% spread and 2.5% directional-drift gates are engineering choices.
+A fixed pause and nominal OS pressure do not prove equal clocks, cold hardware
+or absence of throttling on the owner's passively cooled M4 Air or other devices.
+Do not relax gates after seeing results. Preserve all attempts and incomplete
+case status. Split battery/AC cohorts when the source changes between blocks;
+a constant LPM setting is not constant power. Process/thread CPU observations
+are descriptive, not corrections to elapsed timing.
 
-Use an AO-enabled portrait viewport (at least 700 CSS pixels wide and taller than
-wide) to exercise roll and shadow generation. A narrow phone view disables AO
-under the existing quality rules. Record the actual viewport, drawing buffer,
-DPR, engine and omitted effects; built-in Chromium is not a Safari test.
+The declared 100 ms prelude warms each steady variant/control equally and resets
+inputs immediately before measurement. It changes the question from idle bursts
+to warmed repeated work. Indexing construction remains fully timed without that
+prelude. See [protocol research](evidence/performance/rested-retests/research.md)
+only when modifying the protocol; the [audit](evidence/performance/rested-retests/final-audit.md)
+shows why power cohorts and excluded runs matter.
 
-Keep cross-policy verification in the same mounted scene so GTAO noise and
-resources remain identical. Also compare the recorded transforms: a pristine
-overview pose and a returned-to-overview pose can differ within existing arrival
-tolerances. Do not label their screenshots matched. Nonzero cached-versus-fresh
-pixels can reproduce an existing camera-cache tolerance; compare both policies
-at the same state instead of attributing every nonzero result to the candidate.
+## Frozen browser labs
 
-Raw GPU samples in each saved row's `report.scene.gpu.samples` carry
-`{frameId,name,ms}` for
-joining refresh/cached cohorts. Fixed sampling can overrepresent one part of a
-repeated animation. The summarizer preserves individual-session status and pools
-raw samples, with an optional explicitly estimated reweighting by actual AO/cached
-fractions:
+The reusable lab compiles actual portfolio modules/CSS with public seed content,
+freezes source/assets, listens only on loopback and has no studio/contact write
+APIs. It is a standalone production-React fixture, not the deployed Vinext server.
+Use an unused port, keeping 3000 for the main app:
+
+```sh
+node scripts/benchmarks/camera-invalidation-lab.mjs --port 3019
+```
+
+An optional `--thermal-sampler /tmp/orbital-thermal-snapshot` records native context
+outside timing. `/status` reports progress; **Stop** preserves partial evidence.
+Outputs go to the corresponding evidence folder with no overwrites. Source/asset
+hashes identify the snapshot; today's build is not automatically the historical
+baseline. Restore retained source snapshots/original revisions for exact repeats.
+
+| Experiment | Command option | Specialized method and original outcomes |
+| --- | --- | --- |
+| Camera/AO | default `camera` | [Camera invalidation](evidence/performance/camera-invalidation/README.md): survey, paired runs and same-state cached/fresh images; separate pass versus whole-frame GPU queries. |
+| Direct geometry | `--experiment geometry` | [Geometry](evidence/performance/offline-geometry-compaction/README.md): exact geometry swaps; `/startup` uses fresh iframe/context samples, still sharing driver caches. |
+| Native shadow bake | `--experiment shadow` | [Shadows](evidence/performance/static-shadow-bake/README.md): resize with retained bake reveals stale maps; a fresh page bakes the new initial pose. |
+| Static/hybrid contact | `--experiment contact` | [Contact](evidence/performance/static-contact-bake/README.md): subdivision-only controls and original restoration distinguish geometry artifacts from shading. |
+| Irradiance probe | `--experiment diffuse` | [Diffuse](evidence/performance/baked-diffuse-probe/README.md): held-out actual GPU fit validation and same-state B/C comparisons. |
+
+Use an AO-enabled portrait fixture (at least 700 CSS pixels wide and taller than
+wide) for roll/shadow checks; phone width disables AO under existing quality rules.
+Verify overview entry/return **inside recorded windows**, not only preparation.
+The labs' unranked surveys cannot rescue failed timing gates. Comparison residency
+(extra geometries/maps) is not normal production memory. Preserve raw/excluded
+reports, source/asset identities and images that substantiate claims; routine
+check logs and duplicate screenshots need not become permanent evidence.
+
+Useful bounded commands (run the two geometry scripts in a disposable source
+checkout: they write fixed historical evidence filenames):
 
 ```sh
 node scripts/benchmarks/summarize-camera-invalidation.mjs \
   path/to/paired-report.json.gz --weighted-gpu --out /tmp/camera-summary.json
-```
-
-Do not pool unmatched sessions or relabel an incomplete run successful because
-some earlier blocks passed. Read the retained native context: nominal pressure,
-pauses and an AC label do not establish fixed clocks or battery behavior. See the
-[delivered-camera audit](evidence/performance/camera-invalidation/README.md) for
-accepted and excluded evidence, the final 142-check wide and 170-check portrait
-comparisons, retained source snapshots and limitations. Its measured Contact
-benefit is specific to material-only feedback; ordinary camera motion still
-requires AO and no idle speedup is claimed. Other ledger candidates remain held.
-
-## Offline geometry comparison
-
-Ledger entry 20 uses direct indexed cylinder generation; normal visitors do not
-run a compaction pass. The generated module lives in
-`features/spacecraft/geometry/indexed-cylinder.generated.js`. After changing the
-installed Three source, run `npm run geometry:generate`, then the exactness tests
-and visual comparisons. `npm run geometry:check` runs automatically before builds;
-the generator also preserves the shipped Three license notice.
-
-Repeat the source-hashed inventory and delivery projection:
-
-```sh
 node scripts/benchmarks/geometry-compaction-inventory.mjs
 node scripts/benchmarks/geometry-bundle-comparison.mjs
 ```
 
-The first script also probes a broader offline array bake and writes its temporary
-binary under `/tmp`. It does not activate that bake. The bundle comparison is a
-matched standalone renderer build, not the deployed app's network waterfall.
+Weighted GPU output is explicitly an estimate correcting sampled AO/cached cohort
+proportions, not every-frame measurement. Do not pool unmatched sessions. Geometry
+inventory probes an unshipped broad array bake in `/tmp`; bundle comparison is a
+standalone renderer projection, not an app waterfall. After changing installed
+Three source, regenerate with `npm run geometry:generate` and verify exact inputs;
+`npm run geometry:check` guards builds and the shipped license remains required.
 
-Use the same frozen scene lab with the geometry experiment selected:
-
-```sh
-node scripts/benchmarks/camera-invalidation-lab.mjs --experiment geometry \
-  --port 3020 --thermal-sampler /tmp/orbital-camera-thermal-snapshot
-```
-
-Omit the sampler on platforms without one; missing telemetry is reported, not
-inferred. At the lab URL, **Verify motion** swaps original/indexed geometry in one
-scene at identical checkpoints, refreshing AO and shadows on both sides. **Start
-survey** records pass attribution. **Start paired runs** uses whole-frame GPU
-queries and balanced original/indexed orders for idle overview and Projects camera
-motion. Both variants use the current geometry-based AO invalidation rule.
-
-Navigate the same tab to `/startup` for fresh iframe/model/WebGL-context samples.
-It measures construction, first submitted frame and first Earth-texture-ready frame separately,
-releasing each scene before the next sample. Close other rendering tabs first.
-Fresh mounts still share driver caches and do not measure physical presentation
-latency. The paired scene retains extra CPU arrays for switching and releases
-inactive GPU buffers; never report its total memory as normal visitor memory.
-
-Both paths retain source/asset/bundle hashes and raw outcomes under
-`docs/evidence/performance/offline-geometry-compaction/`. Read the
-[method and results](evidence/performance/offline-geometry-compaction/README.md)
-before comparing timings. Resizing, hidden pages, context loss, mismatched quality,
-changed power conditions or unstable controls invalidate affected comparisons.
-Do not turn missing GPU values or inconclusive timing into a speedup claim.
-
-## Rested CPU candidate comparisons
-
-Use `scripts/benchmark-controlled-performance.mjs` for repeatable **CPU-only** comparisons of four unactivated candidates: local-transform caching, room-material lighting updates (settled and changing), iris inverse caching (settled and moving), and exact vertex indexing. `--cases=all` runs these six scenarios. Steady cases reuse fixtures; indexing measures fresh model construction and reports compaction separately. This does not measure browser textures, GPU uploads, rendering, FPS, energy, or device temperature, and it never enables a candidate in the application.
-
-Finish builds/tests first, blank rendering browser tabs, stop other heavy work, and keep the power source and Low Power Mode unchanged. On macOS, compile the native sampler **once before the recovery period**; do not interpret or compile Swift for every sample:
-
-```sh
-swiftc -O scripts/benchmarks/mac-thermal-snapshot.swift \
-  -o /tmp/orbital-folio-mac-thermal-snapshot
-```
-
-From the repository root, choose a new output filename for each run:
-
-```sh
-node --expose-gc scripts/benchmark-controlled-performance.mjs \
-  --cases=all --blocks=4 --burst-ms=120 --prelude-ms=100 \
-  --telemetry-argv='["/tmp/orbital-folio-mac-thermal-snapshot"]' \
-  --context-telemetry-argv='["/tmp/orbital-folio-mac-thermal-snapshot","--pmset","--settings"]' \
-  --out=docs/evidence/performance/rested-retests/new-run.json
-```
-
-Telemetry commands run outside timed kernels. Configuring `--telemetry-argv` requires nominal OS thermal pressure; warm or unavailable observations skip work or invalidate a block. The optional context command also records power settings and raw `pmset` output at session/block boundaries. Other devices can supply an equivalent JSON sampler or omit both telemetry flags: the harness remains usable, but explicitly records thermal pressure as **unknown**. `--allow-unknown-thermal` permits unavailable readings from a configured sampler; it does not permit known warm pressure or establish a cooled device.
-
-Defaults use a 60-second initial idle period, three reference controls 10 seconds apart, shared-count bursts targeting 120 ms, seeded ABBA/BAAB ordering, one-second sample rests, and at least 20 seconds between blocks. A startup sample is one indivisible model construction and can exceed the burst target. The default five-percent control-spread gate also rejects sustained directional drift; invalid blocks can retry after a 60-second recovery and fresh controls, within a bounded retry budget. These intervals and thresholds are engineering choices, **not guaranteed cooldown times**. Nominal OS pressure plus stable controls does not prove cold hardware, peak clocks, or absence of throttling. See the [protocol research and limitations](evidence/performance/rested-retests/research.md).
-
-Protocol v2 supports `--prelude-ms=100` for **warmed repeated CPU work**. Every steady A/B sample, including reference controls and brackets, runs the selected variant for the same untimed duration, resets its logical inputs, and immediately measures the unchanged work count. No telemetry, asynchronous wait, or garbage collection occurs between that prelude and the measurement. Both variants also warm before calibration. Actual prelude time and operation counts are logged; 100 ms is a declared engineering choice, not proof of frequency or JIT stabilization. The default remains zero for the earlier no-prelude behavior. Indexing startup always excludes the prelude: it measures the complete construction operation, but remains repeated model construction in an already-used process rather than cold application startup.
-
-Process and, where the Node runtime exposes it, thread CPU-time deltas provide secondary context. Getter overhead stays outside the wall timer where possible. These fields never correct timings or change acceptance gates; process totals can exceed wall time because they include multiple threads, and neither a ratio near one nor nominal thermal pressure proves an unthrottled device.
-
-The JSON report retains configuration, source hashes, environment/thermal observations, calibration, individual samples, accepted and rejected attempts, and paired summaries. Its sibling `.events.jsonl` file preserves progress and skip/rejection reasons. An accepted block only passed the comparison checks; it does not mean the candidate helped. An inconclusive status means insufficient stable evidence—retain those attempts and repeat under better-controlled conditions instead of deleting them or adjusting timings. Small differences within observed variation are not reliable wins.
-
-Use `--dry-run` to inspect the schedule without constructing models, or `--correctness-only` to verify equivalence without performance trials. `--cases`, `--blocks`, `--seed`, rest durations, drift limits, and retry budgets are configurable and recorded. Add `--notes` with the actual power/browser/workload conditions. Keep raw reports and record decisions in the [performance ledger](performance-ledger.md); promising CPU results still need browser validation before activation.
-
-Power-source context needs an explicit audit: the runner automatically checks thermal pressure and Low Power Mode, but its raw per-case summary does not split battery and AC cohorts. Inspect the full before/after power contexts, exclude a comparison if the source changes within it, and report separate cohorts if it changes between blocks. The September repeat’s [power-source summary](evidence/performance/rested-retests/summary.json) and [audit](evidence/performance/rested-retests/final-audit.md) demonstrate this distinction. A constant Low Power Mode setting does not imply a constant power source.
-
-
-## Initial optimization hypotheses — historical
-
-These motivated the original diagnostics. They are hypotheses, not a current measured ranking; use the [optimization review](performance-optimization-review.md) for the subsequent investigation and changes:
-
-1. **Continuous full-scene redraw at rest.** The animated environment keeps the normal loop active. Investigate a frame-rate budget or separate/static rendering when the cabin settles; retain current camera, door and reduced-motion behavior.
-2. **Spacecraft rendering.** Detailed meshes, materials and lights remain submitted in a room view. Use actual per-pass triangle/draw counts before selecting geometry simplification, visibility/culling or material batching work.
-3. **Background pixel shading.** Earth/cloud/atmosphere layers and the procedural cloud shader run across their covered pixels. Compare the background and resolution controls before reducing visual fidelity.
-4. **AO refresh and composite.** AO is already cached at rest. Measure refresh frequency while hovering/navigating and the cost of applying the cached result; don't assume the whole effect is recomputed every idle frame.
-5. **Repeated CPU/DOM work.** Model/material updates, repeated matrix traversal and callout/metadata publication run repeatedly. Their individual timings determine whether they deserve priority over GPU work.
-
-## Implementation and validation
-
-`features/spacecraft/spacecraft-runtime.ts` supplies stage boundaries, cumulative render counters, AO invalidation reasons and temporary controls. `features/diagnostics/scene-performance.ts` owns bounded samples, phase statistics, GPU query lifetimes and reset/disposal. `features/diagnostics/spacecraft-performance.ts` owns per-pass component attribution and filters. `features/diagnostics/performance-panel.ts` owns the guided recorder, comparison controls and downloads. `features/diagnostics/performance-review.ts` checks capture comparability and derives early/late trends and baseline drift. Focused tests cover these review checks alongside collector timing partitions, percentiles, counters, retention changes, per-frame context, asynchronous query reads, disjoint results, reset and cleanup.
-
-The GPU query implementation follows the [Khronos WebGL timer-query specification](https://registry.khronos.org/webgl/extensions/EXT_disjoint_timer_query_webgl2/): query results are read only after availability and after a later frame, with disjoint results discarded. The existing renderer has `info.autoReset=false`; counters are explicitly reset before each complete frame.
-
-Historical rollout validation: eight collector tests and 37 existing feedback/door/navigation tests passed, along with type checking, lint, formatting and the production build. Browser checks covered recording/export summaries, invalidation on resize, render-once pause, room navigation with the panel retained, and absence of the panel on a normal visit. The [original panel screenshot](evidence/performance/diagnostics-panel.png) records that earlier interface, not the current guided workflow. Current validation is recorded in the [optimization review](performance-optimization-review.md).
-
-## Historical: first M4 comparison — 2026-09-13
-
-Local Apple M4, 16 GiB RAM; Chromium 152 in-app browser; development build; overview at 794×827 CSS pixels. Each capture used three seconds of warmup, ten seconds of measurement, no pointer motion, and a collapsed diagnostics panel. The camera and per-frame context remained identical in all three captures. This is an instrumented browser comparison, **not a Safari, production, battery, temperature, or power measurement**.
-
-| Capture | Drawing buffer | Rendered FPS | Mean callback ms | Spacecraft draws / triangles per frame |
-| --- | --- | ---: | ---: | ---: |
-| Normal A | 1588×1654 | 47.96 | 11.24 | 466 / 886,144 |
-| Half drawing resolution | 794×827 | 60.00 | 4.32 | 466 / 886,144 |
-| Normal B | 1588×1654 | 54.38 | 4.86 | 466 / 886,144 |
-
-The improvement with one-quarter of the drawing pixels supports pixel-rendering cost as a candidate; geometry count stayed constant. Baseline CPU/frame-rate variation is substantial, so these figures do not establish exact savings or a single thermal cause. All idle frames in these captures reused cached AO (zero AO refreshes). The cached AO composite still rendered. Do not prioritize repeated AO calculation as the idle bottleneck based on these captures.
-
-First priorities to investigate: a sustained rendering budget when idle; main-pass pixel cost; then spacecraft draw/material/visibility work. Follow with controlled background/AO comparisons and repeat navigation/hover captures. Preserve the visual design until an optimization demonstrates benefit.
-
-The [summary report](evidence/performance/m4-overview-captures.json) and [compressed report with raw frames](evidence/performance/m4-overview-captures.json.gz) are retained for future comparisons. GPU query timings are included but should be cross-checked against isolation modes because query boundaries and GPU scheduling can affect sampled elapsed times.
-
-
-## Historical: component validation — 2026-09-14
-
-The [component comparison](evidence/performance/spacecraft-parts-comparison.json) retains three overview captures at 1200×800, DPR 1, in the development Chromium browser. The camera remained identical. The [compressed report](evidence/performance/spacecraft-parts-comparison.json.gz) also retains batch/source inventories; these captures do not include raw per-frame arrays.
-
-- Full spacecraft: **466 draw calls / 886,144 triangles**, all attributed.
-- Hide Projects furniture: **415 / 697,892**, exactly removing its **51 / 188,252** and leaving the other component counts unchanged.
-- Restore full spacecraft: **466 / 886,144** again.
-
-Projects furniture had the most triangles; About furniture the most draws (58). This identifies geometry and submission candidates, not a proven GPU-cost ranking. Timing differences in this short comparison were inconclusive: the first baseline was about 60 FPS and the hidden/restored runs about 58 FPS, with variation in both CPU and GPU timings. The retained comparison validates filter/count integrity rather than claiming an optimization benefit.
-
-Six additional tests cover actual draw deltas, room/component reconciliation, invisible variants, restoration/disposal, bounded samples and taxonomy against the real batched spacecraft. Normal model geometry and batching are unchanged.
-
-At that stage, the extension passed those six tests plus the previous 45 diagnostics/navigation/feedback tests, type checking, type-aware lint, formatting and the production build. Browser verification covered button activation without a query string, component and room filtering, capture cancellation when the filter changes, closing/reopening with resolution restoration, room/ladder navigation, and the control/panel at 390-pixel width. The [component-panel screenshot](evidence/performance/spacecraft-parts-panel.png) records that historical interface in a room view.
-
-
-## Offline shadow comparison
-
-Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment shadow --port 3020`
-with the optional compiled `--thermal-sampler` from the rested protocol. This
-frozen, loopback-only public fixture exposes three developer actions: **Bake and
-verify**, **Rested comparison**, and **Cost survey (unranked)**. They never change
-the delivered portfolio or add visitor downloads. The source is split between
-`shadow-depth-bake.ts` (native-depth capture/restore) and `shadow-bake-lab.tsx`
-(application replay and measurement).
-
-The first verification captures the current initial shadow. Repeating after
-resizing retains that bake and deliberately tests stale-lighting failure; reload
-at the new viewport to author a bake for that initial pose instead. Each report
-saves real buffer/DPR/map size, shader settings, transforms, PNG pairs and live-map
-restoration checks. Supported captures include the initial 1024 and 2048 map sizes.
-The descriptor is diagnostic, not a production cache-validity key.
-
-The rested comparison separates CPU and asynchronous GPU time for map preparation
-plus the same main spacecraft pass. It uses rests, repeated controls and balanced
-orders with rejection gates; target allocation is included on the restore side.
-It is warmed preparation, not matched cold page startup. The unranked survey is
-only for work/count attribution and raw descriptive costs; it never establishes
-an optimization benefit, particularly when the controls already drifted. Steady
-frame rows must also be treated as descriptive without their own acceptance gates.
-
-See [entry 21](performance-ledger.md#21--cached-shadows-versus-developer-baked-depth-15-september-2026)
-and the [evidence/method](evidence/performance/static-shadow-bake/README.md). Preserve
-failed, excluded and inconclusive reports. The adopted decision is the existing
-cached shadow map. The owner subsequently approved entry 22's recommendation to
-retain GTAO after the contact-shading experiment and authorized the separate
-diffuse-lighting experiment in entry 23.
-
-## Offline contact-shading comparison
-
-Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment contact --port 3021`
-with the optional compiled `--thermal-sampler` described above. This frozen,
-loopback-only lab uses public seed content and the actual application renderer.
-It creates no visitor-facing controls, assets or quality changes. The owner
-accepted the recommendation to retain production GTAO; these candidates remain
-available for reproducing the findings in
-[entry 22](performance-ledger.md#22--baked-surface-contact-shading-and-live-zone-hybrid-15-september-2026).
-
-1. **Survey current rooms** records idle and deterministic hover in forward and
-   reverse room order. It is a descriptive target-selection survey, not a rested
-   cross-room speed ranking.
-2. **Bake and inspect** exports static Projects surfaces and surrounding opaque
-   occluders, performs the geometric bake on the developer machine, installs its
-   result and compares the same camera/geometry state against the original.
-   Original images, exact restoration checks and a subdivision-only control are
-   recorded. Repeating verification after resize tests the same bake with a new
-   viewpoint; narrow or unsupported-AO contexts retain the original renderer.
-3. **Rested comparisons** uses 60 seconds of rest, three controls ten seconds
-   apart, then ABBA/BAAB blocks with separate frame/pass GPU-query captures.
-   Settings, transforms, power context, interruptions, WebGL errors and drift can
-   reject a run. The pauses are controls, not guaranteed Mac cooldown times.
-4. **Unranked cost survey** preserves descriptive CPU/GPU/pacing and deterministic
-   work counts. It does not convert failed rested comparisons into a speed claim.
-
-Variant A is delivered GTAO. B replaces contact shading on eligible static
-Projects surfaces with baked vertex visibility, keeping live GTAO on displays,
-moving meshes, instances and neighboring surfaces. C also retains live GTAO in
-expanded world-space zones around the hatches and deployed reader. Both retain
-the full normal/depth pass; only eligible pixel sampling in GTAO and denoising
-returns early. The hybrid is approximate: denoising can cross a mask boundary,
-and a fixed world-space margin is not an exact screen-space filter footprint.
-
-The implementation lives under `scripts/benchmarks/` in
-`contact-geometry-bake.mjs` (offline sampling) and `contact-surface-bake.ts`
-(reversible materials and pass masks). The thin `contact-shading-lab.tsx` entry
-configures `shading-comparison-lab.tsx`, which owns the shared application replay
-and measurements for contact and diffuse experiments. The bake uses
-deterministic hemisphere rays and bounded triangle subdivision rather than a
-camera screenshot or overlapping material UVs. It excludes moving occluders and
-printed/emissive receivers. Byte storage, finite rays and vertex interpolation
-are approximations; they must not be called visually lossless.
-
-Inputs, assets, source manifests, failed runs and comparisons are saved under
-`docs/evidence/performance/static-contact-bake/`. The input hash identifies exact
-geometry, normals, indices, transforms and settings for this fixture; it is not
-a production cache-invalidation system. To reproduce an offline bake, decompress
-an input JSON and run `node scripts/benchmarks/contact-geometry-bake.mjs input.json output.json`.
-Stop interrupts browser replay; an already-started synchronous offline bake
-finishes on the developer server. Close the temporary lab when finished and
-preserve the main development server on port 3000.
-
-## Offline diffuse-lighting comparison
-
-Run `node scripts/benchmarks/camera-invalidation-lab.mjs --experiment diffuse --port 3022`
-with the optional compiled `--thermal-sampler` described in the rested protocol.
-This authorized developer experiment uses the actual renderer and public seed
-content in a frozen loopback-only lab. It does not change visitor lighting,
-geometry, downloads or controls. Final findings and adoption status belong in
-[entry 23](performance-ledger.md#23--baked-environment-illumination-probe-15-september-2026)
-and the [diffuse-probe evidence](evidence/performance/baked-diffuse-probe/).
-
-The experiment fits one static probe to the existing `RoomEnvironment` PMREM at
-roughness 1 and unit intensity, in environment-direction space. Nine RGB
-coefficients span a second-degree spherical-harmonic polynomial. This is an
-approximation of already-prefiltered illumination, not a surface atlas, new
-global-illumination solution or local-contact bake. It adds no candidate geometry
-or texture. The original PMREM and precomputed DFG lookup remain available.
-
-- **A — Delivered lighting:** retain the existing shading.
-- **B — Baked shared irradiance:** replace one `getIBLIrradiance` PMREM lookup
-  with probe arithmetic. Its shared value changes both indirect diffuse and
-  specular multiscattering energy. Removing a texture lookup is not proof of a
-  net runtime benefit.
-- **C — Baked diffuse only; live specular energy:** replace only the irradiance
-  used for indirect diffuse inside `RE_IndirectSpecular_Physical`. Keep the
-  original irradiance and view-dependent radiance lookups for specular energy,
-  adding probe arithmetic rather than eliminating that irradiance fetch.
-
-Both candidates preserve direct lights, key shadows, GTAO, view-dependent
-specular radiance, dynamic readers, emission, room feedback and cabin-paint
-neutralization. Evaluation uses the current fragment normal and environment
-rotation; verification must cover portrait roll, not assume fixed world lighting.
-
-The shared four-action workflow remains:
-
-1. **Survey current rooms** records idle and deterministic hover in forward and
-   reverse order. This experiment configures the survey to Projects only; it is
-   a descriptive fresh baseline, not another four-room ranking.
-2. **Bake and inspect** captures 4,096 actual GPU PMREM training samples, fits the
-   coefficients, and validates against 4,096 independently rotated held-out
-   directions. Validation compares the actual clamped Float32 probe shader with
-   GPU PMREM samples. Same-state image comparisons cover dim/hover/selected/
-   transit, readers, doors and responsive views, with exact original-material
-   restoration and WebGL checks. Retain fit errors separately from image changes.
-3. **Rested comparisons** reuses the contact lab's warmup, 120-frame idle/hover
-   samples, 60-second rest, three controls ten seconds apart and ABBA/BAAB orders.
-   Frame and pass GPU queries run separately. State, buffer, power, WebGL and
-   drift gates can reject a comparison; failed gates do not establish throttling.
-4. **Unranked cost survey** is optional descriptive evidence. It cannot rescue
-   rejected timing or establish an optimization benefit from work counts alone.
-
-The thin `scripts/benchmarks/diffuse-lighting-lab.tsx` entry configures the same
-`shading-comparison-lab.tsx` replay. `diffuse-probe-session.ts` owns GPU sampling,
-material replacement, validation and restoration; `diffuse-probe-fit.mjs` owns
-the offline fit. To reproduce the fit from a decompressed input, run
-`node scripts/benchmarks/diffuse-probe-fit.mjs input.json output.json` with a new
-output path. Preserve input, probe and source identities together with raw,
-excluded and inconclusive runs. Report coefficient bytes separately from asset
-transport, temporary capture targets, material/program allocations and measured
-preparation or rendering costs. Stop or close the temporary lab after use while
-preserving the main development server on port 3000.
+Earth comparisons use the [resolution lab](../scripts/benchmarks/earth-resolution-lab.md)
+and [cloud lab](../scripts/benchmarks/CLOUD-LAB.md). Current crop/seam investigations
+start with the [Earth evidence](evidence/earth-consistent-loop/README.md#coverage-follow-ups).
+These specialized procedures are optional entry points, not a mandatory reading chain.

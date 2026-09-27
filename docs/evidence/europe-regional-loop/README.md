@@ -1,4 +1,11 @@
-# Seamless regional night Earth · 20 September 2026
+# First regional night loop — historical 20 September 2026
+
+This 4096×3072 predecessor is superseded by the
+[compact AI-assisted coastal loop](../earth-consistent-loop/README.md). Its
+separate baseline, fictional collage, raw timings and rejected trials remain
+supporting evidence for that candidate. Source/build commands below describe the
+original revision; today's builder produces the later asset. Restore the recorded
+revision and hashes to reproduce these results.
 
 The owner approved a continuously repeating regional texture, including believable
 fictional connecting geography, while keeping the visible quality of the selected
@@ -90,7 +97,7 @@ in that numerical sweep. Future camera/FOV/layout changes must rerun coverage.
 The 180° period avoids simultaneous duplicate atlas coordinates in those sampled
 views; it does not prove that collaged geographic features can never look similar.
 
-`node scripts/benchmarks/regional-earth-light-audit.mjs` produces
+The historical `scripts/benchmarks/regional-earth-light-audit.mjs` (recoverable from Git baseline `1b901fa`) produced
 `light-coverage.json`. It uses a warm-bright-pixel proxy over projected planet
 pixels at 49 phases plus shared elapsed times. It is not a physical land/water
 classifier, a substitute for visual judgment or a performance benchmark. The

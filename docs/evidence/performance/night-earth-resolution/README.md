@@ -1,5 +1,7 @@
 # 8K night Earth: delivery, rendering and visual review
 
+Historical 14 September 2026 full-world night comparison. Production now loads the regional WebP; this record preserves the original resolution decision and qualified browser observations.
+
 14 September 2026. The approved change selects the retained 8192×4096 NASA Black Marble JPEG for production. The fixed Mediterranean opening and cinematic blue atmosphere remain unchanged. Production loads one map; the three resolutions remain available in the developer comparison tool.
 
 ## Findings
@@ -56,4 +58,4 @@ node scripts/audit-night-earth-results.mjs
 
 The auditor groups browsers and display conditions, checks the original source/asset hashes against the workspace, distinguishes unsupported GPU timing from zero, and retains explicit exclusions. A future source change should produce a new evidence directory and fresh frozen lab; historical source checks should not be bypassed to make an old run appear current.
 
-The implementation decision is also recorded in [performance ledger entry 13](../../../performance-ledger.md#13--8k-night-earth-and-resolution-comparison).
+The implementation decision is also recorded in [performance ledger entry 13](../../../performance/earth-representation.md).

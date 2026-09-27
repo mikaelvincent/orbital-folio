@@ -1,108 +1,48 @@
-# Standalone Earth comparison lab
+# Cloud-versus-current-Earth comparison lab
 
-This developer fixture compares the **frozen satellite cloud volume immediately
-before the 2K satellite Earth change** with the current production regional night environment.
-It adds no portfolio routes, UI, or runtime work. The older procedural-cloud
-reference remains in `cloud-reference.ts` for historical comparisons; it is not
-loaded by this comparison.
+`node scripts/cloud-browser-lab.mjs --port 3004` freezes a loopback-only background
+fixture. Open `http://127.0.0.1:3004/` in the hidden built-in browser. This adds no
+portfolio routes or visitor work and needs no database. Keep the main server on
+3000; stop the lab after use. Restart after source/asset edits to make a new
+snapshot.
 
-- **A / reference / before:** `satellite-volume-reference.ts`, captured from
-  production on 2026-09-14, with only relative imports and a provenance comment
-  changed. It loads `cloud-satellite-v2.cfd.gz` and the unchanged
-  `scripts/benchmarks/clouds/cloud-volume.ts` shader.
-- **B / current / after:** `features/orbit/orbital-environment.ts`, using the
-  4096×3072 lossless regional atlas at the original 8K source's texel density,
-  the approved Europe opening (12° / 48° / −10°) and 0.0045 rad/s rotation.
-  Authored connecting geography repeats every 180° / 698.13 seconds.
+- **A / reference:** `satellite-volume-reference.ts`, the 14 September 2026
+  satellite cloud volume, with its retained `cloud-satellite-v2.cfd.gz` and shader.
+- **B / current:** `features/orbit/orbital-environment.ts`, now the 2560×1536
+  lossless regional night loop. Native Europe detail and fictional coastal
+  continuation repeat over 112.5° / 436.332 seconds at 0.0045 rad/s.
 
-The retained 8K source JPEG is derived directly from NASA's original 13500×6750
-night GeoTIFF. The regional atlas preserves its native pixel density and unchanged
-European core; its connecting collage is fictional geography. The production
-renderer requests only the regional WebP. The old day and lower-resolution night
-JPEGs no longer ship in `public/textures`; reproduce those historical experiments
-in the separate checkout described in the
-[archived resolution guide](earth-resolution-lab.md). This paired lab compares
-historical cloud rendering with today's night scene, **not equivalent imagery or
-an isolated optimization**. It does not select old image resolutions.
+These are different authored designs, not equal imagery or an isolated
+optimization. Saved [2K satellite results](../../docs/evidence/performance/satellite-earth-2k/audit-summary.md)
+used an older B source. The original procedural reference (`cloud-reference.ts`)
+is another baseline, used by the historical [resolution lab](earth-resolution-lab.md).
+Use recorded source/asset manifests and original revisions to reproduce those
+comparisons; today's live fixture cannot stand in for them.
 
-The JSON stores these source identities in `configuration.comparison`; its
-build manifest records hashes of every actual imported source and public asset.
-Keep the referenced cloud shader and atlas unchanged, or freeze their own copies
-before changing them. This preserves the exact before design in future tests.
+**Preview selected version** renders one frame at 0, 60 or 180 seconds. Match
+viewport, drawing DPR and time for comparisons; controls may be hidden. Previewing
+does not start a continuing render loop. The immutable build manifest records all
+imported source and copied assets. Missing textures or fallback generation
+invalidate the intended comparison.
 
-Start it only after source and public asset changes are settled:
+For **Start paired GPU comparison**, run both ABBA and BAAB at each chosen
+viewport. Each four-block run uses a 20-second blank rest before each block, ten
+warmup frames and 60 measured frames by default (120 optionally). Both complete
+environments stay resident, so lab memory is not single-Earth production memory.
+The initial preparation reports import, factory, fetch/decode/readiness, compile
+and first submitted render separately; repeated rounds reuse preparation records.
+These local observations are not repeated cold-network starts or presentation
+latency.
 
-```sh
-node scripts/cloud-browser-lab.mjs --port 3004
-```
+Each GPU query encloses background rendering only. CPU update/submission, frame
+intervals, draw counts and individual GPU validity remain separate. Unsupported
+GPU timing yields CPU/frame-only results; missing/disjoint samples invalidate
+GPU comparisons. Stop, hiding, resize or context loss cancel the finite run and
+retain partial reports. Copy JSON after every attempt, including failures.
 
-Open `http://127.0.0.1:3004/`. Starting the server builds immutable ES module chunks,
-copies `public`, and records SHA-256 hashes in a build manifest. Subsequent source
-edits cannot change that running comparison. Stop and restart the script to make a
-new snapshot. The texture `.gz` is served as raw gzip bytes, without automatic HTTP
-decompression; the production loader handles it.
-
-The browser starts idle. Use **Preview selected version** for a single frozen
-frame at 0, 60, or 180 seconds. **Hide controls** leaves the complete background
-visible; **Show controls** restores them. **Fullscreen canvas** uses browser
-fullscreen. Neither action starts an animation loop.
-
-For measurement, choose an explicit drawing DPR and viewport size, then select
-**Start paired GPU comparison**. Default DPR is 2. Example configurations are a
-1280×720 viewport at DPR 2 and a 390×844 viewport at DPR 1. The actual viewport,
-drawing buffer, native DPR, mobile option, GPU/browser identification when
-available, build hashes, and all raw samples are stored with the result.
-
-- `A` is before, `B` is after. Choose ABBA or BAAB (four blocks).
-- Both environments load, await their readiness, and submit a first complete
-  frame before the initial blank rest. The reference loader's recovery generator
-  stays in a lazy chunk and loads only if its asset path fails. A fallback or
-  missing asset invalidates the measurement; it cannot be accepted as a faster
-  correctly loaded scene. Readiness is checked before compilation and each block.
-- Preparation records environment-module import time, factory CPU time, readiness
-  wait, environment fetch/decode diagnostics, `compileAsync` wall time, and the
-  first complete render's CPU/GPU timing. The first-frame wall milestone is CPU
-  submission, not an OS presentation timestamp. These are separate from the
-  steady-state samples. Reload without previewing to capture first-load phases;
-  a reload does not guarantee a cold browser or driver cache. Reused environments
-  and earlier preview-triggered preparations are identified explicitly.
-- Before each block the canvas is cleared once, then remains blank for twenty
-  seconds. No animation frames or polling timers run during that rest.
-- Each block renders ten warmup frames, then 60 measured frames by default: 120
-  measured frames per version. The alternative is 120/block, 240/version.
-- Each measured WebGL2 `EXT_disjoint_timer_query_webgl2` encloses only
-  `renderer.render(environment.scene, environment.camera)`. Update CPU, render
-  submission CPU, total CPU submission, frame intervals, render counts, raw GPU
-  nanoseconds, and individual validity statuses are also recorded.
-- Query results are read only when available. The query drain uses short timers,
-  never `gl.finish()` or a busy loop, and stops after three seconds. Timer
-  discontinuities invalidate the entire affected block. Any missing or invalid
-  GPU sample invalidates the paired GPU comparison; unsupported GPU timers are
-  instead explicitly reported as a CPU/frame-only run.
-- **Stop**, tab hiding, viewport changes, and context loss cancel the finite run.
-  Partial raw results remain available. There is no continuing render loop after
-  completion or cancellation.
-
-Copy the JSON after each run. For visual comparisons, use identical viewport,
-DPR, and frozen time, then switch preview version. For measurements repeat both
-ABBA and BAAB orders under similar device load. A background-only elapsed GPU
-comparison is not a full-site power, battery, or temperature measurement; it does
-not diagnose thermal throttling by itself.
-
-
-For a passively cooled machine, collect native thermal-pressure and power context
-outside the render timer, start with nominal pressure, and stop competing build
-or benchmark work before comparing. Use at least both orders at each viewport,
-retain raw block-level results and all exclusions, and examine the two repeated
-before blocks for drift. The 20-second idle interval is a declared scheduling
-choice, not proof of complete cooling; extend recovery if pressure is elevated or
-controls drift. See the [rested testing research](../../docs/evidence/performance/rested-retests/research.md).
-Compare actual GPU elapsed milliseconds, submitted draws and triangles, asset
-bytes, estimated texture storage, and readiness/preparation timings separately.
-Do not convert fewer texture samples into a predicted FPS or battery multiplier.
-
-The current image dimensions and readiness checks come from the production Earth
-configuration. Saved iteration 07 reports remain 2K observations; new regional
-night results must not be conflated with those historical daytime measurements
-or later full-globe 8K runs. Rebuild the active atlas with
-`node scripts/build-regional-earth.mjs`; see the [source preparation instructions](../assets/README.md).
+Follow the [measurement protocol](../../docs/performance-diagnostics.md) for power
+context, competing work, balanced order and baseline drift. Blank rests and
+nominal OS pressure do not establish equal clocks or cooling. This fixture
+excludes spacecraft/UI/navigation; no whole-site FPS, heat or battery claim follows.
+For the original atlas startup/codec kernels, use the retained
+[cloud delivery evidence](../../docs/evidence/performance/cloud-delivery/README.md).

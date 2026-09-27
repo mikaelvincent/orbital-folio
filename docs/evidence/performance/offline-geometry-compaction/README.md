@@ -4,6 +4,23 @@ User-authorized ledger candidate 2. Baseline: `437824a`, after the solid-wall ho
 fix. Approved 8K Mediterranean night Earth, lighting, room art, navigation and
 quality remain fixed. This experiment does not authorize other ledger candidates.
 
+## Earlier runtime indexing investigation
+
+This entry consolidates former ledger **20** with the indexing portions of
+**03–04**. Those earlier scenes and CPU-only protocols are separate baselines:
+[full feasibility](../exact-indexing/feasibility.json) found 83,040 redundant
+entries/2,648,064 potential array bytes; the
+[targeted numeric prototype](../exact-indexing/targeted-numeric-hash.json) saved
+1,109,632 bytes across 13 buffers but added 32.73–72.53 ms of compaction work.
+It preserved complete expanded attribute bytes, signed zero, UV/normal seams,
+metadata and triangle order; string-key analysis had already proved too costly.
+The observed construction difference (+41.11 ms) came from drifting Node controls,
+not browser startup. The later [rested retest](../rested-retests/final-audit.md)
+accepted no indexing A/B blocks, so it establishes no qualified net startup
+estimate. Runtime welding remains disabled. The direct generator below avoids
+that visitor-side analysis; its 2026-09-15 counts must not be added to the earlier
+scene's potential savings.
+
 ## Decision and scope
 
 Use direct indexed cylinder generation. An offline script specializes the installed

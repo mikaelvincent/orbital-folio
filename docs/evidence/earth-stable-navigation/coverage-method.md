@@ -126,6 +126,11 @@ application tests and build results; this audit makes no GPU timing claims.
 
 ## Reproduce
 
+These commands name the original outputs. Use a new output directory for a new
+source or a disposable checkout for exact historical reproduction; do not replace
+the retained reports. The script reads current camera/model helpers even when
+`--revision` selects historical orbital modules, so match all recorded hashes.
+
 ```sh
 node scripts/benchmarks/earth-visible-coverage.mjs --gzip-samples \
   --out docs/evidence/earth-stable-navigation/coverage-desktop.json

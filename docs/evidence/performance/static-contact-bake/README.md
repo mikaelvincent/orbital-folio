@@ -107,7 +107,7 @@ experiment does not synthesize normals or alter their authored appearance.
 The offline asset is stored compressed; subsequent developer requests may reuse
 it only when both the exact exported input and baker-source hashes match.
 
-Use the [diagnostics guide](../../../performance-diagnostics.md#offline-contact-shading-comparison)
+Use the [diagnostics guide](../../../performance-diagnostics.md#frozen-browser-labs)
 for the lab controls and offline CLI. Reports carry their own frozen source,
 bundle and public-asset hashes. Compare matching freezes and viewport settings;
 do not treat a prototype sizing change as a production performance gain.
@@ -282,3 +282,11 @@ and the final rubric/score. No authored design or visual candidate is shipped
 as part of this evidence decision.
 
 Check logs are also losslessly gzip-compressed, preserving the original tool output.
+
+## Retained visual evidence
+
+All final source-matched comparison PNGs remain. Superseded pilot PNGs were
+removed during curation; their raw reports, source identities, failures and
+exclusions remain unchanged. Image filenames in those historical raw reports
+therefore identify the original capture, not a current file. Recover omitted
+pilot images from Git baseline `1b901fa`; do not promote them to final evidence.

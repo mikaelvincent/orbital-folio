@@ -1,6 +1,8 @@
 # Scattered cloud refinement — 14 September 2026
 
-The user wanted scattered, varied clouds with visible ocean, and rejected the preceding continuous blanket. This revision uses the existing 3D globe with a separate satellite-derived cloud mask and restrained artistic height. See the [representation tradeoffs](alternatives.md) and [performance ledger](../../performance-ledger.md#06--scattered-satellite-cloud-coverage).
+Historical satellite-cloud predecessor, retained for the [Earth representation story](../../performance/earth-representation.md). It is not the current orbital environment.
+
+The user wanted scattered, varied clouds with visible ocean, and rejected the preceding continuous blanket. This revision uses the existing 3D globe with a separate satellite-derived cloud mask and restrained artistic height. See the [representation tradeoffs](alternatives.md) and [performance ledger](../../performance/earth-representation.md).
 
 ## Visual checks
 

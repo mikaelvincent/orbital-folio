@@ -226,7 +226,7 @@ times remain in each verification report as descriptive context only.
 
 [summary.json](summary.json) indexes every compressed raw report, original raw
 JSON hash, source snapshot and outcome. gzip report compression is archival only;
-its pixel/image paths still refer to the original PNGs in this folder.
+its pixel/image paths retain original names; the final PNGs remain in this folder.
 [final-build-manifest.json](final-build-manifest.json) identifies all source,
 installed dependency, bundle and public asset inputs. [source.tar.gz](source.tar.gz)
 contains the five changed/new implementation files: apply them over baseline
@@ -247,3 +247,11 @@ HTTP200 and remains available. No native Safari or screen capture was used.
 The implementation is subject to the independent critic record in
 [critic-review.md](critic-review.md). The evidence hash manifest is finalized
 alongside that review.
+
+## Retained visual evidence
+
+All final source-matched comparison PNGs remain. Superseded pilot PNGs were
+removed during curation; their raw reports, source identities, failures and
+exclusions remain unchanged. Image filenames in those historical raw reports
+therefore identify the original capture, not a current file. Recover omitted
+pilot images from Git baseline `1b901fa`; do not promote them to final evidence.

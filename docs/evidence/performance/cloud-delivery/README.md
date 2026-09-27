@@ -1,5 +1,7 @@
 # Cloud delivery comparison
 
+Historical 14 September 2026 comparison. Production no longer loads these cloud fields. The retained developer fixtures/assets reproduce the measured representation; use the [Earth story](../../../performance/earth-representation.md) for the subsequent decisions.
+
 Completed evidence: [startup delivery results](startup-summary.md), [browser GPU and preparation audit](gpu-audit.md), and their linked raw reports. The startup comparison retains every scheduled sample, including the slower decode observation. The browser audit separates the measurement interval from later visual/build checks.
 
 The comparison separates three approaches:

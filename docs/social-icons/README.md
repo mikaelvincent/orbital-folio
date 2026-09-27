@@ -1,27 +1,12 @@
 # Social icon assets
 
-Source: Simple Icons, https://github.com/simple-icons/simple-icons. SVG path data is supplied under the upstream CC0-1.0 license; the full license and upstream disclaimer are included alongside these files. Brand marks remain their respective owners' marks.
+Bundled brand paths in `lib/content/social-platforms.ts` come from
+[Simple Icons](https://github.com/simple-icons/simple-icons), under the included
+[CC0-1.0 license](LICENSE.md) and [upstream disclaimer](DISCLAIMER.md). Brand marks
+remain their owners' marks. [sources.json](sources.json) records exact upstream
+revisions and URLs; no package or runtime network request is required.
 
-All brand icons use `viewBox: "0 0 24 24"`; draw as filled paths, not stroked paths. About and Contact share these recognizable brand marks. The bundled paths live in `lib/content/social-platforms.ts`; `sources.json` records their upstream revisions. No package dependency is required.
-
-LinkedIn comes from the official Simple Icons 13.21.0 tag because it is absent from the current develop branch. Other icons are pinned to the exact fetched commit below.
-
-## Sources
-
-- github: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/github.svg
-- linkedin: https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/linkedin.svg
-- gitlab: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/gitlab.svg
-- youtube: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/youtube.svg
-- instagram: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/instagram.svg
-- bluesky: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/bluesky.svg
-- x: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/x.svg
-
-Additional popular presets (same pinned revision):
-
-- discord: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/discord.svg
-- twitch: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/twitch.svg
-- tiktok: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/tiktok.svg
-- facebook: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/facebook.svg
-- reddit: https://raw.githubusercontent.com/simple-icons/simple-icons/5d5d4d1d28cbb00b21770bb69d8112da52211a95/icons/reddit.svg
-
-Website and Custom are authored stroked symbols, also using a 24 × 24 viewBox. Their `filled: false` flag selects stroked rendering.
+Brand icons use filled paths with a 24×24 viewBox. LinkedIn is pinned to Simple
+Icons 13.21.0 because it was absent from the fetched develop revision. Website
+and Custom are locally authored stroked symbols; preserve their `filled: false`
+rendering flag. About and Contact share these presets.

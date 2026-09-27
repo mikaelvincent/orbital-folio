@@ -203,3 +203,11 @@ production site therefore imports neither probe. The fitting/capture/replay
 infrastructure is retained for future measured experiments, not enabled as a
 visitor feature. Approval of the photos and repeatable net savings are needed
 before integration. No broader lightmap or new ledger candidate was implemented.
+
+## Retained visual evidence
+
+All final source-matched comparison PNGs remain. Superseded pilot PNGs were
+removed during curation; their raw reports, source identities, failures and
+exclusions remain unchanged. Image filenames in those historical raw reports
+therefore identify the original capture, not a current file. Recover omitted
+pilot images from Git baseline `1b901fa`; do not promote them to final evidence.
