@@ -135,12 +135,28 @@ export function comparisonWarnings(
     ['denoiseSamples', 'denoising sample count', 0],
     ['shadowsEnabled', 'shadow setting', 0],
     ['shadowMap', 'shadow resolution', 0],
+    ['backgroundEnabled', 'background setting', 0],
+    ['spacecraftCacheEnabled', 'spacecraft caching setting', 0],
     ['quality', 'render quality setting', 0],
   ] as const) {
     if (key === 'drawingBuffer' && halfResolution && expectedHalfBuffer)
       continue;
     if (key === 'pixelRatio' && halfResolution && expectedHalfRatio) continue;
     if (key === 'aoEnabled' && aoDisabledByExperiment) continue;
+    if (
+      key === 'backgroundEnabled' &&
+      intendedChange &&
+      targetExperiment === 'no-background'
+    )
+      continue;
+    // Diagnostic experiments already bypass the normal stationary cache.
+    if (
+      key === 'spacecraftCacheEnabled' &&
+      intendedChange &&
+      targetExperiment !== 'normal' &&
+      target.spacecraftCacheEnabled === false
+    )
+      continue;
     if (!sameValue(source[key], target[key], tolerance))
       warnings.push(`The ${label} changed.`);
   }

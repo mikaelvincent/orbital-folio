@@ -5,6 +5,7 @@ import { runInNewContext } from 'node:vm';
 import { build } from 'esbuild';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { DEFAULT_RENDERING_SETTINGS } from '../../features/spacecraft/rendering-settings.ts';
 
 const bundled = await build({
   entryPoints: ['features/portfolio/scene-tools-menu.tsx'],
@@ -130,6 +131,9 @@ function interactionFixture() {
     diagnosticsEnabled: false,
     onDiagnosticsChange: unexpected,
     studioLabel: 'Content studio',
+    renderingSettings: DEFAULT_RENDERING_SETTINGS,
+    renderingObserver: null,
+    onRenderingChange: unexpected,
   };
   return {
     launcher: launcherRef.current,
@@ -168,6 +172,9 @@ await test('the initial Tools launcher is named and collapsed without starting p
         diagnosticsEnabled,
         onDiagnosticsChange: unexpected,
         studioLabel: 'Content studio',
+        renderingSettings: DEFAULT_RENDERING_SETTINGS,
+        renderingObserver: null,
+        onRenderingChange: unexpected,
       }),
     );
     assert.match(markup, /<button[^>]+aria-label="Scene tools"/);

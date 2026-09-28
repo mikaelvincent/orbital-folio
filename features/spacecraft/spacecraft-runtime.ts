@@ -49,6 +49,12 @@ import {
 } from '@/features/spacecraft/navigation/flight';
 import type * as Three from 'three';
 import { createSceneRenderLoop } from './scene-render-loop';
+import {
+  DEFAULT_RENDERING_SETTINGS,
+  resolveRenderingSettings,
+  type RenderingSettings,
+  type RenderingObserver,
+} from './rendering-settings';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import { createOrbitalWorldReference } from '../orbit/earth-view-transform';
 import type { SceneAudit } from '../diagnostics/scene-audit';
@@ -119,6 +125,8 @@ export type SpacecraftProps = {
   onSurfaceReady: (element: HTMLDivElement | null) => void;
   onNotebookSurfaceReady?: (element: HTMLDivElement | null) => void;
   onEarthPlaybackReady?: (controller: EarthPlaybackController | null) => void;
+  renderingSettings?: RenderingSettings;
+  onRenderingReady?: (observer: RenderingObserver | null) => void;
   onSettled: () => void;
   onUnavailable: () => void;
 };
@@ -129,6 +137,7 @@ export type SpacecraftSceneAPI = {
   caseStudies: () => void;
   pause: (paused: boolean) => void;
   diagnostics: (enabled: boolean) => void;
+  rendering: (settings?: RenderingSettings) => void;
 };
 /** Own the imperative renderer lifecycle; the React shell owns props and loading UI. */
 export function mountSpacecraftScene({
@@ -243,13 +252,35 @@ export function mountSpacecraftScene({
         const capableShading =
           navigator.hardwareConcurrency >= 8 &&
           (memory === undefined || memory >= 8);
-        const contactShading =
-          capableShading && renderer.extensions.has('EXT_color_buffer_float');
-        renderer.setPixelRatio(Math.min(devicePixelRatio, mobile() ? 1.75 : 2));
+        const contactShadingSupported = renderer.extensions.has(
+          'EXT_color_buffer_float',
+        );
+        let renderingSettings =
+          latest.current.renderingSettings || DEFAULT_RENDERING_SETTINGS;
+        const renderingListeners = new Set<() => void>();
+        const resolveRendering = () =>
+          resolveRenderingSettings(renderingSettings, {
+            width: el.clientWidth,
+            height: el.clientHeight,
+            nativePixelRatio: devicePixelRatio,
+            capableShading,
+            contactShadingSupported,
+            maxTextureSize: renderer.capabilities.maxTextureSize,
+          });
+        let rendering = resolveRendering();
+        const usesContactShading = () =>
+          rendering.contactShading &&
+          experiment !== 'no-ao' &&
+          experiment !== 'no-spacecraft';
+        const usesBackground = () =>
+          renderingSettings.background && experiment !== 'no-background';
+        const notifyRendering = () =>
+          renderingListeners.forEach((listener) => listener());
+        renderer.setPixelRatio(rendering.pixelDensity);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 0.95;
-        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.enabled = renderingSettings.shadows;
         renderer.shadowMap.type = THREE.PCFShadowMap;
         renderer.shadowMap.autoUpdate = false;
         renderer.shadowMap.needsUpdate = true;
@@ -391,7 +422,7 @@ export function mountSpacecraftScene({
         const key = new THREE.DirectionalLight(0xffe3c1, 2.2);
         key.position.set(-7, 10, 12);
         key.castShadow = true;
-        key.shadow.mapSize.set(mobile() ? 1024 : 2048, mobile() ? 1024 : 2048);
+        key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
         Object.assign(key.shadow.camera, {
           left: -10,
           right: 10,
@@ -2293,7 +2324,7 @@ export function mountSpacecraftScene({
               effectiveObject === `${active}-room-dismiss`,
           );
           diagnostics?.mark('html-sync');
-          if (experiment !== 'no-background') {
+          if (usesBackground()) {
             background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
             background.followCamera(camera, backgroundReference);
           }
@@ -2301,7 +2332,7 @@ export function mountSpacecraftScene({
           renderer.info.reset();
           diagnostics?.beginPass('background', renderer.info.render);
           renderer.clear();
-          if (experiment !== 'no-background')
+          if (usesBackground())
             renderer.render(background.scene, background.camera);
           diagnostics?.endPass('background', renderer.info.render);
           renderer.clearDepth();
@@ -2320,12 +2351,7 @@ export function mountSpacecraftScene({
             spacecraftPerformance?.endPass(renderer.info.render);
             diagnostics?.endPass('spacecraft', renderer.info.render);
           }
-          if (
-            !mobile() &&
-            contactShading &&
-            experiment !== 'no-ao' &&
-            experiment !== 'no-spacecraft'
-          ) {
+          if (usesContactShading()) {
             const geometryMotion = !!model.group.userData.motionActive;
             const geometryRevision = model.group.userData.geometryRevision;
             const changedGeometry = geometryRevision !== aoGeometryRevision;
@@ -2593,7 +2619,7 @@ export function mountSpacecraftScene({
             el.dataset.quality = mobile()
               ? 'procedural-mobile'
               : 'procedural-desktop';
-            el.dataset.contactShading = String(contactShading && !mobile());
+            el.dataset.contactShading = String(usesContactShading());
             el.dataset.frameSamples = String(sorted.length);
             if (auditMotion)
               el.dataset.cameraTrace = JSON.stringify(cameraTrace);
@@ -2632,7 +2658,10 @@ export function mountSpacecraftScene({
           model,
           key,
           ao,
-          eligible: () => !mobile() && contactShading && experiment === 'normal',
+          eligible: () =>
+            renderingSettings.spacecraftCache &&
+            rendering.cacheAvailable &&
+            experiment === 'normal',
         });
         const renderLoop = createSceneRenderLoop({
           draw,
@@ -2652,14 +2681,12 @@ export function mountSpacecraftScene({
           if (el.clientWidth < 240 || el.clientHeight < 240) return;
           const w = Math.max(1, el.clientWidth),
             h = Math.max(1, el.clientHeight);
+          rendering = resolveRendering();
           // Bound retina fill cost without changing cloud detail or HTML sharpness.
-          // This runs only on viewport resize, never while retargeting a flight.
+          // Only viewport/quality changes resize buffers; navigation never does.
           renderer.setPixelRatio(
-            Math.min(
-              devicePixelRatio,
-              mobile() ? 1.75 : 2,
-              Math.sqrt(4_000_000 / (w * h)),
-            ) * (experiment === 'half-resolution' ? 0.5 : 1),
+            rendering.pixelDensity *
+              (experiment === 'half-resolution' ? 0.5 : 1),
           );
           renderer.setSize(w, h);
           cssRenderer.setSize(w, h);
@@ -2667,7 +2694,45 @@ export function mountSpacecraftScene({
           ao.setSize(Math.round(w * 0.65), Math.round(h * 0.65));
           invalidateAo('drawing-size');
           background.resize(w, h, renderer.getPixelRatio(), camera.fov);
+          if (key.shadow.mapSize.x !== rendering.shadowSize) {
+            key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
+            // Three allocates a shadow target when map is null; changing only
+            // mapSize leaves the old allocation in place in the current renderer.
+            key.shadow.map?.dispose();
+            key.shadow.map = null;
+            key.shadow.mapPass?.dispose();
+            key.shadow.mapPass = null;
+            invalidateShadow('shadow-size');
+          }
+          notifyRendering();
         };
+        function setRenderingSettings(settings = DEFAULT_RENDERING_SETTINGS) {
+          if (destroyed) return;
+          renderingSettings = settings;
+          if (renderer.shadowMap.enabled !== settings.shadows) {
+            renderer.shadowMap.enabled = settings.shadows;
+            // Shadow sampling is compiled into materials. Toggling the renderer
+            // flag alone does not invalidate their programs in this Three version.
+            const changed = new Set<Three.Material>();
+            scene.traverse((object) => {
+              const mesh = object as Three.Mesh;
+              if (mesh.isMesh)
+                for (const material of [mesh.material].flat())
+                  changed.add(material);
+            });
+            changed.forEach((material) => {
+              material.needsUpdate = true;
+            });
+          }
+          // Drop color, depth and receiver caches before changing any quality
+          // input. Re-enabling an effect must rebuild from the current pose.
+          pixelCache.release();
+          setDrawingSize();
+          invalidateShadow('rendering-settings');
+          invalidateAo('rendering-settings');
+          resetDiagnostics('rendering settings changed');
+          kick();
+        }
         const identity = document.querySelector('.orbital-identity');
         let initializedCamera = false;
         let previousViewport = '';
@@ -2868,10 +2933,10 @@ export function mountSpacecraftScene({
           };
         }
         const feedbackChanged = () => kick();
-        const earthPlaybackInput = (target: EventTarget | null) => {
+        const sceneToolInput = (target: EventTarget | null) => {
           if (
             !(target instanceof Element) ||
-            !target.closest('[data-earth-playback]')
+            !target.closest('[data-earth-playback], [data-rendering-controls]')
           )
             return false;
           // Toolbar input must not retain a room preview or drag/hover pose.
@@ -2883,7 +2948,7 @@ export function mountSpacecraftScene({
         const trackPointer = (event: PointerEvent) => {
           if (!event.isPrimary) return;
           if (
-            earthPlaybackInput(event.target) ||
+            sceneToolInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
           )
             return;
@@ -2893,7 +2958,7 @@ export function mountSpacecraftScene({
         const trackPress = (event: PointerEvent) => {
           if (!event.isPrimary) return;
           if (
-            earthPlaybackInput(event.target) ||
+            sceneToolInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
           )
             return;
@@ -2903,7 +2968,7 @@ export function mountSpacecraftScene({
         const trackKeyboard = (event: KeyboardEvent) => {
           kick();
           if (
-            earthPlaybackInput(event.target) ||
+            sceneToolInput(event.target) ||
             (event.target as Element).closest('[data-scene-perf]')
           )
             return;
@@ -3215,9 +3280,10 @@ export function mountSpacecraftScene({
         };
         renderer.domElement.addEventListener('webglcontextlost', lost);
         const shadowDiagnostic = () => {
-          renderer.shadowMap.enabled = !renderer.shadowMap.enabled;
-          invalidateShadow('shadow-toggle');
-          kick();
+          setRenderingSettings({
+            ...renderingSettings,
+            shadows: !renderer.shadowMap.enabled,
+          });
         };
         const motionDiagnostic = () => api.current?.pause(!stop);
         if (process.env.NODE_ENV === 'development') {
@@ -3263,6 +3329,7 @@ export function mountSpacecraftScene({
             go();
           },
           diagnostics: setDiagnosticsEnabled,
+          rendering: setRenderingSettings,
           pause(value) {
             stop = value;
             renderLoop.resetClock();
@@ -3290,6 +3357,25 @@ export function mountSpacecraftScene({
             kick();
           },
         });
+        latest.current.onRenderingReady?.({
+          getState: () => ({
+            pixelDensity: renderer.getPixelRatio(),
+            drawingBuffer: [
+              renderer.domElement.width,
+              renderer.domElement.height,
+            ],
+            shadowSize: key.shadow.mapSize.x,
+            contactShading: usesContactShading(),
+            contactShadingSupported,
+            cacheAvailable: rendering.cacheAvailable && experiment === 'normal',
+          }),
+          subscribe(listener) {
+            renderingListeners.add(listener);
+            return () => {
+              renderingListeners.delete(listener);
+            };
+          },
+        });
         let unmountPerformancePanel = () => {};
         function setDiagnosticsEnabled(enabled: boolean) {
           if (audit && !enabled && !destroyed) return;
@@ -3306,6 +3392,7 @@ export function mountSpacecraftScene({
             const resized = experiment === 'half-resolution';
             experiment = 'normal';
             if (resized) setDrawingSize();
+            notifyRendering();
             invalidateAo('diagnostics-disabled');
             invalidateShadow('diagnostics-disabled');
             renderLoop.resetClock();
@@ -3350,6 +3437,12 @@ export function mountSpacecraftScene({
             onClose: () => latest.current.onDiagnosticsClose?.(),
             getSettings: () => ({
               experiment,
+              renderingSettings: { ...renderingSettings },
+              backgroundEnabled: usesBackground(),
+              spacecraftCacheEnabled:
+                renderingSettings.spacecraftCache &&
+                rendering.cacheAvailable &&
+                experiment === 'normal',
               spacecraftFilter,
               build: process.env.NODE_ENV,
               threeRevision: THREE.REVISION,
@@ -3376,11 +3469,7 @@ export function mountSpacecraftScene({
               vesselMatrix: model.group.matrixWorld.toArray(),
               orbitalCamera: background.getDiagnostics(),
               cameraTrace: auditMotion ? cameraTrace : undefined,
-              aoEnabled:
-                contactShading &&
-                !mobile() &&
-                experiment !== 'no-ao' &&
-                experiment !== 'no-spacecraft',
+              aoEnabled: usesContactShading(),
               aoBuffer: [ao.width, ao.height],
               aoSamples: 32,
               denoiseSamples: 32,
@@ -3402,6 +3491,7 @@ export function mountSpacecraftScene({
                 experiment === 'half-resolution' || value === 'half-resolution';
               experiment = value;
               if (resizeBuffer) setDrawingSize();
+              notifyRendering();
               invalidateAo('experiment');
               resetDiagnostics('experiment changed');
               renderLoop.resetClock();
@@ -3431,11 +3521,7 @@ export function mountSpacecraftScene({
           ao,
           pixelCache,
           invalidate: () => invalidateAo('shading-lab-variant'),
-          enabled: () =>
-            !mobile() &&
-            contactShading &&
-            experiment !== 'no-ao' &&
-            experiment !== 'no-spacecraft',
+          enabled: usesContactShading,
         });
         let auditBackup: Three.WebGLRenderTarget | undefined;
         if (audit) {
@@ -3516,7 +3602,8 @@ export function mountSpacecraftScene({
                 experiment,
                 filter: { ...spacecraftFilter },
                 visible,
-                contactShading,
+                contactShading: usesContactShading(),
+                renderingSettings: { ...renderingSettings },
                 policy: aoPolicy,
                 pixelCache: pixelCache.stats(),
                 build: process.env.NODE_ENV,
@@ -3538,7 +3625,7 @@ export function mountSpacecraftScene({
                 ],
                 pixelRatio: renderer.getPixelRatio(),
                 nativePixelRatio: devicePixelRatio,
-                aoEnabled: !mobile() && contactShading,
+                aoEnabled: usesContactShading(),
                 aoBuffer: [ao.width, ao.height],
                 aoSamples: 32,
                 denoiseSamples: 32,
@@ -3557,15 +3644,15 @@ export function mountSpacecraftScene({
               const width = renderer.domElement.width,
                 height = renderer.domElement.height;
               const render = (fresh = true) => {
-                if (fresh && !mobile() && contactShading)
-                  refreshOcclusion(0, false);
+                if (fresh && usesContactShading()) refreshOcclusion(0, false);
                 if (fresh) renderer.shadowMap.needsUpdate = true;
                 renderer.setRenderTarget(null);
                 renderer.clear();
-                renderer.render(background.scene, background.camera);
+                if (usesBackground())
+                  renderer.render(background.scene, background.camera);
                 renderer.clearDepth();
                 renderer.render(scene, camera);
-                if (!mobile() && contactShading) aoQuad.render(renderer);
+                if (usesContactShading()) aoQuad.render(renderer);
                 const pixels = new Uint8Array(width * height * 4);
                 gl.readPixels(
                   0,
@@ -3635,7 +3722,7 @@ export function mountSpacecraftScene({
               const before = includeImages
                 ? renderer.domElement.toDataURL('image/png')
                 : undefined;
-              const usesAo = !mobile() && contactShading;
+              const usesAo = usesContactShading();
               if (usesAo) {
                 auditBackup ??= ao.pdRenderTarget.clone();
                 // The developer comparison may resize without remounting.
@@ -3654,7 +3741,8 @@ export function mountSpacecraftScene({
               }
               renderer.setRenderTarget(null);
               renderer.clear();
-              renderer.render(background.scene, background.camera);
+              if (usesBackground())
+                renderer.render(background.scene, background.camera);
               renderer.clearDepth();
               renderer.render(scene, camera);
               if (usesAo) aoQuad.render(renderer);
@@ -3697,6 +3785,8 @@ export function mountSpacecraftScene({
           spacecraftPerformance?.dispose();
           latest.current.onNavigationReady(null);
           latest.current.onEarthPlaybackReady?.(null);
+          latest.current.onRenderingReady?.(null);
+          renderingListeners.clear();
           renderLoop.dispose();
           annotations.dispose();
           notebookTurnInk.dispose();

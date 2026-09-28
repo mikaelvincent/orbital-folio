@@ -36,6 +36,10 @@ import {
 } from './room-views';
 import { PrivacyView } from './privacy-view';
 import { SceneToolsMenu } from './scene-tools-menu';
+import {
+  DEFAULT_RENDERING_SETTINGS,
+  type RenderingObserver,
+} from '../spacecraft/rendering-settings';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 
 export function ImmersivePortfolio({
@@ -68,6 +72,11 @@ export function ImmersivePortfolio({
   const [enhanced, setEnhanced] = useState(false);
   const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
   const sceneToolsToggle = useRef<HTMLButtonElement>(null);
+  const [renderingSettings, setRenderingSettings] = useState(
+    DEFAULT_RENDERING_SETTINGS,
+  );
+  const [renderingObserver, setRenderingObserver] =
+    useState<RenderingObserver | null>(null);
   const [earthPlayback, setEarthPlayback] =
     useState<EarthPlaybackController | null>(null);
   const [reading, setReading] = useState(false);
@@ -619,6 +628,8 @@ export function ImmersivePortfolio({
             paused={reduced}
             enabled={immersive}
             diagnosticsEnabled={diagnosticsEnabled}
+            renderingSettings={renderingSettings}
+            onRenderingReady={setRenderingObserver}
             onDiagnosticsClose={() => {
               setDiagnosticsEnabled(false);
               sceneToolsToggle.current?.focus({ preventScroll: true });
@@ -817,6 +828,9 @@ export function ImmersivePortfolio({
               diagnosticsEnabled={diagnosticsEnabled}
               onDiagnosticsChange={setDiagnosticsEnabled}
               studioLabel={s.studioLabel}
+              renderingSettings={renderingSettings}
+              renderingObserver={renderingObserver}
+              onRenderingChange={setRenderingSettings}
             />
           )}
           <button

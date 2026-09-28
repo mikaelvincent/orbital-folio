@@ -327,19 +327,33 @@ cloud/day-map experiments are historical, not authorization to restore them.
 
 ## Tools and performance
 
-Bottom-right **Tools** contains Earth playback, Scene diagnostics and Content
-studio beside Reading view. Opening the menu alone starts neither instrumentation
-nor playback polling. Escape/outside/focus dismissal and return focus to Tools
+Bottom-right **Tools** contains Rendering, Earth playback, Scene diagnostics and
+Content studio beside Reading view. Opening the menu alone starts neither
+instrumentation nor playback polling. Escape/outside/focus dismissal and return focus to Tools
 must work; preserve the pointerdown/click intent guard against accidental reopen.
+
+**Rendering** is a live appearance comparison panel, independent of diagnostics.
+Expose shadows, shadow detail, pixel density, contact shading, Earth/sky and
+stationary spacecraft caching. Changes apply without recording or a baseline,
+keep the current camera, and persist across panel dismissal, room navigation and
+Reading view within the visit. Reset defaults or reload restores the automatic
+profile; do not save to storage or publish these preferences. Manual contact
+shading may bypass the small-screen/device heuristic when WebGL supports it;
+retain the drawing-buffer bound and cache eligibility restrictions. Show effective
+settings and unavailable options. Rebuild affected color/depth, shadows and AO
+after changes. Opening Rendering closes diagnostics and its temporary experiment;
+opening another tool closes Rendering without reverting its choices. Reduced
+motion and visibility scheduling still apply.
 
 Diagnostics remain opt-in, device-agnostic and useful to nontechnical visitors
 and technical investigators, with guided room/part breakdowns, advanced controls
-and named exports. A URL parameter is an optional shortcut. Closing restores
-normal rendering. The owner uses a passively cooled MacBook Air M4; that does not
-authorize M4-only quality rules or timing-based claims of thermal throttling.
+and named exports. A URL parameter is an optional shortcut. The owner uses a
+passively cooled MacBook Air M4; that does not authorize M4-only quality rules or
+timing-based claims of thermal throttling.
 Scene diagnostics observes the same continuous visible scheduling. Its explicit
 one-frame pause and reduced motion still apply. Closing diagnostics restores the
-normal rendering settings.
+current Rendering choices. Capture exports include those choices and their
+effective settings, so later comparisons can identify quality changes.
 
 [The performance index](performance-ledger.md) owns retained case-study candidates
 and proposal status. [Diagnostics](performance-diagnostics.md) owns comparison

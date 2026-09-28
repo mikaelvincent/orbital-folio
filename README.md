@@ -41,8 +41,10 @@ supported project presentation/media features. See the relevant
 [authoring and operations sections](docs/OPERATIONS.md).
 
 Visitors can enter through rooms, doorways or navigation, or use `?view=reading`.
-The bottom-right **Tools** menu opens **Scene diagnostics**, **Earth playback** and
-**Content studio**. Opening the menu alone starts no instrumentation or polling.
+The bottom-right **Tools** menu opens **Rendering**, **Scene diagnostics**,
+**Earth playback** and **Content studio**. Rendering changes shadows, pixel density,
+contact shading, background and spacecraft caching immediately, without a recording.
+Choices last for the visit; Reset defaults or reload restores the automatic profile. Opening the menu alone starts no instrumentation or polling.
 
 ## Validate
 

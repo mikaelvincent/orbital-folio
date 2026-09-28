@@ -40,6 +40,9 @@ export function Spacecraft(props: SpacecraftProps) {
     api.current?.diagnostics(!!props.diagnosticsEnabled);
   }, [props.diagnosticsEnabled]);
   useEffect(() => {
+    api.current?.rendering(props.renderingSettings);
+  }, [props.renderingSettings]);
+  useEffect(() => {
     if (!props.enabled) return;
     return mountSpacecraftScene({
       host,

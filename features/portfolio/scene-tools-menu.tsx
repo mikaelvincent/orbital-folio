@@ -15,7 +15,14 @@ import {
   Globe2,
   Orbit,
   SlidersHorizontal,
+  SunMedium,
 } from 'lucide-react';
+import { RenderingControls } from './rendering-controls';
+import {
+  renderingSettingsAreDefault,
+  type RenderingObserver,
+  type RenderingSettings,
+} from '../spacecraft/rendering-settings';
 import { EarthPlaybackControls } from '../orbit/earth-playback-controls';
 import type { EarthPlaybackController } from '../orbit/earth-playback';
 import './scene-tools-menu.css';
@@ -28,6 +35,9 @@ export function SceneToolsMenu({
   diagnosticsEnabled,
   onDiagnosticsChange,
   studioLabel,
+  renderingSettings,
+  renderingObserver,
+  onRenderingChange,
 }: {
   launcherRef: RefObject<HTMLButtonElement | null>;
   earthPlayback: EarthPlaybackController | null;
@@ -35,12 +45,20 @@ export function SceneToolsMenu({
   diagnosticsEnabled: boolean;
   onDiagnosticsChange: (enabled: boolean) => void;
   studioLabel: string;
+  renderingSettings: RenderingSettings;
+  renderingObserver: RenderingObserver | null;
+  onRenderingChange: (settings: RenderingSettings) => void;
 }) {
   const id = useId();
   const panel = useRef<HTMLDivElement>(null);
   const pointerToggle = useRef<boolean | null>(null);
   const [open, setOpen] = useState(false);
   const [earthOpen, setEarthOpen] = useState(false);
+  const [renderingOpen, setRenderingOpen] = useState(false);
+  const closeRendering = useCallback(() => {
+    setRenderingOpen(false);
+    launcherRef.current?.focus({ preventScroll: true });
+  }, [launcherRef]);
   const closeEarth = useCallback(() => {
     setEarthOpen(false);
     launcherRef.current?.focus({ preventScroll: true });
@@ -125,6 +143,36 @@ export function SceneToolsMenu({
             <button
               className="scene-tools-item"
               type="button"
+              disabled={!renderingObserver}
+              aria-label={
+                renderingOpen
+                  ? 'Close rendering controls'
+                  : 'Open rendering controls'
+              }
+              aria-pressed={renderingOpen}
+              onClick={() => {
+                setOpen(false);
+                if (renderingOpen) closeRendering();
+                else {
+                  setEarthOpen(false);
+                  if (diagnosticsEnabled) onDiagnosticsChange(false);
+                  setRenderingOpen(true);
+                }
+              }}
+            >
+              <SunMedium size={18} aria-hidden="true" />
+              <span>Rendering</span>
+              {renderingOpen ? (
+                <small>Open</small>
+              ) : (
+                !renderingSettingsAreDefault(renderingSettings) && (
+                  <small>Custom</small>
+                )
+              )}
+            </button>
+            <button
+              className="scene-tools-item"
+              type="button"
               disabled={!earthPlayback}
               aria-label={
                 earthOpen ? 'Close Earth playback' : 'Open Earth playback'
@@ -133,7 +181,10 @@ export function SceneToolsMenu({
               onClick={() => {
                 setOpen(false);
                 if (earthOpen) closeEarth();
-                else setEarthOpen(true);
+                else {
+                  setRenderingOpen(false);
+                  setEarthOpen(true);
+                }
               }}
             >
               <Globe2 size={18} aria-hidden="true" />
@@ -152,6 +203,7 @@ export function SceneToolsMenu({
               aria-pressed={diagnosticsEnabled}
               onClick={() => {
                 setOpen(false);
+                setRenderingOpen(false);
                 onDiagnosticsChange(!diagnosticsEnabled);
                 if (diagnosticsEnabled)
                   launcherRef.current?.focus({ preventScroll: true });
@@ -177,6 +229,14 @@ export function SceneToolsMenu({
           controller={earthPlayback}
           motionPaused={motionPaused}
           onClose={closeEarth}
+        />
+      )}
+      {renderingOpen && renderingObserver && (
+        <RenderingControls
+          settings={renderingSettings}
+          observer={renderingObserver}
+          onChange={onRenderingChange}
+          onClose={closeRendering}
         />
       )}
     </>

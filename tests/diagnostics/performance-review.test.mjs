@@ -38,6 +38,26 @@ const capture = (overrides = {}) => ({
   ...overrides,
 });
 
+test('live background and cache overrides are recorded as changed settings', () => {
+  const baseline = capture();
+  baseline.settings.backgroundEnabled = true;
+  baseline.settings.spacecraftCacheEnabled = true;
+  const comparison = capture({ kind: 'confirmation' });
+  comparison.settings.backgroundEnabled = false;
+  comparison.settings.spacecraftCacheEnabled = false;
+  assert.match(
+    comparisonWarnings(baseline, comparison).join(' '),
+    /background setting changed/,
+  );
+  assert.match(
+    comparisonWarnings(baseline, comparison).join(' '),
+    /spacecraft caching setting changed/,
+  );
+  comparison.kind = 'comparison';
+  comparison.settings.experiment = 'no-background';
+  assert.deepEqual(comparisonWarnings(baseline, comparison), []);
+});
+
 test('intentional rendering changes preserve a matched view; camera and viewport changes do not', () => {
   const baseline = capture();
   const comparison = capture({
