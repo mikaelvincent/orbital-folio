@@ -96,7 +96,7 @@ export function buildLadderServiceSpine(
     ink: material('control-index-paint', PALETTE.textMuted, 1, 0),
   };
   m.lamp.emissive.set(0xffdca1);
-  m.lamp.emissiveIntensity = 1.7;
+  m.lamp.emissiveIntensity = 2.125;
   const root = new THREE.Group();
   root.name = 'engineering-service-spine';
   root.userData = {

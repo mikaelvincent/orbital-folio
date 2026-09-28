@@ -4,9 +4,9 @@ import { directLightWorkChunk } from './materials/direct-light-work.ts';
 // Cabin fixtures supply the key light. A faint cool exterior wash and restrained
 // reflected fill keep the hull and unlit sides legible without flattening the rooms.
 export const VESSEL_LIGHTING = {
-  sunIntensity: 0.32,
-  cabinIntensity: 11,
-  ladderIntensity: 3.5,
+  sunIntensity: 0.96,
+  cabinIntensity: 13.75,
+  ladderIntensity: 4.375,
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };

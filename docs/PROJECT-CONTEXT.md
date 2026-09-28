@@ -371,7 +371,10 @@ must work; preserve the pointerdown/click intent guard against accidental reopen
 Expose independent exterior, room and ladder brightness sliders, shadows, shadow
 detail, shadow softness, pixel density, contact shading, Earth/sky and stationary
 spacecraft caching. Brightness spans 0–500% in 5% steps, with 100% restoring the
-authored values. Exterior controls sunlight; room and ladder sliders also dim their
+authored values: sun intensity 0.96, each cabin lamp 13.75 and each ladder worklight
+4.375. Cabin and ladder diffuser emission is 1.375 and 2.125 respectively, before
+room feedback dimming. These values are the actual 100% baseline on first load
+and reset. Exterior controls sunlight; room and ladder sliders also dim their
 fixture faces while leaving screens and status indicators legible. Brightness alone
 reuses shadow maps and contact AO because it does not change geometry.
 

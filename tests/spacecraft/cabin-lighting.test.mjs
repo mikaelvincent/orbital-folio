@@ -187,10 +187,11 @@ test('room and ladder brightness stay independent through navigation and do not 
     }
     for (const material of fixtures) {
       const scale = material.userData.section === 'walkway' ? ladder : rooms;
-      assert.deepEqual(
-        material.emissive.toArray(),
-        emissions.get(material).clone().multiplyScalar(scale).toArray(),
-      );
+      const expected = emissions.get(material).clone().multiplyScalar(scale);
+      for (const channel of ['r', 'g', 'b'])
+        assert.ok(
+          Math.abs(material.emissive[channel] - expected[channel]) < 1e-12,
+        );
     }
     assert.equal(model.group.userData.geometryRevision, revision);
   };

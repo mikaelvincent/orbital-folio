@@ -87,7 +87,7 @@ export function createModelPrimitives(
     }),
     light: mat('warm-light', 0xfde5b1, 0.3, 0.0, {
       emissive: 0xffc574,
-      emissiveIntensity: 1.1,
+      emissiveIntensity: 1.375,
     }),
     windowReveal: mat('window-reveal-graphite', palette.navy, 0.63, 0.04),
     windowSignal: mat('window-perimeter-signal', palette.amber, 0.55, 0.0, {
