@@ -65,7 +65,7 @@ export function resolveRenderingSettings(
     (settings.contactShading === 'on' ||
       (settings.contactShading === 'auto' && capableShading && !small));
   const brightness = (value: number) =>
-    Number.isFinite(value) ? Math.min(2, Math.max(0, value)) : 1;
+    Number.isFinite(value) ? Math.min(5, Math.max(0, value)) : 1;
   return {
     pixelDensity: Math.min(
       density,

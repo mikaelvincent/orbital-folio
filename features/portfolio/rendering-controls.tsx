@@ -115,7 +115,7 @@ export function RenderingControls({
                   aria-describedby={`${id}-hint`}
                   aria-valuetext={`${percent} percent`}
                   min={0}
-                  max={2}
+                  max={5}
                   step={0.05}
                   value={settings[key]}
                   onChange={(event) =>

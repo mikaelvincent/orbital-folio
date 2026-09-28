@@ -370,7 +370,7 @@ must work; preserve the pointerdown/click intent guard against accidental reopen
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
 Expose independent exterior, room and ladder brightness sliders, shadows, shadow
 detail, shadow softness, pixel density, contact shading, Earth/sky and stationary
-spacecraft caching. Brightness spans 0–200% in 5% steps, with 100% restoring the
+spacecraft caching. Brightness spans 0–500% in 5% steps, with 100% restoring the
 authored values. Exterior controls sunlight; room and ladder sliders also dim their
 fixture faces while leaving screens and status indicators legible. Brightness alone
 reuses shadow maps and contact AO because it does not change geometry.
