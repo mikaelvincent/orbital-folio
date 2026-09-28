@@ -56,17 +56,19 @@ matching alloy/bronze assemblies. Emission, glass, lamps and natural materials
 retain purposeful exceptions. Construction entry points are in
 [the asset guide](ASSETS.md).
 
-Lighting separates the exterior from the occupied cabins. One warm-neutral sun
-casts live shadows on the hull, service equipment and open ladder bay. Each cabin
-uses one broad downward area source at its paired ceiling diffusers; material
-light linking admits only that cabin's source, with both neighboring sources on
-shared hatch faces. Cabin geometry does not participate in the exterior sun-shadow
-pass. A restrained environment supplies reflected fill and metal highlights;
-tight screen-space contact shading grounds fittings. Area sources do not cast
-furniture shadows: this is an intentional soft-light approximation, not full
-indirect illumination. Room hover/selection still changes material brightness,
-without multiplying it by a second light-intensity dimmer. Keep visible fixtures,
-the moving dish, readable doors and the phone's AO-free path convincing.
+Lighting prioritizes an expressive cutaway style over physical realism. A strong
+warm-neutral sun from above-left and in front reaches both the hull and open
+cabins, casting prominent shadows from door surrounds, furniture and fittings.
+Preserve the model's authored shadow casters/receivers, including moving iris
+masks and the dish; the Shadows control must visibly change cabin interiors.
+Each cabin's paired ceiling diffusers share one broad downward area source used
+only as low fill. Material light linking admits that cabin's fill, or both neighbors
+on shared hatch faces, without excluding sunlight. Keep reflected environment
+fill restrained so lit faces contrast with dark recesses; contact shading adds
+local depth without replacing cast shadows. Ceiling sources do not cast shadows;
+the shared directional key keeps one shadow map. Room hover/selection changes
+material brightness without a second light-intensity dimmer. Keep labels and
+interactive objects readable, including on the phone's AO-free path.
 
 Overview destination tabs must remain distinct from utility controls. Preserve
 readable room labels at compact widths, accessible full names when ellipsized,

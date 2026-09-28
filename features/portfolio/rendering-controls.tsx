@@ -85,7 +85,7 @@ export function RenderingControls({
         <label className="rendering-toggle">
           <span>
             <strong>Shadows</strong>
-            <small>Sun shadows on the hull and exterior fittings.</small>
+            <small>Cast shadows inside the cabins and across the hull.</small>
           </span>
           <input
             type="checkbox"

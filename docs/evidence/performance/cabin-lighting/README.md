@@ -1,8 +1,11 @@
 # Cabin lighting: authored sources and rendering cost
 
-Retain the redesign for coherent interior lighting and a bounded stationary GPU
-reduction. This is a deliberate appearance change, separate from candidate 8's
-earlier exact shader specialization; their gains must not be combined.
+This is historical evidence for the former cabin-only area-light design. Current
+[art direction](../../../PROJECT-CONTEXT.md#spacecraft-design) restores sunlight
+and cast shadows inside cabins, with much lower ceiling and environment fill.
+The timings below do not describe that current lighting. This authored comparison
+is also separate from candidate 8's earlier exact shader specialization; their
+gains must not be combined.
 
 The former rig had eight unshadowed cabin point lights, three directional lights
 and a hemisphere light. Its global key produced hard interior doorway bands that
@@ -67,9 +70,10 @@ scene remounts rather than replacing them repeatedly.
 All four desktop cabins, paired door walls, transitions through the ladder and
 shared hatch, and 390×844 / 900×1200 portrait views were inspected in hidden
 Chromium. Automatic 1024²/2× settings and the phone's AO-disabled path were checked.
-A settled Projects comparison of cached versus freshly reconstructed shading
-reported **zero changed pixels**, a bounded same-state check rather than an
-exhaustive cache proof. Regression tests cover actual batched material membership,
+A same-state shading comparison reported **zero changed pixels**, but its driver
+did not disable the color cache for the reference render. It checks the refreshed
+contact shading, not independent reconstruction of cached color. Regression tests
+cover actual batched material membership,
 shared doors, camera roll/translation, emitter footprint scaling, preserved iris
 hooks, exterior casters and area-dimension cache invalidation. Full isolated tests,
 typecheck, affected lint and production build passed.

@@ -15,6 +15,9 @@ model.group.traverse((object) => {
   if (object.isLight) lights.push(object);
   if (object.isMesh) meshes.push(object);
 });
+const authoredShadows = new Map(
+  meshes.map((mesh) => [mesh, [mesh.castShadow, mesh.receiveShadow]]),
+);
 const linked = applyCabinLighting(THREE, model.group);
 const camera = new THREE.PerspectiveCamera();
 
@@ -52,7 +55,7 @@ test('ceiling emitters remain aligned and downward-facing in both asset layouts'
   assert.equal(createExteriorLight(THREE).castShadow, true);
 });
 
-test('actual room and shared-door materials follow only their admitted emitters across camera movement', () => {
+test('room and shared-door materials retain sun shadows and link only their own ceiling fill', () => {
   const checked = new Set();
   let shared = 0;
   for (const mesh of meshes) {
@@ -67,6 +70,18 @@ test('actual room and shared-door materials follow only their admitted emitters 
         allowed.includes(light.userData.section),
       );
       const shader = compile(material);
+      assert.match(
+        shader.fragmentShader,
+        /getDirectionalLightInfo\( directionalLight, directLight \)/,
+      );
+      assert.match(
+        shader.fragmentShader,
+        /getShadow\( directionalShadowMap\[ i \]/,
+      );
+      assert.doesNotMatch(
+        shader.fragmentShader,
+        /#if 0 \/\/ Exterior sunlight/,
+      );
       if (!expected.length) {
         assert.equal(shader.uniforms.cabinEmitterPositions, undefined);
         assert.doesNotMatch(
@@ -76,7 +91,6 @@ test('actual room and shared-door materials follow only their admitted emitters 
         continue;
       }
       if (expected.length > 1) shared++;
-      assert.match(shader.fragmentShader, /#if 0 \/\/ Exterior sunlight/);
       assert.equal(
         shader.uniforms.cabinEmitterPositions.value.length,
         expected.length,
@@ -103,14 +117,20 @@ test('actual room and shared-door materials follow only their admitted emitters 
   );
 });
 
-test('interior geometry leaves the sun shadow pass while the dish remains a live caster', () => {
+test('lighting preserves authored shadow casters and receivers, including cabin walls and the live dish', () => {
+  for (const mesh of meshes)
+    assert.deepEqual(
+      [mesh.castShadow, mesh.receiveShadow],
+      authoredShadows.get(mesh),
+      mesh.name,
+    );
   const walls = meshes.filter((mesh) =>
     [mesh.name, ...(mesh.userData.parts || [])].some((name) =>
       name.endsWith('continuous-pressure-skin-interior'),
     ),
   );
   assert.equal(walls.length, 4);
-  assert.ok(walls.every((mesh) => !mesh.castShadow && !mesh.receiveShadow));
+  assert.ok(walls.every((mesh) => mesh.castShadow && mesh.receiveShadow));
   const dish = model.group.getObjectByName(
     'service-mounted-communications-dish',
   );
@@ -137,10 +157,10 @@ test('light linking preserves authored shader hooks and separates programs by me
   assert.match(compile(material).fragmentShader, /authored iris mask/);
   assert.equal(
     material.customProgramCacheKey(),
-    'authored|cabin-lighting-v1:1',
+    'authored|cabin-lighting-v2:1',
   );
   assert.throws(
-    () => cabinLightingChunk('changed upstream shader', 1, false),
+    () => cabinLightingChunk('changed upstream shader', 1),
     /Review cabin lighting/,
   );
 });

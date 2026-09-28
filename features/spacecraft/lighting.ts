@@ -1,10 +1,12 @@
 import type * as Three from 'three';
 import { directLightWorkChunk } from './materials/direct-light-work.ts';
 
+// Art-directed cutaway: a dominant angled sun draws broad cast shadows;
+// ceiling and reflected fill keep their dark sides readable without flattening them.
 export const VESSEL_LIGHTING = {
-  sunIntensity: 2.5,
-  cabinIntensity: 18,
-  environmentIntensity: 0.35,
+  sunIntensity: 3.2,
+  cabinIntensity: 3,
+  environmentIntensity: 0.14,
   contactStrength: 0.5,
 };
 
@@ -25,7 +27,7 @@ export function createCabinLight(T: typeof Three, section: string) {
 export function createExteriorLight(T: typeof Three) {
   const light = new T.DirectionalLight(0xfff2df, VESSEL_LIGHTING.sunIntensity);
   light.name = 'exterior-sun';
-  light.position.set(-3, 7, 10);
+  light.position.set(-7, 9, 12);
   light.castShadow = VESSEL_LIGHTING.sunIntensity > 0;
   Object.assign(light.shadow.camera, {
     left: -10,
@@ -40,13 +42,10 @@ export function createExteriorLight(T: typeof Three) {
   return light;
 }
 
-/** Match emitter positions, not renderer array indices: hiding or reordering a
+/** Link only the ceiling fill. The sun and its shadows reach all surfaces.
+ * Match emitter positions, not renderer array indices: hiding or reordering a
  * light must never illuminate a different cabin. Shared doors admit both sides. */
-export function cabinLightingChunk(
-  source: string,
-  emitterCount: number,
-  exterior: boolean,
-) {
+export function cabinLightingChunk(source: string, emitterCount: number) {
   const areaStart = source.indexOf('#if ( NUM_RECT_AREA_LIGHTS > 0 )');
   const areaEnd = source.indexOf(
     '#if defined( RE_IndirectDiffuse )',
@@ -59,7 +58,7 @@ export function cabinLightingChunk(
     (_, i) =>
       `distance(rectAreaLight.position, cabinEmitterPositions[${i}]) < 0.001`,
   ).join(' || ');
-  let chunk =
+  const chunk =
     source.slice(0, areaStart) +
     (!emitterCount
       ? ''
@@ -77,11 +76,6 @@ export function cabinLightingChunk(
 #endif
 `) +
     source.slice(areaEnd);
-  if (!exterior)
-    chunk = chunk.replace(
-      '#if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )',
-      '#if 0 // Exterior sunlight is blocked by the pressure hull.',
-    );
   return chunk;
 }
 
@@ -98,7 +92,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       });
   });
   const applied = new Set<Three.Material>();
-  const interiors = new Set<Three.Material>();
+  // Preserve authored caster/receiver flags, including iris masks and glass.
   root.traverse((object) => {
     const mesh = object as Three.Mesh;
     if (!mesh.isMesh) return;
@@ -114,12 +108,10 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
             areas.has(room) ? [areas.get(room)!.position] : [],
           );
       const exterior = !!material.userData.exterior || !emitters.length;
-      if (!exterior) interiors.add(material);
       const source = T.ShaderChunk.lights_fragment_begin;
       const chunk = cabinLightingChunk(
         standard.isMeshPhysicalMaterial ? source : directLightWorkChunk(source),
         emitters.length,
-        exterior,
       );
       const compile = material.onBeforeCompile.bind(material);
       const cacheKey = material.customProgramCacheKey();
@@ -137,13 +129,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
         );
       };
       material.customProgramCacheKey = () =>
-        `${cacheKey}|cabin-lighting-v1:${exterior ? 'exterior' : emitters.length}`;
-    }
-    // Cabin lighting has no sun contribution. Exclude those surfaces from the
-    // exterior shadow pass; GTAO still uses their geometry for local contacts.
-    if ([mesh.material].flat().every((material) => interiors.has(material))) {
-      mesh.castShadow = false;
-      mesh.receiveShadow = false;
+        `${cacheKey}|cabin-lighting-v2:${exterior ? 'exterior' : emitters.length}`;
     }
   });
   return {
