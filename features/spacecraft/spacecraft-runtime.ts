@@ -423,6 +423,7 @@ export function mountSpacecraftScene({
         key.position.set(-7, 10, 12);
         key.castShadow = true;
         key.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
+        key.shadow.radius = rendering.shadowSoftness;
         Object.assign(key.shadow.camera, {
           left: -10,
           right: 10,
@@ -2682,6 +2683,7 @@ export function mountSpacecraftScene({
           const w = Math.max(1, el.clientWidth),
             h = Math.max(1, el.clientHeight);
           rendering = resolveRendering();
+          key.shadow.radius = rendering.shadowSoftness;
           // Bound retina fill cost without changing cloud detail or HTML sharpness.
           // Only viewport/quality changes resize buffers; navigation never does.
           renderer.setPixelRatio(
@@ -3365,6 +3367,7 @@ export function mountSpacecraftScene({
               renderer.domElement.height,
             ],
             shadowSize: key.shadow.mapSize.x,
+            shadowSoftness: key.shadow.radius,
             contactShading: usesContactShading(),
             contactShadingSupported,
             cacheAvailable: rendering.cacheAvailable && experiment === 'normal',
@@ -3475,6 +3478,7 @@ export function mountSpacecraftScene({
               denoiseSamples: 32,
               shadowsEnabled: renderer.shadowMap.enabled,
               shadowMap: key.shadow.mapSize.toArray(),
+              shadowSoftness: key.shadow.radius,
               resources: {
                 ...renderer.info.memory,
                 programs: renderer.info.programs?.length ?? null,
@@ -3630,6 +3634,7 @@ export function mountSpacecraftScene({
                 aoSamples: 32,
                 denoiseSamples: 32,
                 shadowMap: key.shadow.mapSize.toArray(),
+                shadowSoftness: key.shadow.radius,
                 shadowsEnabled: renderer.shadowMap.enabled,
                 orbitalCamera: background.getDiagnostics(),
                 resources: {

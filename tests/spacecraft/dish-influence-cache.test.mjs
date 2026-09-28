@@ -136,6 +136,27 @@ test('nonuniform or sheared ancestry disables regional repairs, uniform rotated 
   f.key.shadow.map.dispose();
 });
 
+test('softer shadows expand the repaired region and keep newly affected receivers live', () => {
+  const f = fixture();
+  const original = f.cache.stats().shadowRect;
+  const edge = new T.Vector3(original[2] * 2 - 1, 0, 0).unproject(
+    f.key.shadow.camera,
+  ).x;
+  // This box begins just beyond the original filtered shadow footprint.
+  f.outside.position.x = edge + 0.2 + 0.01;
+  f.group.updateMatrixWorld(true);
+  f.cache.prepare();
+  assert.equal(f.cache.contains(f.outside), false);
+  f.key.shadow.radius = 4;
+  f.cache.prepare();
+  const softened = f.cache.stats().shadowRect;
+  assert.ok(softened[0] < original[0]);
+  assert.ok(softened[2] > original[2]);
+  assert.equal(f.cache.contains(f.outside), true);
+  f.ao.dispose();
+  f.key.shadow.map.dispose();
+});
+
 test('shadow repair retains overlapping static occluders, restores target and masks on failure', () => {
   const f = fixture(),
     original = f.key.shadow.map.scissor.clone();

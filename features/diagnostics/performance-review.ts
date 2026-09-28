@@ -135,6 +135,7 @@ export function comparisonWarnings(
     ['denoiseSamples', 'denoising sample count', 0],
     ['shadowsEnabled', 'shadow setting', 0],
     ['shadowMap', 'shadow resolution', 0],
+    ['shadowSoftness', 'shadow softness', 0],
     ['backgroundEnabled', 'background setting', 0],
     ['spacecraftCacheEnabled', 'spacecraft caching setting', 0],
     ['quality', 'render quality setting', 0],

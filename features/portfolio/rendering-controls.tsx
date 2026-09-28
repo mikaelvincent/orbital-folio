@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { RotateCcw, X } from 'lucide-react';
 import {
@@ -25,6 +25,7 @@ export function RenderingControls({
   const [state, setState] = useState(() => observer.getState());
   const heading = useRef<HTMLHeadingElement>(null);
   const [collapsed, setCollapsed] = useState(false);
+  const softnessId = useId();
   useEffect(() => {
     const sync = () => setState(observer.getState());
     sync();
@@ -121,6 +122,34 @@ export function RenderingControls({
             {settings.shadows
               ? `${state.shadowSize} × ${state.shadowSize}. Lower detail gives coarser shadow edges.`
               : 'Turn shadows on to compare their detail.'}
+          </small>
+        </label>
+        <label className="rendering-field" htmlFor={softnessId}>
+          <span>Shadow softness</span>
+          <span className="rendering-range">
+            <input
+              id={softnessId}
+              type="range"
+              aria-label="Shadow softness"
+              aria-describedby={`${softnessId}-hint`}
+              aria-valuetext={`${state.shadowSoftness} times`}
+              min={0}
+              max={4}
+              step={0.25}
+              value={settings.shadowSoftness}
+              disabled={!settings.shadows}
+              onChange={(event) =>
+                change({ shadowSoftness: Number(event.currentTarget.value) })
+              }
+            />
+            <output htmlFor={softnessId} aria-hidden="true">
+              {state.shadowSoftness}×
+            </output>
+          </span>
+          <small id={`${softnessId}-hint`}>
+            {settings.shadows
+              ? 'Higher values soften shadow edges. 1× is the default.'
+              : 'Turn shadows on to adjust their softness.'}
           </small>
         </label>
         <label className="rendering-field">

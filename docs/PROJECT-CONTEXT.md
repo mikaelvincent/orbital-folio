@@ -333,8 +333,10 @@ instrumentation nor playback polling. Escape/outside/focus dismissal and return 
 must work; preserve the pointerdown/click intent guard against accidental reopen.
 
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
-Expose shadows, shadow detail, pixel density, contact shading, Earth/sky and
-stationary spacecraft caching. Changes apply without recording or a baseline,
+Expose shadows, shadow detail, shadow softness, pixel density, contact shading,
+Earth/sky and stationary spacecraft caching. Shadow softness adjusts the existing
+shadow filter independently of map resolution, from 0–4× in 0.25 steps; 1× retains
+the authored default. Changes apply without recording or a baseline,
 keep the current camera, and persist across panel dismissal, room navigation and
 Reading view within the visit. Reset defaults or reload restores the automatic
 profile; do not save to storage or publish these preferences. Manual contact

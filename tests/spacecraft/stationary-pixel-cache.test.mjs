@@ -313,7 +313,7 @@ test('dish-only movement repairs shading while simultaneous hull changes invalid
   f.light.shadow.map.dispose();
 });
 
-test('changes to the dish mount, scale and shadow intensity invalidate cached shading', () => {
+test('changes to the dish mount, scale, shadow intensity and softness invalidate cached shading', () => {
   for (const mutate of [
     (f) => {
       f.dish.position.x += 0.1;
@@ -323,6 +323,9 @@ test('changes to the dish mount, scale and shadow intensity invalidate cached sh
     },
     (f) => {
       f.light.shadow.intensity = 0.5;
+    },
+    (f) => {
+      f.light.shadow.radius = 4;
     },
   ]) {
     const f = fixture(true);

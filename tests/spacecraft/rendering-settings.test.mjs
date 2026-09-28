@@ -20,12 +20,14 @@ test('automatic controls preserve the existing wide and small-screen profiles', 
   assert.deepEqual(resolveRenderingSettings(defaults, desktop), {
     pixelDensity: 2,
     shadowSize: 2048,
+    shadowSoftness: 1,
     contactShading: true,
     cacheAvailable: true,
   });
   assert.deepEqual(resolveRenderingSettings(defaults, phone), {
     pixelDensity: 1.75,
     shadowSize: 1024,
+    shadowSoftness: 1,
     contactShading: false,
     cacheAvailable: false,
   });
@@ -120,10 +122,43 @@ test('receiver caching is unavailable when its shading prerequisites are absent'
   );
 });
 
+test('shadow softness is independent of resolution and bounded for cache filter padding', () => {
+  for (const environment of [desktop, phone]) {
+    for (const shadowSize of ['auto', 512, 1024, 2048]) {
+      const settings = { ...defaults, shadowSize, shadowSoftness: 2 };
+      const resolved = resolveRenderingSettings(settings, environment);
+      assert.equal(resolved.shadowSoftness, 2);
+      assert.equal(
+        resolved.shadowSize,
+        resolveRenderingSettings(
+          { ...settings, shadowSoftness: 1 },
+          environment,
+        ).shadowSize,
+      );
+    }
+  }
+  for (const [shadowSoftness, expected] of [
+    [0, 0],
+    [-1, 0],
+    [0.25, 0.25],
+    [4, 4],
+    [10, 4],
+    [NaN, 1],
+    [Infinity, 1],
+  ]) {
+    assert.equal(
+      resolveRenderingSettings({ ...defaults, shadowSoftness }, desktop)
+        .shadowSoftness,
+      expected,
+    );
+  }
+});
+
 test('each independent override is identified and reset without changing shared defaults', () => {
   const overrides = {
     shadows: false,
     shadowSize: 512,
+    shadowSoftness: 2,
     pixelDensity: 1,
     contactShading: 'off',
     background: false,
