@@ -26,6 +26,13 @@ count changes alone did not justify retaining case-study entries. The retained
 raw reports preserve distinct baselines, failed/excluded attempts and measurement
 scopes; nominal texture/geometry bytes are not measured process or GPU memory.
 
+Candidate **10** also includes [native notebook and HTML reuse](evidence/performance/native-html-cache/README.md):
+separate static/dish occlusion and whole-subsystem projection guards retain exact
+native geometry while avoiding unrelated work. Two desktop orders observed
+HTML phases fall from 1.39–1.46 to 0.028–0.031 ms; overall callback gains varied
+14–23%. These CPU observations have a separate baseline from the pixel-cache
+GPU comparisons and must not be added to them.
+
 ## Candidate selection
 
 After a change or investigation, briefly screen **only the information already

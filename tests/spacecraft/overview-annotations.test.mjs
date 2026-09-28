@@ -26,7 +26,17 @@ const { createOverviewAnnotations } = await import(
 class ElementFixture {
   children = [];
   dataset = {};
-  style = {};
+  writes = 0;
+  style = new Proxy(
+    {},
+    {
+      set: (target, key, value) => {
+        this.writes++;
+        target[key] = value;
+        return true;
+      },
+    },
+  );
   attributes = {};
   offsetWidth = 100;
   offsetHeight = 36;
@@ -477,4 +487,48 @@ test('Overview preserves full accessible labels, native navigation, hover feedba
   assert.equal(fixture.flight.style.transform, '');
   assert.equal(fixture.flight.style.opacity, '');
   assert.equal(fixture.flight.attributes['aria-hidden'], undefined);
+});
+
+void test('settled annotations skip projection writes but wake for hover, fading, camera and repeated layout', (t) => {
+  const fixture = annotationFixture(t);
+  const view = projectedFixture(fixture, 'wide', 1280, 720);
+  view.update();
+  const count = () =>
+    fixture.flight.writes +
+    fixture.layer.writes +
+    fixture.buttons.reduce((n, button) => n + button.writes, 0);
+  const settled = count();
+  for (let i = 0; i < 120; i++) view.update();
+  assert.equal(count(), settled);
+  view.update({ hover: 'about' });
+  assert.ok(fixture.buttons[2].classList.contains('is-highlighted'));
+  view.rig.virtualCamera.position.x += 0.2;
+  view.rig.virtualCamera.updateMatrixWorld(true);
+  const beforeCamera = count();
+  view.update();
+  assert.ok(count() > beforeCamera);
+  const beforeLayout = count();
+  fixture.annotations.layout(
+    view.frame,
+    spacecraft.group.userData.overviewSupportPoints,
+    view.rig.projectionModel,
+  );
+  view.update();
+  assert.ok(count() > beforeLayout);
+  view.update({ home: false, reduced: false, delta: 1 / 60 });
+  const fading = Number(fixture.layer.style.opacity);
+  const projectedWrites = fixture.buttons.reduce(
+    (n, button) => n + button.writes,
+    0,
+  );
+  view.update({ home: false, reduced: false, delta: 1 / 60 });
+  assert.ok(
+    Number(fixture.layer.style.opacity) < fading,
+    'the guard must not freeze fades',
+  );
+  assert.equal(
+    fixture.buttons.reduce((n, button) => n + button.writes, 0),
+    projectedWrites,
+    'opacity alone does not reproject labels',
+  );
 });

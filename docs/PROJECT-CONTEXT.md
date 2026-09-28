@@ -228,6 +228,12 @@ navigation; only the active reader owns focus IDs. Closing preserves page/sectio
 positions. Notebook feedback follows its rounded cloth cover without a second
 rectangular HTML outline.
 
+Reuse the notebook's stationary occluder polygons while the dish moves; keep
+the dish's separate contribution live so it can still hide ink from any angle.
+Camera, paper, doors and other geometry changes refresh the relevant masks.
+Native labels and reader controls reuse settled projections until their view,
+layout, interaction, animation or content changes, including live collection edits.
+
 Journal entries are sections with automatic fixed-page pagination, not manually
 authored pages or scrolling paper. Bottom arrows turn within the current section
 and stop at its ends; hide them for one page. Each crossed leaf turns, including

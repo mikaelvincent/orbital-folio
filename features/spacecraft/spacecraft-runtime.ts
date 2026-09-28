@@ -38,6 +38,7 @@ import {
   type SceneFeedbackTarget,
 } from '@/features/spacecraft/navigation/scene-feedback';
 import { createOverviewAnnotations } from './overview-annotations';
+import { createHtmlUpdateGate } from './html-update-gate';
 import {
   contactApplicationLayout,
   bindContactKeyboard,
@@ -607,6 +608,19 @@ export function mountSpacecraftScene({
             return { screen, link, object };
           });
         const notebook = model.group.userData.aboutNotebook;
+        const dish = model.group.getObjectByName(
+          'service-mounted-communications-dish',
+        );
+        const independentOccluder = dish
+          ? {
+              root: dish,
+              revision: () =>
+                model.group.userData.dishGeometryRevision as number,
+            }
+          : undefined;
+        const htmlUpdateGate = createHtmlUpdateGate();
+        let logicalWidth = notebook.pixelsWidth,
+          logicalHeight = notebook.pixelsHeight;
         const notebookMasks = new Map<
           HTMLElement,
           {
@@ -623,7 +637,12 @@ export function mountSpacecraftScene({
           let entry = notebookMasks.get(element);
           if (!entry) {
             entry = {
-              geometry: createNotebookOcclusion(THREE, model.group, notebook),
+              geometry: createNotebookOcclusion(
+                THREE,
+                model.group,
+                notebook,
+                independentOccluder,
+              ),
               mask: createNotebookOcclusionMask(
                 surfaceLayer,
                 element,
@@ -642,6 +661,9 @@ export function mountSpacecraftScene({
           );
           entry.mask.update(result.visible, result.path);
           element.dataset.notebookMaskCached = String(result.stats.cacheHit);
+          element.dataset.notebookStaticMaskCached = String(
+            result.stats.staticCacheHit,
+          );
           element.dataset.notebookMaskPolygons = String(result.stats.polygons);
           element.dataset.notebookMaskTriangles = String(
             result.stats.triangles,
@@ -2139,198 +2161,237 @@ export function mountSpacecraftScene({
             },
           );
           diagnostics?.mark('annotations');
-          const application = computerLayout();
           const isNotebook = active === 'about';
-          const isComputer = applicationRoom() && !isNotebook;
-          const logicalWidth = isComputer
-            ? application.pixelsWidth
-            : notebook.pixelsWidth;
-          const logicalHeight = isComputer
-            ? application.pixelsHeight
-            : notebook.pixelsHeight;
-          surfaceElement.style.width = `${logicalWidth}px`;
-          surfaceElement.style.height = `${logicalHeight}px`;
-          surfaceElement.dataset.compact = String(mobile());
-          surfaceElement.dataset.notebook = 'false';
-          notebookElement.style.width = `${notebook.pixelsWidth}px`;
-          notebookElement.style.height = `${notebook.pixelsHeight}px`;
-          const notebookInteractive = isNotebook && reading && !travelling;
-          notebookElement.dataset.notebookPreview =
-            String(!notebookInteractive);
-          notebookElement.style.setProperty(
-            '--notebook-brightness',
-            String(notebook.root.userData.highlightLevel ?? 1),
+          // The dish has no HTML anchors. Its independent movement must not
+          // wake all native labels/readers; its ink occlusion is checked below.
+          const htmlChanged = htmlUpdateGate.changed(
+            [
+              model.group.userData.geometryRevision -
+                model.group.userData.dishGeometryRevision,
+              projectedViewport.x,
+              projectedViewport.y,
+              bottomReservation,
+              active,
+              reading,
+              travelling,
+              effectiveObject,
+              !!down?.gesture.dragging,
+              latest.current.projectScreen,
+              latest.current.caseStudyScreen,
+              notebook.chapter,
+              notebook.settledChapter,
+              notebook.settledSection,
+              notebook.turningSection,
+              notebook.chapters.length,
+              notebook.root.userData.highlightLevel,
+              routeLadderPortalIds.join(','),
+            ],
+            [
+              camera.matrixWorld,
+              camera.projectionMatrix,
+              model.group.matrixWorld,
+            ],
           );
-          const flags = notebookMarkers(
-            notebook.chapters.length,
-            notebook.settledSection,
-          );
-          for (const marker of notebookElement.querySelectorAll<HTMLElement>(
-            '[data-marker-index]',
-          )) {
-            const index = Number(marker.dataset.markerIndex);
-            const flag = flags.find((flag) => flag.index === index);
-            if (flag) {
-              marker.dataset.side = flag.side;
-              marker.style.left = `${flag.exposedX}px`;
+          if (htmlChanged) {
+            const application = computerLayout();
+            const isComputer = applicationRoom() && !isNotebook;
+            logicalWidth = isComputer
+              ? application.pixelsWidth
+              : notebook.pixelsWidth;
+            logicalHeight = isComputer
+              ? application.pixelsHeight
+              : notebook.pixelsHeight;
+            surfaceElement.style.width = `${logicalWidth}px`;
+            surfaceElement.style.height = `${logicalHeight}px`;
+            surfaceElement.dataset.compact = String(mobile());
+            surfaceElement.dataset.notebook = 'false';
+            notebookElement.style.width = `${notebook.pixelsWidth}px`;
+            notebookElement.style.height = `${notebook.pixelsHeight}px`;
+            const notebookInteractive = isNotebook && reading && !travelling;
+            notebookElement.dataset.notebookPreview =
+              String(!notebookInteractive);
+            notebookElement.style.setProperty(
+              '--notebook-brightness',
+              String(notebook.root.userData.highlightLevel ?? 1),
+            );
+            const flags = notebookMarkers(
+              notebook.chapters.length,
+              notebook.settledSection,
+            );
+            for (const marker of notebookElement.querySelectorAll<HTMLElement>(
+              '[data-marker-index]',
+            )) {
+              const index = Number(marker.dataset.markerIndex);
+              const flag = flags.find((flag) => flag.index === index);
+              if (flag) {
+                marker.dataset.side = flag.side;
+                marker.style.left = `${flag.exposedX}px`;
+              }
+              marker.style.visibility =
+                flag && index !== notebook.turningSection
+                  ? 'visible'
+                  : 'hidden';
             }
-            marker.style.visibility =
-              flag && index !== notebook.turningSection ? 'visible' : 'hidden';
-          }
-          notebookElement.dataset.notebookSettledPage = String(
-            notebook.settledChapter,
-          );
-          notebookElement.dataset.notebookTargetPage = String(notebook.chapter);
-          notebookElement.inert = !notebookInteractive;
-          notebookElement.setAttribute(
-            'aria-hidden',
-            String(!notebookInteractive),
-          );
-          notebook.anchor.matrixWorld.decompose(
-            notebookSurface.position,
-            notebookSurface.quaternion,
-            notebookSurface.scale,
-          );
-          notebookSurface.scale.multiplyScalar(0.001);
-          surfaceElement.dataset.computer = String(isComputer);
-          surfaceElement.dataset.computerPortrait = String(
-            isComputer && computerLayout().portrait,
-          );
-          const physicalSurface = model.readerSurfaces[active];
-          if (physicalSurface) {
-            physicalSurface.matrixWorld.decompose(
-              surface.position,
-              surface.quaternion,
-              surface.scale,
+            notebookElement.dataset.notebookSettledPage = String(
+              notebook.settledChapter,
             );
-            surface.scale.multiplyScalar(
-              (isComputer
-                ? application.width
-                : physicalSurface.userData.width) / logicalWidth,
+            notebookElement.dataset.notebookTargetPage = String(
+              notebook.chapter,
             );
-          }
-          surface.visible = reading && !isNotebook;
-          surfaceElement.inert = !surface.visible || !reading || travelling;
-          surfaceElement.setAttribute('aria-hidden', String(!surface.visible));
-          notebook.openingAnchor.matrixWorld.decompose(
-            notebookTarget.position,
-            notebookTarget.quaternion,
-            notebookTarget.scale,
-          );
-          notebookTarget.scale.multiplyScalar(notebook.openingWidth / 500);
-          const notebookAvailable =
-            active === 'about' && !reading && !travelling;
-          notebookTarget.visible = notebookAvailable;
-          notebookButton.inert = !notebookAvailable;
-          notebookButton.tabIndex = notebookAvailable ? 0 : -1;
-          for (const h of hotspotObjects) {
-            const portal = model.group.userData.portals.find(
-              (p: any) => p.id === h.portalId,
+            notebookElement.inert = !notebookInteractive;
+            notebookElement.setAttribute(
+              'aria-hidden',
+              String(!notebookInteractive),
             );
-            h.object.visible =
-              active === h.section &&
-              !reading &&
-              (!travelling || canPreviewDoor(portal));
-            h.button.inert = !h.object.visible;
-            if (h.button.textContent !== s[portal.to + 'Label'])
-              h.button.textContent = s[portal.to + 'Label'];
-            h.button.setAttribute(
-              'aria-label',
-              `${s[portal.from + 'Label']} → ${s[portal.to + 'Label']}`,
+            notebook.anchor.matrixWorld.decompose(
+              notebookSurface.position,
+              notebookSurface.quaternion,
+              notebookSurface.scale,
             );
-            h.button.style.width = `${portal.labelSize[0] / 0.004}px`;
-            h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
-            h.button.dataset.destination = portal.to;
-          }
-          for (const { screen, link, object } of socialControls) {
-            screen.anchor.matrixWorld.decompose(
-              object.position,
-              object.quaternion,
-              object.scale,
+            notebookSurface.scale.multiplyScalar(0.001);
+            surfaceElement.dataset.computer = String(isComputer);
+            surfaceElement.dataset.computerPortrait = String(
+              isComputer && application.portrait,
             );
-            object.scale.multiplyScalar(screen.width / 500);
-            // Portrait frames just the application; do not tab into a social
-            // screen completely outside the actual camera viewport.
-            object.visible =
-              active === screen.section &&
-              !travelling &&
-              (!reading ||
-                (screen.section === 'contact' && screenInViewport(screen)));
-            link.inert = !object.visible;
-            link.setAttribute('aria-hidden', String(!object.visible));
-            link.classList.toggle(
+            const physicalSurface = model.readerSurfaces[active];
+            if (physicalSurface) {
+              physicalSurface.matrixWorld.decompose(
+                surface.position,
+                surface.quaternion,
+                surface.scale,
+              );
+              surface.scale.multiplyScalar(
+                (isComputer
+                  ? application.width
+                  : physicalSurface.userData.width) / logicalWidth,
+              );
+            }
+            surface.visible = reading && !isNotebook;
+            surfaceElement.inert = !surface.visible || !reading || travelling;
+            surfaceElement.setAttribute(
+              'aria-hidden',
+              String(!surface.visible),
+            );
+            notebook.openingAnchor.matrixWorld.decompose(
+              notebookTarget.position,
+              notebookTarget.quaternion,
+              notebookTarget.scale,
+            );
+            notebookTarget.scale.multiplyScalar(notebook.openingWidth / 500);
+            const notebookAvailable =
+              active === 'about' && !reading && !travelling;
+            notebookTarget.visible = notebookAvailable;
+            notebookButton.inert = !notebookAvailable;
+            notebookButton.tabIndex = notebookAvailable ? 0 : -1;
+            for (const h of hotspotObjects) {
+              const portal = model.group.userData.portals.find(
+                (p: any) => p.id === h.portalId,
+              );
+              h.object.visible =
+                active === h.section &&
+                !reading &&
+                (!travelling || canPreviewDoor(portal));
+              h.button.inert = !h.object.visible;
+              if (h.button.textContent !== s[portal.to + 'Label'])
+                h.button.textContent = s[portal.to + 'Label'];
+              h.button.setAttribute(
+                'aria-label',
+                `${s[portal.from + 'Label']} → ${s[portal.to + 'Label']}`,
+              );
+              h.button.style.width = `${portal.labelSize[0] / 0.004}px`;
+              h.button.style.height = `${Math.max(0.3, portal.labelSize[1]) / 0.004}px`;
+              h.button.dataset.destination = portal.to;
+            }
+            for (const { screen, link, object } of socialControls) {
+              screen.anchor.matrixWorld.decompose(
+                object.position,
+                object.quaternion,
+                object.scale,
+              );
+              object.scale.multiplyScalar(screen.width / 500);
+              // Portrait frames just the application; do not tab into a social
+              // screen completely outside the actual camera viewport.
+              object.visible =
+                active === screen.section &&
+                !travelling &&
+                (!reading ||
+                  (screen.section === 'contact' && screenInViewport(screen)));
+              link.inert = !object.visible;
+              link.setAttribute('aria-hidden', String(!object.visible));
+              link.classList.toggle(
+                'is-object-active',
+                object.visible &&
+                  !down?.gesture.dragging &&
+                  effectiveObject === screen.interactableId,
+              );
+            }
+            computer.anchor.matrixWorld.decompose(
+              computerTarget.position,
+              computerTarget.quaternion,
+              computerTarget.scale,
+            );
+            computerTarget.scale.multiplyScalar(computer.width / 500);
+            computerTarget.visible =
+              active === 'contact' && !reading && !travelling;
+            computerButton.inert = !computerTarget.visible;
+            computerButton.classList.toggle(
               'is-object-active',
-              object.visible &&
-                !down?.gesture.dragging &&
-                effectiveObject === screen.interactableId,
+              computerTarget.visible && effectiveObject === 'contact-computer',
+            );
+            for (const { screen, button, object } of projectControls) {
+              screen.anchor.matrixWorld.decompose(
+                object.position,
+                object.quaternion,
+                object.scale,
+              );
+              object.scale.multiplyScalar(screen.width / 500);
+              object.visible =
+                screen.available &&
+                active === 'projects' &&
+                !travelling &&
+                (!reading ||
+                  (screen !== selectedProjectScreen() &&
+                    screenInViewport(screen)));
+              button.inert = !object.visible;
+              button.disabled = !screen.available;
+              button.setAttribute('aria-hidden', String(!object.visible));
+              button.classList.toggle(
+                'is-object-active',
+                object.visible &&
+                  !down?.gesture.dragging &&
+                  effectiveObject === screen.interactableId,
+              );
+            }
+            for (const { screen, button, object } of caseStudyControls) {
+              screen.interactionAnchor.matrixWorld.decompose(
+                object.position,
+                object.quaternion,
+                object.scale,
+              );
+              object.scale.multiplyScalar(screen.width / 500);
+              object.visible =
+                screen.available &&
+                active === 'experience' &&
+                !travelling &&
+                (!reading ||
+                  (screen.category !== 'all' && screenInViewport(screen)));
+              button.inert = !object.visible;
+              button.disabled = !screen.available;
+              button.setAttribute('aria-hidden', String(!object.visible));
+              button.classList.toggle(
+                'is-object-active',
+                object.visible &&
+                  !down?.gesture.dragging &&
+                  effectiveObject === screen.interactableId,
+              );
+            }
+            contactReturnHint.classList.toggle(
+              'is-visible',
+              reading &&
+                applicationRoom() &&
+                effectiveObject === `${active}-room-dismiss`,
             );
           }
-          computer.anchor.matrixWorld.decompose(
-            computerTarget.position,
-            computerTarget.quaternion,
-            computerTarget.scale,
-          );
-          computerTarget.scale.multiplyScalar(computer.width / 500);
-          computerTarget.visible =
-            active === 'contact' && !reading && !travelling;
-          computerButton.inert = !computerTarget.visible;
-          computerButton.classList.toggle(
-            'is-object-active',
-            computerTarget.visible && effectiveObject === 'contact-computer',
-          );
-          for (const { screen, button, object } of projectControls) {
-            screen.anchor.matrixWorld.decompose(
-              object.position,
-              object.quaternion,
-              object.scale,
-            );
-            object.scale.multiplyScalar(screen.width / 500);
-            object.visible =
-              screen.available &&
-              active === 'projects' &&
-              !travelling &&
-              (!reading ||
-                (screen !== selectedProjectScreen() &&
-                  screenInViewport(screen)));
-            button.inert = !object.visible;
-            button.disabled = !screen.available;
-            button.setAttribute('aria-hidden', String(!object.visible));
-            button.classList.toggle(
-              'is-object-active',
-              object.visible &&
-                !down?.gesture.dragging &&
-                effectiveObject === screen.interactableId,
-            );
-          }
-          for (const { screen, button, object } of caseStudyControls) {
-            screen.interactionAnchor.matrixWorld.decompose(
-              object.position,
-              object.quaternion,
-              object.scale,
-            );
-            object.scale.multiplyScalar(screen.width / 500);
-            object.visible =
-              screen.available &&
-              active === 'experience' &&
-              !travelling &&
-              (!reading ||
-                (screen.category !== 'all' && screenInViewport(screen)));
-            button.inert = !object.visible;
-            button.disabled = !screen.available;
-            button.setAttribute('aria-hidden', String(!object.visible));
-            button.classList.toggle(
-              'is-object-active',
-              object.visible &&
-                !down?.gesture.dragging &&
-                effectiveObject === screen.interactableId,
-            );
-          }
-          contactReturnHint.classList.toggle(
-            'is-visible',
-            reading &&
-              applicationRoom() &&
-              effectiveObject === `${active}-room-dismiss`,
-          );
           diagnostics?.mark('html-sync');
           if (usesBackground()) {
             background.update(frozenBackgroundTime ?? elapsed, !stop, 0, 0);
@@ -2425,36 +2486,38 @@ export function mountSpacecraftScene({
             diagnostics?.endPass('ao-composite', renderer.info.render);
           }
           diagnostics?.endGpuFrame();
-          cssRenderer.render(cssScene, camera);
-          projectedSurface.update(
-            camera,
-            surface.matrixWorld,
-            logicalWidth,
-            logicalHeight,
-            projectedViewport.x,
-            projectedViewport.y,
-            surface.visible,
-          );
-          projectedNotebook.update(
-            camera,
-            notebookSurface.matrixWorld,
-            notebook.pixelsWidth,
-            notebook.pixelsHeight,
-            projectedViewport.x,
-            projectedViewport.y,
-            true,
-          );
+          if (htmlChanged) {
+            cssRenderer.render(cssScene, camera);
+            projectedSurface.update(
+              camera,
+              surface.matrixWorld,
+              logicalWidth,
+              logicalHeight,
+              projectedViewport.x,
+              projectedViewport.y,
+              surface.visible,
+            );
+            projectedNotebook.update(
+              camera,
+              notebookSurface.matrixWorld,
+              notebook.pixelsWidth,
+              notebook.pixelsHeight,
+              projectedViewport.x,
+              projectedViewport.y,
+              true,
+            );
+            notebookTurnInk.update(
+              camera,
+              projectedViewport.x,
+              projectedViewport.y,
+              true,
+            );
+          }
           occludeNotebookInk(
             notebookElement,
             notebook.anchor,
             notebook.pixelsWidth,
             notebook.pixelsHeight,
-          );
-          notebookTurnInk.update(
-            camera,
-            projectedViewport.x,
-            projectedViewport.y,
-            true,
           );
           diagnostics?.mark('css-render');
           if (auditMotion) {
@@ -3327,6 +3390,7 @@ export function mountSpacecraftScene({
         let notebookEntries = latest.current.journal;
         api.current = {
           notebook: () => {
+            htmlUpdateGate.invalidate();
             if (notebookEntries !== latest.current.journal) {
               notebookEntries = latest.current.journal;
               notebook.setChapters(
@@ -3340,11 +3404,13 @@ export function mountSpacecraftScene({
             kick();
           },
           caseStudies: () => {
+            htmlUpdateGate.invalidate();
             model.setCaseStudies(caseStudyItems());
             feedback.reset();
             kick();
           },
           projects: () => {
+            htmlUpdateGate.invalidate();
             model.setProjects(projectItems());
             feedback.reset();
             kick();

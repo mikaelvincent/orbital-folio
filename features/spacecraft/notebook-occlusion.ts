@@ -151,6 +151,7 @@ export type NotebookOcclusionStats = {
   triangles: number;
   polygons: number;
   cacheHit: boolean;
+  staticCacheHit: boolean;
 };
 
 type Notebook = {
@@ -167,11 +168,15 @@ type Notebook = {
  * a union with the default nonzero fill rule (never evenodd).
  *
  * Call after model matrices/motion update. geometryRevision must change for
- * changed scene visibility, geometry, or transforms, as in the AO cache. */
+ * changed scene visibility, geometry, or transforms, as in the AO cache.
+ * An independent subtree may supply a monotonic revision counting its changes
+ * already included in geometryRevision. Everything else retains the full
+ * invalidation contract, including doors, page turns and instant layout edits. */
 export function createNotebookOcclusion(
   THREE: typeof Three,
   root: Three.Object3D,
   notebook: Notebook,
+  independent?: { root: Three.Object3D; revision: () => number },
 ) {
   const meshes: Three.Mesh[] = [];
   const collect = (object: Three.Object3D) => {
@@ -187,6 +192,25 @@ export function createNotebookOcclusion(
     object.children.forEach(collect);
   };
   collect(root);
+  // Independently moving scenery contributes its own opaque polygon union.
+  // It can still cover the paper from any angle; only the unchanged blockers
+  // are reused. No sampled sweep bounds or room-specific exclusions are needed.
+  const dynamic = new Set<Three.Object3D>();
+  independent?.root.traverse((object) => dynamic.add(object));
+  const parts = [
+    {
+      meshes: meshes.filter((mesh) => !dynamic.has(mesh)),
+      revision: undefined as unknown,
+      path: '',
+      stats: [0, 0, 0, 0],
+    },
+    {
+      meshes: meshes.filter((mesh) => dynamic.has(mesh)),
+      revision: undefined as unknown,
+      path: '',
+      stats: [0, 0, 0, 0],
+    },
+  ];
   const inverse = new THREE.Matrix4();
   const local = new THREE.Matrix4();
   const instance = new THREE.Matrix4();
@@ -219,6 +243,7 @@ export function createNotebookOcclusion(
       triangles: 0,
       polygons: 0,
       cacheHit: false,
+      staticCacheHit: false,
     },
   };
   const visible = (mesh: Three.Mesh, irisProxy: boolean) => {
@@ -250,21 +275,20 @@ export function createNotebookOcclusion(
       eye.setFromMatrixPosition(camera.matrixWorld).applyMatrix4(inverse);
       const size = `${width}:${height}`;
       const turningMarker = notebook.turningMarker ?? null;
-      if (
+      const sameView =
         size === previousSize &&
-        geometryRevision === previousRevision &&
         turningMarker === previousTurningMarker &&
         previousAnchor.equals(anchor.matrixWorld) &&
         previousRoot.equals(root.matrixWorld) &&
         previousCamera.equals(camera.matrixWorldInverse) &&
         previousProjection.equals(camera.projectionMatrix) &&
         previousLayers === camera.layers.mask &&
-        previousEye.equals(eye)
-      ) {
+        previousEye.equals(eye);
+      if (sameView && geometryRevision === previousRevision) {
         result = {
           ...result,
           changed: false,
-          stats: { ...result.stats, cacheHit: true },
+          stats: { ...result.stats, cacheHit: true, staticCacheHit: true },
         };
         return result;
       }
@@ -281,17 +305,14 @@ export function createNotebookOcclusion(
       // tab extends beyond that rectangle, however, and must mask stationary
       // native ink where it passes in front. Use its actual batched geometry so
       // overlapping page/tab silhouettes retain ordinary physical depth.
-      const occluders = turningMarker ? [...meshes] : meshes;
-      turningMarker?.traverse((object) => {
-        if ((object as Three.Mesh).isMesh) occluders.push(object as Three.Mesh);
-      });
       const stats: NotebookOcclusionStats = {
-        meshes: occluders.length,
+        meshes: meshes.length,
         candidateMeshes: 0,
         chunks: 0,
         triangles: 0,
         polygons: 0,
         cacheHit: false,
+        staticCacheHit: false,
       };
       const halfWidth = width / 2000,
         halfHeight = height / 2000;
@@ -326,136 +347,186 @@ export function createNotebookOcclusion(
             projected[15] - projected[14],
           ],
         ];
-        for (const mesh of occluders) {
-          const irisProxy = mesh.name === 'iris-occlusion-silhouette';
-          if (!visible(mesh, irisProxy) || !mesh.layers.test(camera.layers))
-            continue;
-          const materials = [mesh.material].flat();
-          if (!materials.some(opaque)) continue;
-          const geometry = mesh.geometry;
-          const position = geometry.getAttribute('position');
-          if (!position) continue;
-          const version =
-            'version' in position ? position.version : position.data.version;
-          const previousBounds = boundsVersions.get(geometry);
-          if (
-            !geometry.boundingBox ||
-            previousBounds?.position !== position ||
-            previousBounds.version !== version
-          ) {
-            geometry.computeBoundingBox();
-            boundsVersions.set(geometry, { position, version });
-          }
-          if (!geometry.boundingBox || geometry.boundingBox.isEmpty()) continue;
-          const instanced = mesh as Three.InstancedMesh;
-          for (
-            let instanceIndex = 0;
-            instanceIndex < (instanced.isInstancedMesh ? instanced.count : 1);
-            instanceIndex++
-          ) {
-            combined.copy(mesh.matrixWorld);
-            if (instanced.isInstancedMesh) {
-              instanced.getMatrixAt(instanceIndex, instance);
-              combined.multiply(instance);
-            }
-            local.copy(inverse).multiply(combined);
-            // Transposing the point transform puts the clipping planes in
-            // mesh-local coordinates, allowing cheap bounds rejection.
-            const m = local.elements;
-            const localPlanes = planes.map(
-              ([x, y, z, w]): Plane => [
-                m[0] * x + m[1] * y + m[2] * z + m[3] * w,
-                m[4] * x + m[5] * y + m[6] * z + m[7] * w,
-                m[8] * x + m[9] * y + m[10] * z + m[11] * w,
-                m[12] * x + m[13] * y + m[14] * z + m[15] * w,
-              ],
-            );
-            const box = geometry.boundingBox;
-            if (
-              outside(
-                [
-                  box.min.x,
-                  box.min.y,
-                  box.min.z,
-                  box.max.x,
-                  box.max.y,
-                  box.max.z,
-                ],
-                localPlanes,
-              )
-            )
-              continue;
-            const record = geometryRecord(geometry);
-            if (!record) continue;
-            stats.candidateMeshes++;
-            const determinantSign = local.determinant() < 0 ? -1 : 1;
-            const visit = (node: Node) => {
-              if (outside(node.bounds, localPlanes)) return;
-              if (node.children) {
-                node.children.forEach(visit);
-                return;
+        for (const [partIndex, part] of parts.entries()) {
+          const revision =
+            partIndex === 0 &&
+            independent &&
+            typeof geometryRevision === 'number'
+              ? geometryRevision - independent.revision()
+              : geometryRevision;
+          if (sameView && revision === part.revision) {
+            if (partIndex === 0) stats.staticCacheHit = true;
+          } else {
+            const start = paths.length;
+            const before = [
+              stats.candidateMeshes,
+              stats.chunks,
+              stats.triangles,
+              stats.polygons,
+            ];
+            const occluders = [...part.meshes];
+            if (partIndex === 0)
+              turningMarker?.traverse((object) => {
+                if ((object as Three.Mesh).isMesh)
+                  occluders.push(object as Three.Mesh);
+              });
+            for (const mesh of occluders) {
+              const irisProxy = mesh.name === 'iris-occlusion-silhouette';
+              if (!visible(mesh, irisProxy) || !mesh.layers.test(camera.layers))
+                continue;
+              const materials = [mesh.material].flat();
+              if (!materials.some(opaque)) continue;
+              const geometry = mesh.geometry;
+              const position = geometry.getAttribute('position');
+              if (!position) continue;
+              const version =
+                'version' in position
+                  ? position.version
+                  : position.data.version;
+              const previousBounds = boundsVersions.get(geometry);
+              if (
+                !geometry.boundingBox ||
+                previousBounds?.position !== position ||
+                previousBounds.version !== version
+              ) {
+                geometry.computeBoundingBox();
+                boundsVersions.set(geometry, { position, version });
               }
-              for (const chunk of node.chunks ?? []) {
-                if (outside(chunk.bounds, localPlanes)) continue;
-                stats.chunks++;
-                for (let i = chunk.start; i + 2 < chunk.end; i += 3) {
-                  const group = Array.isArray(mesh.material)
-                    ? geometry.groups.find(
-                        (group) =>
-                          i >= group.start && i < group.start + group.count,
-                      )
-                    : null;
-                  const material = Array.isArray(mesh.material)
-                    ? materials[group?.materialIndex ?? -1]
-                    : materials[0];
-                  if (!opaque(material)) continue;
-                  stats.triangles++;
-                  const index = record.index;
-                  a.fromBufferAttribute(
-                    record.position,
-                    index ? index.getX(i) : i,
-                  ).applyMatrix4(local);
-                  b.fromBufferAttribute(
-                    record.position,
-                    index ? index.getX(i + 1) : i + 1,
-                  ).applyMatrix4(local);
-                  c.fromBufferAttribute(
-                    record.position,
-                    index ? index.getX(i + 2) : i + 2,
-                  ).applyMatrix4(local);
-                  normal.subVectors(b, a).cross(edge.subVectors(c, a));
-                  const facing =
-                    normal.dot(toEye.subVectors(eye, a)) * determinantSign;
-                  if (
-                    (material.side === THREE.FrontSide && facing <= 0) ||
-                    (material.side === THREE.BackSide && facing >= 0)
-                  )
-                    continue;
-                  const polygon = clip(
-                    [a.toArray(), b.toArray(), c.toArray()] as Point[],
-                    planes,
-                  );
-                  if (polygon.length < 3) continue;
-                  const points = polygon.map(([x, y, z]) => [
-                    width / 2 + (1000 * (x * eye.z - eye.x * z)) / (eye.z - z),
-                    height / 2 - (1000 * (y * eye.z - eye.y * z)) / (eye.z - z),
-                  ]);
-                  let area = 0;
-                  for (let p = 0; p < points.length; p++) {
-                    const next = points[(p + 1) % points.length];
-                    area += points[p][0] * next[1] - next[0] * points[p][1];
-                  }
-                  if (Math.abs(area) < 0.0001) continue;
-                  if (area < 0) points.reverse();
-                  paths.push(
-                    `M${points.map(([x, y]) => `${x.toFixed(2)} ${y.toFixed(2)}`).join('L')}Z`,
-                  );
-                  stats.polygons++;
+              if (!geometry.boundingBox || geometry.boundingBox.isEmpty())
+                continue;
+              const instanced = mesh as Three.InstancedMesh;
+              for (
+                let instanceIndex = 0;
+                instanceIndex <
+                (instanced.isInstancedMesh ? instanced.count : 1);
+                instanceIndex++
+              ) {
+                combined.copy(mesh.matrixWorld);
+                if (instanced.isInstancedMesh) {
+                  instanced.getMatrixAt(instanceIndex, instance);
+                  combined.multiply(instance);
                 }
+                local.copy(inverse).multiply(combined);
+                // Transposing the point transform puts the clipping planes in
+                // mesh-local coordinates, allowing cheap bounds rejection.
+                const m = local.elements;
+                const localPlanes = planes.map(
+                  ([x, y, z, w]): Plane => [
+                    m[0] * x + m[1] * y + m[2] * z + m[3] * w,
+                    m[4] * x + m[5] * y + m[6] * z + m[7] * w,
+                    m[8] * x + m[9] * y + m[10] * z + m[11] * w,
+                    m[12] * x + m[13] * y + m[14] * z + m[15] * w,
+                  ],
+                );
+                const box = geometry.boundingBox;
+                if (
+                  outside(
+                    [
+                      box.min.x,
+                      box.min.y,
+                      box.min.z,
+                      box.max.x,
+                      box.max.y,
+                      box.max.z,
+                    ],
+                    localPlanes,
+                  )
+                )
+                  continue;
+                const record = geometryRecord(geometry);
+                if (!record) continue;
+                stats.candidateMeshes++;
+                const determinantSign = local.determinant() < 0 ? -1 : 1;
+                const visit = (node: Node) => {
+                  if (outside(node.bounds, localPlanes)) return;
+                  if (node.children) {
+                    node.children.forEach(visit);
+                    return;
+                  }
+                  for (const chunk of node.chunks ?? []) {
+                    if (outside(chunk.bounds, localPlanes)) continue;
+                    stats.chunks++;
+                    for (let i = chunk.start; i + 2 < chunk.end; i += 3) {
+                      const group = Array.isArray(mesh.material)
+                        ? geometry.groups.find(
+                            (group) =>
+                              i >= group.start && i < group.start + group.count,
+                          )
+                        : null;
+                      const material = Array.isArray(mesh.material)
+                        ? materials[group?.materialIndex ?? -1]
+                        : materials[0];
+                      if (!opaque(material)) continue;
+                      stats.triangles++;
+                      const index = record.index;
+                      a.fromBufferAttribute(
+                        record.position,
+                        index ? index.getX(i) : i,
+                      ).applyMatrix4(local);
+                      b.fromBufferAttribute(
+                        record.position,
+                        index ? index.getX(i + 1) : i + 1,
+                      ).applyMatrix4(local);
+                      c.fromBufferAttribute(
+                        record.position,
+                        index ? index.getX(i + 2) : i + 2,
+                      ).applyMatrix4(local);
+                      normal.subVectors(b, a).cross(edge.subVectors(c, a));
+                      const facing =
+                        normal.dot(toEye.subVectors(eye, a)) * determinantSign;
+                      if (
+                        (material.side === THREE.FrontSide && facing <= 0) ||
+                        (material.side === THREE.BackSide && facing >= 0)
+                      )
+                        continue;
+                      const polygon = clip(
+                        [a.toArray(), b.toArray(), c.toArray()] as Point[],
+                        planes,
+                      );
+                      if (polygon.length < 3) continue;
+                      const points = polygon.map(([x, y, z]) => [
+                        width / 2 +
+                          (1000 * (x * eye.z - eye.x * z)) / (eye.z - z),
+                        height / 2 -
+                          (1000 * (y * eye.z - eye.y * z)) / (eye.z - z),
+                      ]);
+                      let area = 0;
+                      for (let p = 0; p < points.length; p++) {
+                        const next = points[(p + 1) % points.length];
+                        area += points[p][0] * next[1] - next[0] * points[p][1];
+                      }
+                      if (Math.abs(area) < 0.0001) continue;
+                      if (area < 0) points.reverse();
+                      paths.push(
+                        `M${points.map(([x, y]) => `${x.toFixed(2)} ${y.toFixed(2)}`).join('L')}Z`,
+                      );
+                      stats.polygons++;
+                    }
+                  }
+                };
+                visit(record.node);
               }
-            };
-            visit(record.node);
+            }
+            part.path = paths.splice(start).join('');
+            part.stats = [
+              stats.candidateMeshes,
+              stats.chunks,
+              stats.triangles,
+              stats.polygons,
+            ].map((value, index) => value - before[index]);
+            [
+              stats.candidateMeshes,
+              stats.chunks,
+              stats.triangles,
+              stats.polygons,
+            ] = before;
+            part.revision = revision;
           }
+          paths.push(part.path);
+          stats.candidateMeshes += part.stats[0];
+          stats.chunks += part.stats[1];
+          stats.triangles += part.stats[2];
+          stats.polygons += part.stats[3];
         }
       }
       const path = paths.join('');

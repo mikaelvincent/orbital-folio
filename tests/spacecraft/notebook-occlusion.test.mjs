@@ -278,3 +278,126 @@ test('a wall already clipped by the camera near plane does not hide native ink d
     'camera layers match the renderer',
   );
 });
+
+test('independent dish motion reuses stationary blockers while preserving entering and leaving occlusion', () => {
+  const f = fixture();
+  const wall = f.box([0.25, 0.7, 0.12], [-0.3, 0, 0.8]);
+  const dish = f.box([0.38, 0.4, 0.15], [4, 0, 1.2]);
+  f.update();
+  let dishRevision = 0;
+  const mask = createNotebookOcclusion(THREE, f.scene, f.notebook, {
+    root: dish,
+    revision: () => dishRevision,
+  });
+  const full = createNotebookOcclusion(THREE, f.scene, f.notebook);
+  mask.update(f.camera, 0);
+  const position = wall.geometry.getAttribute('position');
+  const getX = position.getX.bind(position);
+  let stationaryVertexReads = 0;
+  position.getX = (index) => {
+    stationaryVertexReads++;
+    return getX(index);
+  };
+  const canonical = (path) => polygons(path).map(JSON.stringify).sort();
+  let previousPath;
+  for (const x of [4, 0.4, 0, -0.4, 4]) {
+    dish.position.x = x;
+    dish.rotation.y += 0.19;
+    f.update();
+    dishRevision++;
+    stationaryVertexReads = 0;
+    const result = mask.update(f.camera, dishRevision);
+    assert.equal(result.stats.staticCacheHit, true);
+    assert.equal(
+      stationaryVertexReads,
+      0,
+      'unchanged wall triangles are not projected again',
+    );
+    assert.deepEqual(
+      canonical(result.path),
+      canonical(full.update(f.camera, dishRevision).path),
+    );
+    agreesWithRays(result, f.camera, f.notebook, [wall, dish]);
+    if (x === 0) assert.notEqual(result.path, previousPath);
+    previousPath = result.path;
+  }
+  // Door visibility and geometry edits increment the total, not the dish count.
+  wall.visible = false;
+  assert.equal(
+    mask.update(f.camera, dishRevision + 1).stats.staticCacheHit,
+    false,
+  );
+  assert.deepEqual(
+    canonical(mask.update(f.camera, dishRevision + 1).path),
+    canonical(full.update(f.camera, dishRevision + 1).path),
+  );
+  wall.visible = true;
+  wall.geometry.translate(0.7, 0, 0);
+  const edited = mask.update(f.camera, dishRevision + 2);
+  assert.equal(edited.stats.staticCacheHit, false);
+  agreesWithRays(edited, f.camera, f.notebook, [wall, dish]);
+});
+
+test('partitioned notebook masks invalidate both layers for camera, projection, paper and carried-marker changes', () => {
+  const f = fixture();
+  f.box([0.25, 0.7, 0.12], [-0.3, 0, 0.8]);
+  const dish = f.box([0.38, 0.4, 0.15], [0.4, 0, 1.2]);
+  const marker = new THREE.Group();
+  const tab = new THREE.Mesh(
+    new THREE.BoxGeometry(0.3, 0.2, 0.1),
+    new THREE.MeshBasicMaterial(),
+  );
+  tab.position.set(-0.6, 0, 0.4);
+  marker.add(tab);
+  f.notebook.root.add(marker);
+  f.notebook.turningMarker = marker;
+  f.update();
+  const mask = createNotebookOcclusion(THREE, f.scene, f.notebook, {
+    root: dish,
+    revision: () => 0,
+  });
+  const full = createNotebookOcclusion(THREE, f.scene, f.notebook);
+  let revision = 0;
+  const check = (width = 2000, height = 1600) => {
+    f.update();
+    const actual = mask.update(
+      f.camera,
+      revision,
+      f.notebook.anchor,
+      width,
+      height,
+    );
+    const expected = full.update(
+      f.camera,
+      revision,
+      f.notebook.anchor,
+      width,
+      height,
+    );
+    assert.equal(actual.stats.staticCacheHit, false);
+    assert.deepEqual(
+      polygons(actual.path).map(JSON.stringify).sort(),
+      polygons(expected.path).map(JSON.stringify).sort(),
+    );
+    assert.equal(actual.visible, expected.visible);
+    return actual;
+  };
+  check();
+  f.camera.position.x += 0.2;
+  check();
+  f.camera.near = 1.5;
+  f.camera.updateProjectionMatrix();
+  check();
+  check(1300, 800);
+  marker.position.x += 0.6;
+  revision++;
+  check(1300, 800);
+  f.notebook.anchor.rotation.y = Math.PI;
+  assert.equal(check().visible, false);
+  f.notebook.anchor.rotation.y = 0;
+  assert.equal(check().visible, true);
+  f.scene.rotation.z = 0.2;
+  check();
+  f.notebook.turningMarker = null;
+  check();
+});

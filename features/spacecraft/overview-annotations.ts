@@ -1,5 +1,6 @@
 import type * as Three from 'three';
 import { moveCameraAxis } from '@/features/spacecraft/navigation/flight';
+import { createHtmlUpdateGate } from './html-update-gate';
 
 type Frame = {
   target: Three.Vector3;
@@ -86,6 +87,9 @@ export function createOverviewAnnotations(
     ready = false,
     portrait = false;
   let supportPoints: number[][] = [];
+  const updateGate = createHtmlUpdateGate();
+  const presenceGate = createHtmlUpdateGate();
+  let identityInView = true;
   const clamp = (x: number, low: number, high: number) =>
     Math.max(low, Math.min(high, x));
   const pointAtDepth = (x: number, y: number, view = reference) => {
@@ -182,6 +186,7 @@ export function createOverviewAnnotations(
       : 'corner-leaders';
   }
   function layout(frame: Frame, support: number[][], model: Three.Group) {
+    updateGate.invalidate();
     width = host.clientWidth;
     height = host.clientHeight;
     depth = frame.distance;
@@ -305,9 +310,34 @@ export function createOverviewAnnotations(
         acceleration: 8,
       });
     const calloutOpacity = opacity * clamp(portraitArrival.value, 0, 1);
-    layer.style.opacity = String(calloutOpacity);
-    layer.inert = !state.home || state.travelling || calloutOpacity < 0.9;
-    layer.setAttribute('aria-hidden', String(layer.inert));
+    const projectionChanged = updateGate.changed(
+      [state.home, state.travelling, state.hover],
+      [camera.matrixWorld, camera.projectionMatrix, model.matrixWorld],
+    );
+    // Fades approach zero continuously. They change opacity, not the projected
+    // geometry, and must not keep rerouting settled callouts every frame.
+    if (
+      presenceGate.changed(
+        [opacity, calloutOpacity, state.home, state.travelling],
+        [],
+      )
+    ) {
+      layer.style.opacity = String(calloutOpacity);
+      layer.inert = !state.home || state.travelling || calloutOpacity < 0.9;
+      layer.setAttribute('aria-hidden', String(layer.inert));
+      if (identityFlight) {
+        if (!projectionChanged)
+          identityFlight.style.opacity = String(identityInView ? opacity : 0);
+        identityFlight.inert = !state.home || state.travelling || opacity < 0.9;
+        identityFlight.setAttribute(
+          'aria-hidden',
+          String(identityFlight.inert),
+        );
+      }
+      host.dataset.overviewPresence = opacity.toFixed(4);
+      host.dataset.overviewCalloutPresence = calloutOpacity.toFixed(4);
+    }
+    if (!projectionChanged) return;
     if (state.home && !state.travelling) {
       const worldProject = (v: number[]) =>
         project(
@@ -383,14 +413,9 @@ export function createOverviewAnnotations(
         .dot(camera.getWorldDirection(new THREE.Vector3()));
       const scale = clamp(depth / Math.max(0.1, currentDepth), 0.3, 3);
       identityFlight.style.transform = `translate(${p.x - identityBase.x}px,${p.y - identityBase.y}px) scale(${scale})`;
-      identityFlight.style.opacity = String(
-        currentDepth > 0 && p.z < 1 ? opacity : 0,
-      );
-      identityFlight.inert = !state.home || state.travelling || opacity < 0.9;
-      identityFlight.setAttribute('aria-hidden', String(identityFlight.inert));
+      identityInView = currentDepth > 0 && p.z < 1;
+      identityFlight.style.opacity = String(identityInView ? opacity : 0);
     }
-    host.dataset.overviewPresence = opacity.toFixed(4);
-    host.dataset.overviewCalloutPresence = calloutOpacity.toFixed(4);
   }
   return {
     layout,
