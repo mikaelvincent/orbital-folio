@@ -26,6 +26,7 @@ export function RenderingControls({
   const heading = useRef<HTMLHeadingElement>(null);
   const [collapsed, setCollapsed] = useState(false);
   const softnessId = useId();
+  const lightingId = useId();
   useEffect(() => {
     const sync = () => setState(observer.getState());
     sync();
@@ -82,6 +83,53 @@ export function RenderingControls({
         <p className="rendering-intro">
           Compare the appearance live. Changes stay when you close this panel.
         </p>
+        {(
+          [
+            [
+              'exteriorLight',
+              'Exterior light',
+              'Sunlight on the hull and through the openings.',
+            ],
+            [
+              'roomLight',
+              'Room lights',
+              'The warm fixtures in all four rooms.',
+            ],
+            [
+              'ladderLight',
+              'Ladder lights',
+              'The existing worklights in the ladder bay.',
+            ],
+          ] as const
+        ).map(([key, label, hint]) => {
+          const id = `${lightingId}-${key}`;
+          const percent = Math.round(state[key] * 100);
+          return (
+            <label className="rendering-field" htmlFor={id} key={key}>
+              <span>{label}</span>
+              <span className="rendering-range">
+                <input
+                  id={id}
+                  type="range"
+                  aria-label={label}
+                  aria-describedby={`${id}-hint`}
+                  aria-valuetext={`${percent} percent`}
+                  min={0}
+                  max={2}
+                  step={0.05}
+                  value={settings[key]}
+                  onChange={(event) =>
+                    change({ [key]: Number(event.currentTarget.value) })
+                  }
+                />
+                <output htmlFor={id} aria-hidden="true">
+                  {percent}%
+                </output>
+              </span>
+              <small id={`${id}-hint`}>{hint} 100% is the default.</small>
+            </label>
+          );
+        })}
         <label className="rendering-toggle">
           <span>
             <strong>Shadows</strong>

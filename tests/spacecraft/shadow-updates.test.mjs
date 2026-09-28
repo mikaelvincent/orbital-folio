@@ -152,7 +152,11 @@ test('the authored wide ship reuses cabin and ladder maps through a complete dis
   const model = createSpacecraft(T, { layout: 'wide' });
   const scene = new T.Scene();
   const linked = applyCabinLighting(T, model.group);
-  assert.ok(linked.lights.some((light) => light.name === 'ladder-bay-lamp'));
+  assert.equal(
+    linked.lights.filter((light) => light.userData.section === 'walkway')
+      .length,
+    2,
+  );
   const sun = createExteriorLight(T),
     lights = [sun, ...linked.lights];
   scene.add(model.group, sun);

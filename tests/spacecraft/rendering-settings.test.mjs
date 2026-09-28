@@ -21,6 +21,9 @@ test('site defaults use low detail and 4× softness while retaining device densi
     pixelDensity: 2,
     shadowSize: 512,
     shadowSoftness: 4,
+    exteriorLight: 1,
+    roomLight: 1,
+    ladderLight: 1,
     contactShading: true,
     cacheAvailable: true,
   });
@@ -28,6 +31,9 @@ test('site defaults use low detail and 4× softness while retaining device densi
     pixelDensity: 1.75,
     shadowSize: 512,
     shadowSoftness: 4,
+    exteriorLight: 1,
+    roomLight: 1,
+    ladderLight: 1,
     contactShading: false,
     cacheAvailable: false,
   });
@@ -170,6 +176,9 @@ test('each independent override is identified and reset without changing shared 
     shadows: false,
     shadowSize: 1024,
     shadowSoftness: 1,
+    exteriorLight: 0,
+    roomLight: 0.5,
+    ladderLight: 2,
     pixelDensity: 1,
     contactShading: 'off',
     background: false,
@@ -182,4 +191,26 @@ test('each independent override is identified and reset without changing shared 
     );
   }
   assert.equal(renderingSettingsAreDefault({ ...defaults }), true);
+});
+
+test('independent light levels include off and clamp invalid or excessive inputs', () => {
+  for (const key of ['exteriorLight', 'roomLight', 'ladderLight']) {
+    for (const [value, expected] of [
+      [0, 0],
+      [0.35, 0.35],
+      [1.5, 1.5],
+      [-1, 0],
+      [5, 2],
+      [NaN, 1],
+      [Infinity, 1],
+      [undefined, 1],
+    ]) {
+      const actual = resolveRenderingSettings(
+        { ...defaults, [key]: value },
+        desktop,
+      );
+      for (const name of ['exteriorLight', 'roomLight', 'ladderLight'])
+        assert.equal(actual[name], name === key ? expected : 1);
+    }
+  }
 });

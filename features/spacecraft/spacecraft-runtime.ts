@@ -433,6 +433,12 @@ export function mountSpacecraftScene({
         lightRig.name = 'vessel-lighting-frame';
         scene.add(lightRig);
         const key = createExteriorLight(THREE);
+        function applyLightLevels() {
+          key.intensity =
+            VESSEL_LIGHTING.sunIntensity * rendering.exteriorLight;
+          model.setLighting(rendering.roomLight, rendering.ladderLight);
+        }
+        applyLightLevels();
         const shadowLights = [key, ...cabinLighting.lights];
         for (const light of shadowLights) {
           light.shadow.mapSize.set(rendering.shadowSize, rendering.shadowSize);
@@ -2103,7 +2109,6 @@ export function mountSpacecraftScene({
           diagnostics?.mark('model-update');
           updateRenderSceneMatrices(scene);
           if (shadowUpdates.update()) shadowReasons.add('geometry');
-          cabinLighting.update(camera);
           // Small workshop displays require closer portrait framing than cabin views.
           // Retain their near plane through the closing flight to avoid a clipping pop.
           const near =
@@ -2120,6 +2125,7 @@ export function mountSpacecraftScene({
           }
           camera.updateMatrixWorld(true);
           (audit?.shadingFrame ?? audit?.contactFrame)?.();
+          cabinLighting.update(camera);
           diagnostics?.mark('matrices');
           annotations.update(
             cameraFrame.virtualCamera,
@@ -2715,7 +2721,20 @@ export function mountSpacecraftScene({
         };
         function setRenderingSettings(settings = DEFAULT_RENDERING_SETTINGS) {
           if (destroyed) return;
+          const qualityChanged = (
+            [
+              'shadows',
+              'shadowSize',
+              'shadowSoftness',
+              'pixelDensity',
+              'contactShading',
+              'background',
+              'spacecraftCache',
+            ] as const
+          ).some((key) => settings[key] !== renderingSettings[key]);
           renderingSettings = settings;
+          rendering = resolveRendering();
+          applyLightLevels();
           if (renderer.shadowMap.enabled !== settings.shadows) {
             renderer.shadowMap.enabled = settings.shadows;
             // Shadow sampling is compiled into materials. Toggling the renderer
@@ -2731,12 +2750,14 @@ export function mountSpacecraftScene({
               material.needsUpdate = true;
             });
           }
-          // Drop color, depth and receiver caches before changing any quality
-          // input. Re-enabling an effect must rebuild from the current pose.
+          // Brightness changes color, but not light-space depth or contact AO.
+          // Quality changes still rebuild effects from the current pose.
           pixelCache.release();
-          setDrawingSize();
-          invalidateShadow('rendering-settings');
-          invalidateAo('rendering-settings');
+          if (qualityChanged) {
+            setDrawingSize();
+            invalidateShadow('rendering-settings');
+            invalidateAo('rendering-settings');
+          } else notifyRendering();
           resetDiagnostics('rendering settings changed');
           kick();
         }
@@ -3372,6 +3393,9 @@ export function mountSpacecraftScene({
             ],
             shadowSize: key.shadow.mapSize.x,
             shadowSoftness: key.shadow.radius,
+            exteriorLight: rendering.exteriorLight,
+            roomLight: rendering.roomLight,
+            ladderLight: rendering.ladderLight,
             contactShading: usesContactShading(),
             contactShadingSupported,
             cacheAvailable: rendering.cacheAvailable && experiment === 'normal',
@@ -3484,6 +3508,9 @@ export function mountSpacecraftScene({
               shadowsEnabled: renderer.shadowMap.enabled,
               shadowMap: key.shadow.mapSize.toArray(),
               shadowSoftness: key.shadow.radius,
+              exteriorLight: rendering.exteriorLight,
+              roomLight: rendering.roomLight,
+              ladderLight: rendering.ladderLight,
               resources: {
                 ...renderer.info.memory,
                 programs: renderer.info.programs?.length ?? null,
@@ -3640,6 +3667,9 @@ export function mountSpacecraftScene({
                 denoiseSamples: 32,
                 shadowMap: key.shadow.mapSize.toArray(),
                 shadowSoftness: key.shadow.radius,
+                exteriorLight: rendering.exteriorLight,
+                roomLight: rendering.roomLight,
+                ladderLight: rendering.ladderLight,
                 shadowsEnabled: renderer.shadowMap.enabled,
                 orbitalCamera: background.getDiagnostics(),
                 resources: {

@@ -46,7 +46,7 @@ The current arrangements matter more than the old numbered design stages:
 | Case-study archive | Four cartridges above the fixed 16:9 raked terminal in a shared floor-mounted dock. Formed cheeks and shoes meet the flat deck ahead of the rear cove. No fifth Field notes cartridge or lower runners. |
 | Contact console | Thin rounded carbon console, conventional 82-key keyboard, fitted main/social glass, independently mounted social screens, outboard microphone and headset on an underslung hanger. Keep knee space and keyboard/display clearance. |
 | About study | Rest-left/study-right layout, wood writing insert, real notebook/paper, bedding, photo and personal objects. Open book cradle with visible covers; square photograph and three equal clipped social prints. |
-| Ladder bay | Dark seamless backing, legible alloy treads, small bronze rail clamps/end caps. Paired stowed maintenance spanners and two grab bars at each end, with intervening spaces empty. One compact lamp on the middle side wall lights across the rungs. Keep the ends free of angled fixtures, reels and decorative landing slabs. |
+| Ladder bay | Dark seamless backing, legible alloy treads, small bronze rail clamps/end caps. Paired stowed maintenance spanners and two grab bars at each end, with intervening spaces empty. The existing paired guarded worklights illuminate the bay; do not add another lamp object. Keep the ends free of angled fixtures, reels and decorative landing slabs. |
 | Exterior access | Full matching upper/lower ladders, including the underside route. Match rail ends, rung spacing, mounting feet and supported tether eyes. Keep the rear shell quiet. |
 | Docking assembly | Ivory pressure barrel, dark seal, satin flange, connected wheel spokes and seated handles. The small service cover uses one continuous pull; paired circular ports and a separate latch were rejected as face-like. |
 | Service assembly | Fixed blue solar wings with supported booms/bearings and enclosed raceways; connected dish cradle/feed supports. Keep dark central fittings behind the reflector and bronze limited to small functional joints. |
@@ -65,14 +65,15 @@ stay connected; preserve the assembly's proportions when changing room width and
 re-aim the actual light with its fixture. Opposite lamp placement gives the rooms
 different shadow directions. Keep ceilings, floors and recesses darker than the
 work surfaces; restrained reflected fill and contact shading preserve readability.
-The ladder bay has one smaller warm wall lamp midway between the two cabin hatches,
-aimed across its rungs and service fittings. Preserve dark end recesses and keep
-the lamp rigidly attached to the actual wall in both asset layouts. Its light links
-to ladder surfaces and shared hatch reveals and uses the same shadow-map reuse.
+The ladder bay uses its two existing guarded rear worklights, with sources just
+ahead of their diffuser faces and broad beams across the bay. Preserve all existing
+fixture geometry and dark end recesses. Both lights follow their fixtures in each
+asset layout, link to ladder surfaces and shared hatch reveals, and use the same
+shadow-map reuse.
 
-Each lamp casts furniture shadows. Material light linking admits its own cabin's
-lamp, or both neighbors on shared hatch faces, while the faint sun reaches all
-surfaces. Preserve authored caster/receiver exceptions, especially shader-masked
+Each lamp casts furniture shadows. Material light linking admits a room's own
+lamps, or the lamps from both neighbors on shared hatch faces, while the faint sun
+reaches all surfaces. Preserve authored caster/receiver exceptions, especially shader-masked
 iris leaves. Reuse each light's shadow map while its relevant geometry is unchanged;
 camera movement alone does not alter light-space depth. Dish-only movement
 refreshes the sun and any lamp whose padded receiver-ray volume intersects the
@@ -367,20 +368,28 @@ instrumentation nor playback polling. Escape/outside/focus dismissal and return 
 must work; preserve the pointerdown/click intent guard against accidental reopen.
 
 **Rendering** is a live appearance comparison panel, independent of diagnostics.
-Expose shadows, shadow detail, shadow softness, pixel density, contact shading,
-Earth/sky and stationary spacecraft caching. Shadow softness adjusts the existing
-shadow filter independently of map resolution, from 0–4× in 0.25 steps. The authored
-default is 2×, with Automatic using a 1024-square exterior shadow map at all widths
-(bounded by device support). Manual Low/Medium/High remain 512/1024/2048.
+Expose independent exterior, room and ladder brightness sliders, shadows, shadow
+detail, shadow softness, pixel density, contact shading, Earth/sky and stationary
+spacecraft caching. Brightness spans 0–200% in 5% steps, with 100% restoring the
+authored values. Exterior controls sunlight; room and ladder sliders also dim their
+fixture faces while leaving screens and status indicators legible. Brightness alone
+reuses shadow maps and contact AO because it does not change geometry.
+
+Shadow softness adjusts the existing shadow filter independently of map resolution,
+from 0–4× in 0.25 steps. The authored
+default is Low (512) with 4× softness. Automatic remains selectable and uses
+1024-square maps at all widths (bounded by device support); Low/Medium/High are
+512/1024/2048 for every shadow light.
 Changes apply without recording or a baseline,
 keep the current camera, and persist across panel dismissal, room navigation and
-Reading view within the visit. Reset defaults or reload restores the automatic
+Reading view within the visit. Reset defaults or reload restores the authored
 profile; do not save to storage or publish these preferences. Manual contact
 shading may bypass the small-screen/device heuristic when WebGL supports it;
 retain the drawing-buffer bound and cache eligibility restrictions. Show effective
 settings and unavailable options. Rebuild affected color/depth, shadows and AO
-after changes. Opening Rendering closes diagnostics and its temporary experiment;
-opening another tool closes Rendering without reverting its choices. Reduced
+after quality changes; brightness changes only refresh color. Opening Rendering
+closes diagnostics and its temporary experiment; opening another tool closes
+Rendering without reverting its choices. Reduced
 motion and visibility scheduling still apply.
 
 Diagnostics remain opt-in, device-agnostic and useful to nontechnical visitors

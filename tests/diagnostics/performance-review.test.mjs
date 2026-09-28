@@ -25,6 +25,9 @@ const capture = (overrides = {}) => ({
     shadowsEnabled: true,
     shadowMap: [2048, 2048],
     shadowSoftness: 1,
+    exteriorLight: 1,
+    roomLight: 1,
+    ladderLight: 1,
     room: 'home',
     cameraPosition: [0, 0, 5],
     cameraQuaternion: [0, 0, 0, 1],
@@ -126,6 +129,9 @@ test('AO resolution, samples, shadows and other quality changes remain compariso
     ['shadowsEnabled', false, 'shadow setting'],
     ['shadowMap', [1024, 1024], 'shadow resolution'],
     ['shadowSoftness', 2, 'shadow softness'],
+    ['exteriorLight', 0.5, 'exterior light brightness'],
+    ['roomLight', 0, 'room light brightness'],
+    ['ladderLight', 2, 'ladder light brightness'],
     ['quality', 'lower', 'render quality setting'],
   ];
   for (const [key, value, label] of changes) {

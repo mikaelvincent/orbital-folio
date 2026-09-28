@@ -2,6 +2,9 @@ export type RenderingSettings = {
   shadows: boolean;
   shadowSize: 'auto' | 512 | 1024 | 2048;
   shadowSoftness: number;
+  exteriorLight: number;
+  roomLight: number;
+  ladderLight: number;
   pixelDensity: 'auto' | number;
   contactShading: 'auto' | 'on' | 'off';
   background: boolean;
@@ -12,6 +15,9 @@ export const DEFAULT_RENDERING_SETTINGS: RenderingSettings = {
   shadows: true,
   shadowSize: 512,
   shadowSoftness: 4,
+  exteriorLight: 1,
+  roomLight: 1,
+  ladderLight: 1,
   pixelDensity: 'auto',
   contactShading: 'auto',
   background: true,
@@ -58,6 +64,8 @@ export function resolveRenderingSettings(
     contactShadingSupported &&
     (settings.contactShading === 'on' ||
       (settings.contactShading === 'auto' && capableShading && !small));
+  const brightness = (value: number) =>
+    Number.isFinite(value) ? Math.min(2, Math.max(0, value)) : 1;
   return {
     pixelDensity: Math.min(
       density,
@@ -71,6 +79,9 @@ export function resolveRenderingSettings(
     shadowSoftness: Number.isFinite(settings.shadowSoftness)
       ? Math.min(4, Math.max(0, settings.shadowSoftness))
       : DEFAULT_RENDERING_SETTINGS.shadowSoftness,
+    exteriorLight: brightness(settings.exteriorLight),
+    roomLight: brightness(settings.roomLight),
+    ladderLight: brightness(settings.ladderLight),
     contactShading,
     // The live-receiver cache is validated only for this rendering path.
     cacheAvailable:
@@ -83,6 +94,9 @@ export type RenderingState = {
   drawingBuffer: [number, number];
   shadowSize: number;
   shadowSoftness: number;
+  exteriorLight: number;
+  roomLight: number;
+  ladderLight: number;
   contactShading: boolean;
   contactShadingSupported: boolean;
   cacheAvailable: boolean;

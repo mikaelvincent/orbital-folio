@@ -6,7 +6,7 @@ import { directLightWorkChunk } from './materials/direct-light-work.ts';
 export const VESSEL_LIGHTING = {
   sunIntensity: 0.32,
   cabinIntensity: 11,
-  ladderIntensity: 8.5,
+  ladderIntensity: 3.5,
   environmentIntensity: 0.1,
   contactStrength: 0.5,
 };
@@ -31,10 +31,10 @@ export function createCabinLight(T: typeof Three, section: string) {
   return light;
 }
 
-/** A broad side wash reveals the ladder rungs while leaving its end recesses dim. */
-export function createLadderLight(T: typeof Three) {
+/** Broad beams from the existing guarded diffusers reveal the rungs and returns. */
+export function createLadderLight(T: typeof Three, index: number) {
   const light = createCabinLight(T, 'walkway');
-  light.name = 'ladder-bay-lamp';
+  light.name = `ladder-worklight-${index + 1}`;
   light.intensity = VESSEL_LIGHTING.ladderIntensity;
   light.angle = Math.PI * 0.4;
   light.penumbra = 0.55;
@@ -95,15 +95,19 @@ export function cabinLightingChunk(source: string, emitterCount: number) {
 export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
   const lamps = new Map<
     string,
-    { light: Three.SpotLight; position: Three.Vector3 }
+    { light: Three.SpotLight; position: Three.Vector3 }[]
   >();
   root.traverse((object) => {
-    if ((object as Three.SpotLight).isSpotLight)
-      lamps.set(object.userData.section, {
+    if ((object as Three.SpotLight).isSpotLight) {
+      const room = lamps.get(object.userData.section) ?? [];
+      room.push({
         light: object as Three.SpotLight,
         position: new T.Vector3(),
       });
+      lamps.set(object.userData.section, room);
+    }
   });
+  const allLamps = [...lamps.values()].flat();
   const applied = new Map<Three.Material, Three.SpotLight[]>();
   // Preserve authored caster/receiver flags, including iris masks and glass.
   root.traverse((object) => {
@@ -116,9 +120,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       const linked = (material.userData.linkedRooms ?? [section]) as string[];
       const admitted = material.userData.exterior
         ? []
-        : [...new Set(linked)].flatMap((room) =>
-            lamps.has(room) ? [lamps.get(room)!] : [],
-          );
+        : [...new Set(linked)].flatMap((room) => lamps.get(room) ?? []);
       applied.set(
         material,
         admitted.map(({ light }) => light),
@@ -150,10 +152,10 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
     }
   });
   return {
-    lights: [...lamps.values()].map(({ light }) => light),
+    lights: allLamps.map(({ light }) => light),
     shadowReceivers(this: void) {
       const receivers = new Map(
-        [...lamps.values()].map(({ light }) => [light, new Set<Three.Mesh>()]),
+        allLamps.map(({ light }) => [light, new Set<Three.Mesh>()]),
       );
       // Use the exact material membership compiled above, including shared
       // materials and hatch faces. Include hidden/offscreen receivers so camera
@@ -172,7 +174,7 @@ export function applyCabinLighting(T: typeof Three, root: Three.Object3D) {
       return receivers;
     },
     update(camera: Three.Camera) {
-      for (const { light, position } of lamps.values())
+      for (const { light, position } of allLamps)
         position
           .setFromMatrixPosition(light.matrixWorld)
           .applyMatrix4(camera.matrixWorldInverse);

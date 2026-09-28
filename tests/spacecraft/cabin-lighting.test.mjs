@@ -6,13 +6,24 @@ import {
   applyCabinLighting,
   cabinLightingChunk,
   createExteriorLight,
+  VESSEL_LIGHTING,
 } from '../../features/spacecraft/lighting.ts';
-import {
-  wallLayout,
-  LADDER_CENTER_Y,
-} from '../../features/spacecraft/geometry/spacecraft-wall-layout.ts';
-
-const model = createSpacecraft(THREE, { layout: 'wide' });
+const fixtures = [];
+class SourceMesh extends THREE.Mesh {
+  removeFromParent() {
+    if (this.name === 'service-spine-bay-worklight-diffuser' && this.parent)
+      fixtures.push({
+        mesh: this,
+        parent: this.parent,
+        matrix: this.matrix.clone(),
+      });
+    return super.removeFromParent();
+  }
+}
+const model = createSpacecraft(
+  { ...THREE, Mesh: SourceMesh },
+  { layout: 'wide' },
+);
 const lights = [];
 const meshes = [];
 model.group.traverse((object) => {
@@ -36,7 +47,7 @@ function compile(material) {
 }
 
 test('aimed emitters follow their physical fixtures and targets in both asset layouts', () => {
-  assert.equal(lights.length, 5);
+  assert.equal(lights.length, 6);
   assert.ok(lights.every((light) => light.isSpotLight && light.castShadow));
   for (const layout of ['compact', 'wide']) {
     model.setLayout(layout);
@@ -82,84 +93,120 @@ test('aimed emitters follow their physical fixtures and targets in both asset la
   assert.equal(createExteriorLight(THREE).castShadow, true);
 });
 
-test('the ladder lamp remains attached, unobstructed and aimed across the rungs in both layouts', () => {
-  const light = lights.find((light) => light.userData.section === 'walkway');
-  const mount = model.group.getObjectByName('ladder-bay-lamp-mount');
-  const lamp = light.parent;
-  const sizes = [];
+test('both existing guarded ladder fixtures provide unobstructed light in both layouts', () => {
+  const ladder = lights.filter((light) => light.userData.section === 'walkway');
+  assert.equal(ladder.length, 2);
+  assert.equal(fixtures.length, 2);
+  assert.equal(model.group.getObjectByName('ladder-bay-lamp-mount'), undefined);
+  assert.ok(
+    meshes.every(
+      (mesh) =>
+        !mesh.userData.parts?.some((name) => name.startsWith('ladder-lamp-')),
+    ),
+  );
   for (const layout of ['compact', 'wide']) {
     model.setLayout(layout);
     model.group.updateMatrixWorld(true);
-    const wall = wallLayout(layout === 'wide' ? 1.4 : 1);
-    const position = mount.getWorldPosition(new THREE.Vector3());
-    assert.ok(Math.abs(position.x - wall.ladderRightWall) < 1e-8);
-    assert.equal(position.y, LADDER_CENTER_Y);
-    assert.deepEqual(
-      lamp.getWorldScale(new THREE.Vector3()).toArray(),
-      [1, 1, 1],
-    );
-    const fixtureBounds = new THREE.Box3().setFromObject(mount);
-    sizes.push(fixtureBounds.getSize(new THREE.Vector3()).toArray());
-    const cassette = model.group.getObjectByName(
-      'ladder-wall-isolation-cassette',
-    );
-    assert.ok(
-      !fixtureBounds.intersectsBox(new THREE.Box3().setFromObject(cassette)),
-    );
-    for (const guide of meshes.filter(
-      (mesh) => mesh.name === 'recessed-iris-guide',
-    ))
-      assert.ok(
-        !fixtureBounds.intersectsBox(new THREE.Box3().setFromObject(guide)),
+    for (const [index, light] of ladder.entries()) {
+      const fixture = fixtures[index];
+      assert.equal(light.parent, fixture.parent);
+      const source = light.getWorldPosition(new THREE.Vector3());
+      fixture.mesh.geometry.computeBoundingBox();
+      const lens = fixture.mesh.geometry.boundingBox.getCenter(
+        new THREE.Vector3(),
       );
-    const source = light.getWorldPosition(new THREE.Vector3());
-    const direction = light.target
-      .getWorldPosition(new THREE.Vector3())
-      .sub(source)
-      .normalize();
-    const normal = new THREE.Vector3(0, 0, -1).transformDirection(
-      lamp.matrixWorld,
-    );
-    assert.ok(normal.dot(direction) > 0.999999);
-    assert.ok(direction.x < -0.3 && direction.z < -0.8);
-    const blocked = new THREE.Raycaster(
-      source,
-      direction,
-      0,
-      0.15,
-    ).intersectObjects(
-      meshes.filter((mesh) => mesh.castShadow),
-      false,
-    );
-    assert.equal(blocked.length, 0);
+      lens.z = fixture.mesh.geometry.boundingBox.max.z;
+      lens
+        .applyMatrix4(fixture.matrix)
+        .applyMatrix4(fixture.parent.matrixWorld);
+      const expected = lens.clone().add(new THREE.Vector3(0, 0, 0.012));
+      assert.ok(
+        source.distanceTo(expected) < 1e-8,
+        'source follows the actual existing diffuser face',
+      );
+      const direction = light.target
+        .getWorldPosition(new THREE.Vector3())
+        .sub(source)
+        .normalize();
+      assert.ok(
+        direction.x < 0 && direction.z > 0.5,
+        'beam leaves the front of the rear-mounted worklight',
+      );
+      const blocked = new THREE.Raycaster(
+        source,
+        direction,
+        0,
+        0.15,
+      ).intersectObjects(
+        meshes.filter((mesh) => mesh.castShadow),
+        false,
+      );
+      assert.equal(
+        blocked.length,
+        0,
+        'own guard and housing must not block the source',
+      );
+      const receivers = linked.shadowReceivers().get(light);
+      assert.ok(
+        [...receivers].some(
+          (mesh) => mesh.parent?.name === 'engineering-service-spine',
+        ),
+      );
+      assert.ok(
+        [...receivers].some((mesh) =>
+          mesh.userData.parts?.includes('walkway-continuous-rear-liner'),
+        ),
+      );
+      assert.ok(
+        [...receivers].every((mesh) => !mesh.material.userData.exterior),
+      );
+    }
   }
-  sizes[0].forEach((value, index) =>
-    assert.ok(Math.abs(value - sizes[1][index]) < 1e-8),
+});
+
+test('room and ladder brightness stay independent through navigation and do not change shadow geometry', () => {
+  model.update(1, '', true, { activeRoom: 'home', reducedMotion: true });
+  const revision = model.group.userData.geometryRevision;
+  const fixtures = meshes
+    .flatMap((mesh) => [mesh.material].flat())
+    .filter((material) => material.userData.lightFixture);
+  const emissions = new Map(
+    fixtures.map((material) => [material, material.emissive.clone()]),
   );
-  model.update(1, '', true, { activeRoom: 'home' });
-  const intensity = light.intensity;
+  const set = (rooms, ladder) => {
+    model.setLighting(rooms, ladder);
+    model.update(1, '', true, { activeRoom: 'home', reducedMotion: true });
+    for (const light of lights) {
+      const walkway = light.userData.section === 'walkway';
+      assert.equal(
+        light.intensity,
+        walkway
+          ? VESSEL_LIGHTING.ladderIntensity * ladder
+          : VESSEL_LIGHTING.cabinIntensity * rooms,
+      );
+    }
+    for (const material of fixtures) {
+      const scale = material.userData.section === 'walkway' ? ladder : rooms;
+      assert.deepEqual(
+        material.emissive.toArray(),
+        emissions.get(material).clone().multiplyScalar(scale).toArray(),
+      );
+    }
+    assert.equal(model.group.userData.geometryRevision, revision);
+  };
+  set(0, 1.5);
+  set(2, 0);
+  set(1, 1);
+  const intensities = lights.map((light) => light.intensity);
   model.update(2, '', true, {
     activeRoom: 'about',
     travelling: true,
     transitWalkway: true,
   });
-  assert.equal(
-    light.intensity,
-    intensity,
-    'navigation feedback must not invalidate cached lighting',
+  assert.deepEqual(
+    lights.map((light) => light.intensity),
+    intensities,
   );
-  const receivers = linked.shadowReceivers().get(light);
-  assert.ok(
-    [...receivers].some(
-      (mesh) => mesh.parent?.name === 'engineering-service-spine',
-    ),
-  );
-  assert.ok(
-    [...receivers].some((mesh) =>
-      mesh.userData.parts?.includes('walkway-continuous-rear-liner'),
-    ),
-  );
-  assert.ok([...receivers].every((mesh) => !mesh.material.userData.exterior));
 });
 
 test('room and shared-door materials link fixture light and shadows together while retaining faint sunlight', () => {

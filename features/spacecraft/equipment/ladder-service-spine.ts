@@ -122,7 +122,10 @@ export function buildLadderServiceSpine(
     const object = h.box(w, ht, d, mat, x, y, z, into, r, prefix + name);
     // Only actual diffusers emit. The bay's wall/doorway surfaces keep their
     // established non-emitting finish and every fixture follows its dimmer.
-    if (mat === m.lamp) object.material = h.fixtureMaterial(mat);
+    if (mat === m.lamp) {
+      object.material = h.fixtureMaterial(mat);
+      object.material.userData.lightFixture = true;
+    }
     return object;
   };
   const rod = (
@@ -339,6 +342,7 @@ export function buildLadderServiceSpine(
 
   // A matched pair of guarded worklights seats on the existing rear lining.
   // Their housings, lenses and end fixings remain behind the handhold plane.
+  const worklightSources: number[][] = [];
   for (const y of [rungYs[2], rungYs[10]]) {
     box(
       0.083,
@@ -362,7 +366,7 @@ export function buildLadderServiceSpine(
       'bay-worklight-bezel',
       0.012,
     );
-    box(
+    const diffuser = box(
       0.033,
       0.29,
       0.016,
@@ -373,6 +377,13 @@ export function buildLadderServiceSpine(
       'bay-worklight-diffuser',
       0.007,
     );
+    // Derive the emitter from the actual lens, just ahead of its guard plane.
+    diffuser.geometry.computeBoundingBox();
+    worklightSources.push([
+      diffuser.position.x,
+      diffuser.position.y,
+      diffuser.position.z + diffuser.geometry.boundingBox.max.z + 0.012,
+    ]);
     for (const x of [0.51, 0.56]) {
       for (const dy of [-0.18, 0.18])
         rod(
@@ -841,6 +852,7 @@ export function buildLadderServiceSpine(
     railRadius: 0.0215,
     gripRadius: 0.0235,
     worklightCenters: [rungYs[2], rungYs[10]],
+    worklightSources,
     symmetryCenterY: 0.01,
     terminalLightCenters: terminalLightYs,
     railEnds: [-2.53, 2.55],
